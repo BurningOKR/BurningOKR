@@ -1,5 +1,5 @@
 # BurningOKR 
-Burning OKR is our vision to help consistently to establish focus and alignment around company goals and embed transparency into the corporate culture.
+Burning OKR is our vision to help consistently establish focus and alignment around company goals and embed transparency into the corporate culture.
 
 BurningOKR has been developed as a web application with an Angular Frontend and Java Spring Boot Backend. As database Postgres SQL is used. 
 
