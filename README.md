@@ -47,7 +47,7 @@ Next you have to run npm install on the command line to download the dependencie
 
 
 ## Backend
-With git clone https://brockhaus-ag.visualstudio.com/BurningOKR/_git/OKR-Tool-Backend the backend project is cloned.
+With git clone [tbd] the backend project is cloned.
 
 To open the project in IntelliJ, go to Import Project and select the file build.gradle in the folder okr-tool. In the dialog that opens you have to select the field use auto-import.
 
