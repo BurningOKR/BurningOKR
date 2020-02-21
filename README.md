@@ -26,7 +26,7 @@ For this the pgAdmin must be started. In the object browser you have to connect 
 ### Node & npm
 
 Node and npm are required for the Angular SPA. These can be downloaded and installed via installer. For Angular development, the Angular CLI must be installed with: 
-npm install -g @angular/cli
+> npm install -g @angular/cli
 
 
 ### JDK
