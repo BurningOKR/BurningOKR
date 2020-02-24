@@ -13,6 +13,7 @@ BurningOKR has been developed as a web application with an Angular Frontend and 
 
 ***Status of this document: Work in progress***
 
+
 ## Getting started
 
 ## Software dependencies
