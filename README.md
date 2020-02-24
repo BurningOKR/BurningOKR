@@ -1,3 +1,4 @@
+<p align="center"> ***Status of this document: Work in progress*** </p>
 <br/><br/>
 
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
@@ -10,8 +11,6 @@
 Burning OKR is our vision to help consistently establish focus and alignment around company goals and embed transparency into the corporate culture.
 
 BurningOKR has been developed as a web application with an Angular Frontend and Java Spring Boot Backend. As database Postgres SQL is used. 
-
-***Status of this document: Work in progress***
 
 
 ## Getting started
