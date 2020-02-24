@@ -1,4 +1,4 @@
-<style type="text/css">
+
 #percentageSize {
   width: 20%;
   height: 20%;
