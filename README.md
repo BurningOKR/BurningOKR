@@ -3,7 +3,8 @@
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
 <br/><br/><br/><br/><br/>
-<a href="https://www.burningork.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation</a> </a>
+<p align="center">
+<a href="https://www.burningork.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation</a> </a></p>
 
 
 # BurningOKR 
