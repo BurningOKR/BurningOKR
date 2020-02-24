@@ -2,7 +2,7 @@
 
 ## Report Bugs and provide Feature Requests
 We use GitHub issues for both.
-First, use the [github search](https://github.com/openvalidation/openvalidation/search?q=is%3Aissue&unscoped_q=is%3Aissue) to check if your issue has been reported already.
+First, use the [github search](https://github.com/burningOKR/burningOKR/search?q=is%3Aissue&unscoped_q=is%3Aissue) to check if your issue has been reported already.
 If you find that someone already reported your problem, feel free to share additional information to help us investigate the bug more quickly.
 
 If you could not find a matching issue and want to open a new ticket, please try to follow the issue template and provide all the necessary information. However, an incomplete ticket that reports a critical bug is still better than no ticket at all.
