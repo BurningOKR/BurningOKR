@@ -4,7 +4,7 @@
 
 
 <p align="center">
-<a href="https://www.burningork.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation</a> </a></p>
+<a href="https://www.burningokr.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation</a> </a></p>
 <br/><br/><br/><br/><br/>
 
 # BurningOKR 
