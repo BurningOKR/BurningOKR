@@ -1,5 +1,5 @@
 <br/><br/>
-<p aling="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="20%" height="20%" alt="Burning OKR"/></p>
+<p aling="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="50%" height="50%" alt="Burning OKR"/></p>
 
 <br/><br/><br/><br/><br/>
 
