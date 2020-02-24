@@ -1,3 +1,8 @@
+<br/><br/>
+<p aling="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" alt="Burning OKR"/></p>
+
+<br/><br/><br/><br/><br/>
+
 # BurningOKR 
 Burning OKR is our vision to help consistently establish focus and alignment around company goals and embed transparency into the corporate culture.
 
