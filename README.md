@@ -1,4 +1,4 @@
-<p align="center"> ***Status of this document: Work in progress*** </p>
+<p align="center"><b> ***Status of this document: Work in progress*** </p></b>
 <br/><br/>
 
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
