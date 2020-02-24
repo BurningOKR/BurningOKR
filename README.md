@@ -2,10 +2,10 @@
 
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
-<br/><br/><br/><br/><br/>
+
 <p align="center">
 <a href="https://www.burningork.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation</a> </a></p>
-
+<br/><br/><br/><br/><br/>
 
 # BurningOKR 
 Burning OKR is our vision to help consistently establish focus and alignment around company goals and embed transparency into the corporate culture.
