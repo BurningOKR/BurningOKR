@@ -1,7 +1,7 @@
 ## Javadoc Guidelines
 
-Before we start the openVALIDATION team wants to thank [Stephen Colebourne](https://blog.joda.org/ "Stephen's blog") 
-whose awesome [blog post](https://blog.joda.org/2012/11/javadoc-coding-standards.html) about His thoughts on Javadoc 
+Before we start the BurningOKR team wants to say thank you to [Stephen Colebourne](https://blog.joda.org/ "Stephen's blog") 
+whose awesome [blog post](https://blog.joda.org/2012/11/javadoc-coding-standards.html) about his thoughts on Javadoc 
 coding standards helped us a lot when creating the draft of our Javadoc guidelines (Follow Stephen on 
 [Twitter](https://twitter.com/jodastephen)).
 
