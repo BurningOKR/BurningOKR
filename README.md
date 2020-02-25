@@ -32,8 +32,7 @@ For this the pgAdmin must be started. In the object browser you have to connect 
 
 ### Node & npm
 
-Node and npm are required for the Angular SPA. These can be downloaded and installed via installer. For Angular development, the Angular CLI must be installed with: 
-> npm install -g @angular/cli
+Node and npm are required for the Angular SPA. These can be downloaded and installed via installer. For Angular development, the Angular CLI must be installed with `npm install -g @angular/cli`
 
 
 ### JDK
@@ -44,18 +43,18 @@ For the backend the JDK 8 is required. The Open JDK 8 can be downloaded here.
 
 The source code of the project consists of two parts. A Frontend SPA with the framework Angular and a Spring Boot project for the backend.
 
-With 
-
-> git clone https://github.com/BurningOKR/BurningOKR
-
-the comlete repository (including frontend and backend) is cloned.
+With `git clone https://github.com/BurningOKR/BurningOKR` the comlete repository (including frontend and backend) is cloned.
 
 
 ## Frontend
 
 With Intellij you can now import the frontend project.
 
-Next you have to run npm install on the command line to download the dependencies. With npm start the application is started and can now be called via localhost:4200.
+
+Next you have to run `npm install` on the command line to download the dependencies. 
+
+
+With `npm start` the application is started and can now be called via localhost:4200.
 
 
 ## Backend
@@ -66,11 +65,11 @@ If a configuration was not created automatically to start the project in Intelli
 
 If PostgresSQL has already been successfully installed and configured in the previous step, the Spring Boot Application can now be started.
 
-The REST interfaces are listed under localhost:8080/swagger-ui.html and can be called there.
+The REST interfaces are listed under `localhost:8080/swagger-ui.html` and can be called there.
 
 ## Build and Test
 
-With gradlew build the backend can be built.
+With `gradlew build` the backend can be built.
 
-With ng build  the frontend can be built.
+With `ng build` the frontend can be built.
 
