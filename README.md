@@ -37,7 +37,7 @@ Node and npm are required for the Angular SPA. These can be downloaded and insta
 
 ### JDK
 
-For the backend the JDK 8 is required. The Open JDK 8 can be downloaded here: [OpenJDK](https://adoptopenjdk.net/upstream.html).
+For the backend the JDK 8 is required. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
 
 ## Source Code
 
