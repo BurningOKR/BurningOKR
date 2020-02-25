@@ -1,8 +1,11 @@
 blank_issues_enabled: false
 contact_links:
-  - name: GitHub Community Forum
-    url: https://github.community/
-    about: Please ask and answer questions here.
-  - name: GitHub Security Bug Bounty
-    url: https://bounty.github.com/
-    about: Please report security vulnerabilities here.
+  - name: BurningOKR Homebase
+    url: http://www.burningokr.org
+    about: contact the team on our website
+  - name: BurningOKR Docubase
+    url: https://burning-okr.gitbook.io/burningokr/v/en/
+    about: have a look on the BurningOKR documentation 
+- name: BurningOKR Twitterbase
+    url: https://twitter.com/BurningOkr
+    about: contact the BurningOKR team via Twitter 
