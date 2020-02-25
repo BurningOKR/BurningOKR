@@ -44,6 +44,12 @@ For the backend the JDK 8 is required. The Open JDK 8 can be downloaded here.
 
 The source code of the project consists of two parts. A Frontend SPA with the framework Angular and a Spring Boot project for the backend.
 
+With 
+
+> git clone https://github.com/BurningOKR/BurningOKR
+
+the comlete repository (including frontend and backend) is cloned.
+
 
 ## Frontend
 With git clone [tbd] the frontend project is cloned.
