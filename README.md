@@ -73,3 +73,30 @@ With `gradlew build` the backend can be built.
 
 With `ng build` the frontend can be built.
 
+
+## contribute
+
+Thank you to all the people and bots who already contributed to openVALIDATION!
+
+<!-- generate new contributor list.. https://contributors-img.firebaseapp.com/ -->
+<a href="https://github.com/BurningOKR/BurningOKR/graphs/contributors"><img src="https://contributors-img.firebaseapp.com/image?repo=BurningOKR/BurningOKR"/>
+</a>
+
+<br/><br/><br/>
+
+
+## contact
+<br/>
+
+You can write an [E-Mail](mailto:burningokr@brockhaus-ag.de) or mention our twitter account [@BurningOKR](https://twitter.com/BurningOkr).
+
+<br/><br/><br/>
+## license
+<br/>
+
+BurningOKR was initially developed as part of a research project at [BROCKHAUS AG](http://brockhaus-ag.de) in Lünen.
+
+Only an Open Source solution can unfold its true potential. That's why we released it on GitHub as an open-source project under the Apache 2.0 license.
+
+See [LICENSE.txt](LICENSE.txt)
+
