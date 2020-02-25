@@ -52,17 +52,15 @@ the comlete repository (including frontend and backend) is cloned.
 
 
 ## Frontend
-With git clone [tbd] the frontend project is cloned.
 
-With Intellij you can now import the project.
+With Intellij you can now import the frontend project.
 
 Next you have to run npm install on the command line to download the dependencies. With npm start the application is started and can now be called via localhost:4200.
 
 
 ## Backend
-With git clone [tbd] the backend project is cloned.
 
-To open the project in IntelliJ, go to Import Project and select the file build.gradle in the folder okr-tool. In the dialog that opens you have to select the field use auto-import.
+To open the project in IntelliJ, go to Import Project and select the file build.gradle in the folder backend. In the dialog that opens you have to select the field use auto-import.
 
 If a configuration was not created automatically to start the project in IntelliJ, a gradle configuration must be created. For the grandle project, okr-tool must be selected, and for tasks, bootRun must be entered.
 
@@ -71,6 +69,8 @@ If PostgresSQL has already been successfully installed and configured in the pre
 The REST interfaces are listed under localhost:8080/swagger-ui.html and can be called there.
 
 ## Build and Test
-Per gradlew build kann das Backend gebaut werden.
 
-Per ng build kann das Frontend gebaut werden.
+With gradlew build the backend can be built.
+
+With ng build  the frontend can be built.
+
