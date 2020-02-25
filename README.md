@@ -41,7 +41,7 @@ Node and npm are required for the Angular SPA. These can be downloaded and insta
 
 For the backend the JDK 8 is required. The Open JDK 8 can be downloaded here.
 
-##Source Code
+## Source Code
 
 The source code of the project consists of two parts. A Frontend SPA with the framework Angular and a Spring Boot project for the backend.
 
