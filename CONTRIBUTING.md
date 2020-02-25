@@ -30,11 +30,11 @@ Make sure the fix adheres to the [coding guidelines](docs/developer_readme.md).
 
 #### Implementing new features
 Before integrating a new feature, it's best to discuss it with the core developers first.  
-This can be done in the corresponding GitHub issue in the [bugtracker](https://github.com/openvalidation/openvalidation/issues).
+This can be done in the corresponding GitHub issue in the [bugtracker](https://github.com/BurningOKR/BurningOKR/issues).
 
 * Make sure you add tests of your functionality.
 * All tests should pass, the code should be properly formatted (see coding guidelines) and continuous integration must give its ok on the pull request.
-* Submit a [pull request](https://github.com/openvalidation/openvalidation/compare)
+* Submit a [pull request](https://github.com/BurningOKR/BurningOKR/compare)
 
 ## Stick to our license
 All changes to this project must comply with the [Apache 2.0 License](/LICENSE.txt)
