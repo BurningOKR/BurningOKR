@@ -1,4 +1,4 @@
-<p align="center"><b> ***Status of this document: Work in progress*** </p></b>
+﻿<p align="center"><b> ***Status of this document: Work in progress*** </p></b>
 
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
@@ -37,7 +37,7 @@ Node and npm are required for the Angular SPA. These can be downloaded and insta
 
 ### JDK
 
-For the backend the JDK 8 is required. The Open JDK 8 can be downloaded here.
+For the backend the JDK 8 is required. The Open JDK 8 can be downloaded here: [OpenJDK](https://adoptopenjdk.net/upstream.html).
 
 ## Source Code
 
