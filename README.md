@@ -95,7 +95,7 @@ You can write an [E-Mail](mailto:burningokr@brockhaus-ag.de) or mention our twit
 ## license
 <br/>
 
-BurningOKR was initially developed as part of a research project at [BROCKHAUS AG](http://brockhaus-ag.de) in Lünen.
+BurningOKR was initially developed as part of a training project at [BROCKHAUS AG](http://brockhaus-ag.de) in Lünen.
 
 Only an Open Source solution can unfold its true potential. That's why we released it on GitHub as an open-source project under the Apache 2.0 license.
 
