@@ -82,7 +82,7 @@ Thank you to all the people and bots who already contributed to BurningOKR!
 <a href="https://github.com/BurningOKR/BurningOKR/graphs/contributors"><img src="https://contributors-img.firebaseapp.com/image?repo=BurningOKR/BurningOKR"/>
 </a>
 
-<br/><br/><br/>
+<br/>
 
 
 ## contact
@@ -90,7 +90,8 @@ Thank you to all the people and bots who already contributed to BurningOKR!
 
 You can write an [E-Mail](mailto:burningokr@brockhaus-ag.de) or mention our twitter account [@BurningOKR](https://twitter.com/BurningOkr).
 
-<br/><br/><br/>
+<br/>
+
 ## license
 <br/>
 
