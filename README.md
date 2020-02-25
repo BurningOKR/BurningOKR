@@ -76,7 +76,7 @@ With `ng build` the frontend can be built.
 
 ## contribute
 
-Thank you to all the people and bots who already contributed to openVALIDATION!
+Thank you to all the people and bots who already contributed to BurningOKR!
 
 <!-- generate new contributor list.. https://contributors-img.firebaseapp.com/ -->
 <a href="https://github.com/BurningOKR/BurningOKR/graphs/contributors"><img src="https://contributors-img.firebaseapp.com/image?repo=BurningOKR/BurningOKR"/>
