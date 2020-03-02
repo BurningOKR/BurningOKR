@@ -56,7 +56,7 @@ With Intellij you can now import the frontend project.
 Next you have to run `npm install` on the command line to download the dependencies. 
 
 
-With `npm start` the application is started and can now be called via localhost:4200.
+With `npm start` the application is started and can now be called via `http://localhost:4200`.
 
 
 ## Backend
