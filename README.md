@@ -1,4 +1,4 @@
-<p align="center"><b> ***COMING SOON*** </p></b>
+<p align="center"><b> *** COMING SOON *** </p></b>
 <br></br>
 <p align="center"><b> ***Status of this document: Work in progress*** </p></b>
 
