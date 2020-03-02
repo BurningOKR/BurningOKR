@@ -1,4 +1,6 @@
-﻿<p align="center"><b> ***Status of this document: Work in progress*** </p></b>
+<p align="center"><b> ***COMING SOON*** </p></b>
+<br></br>
+<p align="center"><b> ***Status of this document: Work in progress*** </p></b>
 
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
