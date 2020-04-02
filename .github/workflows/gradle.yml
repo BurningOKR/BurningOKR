@@ -17,7 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Read package version
-      run: PACKAGE_VERSION=$(cat version.txt) && echo $PACKAGE_VERSION
+      run: PACKAGE_VERSION=$(head version.txt) && echo $PACKAGE_VERSION
+    - name: Read changelog
+      run: CHANGELOG=$(tail -n+2 version.txt) && echo $CHANGELOG
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
