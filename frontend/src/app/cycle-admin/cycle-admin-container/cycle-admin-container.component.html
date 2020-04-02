@@ -1,0 +1,19 @@
+<app-okr-toolbar>
+  <button (click)="navigateToCompanies()" i18n-matTooltip="@@component_cycleAdmin_navigateToStructureOverview" matTooltip="Zur Strukturübersicht" class="navbar-item" mat-icon-button>
+    <mat-icon>home</mat-icon>
+  </button>
+  <span i18n="@@component_cycleAdmin_editCycle">Zyklusverwaltung</span>
+  <span class="fill-space"></span>
+</app-okr-toolbar>
+
+<!-- Generell Buttons -->
+<div class="margin-toolbar item-actions">
+  <button (click)="createCycle()" mat-stroked-button>
+    <mat-icon>add_circle_outline</mat-icon>
+    <span i18n="@@component_cycleAdmin_CreateNewCycle">Neuen Zyklus erstellen</span>
+  </button>
+</div>
+
+<div *ngFor="let cycle of (cycles$ | async)">
+  <app-cycle-admin-card (cycleChanged)="loadCycles()" [cycle]="cycle" [allCyclesOfCompany$]="cycles$"></app-cycle-admin-card>
+</div>

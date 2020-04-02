@@ -1,0 +1,19 @@
+.mat-table {
+  width: 100%;
+}
+
+.table-card {
+  overflow-x: auto;
+}
+
+.table-cell {
+  padding: 24px 24px 24px 0
+}
+
+.table-card > .row {
+  border-bottom: solid 1px rgba(0, 0, 0, .12);
+}
+
+.table-card .row:last-child {
+  border-bottom: none;
+}

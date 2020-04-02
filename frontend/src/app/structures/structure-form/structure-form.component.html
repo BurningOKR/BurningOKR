@@ -1,0 +1,14 @@
+<app-dialog-component [title]="title" [formGroup]="companyForm"
+                      (okEmitter)="saveCompany()">
+  <ng-container>
+    <form [formGroup]="companyForm">
+      <mat-form-field class="name">
+        <input type="text" i18n-placeholder="@@component_companyForm_name" matInput placeholder="Name *" formControlName="name">
+        <mat-error *ngIf="companyForm.get('name').invalid">{{getErrorMessage(companyForm, 'name')}}</mat-error>
+      </mat-form-field> <mat-form-field class="name">
+      <input type="text"  matInput i18n-placeholder="@@component_companyForm_description" placeholder="Bezeichung *" formControlName="label">
+      <mat-error *ngIf="companyForm.get('label').invalid">{{getErrorMessage(companyForm, 'label')}}</mat-error>
+    </mat-form-field>
+    </form>
+  </ng-container>
+</app-dialog-component>

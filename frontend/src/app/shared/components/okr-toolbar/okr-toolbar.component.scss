@@ -1,0 +1,14 @@
+.app-toolbar {
+  position:fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.user-interactions {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-spacer {
+  min-height: 64px;
+}

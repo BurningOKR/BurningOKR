@@ -1,0 +1,82 @@
+@import '../../../styles/themes/bag-theme';
+
+.objective {
+  background-color: mat-color($md-primary, 500);
+  color: mat-contrast($md-primary, 500);
+}
+
+.objective-inactive {
+  color: mat-contrast($md-primary, 500);
+  font-style: italic;
+  background-attachment: fixed;
+  background: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      mat-color($md-primary, 600) 10px,
+      mat-color($md-primary, 500) 20px)top left fixed,
+    linear-gradient(to bottom,
+      mat-color($md-primary, 700),
+      mat-color($md-primary, 900));
+}
+
+.objective-title {
+  font-size: medium;
+}
+
+.objective-progressBar {
+  flex: 1.0 0.4 256px;
+}
+
+.mat-expansion-panel,
+.mat-expansion-panel-header {
+  padding: 0px 0px;
+  background-color: whitesmoke
+}
+
+mat-expansion-panel-body {}
+
+.header-padding {
+  padding: 16px 16px;
+}
+
+.progress-bar {
+  margin: 0px 8px;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.on-track {
+  background: #2dc937;
+  color: black;
+}
+
+.in-danger {
+  background: #fafa41;
+  color: black;
+}
+
+.off-track {
+  background: #ff6666;
+  color: black;
+}
+
+.h-6 {
+  height: 6px;
+}
+
+.margin-expansion-panel {
+  margin: 16px 6px 8px 6px;
+}
+
+.objective-title-flex {
+  flex: 3.0 0.4 256px;
+}

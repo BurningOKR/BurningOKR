@@ -1,0 +1,59 @@
+.sidebar-item {
+  padding: 0;
+}
+
+.sidenav {
+  height: 100%;
+}
+
+.sidenav-wrapper {
+  margin-top: 75px;
+}
+
+.sidenav-content {
+  padding: 20px;
+}
+
+.tree ul,
+.tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.tree-invisible {
+  display: none
+}
+
+.top-toolbar {
+  position: fixed;
+  z-index: 2
+}
+
+.circle-image {
+  border-radius: 50%;
+  height: 70%;
+  width: auto;
+  margin: 5px;
+  float: right;
+}
+
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.app-is-mobile .app-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}

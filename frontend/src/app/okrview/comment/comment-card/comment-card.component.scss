@@ -1,0 +1,29 @@
+.comment-user-name {
+  min-height: 40px;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.comment-text {
+  min-height: 24px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.comment {
+  margin: 16px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: row
+}
+
+.photo-icon {
+  font-size: 64px !important;
+  width: 64px;
+  height: 64px;
+  text-align: center;
+}

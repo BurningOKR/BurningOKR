@@ -1,0 +1,15 @@
+.user-card {
+  display: flex;
+  align-content: center;
+  min-width: 350px;
+  max-width: 420px;
+  min-height: 64px;
+  max-height: 96px;
+  margin: 12px;
+  padding: 4px;
+}
+
+.icon-centered {
+  flex: 1;
+  text-align: center;
+}

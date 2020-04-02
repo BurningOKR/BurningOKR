@@ -1,0 +1,29 @@
+@import 'src/styles/themes/bag-theme';
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+  color: black;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-list.cdk-drop-list-dragging .objective-entry:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.placeholder-objective{
+  margin: 16px 6px 8px 6px;
+  background-color: mat-color($md-primary, 500);
+  color: mat-contrast($md-primary, 500);
+}
+
+.centered-hint {
+  text-align: center;
+}

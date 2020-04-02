@@ -1,0 +1,67 @@
+<div>
+  KeyResult
+  <div class="title-keyresult">
+    {{parentKeyResult.keyResult}}
+    <br>
+    <br>
+  </div>
+  <div class="comments-title" i18n="@@component_commentViewDialog_title">
+    Kommentare
+  </div>
+  <mat-dialog-content>
+
+    <div *ngIf="parentKeyResult.commentIdList.length !== 0 else noComments">
+      <div *ngIf="commentList else loading">
+        <div *ngFor="let comment of commentList">
+          <app-comment-card [comment]="comment" (deleteComment)="queryDeleteComment($event)"></app-comment-card>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+    </div>
+
+    <!-- No comments in KeyResult -->
+    <ng-template #noComments>
+      <div class="no-comment-placeholder" i18n="@@component_commentViewDialog_noComment">
+        Es gibt noch keine Kommentare für dieses KeyResult
+      </div>
+      <mat-divider></mat-divider>
+    </ng-template>
+    <!-- Loading comment list placeholder -->
+    <ng-template #loading>
+      <mat-card *ngFor="let x of parentKeyResult.commentIdList">
+        <br>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        <br>
+      </mat-card>
+    </ng-template>
+
+
+    <div class="flex-nowrap">
+      <mat-form-field class="full-width">
+        <textarea i18n-placeholder="@@component_commentViewDialog_writeComment" matInput cdkTextareaAutosize
+                  placeholder="Einen neuen Kommentar schreiben"
+                  [disabled]="isPostingComment" [(ngModel)]="newCommentText"></textarea>
+      </mat-form-field>
+      <button *ngIf="canPostNewComment(); else commentToSmall" mat-mini-fab class="m-24"
+              [disabled]="!canPostNewComment()" (click)="postNewComment()"
+              i18n-matTooltip="@@component_commentViewDialog_writeNewComment" matTooltip="Neues Kommentar schreiben">
+        <mat-icon class="v-top">send</mat-icon>
+      </button>
+
+      <ng-template #commentToSmall>
+        <button mat-mini-fab i18n-[matTooltip]="@@component_commentViewDialog_commentToSmall" class="m-24"
+                [disabled]="!canPostNewComment()" (click)="postNewComment()"
+                matTooltip="Ihr Kommentar muss länger sein">
+          <mat-icon class="v-top">send</mat-icon>
+        </button>
+      </ng-template>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-stroked-button (click)="clickedClose()" i18n="@@component_commentViewDialog_close">
+      Schließen
+    </button>
+  </mat-dialog-actions>
+</div>

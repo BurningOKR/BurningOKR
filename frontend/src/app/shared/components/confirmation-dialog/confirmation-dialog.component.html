@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+  <h3>{{formData.title}}</h3>
+  {{ formData.message }}
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{confirmButtonText}}</button>
+  <button mat-stroked-button mat-button color="warn" (click)="onNoClick()">{{cancelButtonText}}</button>
+</div>

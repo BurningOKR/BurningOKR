@@ -1,0 +1,54 @@
+<mat-toolbar [color]="'primary'" class="app-toolbar">
+  <mat-toolbar-row>
+    <ng-content></ng-content>
+    <span class="fill-space"></span>
+    <div class="user-interactions">
+      <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"
+                i18n-matTooltip="@@component_okrToolbar_authorizeAsAdmin" matTooltip="Als Admin autorisiert">
+        verified_user
+      </mat-icon>
+      <span *ngIf="currentUser$ | async as currentUser">
+        {{ currentUser.givenName }} {{ currentUser.surname }}
+      </span>
+      <button mat-icon-button class="icon-spacer-large" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
+              [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="toolbar-spacer"></div>
+
+<!-- Interactions menu -->
+<mat-menu #menu="matMenu">
+  <ng-container *ngIf="!(isLocalUserbase$ | async)">
+    <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
+      <mat-icon>edit_attributes</mat-icon>
+      <span i18n="@@component_okrToolbar_adminPanel">Admin Panel</span>
+    </button>
+  </ng-container>
+  <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item (click)="routeToCycleAdminPanel()">
+    <mat-icon>history</mat-icon>
+    <span i18n="@@component_okrToolbar_cycleManagement">Zyklusverwaltung</span>
+  </button>
+  <button mat-menu-item (click)="openSettings()">
+    <mat-icon>settings_applications</mat-icon>
+    <span i18n="@@component_okrToolbar_settings">Einstellungen</span>
+  </button>
+  <button *ngIf="(isLocalUserbase$ | async) && isCurrentUserAdmin$ | async" mat-menu-item routerLink="/auth/users">
+    <mat-icon>account_box</mat-icon>
+    <span i18n="@@component_okrToolbar_userManagement">Nutzerverwaltung</span>
+  </button>
+  <button *ngIf="isLocalUserbase$ | async" mat-menu-item (click)="openPasswordChangeForm()">
+    <mat-icon>vpn_key</mat-icon>
+    <span i18n="@@component_okrTollbar_changePassword">Passwort ändern</span>
+  </button>
+  <button mat-menu-item routerLink="/logout">
+    <mat-icon>power_settings_new</mat-icon>
+    <span i18n="@@component_okrToolbar_logout">Logout</span>
+  </button>
+  <button mat-menu-item (click)="openVersionChangelog()">
+    <mat-icon>info</mat-icon>
+    <span><span i18n="@@component_okrToolbar_version">v</span> {{ versionString }}</span>
+  </button>
+</mat-menu>

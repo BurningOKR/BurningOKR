@@ -1,0 +1,49 @@
+<div class="flex-nowrap-center">
+  <div class="tab-limited-width">
+    <div class="text-center">
+      <div class="tab-headline" i18n="@@component_departmentTabTeam_membersOfStructure">Mitglieder dieser Struktur</div>
+    </div>
+    <div class="flex-wrap-spreadinner-nocenter">
+      <div *ngIf="department.okrMasterId == null">
+        <div class="tab-subtitle" i18n="@@component_departmentTabTeam_defineOKRMaster">Kein OKR Master definiert</div>
+        <app-department-team-new-user *ngIf="canEditManagers" [usersIdsToExclude]="getAlreadyDefinedUserIds()"
+          i18n-inputPlaceholderText="@@component_departmentTabTeam_defineOkrMaster" inputPlaceholderText="OKR Master definieren" (choseUser)="clickedDefineOKRMaster($event)">
+        </app-department-team-new-user>
+      </div>
+      <div *ngIf="department.okrMasterId != null">
+        <div class="tab-subtitle" i18n="@@component_departmentTabTeam_OKRMaster">OKR Master</div>
+        <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="canEditManagers"
+          (userDeleted)="clickedDeleteOKRMaster()">
+        </app-user-minibutton>
+      </div>
+      <div *ngIf="department.okrTopicSponsorId == null">
+        <div class="tab-subtitle" i18n="@@component_departmentTabTeam_defineTopicSponsor">Kein OKR Themenpate definiert</div>
+        <app-department-team-new-user *ngIf="canEditManagers" [usersIdsToExclude]="getAlreadyDefinedUserIds()" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineTopicSponsor"
+          inputPlaceholderText="Themenpaten definieren" (choseUser)="clickedDefineOKRTopicSponsor($event)">
+        </app-department-team-new-user>
+      </div>
+      <div *ngIf="department.okrTopicSponsorId != null">
+        <div class="tab-subtitle" i18n="@@component_departmentTabTeam_OKRTopicSponsor">OKR Themenpate</div>
+        <app-user-minibutton [userId]="department.okrTopicSponsorId" [canBeRemoved]="canEditManagers"
+          (userDeleted)="clickedDeleteOKRTopicSponsor()"></app-user-minibutton>
+      </div>
+    </div>
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <div class="tab-subtitle" *ngIf="department.okrMemberIds.length === 0" i18n="@@component_departmentTabTeam_noMembersDefined">Keine Teammitglieder definiert.</div>
+    <div class="tab-subtitle" *ngIf="department.okrMemberIds.length != 0" i18n="@@component_departmentTabTeam_defineTeamMember">Teammitglieder</div>
+    <div class="flex-wrap-spreadinner-nocenter">
+      <div *ngFor="let currentuser of department.okrMemberIds">
+        <app-user-minibutton [userId]="currentuser" [canBeRemoved]="canEditMembers"
+          (userDeleted)="clickedDeleteOKRMember($event)">
+        </app-user-minibutton>
+      </div>
+      <app-department-team-new-user *ngIf="canEditMembers" [usersIdsToExclude]="getAlreadyDefinedUserIds()" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineNewMember"
+        inputPlaceholderText="Neues Mitglied definieren" (choseUser)="clickedDefineOKRMember($event)">
+      </app-department-team-new-user>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<mat-card class="cycle-card">
+  <mat-card-title>{{cycle.name}}</mat-card-title>
+  <mat-card-content>
+    {{cycle.startDate | date: 'dd.MM.yyyy' }} - {{cycle.endDate | date: 'dd.MM.yyyy'}}
+  </mat-card-content>
+  <mat-card-content>
+    <i *ngIf="cycle.isVisible; else invisible">
+      <span i18n="@@component_cycleAdminCard_Visible">Sichtbar</span>
+    </i>
+    <ng-template #invisible>
+      <i>
+        <span i18n="@@component_cycleAdminCard_hidden">Unsichtbar</span>
+      </i>
+    </ng-template>
+  </mat-card-content>
+  <mat-card-actions class="item-actions">
+    <button mat-stroked-button (click)="$event.stopPropagation(); editCycle()">
+      <mat-icon>edit</mat-icon>
+      <span i18n="@@component_cycleAdminCard_editCycle">Zyklus bearbeiten</span>
+    </button>
+
+    <button mat-stroked-button [disabled]="cycle.cycleState === cycleState.ACTIVE" (click)="$event.stopPropagation(); deleteCycle()">
+      <mat-icon>delete</mat-icon>
+      <span i18n="@@component_cycleAdminCard_deleteCycle">Zyklus löschen</span>
+    </button>
+
+  </mat-card-actions>
+</mat-card>

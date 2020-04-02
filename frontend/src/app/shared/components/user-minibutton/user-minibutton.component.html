@@ -1,0 +1,28 @@
+<mat-card class="user-card" *ngIf="user$ | async as user; else loading;">
+  <div class="flex-center f-1">
+    <div class="flex-center f-1">
+      <app-user-avatar [user]="user"></app-user-avatar>
+    </div>
+    <div class="f-4 ml-10">
+      <div class="name">{{user.surname}}, {{user.givenName}}</div>
+      <div class="subtitle">{{user.jobTitle}}</div>
+      <div class="subtitle">{{user.department}}</div>
+    </div>
+    <div *ngIf="canBeRemoved" class="flex-center f-1">
+      <button (click)="clickedDeleteButton()" mat-icon-button i18n-matTooltip="@@component_userMiniButton_removeMember"  matTooltip="Benutzer aus Team entfernen">
+        <mat-icon class="icon-centered">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>
+<!-- Loading placeholder -->
+<ng-template #loading>
+  <mat-card class="user-card">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon class="font-32">person</mat-icon>
+      </div>
+      <mat-card-title i18n="@@component_userMiniButton_loadingUser">Lade Benutzer...</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</ng-template>

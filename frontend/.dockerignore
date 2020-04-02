@@ -1,0 +1,12 @@
+.git
+.dockerignore
+.gitignore
+.idea
+.editorconfig
+*.iml
+README.md
+Jenkinsfile
+dist
+node_modules
+Dockerfile*
+package-lock.json

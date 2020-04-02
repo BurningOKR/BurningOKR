@@ -1,0 +1,95 @@
+@import "src/styles/abstracts/colors";
+
+.left {
+  float: left
+}
+
+.right {
+  float: right
+}
+
+.fullWidth {
+  width: 100%
+}
+
+.halfWidth {
+  width: 48%
+}
+
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.mb-30 {
+  margin-bottom: 20px !important;
+}
+
+.mt-10 {
+  margin-top: 10px !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.mt-30 {
+  margin-top: 20px !important;
+}
+
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.padding-20 {
+  padding: 20px !important;
+}
+
+.no-vertical-padding {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+.small-padding {
+  padding: 4px;
+}
+
+.icon-spacer {
+  text-align: center;
+  min-width: 32px;
+}
+
+.icon-spacer-large {
+  text-align: center;
+  min-width: 64px;
+}
+
+.icon-spacer-x-large {
+  text-align: center;
+  min-width: 128px;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+
+.form-whole-line {
+  width: 100%
+}
+
+
+

@@ -1,0 +1,36 @@
+mat-progress-bar {
+  margin-top: 64px;
+  min-height: 5px;
+}
+
+.item-actions button {
+  margin: 10px 10px 0 0;
+}
+
+.circle-image {
+  border-radius: 50%;
+  height: 70%;
+  width: auto;
+  margin: 5px;
+  float: right;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.company-card {
+  margin: 35px;
+  cursor: pointer;
+}
+
+.margin-toolbar {
+  margin-top: 15px;
+  margin-left: 35px;
+}

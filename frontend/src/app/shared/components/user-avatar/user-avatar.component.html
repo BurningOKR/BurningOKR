@@ -1,0 +1,6 @@
+<ngx-avatar (clickOnAvatar)="clickOnAvatar.emit($event)"
+            [name]="user.givenName + ' ' + user.surname"
+            [size]="size"
+            [bgColor]="bgColor"
+            [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''"
+></ngx-avatar>

@@ -1,0 +1,96 @@
+.d-flex {
+  display: flex;
+  display: -ms-flexbox;
+
+  .center {
+    align-items: center;
+  }
+
+  .middle {
+    vertical-align: middle;
+  }
+
+}
+
+.f-05 {
+  flex: 0.5;
+}
+
+.f-1 {
+  flex: 1;
+}
+
+.f-15 {
+  flex: 1.5;
+}
+
+.f-2 {
+  flex: 2;
+}
+
+.f-3 {
+  flex: 3;
+}
+
+.f-4 {
+  flex: 4;
+}
+
+.f-5 {
+  flex: 4;
+}
+
+.flex-nowrap-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.flex-nowrap-spreadinner {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flex-nowrap-center {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-wrap-spreadinner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around
+}
+
+.flex-wrap-spreadinner-nocenter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.fill-space {
+  flex: 1 1 auto;
+}
+
+@supports (-ms-accelerator: true) {
+  .flex-wrap-spreadinner-nocenter {
+    justify-content: space-around;
+  }
+}
+

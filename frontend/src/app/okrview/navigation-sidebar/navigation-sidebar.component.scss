@@ -1,0 +1,23 @@
+.list-content{
+  min-width: 256px;
+  max-width: 386px;
+  padding: 8px;
+  background-color: #ffffff;
+}
+
+.example-container {
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.entry-title {
+  flex: 1;
+  text-align: left;
+  color: white;
+  font-weight: bold;
+  min-height: 40px;
+  background-color: #b81f40;
+}

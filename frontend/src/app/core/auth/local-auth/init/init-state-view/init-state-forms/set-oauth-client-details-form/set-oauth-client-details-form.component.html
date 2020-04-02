@@ -1,0 +1,61 @@
+<div *ngIf="spinnerIsHidden else loading">
+  <title i18n="@@setOauthClientDetailsInitStateTitle">Tragen Sie die OAuthclient-Details ein</title>
+  <p class="tab-subtitle" i18n="@@setOauthClientDetailInitStateSubtitel">Tragen Sie die OAuthclient-Details ein. <br>Dieser Schritt kann übersprungen werden.</p>
+  <br>
+  <mat-checkbox class="small-padding" (change)="disOrEnableForm()" i18n="@@onlyDoThisIfYouAreANerdWarning">
+    Formular aktivieren. ⚠ Tun Sie dies nur, wenn Sie wissen, was Sie tun ⚠
+  </mat-checkbox>
+  <div *ngIf="form">
+    <form [formGroup]="form" (ngSubmit)="handleSubmitClick()">
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="form.controls.accessTokenValidity"
+               matInput
+               i18n-placeholder="@@accessTokenValidity"
+               placeholder="Lebenszeit des Accesstokens (in Sekunden)"
+               type="number">
+      </mat-form-field>
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="form.controls.clientId"
+               matInput
+               i18n-placeholder="@@clientId"
+               placeholder="Client-Id"
+               type="text">
+      </mat-form-field>
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="form.controls.clientSecret"
+               matInput
+               i18n-placeholder="@@clientSecret"
+               placeholder="Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)"
+               type="text">
+      </mat-form-field>
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="form.controls.refreshTokenValidity"
+               matInput
+               i18n-placeholder="@@refreshTokenValidity"
+               placeholder="Lebenszeit des Refreshtokens (in Sekunden)"
+               type="number">
+      </mat-form-field>
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="form.controls.webServerRedirectUri"
+               matInput
+               i18n-placeholder="@@webServerRedirectUri"
+               placeholder="Webserver-Redirect-URI"
+               type="text">
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        class="flex-nowrap-center"
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+        i18n="@@next">Weiter
+      </button>
+    </form>
+  </div>
+</div>
+<ng-template #loading>
+  <app-loading-spinner></app-loading-spinner>
+  <p i18n="@@pleaseHangOnTheServerIsBeeingConfigured">Bitte warten Sie einen Moment, während der Server konfiguriert wird.</p>
+</ng-template>
+

@@ -1,0 +1,41 @@
+<app-okr-toolbar *ngIf="userIsLoggedIn; else notLoggedIn">
+  <button (click)="navigateToCompanies()" class="navbar-item"
+          i18n-matTooltip="@@component_adminView_NavigateToStructureOverview" mat-icon-button
+          matTooltip="Zur Strukturübersicht">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button (click)="navigateToPrevious()" class="navbar-item"
+          i18n-matTooltip="@@component_adminView_NavigateToPrevious" mat-icon-button
+          matTooltip="Zur vorherigen Seite zurückkehren">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span i18n="@@errorList">Fehlerliste</span>
+</app-okr-toolbar>
+<ng-template #notLoggedIn>
+  <app-okr-toolbar-bare>
+    <button (click)="navigateToPrevious()" class="navbar-item"
+            i18n-matTooltip="@@component_adminView_NavigateToPrevious" mat-icon-button
+            matTooltip="Zur vorherigen Seite zurückkehren">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span i18n="@@errorList">Fehlerliste</span>
+  </app-okr-toolbar-bare>
+</ng-template>
+<div class="container">
+  <div class="row">
+    <div class="col-l-6" *ngFor="let err of errors | async">
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar>{{err.status}}</div>
+          <mat-card-title>{{err.error ? (err.error.errorInformation ? err.error.errorInformation : (err.error.message) ?
+            err.error.message : err.error) : err.message}}
+          </mat-card-title>
+          <mat-card-subtitle *ngIf="err.error && err.error.errorId"><span><span i18n="@@component_error_errorId">Fehler ID:</span> {{err.error?.errorId}}</span>
+          </mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+
+
+</div>

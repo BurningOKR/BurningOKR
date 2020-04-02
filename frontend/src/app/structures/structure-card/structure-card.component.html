@@ -1,0 +1,53 @@
+<mat-card class="company-card pointing" (click)="selectCompany()">
+  <span>
+    <mat-card-title>
+      <span>{{company.name}}</span>
+      <mat-form-field class="number-input history-cycle-input" *ngIf="cyclesWithHistoryCompanies; else spinner">
+      <mat-select [value]="chosenCycleWithHistoryCompany.cycle.id"  (selectionChange)="onSelectCycle($event)" (click)="$event.stopPropagation();">
+        <mat-select-trigger>
+          {{chosenCycleWithHistoryCompany.cycle.abbreviation}} <br><small>[{{chosenCycleWithHistoryCompany.cycle.startDate | date: 'dd.MM.yyyy'}}
+          - {{chosenCycleWithHistoryCompany.cycle.endDate | date:'dd.MM.yyyy'}}]</small>
+          <mat-icon class="padlock-margin" *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState == 'CLOSED'">lock</mat-icon>
+          <mat-icon class="padlock-margin" *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState == 'PREPARATION'">watch_later</mat-icon>
+        </mat-select-trigger>
+        <mat-option class="option"
+                    *ngFor="let cycleWithHistoryCompany of cyclesWithHistoryCompanies"
+                    [value]="cycleWithHistoryCompany.cycle.id"
+                    (click)="$event.stopPropagation();"
+                    [class.option-inactive-cycle]="cycleWithHistoryCompany.cycle.remainingDaysUntilEnd <= 0">
+          {{cycleWithHistoryCompany.cycle.abbreviation}} <br><small>[{{cycleWithHistoryCompany.cycle.startDate | date: 'dd.MM.yyyy'}}
+          - {{cycleWithHistoryCompany.cycle.endDate | date:'dd.MM.yyyy'}}]</small>
+          <mat-icon class="padlock-margin" *ngIf="cycleWithHistoryCompany.cycle.cycleState == 'CLOSED'">lock</mat-icon>
+          <mat-icon class="padlock-margin" *ngIf="cycleWithHistoryCompany.cycle.cycleState == 'PREPARATION'">watch_later</mat-icon>
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
+      <ng-template #spinner>
+        <div class="loader"></div>
+      </ng-template>
+    </mat-card-title>
+    <mat-card-subtitle><span i18n="@@component_structureCard_companyStructure">Firmenstruktur - {{company.label}}</span></mat-card-subtitle>
+  </span>
+  <mat-card-actions
+  class="item-actions">
+    <!-- Die stopProgation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird -->
+    <span [matTooltip]="isCurrentUserAdmin ? '':'Admin Autorität erforderlich'">
+    <button [disabled]=!isCurrentUserAdmin mat-stroked-button (click)="$event.stopPropagation(); editCompany()"
+            [matTooltipDisabled]="!this.isCurrentUserAdmin" i18n-matTooltip="@@editStructureName"
+            matTooltip="Namen der Struktur bearbeiten">
+      <mat-icon>edit</mat-icon>
+      <span i18n="@@component_structureCard_editName">Namen bearbeiten</span>
+    </button>
+
+    <button [disabled]=!isCurrentUserAdmin mat-stroked-button (click)="$event.stopPropagation(); deleteCompany()"
+            [matTooltipDisabled]="!this.isCurrentUserAdmin" i18n-matTooltip="@@component_structureCard_deleteStructure"
+            matTooltip="'Struktur löschen'">
+      <mat-icon>delete</mat-icon>
+      <span i18n="@@component_structureCard_deleteStructure">Struktur löschen</span>
+    </button>
+  </span>
+
+
+  </mat-card-actions>
+
+</mat-card>

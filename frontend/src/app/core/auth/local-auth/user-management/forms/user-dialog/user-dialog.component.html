@@ -1,0 +1,6 @@
+<div style="min-width: 500px">
+  <app-dialog-component [title]="title" [formGroup]="userForm" (okEmitter)="saveEmitter.emit(userForm.value)" *ngIf="userForm">
+    <app-user-form [userForm]="userForm" [resetPasswordIsShown]="resetPasswordIsShown" *ngIf="userForm">
+    </app-user-form>
+  </app-dialog-component>
+</div>

@@ -1,0 +1,47 @@
+.company-card {
+  margin: 35px;
+}
+
+.pointing{
+  cursor: pointer;
+}
+
+.item-actions button {
+  margin: 10px 10px 0 0;
+}
+
+.padlock-margin {
+  margin-left: 45px;
+}
+
+.history-cycle-input {
+  width: 220px;
+  /*margin-top: 8px;*/
+  margin-top: -0.84375em;
+  font-size: 16px;
+  float: right;
+}
+
+small {
+  font-size: 11px !important;
+}
+
+.option {
+  line-height: unset !important;
+}
+
+.loader {
+  border: 12px solid #EABCC6;
+  border-top: 12px solid #B81F40;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  float: right;
+  margin-right: 60px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,31 @@
+.list-entry {
+  margin: 6px 4px;
+}
+
+.list-subentries {
+  padding: 4px;
+}
+
+.structure-name{
+  white-space: normal;
+  line-height: 24px;
+}
+
+.entry-title {
+  flex:1;
+  text-align: left;
+  min-height: 40px;
+  padding: 0px 8px;
+}
+
+.first-color {
+  background-color: #fafafa;
+}
+
+.secondary-color {
+  background-color: #ededed;
+}
+
+.selected-department {
+  background-color: #ffcbcb;
+}

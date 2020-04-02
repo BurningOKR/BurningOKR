@@ -1,0 +1,80 @@
+<div *ngIf="userSettingsForm && adminSettingsForm">
+  <h1 mat-dialog-title class="form-header"><span i18n="@@component_settingsForm_settings">Einstellungen</span></h1>
+
+  <mat-dialog-content>
+
+    <mat-tab-group dynamicHeight>
+      <mat-tab i18n-label="@@settings" label="Einstellungen">
+        <form [formGroup]="userSettingsForm" class="settingsForm">
+          <mat-form-field class="form-whole-line">
+            <mat-select (selectionChange)="onSelectCompany()" formControlName="defaultCompanyId"
+                        i18n-placeholder="@@defaultCompany" placeholder="Standard Unternehmen">
+              <mat-option [value]="null"><span i18n="@@component_settingsForm_NoCompany">Kein Unternehmen</span>
+              </mat-option>
+              <mat-option *ngFor="let company of (companies$ | async)" [value]="company.id">
+                {{company.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-whole-line">
+            <mat-select formControlName="defaultTeamId" i18n-placeholder="@@defaultTeam" placeholder="Standard Team">
+              <mat-option [value]="null"><span i18n="@@component_settingsForm_NoTeam">Kein Team</span></mat-option>
+              <mat-option *ngFor="let department of (departments$ | async)" [value]="department.id">
+                {{department.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </mat-tab>
+      <mat-tab [disabled]="!(isCurrentUserAdmin$ | async)" i18n-label="@@adminSettings" label="Adminverwaltung">
+        <form [formGroup]="adminSettingsForm" class="settingsForm">
+          <mat-form-field class="fullWidth">
+            <input formControlName="maxKeyResults"
+                   i18n-placeholder="Placeholder for maximal amount of keyresults per objective@@settingsFormMaxKeyResultsPerObjective"
+                   matInput
+                   placeholder="Maximale Anzahl von KeyResults pro Objective" type="number">
+          </mat-form-field>
+          <mat-form-field class="fullWidth">
+            <input formControlName="objectiveProgressGreenYellowThreshold"
+                   i18n-placeholder="Treshold for objective progress bar (Green/Yellow)@@settingsFormObjectiveBarTresholdGreenYellow"
+                   matInput placeholder="Objective Prognose Schwellenwert (Grün/Gelb)" type="number">
+          </mat-form-field>
+          <mat-form-field class="fullWidth">
+            <input formControlName="objectiveProgressYellowRedThreshold"
+                   i18n-placeholder="Treshold for objective progress bar (Yellow/Red)@@settingsFormObjectiveBarTresholdYellowRed"
+                   matInput placeholder="Objective Prognose Schwellenwert (Gelb/Rot)" type="number">
+          </mat-form-field>
+          <mat-form-field class="fullWidth">
+            <input formControlName="generalFrontendBaseUrl"
+                   i18n-placeholder="the domain of this angular application @@settingsFormGeneralFrontendBaseUrl"
+                   matInput placeholder="Frontend-Baseurl" type="text">
+          </mat-form-field>
+          <mat-form-field class="fullWidth">
+            <input formControlName="emailFrom"
+                   i18n-placeholder="The address, from which emails are sent @@settingsFormGeneralFrontendBaseUrl"
+                   matInput placeholder="Email Adresse des OKR Tools" type="text">
+          </mat-form-field>
+          <mat-form-field class="fullWidth">
+            <input formControlName="emailSubjectNewUser"
+                   i18n-placeholder="the subject of the email, which is sent to new users @@settingsFormGeneralFrontendBaseUrl"
+                   matInput placeholder="Email Betreff für neue Benutzer" type="text">
+          </mat-form-field>
+          <mat-form-field class="fullWidth">
+            <input formControlName="emailSubjectForgotPassword"
+                   i18n-placeholder="the subject of the email, which is sent to users who forgot their password @@settingsFormGeneralFrontendBaseUrl"
+                   matInput placeholder="Email Betreff für die Passwort-Zurücksetzen Email" type="text">
+          </mat-form-field>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button color="primary" (click)="sendOk()"
+            [disabled]="userSettingsForm.invalid || (isCurrentUserAdmin$ && adminSettingsForm.invalid)"><span
+      i18n="@@component_settingsForm_save">Speichern</span></button>
+    <button mat-button color="warn" (click)="closeDialog()"><span
+      i18n="@@component_settingsForm_cancel">Abbrechen</span></button>
+  </mat-dialog-actions>
+</div>

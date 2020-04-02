@@ -1,0 +1,73 @@
+<form [formGroup]="userForm">
+
+  <table class="form-whole-line">
+    <tr>
+      <td rowspan="3">
+        <app-user-avatar (clickOnAvatar)="uploader.click()" [size]="150" [user]="userForm.value"
+                         bgColor="#575756"></app-user-avatar>
+        <input #uploader (change)="setPhoto($event)" accept=".jpg, .png" hidden type="file"/>
+
+        <canvas #canvasElement height="250" hidden width="250">Hier text</canvas>
+      </td>
+      <td class="fullWidth">
+        <mat-form-field class="form-whole-line">
+          <input [formControl]="userForm.controls.givenName" i18n-placeholder="@@firstName"
+                 matInput
+                 placeholder="Vorname"
+                 required
+                 type="text">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr class="fullWidth">
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="userForm.controls.surname" i18n-placeholder="@@lastName"
+               matInput
+               placeholder="Nachname"
+               required
+               type="text">
+      </mat-form-field>
+    </tr>
+    <tr class="fullWidth">
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="userForm.controls.email" email i18n-placeholder="@@email"
+               matInput
+               placeholder="Email"
+               required
+               type="email"/>
+        <mat-error *ngIf="userForm.controls.email.errors?.email"
+                   i18n="error message for invalid email@@errorInvalidEmail">
+          Ungültige E-mail
+        </mat-error>
+        <mat-error *ngIf="userForm.controls.email.errors?.emailAlreadyInUse"
+                   i18n="error message for ab email, wich is already in use @@errorUsedEmail">
+          Die Email wird bereits von einem anderen Nutzer verwendet verwendet.
+        </mat-error>
+      </mat-form-field>
+    </tr>
+
+
+  </table>
+  <mat-form-field class="form-whole-line">
+    <input [formControl]="userForm.controls.department" i18n-placeholder="@@function"
+           matInput
+           placeholder="Abteilung"
+           type="text">
+  </mat-form-field>
+  <mat-form-field class="form-whole-line">
+    <input [formControl]="userForm.controls.jobTitle" i18n-placeholder="@@jobTitle"
+           matInput
+           placeholder="Jobbezeichnung"
+           type="text">
+  </mat-form-field>
+  <mat-checkbox [formControl]="userForm.controls.active" class="small-padding">Aktiviert</mat-checkbox>
+  <mat-checkbox [formControl]="userForm.controls.isAdmin" class="small-padding">Admin</mat-checkbox>
+  <br>
+  <button class="small-padding mb-10 mt-10"
+          color="primary"
+          i18n="@@resetPassword"
+          mat-raised-button
+          *ngIf="resetPasswordIsShown"
+  >Passwort zurücksetzen
+  </button>
+</form>

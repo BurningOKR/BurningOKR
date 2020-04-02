@@ -1,0 +1,14 @@
+@import "src/styles/abstracts/colors";
+
+.error-span {
+  margin-top: 9px;
+  margin-left: 25px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.api-error-snackbar {
+  background-color: $apiErrorColor !important;
+  width: 568px;
+}

@@ -1,0 +1,30 @@
+<mat-sidenav-container class="example-container" autosize>
+
+  <mat-sidenav #sideNav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+    class="list-content" opened>
+
+    <div *ngIf="mobileQuery.matches" [style.marginTop.px]="32">
+      <app-cycle-list-dropdown></app-cycle-list-dropdown>
+    </div>
+
+    <div *ngIf="(currentCompany$ | async ) as company">
+      <div class="flex-nowrap">
+        <button mat-button class="entry-title" [routerLink]="['./companies/'+company.id]">
+          <mat-icon class="icon-spacer">business</mat-icon>
+          {{company.name}}
+        </button>
+      </div>
+    </div>
+
+    <div *ngFor="let departmentStructure of (currentDepartmentStructure$ | async)">
+      <app-navigation-list-entry [structure]="departmentStructure" [startsOpen]="true">
+      </app-navigation-list-entry>
+    </div>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

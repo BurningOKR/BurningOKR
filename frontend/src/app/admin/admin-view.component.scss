@@ -1,0 +1,40 @@
+@import '../../styles/themes/bag-theme';
+
+.main-card {
+  max-width: 800px;
+}
+
+.center {
+  width: 600px;
+  margin: 10px auto;
+}
+
+.main-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-left {
+  text-align: left;
+}
+
+.list-center {
+  padding-left: 12px;
+}
+
+.list-right {
+  text-align: right;
+  margin-left: auto;
+  margin-right: 20%;
+}
+
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.app-is-mobile .app-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}

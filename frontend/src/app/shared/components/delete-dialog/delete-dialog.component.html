@@ -1,0 +1,4 @@
+<app-dialog-component [title]=formData.title i18n-saveAndCloseLabel="@@component_deleteDialog_delete" saveAndCloseLabel="Löschen" (okEmitter)="confirmDelete()">
+  <h3 class="mat-h3" i18n="general do you want to delete the object@@generalDeleteDialogContent">Wollen sie {{formData.objectNameWithArticle}} wirklich löschen?</h3>
+  <h3 class="mat-h3 mat-error" *ngIf="formData.dangerContent">{{formData.dangerContent}}</h3>
+</app-dialog-component>

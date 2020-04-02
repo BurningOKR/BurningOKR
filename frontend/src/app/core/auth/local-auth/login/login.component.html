@@ -1,0 +1,62 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()" appCapsLock (capsLock)="capsLock=$event">
+  <app-non-logged-in-card toolbarTitle="Login">
+    <mat-card-header>
+      <mat-card-title>Burning OKR - Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table class="fullWidth">
+        <tr>
+          <td>
+            <mat-form-field class="form-whole-line">
+              <input
+                autocomplete="username"
+                formControlName="email"
+                i18n-placeholder="@@email"
+                matInput
+                placeholder="Email"
+                required
+                type="email">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="form-whole-line">
+              <input
+                autocomplete="password"
+                formControlName="password"
+                i18n-placeholder="@@password"
+                matInput
+                placeholder="Passwort"
+                required
+                type="password">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <mat-error *ngIf="errorType === authErrors.UNAUTHORIZED" i18n="@@unauthorized_error">
+        Benutzername nicht gefunden
+      </mat-error>
+      <mat-error *ngIf="errorType === authErrors.INVALID_GRANT" i18n="@@invalid_grant_error">
+        Passwort oder Benutzername ungültig
+      </mat-error>
+      <mat-error class="error-span"
+                 *ngIf="capsLock"
+                 i18n="caps lock is on@@capsLockOn">
+        Die Feststelltaste ist aktiv
+      </mat-error>
+    </mat-card-content>
+    <mat-card-actions class="row">
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid"
+        class="col-4"
+        color="primary"
+        mat-raised-button
+        mat-ripple>
+        Login
+      </button>
+      <a mat-button routerLink="/auth/resetpassword" routerLinkActive="active">Passwort vergessen</a>
+    </mat-card-actions>
+  </app-non-logged-in-card>
+</form>

@@ -1,0 +1,34 @@
+.user-card {
+  display: flex;
+  align-content: center;
+  min-width: 350px;
+  min-height: 64px;
+  max-height: 96px;
+  margin: 12px;
+  padding: 4px;
+}
+
+.flex-center {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.icon-centered {
+  flex: 1;
+  text-align: center;
+}
+
+.icon-big {
+  font-size: 64px !important;
+  width: 64px;
+  height: 64px;
+}
+
+.name {
+  font-size:large;
+}
+
+.subtitle{
+  font-weight: lighter
+}

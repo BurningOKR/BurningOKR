@@ -1,0 +1,164 @@
+{
+  "@angular/animations@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/cdk@8.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/components",
+    "licenseUrl": "https://github.com/angular/components/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "@angular/common@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/compiler@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/core@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/flex-layout@8.0.0-beta.27": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/flex-layout",
+    "licenseUrl": "https://github.com/angular/flex-layout/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "@angular/forms@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/material@8.1.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/components",
+    "licenseUrl": "https://github.com/angular/components/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "@angular/platform-browser-dynamic@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/platform-browser@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/platform-server@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@angular/router@8.2.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/angular",
+    "licenseUrl": "https://github.com/angular/angular",
+    "parents": "okrfront-end"
+  },
+  "@ngx-i18nsupport/tooling@8.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/martinroob/ngx-i18nsupport",
+    "licenseUrl": "https://github.com/martinroob/ngx-i18nsupport/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "@ngx-translate/i18n-polyfill@1.0.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/ngx-translate/i18n-polyfill",
+    "licenseUrl": "https://github.com/ngx-translate/i18n-polyfill",
+    "parents": "okrfront-end"
+  },
+  "@types/file-saver@2.0.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "licenseUrl": "https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "angular-oauth2-oidc@8.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/manfredsteyer/angular-oauth2-oidc",
+    "licenseUrl": "https://github.com/manfredsteyer/angular-oauth2-oidc",
+    "parents": "okrfront-end"
+  },
+  "core-js@3.1.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/zloirock/core-js",
+    "licenseUrl": "https://github.com/zloirock/core-js/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "file-saver@2.0.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/eligrey/FileSaver.js",
+    "licenseUrl": "https://github.com/eligrey/FileSaver.js/raw/master/LICENSE.md",
+    "parents": "okrfront-end"
+  },
+  "hammerjs@2.0.8": {
+    "licenses": "MIT",
+    "repository": "https://github.com/hammerjs/hammer.js",
+    "licenseUrl": "https://github.com/hammerjs/hammer.js/raw/master/LICENSE.md",
+    "parents": "okrfront-end"
+  },
+  "linq4js@2.2.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/morrisjdev/Linq4JS",
+    "licenseUrl": "https://github.com/morrisjdev/Linq4JS/raw/master/LICENSE.txt",
+    "parents": "okrfront-end"
+  },
+  "ngx-avatar@3.7.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/HaithemMosbahi/ngx-avatar",
+    "licenseUrl": "https://github.com/HaithemMosbahi/ngx-avatar/raw/master/LICENSE.txt",
+    "parents": "okrfront-end"
+  },
+  "ngx-logger@4.0.7": {
+    "licenses": "MIT",
+    "repository": "https://github.com/dbfannin/ngx-logger",
+    "licenseUrl": "https://github.com/dbfannin/ngx-logger/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "ngx-material-file-input@1.1.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/merlosy/ngx-material-file-input",
+    "licenseUrl": "https://github.com/merlosy/ngx-material-file-input",
+    "parents": "okrfront-end"
+  },
+  "ngx-papaparse@4.0.4": {
+    "licenses": "MIT",
+    "repository": "https://github.com/alberthaff/ngx-papaparse",
+    "licenseUrl": "https://github.com/alberthaff/ngx-papaparse",
+    "parents": "okrfront-end"
+  },
+  "node-sass@4.12.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/sass/node-sass",
+    "licenseUrl": "https://github.com/sass/node-sass/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  },
+  "rxjs@6.5.2": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/reactivex/rxjs",
+    "licenseUrl": "https://github.com/reactivex/rxjs/raw/master/LICENSE.txt",
+    "parents": "okrfront-end"
+  },
+  "zone.js@0.9.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/angular/zone.js",
+    "licenseUrl": "https://github.com/angular/zone.js/raw/master/LICENSE",
+    "parents": "okrfront-end"
+  }
+}

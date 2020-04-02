@@ -1,0 +1,53 @@
+<app-okr-toolbar>
+  <button class="navbar-item" i18n-matTooltip="@@component_adminView_NavigateToStructureOverview"
+          matTooltip="Zur Strukturübersicht" mat-icon-button (click)="navigateToCompanies()">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span i18n="@@component_adminView_adminPanel">Admin Panel</span>
+</app-okr-toolbar>
+
+<div class="main-div">
+  <mat-card class="center">
+    <mat-card-title>
+      <mat-icon>group</mat-icon>
+      <span i18n="@@component_adminView_Admins">Admins</span>
+    </mat-card-title>
+
+    <mat-card-content *ngIf="adminUsers$ | async as adminUsers">
+      <p *ngIf="adminUsers.length === 0">
+        <mat-spinner class="center center"></mat-spinner>
+      </p>
+
+      <p *ngIf="adminUsers.length !== 0">
+        <mat-list>
+          <mat-list-item class="list-items" *ngFor="let admin of adminUsers; trackBy: ('id' | trackByProperty)">
+            <mat-icon class="list-left">person</mat-icon>
+            <span class="list-center">{{ admin.surname }}, {{ admin.givenName }}</span>
+            <div class="list-right" *ngIf="currentUserId$ | async as currentUserId">
+              <button [disabled]="admin.id === currentUserId" mat-icon-button
+                      (click)="onDeleteAdminButtonClicked(admin)">
+                <mat-icon *ngIf="admin.id !== currentUserId; else deleteSelf"
+                          i18n-[matTooltip]="@@component_adminView_DeleteAdmin"
+                          [matTooltip]="admin.givenName + ' von den Admins löschen'">delete
+                </mat-icon>
+                <ng-template #deleteSelf>
+                  <mat-icon i18n-matTooltip="@@component_adminView_CannotDeleteYourself"
+                            matTooltip="Selber löschen nicht möglich">delete
+                  </mat-icon>
+                </ng-template>
+              </button>
+            </div>
+            <mat-divider [inset]="true"></mat-divider>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="list-left">person_add</mat-icon>
+            <app-user-autocomplete-input class="list-center" i18n-placeHolderText="@@component_adminView_defineNewAdmin"
+                                         #newAdminForm placeHolderText="Neuen Admin definieren"
+                                         [userIdsToExclude]="adminUsers | adminUserIds:excludedIdsShouldUpdate"
+                                         (choseUser)="defineNewAdmin($event)"></app-user-autocomplete-input>
+          </mat-list-item>
+        </mat-list>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

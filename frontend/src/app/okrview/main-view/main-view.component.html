@@ -1,0 +1,36 @@
+<app-okr-toolbar [isCycleManagementOptionVisible]="true">
+
+  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@component_mainView_toggleNavigation" matTooltip="Navigationsmenü anzeigen/verbergen"
+          (click)="toggleSideBar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@component_mainView_navigateToStructure" matTooltip="Zur Strukturübersicht"
+          [routerLink]="['../companies']">
+    <mat-icon>home</mat-icon>
+  </button>
+
+  <app-cycle-list-dropdown *ngIf="!mobileQuery.matches" i18n-matTooltip="@@component_mainView_adjustObservationPeriod" matTooltip="Betrachtungszeitraum anpassen"
+                           matTooltipPosition="after" class="max-width-250"></app-cycle-list-dropdown>
+
+</app-okr-toolbar>
+
+<app-navigation-sidebar #sideBar>
+
+  <div *ngIf="currentCycle$ | async as cycle">
+    <mat-card *ngIf="!cycle.isCycleActive()"
+              [ngClass]="cycle.isCycleInPreparation()?'cycle-hint-preparation':'cycle-hint-closed'">
+      <div class="flex-nowrap">
+        <mat-icon class="icon-spacer-large">info</mat-icon>
+        <div *ngIf="cycle.isCycleInPreparation()" i18n="@@component_mainView_cycleNotStartAndCanBeEdited">Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung
+          bearbeitet werden.
+        </div>
+        <div *ngIf="cycle.isCycleClosed()" i18n="@@component_mainView_cycleAlreadyClose">Dieser Zyklus ist bereits abgelaufen und daher geschlossen - Bearbeitung ist
+          nur begrenzt möglich.
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <router-outlet></router-outlet>
+</app-navigation-sidebar>

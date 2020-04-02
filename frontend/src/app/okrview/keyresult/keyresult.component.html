@@ -1,0 +1,75 @@
+<mat-card class="keyresult-card">
+  <div class="flex-nowrap">
+
+    <!-- Drag handle by parent component contained here -->
+    <ng-content></ng-content>
+
+    <div class="icon-spacer keyresult-title">{{ listNumber }} .</div>
+
+    <div class="customFlex-1">
+
+      <div class="flex-wrap">
+        <div class="keyresult-title customFlex-2">
+          {{ keyResult.keyResult }}
+        </div>
+        <div class="flex-nowrap keyresult-slider">
+          <div class="f-5">
+            <mat-slider *ngIf="isKeyResultSliderInverted; else invertedKeyResultSlider" thumbLabel min="{{ keyResult.start }}"
+                        [disabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())"
+                        value="{{ keyResult.current }}" max="{{ keyResult.end }}" (change)="onKeyResultSliderDropped($event)"
+                        [matTooltipDisabled]="!currentUserRole.isAdmin" [matTooltipShowDelay]="500" class="fullWidth"
+                        i18n-matTooltip="@@component_keyResult_adjustProgress" matTooltip="Fortschritt anpassen">
+            </mat-slider>
+            <ng-template #invertedKeyResultSlider>
+              <mat-slider thumbLabel max="{{ keyResult.start }}" [invert]="true"
+                          [disabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())"
+                          value="{{ keyResult.current }}" min="{{ keyResult.end }}" (change)="onKeyResultSliderDropped($event)"
+                          [matTooltipDisabled]="!currentUserRole.isAdmin" [matTooltipShowDelay]="500" class="fullWidth"
+                          i18n-matTooltip="@@component_keyResult_adjustProgress" matTooltip="Fortschritt anpassen">
+              </mat-slider>
+            </ng-template>
+          </div>
+          <div class="keyresult-progress-text f-1">
+            {{getKeyResultProgressText()}}
+          </div>
+        </div>
+      </div>
+      <div class="keyresult-description">
+        {{keyResult.description}}
+      </div>
+    </div>
+
+    <button *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()" [matMenuTriggerFor]="optionsMenu"
+      [matMenuTriggerData]="{ keyResult: keyResult }" class="icon-spacer" mat-icon-button>
+      <mat-icon i18n-matTooltip="@@component_keyResult_moreOptions" matTooltip="Mehr Optionen zu diesem KeyResult">more_vert</mat-icon>
+    </button>
+
+    <button class="icon-spacer" mat-icon-button (click)="clickedOpenComments()">
+      <mat-icon [matBadge]="getKeyResultCommentCount()" i18n-matTooltip="@@component_keyResult_commentsForThisKeyResult" matTooltip="Kommentare zu diesem KeyResult">chat
+      </mat-icon>
+    </button>
+
+  </div>
+</mat-card>
+
+<!-- Options menu -->
+<mat-menu #optionsMenu="matMenu" xPosition="before">
+  <ng-template matMenuContent let-keyResult="keyResult">
+    <button mat-menu-item (click)="clickedEditKeyResult()">
+      <mat-icon>edit</mat-icon>
+      <span i18n="@@component_keyResult_editKeyResult">KeyResult bearbeiten</span>
+    </button>
+    <button mat-menu-item *ngIf="!isKeyResultOnTop()" (click)="clickedMoveKeyResultToTop()">
+      <mat-icon>vertical_align_top</mat-icon>
+      <span i18n="@@component_keyResult_moveKeyResultUp">KeyResult nach oben verschieben</span>
+    </button>
+    <button mat-menu-item *ngIf="!isKeyResultOnBottom()" (click)="clickedMoveKeyResultToBottom()">
+      <mat-icon>vertical_align_bottom</mat-icon>
+      <span i18n="@@component_keyResult_moveKeyResultDown">KeyResult nach unten verschieben</span>
+    </button>
+    <button mat-menu-item *ngIf="currentUserRole.isAtleastOKRManager()" (click)="clickedDeleteKeyResult()">
+      <mat-icon>delete</mat-icon>
+      <span i18n="@@component_keyResult_deleteKeyResult">KeyResult löschen</span>
+    </button>
+  </ng-template>
+</mat-menu>

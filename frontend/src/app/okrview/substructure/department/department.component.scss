@@ -1,0 +1,49 @@
+.loading-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 512px;
+}
+
+.department-inactive {
+  border-color: grey;
+  border: 2px;
+  border-style: dashed;
+  color: gray;
+  font-style: italic;
+}
+
+.no-padding{
+  padding: 0px;
+}
+
+.card-margin{
+  margin: 16px 8px;
+  padding:0px;
+}
+
+.inner-padding{
+  padding:16px 16px 8px 16px;
+}
+
+.department-title{
+      font-size: x-large;
+      font-weight: bold;
+}
+
+.department-subtitle{
+
+}
+
+.department-flex {
+  flex: 2 0.5 256px;
+}
+
+.department-inactive-box {
+  flex: 1 0 256px;
+  padding: 4px;
+}
+
+.m-left {
+  margin-left: 70px;
+}
