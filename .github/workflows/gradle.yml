@@ -46,9 +46,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: $($PACKAGE_VERSION)
-        release_name: Release $($PACKAGE_VERSION)
-        body: $($CHANGELOG)
+        tag_name: ${{ env.PACKAGE_VERSION }}
+        release_name: Release ${{ env.PACKAGE_VERSION }}
+        body: ${{ env.CHANGELOG }}
         draft: false
         prerelease: true
 
