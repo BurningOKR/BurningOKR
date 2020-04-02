@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    environment {
+      BE_PATH = "./Source/burning-okr/"
+      MAIL_TO = ""
+    }
+
+    tools {
+      gradle 'gradle-4.9'
+    }
+    
+    stages {
+	    stage ('Clean') {
+	      steps {
+          dir(BE_PATH) {
+            echo 'Backend Clean Step'
+            bat 'gradlew clean'
+          }
+		    }
+	    }
+      stage ('Build') {
+        steps{
+          dir(BE_PATH) {
+            echo 'Backend Build Step'
+            bat 'gradlew assemble'
+          }
+        }
+      }
+      stage ('Test') {
+        steps{
+          dir(BE_PATH) {
+            echo 'Backend Test Step'
+            bat 'gradlew check'
+			      bat 'gradlew testReport'
+          }
+        }
+      }
+      stage ('Deploy Develop') {
+       when {
+          branch 'develop'
+        }
+        steps{
+          dir(BE_PATH) {
+            bat "Powershell.exe -executionpolicy remotesigned -File ./deploy_dev.ps1"
+          }
+        }
+      }
+      stage ('Deploy Master') {
+        when {
+          branch 'master'
+        }
+        steps{
+          dir(BE_PATH) {
+            bat "Powershell.exe -executionpolicy remotesigned -File ./deploy_prod.ps1"
+          }
+        }
+      }
+    }
+
+    post {
+      always {
+          junit allowEmptyResults: true, testResults: '**/build/test-results/**/*.xml'
+      }
+      failure {
+        emailext body: '''${SCRIPT, template="groovy-html.template"}''',
+        mimeType: 'text/html',
+        subject: "[Jenkins] ${currentBuild.fullDisplayName}",
+        to: MAIL_TO,
+        recipientProviders: [[$class: 'CulpritsRecipientProvider']]
+      }
+    }
+}

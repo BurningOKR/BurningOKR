@@ -1,0 +1,43 @@
+package org.burningokr.model.okr;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.PositiveOrZero;
+import lombok.Data;
+import org.burningokr.model.activity.Trackable;
+
+@Entity
+@Data
+public class KeyResult implements Trackable<Long> {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+
+  @ManyToOne private Objective parentObjective = null;
+
+  @Column(length = 255)
+  private String name;
+
+  @Column(length = 1023)
+  private String description;
+
+  @PositiveOrZero private long startValue;
+  @PositiveOrZero private long currentValue;
+  @PositiveOrZero private long targetValue;
+
+  private Unit unit = Unit.NUMBER;
+
+  @Column private int sequence;
+
+  @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
+  private Collection<Note> notes = new ArrayList<>();
+}

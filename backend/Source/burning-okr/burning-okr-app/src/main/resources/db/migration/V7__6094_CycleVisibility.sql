@@ -1,0 +1,1 @@
+ALTER TABLE public.cycle ADD is_visible boolean default true;

@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    url: <Database URL>
+    username: <Database Username>
+    password: <Database Password>
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect // For postgres
+  mail:
+    username: <Email username>
+    password: <Email password>
+    host: <Email server url>
+    port: <Email server port>
+
+feedback:
+  contact-persons:
+    - email: "<Contact person email>"
+      name: "<Contact person name>"
+      surname: "<Contact person surname>"
+
+# Last section is optional (only when using azure ad)
+azure:
+  ad:
+    tenantId: <Azure ad tenant id>
+    azureGroups:
+      - name: <Azure ad group name>
+        id: <Azure ad group id>
+
+security:
+  oauth2:
+    client:
+      clientId: <OAuth client id>
+      clientSecret: <OAuth client secret>
+      accessTokenUri: <OAuth access token url>
+      userAuthorizationUri: <OAuth use authorization token url>
+      clientAuthenticationScheme: form
+      scope: openid
+      grant-type: client_credentials
+      auto-approve-scopes: '.*'
+      token-name: access_token
+    resource:
+      userInfoUri: https://graph.microsoft.com/v1.0/me/
+      preferTokenInfo: false
+
+system:
+  configuration:
+    auth-mode: "aad"

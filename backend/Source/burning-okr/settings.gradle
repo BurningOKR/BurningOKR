@@ -1,0 +1,6 @@
+rootProject.name = 'burning-okr'
+
+include 'burning-okr-app'
+include 'burning-okr-model'
+include 'burning-okr-logic'
+include 'burning-okr-data'

@@ -1,0 +1,14 @@
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(':burning-okr-model')
+    compile project(':burning-okr-data')
+
+    testCompile project(':burning-okr-data')
+
+    compile 'org.apache.poi:poi-ooxml:3.9'
+    compile 'org.apache.poi:poi:3.9'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.1.0.RELEASE'
+}

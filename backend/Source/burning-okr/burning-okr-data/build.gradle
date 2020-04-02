@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':burning-okr-model')
+    testCompile project(':burning-okr-model')
+
+    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.0.RELEASE'
+}

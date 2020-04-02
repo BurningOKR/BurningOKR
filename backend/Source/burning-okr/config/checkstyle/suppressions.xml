@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+          "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+          "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+		  
+<suppressions>
+	<!-- Member names have to be like this to work -->
+	<suppress checks="MemberName"
+		files="AccessTokenResponse.java" />
+
+	<!-- Deactivating Javadoc in Tests, Tests have self explaining names -->
+	<suppress checks="MissingJavadocMethod"
+		files="[/\\]test[/\\]" />
+		
+	<!-- Suppress LineLength in Tests, explaining names are sometimes longer than allowed -->
+	<suppress checks="LineLength"
+		files="[/\\]test[/\\]" />
+    
+    <!-- Suppress VariableDeclarationUsageDistance in tests, we wan't to declare our variables in the beginning -->
+    <suppress checks="VariableDeclarationUsageDistance"
+      files="[/\\]test[/\\]" />
+</suppressions>

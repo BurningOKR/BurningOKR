@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head></head>
+    <body>
+        <p>
+            <span th:text="#{email.hello(${contactPerson})}"></span>
+        </p>
+        <p>
+            <span th:text="#{email.feedbackBy(${feedbackSender})}"></span>
+        </p>
+        <p>
+            <em th:text="${feedbackText}"></em>
+        </p>
+        <p>
+            <span th:text="#{email.yourBurningOkrTeam}"></span>
+        </p>
+    </body>
+</html>

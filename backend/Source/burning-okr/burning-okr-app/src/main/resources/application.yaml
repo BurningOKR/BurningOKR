@@ -1,0 +1,20 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    baseline-on-migrate: true
+  mail:
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          auth: true
+    test-connection: false
+  messages:
+    basename: messages
+
+system:
+  configuration:
+    auth-mode: "local"
