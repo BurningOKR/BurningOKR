@@ -45,12 +45,10 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PACKAGE_VERSION: $PACKAGE_VERSION
-        CHANGELOG: $CHANGELOG
       with:
-        tag_name: ${{ PACKAGE_VERSION }}
-        release_name: Release ${{ PACKAGE_VERSION }}
-        body: ${{ CHANGELOG }}
+        tag_name: $($PACKAGE_VERSION)
+        release_name: Release $($PACKAGE_VERSION)
+        body: $($CHANGELOG)
         draft: false
         prerelease: true
 
