@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Read package version
-      run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env PACKAGE_VERSION=$PACKAGE_VERSION
+      run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
     - name: Read changelog
       run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo $PACKAGE_VERSION
     - name: Set up JDK 1.8
