@@ -12,16 +12,12 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Read package version
-      run: PACKAGE_VERSION=$(cat package.json \
-        | grep version \
-        | head -1 \
-        | awk -F:'{ print $2 }' \
-        | sed 's/[",]//g') && echo $PACKAGE_VERSION
+      run: PACKAGE_VERSION=$(cat version.txt) && echo $PACKAGE_VERSION
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
