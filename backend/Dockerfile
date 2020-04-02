@@ -1,6 +1,6 @@
 FROM gradle:4.8.1-jdk AS build
 
-COPY --chown=gradle:gradle Source/burning-okr /home/gradle/src
+COPY --chown=gradle:gradle burning-okr /home/gradle/src
 WORKDIR /home/gradle/src
 
 RUN gradle bootJar --no-daemon
