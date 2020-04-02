@@ -22,6 +22,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Add execution privileges
+      run: chmod +x ./gradlew
+      working-directory: ./backend/burning-okr
     - name: Test
       run: ./gradlew check
       working-directory: ./backend/burning-okr
