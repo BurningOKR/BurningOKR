@@ -31,7 +31,7 @@ jobs:
       run: ./gradlew check
       working-directory: ./backend/burning-okr
     - name: Build jar
-      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootJar
+      run: ./gradlew -PprojVersion="${{ PACKAGE_VERSION }}" bootJar
       working-directory: ./backend/burning-okr
     - name: Build war
       run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootWar
@@ -40,4 +40,15 @@ jobs:
       with:
         name: Package
         path: backend/burning-okr/burning-okr-app/build/libs
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ PACKAGE_VERSION }}
+        release_name: Release ${{ PACKAGE_VERSION }}
+        body: ${{ CHANGELOG }}
+        draft: false
+        prerelease: true
 
