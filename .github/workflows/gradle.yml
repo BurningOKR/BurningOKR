@@ -26,4 +26,4 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: Package
-        path: burning-okr-app/build/libs
+        path: backend/Source/burning-okr/burning-okr-app/build/libs
