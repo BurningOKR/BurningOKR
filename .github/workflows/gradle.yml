@@ -31,10 +31,10 @@ jobs:
       run: ./gradlew check
       working-directory: ./backend/burning-okr
     - name: Build jar
-      run: ./gradlew bootJar
+      run: ./gradlew -PprojVersion="$($PACKAGE_VERSION)" bootJar
       working-directory: ./backend/burning-okr
     - name: Build war
-      run: ./gradlew bootWar
+      run: ./gradlew -PprojVersion="$($PACKAGE_VERSION)" bootWar
       working-directory: ./backend/burning-okr
     - uses: actions/upload-artifact@v1
       with:
