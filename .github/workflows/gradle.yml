@@ -20,8 +20,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Switch to backend directory
-      run: cd ./backend/Source/burning-okr
     - name: Build with Gradle
       run: ./gradlew bootJar
       working-directory: ./backend/Source/burning-okr
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Package
+        path: burning-okr-app/build/libs
