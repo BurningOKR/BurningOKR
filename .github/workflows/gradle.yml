@@ -19,7 +19,7 @@ jobs:
     - name: Read package version
       run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
     - name: Read changelog
-      run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo $PACKAGE_VERSION
+      run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && && echo ::set-env name=CHANGELOG::$CHANGELOG
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -31,10 +31,10 @@ jobs:
       run: ./gradlew check
       working-directory: ./backend/burning-okr
     - name: Build jar
-      run: ./gradlew -PprojVersion="${PACKAGE_VERSION}" bootJar
+      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootJar
       working-directory: ./backend/burning-okr
     - name: Build war
-      run: ./gradlew -PprojVersion="${PACKAGE_VERSION}" bootWar
+      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootWar
       working-directory: ./backend/burning-okr
     - uses: actions/upload-artifact@v1
       with:
@@ -46,9 +46,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${PACKAGE_VERSION}
-        release_name: Release ${PACKAGE_VERSION}
-        body: ${CHANGELOG}
+        tag_name: $PACKAGE_VERSION
+        release_name: Release $PACKAGE_VERSION
+        body: $CHANGELOG
         draft: false
         prerelease: true
 
