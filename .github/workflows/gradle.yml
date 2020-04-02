@@ -24,3 +24,4 @@ jobs:
       run: cd ./backend/Source/burning-okr
     - name: Build with Gradle
       run: ./gradlew bootJar
+      working-directory: ./backend/Source/burning-okr
