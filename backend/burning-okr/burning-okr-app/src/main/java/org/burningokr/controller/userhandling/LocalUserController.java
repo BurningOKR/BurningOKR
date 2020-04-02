@@ -19,7 +19,6 @@ import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.service.userhandling.LocalUserService;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

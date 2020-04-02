@@ -81,8 +81,7 @@ public class AzureUserFetcherTest {
     when(azureApiCaller.callApi(anyString(), any()))
         .thenReturn(
             new ByteArrayInputStream(
-                "{\"@odata.context\":\"https://test.test.com\",\"value\":[]}"
-                    .getBytes()));
+                "{\"@odata.context\":\"https://test.test.com\",\"value\":[]}".getBytes()));
 
     Collection<AadUser> aadUsers = azureUserFetcher.fetchAzureUsers("token");
 
