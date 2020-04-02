@@ -17,7 +17,12 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
 
 group = 'org.burningokr'
-version = '0.0.1-SNAPSHOT'
+
+if (project.hasProperty('projVersion')) {
+    version = project.projVersion
+} else {
+    version = '1.0.0'
+}
 
 bootRun.systemProperties = System.properties
 
