@@ -10,7 +10,6 @@ import { FormGroup } from '@angular/forms';
 export class UserDialogComponent {
   @Input() title: string;
   @Input() userForm: FormGroup;
-  @Input() resetPasswordIsShown: boolean = true;
   @Output() saveEmitter: EventEmitter<LocalUserManagementUser> = new EventEmitter<LocalUserManagementUser>();
 
   @ViewChild('canvasElement', {static: false}) canvas;

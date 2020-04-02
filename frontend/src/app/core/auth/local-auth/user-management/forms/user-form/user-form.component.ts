@@ -8,7 +8,6 @@ import { FormGroup } from '@angular/forms';
 })
 export class UserFormComponent {
   @Input() userForm: FormGroup;
-  @Input() resetPasswordIsShown: boolean = true;
 
   @ViewChild('canvasElement', {static: false}) canvas;
 
