@@ -86,6 +86,10 @@ Thank you to all the people and bots who already contributed to BurningOKR!
 
 <br/>
 
+## User Documentation
+
+The current user documentation is available at https://burning-okr.gitbook.io/burningokr
+
 
 ## contact
 <br/>
