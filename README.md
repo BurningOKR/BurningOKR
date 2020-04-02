@@ -18,7 +18,7 @@ BurningOKR has been developed as a web application with an Angular Frontend and 
 
 ## Software dependencies
 
-### Postgres SQL
+### PostgreSQL
 
 We use Postgres as SQL database for local development. Therefore it is necessary that PostgresSQL is installed locally on the development machines to allow database access.
 
