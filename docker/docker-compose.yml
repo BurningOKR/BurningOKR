@@ -3,7 +3,7 @@ version: '3'
 services:
     frontend:
         image: 'burning-okr:1.0.0-frontend'
-        build: '../../OKR-Tool-Frontend/.'
+        build: '../frontend/.'
         container_name: 'burning-okr-frontend'
         depends_on:
             - backend
@@ -13,7 +13,7 @@ services:
             - frontend-network
     backend:
         image: 'burning-okr:1.0.0-backend'
-        build: '..'
+        build: '../backend/.'
         container_name: 'burning-okr-backend'
         env_file:
             - backend.env
