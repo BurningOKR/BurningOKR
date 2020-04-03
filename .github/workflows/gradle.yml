@@ -58,7 +58,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with: 
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
+        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
         asset_content_type: application/jar 
 
