@@ -57,8 +57,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with: 
-        upload_url: ${{ steps.get-release.outputs.upload_url }}
-        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: Package/burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
         asset_content_type: application/jar 
     - name: Upload Release War
@@ -67,7 +67,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with: 
-        upload_url: ${{ steps.get-release.outputs.upload_url }}
-        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.war
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: Package/burning-okr-app-${{ env.PACKAGE_VERSION }}.war
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.war
         asset_content_type: application/war
