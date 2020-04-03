@@ -49,9 +49,14 @@ jobs:
     - name: Npm Install
       run: npm install
       working-directory: ./frontend
+    - name: Npm version
+      run: npm version $PACKAGE_VERSION --allow-same-version
+      working-directory: ./frontend
     - name: Npm Build
       run: npm run build-prod
       working-directory: ./frontend
+    - name: Zip Frontend
+      run: zip -r frontend.zip ./frontend/dist
         
     - name: Create Release
       id: create_release
@@ -82,6 +87,16 @@ jobs:
       with: 
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.war
+        asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.war
+        asset_content_type: application/war
+    - name: Upload Release Frontend Zip
+      id: upload-release-war
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with: 
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./frontend.zip
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.war
         asset_content_type: application/war
     
