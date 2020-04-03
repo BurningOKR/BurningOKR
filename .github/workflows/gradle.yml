@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  create-release:
+  build:
 
     runs-on: ubuntu-latest
 
@@ -20,24 +20,6 @@ jobs:
       run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
     - name: Read changelog
       run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo ::set-env name=CHANGELOG::$CHANGELOG
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.PACKAGE_VERSION }}
-        release_name: Release ${{ env.PACKAGE_VERSION }}
-        body: ${{ env.CHANGELOG }}
-        draft: false
-        prerelease: true
-  build-backend:
-  
-    runs-on: ubuntu-latest
-    needs: [create-release]
-  
-    steps:
-    - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -58,6 +40,17 @@ jobs:
       with:
         name: Package
         path: backend/burning-okr/burning-okr-app/build/libs
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.PACKAGE_VERSION }}
+        release_name: Release ${{ env.PACKAGE_VERSION }}
+        body: ${{ env.CHANGELOG }}
+        draft: false
+        prerelease: true
     - name: Upload Release Jar
       id: upload-release-jar
       uses: actions/upload-release-asset@v1
