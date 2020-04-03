@@ -87,7 +87,7 @@ jobs:
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.war
         asset_content_type: application/war
     - name: Upload Release Frontend Zip
-      id: upload-release-war
+      id: upload-release-frontend-zip
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
