@@ -38,7 +38,7 @@ public class InitServiceTest {
   @Mock private AdminUserService adminUserService;
   @Mock private InitOrderService initOrderService;
   @Mock private OAuthClientDetailsService oauthClientDetailsService;
-  @Mock private OAuthFrontendDetailsService oAuthFrontendDetailsService;
+  @Mock private OAuthFrontendDetailsService oauthFrontendDetailsService;
   @Mock private ApplicationContext applicationContext;
 
   @InjectMocks private InitService initService;
@@ -129,11 +129,13 @@ public class InitServiceTest {
     initState.setInitState(InitStateName.CREATE_USER);
     initState.setId(1L);
     iterable = Collections.singletonList(initState);
+    LocalUser localUser = new LocalUser();
 
     when(initStateRepository.findAll()).thenReturn(iterable);
+    when(localUserService.createLocalUser(localUser, false)).thenReturn(new LocalUser());
 
     try {
-      InitState initStateFromService = initService.setAdminUser(new LocalUser(), "TestAbc");
+      InitState initStateFromService = initService.setAdminUser(localUser, "TestAbc");
 
       assertEquals(initStateFromService.getInitState(), InitStateName.INITIALIZED);
     } catch (Exception e) {
@@ -162,13 +164,14 @@ public class InitServiceTest {
     initState.setInitState(InitStateName.CREATE_USER);
     initState.setId(1L);
     iterable = Collections.singletonList(initState);
+    LocalUser localUser = new LocalUser();
 
     when(initStateRepository.findAll()).thenReturn(iterable);
+    when(localUserService.createLocalUser(localUser, false)).thenReturn(new LocalUser());
 
     try {
-      LocalUser user = new LocalUser();
-      initService.setAdminUser(user, "TestAbc");
-      verify(localUserService).createLocalUser(user, false);
+      initService.setAdminUser(localUser, "TestAbc");
+      verify(localUserService).createLocalUser(localUser, false);
     } catch (Exception e) {
       fail(e.getClass().getName());
     }
@@ -222,7 +225,7 @@ public class InitServiceTest {
       verify(oauthClientDetailsService).encodeClientSecret(oauthClientDetails);
       verify(oauthClientDetailsService).fillDefaultValues(oauthClientDetails);
       verify(oauthClientDetailsService).updateOAuthClientDetails(oauthClientDetails);
-      verify(oAuthFrontendDetailsService).updateOauthFrontendDetails(any());
+      verify(oauthFrontendDetailsService).updateOauthFrontendDetails(any());
     } catch (Exception e) {
       fail(e.getClass().getName());
     }

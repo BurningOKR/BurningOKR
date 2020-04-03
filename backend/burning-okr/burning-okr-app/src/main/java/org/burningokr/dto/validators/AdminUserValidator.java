@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.UUID;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.users.AdminUser;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,12 @@ public class AdminUserValidator {
   }
 
   /**
-   * Checks that {@link User} can be added as an Admin.
+   * Checks that the given User can be added as an Admin.
    *
-   * @param user an {@link User} object
+   * @param user an {@link AdminUser} object
    * @throws InvalidDtoException if user is null, has an invalid ID, or is already an admin
    */
-  public void validateAdminUserOnAdd(User user) throws InvalidDtoException {
+  public void validateAdminUserOnAdd(AdminUser user) throws InvalidDtoException {
     if (user == null) {
       throw new InvalidDtoException("Input user undefined");
     }
@@ -36,14 +35,13 @@ public class AdminUserValidator {
       throw new InvalidDtoException("ID of user is undefined");
     }
 
-    UUID userId = user.getId();
-    Optional<AdminUser> optionalAdmin = this.adminUserRepository.findById(userId);
+    Optional<AdminUser> optionalAdmin = this.adminUserRepository.findById(user.getId());
 
     if (optionalAdmin.isPresent()) {
       throw new InvalidDtoException("User is already registered as admin in databank");
     }
 
-    checkIdForSemanticExceptions(userId);
+    checkIdForSemanticExceptions(user.getId());
   }
 
   /**

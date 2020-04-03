@@ -34,6 +34,7 @@ public class AdminUserValidatorTest {
   private User userToInsert;
   private UUID userToInsertId;
   private User currentUser;
+  private AdminUser adminUser;
   private UUID currentUserId;
   private UUID existingAdminId;
 
@@ -45,6 +46,7 @@ public class AdminUserValidatorTest {
 
     userToInsert = mock(User.class);
     currentUser = mock(User.class);
+    adminUser = new AdminUser();
 
     when(userToInsert.getId()).thenReturn(userToInsertId);
     when(currentUser.getId()).thenReturn(currentUserId);
@@ -74,9 +76,10 @@ public class AdminUserValidatorTest {
   @Test
   public void validateAdminUserOnAdd_existingAdmin_expectedThrow() throws InvalidDtoException {
     when(userToInsert.getId()).thenReturn(existingAdminId);
+    adminUser.setId(userToInsert.getId());
 
     try {
-      adminUserValidator.validateAdminUserOnAdd(userToInsert);
+      adminUserValidator.validateAdminUserOnAdd(adminUser);
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
       assertThat(
@@ -90,8 +93,9 @@ public class AdminUserValidatorTest {
 
   @Test
   public void validateAdminUserOnAdd_existingAdmin_expectedNoThrow() {
+    adminUser.setId(userToInsert.getId());
     try {
-      adminUserValidator.validateAdminUserOnAdd(userToInsert);
+      adminUserValidator.validateAdminUserOnAdd(adminUser);
     } catch (Exception ex) {
       assertThat("Should not throw any Exception.", ex, instanceOf(Exception.class));
     }

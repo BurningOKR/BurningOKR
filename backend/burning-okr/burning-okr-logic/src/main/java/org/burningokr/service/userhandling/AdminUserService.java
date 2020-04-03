@@ -49,10 +49,10 @@ public class AdminUserService {
   /**
    * Add an Admin User.
    *
-   * @param newAdminUser an {@link User} object
+   * @param newAdminUser an {@link AdminUser} object
    * @return an {@link User} object
    */
-  public User addAdmin(User newAdminUser) {
+  public User addAdmin(AdminUser newAdminUser) {
     UUID newAdminUuid = newAdminUser.getId();
     AdminUser newAdmin = new AdminUser();
     newAdmin.setId(newAdminUuid);
