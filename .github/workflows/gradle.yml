@@ -5,8 +5,7 @@ name: Build backend
 
 on:
   release:
-    types:
-        - created
+    types: [published]
 
 jobs:
   build:
