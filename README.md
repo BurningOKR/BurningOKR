@@ -62,6 +62,8 @@ To open the project in IntelliJ, go to Import Project and select the file build.
 
 If a configuration was not created automatically to start the project in IntelliJ, a gradle configuration must be created. For the grandle project, okr-tool must be selected, and for tasks, bootRun must be entered.
 
+The backend project uses [Project Lombok](https://projectlombok.org). To use Project Lombok in your IDE, please refer to [using Lombok](https://projectlombok.org/setup/overview).
+
 If PostgresSQL has already been successfully installed and configured in the previous step, the Spring Boot Application can now be started.
 
 The REST interfaces are listed under `localhost:8080/swagger-ui.html` and can be called there.
