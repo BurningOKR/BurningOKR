@@ -51,4 +51,14 @@ jobs:
         body: ${{ env.CHANGELOG }}
         draft: false
         prerelease: true
+    - name: Upload Release Jar
+      id: upload-release-jar
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with: 
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./burning-okr-app-${{ env.PACKAGE_VERSION }}
+        asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}
+        asset_content_type: application/jar 
 
