@@ -6,7 +6,7 @@ import { InitService } from '../../../init.service';
 import { OauthClientDetails } from '../../../../../../../shared/model/api/oauth-client-details';
 import { FormGroupTyped } from '../../../../../../../../typings';
 import { Consts } from '../../../../../../../shared/consts';
-import { catchError, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import { OAuthFrontendDetailsService } from '../../../../../services/o-auth-frontend-details.service';
 
@@ -76,15 +76,14 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
 
   private checkIfInitStateHasChanged(initState: InitState): Observable<InitState> {
     if (!!initState) {
-      return this.initService.getInitStateAndBypassErrorHandling$()
+      return this.initService.getInitState$(() => this.checkIfInitStateHasChanged(initState))
         .pipe(switchMap(newInitState => {
             if (newInitState.runtimeId !== initState.runtimeId) {
               return of(newInitState);
             } else {
               return this.checkIfInitStateHasChanged(initState);
             }
-          }),
-          catchError(() => this.checkIfInitStateHasChanged(initState))
+          })
         );
     } else {
       return throwError('no init state given');
