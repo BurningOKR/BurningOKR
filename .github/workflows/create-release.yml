@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Read package version
-      run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
+      run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
     - name: Read changelog
       run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo ::set-env name=CHANGELOG::$CHANGELOG
     - name: Set up JDK 1.8
@@ -31,10 +31,6 @@ jobs:
     - name: Build war
       run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootWar
       working-directory: ./backend/burning-okr
-    - uses: actions/upload-artifact@v1
-      with:
-        name: Package
-        path: backend/burning-okr/burning-okr-app/build/libs
     - name: Npm Setup
       uses: actions/setup-node@v1
       with:
