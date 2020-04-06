@@ -9,9 +9,9 @@ import { Consts } from '../../shared/consts';
 import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
 
-type ErrorObservable<T> = Observable<Observable<T> extends ObservableInput<infer D> ? T : never>;
-type ErrorHandlingFunction<T> = (error: HttpErrorResponse) => ErrorObservable<T>;
-type RetryFunction<T> = () => Observable<T>;
+export type ErrorObservable<T> = Observable<Observable<T> extends ObservableInput<infer D> ? T : never>;
+export type ErrorHandlingFunction<T> = (error: HttpErrorResponse) => ErrorObservable<T>;
+export type RetryFunction<T> = () => Observable<T>;
 
 @Injectable({
   providedIn: 'root'

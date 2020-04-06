@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Consts } from '../../shared/consts';
-import { ApiHttpErrorHandlingService } from './api-http-error-handling.service';
+import { ApiHttpErrorHandlingService, ErrorHandlingFunction } from './api-http-error-handling.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,36 +33,53 @@ export class ApiHttpService {
     return this.errorHandlerService.getErrors$();
   }
 
-  getData$<T>(path: string): Observable<T> {
+  getData$<T>(path: string, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
     return this.http.get<T>(Consts.API_URL + path, this.httpOptions)
-      .pipe(catchError(this.errorHandlerService.getErrorHandler(() => this.getData$<T>(path))));
+      .pipe(
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.getData$<T>(path), customErrorHandler)
+        )
+      );
   }
 
-  postData$<T>(path: string, value: object): Observable<T> {
+  postData$<T>(path: string, value: object, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
     return this.http.post<T>(Consts.API_URL + path, value, this.httpOptions)
-      .pipe(catchError(this.errorHandlerService.getErrorHandler(() => this.postData$<T>(path, value))));
+      .pipe(
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.postData$<T>(path, value), customErrorHandler)
+        )
+      );
   }
 
-  putData$<T>(path: string, value: object): Observable<T> {
+  putData$<T>(path: string, value: object, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
     return this.http.put<T>(Consts.API_URL + path, value, this.httpOptions)
-      .pipe(catchError(this.errorHandlerService.getErrorHandler(() => this.putData$<T>(path, value))));
+      .pipe(
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.putData$<T>(path, value), customErrorHandler)
+        )
+      );
   }
 
-  deleteData$(path: string): Observable<boolean> {
+  deleteData$(path: string, customErrorHandler?: ErrorHandlingFunction<boolean>): Observable<boolean> {
     return this.http.delete(Consts.API_URL + path, this.httpOptions)
-      .pipe(map((res: string) => res === 'deleted'),
-        catchError(this.errorHandlerService.getErrorHandler(() => this.deleteData$(path))));
+      .pipe(
+        map((res: string) => res === 'deleted'),
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.deleteData$(path), customErrorHandler)
+        )
+      );
   }
 
-  patchData<T>(path: string, value: T): Observable<T> {
+  patchData<T>(path: string, value: T, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
     return this.http.patch<T>(Consts.API_URL + path, value, this.httpOptions)
       .pipe(
         catchError(this.errorHandlerService.getErrorHandler(() => {
             return this.patchData<T>(path, value);
-          }
-        )));
+          }, customErrorHandler
+        ))
+      );
   }
 }
