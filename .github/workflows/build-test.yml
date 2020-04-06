@@ -39,7 +39,7 @@ jobs:
       run: npm install
       working-directory: ./frontend
     - name: Npm version
-      run: npm version 1.0.1 --allow-same-version
+      run: npm version $PACKAGE_VERSION --allow-same-version
       working-directory: ./frontend
     - name: Npm Build
       run: npm run build-prod
