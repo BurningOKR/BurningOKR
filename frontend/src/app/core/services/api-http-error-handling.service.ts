@@ -9,6 +9,10 @@ import { Consts } from '../../shared/consts';
 import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
 
+type ErrorObservable<T> = Observable<Observable<T> extends ObservableInput<infer D> ? T : never>;
+type ErrorHandlingFunction<T> = (error: HttpErrorResponse) => ErrorObservable<T>;
+type RetryFunction<T> = () => Observable<T>;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -45,36 +49,52 @@ export class ApiHttpErrorHandlingService {
               private i18n: I18n,
               private snackbar: MatSnackBar,
               private logger: NGXLogger,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   getErrors$(): Observable<HttpErrorResponse[]> {
     return this.errors.asObservable();
   }
 
-  getErrorHandler<T>(retryFunction: () => Observable<T>, customHandlerFunction?: (error: HttpErrorResponse) => Observable<T>):
-    (error: HttpErrorResponse) => (Observable<Observable<T> extends ObservableInput<infer D> ? T : never>) {
+  getErrorHandler<T>(retryFunction: RetryFunction<T>, customHandlerFunction?: (error: HttpErrorResponse) => Observable<T>):
+    ErrorHandlingFunction<T> {
+
     return (error: HttpErrorResponse) => {
-      if (this.isClientResolvableError(error)) {
-        const errorSubject: Subject<boolean> = new Subject<boolean>();
-        this.errorSubjects.push(errorSubject);
-        this.showRetryErrorSnackbar();
-
-        return errorSubject.pipe(switchMap(retryFunction));
+      if (!!customHandlerFunction) {
+        return customHandlerFunction(error);
+      } else if (this.isClientResolvableError(error)) {
+        return this.getClientResolvableErrorHandler(retryFunction);
       } else if (this.isUnauthorizedError(error)) {
-        this.authenticationService.logout();
-        this.authenticationService.startLoginProcedure();
-
-        return throwError(error);
+        return this.getUnauthorizedErrorHandler(error);
       } else {
-        this.errors.value.push(error);
-        this.errors.next(this.errors.value);
-        this.showErrorSnackbar();
-
-        this.logErrorIfUserIsSignedIn(error);
-
-        return throwError(error);
+        return this.getNonClientResolvableErrorHandler(error);
       }
     };
+  }
+
+  private getClientResolvableErrorHandler<T>(retryFunction: RetryFunction<T>): ErrorObservable<T> {
+    const errorSubject: Subject<boolean> = new Subject<boolean>();
+    this.errorSubjects.push(errorSubject);
+    this.showRetryErrorSnackbar();
+
+    return errorSubject.pipe(switchMap(retryFunction));
+  }
+
+  private getNonClientResolvableErrorHandler<T>(error: HttpErrorResponse): ErrorObservable<T> {
+    this.errors.value.push(error);
+    this.errors.next(this.errors.value);
+    this.showErrorSnackbar();
+
+    this.logErrorIfUserIsSignedIn(error);
+
+    return throwError(error);
+  }
+
+  private getUnauthorizedErrorHandler<T>(error: HttpErrorResponse): ErrorObservable<T> {
+    this.authenticationService.logout();
+    this.authenticationService.startLoginProcedure();
+
+    return throwError(error);
   }
 
   private showErrorSnackbar(): void {
