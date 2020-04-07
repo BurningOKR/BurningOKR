@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { UserCreationDialogData } from '../create-user-dialog/user-creation-dialog-data';
 import { FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FormGroupTyped } from '../../../../../../../typings';
+import { UserDialogData } from '../user-dialog-data';
 
 interface PasswordForm {
   password1: string;
@@ -19,7 +19,7 @@ export class ResetPasswordDialogComponent {
   passwordForm: FormGroupTyped<PasswordForm>;
 
   constructor(private dialogRef: MatDialogRef<ResetPasswordDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public formData: UserCreationDialogData,
+              @Inject(MAT_DIALOG_DATA) public formData: UserDialogData,
               private formBuilder: FormBuilder) {
     this.passwordForm = this.generateUserEditForm();
     this.passwordForm.setValidators(this.comparisonValidator());

@@ -1,6 +1,6 @@
 <div style="min-width: 500px">
-  <app-dialog-component [title]="title" [formGroup]="userForm" (okEmitter)="saveEmitter.emit(userForm.value)" *ngIf="userForm">
-    <app-user-form [userForm]="userForm" [adminCheckBoxDisabled]="adminCheckBoxDisabled" *ngIf="userForm">
+  <app-dialog-component [title]="formData.title" [formGroup]="userForm" (okEmitter)="onSave()" *ngIf="userForm">
+    <app-user-form [userForm]="userForm" [adminCheckBoxDisabled]="adminCheckBoxDisabled$ | async" *ngIf="userForm">
     </app-user-form>
   </app-dialog-component>
 </div>
