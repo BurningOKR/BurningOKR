@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalUserManagementUser } from '../../user-management.component';
 import { emailAlreadyInUseValidatorFunction } from '../email-already-in-use-validator-function';
 import { LocalUserApiService } from '../../../../../../shared/services/api/local-user-api.service';
+import { combineLatest, Observable, of } from 'rxjs';
+import { shareReplay, switchMap } from 'rxjs/operators';
+import { User } from '../../../../../../shared/model/api/user';
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -13,18 +16,34 @@ import { LocalUserApiService } from '../../../../../../shared/services/api/local
 })
 export class EditUserDialogComponent implements OnInit {
 
-  @ViewChild('canvasElement', {static: true}) canvas;
+  @ViewChild('canvasElement', { static: true }) canvas;
   userForm: FormGroup;
   emailsOfOtherUsers: string[] = [];
+  adminCheckBoxDisabled$: Observable<boolean>;
 
   constructor(private dialogRef: MatDialogRef<EditUserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public formData: EditUserDialogData,
               private formBuilder: FormBuilder,
-              private userService: LocalUserApiService) {}
+              private userService: LocalUserApiService) {
+  }
 
   ngOnInit(): void {
-    this.userService.getUsers$()
-      .subscribe(users => {
+    // Disable Admin Checkbox when the user edits himself and is admin.
+    this.adminCheckBoxDisabled$ = this.userService.getCurrentUser()
+      .pipe(
+        switchMap((user: User) => {
+          if (user.id === this.formData.user.id) {
+            return this.userService.isCurrentUserAdmin$();
+          } else {
+            return of(false);
+          }
+        }),
+        shareReplay()
+      );
+
+    const users$: Observable<User[]> = this.userService.getUsers$();
+    combineLatest([users$, this.adminCheckBoxDisabled$])
+      .subscribe(([users, adminCheckBox]: [User[], boolean]) => {
         for (const user of users) {
           if (user.email !== this.formData.user.email) {
             this.emailsOfOtherUsers.Add(user.email);
