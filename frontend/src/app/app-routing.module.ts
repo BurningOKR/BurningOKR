@@ -33,10 +33,6 @@ const routes: Routes = [
   },
   {path: 'logout', component: LogoutComponent},
   {path: 'error', component: ErrorComponent},
-  {
-    path: 'setup', loadChildren: () => import('./first-boot/first-boot.module')
-      .then(mod => mod.FirstBootModule)
-  },
   {path: '**', redirectTo: ''}
 ];
 
