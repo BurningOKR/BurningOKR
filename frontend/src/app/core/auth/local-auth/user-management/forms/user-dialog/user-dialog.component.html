@@ -3,6 +3,12 @@
     <app-user-form [userForm]="userForm" [adminCheckBoxDisabled]="adminCheckBoxDisabled$ | async" *ngIf="userForm">
     </app-user-form>
     <br>
-    <button mat-button color="primary">Passwort zurücksetzen</button>
+    <button *ngIf="formData.user"
+            class="small-padding mb-10 mt-10"
+            color="primary"
+            i18n="@@resetPassword"
+            mat-button
+    >Passwort zurücksetzen
+    </button>
   </app-dialog-component>
 </div>
