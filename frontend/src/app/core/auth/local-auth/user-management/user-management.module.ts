@@ -17,7 +17,6 @@ import {
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarModule } from 'ngx-avatar';
-import { ResetPasswordDialogComponent } from './forms/reset-password-dialog/reset-password-dialog.component';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
@@ -26,7 +25,6 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
 @NgModule({
   declarations: [
     UserManagementComponent,
-    ResetPasswordDialogComponent,
     UserDialogComponent,
     ImportCsvDialogComponent,
     UserFormComponent
@@ -53,7 +51,6 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
     UserFormComponent
   ],
   entryComponents: [
-    ResetPasswordDialogComponent,
     ImportCsvDialogComponent,
     UserDialogComponent
   ]

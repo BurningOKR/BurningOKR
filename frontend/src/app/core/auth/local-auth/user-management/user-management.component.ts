@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange, MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ResetPasswordDialogComponent } from './forms/reset-password-dialog/reset-password-dialog.component';
 import { User } from '../../../../shared/model/api/user';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { LocalUserApiService } from '../../../../shared/services/api/local-user-api.service';
@@ -185,14 +184,6 @@ export class UserManagementComponent implements OnInit {
       .subscribe((user: LocalUserManagementUser) => {
         this.createNewUser(user); // TODO: Why dont we use an observable here instead of faking an updated user base? /TG 10.03.2020
       });
-  }
-
-  resetUserPassword(user: LocalUserManagementUser): void {
-    this.dialog.open(ResetPasswordDialogComponent, this.getResetPasswordDialogData(user))
-      .afterClosed()
-      .pipe(
-        filter(v => v)
-      );
   }
 
   getConfirmDeactivateDialogData(user: LocalUserManagementUser): { data: { title: string; message: string }; width: string } {

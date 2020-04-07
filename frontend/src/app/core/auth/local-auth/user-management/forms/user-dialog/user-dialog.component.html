@@ -2,5 +2,7 @@
   <app-dialog-component [title]="formData.title" [formGroup]="userForm" (okEmitter)="onSave()" *ngIf="userForm">
     <app-user-form [userForm]="userForm" [adminCheckBoxDisabled]="adminCheckBoxDisabled$ | async" *ngIf="userForm">
     </app-user-form>
+    <br>
+    <button mat-button color="primary">Passwort zurücksetzen</button>
   </app-dialog-component>
 </div>
