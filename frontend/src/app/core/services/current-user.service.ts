@@ -8,11 +8,13 @@ import { Router } from '@angular/router';
 import { shareReplay, tap } from 'rxjs/operators';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { User } from '../../shared/model/api/user';
+import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 
+@Fetchable()
 @Injectable({
   providedIn: 'root'
 })
-export class CurrentUserService {
+export class CurrentUserService implements Fetchable {
   private isAdmin$: Observable<boolean>;
 
   constructor(private oAuthService: OAuthService,
@@ -20,7 +22,7 @@ export class CurrentUserService {
               private configurationManagerService: ConfigurationManagerService,
               private userSettingsManagerService: UserSettingsManagerService,
               private router: Router) {
-    this.initUserAdmin();
+    this.fetchData();
   }
 
   thereIsACurrentUser(): boolean {
@@ -48,14 +50,15 @@ export class CurrentUserService {
     return this.isAdmin$;
   }
 
-  private initUserAdmin(): void {
+  // TODO: Move redirect somewhere else
+  fetchData(): void {
     this.isAdmin$ = this.userApiService.isCurrentUserAdmin$()
       .pipe(
         tap(() => {
           this.configurationManagerService.fetchConfigurations();
           this.userSettingsManagerService.fetchUserSettings$()
             .add(() => {
-              this.redirect(this.userSettingsManagerService.userUserSettings);
+               this.redirect(this.userSettingsManagerService.userUserSettings);
             });
         }),
         shareReplay(1),

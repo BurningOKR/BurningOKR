@@ -5,6 +5,7 @@ import { map, shareReplay, take } from 'rxjs/operators';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
 import { AzureAuthTypeHandlerService } from './auth-type-handler/azure-auth-type-handler.service';
 import { LocalAuthTypeHandlerService } from './auth-type-handler/local-auth-type-handler.service';
+import { FetchingService } from '../../services/fetching-service';
 
 @Injectable()
 export class AuthenticationService {
@@ -12,7 +13,10 @@ export class AuthenticationService {
 
   authTypeHandler: Promise<AuthTypeHandlerBase>;
 
-  constructor(protected oAuthService: OAuthService, private oAuthDetails: OAuthFrontendDetailsService, private injector: Injector) {
+  constructor(protected oAuthService: OAuthService,
+              private oAuthDetails: OAuthFrontendDetailsService,
+              private injector: Injector,
+              private fetchingService: FetchingService) {
     this.oAuthDetails.getAuthConfig$()
       .subscribe(authConfig => {
         this.oAuthService.configure(authConfig);
@@ -53,6 +57,7 @@ export class AuthenticationService {
     return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
       .then(object => {
         authTypeHandler.setupSilentRefresh(this);
+        this.fetchingService.refetchAll();
 
         return object;
       });
