@@ -5,7 +5,7 @@ import { map, shareReplay, take } from 'rxjs/operators';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
 import { AzureAuthTypeHandlerService } from './auth-type-handler/azure-auth-type-handler.service';
 import { LocalAuthTypeHandlerService } from './auth-type-handler/local-auth-type-handler.service';
-import { FetchingService } from '../../services/fetching-service';
+import { FetchingService } from '../../services/fetching.service';
 
 @Injectable()
 export class AuthenticationService {

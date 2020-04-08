@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { UserSettingsMapper } from '../settings/user-settings.mapper';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserSettings } from '../../shared/model/ui/user-settings';
+import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 
+@Fetchable()
 @Injectable({
   providedIn: 'root'
 })
-export class UserSettingsManagerService {
+export class UserSettingsManagerService implements Fetchable {
 
   private _userSettings$: BehaviorSubject<UserSettings>;
 
   constructor(private userSettingsService: UserSettingsMapper) {
-    this.fetchUserSettings$();
   }
 
   get userUserSettings(): UserSettings {
@@ -23,6 +24,10 @@ export class UserSettingsManagerService {
       .subscribe((userSettings: UserSettings) => {
         this._userSettings$ = new BehaviorSubject(userSettings);
       });
+  }
+
+  fetchData(): void {
+    this.fetchUserSettings$();
   }
 
   updateUserSettings(userSettings: UserSettings): Observable<UserSettings> {

@@ -1,4 +1,4 @@
-import { FetchingService } from '../../core/services/fetching-service';
+import { FetchingService } from '../../core/services/fetching.service';
 
 export interface Fetchable {
   fetchData(): void;

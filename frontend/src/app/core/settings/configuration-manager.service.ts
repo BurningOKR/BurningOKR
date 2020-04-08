@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { ConfigurationMapper } from '../../shared/services/mapper/configuration.mapper';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Configuration } from '../../shared/model/ui/configuration';
+import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 
+@Fetchable()
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigurationManagerService {
+export class ConfigurationManagerService implements Fetchable {
 
   private _maxKeyResults$: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>(null);
   private _objectiveProgressGreenYellowThreshold$: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>(null);
@@ -17,7 +19,6 @@ export class ConfigurationManagerService {
   private _emailSubjectForgotPassword$: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>(null);
 
   constructor(private configurationMapperService: ConfigurationMapper) {
-    this.fetchConfigurations();
   }
 
   get maxKeyResult(): Configuration {
@@ -52,7 +53,7 @@ export class ConfigurationManagerService {
     return this._emailSubjectForgotPassword$.getValue();
   }
 
-  fetchConfigurations(): void {
+  fetchData(): void {
     this.fetchMaxKeyResultsConfiguration();
     this.fetchObjectiveProgressGreenYellowThreshold();
     this.fetchObjectiveProgressYellowRedThreshold();
