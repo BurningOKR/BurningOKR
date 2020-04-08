@@ -9,6 +9,8 @@ export class Consts {
   static CURRENCY_EURO = 'EURO'; // TODO: Const to enum?
   static NUMBER_FORMAT_PERCENT = 'PERCENT'; // TODO: Const to enum?
 
+  static MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART = 200; // How often should we ping the server, while its restarting to change config values?
+
   static UNAUTHORIZED_ERROR = 401; // HTTP Error Status Code for unauthorized.
   static CLIENT_RESOLVABLE_ERRORS = [ // HTTP Error Status Codes, that can be resolved by simply retrying.
     0,

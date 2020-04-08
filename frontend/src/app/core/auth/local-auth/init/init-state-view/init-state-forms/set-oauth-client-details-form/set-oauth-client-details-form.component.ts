@@ -20,6 +20,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   eventEmitter: EventEmitter<InitState> = new EventEmitter<InitState>();
   oauthClientDetails: OauthClientDetails = new OauthClientDetails();
   spinnerIsHidden: boolean = true;
+  unsuccessfulPingAttempts: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +47,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   }
 
   private handleSubmitClick(): void {
+    this.unsuccessfulPingAttempts = 0;
     this.toggleLoadingScreen();
     this.changeOauthClientDetailsBasedOnFormData();
     this.initService.postOauthClientDetails$(this.oauthClientDetails)
@@ -76,7 +78,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
 
   private checkIfInitStateHasChanged(initState: InitState): Observable<InitState> {
     if (!!initState) {
-      return this.initService.getInitState$(() => this.checkIfInitStateHasChanged(initState))
+      return this.initService.getInitState$(() => this.handleError(initState))
         .pipe(switchMap(newInitState => {
             if (newInitState.runtimeId !== initState.runtimeId) {
               return of(newInitState);
@@ -87,6 +89,15 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
         );
     } else {
       return throwError('no init state given');
+    }
+  }
+
+  private handleError(initState: InitState): Observable<InitState> {
+    this.unsuccessfulPingAttempts = this.unsuccessfulPingAttempts + 1;
+    if (this.unsuccessfulPingAttempts > Consts.MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART) {
+      return throwError('max ping attempts reached');
+    } else {
+      return this.checkIfInitStateHasChanged(initState);
     }
   }
 
