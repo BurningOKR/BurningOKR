@@ -24,14 +24,6 @@ export class LandingPageRouterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.configurationManagerService.fetchData();
-    this.userSettingsManagerService.fetchUserSettings$()
-      .add(() => {
-        this.redirect();
-      });
-  }
-
-  private redirect(): void {
     this.subscription = this.healthcheckService.isAlive$()
       .pipe(
         switchMap(() => this.companyMapperService.getActiveCompanies$()))
