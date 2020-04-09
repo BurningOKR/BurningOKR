@@ -1,26 +1,25 @@
 import { Injectable, Injector } from '@angular/core';
 import { Fetchable } from '../../shared/decorators/fetchable.decorator';
-
-type FetchableServiceType = (new(...args: any[]) => Fetchable);
+import { TypeOf } from '../../../typings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FetchingService {
 
-  static fetchingServices: FetchableServiceType[] = [];
+  static fetchingServices: TypeOf<Fetchable>[] = [];
 
   constructor(private injector: Injector) {
   }
 
   refetchAll(): void {
-    FetchingService.fetchingServices.forEach((serviceType: FetchableServiceType) => {
+    FetchingService.fetchingServices.forEach((serviceType: TypeOf<Fetchable>) => {
       const service: Fetchable = this.injector.get(serviceType);
       service.fetchData();
     });
   }
 
-  refetchSingle(fetchableService: FetchableServiceType): void {
+  refetchSingle(fetchableService: TypeOf<Fetchable>): void {
     const service: Fetchable = this.injector.get(fetchableService);
     service.fetchData();
   }

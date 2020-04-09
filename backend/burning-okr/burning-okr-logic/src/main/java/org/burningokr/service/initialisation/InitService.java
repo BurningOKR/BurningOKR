@@ -105,6 +105,7 @@ public class InitService {
   }
 
   private InitState nextInitState() throws InvalidInitStateException {
+
     InitState currentInitState = getInitState();
 
     InitStateName nextInitStateName =

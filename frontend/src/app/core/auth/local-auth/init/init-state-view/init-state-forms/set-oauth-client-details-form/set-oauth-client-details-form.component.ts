@@ -40,7 +40,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
       clientId: [this.oauthClientDetails.clientId, [Validators.required]],
       clientSecret: [this.oauthClientDetails.clientSecret, [Validators.required]],
       refreshTokenValidity: [this.oauthClientDetails.refreshTokenValidity,
-                             [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
+        [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
       webServerRedirectUri: [this.oauthClientDetails.webServerRedirectUri, [Validators.required]]
     }) as FormGroupTyped<OauthClientDetails>;
     this.form.disable();
@@ -63,7 +63,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
       });
   }
 
-  disOrEnableForm(): void {
+  toggleForm(): void {
     if (this.form.enabled) {
       this.form.disable();
     } else {

@@ -2,7 +2,7 @@
   <title i18n="@@setOauthClientDetailsInitStateTitle">Tragen Sie die OAuthclient-Details ein</title>
   <p class="tab-subtitle" i18n="@@setOauthClientDetailInitStateSubtitel">Tragen Sie die OAuthclient-Details ein. <br>Dieser Schritt kann übersprungen werden.</p>
   <br>
-  <mat-checkbox class="small-padding" (change)="disOrEnableForm()" i18n="@@onlyDoThisIfYouAreANerdWarning">
+  <mat-checkbox class="small-padding" (change)="toggleForm()" i18n="@@onlyDoThisIfYouAreANerdWarning">
     Formular aktivieren. ⚠ Tun Sie dies nur, wenn Sie wissen, was Sie tun ⚠
   </mat-checkbox>
   <div *ngIf="form">
