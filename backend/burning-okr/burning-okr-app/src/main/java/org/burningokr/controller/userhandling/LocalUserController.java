@@ -116,6 +116,7 @@ public class LocalUserController {
       @Valid @RequestBody ChangePasswordDto changePasswordDto) {
     ChangePasswordData changePasswordData =
         this.changePasswordMapper.mapDtoToEntity(changePasswordDto);
+
     localUserService.changePassword(changePasswordData);
     return ResponseEntity.ok().build();
   }

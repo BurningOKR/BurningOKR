@@ -52,7 +52,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.changeOauthClientDetailsBasedOnFormData();
     this.initService.postOauthClientDetails$(this.oauthClientDetails)
       .pipe(
-        switchMap(initState => this.checkIfInitStateHasChanged(initState))
+        switchMap(initState => this.waitForRestart(initState))
       )
       .subscribe(initState => {
         this.oAuthFrontendDetails.reloadOAuthFrontendDetails();
@@ -76,14 +76,14 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.oauthClientDetails = typedForm.getRawValue();
   }
 
-  private checkIfInitStateHasChanged(initState: InitState): Observable<InitState> {
+  private waitForRestart(initState: InitState): Observable<InitState> {
     if (!!initState) {
       return this.initService.getInitState$(() => this.handleError(initState))
         .pipe(switchMap(newInitState => {
             if (newInitState.runtimeId !== initState.runtimeId) {
               return of(newInitState);
             } else {
-              return this.checkIfInitStateHasChanged(initState);
+              return this.waitForRestart(initState);
             }
           })
         );
@@ -97,7 +97,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     if (this.unsuccessfulPingAttempts > Consts.MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART) {
       return throwError('max ping attempts reached');
     } else {
-      return this.checkIfInitStateHasChanged(initState);
+      return this.waitForRestart(initState);
     }
   }
 
