@@ -20,6 +20,11 @@ export class UserDialogComponent implements OnInit {
   userEmails: string[] = [];
   adminCheckBoxDisabled$: Observable<boolean>;
 
+
+
+
+
+
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public formData: UserDialogData,
               private formBuilder: FormBuilder,
@@ -59,6 +64,10 @@ export class UserDialogComponent implements OnInit {
 
   onSave(): void {
     this.dialogRef.close(this.userForm.value);
+  }
+
+  resetUserPassword(): void {
+
   }
 
   private generateUserEditForm(): FormGroup {
