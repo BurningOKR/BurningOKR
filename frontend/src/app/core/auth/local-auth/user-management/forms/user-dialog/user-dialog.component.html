@@ -4,6 +4,8 @@
     </app-user-form>
     <br>
     <button *ngIf="formData.user"
+            [disabled]="resetPasswordButtonDisabled"
+            (click)="resetUserPassword()"
             class="small-padding mb-10 mt-10"
             color="primary"
             i18n="@@resetPassword"
