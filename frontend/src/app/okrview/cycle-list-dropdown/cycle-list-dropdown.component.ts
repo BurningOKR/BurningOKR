@@ -10,7 +10,6 @@ import { CycleUnit } from '../../shared/model/ui/cycle-unit';
   styleUrls: ['./cycle-list-dropdown.component.scss']
 })
 export class CycleListDropdownComponent implements OnInit, OnDestroy {
-  constructor(private currentOkrViewService: CurrentOkrviewService, private router: Router, private route: ActivatedRoute) {}
 
   cycleListSubscription: Subscription;
   currentCycleSubscription: Subscription;
@@ -18,27 +17,31 @@ export class CycleListDropdownComponent implements OnInit, OnDestroy {
   currentCycle: CycleUnit;
   currentCycleList: CycleUnit[];
 
+  constructor(private currentOkrViewService: CurrentOkrviewService,
+              private router: Router,
+              private route: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
+    this.updateCycleList();
+  }
+
+  updateCycleList(): void {
     this.cycleListSubscription = this.currentOkrViewService.getCurrentCycleList$()
       .subscribe(cycleList => {
-      this.currentCycleList = cycleList.sort((a, b) => {
-        return a.startDate > b.startDate ? -1 : 1;
+        this.currentCycleList = cycleList.sort((a, b) => {
+          return a.startDate > b.startDate ? -1 : 1;
+        });
+        this.removeAllInvisibleCyclesFromCycleList();
       });
-      this.removeAllInvisibleCyclesFromCycleList();
-    });
     this.currentCycleSubscription = this.currentOkrViewService.getCurrentCycle$()
       .subscribe(cycle => {
-      this.currentCycle = cycle;
-    });
+        this.currentCycle = cycle;
+      });
   }
 
   private removeAllInvisibleCyclesFromCycleList(): void {
     this.currentCycleList = this.currentCycleList.filter(cycle => cycle.isVisible);
-  }
-
-  ngOnDestroy(): void {
-    this.cycleListSubscription.unsubscribe();
-    this.currentCycleSubscription.unsubscribe();
   }
 
   onSelectCycle(): void {
@@ -46,4 +49,10 @@ export class CycleListDropdownComponent implements OnInit, OnDestroy {
     this.router.navigate([`../okr/companies/${chosenCompanyId}`], { relativeTo: this.route })
       .catch();
   }
+
+  ngOnDestroy(): void {
+    this.cycleListSubscription.unsubscribe();
+    this.currentCycleSubscription.unsubscribe();
+  }
+
 }

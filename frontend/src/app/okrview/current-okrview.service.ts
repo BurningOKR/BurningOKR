@@ -250,7 +250,7 @@ export class CurrentOkrviewService {
     this.currentDepartmentId = departmentId;
   }
 
-  private fetchNewCycleListForCompanyId(companyId: number): void {
+  fetchNewCycleListForCompanyId(companyId: number): void {
     this.cycleMapperService
       .getCyclesOfCompany(companyId)
       .pipe(take(1))
