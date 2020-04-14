@@ -5,8 +5,20 @@ export interface Fetchable {
   fetchData(): void;
 }
 
-export function Fetchable<T extends TypeOf<Fetchable>>(): (constructor: T) => void {
+export class FetchingServiceData {
+  service: TypeOf<Fetchable>;
+  loginRequired: boolean;
+
+  constructor(service: TypeOf<Fetchable>, loggedIn: boolean = true) {
+    this.service = service;
+    this.loginRequired = loggedIn;
+  }
+}
+
+export function Fetchable<T extends TypeOf<Fetchable>>(loginRequired?: boolean): (constructor: T) => void {
   return function(constructor: T): void {
-    FetchingService.fetchingServices.push(constructor);
+    const data: FetchingServiceData = new FetchingServiceData(constructor, loginRequired);
+
+    FetchingService.fetchingServices.push(data);
   };
 }
