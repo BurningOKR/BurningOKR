@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../../model/api/user';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { AdminUser } from '../../model/api/admin-user';
 
 @Injectable({
   providedIn: 'root'
@@ -60,15 +61,7 @@ export class UserMapper {
 
   addAdmin$(adminToAdd: User): Observable<User> {
     return this.userApiService.addAdmin$(
-      new User(
-        adminToAdd.id,
-        adminToAdd.givenName,
-        adminToAdd.surname,
-        adminToAdd.email,
-        adminToAdd.jobTitle,
-        adminToAdd.department,
-        adminToAdd.photo
-      )
+      new AdminUser( adminToAdd.id)
     );
   }
 

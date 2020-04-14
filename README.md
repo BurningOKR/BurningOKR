@@ -1,6 +1,3 @@
-<p align="center"><b> *** COMING SOON *** </p></b>
-<br></br>
-<p align="center"><b> ***Status of this document: Work in progress*** </p></b>
 
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
@@ -18,7 +15,7 @@ BurningOKR has been developed as a web application with an Angular Frontend and 
 
 ## Software dependencies
 
-### Postgres SQL
+### PostgreSQL
 
 We use Postgres as SQL database for local development. Therefore it is necessary that PostgresSQL is installed locally on the development machines to allow database access.
 
@@ -65,6 +62,8 @@ To open the project in IntelliJ, go to Import Project and select the file build.
 
 If a configuration was not created automatically to start the project in IntelliJ, a gradle configuration must be created. For the grandle project, okr-tool must be selected, and for tasks, bootRun must be entered.
 
+The backend project uses [Project Lombok](https://projectlombok.org). To use Project Lombok in your IDE, please refer to [using Lombok](https://projectlombok.org/setup/overview).
+
 If PostgresSQL has already been successfully installed and configured in the previous step, the Spring Boot Application can now be started.
 
 The REST interfaces are listed under `localhost:8080/swagger-ui.html` and can be called there.
@@ -85,6 +84,10 @@ Thank you to all the people and bots who already contributed to BurningOKR!
 </a>
 
 <br/>
+
+## User Documentation
+
+The current user documentation is available at https://burning-okr.gitbook.io/burningokr
 
 
 ## contact

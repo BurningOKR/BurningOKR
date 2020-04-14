@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class UserFormComponent {
   @Input() userForm: FormGroup;
+  @Input() adminCheckBoxDisabled: boolean;
 
   @ViewChild('canvasElement', {static: false}) canvas;
 

@@ -6,7 +6,7 @@ import { InitService } from '../../../init.service';
 import { OauthClientDetails } from '../../../../../../../shared/model/api/oauth-client-details';
 import { FormGroupTyped } from '../../../../../../../../typings';
 import { Consts } from '../../../../../../../shared/consts';
-import { catchError, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import { OAuthFrontendDetailsService } from '../../../../../services/o-auth-frontend-details.service';
 
@@ -20,6 +20,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   eventEmitter: EventEmitter<InitState> = new EventEmitter<InitState>();
   oauthClientDetails: OauthClientDetails = new OauthClientDetails();
   spinnerIsHidden: boolean = true;
+  unsuccessfulPingAttempts: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,18 +40,19 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
       clientId: [this.oauthClientDetails.clientId, [Validators.required]],
       clientSecret: [this.oauthClientDetails.clientSecret, [Validators.required]],
       refreshTokenValidity: [this.oauthClientDetails.refreshTokenValidity,
-                             [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
+        [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
       webServerRedirectUri: [this.oauthClientDetails.webServerRedirectUri, [Validators.required]]
     }) as FormGroupTyped<OauthClientDetails>;
     this.form.disable();
   }
 
   private handleSubmitClick(): void {
+    this.unsuccessfulPingAttempts = 0;
     this.toggleLoadingScreen();
     this.changeOauthClientDetailsBasedOnFormData();
     this.initService.postOauthClientDetails$(this.oauthClientDetails)
       .pipe(
-        switchMap(initState => this.checkIfInitStateHasChanged(initState))
+        switchMap(initState => this.waitForRestart(initState))
       )
       .subscribe(initState => {
         this.oAuthFrontendDetails.reloadOAuthFrontendDetails();
@@ -61,7 +63,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
       });
   }
 
-  disOrEnableForm(): void {
+  toggleForm(): void {
     if (this.form.enabled) {
       this.form.disable();
     } else {
@@ -74,20 +76,28 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.oauthClientDetails = typedForm.getRawValue();
   }
 
-  private checkIfInitStateHasChanged(initState: InitState): Observable<InitState> {
+  private waitForRestart(initState: InitState): Observable<InitState> {
     if (!!initState) {
-      return this.initService.getInitStateAndBypassErrorHandling$()
+      return this.initService.getInitState$(() => this.handleError(initState))
         .pipe(switchMap(newInitState => {
             if (newInitState.runtimeId !== initState.runtimeId) {
               return of(newInitState);
             } else {
-              return this.checkIfInitStateHasChanged(initState);
+              return this.waitForRestart(initState);
             }
-          }),
-          catchError(() => this.checkIfInitStateHasChanged(initState))
+          })
         );
     } else {
       return throwError('no init state given');
+    }
+  }
+
+  private handleError(initState: InitState): Observable<InitState> {
+    this.unsuccessfulPingAttempts = this.unsuccessfulPingAttempts + 1;
+    if (this.unsuccessfulPingAttempts > Consts.MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART) {
+      return throwError('max ping attempts reached');
+    } else {
+      return this.waitForRestart(initState);
     }
   }
 

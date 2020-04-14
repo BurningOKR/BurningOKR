@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { User, UserId } from '../../model/api/user';
+import { AdminUser } from '../../model/api/admin-user';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class UserApiService {
     return this.api.getData$('admins');
   }
 
-  addAdmin$(adminToAdd: User): Observable<User> {
+  addAdmin$(adminToAdd: AdminUser): Observable<User> {
     return this.api.postData$(`admins`, adminToAdd);
   }
 

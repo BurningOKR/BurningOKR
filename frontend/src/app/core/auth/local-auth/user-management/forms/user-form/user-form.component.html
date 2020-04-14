@@ -61,5 +61,5 @@
            type="text">
   </mat-form-field>
   <mat-checkbox [formControl]="userForm.controls.active" class="small-padding">Aktiviert</mat-checkbox>
-  <mat-checkbox [formControl]="userForm.controls.isAdmin" class="small-padding">Admin</mat-checkbox>
+  <mat-checkbox [formControl]="userForm.controls.isAdmin" [disabled]="adminCheckBoxDisabled" class="small-padding">Admin</mat-checkbox>
 </form>

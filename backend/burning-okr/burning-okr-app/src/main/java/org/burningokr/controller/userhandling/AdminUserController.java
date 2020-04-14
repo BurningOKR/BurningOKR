@@ -2,13 +2,17 @@ package org.burningokr.controller.userhandling;
 
 import java.util.Collection;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.dto.users.AdminUserDto;
+import org.burningokr.dto.users.UserDto;
 import org.burningokr.dto.validators.AdminUserValidator;
 import org.burningokr.exceptions.InvalidDtoException;
+import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.userhandling.AdminUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,28 +22,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestApiController
+@RequiredArgsConstructor
 public class AdminUserController {
 
-  private AuthorizationService authorizationService;
-  private AdminUserService adminUserService;
-  private AdminUserValidator adminUserValidator;
-
-  /**
-   * Initialize AdminUserController.
-   *
-   * @param authorizationService an {@link AuthorizationService} object
-   * @param adminUserService an {@link AdminUserService} object
-   * @param adminUserValidator an {@link AdminUserValidator} object
-   */
-  @Autowired
-  public AdminUserController(
-      AuthorizationService authorizationService,
-      AdminUserService adminUserService,
-      AdminUserValidator adminUserValidator) {
-    this.authorizationService = authorizationService;
-    this.adminUserService = adminUserService;
-    this.adminUserValidator = adminUserValidator;
-  }
+  private final AuthorizationService authorizationService;
+  private final AdminUserService adminUserService;
+  private final AdminUserValidator adminUserValidator;
+  private final DataMapper<AdminUser, AdminUserDto> adminUserMapper;
+  private final DataMapper<User, UserDto> userMapper;
 
   /**
    * API Endpoint to check if the current user is an admin.
@@ -71,9 +61,11 @@ public class AdminUserController {
    */
   @PostMapping("/admins")
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity<User> addAdmin(@RequestBody User user) throws InvalidDtoException {
-    adminUserValidator.validateAdminUserOnAdd(user);
-    return ResponseEntity.ok(adminUserService.addAdmin(user));
+  public ResponseEntity<UserDto> addAdmin(@RequestBody AdminUserDto user)
+      throws InvalidDtoException {
+    AdminUser adminUser = adminUserMapper.mapDtoToEntity(user);
+    adminUserValidator.validateAdminUserOnAdd(adminUser);
+    return ResponseEntity.ok(userMapper.mapEntityToDto(adminUserService.addAdmin(adminUser)));
   }
 
   /**

@@ -1,18 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange, MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { EditUserDialogComponent } from './forms/edit-user-dialog/edit-user-dialog.component';
-import { EditUserDialogData } from './forms/edit-user-dialog/edit-user-dialog-data';
 import { Router } from '@angular/router';
-import { UserCreationDialogData } from './forms/create-user-dialog/user-creation-dialog-data';
-import { CreateUserDialogComponent } from './forms/create-user-dialog/create-user-dialog.component';
-import { ResetPasswordDialogData } from './forms/reset-password-dialog/reset-password-dialog-data';
-import { ResetPasswordDialogComponent } from './forms/reset-password-dialog/reset-password-dialog.component';
 import { User } from '../../../../shared/model/api/user';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { LocalUserApiService } from '../../../../shared/services/api/local-user-api.service';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
+import { UserDialogData } from './forms/user-dialog-data';
+import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -43,7 +39,7 @@ export class UserManagementComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  private getUserCreationDialogData(): { data: UserCreationDialogData } {
+  private getUserCreationDialogData(): { data: UserDialogData } {
     return {
       data: {
         title: 'Benutzer erstellen',
@@ -67,7 +63,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   handleEdit(userToEdit: LocalUserManagementUser): void {
-    this.dialog.open(EditUserDialogComponent, this.getEditDialogData(userToEdit))
+    this.dialog.open(UserDialogComponent, this.getEditDialogData(userToEdit))
       .afterClosed()
       .pipe(
         filter(v => {
@@ -180,7 +176,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   handleCreate(): void {
-    this.dialog.open(CreateUserDialogComponent, this.getUserCreationDialogData())
+    this.dialog.open(UserDialogComponent, this.getUserCreationDialogData())
       .afterClosed()
       .pipe(
         filter(v => v)
@@ -188,14 +184,6 @@ export class UserManagementComponent implements OnInit {
       .subscribe((user: LocalUserManagementUser) => {
         this.createNewUser(user); // TODO: Why dont we use an observable here instead of faking an updated user base? /TG 10.03.2020
       });
-  }
-
-  resetUserPassword(user: LocalUserManagementUser): void {
-    this.dialog.open(ResetPasswordDialogComponent, this.getResetPasswordDialogData(user))
-      .afterClosed()
-      .pipe(
-        filter(v => v)
-      );
   }
 
   getConfirmDeactivateDialogData(user: LocalUserManagementUser): { data: { title: string; message: string }; width: string } {
@@ -221,7 +209,7 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
-  getEditDialogData(user: LocalUserManagementUser): { data: EditUserDialogData } {
+  getEditDialogData(user: LocalUserManagementUser): { data: UserDialogData } {
     return {
       data: {
         title: 'Benutzer bearbeiten',
@@ -230,7 +218,7 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
-  getResetPasswordDialogData(user: LocalUserManagementUser): { data: ResetPasswordDialogData } {
+  getResetPasswordDialogData(user: LocalUserManagementUser): { data: UserDialogData } {
     return {
       data: {
         title: 'Passwort zurücksetzen',

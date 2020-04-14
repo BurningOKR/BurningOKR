@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
+import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.initialisation.InitStateRepository;
@@ -98,12 +99,13 @@ public class InitService {
 
     LocalUser user = ((LocalUserService) userService).createLocalUser(adminUser, false);
     passwordService.setPassword(user, password);
-    adminUserService.addAdmin(user);
+    adminUserService.addAdmin(createAdminUser(user));
 
     return nextInitState();
   }
 
   private InitState nextInitState() throws InvalidInitStateException {
+
     InitState currentInitState = getInitState();
 
     InitStateName nextInitStateName =
@@ -117,5 +119,11 @@ public class InitService {
     if (!checkInitState(initStateName)) {
       throw new InvalidInitStateException("This method is not allowed in the current InitState");
     }
+  }
+
+  private AdminUser createAdminUser(LocalUser user) {
+    AdminUser adminUser = new AdminUser();
+    adminUser.setId(user.getId());
+    return adminUser;
   }
 }
