@@ -2,7 +2,6 @@ package org.burningokr.service.userutil;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.burningokr.properties.AuthentificationProperties;
 import org.burningokr.service.exceptions.AzureApiException;
 import org.junit.Before;
 import org.junit.Test;

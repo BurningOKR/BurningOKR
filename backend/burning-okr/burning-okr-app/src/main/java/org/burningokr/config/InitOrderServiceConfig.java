@@ -1,7 +1,7 @@
 package org.burningokr.config;
 
-import org.burningokr.config.condition.AadCondition;
-import org.burningokr.config.condition.LocalUserCondition;
+import org.burningokr.service.condition.AadCondition;
+import org.burningokr.service.condition.LocalUserCondition;
 import org.burningokr.service.initialisation.AadInitOrderService;
 import org.burningokr.service.initialisation.InitOrderService;
 import org.burningokr.service.initialisation.LocalInitOrderService;

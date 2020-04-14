@@ -1,13 +1,16 @@
-package org.burningokr.properties;
+package org.burningokr.service.userutil;
 
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.burningokr.service.condition.AadCondition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+@Conditional(AadCondition.class)
 @ConfigurationProperties("security.oauth2.client")
 @Component
 @Validated
@@ -28,7 +31,6 @@ public class AuthentificationProperties {
 
   @NotEmpty private String tokenName;
 
-  @NotEmpty
   public String getUserAuthorizationUri() {
     return userAuthorizationUri;
   }

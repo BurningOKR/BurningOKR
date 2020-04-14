@@ -1,6 +1,6 @@
 package org.burningokr.config;
 
-import org.burningokr.config.condition.LocalUserCondition;
+import org.burningokr.service.condition.LocalUserCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;

@@ -7,11 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import org.burningokr.properties.AuthentificationProperties;
+import org.burningokr.service.condition.AadCondition;
+import org.burningokr.service.userutil.AuthentificationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -42,7 +45,7 @@ public class SwaggerConfig {
 
   @Autowired
   public SwaggerConfig(
-      @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+      @Nullable @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
           AuthentificationProperties authentificationProperties) {
     this.authentificationProperties = authentificationProperties;
   }
@@ -81,9 +84,9 @@ public class SwaggerConfig {
         .apis(RequestHandlerSelectors.basePackage("org.burningokr.controller"))
         .paths(PathSelectors.any())
         .build()
-        .apiInfo(apiInfo())
-        .securitySchemes(Collections.singletonList(securityScheme()))
-        .securityContexts(Collections.singletonList(securityContext()));
+        .apiInfo(apiInfo());
+    //        .securitySchemes(Collections.singletonList(securityScheme()))
+    //        .securityContexts(Collections.singletonList(securityContext()));
   }
 
   private ApiInfo apiInfo() {
@@ -103,6 +106,7 @@ public class SwaggerConfig {
    *
    * @return a {@link SecurityConfiguration} object
    */
+  @Conditional(AadCondition.class)
   @Bean
   public SecurityConfiguration security() {
 
