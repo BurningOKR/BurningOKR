@@ -1,5 +1,13 @@
 package org.burningokr.service.configuration;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collections;
+import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.configuration.OAuthFrontendDetails;
 import org.burningokr.repositories.configuration.OAuthFrontendDetailsRepository;
@@ -9,16 +17,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.Arrays;
-import java.util.Collections;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OAuthFrontendDetailsServiceTest {
@@ -37,7 +35,8 @@ public class OAuthFrontendDetailsServiceTest {
   @Test
   public void updateOauthFrontendDetails_updates_details() {
 
-    when(oAuthFrontendDetailsRepository.findAll()).thenReturn(Collections.singletonList(oAuthFrontendDetails));
+    when(oAuthFrontendDetailsRepository.findAll())
+        .thenReturn(Collections.singletonList(oAuthFrontendDetails));
 
     OAuthClientDetails oAuthClientDetails = new OAuthClientDetails();
     oAuthClientDetails.setClientId("test123");
@@ -48,7 +47,8 @@ public class OAuthFrontendDetailsServiceTest {
 
     assertEquals(oAuthClientDetails.getClientId(), oAuthFrontendDetails.getClientId());
     assertEquals(oAuthClientDetails.getClientSecret(), oAuthFrontendDetails.getDummyClientSecret());
-    assertEquals(oAuthClientDetails.getWebServerRedirectUri(), oAuthClientDetails.getWebServerRedirectUri());
+    assertEquals(
+        oAuthClientDetails.getWebServerRedirectUri(), oAuthClientDetails.getWebServerRedirectUri());
   }
 
   @Test
@@ -57,13 +57,16 @@ public class OAuthFrontendDetailsServiceTest {
     oAuthFrontendDetails.setClientId("test");
     oAuthFrontendDetails.setDummyClientSecret("test123");
 
-    when(oAuthFrontendDetailsRepository.findAll()).thenReturn(Collections.singletonList(oAuthFrontendDetails));
+    when(oAuthFrontendDetailsRepository.findAll())
+        .thenReturn(Collections.singletonList(oAuthFrontendDetails));
 
-    OAuthFrontendDetails oAuthFrontendDetailsFromService = oAuthFrontendDetailsService.getOAuthFrontendDetails();
+    OAuthFrontendDetails oAuthFrontendDetailsFromService =
+        oAuthFrontendDetailsService.getOAuthFrontendDetails();
 
     assertEquals(oAuthFrontendDetails.getClientId(), oAuthFrontendDetailsFromService.getClientId());
-    assertEquals(oAuthFrontendDetails.getDummyClientSecret(), oAuthFrontendDetailsFromService.getDummyClientSecret());
-
+    assertEquals(
+        oAuthFrontendDetails.getDummyClientSecret(),
+        oAuthFrontendDetailsFromService.getDummyClientSecret());
   }
 
   @Test
@@ -76,13 +79,16 @@ public class OAuthFrontendDetailsServiceTest {
     oAuthFrontendDetails2.setClientId("test2");
     oAuthFrontendDetails2.setDummyClientSecret("test456");
 
-    when(oAuthFrontendDetailsRepository.findAll()).thenReturn(Arrays.asList(oAuthFrontendDetails, oAuthFrontendDetails2));
+    when(oAuthFrontendDetailsRepository.findAll())
+        .thenReturn(Arrays.asList(oAuthFrontendDetails, oAuthFrontendDetails2));
 
-    OAuthFrontendDetails oAuthFrontendDetailsFromService = oAuthFrontendDetailsService.getOAuthFrontendDetails();
+    OAuthFrontendDetails oAuthFrontendDetailsFromService =
+        oAuthFrontendDetailsService.getOAuthFrontendDetails();
 
     assertEquals(oAuthFrontendDetails.getClientId(), oAuthFrontendDetailsFromService.getClientId());
-    assertEquals(oAuthFrontendDetails.getDummyClientSecret(), oAuthFrontendDetailsFromService.getDummyClientSecret());
-
+    assertEquals(
+        oAuthFrontendDetails.getDummyClientSecret(),
+        oAuthFrontendDetailsFromService.getDummyClientSecret());
   }
 
   @Test
@@ -91,7 +97,8 @@ public class OAuthFrontendDetailsServiceTest {
     when(oAuthFrontendDetailsRepository.findAll()).thenReturn(Collections.emptyList());
 
     try {
-      OAuthFrontendDetails oAuthFrontendDetailsFromService = oAuthFrontendDetailsService.getOAuthFrontendDetails();
+      OAuthFrontendDetails oAuthFrontendDetailsFromService =
+          oAuthFrontendDetailsService.getOAuthFrontendDetails();
       fail();
     } catch (Exception e) {
       assertTrue("Wrong Exception", e instanceof EntityNotFoundException);
