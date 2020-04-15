@@ -10,19 +10,19 @@ import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 })
 export class UserSettingsManagerService implements Fetchable {
 
-  private _userSettings$: BehaviorSubject<UserSettings>;
+  private _userSettings$: BehaviorSubject<UserSettings> = new BehaviorSubject<UserSettings>(null);
 
   constructor(private userSettingsService: UserSettingsMapper) {
   }
 
-  get userUserSettings(): UserSettings {
-    return this._userSettings$.getValue();
+  get userUserSettings$(): Observable<UserSettings> {
+    return this._userSettings$.asObservable();
   }
 
   fetchUserSettings$(): Subscription {
     return this.userSettingsService.getUserSettings$()
       .subscribe((userSettings: UserSettings) => {
-        this._userSettings$ = new BehaviorSubject(userSettings);
+        this._userSettings$.next(userSettings);
       });
   }
 

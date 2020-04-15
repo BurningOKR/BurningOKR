@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
 import { map, shareReplay, take } from 'rxjs/operators';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
@@ -17,12 +17,6 @@ export class AuthenticationService {
               private oAuthDetails: OAuthFrontendDetailsService,
               private injector: Injector,
               private fetchingService: FetchingService) {
-    this.oAuthDetails.getAuthConfig$()
-      .subscribe(authConfig => {
-        this.oAuthService.configure(authConfig);
-        this.oAuthService.setStorage(localStorage);
-        this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
-      });
 
     this.authTypeHandler = this.oAuthDetails.getAuthType$()
       .pipe(
@@ -45,6 +39,19 @@ export class AuthenticationService {
       .toPromise();
   }
 
+  configure(): Promise<AuthConfig> {
+    return new Promise(resolve => {
+      this.oAuthDetails.getAuthConfig$()
+        .subscribe((authConfig: AuthConfig) => {
+          this.oAuthService.configure(authConfig);
+          this.oAuthService.setStorage(localStorage);
+          this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+          this.startLoginProcedure()
+            .then(() => resolve(authConfig));
+        });
+    });
+  }
+
   async startLoginProcedure(): Promise<boolean> {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
@@ -57,6 +64,7 @@ export class AuthenticationService {
     return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
       .then(object => {
         authTypeHandler.setupSilentRefresh(this);
+
         this.fetchingService.refetchAll();
 
         return object;
