@@ -1,5 +1,7 @@
 package org.burningokr.config.swagger;
 
+import java.util.Arrays;
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthFrontendDetails;
 import org.burningokr.service.condition.LocalUserCondition;
@@ -15,9 +17,6 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 @Conditional(LocalUserCondition.class)
 @EnableAutoConfiguration
@@ -38,7 +37,8 @@ public class SwaggerLocalConfig extends SwaggerConfig {
   @Override
   @Bean
   public SecurityConfiguration security() {
-    OAuthFrontendDetails oAuthFrontendDetails = oAuthFrontendDetailsService.getOAuthFrontendDetails();
+    OAuthFrontendDetails oAuthFrontendDetails =
+        oAuthFrontendDetailsService.getOAuthFrontendDetails();
 
     return SecurityConfigurationBuilder.builder()
         .clientId(oAuthFrontendDetails.getClientId())
@@ -57,9 +57,7 @@ public class SwaggerLocalConfig extends SwaggerConfig {
   }
 
   private AuthorizationScope[] scopes() {
-    return new AuthorizationScope[]{
-        new AuthorizationScope("USER", "user")
-    };
+    return new AuthorizationScope[] {new AuthorizationScope("USER", "user")};
   }
 
   private SecurityContext securityContext() {

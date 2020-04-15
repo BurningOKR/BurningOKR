@@ -1,5 +1,6 @@
 package org.burningokr.config.swagger;
 
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.userutil.AuthenticationProperties;
@@ -14,8 +15,6 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
-
-import java.util.*;
 
 @Conditional(AadCondition.class)
 @Configuration
@@ -60,8 +59,8 @@ public class SwaggerAzureConfig extends SwaggerConfig {
   }
 
   private AuthorizationScope[] scopes() {
-    return new AuthorizationScope[]{
-        new AuthorizationScope(authenticationProperties.getScope(), "")
+    return new AuthorizationScope[] {
+      new AuthorizationScope(authenticationProperties.getScope(), "")
     };
   }
 

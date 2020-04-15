@@ -1,5 +1,6 @@
 package org.burningokr.config.swagger;
 
+import java.util.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,8 +13,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.*;
 
 @Configuration
 @EnableSwagger2
@@ -35,8 +34,8 @@ public abstract class SwaggerConfig {
   public abstract SecurityConfiguration security();
 
   /**
-   * Create and configure Docket Bean for Swagger.
-   * This is the base docket, which can be extended by the child classes
+   * Create and configure Docket Bean for Swagger. This is the base docket, which can be extended by
+   * the child classes
    *
    * @return a {@link Docket} object
    */
