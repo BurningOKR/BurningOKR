@@ -38,6 +38,7 @@ public class OAuthFrontendDetailsService {
 
     frontendDetails.setClientId(oauthClientDetails.getClientId());
     frontendDetails.setDummyClientSecret(oauthClientDetails.getClientSecret());
+    frontendDetails.setRedirectUri(oauthClientDetails.getWebServerRedirectUri());
 
     oauthFrontendDetailsRepository.save(frontendDetails);
   }
