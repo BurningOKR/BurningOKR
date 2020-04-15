@@ -6,8 +6,11 @@ export class OauthClientDetails {
   webServerRedirectUri: string = window.location.origin;
 
   private static generateRandomString(): string {
-    return Math.random()
-      .toString(36)
-      .substring(7);
+    return Array(64)
+      .fill(0)
+      .map(() => Math.random()
+        .toString(36)
+        .charAt(2))
+      .join('');
   }
 }
