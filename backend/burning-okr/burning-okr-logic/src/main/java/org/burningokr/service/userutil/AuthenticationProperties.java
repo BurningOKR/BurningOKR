@@ -17,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthentificationProperties {
+public class AuthenticationProperties {
 
   @NotEmpty private String userAuthorizationUri;
 

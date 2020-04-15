@@ -2,7 +2,7 @@ package org.burningokr.config.swagger;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.service.condition.AadCondition;
-import org.burningokr.service.userutil.AuthentificationProperties;
+import org.burningokr.service.userutil.AuthenticationProperties;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -23,7 +23,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SwaggerAzureConfig extends SwaggerConfig {
 
-  private final AuthentificationProperties authentificationProperties;
+  private final AuthenticationProperties authenticationProperties;
 
   @Override
   @Bean
@@ -39,7 +39,7 @@ public class SwaggerAzureConfig extends SwaggerConfig {
     Map<String, Object> queryParams = new HashMap<>();
 
     return SecurityConfigurationBuilder.builder()
-        .clientId(authentificationProperties.getClientId())
+        .clientId(authenticationProperties.getClientId())
         .scopeSeparator(",")
         .useBasicAuthenticationWithAccessCodeGrant(true)
         .additionalQueryStringParams(queryParams)
@@ -49,8 +49,8 @@ public class SwaggerAzureConfig extends SwaggerConfig {
   private SecurityScheme securityScheme() {
     ImplicitGrant implicitGrant =
         new ImplicitGrant(
-            new LoginEndpoint(authentificationProperties.getUserAuthorizationUri()),
-            authentificationProperties.getTokenName());
+            new LoginEndpoint(authenticationProperties.getUserAuthorizationUri()),
+            authenticationProperties.getTokenName());
 
     return new OAuthBuilder()
         .name("spring_oauth")
@@ -61,7 +61,7 @@ public class SwaggerAzureConfig extends SwaggerConfig {
 
   private AuthorizationScope[] scopes() {
     return new AuthorizationScope[]{
-        new AuthorizationScope(authentificationProperties.getScope(), "")
+        new AuthorizationScope(authenticationProperties.getScope(), "")
     };
   }
 

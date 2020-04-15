@@ -22,13 +22,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AzureApiCaller {
 
-  private AuthentificationProperties authentificationProperties;
+  private AuthenticationProperties authenticationProperties;
   private AzureAdProperties azureAdProperties;
 
   @Autowired
   public AzureApiCaller(
-      AuthentificationProperties authentificationProperties, AzureAdProperties azureAdProperties) {
-    this.authentificationProperties = authentificationProperties;
+      AuthenticationProperties authenticationProperties, AzureAdProperties azureAdProperties) {
+    this.authenticationProperties = authenticationProperties;
     this.azureAdProperties = azureAdProperties;
   }
 
@@ -65,8 +65,8 @@ public class AzureApiCaller {
 
       ImmutableMap<String, String> params =
           ImmutableMap.<String, String>builder()
-              .put("client_id", authentificationProperties.getClientId())
-              .put("client_secret", authentificationProperties.getClientSecret())
+              .put("client_id", authenticationProperties.getClientId())
+              .put("client_secret", authenticationProperties.getClientSecret())
               .put("scope", "https://graph.microsoft.com/.default")
               .put("grant_type", "client_credentials")
               .build();
