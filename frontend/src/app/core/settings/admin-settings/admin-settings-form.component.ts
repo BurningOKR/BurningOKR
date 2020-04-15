@@ -85,6 +85,7 @@ export class AdminSettingsFormComponent implements OnInit {
   saveUserSettings(updates$: Observable<UserSettings | Configuration>[]): void {
     updates$.push(this.userSettingsManager.userUserSettings$
       .pipe(
+        take(1),
         switchMap((userSettings: UserSettings) => {
           userSettings.defaultCompanyId = this.userSettingsForm.get('defaultCompanyId').value;
           userSettings.defaultTeamId = this.userSettingsForm.get('defaultTeamId').value;
