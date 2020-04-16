@@ -46,7 +46,7 @@ export class StructureCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.currentUserService
-        .isCurrentUserAdmin()
+        .isCurrentUserAdmin$()
         .pipe(take(1))
         .subscribe((isAdmin: boolean) => {
           this.isCurrentUserAdmin = isAdmin.valueOf();

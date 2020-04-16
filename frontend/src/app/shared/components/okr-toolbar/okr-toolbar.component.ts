@@ -39,8 +39,8 @@ export class OkrToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser$ = this.currentUserService.getCurrentUser();
-    this.isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin();
+    this.currentUser$ = this.currentUserService.getCurrentUser$();
+    this.isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin$();
   }
 
   openVersionChangelog(): void {

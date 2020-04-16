@@ -40,19 +40,20 @@ export class LandingPageRouterComponent implements OnInit, OnDestroy {
           if (uniqueCompanies.length === 1) {
             return of(['/okr/companies/', uniqueCompanies[0].id]);
           } else {
-            return this.userSettingsManagerService.userUserSettings$.pipe(
-              filter((userSettings: UserSettings) => !!userSettings),
-              map((userSettings: UserSettings) => {
-                if (this.isUserHavingNoDefaultTeamButDefaultCompany(userSettings)) {
-                  return [`/okr/companies/`, userSettings.defaultCompanyId];
-                } else if (this.isUserHavingADefaultTeam(userSettings)) {
-                  return [`/okr/departments/`, userSettings.defaultTeamId];
-                } else {
-                  return ['/companies'];
-                }
-              }),
-              take(1)
-            );
+            return this.userSettingsManagerService.getUserSettings$()
+              .pipe(
+                filter((userSettings: UserSettings) => !!userSettings),
+                map((userSettings: UserSettings) => {
+                  if (this.isUserHavingNoDefaultTeamButDefaultCompany(userSettings)) {
+                    return [`/okr/companies/`, userSettings.defaultCompanyId];
+                  } else if (this.isUserHavingADefaultTeam(userSettings)) {
+                    return [`/okr/departments/`, userSettings.defaultTeamId];
+                  } else {
+                    return ['/companies'];
+                  }
+                }),
+                take(1)
+              );
           }
         })
       );

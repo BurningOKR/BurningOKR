@@ -10,7 +10,7 @@ export class AdminRoleGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    this.currentUserService.isCurrentUserAdmin()
+    this.currentUserService.isCurrentUserAdmin$()
       .subscribe((isAdmin: boolean) => {
       if (!isAdmin) {
         this.router.navigate(['/companies']);

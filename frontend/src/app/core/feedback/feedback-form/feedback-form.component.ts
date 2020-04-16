@@ -26,7 +26,7 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.currentUser$ = this.currentUserService.getCurrentUser();
+    this.currentUser$ = this.currentUserService.getCurrentUser$();
     this.feedbackForm$ = this.getFeedbackForm$();
   }
 

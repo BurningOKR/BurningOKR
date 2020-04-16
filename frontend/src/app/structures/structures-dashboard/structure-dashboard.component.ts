@@ -31,10 +31,10 @@ export class StructureDashboardComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.companies$ = this.activeCompaniesService.getCompaniesResult$();
     this.updateCompanies();
-    this.isCurrentUserAdmin = this.currentUserService.isCurrentUserAdmin();
+    this.isCurrentUserAdmin = this.currentUserService.isCurrentUserAdmin$();
 
     // TODO Fix
-    await this.currentUserService.getCurrentUser()
+    await this.currentUserService.getCurrentUser$()
       .toPromise()
       .then(currentUser => this.currentUser = currentUser);
   }
