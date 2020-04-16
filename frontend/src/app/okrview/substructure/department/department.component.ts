@@ -65,7 +65,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     return this.department$
       .pipe(
         switchMap(department => {
-          return this.departmentContextRoleService.getContextRoleForDepartment(department);
+          return this.departmentContextRoleService.getContextRoleForDepartment$(department);
         })
       );
   }
