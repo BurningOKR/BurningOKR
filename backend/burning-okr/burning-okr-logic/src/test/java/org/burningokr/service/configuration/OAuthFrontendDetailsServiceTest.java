@@ -97,8 +97,7 @@ public class OAuthFrontendDetailsServiceTest {
     when(oAuthFrontendDetailsRepository.findAll()).thenReturn(Collections.emptyList());
 
     try {
-      OAuthFrontendDetails oAuthFrontendDetailsFromService =
-          oAuthFrontendDetailsService.getOAuthFrontendDetails();
+      oAuthFrontendDetailsService.getOAuthFrontendDetails();
       fail();
     } catch (Exception e) {
       assertTrue("Wrong Exception", e instanceof EntityNotFoundException);
