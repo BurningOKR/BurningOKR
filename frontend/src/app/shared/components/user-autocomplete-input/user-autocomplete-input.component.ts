@@ -1,6 +1,6 @@
 import { User } from '../../model/api/user';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
 import { UserMapper } from '../../services/mapper/user.mapper';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
@@ -19,19 +19,21 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
 
   inputFormControl = new FormControl();
 
-  userList: User[];
+  userList$: Observable<User[]>;
   filteredUsers$: Observable<User[]>;
   subscriptions: Subscription[] = [];
 
   // Time to wait after new input before calculating the suggestions for autocomplete in ms
   private autoCompleteWaitTime: number = 200;
 
-  constructor(private userMapperService: UserMapper) {}
+  constructor(private userMapperService: UserMapper) {
+  }
 
   ngOnInit(): void {
     this.loadUserListFromService();
     this.setupFormControlAutocomplete();
   }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
     this.subscriptions = [];
@@ -58,41 +60,40 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   }
 
   private loadUserListFromService(): void {
-    this.subscriptions.push(
-      this.userMapperService
-        .getAllUsers$()
-        .pipe(
-          map((users: User[]) =>
-            users.sort((a, b) => {
-              return a.surname < b.surname ? -1 : a.surname === b.surname ? 0 : 1;
-            })
-          )
+    this.userList$ = this.userMapperService
+      .getAllUsers$()
+      .pipe(
+        map((users: User[]) =>
+          users.sort((a, b) => {
+            return a.surname < b.surname ? -1 : a.surname === b.surname ? 0 : 1;
+          })
         )
-        .subscribe((users: User[]) => {
-          this.userList = users;
-        })
-    );
+      );
   }
 
   private setupFormControlAutocomplete(): void {
     this.filteredUsers$ = this.inputFormControl.valueChanges.pipe(
-      filter(value => typeof value === 'string'), // Hacky fix for JS ignoring parameter types
+      filter(value => typeof value === 'string'), // Hacky fix for JS ignoring parameter types // TODO: stop hacky fixing!
       debounceTime(this.autoCompleteWaitTime),
       distinctUntilChanged(),
       startWith(''),
-      map(inputString => this.getFilteredUserList(inputString))
+      switchMap(inputString => this.getFilteredUserList$(inputString))
     );
   }
 
-  private getFilteredUserList(inputString: string): User[] {
+  private getFilteredUserList$(inputString: string): Observable<User[]> {
     const lowerCaseInput: string = inputString.toLowerCase();
 
-    return this.userList.filter(user => {
-      const givenName: string = user.givenName.toLowerCase();
-      const surname: string = user.surname.toLowerCase();
+    return this.userList$.pipe(
+      map((users: User[]) => {
+        return users.filter(user => {
+          const givenName: string = user.givenName.toLowerCase();
+          const surname: string = user.surname.toLowerCase();
 
-      return !this.isUserExcluded(user.id) && (givenName.includes(lowerCaseInput) || surname.includes(lowerCaseInput));
-    });
+          return !this.isUserExcluded(user.id) && (givenName.includes(lowerCaseInput) || surname.includes(lowerCaseInput));
+        });
+      })
+    );
   }
 
   private isUserExcluded(userIdToExlcude: string): boolean {

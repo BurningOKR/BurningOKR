@@ -33,5 +33,4 @@ export class DialogComponent<T> {
   sendOk(): void {
     this.okEmitter.emit(this.formGroup.getRawValue());
   }
-
 }
