@@ -227,7 +227,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
 
   // TODO Fix
   async getCurrentUserIdPromiseFromUserService(): Promise<string> {
-    return this.currentUserService.getCurrentUser()
+    return this.currentUserService.getCurrentUser$()
       .toPromise()
       .then(curreUser => curreUser.id);
   }

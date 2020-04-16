@@ -25,7 +25,7 @@ export class CommentCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUserService.getCurrentUser()
+    this.currentUserService.getCurrentUser$()
       .pipe(
         map((user: User) => {
           return user.id === this.comment.userId;

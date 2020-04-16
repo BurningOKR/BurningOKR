@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserSettingsMapper } from '../settings/user-settings.mapper';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserSettings } from '../../shared/model/ui/user-settings';
 import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 
@@ -10,28 +10,24 @@ import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 })
 export class UserSettingsManagerService implements Fetchable {
 
-  private _userSettings$: BehaviorSubject<UserSettings> = new BehaviorSubject<UserSettings>(null);
+  private userSettings$: BehaviorSubject<UserSettings> = new BehaviorSubject<UserSettings>(null);
 
   constructor(private userSettingsService: UserSettingsMapper) {
   }
 
-  get userUserSettings$(): Observable<UserSettings> {
-    return this._userSettings$.asObservable();
-  }
-
-  fetchUserSettings$(): Subscription {
-    return this.userSettingsService.getUserSettings$()
-      .subscribe((userSettings: UserSettings) => {
-        this._userSettings$.next(userSettings);
-      });
+  getUserSettings$(): Observable<UserSettings> {
+    return this.userSettings$.asObservable();
   }
 
   fetchData(): void {
-    this.fetchUserSettings$();
+    this.userSettingsService.getUserSettings$()
+      .subscribe((userSettings: UserSettings) => {
+        this.userSettings$.next(userSettings);
+      });
   }
 
   updateUserSettings(userSettings: UserSettings): Observable<UserSettings> {
-    this._userSettings$.next(userSettings);
+    this.userSettings$.next(userSettings);
 
     return this.userSettingsService.updateUserSettings$(userSettings);
   }

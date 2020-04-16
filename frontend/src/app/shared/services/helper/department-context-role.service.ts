@@ -31,8 +31,8 @@ export class DepartmentContextRoleService {
 
   getContextRoleForDepartment$(department: DepartmentUnit): Observable<ContextRole> {
     return combineLatest([
-      this.currentUserService.isCurrentUserAdmin(),
-      this.currentUserService.getCurrentUser()
+      this.currentUserService.isCurrentUserAdmin$(),
+      this.currentUserService.getCurrentUser$()
     ])
       .pipe(
         take(1),
@@ -50,7 +50,7 @@ export class DepartmentContextRoleService {
 
   getRoleWithoutContext$(): Observable<ContextRole> {
     return this.currentUserService
-      .isCurrentUserAdmin()
+      .isCurrentUserAdmin$()
       .pipe(
         take(1),
         map((isAdmin: boolean) => {

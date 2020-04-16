@@ -14,7 +14,7 @@ export class UserApiService {
     return this.api.getData$(`users/${objectId}`);
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentUser$(): Observable<User> {
     return this.api.getData$(`users/current`);
   }
 

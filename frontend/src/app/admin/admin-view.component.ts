@@ -45,7 +45,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   private generateUserIdObservable(): Observable<UserId> {
-    return this.currentUserService.getCurrentUser()
+    return this.currentUserService.getCurrentUser$()
       .pipe(
         map((user: User) => {
           return user.id;

@@ -43,7 +43,7 @@ export class AdminSettingsFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin();
+    this._isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin$();
     this.initAdminSettingsForm();
     this.initUserSettingsForm();
     this.companies$ = this.companyService.getActiveCompanies$();
@@ -52,7 +52,7 @@ export class AdminSettingsFormComponent implements OnInit {
   sendOk(): void {
     const updates$: Observable<UserSettings | Configuration>[] = [];
 
-    this.currentUserService.isCurrentUserAdmin()
+    this.currentUserService.isCurrentUserAdmin$()
       .pipe(take(1))
       .subscribe(isAdmin => {
         if (isAdmin) {
@@ -83,7 +83,7 @@ export class AdminSettingsFormComponent implements OnInit {
   }
 
   saveUserSettings(updates$: Observable<UserSettings | Configuration>[]): void {
-    updates$.push(this.userSettingsManager.userUserSettings$
+    updates$.push(this.userSettingsManager.getUserSettings$()
       .pipe(
         take(1),
         switchMap((userSettings: UserSettings) => {
@@ -112,7 +112,8 @@ export class AdminSettingsFormComponent implements OnInit {
   }
 
   private initUserSettingsForm(): void {
-    this.userSettingsManager.userUserSettings$.pipe(filter(value => !!value), take(1))
+    this.userSettingsManager.getUserSettings$()
+      .pipe(filter(value => !!value), take(1))
       .subscribe((userSettings: UserSettings) => {
         this.userSettingsForm = new FormGroup({
           defaultCompanyId: new FormControl(userSettings.defaultCompanyId),

@@ -11,17 +11,17 @@ import { Fetchable } from '../../shared/decorators/fetchable.decorator';
   providedIn: 'root'
 })
 export class CurrentUserService implements Fetchable {
-  private isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isAdmin$: BehaviorSubject<boolean>;
 
   constructor(private oAuthService: OAuthService,
               private userApiService: UserApiService) {
   }
 
-  getCurrentUser(): Observable<User> {
-    return this.userApiService.getCurrentUser();
+  getCurrentUser$(): Observable<User> {
+    return this.userApiService.getCurrentUser$();
   }
 
-  isCurrentUserAdmin(): Observable<boolean> {
+  isCurrentUserAdmin$(): Observable<boolean> {
     return this.isAdmin$.asObservable();
   }
 
