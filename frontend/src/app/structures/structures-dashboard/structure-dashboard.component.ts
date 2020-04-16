@@ -13,12 +13,9 @@ import { filter, switchMap, take } from 'rxjs/operators';
   templateUrl: './structure-dashboard.component.html',
   styleUrls: ['./structure-dashboard.component.scss']
 })
-export class StructureDashboardComponent implements OnInit, OnDestroy {
-  currentUser: User;
+export class StructureDashboardComponent implements OnInit {
   companies$: Observable<CompanyUnit[]>;
-  isCurrentUserAdmin: Observable<boolean>;
-
-  private addCompanySubscription: Subscription;
+  isCurrentUserAdmin$: Observable<boolean>;
 
   constructor(
     private activeCompaniesService: ActiveCompaniesService,
@@ -27,22 +24,9 @@ export class StructureDashboardComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  // TODO: no async on init
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.companies$ = this.activeCompaniesService.getCompaniesResult$();
-    this.updateCompanies();
-    this.isCurrentUserAdmin = this.currentUserService.isCurrentUserAdmin$();
-
-    // TODO Fix
-    await this.currentUserService.getCurrentUser$()
-      .toPromise()
-      .then(currentUser => this.currentUser = currentUser);
-  }
-
-  ngOnDestroy(): void {
-    if (this.addCompanySubscription) {
-      this.addCompanySubscription.unsubscribe();
-    }
+    this.isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin$();
   }
 
   private updateCompanies(): void {
@@ -55,7 +39,8 @@ export class StructureDashboardComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed()
-      .pipe(take(1),
+      .pipe(
+        take(1),
         filter(v => v),
         switchMap(v => v))
       .subscribe(() => {
