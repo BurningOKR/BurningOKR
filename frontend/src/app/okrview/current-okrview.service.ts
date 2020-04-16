@@ -1,24 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
+import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { CompanyMapper } from '../shared/services/mapper/company.mapper';
-import { DepartmentStructureDto } from '../shared/model/api/department-structure.dto';
 import { CycleUnit } from '../shared/model/ui/cycle-unit';
-import { CycleWithHistoryCompany } from '../shared/model/ui/cycle-with-history-company';
 import { DepartmentStructure, DepartmentStructureRole } from '../shared/model/ui/department-structure';
 import { take } from 'rxjs/operators';
 import { CycleMapper } from '../shared/services/mapper/cycle.mapper';
 import { CompanyUnit } from '../shared/model/ui/OrganizationalUnit/company-unit';
 import { DepartmentStructureMapper } from '../shared/services/mapper/department-structure.mapper';
-
-export class DepartmentNavigationInformation {
-  departmentId: number;
-  departmentsToOpen: number[];
-
-  constructor(id: number, departmentsToOpen: number[]) {
-    this.departmentId = id;
-    this.departmentsToOpen = departmentsToOpen;
-  }
-}
+import { CurrentDepartmentStructureService } from './current-department-structure.service';
+import { CurrentNavigationService } from './current-navigation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,30 +23,26 @@ export class CurrentOkrviewService {
 
   currentCompany: CompanyUnit;
   currentDepartmentStructure: DepartmentStructure[];
-  cycleWithHistoryCompany: CycleWithHistoryCompany;
-
   currentCompany$ = new ReplaySubject<CompanyUnit>();
   currentCycle$ = new ReplaySubject<CycleUnit>();
   currentCycleList$ = new ReplaySubject<CycleUnit[]>();
   currentDepartmentStructure$ = new ReplaySubject<DepartmentStructure[]>();
-  currentDepartmentNavigation$ = new BehaviorSubject<DepartmentNavigationInformation>(
-    new DepartmentNavigationInformation(-1, [])
-  );
 
   constructor(
     private departmentStructureMapperService: DepartmentStructureMapper,
     private companyMappersService: CompanyMapper,
-    private cycleMapperService: CycleMapper
+    private cycleMapperService: CycleMapper,
+    private currentDepartmentStructureService: CurrentDepartmentStructureService,
+    private currentNavigationService: CurrentNavigationService
   ) {}
 
   browseCompany(companyId: number): void {
-    this.clearNavigationInformation();
+    this.currentNavigationService.clearDepartmentNavigationInformation();
     if (this.currentCompanyId === companyId) {
       return;
     }
     this.currentCompanyId = companyId;
     this.currentDepartmentId = undefined;
-    this.clearCurrentHard();
     this.fetchNewValuesForCompanyId(companyId);
   }
 
@@ -65,21 +51,7 @@ export class CurrentOkrviewService {
       return;
     }
     this.currentDepartmentId = departmentId;
-    if (!this.isDepartmentInStructure(departmentId, this.currentDepartmentStructure)) {
-      this.clearCurrentHard();
-      this.fetchNewValuesForDepartmentId(departmentId);
-    } else {
-      this.refreshNavigationInformation();
-    }
-  }
-
-  refreshNavigationInformation(): void {
-    const idListToOpen: number[] = this.getDepartmentIdListToReachDepartmentWithId(this.currentDepartmentId);
-    this.currentDepartmentNavigation$.next(new DepartmentNavigationInformation(this.currentDepartmentId, idListToOpen));
-  }
-
-  clearNavigationInformation(): void {
-    this.currentDepartmentNavigation$.next(new DepartmentNavigationInformation(-1, []));
+    this.fetchNewValuesForDepartmentId(departmentId);
   }
 
   clearSubscriptions(): void {
@@ -94,12 +66,6 @@ export class CurrentOkrviewService {
     }
   }
 
-  clearCurrentHard(): void {
-    this.clearSubscriptions();
-    this.currentCompany$.next(undefined);
-    this.currentDepartmentStructure$.next(undefined);
-  }
-
   refreshCurrentDepartmentView(departmentId: number): void {
     this.clearSubscriptions();
     this.fetchNewValuesForDepartmentId(departmentId);
@@ -110,16 +76,8 @@ export class CurrentOkrviewService {
     this.fetchNewValuesForCompanyId(companyId);
   }
 
-  getCurrentDepartmentStructureList$(): Observable<DepartmentStructure[]> {
-    return this.currentDepartmentStructure$;
-  }
-
   getCurrentCompany$(): Observable<CompanyUnit> {
     return this.currentCompany$;
-  }
-
-  getCurrentNavigationInformation$(): Observable<DepartmentNavigationInformation> {
-    return this.currentDepartmentNavigation$;
   }
 
   getCurrentCycleList$(): Observable<CycleUnit[]> {
@@ -128,36 +86,6 @@ export class CurrentOkrviewService {
 
   getCurrentCycle$(): Observable<CycleUnit> {
     return this.currentCycle$;
-  }
-
-  getDepartmentStructureListToReachDepartmentWithId(departmentId: number): DepartmentStructure[] {
-    const departmentStructureList: DepartmentStructure[] = [];
-    this.getDepartmentStructureListToReachDepartmentWithIdRecursive(
-      departmentId,
-      this.currentDepartmentStructure,
-      departmentStructureList
-    );
-
-    return departmentStructureList;
-  }
-
-  private getDepartmentStructureListToReachDepartmentWithIdRecursive(
-    departmentId: number,
-    structure: DepartmentStructure[],
-    structureListToOpen: DepartmentStructure[]
-  ): void {
-    if (structure) {
-      for (const subDepartment of structure) {
-        if (this.isDepartmentInStructure(departmentId, subDepartment.subDepartments)) {
-          structureListToOpen.push(subDepartment);
-          this.getDepartmentStructureListToReachDepartmentWithIdRecursive(
-            departmentId,
-            subDepartment.subDepartments,
-            structureListToOpen
-          );
-        }
-      }
-    }
   }
 
   updateDepartmentStructureTeamRole(departmentId: number, newRole: DepartmentStructureRole): void {
@@ -178,50 +106,14 @@ export class CurrentOkrviewService {
     });
   }
 
-  private getDepartmentIdListToReachDepartmentWithId(departmentId: number): number[] {
-    const departmentStructureList: DepartmentStructure[] = [];
-    this.getDepartmentStructureListToReachDepartmentWithIdRecursive(
-      departmentId,
-      this.currentDepartmentStructure,
-      departmentStructureList
-    );
-    let departmentIdList: number[] = [];
-    if (departmentStructureList) {
-      departmentIdList = departmentStructureList.map(structure => structure.id);
-    }
-
-    return departmentIdList;
-  }
-// TODO: refactor, so that there are at minimum 2 returns
-  private isDepartmentInStructure(departmentId: number, structure: DepartmentStructureDto[]): boolean {
-    if (structure) {
-      for (const subStructure of structure) {
-        if (subStructure.id === departmentId) {
-          return true;
-        } else if (this.isDepartmentInStructure(departmentId, subStructure.subDepartments)) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-  }
-
   private fetchNewValuesForCompanyId(companyId: number): void {
-    this.clearNavigationInformation();
+    this.currentNavigationService.clearDepartmentNavigationInformation();
     this.companySubscription = this.companyMappersService
       .getCompanyById$(companyId)
       .pipe(take(1))
       .subscribe(company => {
         this.currentCompany = company;
         this.currentCompany$.next(company);
-      });
-    this.departmentStructureSubscription = this.departmentStructureMapperService
-      .getDepartmentStructureOfCompany$(companyId)
-      .pipe(take(1))
-      .subscribe(departmentStructure => {
-        this.currentDepartmentStructure = departmentStructure;
-        this.currentDepartmentStructure$.next(departmentStructure);
       });
 
     this.currentCompanyId = companyId;
@@ -238,14 +130,9 @@ export class CurrentOkrviewService {
         this.currentCompany$.next(company);
         this.fetchNewCycleListForCompanyId(company.id);
       });
-    this.departmentStructureSubscription = this.departmentStructureMapperService
-      .getDepartmentStructureOfDepartment$(departmentId)
-      .pipe(take(1))
-      .subscribe(departmentStructure => {
-        this.currentDepartmentStructure = departmentStructure;
-        this.currentDepartmentStructure$.next(departmentStructure);
-        this.refreshNavigationInformation();
-      });
+
+    this.currentDepartmentStructureService.setCurrentDepartmentStructureByDepartmentId(departmentId);
+    this.currentNavigationService.refreshDepartmentNavigationInformation();
 
     this.currentDepartmentId = departmentId;
   }

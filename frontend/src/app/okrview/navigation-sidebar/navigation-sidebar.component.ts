@@ -2,9 +2,12 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
-import { CurrentOkrviewService, DepartmentNavigationInformation } from '../current-okrview.service';
+import { CurrentOkrviewService } from '../current-okrview.service';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DepartmentStructure } from '../../shared/model/ui/department-structure';
+import { CurrentNavigationService } from '../current-navigation.service';
+import { CurrentDepartmentStructureService } from '../current-department-structure.service';
+import { DepartmentNavigationInformation } from '../../shared/model/ui/department-navigation-information';
 
 @Component({
   selector: 'app-navigation-sidebar',
@@ -25,7 +28,9 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private currentOkrViewService: CurrentOkrviewService
+    private currentOkrViewService: CurrentOkrviewService,
+    private currentNavigationService: CurrentNavigationService,
+    private currentDepartmentStructureService: CurrentDepartmentStructureService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -34,9 +39,9 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentCompany$ = this.currentOkrViewService.getCurrentCompany$();
-    this.currentDepartmentStructure$ = this.currentOkrViewService.getCurrentDepartmentStructureList$();
-    this.navigationInformationSubscription = this.currentOkrViewService
-      .getCurrentNavigationInformation$()
+    this.currentDepartmentStructure$ = this.currentDepartmentStructureService.getCurrentDepartmentStructureList$();
+    this.navigationInformationSubscription = this.currentNavigationService
+      .getCurrentDepartmentNavigationInformation$()
       .subscribe(x => (this.currentNavigationInformation = x));
   }
 

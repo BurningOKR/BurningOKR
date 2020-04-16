@@ -15,6 +15,7 @@ import { ExcelMapper } from '../excel-file/excel.mapper';
 import { Observable, ObservableInput, Subscription } from 'rxjs';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { SubstructureFormComponent } from '../substructure/substructure-form/substructure-form.component';
+import { CurrentDepartmentStructureService } from '../current-department-structure.service';
 
 @Component({
   selector: 'app-company',
@@ -35,6 +36,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private currentOkrViewService: CurrentOkrviewService,
+    private currentDepartmentStructureService: CurrentDepartmentStructureService,
     private matDialog: MatDialog,
     private roleService: DepartmentContextRoleService,
     private excelFileService: ExcelMapper
@@ -59,7 +61,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
         .subscribe(currentCycle => (this.cycle = currentCycle))
     );
     this.subscriptions.push(
-      this.currentOkrViewService
+      this.currentDepartmentStructureService
         .getCurrentDepartmentStructureList$()
         .subscribe(structureList => this.calculateMembershipDepartmentIds(structureList))
     );
