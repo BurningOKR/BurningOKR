@@ -29,7 +29,7 @@ export class ContextRole {
 export class DepartmentContextRoleService {
   constructor(private currentUserService: CurrentUserService) {}
 
-  getContextRoleForDepartment(department: DepartmentUnit): Observable<ContextRole> {
+  getContextRoleForDepartment$(department: DepartmentUnit): Observable<ContextRole> {
     return combineLatest([
       this.currentUserService.isCurrentUserAdmin(),
       this.currentUserService.getCurrentUser()
@@ -39,7 +39,7 @@ export class DepartmentContextRoleService {
         map(([isAdmin, currentUser]: [boolean, User]) => {
           const role: ContextRole = new ContextRole();
 
-          role.isAdmin = isAdmin.valueOf();
+          role.isAdmin = isAdmin.valueOf(); // TODO: why valueOf?
           role.isOKRManager = department.okrMasterId === currentUser.id || department.okrTopicSponsorId === currentUser.id;
           role.isOKRMember = department.okrMemberIds.Contains(currentUser.id);
 
@@ -48,15 +48,17 @@ export class DepartmentContextRoleService {
       );
   }
 
-  getRoleWithoutContext(): ContextRole {
-    const role: ContextRole = new ContextRole();
-    this.currentUserService
+  getRoleWithoutContext$(): Observable<ContextRole> {
+    return this.currentUserService
       .isCurrentUserAdmin()
-      .pipe(take(1))
-      .subscribe(isAdmin => {
-        role.isAdmin = isAdmin.valueOf();
-      });
+      .pipe(
+        take(1),
+        map((isAdmin: boolean) => {
+          const role: ContextRole = new ContextRole();
+          role.isAdmin = isAdmin;
 
-    return role;
+          return role;
+        })
+      );
   }
 }

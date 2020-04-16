@@ -12,7 +12,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { DepartmentUnit } from '../../shared/model/ui/OrganizationalUnit/department-unit';
 import { ActivatedRoute } from '@angular/router';
 import { ExcelMapper } from '../excel-file/excel.mapper';
-import { ObservableInput, Subscription } from 'rxjs';
+import { Observable, ObservableInput, Subscription } from 'rxjs';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { SubstructureFormComponent } from '../substructure/substructure-form/substructure-form.component';
 
@@ -27,7 +27,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   cycle: CycleUnit;
 
   subscriptions: Subscription[] = [];
-  currentUserRole: ContextRole = new ContextRole();
+  currentUserRole$: Observable<ContextRole>;
 
   currentlyMemberDepartmentIds: number[] = [];
   currentlyManagerDepartmentIds: number[] = [];
@@ -42,11 +42,12 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.currentUserRole$ = this.roleService.getRoleWithoutContext$();
+
     this.subscriptions.push(
       this.route.paramMap.subscribe(params => {
         this.companyId = +params.get('companyId');
         this.currentOkrViewService.browseCompany(this.companyId);
-        this.currentUserRole = this.roleService.getRoleWithoutContext();
       })
     );
     this.subscriptions.push(

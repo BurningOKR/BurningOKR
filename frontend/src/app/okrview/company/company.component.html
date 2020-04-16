@@ -39,7 +39,7 @@
           <div class="f-3">
             <div class="tab-headline" i18n="@@component_commentViewDialog_subStructure">Unterstrukturen</div>
           </div>
-          <div class="icon-spacer f-1" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
+          <div class="icon-spacer f-1" *ngIf="(currentUserRole$ | async)?.isAtleastAdmin() && !cycle.isCycleClosed()">
             <button mat-mini-fab color="accent" (click)="clickedAddSubDepartment()">
               <mat-icon i18n-matTooltip="@@component_commentViewDialog_defineNewSubstructure" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
             </button>
