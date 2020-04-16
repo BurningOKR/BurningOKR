@@ -6,8 +6,8 @@ import { InitService } from '../../../init.service';
 import { OauthClientDetails } from '../../../../../../../shared/model/api/oauth-client-details';
 import { FormGroupTyped } from '../../../../../../../../typings';
 import { Consts } from '../../../../../../../shared/consts';
-import { switchMap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { filter, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
+import { EMPTY, interval, Observable, throwError } from 'rxjs';
 import { OAuthFrontendDetailsService } from '../../../../../services/o-auth-frontend-details.service';
 
 @Component({
@@ -21,6 +21,8 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   oauthClientDetails: OauthClientDetails = new OauthClientDetails();
   spinnerIsHidden: boolean = true;
   unsuccessfulPingAttempts: number = 0;
+
+  private lastRequestFinished: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +42,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
       clientId: [this.oauthClientDetails.clientId, [Validators.required]],
       clientSecret: [this.oauthClientDetails.clientSecret, [Validators.required]],
       refreshTokenValidity: [this.oauthClientDetails.refreshTokenValidity,
-        [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
+                             [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
       webServerRedirectUri: [this.oauthClientDetails.webServerRedirectUri, [Validators.required]]
     }) as FormGroupTyped<OauthClientDetails>;
     this.form.disable();
@@ -52,7 +54,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.changeOauthClientDetailsBasedOnFormData();
     this.initService.postOauthClientDetails$(this.oauthClientDetails)
       .pipe(
-        switchMap(initState => this.waitForRestart(initState))
+        switchMap(initState => this.waitForRestart$(initState))
       )
       .subscribe(initState => {
         this.oAuthFrontendDetails.reloadOAuthFrontendDetails();
@@ -76,28 +78,50 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.oauthClientDetails = typedForm.getRawValue();
   }
 
-  private waitForRestart(initState: InitState): Observable<InitState> {
+  // the server has to restart to save the new oAuthClientDetails.
+  // pings the server until it gets a valid response
+  private waitForRestart$(initState: InitState): Observable<InitState> {
     if (!!initState) {
-      return this.initService.getInitState$(() => this.handleError(initState))
-        .pipe(switchMap(newInitState => {
-            if (newInitState.runtimeId !== initState.runtimeId) {
-              return of(newInitState);
-            } else {
-              return this.waitForRestart(initState);
-            }
-          })
+      this.lastRequestFinished = true;
+      this.unsuccessfulPingAttempts = 0;
+
+      return interval(Consts.MIN_INTERVAL_BETWEEN_PING_ATTEMPTS)
+        .pipe(
+          filter(() => this.lastRequestFinished),
+          switchMap(() => {
+            this.lastRequestFinished = false;
+
+            return this.pingServerOnce$(initState);
+          }),
+          skipWhile((newInitState: InitState) => !newInitState),
+          take(1)
         );
     } else {
       return throwError('no init state given');
     }
   }
 
-  private handleError(initState: InitState): Observable<InitState> {
+  private pingServerOnce$(initState: InitState): Observable<InitState> {
+    return this.initService.getInitState$(() => this.handleError$())
+      .pipe(
+        tap(() => this.lastRequestFinished = true),
+        map((newInitState: InitState) => {
+          if (newInitState.runtimeId !== initState.runtimeId) {
+            return newInitState;
+          } else {
+            return null;
+          }
+        })
+      );
+  }
+
+  private handleError$(): Observable<never> {
+    this.lastRequestFinished = true;
     this.unsuccessfulPingAttempts = this.unsuccessfulPingAttempts + 1;
     if (this.unsuccessfulPingAttempts > Consts.MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART) {
       return throwError('max ping attempts reached');
     } else {
-      return this.waitForRestart(initState);
+      return EMPTY;
     }
   }
 

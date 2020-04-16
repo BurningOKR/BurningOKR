@@ -4,12 +4,15 @@ export class Consts {
   static SILENT_REFRESH_MULTIPLIER = 0.7; // How long of the access Token validity time to wait, until the token is refreshed.
   static MIN_TOKEN_DURATION = 1; // min access token validity time in seconds
 
+  static MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART = 200; // How often should we ping the server, while its restarting to change config values?
+  static MIN_INTERVAL_BETWEEN_PING_ATTEMPTS = 1000; // Interval in milliseconds, at which the server is pinged, while its restarting to change config values.
+
   static HTTP_ERROR_RESPONSE_WRONG_PASSWORD = 'Wrong Password'; // The http message that is sent by the server, if the password was wrong
+
+  static FETCHING_SERVICE_DEBOUNCE_TIME = 20; // Debounce time to prevent double fetching, when the AuthenticationService initializes and logs in.
 
   static CURRENCY_EURO = 'EURO'; // TODO: Const to enum?
   static NUMBER_FORMAT_PERCENT = 'PERCENT'; // TODO: Const to enum?
-
-  static MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART = 200; // How often should we ping the server, while its restarting to change config values?
 
   static UNAUTHORIZED_ERROR = 401; // HTTP Error Status Code for unauthorized.
   static CLIENT_RESOLVABLE_ERRORS = [ // HTTP Error Status Codes, that can be resolved by simply retrying.

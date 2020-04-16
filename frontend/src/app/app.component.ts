@@ -12,7 +12,12 @@ export class AppComponent {
 
   constructor(private authService: AuthenticationService,
               private fetchingService: FetchingService) {
-    this.fetchingService.refetchAll(); // Initially fetch all data needed
+
+    this.authService.configure()
+      .then(() => {
+        this.fetchingService.refetchAll();
+      });
+
   }
 
   checkIfUserIsLoggedIn(): boolean {

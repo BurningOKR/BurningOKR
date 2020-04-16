@@ -11,7 +11,7 @@ import { DepartmentMapper } from '../../../shared/services/mapper/department.map
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { CompanyUnit } from '../../../shared/model/ui/OrganizationalUnit/company-unit';
 import { Configuration } from '../../../shared/model/ui/configuration';
-import { take } from 'rxjs/operators';
+import { filter, switchMap, take } from 'rxjs/operators';
 import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
 
 @Component({
@@ -83,10 +83,17 @@ export class AdminSettingsFormComponent implements OnInit {
   }
 
   saveUserSettings(updates$: Observable<UserSettings | Configuration>[]): void {
-    const userSettings: UserSettings = this.userSettingsManager.userUserSettings;
-    userSettings.defaultCompanyId = this.userSettingsForm.get('defaultCompanyId').value;
-    userSettings.defaultTeamId = this.userSettingsForm.get('defaultTeamId').value;
-    updates$.push(this.userSettingsManager.updateUserSettings(userSettings));
+    updates$.push(this.userSettingsManager.userUserSettings$
+      .pipe(
+        take(1),
+        switchMap((userSettings: UserSettings) => {
+          userSettings.defaultCompanyId = this.userSettingsForm.get('defaultCompanyId').value;
+          userSettings.defaultTeamId = this.userSettingsForm.get('defaultTeamId').value;
+
+          return this.userSettingsManager.updateUserSettings(userSettings);
+        })
+      )
+    );
   }
 
   closeDialog(): void {
@@ -105,19 +112,22 @@ export class AdminSettingsFormComponent implements OnInit {
   }
 
   private initUserSettingsForm(): void {
-    const userSettings: UserSettings = this.userSettingsManager.userUserSettings;
-    this.userSettingsForm = new FormGroup({
-      defaultCompanyId: new FormControl(userSettings.defaultCompanyId),
-      defaultTeamId: new FormControl(userSettings.defaultTeamId)
-    });
-    this.initDepartmentsForCompany(userSettings.defaultCompanyId);
+    this.userSettingsManager.userUserSettings$.pipe(filter(value => !!value), take(1))
+      .subscribe((userSettings: UserSettings) => {
+        this.userSettingsForm = new FormGroup({
+          defaultCompanyId: new FormControl(userSettings.defaultCompanyId),
+          defaultTeamId: new FormControl(userSettings.defaultTeamId)
+        });
+        this.initDepartmentsForCompany(userSettings.defaultCompanyId);
+      });
+
     this.userSettingsForm.get('defaultCompanyId').valueChanges
       .subscribe(() => {
-      const companyId: number = this.userSettingsForm.get('defaultCompanyId').value;
-      if (companyId !== null) {
-        this.departments$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
-      }
-    });
+        const companyId: number = this.userSettingsForm.get('defaultCompanyId').value;
+        if (companyId !== null) {
+          this.departments$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
+        }
+      });
   }
 
   private initDepartmentsForCompany(companyId: number): void {

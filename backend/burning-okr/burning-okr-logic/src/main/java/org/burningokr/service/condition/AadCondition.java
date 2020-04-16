@@ -1,4 +1,4 @@
-package org.burningokr.config.condition;
+package org.burningokr.service.condition;
 
 import org.burningokr.service.EnvironmentService;
 import org.springframework.context.annotation.Condition;

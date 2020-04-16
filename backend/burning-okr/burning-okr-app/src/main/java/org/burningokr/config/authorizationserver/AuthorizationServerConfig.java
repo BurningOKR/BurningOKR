@@ -3,7 +3,7 @@ package org.burningokr.config.authorizationserver;
 import java.util.Arrays;
 import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.config.condition.LocalUserCondition;
+import org.burningokr.service.condition.LocalUserCondition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;

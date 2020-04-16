@@ -3,13 +3,16 @@ package org.burningokr.service.userutil;
 import java.util.Collection;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.repositories.users.AadUserRepository;
+import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.exceptions.AzureApiException;
 import org.burningokr.service.exceptions.AzureUserFetchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
 
+@Conditional(AadCondition.class)
 @Service
 public class AadUserListUpdater {
 
