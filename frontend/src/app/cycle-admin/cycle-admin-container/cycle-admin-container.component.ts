@@ -29,6 +29,7 @@ export class CycleAdminContainerComponent implements OnInit {
   ngOnInit(): void {
     const companyId: number = Number(this.route.snapshot.paramMap.get('companyId'));
     this.companyService.getCompanyById$(companyId)
+      .pipe(take(1))
       .subscribe(
         (company: CompanyUnit) => {
           this.company = company;

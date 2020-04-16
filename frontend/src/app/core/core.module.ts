@@ -20,6 +20,7 @@ import { FeedbackButtonComponent } from './feedback/feedback-button/feedback-but
 import { FlexModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { LocalAuthModule } from './auth/local-auth/local-auth.module';
+import { LandingPageNavigationComponent } from './landing-page-router/landing-page-navigation.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { LocalAuthModule } from './auth/local-auth/local-auth.module';
     AdminSettingsFormComponent,
     TrackByPropertyPipe,
     VersionFormComponent,
+    LandingPageNavigationComponent,
   ],
   exports: [
     TrackByPropertyPipe,

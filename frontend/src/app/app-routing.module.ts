@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminViewComponent } from './admin/admin-view.component';
-import { LandingPageRouterComponent } from './home_module/landing-page-router/landing-page-router.component';
+import { LandingPageNavigationComponent } from './core/landing-page-router/landing-page-navigation.component';
 import { LogoutComponent } from './core/auth/components/logout/logout.component';
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
@@ -13,12 +13,12 @@ import { LocalGuard } from './core/auth/guards/local.guard';
 
 const routes: Routes = [
   {path: 'redirect', component: RedirectComponent},
-  {path: '', component: LandingPageRouterComponent, canActivate: [AuthGuard]},
+  {path: '', component: LandingPageNavigationComponent, canActivate: [AuthGuard]},
   {path: 'okr', loadChildren: () => import('./okrview/okrview.module')
       .then(mod => mod.OkrviewModule),
    canActivate: [AuthGuard]
   },
-  {path: 'landingpage', component: LandingPageRouterComponent, canActivate: [AuthGuard]},
+  {path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [AuthGuard]},
   {path: 'companies', component: StructureDashboardComponent, canActivate: [AuthGuard]},
   {path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, AdminRoleGuard]},
   {
