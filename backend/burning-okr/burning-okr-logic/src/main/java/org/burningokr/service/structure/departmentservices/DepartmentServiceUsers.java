@@ -3,7 +3,7 @@ package org.burningokr.service.structure.departmentservices;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
-
+import lombok.SneakyThrows;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
@@ -63,7 +63,7 @@ public class DepartmentServiceUsers implements DepartmentService {
   }
 
   @Override
-  public Department updateDepartment(Department updatedDepartment, User user) throws DuplicateTeamMemberException {
+  public Department updateDepartment(Department updatedDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
@@ -74,7 +74,7 @@ public class DepartmentServiceUsers implements DepartmentService {
 
   @Override
   public Department createSubdepartment(
-      Long parentDepartmentId, Department subDepartment, User user) throws DuplicateTeamMemberException {
+      Long parentDepartmentId, Department subDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
@@ -91,7 +91,8 @@ public class DepartmentServiceUsers implements DepartmentService {
     }
   }
 
-  void throwIfDepartmentHasDuplicateTeamMembers(Department departmentToCheck) throws DuplicateTeamMemberException {
+  @SneakyThrows
+  void throwIfDepartmentHasDuplicateTeamMembers(Department departmentToCheck) {
     if (hasDuplicateTeamMembers(departmentToCheck)) {
       throw new DuplicateTeamMemberException("Duplicate Team Members");
     }
@@ -101,9 +102,14 @@ public class DepartmentServiceUsers implements DepartmentService {
     UUID okrMaster = department.getOkrMasterId();
     UUID okrTopicSponsor = department.getOkrTopicSponsorId();
     Collection<UUID> okrMembers = department.getOkrMemberIds();
-    boolean duplicateTeamMember = okrMembers.stream()
-        .anyMatch(member -> Collections.frequency(okrMembers, member) > 1 || member.equals(okrMaster) || member.equals(okrTopicSponsor));
-    boolean sameOkrMasterAndSponsor = okrMaster.equals(okrTopicSponsor);
+    boolean duplicateTeamMember =
+        okrMembers.stream()
+            .anyMatch(
+                member ->
+                    Collections.frequency(okrMembers, member) > 1
+                        || member.equals(okrMaster)
+                        || member.equals(okrTopicSponsor));
+    boolean sameOkrMasterAndSponsor = okrMaster != null && okrMaster.equals(okrTopicSponsor);
     return duplicateTeamMember || sameOkrMasterAndSponsor;
   }
 }

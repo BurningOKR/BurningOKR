@@ -186,7 +186,8 @@ public class DepartmentController {
   @PutMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
   public ResponseEntity<DepartmentDto> updateDepartment(
-      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user) throws DuplicateTeamMemberException {
+      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user)
+      throws DuplicateTeamMemberException {
     DepartmentService departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentMapper.mapDtoToEntity(departmentDto);
@@ -206,7 +207,8 @@ public class DepartmentController {
   @PostMapping("/departments/{departmentId}/subdepartments")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<DepartmentDto> addSubDepartmentToDepartment(
-      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user) throws DuplicateTeamMemberException {
+      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user)
+      throws DuplicateTeamMemberException {
     DepartmentService departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentMapper.mapDtoToEntity(departmentDto);
