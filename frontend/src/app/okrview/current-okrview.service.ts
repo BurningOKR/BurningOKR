@@ -117,6 +117,8 @@ export class CurrentOkrviewService {
       });
 
     this.currentCompanyId = companyId;
+
+    this.currentDepartmentStructureService.setCurrentDepartmentStructureByCompanyId(companyId);
     this.fetchNewCycleListForCompanyId(companyId);
   }
 
