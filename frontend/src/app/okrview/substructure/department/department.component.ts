@@ -18,6 +18,7 @@ import {
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { ExcelMapper } from '../../excel-file/excel.mapper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { CurrentCycleService } from '../../current-cycle.service';
 
 interface DepartmentView {
   cycle: CycleUnit;
@@ -47,6 +48,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private currentOkrViewService: CurrentOkrviewService,
+    private currentCycleService: CurrentCycleService,
     private excelService: ExcelMapper,
     private i18n: I18n
   ) {}
@@ -54,7 +56,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.department$ = this.getDepartment$();
 
-    this.cycle$ = this.currentOkrViewService.getCurrentCycle$();
+    this.cycle$ = this.currentCycleService.getCurrentCycle$();
 
     this.currentUserRole$ = this.getCurrentUserRole$();
 

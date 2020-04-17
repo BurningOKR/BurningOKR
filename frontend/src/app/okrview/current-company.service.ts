@@ -11,7 +11,8 @@ export class CurrentCompanyService {
 
   private currentCompany$: ReplaySubject<CompanyUnit> = new ReplaySubject<CompanyUnit>();
 
-  constructor(private companyMapperService: CompanyMapper) { }
+  constructor(private companyMapperService: CompanyMapper) {
+  }
 
   setCurrentCompanyByCompanyId(companyId: number): void {
     this.companyMapperService
@@ -22,17 +23,13 @@ export class CurrentCompanyService {
       });
   }
 
-  setCurrentCompanyByChildDepartmentId(departmentId: number): Promise<number> { // TODO: Remove Promise when current cycle service is implemented
-    return new Promise<number>(resolve => {
-      this.companyMapperService
-        .getParentCompanyOfDepartment$(departmentId)
-        .pipe(take(1))
-        .subscribe(company => {
-          this.currentCompany$.next(company);
-          resolve(company.id);
-          // this.fetchNewCycleListForCompanyId(company.id); // TODO: Other implementation when current cycle service is implemented
-        });
-    });
+  setCurrentCompanyByChildDepartmentId(departmentId: number): void {
+    this.companyMapperService
+      .getParentCompanyOfDepartment$(departmentId)
+      .pipe(take(1))
+      .subscribe(company => {
+        this.currentCompany$.next(company);
+      });
   }
 
   getCurrentCompany$(): Observable<CompanyUnit> {

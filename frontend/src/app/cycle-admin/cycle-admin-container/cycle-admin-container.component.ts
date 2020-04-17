@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material';
 import { CycleCreationFormComponent } from '../cycle-creation-form/cycle-creation-form.component';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
-import { CurrentOkrviewService } from '../../okrview/current-okrview.service';
 
 @Component({
   selector: 'app-cycle-admin-container',
@@ -22,8 +21,7 @@ export class CycleAdminContainerComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private companyService: CompanyMapper,
-              private cycleCreationDialog: MatDialog,
-              private currentOkrviewService: CurrentOkrviewService) {
+              private cycleCreationDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -55,7 +53,6 @@ export class CycleAdminContainerComponent implements OnInit {
 
   private loadCycles(): void {
     this.cycles$ = this.companyService.getCyclesOfCompanyHistory$(this.company.id);
-    this.currentOkrviewService.fetchNewCycleListForCompanyId(this.company.id);
   }
 
   navigateToCompanies(): void {
