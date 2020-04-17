@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CustomDateAdapterService } from './shared/services/helper/custom-date-adapter.service';
 import { LogoutComponent } from './core/auth/components/logout/logout.component';
-import { HomeModule } from './home_module/home.module';
 import { StructuresModule } from './structures/structures.module';
 import { SharedModule } from './shared/shared.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
@@ -66,7 +65,6 @@ const currentLanguage: string = 'de';
     CoreModule,
     CycleAdminModule,
     FormsModule,
-    HomeModule,
     HttpClientModule,
     LoggerModule.forRoot(loggerConfig),
     MatButtonModule,

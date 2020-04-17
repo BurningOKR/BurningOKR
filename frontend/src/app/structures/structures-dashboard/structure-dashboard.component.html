@@ -5,7 +5,7 @@
 
   <!-- General Buttons -->
   <div class="margin-toolbar item-actions">
-    <button mat-stroked-button (click)="addCompany()" i18n-matTooltip="@@component_structureDashboard_defineNewStructure"  matTooltip="Neue Struktur hinzufügen" [disabled]="!(isCurrentUserAdmin | async)">
+    <button mat-stroked-button (click)="addCompany()" i18n-matTooltip="@@component_structureDashboard_defineNewStructure"  matTooltip="Neue Struktur hinzufügen" [disabled]="!(isCurrentUserAdmin$ | async)">
       <mat-icon>add_circle_outline</mat-icon>
       <span i18n="@@component_structureDashboard_addStructure">Struktur hinzufügen</span>
     </button>
