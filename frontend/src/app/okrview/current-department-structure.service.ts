@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DepartmentStructure } from '../shared/model/ui/department-structure';
+import { DepartmentStructure, DepartmentStructureRole } from '../shared/model/ui/department-structure';
 import { Observable, ReplaySubject } from 'rxjs';
 import { DepartmentStructureDto } from '../shared/model/api/department-structure.dto';
 import { map, take } from 'rxjs/operators';
@@ -31,7 +31,6 @@ export class CurrentDepartmentStructureService {
       .pipe(take(1))
       .subscribe(departmentStructure => {
         this.currentDepartmentStructure$.next(departmentStructure);
-        // this.refreshNavigationInformation();
       });
   }
 
@@ -111,5 +110,33 @@ export class CurrentDepartmentStructureService {
     }
 
     return structureListToOpen;
+  }
+
+  updateDepartmentStructureTeamRole(departmentId: number, newRole: DepartmentStructureRole): void {
+    this.currentDepartmentStructure$.pipe(
+      take(1),
+      map((currentDepartmentStructure: DepartmentStructure[]) => {
+        this.updateDepartmentStructureTeamRoleRecursive(departmentId, newRole, currentDepartmentStructure);
+
+        return currentDepartmentStructure;
+      })
+    )
+      .subscribe((updatedDepartmentStructure: DepartmentStructure[]) => {
+        this.currentDepartmentStructure$.next(updatedDepartmentStructure);
+      });
+  }
+
+  updateDepartmentStructureTeamRoleRecursive(
+    departmentId: number,
+    newRole: DepartmentStructureRole,
+    departmentStructureList: DepartmentStructure[]
+  ): void {
+    departmentStructureList.forEach(structure => {
+      if (structure.id === departmentId) {
+        structure.userRole = newRole;
+      } else {
+        this.updateDepartmentStructureTeamRoleRecursive(departmentId, newRole, structure.subDepartments);
+      }
+    });
   }
 }
