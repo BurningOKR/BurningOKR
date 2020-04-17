@@ -1,5 +1,5 @@
 import { User } from '../../model/api/user';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
@@ -53,6 +53,7 @@ export class OkrToolbarComponent implements OnInit {
 
   routeToCycleAdminPanel(): void {
     this.currentCompanyService.getCurrentCompany$()
+      .pipe(take(1))
       .subscribe((currentCompany: CompanyUnit) => {
         this.router.navigate([`cycle-admin/`, currentCompany.id]);
       });
