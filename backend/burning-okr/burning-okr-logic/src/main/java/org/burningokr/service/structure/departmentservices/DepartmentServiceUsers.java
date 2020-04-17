@@ -3,7 +3,6 @@ package org.burningokr.service.structure.departmentservices;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
-import lombok.SneakyThrows;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
@@ -91,7 +90,6 @@ public class DepartmentServiceUsers implements DepartmentService {
     }
   }
 
-  @SneakyThrows
   void throwIfDepartmentHasDuplicateTeamMembers(Department departmentToCheck) {
     if (hasDuplicateTeamMembers(departmentToCheck)) {
       throw new DuplicateTeamMemberException("Duplicate Team Members");
