@@ -15,6 +15,7 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
+import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.structure.CompanyService;
 import org.burningokr.service.structure.DepartmentServicePicker;
@@ -185,7 +186,7 @@ public class DepartmentController {
   @PutMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
   public ResponseEntity<DepartmentDto> updateDepartment(
-      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user) {
+      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user) throws DuplicateTeamMemberException {
     DepartmentService departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentMapper.mapDtoToEntity(departmentDto);
@@ -205,7 +206,7 @@ public class DepartmentController {
   @PostMapping("/departments/{departmentId}/subdepartments")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<DepartmentDto> addSubDepartmentToDepartment(
-      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user) {
+      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user) throws DuplicateTeamMemberException {
     DepartmentService departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentMapper.mapDtoToEntity(departmentDto);

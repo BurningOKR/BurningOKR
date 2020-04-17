@@ -1,6 +1,9 @@
 package org.burningokr.service.structure.departmentservices;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.UUID;
+
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
@@ -8,6 +11,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.structureutil.ParentService;
@@ -59,7 +63,7 @@ public class DepartmentServiceUsers implements DepartmentService {
   }
 
   @Override
-  public Department updateDepartment(Department updatedDepartment, User user) {
+  public Department updateDepartment(Department updatedDepartment, User user) throws DuplicateTeamMemberException {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
@@ -70,7 +74,7 @@ public class DepartmentServiceUsers implements DepartmentService {
 
   @Override
   public Department createSubdepartment(
-      Long parentDepartmentId, Department subDepartment, User user) {
+      Long parentDepartmentId, Department subDepartment, User user) throws DuplicateTeamMemberException {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
@@ -85,5 +89,21 @@ public class DepartmentServiceUsers implements DepartmentService {
       throw new ForbiddenException(
           "Cannot modify this resource on a Department in a closed cycle.");
     }
+  }
+
+  void throwIfDepartmentHasDuplicateTeamMembers(Department departmentToCheck) throws DuplicateTeamMemberException {
+    if (hasDuplicateTeamMembers(departmentToCheck)) {
+      throw new DuplicateTeamMemberException("Duplicate Team Members");
+    }
+  }
+
+  boolean hasDuplicateTeamMembers(Department department) {
+    UUID okrMaster = department.getOkrMasterId();
+    UUID okrTopicSponsor = department.getOkrTopicSponsorId();
+    Collection<UUID> okrMembers = department.getOkrMemberIds();
+    boolean duplicateTeamMember = okrMembers.stream()
+        .anyMatch(member -> Collections.frequency(okrMembers, member) > 1 || member.equals(okrMaster) || member.equals(okrTopicSponsor));
+    boolean sameOkrMasterAndSponsor = okrMaster.equals(okrTopicSponsor);
+    return duplicateTeamMember || sameOkrMasterAndSponsor;
   }
 }

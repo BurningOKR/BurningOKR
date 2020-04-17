@@ -6,11 +6,16 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.structureutil.ParentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.UUID;
 
 @Service
 public class DepartmentServiceAdmins extends DepartmentServiceManagers {
@@ -40,11 +45,12 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
 
   @Override
   @Transactional
-  public Department updateDepartment(Department updatedDepartment, User user) {
+  public Department updateDepartment(Department updatedDepartment, User user) throws DuplicateTeamMemberException {
     Department referencedDepartment =
         departmentRepository.findByIdOrThrow(updatedDepartment.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
+    throwIfDepartmentHasDuplicateTeamMembers(updatedDepartment);
 
     referencedDepartment.setName(updatedDepartment.getName());
     referencedDepartment.setLabel(updatedDepartment.getLabel());
@@ -90,10 +96,11 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
   @Override
   @Transactional
   public Department createSubdepartment(
-      Long parentDepartmentId, Department subDepartment, User user) {
+      Long parentDepartmentId, Department subDepartment, User user) throws DuplicateTeamMemberException {
     Department parentDepartment = departmentRepository.findByIdOrThrow(parentDepartmentId);
 
     throwIfCycleForDepartmentIsClosed(parentDepartment);
+    throwIfDepartmentHasDuplicateTeamMembers(subDepartment);
 
     subDepartment.setParentStructure(parentDepartment);
 

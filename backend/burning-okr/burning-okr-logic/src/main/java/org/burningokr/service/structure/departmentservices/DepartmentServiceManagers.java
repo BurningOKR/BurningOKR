@@ -7,6 +7,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.structureutil.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,12 @@ public class DepartmentServiceManagers extends DepartmentServiceUsers {
 
   @Override
   @Transactional
-  public Department updateDepartment(Department updatedDepartment, User user) {
+  public Department updateDepartment(Department updatedDepartment, User user) throws DuplicateTeamMemberException {
     Department referencedDepartment =
         departmentRepository.findByIdOrThrow(updatedDepartment.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
+    throwIfDepartmentHasDuplicateTeamMembers(updatedDepartment);
 
     referencedDepartment.setOkrMemberIds(updatedDepartment.getOkrMemberIds());
 
