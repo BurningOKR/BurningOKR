@@ -1,24 +1,21 @@
 package org.burningokr.service.okr.feedback;
 
 import javax.mail.MessagingException;
+
+import lombok.RequiredArgsConstructor;
+import org.burningokr.model.mail.Mail;
 import org.burningokr.service.exceptions.SendingMailFailedException;
-import org.burningokr.service.mail.FeedbackMailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.burningokr.service.mail.MailService;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
+
 @Service
+@RequiredArgsConstructor
 public class FeedbackService {
 
-  private final FeedbackMailService feedbackMailService;
+  private final MailService mailService;
   private final ContactPersonConfiguration contactPersonConfiguration;
-
-  @Autowired
-  public FeedbackService(
-      FeedbackMailService feedbackMailService,
-      ContactPersonConfiguration contactPersonConfiguration) {
-    this.feedbackMailService = feedbackMailService;
-    this.contactPersonConfiguration = contactPersonConfiguration;
-  }
 
   /**
    * Sends Feedback Mail to all configured Contact Persons.
@@ -31,12 +28,35 @@ public class FeedbackService {
         .getContactPersons()
         .forEach(
             contactPerson -> {
+              Mail mail = createFeedbackMail(contactPerson, feedbackSender, feedbackText);
               try {
-                feedbackMailService.sendFeedbackMail(contactPerson, feedbackSender, feedbackText);
-              } catch (MessagingException e) {
+                mailService.sendMail(mail);
+              } catch(MessagingException e) {
                 throw new SendingMailFailedException(
                     "Failed sending mail to " + contactPerson.getEmail());
               }
             });
+  }
+
+  private Mail createFeedbackMail(ContactPersonConfiguration.ContactPerson contactPerson, String feedbackSender, String feedbackText) {
+    Mail mail = new Mail();
+
+    mail.setVariables(getVariablesMap(contactPerson, feedbackSender, feedbackText));
+    mail.setTo(Arrays.asList(contactPerson.getEmail()));
+    mail.setTemplateName("feedback-mail");
+    mail.setFrom("no-reply@okr-tool.com");
+    mail.setSubject("OKR Tool - Feedback");
+    return mail;
+  }
+
+  private Map<String, Object> getVariablesMap(
+      ContactPersonConfiguration.ContactPerson contactPerson,
+      String feedbackSender,
+      String feedbackText) {
+    Map<String, Object> thymeleafVariables = new HashMap<>();
+    thymeleafVariables.put("contactPerson", contactPerson.getName() + ' ' + contactPerson.getSurname());
+    thymeleafVariables.put("feedbackSender", feedbackSender);
+    thymeleafVariables.put("feedbackText", feedbackText);
+    return thymeleafVariables;
   }
 }
