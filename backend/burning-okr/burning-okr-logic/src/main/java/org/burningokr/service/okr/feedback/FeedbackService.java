@@ -1,14 +1,12 @@
 package org.burningokr.service.okr.feedback;
 
+import java.util.*;
 import javax.mail.MessagingException;
-
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.mail.Mail;
 import org.burningokr.service.exceptions.SendingMailFailedException;
 import org.burningokr.service.mail.MailService;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -31,14 +29,17 @@ public class FeedbackService {
               Mail mail = createFeedbackMail(contactPerson, feedbackSender, feedbackText);
               try {
                 mailService.sendMail(mail);
-              } catch(MessagingException e) {
+              } catch (MessagingException e) {
                 throw new SendingMailFailedException(
                     "Failed sending mail to " + contactPerson.getEmail());
               }
             });
   }
 
-  private Mail createFeedbackMail(ContactPersonConfiguration.ContactPerson contactPerson, String feedbackSender, String feedbackText) {
+  private Mail createFeedbackMail(
+      ContactPersonConfiguration.ContactPerson contactPerson,
+      String feedbackSender,
+      String feedbackText) {
     Mail mail = new Mail();
 
     mail.setVariables(getVariablesMap(contactPerson, feedbackSender, feedbackText));
@@ -54,7 +55,8 @@ public class FeedbackService {
       String feedbackSender,
       String feedbackText) {
     Map<String, Object> thymeleafVariables = new HashMap<>();
-    thymeleafVariables.put("contactPerson", contactPerson.getName() + ' ' + contactPerson.getSurname());
+    thymeleafVariables.put(
+        "contactPerson", contactPerson.getName() + ' ' + contactPerson.getSurname());
     thymeleafVariables.put("feedbackSender", feedbackSender);
     thymeleafVariables.put("feedbackText", feedbackText);
     return thymeleafVariables;
