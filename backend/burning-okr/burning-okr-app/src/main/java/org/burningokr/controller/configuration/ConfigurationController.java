@@ -3,7 +3,7 @@ package org.burningokr.controller.configuration;
 import java.util.Collection;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.dto.users.ConfigurationDto;
+import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.users.User;

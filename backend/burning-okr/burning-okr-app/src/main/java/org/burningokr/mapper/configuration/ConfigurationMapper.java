@@ -2,7 +2,7 @@ package org.burningokr.mapper.configuration;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.burningokr.dto.users.ConfigurationDto;
+import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.Configuration;
 import org.slf4j.Logger;
@@ -20,6 +20,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configuration.setId(configurationDto.getId());
     configuration.setName(configurationDto.getName());
     configuration.setValue(configurationDto.getValue());
+    configuration.setType(configurationDto.getType());
     logger.info("Mapped ConfigurationDto (id: )" + configurationDto.getId() + ") to Configuration");
     return configuration;
   }
@@ -30,6 +31,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configurationDto.setId(configuration.getId());
     configurationDto.setName(configuration.getName());
     configurationDto.setValue(configuration.getValue());
+    configurationDto.setType(configuration.getType());
     logger.info("Mapped Configuration (id: )" + configuration.getId() + ") to ConfigurationDto");
     return configurationDto;
   }
