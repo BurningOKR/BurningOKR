@@ -1,6 +1,5 @@
 import { User } from '../../model/api/user';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
-import { CurrentOkrviewService } from '../../../okrview/current-okrview.service';
+import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
@@ -11,6 +10,8 @@ import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/cha
 import { Observable } from 'rxjs';
 import versions from '../../../../../src/_versions';
 import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
+import { CurrentCompanyService } from '../../../okrview/current-company.service';
+import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -28,7 +29,7 @@ export class OkrToolbarComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private currentUserService: CurrentUserService,
-    private currentOkrViewService: CurrentOkrviewService,
+    private currentCompanyService: CurrentCompanyService,
     private oAuthDetails: OAuthFrontendDetailsService
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.getAuthType$()
@@ -51,8 +52,11 @@ export class OkrToolbarComponent implements OnInit {
   }
 
   routeToCycleAdminPanel(): void {
-    const companyId: number = this.currentOkrViewService.currentCompany.id;
-    this.router.navigate([`cycle-admin/`, companyId]);
+    this.currentCompanyService.getCurrentCompany$()
+      .pipe(take(1))
+      .subscribe((currentCompany: CompanyUnit) => {
+        this.router.navigate([`cycle-admin/`, currentCompany.id]);
+      });
   }
 
   openSettings(): void {

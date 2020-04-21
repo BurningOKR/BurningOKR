@@ -3,7 +3,7 @@ package org.burningokr.mapper.configuration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import org.burningokr.dto.users.ConfigurationDto;
+import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.model.configuration.Configuration;
 import org.junit.Assert;
 import org.junit.Before;
@@ -47,6 +47,14 @@ public class ConfigurationMapperTest {
   }
 
   @Test
+  public void mapDtoToEntity_expectTypeIsMapped() {
+    String expectedType = "number";
+    configurationDto.setType(expectedType);
+    configuration = configurationMapper.mapDtoToEntity(configurationDto);
+    Assert.assertEquals(expectedType, configuration.getType());
+  }
+
+  @Test
   public void mapEntityToDto_expectIdIsMapped() {
     Long expectedId = 44L;
     configuration.setId(expectedId);
@@ -68,6 +76,14 @@ public class ConfigurationMapperTest {
     configuration.setValue(expectedValue);
     configurationDto = configurationMapper.mapEntityToDto(configuration);
     Assert.assertEquals(expectedValue, configurationDto.getValue());
+  }
+
+  @Test
+  public void mapEntityToDto_expectTypeIsMapped() {
+    String expectedType = "text";
+    configuration.setType(expectedType);
+    configurationDto = configurationMapper.mapEntityToDto(configuration);
+    Assert.assertEquals(expectedType, configurationDto.getType());
   }
 
   @Test

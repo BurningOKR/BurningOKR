@@ -1,9 +1,9 @@
 import { User } from '../../model/api/user';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators';
 import { UserMapper } from '../../services/mapper/user.mapper';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -21,6 +21,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
 
   userList$: Observable<User[]>;
   filteredUsers$: Observable<User[]>;
+  focusChanged$: Subject<string> = new Subject<string>();
   subscriptions: Subscription[] = [];
 
   // Time to wait after new input before calculating the suggestions for autocomplete in ms
@@ -72,13 +73,17 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   }
 
   private setupFormControlAutocomplete(): void {
-    this.filteredUsers$ = this.inputFormControl.valueChanges.pipe(
-      filter(value => typeof value === 'string'), // Hacky fix for JS ignoring parameter types // TODO: stop hacky fixing!
-      debounceTime(this.autoCompleteWaitTime),
-      distinctUntilChanged(),
-      startWith(''),
-      switchMap(inputString => this.getFilteredUserList$(inputString))
-    );
+    this.filteredUsers$ = merge(this.inputFormControl.valueChanges, this.focusChanged$)
+      .pipe(
+        filter(value => typeof value === 'string'), // Hacky fix for JS ignoring parameter types // TODO: stop hacky fixing!
+        debounceTime(this.autoCompleteWaitTime),
+        startWith(''),
+        switchMap(inputString => this.getFilteredUserList$(inputString))
+      );
+  }
+
+  focusChanged(): void {
+    this.focusChanged$.next(this.inputFormControl.value);
   }
 
   private getFilteredUserList$(inputString: string): Observable<User[]> {

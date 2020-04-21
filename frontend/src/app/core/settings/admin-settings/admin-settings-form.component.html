@@ -28,42 +28,18 @@
       </mat-tab>
       <mat-tab [disabled]="!(isCurrentUserAdmin$ | async)" i18n-label="@@adminSettings" label="Adminverwaltung">
         <form [formGroup]="adminSettingsForm" class="settingsForm">
-          <mat-form-field class="fullWidth">
-            <input formControlName="maxKeyResults"
-                   i18n-placeholder="Placeholder for maximal amount of keyresults per objective@@settingsFormMaxKeyResultsPerObjective"
-                   matInput
-                   placeholder="Maximale Anzahl von KeyResults pro Objective" type="number">
-          </mat-form-field>
-          <mat-form-field class="fullWidth">
-            <input formControlName="objectiveProgressGreenYellowThreshold"
-                   i18n-placeholder="Treshold for objective progress bar (Green/Yellow)@@settingsFormObjectiveBarTresholdGreenYellow"
-                   matInput placeholder="Objective Prognose Schwellenwert (Grün/Gelb)" type="number">
-          </mat-form-field>
-          <mat-form-field class="fullWidth">
-            <input formControlName="objectiveProgressYellowRedThreshold"
-                   i18n-placeholder="Treshold for objective progress bar (Yellow/Red)@@settingsFormObjectiveBarTresholdYellowRed"
-                   matInput placeholder="Objective Prognose Schwellenwert (Gelb/Rot)" type="number">
-          </mat-form-field>
-          <mat-form-field class="fullWidth">
-            <input formControlName="generalFrontendBaseUrl"
-                   i18n-placeholder="the domain of this angular application @@settingsFormGeneralFrontendBaseUrl"
-                   matInput placeholder="Frontend-Baseurl" type="text">
-          </mat-form-field>
-          <mat-form-field class="fullWidth">
-            <input formControlName="emailFrom"
-                   i18n-placeholder="The address, from which emails are sent @@settingsFormGeneralFrontendBaseUrl"
-                   matInput placeholder="Email Adresse des OKR Tools" type="text">
-          </mat-form-field>
-          <mat-form-field class="fullWidth">
-            <input formControlName="emailSubjectNewUser"
-                   i18n-placeholder="the subject of the email, which is sent to new users @@settingsFormGeneralFrontendBaseUrl"
-                   matInput placeholder="Email Betreff für neue Benutzer" type="text">
-          </mat-form-field>
-          <mat-form-field class="fullWidth">
-            <input formControlName="emailSubjectForgotPassword"
-                   i18n-placeholder="the subject of the email, which is sent to users who forgot their password @@settingsFormGeneralFrontendBaseUrl"
-                   matInput placeholder="Email Betreff für die Passwort-Zurücksetzen Email" type="text">
-          </mat-form-field>
+          <ng-container formArrayName="settings">
+            <mat-form-field class="fullWidth" *ngFor="let setting of settings.controls">
+
+              <!-- Intellisense will not work on the controls field -->
+
+              <input [formControl]="setting.controls.value"
+                     matInput
+                     [placeholder]="configurationNames[setting.controls.name.value]"
+                     [disabled]="setting.controls.name.value === 'general_frontend-base-url' && (authType$ | async) === 'azure'"
+                     [type]="setting.controls.type.value">
+            </mat-form-field>
+          </ng-container>
         </form>
       </mat-tab>
     </mat-tab-group>

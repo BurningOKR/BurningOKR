@@ -45,6 +45,7 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
         departmentRepository.findByIdOrThrow(updatedDepartment.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
+    throwIfDepartmentHasDuplicateTeamMembers(updatedDepartment);
 
     referencedDepartment.setName(updatedDepartment.getName());
     referencedDepartment.setLabel(updatedDepartment.getLabel());
@@ -94,6 +95,7 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
     Department parentDepartment = departmentRepository.findByIdOrThrow(parentDepartmentId);
 
     throwIfCycleForDepartmentIsClosed(parentDepartment);
+    throwIfDepartmentHasDuplicateTeamMembers(subDepartment);
 
     subDepartment.setParentStructure(parentDepartment);
 

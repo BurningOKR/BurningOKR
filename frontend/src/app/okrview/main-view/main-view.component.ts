@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationSidebarComponent } from '../navigation-sidebar/navigation-sidebar.component';
-import { CurrentOkrviewService } from '../current-okrview.service';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { Observable } from 'rxjs';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { CurrentCycleService } from '../current-cycle.service';
 
 @Component({
   selector: 'app-main-view',
@@ -21,7 +21,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
-    private currentOkrViewService: CurrentOkrviewService
+    private currentCycleService: CurrentCycleService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -29,7 +29,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.currentCycle$ = this.currentOkrViewService.getCurrentCycle$();
+    this.currentCycle$ = this.currentCycleService.getCurrentCycle$();
   }
 
   ngOnDestroy(): void {

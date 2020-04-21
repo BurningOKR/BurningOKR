@@ -11,6 +11,7 @@ import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { DepartmentStructure } from '../../../shared/model/ui/department-structure';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CompanyStructure } from '../../../shared/model/ui/OrganizationalUnit/company-structure';
+import { CurrentDepartmentStructureService } from '../../current-department-structure.service';
 
 interface ObjectiveFormData {
   objective?: ViewObjective;
@@ -48,10 +49,12 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<ObjectiveFormComponent>,
     private objectiveMapper: ObjectiveViewMapper,
     private currentOkrViewService: CurrentOkrviewService,
+    private currentDepartmentStructureService: CurrentDepartmentStructureService,
     private i18n: I18n,
     private controlHelperService: ControlHelperService,
     @Inject(MAT_DIALOG_DATA) private formData: ObjectiveFormData
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.objectiveForm = new FormGroup({
@@ -132,18 +135,19 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  // TODO: Subscribe in Subscribe -> Bad Practice
   fetchParentObjectives(departmentId: number): void {
-    const departmentList: DepartmentStructure[] =
-      this.currentOkrViewService.getDepartmentStructureListToReachDepartmentWithId(departmentId);
-    const parentDepartmentObjectives: DepartmentObjectiveStructure[] = [];
-    departmentList.forEach(currentStructure => {
-      this.subscriptions.push(
-        this.objectiveMapper.getObjectivesForDepartment$(currentStructure.id)
-          .subscribe(objectiveList => {
-          parentDepartmentObjectives.push(new DepartmentObjectiveStructure(currentStructure, objectiveList));
-          this.parentElements$.next(parentDepartmentObjectives);
-        })
-      );
-    });
+    this.subscriptions.push(this.currentDepartmentStructureService.getDepartmentStructureListToReachDepartmentWithId$(departmentId)
+      .subscribe((departmentList: DepartmentStructure[]) => {
+        const parentDepartmentObjectives: DepartmentObjectiveStructure[] = [];
+        departmentList.forEach(currentStructure => {
+          this.objectiveMapper.getObjectivesForDepartment$(currentStructure.id)
+            .subscribe(objectiveList => {
+              parentDepartmentObjectives.push(new DepartmentObjectiveStructure(currentStructure, objectiveList));
+              this.parentElements$.next(parentDepartmentObjectives);
+            });
+        });
+      })
+    );
   }
 }

@@ -1,5 +1,4 @@
 // BASIC TYPES DEFINED IN @angular/forms + rxjs/Observable
-import { InitStateFormComponent } from './app/core/auth/local-auth/init/init-state-view/init-state-forms/init-state-form/init-state-form.component';
 
 type FormGroup = import('@angular/forms').FormGroup;
 type FormArray = import('@angular/forms').FormArray;
@@ -117,3 +116,4 @@ interface FormArrayTyped<T> extends FormArray {
 }
 
 export type TypeOf<T> = new (...args: any[]) => T;
+export type RouterParams = (string | number)[];

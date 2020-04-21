@@ -7,7 +7,6 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { CurrentOkrviewService } from '../../../current-okrview.service';
 import { ContextRole } from '../../../../shared/services/helper/department-context-role.service';
 import { DepartmentUnit } from '../../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
@@ -16,6 +15,7 @@ import { CurrentUserService } from '../../../../core/services/current-user.servi
 import { DepartmentStructureRole } from '../../../../shared/model/ui/department-structure';
 import { User } from '../../../../shared/model/api/user';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { CurrentDepartmentStructureService } from '../../../current-department-structure.service';
 
 @Component({
   selector: 'app-department-tab-team',
@@ -35,7 +35,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   constructor(
     private departmentMapperService: DepartmentMapper,
     private currentUserService: CurrentUserService,
-    private currentOkrViewService: CurrentOkrviewService,
+    private currentDepartmentStructureService: CurrentDepartmentStructureService,
     private matDialog: MatDialog,
     private i18n: I18n
   ) {}
@@ -215,7 +215,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
       newRole = DepartmentStructureRole.USER;
     }
 
-    this.currentOkrViewService.updateDepartmentStructureTeamRole(this.department.id, newRole);
+    this.currentDepartmentStructureService.updateDepartmentStructureTeamRole(this.department.id, newRole);
   }
 
   querySaveTeam(): void {

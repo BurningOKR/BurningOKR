@@ -18,4 +18,6 @@ public class Configuration implements Trackable<Long> {
   private String name;
 
   private String value;
+
+  private String type;
 }

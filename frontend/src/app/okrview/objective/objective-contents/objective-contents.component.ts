@@ -11,6 +11,7 @@ import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { KeyResultFormComponent } from '../../keyresult/key-result-form/key-result-form.component';
 import { ObservableInput, Subscription } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Configuration } from '../../../shared/model/ui/configuration';
 
 @Component({
   selector: 'app-objective-contents',
@@ -24,9 +25,13 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
 
   @Output() objectiveProgressChanged: EventEmitter<number> = new EventEmitter();
 
-  subscription: Subscription;
+  keyResultMapperSubscription: Subscription;
+  configurationSubscription: Subscription;
+
   parentObjective: ViewObjective;
   keyResultList: ViewKeyResult[];
+
+  maxKeyResults: number;
 
   constructor(
     private objectiveMapperService: ObjectiveViewMapper,
@@ -36,22 +41,24 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  get maxKeyResults(): number {
-    return +this.configurationManagerService.maxKeyResult.value;
-  }
-
   ngOnInit(): void {
-    this.subscription = this.keyResultMapper.getKeyResultsForObjective(this.objective.id)
+    this.keyResultMapperSubscription = this.keyResultMapper.getKeyResultsForObjective(this.objective.id)
         .subscribe(newKeyResultList => {
         this.keyResultList = newKeyResultList;
         this.updateVisualKeyResultProgressTotals();
+      });
+
+    this.configurationSubscription = this.configurationManagerService.getMaxKeyResults$()
+      .subscribe((maxKeyResults: Configuration) => {
+        this.maxKeyResults = +maxKeyResults.value;
       });
 
     this.refreshParentObjective();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.keyResultMapperSubscription.unsubscribe();
+    this.configurationSubscription.unsubscribe();
   }
 
   // --

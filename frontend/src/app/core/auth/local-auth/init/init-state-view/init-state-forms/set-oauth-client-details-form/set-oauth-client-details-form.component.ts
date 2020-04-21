@@ -9,6 +9,8 @@ import { Consts } from '../../../../../../../shared/consts';
 import { filter, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 import { EMPTY, interval, Observable, throwError } from 'rxjs';
 import { OAuthFrontendDetailsService } from '../../../../../services/o-auth-frontend-details.service';
+import { MatSnackBar } from '@angular/material';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-set-oauth-client-details-form',
@@ -24,10 +26,24 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
 
   private lastRequestFinished: boolean = true;
 
+  private timeoutErrorMessage: string = this.i18n({
+    id: 'initOauthClientDetailsUpdateTimeoutMessage',
+    description: 'error text when the timeout is reached for updating the oauthclientdetails',
+    value: 'Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.'
+  });
+
+  private timeoutErrorMessageAction: string = this.i18n({
+    id: 'initOauthClientDetailsUpdateTimeoutAction',
+    description: 'action button for the snackbar',
+    value: 'Ok'
+  });
+
   constructor(
     private formBuilder: FormBuilder,
     private initService: InitService,
-    private oAuthFrontendDetails: OAuthFrontendDetailsService
+    private oAuthFrontendDetails: OAuthFrontendDetailsService,
+    private snackBar: MatSnackBar,
+    private i18n: I18n
   ) {
     super();
   }
@@ -62,6 +78,8 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
         this.toggleLoadingScreen();
       }, () => {
         this.toggleLoadingScreen();
+        this.snackBar.open(this.timeoutErrorMessage, this.timeoutErrorMessageAction,
+          {panelClass: 'api-error-snackbar', verticalPosition: 'top'});
       });
   }
 

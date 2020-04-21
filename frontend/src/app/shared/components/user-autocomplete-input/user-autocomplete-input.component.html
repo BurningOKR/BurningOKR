@@ -9,6 +9,7 @@
       aria-label="Benutzer Eingabe"
       [matAutocomplete]="auto"
       [formControl]="inputFormControl"
+      (focus)="focusChanged()"
     />
     <mat-autocomplete
       autoActiveFirstOption

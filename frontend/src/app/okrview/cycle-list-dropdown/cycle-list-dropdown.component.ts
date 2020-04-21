@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CurrentOkrviewService } from '../current-okrview.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
+import { CurrentCycleService } from '../current-cycle.service';
 
 @Component({
   selector: 'app-cycle-list-dropdown',
@@ -17,7 +17,7 @@ export class CycleListDropdownComponent implements OnInit, OnDestroy {
   currentCycle: CycleUnit;
   currentCycleList: CycleUnit[];
 
-  constructor(private currentOkrViewService: CurrentOkrviewService,
+  constructor(private currentCycleService: CurrentCycleService,
               private router: Router,
               private route: ActivatedRoute
   ) {}
@@ -27,14 +27,14 @@ export class CycleListDropdownComponent implements OnInit, OnDestroy {
   }
 
   updateCycleList(): void {
-    this.cycleListSubscription = this.currentOkrViewService.getCurrentCycleList$()
+    this.cycleListSubscription = this.currentCycleService.getCurrentCycleList$()
       .subscribe(cycleList => {
         this.currentCycleList = cycleList.sort((a, b) => {
           return a.startDate > b.startDate ? -1 : 1;
         });
         this.removeAllInvisibleCyclesFromCycleList();
       });
-    this.currentCycleSubscription = this.currentOkrViewService.getCurrentCycle$()
+    this.currentCycleSubscription = this.currentCycleService.getCurrentCycle$()
       .subscribe(cycle => {
         this.currentCycle = cycle;
       });

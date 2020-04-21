@@ -1,4 +1,4 @@
-package org.burningokr.dto.users;
+package org.burningokr.dto.configuration;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,4 +16,6 @@ public class ConfigurationDto {
   @NotNull
   @Size(max = 255)
   private String value;
+
+  private String type;
 }

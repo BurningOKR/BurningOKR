@@ -5,4 +5,5 @@ export interface ConfigurationDto {
   id: ConfigurationId;
   name: string;
   value: ConfigurationValue;
+  type: string;
 }

@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CurrentOkrviewService, DepartmentNavigationInformation } from '../current-okrview.service';
 import { Subscription } from 'rxjs';
 import { DepartmentStructure, DepartmentStructureRole } from '../../shared/model/ui/department-structure';
+import { CurrentNavigationService } from '../current-navigation.service';
+import { DepartmentNavigationInformation } from '../../shared/model/ui/department-navigation-information';
 
 @Component({
   selector: 'app-navigation-list-entry',
@@ -17,14 +18,14 @@ export class NavigationListEntryComponent implements OnInit, OnDestroy {
   navigationInformationSubscription: Subscription;
   isOpen = false;
 
-  constructor(private currentOkrViewService: CurrentOkrviewService) {}
+  constructor(private currentNavigationService: CurrentNavigationService) {}
 
   ngOnInit(): void {
     if (this.startsOpen) {
       this.isOpen = true;
     }
-    this.navigationInformationSubscription = this.currentOkrViewService
-      .getCurrentNavigationInformation$()
+    this.navigationInformationSubscription = this.currentNavigationService
+      .getCurrentDepartmentNavigationInformation$()
       .subscribe(x => {
         this.currentNavigationInformation = x;
         if (!(this.currentNavigationInformation.departmentsToOpen.indexOf(this.structure.id) !== -1)) {
