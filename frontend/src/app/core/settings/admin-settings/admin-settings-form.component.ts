@@ -187,7 +187,8 @@ export class AdminSettingsFormComponent implements OnInit {
               return new FormGroup({
                 id: new FormControl(configuration.id),
                 name: new FormControl(configuration.name),
-                value: new FormControl(configuration.value, [Validators.required])
+                value: new FormControl(configuration.value, [Validators.required]),
+                type: new FormControl(configuration.type)
               });
             })
             .sort((a: FormGroup, b: FormGroup) => +a.controls.id.value - +b.controls.id.value);

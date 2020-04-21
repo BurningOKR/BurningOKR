@@ -14,14 +14,15 @@ export class ConfigurationMapper {
   }
 
   static mapToConfiguration(configuration: ConfigurationDto): Configuration {
-    return new Configuration(configuration.id, configuration.name, configuration.value);
+    return new Configuration(configuration.id, configuration.name, configuration.value, configuration.type);
   }
 
   static mapToConfigurationApi(configuration: Configuration): ConfigurationDto {
     return {
       id: configuration.id,
       name: configuration.name,
-      value: configuration.value
+      value: configuration.value,
+      type: configuration.type
     };
   }
 

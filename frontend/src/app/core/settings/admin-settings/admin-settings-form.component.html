@@ -37,7 +37,7 @@
                      matInput
                      [placeholder]="configurationNames[setting.controls.name.value]"
                      [disabled]="setting.controls.name.value === 'general_frontend-base-url' && (authType$ | async) === 'azure'"
-                     type="text">
+                     [type]="setting.controls.type.value">
             </mat-form-field>
           </ng-container>
         </form>
