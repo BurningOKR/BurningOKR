@@ -46,7 +46,6 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
 
-
     referencedDepartment.setName(updatedDepartment.getName());
     referencedDepartment.setLabel(updatedDepartment.getLabel());
     referencedDepartment.setOkrMasterId(updatedDepartment.getOkrMasterId());

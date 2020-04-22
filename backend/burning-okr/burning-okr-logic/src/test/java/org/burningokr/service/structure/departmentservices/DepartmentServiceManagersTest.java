@@ -17,7 +17,6 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.junit.Assert;
@@ -215,9 +214,4 @@ public class DepartmentServiceManagersTest {
     verify(departmentRepository).save(originalDepartment);
     Assert.assertEquals(saveCallReturnedDepartment, actualDepartment);
   }
-
-
-
-
-
 }
