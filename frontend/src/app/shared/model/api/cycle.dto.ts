@@ -1,6 +1,5 @@
 import { CycleState } from '../ui/cycle-unit';
-
-export type CycleId = number;
+import { CycleId } from '../id-types';
 
 export interface CycleDto {
   id?: CycleId;

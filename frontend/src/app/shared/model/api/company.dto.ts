@@ -1,8 +1,4 @@
-import { DepartmentId } from './department.dto';
-import { ObjectiveId } from './objective.dto';
-import { CycleId } from './cycle.dto';
-
-export type CompanyId = number;
+import { CompanyId, CycleId, DepartmentId, ObjectiveId } from '../id-types';
 
 export interface CompanyDto {
   structureId?: CompanyId;

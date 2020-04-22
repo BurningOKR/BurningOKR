@@ -1,4 +1,4 @@
-import { DepartmentId } from '../api/department.dto';
+import { DepartmentId } from '../id-types';
 
 export enum DepartmentStructureRole {
   USER = 'USER',

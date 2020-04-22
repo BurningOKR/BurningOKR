@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
-import { CycleDto, CycleId } from '../../model/api/cycle.dto';
+import { CycleDto } from '../../model/api/cycle.dto';
+import { CycleId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'

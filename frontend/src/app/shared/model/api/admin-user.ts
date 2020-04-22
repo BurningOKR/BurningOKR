@@ -1,4 +1,4 @@
-import { UserId } from './user';
+import { UserId } from '../id-types';
 
 export class AdminUser {
   id: UserId;

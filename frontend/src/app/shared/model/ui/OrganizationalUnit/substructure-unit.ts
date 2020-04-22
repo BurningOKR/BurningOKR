@@ -1,5 +1,5 @@
 import { CompanyStructure } from './company-structure';
-import { UserId } from '../../api/user';
+import { UserId } from '../../id-types';
 
 export class DepartmentUnit extends CompanyStructure {
   subDepartmentIds: number[];

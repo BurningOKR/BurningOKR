@@ -1,4 +1,4 @@
-export type ObjectiveId = number;
+import { ObjectiveId } from '../id-types';
 
 export interface ObjectiveDto {
   id?: ObjectiveId;

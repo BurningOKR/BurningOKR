@@ -1,5 +1,4 @@
-export type ConfigurationId = number;
-export type ConfigurationValue = string;
+import { ConfigurationId, ConfigurationValue } from '../id-types';
 
 export interface ConfigurationDto {
   id: ConfigurationId;

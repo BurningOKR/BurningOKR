@@ -1,5 +1,5 @@
 import { DepartmentStructureRole } from '../ui/department-structure';
-import { DepartmentId } from './department.dto';
+import { DepartmentId } from '../id-types';
 
 export interface DepartmentStructureDto {
   id: DepartmentId;

@@ -61,7 +61,7 @@ export class UserMapper {
 
   addAdmin$(adminToAdd: User): Observable<User> {
     return this.userApiService.addAdmin$(
-      new AdminUser( adminToAdd.id)
+      new AdminUser(adminToAdd.id)
     );
   }
 

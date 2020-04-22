@@ -1,4 +1,4 @@
-import { User, UserId } from '../shared/model/api/user';
+import { User } from '../shared/model/api/user';
 import { UserMapper } from '../shared/services/mapper/user.mapper';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -13,6 +13,7 @@ import {
 import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { UserApiService } from '../shared/services/api/user-api.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { UserId } from '../shared/model/id-types';
 
 @Component({
   selector: 'app-admin-view',
@@ -135,12 +136,12 @@ export class AdminViewComponent implements OnInit {
   }
 
   queryAdminDeletion(adminToDelete: User): void {
-      this.userMapperService
-        .deleteAdmin$(adminToDelete.id)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.onAdminDeleted(adminToDelete);
-        });
+    this.userMapperService
+      .deleteAdmin$(adminToDelete.id)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.onAdminDeleted(adminToDelete);
+      });
   }
 
   onAdminDeleted(deletedAdmin: User): void {

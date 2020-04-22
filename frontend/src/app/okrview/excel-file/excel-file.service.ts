@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DepartmentId } from '../../shared/model/api/department.dto';
 import { Observable } from 'rxjs';
 import { Consts } from '../../shared/consts';
+import { DepartmentId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'

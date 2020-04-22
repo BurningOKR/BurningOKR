@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { KeyResultDto } from '../../model/api/key-result.dto';
 import { ViewKeyResult } from '../../model/ui/view-key-result';
 import { KeyResultApiService } from '../api/key-result-api.service';
-import { ObjectiveId } from '../../model/api/objective.dto';
+import { ObjectiveId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'

@@ -3,10 +3,9 @@ import { Observable } from 'rxjs';
 import { CompanyApiService } from '../api/company-api.service';
 import { DepartmentApiService } from '../api/department-api.service';
 import { map } from 'rxjs/operators';
-import { DepartmentId } from '../../model/api/department.dto';
-import { CompanyId } from '../../model/api/company.dto';
 import { DepartmentStructureDto } from '../../model/api/department-structure.dto';
 import { DepartmentStructure } from '../../model/ui/department-structure';
+import { CompanyId, DepartmentId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
