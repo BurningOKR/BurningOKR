@@ -1,5 +1,5 @@
 import { User } from '../shared/model/api/user';
-import { UserMapper } from '../shared/services/mapper/user.mapper';
+import { UserService } from '../shared/services/mapper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class AdminViewComponent implements OnInit {
 
   constructor(
     private userApiService: UserApiService,
-    private userMapperService: UserMapper,
+    private userMapperService: UserService,
     private currentUserService: CurrentUserService,
     private matDialog: MatDialog,
     private router: Router,

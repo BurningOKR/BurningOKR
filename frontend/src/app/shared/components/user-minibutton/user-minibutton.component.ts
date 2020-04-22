@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../model/api/user';
-import { UserMapper } from '../../services/mapper/user.mapper';
+import { UserService } from '../../services/mapper/user.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ export class UserMinibuttonComponent implements OnInit {
   user$: Observable<User>;
 
   constructor(
-    private userMapperService: UserMapper) {
+    private userMapperService: UserService) {
   }
 
   ngOnInit(): void {

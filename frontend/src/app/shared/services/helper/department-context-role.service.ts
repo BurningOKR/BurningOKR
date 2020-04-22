@@ -39,7 +39,7 @@ export class DepartmentContextRoleService {
         map(([isAdmin, currentUser]: [boolean, User]) => {
           const role: ContextRole = new ContextRole();
 
-          role.isAdmin = isAdmin.valueOf(); // TODO: why valueOf?
+          role.isAdmin = isAdmin;
           role.isOKRManager = department.okrMasterId === currentUser.id || department.okrTopicSponsorId === currentUser.id;
           role.isOKRMember = department.okrMemberIds.Contains(currentUser.id);
 

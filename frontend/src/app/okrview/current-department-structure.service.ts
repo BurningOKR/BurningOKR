@@ -47,13 +47,10 @@ export class CurrentDepartmentStructureService {
     return this.currentDepartmentStructure$;
   }
 
-  // TODO: refactor, so that there are at minimum 2 returns
   private isDepartmentInStructure(departmentId: number, structure: DepartmentStructureDto[]): boolean {
     if (structure) {
       for (const subStructure of structure) {
-        if (subStructure.id === departmentId) {
-          return true;
-        } else if (this.isDepartmentInStructure(departmentId, subStructure.subDepartments)) {
+        if (subStructure.id === departmentId || this.isDepartmentInStructure(departmentId, subStructure.subDepartments)) {
           return true;
         }
       }
