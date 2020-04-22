@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit {
-  errors: Observable<HttpErrorResponse[]>;
+  errors$: Observable<HttpErrorResponse[]>;
   userIsLoggedIn: boolean = false;
 
   constructor(
@@ -22,13 +22,13 @@ export class ErrorComponent implements OnInit {
     private authentificationService: AuthenticationService,
     private location: Location
   ) {
-    this.errors = this.api.getErrors$();
+    this.errors$ = this.api.getErrors$();
   }
 
   ngOnInit(): void {
     this.userIsLoggedIn = this.authentificationService.hasValidAccessToken();
 
-    this.errors
+    this.errors$
       .pipe(
         take(1)
       )

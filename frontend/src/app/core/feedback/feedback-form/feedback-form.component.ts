@@ -6,8 +6,8 @@ import { User } from '../../../shared/model/api/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentUserService } from '../../services/current-user.service';
 import { NEVER, Observable } from 'rxjs';
-import { FeedbackMapper } from '../feedback.mapper';
 import { map, take } from 'rxjs/operators';
+import { FeedbackApiService } from '../../../shared/services/api/feedback-api.service';
 
 @Component({
   selector: 'app-feedback-form',
@@ -20,7 +20,7 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
   currentUser$: Observable<User>;
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<object>>,
-              private feedbackMapper: FeedbackMapper,
+              private feedbackApiService: FeedbackApiService,
               private controlHelperService: ControlHelperService,
               private currentUserService: CurrentUserService) {
   }
@@ -39,7 +39,7 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
     const name: string = formRawValue.name;
     this.dialogRef.afterClosed()
       .subscribe(_ => {
-      this.feedbackMapper.postFeedback$(feedbackText, name)
+      this.feedbackApiService.postFeedback$(feedbackText, name)
         .pipe(take(1))
         .subscribe();
     });
