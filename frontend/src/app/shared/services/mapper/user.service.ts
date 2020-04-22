@@ -9,7 +9,7 @@ import { AdminUser } from '../../model/api/admin-user';
 @Injectable({
   providedIn: 'root'
 })
-export class UserMapper {
+export class UserService {
 // TODO: After the removal of the view-user-type, transform user mapper service to a user service
   constructor(private userApiService: UserApiService) {
   }
@@ -41,21 +41,9 @@ export class UserMapper {
       this.users$ = new BehaviorSubject<User[]>([]);
       this.userApiService
         .getUsers$()
-        .pipe(
-          map((users: User[]) => {
-            return users;
-          }))
         .subscribe(u => this.users$.next(u));
 
       return this.users$;
-    }
-  }
-
-  getUsers$(): Observable<User[]> {
-    if (this.users$) {
-      return this.users$.asObservable();
-    } else {
-      return this.getAllUsers$();
     }
   }
 
