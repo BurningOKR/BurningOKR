@@ -10,8 +10,8 @@ import { DepartmentStructureMapper } from '../shared/services/mapper/department-
 })
 export class CurrentDepartmentStructureService {
 
-  private currentDepartmentStructure$: ReplaySubject<DepartmentStructure[]> = new ReplaySubject<DepartmentStructure[]>();
-  private currentDepartmentId$: ReplaySubject<number> = new ReplaySubject<number>();
+  private currentDepartmentStructure$: ReplaySubject<DepartmentStructure[]> = new ReplaySubject<DepartmentStructure[]>(1);
+  private currentDepartmentId$: ReplaySubject<number> = new ReplaySubject<number>(1);
 
   constructor(private departmentStructureMapperService: DepartmentStructureMapper) {
   }

@@ -3,7 +3,7 @@ import { User } from '../../../shared/model/api/user';
 import { ItemHelperService } from './item-helper.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentOkrviewService } from '../../current-okrview.service';
-import { NEVER, Subject, Subscription } from 'rxjs';
+import { forkJoin, NEVER, Observable, Subject, Subscription } from 'rxjs';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
@@ -12,6 +12,7 @@ import { DepartmentStructure } from '../../../shared/model/ui/department-structu
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CompanyStructure } from '../../../shared/model/ui/OrganizationalUnit/company-structure';
 import { CurrentDepartmentStructureService } from '../../current-department-structure.service';
+import { map, switchMap } from 'rxjs/operators';
 
 interface ObjectiveFormData {
   objective?: ViewObjective;
@@ -135,19 +136,27 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  // TODO: Subscribe in Subscribe -> Bad Practice
   fetchParentObjectives(departmentId: number): void {
-    this.subscriptions.push(this.currentDepartmentStructureService.getDepartmentStructureListToReachDepartmentWithId$(departmentId)
-      .subscribe((departmentList: DepartmentStructure[]) => {
-        const parentDepartmentObjectives: DepartmentObjectiveStructure[] = [];
-        departmentList.forEach(currentStructure => {
-          this.objectiveMapper.getObjectivesForDepartment$(currentStructure.id)
-            .subscribe(objectiveList => {
-              parentDepartmentObjectives.push(new DepartmentObjectiveStructure(currentStructure, objectiveList));
-              this.parentElements$.next(parentDepartmentObjectives);
-            });
-        });
-      })
-    );
+    this.currentDepartmentStructureService.getDepartmentStructureListToReachDepartmentWithId$(departmentId)
+      .pipe(
+        switchMap((departmentList: DepartmentStructure[]) => {
+          return this.getDepartmentObjectiveStructuresForDepartments$(departmentList);
+        })
+      )
+      .subscribe((departmentObjectiveStructures: DepartmentObjectiveStructure[]) => {
+        this.parentElements$.next(departmentObjectiveStructures);
+      });
+  }
+
+  private getDepartmentObjectiveStructuresForDepartments$(departmentList: DepartmentStructure[]):
+    Observable<DepartmentObjectiveStructure[]> {
+    return forkJoin(departmentList.map(currentStructure => {
+      return this.objectiveMapper.getObjectivesForDepartment$(currentStructure.id)
+        .pipe(
+          map((objectiveList: ViewObjective[]) => {
+            return new DepartmentObjectiveStructure(currentStructure, objectiveList);
+          })
+        );
+    }));
   }
 }

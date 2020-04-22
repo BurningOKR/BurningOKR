@@ -40,7 +40,6 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-    this.navigationInformationSubscription.unsubscribe();
   }
 
   toggleOpenSideNav(): void {

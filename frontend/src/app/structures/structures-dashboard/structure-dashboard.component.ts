@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CurrentUserService } from '../../core/services/current-user.service';
-import { ActiveCompaniesService } from './active-companies.service';
-import { User } from '../../shared/model/api/user';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StructureFormComponent } from '../structure-form/structure-form.component';
 import { filter, switchMap, take } from 'rxjs/operators';
+import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 
 @Component({
   selector: 'app-structures-dashboard',
@@ -18,19 +17,19 @@ export class StructureDashboardComponent implements OnInit {
   isCurrentUserAdmin$: Observable<boolean>;
 
   constructor(
-    private activeCompaniesService: ActiveCompaniesService,
     private currentUserService: CurrentUserService,
-    private companyFormDialog: MatDialog
+    private companyFormDialog: MatDialog,
+    private companyMapperService: CompanyMapper
   ) {
   }
 
   ngOnInit(): void {
-    this.companies$ = this.activeCompaniesService.getCompaniesResult$();
     this.isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin$();
+    this.updateCompanies();
   }
 
   private updateCompanies(): void {
-    this.activeCompaniesService.triggerCompaniesUpdate();
+    this.companies$ = this.companyMapperService.getActiveCompanies$();
   }
 
   addCompany(): void {
