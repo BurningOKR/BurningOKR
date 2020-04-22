@@ -9,8 +9,7 @@ import { User } from '../../../../shared/model/api/user';
 })
 export class DepartmentTeamNewUserComponent {
   @ViewChild('inputForm', { static: false }) inputForm: UserAutocompleteInputComponent;
-  @Input()
-  usersIdsToExclude: string[];
+
   @Input()
   inputPlaceholderText: string;
 

@@ -38,7 +38,6 @@ public class DepartmentServiceManagers extends DepartmentServiceUsers {
         departmentRepository.findByIdOrThrow(updatedDepartment.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
-    throwIfDepartmentHasDuplicateTeamMembers(updatedDepartment);
 
     referencedDepartment.setOkrMemberIds(updatedDepartment.getOkrMemberIds());
 
