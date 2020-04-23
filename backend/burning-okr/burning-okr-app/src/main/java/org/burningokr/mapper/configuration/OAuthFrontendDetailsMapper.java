@@ -148,7 +148,12 @@ public class OAuthFrontendDetailsMapper
   }
 
   private boolean stringToBoolean(String string) {
-    return string.equals("true");
+    if (string != null) {
+      return string.equals("true");
+    } else {
+      return false;
+    }
+
   }
 
   private String booleanToString(Boolean bool) {
