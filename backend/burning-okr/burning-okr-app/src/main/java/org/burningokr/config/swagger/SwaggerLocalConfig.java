@@ -3,22 +3,18 @@ package org.burningokr.config.swagger;
 import java.util.Arrays;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.configuration.OAuthConfiguration;
-import org.burningokr.model.configuration.OAuthConfigurationName;
 import org.burningokr.service.condition.LocalUserCondition;
 import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
-import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 
 @Conditional(LocalUserCondition.class)
 @EnableAutoConfiguration
