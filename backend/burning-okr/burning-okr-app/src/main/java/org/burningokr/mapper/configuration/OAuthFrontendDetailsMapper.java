@@ -90,7 +90,12 @@ public class OAuthFrontendDetailsMapper implements DataMapper<Collection<OAuthCo
   }
 
   private boolean stringToBoolean(String string) {
-    return string.equals("true");
+    if (string != null) {
+      return string.equals("true");
+    } else {
+      return false;
+    }
+
   }
 
   private String booleanToString(boolean bool) {

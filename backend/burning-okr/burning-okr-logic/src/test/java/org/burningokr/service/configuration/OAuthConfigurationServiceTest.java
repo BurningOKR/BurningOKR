@@ -19,11 +19,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OAuthFrontendDetailsServiceTest {
+public class OAuthConfigurationServiceTest {
 
   @Mock private OAuthFrontendDetailsRepository oAuthFrontendDetailsRepository;
 
-  @InjectMocks private OAuthFrontendDetailsService oAuthFrontendDetailsService;
+  @InjectMocks private OAuthConfigurationService oAuthConfigurationService;
 
   OAuthFrontendDetails oAuthFrontendDetails;
 
@@ -43,7 +43,7 @@ public class OAuthFrontendDetailsServiceTest {
     oAuthClientDetails.setClientSecret("test456");
     oAuthClientDetails.setWebServerRedirectUri("www.example.com");
 
-    oAuthFrontendDetailsService.updateOauthFrontendDetails(oAuthClientDetails);
+    oAuthConfigurationService.updateOAuthConfiguration(oAuthClientDetails);
 
     assertEquals(oAuthClientDetails.getClientId(), oAuthFrontendDetails.getClientId());
     assertEquals(oAuthClientDetails.getClientSecret(), oAuthFrontendDetails.getDummyClientSecret());
@@ -61,7 +61,7 @@ public class OAuthFrontendDetailsServiceTest {
         .thenReturn(Collections.singletonList(oAuthFrontendDetails));
 
     OAuthFrontendDetails oAuthFrontendDetailsFromService =
-        oAuthFrontendDetailsService.getOAuthFrontendDetails();
+        oAuthConfigurationService.getOAuthConfigurations();
 
     assertEquals(oAuthFrontendDetails.getClientId(), oAuthFrontendDetailsFromService.getClientId());
     assertEquals(
@@ -83,7 +83,7 @@ public class OAuthFrontendDetailsServiceTest {
         .thenReturn(Arrays.asList(oAuthFrontendDetails, oAuthFrontendDetails2));
 
     OAuthFrontendDetails oAuthFrontendDetailsFromService =
-        oAuthFrontendDetailsService.getOAuthFrontendDetails();
+        oAuthConfigurationService.getOAuthConfigurations();
 
     assertEquals(oAuthFrontendDetails.getClientId(), oAuthFrontendDetailsFromService.getClientId());
     assertEquals(
@@ -97,7 +97,7 @@ public class OAuthFrontendDetailsServiceTest {
     when(oAuthFrontendDetailsRepository.findAll()).thenReturn(Collections.emptyList());
 
     try {
-      oAuthFrontendDetailsService.getOAuthFrontendDetails();
+      oAuthConfigurationService.getOAuthConfigurations();
       fail();
     } catch (Exception e) {
       assertTrue("Wrong Exception", e instanceof EntityNotFoundException);
