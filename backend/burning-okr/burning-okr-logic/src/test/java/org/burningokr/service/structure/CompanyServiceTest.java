@@ -1,5 +1,7 @@
 package org.burningokr.service.structure;
 
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
@@ -74,7 +76,7 @@ public class CompanyServiceTest {
     verify(departmentRepository).save(any(Department.class));
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void createDepartment_cycleOfDepartmentClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
@@ -83,7 +85,12 @@ public class CompanyServiceTest {
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(company);
     when(entityCrawlerService.getCycleOfCompany(company)).thenReturn(closedCycle);
-    companyService.createDepartment(companyId, department, user);
+    try {
+      companyService.createDepartment(companyId, department, user);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat("Should only throw ForbiddenException.", ex, instanceOf(ForbiddenException.class));
+    }
   }
 
   @Test
@@ -104,7 +111,7 @@ public class CompanyServiceTest {
     verify(companyRepository).save(any(Company.class));
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void updateCompany_cycleOfCompanyIsClosed_expectedForbiddenThrow() {
     Company updateCompany = new Company();
     Cycle closedCycle = new Cycle();
@@ -112,10 +119,15 @@ public class CompanyServiceTest {
     when(entityCrawlerService.getCycleOfCompany(any())).thenReturn(closedCycle);
 
     User user = mock(User.class);
-    company = companyService.updateCompany(updateCompany, user);
+    try {
+      company = companyService.updateCompany(updateCompany, user);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat("Should only throw ForbiddenException.", ex, instanceOf(ForbiddenException.class));
+    }
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test
   public void updateCompany_expectsEntityNotFoundException() {
     Company updateCompany = new Company();
     updateCompany.setId(companyId);
@@ -124,7 +136,15 @@ public class CompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenThrow(new EntityNotFoundException());
 
     User user = mock(User.class);
-    company = companyService.updateCompany(updateCompany, user);
+    try {
+      company = companyService.updateCompany(updateCompany, user);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat(
+          "Should only throw EntityNotFoundException.",
+          ex,
+          instanceOf(EntityNotFoundException.class));
+    }
 
     verify(companyRepository).findByIdOrThrow(anyLong());
   }
@@ -138,12 +158,20 @@ public class CompanyServiceTest {
     verify(companyRepository).deleteById(companyId);
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test
   public void deleteCompany_expectsEntityNotFoundException() {
     Long notExistingCompanyId = 2000L;
 
     when(companyRepository.findByIdOrThrow(2000L)).thenThrow(EntityNotFoundException.class);
 
-    companyService.deleteCompany(notExistingCompanyId, true, user);
+    try {
+      companyService.deleteCompany(notExistingCompanyId, true, user);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat(
+          "Should only throw EntityNotFoundException.",
+          ex,
+          instanceOf(EntityNotFoundException.class));
+    }
   }
 }
