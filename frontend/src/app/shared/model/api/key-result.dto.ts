@@ -1,6 +1,5 @@
 import { Unit } from './unit.enum';
-
-export type KeyResultId = number;
+import { KeyResultId } from '../id-types';
 
 export interface KeyResultDto {
   startValue: number;

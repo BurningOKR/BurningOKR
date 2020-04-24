@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DepartmentDto, DepartmentId } from '../../model/api/department.dto';
-import { CompanyDto, CompanyId } from '../../model/api/company.dto';
 import { DepartmentStructureDto } from '../../model/api/department-structure.dto';
 import { ApiHttpService } from '../../../core/services/api-http.service';
+import { CompanyId, DepartmentId } from '../../model/id-types';
+import { DepartmentDto } from '../../model/api/department.dto';
+import { CompanyDto } from '../../model/api/company.dto';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,5 @@
 import { CompanyStructure } from './company-structure';
-import { DepartmentId } from '../../api/department.dto';
-import { ObjectiveId } from '../../api/objective.dto';
+import { DepartmentId, ObjectiveId } from '../../id-types';
 
 export class CorporateObjectiveStructure extends CompanyStructure {
   parentStructureId: number;

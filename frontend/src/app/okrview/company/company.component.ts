@@ -2,7 +2,6 @@ import {
   ContextRole,
   DepartmentContextRoleService
 } from '../../shared/services/helper/department-context-role.service';
-import { CompanyId } from '../../shared/model/api/company.dto';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentOkrviewService } from '../current-okrview.service';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
@@ -18,6 +17,7 @@ import { SubstructureFormComponent } from '../substructure/substructure-form/sub
 import { CurrentDepartmentStructureService } from '../current-department-structure.service';
 import { CurrentCompanyService } from '../current-company.service';
 import { CurrentCycleService } from '../current-cycle.service';
+import { CompanyId } from '../../shared/model/id-types';
 
 @Component({
   selector: 'app-company',

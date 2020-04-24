@@ -1,4 +1,4 @@
-import { ObjectiveId } from '../../api/objective.dto';
+import { ObjectiveId } from '../../id-types';
 
 export class CompanyStructure {
   id: number;

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-// TODO: Rename ChangePasswordXY?
 @Service
 public class ChangePasswordMapper implements DataMapper<ChangePasswordData, ChangePasswordDto> {
 

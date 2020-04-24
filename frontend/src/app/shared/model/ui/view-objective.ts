@@ -1,4 +1,4 @@
-import { ObjectiveId } from '../api/objective.dto';
+import { ObjectiveId } from '../id-types';
 
 export class ViewObjective {
   id: ObjectiveId;

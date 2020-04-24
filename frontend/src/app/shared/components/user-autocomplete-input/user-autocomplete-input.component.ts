@@ -1,7 +1,7 @@
 import { User } from '../../model/api/user';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators';
-import { UserMapper } from '../../services/mapper/user.mapper';
+import { UserService } from '../../services/mapper/user.service';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -21,13 +21,13 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
 
   userList$: Observable<User[]>;
   filteredUsers$: Observable<User[]>;
-  focusChanged$: Subject<string> = new Subject<string>();
+  private focusChanged$: Subject<string> = new Subject<string>();
   subscriptions: Subscription[] = [];
 
   // Time to wait after new input before calculating the suggestions for autocomplete in ms
   private autoCompleteWaitTime: number = 200;
 
-  constructor(private userMapperService: UserMapper) {
+  constructor(private userMapperService: UserService) {
   }
 
   ngOnInit(): void {

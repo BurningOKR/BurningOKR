@@ -4,9 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DepartmentStructure } from '../../shared/model/ui/department-structure';
-import { CurrentNavigationService } from '../current-navigation.service';
 import { CurrentDepartmentStructureService } from '../current-department-structure.service';
-import { DepartmentNavigationInformation } from '../../shared/model/ui/department-navigation-information';
 import { CurrentCompanyService } from '../current-company.service';
 
 @Component({
@@ -22,13 +20,11 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
 
   currentCompany$: Observable<CompanyUnit>;
   currentDepartmentStructure$: Observable<DepartmentStructure[]>;
-  currentNavigationInformation = new  DepartmentNavigationInformation(-1, []);
   navigationInformationSubscription: Subscription;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private currentNavigationService: CurrentNavigationService,
     private currentDepartmentStructureService: CurrentDepartmentStructureService,
     private currentCompanyService: CurrentCompanyService
   ) {
@@ -40,14 +36,10 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentCompany$ = this.currentCompanyService.getCurrentCompany$();
     this.currentDepartmentStructure$ = this.currentDepartmentStructureService.getCurrentDepartmentStructureList$();
-    this.navigationInformationSubscription = this.currentNavigationService
-      .getCurrentDepartmentNavigationInformation$()
-      .subscribe(x => (this.currentNavigationInformation = x));
   }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-    this.navigationInformationSubscription.unsubscribe();
   }
 
   toggleOpenSideNav(): void {

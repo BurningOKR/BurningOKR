@@ -6,7 +6,7 @@
     <div class="flex-wrap-spreadinner-nocenter">
       <div *ngIf="department.okrMasterId == null">
         <div class="tab-subtitle" i18n="@@component_departmentTabTeam_defineOKRMaster">Kein OKR Master definiert</div>
-        <app-department-team-new-user *ngIf="canEditManagers" [usersIdsToExclude]="getAlreadyDefinedUserIds()"
+        <app-department-team-new-user *ngIf="canEditManagers"
           i18n-inputPlaceholderText="@@component_departmentTabTeam_defineOkrMaster" inputPlaceholderText="OKR Master definieren" (choseUser)="clickedDefineOKRMaster($event)">
         </app-department-team-new-user>
       </div>
@@ -18,7 +18,7 @@
       </div>
       <div *ngIf="department.okrTopicSponsorId == null">
         <div class="tab-subtitle" i18n="@@component_departmentTabTeam_defineTopicSponsor">Kein OKR Themenpate definiert</div>
-        <app-department-team-new-user *ngIf="canEditManagers" [usersIdsToExclude]="getAlreadyDefinedUserIds()" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineTopicSponsor"
+        <app-department-team-new-user *ngIf="canEditManagers"  i18n-inputPlaceholderText="@@component_departmentTabTeam_defineTopicSponsor"
           inputPlaceholderText="Themenpaten definieren" (choseUser)="clickedDefineOKRTopicSponsor($event)">
         </app-department-team-new-user>
       </div>
@@ -41,7 +41,7 @@
           (userDeleted)="clickedDeleteOKRMember($event)">
         </app-user-minibutton>
       </div>
-      <app-department-team-new-user *ngIf="canEditMembers" [usersIdsToExclude]="getAlreadyDefinedUserIds()" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineNewMember"
+      <app-department-team-new-user *ngIf="canEditMembers" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineNewMember"
         inputPlaceholderText="Neues Mitglied definieren" (choseUser)="clickedDefineOKRMember($event)">
       </app-department-team-new-user>
     </div>

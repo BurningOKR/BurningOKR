@@ -5,9 +5,8 @@
       <mat-error *ngIf="objectiveForm.get('name').invalid">{{getErrorMessage(objectiveForm, 'name')}}</mat-error>
     </mat-form-field>
 
-    <mat-form-field *ngIf="getCurrentType()!='company'" class="form-whole-line">
-      <mat-select i18n-placeholder="@@component_objectiveForm_selectParentObjective" placeholder="Übergeordnetes Objective auswählen" formControlName="parentObjectiveId"
-                  *ngIf="getCurrentType()!='company'">
+    <mat-form-field class="form-whole-line">
+      <mat-select i18n-placeholder="@@component_objectiveForm_selectParentObjective" placeholder="Übergeordnetes Objective auswählen" formControlName="parentObjectiveId">
         <mat-option [value]="null"><span i18n="@@component_objectiveForm_noParentObjective">Kein übergeordnetes Objective</span></mat-option>
         <mat-optgroup *ngFor="let item of parentElements$ | async" [label]="item.department.name">
           <mat-option *ngFor="let objective of item.objectiveList" [value]="objective.id">{{objective.name}}

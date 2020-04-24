@@ -46,7 +46,7 @@ export class UserDialogComponent implements OnInit {
 
   ngOnInit(): void {
     // Disable Admin Checkbox when the user edits himself and is admin.
-    this.adminCheckBoxDisabled$ = this.userService.getCurrentUser()
+    this.adminCheckBoxDisabled$ = this.userService.getCurrentUser$()
       .pipe(
         switchMap((user: User) => {
           if (!!this.formData.user) {
@@ -81,7 +81,7 @@ export class UserDialogComponent implements OnInit {
 
   resetUserPassword(): void {
     this.resetPasswordButtonDisabled = true;
-    this.passwordService.sendPasswordResetEmail({ email: this.formData.user.email })
+    this.passwordService.sendPasswordResetEmail$({ email: this.formData.user.email })
       .subscribe(() => {
         this.resetPasswordButtonDisabled = false;
         this.snackBar.open(this.passwordResetSuccessMsg, this.okMsg,

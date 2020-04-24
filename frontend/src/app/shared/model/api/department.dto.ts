@@ -1,4 +1,4 @@
-export type DepartmentId = number;
+import { DepartmentId } from '../id-types';
 
 export interface DepartmentDto {
   structureId?: DepartmentId;

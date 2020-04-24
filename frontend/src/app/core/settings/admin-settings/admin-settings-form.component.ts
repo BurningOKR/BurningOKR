@@ -127,7 +127,7 @@ export class AdminSettingsFormComponent implements OnInit {
           userSettings.defaultCompanyId = this.userSettingsForm.get('defaultCompanyId').value;
           userSettings.defaultTeamId = this.userSettingsForm.get('defaultTeamId').value;
 
-          return this.userSettingsManager.updateUserSettings(userSettings);
+          return this.userSettingsManager.updateUserSettings$(userSettings);
         })
       )
     );

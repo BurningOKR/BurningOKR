@@ -1,5 +1,7 @@
 package org.burningokr.service.settings;
 
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -306,13 +308,21 @@ public class UserSettingsServiceTest {
     verify(userSettingsRepository, times(0)).save(any());
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test
   public void updateUserSettings_expectEntityNotFoundExceptionIfThereIsNoSuchUserSettings() {
     Long id = 400L;
     when(userSettingsRepository.findByIdOrThrow(id)).thenThrow(EntityNotFoundException.class);
     UserSettings userSettings = new UserSettings();
     userSettings.setId(id);
-    this.userSettingsService.updateUserSettings(userSettings, user);
+    try {
+      this.userSettingsService.updateUserSettings(userSettings, user);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat(
+          "Should only throw EntityNotFoundException.",
+          ex,
+          instanceOf(EntityNotFoundException.class));
+    }
   }
 
   @Test

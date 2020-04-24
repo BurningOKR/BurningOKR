@@ -42,7 +42,7 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.keyResultMapperSubscription = this.keyResultMapper.getKeyResultsForObjective(this.objective.id)
+    this.keyResultMapperSubscription = this.keyResultMapper.getKeyResultsForObjective$(this.objective.id)
         .subscribe(newKeyResultList => {
         this.keyResultList = newKeyResultList;
         this.updateVisualKeyResultProgressTotals();

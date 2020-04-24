@@ -1,4 +1,4 @@
-import { ConfigurationId } from '../api/configuration.dto';
+import { ConfigurationId } from '../id-types';
 
 export class Configuration {
   id: ConfigurationId;

@@ -16,7 +16,7 @@ import org.burningokr.model.initialisation.InitStateName;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.repositories.initialisation.InitStateRepository;
 import org.burningokr.service.configuration.OAuthClientDetailsService;
-import org.burningokr.service.configuration.OAuthFrontendDetailsService;
+import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.burningokr.service.exceptions.InvalidInitStateException;
 import org.burningokr.service.userhandling.AdminUserService;
 import org.burningokr.service.userhandling.LocalUserService;
@@ -38,7 +38,7 @@ public class InitServiceTest {
   @Mock private AdminUserService adminUserService;
   @Mock private InitOrderService initOrderService;
   @Mock private OAuthClientDetailsService oauthClientDetailsService;
-  @Mock private OAuthFrontendDetailsService oauthFrontendDetailsService;
+  @Mock private OAuthConfigurationService oauthConfigurationService;
   @Mock private ApplicationContext applicationContext;
 
   @InjectMocks private InitService initService;
@@ -225,7 +225,7 @@ public class InitServiceTest {
       verify(oauthClientDetailsService).encodeClientSecret(oauthClientDetails);
       verify(oauthClientDetailsService).fillDefaultValues(oauthClientDetails);
       verify(oauthClientDetailsService).updateOAuthClientDetails(oauthClientDetails);
-      verify(oauthFrontendDetailsService).updateOauthFrontendDetails(any());
+      verify(oauthConfigurationService).updateOAuthConfiguration(any());
     } catch (Exception e) {
       fail(e.getClass().getName());
     }

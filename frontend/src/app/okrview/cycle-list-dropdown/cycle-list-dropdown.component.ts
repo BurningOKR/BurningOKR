@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { CurrentCycleService } from '../current-cycle.service';

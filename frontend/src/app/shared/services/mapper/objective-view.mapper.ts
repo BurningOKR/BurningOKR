@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ObjectiveDto, ObjectiveId } from '../../model/api/objective.dto';
 import { ViewObjective } from '../../model/ui/view-objective';
 import { ObjectiveApiService } from '../api/objective-api.service';
+import { ObjectiveDto } from '../../model/api/objective.dto';
+import { ObjectiveId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'

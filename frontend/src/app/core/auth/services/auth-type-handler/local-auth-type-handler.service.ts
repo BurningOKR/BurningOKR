@@ -11,7 +11,7 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
   constructor(protected oAuthService: OAuthService,
               private router: Router) { }
 
-  startLoginProcedure(authenticationService: AuthenticationService): Promise<boolean> {
+  async startLoginProcedure(authenticationService: AuthenticationService): Promise<boolean> {
     return authenticationService.getRefreshToken()
       .then(() => {
         return true;
@@ -39,7 +39,7 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
     }
   }
 
-  private safeRefreshToken(authenticationService: AuthenticationService): Promise<boolean> {
+  private async safeRefreshToken(authenticationService: AuthenticationService): Promise<boolean> {
     return authenticationService.getRefreshToken()
       .then(() => {
         return true;

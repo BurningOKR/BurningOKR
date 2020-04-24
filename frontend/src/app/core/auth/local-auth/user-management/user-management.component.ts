@@ -21,8 +21,8 @@ export interface LocalUserManagementUser extends User {
 })
 export class UserManagementComponent implements OnInit {
 
-  users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
-  filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+  private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+  private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
 
   columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
   rowData = new MatTableDataSource([] as User[]);
@@ -36,8 +36,8 @@ export class UserManagementComponent implements OnInit {
   ) {
   }
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   private getUserCreationDialogData(): { data: UserDialogData } {
     return {
@@ -148,30 +148,31 @@ export class UserManagementComponent implements OnInit {
       .afterClosed()
       .pipe(
         filter(v => v),
+        switchMap(() => {
+          return this.userService.deactivateUser$(userToDeactivate.id);
+        })
       )
-      .subscribe(_ => {
-        this.userService.deactivateUser$(userToDeactivate.id)
-          .subscribe(__ => {
-            const deactivatedUser: LocalUserManagementUser = userToDeactivate;
-            deactivatedUser.active = false;
-            this.editUserInTable(userToDeactivate, deactivatedUser);
-          });
+      .subscribe(() => {
+        const deactivatedUser: LocalUserManagementUser = userToDeactivate;
+        deactivatedUser.active = false;
+        this.editUserInTable(userToDeactivate, deactivatedUser);
       });
   }
 
   handleActivate(userToBeActivated: LocalUserManagementUser): void {
     this.dialog.open(ConfirmationDialogComponent, this.getConfirmActivateDialogData(userToBeActivated))
       .afterClosed()
-      .pipe(filter(v => v))
-      .subscribe(_ => {
-        const userWithActiveFlagSet: LocalUserManagementUser = userToBeActivated;
+      .pipe(
+        filter(v => v),
+        switchMap(() => {
+          const userWithActiveFlagSet: LocalUserManagementUser = userToBeActivated;
 
-        userWithActiveFlagSet.active = true;
+          userWithActiveFlagSet.active = true;
 
-        this.userService.putUser$(userWithActiveFlagSet)
-          .subscribe(__ => {
-            this.editUserInTable(userToBeActivated, userWithActiveFlagSet);
-          });
+          return this.userService.putUser$(userWithActiveFlagSet);
+        }))
+      .subscribe((user: User) => {
+        this.editUserInTable(userToBeActivated, user as LocalUserManagementUser);
       });
   }
 
@@ -247,7 +248,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   private createNewUser(user: LocalUserManagementUser): void {
-    this.createNewUserOnServer(user)
+    this.createNewUserOnServer$(user)
       .subscribe((newUser: LocalUserManagementUser) => {
           this.addUserToTable(user);
         }
@@ -260,7 +261,7 @@ export class UserManagementComponent implements OnInit {
     this.users$.next(userListToUpdate);
   }
 
-  private createNewUserOnServer(user: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+  private createNewUserOnServer$(user: LocalUserManagementUser): Observable<LocalUserManagementUser> {
     return this.userService.createUser$(user)
       .pipe(
         take(1),

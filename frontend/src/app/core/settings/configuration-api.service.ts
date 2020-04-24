@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../services/api-http.service';
 import { Observable } from 'rxjs';
-import { ConfigurationDto, ConfigurationId } from '../../shared/model/api/configuration.dto';
+import { ConfigurationDto } from '../../shared/model/api/configuration.dto';
+import { ConfigurationId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'

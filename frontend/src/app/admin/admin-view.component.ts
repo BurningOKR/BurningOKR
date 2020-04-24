@@ -1,5 +1,5 @@
-import { User, UserId } from '../shared/model/api/user';
-import { UserMapper } from '../shared/services/mapper/user.mapper';
+import { User } from '../shared/model/api/user';
+import { UserService } from '../shared/services/mapper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import {
 import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { UserApiService } from '../shared/services/api/user-api.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { UserId } from '../shared/model/id-types';
 
 @Component({
   selector: 'app-admin-view',
@@ -30,7 +31,7 @@ export class AdminViewComponent implements OnInit {
 
   constructor(
     private userApiService: UserApiService,
-    private userMapperService: UserMapper,
+    private userMapperService: UserService,
     private currentUserService: CurrentUserService,
     private matDialog: MatDialog,
     private router: Router,
@@ -39,12 +40,12 @@ export class AdminViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUserId$ = this.generateUserIdObservable();
+    this.currentUserId$ = this.generateUserIdObservable$();
 
     this.getAdminUsers$();
   }
 
-  private generateUserIdObservable(): Observable<UserId> {
+  private generateUserIdObservable$(): Observable<UserId> {
     return this.currentUserService.getCurrentUser$()
       .pipe(
         map((user: User) => {
@@ -135,12 +136,12 @@ export class AdminViewComponent implements OnInit {
   }
 
   queryAdminDeletion(adminToDelete: User): void {
-      this.userMapperService
-        .deleteAdmin$(adminToDelete.id)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.onAdminDeleted(adminToDelete);
-        });
+    this.userMapperService
+      .deleteAdmin$(adminToDelete.id)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.onAdminDeleted(adminToDelete);
+      });
   }
 
   onAdminDeleted(deletedAdmin: User): void {

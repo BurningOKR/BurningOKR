@@ -60,7 +60,7 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
 
   private handleSubmitClick(): void {
     this.form.disable();
-    this.submitData()
+    this.submitData$()
       .subscribe(initState => {
         this.form.enable();
         this.eventEmitter.emit(initState);
@@ -76,7 +76,7 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
     });
   }
 
-  submitData(): Observable<InitState> {
+  submitData$(): Observable<InitState> {
     return this.initService.postAdminUser$(this.getFormData());
   }
 

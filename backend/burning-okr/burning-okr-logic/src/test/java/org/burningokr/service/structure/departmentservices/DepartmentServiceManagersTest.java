@@ -17,7 +17,6 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.junit.Assert;
@@ -214,121 +213,5 @@ public class DepartmentServiceManagersTest {
 
     verify(departmentRepository).save(originalDepartment);
     Assert.assertEquals(saveCallReturnedDepartment, actualDepartment);
-  }
-
-  @Test
-  public void updateDepartmentMemberList_duplicateTeamMembersExpectedException() {
-    Department insertedDepartment = new Department();
-
-    UUID doubleId = UUID.randomUUID();
-
-    Collection<UUID> insertedOkrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), doubleId, doubleId);
-    insertedDepartment.setOkrMemberIds(insertedOkrMemberIds);
-    insertedDepartment.setId(100L);
-    insertedDepartment.setName("Test");
-
-    Department originalDepartment = new Department();
-    Collection<UUID> originalOkrMemberIds = new ArrayList<>();
-    originalDepartment.setOkrMemberIds(originalOkrMemberIds);
-    originalDepartment.setId(100L);
-    originalDepartment.setName("Test");
-
-    when(departmentRepository.findByIdOrThrow(100L)).thenReturn(originalDepartment);
-
-    try {
-      departmentServiceManagers.updateDepartment(insertedDepartment, user);
-      Assert.fail();
-    } catch (Exception e) {
-      Assert.assertTrue(e instanceof DuplicateTeamMemberException);
-    }
-  }
-
-  @Test
-  public void updateDepartmentMemberList_duplicateTeamMembersOkrMasterExpectedException() {
-    Department insertedDepartment = new Department();
-
-    UUID doubleId = UUID.randomUUID();
-
-    Collection<UUID> insertedOkrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), doubleId);
-    insertedDepartment.setOkrMemberIds(insertedOkrMemberIds);
-    insertedDepartment.setOkrMasterId(doubleId);
-    insertedDepartment.setId(100L);
-    insertedDepartment.setName("Test");
-
-    Department originalDepartment = new Department();
-    Collection<UUID> originalOkrMemberIds = new ArrayList<>();
-    originalDepartment.setOkrMemberIds(originalOkrMemberIds);
-    originalDepartment.setId(100L);
-    originalDepartment.setName("Test");
-
-    when(departmentRepository.findByIdOrThrow(100L)).thenReturn(originalDepartment);
-
-    try {
-      departmentServiceManagers.updateDepartment(insertedDepartment, user);
-      Assert.fail();
-    } catch (Exception e) {
-      Assert.assertTrue(e instanceof DuplicateTeamMemberException);
-    }
-  }
-
-  @Test
-  public void updateDepartmentMemberList_duplicateTeamMembersOkrTopicSponsorExpectedException() {
-    Department insertedDepartment = new Department();
-
-    UUID doubleId = UUID.randomUUID();
-
-    Collection<UUID> insertedOkrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), doubleId);
-    insertedDepartment.setOkrMemberIds(insertedOkrMemberIds);
-    insertedDepartment.setOkrTopicSponsorId(doubleId);
-    insertedDepartment.setId(100L);
-    insertedDepartment.setName("Test");
-
-    Department originalDepartment = new Department();
-    Collection<UUID> originalOkrMemberIds = new ArrayList<>();
-    originalDepartment.setOkrMemberIds(originalOkrMemberIds);
-    originalDepartment.setId(100L);
-    originalDepartment.setName("Test");
-
-    when(departmentRepository.findByIdOrThrow(100L)).thenReturn(originalDepartment);
-
-    try {
-      departmentServiceManagers.updateDepartment(insertedDepartment, user);
-      Assert.fail();
-    } catch (Exception e) {
-      Assert.assertTrue(e instanceof DuplicateTeamMemberException);
-    }
-  }
-
-  @Test
-  public void updateDepartmentMemberList_duplicateOkrTopicSponsorOkrMasterExpectedException() {
-    Department insertedDepartment = new Department();
-
-    UUID doubleId = UUID.randomUUID();
-
-    Collection<UUID> insertedOkrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
-    insertedDepartment.setOkrMemberIds(insertedOkrMemberIds);
-    insertedDepartment.setOkrTopicSponsorId(doubleId);
-    insertedDepartment.setOkrMasterId(doubleId);
-    insertedDepartment.setId(100L);
-    insertedDepartment.setName("Test");
-
-    Department originalDepartment = new Department();
-    Collection<UUID> originalOkrMemberIds = new ArrayList<>();
-    originalDepartment.setOkrMemberIds(originalOkrMemberIds);
-    originalDepartment.setId(100L);
-    originalDepartment.setName("Test");
-
-    when(departmentRepository.findByIdOrThrow(100L)).thenReturn(originalDepartment);
-
-    try {
-      departmentServiceManagers.updateDepartment(insertedDepartment, user);
-      Assert.fail();
-    } catch (Exception e) {
-      Assert.assertTrue(e instanceof DuplicateTeamMemberException);
-    }
   }
 }

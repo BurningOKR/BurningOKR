@@ -1,9 +1,9 @@
 <ng-container *ngIf="feedbackForm$ | async as feedbackForm">
-  <app-dialog-component i18n-title="@@component_feedbackForm_title" title="Feedback geben"
-                        i18n-saveAndCloseLabel="@@component_feedbackForm_SendFeedback"
-                        saveAndCloseLabel="Feedback absenden"
-                        (okEmitter)="sendFeedback($event)" [formGroup]="feedbackForm">
-    <ng-container>
+  <ng-container *ngIf="noCurrentRequest; else loadingspinner">
+    <app-dialog-component i18n-title="@@component_feedbackForm_title" title="Feedback geben"
+                          i18n-saveAndCloseLabel="@@component_feedbackForm_SendFeedback"
+                          saveAndCloseLabel="Feedback absenden"
+                          (okEmitter)="sendFeedback($event)" [formGroup]="feedbackForm">
       <form [formGroup]="feedbackForm">
         <div>
           <mat-form-field class="name fullWidth">
@@ -19,6 +19,9 @@
           </mat-form-field>
         </div>
       </form>
-    </ng-container>
-  </app-dialog-component>
+    </app-dialog-component>
+  </ng-container>
+  <ng-template #loadingspinner>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
 </ng-container>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DepartmentDto, DepartmentId } from '../../model/api/department.dto';
 import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-unit';
 import { DepartmentApiService } from '../api/department-api.service';
-import { CompanyId } from '../../model/api/company.dto';
+import { DepartmentDto } from '../../model/api/department.dto';
+import { CompanyId, DepartmentId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'

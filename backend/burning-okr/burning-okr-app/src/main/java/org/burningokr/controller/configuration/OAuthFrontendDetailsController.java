@@ -1,23 +1,25 @@
 package org.burningokr.controller.configuration;
 
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.configuration.OAuthFrontendDetailsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.configuration.OAuthFrontendDetails;
-import org.burningokr.service.configuration.OAuthFrontendDetailsService;
+import org.burningokr.model.configuration.OAuthConfiguration;
+import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestApiController
 @RequiredArgsConstructor
 public class OAuthFrontendDetailsController {
-  private final OAuthFrontendDetailsService oauthFrontendDetailsService;
-  private final DataMapper<OAuthFrontendDetails, OAuthFrontendDetailsDto> dataMapper;
+  private final OAuthConfigurationService oauthConfigurationService;
+  private final DataMapper<Collection<OAuthConfiguration>, OAuthFrontendDetailsDto> dataMapper;
 
   @GetMapping("/oAuthFrontendDetails")
   public ResponseEntity<OAuthFrontendDetailsDto> getOAuthFrontendDetails() {
-    OAuthFrontendDetails oauthClientDetails = oauthFrontendDetailsService.getOAuthFrontendDetails();
-    return ResponseEntity.ok().body(dataMapper.mapEntityToDto(oauthClientDetails));
+    Collection<OAuthConfiguration> oAuthConfigurations =
+        oauthConfigurationService.getOAuthConfigurations();
+    return ResponseEntity.ok().body(dataMapper.mapEntityToDto(oAuthConfigurations));
   }
 }

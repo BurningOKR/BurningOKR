@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CycleApiService } from '../api/cycle-api.service';
 import { map, tap } from 'rxjs/internal/operators';
-import { CycleDto, CycleId } from '../../model/api/cycle.dto';
 import { CycleUnit } from '../../model/ui/cycle-unit';
 import { Observable, ReplaySubject } from 'rxjs';
 import { CompanyApiService } from '../api/company-api.service';
-import { CompanyId } from '../../model/api/company.dto';
+import { CompanyId, CycleId } from '../../model/id-types';
+import { CycleDto } from '../../model/api/cycle.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class CycleMapper {
     return this.cycles[id].asObservable();
   }
 
-  getCyclesOfCompany(companyId: CompanyId): Observable<CycleUnit[]> {
+  getCyclesOfCompany$(companyId: CompanyId): Observable<CycleUnit[]> {
     return this.companyApiService.getCyclesOfCompany$(companyId)
       .pipe(map((cycleList: CycleDto[]) => this.mapCycleList(cycleList)));
   }
@@ -61,7 +61,7 @@ export class CycleMapper {
   }
 
   cloneCycleFromCycleId$(formerCycleId: number, cycleUnit: CycleUnit): Observable<CycleUnit> {
-    return this.cycleService.cloneCycleFromCycleId(formerCycleId, this.mapCycleUnitToCycle(cycleUnit))
+    return this.cycleService.cloneCycleFromCycleId$(formerCycleId, this.mapCycleUnitToCycle(cycleUnit))
       .pipe(map(this.mapCycleToCycleUnit));
   }
 

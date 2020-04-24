@@ -1,6 +1,4 @@
-import { CompanyId } from '../api/company.dto';
-import { UserId } from '../api/user';
-import { DepartmentId } from '../api/department.dto';
+import { CompanyId, DepartmentId, UserId } from '../id-types';
 
 export class UserSettings {
   id: number;

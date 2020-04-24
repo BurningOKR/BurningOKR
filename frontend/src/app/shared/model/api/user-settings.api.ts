@@ -1,7 +1,4 @@
-import { UserId } from './user';
-import { CompanyId } from './company.dto';
-
-export type UserSettingsId = number;
+import { CompanyId, UserId, UserSettingsId } from '../id-types';
 
 export interface UserSettingsApi {
   id: UserSettingsId;

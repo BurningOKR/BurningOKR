@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DepartmentId } from '../../shared/model/api/department.dto';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
 import { ExcelFileService } from './excel-file.service';
+import { DepartmentId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'

@@ -23,7 +23,7 @@
 </ng-template>
 <div class="container">
   <div class="row">
-    <div class="col-l-6" *ngFor="let err of errors | async">
+    <div class="col-l-6" *ngFor="let err of errors$ | async">
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar>{{err.status}}</div>

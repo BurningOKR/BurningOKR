@@ -10,8 +10,8 @@ import { DepartmentStructureMapper } from '../shared/services/mapper/department-
 })
 export class CurrentDepartmentStructureService {
 
-  private currentDepartmentStructure$: ReplaySubject<DepartmentStructure[]> = new ReplaySubject<DepartmentStructure[]>();
-  private currentDepartmentId$: ReplaySubject<number> = new ReplaySubject<number>();
+  private currentDepartmentStructure$: ReplaySubject<DepartmentStructure[]> = new ReplaySubject<DepartmentStructure[]>(1);
+  private currentDepartmentId$: ReplaySubject<number> = new ReplaySubject<number>(1);
 
   constructor(private departmentStructureMapperService: DepartmentStructureMapper) {
   }
@@ -47,13 +47,10 @@ export class CurrentDepartmentStructureService {
     return this.currentDepartmentStructure$;
   }
 
-  // TODO: refactor, so that there are at minimum 2 returns
   private isDepartmentInStructure(departmentId: number, structure: DepartmentStructureDto[]): boolean {
     if (structure) {
       for (const subStructure of structure) {
-        if (subStructure.id === departmentId) {
-          return true;
-        } else if (this.isDepartmentInStructure(departmentId, subStructure.subDepartments)) {
+        if (subStructure.id === departmentId || this.isDepartmentInStructure(departmentId, subStructure.subDepartments)) {
           return true;
         }
       }
