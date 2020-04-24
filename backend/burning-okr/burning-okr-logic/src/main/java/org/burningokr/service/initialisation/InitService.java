@@ -12,7 +12,7 @@ import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.initialisation.InitStateRepository;
 import org.burningokr.service.configuration.OAuthClientDetailsService;
-import org.burningokr.service.configuration.OAuthFrontendDetailsService;
+import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.burningokr.service.exceptions.InvalidInitStateException;
 import org.burningokr.service.userhandling.AdminUserService;
 import org.burningokr.service.userhandling.LocalUserService;
@@ -31,7 +31,7 @@ public class InitService {
   private final PasswordService passwordService;
   private final InitOrderService initOrderService;
   private final OAuthClientDetailsService oauthClientDetailsService;
-  private final OAuthFrontendDetailsService oauthFrontendDetailsService;
+  private final OAuthConfigurationService oauthConfigurationService;
   private final ApplicationContext applicationContext;
 
   /**
@@ -79,7 +79,7 @@ public class InitService {
     isInitStateElseThrow(InitStateName.SET_OAUTH_CLIENT_DETAILS);
 
     oauthClientDetailsService.fillDefaultValues(oauthClientDetails);
-    oauthFrontendDetailsService.updateOauthFrontendDetails(oauthClientDetails);
+    oauthConfigurationService.updateOAuthConfiguration(oauthClientDetails);
     oauthClientDetailsService.encodeClientSecret(oauthClientDetails);
     oauthClientDetailsService.updateOAuthClientDetails(oauthClientDetails);
 
