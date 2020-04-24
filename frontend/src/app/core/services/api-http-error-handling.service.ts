@@ -19,7 +19,7 @@ export type RetryFunction<T> = () => Observable<T>;
 export class ApiHttpErrorHandlingService {
 
   private errorSubjects: Subject<boolean>[] = [];
-  private errors = new BehaviorSubject<HttpErrorResponse[]>([]);
+  private errors$ = new BehaviorSubject<HttpErrorResponse[]>([]);
 
   private singleErrorMsg: string = this.i18n({
     id: 'apiSingleErrorMsg',
@@ -53,7 +53,7 @@ export class ApiHttpErrorHandlingService {
   }
 
   getErrors$(): Observable<HttpErrorResponse[]> {
-    return this.errors.asObservable();
+    return this.errors$.asObservable();
   }
 
   getErrorHandler<T>(retryFunction: RetryFunction<T>, customHandlerFunction?: (error: HttpErrorResponse) => Observable<T>):
@@ -63,26 +63,26 @@ export class ApiHttpErrorHandlingService {
       if (!!customHandlerFunction) {
         return customHandlerFunction(error);
       } else if (this.isClientResolvableError(error)) {
-        return this.getClientResolvableErrorHandler(retryFunction);
+        return this.getClientResolvableErrorHandler$(retryFunction);
       } else if (this.isUnauthorizedError(error)) {
-        return this.getUnauthorizedErrorHandler(error);
+        return this.getUnauthorizedErrorHandler$(error);
       } else {
-        return this.getNonClientResolvableErrorHandler(error);
+        return this.getNonClientResolvableErrorHandler$(error);
       }
     };
   }
 
-  private getClientResolvableErrorHandler<T>(retryFunction: RetryFunction<T>): ErrorObservable<T> {
-    const errorSubject: Subject<boolean> = new Subject<boolean>();
-    this.errorSubjects.push(errorSubject);
+  private getClientResolvableErrorHandler$<T>(retryFunction: RetryFunction<T>): ErrorObservable<T> {
+    const errorSubject$: Subject<boolean> = new Subject<boolean>();
+    this.errorSubjects.push(errorSubject$);
     this.showRetryErrorSnackbar();
 
-    return errorSubject.pipe(switchMap(retryFunction));
+    return errorSubject$.pipe(switchMap(retryFunction));
   }
 
-  private getNonClientResolvableErrorHandler<T>(error: HttpErrorResponse): ErrorObservable<T> {
-    this.errors.value.push(error);
-    this.errors.next(this.errors.value);
+  private getNonClientResolvableErrorHandler$<T>(error: HttpErrorResponse): ErrorObservable<T> {
+    this.errors$.value.push(error);
+    this.errors$.next(this.errors$.value);
     this.showErrorSnackbar();
 
     this.logErrorIfUserIsSignedIn(error);
@@ -90,7 +90,7 @@ export class ApiHttpErrorHandlingService {
     return throwError(error);
   }
 
-  private getUnauthorizedErrorHandler<T>(error: HttpErrorResponse): ErrorObservable<T> {
+  private getUnauthorizedErrorHandler$<T>(error: HttpErrorResponse): ErrorObservable<T> {
     this.authenticationService.logout();
     this.authenticationService.startLoginProcedure();
 
@@ -135,9 +135,9 @@ export class ApiHttpErrorHandlingService {
   }
 
   private retryErrors(): void {
-    this.errorSubjects.forEach((errSubject: Subject<boolean>) => {
-      errSubject.next(true);
-      errSubject.unsubscribe();
+    this.errorSubjects.forEach((errSubject$: Subject<boolean>) => {
+      errSubject$.next(true);
+      errSubject$.unsubscribe();
     });
     this.errorSubjects = [];
   }

@@ -31,7 +31,7 @@ export class PasswordService {
     return this.apiService.postData$('local-users/change-password', data);
   }
 
-  sendPasswordResetEmail(data: PasswordResetMailData): Observable<PasswordResetMailData> {
+  sendPasswordResetEmail$(data: PasswordResetMailData): Observable<PasswordResetMailData> {
     return this.apiService.postData$('local-users/forgot-password', data);
   }
 }

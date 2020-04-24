@@ -26,7 +26,7 @@ export class UserSettingsManagerService implements Fetchable {
       });
   }
 
-  updateUserSettings(userSettings: UserSettings): Observable<UserSettings> {
+  updateUserSettings$(userSettings: UserSettings): Observable<UserSettings> {
     this.userSettings$.next(userSettings);
 
     return this.userSettingsService.updateUserSettings$(userSettings);

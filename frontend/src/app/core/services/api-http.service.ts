@@ -72,12 +72,12 @@ export class ApiHttpService {
       );
   }
 
-  patchData<T>(path: string, value: T, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
+  patchData$<T>(path: string, value: T, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
     return this.http.patch<T>(Consts.API_URL + path, value, this.httpOptions)
       .pipe(
         catchError(this.errorHandlerService.getErrorHandler(() => {
-            return this.patchData<T>(path, value);
+            return this.patchData$<T>(path, value);
           }, customErrorHandler
         ))
       );

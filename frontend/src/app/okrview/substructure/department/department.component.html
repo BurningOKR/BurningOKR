@@ -1,6 +1,6 @@
 <ng-container *ngIf="departmentView$ | async as info">
   <div class="flex-nowrap-center">
-    <ng-container *ngIf="hasFinishedLoading$ | async; else loading">
+    <ng-container *ngIf="componentLoaded$ | async; else loading">
       <ng-container *ngIf="info.department as department">
         <ng-container *ngIf="info.cycle as cycle">
           <ng-container *ngIf="info.currentUserRole as currentUserRole">

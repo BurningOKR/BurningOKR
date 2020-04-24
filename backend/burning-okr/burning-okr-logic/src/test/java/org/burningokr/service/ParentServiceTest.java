@@ -1,5 +1,8 @@
 package org.burningokr.service;
 
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.verify;
@@ -46,7 +49,7 @@ public class ParentServiceTest {
     verify(mockParentService).isParentObjectiveLegal(any(Objective.class), any(Objective.class));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void test_validateParentObjective_expectsFalse() {
     when(mockParentService.isParentObjectiveLegal(any(Objective.class), any(Objective.class)))
         .thenReturn(false);
@@ -55,7 +58,15 @@ public class ParentServiceTest {
         .validateParentObjective(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
-    mockParentService.validateParentObjective(testObjective, testObjective);
+    try {
+      mockParentService.validateParentObjective(testObjective, testObjective);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat(
+          "Should only throw IllegalArgumentException.",
+          ex,
+          instanceOf(IllegalArgumentException.class));
+    }
 
     verify(mockParentService).isParentObjectiveLegal(any(Objective.class), any(Objective.class));
   }
@@ -72,7 +83,7 @@ public class ParentServiceTest {
     Objective testObjective = new Objective();
     CompanyStructure testParentStructure = new Department();
     testObjective.setParentStructure(testParentStructure);
-    Assert.assertTrue(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
+    assertTrue(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
 
     verify(mockParentService)
         .isStructureChildStructure(any(CompanyStructure.class), any(CompanyStructure.class));
@@ -98,17 +109,17 @@ public class ParentServiceTest {
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjCompany_expectsTrue() {
-    Assert.assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveCompany));
+    assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveCompany));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjD2_expectsTrue() {
-    Assert.assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD2));
+    assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD2));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjD22_expectsTrue() {
-    Assert.assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD22));
+    assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD22));
   }
 
   @Test

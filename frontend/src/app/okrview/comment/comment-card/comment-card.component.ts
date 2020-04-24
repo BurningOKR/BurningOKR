@@ -18,7 +18,7 @@ export class CommentCardComponent implements OnInit {
 
   isEditingComment: boolean = false;
   isSavingEdit: boolean = false;
-  isOwnerOfNote$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isOwnerOfNote$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   editedCommentText: string;
 
   constructor(private currentUserService: CurrentUserService, private commentMapperService: CommentMapperService) {

@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "rxjs-tslint-rules"
+  ],
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
@@ -9,6 +12,22 @@
     ]
   },
   "rules": {
+    "rxjs-add": { "severity": "error" },
+    "rxjs-no-unused-add": { "severity": "error" },
+    "rxjs-finnish": {
+      "options": [{
+        "functions": true,
+        "methods": true,
+        "parameters": true,
+        "properties": true,
+        "variables": true
+      }],
+      "severity": "warn"
+    },
+    "rxjs-no-async-subscribe": true,
+    "rxjs-no-create": true,
+    "rxjs-no-exposed-subjects": { "severity": "error" },
+    "rxjs-no-nested-subscribe": { "severity": "error" },
     "align": [
       true,
       "elements",

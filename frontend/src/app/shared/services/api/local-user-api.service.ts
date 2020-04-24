@@ -16,7 +16,7 @@ export class LocalUserApiService {
     return this.api.getData$(`local-users/${objectId}`);
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentUser$(): Observable<User> {
     return this.api.getData$(`users/current`);
   }
 

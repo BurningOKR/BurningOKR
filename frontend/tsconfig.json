@@ -13,6 +13,9 @@
     "esModuleInterop": true,
     "target": "es2015",
     "resolveJsonModule": true,
+    "plugins": [
+      { "name": "tslint-language-service"}
+    ],
     "typeRoots": [
       "node_modules/@types"
     ],

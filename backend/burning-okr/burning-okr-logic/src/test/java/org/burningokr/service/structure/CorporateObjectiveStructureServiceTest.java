@@ -1,5 +1,7 @@
 package org.burningokr.service.structure;
 
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
@@ -69,13 +71,21 @@ public class CorporateObjectiveStructureServiceTest {
     verify(corporateObjectiveStructureRepository).save(corporateObjectiveStructure);
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test
   public void update_expectEntityNotFoundExceptionIfThereIsNoSuchEntity() {
     long id = 444L;
     when(corporateObjectiveStructureRepository.findByIdOrThrow(id))
         .thenThrow(EntityNotFoundException.class);
     corporateObjectiveStructure.setId(id);
-    corporateObjectiveStructureService.update(id, corporateObjectiveStructure, mockedUser);
+    try {
+      corporateObjectiveStructureService.update(id, corporateObjectiveStructure, mockedUser);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat(
+          "Should only throw EntityNotFoundException.",
+          ex,
+          instanceOf(EntityNotFoundException.class));
+    }
     verify(corporateObjectiveStructureRepository).findByIdOrThrow(id);
   }
 
@@ -103,13 +113,21 @@ public class CorporateObjectiveStructureServiceTest {
         corporateObjectiveStructureId, updatedEntity, mockedUser);
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test
   public void delete_expectedEntityNotFoundExceptionIfThereIsNoSuchEntity() {
     long id = 444L;
     when(corporateObjectiveStructureRepository.findByIdOrThrow(id))
         .thenThrow(EntityNotFoundException.class);
     corporateObjectiveStructure.setId(id);
-    corporateObjectiveStructureService.delete(id, mockedUser);
+    try {
+      corporateObjectiveStructureService.delete(id, mockedUser);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat(
+          "Should only throw EntityNotFoundException.",
+          ex,
+          instanceOf(EntityNotFoundException.class));
+    }
     verify(corporateObjectiveStructureRepository).findByIdOrThrow(id);
   }
 

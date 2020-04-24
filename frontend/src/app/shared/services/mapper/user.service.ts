@@ -13,7 +13,7 @@ export class UserService {
 // TODO: After the removal of the view-user-type, transform user mapper service to a user service
   constructor(private userApiService: UserApiService) {
   }
-  users$: BehaviorSubject<User[]>;
+  private users$: BehaviorSubject<User[]>;
 
   getUserById$(objectId: string): Observable<User> {
     if (this.users$) {

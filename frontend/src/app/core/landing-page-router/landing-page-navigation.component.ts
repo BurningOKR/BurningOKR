@@ -35,8 +35,8 @@ export class LandingPageNavigationComponent implements OnInit {
     this.navigateToUsersDefaultTeamAfterCompletionOf(this.performHealthCheck$());
   }
 
-  private navigateToUsersDefaultTeamAfterCompletionOf(healthCheck: Observable<boolean>): void {
-      healthCheck
+  private navigateToUsersDefaultTeamAfterCompletionOf(healthCheck$: Observable<boolean>): void {
+      healthCheck$
         .pipe(
       switchMap(() => this.getRouterLink$()))
         .subscribe((routerLink: RouterParams) => {
