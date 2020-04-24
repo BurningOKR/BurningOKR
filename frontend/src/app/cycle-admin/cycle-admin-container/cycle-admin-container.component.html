@@ -1,4 +1,8 @@
 <app-okr-toolbar>
+  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@component_cycleAdminContainer_goBackToCompany" matTooltip="Zurück zur Struktur"
+          (click)="routeToCompany()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
   <button (click)="navigateToCompanies()" i18n-matTooltip="@@component_cycleAdmin_navigateToStructureOverview" matTooltip="Zur Strukturübersicht" class="navbar-item" mat-icon-button>
     <mat-icon>home</mat-icon>
   </button>

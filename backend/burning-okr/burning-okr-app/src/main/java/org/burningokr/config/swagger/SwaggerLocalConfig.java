@@ -3,9 +3,8 @@ package org.burningokr.config.swagger;
 import java.util.Arrays;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.configuration.OAuthFrontendDetails;
 import org.burningokr.service.condition.LocalUserCondition;
-import org.burningokr.service.configuration.OAuthFrontendDetailsService;
+import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -16,7 +15,6 @@ import springfox.documentation.service.*;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
-import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 
 @Conditional(LocalUserCondition.class)
 @EnableAutoConfiguration
@@ -24,7 +22,7 @@ import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 @RequiredArgsConstructor
 public class SwaggerLocalConfig extends SwaggerConfig {
 
-  private final OAuthFrontendDetailsService oAuthFrontendDetailsService;
+  private final OAuthConfigurationService oAuthConfigurationService;
 
   @Override
   @Bean
@@ -35,15 +33,8 @@ public class SwaggerLocalConfig extends SwaggerConfig {
   }
 
   @Override
-  @Bean
   public SecurityConfiguration security() {
-    OAuthFrontendDetails oAuthFrontendDetails =
-        oAuthFrontendDetailsService.getOAuthFrontendDetails();
-
-    return SecurityConfigurationBuilder.builder()
-        .clientId(oAuthFrontendDetails.getClientId())
-        .clientSecret(oAuthFrontendDetails.getDummyClientSecret())
-        .build();
+    return null;
   }
 
   private SecurityScheme securityScheme() {
