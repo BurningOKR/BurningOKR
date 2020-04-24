@@ -25,7 +25,7 @@ export class CurrentCycleService {
     this.currentCompanyService.getCurrentCompany$()
       .pipe(
         switchMap((currentCompany: CompanyUnit) => {
-          return this.cycleMapperService.getCyclesOfCompany(currentCompany.id)
+          return this.cycleMapperService.getCyclesOfCompany$(currentCompany.id)
             .pipe(
               map((cycleList: CycleUnit[]) => {
                 return {

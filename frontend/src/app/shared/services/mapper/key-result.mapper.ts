@@ -37,7 +37,7 @@ export class KeyResultMapper {
     );
   }
 
-  getKeyResultsForObjective(objectiveId: ObjectiveId): Observable<ViewKeyResult[]> {
+  getKeyResultsForObjective$(objectiveId: ObjectiveId): Observable<ViewKeyResult[]> {
     return this.keyResultApiService.getKeyResultsForObjective$(objectiveId)
       .pipe(
       map((keyResultList: KeyResultDto[]) => {
