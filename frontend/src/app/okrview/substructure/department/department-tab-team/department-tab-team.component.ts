@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import {
   ConfirmationDialogComponent,
@@ -27,7 +27,6 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
 
-  isProcessingSave = false;
   canEditManagers = false;
   canEditMembers = false;
   subscriptions: Subscription[] = [];
@@ -48,19 +47,6 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(x => x.unsubscribe());
     this.subscriptions = [];
-  }
-
-  getAlreadyDefinedUserIds(): string[] {
-    const existingIds: string[] = [];
-    if (this.department.okrMasterId) {
-      existingIds.push(this.department.okrMasterId);
-    }
-    if (this.department.okrTopicSponsorId) {
-      existingIds.push(this.department.okrTopicSponsorId);
-    }
-    this.department.okrMemberIds.forEach(currentId => existingIds.push(currentId));
-
-    return existingIds;
   }
 
   clickedDeleteOKRMaster(): void {
@@ -202,20 +188,22 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     this.updatedUserList();
   }
 
-  async updatedUserList(): Promise<void> { // TODO: decide what to do with the promises
+  updatedUserList(): void {
     this.querySaveTeam();
-    let newRole: DepartmentStructureRole;
-    const currentUserId: string = await this.getCurrentUserIdPromiseFromUserService();
+    this.getCurrentUserIdPromiseFromUserService$()
+      .subscribe((currentUserId: string) => {
+        let newRole: DepartmentStructureRole;
 
-    if (this.department.okrMasterId === currentUserId || this.department.okrTopicSponsorId === currentUserId) {
-      newRole = DepartmentStructureRole.MANAGER;
-    } else if (this.department.okrMemberIds.includes(currentUserId)) {
-      newRole = DepartmentStructureRole.MEMBER;
-    } else {
-      newRole = DepartmentStructureRole.USER;
-    }
+        if (this.department.okrMasterId === currentUserId || this.department.okrTopicSponsorId === currentUserId) {
+          newRole = DepartmentStructureRole.MANAGER;
+        } else if (this.department.okrMemberIds.includes(currentUserId)) {
+          newRole = DepartmentStructureRole.MEMBER;
+        } else {
+          newRole = DepartmentStructureRole.USER;
+        }
 
-    this.currentDepartmentStructureService.updateDepartmentStructureTeamRole(this.department.id, newRole);
+        this.currentDepartmentStructureService.updateDepartmentStructureTeamRole(this.department.id, newRole);
+      });
   }
 
   querySaveTeam(): void {
@@ -225,10 +213,11 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  // TODO Fix
-  async getCurrentUserIdPromiseFromUserService(): Promise<string> {
+  getCurrentUserIdPromiseFromUserService$(): Observable<string> {
     return this.currentUserService.getCurrentUser$()
-      .toPromise()
-      .then(curreUser => curreUser.id);
+      .pipe(
+        map(currentUser => currentUser.id),
+        take(1)
+      );
   }
 }
