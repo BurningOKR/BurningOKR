@@ -37,7 +37,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
   cycle$: Observable<CycleUnit>;
   departmentView$: Observable<DepartmentView>;
   department$: Observable<DepartmentUnit>;
-  hasFinishedLoading$: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  private hasFinishedLoading$: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   subscriptions: Subscription[] = [];
 

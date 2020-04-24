@@ -23,7 +23,7 @@ export class ResetPasswordComponent {
   sendResetPasswordMail(): void {
     const data: PasswordResetMailData = {email: this.passwordResetForm.get('email').value};
 
-    this.passwordService.sendPasswordResetEmail(data)
+    this.passwordService.sendPasswordResetEmail$(data)
       .pipe(take(1))
       .subscribe(
         () => {

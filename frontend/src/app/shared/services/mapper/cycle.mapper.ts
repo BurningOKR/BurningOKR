@@ -31,7 +31,7 @@ export class CycleMapper {
     return this.cycles[id].asObservable();
   }
 
-  getCyclesOfCompany(companyId: CompanyId): Observable<CycleUnit[]> {
+  getCyclesOfCompany$(companyId: CompanyId): Observable<CycleUnit[]> {
     return this.companyApiService.getCyclesOfCompany$(companyId)
       .pipe(map((cycleList: CycleDto[]) => this.mapCycleList(cycleList)));
   }
@@ -61,7 +61,7 @@ export class CycleMapper {
   }
 
   cloneCycleFromCycleId$(formerCycleId: number, cycleUnit: CycleUnit): Observable<CycleUnit> {
-    return this.cycleService.cloneCycleFromCycleId(formerCycleId, this.mapCycleUnitToCycle(cycleUnit))
+    return this.cycleService.cloneCycleFromCycleId$(formerCycleId, this.mapCycleUnitToCycle(cycleUnit))
       .pipe(map(this.mapCycleToCycleUnit));
   }
 

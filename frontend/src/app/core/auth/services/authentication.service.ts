@@ -39,7 +39,7 @@ export class AuthenticationService {
       .toPromise();
   }
 
-  configure(): Promise<AuthConfig> {
+  async configure(): Promise<AuthConfig> {
     return new Promise(resolve => {
       this.oAuthDetails.getAuthConfig$()
         .subscribe((authConfig: AuthConfig) => {
@@ -71,7 +71,7 @@ export class AuthenticationService {
       });
   }
 
-  getRefreshToken(): Promise<object> {
+  async getRefreshToken(): Promise<object> {
     if (!!this.oAuthService.getRefreshToken()) {
       return this.oAuthService.refreshToken();
     } else {

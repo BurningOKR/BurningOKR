@@ -28,7 +28,7 @@ export class CycleApiService {
     return this.api.putData$(`cycles/${cycle.id}`, cycle);
   }
 
-  cloneCycleFromCycleId(formerCycleId: CycleId, cycle: CycleDto): Observable<CycleDto> {
+  cloneCycleFromCycleId$(formerCycleId: CycleId, cycle: CycleDto): Observable<CycleDto> {
     return this.api.postData$(`clonecycle/${formerCycleId}`, cycle);
   }
 

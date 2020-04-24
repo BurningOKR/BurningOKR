@@ -38,7 +38,7 @@ class DepartmentObjectiveStructure {
 export class ObjectiveFormComponent implements OnInit, OnDestroy {
   objective: ViewObjective;
   objectiveForm: FormGroup;
-  parentElements$ = new Subject<DepartmentObjectiveStructure[]>();
+  private parentElements$ = new Subject<DepartmentObjectiveStructure[]>();
   users: User[];
   user: User;
   getErrorMessage = this.controlHelperService.getErrorMessage;

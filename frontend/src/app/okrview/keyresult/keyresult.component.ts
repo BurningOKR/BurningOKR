@@ -36,7 +36,7 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   // We dynamically populate this as sliders are used
-  sliderChangeSubject: Subject<number>;
+  private sliderChangeSubject$: Subject<number>;
   timeInMsToWaitUntilPushingSliderChanges = 2000;
 
   isKeyResultSliderInverted: boolean = false;
@@ -176,19 +176,19 @@ export class KeyresultComponent implements OnInit, OnDestroy {
    * We subscribe to the subject with the pipe conditions to filter out the same value and add a delay from the last change.
    */
   onKeyResultSliderDropped(sliderChange: MatSliderChange): void {
-    if (this.sliderChangeSubject) {
-      this.sliderChangeSubject.next(sliderChange.value);
+    if (this.sliderChangeSubject$) {
+      this.sliderChangeSubject$.next(sliderChange.value);
     } else {
-      this.sliderChangeSubject = new Subject<number>();
+      this.sliderChangeSubject$ = new Subject<number>();
       this.subscriptions.push(
-        this.sliderChangeSubject
+        this.sliderChangeSubject$
           .pipe(
             debounceTime(this.timeInMsToWaitUntilPushingSliderChanges),
             distinctUntilChanged()
           )
           .subscribe(newValue => this.onKeyResultSliderChangeApplied(newValue))
       );
-      this.sliderChangeSubject.next(sliderChange.value);
+      this.sliderChangeSubject$.next(sliderChange.value);
     }
     this.keyResult.current = sliderChange.value;
     this.keyResultProgressChanged.emit(this.keyResult);

@@ -21,7 +21,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
 
   userList$: Observable<User[]>;
   filteredUsers$: Observable<User[]>;
-  focusChanged$: Subject<string> = new Subject<string>();
+  private focusChanged$: Subject<string> = new Subject<string>();
   subscriptions: Subscription[] = [];
 
   // Time to wait after new input before calculating the suggestions for autocomplete in ms

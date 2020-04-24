@@ -23,7 +23,7 @@ import { UserId } from '../shared/model/id-types';
 export class AdminViewComponent implements OnInit {
   @ViewChild('newAdminForm', {static: false}) newAdminForm: UserAutocompleteInputComponent;
 
-  adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
+  private adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
   subscriptions: Subscription[] = [];
 
   currentUserId$: Observable<UserId>;
@@ -40,12 +40,12 @@ export class AdminViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUserId$ = this.generateUserIdObservable();
+    this.currentUserId$ = this.generateUserIdObservable$();
 
     this.getAdminUsers$();
   }
 
-  private generateUserIdObservable(): Observable<UserId> {
+  private generateUserIdObservable$(): Observable<UserId> {
     return this.currentUserService.getCurrentUser$()
       .pipe(
         map((user: User) => {
