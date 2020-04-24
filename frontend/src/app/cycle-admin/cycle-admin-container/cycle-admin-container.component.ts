@@ -60,4 +60,8 @@ export class CycleAdminContainerComponent implements OnInit {
     this.router.navigate(['/companies'])
       .catch();
   }
+
+  routeToCompany(): void {
+    this.router.navigate(['/okr', '/companies', this.company.id]);
+  }
 }
