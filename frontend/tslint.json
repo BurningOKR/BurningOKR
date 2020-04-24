@@ -26,7 +26,6 @@
     },
     "rxjs-no-async-subscribe": true,
     "rxjs-no-create": true,
-    "rxjs-no-exposed-subjects": { "severity": "error" },
     "rxjs-no-nested-subscribe": { "severity": "error" },
     "align": [
       true,

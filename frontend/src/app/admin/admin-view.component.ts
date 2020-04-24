@@ -23,7 +23,7 @@ import { UserId } from '../shared/model/id-types';
 export class AdminViewComponent implements OnInit {
   @ViewChild('newAdminForm', {static: false}) newAdminForm: UserAutocompleteInputComponent;
 
-  private adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
+  adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
   subscriptions: Subscription[] = [];
 
   currentUserId$: Observable<UserId>;
