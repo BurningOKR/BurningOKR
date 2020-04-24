@@ -1,6 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../../../shared/model/api/user';
-import { ItemHelperService } from './item-helper.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { forkJoin, NEVER, Observable, Subject, Subscription } from 'rxjs';
@@ -99,10 +98,6 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
   onSelectUser($event: { value: User; }): void {
     this.user = $event.value;
-  }
-
-  getCurrentType(): string {
-    return ItemHelperService.getType(this.formData.currentItem);
   }
 
   saveObjective(): void {
