@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Optional;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.mail.Mail;
 import org.springframework.mail.javamail.JavaMailSender;
