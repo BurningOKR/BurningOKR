@@ -4,8 +4,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Optional;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.mail.Mail;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,7 +19,7 @@ import org.thymeleaf.context.Context;
 @Service
 @RequiredArgsConstructor
 public class MailService {
-  private final JavaMailSender javaMailSender;
+  private final Optional<JavaMailSender> javaMailSender;
   private final TemplateEngine templateEngine;
 
   /**
@@ -27,11 +29,12 @@ public class MailService {
    * @throws MessagingException if email can't be send
    */
   public void sendMail(Mail mail) throws MessagingException {
-    checkAndInitializeCollections(mail);
+    if (javaMailSender.isPresent()) {
+      checkAndInitializeCollections(mail);
 
-    MimeMessage message = createMimeMessage(mail);
-
-    javaMailSender.send(message);
+      MimeMessage message = createMimeMessage(mail);
+      javaMailSender.get().send(message);
+    }
   }
 
   private void checkAndInitializeCollections(Mail mail) {
@@ -50,18 +53,24 @@ public class MailService {
   }
 
   private MimeMessage createMimeMessage(Mail mail) throws MessagingException {
-    MimeMessage message = javaMailSender.createMimeMessage();
-    MimeMessageHelper helper =
-        new MimeMessageHelper(
-            message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+    if (javaMailSender.isPresent()) {
+      MimeMessage message = javaMailSender.get().createMimeMessage();
+      MimeMessageHelper helper =
+          new MimeMessageHelper(
+              message,
+              MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+              StandardCharsets.UTF_8.name());
 
-    helper.setTo(convertToArray(mail.getTo()));
-    helper.setCc(convertToArray(mail.getCc()));
-    helper.setBcc(convertToArray(mail.getBcc()));
-    helper.setText(getHtmlBodyFromTemplate(mail), true);
-    helper.setSubject(mail.getSubject());
-    helper.setFrom(mail.getFrom());
-    return message;
+      helper.setTo(convertToArray(mail.getTo()));
+      helper.setCc(convertToArray(mail.getCc()));
+      helper.setBcc(convertToArray(mail.getBcc()));
+      helper.setText(getHtmlBodyFromTemplate(mail), true);
+      helper.setSubject(mail.getSubject());
+      helper.setFrom(mail.getFrom());
+      return message;
+    } else {
+      return null;
+    }
   }
 
   private String[] convertToArray(Collection<String> collection) {
