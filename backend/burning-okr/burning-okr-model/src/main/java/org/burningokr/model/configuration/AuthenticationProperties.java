@@ -7,6 +7,4 @@ public interface AuthenticationProperties {
   String getClientSecret();
 
   String getScope();
-
-  String getWebServerRedirectUri();
 }

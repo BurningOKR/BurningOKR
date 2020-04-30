@@ -32,8 +32,6 @@ public class ExternalOAuthClientDetails implements AuthenticationProperties {
 
   @NotEmpty private String tokenName;
 
-  @NotEmpty private String registeredRedirectUri;
-
   public String getUserAuthorizationUri() {
     return userAuthorizationUri;
   }
@@ -80,13 +78,5 @@ public class ExternalOAuthClientDetails implements AuthenticationProperties {
 
   public void setTokenName(String tokenName) {
     this.tokenName = tokenName;
-  }
-
-  public String getWebServerRedirectUri() {
-    return registeredRedirectUri;
-  }
-
-  public void setWebServerRedirectUri(String redirectUri) {
-    this.registeredRedirectUri = redirectUri;
   }
 }

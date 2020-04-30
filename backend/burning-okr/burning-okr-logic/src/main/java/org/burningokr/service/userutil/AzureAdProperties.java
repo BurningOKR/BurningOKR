@@ -20,7 +20,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-class AzureAdProperties {
+public class AzureAdProperties {
   @NotEmpty private String tenantId;
 
   private List<AzureGroup> azureGroups;

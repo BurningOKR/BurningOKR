@@ -36,16 +36,22 @@ public class OAuthConfigurationService {
         getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_ID);
     OAuthConfiguration clientSecret =
         getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_SECRET);
-    OAuthConfiguration redirectUri =
-        getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.REDIRECT_URI);
+    OAuthConfiguration scope =
+        getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.SCOPE);
 
     clientId.setValue(authenticationProperties.getClientId());
     clientSecret.setValue(authenticationProperties.getClientSecret());
-    redirectUri.setValue(authenticationProperties.getWebServerRedirectUri());
+    scope.setValue(authenticationProperties.getScope());
 
     oAuthConfigurationRepository.save(clientId);
     oAuthConfigurationRepository.save(clientSecret);
-    oAuthConfigurationRepository.save(redirectUri);
+    oAuthConfigurationRepository.save(scope);
+  }
+
+  public void setOAuthConfiguration(OAuthConfigurationName name, String value) {
+    OAuthConfiguration configuration = getConfigurationByName(getOAuthConfigurations(), name);
+    configuration.setValue(value);
+    oAuthConfigurationRepository.save(configuration);
   }
 
   private OAuthConfiguration getConfigurationByName(

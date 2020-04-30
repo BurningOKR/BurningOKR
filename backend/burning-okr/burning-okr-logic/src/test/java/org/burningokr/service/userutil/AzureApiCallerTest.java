@@ -17,7 +17,7 @@ public class AzureApiCallerTest {
   @Before
   public void setup() {
     externalOAuthClientDetails =
-        new ExternalOAuthClientDetails("", "", "clientId", "clientSecret", "", "", "");
+        new ExternalOAuthClientDetails("", "", "clientId", "clientSecret", "", "");
     List<AzureGroup> azureGroups = new ArrayList<>();
     azureGroups.add(AzureGroup.builder().id("groupId").name("groupIntern").build());
     azureAdProperties = new AzureAdProperties("tenantId", azureGroups);
