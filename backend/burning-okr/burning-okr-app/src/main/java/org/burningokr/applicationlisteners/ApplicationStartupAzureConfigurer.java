@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Conditional(AadCondition.class)
 @Component
 @RequiredArgsConstructor
-public class ApplicationStartup {
+public class ApplicationStartupAzureConfigurer {
 
   private final OAuthConfigurationService oAuthConfigurationService;
   private final ExternalOAuthClientDetails externalOAuthClientDetails;
@@ -23,15 +23,18 @@ public class ApplicationStartup {
   private final String defaultResponseType = "id_token token";
   private final String defaultOIDC = "true";
   private final String azureAuthType = "azure";
-  private final String azureIssuer = "https://login.microsoftonline.com/";
-  private final String azureVersion = "/v2.0";
 
+  /**
+   * This function moves the required configurations from the application.yml to the
+   * OAuthConfiguration Database.
+   *
+   * @param event The ApplicationReadyEvent
+   */
   @EventListener(ApplicationReadyEvent.class)
   public void onApplicationEvent(ApplicationReadyEvent event) {
     oAuthConfigurationService.updateOAuthConfiguration(externalOAuthClientDetails);
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.ISSUER,
-        azureIssuer + azureAdProperties.getTenantId() + azureVersion);
+        OAuthConfigurationName.ISSUER, azureAdProperties.getIssuer());
     oAuthConfigurationService.setOAuthConfiguration(
         OAuthConfigurationName.RESPONSE_TYPE, defaultResponseType);
     oAuthConfigurationService.setOAuthConfiguration(OAuthConfigurationName.OIDC, defaultOIDC);
