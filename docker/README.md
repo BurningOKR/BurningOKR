@@ -1,5 +1,8 @@
 # Docker
-## Getting Started
+## Getting Started (User)
+
+Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
+
 ### Windows
 1. Install Docker: https://www.docker.com/products/docker-desktop
 2. Install Git: https://gitforwindows.org/
@@ -13,11 +16,23 @@
 
 ### Linux
 
+--docker und compose
 
 ### Configuration (Windows and Linux)
 
-There are two sample environment files within the BurningOKR\Docker directory: ```backend.env.sample``` and ``postgres.env.sample``
 
-At first, you need to rename both environment files to ``backend.env`` and `postgres.env`
+1. There are two sample environment files within the BurningOKR\Docker directory: ```backend.env.sample``` 
+and ``postgres.env.sample`` Rename both environment files to ``backend.env`` and `postgres.env`.
+2. Replace the ``<username>``, ``<password>`` and ``<database>`` placeholder in the `postgres.env`.
+3. Replace the ``<db-connection-string>`` placeholder with the jdbc string corresponding with the favored 
+database location (E.g. Line 13 for a Docker based Database, recommended). Remove the # at the front. 
+4. Replace ``<database>``, ``<db-username>`` and ``<db-password>`` with the same as set in the ``postgres.env``.
+5. If you want the software to send mails, replace ``<smtp-username``, ``<smtp-password>``, ``<smtp-host>``
+and ``<smtp-port>``. You might need to acquire these from your system administrator. If mails are not wanted, delete 
+placeholder.
+6. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use 
+Azure Active Directory as your userbase by replacing ``<local|aad>`` with either ``local`` or ``aad``. 
 
+
+## Getting Started (Developer)
 
