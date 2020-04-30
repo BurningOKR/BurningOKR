@@ -1,5 +1,5 @@
 # Docker
-## Getting Started (User)
+## Getting Started
 
 Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
 
@@ -41,9 +41,10 @@ Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
 
 1. There are two sample environment files within the BurningOKR\Docker directory: ```backend.env.sample``` 
 and ``postgres.env.sample`` Rename both environment files to ``backend.env`` and `postgres.env`.
-2. Replace the ``<username>``, ``<password>`` and ``<database>`` placeholder in the `postgres.env`.
+2. Replace the ``<username>``, ``<password>`` and ``<database>`` placeholder in the `postgres.env`. You can choose 
+these freely.
 3. Replace the ``<db-connection-string>`` placeholder with the jdbc string corresponding with the favored 
-database location (E.g. Line 13 for a Docker based Database, recommended). Remove the # at the front. 
+database location (E.g. Line 13 for a Docker based Database, recommended for testing). Remove the # at the front. 
 4. Replace ``<database>``, ``<db-username>`` and ``<db-password>`` with the same as set in the ``postgres.env``.
 5. If you want the software to send mails, replace ``<smtp-username``, ``<smtp-password>``, ``<smtp-host>``
 and ``<smtp-port>``. You might need to acquire these from your system administrator. If mails are not wanted, delete 
@@ -52,5 +53,17 @@ placeholder.
 Azure Active Directory as your userbase by replacing ``<local|aad>`` with either ``local`` or ``aad``. 
 
 
-## Getting Started (Developer)
+## Developer Information
+
+The application consist of three container. Frontend, Backend and the Database. 
+
+The Databases volume is saved at the default location (Windows: ``C:\Users\Public\Documents\Hyper-V\Virtual hard disks`` 
+| Linux: ``/var/lib/docker/volumes``) and is called docker_pgdata. 
+
+The ports used by the application can be configured in the docker-compose.yml.
+
+The network allows external access to port 4200 for the frontend and port 54023 for the database (in case you want to 
+access it with pgAdmin for example). The backend can't be called from the outside. 
+
+After first application start, the database persists even if you rebuild the containers.
 
