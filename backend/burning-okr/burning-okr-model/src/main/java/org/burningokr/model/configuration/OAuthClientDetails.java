@@ -8,7 +8,7 @@ import org.hibernate.annotations.Table;
 @Entity
 @Data
 @Table(appliesTo = "oauth_client_details")
-public class OAuthClientDetails {
+public class OAuthClientDetails implements AuthenticationProperties {
   @Id private String clientId;
   private String clientSecret;
   private String resourceIds;

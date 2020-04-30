@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.burningokr.model.configuration.AuthenticationProperties;
 import org.burningokr.service.condition.AadCondition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Conditional;
@@ -17,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthenticationProperties {
+public class ExternalOAuthClientDetails implements AuthenticationProperties {
 
   @NotEmpty private String userAuthorizationUri;
 
@@ -30,6 +31,8 @@ public class AuthenticationProperties {
   @NotEmpty private String scope;
 
   @NotEmpty private String tokenName;
+
+  @NotEmpty private String registeredRedirectUri;
 
   public String getUserAuthorizationUri() {
     return userAuthorizationUri;
@@ -77,5 +80,13 @@ public class AuthenticationProperties {
 
   public void setTokenName(String tokenName) {
     this.tokenName = tokenName;
+  }
+
+  public String getWebServerRedirectUri() {
+    return registeredRedirectUri;
+  }
+
+  public void setWebServerRedirectUri(String redirectUri) {
+    this.registeredRedirectUri = redirectUri;
   }
 }
