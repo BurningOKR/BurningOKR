@@ -3,7 +3,7 @@ package org.burningokr.config.swagger;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.service.condition.AadCondition;
-import org.burningokr.service.userutil.AuthenticationProperties;
+import org.burningokr.service.userutil.ExternalOAuthClientDetails;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -22,7 +22,7 @@ import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 @RequiredArgsConstructor
 public class SwaggerAzureConfig extends SwaggerConfig {
 
-  private final AuthenticationProperties authenticationProperties;
+  private final ExternalOAuthClientDetails externalOAuthClientDetails;
 
   @Override
   @Bean
@@ -38,7 +38,7 @@ public class SwaggerAzureConfig extends SwaggerConfig {
     Map<String, Object> queryParams = new HashMap<>();
 
     return SecurityConfigurationBuilder.builder()
-        .clientId(authenticationProperties.getClientId())
+        .clientId(externalOAuthClientDetails.getClientId())
         .scopeSeparator(",")
         .useBasicAuthenticationWithAccessCodeGrant(true)
         .additionalQueryStringParams(queryParams)
@@ -48,8 +48,8 @@ public class SwaggerAzureConfig extends SwaggerConfig {
   private SecurityScheme securityScheme() {
     ImplicitGrant implicitGrant =
         new ImplicitGrant(
-            new LoginEndpoint(authenticationProperties.getUserAuthorizationUri()),
-            authenticationProperties.getTokenName());
+            new LoginEndpoint(externalOAuthClientDetails.getUserAuthorizationUri()),
+            externalOAuthClientDetails.getTokenName());
 
     return new OAuthBuilder()
         .name("spring_oauth")
@@ -60,7 +60,7 @@ public class SwaggerAzureConfig extends SwaggerConfig {
 
   private AuthorizationScope[] scopes() {
     return new AuthorizationScope[] {
-      new AuthorizationScope(authenticationProperties.getScope(), "")
+      new AuthorizationScope(externalOAuthClientDetails.getScope(), "")
     };
   }
 
