@@ -22,9 +22,12 @@ Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
    3. Add current user to userlist ``sudo usermod -aG docker $USER``
    4. Logout and Login again for iii. to take effect. 
 2. Install [Docker-Compose](https://docs.docker.com/compose/install/) 
-   1. Install Docker-Compose ``sudo curl -L 
-"https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o 
-/usr/local/bin/docker-compose``
+   1. Install Docker-Compose 
+   ```
+   sudo curl -L 
+   "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o 
+   /usr/local/bin/docker-compose
+   ```
    2. Add Execution Permission ``sudo chmod +x /usr/local/bin/docker-compose`` 
 3. Install Git ``$ sudo apt install git-all``
 4. Open Terminal and clone the BurningOKR Git Repository: ```git clone https://github.com/BurningOKR/BurningOKR.git```
