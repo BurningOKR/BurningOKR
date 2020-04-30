@@ -23,13 +23,10 @@ import org.springframework.stereotype.Service;
 public class AzureApiCaller {
 
   private ExternalOAuthClientDetails externalOAuthClientDetails;
-  private AzureAdProperties azureAdProperties;
 
   @Autowired
-  public AzureApiCaller(
-      ExternalOAuthClientDetails externalOAuthClientDetails, AzureAdProperties azureAdProperties) {
+  public AzureApiCaller(ExternalOAuthClientDetails externalOAuthClientDetails) {
     this.externalOAuthClientDetails = externalOAuthClientDetails;
-    this.azureAdProperties = azureAdProperties;
   }
 
   InputStream callApi(String accessToken, URL url) throws IOException {
@@ -57,11 +54,7 @@ public class AzureApiCaller {
    */
   public String getAccessToken() throws AzureApiException {
     try {
-      final URL url =
-          new URL(
-              "https://login.microsoftonline.com/"
-                  + this.azureAdProperties.getTenantId()
-                  + "/oauth2/v2.0/token");
+      final URL url = new URL(externalOAuthClientDetails.getAccessTokenUri());
 
       ImmutableMap<String, String> params =
           ImmutableMap.<String, String>builder()
