@@ -38,13 +38,13 @@ export class SetPasswordComponent implements OnInit {
 
   setPassword(): void {
     const formData: PasswordResetData = this.getPasswordResetData();
-    // this.disableForm(); TODO: Find out, why Observables cant be handled, after an error was caught /TG 09.03.2020
+    this.disableForm();
 
     this.passwordService.setPasswordWithEmailIdentifier$(formData)
       .pipe(take(1))
       .subscribe(response => {
-        this.handleResponse(response);
-      });
+        this.displaySuccessSnackBarAndRedirectToLogin();
+      }, () => this.enableForm());
   }
 
   generateNewPasswordForm(): FormGroup {
@@ -52,14 +52,6 @@ export class SetPasswordComponent implements OnInit {
       newPassword: new FormControl('', [Validators.required, Validators.minLength(7)]),
       newPasswordRepetition: new FormControl('', [Validators.required])
     }, [passwordMatchValidatorFunction]);
-  }
-
-  private handleResponse(response: any): void {
-    if (typeof response === 'object') {
-      this.displaySuccessSnackBarAndRedirectToLogin();
-    } else {
-      // this.enableForm(); TODO: Find out, why Observables cant be handled, after an error was caught /TG 09.03.2020
-    }
   }
 
   private displaySuccessSnackBarAndRedirectToLogin(): void {
