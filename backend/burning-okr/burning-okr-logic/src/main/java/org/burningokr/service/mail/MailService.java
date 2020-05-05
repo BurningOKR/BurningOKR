@@ -36,6 +36,10 @@ public class MailService {
     }
   }
 
+  public boolean hasMailConfigured() {
+    return javaMailSender.isPresent();
+  }
+
   private void checkAndInitializeCollections(Mail mail) {
     if (mail.getTo() == null) {
       mail.setTo(new ArrayList<>(0));

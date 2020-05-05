@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FeedbackFormComponent } from '../feedback-form/feedback-form.component';
 import { MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { ConfigurationApiService } from '../../../core/settings/configuration-api.service';
 
 @Component({
   selector: 'app-feedback-button',
@@ -18,12 +19,16 @@ export class FeedbackButtonComponent implements OnDestroy {
     description: 'message to be shown after the user feedback was submitted successfully',
     value: 'Feedback erfolgreich übermittelt 📬'
   });
+  private hasMail$: Observable<boolean>;
 
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private i18n: I18n
-  ) {}
+    private i18n: I18n,
+    private configService: ConfigurationApiService
+  ) {
+    this.hasMail$ = configService.getHasMailConfigured();
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
@@ -39,7 +44,7 @@ export class FeedbackButtonComponent implements OnDestroy {
             duration: 3500
           });
         }
-    }));
+      }));
   }
 
   postFeedback$(): Observable<any extends ObservableInput<infer T> ? T : never> {
