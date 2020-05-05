@@ -46,6 +46,7 @@ export class AuthenticationService {
           this.oAuthService.configure(authConfig);
           this.oAuthService.setStorage(localStorage);
           this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+          this.oAuthService.redirectUri = `${window.location.origin}`;
           this.startLoginProcedure()
             .then(() => resolve(authConfig));
         });
