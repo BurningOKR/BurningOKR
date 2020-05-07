@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FeedbackFormComponent } from '../feedback-form/feedback-form.component';
 import { MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { ConfigurationApiService } from '../../../core/settings/configuration-api.service';
+import { ConfigurationApiService } from '../../settings/configuration-api.service';
 
 @Component({
   selector: 'app-feedback-button',
@@ -19,7 +19,7 @@ export class FeedbackButtonComponent implements OnDestroy {
     description: 'message to be shown after the user feedback was submitted successfully',
     value: 'Feedback erfolgreich übermittelt 📬'
   });
-  private hasMail$: Observable<boolean>;
+  hasMail$: Observable<boolean>;
 
   constructor(
     private dialog: MatDialog,
