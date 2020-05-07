@@ -12,7 +12,7 @@ import lombok.*;
 public abstract class SubStructure extends Structure implements ChildStructure {
   @ManyToOne @EqualsAndHashCode.Exclude protected Structure parentStructure;
 
-  @OneToMany(mappedBy = "parentStructure", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "parentStructure", cascade = CascadeType.REMOVE, targetEntity = SubStructure.class)
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)
   @EqualsAndHashCode.Exclude
