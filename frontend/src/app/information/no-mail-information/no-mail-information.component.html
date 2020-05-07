@@ -1,0 +1,22 @@
+<app-okr-toolbar>
+  <span i18n="@@component_noMailInformation_Header">Kein SMTP Konfiguriert</span>
+</app-okr-toolbar>
+<br>
+<div class="container">
+  <h1>Es wurde keine SMTP Konfiguration gefunden.</h1>
+  <p>Dies kann die Benutzbarkeit der Anwendung massiv einschränken.</p>
+  <p>Ist als Usermanagement AAD konfiguriert, sind folgende Funktionen deaktiviert:</p>
+  <ul>
+    <li>Senden von Feedback</li>
+  </ul>
+  <p>Ist als Usermanagement Local konfiguriert, sind folgende Funktionen deativiert:</p>
+  <ul>
+    <li>Senden von Feedback</li>
+    <li>Senden von Mails für die Anlegung von Nutzern</li>
+    <li>Senden von Passwort-reset Mails</li>
+  </ul>
+
+  <button mat-raised-button color="primary" routerLink="/">Zurück zu Startseite</button>
+
+
+</div>
