@@ -2,7 +2,7 @@ package org.burningokr.service.structureutil;
 
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.ChildStructure;
-import org.burningokr.model.structures.CompanyStructure;
+import org.burningokr.model.structures.Structure;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,8 +29,8 @@ public class ParentService {
    * @return a boolean value
    */
   public boolean isParentObjectiveLegal(Objective childObjective, Objective parentObjective) {
-    CompanyStructure currentStructure = childObjective.getParentStructure();
-    CompanyStructure parentStructure = parentObjective.getParentStructure();
+    Structure currentStructure = childObjective.getParentStructure();
+    Structure parentStructure = parentObjective.getParentStructure();
 
     return isStructureChildStructure(currentStructure, parentStructure);
   }
@@ -38,13 +38,12 @@ public class ParentService {
   /**
    * Test if a Structure is a Child of another Structure.
    *
-   * @param childStructure a {@link CompanyStructure} object
-   * @param parentStructure a {@link CompanyStructure} object
+   * @param childStructure a {@link Structure} object
+   * @param parentStructure a {@link Structure} object
    * @return a boolean value
    */
-  public boolean isStructureChildStructure(
-      CompanyStructure childStructure, CompanyStructure parentStructure) {
-    CompanyStructure currentStructure = childStructure;
+  public boolean isStructureChildStructure(Structure childStructure, Structure parentStructure) {
+    Structure currentStructure = childStructure;
     while (currentStructure instanceof ChildStructure) {
       currentStructure = ((ChildStructure) currentStructure).getParentStructure();
       if (currentStructure == parentStructure) {

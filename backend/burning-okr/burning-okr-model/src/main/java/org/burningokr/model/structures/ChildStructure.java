@@ -1,7 +1,7 @@
 package org.burningokr.model.structures;
 
 public interface ChildStructure {
-  void setParentStructure(CompanyStructure parentStructure);
+  void setParentStructure(Structure parentStructure);
 
-  CompanyStructure getParentStructure();
+  Structure getParentStructure();
 }

@@ -16,7 +16,7 @@ import org.burningokr.model.cycles.Cycle;
 @Table(name = "company")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Company extends CompanyStructure {
+public class Company extends Structure {
 
   @ManyToOne @EqualsAndHashCode.Exclude private Cycle cycle;
 

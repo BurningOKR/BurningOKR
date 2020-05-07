@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.structures.CompanyStructure;
+import org.burningokr.model.structures.Structure;
 
 @Entity
 @Data
@@ -25,7 +25,7 @@ public class Objective implements Trackable<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @ManyToOne private CompanyStructure parentStructure;
+  @ManyToOne private Structure parentStructure;
 
   @ManyToOne private Objective parentObjective;
 

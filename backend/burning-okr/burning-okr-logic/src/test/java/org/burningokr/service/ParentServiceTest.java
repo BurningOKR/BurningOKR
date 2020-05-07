@@ -11,8 +11,8 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.CompanyStructure;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.Structure;
 import org.burningokr.service.structureutil.ParentService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -73,38 +73,34 @@ public class ParentServiceTest {
 
   @Test
   public void test_isParentObjectiveLegal_expectsTrue() {
-    when(mockParentService.isStructureChildStructure(
-            any(CompanyStructure.class), any(CompanyStructure.class)))
+    when(mockParentService.isStructureChildStructure(any(Structure.class), any(Structure.class)))
         .thenReturn(true);
     doCallRealMethod()
         .when(mockParentService)
         .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
-    CompanyStructure testParentStructure = new Department();
+    Structure testParentStructure = new Department();
     testObjective.setParentStructure(testParentStructure);
     assertTrue(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
 
-    verify(mockParentService)
-        .isStructureChildStructure(any(CompanyStructure.class), any(CompanyStructure.class));
+    verify(mockParentService).isStructureChildStructure(any(Structure.class), any(Structure.class));
   }
 
   @Test
   public void test_isParentObjectiveLegal_expectsFalse() {
-    when(mockParentService.isStructureChildStructure(
-            any(CompanyStructure.class), any(CompanyStructure.class)))
+    when(mockParentService.isStructureChildStructure(any(Structure.class), any(Structure.class)))
         .thenReturn(false);
     doCallRealMethod()
         .when(mockParentService)
         .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
-    CompanyStructure testParentStructure = new Department();
+    Structure testParentStructure = new Department();
     testObjective.setParentStructure(testParentStructure);
     Assert.assertFalse(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
 
-    verify(mockParentService)
-        .isStructureChildStructure(any(CompanyStructure.class), any(CompanyStructure.class));
+    verify(mockParentService).isStructureChildStructure(any(Structure.class), any(Structure.class));
   }
 
   @Test

@@ -20,7 +20,7 @@ import org.burningokr.model.okr.Objective;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public abstract class CompanyStructure implements Trackable<Long>, ParentStructure {
+public abstract class Structure implements Trackable<Long>, ParentStructure {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

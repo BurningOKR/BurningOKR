@@ -6,9 +6,9 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.CompanyStructure;
 import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.Structure;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.repositories.structre.CompanyRepository;
@@ -110,35 +110,34 @@ public class CyclePreparationCloningService {
   }
 
   private void cloneDepartmentListIntoCompanyStructureForPreparation(
-      Collection<Department> departmentListToClone, CompanyStructure companyStructureToCloneInto) {
+      Collection<Department> departmentListToClone, Structure structureToCloneInto) {
     departmentListToClone.forEach(
         original ->
-            cloneDepartmentIntoCompanyStructureForPreparation(
-                original, companyStructureToCloneInto));
+            cloneDepartmentIntoCompanyStructureForPreparation(original, structureToCloneInto));
   }
 
   private void cloneDepartmentIntoCompanyStructureForPreparation(
-      Department departmentToClone, CompanyStructure companyStructureToCloneInto) {
+      Department departmentToClone, Structure structureToCloneInto) {
     Department copy = departmentToClone.getCopyWithoutRelations();
-    copy.setParentStructure(companyStructureToCloneInto);
-    companyStructureToCloneInto.getDepartments().add(copy);
+    copy.setParentStructure(structureToCloneInto);
+    structureToCloneInto.getDepartments().add(copy);
     departmentRepository.save(copy);
     cloneObjectiveListIntoCompanyStructureForPreparation(departmentToClone.getObjectives(), copy);
     cloneDepartmentListIntoCompanyStructureForPreparation(departmentToClone.getDepartments(), copy);
   }
 
   private void cloneObjectiveListIntoCompanyStructureForPreparation(
-      Collection<Objective> objectiveListToClone, CompanyStructure companyStructureToCloneInto) {
+      Collection<Objective> objectiveListToClone, Structure structureToCloneInto) {
     for (Objective original : objectiveListToClone) {
-      cloneObjectiveIntoCompanyStructureForPreparation(original, companyStructureToCloneInto);
+      cloneObjectiveIntoCompanyStructureForPreparation(original, structureToCloneInto);
     }
   }
 
   private void cloneObjectiveIntoCompanyStructureForPreparation(
-      Objective objectiveToClone, CompanyStructure companyStructureToCloneInto) {
+      Objective objectiveToClone, Structure structureToCloneInto) {
     Objective copy = objectiveToClone.getCopyWithoutRelations();
-    copy.setParentStructure(companyStructureToCloneInto);
-    companyStructureToCloneInto.getObjectives().add(copy);
+    copy.setParentStructure(structureToCloneInto);
+    structureToCloneInto.getObjectives().add(copy);
     if (objectiveToClone.hasParentObjective()) {
       Objective clonedParentObjective = clonedObjectives.get(objectiveToClone.getParentObjective());
       if (clonedParentObjective != null) {
