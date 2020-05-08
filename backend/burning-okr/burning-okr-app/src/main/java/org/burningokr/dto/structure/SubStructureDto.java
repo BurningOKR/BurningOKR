@@ -8,6 +8,13 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class SubStructureDto extends StructureDto {
+
+  protected SubStructureDto(StructureType structureType) {
+    this.__structureType = structureType;
+  }
+
+  protected StructureType __structureType;
+
   @NotNull protected Long parentStructureId;
 
   protected Collection<Long> subDepartmentIds = new ArrayList<>();
