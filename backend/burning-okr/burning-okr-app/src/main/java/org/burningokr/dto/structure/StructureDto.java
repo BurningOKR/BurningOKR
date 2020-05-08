@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public abstract class CompanyStructureDto {
+public abstract class StructureDto {
 
   protected Long structureId;
 

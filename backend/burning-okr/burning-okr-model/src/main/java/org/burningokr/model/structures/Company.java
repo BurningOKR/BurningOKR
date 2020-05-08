@@ -22,11 +22,17 @@ public class Company extends Structure {
 
   @ManyToOne @EqualsAndHashCode.Exclude private CompanyHistory history;
 
-  @OneToMany(mappedBy = "parentStructure", cascade = CascadeType.REMOVE, targetEntity = SubStructure.class)
+  @OneToMany(
+      mappedBy = "parentStructure",
+      cascade = CascadeType.REMOVE,
+      targetEntity = SubStructure.class)
   @EqualsAndHashCode.Exclude
   private Collection<Department> departments = new ArrayList<>();
 
-  @OneToMany(mappedBy = "parentStructure", cascade = CascadeType.REMOVE, targetEntity = SubStructure.class)
+  @OneToMany(
+      mappedBy = "parentStructure",
+      cascade = CascadeType.REMOVE,
+      targetEntity = SubStructure.class)
   @EqualsAndHashCode.Exclude
   private Collection<CorporateObjectiveStructure> corporateObjectiveStructures = new ArrayList<>();
 

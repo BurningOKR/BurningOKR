@@ -2,23 +2,11 @@ package org.burningokr.dto.structure;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class CorporateObjectiveStructureDto {
-
-  @NotNull private Long id;
-
-  @NotNull private String name;
-
-  @NotNull private String label;
-
-  @NotNull private Long parentStructureId;
-
+@EqualsAndHashCode(callSuper = true)
+public class CorporateObjectiveStructureDto extends SubStructureDto {
   private Collection<Long> corporateObjectiveStructureIds = new ArrayList<>();
-
-  private Collection<Long> departmentIds = new ArrayList<>();
-
-  private Collection<Long> objectiveIds = new ArrayList<>();
 }

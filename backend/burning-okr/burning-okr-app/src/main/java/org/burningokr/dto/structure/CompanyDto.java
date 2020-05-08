@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CompanyDto extends CompanyStructureDto {
+public class CompanyDto extends StructureDto {
 
   private Long cycleId;
 

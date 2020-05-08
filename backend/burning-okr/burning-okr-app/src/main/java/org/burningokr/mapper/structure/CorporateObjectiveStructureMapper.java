@@ -13,19 +13,21 @@ public class CorporateObjectiveStructureMapper
   @Override
   public CorporateObjectiveStructure mapDtoToEntity(CorporateObjectiveStructureDto dto) {
     CorporateObjectiveStructure entity = new CorporateObjectiveStructure();
-    entity.setId(dto.getId());
-    entity.setName(dto.getName());
+    entity.setId(dto.getStructureId());
+    entity.setName(dto.getStructureName());
     return entity;
   }
 
   @Override
   public CorporateObjectiveStructureDto mapEntityToDto(CorporateObjectiveStructure entity) {
     CorporateObjectiveStructureDto dto = new CorporateObjectiveStructureDto();
-    dto.setId(entity.getId());
-    dto.setName(entity.getName());
+    dto.setStructureId(entity.getId());
+    dto.setStructureName(entity.getName());
     dto.setParentStructureId(
         entity.getParentStructure() != null ? entity.getParentStructure().getId() : null);
-    entity.getDepartments().forEach(department -> dto.getDepartmentIds().add(department.getId()));
+    entity
+        .getDepartments()
+        .forEach(department -> dto.getSubDepartmentIds().add(department.getId()));
     entity.getObjectives().forEach(objective -> dto.getObjectiveIds().add(objective.getId()));
     entity
         .getCorporateObjectiveStructures()

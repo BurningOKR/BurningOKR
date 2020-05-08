@@ -29,7 +29,7 @@ public class CorporateObjectiveStructureMapperTest {
     Long expectedId = 5L;
     entity.setId(expectedId);
     dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedId, dto.getId());
+    Assert.assertEquals(expectedId, dto.getStructureId());
   }
 
   @Test
@@ -37,7 +37,7 @@ public class CorporateObjectiveStructureMapperTest {
     String expectedName = "myNameIs";
     entity.setName(expectedName);
     dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedName, dto.getName());
+    Assert.assertEquals(expectedName, dto.getStructureName());
   }
 
   @Test
@@ -61,11 +61,11 @@ public class CorporateObjectiveStructureMapperTest {
     }
     entity.setDepartments(departments);
     dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedDepartmentCount, dto.getDepartmentIds().size());
-    Assert.assertEquals(1L, dto.getDepartmentIds().toArray()[0]);
-    Assert.assertEquals(2L, dto.getDepartmentIds().toArray()[1]);
-    Assert.assertEquals(3L, dto.getDepartmentIds().toArray()[2]);
-    Assert.assertEquals(4L, dto.getDepartmentIds().toArray()[3]);
+    Assert.assertEquals(expectedDepartmentCount, dto.getSubDepartmentIds().size());
+    Assert.assertEquals(1L, dto.getSubDepartmentIds().toArray()[0]);
+    Assert.assertEquals(2L, dto.getSubDepartmentIds().toArray()[1]);
+    Assert.assertEquals(3L, dto.getSubDepartmentIds().toArray()[2]);
+    Assert.assertEquals(4L, dto.getSubDepartmentIds().toArray()[3]);
   }
 
   @Test
@@ -106,7 +106,7 @@ public class CorporateObjectiveStructureMapperTest {
   @Test
   public void test_mapDtoToEntity_expectIdIsMapped() {
     Long expectId = 4L;
-    dto.setId(expectId);
+    dto.setStructureId(expectId);
     entity = mapper.mapDtoToEntity(dto);
     Assert.assertEquals(expectId, entity.getId());
   }
@@ -114,7 +114,7 @@ public class CorporateObjectiveStructureMapperTest {
   @Test
   public void test_mapDtoToEntity_expectNameIsMapped() {
     String expectedName = "myNameIS";
-    dto.setName(expectedName);
+    dto.setStructureName(expectedName);
     entity = mapper.mapDtoToEntity(dto);
     Assert.assertEquals(expectedName, entity.getName());
   }
@@ -147,7 +147,7 @@ public class CorporateObjectiveStructureMapperTest {
 
   @Test
   public void test_mapDtoToEntity_expectDepartmentListEmpty() {
-    dto.setDepartmentIds(Arrays.asList(1L, 2L));
+    dto.setSubDepartmentIds(Arrays.asList(1L, 2L));
     entity = mapper.mapDtoToEntity(dto);
     Assert.assertTrue(entity.getDepartments().isEmpty());
   }
@@ -160,7 +160,7 @@ public class CorporateObjectiveStructureMapperTest {
 
   @Test
   public void test_mapDtoToEntity_expectCorporateObjectiveStructureListEmpty() {
-    dto.setDepartmentIds(Arrays.asList(1L, 2L));
+    dto.setSubDepartmentIds(Arrays.asList(1L, 2L));
     entity = mapper.mapDtoToEntity(dto);
     Assert.assertTrue(entity.getCorporateObjectiveStructures().isEmpty());
   }
