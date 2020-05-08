@@ -6,10 +6,12 @@ import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base'
 import { AzureAuthTypeHandlerService } from './auth-type-handler/azure-auth-type-handler.service';
 import { LocalAuthTypeHandlerService } from './auth-type-handler/local-auth-type-handler.service';
 import { FetchingService } from '../../services/fetching.service';
+import { Consts } from '../../../shared/consts';
 
 @Injectable()
 export class AuthenticationService {
   silentRefreshActivated: boolean = false;
+  authType: string;
 
   authTypeHandler: Promise<AuthTypeHandlerBase>;
 
@@ -22,7 +24,9 @@ export class AuthenticationService {
       .pipe(
         take(1),
         map(authType => {
-          if (authType === 'azure') {
+          this.authType = authType;
+
+          if (authType === Consts.AUTHTYPE_AZURE) {
             return this.injector.get(AzureAuthTypeHandlerService);
           } else {
             const localAuthTypeHandlerService: LocalAuthTypeHandlerService = this.injector.get(LocalAuthTypeHandlerService);
@@ -47,8 +51,10 @@ export class AuthenticationService {
           this.oAuthService.setStorage(localStorage);
           this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
           this.oAuthService.redirectUri = `${window.location.origin}`;
-          this.startLoginProcedure()
-            .then(() => resolve(authConfig));
+
+          this.startLoginProcedureIfAuthTypeIsAAD()
+              .then(() => resolve(authConfig));
+
         });
     });
   }
@@ -57,6 +63,14 @@ export class AuthenticationService {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
     return authTypeHandler.startLoginProcedure(this);
+  }
+
+  private async startLoginProcedureIfAuthTypeIsAAD(): Promise<boolean> {
+    if (this.authType !== Consts.AUTHTYPE_LOCAL) {
+      return this.startLoginProcedure();
+    } else {
+      return true;
+    }
   }
 
   async loginLocalUser(email: string, password: string): Promise<object> {
