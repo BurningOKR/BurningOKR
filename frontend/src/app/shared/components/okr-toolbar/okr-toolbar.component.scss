@@ -3,8 +3,14 @@
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
   z-index: 2;
 }
-
+.warningText
+{
+  color: white;
+  text-align: center;
+  font-size: small;
+}
 .user-interactions {
+  float: right;
   display: flex;
   align-items: center;
 }

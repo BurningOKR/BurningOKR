@@ -1,1 +1,0 @@
-ALTER TABLE public.department ADD is_active boolean default true

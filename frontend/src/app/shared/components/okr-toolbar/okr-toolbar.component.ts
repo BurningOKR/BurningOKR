@@ -12,6 +12,7 @@ import versions from '../../../../../src/_versions';
 import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
 import { CurrentCompanyService } from '../../../okrview/current-company.service';
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
+import { ConfigurationApiService } from '../../../core/settings/configuration-api.service';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -24,20 +25,23 @@ export class OkrToolbarComponent implements OnInit {
   currentUser$: Observable<User>;
   isCurrentUserAdmin$: Observable<boolean>;
   isLocalUserbase$: Observable<boolean>;
+  hasMailConfigured$: Observable<boolean>;
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private currentUserService: CurrentUserService,
     private currentCompanyService: CurrentCompanyService,
-    private oAuthDetails: OAuthFrontendDetailsService
+    private oAuthDetails: OAuthFrontendDetailsService,
+    private configurationApiService: ConfigurationApiService
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.getAuthType$()
       .pipe(
         map(authType => authType === 'local'),
         shareReplay()
       );
-  }
+    this.hasMailConfigured$ = this.configurationApiService.getHasMailConfigured();
+        }
 
   ngOnInit(): void {
     this.currentUser$ = this.currentUserService.getCurrentUser$();

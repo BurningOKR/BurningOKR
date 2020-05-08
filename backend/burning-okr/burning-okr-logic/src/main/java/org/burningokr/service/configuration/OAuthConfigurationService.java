@@ -4,10 +4,7 @@ import com.google.common.collect.Lists;
 import java.util.Collection;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.configuration.ConfigurationType;
-import org.burningokr.model.configuration.OAuthClientDetails;
-import org.burningokr.model.configuration.OAuthConfiguration;
-import org.burningokr.model.configuration.OAuthConfigurationName;
+import org.burningokr.model.configuration.*;
 import org.burningokr.repositories.configuration.OAuthConfigurationRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +19,7 @@ public class OAuthConfigurationService {
     return Lists.newArrayList(oAuthConfigurationRepository.findAll());
   }
 
+  /** Gets an OAuthConfiguration by its name */
   public OAuthConfiguration getOAuthConfigurationByName(OAuthConfigurationName name) {
     return getConfigurationByName(getOAuthConfigurations(), name);
   }
@@ -29,25 +27,31 @@ public class OAuthConfigurationService {
   /**
    * Updates the OAuthConfiguration to match the given OauthClientDetails.
    *
-   * @param oauthClientDetails a {@link OAuthClientDetails} object
+   * @param authenticationProperties a {@link AuthenticationProperties} object
    */
-  public void updateOAuthConfiguration(OAuthClientDetails oauthClientDetails) {
+  public void updateOAuthConfiguration(AuthenticationProperties authenticationProperties) {
     Collection<OAuthConfiguration> oAuthConfigurations = getOAuthConfigurations();
 
     OAuthConfiguration clientId =
         getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_ID);
     OAuthConfiguration clientSecret =
         getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_SECRET);
-    OAuthConfiguration redirectUri =
-        getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.REDIRECT_URI);
+    OAuthConfiguration scope =
+        getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.SCOPE);
 
-    clientId.setValue(oauthClientDetails.getClientId());
-    clientSecret.setValue(oauthClientDetails.getClientSecret());
-    redirectUri.setValue(oauthClientDetails.getWebServerRedirectUri());
+    clientId.setValue(authenticationProperties.getClientId());
+    clientSecret.setValue(authenticationProperties.getClientSecret());
+    scope.setValue(authenticationProperties.getScope());
 
     oAuthConfigurationRepository.save(clientId);
     oAuthConfigurationRepository.save(clientSecret);
-    oAuthConfigurationRepository.save(redirectUri);
+    oAuthConfigurationRepository.save(scope);
+  }
+
+  public void setOAuthConfiguration(OAuthConfigurationName name, String value) {
+    OAuthConfiguration configuration = getConfigurationByName(getOAuthConfigurations(), name);
+    configuration.setValue(value);
+    oAuthConfigurationRepository.save(configuration);
   }
 
   private OAuthConfiguration getConfigurationByName(

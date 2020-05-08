@@ -11,22 +11,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class AzureApiCallerTest {
 
-  private AuthenticationProperties authenticationProperties;
-  private AzureAdProperties azureAdProperties;
+  private ExternalOAuthClientDetails externalOAuthClientDetails;
 
   @Before
   public void setup() {
-    authenticationProperties =
-        new AuthenticationProperties("", "", "clientId", "clientSecret", "", "");
+    externalOAuthClientDetails =
+        new ExternalOAuthClientDetails("", "", "clientId", "clientSecret", "", "");
     List<AzureGroup> azureGroups = new ArrayList<>();
     azureGroups.add(AzureGroup.builder().id("groupId").name("groupIntern").build());
-    azureAdProperties = new AzureAdProperties("tenantId", azureGroups);
   }
 
   @Test(expected = AzureApiException.class)
   public void getAccessToken_shouldFailForInvalidData() throws AzureApiException {
-    authenticationProperties.setClientSecret("notSoSecret");
-    AzureApiCaller caller = new AzureApiCaller(authenticationProperties, azureAdProperties);
+    externalOAuthClientDetails.setClientSecret("notSoSecret");
+    AzureApiCaller caller = new AzureApiCaller(externalOAuthClientDetails);
 
     String accessToken = caller.getAccessToken();
   }

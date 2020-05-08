@@ -9,6 +9,14 @@ export class Consts {
 
   static HTTP_ERROR_RESPONSE_WRONG_PASSWORD = 'Wrong Password'; // The http message that is sent by the server, if the password was wrong
 
+  static FETCHING_SERVICE_DEBOUNCE_TIME = 20; // Debounce time to prevent double fetching, when the AuthenticationService initializes and logs in.
+
+  static CURRENCY_EURO = 'EURO';
+  static NUMBER_FORMAT_PERCENT = 'PERCENT';
+
+  static AUTHTYPE_LOCAL = 'local';
+  static AUTHTYPE_AZURE = 'azure';
+
   static UNAUTHORIZED_ERROR = 401; // HTTP Error Status Code for unauthorized.
   static CLIENT_RESOLVABLE_ERRORS = [ // HTTP Error Status Codes, that can be resolved by simply retrying.
     0,

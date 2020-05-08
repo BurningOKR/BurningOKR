@@ -10,6 +10,7 @@ import { RedirectComponent } from './core/auth/components/redirect/redirect.comp
 import { StructureDashboardComponent } from './structures/structures-dashboard/structure-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { LocalGuard } from './core/auth/guards/local.guard';
+import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 
 const routes: Routes = [
   {path: 'redirect', component: RedirectComponent},
@@ -33,6 +34,7 @@ const routes: Routes = [
   },
   {path: 'logout', component: LogoutComponent},
   {path: 'error', component: ErrorComponent},
+  {path: 'noMailInformation', component: NoMailInformationComponent},
   {path: '**', redirectTo: ''}
 ];
 

@@ -22,14 +22,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AzureApiCaller {
 
-  private AuthenticationProperties authenticationProperties;
-  private AzureAdProperties azureAdProperties;
+  private ExternalOAuthClientDetails externalOAuthClientDetails;
 
   @Autowired
-  public AzureApiCaller(
-      AuthenticationProperties authenticationProperties, AzureAdProperties azureAdProperties) {
-    this.authenticationProperties = authenticationProperties;
-    this.azureAdProperties = azureAdProperties;
+  public AzureApiCaller(ExternalOAuthClientDetails externalOAuthClientDetails) {
+    this.externalOAuthClientDetails = externalOAuthClientDetails;
   }
 
   InputStream callApi(String accessToken, URL url) throws IOException {
@@ -57,16 +54,12 @@ public class AzureApiCaller {
    */
   public String getAccessToken() throws AzureApiException {
     try {
-      final URL url =
-          new URL(
-              "https://login.microsoftonline.com/"
-                  + this.azureAdProperties.getTenantId()
-                  + "/oauth2/v2.0/token");
+      final URL url = new URL(externalOAuthClientDetails.getAccessTokenUri());
 
       ImmutableMap<String, String> params =
           ImmutableMap.<String, String>builder()
-              .put("client_id", authenticationProperties.getClientId())
-              .put("client_secret", authenticationProperties.getClientSecret())
+              .put("client_id", externalOAuthClientDetails.getClientId())
+              .put("client_secret", externalOAuthClientDetails.getClientSecret())
               .put("scope", "https://graph.microsoft.com/.default")
               .put("grant_type", "client_credentials")
               .build();

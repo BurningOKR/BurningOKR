@@ -1,1 +1,0 @@
-ALTER TABLE public.key_result ADD sequence int default 0;

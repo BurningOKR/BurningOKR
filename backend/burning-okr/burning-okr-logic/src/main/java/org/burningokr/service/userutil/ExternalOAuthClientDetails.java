@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.burningokr.model.configuration.AuthenticationProperties;
 import org.burningokr.service.condition.AadCondition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Conditional;
@@ -17,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthenticationProperties {
+public class ExternalOAuthClientDetails implements AuthenticationProperties {
 
   @NotEmpty private String userAuthorizationUri;
 

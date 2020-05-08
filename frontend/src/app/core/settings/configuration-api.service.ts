@@ -12,6 +12,10 @@ export class ConfigurationApiService {
   constructor(private api: ApiHttpService) {
   }
 
+  getHasMailConfigured(): Observable<boolean> {
+    return this.api.getData$('configurations/hasmail');
+  }
+
   getConfigurations$(): Observable<ConfigurationDto[]> {
     return this.api.getData$('configurations');
   }

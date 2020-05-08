@@ -79,10 +79,6 @@ export class KeyresultComponent implements OnInit, OnDestroy {
     return progressText;
   }
 
-  getKeyResultProgressPercent(): number {
-    return Math.round(this.keyResult.getProgressNormalized() * 100);
-  }
-
   clickedMoveKeyResultToTop(): void {
     this.moveKeyResultToTop.emit(this.keyResult);
   }
