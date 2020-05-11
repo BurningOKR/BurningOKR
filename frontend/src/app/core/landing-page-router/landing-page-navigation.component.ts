@@ -54,14 +54,12 @@ export class LandingPageNavigationComponent implements OnInit {
   }
 
   private setAdminUserIfNoneWasChosenAfterCompletionOf(healthCheck$: Observable<boolean>): void {
-    console.log('waiting for healthcheck');
     healthCheck$
       .pipe(
         switchMap(() => this.initService.getInitState$())
       )
       .subscribe(
         (initState: InitState) => {
-          console.log(`received initstate: ${initState.initState} id: ${initState.runtimeId}`);
           if (initState.initState === INIT_STATE_NAME.NO_AZURE_ADMIN_USER) {
             this.setCurrentUserAsAzureAdminUser();
           }

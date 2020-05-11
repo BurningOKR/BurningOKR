@@ -1,5 +1,6 @@
 package org.burningokr.controller.initialisation;
 
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.BurningOkrApp;
 import org.burningokr.annotation.RestApiController;
@@ -17,8 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.validation.Valid;
 
 @RestApiController
 @RequiredArgsConstructor
@@ -78,11 +77,10 @@ public class InitController {
    * @return the new InitState
    */
   @PostMapping("/init/azure-admin-user")
-  public ResponseEntity<InitStateDto> setAdminAzureAdminUser (
-          @Valid @RequestBody AdminUser adminUser) {
+  public ResponseEntity<InitStateDto> setAdminAzureAdminUser(
+      @Valid @RequestBody AdminUser adminUser) {
 
-    InitState initState =
-            initService.setAzureAdminUser(adminUser);
+    InitState initState = initService.setAzureAdminUser(adminUser);
 
     return ResponseEntity.ok(initStateMapper.mapEntityToDto(initState));
   }
