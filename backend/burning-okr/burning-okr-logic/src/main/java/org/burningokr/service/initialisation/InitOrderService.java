@@ -11,7 +11,7 @@ public abstract class InitOrderService {
 
   private final InitStateName[] initStateNames;
 
-  /**
+  /**∏
    * Gets the Next Init State.
    *
    * @param current an {@link InitStateName}
@@ -25,5 +25,15 @@ public abstract class InitOrderService {
       }
     }
     throw new InvalidInitStateException("There is no InitState after the given InitState.");
+  }
+
+  /**
+   * Gets the initial Init State, with whom the application should start.
+   *
+   * @return the initial {@link InitStateName}
+   */
+
+  public InitStateName getInitialInitState() {
+    return this.initStateNames[0];
   }
 }

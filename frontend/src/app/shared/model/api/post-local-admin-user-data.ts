@@ -1,6 +1,6 @@
 import { User } from './user';
 
-export class PostAdminUserData {
+export class PostLocalAdminUserData {
   password: string;
   userDto: User;
 }
