@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 import { UserApiService } from '../../shared/services/api/user-api.service';
 import { take } from 'rxjs/operators';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -11,7 +11,7 @@ import { Fetchable } from '../../shared/decorators/fetchable.decorator';
   providedIn: 'root'
 })
 export class CurrentUserService implements Fetchable {
-  private isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isAdmin$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
   constructor(private oAuthService: OAuthService,
               private userApiService: UserApiService) {

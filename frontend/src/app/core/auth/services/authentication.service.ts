@@ -76,7 +76,7 @@ export class AuthenticationService {
   async loginLocalUser(email: string, password: string): Promise<object> {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
-    return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
+    return this.oAuthService.fetchTokenUsingPasswordFlow(email.toLowerCase(), password)
       .then(object => {
         authTypeHandler.setupSilentRefresh(this);
 
