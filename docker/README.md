@@ -8,7 +8,7 @@ Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
 2. Install Git: https://gitforwindows.org/
 3. Open Powershell and clone the BurningOKR Git Repository: ```git clone https://github.com/BurningOKR/BurningOKR.git```
 4. Open the BurningOKR\Docker directory
-5. Configure your docker container. See [Configuration](#configuration)
+5. Configure your docker container. See [Configuration](#configuration-windows-and-linux)
 6. Open Powershell within the BurningOKR\Docker directory (Press shift and right click -> open Powershell)
 7. Run ```docker-compose build```. This will take several minutes.
 8. Run ```docker-compose up```.
@@ -32,7 +32,7 @@ Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
 3. Install Git ``$ sudo apt install git-all``
 4. Open Terminal and clone the BurningOKR Git Repository: ```git clone https://github.com/BurningOKR/BurningOKR.git```
 5. Open the BurningOKR\Docker directory
-6. Configure your docker container. See [Configuration](#configuration)
+6. Configure your docker container. See [Configuration](#configuration-windows-and-linux)
 7. Open Terminal and change directory to BurningOKR\Docker.
 8. Run ```docker-compose build```. This will take several minutes.
 9. Run ```docker-compose up```.
