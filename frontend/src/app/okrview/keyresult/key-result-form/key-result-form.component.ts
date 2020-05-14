@@ -55,8 +55,8 @@ export class KeyResultFormComponent {
 
     this.title = `Key Result ${this.keyResult ? editText : createText}`;
   }
-// TODO: change name and return type, to not state type but only state function of this method
-  getViewUnitKeysAsStringArray(): string[] {
+
+  getViewUnitKeys(): string[] {
     return Object.keys(Unit);
   }
 

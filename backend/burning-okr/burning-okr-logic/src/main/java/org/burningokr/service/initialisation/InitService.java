@@ -19,10 +19,12 @@ import org.burningokr.service.userhandling.LocalUserService;
 import org.burningokr.service.userhandling.PasswordService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class InitService {
 
   private final InitStateRepository initStateRepository;
@@ -33,6 +35,11 @@ public class InitService {
   private final OAuthClientDetailsService oauthClientDetailsService;
   private final OAuthConfigurationService oauthConfigurationService;
   private final ApplicationContext applicationContext;
+
+  @EventListener
+  public void onApplicationEvent(ContextRefreshedEvent event) {
+    setCurrentInitStateToInitialInitStateIfNoneIsPresent();
+  }
 
   /**
    * gets the current InitState.
@@ -104,6 +111,14 @@ public class InitService {
     return nextInitState();
   }
 
+  public InitState setAzureAdminUser(AdminUser adminUser) throws InvalidInitStateException {
+    isInitStateElseThrow(InitStateName.NO_AZURE_ADMIN_USER);
+
+    adminUserService.addAdmin(adminUser);
+
+    return nextInitState();
+  }
+
   private InitState nextInitState() throws InvalidInitStateException {
 
     InitState currentInitState = getInitState();
@@ -113,6 +128,16 @@ public class InitService {
 
     currentInitState.setInitState(nextInitStateName);
     return saveInitState(currentInitState);
+  }
+
+  private void setCurrentInitStateToInitialInitStateIfNoneIsPresent() {
+    List<InitState> initStates = Lists.newArrayList(initStateRepository.findAll());
+
+    if (initStates.isEmpty()) {
+      final InitState initialInitState = new InitState();
+      initialInitState.setInitState(this.initOrderService.getInitialInitState());
+      saveInitState(initialInitState);
+    }
   }
 
   private void isInitStateElseThrow(InitStateName initStateName) throws InvalidInitStateException {
