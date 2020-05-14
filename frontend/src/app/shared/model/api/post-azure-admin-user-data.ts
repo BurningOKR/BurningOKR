@@ -1,5 +1,5 @@
 import { UserId } from '../id-types';
 
-export class PostAzureAdminUserData {
+export interface PostAzureAdminUserData {
   id: UserId;
 }

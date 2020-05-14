@@ -1,4 +1,4 @@
-export class InitState {
+export interface InitState {
   initState: INIT_STATE_NAME;
   runtimeId: string;
 }
