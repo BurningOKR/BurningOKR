@@ -5,10 +5,10 @@ import { NewPasswordForm } from '../../../../../../../shared/model/forms/new-pas
 import { AdminUserForm } from '../../../../../../../shared/model/forms/admin-user-form';
 import { passwordMatchValidatorFunction } from '../../../../set-password/passwords-match-validator-function';
 import { InitStateFormComponent } from '../init-state-form/init-state-form.component';
-import { InitService } from '../../../init.service';
-import { PostAdminUserData } from '../../../../../../../shared/model/api/post-admin-user-data';
+import { InitService } from '../../../../../../services/init.service';
+import { PostLocalAdminUserData } from '../../../../../../../shared/model/api/post-local-admin-user-data';
 import { User } from '../../../../../../../shared/model/api/user';
-import { InitState } from '../../../init-state';
+import { InitState } from '../../../../../../../shared/model/api/init-state';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -77,10 +77,10 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
   }
 
   submitData$(): Observable<InitState> {
-    return this.initService.postAdminUser$(this.getFormData());
+    return this.initService.postLocalAdminUser$(this.getFormData());
   }
 
-  private getFormData(): PostAdminUserData {
+  private getFormData(): PostLocalAdminUserData {
     return {
       password: this.getPasswordFromForm(),
       userDto: this.getAdminUserFromForm()

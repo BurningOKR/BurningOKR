@@ -8,7 +8,7 @@ Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
 2. Install Git: https://gitforwindows.org/
 3. Open Powershell and clone the BurningOKR Git Repository: ```git clone https://github.com/BurningOKR/BurningOKR.git```
 4. Open the BurningOKR\Docker directory
-5. Configure your docker container. See [Configuration](#configuration)
+5. Configure your docker container. See [Configuration](#configuration-windows-and-linux)
 6. Open Powershell within the BurningOKR\Docker directory (Press shift and right click -> open Powershell)
 7. Run ```docker-compose build```. This will take several minutes.
 8. Run ```docker-compose up```.
@@ -27,7 +27,7 @@ Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run
 3. Install Git ``sudo apt install git-all``
 4. Open Terminal and clone the BurningOKR Git Repository: ```git clone https://github.com/BurningOKR/BurningOKR.git```
 5. Open the BurningOKR\docker directory
-6. Configure your docker container. See [Configuration](#configuration)
+6. Configure your docker container. See [Configuration](#configuration-windows-and-linux)
 7. Open Terminal and change directory to BurningOKR\docker.
 8. Run ```docker-compose build```. This will take several minutes.
 9. Run ```docker-compose up```.
@@ -42,14 +42,30 @@ and ``postgres.env.sample`` Rename both environment files to ``backend.env`` and
 2. Replace the ``<username>``, ``<password>`` and ``<database>`` placeholder in the `postgres.env`. You can choose 
 these freely.
 3. Replace the ``<db-connection-string>`` placeholder with the jdbc string corresponding with the favored 
-database location (E.g. Line 13 for a Docker based Database, recommended for testing). Remove the # at the front.			#?
-4. Replace ``<database>``, ``<db-username>`` and ``<db-password>`` with the same as set in the ``postgres.env``.			<database>?
+database location (E.g. Line 13 for a Docker based Database, recommended for testing). Remove the # at the front. 
+4. Replace ``<database>``, ``<db-username>`` and ``<db-password>`` with the same as set in the ``postgres.env``.
 5. If you want the software to send mails, replace ``<smtp-username``, ``<smtp-password>``, ``<smtp-host>``
 and ``<smtp-port>``. You might need to acquire these from your system administrator. If mails are not wanted, delete 
 placeholder.
 6. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use 
 Azure Active Directory as your userbase by replacing ``<local|aad>`` with either ``local`` or ``aad``. 
-
+    1. **When using aad as the userbase, you also need to do the following steps. You do not need to this,
+    when you are using the local user database.**
+        1. Replace the ``<azure-issuer>`` placeholder with your azure issuer URI. e.g. ``https://<login-provider>/<tenannt-id>/v2.0``
+        2. Replace ``<azure-client-id>``, ``<azure-client-secret>``, ``<azure-access-token-uri>``, ``<azure-user-authorization-uri>`` and ``<azure-user-info-uri>``
+        with the corresponding values from your Azure Active Directory App registration.
+        3. Add as many Azure Active Directory Groups as you want. All users from these groups will be authorized, to use the BurningOKR Tool.
+        The rest will not be able to use the tool. You need to specify the ``<azure-group-name>`` and the ``<azure-group-id>``.
+        4. To add a group, you need to add more ``AZURE_AD_AZUREGROUPS[0]_NAME=`` and ``AZURE_AD_AZUREGROUPS[0]_ID=`` configuration keys.
+        Replace the ``[0]`` with a ``[1]`` for the second group, with a ``[2]`` for the third group, and so on. Here is an example for three azure groups:
+        ```yaml
+       AZURE_AD_AZUREGROUPS[0]_NAME=<azure-group-name>
+       AZURE_AD_AZUREGROUPS[0]_ID=<azure-group-id>
+       AZURE_AD_AZUREGROUPS[1]_NAME=<second-azure-group-name>
+       AZURE_AD_AZUREGROUPS[1]_ID=<second-azure-group-id>
+       AZURE_AD_AZUREGROUPS[2]_NAME=<third-azure-group-name>
+       AZURE_AD_AZUREGROUPS[2]_ID=<third-azure-group-id>
+       ```
 
 ## Developer Information
 

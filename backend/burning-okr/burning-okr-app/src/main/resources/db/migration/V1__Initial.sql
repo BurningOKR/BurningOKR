@@ -276,9 +276,6 @@ INSERT INTO public.configuration VALUES (60, 'max-key-results', '7', 'number');
 INSERT INTO public.configuration VALUES (61, 'objective-progress-green-yellow-threshold', '-0.2', 'number');
 INSERT INTO public.configuration VALUES (62, 'objective-progress-yellow-red-threshold', '-0.4', 'number');
 
-
-INSERT INTO public.init_state VALUES (1, 1);
-
 CREATE SEQUENCE public.hibernate_sequence
     INCREMENT 1
     MINVALUE 1

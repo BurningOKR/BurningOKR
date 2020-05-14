@@ -11,8 +11,11 @@ export class Consts {
 
   static FETCHING_SERVICE_DEBOUNCE_TIME = 20; // Debounce time to prevent double fetching, when the AuthenticationService initializes and logs in.
 
-  static CURRENCY_EURO = 'EURO'; // TODO: Const to enum?
-  static NUMBER_FORMAT_PERCENT = 'PERCENT'; // TODO: Const to enum?
+  static CURRENCY_EURO = 'EURO';
+  static NUMBER_FORMAT_PERCENT = 'PERCENT';
+
+  static AUTHTYPE_LOCAL = 'local';
+  static AUTHTYPE_AZURE = 'azure';
 
   static UNAUTHORIZED_ERROR = 401; // HTTP Error Status Code for unauthorized.
   static CLIENT_RESOLVABLE_ERRORS = [ // HTTP Error Status Codes, that can be resolved by simply retrying.

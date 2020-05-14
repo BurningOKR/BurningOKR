@@ -157,7 +157,6 @@ export class StructureCardComponent implements OnInit, OnDestroy {
     this.chosenCycleWithHistoryCompany = this.cyclesWithHistoryCompanies.find(value => value.cycle.id === $event.value);
   }
 
-  // TODO: testen
   hasSubStructure(): boolean {
     return this.company.departmentIds.length > 0 && this.company.corporateObjectiveStructureIds.length > 0;
   }

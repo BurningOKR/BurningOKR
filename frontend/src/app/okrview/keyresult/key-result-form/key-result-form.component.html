@@ -23,7 +23,7 @@
 
     <mat-form-field class="number-input">
       <mat-select i18n-placeholder="@@component_keyResultForm_unit" placeholder="Einheit *" [formControlName]="'unit'">
-        <mat-option *ngFor="let unitKey of getViewUnitKeysAsStringArray()" [value]="unitKey">
+        <mat-option *ngFor="let unitKey of getViewUnitKeys()" [value]="getViewUnit(unitKey)">
           {{getViewUnit(unitKey)}}
         </mat-option>
       </mat-select>

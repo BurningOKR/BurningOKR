@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { OAuthFrontendDetailsService } from '../services/o-auth-frontend-details.service';
 import { map, take } from 'rxjs/operators';
+import { Consts } from '../../../shared/consts';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class LocalGuard implements CanActivate {
       .pipe(
         take(1),
         map(authType => {
-          if (authType === 'local') {
+          if (authType === Consts.AUTHTYPE_LOCAL) {
             return true;
           } else {
             this.router.navigate(['']);
