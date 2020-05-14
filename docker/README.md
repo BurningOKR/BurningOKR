@@ -54,7 +54,23 @@ and ``<smtp-port>``. You might need to acquire these from your system administra
 placeholder.
 6. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use 
 Azure Active Directory as your userbase by replacing ``<local|aad>`` with either ``local`` or ``aad``. 
-
+    1. **When using aad as the userbase, you also need to do the following steps. You do not need to this,
+    when you are using the local user database.**
+        1. Replace the ``<azure-issuer>`` placeholder with your azure issuer URI. e.g. ``https://<login-provider>/<tenannt-id>/v2.0``
+        2. Replace ``<azure-client-id>``, ``<azure-client-secret>``, ``<azure-access-token-uri>``, ``<azure-user-authorization-uri>`` and ``<azure-user-info-uri>``
+        with the corresponding values from your Azure Active Directory App registration.
+        3. Add as many Azure Active Directory Groups as you want. All users from these groups will be authorized, to use the BurningOKR Tool.
+        The rest will not be able to use the tool. You need to specify the ``<azure-group-name>`` and the ``<azure-group-id>``.
+        4. To add a group, you need to add more ``AZURE_AD_AZUREGROUPS[0]_NAME=`` and ``AZURE_AD_AZUREGROUPS[0]_ID=`` configuration keys.
+        Replace the ``[0]`` with a ``[1]`` for the second group, with a ``[2]`` for the third group, and so on. Here is an example for three azure groups:
+        ```yaml
+       AZURE_AD_AZUREGROUPS[0]_NAME=<azure-group-name>
+       AZURE_AD_AZUREGROUPS[0]_ID=<azure-group-id>
+       AZURE_AD_AZUREGROUPS[1]_NAME=<second-azure-group-name>
+       AZURE_AD_AZUREGROUPS[1]_ID=<second-azure-group-id>
+       AZURE_AD_AZUREGROUPS[2]_NAME=<third-azure-group-name>
+       AZURE_AD_AZUREGROUPS[2]_ID=<third-azure-group-id>
+       ```
 
 ## Developer Information
 
