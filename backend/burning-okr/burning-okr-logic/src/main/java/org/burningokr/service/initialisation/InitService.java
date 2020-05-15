@@ -18,8 +18,8 @@ import org.burningokr.service.userhandling.AdminUserService;
 import org.burningokr.service.userhandling.LocalUserService;
 import org.burningokr.service.userhandling.PasswordService;
 import org.burningokr.service.userhandling.UserService;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +36,8 @@ public class InitService {
   private final OAuthConfigurationService oauthConfigurationService;
   private final ApplicationContext applicationContext;
 
-  @EventListener
-  public void onApplicationEvent(ContextRefreshedEvent event) {
+  @EventListener(ApplicationReadyEvent.class)
+  public void onApplicationEvent() {
     setCurrentInitStateToInitialInitStateIfNoneIsPresent();
   }
 

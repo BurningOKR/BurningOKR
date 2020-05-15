@@ -3,6 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, Directive, Input, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material';
+import { PasswordService } from '../password-service/password.service';
+import { PasswordServiceMock } from '../../../../shared/mocks/password-service-mock';
 
 @Directive({selector: '[oneviewPermitted]'})
 class OneviewPermittedDirective {
@@ -33,18 +37,27 @@ class SafeHtmlPipe implements PipeTransform {
 describe('ResetPasswordComponent', () => {
   let fixture;
   let component;
+  const passwordServiceMock: PasswordServiceMock = new PasswordServiceMock();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
+      imports: [
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSnackBarModule
+      ],
       declarations: [
         ResetPasswordComponent,
-        TranslatePipe, PhoneNumberPipe, SafeHtmlPipe,
+        TranslatePipe,
+        PhoneNumberPipe,
+        SafeHtmlPipe,
         OneviewPermittedDirective
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        FormBuilder
+        FormBuilder,
+        {provide: PasswordService, useValue: passwordServiceMock},
       ]
     }).overrideComponent(ResetPasswordComponent, {}).compileComponents();
     fixture = TestBed.createComponent(ResetPasswordComponent);
@@ -68,9 +81,9 @@ describe('ResetPasswordComponent', () => {
 
   });
 
-  it('should run #resetPassword()', async () => {
+  it('should run #sendResetPasswordMail()', async () => {
 
-    component.resetPassword({});
+    component.sendResetPasswordMail();
 
   });
 
