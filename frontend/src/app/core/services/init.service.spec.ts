@@ -11,6 +11,7 @@ describe('InitService', () => {
 
   beforeEach(() => TestBed.configureTestingModule(
     {
+      declarations: [],
       imports: [
         HttpClientTestingModule,
       ],
