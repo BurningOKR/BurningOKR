@@ -76,6 +76,9 @@ With `gradlew build` the backend can be built.
 
 With `ng build` the frontend can be built.
 
+## Code Guidelines
+
+Please follow our [Code Guidelines](/CODE_GUIDELINES.md)
 
 ## contribute
 
