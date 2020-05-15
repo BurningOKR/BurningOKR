@@ -12,7 +12,7 @@ public abstract class InitOrderService {
   private final InitStateName[] initStateNames;
 
   /**
-   * ∏ Gets the Next Init State.
+   * Gets the Next Init State.
    *
    * @param current an {@link InitStateName}
    * @return the next {@link InitStateName}

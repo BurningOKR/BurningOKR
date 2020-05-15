@@ -250,7 +250,7 @@ export class UserManagementComponent implements OnInit {
   private createNewUser(user: LocalUserManagementUser): void {
     this.createNewUserOnServer$(user)
       .subscribe((newUser: LocalUserManagementUser) => {
-          this.addUserToTable(user);
+          this.addUserToTable(newUser);
         }
       );
   }

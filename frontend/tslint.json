@@ -27,6 +27,7 @@
     "rxjs-no-async-subscribe": true,
     "rxjs-no-create": true,
     "rxjs-no-nested-subscribe": { "severity": "error" },
+//    "rxjs-no-ignored-replay-buffer": { "severity":  "error" },
     "align": [
       true,
       "elements",
