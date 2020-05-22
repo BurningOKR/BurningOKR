@@ -1,5 +1,6 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { CycleUnit } from '../model/ui/cycle-unit';
+import { dateRangeInRangewithinAnotherDatesError } from './errors/date-range-in-range-within-another-dates-error';
 
 export const dateRangeInRangeWithinAnotherDatesValidatorFunction: (cycles: CycleUnit[]) =>
   ValidatorFn = (cycles: CycleUnit[]): ValidatorFn => {
@@ -25,7 +26,7 @@ export function periodCollidesWithOther(
     const endDateFromExistingCycle: Date = cycle.endDate;
 
     if (!(endDateFromInput < startDateFromExistingCycle || endDateFromExistingCycle < startDateFromInput)) {
-      return {dateRangeWithinAnotherDateRange: true};
+      return dateRangeInRangewithinAnotherDatesError;
     }
   }
 

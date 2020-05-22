@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiHttpService } from '../../../core/services/api-http.service';
