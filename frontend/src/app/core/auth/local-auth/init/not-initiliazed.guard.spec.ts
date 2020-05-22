@@ -1,11 +1,21 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { NotInitiliazedGuard } from './not-initiliazed.guard';
+import { RouterTestingModule } from '@angular/router/testing';
+import { InitService } from '../../../services/init.service';
+import { InitServiceMock } from '../../../../shared/mocks/init-service-mock';
 
 describe('NotInitiliazedGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NotInitiliazedGuard]
+      imports: [
+        RouterTestingModule,
+      ],
+      declarations: [],
+      providers: [
+        NotInitiliazedGuard,
+        {provide: InitService, useValue: InitServiceMock}
+        ]
     });
   });
 

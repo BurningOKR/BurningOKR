@@ -25,8 +25,7 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
 
   @Output() objectiveProgressChanged: EventEmitter<number> = new EventEmitter();
 
-  keyResultMapperSubscription: Subscription;
-  configurationSubscription: Subscription;
+  subscription: Subscription;
 
   parentObjective: ViewObjective;
   keyResultList: ViewKeyResult[];
@@ -42,13 +41,13 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.keyResultMapperSubscription = this.keyResultMapper.getKeyResultsForObjective$(this.objective.id)
+    this.subscription = this.keyResultMapper.getKeyResultsForObjective$(this.objective.id)
         .subscribe(newKeyResultList => {
         this.keyResultList = newKeyResultList;
         this.updateVisualKeyResultProgressTotals();
       });
 
-    this.configurationSubscription = this.configurationManagerService.getMaxKeyResults$()
+    this.subscription = this.configurationManagerService.getMaxKeyResults$()
       .subscribe((maxKeyResults: Configuration) => {
         this.maxKeyResults = +maxKeyResults.value;
       });
@@ -57,8 +56,7 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.keyResultMapperSubscription.unsubscribe();
-    this.configurationSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   // --
