@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { CycleUnit } from '../shared/model/ui/cycle-unit';
 import { CurrentCompanyService } from './current-company.service';
@@ -14,16 +14,14 @@ interface CycleListWithCompany {
 @Injectable({
   providedIn: 'root'
 })
-export class CurrentCycleService implements OnInit {
+export class CurrentCycleService {
 
   private currentCycle$: ReplaySubject<CycleUnit> = new ReplaySubject<CycleUnit>();
   private currentCycleList$: ReplaySubject<CycleUnit[]> = new ReplaySubject<CycleUnit[]>();
 
   constructor(private currentCompanyService: CurrentCompanyService,
               private cycleMapperService: CycleMapper) {
-  }
 
-  ngOnInit(): void {
     this.currentCompanyService.getCurrentCompany$()
       .pipe(
         switchMap((currentCompany: CompanyUnit) => {

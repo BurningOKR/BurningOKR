@@ -25,7 +25,7 @@ public class LocalUserMapper implements DataMapper<User, LocalUserDto> {
     result.setSurname(localUserDto.getSurname());
     result.setId(localUserDto.getId());
     result.setJobTitle(localUserDto.getJobTitle());
-    result.setMail(localUserDto.getEmail());
+    result.setMail(localUserDto.getEmail().toLowerCase());
     result.setPhoto((localUserDto.getPhoto()));
 
     logger.info("Mapped UserDto (id: " + localUserDto.getId() + " ) to User");
