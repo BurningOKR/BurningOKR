@@ -14,6 +14,9 @@ const routerMock: any = {
 };
 
 describe('LocalAuthGuard', () => {
+  oAuthDetailsMock.getAuthType$.mockReset();
+  routerMock.navigate.mockReset();
+
   oAuthDetailsMock.getAuthType$
     .mockReturnValueOnce(of(Consts.AUTHTYPE_AZURE));
   beforeEach(() => {
@@ -32,12 +35,13 @@ describe('LocalAuthGuard', () => {
       .toBeTruthy();
   }));
 
-  it('should route for aad-auth ', inject([LocalGuard], (guard: LocalGuard) => {
+  it('should route for aad-auth ', inject([LocalGuard], (guard: LocalGuard, done) => {
     const returnValue: any = guard.canActivate(null, null);
 
     returnValue.subscribe(() => {
       expect(routerMock.navigate)
         .toHaveBeenCalled();
+      done();
     });
   }));
 });
