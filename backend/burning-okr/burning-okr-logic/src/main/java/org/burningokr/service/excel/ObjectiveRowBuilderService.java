@@ -11,19 +11,19 @@ import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
 import org.burningokr.service.structure.CompanyService;
 import org.burningokr.service.structure.departmentservices.DepartmentHelper;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
 
-  private final DepartmentServiceUsers departmentService;
+  private final StructureServiceUsers departmentService;
 
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-      @Qualifier("departmentServiceUsers") DepartmentServiceUsers departmentService,
+      @Qualifier("departmentServiceUsers") StructureServiceUsers departmentService,
       CompanyService companyService) {
     this.departmentService = departmentService;
     this.companyService = companyService;

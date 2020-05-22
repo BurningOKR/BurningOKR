@@ -38,7 +38,7 @@ public class DepartmentServiceManagersTest {
   @Mock private ActivityService activityService;
   @Mock private EntityCrawlerService entityCrawlerService;
   @Mock private User user;
-  @InjectMocks private DepartmentServiceManagers departmentServiceManagers;
+  @InjectMocks private StructureServiceManagers departmentServiceManagers;
   private Department department;
 
   @Before
@@ -59,7 +59,7 @@ public class DepartmentServiceManagersTest {
 
   @Test(expected = UnauthorizedUserException.class)
   public void removeDepartment_expectedThrow() {
-    departmentServiceManagers.deleteDepartment(departmentId, user);
+    departmentServiceManagers.deleteStructure(departmentId, user);
   }
 
   @Test

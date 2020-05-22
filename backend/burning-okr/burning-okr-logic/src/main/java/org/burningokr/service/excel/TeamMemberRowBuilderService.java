@@ -10,7 +10,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.structure.CompanyService;
 import org.burningokr.service.structure.departmentservices.DepartmentHelper;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {
 
   private final UserService userService;
-  private final DepartmentServiceUsers departmentServiceUsers;
+  private final StructureServiceUsers departmentServiceUsers;
   private final CompanyService companyService;
   private final Messages messages;
 
@@ -27,14 +27,14 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
    * Initializes TeamMemberRowBuilderService.
    *
    * @param userService an {@link UserService} object
-   * @param departmentServiceUsers a {@link DepartmentServiceUsers} object
+   * @param departmentServiceUsers a {@link StructureServiceUsers} object
    * @param companyService a {@link CompanyService} object
    * @param messages a {@link Messages} object
    */
   @Autowired
   public TeamMemberRowBuilderService(
       UserService userService,
-      DepartmentServiceUsers departmentServiceUsers,
+      StructureServiceUsers departmentServiceUsers,
       CompanyService companyService,
       Messages messages) {
     this.userService = userService;

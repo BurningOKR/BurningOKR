@@ -1,16 +1,15 @@
 package org.burningokr.service.structure.departmentservices;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.ExtendedRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structure.StructureService;
 import org.burningokr.service.structureutil.EntityCrawlerService;
@@ -22,58 +21,58 @@ import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserExc
 import org.springframework.stereotype.Service;
 
 @Service("departmentServiceUsers")
-public class DepartmentServiceUsers implements StructureService<Department> {
+public abstract class StructureServiceUsers<T extends SubStructure> implements StructureService<T> {
 
-  protected final Logger logger = LoggerFactory.getLogger(DepartmentServiceUsers.class);
-  protected DepartmentRepository departmentRepository;
+  protected final Logger logger = LoggerFactory.getLogger(StructureServiceUsers.class);
+  protected ExtendedRepository<T, Long> structureRepository;
   protected ObjectiveRepository objectiveRepository;
   protected ActivityService activityService;
   ParentService parentService;
   private EntityCrawlerService entityCrawlerService;
 
   @Autowired
-  DepartmentServiceUsers(
+  StructureServiceUsers(
       ParentService parentService,
-      DepartmentRepository departmentRepository,
+      ExtendedRepository<T, Long> structureRepository,
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
     this.parentService = parentService;
-    this.departmentRepository = departmentRepository;
+    this.structureRepository = structureRepository;
     this.objectiveRepository = objectiveRepository;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
   }
 
   @Override
-  public Department findById(long structureId) {
-    return departmentRepository.findByIdOrThrow(structureId);
+  public T findById(long structureId) {
+    return structureRepository.findByIdOrThrow(structureId);
   }
 
   @Override
-  public Collection<Department> findSubStructuresOfStructure(long departmentId) {
-    Department department = findById(departmentId);
+  public Collection<T> findSubStructuresOfStructure(long departmentId) {
+    T department = findById(departmentId);
     return department.getDepartments();
   }
 
   @Override
   public Collection<Objective> findObjectivesOfStructure(long departmentId) {
     Department department = findById(departmentId);
-    return objectiveRepository.findByDepartmentAndOrderBySequence(department);
+    return objectiveRepository.findByStrucutureAndOrderBySequence(department);
   }
 
   @Override
-  public Department updateStructure(Department updatedDepartment, User user) {
+  public T updateStructure(Department updatedDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
   @Override
-  public void deleteDepartment(Long structureId, User user) {
+  public void deleteStructure(Long structureId, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
   @Override
-  public Department createSubstructure(
+  public T createSubstructure(
       Long parentStructureId, Department subDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
@@ -89,26 +88,5 @@ public class DepartmentServiceUsers implements StructureService<Department> {
       throw new ForbiddenException(
           "Cannot modify this resource on a Department in a closed cycle.");
     }
-  }
-
-  void throwIfDepartmentHasDuplicateTeamMembers(Department departmentToCheck) {
-    if (hasDuplicateTeamMembers(departmentToCheck)) {
-      throw new DuplicateTeamMemberException("Duplicate Team Members");
-    }
-  }
-
-  boolean hasDuplicateTeamMembers(Department department) {
-    UUID okrMaster = department.getOkrMasterId();
-    UUID okrTopicSponsor = department.getOkrTopicSponsorId();
-    Collection<UUID> okrMembers = department.getOkrMemberIds();
-    boolean duplicateTeamMember =
-        okrMembers.stream()
-            .anyMatch(
-                member ->
-                    Collections.frequency(okrMembers, member) > 1
-                        || member.equals(okrMaster)
-                        || member.equals(okrTopicSponsor));
-    boolean sameOkrMasterAndSponsor = okrMaster != null && okrMaster.equals(okrTopicSponsor);
-    return duplicateTeamMember || sameOkrMasterAndSponsor;
   }
 }

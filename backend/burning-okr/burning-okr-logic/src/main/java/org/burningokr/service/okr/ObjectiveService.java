@@ -15,7 +15,7 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.exceptions.KeyResultOverflowException;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.structureutil.ParentService;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class ObjectiveService {
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private ConfigurationService configurationService;
-  private DepartmentServiceUsers departmentService;
+  private StructureServiceUsers departmentService;
 
   /**
    * Initialize ObjectiveService.
@@ -47,7 +47,7 @@ public class ObjectiveService {
    * @param activityService an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
    * @param configurationService a {@link ConfigurationService} object
-   * @param departmentService a {@link DepartmentServiceUsers} object
+   * @param departmentService a {@link StructureServiceUsers} object
    */
   @Autowired
   public ObjectiveService(
@@ -57,7 +57,7 @@ public class ObjectiveService {
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       ConfigurationService configurationService,
-      @Qualifier("departmentServiceUsers") DepartmentServiceUsers departmentService) {
+      @Qualifier("departmentServiceUsers") StructureServiceUsers departmentService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;

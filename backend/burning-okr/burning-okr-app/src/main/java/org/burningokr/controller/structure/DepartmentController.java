@@ -19,8 +19,8 @@ import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.structure.CompanyService;
 import org.burningokr.service.structure.DepartmentServicePicker;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
 import org.burningokr.service.structure.StructureService;
+import org.burningokr.service.structure.departmentservices.DepartmentHelper;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -249,7 +249,7 @@ public class DepartmentController {
   public ResponseEntity deleteDepartment(@PathVariable Long departmentId, User user) {
     StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
-    departmentService.deleteDepartment(departmentId, user);
+    departmentService.deleteStructure(departmentId, user);
     return ResponseEntity.ok().build();
   }
 }

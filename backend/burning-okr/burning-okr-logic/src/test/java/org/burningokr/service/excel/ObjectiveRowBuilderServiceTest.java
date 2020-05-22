@@ -15,7 +15,7 @@ import org.burningokr.model.okr.Unit;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class ObjectiveRowBuilderServiceTest {
 
   private final long departmentId = 42L;
-  @Mock private DepartmentServiceUsers departmentServiceUsers;
+  @Mock private StructureServiceUsers departmentServiceUsers;
   @Mock private CompanyService companyService;
   @InjectMocks private ObjectiveRowBuilderService objectiveRowBuilderService;
   private Department department;

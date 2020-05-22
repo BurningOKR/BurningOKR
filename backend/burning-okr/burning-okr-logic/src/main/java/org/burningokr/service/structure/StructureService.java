@@ -14,7 +14,7 @@ public interface StructureService<T extends Structure> {
 
   T updateStructure(T updatedStructure, User user);
 
-  void deleteDepartment(Long structureId, User user);
+  void deleteStructure(Long structureId, User user);
 
   T createSubstructure(Long parentStructureId, T subStructure, User user);
 

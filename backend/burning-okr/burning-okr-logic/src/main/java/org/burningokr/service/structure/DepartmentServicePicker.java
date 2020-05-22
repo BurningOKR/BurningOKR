@@ -3,33 +3,33 @@ package org.burningokr.service.structure;
 import org.burningokr.model.structures.Department;
 import org.burningokr.service.security.UserContextRole;
 import org.burningokr.service.security.UserRoleFromContextService;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceAdmins;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceManagers;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.service.structure.departmentservices.StructureServiceAdmins;
+import org.burningokr.service.structure.departmentservices.StructureServiceManagers;
+import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentServicePicker {
 
-  private DepartmentServiceUsers userService;
-  private DepartmentServiceManagers managerService;
-  private DepartmentServiceAdmins adminService;
+  private StructureServiceUsers userService;
+  private StructureServiceManagers managerService;
+  private StructureServiceAdmins adminService;
   private UserRoleFromContextService userRoleFromContextService;
 
   /**
    * Initialize DepartmentServicePicker.
    *
-   * @param departmentServiceUsers a {@link DepartmentServiceUsers} object
-   * @param departmentServiceManagers a {@link DepartmentServiceManagers} object
-   * @param departmentServiceAdmins a {@link DepartmentServiceAdmins} object
+   * @param departmentServiceUsers a {@link StructureServiceUsers} object
+   * @param departmentServiceManagers a {@link StructureServiceManagers} object
+   * @param departmentServiceAdmins a {@link StructureServiceAdmins} object
    * @param userRoleFromContextService an {@link UserRoleFromContextService} object
    */
   @Autowired
   public DepartmentServicePicker(
-      DepartmentServiceUsers departmentServiceUsers,
-      DepartmentServiceManagers departmentServiceManagers,
-      DepartmentServiceAdmins departmentServiceAdmins,
+      StructureServiceUsers departmentServiceUsers,
+      StructureServiceManagers departmentServiceManagers,
+      StructureServiceAdmins departmentServiceAdmins,
       UserRoleFromContextService userRoleFromContextService) {
     this.userService = departmentServiceUsers;
     this.managerService = departmentServiceManagers;

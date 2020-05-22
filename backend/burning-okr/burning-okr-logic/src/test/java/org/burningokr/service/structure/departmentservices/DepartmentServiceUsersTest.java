@@ -14,7 +14,8 @@ import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserExc
 public class DepartmentServiceUsersTest {
 
   @Mock private User user;
-  @InjectMocks DepartmentServiceUsers departmentServiceUsers;
+  @InjectMocks
+  StructureServiceUsers departmentServiceUsers;
 
   @Test(expected = UnauthorizedUserException.class)
   public void updateDepartment_expectedThrow() {
@@ -33,6 +34,6 @@ public class DepartmentServiceUsersTest {
 
   @Test(expected = UnauthorizedUserException.class)
   public void removeDepartment_expectedThrow() {
-    departmentServiceUsers.deleteDepartment(100L, user);
+    departmentServiceUsers.deleteStructure(100L, user);
   }
 }

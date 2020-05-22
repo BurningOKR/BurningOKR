@@ -41,7 +41,7 @@ public class DepartmentServiceAdminsTest {
   @Mock private User user;
   @Mock private EntityCrawlerService entityCrawlerService;
   @Mock private ActivityService activityService;
-  @InjectMocks private DepartmentServiceAdmins departmentServiceAdmins;
+  @InjectMocks private StructureServiceAdmins departmentServiceAdmins;
   private Department department;
 
   @Before
@@ -101,7 +101,7 @@ public class DepartmentServiceAdminsTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
 
-    departmentServiceAdmins.deleteDepartment(10L, user);
+    departmentServiceAdmins.deleteStructure(10L, user);
   }
 
   @Test
@@ -127,7 +127,7 @@ public class DepartmentServiceAdminsTest {
 
     when(departmentRepository.findByIdOrThrow(anyLong())).thenReturn(department);
 
-    departmentServiceAdmins.deleteDepartment(1337L, user);
+    departmentServiceAdmins.deleteStructure(1337L, user);
   }
 
   @Test

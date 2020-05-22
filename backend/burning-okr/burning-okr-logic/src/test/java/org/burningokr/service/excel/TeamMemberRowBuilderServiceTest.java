@@ -14,7 +14,7 @@ import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class TeamMemberRowBuilderServiceTest {
 
   @Mock private UserService userService;
 
-  @Mock private DepartmentServiceUsers departmentServiceUsers;
+  @Mock private StructureServiceUsers departmentServiceUsers;
 
   @Mock private CompanyService companyService;
 

@@ -25,7 +25,7 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.exceptions.KeyResultOverflowException;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.structureutil.ParentService;
 import org.junit.Assert;
@@ -49,7 +49,7 @@ public class ObjectiveServiceTest {
 
   @Mock private ParentService parentService;
 
-  @Mock private DepartmentServiceUsers departmentService;
+  @Mock private StructureServiceUsers departmentService;
 
   @Mock private User user;
 

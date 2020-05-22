@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class DepartmentServiceManagers extends DepartmentServiceUsers {
+public class StructureServiceManagers extends StructureServiceUsers {
 
   @Autowired
-  DepartmentServiceManagers(
+  StructureServiceManagers(
       ParentService parentService,
       DepartmentRepository departmentRepository,
       ObjectiveRepository objectiveRepository,
@@ -35,13 +35,13 @@ public class DepartmentServiceManagers extends DepartmentServiceUsers {
   @Transactional
   public Department updateStructure(Department updatedDepartment, User user) {
     Department referencedDepartment =
-        departmentRepository.findByIdOrThrow(updatedDepartment.getId());
+        structureRepository.findByIdOrThrow(updatedDepartment.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
 
     referencedDepartment.setOkrMemberIds(updatedDepartment.getOkrMemberIds());
 
-    referencedDepartment = departmentRepository.save(referencedDepartment);
+    referencedDepartment = structureRepository.save(referencedDepartment);
     logger.info(
         "Updated Department "
             + referencedDepartment.getName()
@@ -56,7 +56,7 @@ public class DepartmentServiceManagers extends DepartmentServiceUsers {
   @Override
   @Transactional
   public Objective createObjective(Long structureId, Objective objective, User user) {
-    Department department = departmentRepository.findByIdOrThrow(structureId);
+    Department department = structureRepository.findByIdOrThrow(structureId);
 
     throwIfCycleForDepartmentIsClosed(department);
 

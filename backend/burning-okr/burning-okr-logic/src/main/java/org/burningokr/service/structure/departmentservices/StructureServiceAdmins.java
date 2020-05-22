@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class DepartmentServiceAdmins extends DepartmentServiceManagers {
+public class StructureServiceAdmins extends StructureServiceManagers {
 
   /**
    * Initialize DepartmentServiceAdmins.
@@ -24,7 +24,7 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
    * @param activityService an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
    */
-  public DepartmentServiceAdmins(
+  public StructureServiceAdmins(
       ParentService parentService,
       DepartmentRepository departmentRepository,
       ObjectiveRepository objectiveRepository,
@@ -42,7 +42,7 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
   @Transactional
   public Department updateStructure(Department updatedDepartment, User user) {
     Department referencedDepartment =
-        departmentRepository.findByIdOrThrow(updatedDepartment.getId());
+        structureRepository.findByIdOrThrow(updatedDepartment.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
 
@@ -53,7 +53,7 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
     referencedDepartment.setOkrMemberIds(updatedDepartment.getOkrMemberIds());
     referencedDepartment.setActive(updatedDepartment.isActive());
 
-    referencedDepartment = departmentRepository.save(referencedDepartment);
+    referencedDepartment = structureRepository.save(referencedDepartment);
     logger.info(
         "Updated Department "
             + referencedDepartment.getName()
@@ -66,14 +66,14 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
   }
 
   @Override
-  public void deleteDepartment(Long structureId, User user) {
-    Department referencedDepartment = departmentRepository.findByIdOrThrow(structureId);
+  public void deleteStructure(Long structureId, User user) {
+    Department referencedDepartment = structureRepository.findByIdOrThrow(structureId);
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
 
     if (referencedDepartment.getDepartments().isEmpty()) {
       activityService.createActivity(user, referencedDepartment, Action.DELETED);
-      departmentRepository.deleteById(structureId);
+      structureRepository.deleteById(structureId);
       logger.info("Deleted Department with id: " + structureId);
       activityService.createActivity(user, referencedDepartment, Action.DELETED);
 
@@ -91,13 +91,13 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
   @Transactional
   public Department createSubstructure(
       Long parentStructureId, Department subDepartment, User user) {
-    Department parentDepartment = departmentRepository.findByIdOrThrow(parentStructureId);
+    Department parentDepartment = structureRepository.findByIdOrThrow(parentStructureId);
 
     throwIfCycleForDepartmentIsClosed(parentDepartment);
 
     subDepartment.setParentStructure(parentDepartment);
 
-    subDepartment = departmentRepository.save(subDepartment);
+    subDepartment = structureRepository.save(subDepartment);
     logger.info(
         "Created subdepartment: "
             + subDepartment.getName()
