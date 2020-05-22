@@ -10,7 +10,6 @@ import { AdminUser } from '../../model/api/admin-user';
   providedIn: 'root'
 })
 export class UserService {
-// TODO: After the removal of the view-user-type, transform user mapper service to a user service
   constructor(private userApiService: UserApiService) {
   }
   private users$: BehaviorSubject<User[]>;

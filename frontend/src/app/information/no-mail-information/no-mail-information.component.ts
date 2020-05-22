@@ -5,11 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './no-mail-information.component.html',
   styleUrls: ['./no-mail-information.component.css']
 })
-export class NoMailInformationComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class NoMailInformationComponent  {
 
 }

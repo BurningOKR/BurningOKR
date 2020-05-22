@@ -11,7 +11,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 interface CompanyFormData {
   company?: CompanyUnit;
 }
-// todo: rename everything company related to "structure"
+
 @Component({
   selector: 'app-structure-form',
   templateUrl: './structure-form.component.html',

@@ -1,1 +1,0 @@
-ALTER TABLE public.objective ADD is_active boolean default true

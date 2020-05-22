@@ -18,17 +18,7 @@ describe('ObjectiveContentsComponent', () => {
   const getObjectiveByIdMock: jest.Mock<any, any> = jest.fn();
 
   let fixture: any;
-  let component: {
-    keyResultList: ViewKeyResult[];
-    objective: ViewObjective;
-    subscription: Subscription;
-    refreshParentObjective: {
-      (): void;
-      (): void;
-      (): void;
-    };
-    parentObjective: any;
-  };
+  let component: ObjectiveContentsComponent;
 
   beforeEach(() => {
     getObjectiveByIdMock.mockReset();

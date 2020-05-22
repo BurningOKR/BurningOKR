@@ -25,6 +25,8 @@ export class LocalUserApiService {
   }
 
   createUser$(user: User): Observable<User> {
+    user.email = user.email.toLowerCase();
+
     return this.api.postData$('local-users', user);
   }
 
@@ -33,6 +35,8 @@ export class LocalUserApiService {
   }
 
   putUser$(user: User): Observable<User> {
+    user.email = user.email.toLowerCase();
+
     return this.api.putData$(`local-users/${user.id}`, user);
   }
 

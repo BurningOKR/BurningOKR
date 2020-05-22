@@ -183,7 +183,7 @@ export class UserManagementComponent implements OnInit {
         filter(v => v)
       )
       .subscribe((user: LocalUserManagementUser) => {
-        this.createNewUser(user); // TODO: Why dont we use an observable here instead of faking an updated user base? /TG 10.03.2020
+        this.createNewUser(user);
       });
   }
 
@@ -250,7 +250,7 @@ export class UserManagementComponent implements OnInit {
   private createNewUser(user: LocalUserManagementUser): void {
     this.createNewUserOnServer$(user)
       .subscribe((newUser: LocalUserManagementUser) => {
-          this.addUserToTable(user);
+          this.addUserToTable(newUser);
         }
       );
   }

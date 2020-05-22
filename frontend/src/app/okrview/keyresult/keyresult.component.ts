@@ -14,7 +14,7 @@ import {
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { CommentViewDialogComponent } from '../comment/comment-view-dialog/comment-view-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { Consts } from '../../shared/consts';
+import { Unit } from '../../shared/model/api/unit.enum';
 
 @Component({
   selector: 'app-keyresult',
@@ -70,9 +70,9 @@ export class KeyresultComponent implements OnInit, OnDestroy {
       progressText = `${this.keyResult.current}/${this.keyResult.start}-${this.keyResult.end}`;
     }
 
-    if (this.keyResult.unit.toString() === Consts.CURRENCY_EURO) {
+    if (this.keyResult.unit === Unit.EURO) {
       progressText += ' €';
-    } else if (this.keyResult.unit.toString() === Consts.NUMBER_FORMAT_PERCENT) {
+    } else if (this.keyResult.unit === Unit.PERCENT) {
       progressText += ' %';
     }
 

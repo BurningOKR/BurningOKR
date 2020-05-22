@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NoMailInformationComponent } from './no-mail-information.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('NoMailInformationComponent', () => {
   let component: NoMailInformationComponent;
@@ -8,7 +9,8 @@ describe('NoMailInformationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoMailInformationComponent ]
+      declarations: [ NoMailInformationComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     })
     .compileComponents();
   }));
@@ -20,6 +22,7 @@ describe('NoMailInformationComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });

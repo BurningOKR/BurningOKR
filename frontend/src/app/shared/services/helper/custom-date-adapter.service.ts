@@ -1,7 +1,7 @@
 import { NativeDateAdapter } from '@angular/material/core';
 import { Injectable } from '@angular/core';
 
-@Injectable() // TODO: shrink and refactor me
+@Injectable()
 export class CustomDateAdapterService extends NativeDateAdapter {
   parse(value: any): Date | undefined {
     if ((typeof value === 'string') && (value.indexOf('.') > -1)) {
