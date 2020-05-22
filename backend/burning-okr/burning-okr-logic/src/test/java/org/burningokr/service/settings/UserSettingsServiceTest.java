@@ -21,7 +21,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentService;
+import org.burningokr.service.structure.StructureService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -42,7 +42,7 @@ public class UserSettingsServiceTest {
 
   @Mock private ActivityService activityService;
 
-  @Mock private DepartmentService departmentService;
+  @Mock private StructureService<Department> departmentService;
 
   @Mock private CompanyService companyService;
 

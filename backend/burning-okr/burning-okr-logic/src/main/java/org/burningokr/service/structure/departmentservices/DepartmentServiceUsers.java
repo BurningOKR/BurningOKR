@@ -12,6 +12,7 @@ import org.burningokr.repositories.structre.DepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.exceptions.ForbiddenException;
+import org.burningokr.service.structure.StructureService;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.structureutil.ParentService;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserExc
 import org.springframework.stereotype.Service;
 
 @Service("departmentServiceUsers")
-public class DepartmentServiceUsers implements DepartmentService {
+public class DepartmentServiceUsers implements StructureService<Department> {
 
   protected final Logger logger = LoggerFactory.getLogger(DepartmentServiceUsers.class);
   protected DepartmentRepository departmentRepository;
@@ -45,40 +46,40 @@ public class DepartmentServiceUsers implements DepartmentService {
   }
 
   @Override
-  public Department findById(long departmentId) {
-    return departmentRepository.findByIdOrThrow(departmentId);
+  public Department findById(long structureId) {
+    return departmentRepository.findByIdOrThrow(structureId);
   }
 
   @Override
-  public Collection<Department> findSubdepartmentsOfDepartment(long departmentId) {
+  public Collection<Department> findSubStructuresOfStructure(long departmentId) {
     Department department = findById(departmentId);
     return department.getDepartments();
   }
 
   @Override
-  public Collection<Objective> findObjectivesOfDepartment(long departmentId) {
+  public Collection<Objective> findObjectivesOfStructure(long departmentId) {
     Department department = findById(departmentId);
     return objectiveRepository.findByDepartmentAndOrderBySequence(department);
   }
 
   @Override
-  public Department updateDepartment(Department updatedDepartment, User user) {
+  public Department updateStructure(Department updatedDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
   @Override
-  public void deleteDepartment(Long departmentId, User user) {
+  public void deleteDepartment(Long structureId, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
   @Override
-  public Department createSubdepartment(
-      Long parentDepartmentId, Department subDepartment, User user) {
+  public Department createSubstructure(
+      Long parentStructureId, Department subDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
   @Override
-  public Objective createObjective(Long departmentId, Objective objective, User user) {
+  public Objective createObjective(Long structureId, Objective objective, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 

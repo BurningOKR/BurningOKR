@@ -69,7 +69,7 @@ public class DepartmentServiceAdminsTest {
             });
     when(departmentRepository.save(any(Department.class))).thenReturn(subDepartment);
 
-    departmentServiceAdmins.createSubdepartment(departmentId, subDepartment, user);
+    departmentServiceAdmins.createSubstructure(departmentId, subDepartment, user);
 
     Assert.assertEquals(departmentId, subDepartment.getParentStructure().getId());
 
@@ -83,7 +83,7 @@ public class DepartmentServiceAdminsTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
 
-    departmentServiceAdmins.createSubdepartment(10L, new Department(), user);
+    departmentServiceAdmins.createSubstructure(10L, new Department(), user);
   }
 
   @Test(expected = ForbiddenException.class)
@@ -92,7 +92,7 @@ public class DepartmentServiceAdminsTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
 
-    departmentServiceAdmins.updateDepartment(new Department(), user);
+    departmentServiceAdmins.updateStructure(new Department(), user);
   }
 
   @Test(expected = ForbiddenException.class)
@@ -140,7 +140,7 @@ public class DepartmentServiceAdminsTest {
     when(departmentRepository.save(any(Department.class))).thenReturn(updateDepartment);
     when(departmentRepository.findByIdOrThrow(anyLong())).thenReturn(department);
 
-    department = departmentServiceAdmins.updateDepartment(updateDepartment, user);
+    department = departmentServiceAdmins.updateStructure(updateDepartment, user);
 
     Assert.assertEquals(updateName, department.getName());
   }
@@ -154,7 +154,7 @@ public class DepartmentServiceAdminsTest {
     when(departmentRepository.save(any(Department.class))).thenReturn(updateDepartment);
     when(departmentRepository.findByIdOrThrow(anyLong())).thenReturn(department);
 
-    department = departmentServiceAdmins.updateDepartment(updateDepartment, user);
+    department = departmentServiceAdmins.updateStructure(updateDepartment, user);
 
     Assert.assertTrue(department.isActive());
   }
@@ -171,7 +171,7 @@ public class DepartmentServiceAdminsTest {
     when(departmentRepository.save(any(Department.class))).then(returnsFirstArg());
     when(departmentRepository.findByIdOrThrow(departmentId)).thenReturn(persistedDepartment);
 
-    department = departmentServiceAdmins.updateDepartment(updateDepartment, user);
+    department = departmentServiceAdmins.updateStructure(updateDepartment, user);
 
     Assert.assertEquals(updateDepartment.getOkrMasterId(), department.getOkrMasterId());
   }
@@ -188,7 +188,7 @@ public class DepartmentServiceAdminsTest {
     when(departmentRepository.save(any(Department.class))).then(returnsFirstArg());
     when(departmentRepository.findByIdOrThrow(departmentId)).thenReturn(persistedDepartment);
 
-    department = departmentServiceAdmins.updateDepartment(updateDepartment, user);
+    department = departmentServiceAdmins.updateStructure(updateDepartment, user);
 
     Assert.assertEquals(updateDepartment.getOkrTopicSponsorId(), department.getOkrTopicSponsorId());
   }
@@ -205,7 +205,7 @@ public class DepartmentServiceAdminsTest {
     when(departmentRepository.save(any(Department.class))).then(returnsFirstArg());
     when(departmentRepository.findByIdOrThrow(departmentId)).thenReturn(persistedDepartment);
 
-    department = departmentServiceAdmins.updateDepartment(updateDepartment, user);
+    department = departmentServiceAdmins.updateStructure(updateDepartment, user);
 
     Assert.assertEquals(okrMemberIds, department.getOkrMemberIds());
   }

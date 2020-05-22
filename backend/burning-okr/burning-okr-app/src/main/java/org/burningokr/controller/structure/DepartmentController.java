@@ -20,7 +20,7 @@ import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.structure.CompanyService;
 import org.burningokr.service.structure.DepartmentServicePicker;
 import org.burningokr.service.structure.departmentservices.DepartmentHelper;
-import org.burningokr.service.structure.departmentservices.DepartmentService;
+import org.burningokr.service.structure.StructureService;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +90,7 @@ public class DepartmentController {
   @GetMapping("/departments/{departmentId}")
   public ResponseEntity<DepartmentDto> getDepartmentByDepartmentId(
       @PathVariable long departmentId) {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentService.findById(departmentId);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(department));
@@ -105,7 +105,7 @@ public class DepartmentController {
   @GetMapping("/departments/{departmentId}/structure")
   public ResponseEntity<Collection<DepartmentStructureDto>> getDepartmentStructureOfDepartment(
       @PathVariable long departmentId) {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentService.findById(departmentId);
     Company parentCompany = entityCrawlerService.getCompanyOfDepartment(department);
@@ -123,7 +123,7 @@ public class DepartmentController {
    */
   @GetMapping("/departments/{departmentId}/company")
   public ResponseEntity<CompanyDto> getParentCompanyOfDepartment(@PathVariable long departmentId) {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentService.findById(departmentId);
     Company parentCompany = entityCrawlerService.getCompanyOfDepartment(department);
@@ -139,10 +139,10 @@ public class DepartmentController {
   @GetMapping("/departments/{departmentId}/departments")
   public ResponseEntity<Collection<DepartmentDto>> getSubDepartmentsOfDepartment(
       @PathVariable long departmentId) {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Collection<Department> departments =
-        departmentService.findSubdepartmentsOfDepartment(departmentId);
+        departmentService.findSubStructuresOfStructure(departmentId);
     return ResponseEntity.ok(departmentMapper.mapEntitiesToDtos(departments));
   }
 
@@ -155,9 +155,9 @@ public class DepartmentController {
   @GetMapping("/departments/{departmentId}/objectives")
   public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfDepartment(
       @PathVariable long departmentId) {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
-    Collection<Objective> objectives = departmentService.findObjectivesOfDepartment(departmentId);
+    Collection<Objective> objectives = departmentService.findObjectivesOfStructure(departmentId);
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(objectives));
   }
 
@@ -188,11 +188,11 @@ public class DepartmentController {
   public ResponseEntity<DepartmentDto> updateDepartment(
       @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user)
       throws DuplicateTeamMemberException {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentMapper.mapDtoToEntity(departmentDto);
     department.setId(departmentId);
-    department = departmentService.updateDepartment(department, user);
+    department = departmentService.updateStructure(department, user);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(department));
   }
 
@@ -209,11 +209,11 @@ public class DepartmentController {
   public ResponseEntity<DepartmentDto> addSubDepartmentToDepartment(
       @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user)
       throws DuplicateTeamMemberException {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentMapper.mapDtoToEntity(departmentDto);
     department.setId(null);
-    department = departmentService.createSubdepartment(departmentId, department, user);
+    department = departmentService.createSubstructure(departmentId, department, user);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(department));
   }
 
@@ -229,7 +229,7 @@ public class DepartmentController {
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
       @PathVariable long departmentId, @Valid @RequestBody ObjectiveDto objectiveDto, User user) {
-    DepartmentService departmentService =
+    StructureService departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
@@ -247,7 +247,7 @@ public class DepartmentController {
   @DeleteMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity deleteDepartment(@PathVariable Long departmentId, User user) {
-    DepartmentService departmentService =
+    StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     departmentService.deleteDepartment(departmentId, user);
     return ResponseEntity.ok().build();

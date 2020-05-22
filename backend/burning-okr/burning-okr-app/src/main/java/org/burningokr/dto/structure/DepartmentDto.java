@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.burningokr.model.structures.Structure;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

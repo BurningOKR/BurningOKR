@@ -54,7 +54,7 @@ public class DepartmentServiceManagersTest {
 
   @Test(expected = UnauthorizedUserException.class)
   public void createSubdepartment_expectedThrow() {
-    departmentServiceManagers.createSubdepartment(departmentId, new Department(), user);
+    departmentServiceManagers.createSubstructure(departmentId, new Department(), user);
   }
 
   @Test(expected = UnauthorizedUserException.class)
@@ -115,7 +115,7 @@ public class DepartmentServiceManagersTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
 
-    departmentServiceManagers.updateDepartment(new Department(), user);
+    departmentServiceManagers.updateStructure(new Department(), user);
   }
 
   @Test
@@ -136,7 +136,7 @@ public class DepartmentServiceManagersTest {
     when(departmentRepository.findByIdOrThrow(100L)).thenReturn(originalDepartment);
     when(departmentRepository.save(any(Department.class))).then(returnsFirstArg());
 
-    departmentServiceManagers.updateDepartment(insertedDepartment, user);
+    departmentServiceManagers.updateStructure(insertedDepartment, user);
 
     verify(departmentRepository).save(originalDepartment);
     Assert.assertEquals(originalDepartment.getOkrMemberIds(), insertedOkrMemberIds);
@@ -174,7 +174,7 @@ public class DepartmentServiceManagersTest {
     when(departmentRepository.findByIdOrThrow(100L)).thenReturn(originalDepartment);
     when(departmentRepository.save(any(Department.class))).then(returnsFirstArg());
 
-    departmentServiceManagers.updateDepartment(insertedDepartment, user);
+    departmentServiceManagers.updateStructure(insertedDepartment, user);
 
     verify(departmentRepository).save(originalDepartment);
     Assert.assertNotEquals(originalDepartment.getName(), insertedDepartment.getName());
@@ -209,7 +209,7 @@ public class DepartmentServiceManagersTest {
     when(departmentRepository.save(any(Department.class))).thenReturn(saveCallReturnedDepartment);
 
     Department actualDepartment =
-        departmentServiceManagers.updateDepartment(insertedDepartment, user);
+        departmentServiceManagers.updateStructure(insertedDepartment, user);
 
     verify(departmentRepository).save(originalDepartment);
     Assert.assertEquals(saveCallReturnedDepartment, actualDepartment);

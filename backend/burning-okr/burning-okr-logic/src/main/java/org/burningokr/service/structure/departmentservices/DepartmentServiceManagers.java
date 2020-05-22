@@ -33,7 +33,7 @@ public class DepartmentServiceManagers extends DepartmentServiceUsers {
 
   @Override
   @Transactional
-  public Department updateDepartment(Department updatedDepartment, User user) {
+  public Department updateStructure(Department updatedDepartment, User user) {
     Department referencedDepartment =
         departmentRepository.findByIdOrThrow(updatedDepartment.getId());
 
@@ -55,8 +55,8 @@ public class DepartmentServiceManagers extends DepartmentServiceUsers {
 
   @Override
   @Transactional
-  public Objective createObjective(Long departmentId, Objective objective, User user) {
-    Department department = departmentRepository.findByIdOrThrow(departmentId);
+  public Objective createObjective(Long structureId, Objective objective, User user) {
+    Department department = departmentRepository.findByIdOrThrow(structureId);
 
     throwIfCycleForDepartmentIsClosed(department);
 
@@ -81,7 +81,7 @@ public class DepartmentServiceManagers extends DepartmentServiceUsers {
             + " into department "
             + department.getName()
             + "(id:"
-            + departmentId
+            + structureId
             + ")");
     activityService.createActivity(user, objective, Action.CREATED);
 

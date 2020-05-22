@@ -40,7 +40,7 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
 
   @Override
   @Transactional
-  public Department updateDepartment(Department updatedDepartment, User user) {
+  public Department updateStructure(Department updatedDepartment, User user) {
     Department referencedDepartment =
         departmentRepository.findByIdOrThrow(updatedDepartment.getId());
 
@@ -66,21 +66,21 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
   }
 
   @Override
-  public void deleteDepartment(Long departmentId, User user) {
-    Department referencedDepartment = departmentRepository.findByIdOrThrow(departmentId);
+  public void deleteDepartment(Long structureId, User user) {
+    Department referencedDepartment = departmentRepository.findByIdOrThrow(structureId);
 
     throwIfCycleForDepartmentIsClosed(referencedDepartment);
 
     if (referencedDepartment.getDepartments().isEmpty()) {
       activityService.createActivity(user, referencedDepartment, Action.DELETED);
-      departmentRepository.deleteById(departmentId);
-      logger.info("Deleted Department with id: " + departmentId);
+      departmentRepository.deleteById(structureId);
+      logger.info("Deleted Department with id: " + structureId);
       activityService.createActivity(user, referencedDepartment, Action.DELETED);
 
     } else {
       logger.info(
           "Could not delete department with id: "
-              + departmentId
+              + structureId
               + ". The department contains sub-departments.");
       throw new InvalidDeleteRequestException(
           "You can not delete departments which contains sub-departments.");
@@ -89,9 +89,9 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
 
   @Override
   @Transactional
-  public Department createSubdepartment(
-      Long parentDepartmentId, Department subDepartment, User user) {
-    Department parentDepartment = departmentRepository.findByIdOrThrow(parentDepartmentId);
+  public Department createSubstructure(
+      Long parentStructureId, Department subDepartment, User user) {
+    Department parentDepartment = departmentRepository.findByIdOrThrow(parentStructureId);
 
     throwIfCycleForDepartmentIsClosed(parentDepartment);
 
@@ -104,7 +104,7 @@ public class DepartmentServiceAdmins extends DepartmentServiceManagers {
             + " into Department "
             + parentDepartment.getName()
             + "(id:"
-            + parentDepartmentId
+            + parentStructureId
             + ")");
     activityService.createActivity(user, subDepartment, Action.CREATED);
     return subDepartment;

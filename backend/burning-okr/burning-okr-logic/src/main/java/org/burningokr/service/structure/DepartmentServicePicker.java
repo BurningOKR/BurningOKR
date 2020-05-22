@@ -1,8 +1,8 @@
 package org.burningokr.service.structure;
 
+import org.burningokr.model.structures.Department;
 import org.burningokr.service.security.UserContextRole;
 import org.burningokr.service.security.UserRoleFromContextService;
-import org.burningokr.service.structure.departmentservices.DepartmentService;
 import org.burningokr.service.structure.departmentservices.DepartmentServiceAdmins;
 import org.burningokr.service.structure.departmentservices.DepartmentServiceManagers;
 import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
@@ -41,9 +41,9 @@ public class DepartmentServicePicker {
    * Gets the Role Service for a Department for the role of the user.
    *
    * @param departmentId a long value
-   * @return a {@link DepartmentService} object
+   * @return a {@link StructureService} object
    */
-  public DepartmentService getRoleServiceForDepartment(long departmentId) {
+  public StructureService<Department> getRoleServiceForDepartment(long departmentId) {
     UserContextRole role = userRoleFromContextService.getUserRoleInDepartmentId(departmentId);
 
     switch (role) {

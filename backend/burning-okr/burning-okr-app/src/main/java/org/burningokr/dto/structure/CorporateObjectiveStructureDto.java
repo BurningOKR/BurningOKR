@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.burningokr.model.structures.Structure;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

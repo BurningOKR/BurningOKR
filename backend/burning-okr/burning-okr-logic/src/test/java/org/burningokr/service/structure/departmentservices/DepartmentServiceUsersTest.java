@@ -18,7 +18,7 @@ public class DepartmentServiceUsersTest {
 
   @Test(expected = UnauthorizedUserException.class)
   public void updateDepartment_expectedThrow() {
-    departmentServiceUsers.updateDepartment(new Department(), user);
+    departmentServiceUsers.updateStructure(new Department(), user);
   }
 
   @Test(expected = UnauthorizedUserException.class)
@@ -28,7 +28,7 @@ public class DepartmentServiceUsersTest {
 
   @Test(expected = UnauthorizedUserException.class)
   public void createSubdepartment_expectedThrow() {
-    departmentServiceUsers.createSubdepartment(100L, new Department(), user);
+    departmentServiceUsers.createSubstructure(100L, new Department(), user);
   }
 
   @Test(expected = UnauthorizedUserException.class)
