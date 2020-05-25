@@ -20,7 +20,7 @@ export class UserDialogComponent implements OnInit {
 
   userForm: FormGroup;
   userEmails: string[] = [];
-  adminCheckBoxDisabled$: Observable<boolean>;
+  editedUserIsCurrentUser$: Observable<boolean>;
   resetPasswordButtonDisabled: boolean;
 
   private passwordResetSuccessMsg: string = this.i18n({
@@ -46,7 +46,7 @@ export class UserDialogComponent implements OnInit {
 
   ngOnInit(): void {
     // Disable Admin Checkbox when the user edits himself and is admin.
-    this.adminCheckBoxDisabled$ = this.userService.getCurrentUser$()
+    this.editedUserIsCurrentUser$ = this.userService.getCurrentUser$()
       .pipe(
         switchMap((user: User) => {
           if (!!this.formData.user) {
@@ -61,7 +61,7 @@ export class UserDialogComponent implements OnInit {
       );
 
     const users$: Observable<User[]> = this.userService.getUsers$();
-    combineLatest([users$, this.adminCheckBoxDisabled$])
+    combineLatest([users$, this.editedUserIsCurrentUser$])
       .subscribe(([users, adminCheckBox]: [User[], boolean]) => {
         for (const user of users) {
           if (!this.formData.user || (user.email !== this.formData.user.email)) {

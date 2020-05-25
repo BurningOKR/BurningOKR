@@ -9,6 +9,7 @@ import { ConfirmationDialogComponent } from '../../../../shared/components/confi
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
 import { UserDialogData } from './forms/user-dialog-data';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
+import { CurrentUserService } from '../../../services/current-user.service';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -23,6 +24,7 @@ export class UserManagementComponent implements OnInit {
 
   private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
   private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
 
   columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
   rowData = new MatTableDataSource([] as User[]);
@@ -30,6 +32,7 @@ export class UserManagementComponent implements OnInit {
   showDeactivatedUsers: boolean = false;
 
   constructor(
+    private currentUserService: CurrentUserService,
     private dialog: MatDialog,
     private router: Router,
     private userService: LocalUserApiService
@@ -49,6 +52,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeUsers();
+    this.initializeCurrentUser();
     this.rowData.sort = this.sort;
     this.rowData.paginator = this.paginator;
     this.users$.asObservable()
@@ -170,9 +174,11 @@ export class UserManagementComponent implements OnInit {
           userWithActiveFlagSet.active = true;
 
           return this.userService.putUser$(userWithActiveFlagSet);
-        }))
-      .subscribe((user: User) => {
-        this.editUserInTable(userToBeActivated, user as LocalUserManagementUser);
+        })
+      )
+      .subscribe((activatedUser: LocalUserManagementUser) => {
+        activatedUser.isAdmin = userToBeActivated.isAdmin;
+        this.editUserInTable(userToBeActivated, activatedUser);
       });
   }
 
@@ -244,6 +250,14 @@ export class UserManagementComponent implements OnInit {
       )
       .subscribe(users => {
         this.users$.next(users);
+      });
+  }
+
+  private initializeCurrentUser(): void {
+    this.currentUserService.getCurrentUser$()
+      .pipe(take(1))
+      .subscribe((reveived: User) => {
+        this.currentUser$.next(reveived);
       });
   }
 
