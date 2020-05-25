@@ -3,6 +3,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 import { OAuthFrontendDetailsService } from '../../services/o-auth-frontend-details.service';
 import { take } from 'rxjs/operators';
+import { Consts } from '../../../../shared/consts';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LogoutComponent implements OnInit {
     this.oAuthDetails.getAuthType$()
       .pipe(take(1))
       .subscribe(authType => {
-        if (authType === 'local') {
+        if (authType === Consts.AUTHTYPE_LOCAL) {
           this.router.navigate(['auth', 'login']);
         }
       });

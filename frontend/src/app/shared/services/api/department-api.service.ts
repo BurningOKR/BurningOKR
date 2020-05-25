@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DepartmentStructureDto } from '../../model/api/department-structure.dto';

@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { NEVER, Observable, ReplaySubject } from 'rxjs';
 import { CycleUnit } from '../shared/model/ui/cycle-unit';
 import { CurrentCompanyService } from './current-company.service';
 import { CycleMapper } from '../shared/services/mapper/cycle.mapper';
@@ -14,28 +14,30 @@ interface CycleListWithCompany {
 @Injectable({
   providedIn: 'root'
 })
-export class CurrentCycleService implements OnInit {
+export class CurrentCycleService {
 
   private currentCycle$: ReplaySubject<CycleUnit> = new ReplaySubject<CycleUnit>();
   private currentCycleList$: ReplaySubject<CycleUnit[]> = new ReplaySubject<CycleUnit[]>();
 
   constructor(private currentCompanyService: CurrentCompanyService,
               private cycleMapperService: CycleMapper) {
-  }
 
-  ngOnInit(): void {
     this.currentCompanyService.getCurrentCompany$()
       .pipe(
         switchMap((currentCompany: CompanyUnit) => {
-          return this.cycleMapperService.getCyclesOfCompany$(currentCompany.id)
-            .pipe(
-              map((cycleList: CycleUnit[]) => {
-                return {
-                  cycleList,
-                  company: currentCompany
-                };
-              })
-            );
+          if (!!currentCompany) {
+            return this.cycleMapperService.getCyclesOfCompany$(currentCompany.id)
+              .pipe(
+                map((cycleList: CycleUnit[]) => {
+                  return {
+                    cycleList,
+                    company: currentCompany
+                  };
+                })
+              );
+          } else {
+            return NEVER;
+          }
         })
       )
       .subscribe((cycleListWithCompany: CycleListWithCompany) => {

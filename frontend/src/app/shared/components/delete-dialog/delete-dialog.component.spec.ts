@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Injectable, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteDialogComponent } from './delete-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -49,6 +49,7 @@ describe('DeleteDialogComponent', () => {
       .toBeTruthy();
   });
 
+  // Todo 20.05.2020 dturnschek; expect is commented out? Really?
   it('should run #confirmDelete()', () => {
     component.dialogRef = component.dialogRef || {};
     component.dialogRef.close = jest.fn();
@@ -56,6 +57,7 @@ describe('DeleteDialogComponent', () => {
     // expect(component.dialogRef.close).toHaveBeenCalled();
   });
 
+  // Todo 20.05.2020 dturnschek; expect is commented out? Really?
   it('should run #closeDialog()', () => {
     component.dialogRef = component.dialogRef || {};
     component.dialogRef.close = jest.fn();

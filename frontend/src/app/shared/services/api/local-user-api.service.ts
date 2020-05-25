@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs/internal/Observable';
@@ -25,8 +26,6 @@ export class LocalUserApiService {
   }
 
   createUser$(user: User): Observable<User> {
-    user.email = user.email.toLowerCase();
-
     return this.api.postData$('local-users', user);
   }
 
@@ -35,8 +34,6 @@ export class LocalUserApiService {
   }
 
   putUser$(user: User): Observable<User> {
-    user.email = user.email.toLowerCase();
-
     return this.api.putData$(`local-users/${user.id}`, user);
   }
 
