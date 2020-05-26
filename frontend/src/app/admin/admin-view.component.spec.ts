@@ -19,7 +19,7 @@ describe('AdminViewComponent', () => {
 
   const userApiService: any = {
     getCurrentUser$: jest.fn(),
-    getAdmins$: jest.fn(),
+    getAdminIds$: jest.fn(),
     getUsers$: jest.fn()
   };
   const userService: any = {};
@@ -54,7 +54,7 @@ describe('AdminViewComponent', () => {
 
   beforeEach(() => {
     userApiService.getCurrentUser$.mockReturnValue(of(currentUserMock));
-    userApiService.getAdmins$.mockReturnValue(of([adminList]));
+    userApiService.getAdminIds$.mockReturnValue(of([adminList]));
     userApiService.getUsers$.mockReturnValue(of([currentUserMock, anotherUserMock]));
     currentUserService.getCurrentUser$.mockReturnValue(of(currentUserMock));
 

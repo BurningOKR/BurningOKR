@@ -32,7 +32,7 @@ export class UserApiService {
     return this.api.getData$('admins/self');
   }
 
-  getAdmins$(): Observable<string[]> {
+  getAdminIds$(): Observable<string[]> {
     return this.api.getData$('admins');
   }
 

@@ -57,7 +57,7 @@ export class AdminViewComponent implements OnInit {
   private getAdminUsers$(): void {
     combineLatest([
       this.userApiService.getUsers$(),
-      this.userApiService.getAdmins$()]
+      this.userApiService.getAdminIds$()]
     )
       .pipe(
         take(1),

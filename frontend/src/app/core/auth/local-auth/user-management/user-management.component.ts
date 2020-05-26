@@ -74,7 +74,7 @@ export class UserManagementComponent implements OnInit {
           return v;
         }),
         switchMap((editedUser: LocalUserManagementUser) => {
-          return combineLatest([of(editedUser), this.userService.getAdmins$()]);
+          return combineLatest([of(editedUser), this.userService.getAdminIds$()]);
         }),
         switchMap(([editedUser, adminIds]: [LocalUserManagementUser, string[]]) => {
           if (editedUser.isAdmin) {
@@ -235,7 +235,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   private initializeUsers(): void {
-    combineLatest([this.userService.getUsers$(), this.userService.getAdmins$()])
+    combineLatest([this.userService.getUsers$(), this.userService.getAdminIds$()])
       .pipe(
         take(1),
         map(([users, adminIds]: [User[], string[]]) => {
