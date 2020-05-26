@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminViewComponent } from './admin-view.component';
 import { UserApiService } from '../shared/services/api/user-api.service';
-import { UserService } from '../shared/services/mapper/user.service';
+import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { MatDialogModule } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';

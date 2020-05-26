@@ -1,5 +1,5 @@
 import { User } from '../shared/model/api/user';
-import { UserService } from '../shared/services/mapper/user.service';
+import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
