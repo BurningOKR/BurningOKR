@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestApiController
 public class StructureController {
 
-    @GetMapping("/structures/{structureId}")
-    public ResponseEntity<SubStructureDto> getStructureByStructureId(
-        @PathVariable long structureId) {
-      return ResponseEntity.ok(new DepartmentDto());
-    }
+  @GetMapping("/structures/{structureId}")
+  public ResponseEntity<SubStructureDto> getStructureByStructureId(@PathVariable long structureId) {
+    return ResponseEntity.ok(new DepartmentDto());
+  }
 }

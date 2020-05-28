@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
@@ -32,7 +33,7 @@ public class UserRoleFromContextService {
    * @param keyResultRepository a {@link KeyResultRepository} object
    * @param noteRepository a {@link NoteRepository} object
    * @param adminUserRepository an {@link AdminUserRepository} object
-   * @param userService an {@link userService} object
+   * @param userService an {@link UserService} object
    */
   @Autowired
   public UserRoleFromContextService(
@@ -92,6 +93,20 @@ public class UserRoleFromContextService {
       return UserContextRole.ENTITYOWNER;
     }
     return UserContextRole.USER;
+  }
+
+  /**
+   * Gets the UserContextRole of a Structure.
+   *
+   * @param structure an {@link SubStructure} object
+   * @return an {@link UserContextRole} object
+   */
+  public UserContextRole getUserRoleInStructure(SubStructure structure) {
+    if (structure instanceof Department) {
+      return getUserRoleInDepartment((Department) structure);
+    } else {
+      return getUserRoleWithoutContext();
+    }
   }
 
   private UserContextRole getUserRoleInDepartment(Department contextDepartment) {

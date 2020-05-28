@@ -1,6 +1,7 @@
 package org.burningokr.service.structure;
 
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.security.UserContextRole;
 import org.burningokr.service.security.UserRoleFromContextService;
 import org.burningokr.service.structure.departmentservices.StructureServiceAdmins;
@@ -11,12 +12,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DepartmentServicePicker {
+public class StructureServicePicker<T extends SubStructure> {
 
-  private StructureServiceUsers<Department> userService;
-  private StructureServiceManagers<Department> managerService;
-  private StructureServiceAdmins<Department> adminService;
+  private StructureServiceUsers<T> userService;
+  private StructureServiceManagers<T> managerService;
+  private StructureServiceAdmins<T> adminService;
   private UserRoleFromContextService userRoleFromContextService;
+  private StructureRepository<T> structureRepository;
 
   /**
    * Initialize DepartmentServicePicker.
@@ -27,17 +29,17 @@ public class DepartmentServicePicker {
    * @param userRoleFromContextService an {@link UserRoleFromContextService} object
    */
   @Autowired
-  public DepartmentServicePicker(
-      @Qualifier("structureServiceUsers") StructureServiceUsers<Department> departmentServiceUsers,
-      @Qualifier("structureServiceManagers")
-          StructureServiceManagers<Department> departmentServiceManagers,
-      @Qualifier("structureServiceAdmins")
-          StructureServiceAdmins<Department> departmentServiceAdmins,
-      UserRoleFromContextService userRoleFromContextService) {
+  public StructureServicePicker(
+      @Qualifier("structureServiceUsers") StructureServiceUsers<T> departmentServiceUsers,
+      @Qualifier("structureServiceManagers") StructureServiceManagers<T> departmentServiceManagers,
+      @Qualifier("structureServiceAdmins") StructureServiceAdmins<T> departmentServiceAdmins,
+      UserRoleFromContextService userRoleFromContextService,
+      StructureRepository<T> structureRepository) {
     this.userService = departmentServiceUsers;
     this.managerService = departmentServiceManagers;
     this.adminService = departmentServiceAdmins;
     this.userRoleFromContextService = userRoleFromContextService;
+    this.structureRepository = structureRepository;
   }
 
   /**
@@ -46,8 +48,9 @@ public class DepartmentServicePicker {
    * @param departmentId a long value
    * @return a {@link StructureService} object
    */
-  public StructureService<Department> getRoleServiceForDepartment(long departmentId) {
-    UserContextRole role = userRoleFromContextService.getUserRoleInDepartmentId(departmentId);
+  public StructureService<T> getRoleServiceForDepartment(long departmentId) {
+    SubStructure structure = structureRepository.findByIdOrThrow(departmentId);
+    UserContextRole role = userRoleFromContextService.getUserRoleInStructure(structure);
 
     switch (role) {
       case OKRMANAGER:
