@@ -1,6 +1,5 @@
 package org.burningokr.service.structure;
 
-import lombok.RequiredArgsConstructor;
 import org.burningokr.model.structures.Department;
 import org.burningokr.service.security.UserContextRole;
 import org.burningokr.service.security.UserRoleFromContextService;
@@ -30,8 +29,10 @@ public class DepartmentServicePicker {
   @Autowired
   public DepartmentServicePicker(
       @Qualifier("structureServiceUsers") StructureServiceUsers<Department> departmentServiceUsers,
-      @Qualifier("structureServiceManagers") StructureServiceManagers<Department> departmentServiceManagers,
-      @Qualifier("structureServiceAdmins") StructureServiceAdmins<Department> departmentServiceAdmins,
+      @Qualifier("structureServiceManagers")
+          StructureServiceManagers<Department> departmentServiceManagers,
+      @Qualifier("structureServiceAdmins")
+          StructureServiceAdmins<Department> departmentServiceAdmins,
       UserRoleFromContextService userRoleFromContextService) {
     this.userService = departmentServiceUsers;
     this.managerService = departmentServiceManagers;
