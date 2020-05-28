@@ -36,6 +36,7 @@ export class ControlHelperService {
   getErrorMessage(form: FormGroup, controlName: string): string {
     const control: AbstractControl = form.get(controlName);
 
+
     if (control.hasError('required')) {
       return this.requiredErrorMessage;
     } else if (control.hasError('maxlength')) {
@@ -48,4 +49,13 @@ export class ControlHelperService {
       return this.invalidFormValueErrorMessage;
     }
   }
+/*
+  validators :IValidator[];
+
+  get(control: AbstractControl) {
+    validators.
+      first(validator => control.hasError(validator.ErrorCode)).
+      map(validator=>validator.GetErrorMessage());
+    return "";
+  }*/
 }
