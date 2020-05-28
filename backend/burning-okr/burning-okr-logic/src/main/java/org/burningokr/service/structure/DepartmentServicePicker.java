@@ -1,5 +1,6 @@
 package org.burningokr.service.structure;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.structures.Department;
 import org.burningokr.service.security.UserContextRole;
 import org.burningokr.service.security.UserRoleFromContextService;
@@ -7,14 +8,15 @@ import org.burningokr.service.structure.departmentservices.StructureServiceAdmin
 import org.burningokr.service.structure.departmentservices.StructureServiceManagers;
 import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentServicePicker {
 
-  private StructureServiceUsers userService;
-  private StructureServiceManagers managerService;
-  private StructureServiceAdmins adminService;
+  private StructureServiceUsers<Department> userService;
+  private StructureServiceManagers<Department> managerService;
+  private StructureServiceAdmins<Department> adminService;
   private UserRoleFromContextService userRoleFromContextService;
 
   /**
@@ -27,9 +29,9 @@ public class DepartmentServicePicker {
    */
   @Autowired
   public DepartmentServicePicker(
-      StructureServiceUsers departmentServiceUsers,
-      StructureServiceManagers departmentServiceManagers,
-      StructureServiceAdmins departmentServiceAdmins,
+      @Qualifier("structureServiceUsers") StructureServiceUsers<Department> departmentServiceUsers,
+      @Qualifier("structureServiceManagers") StructureServiceManagers<Department> departmentServiceManagers,
+      @Qualifier("structureServiceAdmins") StructureServiceAdmins<Department> departmentServiceAdmins,
       UserRoleFromContextService userRoleFromContextService) {
     this.userService = departmentServiceUsers;
     this.managerService = departmentServiceManagers;

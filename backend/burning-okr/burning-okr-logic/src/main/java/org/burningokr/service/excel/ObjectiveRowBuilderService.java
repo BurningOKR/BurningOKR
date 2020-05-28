@@ -23,7 +23,7 @@ public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRo
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-      @Qualifier("departmentServiceUsers") StructureServiceUsers<Department> departmentService,
+      @Qualifier("structureServiceUsers") StructureServiceUsers<Department> departmentService,
       CompanyService companyService) {
     this.departmentService = departmentService;
     this.companyService = companyService;

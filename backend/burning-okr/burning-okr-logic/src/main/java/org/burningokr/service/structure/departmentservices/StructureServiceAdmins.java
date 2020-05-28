@@ -14,7 +14,7 @@ import org.burningokr.service.structureutil.ParentService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("structureServiceAdmins")
 public class StructureServiceAdmins<T extends SubStructure> extends StructureServiceManagers<T> {
 
   /**

@@ -13,6 +13,7 @@ import org.burningokr.service.structure.departmentservices.DepartmentHelper;
 import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,7 +35,7 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   @Autowired
   public TeamMemberRowBuilderService(
       UserService userService,
-      StructureServiceUsers<Department> departmentServiceUsers,
+      @Qualifier("structureServiceUsers") StructureServiceUsers<Department> departmentServiceUsers,
       CompanyService companyService,
       Messages messages) {
     this.userService = userService;

@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.stereotype.Service;
 
-@Service("departmentServiceUsers")
+@Service("structureServiceUsers")
 public class StructureServiceUsers<T extends SubStructure> implements StructureService<T> {
 
   protected final Logger logger = LoggerFactory.getLogger(StructureServiceUsers.class);
