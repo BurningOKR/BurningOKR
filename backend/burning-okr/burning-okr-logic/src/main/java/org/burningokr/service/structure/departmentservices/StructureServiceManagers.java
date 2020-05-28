@@ -3,9 +3,10 @@ package org.burningokr.service.structure.departmentservices;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.structureutil.ParentService;
@@ -14,18 +15,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class StructureServiceManagers extends StructureServiceUsers {
+public class StructureServiceManagers<T extends SubStructure> extends StructureServiceUsers<T> {
 
   @Autowired
   StructureServiceManagers(
       ParentService parentService,
-      DepartmentRepository departmentRepository,
+      StructureRepository<T> structureRepository,
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
     super(
         parentService,
-        departmentRepository,
+        structureRepository,
         objectiveRepository,
         activityService,
         entityCrawlerService);
@@ -33,30 +34,32 @@ public class StructureServiceManagers extends StructureServiceUsers {
 
   @Override
   @Transactional
-  public Department updateStructure(Department updatedDepartment, User user) {
-    Department referencedDepartment =
-        structureRepository.findByIdOrThrow(updatedDepartment.getId());
+  public T updateStructure(T updatedStructure, User user) {
+    T referencedStructure = structureRepository.findByIdOrThrow(updatedStructure.getId());
 
-    throwIfCycleForDepartmentIsClosed(referencedDepartment);
+    throwIfCycleForDepartmentIsClosed(referencedStructure);
 
-    referencedDepartment.setOkrMemberIds(updatedDepartment.getOkrMemberIds());
+    if (updatedStructure instanceof Department) {
+      ((Department) referencedStructure)
+          .setOkrMemberIds(((Department) updatedStructure).getOkrMemberIds());
 
-    referencedDepartment = structureRepository.save(referencedDepartment);
-    logger.info(
-        "Updated Department "
-            + referencedDepartment.getName()
-            + "(id:"
-            + referencedDepartment.getId()
-            + ")");
-    activityService.createActivity(user, referencedDepartment, Action.EDITED);
+      referencedStructure = structureRepository.save(referencedStructure);
+      logger.info(
+          "Updated Department "
+              + referencedStructure.getName()
+              + "(id:"
+              + referencedStructure.getId()
+              + ")");
+      activityService.createActivity(user, referencedStructure, Action.EDITED);
+    }
 
-    return referencedDepartment;
+    return referencedStructure;
   }
 
   @Override
   @Transactional
   public Objective createObjective(Long structureId, Objective objective, User user) {
-    Department department = structureRepository.findByIdOrThrow(structureId);
+    T department = structureRepository.findByIdOrThrow(structureId);
 
     throwIfCycleForDepartmentIsClosed(department);
 

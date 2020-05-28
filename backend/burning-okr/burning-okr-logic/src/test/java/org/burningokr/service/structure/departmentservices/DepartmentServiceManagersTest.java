@@ -15,7 +15,7 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
@@ -33,12 +33,12 @@ public class DepartmentServiceManagersTest {
 
   private final Long departmentId = 1337L;
   private final String departmentName = "Java Academy";
-  @Mock private DepartmentRepository departmentRepository;
+  @Mock private StructureRepository<Department> departmentRepository;
   @Mock private ObjectiveRepository objectiveRepository;
   @Mock private ActivityService activityService;
   @Mock private EntityCrawlerService entityCrawlerService;
   @Mock private User user;
-  @InjectMocks private StructureServiceManagers departmentServiceManagers;
+  @InjectMocks private StructureServiceManagers<Department> departmentServiceManagers;
   private Department department;
 
   @Before
@@ -49,7 +49,7 @@ public class DepartmentServiceManagersTest {
 
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
-    when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(activeCycle);
+    when(entityCrawlerService.getCycleOfStructure(any())).thenReturn(activeCycle);
   }
 
   @Test(expected = UnauthorizedUserException.class)
@@ -104,7 +104,7 @@ public class DepartmentServiceManagersTest {
   public void createObjective_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
-    when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
+    when(entityCrawlerService.getCycleOfStructure(any())).thenReturn(closedCycle);
 
     departmentServiceManagers.createObjective(10L, new Objective(), user);
   }
@@ -113,7 +113,7 @@ public class DepartmentServiceManagersTest {
   public void updateDepartment_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
-    when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
+    when(entityCrawlerService.getCycleOfStructure(any())).thenReturn(closedCycle);
 
     departmentServiceManagers.updateStructure(new Department(), user);
   }

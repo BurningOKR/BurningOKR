@@ -18,7 +18,7 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
@@ -36,12 +36,12 @@ public class DepartmentServiceAdminsTest {
 
   private final Long departmentId = 1337L;
   private final String departmentName = "Java Academy";
-  @Mock private DepartmentRepository departmentRepository;
+  @Mock private StructureRepository<Department> departmentRepository;
   @Mock private ObjectiveRepository objectiveRepository;
   @Mock private User user;
   @Mock private EntityCrawlerService entityCrawlerService;
   @Mock private ActivityService activityService;
-  @InjectMocks private StructureServiceAdmins departmentServiceAdmins;
+  @InjectMocks private StructureServiceAdmins<Department> departmentServiceAdmins;
   private Department department;
 
   @Before
@@ -52,7 +52,7 @@ public class DepartmentServiceAdminsTest {
 
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
-    when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(activeCycle);
+    when(entityCrawlerService.getCycleOfStructure(any())).thenReturn(activeCycle);
   }
 
   @Test
@@ -81,7 +81,7 @@ public class DepartmentServiceAdminsTest {
   public void createSubdepartment_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
-    when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
+    when(entityCrawlerService.getCycleOfStructure(any())).thenReturn(closedCycle);
 
     departmentServiceAdmins.createSubstructure(10L, new Department(), user);
   }
@@ -90,7 +90,7 @@ public class DepartmentServiceAdminsTest {
   public void updateDepartment_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
-    when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
+    when(entityCrawlerService.getCycleOfStructure(any())).thenReturn(closedCycle);
 
     departmentServiceAdmins.updateStructure(new Department(), user);
   }
@@ -99,7 +99,7 @@ public class DepartmentServiceAdminsTest {
   public void deleteDepartment_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
-    when(entityCrawlerService.getCycleOfDepartment(any())).thenReturn(closedCycle);
+    when(entityCrawlerService.getCycleOfStructure(any())).thenReturn(closedCycle);
 
     departmentServiceAdmins.deleteStructure(10L, user);
   }

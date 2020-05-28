@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
 
-  private final StructureServiceUsers departmentService;
+  private final StructureServiceUsers<Department> departmentService;
 
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-      @Qualifier("departmentServiceUsers") StructureServiceUsers departmentService,
+      @Qualifier("departmentServiceUsers") StructureServiceUsers<Department> departmentService,
       CompanyService companyService) {
     this.departmentService = departmentService;
     this.companyService = companyService;

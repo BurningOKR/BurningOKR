@@ -36,7 +36,7 @@ public class ObjectiveService {
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private ConfigurationService configurationService;
-  private StructureServiceUsers departmentService;
+  private StructureServiceUsers<Department> departmentService;
 
   /**
    * Initialize ObjectiveService.
@@ -57,7 +57,7 @@ public class ObjectiveService {
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       ConfigurationService configurationService,
-      @Qualifier("departmentServiceUsers") StructureServiceUsers departmentService) {
+      @Qualifier("departmentServiceUsers") StructureServiceUsers<Department> departmentService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;

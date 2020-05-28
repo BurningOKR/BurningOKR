@@ -6,6 +6,7 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.structures.Structure;
+import org.burningokr.model.structures.SubStructure;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,12 +22,12 @@ public class EntityCrawlerService {
    * @param departmentToCheck a {@link Department} object
    * @return a {@link Cycle} object
    */
-  public Cycle getCycleOfDepartment(Department departmentToCheck) {
+  public Cycle getCycleOfStructure(SubStructure departmentToCheck) {
     Structure parentStructure = departmentToCheck.getParentStructure();
     if (parentStructure instanceof Company) {
       return this.getCycleOfCompany((Company) parentStructure);
     } else {
-      return this.getCycleOfDepartment((Department) parentStructure);
+      return this.getCycleOfStructure((SubStructure) parentStructure);
     }
   }
 
@@ -34,7 +35,7 @@ public class EntityCrawlerService {
     if (parentStructure instanceof Company) {
       return this.getCycleOfCompany((Company) parentStructure);
     } else {
-      return this.getCycleOfDepartment((Department) parentStructure);
+      return this.getCycleOfStructure((Department) parentStructure);
     }
   }
 

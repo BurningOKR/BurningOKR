@@ -66,14 +66,14 @@ public class EntityCrawlerServiceTest {
 
   @Test
   public void getCycleOfDepartment_companyIsFirstParent_expectedCycle() {
-    Cycle actualCycle = entityCrawlerService.getCycleOfDepartment(departmentChildFirstDegree);
+    Cycle actualCycle = entityCrawlerService.getCycleOfStructure(departmentChildFirstDegree);
 
     Assert.assertEquals(cycle, actualCycle);
   }
 
   @Test
   public void getCycleOfDepartment_companyIsNestedParent_expectedCycle() {
-    Cycle actualCycle = entityCrawlerService.getCycleOfDepartment(departmentChildSecondDegree);
+    Cycle actualCycle = entityCrawlerService.getCycleOfStructure(departmentChildSecondDegree);
 
     Assert.assertEquals(cycle, actualCycle);
   }

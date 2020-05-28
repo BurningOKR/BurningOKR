@@ -2,9 +2,11 @@ package org.burningokr.service.structure.departmentservices;
 
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
@@ -13,26 +15,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class StructureServiceAdmins extends StructureServiceManagers {
+public class StructureServiceAdmins<T extends SubStructure> extends StructureServiceManagers<T> {
 
   /**
    * Initialize DepartmentServiceAdmins.
    *
    * @param parentService a {@link ParentService} object
-   * @param departmentRepository a {@link DepartmentRepository} object
+   * @param structureRepository a {@link DepartmentRepository} object
    * @param objectiveRepository an {@link ObjectiveRepository} object
    * @param activityService an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
    */
   public StructureServiceAdmins(
       ParentService parentService,
-      DepartmentRepository departmentRepository,
+      StructureRepository<T> structureRepository,
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
     super(
         parentService,
-        departmentRepository,
+        structureRepository,
         objectiveRepository,
         activityService,
         entityCrawlerService);
@@ -40,42 +42,47 @@ public class StructureServiceAdmins extends StructureServiceManagers {
 
   @Override
   @Transactional
-  public Department updateStructure(Department updatedDepartment, User user) {
-    Department referencedDepartment =
-        structureRepository.findByIdOrThrow(updatedDepartment.getId());
+  public T updateStructure(T updatedStructure, User user) {
+    T referencedStructure = structureRepository.findByIdOrThrow(updatedStructure.getId());
 
-    throwIfCycleForDepartmentIsClosed(referencedDepartment);
+    throwIfCycleForDepartmentIsClosed(referencedStructure);
 
-    referencedDepartment.setName(updatedDepartment.getName());
-    referencedDepartment.setLabel(updatedDepartment.getLabel());
-    referencedDepartment.setOkrMasterId(updatedDepartment.getOkrMasterId());
-    referencedDepartment.setOkrTopicSponsorId(updatedDepartment.getOkrTopicSponsorId());
-    referencedDepartment.setOkrMemberIds(updatedDepartment.getOkrMemberIds());
-    referencedDepartment.setActive(updatedDepartment.isActive());
+    referencedStructure.setName(updatedStructure.getName());
+    referencedStructure.setLabel(updatedStructure.getLabel());
+    referencedStructure.setActive(updatedStructure.isActive());
 
-    referencedDepartment = structureRepository.save(referencedDepartment);
+    if (updatedStructure instanceof Department) {
+      Department referencedDepartment = (Department) referencedStructure;
+      Department updatedDepartment = (Department) updatedStructure;
+
+      referencedDepartment.setOkrMasterId(updatedDepartment.getOkrMasterId());
+      referencedDepartment.setOkrTopicSponsorId(updatedDepartment.getOkrTopicSponsorId());
+      referencedDepartment.setOkrMemberIds(updatedDepartment.getOkrMemberIds());
+    }
+
+    referencedStructure = structureRepository.save(referencedStructure);
     logger.info(
         "Updated Department "
-            + referencedDepartment.getName()
+            + referencedStructure.getName()
             + "(id:"
-            + referencedDepartment.getId()
+            + referencedStructure.getId()
             + ")");
-    activityService.createActivity(user, referencedDepartment, Action.EDITED);
+    activityService.createActivity(user, referencedStructure, Action.EDITED);
 
-    return referencedDepartment;
+    return referencedStructure;
   }
 
   @Override
   public void deleteStructure(Long structureId, User user) {
-    Department referencedDepartment = structureRepository.findByIdOrThrow(structureId);
+    T referencedStructure = structureRepository.findByIdOrThrow(structureId);
 
-    throwIfCycleForDepartmentIsClosed(referencedDepartment);
+    throwIfCycleForDepartmentIsClosed(referencedStructure);
 
-    if (referencedDepartment.getDepartments().isEmpty()) {
-      activityService.createActivity(user, referencedDepartment, Action.DELETED);
+    if (referencedStructure.getDepartments().isEmpty()) {
+      activityService.createActivity(user, referencedStructure, Action.DELETED);
       structureRepository.deleteById(structureId);
       logger.info("Deleted Department with id: " + structureId);
-      activityService.createActivity(user, referencedDepartment, Action.DELETED);
+      activityService.createActivity(user, referencedStructure, Action.DELETED);
 
     } else {
       logger.info(
@@ -89,20 +96,19 @@ public class StructureServiceAdmins extends StructureServiceManagers {
 
   @Override
   @Transactional
-  public Department createSubstructure(
-      Long parentStructureId, Department subDepartment, User user) {
-    Department parentDepartment = structureRepository.findByIdOrThrow(parentStructureId);
+  public T createSubstructure(Long parentStructureId, T subDepartment, User user) {
+    T parentStructure = structureRepository.findByIdOrThrow(parentStructureId);
 
-    throwIfCycleForDepartmentIsClosed(parentDepartment);
+    throwIfCycleForDepartmentIsClosed(parentStructure);
 
-    subDepartment.setParentStructure(parentDepartment);
+    subDepartment.setParentStructure(parentStructure);
 
     subDepartment = structureRepository.save(subDepartment);
     logger.info(
         "Created subdepartment: "
             + subDepartment.getName()
             + " into Department "
-            + parentDepartment.getName()
+            + parentStructure.getName()
             + "(id:"
             + parentStructureId
             + ")");

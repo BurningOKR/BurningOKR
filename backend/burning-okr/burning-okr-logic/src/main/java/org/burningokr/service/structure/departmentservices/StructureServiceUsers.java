@@ -6,9 +6,8 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
-import org.burningokr.repositories.ExtendedRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structure.StructureService;
@@ -21,10 +20,10 @@ import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserExc
 import org.springframework.stereotype.Service;
 
 @Service("departmentServiceUsers")
-public abstract class StructureServiceUsers<T extends SubStructure> implements StructureService<T> {
+public class StructureServiceUsers<T extends SubStructure> implements StructureService<T> {
 
   protected final Logger logger = LoggerFactory.getLogger(StructureServiceUsers.class);
-  protected ExtendedRepository<T, Long> structureRepository;
+  protected StructureRepository<T> structureRepository;
   protected ObjectiveRepository objectiveRepository;
   protected ActivityService activityService;
   ParentService parentService;
@@ -33,7 +32,7 @@ public abstract class StructureServiceUsers<T extends SubStructure> implements S
   @Autowired
   StructureServiceUsers(
       ParentService parentService,
-      ExtendedRepository<T, Long> structureRepository,
+      StructureRepository<T> structureRepository,
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
@@ -50,19 +49,19 @@ public abstract class StructureServiceUsers<T extends SubStructure> implements S
   }
 
   @Override
-  public Collection<T> findSubStructuresOfStructure(long departmentId) {
+  public Collection<Department> findSubStructuresOfStructure(long departmentId) {
     T department = findById(departmentId);
     return department.getDepartments();
   }
 
   @Override
   public Collection<Objective> findObjectivesOfStructure(long departmentId) {
-    Department department = findById(departmentId);
-    return objectiveRepository.findByStrucutureAndOrderBySequence(department);
+    T department = findById(departmentId);
+    return objectiveRepository.findByStructureAndOrderBySequence(department);
   }
 
   @Override
-  public T updateStructure(Department updatedDepartment, User user) {
+  public T updateStructure(T updatedDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
@@ -72,8 +71,7 @@ public abstract class StructureServiceUsers<T extends SubStructure> implements S
   }
 
   @Override
-  public T createSubstructure(
-      Long parentStructureId, Department subDepartment, User user) {
+  public T createSubstructure(Long parentStructureId, T subDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
@@ -82,8 +80,8 @@ public abstract class StructureServiceUsers<T extends SubStructure> implements S
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
-  void throwIfCycleForDepartmentIsClosed(Department departmentToCheck) {
-    if (entityCrawlerService.getCycleOfDepartment(departmentToCheck).getCycleState()
+  void throwIfCycleForDepartmentIsClosed(T structureToCheck) {
+    if (entityCrawlerService.getCycleOfStructure(structureToCheck).getCycleState()
         == CycleState.CLOSED) {
       throw new ForbiddenException(
           "Cannot modify this resource on a Department in a closed cycle.");

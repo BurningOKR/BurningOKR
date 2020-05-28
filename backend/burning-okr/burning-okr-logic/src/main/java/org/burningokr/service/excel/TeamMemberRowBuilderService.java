@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {
 
   private final UserService userService;
-  private final StructureServiceUsers departmentServiceUsers;
+  private final StructureServiceUsers<Department> departmentServiceUsers;
   private final CompanyService companyService;
   private final Messages messages;
 
@@ -34,7 +34,7 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   @Autowired
   public TeamMemberRowBuilderService(
       UserService userService,
-      StructureServiceUsers departmentServiceUsers,
+      StructureServiceUsers<Department> departmentServiceUsers,
       CompanyService companyService,
       Messages messages) {
     this.userService = userService;

@@ -14,8 +14,7 @@ import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserExc
 public class DepartmentServiceUsersTest {
 
   @Mock private User user;
-  @InjectMocks
-  StructureServiceUsers departmentServiceUsers;
+  @InjectMocks StructureServiceUsers<Department> departmentServiceUsers;
 
   @Test(expected = UnauthorizedUserException.class)
   public void updateDepartment_expectedThrow() {
