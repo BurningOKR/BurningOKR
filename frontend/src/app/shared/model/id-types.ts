@@ -7,3 +7,4 @@ export type DepartmentId = number;
 export type KeyResultId = number;
 export type ObjectiveId = number;
 export type UserSettingsId = number;
+export type StructureId = number;

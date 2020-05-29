@@ -1,0 +1,5 @@
+export enum StructureType {
+  COMPANY,
+  DEPARTMENT,
+  CORPORATE_OBJECTIVE_STRUCTURE
+}

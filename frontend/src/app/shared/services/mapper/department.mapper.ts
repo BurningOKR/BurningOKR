@@ -5,6 +5,7 @@ import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-uni
 import { DepartmentApiService } from '../api/department-api.service';
 import { DepartmentDto } from '../../model/api/department.dto';
 import { CompanyId, DepartmentId } from '../../model/id-types';
+import { StructureType } from '../../model/api/structure-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +79,8 @@ export class DepartmentMapper {
         okrMasterId: department.okrMasterId,
         okrTopicSponsorId: department.okrTopicSponsorId,
         okrMemberIds: department.okrMemberIds,
-        isActive: department.isActive
+        isActive: department.isActive,
+        structureType: StructureType.DEPARTMENT
       })
       .pipe(map(DepartmentMapper.mapDepartment));
   }

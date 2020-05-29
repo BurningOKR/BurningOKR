@@ -8,6 +8,7 @@ import { DepartmentDto } from '../../../shared/model/api/department.dto';
 import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
 import { InactiveTeamService } from './inactive-team.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { StructureType } from '../../../shared/model/api/structure-type.enum';
 
 interface SubstructureFormData {
   department?: DepartmentUnit;
@@ -80,7 +81,10 @@ export class SubstructureFormComponent {
         okrTopicSponsorId: undefined,
         okrMemberIds: undefined,
         isActive: formData.isActive,
-        isParentStructureADepartment: false
+        isParentStructureADepartment: false,
+        structureType: StructureType.DEPARTMENT,
+        parentStructureId: undefined,
+        subDepartmentIds: undefined
       };
 
       this.inactiveTeamService.handleTeam(formData);

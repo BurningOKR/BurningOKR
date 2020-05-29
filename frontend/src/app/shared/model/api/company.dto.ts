@@ -1,11 +1,8 @@
 import { CompanyId, CycleId, DepartmentId, ObjectiveId } from '../id-types';
+import { StructureDto } from './structure.dto';
 
-export interface CompanyDto {
-  structureId?: CompanyId;
+export interface CompanyDto extends StructureDto {
   cycleId: CycleId;
-  structureName: string;
   departmentIds?: DepartmentId[];
   corporateObjectiveIds?: number[];
-  objectiveIds?: ObjectiveId[];
-  label: string;
 }
