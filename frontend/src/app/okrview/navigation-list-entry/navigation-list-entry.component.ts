@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DepartmentStructure, DepartmentStructureRole } from '../../shared/model/ui/department-structure';
+import { StructureSchema, structureSchemaRole } from '../../shared/model/ui/structure-schema';
 import { CurrentNavigationService } from '../current-navigation.service';
 import { DepartmentNavigationInformation } from '../../shared/model/ui/department-navigation-information';
 
@@ -10,7 +10,7 @@ import { DepartmentNavigationInformation } from '../../shared/model/ui/departmen
   styleUrls: ['./navigation-list-entry.component.scss']
 })
 export class NavigationListEntryComponent implements OnInit, OnDestroy {
-  @Input() structure: DepartmentStructure;
+  @Input() structure: StructureSchema;
   @Input() isSecondStructure: boolean = true;
   @Input() startsOpen: boolean = false;
 
@@ -51,10 +51,10 @@ export class NavigationListEntryComponent implements OnInit, OnDestroy {
   }
 
   isMemberOfStructure(): boolean {
-    return this.structure.userRole === DepartmentStructureRole.MEMBER;
+    return this.structure.userRole === structureSchemaRole.MEMBER;
   }
 
   isManagerOfStructure(): boolean {
-    return this.structure.userRole === DepartmentStructureRole.MANAGER;
+    return this.structure.userRole === structureSchemaRole.MANAGER;
   }
 }

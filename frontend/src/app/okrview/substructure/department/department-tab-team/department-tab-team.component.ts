@@ -12,10 +12,10 @@ import { DepartmentUnit } from '../../../../shared/model/ui/OrganizationalUnit/d
 import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { CurrentUserService } from '../../../../core/services/current-user.service';
-import { DepartmentStructureRole } from '../../../../shared/model/ui/department-structure';
+import { structureSchemaRole } from '../../../../shared/model/ui/structure-schema';
 import { User } from '../../../../shared/model/api/user';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { CurrentDepartmentStructureService } from '../../../current-department-structure.service';
+import { CurrentStructureSchemeService } from '../../../current-structure-scheme.service';
 
 @Component({
   selector: 'app-department-tab-team',
@@ -34,7 +34,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   constructor(
     private departmentMapperService: DepartmentMapper,
     private currentUserService: CurrentUserService,
-    private currentDepartmentStructureService: CurrentDepartmentStructureService,
+    private currentstructureSchemaService: CurrentStructureSchemeService,
     private matDialog: MatDialog,
     private i18n: I18n
   ) {}
@@ -192,17 +192,17 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     this.querySaveTeam();
     this.getCurrentUserIdPromiseFromUserService$()
       .subscribe((currentUserId: string) => {
-        let newRole: DepartmentStructureRole;
+        let newRole: structureSchemaRole;
 
         if (this.department.okrMasterId === currentUserId || this.department.okrTopicSponsorId === currentUserId) {
-          newRole = DepartmentStructureRole.MANAGER;
+          newRole = structureSchemaRole.MANAGER;
         } else if (this.department.okrMemberIds.includes(currentUserId)) {
-          newRole = DepartmentStructureRole.MEMBER;
+          newRole = structureSchemaRole.MEMBER;
         } else {
-          newRole = DepartmentStructureRole.USER;
+          newRole = structureSchemaRole.USER;
         }
 
-        this.currentDepartmentStructureService.updateDepartmentStructureTeamRole(this.department.id, newRole);
+        this.currentstructureSchemaService.updateStructureSchemaTeamRole(this.department.id, newRole);
       });
   }
 

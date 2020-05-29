@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CompanyMapper } from '../shared/services/mapper/company.mapper';
 import { CycleMapper } from '../shared/services/mapper/cycle.mapper';
-import { DepartmentStructureMapper } from '../shared/services/mapper/department-structure.mapper';
-import { CurrentDepartmentStructureService } from './current-department-structure.service';
+import { StructureSchemaMapper } from '../shared/services/mapper/structure-schema-mapper.service';
+import { CurrentStructureSchemeService } from './current-structure-scheme.service';
 import { CurrentNavigationService } from './current-navigation.service';
 import { CurrentCompanyService } from './current-company.service';
 
@@ -12,10 +12,10 @@ import { CurrentCompanyService } from './current-company.service';
 export class CurrentOkrviewService {
 
   constructor(
-    private departmentStructureMapperService: DepartmentStructureMapper,
+    private structureSchemaMapperService: StructureSchemaMapper,
     private companyMappersService: CompanyMapper,
     private cycleMapperService: CycleMapper,
-    private currentDepartmentStructureService: CurrentDepartmentStructureService,
+    private currentstructureSchemaService: CurrentStructureSchemeService,
     private currentNavigationService: CurrentNavigationService,
     private currentCompanyService: CurrentCompanyService
   ) {}
@@ -41,12 +41,12 @@ export class CurrentOkrviewService {
   private fetchNewValuesForCompanyId(companyId: number): void {
     this.currentNavigationService.clearDepartmentNavigationInformation();
     this.currentCompanyService.setCurrentCompanyByCompanyId(companyId);
-    this.currentDepartmentStructureService.setCurrentDepartmentStructureByCompanyId(companyId);
+    this.currentstructureSchemaService.setCurrentStructureSchemaByCompanyId(companyId);
   }
 
   private fetchNewValuesForDepartmentId(departmentId: number): void {
     this.currentCompanyService.setCurrentCompanyByChildDepartmentId(departmentId);
-    this.currentDepartmentStructureService.setCurrentDepartmentStructureByDepartmentId(departmentId);
+    this.currentstructureSchemaService.setCurrentStructureSchemaByStructureId(departmentId);
     this.currentNavigationService.refreshDepartmentNavigationInformation();
 
   }

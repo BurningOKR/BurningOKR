@@ -3,8 +3,8 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@ang
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
-import { DepartmentStructure } from '../../shared/model/ui/department-structure';
-import { CurrentDepartmentStructureService } from '../current-department-structure.service';
+import { StructureSchema } from '../../shared/model/ui/structure-schema';
+import { CurrentStructureSchemeService } from '../current-structure-scheme.service';
 import { CurrentCompanyService } from '../current-company.service';
 
 @Component({
@@ -19,13 +19,13 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   private readonly _mobileQueryListener: () => void;
 
   currentCompany$: Observable<CompanyUnit>;
-  currentDepartmentStructure$: Observable<DepartmentStructure[]>;
+  currentstructureSchema$: Observable<StructureSchema[]>;
   navigationInformationSubscription: Subscription;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private currentDepartmentStructureService: CurrentDepartmentStructureService,
+    private currentstructureSchemaService: CurrentStructureSchemeService,
     private currentCompanyService: CurrentCompanyService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
@@ -35,7 +35,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentCompany$ = this.currentCompanyService.getCurrentCompany$();
-    this.currentDepartmentStructure$ = this.currentDepartmentStructureService.getCurrentDepartmentStructureList$();
+    this.currentstructureSchema$ = this.currentstructureSchemaService.getCurrentStructureSchemas$();
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DepartmentStructureDto } from '../../model/api/department-structure.dto';
+import { StructureSchemeDto } from '../../model/api/structure-scheme-dto';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { CompanyId, DepartmentId } from '../../model/id-types';
 import { DepartmentDto } from '../../model/api/department.dto';
@@ -28,7 +28,7 @@ export class DepartmentApiService {
     return this.api.getData$(`departments/${departmentId}/departments`);
   }
 
-  getDepartmentStructure$(departmentId: DepartmentId): Observable<DepartmentStructureDto[]> {
+  getStructureSchema(departmentId: DepartmentId): Observable<StructureSchemeDto[]> {
     return this.api.getData$(`departments/${departmentId}/structure`);
   }
 

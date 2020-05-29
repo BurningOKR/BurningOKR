@@ -1,28 +1,28 @@
 //tslint:disable
 import { Observable, of } from 'rxjs';
-import { DepartmentStructure, DepartmentStructureRole } from '../model/ui/department-structure';
-import { DepartmentStructureDto } from '../model/api/department-structure.dto';
+import { StructureSchema, structureSchemaRole } from '../model/ui/structure-schema';
+import { StructureSchemeDto } from '../model/api/structure-scheme-dto';
 
-export class DepartmentStructureMapperServiceMock {
+export class StructureSchemaMapperServiceMock {
   getCurrentDepartmentId$(): Observable<number> {
     return of();
   }
 
-  getCurrentDepartmentStructure$(): Observable<DepartmentStructure[]> {
+  getCurrentstructureSchema$(): Observable<StructureSchema[]> {
     return of();
   }
 
-  setCurrentDepartmentStructureByDepartmentId(departmentId: number): void {
+  setCurrentstructureSchemaByDepartmentId(departmentId: number): void {
   }
 
-  setCurrentDepartmentStructureByCompanyId(companyId: number): void {
+  setCurrentstructureSchemaByCompanyId(companyId: number): void {
   }
 
-  getCurrentDepartmentStructureList$(): Observable<DepartmentStructure[]> {
+  getCurrentstructureSchemaList$(): Observable<StructureSchema[]> {
     return of();
   }
 
-  private isDepartmentInStructure(departmentId: number, structure: DepartmentStructureDto[]): boolean {
+  private isDepartmentInStructure(departmentId: number, structure: StructureSchemeDto[]): boolean {
     if (structure) {
       for (const subStructure of structure) {
         if (subStructure.id === departmentId || this.isDepartmentInStructure(departmentId, subStructure.subDepartments)) {
@@ -34,7 +34,7 @@ export class DepartmentStructureMapperServiceMock {
     }
   }
 
-  getDepartmentStructureListToReachDepartmentWithId$(departmentId: number): Observable<DepartmentStructure[]> {
+  getstructureSchemaListToReachDepartmentWithId$(departmentId: number): Observable<StructureSchema[]> {
     return of();
   }
 
@@ -42,21 +42,21 @@ export class DepartmentStructureMapperServiceMock {
     return of();
   }
 
-  private getDepartmentStructureListToReachDepartmentWithIdRecursive(
+  private getstructureSchemaListToReachDepartmentWithIdRecursive(
     departmentId: number,
-    structure: DepartmentStructure[],
-    structureListToOpen: DepartmentStructure[]
-  ): DepartmentStructure[] {
+    structure: StructureSchema[],
+    structureListToOpen: StructureSchema[]
+  ): StructureSchema[] {
     return [];
   }
 
-  updateDepartmentStructureTeamRole(departmentId: number, newRole: DepartmentStructureRole): void {
+  updatestructureSchemaTeamRole(departmentId: number, newRole: structureSchemaRole): void {
   }
 
-  updateDepartmentStructureTeamRoleRecursive(
+  updatestructureSchemaTeamRoleRecursive(
     departmentId: number,
-    newRole: DepartmentStructureRole,
-    departmentStructureList: DepartmentStructure[]
+    newRole: structureSchemaRole,
+    structureSchemaList: StructureSchema[]
   ): void {
   }
 }
