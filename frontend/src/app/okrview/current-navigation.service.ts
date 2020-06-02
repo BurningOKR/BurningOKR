@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CurrentDepartmentStructureService } from './current-department-structure.service';
+import { CurrentStructureSchemeService } from './current-structure-scheme.service';
 import { map, switchMap } from 'rxjs/operators';
 import { DepartmentNavigationInformation } from '../shared/model/ui/department-navigation-information';
 
@@ -13,7 +13,7 @@ export class CurrentNavigationService {
     new DepartmentNavigationInformation(-1, [])
   );
 
-  constructor(private currentDepartmentStructureService: CurrentDepartmentStructureService) {
+  constructor(private currentstructureSchemaService: CurrentStructureSchemeService) {
   }
 
   getCurrentDepartmentNavigationInformation$(): Observable<DepartmentNavigationInformation> {
@@ -21,13 +21,13 @@ export class CurrentNavigationService {
   }
 
   refreshDepartmentNavigationInformation(): void {
-    this.currentDepartmentStructureService.getCurrentDepartmentId$()
+    this.currentstructureSchemaService.getCurrentStructureId$()
       .pipe(
-        switchMap((departmentStructureId: number) => {
-            return this.currentDepartmentStructureService.getDepartmentIdListToReachDepartmentWithId$(departmentStructureId)
+        switchMap((structureSchemaId: number) => {
+            return this.currentstructureSchemaService.getStructureIdsToReachStructureWithId$(structureSchemaId)
               .pipe(
                 map((departmentIdList: number[]) => {
-                    return new DepartmentNavigationInformation(departmentStructureId, departmentIdList);
+                    return new DepartmentNavigationInformation(structureSchemaId, departmentIdList);
                   }
                 )
               );

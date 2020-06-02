@@ -7,7 +7,7 @@ import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -36,7 +36,7 @@ public class ObjectiveService {
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private ConfigurationService configurationService;
-  private StructureServiceUsers<Department> departmentService;
+  private StructureServiceUsers<SubStructure> departmentService;
 
   /**
    * Initialize ObjectiveService.
@@ -57,7 +57,7 @@ public class ObjectiveService {
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       ConfigurationService configurationService,
-      @Qualifier("structureServiceUsers") StructureServiceUsers<Department> departmentService) {
+      @Qualifier("structureServiceUsers") StructureServiceUsers<SubStructure> departmentService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
@@ -196,11 +196,11 @@ public class ObjectiveService {
   @Transactional
   public void updateSequence(Long departmentId, Collection<Long> sequenceList, User user)
       throws Exception {
-    Department department = departmentService.findById(departmentId);
-    throwIfSequenceInvalid(department, sequenceList);
+    SubStructure structure = departmentService.findById(departmentId);
+    throwIfSequenceInvalid(structure, sequenceList);
 
     ArrayList<Long> sequenceArray = new ArrayList<>(sequenceList);
-    department
+    structure
         .getObjectives()
         .forEach(
             objective -> {
@@ -212,9 +212,9 @@ public class ObjectiveService {
             });
   }
 
-  private void throwIfSequenceInvalid(Department department, Collection<Long> sequenceList)
+  private void throwIfSequenceInvalid(SubStructure structure, Collection<Long> sequenceList)
       throws Exception {
-    Collection<Objective> objectiveList = department.getObjectives();
+    Collection<Objective> objectiveList = structure.getObjectives();
 
     if (objectiveList.size() != sequenceList.size()) {
       throw new IllegalArgumentException(

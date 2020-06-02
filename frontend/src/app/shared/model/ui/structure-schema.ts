@@ -1,19 +1,19 @@
 import { DepartmentId } from '../id-types';
 
-export enum DepartmentStructureRole {
+export enum structureSchemaRole {
   USER = 'USER',
   MEMBER = 'MEMBER',
   MANAGER = 'MANAGER'
 }
 
-export class DepartmentStructure {
+export class StructureSchema {
   id: DepartmentId;
   name: string;
-  subDepartments: DepartmentStructure[];
-  userRole: DepartmentStructureRole;
+  subDepartments: StructureSchema[];
+  userRole: structureSchemaRole;
   isActive: boolean;
 
-  constructor(id: DepartmentId, name: string, userRole: DepartmentStructureRole, isActive: boolean) {
+  constructor(id: DepartmentId, name: string, userRole: structureSchemaRole, isActive: boolean) {
     this.id = id;
     this.name = name;
     this.userRole = userRole;

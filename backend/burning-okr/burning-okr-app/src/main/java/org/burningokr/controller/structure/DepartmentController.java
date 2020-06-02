@@ -18,8 +18,8 @@ import org.burningokr.model.users.User;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.DepartmentServicePicker;
 import org.burningokr.service.structure.StructureService;
+import org.burningokr.service.structure.StructureServicePicker;
 import org.burningokr.service.structure.departmentservices.DepartmentHelper;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestApiController
 public class DepartmentController {
 
-  private DepartmentServicePicker departmentServicePicker;
+  private StructureServicePicker<Department> departmentServicePicker;
   private DataMapper<Department, DepartmentDto> departmentMapper;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private DepartmentStructureMapper departmentStructureMapper;
@@ -49,7 +49,7 @@ public class DepartmentController {
   /**
    * Initialize DepartmentController.
    *
-   * @param departmentServicePicker {@link DepartmentServicePicker}
+   * @param departmentServicePicker {@link StructureServicePicker}
    * @param departmentMapper {@link DataMapper} with Department and DepartmentDto
    * @param objectiveMapper {@link DataMapper} with Objective and ObjectiveDto
    * @param authorizationService {@link AuthorizationService}
@@ -61,7 +61,7 @@ public class DepartmentController {
    */
   @Autowired
   public DepartmentController(
-      DepartmentServicePicker departmentServicePicker,
+      StructureServicePicker<Department> departmentServicePicker,
       DataMapper<Department, DepartmentDto> departmentMapper,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       AuthorizationService authorizationService,

@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CurrentDepartmentStructureService } from './current-department-structure.service';
+import { CurrentStructureSchemeService } from './current-structure-scheme.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ApiHttpService } from '../core/services/api-http.service';
-import { DepartmentStructureMapper } from '../shared/services/mapper/department-structure.mapper';
-import { DepartmentStructureMapperServiceMock } from '../shared/mocks/department-structure-mapper-service-mock';
+import { StructureSchemaMapper } from '../shared/services/mapper/structure-schema-mapper.service';
+import { StructureSchemaMapperServiceMock } from '../shared/mocks/department-structure-mapper-service-mock';
 
-describe('DepartmentStructureServiceService', () => {
-  const departmentStructureMapperServiceMock: DepartmentStructureMapperServiceMock
-  = new DepartmentStructureMapperServiceMock();
+describe('structureSchemaServiceService', () => {
+  const structureSchemaMapperServiceMock: StructureSchemaMapperServiceMock
+  = new StructureSchemaMapperServiceMock();
 
   beforeEach(() => TestBed.configureTestingModule(
     {
@@ -19,12 +19,12 @@ describe('DepartmentStructureServiceService', () => {
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
       providers: [
-        {provide: DepartmentStructureMapper, use: departmentStructureMapperServiceMock}
+        {provide: StructureSchemaMapper, use: structureSchemaMapperServiceMock}
       ]
     }));
 
   it('should be created', () => {
-    const service: CurrentDepartmentStructureService = TestBed.get(CurrentDepartmentStructureService);
+    const service: CurrentStructureSchemeService = TestBed.get(CurrentStructureSchemeService);
     expect(service)
       .toBeTruthy();
   });

@@ -5,12 +5,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
@@ -232,5 +235,74 @@ public class UserRoleFromContextServiceTest {
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInNoteId(noteId);
 
     Assert.assertEquals(UserContextRole.USER, actualRole);
+  }
+
+  @Test
+  public void getRoleFromStructure_Department_User_expectedUserRole() {
+    when(currentUser.getId()).thenReturn(unrelatedUserId);
+
+    SubStructure subStructure = new Department();
+
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructure(subStructure);
+
+    Assert.assertEquals(UserContextRole.USER, actualRole);
+  }
+
+  @Test
+  public void getRoleFromStructure_Department_Master_expectedManagerRole() {
+    when(currentUser.getId()).thenReturn(okrMasterId);
+
+    Department department = new Department();
+    department.setOkrMasterId(okrMasterId);
+
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructure(department);
+
+    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+  }
+
+  @Test
+  public void getRoleFromStructure_Department_TopicSponsor_expectedManagerRole() {
+    when(currentUser.getId()).thenReturn(okrThemenpateId);
+
+    Department department = new Department();
+    department.setOkrTopicSponsorId(okrThemenpateId);
+
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructure(department);
+
+    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+  }
+
+  @Test
+  public void getRoleFromStructure_Department_Member_expectedMemberRole() {
+    when(currentUser.getId()).thenReturn(okrMemberId);
+
+    Department department = new Department();
+    department.setOkrMemberIds(Collections.singleton(okrMemberId));
+
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructure(department);
+
+    Assert.assertEquals(UserContextRole.OKRMEMBER, actualRole);
+  }
+
+  @Test
+  public void getRoleFromStructure_CorporateObjectiveStructure_User_expectedUserRole() {
+    when(currentUser.getId()).thenReturn(unrelatedUserId);
+
+    SubStructure subStructure = new CorporateObjectiveStructure();
+
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructure(subStructure);
+
+    Assert.assertEquals(UserContextRole.USER, actualRole);
+  }
+
+  @Test
+  public void getRoleFromStructure_CorporateObjectiveStructure_Admin_expectedAdminRole() {
+    when(currentUser.getId()).thenReturn(adminId);
+
+    SubStructure subStructure = new CorporateObjectiveStructure();
+
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructure(subStructure);
+
+    Assert.assertEquals(UserContextRole.ADMIN, actualRole);
   }
 }

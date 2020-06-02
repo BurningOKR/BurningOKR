@@ -1,33 +1,33 @@
 import { Observable, of } from 'rxjs';
-import { DepartmentStructure, DepartmentStructureRole } from '../model/ui/department-structure';
-import { DepartmentStructureDto } from '../model/api/department-structure.dto';
+import { StructureSchema, structureSchemaRole } from '../model/ui/structure-schema';
+import { StructureSchemeDto } from '../model/api/structure-scheme-dto';
 
-export class CurrentDepartmentStructureServiceMock {
+export class CurrentstructureSchemaServiceMock {
   getCurrentDepartmentId$(): Observable<number> {
     return of();
   }
 
-  getCurrentDepartmentStructure$(): Observable<DepartmentStructure[]> {
+  getCurrentstructureSchema$(): Observable<StructureSchema[]> {
     return of();
   }
 
-  setCurrentDepartmentStructureByDepartmentId(departmentId: number): void {
+  setCurrentstructureSchemaByDepartmentId(departmentId: number): void {
     return ;
   }
 
-  setCurrentDepartmentStructureByCompanyId(companyId: number): void {
+  setCurrentstructureSchemaByCompanyId(companyId: number): void {
     return ;
   }
 
-  getCurrentDepartmentStructureList$(): Observable<DepartmentStructure[]> {
+  getCurrentstructureSchemaList$(): Observable<StructureSchema[]> {
     return of();
   }
 
-  private isDepartmentInStructure(departmentId: number, structure: DepartmentStructureDto[]): boolean {
+  private isDepartmentInStructure(departmentId: number, structure: StructureSchemeDto[]): boolean {
     return true;
   }
 
-  getDepartmentStructureListToReachDepartmentWithId$(departmentId: number): Observable<DepartmentStructure[]> {
+  getstructureSchemaListToReachDepartmentWithId$(departmentId: number): Observable<StructureSchema[]> {
     return of();
   }
 
@@ -35,14 +35,14 @@ export class CurrentDepartmentStructureServiceMock {
     return of();
   }
 
-  updateDepartmentStructureTeamRole(departmentId: number, newRole: DepartmentStructureRole): void {
+  updatestructureSchemaTeamRole(departmentId: number, newRole: structureSchemaRole): void {
     return;
   }
 
-  updateDepartmentStructureTeamRoleRecursive(
+  updatestructureSchemaTeamRoleRecursive(
     departmentId: number,
-    newRole: DepartmentStructureRole,
-    departmentStructureList: DepartmentStructure[]
+    newRole: structureSchemaRole,
+    structureSchemaList: StructureSchema[]
   ): void {
     return;
   }

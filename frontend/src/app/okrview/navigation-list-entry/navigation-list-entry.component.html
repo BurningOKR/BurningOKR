@@ -20,8 +20,8 @@
   </div>
 
   <div *ngIf="isOpen && hasSubStructures()" class="list-subentries">
-    <app-navigation-list-entry *ngFor="let departmentStructure of structure.subDepartments"
-      [structure]="departmentStructure" [isSecondStructure]="!isSecondStructure"
+    <app-navigation-list-entry *ngFor="let structureSchema of structure.subDepartments"
+      [structure]="structureSchema" [isSecondStructure]="!isSecondStructure"
       [startsOpen]="structure.subDepartments.length === 1">
     </app-navigation-list-entry>
   </div>

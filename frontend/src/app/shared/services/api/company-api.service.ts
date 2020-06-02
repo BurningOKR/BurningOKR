@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
-import { DepartmentStructureDto } from '../../model/api/department-structure.dto';
+import { StructureSchemeDto } from '../../model/api/structure-scheme-dto';
 import { CycleDto } from '../../model/api/cycle.dto';
 import { CompanyDto } from '../../model/api/company.dto';
 import { CompanyId } from '../../model/id-types';
@@ -28,7 +28,7 @@ export class CompanyApiService {
     return this.api.getData$<CompanyDto>(`companies/${companyId}`);
   }
 
-  getDepartmentStructureOfCompany$(companyId: CompanyId): Observable<DepartmentStructureDto[]> {
+  getStructureSchemaOfCompany$(companyId: CompanyId): Observable<StructureSchemeDto[]> {
     return this.api.getData$(`companies/${companyId}/structure`);
   }
 
