@@ -1,5 +1,10 @@
 package org.burningokr.service.structure.departmentservices.structureServiceAdminsTest;
 
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.structures.SubStructure;
@@ -7,12 +12,6 @@ import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StructureServiceAdminsTest_CorporateObjectiveStrucutre
