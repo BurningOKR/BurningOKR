@@ -60,7 +60,7 @@ public class DepartmentMapperTest {
     department.setParentStructure(parentDepartment);
     departmentDto = departmentMapper.mapEntityToDto(department);
     Assert.assertEquals(expected, departmentDto.getParentStructureId());
-    Assert.assertTrue(departmentDto.getIsParentStructureADepartment());
+    Assert.assertTrue(departmentDto.getIsParentStructureACorporateObjectiveStructure());
   }
 
   @Test
@@ -71,7 +71,7 @@ public class DepartmentMapperTest {
     department.setParentStructure(company);
     departmentDto = departmentMapper.mapEntityToDto(department);
     Assert.assertEquals(expected, departmentDto.getParentStructureId());
-    Assert.assertFalse(departmentDto.getIsParentStructureADepartment());
+    Assert.assertFalse(departmentDto.getIsParentStructureACorporateObjectiveStructure());
   }
 
   @Test

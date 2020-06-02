@@ -1,35 +1,27 @@
-import { CompanyStructure } from './company-structure';
-import { UserId } from '../../id-types';
+import { ObjectiveId, UserId } from '../../id-types';
+import { SubStructure } from './sub-structure';
 
-export class DepartmentUnit extends CompanyStructure {
-  subDepartmentIds: number[];
-  parentStructureId: number;
+export class DepartmentUnit extends SubStructure {
   okrMasterId: UserId;
   okrTopicSponsorId: UserId;
   okrMemberIds: UserId[];
-  isActive: boolean;
-  isParentStructureADepartment: boolean;
+  isParentStructureACorporateObjectiveStructure: boolean;
 
   constructor(
     id: number,
     name: string,
-    subDepartmentIds: number[],
-    objectives: number[],
+    objectives: ObjectiveId[],
     parentStructureId: number,
     label: string,
     okrMasterId: string,
     okrTopicSponsorId: string,
     okrMemberIds: UserId[],
     isActive: boolean,
-    isParentStructureADepartment: boolean
-  ) {
-    super(id, name, objectives, label);
-    this.subDepartmentIds = subDepartmentIds;
-    this.parentStructureId = parentStructureId;
+    isParentStructureACorporateObjectiveStructure: boolean) {
+    super(id, name, label, objectives, parentStructureId, isActive);
     this.okrMasterId = okrMasterId;
     this.okrTopicSponsorId = okrTopicSponsorId;
     this.okrMemberIds = okrMemberIds;
-    this.isActive = isActive;
-    this.isParentStructureADepartment = isParentStructureADepartment;
+    this.isParentStructureACorporateObjectiveStructure = isParentStructureACorporateObjectiveStructure;
   }
 }

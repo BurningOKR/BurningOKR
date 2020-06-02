@@ -19,14 +19,14 @@ public class DepartmentDto extends SubStructureDto {
 
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)
-  private boolean isParentStructureADepartment;
+  private boolean isParentStructureACorporateObjectiveStructure;
 
-  public boolean getIsParentStructureADepartment() {
-    return isParentStructureADepartment;
+  public boolean getIsParentStructureACorporateObjectiveStructure() {
+    return isParentStructureACorporateObjectiveStructure;
   }
 
-  public void setIsParentStructureADepartment(boolean parentStructureADepartment) {
-    isParentStructureADepartment = parentStructureADepartment;
+  public void setIsParentStructureACorporateObjectiveStructure(boolean parentStructureADepartment) {
+    isParentStructureACorporateObjectiveStructure = parentStructureADepartment;
   }
 
   private UUID okrMasterId;

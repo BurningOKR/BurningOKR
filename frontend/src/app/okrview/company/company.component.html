@@ -46,11 +46,11 @@
           </div>
         </div>
         <!-- Subdepartments -->
-        <div *ngIf="company.departmentIds.length === 0 && company.corporateObjectiveStructureIds.length === 0" class="tab-subtitle" i18n="@@component_commentViewDialog_noSubstructure">
+        <div *ngIf="company.subStructureIds.length === 0" class="tab-subtitle" i18n="@@component_commentViewDialog_noSubstructure">
           Es gibt noch keine Unterstrukturen für diese Struktur
         </div>
         <div class="flex-wrap-spreadinner">
-          <div *ngFor="let currentdepartmentId of company.departmentIds">
+          <div *ngFor="let currentdepartmentId of company.subStructureIds">
             <app-substructure-preview-button [departmentId]="currentdepartmentId"></app-substructure-preview-button>
           </div>
         </div>

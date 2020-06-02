@@ -114,7 +114,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   onSubDepartmentAdded(addedSubDepartment: DepartmentUnit): void {
-    this.company.departmentIds.push(addedSubDepartment.id);
+    this.company.subStructureIds.push(addedSubDepartment.id);
     this.currentOkrViewService.refreshCurrentCompanyView(this.company.id);
   }
 

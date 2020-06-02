@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-unit';
 import { DepartmentApiService } from '../api/department-api.service';
-import { DepartmentDto } from '../../model/api/department.dto';
-import { CompanyId, DepartmentId } from '../../model/id-types';
-import { StructureType } from '../../model/api/structure-type.enum';
+import { DepartmentDto } from '../../model/api/structure/department.dto';
+import { CompanyId, StructureId } from '../../model/id-types';
+import { StructureType } from '../../model/api/structure/structure-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,6 @@ export class DepartmentMapper {
     return new DepartmentUnit(
       department.structureId,
       department.structureName,
-      department.subDepartmentIds,
       department.objectiveIds,
       department.parentStructureId,
       department.label,
@@ -26,11 +25,11 @@ export class DepartmentMapper {
       department.okrTopicSponsorId,
       department.okrMemberIds,
       department.isActive,
-      department.isParentStructureADepartment
+      department.isParentStructureACorporateObjectiveStructure
     );
   }
 
-  getDepartmentById$(departmentId: DepartmentId): Observable<DepartmentUnit> {
+  getDepartmentById$(departmentId: StructureId): Observable<DepartmentUnit> {
     return this.departmentApiService
       .getDepartmentById$(departmentId)
       .pipe(map(departmentDto => DepartmentMapper.mapDepartment(departmentDto)));
@@ -49,7 +48,7 @@ export class DepartmentMapper {
       .pipe(map(DepartmentMapper.mapDepartment));
   }
 
-  postDepartmentForDepartment$(departmentId: DepartmentId, department: DepartmentDto): Observable<DepartmentUnit> {
+  postDepartmentForDepartment$(departmentId: StructureId, department: DepartmentDto): Observable<DepartmentUnit> {
     return this.departmentApiService
       .postDepartmentForDepartment$(departmentId, department)
       .pipe(map(DepartmentMapper.mapDepartment));
@@ -60,7 +59,6 @@ export class DepartmentMapper {
       .putDepartment$({
         structureId: department.id,
         structureName: department.name,
-        subDepartmentIds: department.subDepartmentIds,
         objectiveIds: department.objectives,
         parentStructureId: 0,
         label: department.label,
@@ -68,16 +66,16 @@ export class DepartmentMapper {
         okrTopicSponsorId: department.okrTopicSponsorId,
         okrMemberIds: department.okrMemberIds,
         isActive: department.isActive,
-        structureType: StructureType.DEPARTMENT
+        __structureType: StructureType.DEPARTMENT
       })
       .pipe(map(DepartmentMapper.mapDepartment));
   }
 
-  putDepartmentObjectiveSequence$(departmentId: DepartmentId, sequenceList: number[]): Observable<number[]> {
+  putDepartmentObjectiveSequence$(departmentId: StructureId, sequenceList: number[]): Observable<number[]> {
     return this.departmentApiService.putDepartmentObjectiveSequence$(departmentId, sequenceList);
   }
 
-  deleteDepartment$(departmentId: DepartmentId): Observable<boolean> {
+  deleteDepartment$(departmentId: StructureId): Observable<boolean> {
     return this.departmentApiService.deleteDepartment$(departmentId);
   }
 }

@@ -180,8 +180,9 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     );
   }
 
+  // TODO: (R.J. 02.06.20) THIS SHOULD NOT ALWAYS RETURN TRUE. It should return false, when it is a corporateObjectiveStructure with subStructures.
   canDepartmentBeRemoved(): boolean {
-    return this.department.subDepartmentIds.length === 0;
+    return true; // this.department.subStructureIds.length === 0;
   }
 
   queryRemoveDepartment(): void {
@@ -196,7 +197,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
   }
 
   onDepartmentDeleted(): void {
-    if (this.department.isParentStructureADepartment) {
+    if (this.department.isParentStructureACorporateObjectiveStructure) {
       this.currentOkrViewService.refreshCurrentDepartmentView(this.department.parentStructureId);
     } else {
       // Therefore the parent structure is a company
@@ -215,7 +216,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
 
   // Template helper functions
   moveToParentStructure(): void {
-    if (this.department.isParentStructureADepartment) {
+    if (this.department.isParentStructureACorporateObjectiveStructure) {
       this.router.navigate([`../${this.department.parentStructureId}`], { relativeTo: this.route })
         .catch();
     } else {

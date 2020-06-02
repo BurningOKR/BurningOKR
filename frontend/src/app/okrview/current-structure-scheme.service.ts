@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StructureSchema, structureSchemaRole } from '../shared/model/ui/structure-schema';
 import { Observable, ReplaySubject } from 'rxjs';
-import { StructureSchemeDto } from '../shared/model/api/structure-scheme-dto';
+import { StructureSchemeDto } from '../shared/model/api/structure/structure-scheme-dto';
 import { map, take } from 'rxjs/operators';
 import { StructureSchemaMapper } from '../shared/services/mapper/structure-schema-mapper.service';
 

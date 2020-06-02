@@ -3,7 +3,8 @@ import { CorporateObjectiveStructureApiService } from '../api/corporate-objectiv
 import { Observable } from 'rxjs';
 import { CorporateObjectiveStructure } from '../../model/ui/OrganizationalUnit/corporate-objective-structure';
 import { map } from 'rxjs/operators';
-import { CorporateObjectiveStructureDto } from '../../model/api/corporate-objective-structure.dto';
+import { CorporateObjectiveStructureDto } from '../../model/api/structure/corporate-objective-structure.dto';
+import { StructureType } from '../../model/api/structure/structure-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -15,25 +16,26 @@ export class CorporateObjectiveStructureMapper {
 
   private static mapToCorporateObjectiveStructure(dto: CorporateObjectiveStructureDto): CorporateObjectiveStructure {
     return new CorporateObjectiveStructure(
-      dto.id,
-      dto.name,
+      dto.structureId,
+      dto.structureName,
       dto.objectiveIds,
       dto.label,
       dto.parentStructureId,
-      dto.departmentIds,
-      dto.corporateObjectiveStructureIds
+      dto.subStructureIds,
+      dto.isActive
     );
   }
 
   private static mapToCorporateObjectiveStructureDto(entity: CorporateObjectiveStructure): CorporateObjectiveStructureDto {
     return {
-      id: entity.id,
-      name: entity.name,
+      structureId: entity.id,
+      structureName: entity.name,
       objectiveIds: entity.objectives,
       label: entity.label,
       parentStructureId: entity.parentStructureId,
-      departmentIds: entity.departmentIds,
-      corporateObjectiveStructureIds: entity.corporateObjectiveStructureIds
+      subStructureIds: entity.subStructureIds,
+      isActive: entity.isActive,
+      __structureType: StructureType.CORPORATE_OBJECTIVE_STRUCTURE
     };
   }
 

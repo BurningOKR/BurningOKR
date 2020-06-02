@@ -12,11 +12,11 @@
       </div>
     </div>
     <!-- Subdepartments -->
-    <div *ngIf="department.subDepartmentIds.length == 0" class="tab-subtitle" i18n="@@component_departmentTabSubDepartments_noSubstructure">
+    <div *ngIf="department.subStructureIds.length == 0" class="tab-subtitle" i18n="@@component_departmentTabSubDepartments_noSubstructure">
       Es gibt noch keine Unterstrukturen für diese Struktur
     </div>
     <div class="flex-wrap-spreadinner">
-      <div *ngFor="let currentdepartmentId of department.subDepartmentIds">
+      <div *ngFor="let currentdepartmentId of department.subStructureIds">
         <app-substructure-preview-button [departmentId]="currentdepartmentId"></app-substructure-preview-button>
       </div>
     </div>

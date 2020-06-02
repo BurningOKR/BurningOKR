@@ -9,14 +9,14 @@ import { ControlHelperService } from '../../../shared/services/helper/control-he
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { StructureSchema } from '../../../shared/model/ui/structure-schema';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { CompanyStructure } from '../../../shared/model/ui/OrganizationalUnit/company-structure';
+import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure';
 import { CurrentStructureSchemeService } from '../../current-structure-scheme.service';
 import { map, switchMap } from 'rxjs/operators';
 
 interface ObjectiveFormData {
   objective?: ViewObjective;
   departmentId?: number;
-  currentItem: CompanyStructure;
+  currentItem: Structure;
 }
 
 class DepartmentObjectiveStructure {

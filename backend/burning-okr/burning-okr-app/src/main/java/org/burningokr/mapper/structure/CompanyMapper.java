@@ -61,7 +61,7 @@ public class CompanyMapper implements DataMapper<Company, CompanyDto> {
     for (SubStructure subStructure : company.getSubStructures()) {
       departmentIds.add(subStructure.getId());
     }
-    companyDto.setDepartmentIds(departmentIds);
+    companyDto.setSubStructureIds(departmentIds);
 
     Collection<Long> objectiveIds = new ArrayList<>();
     for (Objective objective : company.getObjectives()) {

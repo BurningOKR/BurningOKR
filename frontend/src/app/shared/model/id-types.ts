@@ -3,7 +3,6 @@ export type CompanyId = number;
 export type ConfigurationId = number;
 export type ConfigurationValue = string;
 export type CycleId = number;
-export type DepartmentId = number;
 export type KeyResultId = number;
 export type ObjectiveId = number;
 export type UserSettingsId = number;

@@ -1,16 +1,19 @@
-import { CompanyStructure } from './company-structure';
-import { DepartmentId, ObjectiveId } from '../../id-types';
+import { Structure } from './structure';
+import { StructureId, ObjectiveId } from '../../id-types';
+import { SubStructure } from './sub-structure';
 
-export class CorporateObjectiveStructure extends CompanyStructure {
-  parentStructureId: number;
-  departmentIds: DepartmentId[];
-  corporateObjectiveStructureIds: number[];
+export class CorporateObjectiveStructure extends SubStructure {
+  subStructureIds: StructureId[];
 
-  constructor(id: number, name: string, objectives: ObjectiveId[], label: string, parentStructureId: number,
-              departmentIds: DepartmentId[], corporateObjectiveStructureIds: number[]) {
-    super(id, name, objectives, label);
-    this.parentStructureId = parentStructureId;
-    this.departmentIds = departmentIds;
-    this.corporateObjectiveStructureIds = corporateObjectiveStructureIds;
+  constructor(
+    id: number,
+    name: string,
+    objectives: ObjectiveId[],
+    label: string,
+    parentStructureId: number,
+    subStructureIds: StructureId[],
+    isActive: boolean) {
+    super(id, name, label, objectives, parentStructureId, isActive);
+    this.subStructureIds = subStructureIds;
   }
 }

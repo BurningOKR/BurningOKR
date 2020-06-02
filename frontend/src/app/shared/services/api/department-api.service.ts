@@ -1,11 +1,11 @@
 // istanbul ignore file
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StructureSchemeDto } from '../../model/api/structure-scheme-dto';
+import { StructureSchemeDto } from '../../model/api/structure/structure-scheme-dto';
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { CompanyId, DepartmentId } from '../../model/id-types';
-import { DepartmentDto } from '../../model/api/department.dto';
-import { CompanyDto } from '../../model/api/company.dto';
+import { CompanyId, StructureId } from '../../model/id-types';
+import { DepartmentDto } from '../../model/api/structure/department.dto';
+import { CompanyDto } from '../../model/api/structure/company.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,15 @@ import { CompanyDto } from '../../model/api/company.dto';
 export class DepartmentApiService {
   constructor(private api: ApiHttpService) {}
 
-  getDepartmentById$(id: DepartmentId): Observable<DepartmentDto> {
+  getDepartmentById$(id: StructureId): Observable<DepartmentDto> {
     return this.api.getData$<DepartmentDto>(`departments/${id}`);
   }
 
-  getParentCompanyOfDepartment$(departmentId: DepartmentId): Observable<CompanyDto> {
+  getParentCompanyOfDepartment$(departmentId: StructureId): Observable<CompanyDto> {
     return this.api.getData$(`departments/${departmentId}/company`);
   }
 
-  getStructureSchema$(departmentId: DepartmentId): Observable<StructureSchemeDto[]> {
+  getStructureSchema$(departmentId: StructureId): Observable<StructureSchemeDto[]> {
     return this.api.getData$(`departments/${departmentId}/structure`);
   }
 

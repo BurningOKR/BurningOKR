@@ -17,9 +17,8 @@ const cycleMapperMock: any = {
 
 const currentCompanyMock: CompanyUnit = {
   id: 1,
-  corporateObjectiveStructureIds: [],
+  subStructureIds: [],
   cycleId: 2,
-  departmentIds: [],
   label: 'test',
   name: 'testCompany',
   objectives: []

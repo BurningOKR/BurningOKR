@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CompanyDto } from '../../shared/model/api/company.dto';
+import { CompanyDto } from '../../shared/model/api/structure/company.dto';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DialogComponent } from '../../shared/components/dialog-component/dialog.component';
 import { ControlHelperService } from '../../shared/services/helper/control-helper.service';

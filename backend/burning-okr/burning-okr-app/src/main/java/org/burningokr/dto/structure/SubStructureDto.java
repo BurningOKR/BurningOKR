@@ -1,7 +1,5 @@
 package org.burningokr.dto.structure;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.validation.constraints.NotNull;
 import lombok.*;
 
@@ -16,8 +14,6 @@ public abstract class SubStructureDto extends StructureDto {
   protected StructureType __structureType;
 
   @NotNull protected Long parentStructureId;
-
-  protected Collection<Long> subDepartmentIds = new ArrayList<>();
 
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)

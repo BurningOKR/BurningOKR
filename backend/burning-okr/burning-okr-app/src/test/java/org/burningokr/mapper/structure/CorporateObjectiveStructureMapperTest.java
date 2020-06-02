@@ -62,11 +62,11 @@ public class CorporateObjectiveStructureMapperTest {
     }
     entity.setSubStructures(departments);
     dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedDepartmentCount, dto.getSubDepartmentIds().size());
-    Assert.assertEquals(1L, dto.getSubDepartmentIds().toArray()[0]);
-    Assert.assertEquals(2L, dto.getSubDepartmentIds().toArray()[1]);
-    Assert.assertEquals(3L, dto.getSubDepartmentIds().toArray()[2]);
-    Assert.assertEquals(4L, dto.getSubDepartmentIds().toArray()[3]);
+    Assert.assertEquals(expectedDepartmentCount, dto.getSubStructureIds().size());
+    Assert.assertEquals(1L, dto.getSubStructureIds().toArray()[0]);
+    Assert.assertEquals(2L, dto.getSubStructureIds().toArray()[1]);
+    Assert.assertEquals(3L, dto.getSubStructureIds().toArray()[2]);
+    Assert.assertEquals(4L, dto.getSubStructureIds().toArray()[3]);
   }
 
   @Test
@@ -130,7 +130,7 @@ public class CorporateObjectiveStructureMapperTest {
 
   @Test
   public void test_mapDtoToEntity_expectDepartmentListEmpty() {
-    dto.setSubDepartmentIds(Arrays.asList(1L, 2L));
+    dto.setSubStructureIds(Arrays.asList(1L, 2L));
     entity = mapper.mapDtoToEntity(dto);
     Assert.assertTrue(entity.getSubStructures().isEmpty());
   }

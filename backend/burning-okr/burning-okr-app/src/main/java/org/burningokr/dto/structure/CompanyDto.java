@@ -11,7 +11,7 @@ public class CompanyDto extends StructureDto {
 
   private Long cycleId;
 
-  private Collection<Long> departmentIds = new ArrayList<>();
+  private Collection<Long> subStructureIds = new ArrayList<>();
 
   private Long historyId;
 }

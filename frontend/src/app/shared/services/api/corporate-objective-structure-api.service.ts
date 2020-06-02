@@ -1,7 +1,7 @@
 // istanbul ignore file
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { CorporateObjectiveStructureDto } from '../../model/api/corporate-objective-structure.dto';
+import { CorporateObjectiveStructureDto } from '../../model/api/structure/corporate-objective-structure.dto';
 import { Observable } from 'rxjs';
 
 @Injectable({

@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { CompanyId, DepartmentId, ObjectiveId } from '../../model/id-types';
+import { CompanyId, StructureId, ObjectiveId } from '../../model/id-types';
 import { ObjectiveDto } from '../../model/api/objective.dto';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ObjectiveApiService {
     return this.api.getData$(`companies/${companyId}/objectives`);
   }
 
-  getObjectivesForDepartment$(departmentId: DepartmentId): Observable<ObjectiveDto[]> {
+  getObjectivesForDepartment$(departmentId: StructureId): Observable<ObjectiveDto[]> {
     return this.api.getData$(`departments/${departmentId}/objectives`);
   }
 
@@ -27,7 +27,7 @@ export class ObjectiveApiService {
     return this.api.postData$(`companies/${companyId}/objectives`, objective);
   }
 
-  postObjectiveForDepartment$(departmentId: DepartmentId, objective: ObjectiveDto): Observable<ObjectiveDto> {
+  postObjectiveForDepartment$(departmentId: StructureId, objective: ObjectiveDto): Observable<ObjectiveDto> {
     return this.api.postData$(`departments/${departmentId}/objectives`, objective);
   }
 

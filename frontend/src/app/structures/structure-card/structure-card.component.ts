@@ -158,6 +158,6 @@ export class StructureCardComponent implements OnInit, OnDestroy {
   }
 
   hasSubStructure(): boolean {
-    return this.company.departmentIds.length > 0 && this.company.corporateObjectiveStructureIds.length > 0;
+    return this.company.subStructureIds.length > 0;
   }
 }

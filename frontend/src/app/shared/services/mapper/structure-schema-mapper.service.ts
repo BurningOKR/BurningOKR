@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { CompanyApiService } from '../api/company-api.service';
 import { DepartmentApiService } from '../api/department-api.service';
 import { map } from 'rxjs/operators';
-import { StructureSchemeDto } from '../../model/api/structure-scheme-dto';
+import { StructureSchemeDto } from '../../model/api/structure/structure-scheme-dto';
 import { StructureSchema } from '../../model/ui/structure-schema';
-import { CompanyId, DepartmentId } from '../../model/id-types';
+import { CompanyId, StructureId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ import { CompanyId, DepartmentId } from '../../model/id-types';
 export class StructureSchemaMapper {
   constructor(private departmentApiService: DepartmentApiService, private companyApiService: CompanyApiService) {}
 
-  getStructureSchemaOfDepartment$(departmentId: DepartmentId): Observable<StructureSchema[]> {
+  getStructureSchemaOfDepartment$(departmentId: StructureId): Observable<StructureSchema[]> {
     return this.departmentApiService
       .getStructureSchema$(departmentId)
       .pipe(map(dto => this.mapStructureSchemaDtoList(dto)));

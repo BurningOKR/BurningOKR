@@ -42,7 +42,7 @@ public class DepartmentMapper implements DataMapper<Department, DepartmentDto> {
     departmentDto.setStructureName(department.getName());
     departmentDto.setLabel(department.getLabel());
     departmentDto.setParentStructureId(department.getParentStructure().getId());
-    departmentDto.setIsParentStructureADepartment(
+    departmentDto.setIsParentStructureACorporateObjectiveStructure(
         department.getParentStructure() instanceof Department);
     departmentDto.setIsActive(department.isActive());
 

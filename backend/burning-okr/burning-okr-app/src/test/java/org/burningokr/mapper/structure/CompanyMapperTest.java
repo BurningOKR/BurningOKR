@@ -68,7 +68,7 @@ public class CompanyMapperTest {
     }
     company.setSubStructures(departments);
     companyDto = companyMapper.mapEntityToDto(company);
-    Assert.assertEquals(expected, companyDto.getDepartmentIds().size());
+    Assert.assertEquals(expected, companyDto.getSubStructureIds().size());
   }
 
   @Test

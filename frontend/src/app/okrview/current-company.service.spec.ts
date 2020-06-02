@@ -11,9 +11,8 @@ const companyMapperMock: any = {
 };
 const testCompany: CompanyUnit = {
   id: 1,
-  corporateObjectiveStructureIds: [],
+  subStructureIds: [],
   cycleId: 1,
-  departmentIds: [],
   label: '',
   name: '',
   objectives: []

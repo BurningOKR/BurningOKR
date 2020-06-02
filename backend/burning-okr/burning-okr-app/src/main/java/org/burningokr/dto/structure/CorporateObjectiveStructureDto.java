@@ -13,5 +13,5 @@ public class CorporateObjectiveStructureDto extends SubStructureDto {
     super(StructureType.CORPORATE_OBJECTIVE_STRUCTURE);
   }
 
-  private Collection<Long> corporateObjectiveStructureIds = new ArrayList<>();
+  private Collection<Long> subStructureIds = new ArrayList<>();
 }

@@ -60,7 +60,7 @@ describe('StructureCardComponent', () => {
   });
 
   it('should return fitting data object #getDataForCompanyDeletionDialog without error warning', () => {
-    component.company = new CompanyUnit(7331, '', [], [], 0, '', []);
+    component.company = new CompanyUnit(7331, '', [], [], 0, '');
 
     const data: {data: DeleteDialogData} = component.getDataForCompanyDeletionDialog();
 
@@ -78,7 +78,7 @@ describe('StructureCardComponent', () => {
   });
 
   it('should return fitting data object #getDataForCompanyDeletionDialog with error warning', () => {
-    component.company = new CompanyUnit(7331, '', [123, 234, 345, 45], [], 0, '', [123, 234, 345, 45]);
+    component.company = new CompanyUnit(7331, '', [123, 234, 345, 45], [], 0, '');
 
     const data: {data: DeleteDialogData} = component.getDataForCompanyDeletionDialog();
 

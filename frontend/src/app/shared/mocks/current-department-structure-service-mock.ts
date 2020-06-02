@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
 import { StructureSchema, structureSchemaRole } from '../model/ui/structure-schema';
-import { StructureSchemeDto } from '../model/api/structure-scheme-dto';
+import { StructureSchemeDto } from '../model/api/structure/structure-scheme-dto';
 
 export class CurrentstructureSchemaServiceMock {
   getCurrentDepartmentId$(): Observable<number> {

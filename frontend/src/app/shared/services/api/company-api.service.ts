@@ -2,9 +2,9 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
-import { StructureSchemeDto } from '../../model/api/structure-scheme-dto';
+import { StructureSchemeDto } from '../../model/api/structure/structure-scheme-dto';
 import { CycleDto } from '../../model/api/cycle.dto';
-import { CompanyDto } from '../../model/api/company.dto';
+import { CompanyDto } from '../../model/api/structure/company.dto';
 import { CompanyId } from '../../model/id-types';
 
 @Injectable({

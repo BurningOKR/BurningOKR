@@ -1,8 +1,8 @@
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { StructureId } from '../../model/id-types';
 import { Observable } from 'rxjs';
-import { SubStructureDto } from '../../model/api/sub-structure.dto';
-import { DepartmentDto } from '../../model/api/department.dto';
+import { SubStructureDto } from '../../model/api/structure/sub-structure.dto';
+import { DepartmentDto } from '../../model/api/structure/department.dto';
 
 export class StructureApiService {
   constructor(private api: ApiHttpService) {
