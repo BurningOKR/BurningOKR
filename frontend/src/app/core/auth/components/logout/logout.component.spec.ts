@@ -22,9 +22,9 @@ describe('LogoutComponent', () => {
   };
 
   beforeEach(() => {
-    oAuthDetailsMock.getAuthType$
-      .mockReturnValueOnce(of(Consts.AUTHTYPE_LOCAL))
-      .mockReturnValueOnce(of(Consts.AUTHTYPE_AZURE));
+    oAuthServiceMock.logOut.mockReset();
+    routerMock.navigate.mockReset();
+    oAuthDetailsMock.getAuthType$.mockReset();
 
     TestBed.configureTestingModule({
       declarations: [LogoutComponent],
@@ -39,23 +39,40 @@ describe('LogoutComponent', () => {
       ]
     })
       .compileComponents();
-    fixture = TestBed.createComponent(LogoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+
   });
 
   it('should create', () => {
+    oAuthDetailsMock.getAuthType$
+      .mockReturnValueOnce(of(Consts.AUTHTYPE_LOCAL));
+    fixture = TestBed.createComponent(LogoutComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     expect(component)
       .toBeTruthy();
   });
 
   it('should route on local mode', () => {
-
+    oAuthDetailsMock.getAuthType$
+      .mockReturnValueOnce(of(Consts.AUTHTYPE_LOCAL));
+    fixture = TestBed.createComponent(LogoutComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     expect(routerMock.navigate)
       .toHaveBeenCalled();
   });
 
-  // Todo dturnschek 19.05.2020; Test for aad Return
-  // Don't know how to mock aad return for a single test, since we test ngOnInit, which is
-  // called right after .compileComponent()
-});
+  it('should not route on aad mode', () => {
+    oAuthDetailsMock.getAuthType$
+      .mockReturnValueOnce(of(Consts.AUTHTYPE_AZURE));
+    fixture = TestBed.createComponent(LogoutComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    expect(routerMock.navigate)
+      .not
+      .toHaveBeenCalled();
+  });
+
+})
+;

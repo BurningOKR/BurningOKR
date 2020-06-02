@@ -1,7 +1,7 @@
 import { User } from '../../model/api/user';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators';
-import { UserService } from '../../services/mapper/user.service';
+import { UserService } from '../../services/helper/user.service';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';

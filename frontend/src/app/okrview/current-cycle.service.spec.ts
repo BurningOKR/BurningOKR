@@ -42,30 +42,37 @@ describe('CurrentCycleService', () => {
   beforeEach(() => {
     currentCompanyServiceMock.getCurrentCompany$.mockReset();
     cycleMapperMock.getCyclesOfCompany$.mockReset();
-
-    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
-    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
   });
 
   it('should be created', () => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
+
     const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+
     expect(service)
       .toBeTruthy();
   });
 
   it('should get current company', done => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
+
     const service: CurrentCycleService = TestBed.get(CurrentCycleService);
 
     service.getCurrentCycleList$()
       .subscribe(() => {
-      expect(currentCompanyServiceMock.getCurrentCompany$)
-        .toHaveBeenCalled();
+        expect(currentCompanyServiceMock.getCurrentCompany$)
+          .toHaveBeenCalled();
 
-      done();
-    });
+        done();
+      });
   });
 
   it('should get cycles of company', done => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
+
     const service: CurrentCycleService = TestBed.get(CurrentCycleService);
 
     service.getCurrentCycleList$()
@@ -76,7 +83,40 @@ describe('CurrentCycleService', () => {
       });
   });
 
+  it('should get nothing when company is null', done => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(null));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(null));
+
+    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+
+    service.getCurrentCycleList$()
+      .subscribe(() => {
+        fail();
+      });
+
+    setTimeout(() => {
+      done();
+    }, 1000);
+  });
+
+  it('should get an empty cycleList when cycleList is empty', done => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of([]));
+
+    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+
+    service.getCurrentCycleList$()
+      .subscribe((cycleList: CycleUnit[]) => {
+        expect(cycleList)
+          .toEqual([]);
+        done();
+      });
+  });
+
   it('should get cycle of company', done => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
+
     const service: CurrentCycleService = TestBed.get(CurrentCycleService);
 
     service.getCurrentCycle$()
@@ -85,5 +125,37 @@ describe('CurrentCycleService', () => {
           .toEqual(cycleUnitsMock[0]);
         done();
       });
+  });
+
+  it('should get no cycle of company when company is null', done => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(null));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(null));
+
+    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+
+    service.getCurrentCycle$()
+      .subscribe(() => {
+        fail();
+      });
+
+    setTimeout(() => {
+      done();
+    }, 1000);
+  });
+
+  it('should get no cycle of company when cycle list is empty', done => {
+    currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
+    cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of([]));
+
+    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+
+    service.getCurrentCycle$()
+      .subscribe(() => {
+        fail();
+      });
+
+    setTimeout(() => {
+      done();
+    }, 1000);
   });
 });

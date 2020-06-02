@@ -12,7 +12,6 @@ import { loggerConfig } from './config-files/logger-config';
 import { OAuthInterceptorService } from './core/auth/services/o-auth-interceptor.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CustomDateAdapterService } from './shared/services/helper/custom-date-adapter.service';
 import { LogoutComponent } from './core/auth/components/logout/logout.component';
 import { StructuresModule } from './structures/structures.module';
 import { SharedModule } from './shared/shared.module';
@@ -93,7 +92,6 @@ const currentLanguage: string = 'de';
     LocalAuthTypeHandlerService,
     AzureAuthTypeHandlerService,
 
-    {provide: DateAdapter, useClass: CustomDateAdapterService},
     {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},

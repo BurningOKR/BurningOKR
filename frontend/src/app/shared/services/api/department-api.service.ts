@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StructureSchemeDto } from '../../model/api/structure-scheme-dto';

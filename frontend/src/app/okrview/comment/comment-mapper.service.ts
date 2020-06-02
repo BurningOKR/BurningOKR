@@ -4,7 +4,7 @@ import { filter, map, take } from 'rxjs/operators';
 import { Comment } from './comment';
 import { ViewComment } from '../../shared/model/ui/view-comment';
 import { CommentApiService } from './comment-api.service';
-import { UserService } from '../../shared/services/mapper/user.service';
+import { UserService } from '../../shared/services/helper/user.service';
 
 @Injectable({
   providedIn: 'root'

@@ -71,12 +71,12 @@
                       matTooltip="Benutzer bearbeiten">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button (click)="handleDeactivate(user)" *ngIf="user.active" i18n-matToolTip="@@deactivateUser"
+              <button (click)="handleDeactivate(user)" *ngIf="currentUser$.getValue().id !== user.id && user.active" i18n-matToolTip="@@deactivateUser"
                       mat-icon-button
                       matTooltip="Benutzer deaktivieren">
                 <mat-icon>delete</mat-icon>
               </button>
-              <button (click)="handleActivate(user)" *ngIf="!user.active" i18n-matToolTip="@@activateUser"
+              <button (click)="handleActivate(user)" *ngIf="currentUser$.getValue().id !== user.id && !user.active" i18n-matToolTip="@@activateUser"
                       mat-icon-button
                       matTooltip="Benutzer aktivieren">
                 <mat-icon>restore_from_trash</mat-icon>

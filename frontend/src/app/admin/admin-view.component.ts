@@ -1,5 +1,5 @@
 import { User } from '../shared/model/api/user';
-import { UserService } from '../shared/services/mapper/user.service';
+import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class AdminViewComponent implements OnInit {
 
   constructor(
     private userApiService: UserApiService,
-    private userMapperService: UserService,
+    private userService: UserService,
     private currentUserService: CurrentUserService,
     private matDialog: MatDialog,
     private router: Router,
@@ -40,12 +40,12 @@ export class AdminViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUserId$ = this.generateUserIdObservable$();
+    this.currentUserId$ = this.getCurrentUserId$();
 
     this.getAdminUsers$();
   }
 
-  private generateUserIdObservable$(): Observable<UserId> {
+  private getCurrentUserId$(): Observable<UserId> {
     return this.currentUserService.getCurrentUser$()
       .pipe(
         map((user: User) => {
@@ -53,11 +53,11 @@ export class AdminViewComponent implements OnInit {
         }),
       );
   }
-
+  // Todo dturnschek 20.05.2020; Why use subscribe? Pipe([...], ShareReplay() would do the same as a replay subject)
   private getAdminUsers$(): void {
     combineLatest([
       this.userApiService.getUsers$(),
-      this.userApiService.getAdmins$()]
+      this.userApiService.getAdminIds$()]
     )
       .pipe(
         take(1),
@@ -78,7 +78,7 @@ export class AdminViewComponent implements OnInit {
 
   defineNewAdmin(user: User): void {
     this.newAdminForm.setIsDisabled(true);
-    this.userMapperService.addAdmin$(user)
+    this.userService.addAdmin$(user)
       .pipe(take(1))
       .subscribe((_: User) => {
           this.onNewAdminDefined(user);
@@ -136,7 +136,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   queryAdminDeletion(adminToDelete: User): void {
-    this.userMapperService
+    this.userService
       .deleteAdmin$(adminToDelete.id)
       .pipe(take(1))
       .subscribe(() => {

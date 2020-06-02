@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { NEVER, Observable, ReplaySubject } from 'rxjs';
 import { CycleUnit } from '../shared/model/ui/cycle-unit';
 import { CurrentCompanyService } from './current-company.service';
 import { CycleMapper } from '../shared/services/mapper/cycle.mapper';
@@ -25,15 +25,19 @@ export class CurrentCycleService {
     this.currentCompanyService.getCurrentCompany$()
       .pipe(
         switchMap((currentCompany: CompanyUnit) => {
-          return this.cycleMapperService.getCyclesOfCompany$(currentCompany.id)
-            .pipe(
-              map((cycleList: CycleUnit[]) => {
-                return {
-                  cycleList,
-                  company: currentCompany
-                };
-              })
-            );
+          if (!!currentCompany) {
+            return this.cycleMapperService.getCyclesOfCompany$(currentCompany.id)
+              .pipe(
+                map((cycleList: CycleUnit[]) => {
+                  return {
+                    cycleList,
+                    company: currentCompany
+                  };
+                })
+              );
+          } else {
+            return NEVER;
+          }
         })
       )
       .subscribe((cycleListWithCompany: CycleListWithCompany) => {
