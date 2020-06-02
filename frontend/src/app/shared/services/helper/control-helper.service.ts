@@ -1,24 +1,22 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Injectable } from '@angular/core';
+import { AbstractValidator, DateFormValidator } from '../../validators/abstract-validator';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ControlHelperService {
 
+  validators: AbstractValidator[] = [DateFormValidator];
+
   private requiredErrorMessage = this.i18n({
-              id: 'requiredError',
-              value: 'Pflichtfeld'
-            });
+    id: 'requiredError',
+    value: 'Pflichtfeld'
+  });
   private maxLenghsErrorMessage = this.i18n({
     id: 'maxLengthError',
     value: 'Maximale Zeichenzahl überschritten'
-  });
-  private dateFormatErrorMessage = this.i18n({
-    id: 'dateFormatError',
-    description: 'Date is in invalid format from DD.MM.YYYY',
-    value: 'Der eingegebene Wert ist kein gültiges Datum in der Form TT.MM.JJJJ'
   });
   private dateInThePastErrorMessage = this.i18n({
     id: 'dateInThePastError',
@@ -31,7 +29,8 @@ export class ControlHelperService {
     value: 'kein gültiger Wert.'
   });
 
-  constructor(private i18n: I18n) {}
+  constructor(private i18n: I18n) {
+  }
 
   getErrorMessage(form: FormGroup, controlName: string): string {
     const control: AbstractControl = form.get(controlName);
@@ -41,21 +40,21 @@ export class ControlHelperService {
       return this.requiredErrorMessage;
     } else if (control.hasError('maxlength')) {
       return this.maxLenghsErrorMessage;
-    } else if (control.hasError('dateFormatError')) {
-      return this.dateFormatErrorMessage;
     } else if (control.hasError('dateInThePast')) {
       return this.dateInThePastErrorMessage;
     } else {
       return this.invalidFormValueErrorMessage;
     }
   }
-/*
-  validators :IValidator[];
 
-  get(control: AbstractControl) {
-    validators.
-      first(validator => control.hasError(validator.ErrorCode)).
-      map(validator=>validator.GetErrorMessage());
-    return "";
-  }*/
+
+  get(control: AbstractControl): string {
+    const validator: AbstractValidator = this.validators
+      .find(val => control.hasError(val.getErrorCode()));
+    if (validator) {
+      return validator.getErrorMessage();
+    } else {
+      return this.invalidFormValueErrorMessage;
+    }
+  }
 }
