@@ -7,6 +7,7 @@ import org.burningokr.dto.structure.CorporateObjectiveStructureDto;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,13 +54,13 @@ public class CorporateObjectiveStructureMapperTest {
   @Test
   public void test_mapEntityToDto_expectDepartmentIdsAreMapped() {
     int expectedDepartmentCount = 4;
-    Collection<Department> departments = new ArrayList<>();
+    Collection<SubStructure> departments = new ArrayList<>();
     for (int i = 1; i <= expectedDepartmentCount; i++) {
       Department department = new Department();
       department.setId((long) i);
       departments.add(department);
     }
-    entity.setDepartments(departments);
+    entity.setSubStructures(departments);
     dto = mapper.mapEntityToDto(entity);
     Assert.assertEquals(expectedDepartmentCount, dto.getSubDepartmentIds().size());
     Assert.assertEquals(1L, dto.getSubDepartmentIds().toArray()[0]);
@@ -83,24 +84,6 @@ public class CorporateObjectiveStructureMapperTest {
     Assert.assertEquals(1L, dto.getObjectiveIds().toArray()[0]);
     Assert.assertEquals(2L, dto.getObjectiveIds().toArray()[1]);
     Assert.assertEquals(3L, dto.getObjectiveIds().toArray()[2]);
-  }
-
-  @Test
-  public void test_mapEntityToDto_expectCorporateObjectiveStructureIdsAreMapped() {
-    int expectedCorporateObjectiveStructureCount = 3;
-    Collection<CorporateObjectiveStructure> corporateObjectiveStructures = new ArrayList<>();
-    for (int i = 1; i <= expectedCorporateObjectiveStructureCount; i++) {
-      CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-      corporateObjectiveStructure.setId((long) i);
-      corporateObjectiveStructures.add(corporateObjectiveStructure);
-    }
-    entity.setCorporateObjectiveStructures(corporateObjectiveStructures);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(
-        expectedCorporateObjectiveStructureCount, dto.getCorporateObjectiveStructureIds().size());
-    Assert.assertEquals(1L, dto.getCorporateObjectiveStructureIds().toArray()[0]);
-    Assert.assertEquals(2L, dto.getCorporateObjectiveStructureIds().toArray()[1]);
-    Assert.assertEquals(3L, dto.getCorporateObjectiveStructureIds().toArray()[2]);
   }
 
   @Test
@@ -149,26 +132,13 @@ public class CorporateObjectiveStructureMapperTest {
   public void test_mapDtoToEntity_expectDepartmentListEmpty() {
     dto.setSubDepartmentIds(Arrays.asList(1L, 2L));
     entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getDepartments().isEmpty());
+    Assert.assertTrue(entity.getSubStructures().isEmpty());
   }
 
   @Test
   public void test_mapDtoToEntity_expectDepartmentListEmpty2() {
     entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getDepartments().isEmpty());
-  }
-
-  @Test
-  public void test_mapDtoToEntity_expectCorporateObjectiveStructureListEmpty() {
-    dto.setSubDepartmentIds(Arrays.asList(1L, 2L));
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getCorporateObjectiveStructures().isEmpty());
-  }
-
-  @Test
-  public void test_mapDtoToEntity_expectCorporateObjectiveStructureListEmpty2() {
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getCorporateObjectiveStructures().isEmpty());
+    Assert.assertTrue(entity.getSubStructures().isEmpty());
   }
 
   @Test

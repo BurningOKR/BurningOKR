@@ -17,13 +17,13 @@ public class CorporateObjectiveStructureTest {
 
   @Test
   public void getCopyWithoutRelation_ExpectNotToBeNull() {
-    CorporateObjectiveStructure copy = original.getCopyWithOutRelations();
+    CorporateObjectiveStructure copy = original.getCopyWithoutRelations();
     Assert.assertNotNull(copy);
   }
 
   @Test
   public void getCopyWithoutRelation_ExpectNameToBeEquals() {
-    CorporateObjectiveStructure copy = original.getCopyWithOutRelations();
+    CorporateObjectiveStructure copy = original.getCopyWithoutRelations();
     Assert.assertEquals(original.getName(), copy.getName());
   }
 }

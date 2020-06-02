@@ -8,6 +8,7 @@ import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 
 public class TestingCycleStructure {
 
@@ -102,14 +103,14 @@ public class TestingCycleStructure {
     Collection<Objective> objectiveList1 = new ArrayList<>();
     objectiveList1.add(exampleObjective1);
     objectiveList1.add(exampleChildObjective1);
-    Collection<Department> departmentList = new ArrayList<>();
+    Collection<SubStructure> departmentList = new ArrayList<>();
     departmentList.add(exampleDepartment);
     Collection<Objective> objectiveList2 = new ArrayList<>();
     objectiveList2.add(exampleObjective2);
     objectiveList2.add(exampleChildObjective2);
 
     exampleCompany.setObjectives(objectiveList1);
-    exampleCompany.setDepartments(departmentList);
+    exampleCompany.setSubStructures(departmentList);
     exampleDepartment.setObjectives(objectiveList2);
   }
 

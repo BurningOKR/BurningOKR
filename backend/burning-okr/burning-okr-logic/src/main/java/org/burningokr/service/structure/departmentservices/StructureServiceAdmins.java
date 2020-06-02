@@ -2,6 +2,7 @@ package org.burningokr.service.structure.departmentservices;
 
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.ParentStructure;
 import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -78,7 +79,8 @@ public class StructureServiceAdmins<T extends SubStructure> extends StructureSer
 
     throwIfCycleForDepartmentIsClosed(referencedStructure);
 
-    if (referencedStructure.getDepartments().isEmpty()) {
+    if (!(referencedStructure instanceof ParentStructure)
+        || ((ParentStructure) referencedStructure).getSubStructures().isEmpty()) {
       activityService.createActivity(user, referencedStructure, Action.DELETED);
       structureRepository.deleteById(structureId);
       logger.info("Deleted Department with id: " + structureId);

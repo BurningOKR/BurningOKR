@@ -13,7 +13,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
+import org.burningokr.service.structure.departmentservices.StructureHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +84,7 @@ public class UserSettingsService {
     if (company == null) {
       return null;
     }
-    List<Department> departments = Lists.newArrayList(DepartmentHelper.collectDepartments(company));
+    List<Department> departments = Lists.newArrayList(StructureHelper.collectDepartments(company));
     if (departments.size() == 1) {
       return departments.get(0);
     }

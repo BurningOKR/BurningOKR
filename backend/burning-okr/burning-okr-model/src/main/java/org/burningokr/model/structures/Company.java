@@ -16,7 +16,7 @@ import org.burningokr.model.cycles.Cycle;
 @Table(name = "company")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Company extends Structure {
+public class Company extends Structure implements ParentStructure {
 
   @ManyToOne @EqualsAndHashCode.Exclude private Cycle cycle;
 
@@ -27,17 +27,20 @@ public class Company extends Structure {
       cascade = CascadeType.REMOVE,
       targetEntity = SubStructure.class)
   @EqualsAndHashCode.Exclude
-  private Collection<Department> departments = new ArrayList<>();
-
-  @OneToMany(
-      mappedBy = "parentStructure",
-      cascade = CascadeType.REMOVE,
-      targetEntity = SubStructure.class)
-  @EqualsAndHashCode.Exclude
-  private Collection<CorporateObjectiveStructure> corporateObjectiveStructures = new ArrayList<>();
+  private Collection<SubStructure> subStructures = new ArrayList<>();
 
   public boolean hasDepartments() {
-    return !departments.isEmpty();
+    return !subStructures.isEmpty();
+  }
+
+  @Override
+  public Collection<SubStructure> getSubStructures() {
+    return subStructures;
+  }
+
+  @Override
+  public void setSubStructures(Collection<SubStructure> subDepartments) {
+    this.subStructures = subDepartments;
   }
 
   /**

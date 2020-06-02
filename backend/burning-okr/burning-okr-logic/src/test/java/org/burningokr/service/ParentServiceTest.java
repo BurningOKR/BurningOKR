@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
+import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.structures.Structure;
 import org.burningokr.service.structureutil.ParentService;
@@ -145,9 +146,9 @@ public class ParentServiceTest {
   // ////////////////////////////
 
   Company treeCompany;
-  Department treeDepartment1;
-  Department treeDepartment2;
-  Department treeDepartment22;
+  CorporateObjectiveStructure treeDepartment1;
+  CorporateObjectiveStructure treeDepartment2;
+  CorporateObjectiveStructure treeDepartment22;
   Department treeDepartment221;
   Objective treeObjectiveCompany;
   Objective treeObjectiveD1;
@@ -163,24 +164,24 @@ public class ParentServiceTest {
     treeCompany.getObjectives().add(treeObjectiveCompany);
     treeObjectiveCompany.setParentStructure(treeCompany);
 
-    treeDepartment1 = new Department();
-    treeCompany.getDepartments().add(treeDepartment1);
+    treeDepartment1 = new CorporateObjectiveStructure();
+    treeCompany.getSubStructures().add(treeDepartment1);
     treeDepartment1.setParentStructure(treeCompany);
 
     treeObjectiveD1 = new Objective();
     treeDepartment1.getObjectives().add(treeObjectiveD1);
     treeObjectiveD1.setParentStructure(treeDepartment1);
 
-    treeDepartment2 = new Department();
-    treeCompany.getDepartments().add(treeDepartment2);
+    treeDepartment2 = new CorporateObjectiveStructure();
+    treeCompany.getSubStructures().add(treeDepartment2);
     treeDepartment2.setParentStructure(treeCompany);
 
     treeObjectiveD2 = new Objective();
     treeDepartment2.getObjectives().add(treeObjectiveD2);
     treeObjectiveD2.setParentStructure(treeDepartment2);
 
-    treeDepartment22 = new Department();
-    treeDepartment2.setDepartments(Arrays.asList(treeDepartment22));
+    treeDepartment22 = new CorporateObjectiveStructure();
+    treeDepartment2.setSubStructures(Arrays.asList(treeDepartment22));
     treeDepartment22.setParentStructure(treeDepartment2);
 
     treeObjectiveD22 = new Objective();
@@ -188,7 +189,7 @@ public class ParentServiceTest {
     treeObjectiveD22.setParentStructure(treeDepartment22);
 
     treeDepartment221 = new Department();
-    treeDepartment22.setDepartments(Arrays.asList(treeDepartment221));
+    treeDepartment22.setSubStructures(Arrays.asList(treeDepartment221));
     treeDepartment221.setParentStructure(treeDepartment22);
 
     treeObjectiveD221 = new Objective();

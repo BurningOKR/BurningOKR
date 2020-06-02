@@ -2,12 +2,10 @@ package org.burningokr.service.structure.departmentservices.structureServiceAdmi
 
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.util.*;
 import org.burningokr.model.structures.Department;
-import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,19 +13,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StructureServiceAdminsTest_Department extends StructureServiceAdminsTest<Department> {
-
-  @Test(expected = InvalidDeleteRequestException.class)
-  public void deleteDepartmentWithSubDepartments_expectsInvalidDeleteRequestException() {
-    Department department = new Department();
-    department.setId(1337L);
-    List<Department> subdepartments = new ArrayList<>();
-    subdepartments.add(new Department());
-    department.setDepartments(subdepartments);
-
-    when(structureRepository.findByIdOrThrow(anyLong())).thenReturn(department);
-
-    structureServiceAdmins.deleteStructure(1337L, user);
-  }
 
   @Test
   public void updateDepartment_expectsOkrMasterIdIsChanged() {

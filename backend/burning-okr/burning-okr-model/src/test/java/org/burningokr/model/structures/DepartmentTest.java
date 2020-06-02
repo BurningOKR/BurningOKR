@@ -2,6 +2,7 @@ package org.burningokr.model.structures;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class DepartmentTest {
 
   private Department expectedDepartment;
+  private CorporateObjectiveStructure corporateObjectiveStructure;
   private long originalId;
   private Company originalCompany;
   private String originalName;
@@ -43,9 +45,11 @@ public class DepartmentTest {
     expectedDepartment.setOkrMasterId(originalOkrMasterUuid);
     expectedDepartment.setOkrTopicSponsorId(originalOkrSponsorUuid);
     expectedDepartment.setParentStructure(originalCompany);
-    expectedDepartment.setDepartments(originalDepartments);
     expectedDepartment.setId(originalId);
     expectedDepartment.setActive(true);
+
+    corporateObjectiveStructure = new CorporateObjectiveStructure();
+    corporateObjectiveStructure.setSubStructures(Collections.singleton(expectedDepartment));
   }
 
   @Test
@@ -90,9 +94,10 @@ public class DepartmentTest {
 
   @Test
   public void getCopyWithoutRelations_expectedNoRelations() {
-    Department actualDepartment = expectedDepartment.getCopyWithoutRelations();
+    CorporateObjectiveStructure actualDepartment =
+        corporateObjectiveStructure.getCopyWithoutRelations();
 
     Assert.assertNull(actualDepartment.getParentStructure());
-    Assert.assertEquals(0, actualDepartment.getDepartments().size());
+    Assert.assertEquals(0, actualDepartment.getSubStructures().size());
   }
 }

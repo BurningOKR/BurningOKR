@@ -8,6 +8,7 @@ import { ExcelMapper } from '../../excel-file/excel.mapper';
 import { CurrentCycleService } from '../../current-cycle.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { SharedModule } from '../../../shared/shared.module';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
 
 describe('DepartmentComponent', () => {
   let component: DepartmentComponent;
@@ -25,7 +26,7 @@ describe('DepartmentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DepartmentComponent],
-      imports: [SharedModule],
+      imports: [SharedModule, MaterialTestingModule],
       providers: [
         {provide: DepartmentMapper, useValue: departmentMapperService},
         {provide: DepartmentContextRoleService, useValue: departmentContextRoleService},

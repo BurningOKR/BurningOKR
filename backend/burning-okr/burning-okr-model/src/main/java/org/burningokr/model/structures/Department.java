@@ -42,6 +42,7 @@ public class Department extends SubStructure {
    *
    * @return a copy of the Department without relations
    */
+  @Override
   public Department getCopyWithoutRelations() {
     Department copy = new Department();
     copy.setName(this.getName());

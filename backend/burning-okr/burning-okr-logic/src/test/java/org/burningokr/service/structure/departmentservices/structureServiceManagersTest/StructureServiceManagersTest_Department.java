@@ -50,7 +50,6 @@ public class StructureServiceManagersTest_Department
     insertedDepartment.setName("Insert");
     insertedDepartment.setOkrMasterId(UUID.randomUUID());
     insertedDepartment.setOkrTopicSponsorId(UUID.randomUUID());
-    insertedDepartment.setDepartments(new ArrayList<>());
     Department insertedParentStructure = new Department();
     insertedParentStructure.setName("insertedParentStructure");
     insertedDepartment.setParentStructure(insertedParentStructure);
@@ -63,7 +62,6 @@ public class StructureServiceManagersTest_Department
     originalDepartment.setName("Original");
     originalDepartment.setOkrMasterId(UUID.randomUUID());
     originalDepartment.setOkrTopicSponsorId(UUID.randomUUID());
-    originalDepartment.setDepartments(new ArrayList<>());
     Department originalParentStructure = new Department();
     originalParentStructure.setName("originalParentStructure");
     originalDepartment.setParentStructure(originalParentStructure);
@@ -80,7 +78,6 @@ public class StructureServiceManagersTest_Department
         originalDepartment.getOkrMasterId(), insertedDepartment.getOkrMasterId());
     Assert.assertNotEquals(
         originalDepartment.getOkrTopicSponsorId(), insertedDepartment.getOkrTopicSponsorId());
-    Assert.assertNotSame(originalDepartment.getDepartments(), insertedDepartment.getDepartments());
     Assert.assertNotEquals(
         originalDepartment.getParentStructure(), insertedDepartment.getParentStructure());
     Assert.assertNotSame(originalDepartment.getObjectives(), insertedDepartment.getObjectives());

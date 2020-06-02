@@ -9,8 +9,9 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
+import org.burningokr.service.structure.departmentservices.StructureHelper;
 import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -39,18 +40,18 @@ public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRo
   public Collection<ObjectiveRow> generateForCompany(long companyId) {
     Company company = companyService.findById(companyId);
 
-    Collection<Department> departments = DepartmentHelper.collectDepartments(company);
+    Collection<SubStructure> subStructureCollection = StructureHelper.collectSubStructures(company);
 
-    return departments.stream()
-        .flatMap(department -> generateObjectiveRowCollectionForDepartment(department).stream())
+    return subStructureCollection.stream()
+        .flatMap(subStructure -> generateObjectiveRowCollectionForDepartment(subStructure).stream())
         .collect(Collectors.toList());
   }
 
   private Collection<ObjectiveRow> generateObjectiveRowCollectionForDepartment(
-      Department department) {
+      SubStructure subStructure) {
     Collection<ObjectiveRow> rows = new ArrayList<>();
 
-    department
+    subStructure
         .getObjectives()
         .forEach(
             objective ->
@@ -60,7 +61,7 @@ public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRo
                         keyResult -> {
                           ObjectiveRow objectiveRow =
                               new ObjectiveRow(
-                                  ifNullEmptyString(department.getName()),
+                                  ifNullEmptyString(subStructure.getName()),
                                   ifNullEmptyString(objective.getName()),
                                   new PercentageCellValue(getProgress(objective)),
                                   ifNullEmptyString(

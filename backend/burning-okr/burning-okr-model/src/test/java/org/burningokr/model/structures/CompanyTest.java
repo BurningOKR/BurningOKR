@@ -18,7 +18,7 @@ public class CompanyTest {
   private CompanyHistory originalHistory;
   private String originalName;
   private String originalLabel;
-  private ArrayList<Department> originalDepartments;
+  private ArrayList<SubStructure> originalDepartments;
 
   @Before
   public void init() {
@@ -36,7 +36,7 @@ public class CompanyTest {
     expectedCompany.setHistory(originalHistory);
     expectedCompany.setName(originalName);
     expectedCompany.setLabel(originalLabel);
-    expectedCompany.setDepartments(originalDepartments);
+    expectedCompany.setSubStructures(originalDepartments);
   }
 
   @Test
@@ -73,6 +73,6 @@ public class CompanyTest {
     Company actualCompany = expectedCompany.getCopyWithoutRelations();
 
     Assert.assertNull(actualCompany.getCycle());
-    Assert.assertEquals(0, actualCompany.getDepartments().size());
+    Assert.assertEquals(0, actualCompany.getSubStructures().size());
   }
 }

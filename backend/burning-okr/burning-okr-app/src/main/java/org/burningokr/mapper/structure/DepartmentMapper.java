@@ -29,7 +29,6 @@ public class DepartmentMapper implements DataMapper<Department, DepartmentDto> {
     department.setActive(departmentDto.getIsActive());
 
     department.setObjectives(new ArrayList<>());
-    department.setDepartments(new ArrayList<>());
 
     logger.info("Mapped DepartmentDto (id:" + departmentDto.getStructureId() + ") to Department.");
     return department;
@@ -52,12 +51,6 @@ public class DepartmentMapper implements DataMapper<Department, DepartmentDto> {
       objectiveIds.add(objective.getId());
     }
     departmentDto.setObjectiveIds(objectiveIds);
-
-    Collection<Long> subdepartmentIds = new ArrayList<>();
-    for (Department subdepartment : department.getDepartments()) {
-      subdepartmentIds.add(subdepartment.getId());
-    }
-    departmentDto.setSubDepartmentIds(subdepartmentIds);
 
     departmentDto.setOkrMasterId(department.getOkrMasterId());
     departmentDto.setOkrTopicSponsorId(department.getOkrTopicSponsorId());

@@ -5,17 +5,35 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CorporateObjectiveStructure extends SubStructure {
+public class CorporateObjectiveStructure extends SubStructure implements ParentStructure {
 
-  @OneToMany(mappedBy = "parentStructure", cascade = CascadeType.REMOVE)
+  @OneToMany(
+      mappedBy = "parentStructure",
+      cascade = CascadeType.REMOVE,
+      targetEntity = SubStructure.class)
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
   @EqualsAndHashCode.Exclude
-  private Collection<CorporateObjectiveStructure> corporateObjectiveStructures = new ArrayList<>();
+  protected Collection<SubStructure> subStructures = new ArrayList<>();
+
+  public boolean hasDepartments() {
+    return !subStructures.isEmpty();
+  }
+
+  @Override
+  public Collection<SubStructure> getSubStructures() {
+    return subStructures;
+  }
+
+  @Override
+  public void setSubStructures(Collection<SubStructure> subDepartments) {
+    this.subStructures = subDepartments;
+  }
 
   /**
    * Creates a copy of the CorporateObjectStructure without relations.
@@ -28,7 +46,7 @@ public class CorporateObjectiveStructure extends SubStructure {
    *
    * @return a copy of the CorporateObjectiveStructure without relations
    */
-  public CorporateObjectiveStructure getCopyWithOutRelations() {
+  public CorporateObjectiveStructure getCopyWithoutRelations() {
     CorporateObjectiveStructure copy = new CorporateObjectiveStructure();
     copy.setName(this.getName());
     return copy;

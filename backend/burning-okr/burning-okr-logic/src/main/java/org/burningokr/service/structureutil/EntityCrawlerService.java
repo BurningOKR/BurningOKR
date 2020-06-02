@@ -35,7 +35,7 @@ public class EntityCrawlerService {
     if (parentStructure instanceof Company) {
       return this.getCycleOfCompany((Company) parentStructure);
     } else {
-      return this.getCycleOfStructure((Department) parentStructure);
+      return this.getCycleOfStructure((SubStructure) parentStructure);
     }
   }
 
@@ -50,15 +50,15 @@ public class EntityCrawlerService {
   /**
    * Gets the Company of a Department.
    *
-   * @param departmentToCheck a {@link Department} object
+   * @param departmentToCheck a {@link Structure} object
    * @return a {@link Company} object
    */
-  public Company getCompanyOfDepartment(Department departmentToCheck) {
+  public Company getCompanyOfStructure(SubStructure departmentToCheck) {
     Structure parentStructure = departmentToCheck.getParentStructure();
     if (parentStructure instanceof Company) {
       return (Company) parentStructure;
     } else {
-      return this.getCompanyOfDepartment((Department) parentStructure);
+      return this.getCompanyOfStructure((SubStructure) parentStructure);
     }
   }
 }

@@ -69,7 +69,7 @@ public class CorporateObjectiveStructureService {
         corporateObjectiveStructureRepository.findByIdOrThrow(corporateObjectiveStructureId);
     persistedEntity.setName(corporateObjectiveStructure.getName());
     persistedEntity.setParentStructure(corporateObjectiveStructure.getParentStructure());
-    persistedEntity.setDepartments(corporateObjectiveStructure.getDepartments());
+    persistedEntity.setSubStructures(corporateObjectiveStructure.getSubStructures());
     persistedEntity.setObjectives(corporateObjectiveStructure.getObjectives());
     corporateObjectiveStructureRepository.save(persistedEntity);
     logger.info(

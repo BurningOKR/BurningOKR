@@ -22,7 +22,7 @@ public class StructureServiceManagersTest_CorporateObjectiveStructure
 
     insertedCorporateObjectiveStructure.setId(100L);
     insertedCorporateObjectiveStructure.setName("Insert");
-    insertedCorporateObjectiveStructure.setDepartments(new ArrayList<>());
+    insertedCorporateObjectiveStructure.setSubStructures(new ArrayList<>());
 
     CorporateObjectiveStructure insertedParentStructure = new CorporateObjectiveStructure();
     insertedParentStructure.setName("insertedParentStructure");
@@ -34,7 +34,7 @@ public class StructureServiceManagersTest_CorporateObjectiveStructure
 
     originalCorporateObjectiveStructure.setId(100L);
     originalCorporateObjectiveStructure.setName("Original");
-    originalCorporateObjectiveStructure.setDepartments(new ArrayList<>());
+    originalCorporateObjectiveStructure.setSubStructures(new ArrayList<>());
     Department originalParentStructure = new Department();
     originalParentStructure.setName("originalParentStructure");
     originalCorporateObjectiveStructure.setParentStructure(originalParentStructure);

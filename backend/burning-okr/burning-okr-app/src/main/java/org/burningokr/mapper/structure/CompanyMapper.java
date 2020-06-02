@@ -8,7 +8,7 @@ import org.burningokr.model.cycles.CompanyHistory;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CompanyMapper implements DataMapper<Company, CompanyDto> {
     company.setName(companyDto.getStructureName());
     company.setLabel(companyDto.getLabel());
 
-    company.setDepartments(new ArrayList<>());
+    company.setSubStructures(new ArrayList<>());
     company.setObjectives(new ArrayList<>());
 
     Cycle cycle = null;
@@ -58,8 +58,8 @@ public class CompanyMapper implements DataMapper<Company, CompanyDto> {
     companyDto.setHistoryId(company.getHistory().getId());
 
     Collection<Long> departmentIds = new ArrayList<>();
-    for (Department department : company.getDepartments()) {
-      departmentIds.add(department.getId());
+    for (SubStructure subStructure : company.getSubStructures()) {
+      departmentIds.add(subStructure.getId());
     }
     companyDto.setDepartmentIds(departmentIds);
 

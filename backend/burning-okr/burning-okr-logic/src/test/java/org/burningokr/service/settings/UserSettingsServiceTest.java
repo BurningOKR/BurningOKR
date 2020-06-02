@@ -16,6 +16,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.model.structures.Company;
+import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.settings.UserSettingsRepository;
@@ -113,7 +114,7 @@ public class UserSettingsServiceTest {
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
     Department department = new Department();
-    company.getDepartments().add(department);
+    company.getSubStructures().add(department);
     department.setParentStructure(company);
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
@@ -131,13 +132,14 @@ public class UserSettingsServiceTest {
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
     whenUserSettingsSaveReturnSameValue();
-    Department department = new Department();
+    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     Department subDepartmentWithUserAsSponsor = new Department();
     subDepartmentWithUserAsSponsor.setOkrTopicSponsorId(userId);
     Department subDepartment = new Department();
-    company.getDepartments().add(department);
-    department.setParentStructure(company);
-    department.setDepartments(Arrays.asList(subDepartment, subDepartmentWithUserAsSponsor));
+    company.getSubStructures().add(corporateObjectiveStructure);
+    corporateObjectiveStructure.setParentStructure(company);
+    corporateObjectiveStructure.setSubStructures(
+        Arrays.asList(subDepartment, subDepartmentWithUserAsSponsor));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
@@ -154,13 +156,14 @@ public class UserSettingsServiceTest {
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
     whenUserSettingsSaveReturnSameValue();
-    Department department = new Department();
+    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     Department subDepartmentWithUserAsOkrMaster = new Department();
     subDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
     Department subDepartment = new Department();
-    company.getDepartments().add(department);
-    department.setParentStructure(company);
-    department.setDepartments(Arrays.asList(subDepartment, subDepartmentWithUserAsOkrMaster));
+    company.getSubStructures().add(corporateObjectiveStructure);
+    corporateObjectiveStructure.setParentStructure(company);
+    corporateObjectiveStructure.setSubStructures(
+        Arrays.asList(subDepartment, subDepartmentWithUserAsOkrMaster));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
@@ -177,14 +180,14 @@ public class UserSettingsServiceTest {
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
     whenUserSettingsSaveReturnSameValue();
-    Department department = new Department();
+    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     Department subDepartmentWithUserAsSponsor = new Department();
     subDepartmentWithUserAsSponsor.setOkrTopicSponsorId(userId);
     Department subDepartmentWithUserAsSponsor1 = new Department();
     subDepartmentWithUserAsSponsor1.setOkrTopicSponsorId(userId);
-    company.getDepartments().add(department);
-    department.setParentStructure(company);
-    department.setDepartments(
+    company.getSubStructures().add(corporateObjectiveStructure);
+    corporateObjectiveStructure.setParentStructure(company);
+    corporateObjectiveStructure.setSubStructures(
         Arrays.asList(subDepartmentWithUserAsSponsor1, subDepartmentWithUserAsSponsor));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
@@ -202,14 +205,14 @@ public class UserSettingsServiceTest {
     company.setCycle(new Cycle());
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
-    Department department = new Department();
+    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     Department subDepartmentWithUserAsOkrMaster = new Department();
     subDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
     Department subDepartmentWithUserAsOkrMaster1 = new Department();
     subDepartmentWithUserAsOkrMaster1.setOkrMasterId(userId);
-    company.getDepartments().add(department);
-    department.setParentStructure(company);
-    department.setDepartments(
+    company.getSubStructures().add(corporateObjectiveStructure);
+    corporateObjectiveStructure.setParentStructure(company);
+    corporateObjectiveStructure.setSubStructures(
         Arrays.asList(subDepartmentWithUserAsOkrMaster1, subDepartmentWithUserAsOkrMaster));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
@@ -228,14 +231,14 @@ public class UserSettingsServiceTest {
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
     whenUserSettingsSaveReturnSameValue();
-    Department department = new Department();
+    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     Department subDepartmentWithUserAsOkrMaster = new Department();
     subDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
     Department subDepartmentWithUserAsTopicSponsor = new Department();
     subDepartmentWithUserAsTopicSponsor.setOkrTopicSponsorId(userId);
-    company.getDepartments().add(department);
-    department.setParentStructure(company);
-    department.setDepartments(
+    company.getSubStructures().add(corporateObjectiveStructure);
+    corporateObjectiveStructure.setParentStructure(company);
+    corporateObjectiveStructure.setSubStructures(
         Arrays.asList(subDepartmentWithUserAsTopicSponsor, subDepartmentWithUserAsOkrMaster));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
@@ -253,13 +256,14 @@ public class UserSettingsServiceTest {
     company.setCycle(new Cycle());
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
-    Department department = new Department();
+    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     Department subDepartmentWithUserAsMember = new Department();
     subDepartmentWithUserAsMember.setOkrMemberIds(Collections.singleton(userId));
     Department subDepartment = new Department();
-    company.getDepartments().add(department);
-    department.setParentStructure(company);
-    department.setDepartments(Arrays.asList(subDepartment, subDepartmentWithUserAsMember));
+    company.getSubStructures().add(corporateObjectiveStructure);
+    corporateObjectiveStructure.setParentStructure(company);
+    corporateObjectiveStructure.setSubStructures(
+        Arrays.asList(subDepartment, subDepartmentWithUserAsMember));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
@@ -276,14 +280,14 @@ public class UserSettingsServiceTest {
     company.getCycle().setCycleState(CycleState.ACTIVE);
     when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
     whenUserSettingsSaveReturnSameValue();
-    Department department = new Department();
+    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     Department departmentWithUserAsMember = new Department();
     departmentWithUserAsMember.getOkrMemberIds().add(userId);
     Department departmentWithUserAsMember1 = new Department();
     departmentWithUserAsMember1.getOkrMemberIds().add(userId);
-    company.getDepartments().add(department);
-    department.setParentStructure(company);
-    department.setDepartments(
+    company.getSubStructures().add(corporateObjectiveStructure);
+    corporateObjectiveStructure.setParentStructure(company);
+    corporateObjectiveStructure.setSubStructures(
         Arrays.asList(departmentWithUserAsMember1, departmentWithUserAsMember));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);

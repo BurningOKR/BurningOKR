@@ -9,6 +9,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
@@ -92,9 +93,9 @@ public class CompanyService {
     return cycleList;
   }
 
-  public Collection<Department> findDepartmentsOfCompany(long companyId) {
+  public Collection<SubStructure> findSubStructuresOfCompany(long companyId) {
     Company company = findById(companyId);
-    return company.getDepartments();
+    return company.getSubStructures();
   }
 
   /**

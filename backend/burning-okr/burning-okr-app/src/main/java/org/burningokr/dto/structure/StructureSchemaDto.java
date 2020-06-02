@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-public class DepartmentStructureDto {
+public class StructureSchemaDto {
 
   @NotNull
   @Size(min = 1)
@@ -24,7 +24,7 @@ public class DepartmentStructureDto {
   @Setter(AccessLevel.NONE)
   private Boolean isActive;
 
-  @NotNull private Collection<DepartmentStructureDto> subDepartments = new ArrayList<>();
+  @NotNull private Collection<StructureSchemaDto> subDepartments = new ArrayList<>();
 
   @NotNull private DepartmentDtoRole userRole;
 

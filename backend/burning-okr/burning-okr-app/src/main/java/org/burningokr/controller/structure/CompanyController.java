@@ -9,10 +9,10 @@ import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.dto.structure.CompanyDto;
 import org.burningokr.dto.structure.DepartmentDto;
-import org.burningokr.dto.structure.DepartmentStructureDto;
+import org.burningokr.dto.structure.StructureSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.structure.DepartmentMapper;
-import org.burningokr.mapper.structure.DepartmentStructureMapper;
+import org.burningokr.mapper.structure.StructureSchemaMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
@@ -39,7 +39,7 @@ public class CompanyController {
   private DataMapper<Company, CompanyDto> companyMapper;
   private DataMapper<Department, DepartmentDto> departmentMapper;
   private DataMapper<Cycle, CycleDto> cycleMapper;
-  private DepartmentStructureMapper departmentStructureMapper;
+  private StructureSchemaMapper structureSchemaMapper;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private AuthorizationService authorizationService;
   private UserService userService;
@@ -55,7 +55,7 @@ public class CompanyController {
    * @param objectiveMapper a {@link DataMapper} object with {@link Objective} and {@link
    *     ObjectiveDto}
    * @param authorizationService an {@link AuthorizationService} object
-   * @param departmentStructureMapper a {@link DepartmentStructureMapper} object
+   * @param structureSchemaMapper a {@link StructureSchemaMapper} object
    * @param userService an {@link UserService} object
    */
   @Autowired
@@ -66,7 +66,7 @@ public class CompanyController {
       DataMapper<Department, DepartmentDto> departmentMapper,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       AuthorizationService authorizationService,
-      DepartmentStructureMapper departmentStructureMapper,
+      StructureSchemaMapper structureSchemaMapper,
       UserService userService) {
     this.companyService = companyService;
     this.companyMapper = companyMapper;
@@ -74,7 +74,7 @@ public class CompanyController {
     this.departmentMapper = departmentMapper;
     this.objectiveMapper = objectiveMapper;
     this.authorizationService = authorizationService;
-    this.departmentStructureMapper = departmentStructureMapper;
+    this.structureSchemaMapper = structureSchemaMapper;
     this.userService = userService;
   }
 
@@ -143,32 +143,19 @@ public class CompanyController {
   }
 
   /**
-   * API Endpoint to get all Departments of a Company.
-   *
-   * @param companyId a long value
-   * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
-   */
-  @GetMapping("/companies/{companyId}/departments")
-  public ResponseEntity<Collection<DepartmentDto>> getDepartmentsOfCompany(
-      @PathVariable long companyId) {
-    Collection<Department> departments = companyService.findDepartmentsOfCompany(companyId);
-    return ResponseEntity.ok(departmentMapper.mapEntitiesToDtos(departments));
-  }
-
-  /**
    * API Endpoint to get the Department Structure of a Company.
    *
    * @param companyId a long value
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Department Structure
    */
   @GetMapping("/companies/{companyId}/structure")
-  public ResponseEntity<Collection<DepartmentStructureDto>> getDepartmentStructureOfCompany(
+  public ResponseEntity<Collection<StructureSchemaDto>> getDepartmentStructureOfCompany(
       @PathVariable long companyId) {
     Company company = this.companyService.findById(companyId);
     UUID currentUserId = userService.getCurrentUser().getId();
     return ResponseEntity.ok(
-        departmentStructureMapper.mapDepartmentListToDepartmentStructureList(
-            company.getDepartments(), currentUserId));
+        structureSchemaMapper.mapStructureListToStructureSchemaList(
+            company.getSubStructures(), currentUserId));
   }
 
   /**

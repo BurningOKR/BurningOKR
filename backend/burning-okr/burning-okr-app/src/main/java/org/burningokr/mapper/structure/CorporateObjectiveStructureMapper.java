@@ -26,12 +26,9 @@ public class CorporateObjectiveStructureMapper
     dto.setParentStructureId(
         entity.getParentStructure() != null ? entity.getParentStructure().getId() : null);
     entity
-        .getDepartments()
+        .getSubStructures()
         .forEach(department -> dto.getSubDepartmentIds().add(department.getId()));
     entity.getObjectives().forEach(objective -> dto.getObjectiveIds().add(objective.getId()));
-    entity
-        .getCorporateObjectiveStructures()
-        .forEach(cos -> dto.getCorporateObjectiveStructureIds().add(cos.getId()));
     return dto;
   }
 

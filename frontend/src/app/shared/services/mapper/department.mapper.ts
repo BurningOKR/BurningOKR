@@ -36,24 +36,12 @@ export class DepartmentMapper {
       .pipe(map(departmentDto => DepartmentMapper.mapDepartment(departmentDto)));
   }
 
-  getDepartmentsForCompany$(companyId: CompanyId): Observable<DepartmentUnit[]> {
-    return this.departmentApiService
-      .getDepartmentsForCompany$(companyId)
-      .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartment)));
-  }
-
   getAllDepartmentsForCompanyFlatted$(companyId: CompanyId): Observable<DepartmentUnit[]> {
     return this.departmentApiService
       .getDepartmentsFlattedForCompany$(companyId)
       .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartment)
         .sort((a: DepartmentUnit, b: DepartmentUnit) => a.name < b.name ? -1 : a.name === b.name ? 0 : 1
         )));
-  }
-
-  getDepartmentsForDepartment$(departmentId: DepartmentId): Observable<DepartmentUnit[]> {
-    return this.departmentApiService
-      .getDepartmentsForDepartment$(departmentId)
-      .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartment)));
   }
 
   postDepartmentForCompany$(companyId: CompanyId, department: DepartmentDto): Observable<DepartmentUnit> {

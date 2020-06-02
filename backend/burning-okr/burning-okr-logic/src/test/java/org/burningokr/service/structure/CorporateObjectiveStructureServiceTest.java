@@ -95,7 +95,7 @@ public class CorporateObjectiveStructureServiceTest {
     updatedEntity.setId(corporateObjectiveStructureId);
     updatedEntity.setName("s");
     updatedEntity.setObjectives(Arrays.asList(new Objective(), new Objective()));
-    updatedEntity.setDepartments(Arrays.asList(new Department(), new Department()));
+    updatedEntity.setSubStructures(Arrays.asList(new Department(), new Department()));
     updatedEntity.setParentStructure(new Department());
     CorporateObjectiveStructure actual =
         corporateObjectiveStructureService.update(

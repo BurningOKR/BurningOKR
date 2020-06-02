@@ -75,18 +75,6 @@ public class DepartmentMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDto_expects_subdepartmentsSizeIsEqual4() {
-    int expected = 4;
-    Collection<Department> subdepartments = new ArrayList<>();
-    for (int i = 1; i <= expected; i++) {
-      subdepartments.add(new Department());
-    }
-    department.setDepartments(subdepartments);
-    departmentDto = departmentMapper.mapEntityToDto(department);
-    Assert.assertEquals(expected, departmentDto.getSubDepartmentIds().size());
-  }
-
-  @Test
   public void test_mapEntityToDto_expects_objectivesSizeIsEqual6() {
     int expected = 6;
     Collection<Objective> objectives = new ArrayList<>();
@@ -162,12 +150,6 @@ public class DepartmentMapperTest {
   public void test_mapDtoToEntity_expects_expectsParentIsNull() {
     department = departmentMapper.mapDtoToEntity(departmentDto);
     Assert.assertNull(department.getParentStructure());
-  }
-
-  @Test
-  public void test_mapDtoToEntity_expects_subdepartmentsNotNull() {
-    department = departmentMapper.mapDtoToEntity(departmentDto);
-    Assert.assertNotNull(department.getDepartments());
   }
 
   @Test

@@ -2,60 +2,32 @@ package org.burningokr.service.structureutil;
 
 import java.util.Collection;
 import java.util.HashMap;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.CorporateObjectiveStructure;
-import org.burningokr.model.structures.Department;
-import org.burningokr.model.structures.Structure;
+import org.burningokr.model.structures.*;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.repositories.structre.CompanyRepository;
-import org.burningokr.repositories.structre.CorporateObjectiveStructureRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.burningokr.repositories.structre.StructureRepository;
+import org.burningokr.service.structure.departmentservices.StructureHelper;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
 @Service
+@RequiredArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CyclePreparationCloningService {
 
   private HashMap<Objective, Objective> clonedObjectives = new HashMap<>();
 
-  private CompanyRepository companyRepository;
-  private CorporateObjectiveStructureRepository corporateObjectiveStructureRepository;
-  private DepartmentRepository departmentRepository;
-  private ObjectiveRepository objectiveRepository;
-  private UserSettingsRepository userSettingsRepository;
-
-  /**
-   * Initialize CyclePreparationCloningService.
-   *
-   * @param companyRepository a {@link CompanyRepository} object
-   * @param corporateObjectiveStructureRepository a {@link CorporateObjectiveStructureRepository}
-   *     object
-   * @param departmentRepository a {@link DepartmentRepository} object
-   * @param objectiveRepository an {@link ObjectiveRepository} object
-   * @param userSettingsRepository an {@link UserSettingsRepository} object
-   */
-  @Autowired
-  public CyclePreparationCloningService(
-      CompanyRepository companyRepository,
-      CorporateObjectiveStructureRepository corporateObjectiveStructureRepository,
-      DepartmentRepository departmentRepository,
-      ObjectiveRepository objectiveRepository,
-      UserSettingsRepository userSettingsRepository) {
-    this.companyRepository = companyRepository;
-    this.corporateObjectiveStructureRepository = corporateObjectiveStructureRepository;
-    this.departmentRepository = departmentRepository;
-    this.objectiveRepository = objectiveRepository;
-    this.userSettingsRepository = userSettingsRepository;
-  }
+  private final CompanyRepository companyRepository;
+  private final StructureRepository<SubStructure> subStructureRepository;
+  private final ObjectiveRepository objectiveRepository;
+  private final UserSettingsRepository userSettingsRepository;
 
   public void cloneCompanyListIntoCycleForPreparation(
       Collection<Company> companiesToClone, Cycle cycleToCloneInto) {
@@ -76,54 +48,35 @@ public class CyclePreparationCloningService {
     companyRepository.save(companyCopy);
     cloneObjectiveListIntoCompanyStructureForPreparation(
         companyToClone.getObjectives(), companyCopy);
-    cloneCorporateObjectiveStructuresIntoCompanyStructureForPreparation(
-        companyToClone.getCorporateObjectiveStructures(), companyCopy);
-    cloneDepartmentListIntoCompanyStructureForPreparation(
-        companyToClone.getDepartments(), companyCopy);
+    cloneSubStructureListIntoParentStructureForPreparation(
+        companyToClone.getSubStructures(), companyCopy);
     cloneUserSettingsFromClonedCompanyIntoCompanyStructureForPreparation(
         companyToClone, companyCopy);
   }
 
-  private void cloneCorporateObjectiveStructuresIntoCompanyStructureForPreparation(
-      Collection<CorporateObjectiveStructure> corporateObjectiveStructuresToClone,
-      Company companyStructureToCloneInto) {
-    corporateObjectiveStructuresToClone.forEach(
+  private void cloneSubStructureListIntoParentStructureForPreparation(
+      Collection<SubStructure> subStructureListToClone, Structure structureToCloneInto) {
+    subStructureListToClone.forEach(
         original ->
-            cloneCorporateObjectiveStructureIntoCompanyStructureForPreparation(
-                original, companyStructureToCloneInto));
+            cloneSubStructureIntoParentStructureForPreparation(original, structureToCloneInto));
   }
 
-  private void cloneCorporateObjectiveStructureIntoCompanyStructureForPreparation(
-      CorporateObjectiveStructure corporateObjectiveStructureToClone,
-      Company companyStructureToCloneInto) {
-    CorporateObjectiveStructure copy = corporateObjectiveStructureToClone.getCopyWithOutRelations();
-    copy.setParentStructure(companyStructureToCloneInto);
-    companyStructureToCloneInto.getCorporateObjectiveStructures().add(copy);
-    corporateObjectiveStructureRepository.save(copy);
-    cloneObjectiveListIntoCompanyStructureForPreparation(
-        corporateObjectiveStructureToClone.getObjectives(), copy);
-    cloneCorporateObjectiveStructuresIntoCompanyStructureForPreparation(
-        corporateObjectiveStructureToClone.getCorporateObjectiveStructures(),
-        companyStructureToCloneInto);
-    cloneDepartmentListIntoCompanyStructureForPreparation(
-        corporateObjectiveStructureToClone.getDepartments(), companyStructureToCloneInto);
-  }
+  private void cloneSubStructureIntoParentStructureForPreparation(
+      SubStructure subStructureToClone, Structure structureToCloneInto) {
+    SubStructure copy = subStructureToClone.getCopyWithoutRelations();
 
-  private void cloneDepartmentListIntoCompanyStructureForPreparation(
-      Collection<Department> departmentListToClone, Structure structureToCloneInto) {
-    departmentListToClone.forEach(
-        original ->
-            cloneDepartmentIntoCompanyStructureForPreparation(original, structureToCloneInto));
-  }
+    if (structureToCloneInto instanceof ParentStructure) {
+      copy.setParentStructure(structureToCloneInto);
+      ((ParentStructure) structureToCloneInto).getSubStructures().add(copy);
+    }
 
-  private void cloneDepartmentIntoCompanyStructureForPreparation(
-      Department departmentToClone, Structure structureToCloneInto) {
-    Department copy = departmentToClone.getCopyWithoutRelations();
-    copy.setParentStructure(structureToCloneInto);
-    structureToCloneInto.getDepartments().add(copy);
-    departmentRepository.save(copy);
-    cloneObjectiveListIntoCompanyStructureForPreparation(departmentToClone.getObjectives(), copy);
-    cloneDepartmentListIntoCompanyStructureForPreparation(departmentToClone.getDepartments(), copy);
+    subStructureRepository.save(copy);
+    cloneObjectiveListIntoCompanyStructureForPreparation(subStructureToClone.getObjectives(), copy);
+
+    if (subStructureToClone instanceof ParentStructure) {
+      cloneSubStructureListIntoParentStructureForPreparation(
+          ((ParentStructure) subStructureToClone).getSubStructures(), copy);
+    }
   }
 
   private void cloneObjectiveListIntoCompanyStructureForPreparation(
@@ -165,7 +118,7 @@ public class CyclePreparationCloningService {
   }
 
   private Department findNewTeamCopy(Department oldTeam, Company company) {
-    Collection<Department> departments = DepartmentHelper.collectDepartments(company);
+    Collection<Department> departments = StructureHelper.collectDepartments(company);
 
     for (Department department : departments) {
       if (department.getName().equals(oldTeam.getName())) {

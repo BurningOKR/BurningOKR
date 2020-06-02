@@ -8,6 +8,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,11 +62,11 @@ public class CompanyMapperTest {
   @Test
   public void test_mapEntityToDto_expects_departmentsSizeIsEqual4() {
     int expected = 4;
-    Collection<Department> departments = new ArrayList<>();
+    Collection<SubStructure> departments = new ArrayList<>();
     for (int i = 1; i <= expected; i++) {
       departments.add(new Department());
     }
-    company.setDepartments(departments);
+    company.setSubStructures(departments);
     companyDto = companyMapper.mapEntityToDto(company);
     Assert.assertEquals(expected, companyDto.getDepartmentIds().size());
   }
@@ -131,7 +132,7 @@ public class CompanyMapperTest {
   @Test
   public void test_mapDtoToEntity_expects_departmentsNotNull() {
     company = companyMapper.mapDtoToEntity(companyDto);
-    Assert.assertNotNull(company.getDepartments());
+    Assert.assertNotNull(company.getSubStructures());
   }
 
   @Test

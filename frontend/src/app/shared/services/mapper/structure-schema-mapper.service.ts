@@ -15,7 +15,7 @@ export class StructureSchemaMapper {
 
   getStructureSchemaOfDepartment$(departmentId: DepartmentId): Observable<StructureSchema[]> {
     return this.departmentApiService
-      .getStructureSchema(departmentId)
+      .getStructureSchema$(departmentId)
       .pipe(map(dto => this.mapStructureSchemaDtoList(dto)));
   }
 

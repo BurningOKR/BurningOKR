@@ -20,11 +20,11 @@ import org.burningokr.model.settings.UserSettings;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.repositories.structre.CompanyRepository;
-import org.burningokr.repositories.structre.CorporateObjectiveStructureRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,9 +38,7 @@ public class CyclePreparationCloningServiceTest {
 
   @Mock private CompanyRepository companyRepository;
 
-  @Mock private CorporateObjectiveStructureRepository corporateObjectiveStructureRepository;
-
-  @Mock private DepartmentRepository departmentRepository;
+  @Mock private StructureRepository<SubStructure> subStructureRepository;
 
   @Mock private ObjectiveRepository objectiveRepository;
 
@@ -52,8 +50,8 @@ public class CyclePreparationCloningServiceTest {
   private Collection<Objective> unwrappedObjectiveList1;
   private Objective unwrappedObjective1;
   private Objective unwrappedChildObjective1;
-  private Collection<Department> unwrappedDepartmentList;
-  private Department unwrappedDepartment;
+  private Collection<SubStructure> unwrappedSubStructureList;
+  private SubStructure unwrappedSubStructure;
   private Collection<Objective> unwrappedObjectiveList2;
   private Objective unwrappedObjective2;
   private Objective unwrappedChildObjective2;
@@ -109,12 +107,12 @@ public class CyclePreparationCloningServiceTest {
     }
     // Company layer
     unwrappedObjectiveList1 = unwrappedCompany.getObjectives();
-    unwrappedDepartmentList = unwrappedCompany.getDepartments();
-    for (Department x : unwrappedDepartmentList) {
-      unwrappedDepartment = x;
+    unwrappedSubStructureList = unwrappedCompany.getSubStructures();
+    for (SubStructure x : unwrappedSubStructureList) {
+      unwrappedSubStructure = x;
     }
     // Department layer
-    unwrappedObjectiveList2 = unwrappedDepartment.getObjectives();
+    unwrappedObjectiveList2 = unwrappedSubStructure.getObjectives();
     // Objectives layer
     Collection<Objective> tempUnwrappedObjectivesList = new ArrayList<>();
     tempUnwrappedObjectivesList.addAll(unwrappedObjectiveList1);
@@ -152,11 +150,11 @@ public class CyclePreparationCloningServiceTest {
     // The unwrap method working to set the following references is a proof of functional child
     // relationships
     Assert.assertEquals(1, unwrappedCompanyList.size());
-    Assert.assertEquals(1, unwrappedDepartmentList.size());
+    Assert.assertEquals(1, unwrappedSubStructureList.size());
     Assert.assertEquals(2, unwrappedObjectiveList1.size());
     Assert.assertEquals(2, unwrappedObjectiveList2.size());
     Assert.assertNotNull(unwrappedCompany);
-    Assert.assertNotNull(unwrappedDepartment);
+    Assert.assertNotNull(unwrappedSubStructure);
     Assert.assertNotNull(unwrappedObjective1);
     Assert.assertNotNull(unwrappedObjective2);
     Assert.assertNotNull(unwrappedChildObjective1);
@@ -175,11 +173,11 @@ public class CyclePreparationCloningServiceTest {
     unwrapCycleContents(cycleToCloneInto);
     // CyclePreparationCloningService properly sets up parent relations
     Assert.assertEquals(cycleToCloneInto, unwrappedCompany.getCycle());
-    Assert.assertEquals(unwrappedCompany, unwrappedDepartment.getParentStructure());
+    Assert.assertEquals(unwrappedCompany, unwrappedSubStructure.getParentStructure());
     Assert.assertEquals(unwrappedCompany, unwrappedObjective1.getParentStructure());
     Assert.assertEquals(unwrappedCompany, unwrappedChildObjective1.getParentStructure());
-    Assert.assertEquals(unwrappedDepartment, unwrappedObjective2.getParentStructure());
-    Assert.assertEquals(unwrappedDepartment, unwrappedChildObjective2.getParentStructure());
+    Assert.assertEquals(unwrappedSubStructure, unwrappedObjective2.getParentStructure());
+    Assert.assertEquals(unwrappedSubStructure, unwrappedChildObjective2.getParentStructure());
     Assert.assertEquals(unwrappedObjective1, unwrappedChildObjective1.getParentObjective());
     Assert.assertEquals(unwrappedObjective2, unwrappedChildObjective2.getParentObjective());
   }
@@ -199,7 +197,7 @@ public class CyclePreparationCloningServiceTest {
     ArgumentCaptor<Objective> savedObjectiveCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository).save(savedCompanyCaptor.capture());
-    verify(departmentRepository).save(savedDepartmentCaptor.capture());
+    verify(subStructureRepository).save(savedDepartmentCaptor.capture());
     verify(objectiveRepository, times(4)).save(savedObjectiveCaptor.capture());
 
     Company savedCompany = savedCompanyCaptor.getValue();
@@ -211,7 +209,7 @@ public class CyclePreparationCloningServiceTest {
     Objective savedChildObjective2 = savedObjectives.get(3);
 
     Assert.assertEquals(unwrappedCompany, savedCompany);
-    Assert.assertEquals(unwrappedDepartment, savedDepartment);
+    Assert.assertEquals(unwrappedSubStructure, savedDepartment);
     Assert.assertEquals(unwrappedObjective1, savedObjective1);
     Assert.assertEquals(unwrappedObjective2, savedObjective2);
     Assert.assertEquals(unwrappedChildObjective1, savedChildObjective1);
@@ -287,7 +285,7 @@ public class CyclePreparationCloningServiceTest {
         ArgumentCaptor.forClass(UserSettings.class);
 
     verify(userSettingsRepository, times(1)).save(savedUserSettingsCaptor.capture());
-    verify(departmentRepository).save(savedDepartmentCaptor.capture());
+    verify(subStructureRepository).save(savedDepartmentCaptor.capture());
     verify(companyRepository).save(savedCompanyCaptor.capture());
 
     Company savedCompany = savedCompanyCaptor.getValue();
@@ -344,9 +342,9 @@ public class CyclePreparationCloningServiceTest {
     CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     corporateObjectiveStructure.setName("testCorporateObjectiveStructure");
     corporateObjectiveStructure.setParentStructure(company);
-    final Collection<CorporateObjectiveStructure> corporateObjectiveStructures =
+    final Collection<SubStructure> corporateObjectiveStructures =
         Collections.singletonList(corporateObjectiveStructure);
-    company.setCorporateObjectiveStructures(corporateObjectiveStructures);
+    company.setSubStructures(corporateObjectiveStructures);
 
     ArgumentCaptor<Company> companyCaptor = ArgumentCaptor.forClass(Company.class);
     ArgumentCaptor<CorporateObjectiveStructure> corporateObjectiveStructureArgumentCaptor =
@@ -355,7 +353,7 @@ public class CyclePreparationCloningServiceTest {
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(company, cycle);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(corporateObjectiveStructureRepository, times(1))
+    verify(subStructureRepository, times(1))
         .save(corporateObjectiveStructureArgumentCaptor.capture());
 
     Company companyCaptured = companyCaptor.getValue();
@@ -382,9 +380,9 @@ public class CyclePreparationCloningServiceTest {
     objective.setName("objectiveTest");
     objectives.add(objective);
     corporateObjectiveStructure.setObjectives(objectives);
-    final Collection<CorporateObjectiveStructure> corporateObjectiveStructures =
+    final Collection<SubStructure> corporateObjectiveStructures =
         Collections.singletonList(corporateObjectiveStructure);
-    company.setCorporateObjectiveStructures(corporateObjectiveStructures);
+    company.setSubStructures(corporateObjectiveStructures);
 
     ArgumentCaptor<Company> companyCaptor = ArgumentCaptor.forClass(Company.class);
     ArgumentCaptor<CorporateObjectiveStructure> corporateObjectiveStructureArgumentCaptor =
@@ -394,7 +392,7 @@ public class CyclePreparationCloningServiceTest {
     ArgumentCaptor<Objective> objectiveArgumentCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(corporateObjectiveStructureRepository, times(1))
+    verify(subStructureRepository, times(1))
         .save(corporateObjectiveStructureArgumentCaptor.capture());
     verify(objectiveRepository, times(1)).save(objectiveArgumentCaptor.capture());
 
@@ -419,16 +417,15 @@ public class CyclePreparationCloningServiceTest {
     CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     corporateObjectiveStructure.setName("testCorporateObjectiveStructure");
     corporateObjectiveStructure.setParentStructure(company);
-    final Collection<CorporateObjectiveStructure> childCorporateObjectiveStructures =
-        new ArrayList<>();
+    final Collection<SubStructure> childCorporateObjectiveStructures = new ArrayList<>();
     CorporateObjectiveStructure childCorporateObjectiveStructure =
         new CorporateObjectiveStructure();
     childCorporateObjectiveStructures.add(childCorporateObjectiveStructure);
     childCorporateObjectiveStructure.setName("childCorporateObjective");
-    corporateObjectiveStructure.setCorporateObjectiveStructures(childCorporateObjectiveStructures);
-    final Collection<CorporateObjectiveStructure> corporateObjectiveStructures =
+    corporateObjectiveStructure.setSubStructures(childCorporateObjectiveStructures);
+    final Collection<SubStructure> corporateObjectiveStructures =
         Collections.singletonList(corporateObjectiveStructure);
-    company.setCorporateObjectiveStructures(corporateObjectiveStructures);
+    company.setSubStructures(corporateObjectiveStructures);
 
     ArgumentCaptor<Company> companyCaptor = ArgumentCaptor.forClass(Company.class);
     ArgumentCaptor<CorporateObjectiveStructure> corporateObjectiveStructureArgumentCaptor =
@@ -437,7 +434,7 @@ public class CyclePreparationCloningServiceTest {
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(company, cycle);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(corporateObjectiveStructureRepository, times(2))
+    verify(subStructureRepository, times(2))
         .save(corporateObjectiveStructureArgumentCaptor.capture());
 
     Company companyCaptured = companyCaptor.getValue();
@@ -464,15 +461,15 @@ public class CyclePreparationCloningServiceTest {
     CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
     corporateObjectiveStructure.setName("testCorporateObjectiveStructure");
     corporateObjectiveStructure.setParentStructure(company);
-    final Collection<Department> departments = new ArrayList<>();
+    final Collection<SubStructure> departments = new ArrayList<>();
     Department department = new Department();
     department.setName("testDepartment");
     department.setParentStructure(corporateObjectiveStructure);
     departments.add(department);
-    corporateObjectiveStructure.setDepartments(departments);
-    final Collection<CorporateObjectiveStructure> corporateObjectiveStructures =
+    corporateObjectiveStructure.setSubStructures(departments);
+    final Collection<SubStructure> corporateObjectiveStructures =
         Collections.singletonList(corporateObjectiveStructure);
-    company.setCorporateObjectiveStructures(corporateObjectiveStructures);
+    company.setSubStructures(corporateObjectiveStructures);
 
     ArgumentCaptor<Company> companyCaptor = ArgumentCaptor.forClass(Company.class);
     ArgumentCaptor<Department> departmentArgumentCaptor = ArgumentCaptor.forClass(Department.class);
@@ -480,7 +477,10 @@ public class CyclePreparationCloningServiceTest {
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(company, cycle);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(departmentRepository, times(1)).save(departmentArgumentCaptor.capture());
+
+    // Twice because it is saved once for the corporateObjectiveStructure and a second time for the
+    // department.
+    verify(subStructureRepository, times(2)).save(departmentArgumentCaptor.capture());
 
     Company companyCaptured = companyCaptor.getValue();
     Department departmentCaptured = departmentArgumentCaptor.getValue();

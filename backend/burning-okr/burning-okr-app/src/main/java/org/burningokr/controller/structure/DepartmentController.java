@@ -7,10 +7,10 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.dto.structure.CompanyDto;
 import org.burningokr.dto.structure.DepartmentDto;
-import org.burningokr.dto.structure.DepartmentStructureDto;
+import org.burningokr.dto.structure.StructureSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.structure.CompanyMapper;
-import org.burningokr.mapper.structure.DepartmentStructureMapper;
+import org.burningokr.mapper.structure.StructureSchemaMapper;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
@@ -20,7 +20,7 @@ import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.structure.CompanyService;
 import org.burningokr.service.structure.StructureService;
 import org.burningokr.service.structure.StructureServicePicker;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
+import org.burningokr.service.structure.departmentservices.StructureHelper;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class DepartmentController {
   private StructureServicePicker<Department> departmentServicePicker;
   private DataMapper<Department, DepartmentDto> departmentMapper;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
-  private DepartmentStructureMapper departmentStructureMapper;
+  private StructureSchemaMapper structureSchemaMapper;
   private CompanyMapper companyMapper;
   private CompanyService companyService;
   private AuthorizationService authorizationService;
@@ -54,7 +54,7 @@ public class DepartmentController {
    * @param objectiveMapper {@link DataMapper} with Objective and ObjectiveDto
    * @param authorizationService {@link AuthorizationService}
    * @param entityCrawlerService {@link EntityCrawlerService}
-   * @param departmentStructureMapper {@link DepartmentStructureMapper}
+   * @param structureSchemaMapper {@link StructureSchemaMapper}
    * @param userService {@link UserService}
    * @param companyMapper {@link CompanyMapper}
    * @param companyService {@link CompanyService}
@@ -66,7 +66,7 @@ public class DepartmentController {
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       AuthorizationService authorizationService,
       EntityCrawlerService entityCrawlerService,
-      DepartmentStructureMapper departmentStructureMapper,
+      StructureSchemaMapper structureSchemaMapper,
       UserService userService,
       CompanyMapper companyMapper,
       CompanyService companyService) {
@@ -75,7 +75,7 @@ public class DepartmentController {
     this.objectiveMapper = objectiveMapper;
     this.authorizationService = authorizationService;
     this.entityCrawlerService = entityCrawlerService;
-    this.departmentStructureMapper = departmentStructureMapper;
+    this.structureSchemaMapper = structureSchemaMapper;
     this.userService = userService;
     this.companyMapper = companyMapper;
     this.companyService = companyService;
@@ -103,16 +103,16 @@ public class DepartmentController {
    * @return a {@link ResponseEntity} ok with a {@link Collection} of DepartmentStructure
    */
   @GetMapping("/departments/{departmentId}/structure")
-  public ResponseEntity<Collection<DepartmentStructureDto>> getDepartmentStructureOfDepartment(
+  public ResponseEntity<Collection<StructureSchemaDto>> getDepartmentStructureOfDepartment(
       @PathVariable long departmentId) {
     StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentService.findById(departmentId);
-    Company parentCompany = entityCrawlerService.getCompanyOfDepartment(department);
+    Company parentCompany = entityCrawlerService.getCompanyOfStructure(department);
     UUID currentUserId = userService.getCurrentUser().getId();
     return ResponseEntity.ok(
-        departmentStructureMapper.mapDepartmentListToDepartmentStructureList(
-            parentCompany.getDepartments(), currentUserId));
+        structureSchemaMapper.mapStructureListToStructureSchemaList(
+            parentCompany.getSubStructures(), currentUserId));
   }
 
   /**
@@ -126,24 +126,8 @@ public class DepartmentController {
     StructureService<Department> departmentService =
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Department department = departmentService.findById(departmentId);
-    Company parentCompany = entityCrawlerService.getCompanyOfDepartment(department);
+    Company parentCompany = entityCrawlerService.getCompanyOfStructure(department);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(parentCompany));
-  }
-
-  /**
-   * API Endpoint to get all sub-Departments of a Department.
-   *
-   * @param departmentId a long value
-   * @return a {@link ResponseEntity} ok with a {@link Collection} of Departments
-   */
-  @GetMapping("/departments/{departmentId}/departments")
-  public ResponseEntity<Collection<DepartmentDto>> getSubDepartmentsOfDepartment(
-      @PathVariable long departmentId) {
-    StructureService<Department> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
-    Collection<Department> departments =
-        departmentService.findSubStructuresOfStructure(departmentId);
-    return ResponseEntity.ok(departmentMapper.mapEntitiesToDtos(departments));
   }
 
   /**
@@ -171,7 +155,7 @@ public class DepartmentController {
   public ResponseEntity<Collection<DepartmentDto>> getAllDepartmentsForCompany(
       @PathVariable long companyId) {
     Company company = companyService.findById(companyId);
-    Collection<Department> departments = DepartmentHelper.collectDepartments(company);
+    Collection<Department> departments = StructureHelper.collectDepartments(company);
     return ResponseEntity.ok(departmentMapper.mapEntitiesToDtos(departments));
   }
 

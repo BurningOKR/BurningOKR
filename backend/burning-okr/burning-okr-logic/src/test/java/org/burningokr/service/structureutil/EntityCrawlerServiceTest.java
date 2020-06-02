@@ -5,7 +5,9 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
+import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +23,7 @@ public class EntityCrawlerServiceTest {
   // Testing entities
   private Cycle cycle;
   private Company company;
-  private Department departmentChildFirstDegree;
+  private CorporateObjectiveStructure departmentChildFirstDegree;
   private Department departmentChildSecondDegree;
   private Objective objective;
   private KeyResult keyResult;
@@ -33,15 +35,15 @@ public class EntityCrawlerServiceTest {
 
     cycle = new Cycle();
     company = new Company();
-    departmentChildFirstDegree = new Department();
+    departmentChildFirstDegree = new CorporateObjectiveStructure();
     departmentChildSecondDegree = new Department();
 
     cycle.setCompanies(new ArrayList<>());
     cycle.getCompanies().add(company);
     company.setCycle(cycle);
-    company.getDepartments().add(departmentChildFirstDegree);
+    company.getSubStructures().add(departmentChildFirstDegree);
     departmentChildFirstDegree.setParentStructure(company);
-    departmentChildFirstDegree.getDepartments().add(departmentChildSecondDegree);
+    departmentChildFirstDegree.getSubStructures().add(departmentChildSecondDegree);
     departmentChildSecondDegree.setParentStructure(departmentChildFirstDegree);
 
     // The objective and KeyResult are only attached to each other, attach to department in test!
@@ -52,9 +54,9 @@ public class EntityCrawlerServiceTest {
     keyResult.setParentObjective(objective);
   }
 
-  private void attachObjectiveToDepartment(Objective objective, Department department) {
-    department.getObjectives().add(objective);
-    objective.setParentStructure(department);
+  private void attachObjectiveToDepartment(Objective objective, SubStructure subStructure) {
+    subStructure.getObjectives().add(objective);
+    objective.setParentStructure(subStructure);
   }
 
   @Test
@@ -112,15 +114,14 @@ public class EntityCrawlerServiceTest {
 
   @Test
   public void getCompanyOfDepartment_companyIsFirstParent_expectedCompany() {
-    Company actualCompany = entityCrawlerService.getCompanyOfDepartment(departmentChildFirstDegree);
+    Company actualCompany = entityCrawlerService.getCompanyOfStructure(departmentChildFirstDegree);
 
     Assert.assertEquals(company, actualCompany);
   }
 
   @Test
   public void getCompanyOfDepartment_companyIsNestedParent_expectedCompany() {
-    Company actualCompany =
-        entityCrawlerService.getCompanyOfDepartment(departmentChildSecondDegree);
+    Company actualCompany = entityCrawlerService.getCompanyOfStructure(departmentChildSecondDegree);
 
     Assert.assertEquals(company, actualCompany);
   }

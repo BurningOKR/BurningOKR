@@ -352,7 +352,7 @@ public class ObjectiveRowBuilderServiceTest {
     department.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
     department.setParentStructure(company);
-    company.getDepartments().add(department);
+    company.getSubStructures().add(department);
 
     Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForCompany(companyId);
 

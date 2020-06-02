@@ -3,7 +3,6 @@ package org.burningokr.service.structure.departmentservices;
 import java.util.Collection;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.Department;
 import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -46,12 +45,6 @@ public class StructureServiceUsers<T extends SubStructure> implements StructureS
   @Override
   public T findById(long structureId) {
     return structureRepository.findByIdOrThrow(structureId);
-  }
-
-  @Override
-  public Collection<Department> findSubStructuresOfStructure(long departmentId) {
-    T department = findById(departmentId);
-    return department.getDepartments();
   }
 
   @Override

@@ -3,7 +3,7 @@ package org.burningokr.model.structures;
 import java.util.Collection;
 
 public interface ParentStructure {
-  Collection<Department> getDepartments();
+  Collection<SubStructure> getSubStructures();
 
-  void setDepartments(Collection<Department> departments);
+  void setSubStructures(Collection<SubStructure> departments);
 }

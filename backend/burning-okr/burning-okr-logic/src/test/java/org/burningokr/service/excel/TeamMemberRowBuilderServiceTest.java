@@ -129,7 +129,7 @@ public class TeamMemberRowBuilderServiceTest {
 
   @Test
   public void generateForCompany_ShouldReturnListWithOkrMasterAndOkrSponsorAndOkrMembers() {
-    company.setDepartments(Collections.singletonList(department));
+    company.setSubStructures(Collections.singletonList(department));
     department.setParentStructure(company);
     department.setOkrMasterId(guidUser1);
     department.setOkrTopicSponsorId(guidUser2);

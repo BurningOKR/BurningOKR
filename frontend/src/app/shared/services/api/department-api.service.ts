@@ -16,19 +16,11 @@ export class DepartmentApiService {
     return this.api.getData$<DepartmentDto>(`departments/${id}`);
   }
 
-  getDepartmentsForCompany$(companyId: CompanyId): Observable<DepartmentDto[]> {
-    return this.api.getData$(`companies/${companyId}/departments`);
-  }
-
   getParentCompanyOfDepartment$(departmentId: DepartmentId): Observable<CompanyDto> {
     return this.api.getData$(`departments/${departmentId}/company`);
   }
 
-  getDepartmentsForDepartment$(departmentId: DepartmentId): Observable<DepartmentDto[]> {
-    return this.api.getData$(`departments/${departmentId}/departments`);
-  }
-
-  getStructureSchema(departmentId: DepartmentId): Observable<StructureSchemeDto[]> {
+  getStructureSchema$(departmentId: DepartmentId): Observable<StructureSchemeDto[]> {
     return this.api.getData$(`departments/${departmentId}/structure`);
   }
 

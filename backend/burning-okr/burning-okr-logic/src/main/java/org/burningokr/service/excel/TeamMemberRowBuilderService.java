@@ -9,7 +9,7 @@ import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
+import org.burningokr.service.structure.departmentservices.StructureHelper;
 import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +99,7 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
     Company company = companyService.findById(companyId);
 
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
-    Collection<Department> departments = DepartmentHelper.collectDepartments(company);
+    Collection<Department> departments = StructureHelper.collectDepartments(company);
     departments.forEach(
         department -> teamMemberRows.addAll(generateTeamMemberRowForDepartment(department)));
 
