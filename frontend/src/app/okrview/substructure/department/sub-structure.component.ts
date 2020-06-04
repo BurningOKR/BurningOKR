@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { SubStructureContextRoleService } from '../../../shared/services/helper/sub-structure-context-role.service';
@@ -19,11 +19,17 @@ import { CurrentCycleService } from '../../current-cycle.service';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
 import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
+import { CorporateObjectiveStructure } from '../../../shared/model/ui/OrganizationalUnit/corporate-objective-structure';
 
 interface DepartmentView {
   cycle: CycleUnit;
   currentUserRole: ContextRole;
   subStructure: SubStructure;
+}
+
+interface ActiveTabs {
+  teamsTab: boolean;
+  subStructureTab: boolean;
 }
 
 @Component({
@@ -36,6 +42,7 @@ export class SubStructureComponent implements OnInit, OnDestroy {
   cycle$: Observable<CycleUnit>;
   departmentView$: Observable<DepartmentView>;
   subStructure$: Observable<SubStructure>;
+  activeTabs$: Observable<ActiveTabs>;
 
   subscriptions: Subscription[] = [];
 
@@ -59,7 +66,8 @@ export class SubStructureComponent implements OnInit, OnDestroy {
           this.currentOkrViewService.browseDepartment(structureId);
 
           return this.structureMapperService.getSubStructureById$(structureId);
-        })
+        }),
+        shareReplay(1)
       );
 
     this.currentUserRole$ = this.subStructure$
@@ -86,6 +94,16 @@ export class SubStructureComponent implements OnInit, OnDestroy {
 
           return info;
         })),
+      );
+
+    this.activeTabs$ = this.subStructure$
+      .pipe(
+        map((subStructure: SubStructure) => {
+          return {
+            subStructureTab: subStructure instanceof CorporateObjectiveStructure,
+            teamsTab: subStructure instanceof DepartmentUnit
+          };
+        })
       );
   }
 

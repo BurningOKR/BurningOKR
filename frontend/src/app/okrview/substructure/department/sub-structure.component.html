@@ -35,7 +35,7 @@
 
               <br/>
               <!-- Tabs -->
-              <mat-tab-group animationDuration="350ms">
+              <mat-tab-group animationDuration="350ms" *ngIf="activeTabs$ | async; let activeTabs">
                 <!-- Overview Tab-->
                 <mat-tab i18n-label="@@component_department_overview" label="Übersicht">
                   <div class="inner-padding">
@@ -46,7 +46,7 @@
                 </mat-tab>
 
                 <!-- Members Tab-->
-                <mat-tab i18n-label="@@component_department_teamMember" label="Teammitglieder">
+                <mat-tab i18n-label="@@component_department_teamMember" label="Teammitglieder" *ngIf="activeTabs.teamsTab">
                   <div class="inner-padding">
                     <app-department-tab-team [department]="subStructure" [currentUserRole]="currentUserRole"
                                              [cycle]="cycle">
@@ -55,7 +55,7 @@
                 </mat-tab>
 
                 <!-- Subdepartments Tab-->
-                <mat-tab i18n-label="@@component_department_subStructure" label="Unterstrukturen">
+                <mat-tab i18n-label="@@component_department_subStructure" label="Unterstrukturen" *ngIf="activeTabs.subStructureTab">
                   <ng-template matTabContent>
                     <div class="inner-padding">
                       <app-substructures-tab [corporateObjectiveStructure]="subStructure" [currentUserRole]="currentUserRole"
@@ -166,8 +166,7 @@
           <br/>
         </div>
       </mat-tab>
-      <mat-tab i18n-label="@@component_department_teamMember" label="Teammitglieder" class="inner-padding"></mat-tab>
-      <mat-tab i18n-label="@@component_department_substructure" label="Unterstrukturen" class="inner-padding"></mat-tab>
+      <mat-tab i18n-label="@@component_department_tab_loading" label="Lade..." class="inner-padding"></mat-tab>
     </mat-tab-group>
   </mat-card>
 </ng-template>
