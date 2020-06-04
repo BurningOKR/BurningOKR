@@ -26,4 +26,16 @@ public abstract class SubStructureDto extends StructureDto {
   public void setIsActive(boolean active) {
     isActive = active;
   }
+
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
+  private boolean isParentStructureACorporateObjectiveStructure;
+
+  public boolean getIsParentStructureACorporateObjectiveStructure() {
+    return isParentStructureACorporateObjectiveStructure;
+  }
+
+  public void setIsParentStructureACorporateObjectiveStructure(boolean parentStructureADepartment) {
+    isParentStructureACorporateObjectiveStructure = parentStructureADepartment;
+  }
 }

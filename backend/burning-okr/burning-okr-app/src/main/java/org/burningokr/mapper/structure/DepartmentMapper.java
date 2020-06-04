@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.burningokr.dto.structure.DepartmentDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,7 @@ public class DepartmentMapper implements DataMapper<Department, DepartmentDto> {
     departmentDto.setLabel(department.getLabel());
     departmentDto.setParentStructureId(department.getParentStructure().getId());
     departmentDto.setIsParentStructureACorporateObjectiveStructure(
-        department.getParentStructure() instanceof Department);
+        department.getParentStructure() instanceof CorporateObjectiveStructure);
     departmentDto.setIsActive(department.isActive());
 
     Collection<Long> objectiveIds = new ArrayList<>();
