@@ -27,7 +27,7 @@ export class FeedbackButtonComponent implements OnDestroy {
     private i18n: I18n,
     private configService: ConfigurationApiService
   ) {
-    this.hasMail$ = configService.getHasMailConfigured();
+    this.hasMail$ = configService.getHasMailConfigured$();
   }
 
   ngOnDestroy(): void {

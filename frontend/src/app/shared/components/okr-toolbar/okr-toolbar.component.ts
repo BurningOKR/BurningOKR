@@ -40,7 +40,7 @@ export class OkrToolbarComponent implements OnInit {
         map(authType => authType === 'local'),
         shareReplay()
       );
-    this.hasMailConfigured$ = this.configurationApiService.getHasMailConfigured();
+    this.hasMailConfigured$ = this.configurationApiService.getHasMailConfigured$();
         }
 
   ngOnInit(): void {
