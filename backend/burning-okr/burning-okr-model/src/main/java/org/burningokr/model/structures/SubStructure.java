@@ -1,6 +1,10 @@
 package org.burningokr.model.structures;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.*;
 import lombok.*;
 
 @Entity

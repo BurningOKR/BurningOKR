@@ -17,6 +17,7 @@ import org.burningokr.service.structure.StructureService;
 import org.burningokr.service.structure.StructureServicePicker;
 import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,10 +40,10 @@ public class StructureController {
     return ResponseEntity.ok((SubStructureDto) mapper.mapEntityToDto(structure));
   }
 
-  @PutMapping("/structures/{structureId}")
+  @PutMapping(value = "/structures/{structureId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<SubStructureDto> updateStructure(
       @PathVariable long structureId,
-      @Valid @RequestBody SubStructureDto subStructureDto,
+      @RequestBody SubStructureDto subStructureDto,
       User user) {
     StructureService<SubStructure> structureService =
         structureServicePicker.getRoleServiceForDepartment(structureId);
@@ -53,9 +54,9 @@ public class StructureController {
 
     receivedStructure.setId(structureId);
 
-    structureService.updateStructure(receivedStructure, user);
+    SubStructure updatedStructure = structureService.updateStructure(receivedStructure, user);
 
-    return ResponseEntity.ok((SubStructureDto) mapper.mapEntityToDto(receivedStructure));
+    return ResponseEntity.ok((SubStructureDto) mapper.mapEntityToDto(updatedStructure));
   }
 
   @DeleteMapping("/structures/{structureId}")
