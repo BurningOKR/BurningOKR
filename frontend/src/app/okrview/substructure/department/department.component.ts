@@ -127,11 +127,11 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     // this.updateView(); TODO: (R.J 04.06.20) Update View
   }
 
-  clickedRemoveDepartment(): void {
+  clickedRemoveDepartment(department: DepartmentUnit): void {
     const title: string = this.i18n({
       id: 'deleteDepartmentDialogTitle',
       value: 'Department {{name}} löschen?'
-    }, {name: this.department.name});
+    }, {name: department.name});
     const message: string = this.i18n({
       id: 'deleteDepartmentDialogMessage',
       value: 'Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.'
@@ -152,7 +152,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe(isConfirmed => {
           if (isConfirmed) {
-            this.queryRemoveDepartment();
+            this.queryRemoveDepartment(department);
           }
         })
     );
@@ -163,7 +163,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     return true; // this.department.subStructureIds.length === 0;
   }
 
-  queryRemoveDepartment(): void {
+  private queryRemoveDepartment(department: DepartmentUnit): void {
     this.subscriptions.push(
       this.departmentMapperService
         .deleteDepartment$(this.department.id)

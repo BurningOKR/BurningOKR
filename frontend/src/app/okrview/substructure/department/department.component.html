@@ -98,7 +98,7 @@
       <span i18n="@@component_department_exportContacts">Kontakte exportieren</span>
     </button>
     <div *ngIf="canDepartmentBeRemoved(); else cannotDeleteStructure;">
-      <button mat-menu-item (click)="clickedRemoveDepartment()" [disabled]="!canDepartmentBeRemoved()">
+      <button mat-menu-item (click)="clickedRemoveDepartment(department)" [disabled]="!canDepartmentBeRemoved()">
         <mat-icon>delete</mat-icon>
         <span i18n="@@component_department_deleteStructure">Struktur löschen</span>
       </button>
@@ -107,7 +107,7 @@
     <ng-template #cannotDeleteStructure>
       <div i18n-matTooltip="@@component_department_cannotDeleteStructure"
            matTooltip="Kann wegen Unterstrukturen nicht gelöscht werden!">
-        <button mat-menu-item (click)="clickedRemoveDepartment()" [disabled]="!canDepartmentBeRemoved()">
+        <button mat-menu-item  [disabled]="true">
           <mat-icon>delete</mat-icon>
           <span i18n="@@component_department_deleteStructure">Struktur löschen</span>
         </button>
