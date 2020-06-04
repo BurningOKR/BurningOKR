@@ -86,7 +86,8 @@ export class SubstructureFormComponent {
   }
 
   createSubStructure(): void {
-    const formData: DepartmentUnit = this.subStructureForm.getRawValue();
+    const formData: SubStructure = this.subStructureForm.getRawValue();
+    console.log(formData);
     const subStructure: SubStructure = {
       id: undefined,
       parentStructureId: undefined,

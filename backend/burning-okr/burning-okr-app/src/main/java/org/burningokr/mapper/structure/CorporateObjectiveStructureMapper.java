@@ -25,6 +25,8 @@ public class CorporateObjectiveStructureMapper
     CorporateObjectiveStructureDto dto = new CorporateObjectiveStructureDto();
     dto.setStructureId(entity.getId());
     dto.setStructureName(entity.getName());
+    dto.setIsActive(entity.isActive());
+    dto.setLabel(entity.getLabel());
     dto.setParentStructureId(
         entity.getParentStructure() != null ? entity.getParentStructure().getId() : null);
     entity
