@@ -2,7 +2,6 @@ package org.burningokr.controller.structure;
 
 import java.util.Collection;
 import java.util.UUID;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.structure.StructureSchemaDto;
@@ -42,9 +41,7 @@ public class StructureController {
 
   @PutMapping(value = "/structures/{structureId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<SubStructureDto> updateStructure(
-      @PathVariable long structureId,
-      @RequestBody SubStructureDto subStructureDto,
-      User user) {
+      @PathVariable long structureId, @RequestBody SubStructureDto subStructureDto, User user) {
     StructureService<SubStructure> structureService =
         structureServicePicker.getRoleServiceForDepartment(structureId);
 

@@ -1,19 +1,22 @@
 package org.burningokr.dto.structure;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import javax.validation.constraints.NotNull;
 import lombok.*;
-import org.burningokr.model.structures.CorporateObjectiveStructure;
-import org.burningokr.model.structures.Department;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "__structureType", visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "__structureType",
+    visible = true)
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = DepartmentDto.class, name = "DEPARTMENT"),
-    @JsonSubTypes.Type(value = CorporateObjectiveStructureDto.class, name = "CORPORATE_OBJECTIVE_STRUCTURE")
+  @JsonSubTypes.Type(value = DepartmentDto.class, name = "DEPARTMENT"),
+  @JsonSubTypes.Type(
+      value = CorporateObjectiveStructureDto.class,
+      name = "CORPORATE_OBJECTIVE_STRUCTURE")
 })
 public abstract class SubStructureDto extends StructureDto {
 
