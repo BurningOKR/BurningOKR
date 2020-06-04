@@ -1,5 +1,5 @@
 import { ObjectiveFormComponent } from './objective-form/objective-form.component';
-import { ContextRole } from '../../shared/services/helper/department-context-role.service';
+import { ContextRole } from '../../shared/services/helper/sub-structure-context-role.service';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';

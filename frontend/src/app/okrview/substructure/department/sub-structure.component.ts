@@ -7,8 +7,8 @@ import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import {
   ContextRole,
-  DepartmentContextRoleService
-} from '../../../shared/services/helper/department-context-role.service';
+  SubStructureContextRoleService
+} from '../../../shared/services/helper/sub-structure-context-role.service';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { SubstructureFormComponent } from '../substructure-form/substructure-form.component';
 import {
@@ -41,7 +41,7 @@ export class SubStructureComponent implements OnInit, OnDestroy {
 
   constructor(
     private departmentMapperService: DepartmentMapper,
-    private departmentContextRoleService: DepartmentContextRoleService,
+    private departmentContextRoleService: SubStructureContextRoleService,
     private matDialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,

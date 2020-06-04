@@ -1,5 +1,5 @@
 import { SubstructureFormComponent } from '../substructure-form/substructure-form.component';
-import { ContextRole } from '../../../shared/services/helper/department-context-role.service';
+import { ContextRole } from '../../../shared/services/helper/sub-structure-context-role.service';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';

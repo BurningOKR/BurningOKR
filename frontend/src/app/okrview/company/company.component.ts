@@ -1,7 +1,7 @@
 import {
   ContextRole,
-  DepartmentContextRoleService
-} from '../../shared/services/helper/department-context-role.service';
+  SubStructureContextRoleService
+} from '../../shared/services/helper/sub-structure-context-role.service';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentOkrviewService } from '../current-okrview.service';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
@@ -42,7 +42,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     private currentCompanyService: CurrentCompanyService,
     private currentCycleService: CurrentCycleService,
     private matDialog: MatDialog,
-    private roleService: DepartmentContextRoleService,
+    private roleService: SubStructureContextRoleService,
     private excelFileService: ExcelMapper
   ) {
   }

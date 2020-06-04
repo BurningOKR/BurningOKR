@@ -3,7 +3,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SubStructureComponent } from './sub-structure.component';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import { DepartmentContextRoleService } from '../../../shared/services/helper/department-context-role.service';
+import { SubStructureContextRoleService } from '../../../shared/services/helper/sub-structure-context-role.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { ExcelMapper } from '../../excel-file/excel.mapper';
@@ -88,7 +88,7 @@ describe('SubStructureComponent', () => {
       imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
         { provide: DepartmentMapper, useValue: departmentMapperService },
-        { provide: DepartmentContextRoleService, useValue: departmentContextRoleService },
+        { provide: SubStructureContextRoleService, useValue: departmentContextRoleService },
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: CurrentOkrviewService, useValue: currentOkrViewService },

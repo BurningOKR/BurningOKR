@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ContextRole } from '../../../shared/services/helper/department-context-role.service';
+import { ContextRole } from '../../../shared/services/helper/sub-structure-context-role.service';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';

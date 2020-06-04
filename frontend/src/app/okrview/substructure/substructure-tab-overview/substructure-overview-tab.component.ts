@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
-import { ContextRole } from '../../../shared/services/helper/department-context-role.service';
+import { ContextRole } from '../../../shared/services/helper/sub-structure-context-role.service';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
 import { ObjectiveFormComponent } from '../../objective/objective-form/objective-form.component';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';

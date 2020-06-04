@@ -1,4 +1,4 @@
-import { ContextRole } from '../../shared/services/helper/department-context-role.service';
+import { ContextRole } from '../../shared/services/helper/sub-structure-context-role.service';
 import { KeyResultMapper } from '../../shared/services/mapper/key-result.mapper';
 import { debounceTime, distinctUntilChanged, filter, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';

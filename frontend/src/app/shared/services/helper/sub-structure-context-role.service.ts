@@ -26,7 +26,7 @@ export class ContextRole {
 @Injectable({
   providedIn: 'root'
 })
-export class DepartmentContextRoleService {
+export class SubStructureContextRoleService {
   constructor(private currentUserService: CurrentUserService) {}
 
   getContextRoleForDepartment$(department: DepartmentUnit): Observable<ContextRole> {
