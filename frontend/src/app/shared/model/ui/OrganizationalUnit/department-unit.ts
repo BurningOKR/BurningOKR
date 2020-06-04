@@ -5,7 +5,6 @@ export class DepartmentUnit extends SubStructure {
   okrMasterId: UserId;
   okrTopicSponsorId: UserId;
   okrMemberIds: UserId[];
-  isParentStructureACorporateObjectiveStructure: boolean;
 
   constructor(
     id: number,

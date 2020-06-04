@@ -22,13 +22,15 @@ export class CorporateObjectiveStructureMapper {
       dto.label,
       dto.parentStructureId,
       dto.subStructureIds,
-      dto.isActive
+      dto.isActive,
+      dto.isParentStructureACorporateObjectiveStructure
     );
   }
 
   static mapToCorporateObjectiveStructureDto(entity: CorporateObjectiveStructure): CorporateObjectiveStructureDto {
     const dto: CorporateObjectiveStructureDto = new CorporateObjectiveStructureDto();
     dto.structureId = entity.id;
+    dto.isParentStructureACorporateObjectiveStructure = entity.isParentStructureACorporateObjectiveStructure;
     dto.structureName = entity.name;
     dto.objectiveIds = entity.objectives;
     dto.label = entity.label;

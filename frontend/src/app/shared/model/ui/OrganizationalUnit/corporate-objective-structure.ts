@@ -12,8 +12,9 @@ export class CorporateObjectiveStructure extends SubStructure {
     label: string,
     parentStructureId: number,
     subStructureIds: StructureId[],
-    isActive: boolean) {
-    super(id, name, label, objectives, parentStructureId, isActive);
+    isActive: boolean,
+    isParentStructureACorporateObjectiveStructure?: boolean) {
+    super(id, name, label, objectives, parentStructureId, isActive, isParentStructureACorporateObjectiveStructure);
     this.subStructureIds = subStructureIds;
   }
 }

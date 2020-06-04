@@ -7,4 +7,5 @@ export class SubStructureDto extends StructureDto {
   __structureType: StructureType;
   parentStructureId: StructureId;
   isActive: boolean;
+  isParentStructureACorporateObjectiveStructure?: boolean;
 }
