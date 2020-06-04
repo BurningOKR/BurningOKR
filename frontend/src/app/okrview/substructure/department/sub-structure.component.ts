@@ -90,11 +90,10 @@ export class SubStructureComponent implements OnInit, OnDestroy {
       );
   }
 
-  // TODO: (R.J. 04.06.20) clickedEditDepartment for SubStructures
   // Template actions
-  clickedEditDepartment(department: DepartmentUnit): void {
+  clickedEditDepartment(subStructure: SubStructure): void {
     const dialogReference: MatDialogRef<SubstructureFormComponent, object> = this.matDialog.open(SubstructureFormComponent, {
-      data: { department }
+      data: { subStructure }
     });
 
     this.subscriptions.push(
@@ -105,7 +104,7 @@ export class SubStructureComponent implements OnInit, OnDestroy {
           filter(v => v as any),
           switchMap(n => n as any),
         )
-        .subscribe(editedDepartment => this.onSubStructureEdited(editedDepartment as DepartmentUnit))
+        .subscribe(editedSubStructure => this.onSubStructureEdited(editedSubStructure as SubStructure))
     );
   }
 

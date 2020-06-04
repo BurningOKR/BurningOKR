@@ -26,6 +26,7 @@ export class SubstructureFormComponent {
   subStructure: SubStructure;
   subStructureForm: FormGroup;
   title: string;
+  structureType = StructureType;
   getErrorMessage = this.controlHelperService.getErrorMessage;
 
   constructor(private dialogRef: MatDialogRef<SubstructureFormComponent>,
@@ -37,7 +38,8 @@ export class SubstructureFormComponent {
     this.subStructureForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
       label: new FormControl(this.getDefaultLabel(), [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
-      isActive: new FormControl(true)
+      isActive: new FormControl(true),
+      structureType: new FormControl(StructureType.CORPORATE_OBJECTIVE_STRUCTURE)
     });
 
     if (this.formData.subStructure) {
@@ -64,37 +66,51 @@ export class SubstructureFormComponent {
 
   // TODO: Save department
   saveDepartment(): void {
-    const subStructure: SubStructure | undefined = this.formData.subStructure;
-
-    if (subStructure) {
-      subStructure.name = this.subStructureForm.get('name').value;
-      subStructure.label = this.subStructureForm.get('label').value;
-      subStructure.isActive = this.subStructureForm.get('isActive').value;
-
-      this.dialogRef.close(this.structureMapper.putSubStructure$(subStructure));
+    if (this.formData.subStructure) {
+      this.updateSubStructure();
     } else {
-      const formData: DepartmentUnit = this.subStructureForm.getRawValue();
-      const newDepartment: DepartmentDto = {
-        structureName: formData.name,
-        label: formData.label,
-        okrMasterId: undefined,
-        okrTopicSponsorId: undefined,
-        okrMemberIds: undefined,
-        isActive: formData.isActive,
-        isParentStructureACorporateObjectiveStructure: false,
-        __structureType: StructureType.DEPARTMENT,
-        parentStructureId: undefined
-      };
-
-      if (this.formData.companyId) {
-        newDepartment.parentStructureId = this.formData.companyId;
-        this.dialogRef.close(this.departmentMapper.postDepartmentForCompany$(this.formData.companyId, newDepartment));
-      } else if (this.formData.subStructureId) {
-        newDepartment.parentStructureId = this.formData.subStructureId;
-        this.dialogRef.close(this.departmentMapper.postDepartmentForDepartment$(this.formData.subStructureId, newDepartment));
-      }
-
+      this.createSubStructure();
     }
+  }
+
+  updateSubStructure(): void {
+    const subStructure: SubStructure | undefined = this.formData.subStructure;
+    subStructure.name = this.subStructureForm.get('name').value;
+    subStructure.label = this.subStructureForm.get('label').value;
+    subStructure.isActive = this.subStructureForm.get('isActive').value;
+
+    this.dialogRef.close(this.structureMapper.putSubStructure$(subStructure));
+  }
+
+  createSubStructure(): void {
+    const formData: DepartmentUnit = this.subStructureForm.getRawValue();
+    const newDepartment: DepartmentDto = {
+      structureName: formData.name,
+      label: formData.label,
+      okrMasterId: undefined,
+      okrTopicSponsorId: undefined,
+      okrMemberIds: undefined,
+      isActive: formData.isActive,
+      isParentStructureACorporateObjectiveStructure: false,
+      __structureType: StructureType.DEPARTMENT,
+      parentStructureId: undefined
+    };
+
+    if (this.formData.companyId) {
+      newDepartment.parentStructureId = this.formData.companyId;
+      this.dialogRef.close(this.departmentMapper.postDepartmentForCompany$(this.formData.companyId, newDepartment));
+    } else if (this.formData.subStructureId) {
+      newDepartment.parentStructureId = this.formData.subStructureId;
+      this.dialogRef.close(this.departmentMapper.postDepartmentForDepartment$(this.formData.subStructureId, newDepartment));
+    }
+  }
+
+  createDepartment(): void {
+    // TODO: (R.J. 04.06.20) createDepartment logic
+  }
+
+  createCorporateObjectiveStructure(): void {
+    // TODO: (R.J. 04.06.20) createCorporateObjectiveStructure logic
   }
 
   private getDefaultLabel(): string {

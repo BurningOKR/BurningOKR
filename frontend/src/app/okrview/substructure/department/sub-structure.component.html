@@ -1,10 +1,10 @@
   <div class="flex-nowrap-center">
     <ng-container *ngIf="departmentView$ | async let info; else loading">
-      <ng-container *ngIf="info.subStructure as department">
+      <ng-container *ngIf="info.subStructure as subStructure">
         <ng-container *ngIf="info.cycle as cycle">
           <ng-container *ngIf="info.currentUserRole as currentUserRole">
             <mat-card class="small-padding card-margin card-size"
-                      [ngClass]="{ 'inactive-element': !department.isActive }">
+                      [ngClass]="{ 'inactive-element': !subStructure.isActive }">
 
               <div class="flex-wrap inner-padding">
                 <div class="icon-spacer-large">
@@ -15,17 +15,17 @@
 
                 <div class="flex-wrap-spreadinner f-1">
                   <div class="department-flex">
-                    <div class="department-title">{{ department.name }}</div>
-                    <div class="department-subtitle"> {{ department.label }}</div>
+                    <div class="department-title">{{ subStructure.name }}</div>
+                    <div class="department-subtitle"> {{ subStructure.label }}</div>
                   </div>
-                  <div *ngIf="!department.isActive" class="flex-nowrap-center department-inactive-box">
+                  <div *ngIf="!subStructure.isActive" class="flex-nowrap-center department-inactive-box">
                     <mat-icon>info</mat-icon>
                     <span i18n="@@component_department_structureNotActive">Diese Struktur ist nicht aktiv</span>
                   </div>
                 </div>
                 <div class="icon-spacer-large" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
                   <button mat-icon-button [matMenuTriggerFor]="optionsMenu"
-                          [matMenuTriggerData]="{ department: department }">
+                          [matMenuTriggerData]="{ department: subStructure }">
                     <mat-icon i18n-matTooltip="@@component_department_moreOptionsStructure"
                               matTooltip="Mehr Optionen zu dieser Struktur">more_vert
                     </mat-icon>
@@ -39,7 +39,7 @@
                 <!-- Overview Tab-->
                 <mat-tab i18n-label="@@component_department_overview" label="Übersicht">
                   <div class="inner-padding">
-                    <app-substructure-overview-tab [department]="department" [currentUserRole]="currentUserRole"
+                    <app-substructure-overview-tab [department]="subStructure" [currentUserRole]="currentUserRole"
                                                    [cycle]="cycle">
                     </app-substructure-overview-tab>
                   </div>
@@ -48,7 +48,7 @@
                 <!-- Members Tab-->
                 <mat-tab i18n-label="@@component_department_teamMember" label="Teammitglieder">
                   <div class="inner-padding">
-                    <app-department-tab-team [department]="department" [currentUserRole]="currentUserRole"
+                    <app-department-tab-team [department]="subStructure" [currentUserRole]="currentUserRole"
                                              [cycle]="cycle">
                     </app-department-tab-team>
                   </div>
@@ -58,7 +58,7 @@
                 <mat-tab i18n-label="@@component_department_subStructure" label="Unterstrukturen">
                   <ng-template matTabContent>
                     <div class="inner-padding">
-                      <app-substructures-tab [department]="department" [currentUserRole]="currentUserRole"
+                      <app-substructures-tab [department]="subStructure" [currentUserRole]="currentUserRole"
                                              [cycle]="cycle">
                       </app-substructures-tab>
                     </div>
