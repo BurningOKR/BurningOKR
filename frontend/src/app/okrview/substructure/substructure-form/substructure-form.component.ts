@@ -10,6 +10,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { StructureType } from '../../../shared/model/api/structure/structure-type.enum';
 import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
 import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
+import { CorporateObjectiveStructure } from '../../../shared/model/ui/OrganizationalUnit/corporate-objective-structure';
 
 interface SubstructureFormData {
   subStructure?: SubStructure;
@@ -84,32 +85,37 @@ export class SubstructureFormComponent {
 
   createSubStructure(): void {
     const formData: DepartmentUnit = this.subStructureForm.getRawValue();
-    const newDepartment: DepartmentDto = {
-      structureName: formData.name,
+    const subStructure: SubStructure = {
+      id: undefined,
+      parentStructureId: undefined,
+      objectives: [],
+      name: formData.name,
       label: formData.label,
-      okrMasterId: undefined,
-      okrTopicSponsorId: undefined,
-      okrMemberIds: undefined,
       isActive: formData.isActive,
       isParentStructureACorporateObjectiveStructure: false,
-      __structureType: StructureType.DEPARTMENT,
-      parentStructureId: undefined
     };
 
-    if (this.formData.companyId) {
-      newDepartment.parentStructureId = this.formData.companyId;
-      this.dialogRef.close(this.departmentMapper.postDepartmentForCompany$(this.formData.companyId, newDepartment));
-    } else if (this.formData.subStructureId) {
-      newDepartment.parentStructureId = this.formData.subStructureId;
-      this.dialogRef.close(this.departmentMapper.postDepartmentForDepartment$(this.formData.subStructureId, newDepartment));
+    if (this.subStructureForm.get('structureType').value === StructureType.DEPARTMENT) {
+      this.createDepartment(subStructure as DepartmentUnit);
+    } else {
+      this.createCorporateObjectiveStructure(subStructure as CorporateObjectiveStructure);
     }
   }
 
-  createDepartment(): void {
-    // TODO: (R.J. 04.06.20) createDepartment logic
+  createDepartment(department: DepartmentUnit): void {
+    if (this.formData.companyId) {
+      department.parentStructureId = this.formData.companyId;
+      this.dialogRef.close(this.departmentMapper
+        .postDepartmentForCompany$(this.formData.companyId, DepartmentMapper.mapDepartmentUnit(department)));
+
+    } else if (this.formData.subStructureId) {
+      department.parentStructureId = this.formData.subStructureId;
+      this.dialogRef.close(this.departmentMapper
+        .postDepartmentForDepartment$(this.formData.subStructureId, DepartmentMapper.mapDepartmentUnit(department)));
+    }
   }
 
-  createCorporateObjectiveStructure(): void {
+  createCorporateObjectiveStructure(corporateObjectiveStructure: CorporateObjectiveStructure): void {
     // TODO: (R.J. 04.06.20) createCorporateObjectiveStructure logic
   }
 
