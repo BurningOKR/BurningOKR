@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
 import { MatDialogRef } from '@angular/material';
 import { DialogComponent } from '../../../shared/components/dialog-component/dialog.component';
 import { User } from '../../../shared/model/api/user';
@@ -16,13 +15,11 @@ import { FeedbackApiService } from '../../../shared/services/api/feedback-api.se
 })
 export class FeedbackFormComponent implements OnInit {
   feedbackForm$: Observable<FormGroup>;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
   currentUser$: Observable<User>;
   noCurrentRequest: boolean = true;
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<object>>,
               private feedbackApiService: FeedbackApiService,
-              private controlHelperService: ControlHelperService,
               private currentUserService: CurrentUserService) {
   }
 

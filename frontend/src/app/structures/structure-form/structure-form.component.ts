@@ -5,7 +5,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyDto } from '../../shared/model/api/company.dto';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DialogComponent } from '../../shared/components/dialog-component/dialog.component';
-import { ControlHelperService } from '../../shared/services/helper/control-helper.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 interface CompanyFormData {
@@ -20,13 +19,11 @@ interface CompanyFormData {
 
 export class StructureFormComponent {
   companyForm: FormGroup;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
   title: string;
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<CompanyFormData>>,
               private companyMapper: CompanyMapper,
               private i18n: I18n,
-              private controlHelperService: ControlHelperService,
               @Inject(MAT_DIALOG_DATA) private formData: CompanyFormData) {
     this.companyForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),

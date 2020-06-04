@@ -1,14 +1,14 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Injectable } from '@angular/core';
-import { AbstractValidator, DateFormValidator } from '../../validators/abstract-validator';
+import { AbstractValidator, getValidators } from '../../validators/abstract-validator';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ControlHelperService {
 
-  validators: AbstractValidator[] = [DateFormValidator];
+  // validators: AbstractValidator[] = [DateFormValidator];
 
   private requiredErrorMessage = this.i18n({
     id: 'requiredError',
@@ -32,29 +32,28 @@ export class ControlHelperService {
   constructor(private i18n: I18n) {
   }
 
-  getErrorMessage(form: FormGroup, controlName: string): string {
-    const control: AbstractControl = form.get(controlName);
-
-
-    if (control.hasError('required')) {
-      return this.requiredErrorMessage;
-    } else if (control.hasError('maxlength')) {
-      return this.maxLenghsErrorMessage;
-    } else if (control.hasError('dateInThePast')) {
-      return this.dateInThePastErrorMessage;
-    } else {
-      return this.invalidFormValueErrorMessage;
-    }
-  }
-
-
-  get(control: AbstractControl): string {
-    const validator: AbstractValidator = this.validators
+  getErrorMessage(control: FormControl): string {
+    const validator: AbstractValidator = getValidators(this.i18n)
       .find(val => control.hasError(val.getErrorCode()));
     if (validator) {
       return validator.getErrorMessage();
     } else {
       return this.invalidFormValueErrorMessage;
     }
+
+    // if (control.hasError('required')) {
+    //   return this.requiredErrorMessage;
+    // } else if (control.hasError('maxlength')) {
+    //   return this.maxLenghsErrorMessage;
+    // } else if (control.hasError('dateInThePast')) {
+    //   return this.dateInThePastErrorMessage;
+    // } else {
+    //   return this.invalidFormValueErrorMessage;
+    // }
   }
+
+
+  // get(control: AbstractControl): string {
+  //
+  // }
 }

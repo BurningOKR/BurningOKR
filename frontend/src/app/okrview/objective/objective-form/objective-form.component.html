@@ -17,12 +17,14 @@
 
     <mat-form-field class="form-whole-line">
       <input type="text" i18n-placeholder="@@component_objectiveForm_description" matInput placeholder="Beschreibung" formControlName="description">
-      <mat-error *ngIf="objectiveForm.get('description').invalid">{{getErrorMessage(objectiveForm, 'description')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('description')"></app-form-error>
+
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
       <input type="text" i18n-placeholder="@@component_objectiveForm_annotation" matInput placeholder="Anmerkungen" formControlName="remark">
-      <mat-error *ngIf="objectiveForm.get('remark').invalid">{{getErrorMessage(objectiveForm, 'remark')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('remark')"></app-form-error>
+
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">

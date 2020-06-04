@@ -5,7 +5,6 @@ import { CurrentOkrviewService } from '../../current-okrview.service';
 import { forkJoin, NEVER, Observable, Subject, Subscription } from 'rxjs';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { DepartmentStructure } from '../../../shared/model/ui/department-structure';
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -40,7 +39,6 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   parentElements$ = new Subject<DepartmentObjectiveStructure[]>();
   users: User[];
   user: User;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
 
   subscriptions: Subscription[] = [];
   title: string;
@@ -51,7 +49,6 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     private currentOkrViewService: CurrentOkrviewService,
     private currentDepartmentStructureService: CurrentDepartmentStructureService,
     private i18n: I18n,
-    private controlHelperService: ControlHelperService,
     @Inject(MAT_DIALOG_DATA) private formData: ObjectiveFormData
   ) {
   }

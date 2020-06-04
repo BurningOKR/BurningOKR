@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
-import { ControlHelperService } from '../../shared/services/helper/control-helper.service';
 import { MatDialogRef } from '@angular/material';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 
@@ -15,6 +14,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CycleDialogData } from '../../shared/model/ui/cycle-dialog-data';
 import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator-function';
+import { DateFormValidatorImpl } from '../../shared/validators/abstract-validator';
 
 @Component({
   selector: 'app-cycle-creation-form',
@@ -27,12 +27,10 @@ export class CycleCreationFormComponent {
   cycles: CycleUnit[];
   title: string;
   saveAndCloseLabel: string;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
 
   constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
               private cycleMapper: CycleMapper,
               private companyService: CompanyMapper,
-              private controlHelperService: ControlHelperService,
               private i18n: I18n,
               @Inject(MAT_DIALOG_DATA) public formData: CycleDialogData) {
     this.formData.cycles$
@@ -40,11 +38,11 @@ export class CycleCreationFormComponent {
         this.cycles = cycles;
         this.cycleForm = new FormGroup({
           name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-          startDate: new FormControl('', [dateFormatValidatorFunction, dateNotInThePastValidatorFunction]),
+          startDate: new FormControl('', [DateFormValidatorImpl.Validate, dateNotInThePastValidatorFunction]),
           endDate: new FormControl('', [dateFormatValidatorFunction]),
           isVisible: new FormControl(true)
         }, [startDateBeforeEndDateValidatorFunction,
-            dateRangeInRangeWithinAnotherDatesValidatorFunction(this.cycles)]);
+          dateRangeInRangeWithinAnotherDatesValidatorFunction(this.cycles)]);
       });
 
     this.title = this.i18n({
@@ -70,15 +68,15 @@ export class CycleCreationFormComponent {
   }
 
   isInPreparation(): boolean {
-      const date: Date = this.cycleForm.get('startDate').value;
+    const date: Date = this.cycleForm.get('startDate').value;
 
-      return date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
+    return date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
   }
 
   createCycle(): void {
     const startDate: Date = this.cycleForm.get('startDate').value;
     const endDate: Date = this.cycleForm.get('endDate').value;
-    const isVisible: boolean = this.cycleForm.get ('isVisible').value;
+    const isVisible: boolean = this.cycleForm.get('isVisible').value;
     const cycle: CycleDto = {
       name: this.cycleForm.get('name').value,
       plannedStartDate:

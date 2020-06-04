@@ -24,13 +24,11 @@ export class SubstructureFormComponent {
   department: DepartmentUnit;
   departmentForm: FormGroup;
   title: string;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
 
   constructor(private dialogRef: MatDialogRef<SubstructureFormComponent>,
               private departmentMapper: DepartmentMapper,
               private inactiveTeamService: InactiveTeamService,
               private i18n: I18n,
-              private controlHelperService: ControlHelperService,
               @Inject(MAT_DIALOG_DATA) private formData: SubstructureFormData) {
     this.departmentForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),

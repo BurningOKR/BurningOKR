@@ -4,7 +4,6 @@ import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { Unit } from '../../../shared/model/api/unit.enum';
-import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
 import { startNotEqualEndValidatorFunction } from '../../../shared/validators/start-not-equal-end-validator-function';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
@@ -23,11 +22,9 @@ export class KeyResultFormComponent {
   keyResultForm: FormGroup;
   unitEnum = Unit;
   title: string;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
 
   constructor(private dialogRef: MatDialogRef<KeyResultFormComponent>,
               private i18n: I18n,
-              private controlHelperService: ControlHelperService,
               private keyResultMapper: KeyResultMapper, @Inject(MAT_DIALOG_DATA) private formData: KeyResultFormData) {
     this.keyResultForm = new FormGroup({
       keyResult: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -74,7 +71,6 @@ export class KeyResultFormComponent {
   closeDialog(): void {
     this.dialogRef.close(undefined);
   }
-
   saveKeyResult(): void {
     const keyResult: ViewKeyResult = this.formData.keyResult;
 

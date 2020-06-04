@@ -26,6 +26,7 @@ import { OkrToolbarBareComponent } from './components/okr-toolbar-bare/okr-toolb
 import { OkrToolbarComponent } from './components/okr-toolbar/okr-toolbar.component';
 import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
+import { FormErrorComponent } from './components/form-error/form-error.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-lo
     OkrToolbarComponent,
     CapsLockDirective,
     NonLoggedInCardComponent,
+    FormErrorComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent

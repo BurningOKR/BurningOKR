@@ -4,13 +4,12 @@ import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-
-import { ControlHelperService } from '../../shared/services/helper/control-helper.service';
 import { dateFormatValidatorFunction } from '../../shared/validators/date-format-validator-function';
 import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator-function';
 import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator-function';
 import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator-function';
 import { Observable } from 'rxjs';
+import { DateFormValidatorImpl } from '../../shared/validators/abstract-validator';
 
 export interface CycleEditFormData {
   cycle: CycleUnit;
@@ -24,13 +23,11 @@ export interface CycleEditFormData {
 })
 export class CycleEditFormComponent {
   cycleStateEnum = CycleState;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
   cycleForm: FormGroup;
 
   constructor(private dialogRef: MatDialogRef<CycleEditFormComponent>,
               private cycleMapper: CycleMapper,
               private companyMapper: CompanyMapper,
-              private controlHelperService: ControlHelperService,
               @Inject(MAT_DIALOG_DATA) private formData: CycleEditFormData) {
     this.loadCyclesWithHistoryCompanyInForm();
     this.generateCycleForm();
@@ -67,7 +64,7 @@ export class CycleEditFormComponent {
     this.cycleForm = new FormGroup({
       name: new FormControl(cycle.name, [Validators.required,  Validators.maxLength(255)]),
       startDate: new FormControl({value: cycle.startDate, disabled: isStartDateDisabled},
-        [dateFormatValidatorFunction, dateNotInThePastValidatorFunction]), // ADD CUSTOM DATE VALIDATOR https://stackoverflow.com/questions/51633047/angular-material-date-validator-get-invalid-value
+        [DateFormValidatorImpl.Validate, dateNotInThePastValidatorFunction]), // ADD CUSTOM DATE VALIDATOR https://stackoverflow.com/questions/51633047/angular-material-date-validator-get-invalid-value
       endDate: new FormControl({value: cycle.endDate, disabled: isEndDateDisabled},
         [dateFormatValidatorFunction]),
       isVisible: new FormControl({value: cycle.isVisible, disabled: isVisibilityOptionDisabled})

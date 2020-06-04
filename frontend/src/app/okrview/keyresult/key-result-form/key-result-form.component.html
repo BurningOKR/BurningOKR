@@ -3,22 +3,26 @@
   <form [formGroup]="keyResultForm">
     <mat-form-field class="keyresult">
       <textarea i18n-placeholder="@@component_keyResultForm_keyResult" matInput placeholder="Key Result *" cdkTextareaAutosize formControlName="keyResult"></textarea>
-      <mat-error *ngIf="keyResultForm.get('keyResult').invalid">{{getErrorMessage(keyResultForm, 'keyResult')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('keyResult')"></app-form-error>
+
     </mat-form-field>
 
     <mat-form-field class="number-input">
       <input i18n-placeholder="@@component_keyResultForm_start" matInput placeholder="Start *" type="number" formControlName="start" min="0">
-      <mat-error *ngIf="keyResultForm.get('start').invalid">{{getErrorMessage(keyResultForm, 'start')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('start')"></app-form-error>
+
     </mat-form-field>
 
     <mat-form-field class="number-input">
       <input i18n-placeholder="@@component_keyResultForm_target" matInput placeholder="Ziel *" type="number" formControlName="end" min="0">
-      <mat-error *ngIf="keyResultForm.get('end').invalid">{{getErrorMessage(keyResultForm, 'end')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('end')"></app-form-error>
+
     </mat-form-field>
 
     <mat-form-field class="number-input">
       <input i18n-placeholder="@@component_keyResultForm_current" matInput placeholder="Aktuell *" type="number" formControlName="current" min="0">
-      <mat-error *ngIf="keyResultForm.get('current').invalid">{{getErrorMessage(keyResultForm, 'current')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('current')"></app-form-error>
+
     </mat-form-field>
 
     <mat-form-field class="number-input">
@@ -27,12 +31,14 @@
           {{getViewUnit(unitKey)}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="keyResultForm.get('unit').invalid">{{getErrorMessage(keyResultForm, 'unit')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('unit')"></app-form-error>
+
     </mat-form-field>
 
     <mat-form-field class="fullWidth">
       <textarea matInput matTextareaAutosize i18n-placeholder="@@component_keyResultForm_description" placeholder="Beschreibung" formControlName="description"></textarea>
-      <mat-error *ngIf="keyResultForm.get('description').invalid">{{getErrorMessage(keyResultForm, 'description')}}</mat-error>
+      <app-form-error [control]="cycleForm.get('description')"></app-form-error>
+
     </mat-form-field>
 
   </form>
