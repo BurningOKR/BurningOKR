@@ -39,6 +39,25 @@ public class StructureController {
     return ResponseEntity.ok((SubStructureDto) mapper.mapEntityToDto(structure));
   }
 
+  /**
+   * API Endpoint to get the structure of all the related Departments.
+   *
+   * @param structureId a long value
+   * @return a {@link ResponseEntity} ok with a {@link Collection} of DepartmentStructure
+   */
+  @GetMapping("/structures/{structureId}/structure")
+  public ResponseEntity<Collection<StructureSchemaDto>> getDepartmentStructureOfDepartment(
+      @PathVariable long structureId) {
+    StructureService<SubStructure> structureService =
+        structureServicePicker.getRoleServiceForDepartment(structureId);
+    SubStructure structure = structureService.findById(structureId);
+    Company parentCompany = entityCrawlerService.getCompanyOfStructure(structure);
+    UUID currentUserId = userService.getCurrentUser().getId();
+    return ResponseEntity.ok(
+        structureSchemaMapper.mapStructureListToStructureSchemaList(
+            parentCompany.getSubStructures(), currentUserId));
+  }
+
   @PutMapping(value = "/structures/{structureId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<SubStructureDto> updateStructure(
       @PathVariable long structureId, @RequestBody SubStructureDto subStructureDto, User user) {
@@ -62,24 +81,5 @@ public class StructureController {
         structureServicePicker.getRoleServiceForDepartment(structureId);
     structureService.deleteStructure(structureId, user);
     return ResponseEntity.ok().build();
-  }
-
-  /**
-   * API Endpoint to get the structure of all the related Departments.
-   *
-   * @param structureId a long value
-   * @return a {@link ResponseEntity} ok with a {@link Collection} of DepartmentStructure
-   */
-  @GetMapping("/structures/{structureId}/structure")
-  public ResponseEntity<Collection<StructureSchemaDto>> getDepartmentStructureOfDepartment(
-      @PathVariable long structureId) {
-    StructureService<SubStructure> structureService =
-        structureServicePicker.getRoleServiceForDepartment(structureId);
-    SubStructure structure = structureService.findById(structureId);
-    Company parentCompany = entityCrawlerService.getCompanyOfStructure(structure);
-    UUID currentUserId = userService.getCurrentUser().getId();
-    return ResponseEntity.ok(
-        structureSchemaMapper.mapStructureListToStructureSchemaList(
-            parentCompany.getSubStructures(), currentUserId));
   }
 }

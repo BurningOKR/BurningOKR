@@ -3,6 +3,7 @@ package org.burningokr.service.structure.departmentservices;
 import java.util.Collection;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.structures.Structure;
 import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -73,7 +74,7 @@ public class StructureServiceUsers<T extends SubStructure> implements StructureS
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
-  void throwIfCycleForDepartmentIsClosed(T structureToCheck) {
+  void throwIfCycleForDepartmentIsClosed(Structure structureToCheck) {
     if (entityCrawlerService.getCycleOfStructure(structureToCheck).getCycleState()
         == CycleState.CLOSED) {
       throw new ForbiddenException(

@@ -3,6 +3,7 @@ package org.burningokr.service.structure.departmentservices;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.structures.Department;
 import org.burningokr.model.structures.ParentStructure;
+import org.burningokr.model.structures.Structure;
 import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("structureServiceAdmins")
 public class StructureServiceAdmins<T extends SubStructure> extends StructureServiceManagers<T> {
 
+  private final StructureRepository<Structure> superStructureRepository;
+
   /**
    * Initialize DepartmentServiceAdmins.
    *
@@ -30,6 +33,7 @@ public class StructureServiceAdmins<T extends SubStructure> extends StructureSer
   public StructureServiceAdmins(
       ParentService parentService,
       StructureRepository<T> structureRepository,
+      StructureRepository<Structure> superStructureRepository,
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
@@ -39,6 +43,8 @@ public class StructureServiceAdmins<T extends SubStructure> extends StructureSer
         objectiveRepository,
         activityService,
         entityCrawlerService);
+
+    this.superStructureRepository = superStructureRepository;
   }
 
   @Override
@@ -99,7 +105,7 @@ public class StructureServiceAdmins<T extends SubStructure> extends StructureSer
   @Override
   @Transactional
   public T createSubstructure(Long parentStructureId, T subDepartment, User user) {
-    T parentStructure = structureRepository.findByIdOrThrow(parentStructureId);
+    Structure parentStructure = superStructureRepository.findByIdOrThrow(parentStructureId);
 
     throwIfCycleForDepartmentIsClosed(parentStructure);
 

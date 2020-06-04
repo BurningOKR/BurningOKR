@@ -22,12 +22,11 @@ public class EntityCrawlerService {
    * @param departmentToCheck a {@link Department} object
    * @return a {@link Cycle} object
    */
-  public Cycle getCycleOfStructure(SubStructure departmentToCheck) {
-    Structure parentStructure = departmentToCheck.getParentStructure();
-    if (parentStructure instanceof Company) {
-      return this.getCycleOfCompany((Company) parentStructure);
+  public Cycle getCycleOfStructure(Structure departmentToCheck) {
+    if (departmentToCheck instanceof Company) {
+      return this.getCycleOfCompany((Company) departmentToCheck);
     } else {
-      return this.getCycleOfStructure((SubStructure) parentStructure);
+      return this.getCycleOfStructure(((SubStructure) departmentToCheck).getParentStructure());
     }
   }
 
