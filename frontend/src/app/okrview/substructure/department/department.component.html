@@ -89,11 +89,11 @@
         <span i18n="@@component_department_enableStructure">Struktur auf aktiv setzen</span>
       </div>
     </button>
-    <button mat-menu-item (click)="downloadDepartmentExcelFile()">
+    <button mat-menu-item (click)="downloadDepartmentExcelFile(department)">
       <mat-icon>save_alt</mat-icon>
       <span i18n="@@component_department_export">Exportieren</span>
     </button>
-    <button mat-menu-item (click)="downloadDepartmentExcelEmailFile()">
+    <button mat-menu-item (click)="downloadDepartmentExcelEmailFile(department)">
       <mat-icon>save_alt</mat-icon>
       <span i18n="@@component_department_exportContacts">Kontakte exportieren</span>
     </button>

@@ -32,7 +32,6 @@ interface DepartmentView {
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit, OnDestroy {
-  department: DepartmentUnit;
   currentUserRole$: Observable<ContextRole>;
   cycle$: Observable<CycleUnit>;
   departmentView$: Observable<DepartmentView>;
@@ -60,9 +59,6 @@ export class DepartmentComponent implements OnInit, OnDestroy {
           this.currentOkrViewService.browseDepartment(departmentId);
 
           return this.departmentMapperService.getDepartmentById$(departmentId);
-        }),
-        tap(department => {
-          this.department = department;
         })
       );
 
@@ -184,12 +180,12 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     this.moveToParentStructure(department);
   }
 
-  downloadDepartmentExcelFile(): void {
-    this.excelService.downloadExcelFileForOkrTeam(this.department.id);
+  downloadDepartmentExcelFile(department: DepartmentUnit): void {
+    this.excelService.downloadExcelFileForOkrTeam(department.id);
   }
 
-  downloadDepartmentExcelEmailFile(): void {
-    this.excelService.downloadExcelEmailFileForOkrTeam(this.department.id);
+  downloadDepartmentExcelEmailFile(department: DepartmentUnit): void {
+    this.excelService.downloadExcelEmailFileForOkrTeam(department.id);
   }
 
   // Template helper functions
