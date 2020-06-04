@@ -173,13 +173,12 @@ export class SubStructureComponent implements OnInit, OnDestroy {
   }
 
   onSubStructureDeleted(subStructure: SubStructure): void {
-    // TODO: refresh View
-    // if (subStructure.isParentStructureACorporateObjectiveStructure) {
-    //   this.currentOkrViewService.refreshCurrentDepartmentView(subStructure.parentStructureId);
-    // } else {
-    //   // Therefore the parent structure is a company
-    //   this.currentOkrViewService.refreshCurrentCompanyView(subStructure.parentStructureId);
-    // }
+    if (subStructure.isParentStructureACorporateObjectiveStructure) {
+      this.currentOkrViewService.refreshCurrentDepartmentView(subStructure.parentStructureId);
+    } else {
+      // Therefore the parent structure is a company
+      this.currentOkrViewService.refreshCurrentCompanyView(subStructure.parentStructureId);
+    }
     this.moveToParentStructure(subStructure);
   }
 
@@ -193,14 +192,13 @@ export class SubStructureComponent implements OnInit, OnDestroy {
 
   // Template helper functions
   moveToParentStructure(subStructure: SubStructure): void {
-    // TODO: Move to parent structure
-    // if (subStructure.isParentStructureACorporateObjectiveStructure) {
-    //   this.router.navigate([`../${subStructure.parentStructureId}`], { relativeTo: this.route })
-    //     .catch();
-    // } else {
-    //   this.router.navigate([`../../companies/${subStructure.parentStructureId}`], { relativeTo: this.route })
-    //     .catch();
-    // }
+    if (subStructure.isParentStructureACorporateObjectiveStructure) {
+      this.router.navigate([`../${subStructure.parentStructureId}`], { relativeTo: this.route })
+        .catch();
+    } else {
+      this.router.navigate([`../../companies/${subStructure.parentStructureId}`], { relativeTo: this.route })
+        .catch();
+    }
   }
 
   ngOnDestroy(): void {
