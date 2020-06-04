@@ -1,5 +1,5 @@
-<div *ngIf="department$ | async as department; else loading">
-  <button class="previewButton" [ngClass]="{ 'inactive-element': !department.isActive }" mat-raised-button [routerLink]="['../../departments', departmentId]" i18n-[matTooltip]="@@component_departmentPreviewButton_showDepartment" [matTooltip]="department.name + ' anzeigen'">
+<div *ngIf="subStructure$ | async as subStructure; else loading">
+  <button class="previewButton" [ngClass]="{ 'inactive-element': !subStructure.isActive }" mat-raised-button [routerLink]="['../../departments', structureId]" i18n-[matTooltip]="@@component_departmentPreviewButton_showDepartment" [matTooltip]="subStructure.name + ' anzeigen'">
     <div class="d-flex center">
       <div class="f-1">
         <mat-icon class="font-32">group</mat-icon>
@@ -7,11 +7,11 @@
       <div class="f-5">
         {{ title }}
         <br/>
-        {{ department.name }}
+        {{ subStructure.name }}
         <div class="d-flex">
           <div class="f-1">
             <mat-icon i18n-matTooltip="@@component_departmentPreviewButton_listObjectives" matTooltip="Objectives dieses Struktur">list</mat-icon>
-            {{ department.objectives.length }}
+            {{ subStructure.objectives.length }}
           </div>
           <div class="f-1">
             <mat-icon i18n-matTooltip="@@component_departmentPreviewButton_listSubstructure" matTooltip="Unterstrukturen dieser Struktur">low_priority</mat-icon>
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="f-05" *ngIf="!department.isActive">
+      <div class="f-05" *ngIf="!subStructure.isActive">
         <mat-icon i18n-matTooltip="@@component_departmentPreviewButton_notActive" matTooltip="Diese Struktur ist nicht aktiv">info</mat-icon>
       </div>
     </div>

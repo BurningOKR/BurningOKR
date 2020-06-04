@@ -7,15 +7,14 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CompanyHistory;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
-import org.burningokr.model.structures.SubStructure;
+import org.burningokr.model.structures.*;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.CompanyRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
@@ -32,7 +31,7 @@ public class CompanyService {
   private CycleRepository cycleRepository;
   private CompanyHistoryRepository companyHistoryRepository;
   private CompanyRepository companyRepository;
-  private DepartmentRepository departmentRepository;
+  private StructureRepository<SubStructure> structureRepository;
   private ObjectiveRepository objectiveRepository;
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
@@ -52,14 +51,14 @@ public class CompanyService {
       CycleRepository cycleRepository,
       CompanyHistoryRepository companyHistoryRepository,
       CompanyRepository companyRepository,
-      DepartmentRepository departmentRepository,
+      StructureRepository<SubStructure> structureRepository,
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
     this.cycleRepository = cycleRepository;
     this.companyHistoryRepository = companyHistoryRepository;
     this.companyRepository = companyRepository;
-    this.departmentRepository = departmentRepository;
+    this.structureRepository = structureRepository;
     this.objectiveRepository = objectiveRepository;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
@@ -210,7 +209,7 @@ public class CompanyService {
 
     department.setParentStructure(referencedCompany);
 
-    department = departmentRepository.save(department);
+    department = structureRepository.save(department);
     logger.info(
         "Created department "
             + department.getName()
@@ -222,6 +221,26 @@ public class CompanyService {
     activityService.createActivity(user, department, Action.CREATED);
 
     return department;
+  }
+
+  public CorporateObjectiveStructure createCorporateObjectiveStructure(Long companyId, CorporateObjectiveStructure corporateObjectiveStructure, User user) {
+    Company referencedCompany = companyRepository.findByIdOrThrow(companyId);
+
+    throwIfCompanyInClosedCycle(referencedCompany);
+
+    corporateObjectiveStructure.setParentStructure(referencedCompany);
+
+    corporateObjectiveStructure = structureRepository.save(corporateObjectiveStructure);
+    logger.info(
+        "Created corporateObjectiveStructure: "
+            + corporateObjectiveStructure.getName()
+            + " into Company "
+            + referencedCompany.getName()
+            + "(id:"
+            + companyId
+            + ")");
+    activityService.createActivity(user, corporateObjectiveStructure, Action.CREATED);
+    return corporateObjectiveStructure;
   }
 
   private void throwIfCompanyInClosedCycle(Company companyToCheck) {

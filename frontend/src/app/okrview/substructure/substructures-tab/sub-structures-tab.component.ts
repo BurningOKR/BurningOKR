@@ -7,6 +7,7 @@ import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/depa
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ContextRole } from '../../../shared/model/ui/context-role';
+import { CorporateObjectiveStructure } from '../../../shared/model/ui/OrganizationalUnit/corporate-objective-structure';
 
 @Component({
   selector: 'app-substructures-tab',
@@ -14,7 +15,7 @@ import { ContextRole } from '../../../shared/model/ui/context-role';
   styleUrls: ['./sub-structures-tab.component.scss']
 })
 export class SubStructuresTabComponent implements OnDestroy {
-  @Input() department: DepartmentUnit;
+  @Input() corporateObjectiveStructure: CorporateObjectiveStructure;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
 
@@ -29,7 +30,7 @@ export class SubStructuresTabComponent implements OnDestroy {
 
   clickedAddSubDepartment(): void {
     const dialogReference: MatDialogRef<SubstructureFormComponent> = this.matDialog.open(SubstructureFormComponent, {
-      data: { departmentId: this.department.id }
+      data: { departmentId: this.corporateObjectiveStructure.id }
     });
 
     this.subscriptions.push(
@@ -47,6 +48,6 @@ export class SubStructuresTabComponent implements OnDestroy {
   // TODO: (R.J. 02.06.20) Make this work with CorporateObjectiveStructures, because departments no longer have subStructureIds.
   onSubDepartmentAdded(addedSubDepartment: DepartmentUnit): void {
     // this.subStructure.subStructureIds.push(addedSubDepartment.id);
-    this.currentOkrViewService.refreshCurrentDepartmentView(this.department.id);
+    this.currentOkrViewService.refreshCurrentDepartmentView(this.corporateObjectiveStructure.id);
   }
 }

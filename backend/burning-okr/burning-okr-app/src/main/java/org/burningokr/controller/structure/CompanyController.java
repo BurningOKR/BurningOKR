@@ -213,7 +213,7 @@ public class CompanyController {
 
     CorporateObjectiveStructure corporateObjectiveStructure = corporateObjectiveStructureMapper.mapDtoToEntity(corporateObjectiveStructureDto);
     corporateObjectiveStructure.setId(null);
-    CorporateObjectiveStructure createdStructure = corporateObjectiveStructureService.createSubstructure(companyId, corporateObjectiveStructure, user);
+    CorporateObjectiveStructure createdStructure = companyService.createCorporateObjectiveStructure(companyId, corporateObjectiveStructure, user);
 
     return ResponseEntity.ok(corporateObjectiveStructureMapper.mapEntityToDto(createdStructure));
   }

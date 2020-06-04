@@ -11,6 +11,7 @@ import { StructureType } from '../../../shared/model/api/structure/structure-typ
 import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
 import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
 import { CorporateObjectiveStructure } from '../../../shared/model/ui/OrganizationalUnit/corporate-objective-structure';
+import { CorporateObjectiveStructureMapper } from '../../../shared/services/mapper/corporate-objective-structure.mapper';
 
 interface SubstructureFormData {
   subStructure?: SubStructure;
@@ -33,6 +34,7 @@ export class SubstructureFormComponent {
   constructor(private dialogRef: MatDialogRef<SubstructureFormComponent>,
               private structureMapper: StructureMapper,
               private departmentMapper: DepartmentMapper,
+              private corporateObjectiveStructureMapper: CorporateObjectiveStructureMapper,
               private i18n: I18n,
               private controlHelperService: ControlHelperService,
               @Inject(MAT_DIALOG_DATA) private formData: SubstructureFormData) {
@@ -116,7 +118,13 @@ export class SubstructureFormComponent {
   }
 
   createCorporateObjectiveStructure(corporateObjectiveStructure: CorporateObjectiveStructure): void {
-    // TODO: (R.J. 04.06.20) createCorporateObjectiveStructure logic
+    if (this.formData.companyId) {
+      corporateObjectiveStructure.parentStructureId = this.formData.companyId;
+      this.dialogRef.close(this.corporateObjectiveStructureMapper
+        .createForCompany$(this.formData.companyId, corporateObjectiveStructure));
+    } else if (this.formData.subStructureId) {
+
+    }
   }
 
   private getDefaultLabel(): string {

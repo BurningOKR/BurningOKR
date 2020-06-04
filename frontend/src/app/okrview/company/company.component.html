@@ -16,7 +16,7 @@
       <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsManager">Ihre Teams als Manager</div>
       <div class="flex-wrap-spreadinner">
         <div *ngFor="let managerDepartmentId of currentlyManagerDepartmentIds">
-          <app-substructure-preview-button [departmentId]="managerDepartmentId"></app-substructure-preview-button>
+          <app-substructure-preview-button [structureId]="managerDepartmentId"></app-substructure-preview-button>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
       <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsMember">Ihre Teams als Mitglied</div>
       <div class="flex-wrap-spreadinner">
         <div *ngFor="let memberDepartmentId of currentlyMemberDepartmentIds">
-          <app-substructure-preview-button [departmentId]="memberDepartmentId"></app-substructure-preview-button>
+          <app-substructure-preview-button [structureId]="memberDepartmentId"></app-substructure-preview-button>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@
         </div>
         <div class="flex-wrap-spreadinner">
           <div *ngFor="let currentdepartmentId of company.subStructureIds">
-            <app-substructure-preview-button [departmentId]="currentdepartmentId"></app-substructure-preview-button>
+            <app-substructure-preview-button [structureId]="currentdepartmentId"></app-substructure-preview-button>
           </div>
         </div>
       </div>

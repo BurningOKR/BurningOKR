@@ -5,6 +5,7 @@ import { CorporateObjectiveStructure } from '../../model/ui/OrganizationalUnit/c
 import { map } from 'rxjs/operators';
 import { CorporateObjectiveStructureDto } from '../../model/api/structure/corporate-objective-structure.dto';
 import { StructureType } from '../../model/api/structure/structure-type.enum';
+import { StructureId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -42,24 +43,13 @@ export class CorporateObjectiveStructureMapper {
     return dto;
   }
 
-  getById$(id: number): Observable<CorporateObjectiveStructure> {
-    return this.corporateObjectiveStructureApiService.getById$(id)
-      .pipe(map(CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructure));
-  }
+  createForCompany$(companyId: StructureId, corporateObjectiveStructure: CorporateObjectiveStructure)
+    : Observable<CorporateObjectiveStructure> {
 
-  create$(corporateObjectiveStructure: CorporateObjectiveStructure): Observable<CorporateObjectiveStructure> {
-    return this.corporateObjectiveStructureApiService.create$(
-      CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructureDto(corporateObjectiveStructure))
-      .pipe(map(CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructure));
-  }
-
-  update$(id: number, corporateObjectiveStructure: CorporateObjectiveStructure): Observable<CorporateObjectiveStructure> {
-    return this.corporateObjectiveStructureApiService.update$(
-      id, CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructureDto(corporateObjectiveStructure))
-      .pipe(map(CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructure));
-  }
-
-  delete$(id: number): Observable<boolean> {
-    return this.corporateObjectiveStructureApiService.delete$(id);
+    return this.corporateObjectiveStructureApiService
+      .createForCompany$(companyId, CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructureDto(corporateObjectiveStructure))
+      .pipe(
+        map((dto: CorporateObjectiveStructureDto) => CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructure(dto))
+      );
   }
 }
