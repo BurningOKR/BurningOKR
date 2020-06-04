@@ -1,6 +1,5 @@
-<ng-container *ngIf="departmentView$ | async as info">
   <div class="flex-nowrap-center">
-    <ng-container *ngIf="componentLoaded$ | async; else loading">
+    <ng-container *ngIf="departmentView$ | async let info; else loading">
       <ng-container *ngIf="info.department as department">
         <ng-container *ngIf="info.cycle as cycle">
           <ng-container *ngIf="info.currentUserRole as currentUserRole">
@@ -72,16 +71,15 @@
       </ng-container>
     </ng-container>
   </div>
-</ng-container>
 
 <!-- Options menu -->
 <mat-menu #optionsMenu="matMenu" xPosition="before">
   <ng-template matMenuContent let-department="department">
-    <button mat-menu-item (click)="clickedEditDepartment()">
+    <button mat-menu-item (click)="clickedEditDepartment(department)">
       <mat-icon>edit</mat-icon>
       <span i18n="@@component_department_editStructure">Struktur bearbeiten</span>
     </button>
-    <button mat-menu-item (click)="toggleWhetherDepartmentIsActive()">
+    <button mat-menu-item (click)="toggleDepartmentActive(department)">
       <div *ngIf="department.isActive">
         <mat-icon>power_off</mat-icon>
         <span i18n="@@component_department_disableStructure">Struktur auf inaktiv setzen</span>
@@ -142,10 +140,10 @@
 
 
 <ng-template #loading>
-  <mat-card class="small-padding card-margin card-size" [ngClass]="{ 'inactive-element': !department.isActive }">
+  <mat-card class="small-padding card-margin card-size">
     <div class="flex-wrap inner-padding">
       <div class="icon-spacer-large">
-        <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" (click)="moveToParentStructure()">
+        <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" disabled>
           <mat-icon>arrow_upward</mat-icon>
         </button>
       </div>

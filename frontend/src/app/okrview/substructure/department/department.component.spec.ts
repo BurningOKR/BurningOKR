@@ -23,14 +23,15 @@ import { ObjectiveContentsComponent } from '../../objective/objective-contents/o
 import { KeyresultComponent } from '../../keyresult/keyresult.component';
 import { of } from 'rxjs';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
-import { ObjectiveId, UserId } from '../../../shared/model/id-types';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DepartmentComponent', () => {
   let component: DepartmentComponent;
   let fixture: ComponentFixture<DepartmentComponent>;
 
   const departmentMapperService: any = {
-    getDepartmentById$: jest.fn()
+    getDepartmentById$: jest.fn(),
+    putDepartment$: jest.fn()
   };
 
   const departmentContextRoleService: any = {
@@ -63,15 +64,7 @@ describe('DepartmentComponent', () => {
   const excelService: any = {};
   const i18n: any = {};
 
-  const department: DepartmentUnit =
-    new DepartmentUnit(
-      1,
-      'testDepartment',
-      [],
-      0,
-      'department',
-      'master', 'topicSponsor', ['member'],
-    true, false);
+  let department: DepartmentUnit;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -87,7 +80,7 @@ describe('DepartmentComponent', () => {
         ObjectiveContentsComponent,
         KeyresultComponent
       ],
-      imports: [SharedModule, MaterialTestingModule, RouterTestingModule],
+      imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
         { provide: DepartmentMapper, useValue: departmentMapperService },
         { provide: DepartmentContextRoleService, useValue: departmentContextRoleService },
@@ -97,7 +90,6 @@ describe('DepartmentComponent', () => {
         { provide: CurrentCycleService, useValue: currentCycleService },
         { provide: ExcelMapper, useValue: excelService },
         { provide: I18n, useValue: i18n }
-
       ]
     })
       .compileComponents();
@@ -110,6 +102,8 @@ describe('DepartmentComponent', () => {
 
     departmentMapperService.getDepartmentById$.mockReset();
     departmentMapperService.getDepartmentById$.mockReturnValue(of(department));
+    departmentMapperService.putDepartment$.mockReset();
+    departmentMapperService.putDepartment$.mockReturnValue(of(department));
 
     currentCycleService.getCurrentCycle$.mockReset();
     currentCycleService.getCurrentCycle$.mockReturnValue(of(null));
@@ -118,6 +112,15 @@ describe('DepartmentComponent', () => {
 
     departmentContextRoleService.getContextRoleForDepartment$.mockReset();
     departmentContextRoleService.getContextRoleForDepartment$.mockReturnValue(of(null));
+
+    department = new DepartmentUnit(
+      1,
+      'testDepartment',
+      [],
+      0,
+      'department',
+      'master', 'topicSponsor', ['member'],
+      true, false);
   });
 
   it('should create', () => {
@@ -169,5 +172,57 @@ describe('DepartmentComponent', () => {
         .toHaveBeenCalledWith(department);
       done();
     });
+  });
+
+  it('toggleDepartmentActive toggles active', () => {
+    fixture = TestBed.createComponent(DepartmentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    department.isActive = false;
+
+    component.toggleDepartmentActive(department);
+
+    expect(department.isActive)
+      .toBeTruthy();
+  });
+
+  it('toggleDepartmentActive toggles active with falsy value', () => {
+    fixture = TestBed.createComponent(DepartmentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    department.isActive = null;
+
+    component.toggleDepartmentActive(department);
+
+    expect(department.isActive)
+      .toBeTruthy();
+  });
+
+  it('toggleDepartmentActive toggles inactive', () => {
+    fixture = TestBed.createComponent(DepartmentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    department.isActive = true;
+
+    component.toggleDepartmentActive(department);
+
+    expect(department.isActive)
+      .toBeFalsy();
+  });
+
+  it('toggleDepartmentActive puts department', () => {
+    fixture = TestBed.createComponent(DepartmentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    department.isActive = true;
+
+    component.toggleDepartmentActive(department);
+
+    expect(departmentMapperService.putDepartment$)
+      .toHaveBeenCalledWith(department);
   });
 });

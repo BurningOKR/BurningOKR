@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, Observable, Subject, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
@@ -37,7 +37,6 @@ export class DepartmentComponent implements OnInit, OnDestroy {
   cycle$: Observable<CycleUnit>;
   departmentView$: Observable<DepartmentView>;
   department$: Observable<DepartmentUnit>;
-  private componentLoaded$: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   subscriptions: Subscription[] = [];
 
@@ -59,7 +58,6 @@ export class DepartmentComponent implements OnInit, OnDestroy {
         switchMap(params => {
           const departmentId: number = +params.get('departmentId');
           this.currentOkrViewService.browseDepartment(departmentId);
-          this.componentLoaded$.next(false);
 
           return this.departmentMapperService.getDepartmentById$(departmentId);
         }),
@@ -92,16 +90,13 @@ export class DepartmentComponent implements OnInit, OnDestroy {
 
           return info;
         })),
-        tap(_ => {
-          this.componentLoaded$.next(true);
-        })
       );
   }
 
   // Template actions
-  clickedEditDepartment(): void {
+  clickedEditDepartment(department: DepartmentUnit): void {
     const dialogReference: MatDialogRef<SubstructureFormComponent, object> = this.matDialog.open(SubstructureFormComponent, {
-      data: { department: this.department }
+      data: { department }
     });
 
     this.subscriptions.push(
@@ -116,20 +111,20 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     );
   }
 
-  onDepartmentEdited(department: DepartmentUnit): void {
-    this.currentOkrViewService.refreshCurrentDepartmentView(this.department.id);
-    // this.updateView(); TODO: (R.J 04.06.20) Update View
-  }
-
-  toggleWhetherDepartmentIsActive(): void {
-    this.department.isActive = !this.department.isActive;
+  toggleDepartmentActive(department: DepartmentUnit): void {
+    department.isActive = !department.isActive;
 
     this.subscriptions.push(
       this.departmentMapperService
-        .putDepartment$(this.department)
+        .putDepartment$(department)
         .pipe(take(1))
         .subscribe(returnedDepartment => this.onDepartmentEdited(returnedDepartment))
     );
+  }
+
+  onDepartmentEdited(department: DepartmentUnit): void {
+    this.currentOkrViewService.refreshCurrentDepartmentView(department.id);
+    // this.updateView(); TODO: (R.J 04.06.20) Update View
   }
 
   clickedRemoveDepartment(): void {
