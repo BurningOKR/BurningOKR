@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
 import { DepartmentDto } from '../../model/api/structure/department.dto';
 import { CorporateObjectiveStructureDto } from '../../model/api/structure/corporate-objective-structure.dto';
+import { CompanyDto } from '../../model/api/structure/company.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class StructureApiService {
 
   getStructureSchemaByStructureId$(structureId: number): Observable<StructureSchema[]> {
     return this.http.getData$<StructureSchema[]>(`structures/${structureId}/structure`);
+  }
+
+  getParentCompanyOfStructure$(structureId: number): Observable<CompanyDto> {
+    return this.http.getData$(`structures/${structureId}/company`);
   }
 }

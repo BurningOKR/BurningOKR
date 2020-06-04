@@ -10,6 +10,7 @@ import { ObjectiveFormComponent } from '../../objective/objective-form/objective
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { ContextRole } from '../../../shared/model/ui/context-role';
+import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
 
 @Component({
   selector: 'app-substructure-overview-tab',
@@ -17,7 +18,7 @@ import { ContextRole } from '../../../shared/model/ui/context-role';
   styleUrls: ['./substructure-overview-tab.component.scss']
 })
 export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() department: DepartmentUnit;
+  @Input() structure: SubStructure;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
 
@@ -34,7 +35,7 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
   ngOnInit(): void {
     this.subscriptions.push(
       this.objectiveMapper
-        .getObjectivesForDepartment$(this.department.id)
+        .getObjectivesForStructure$(this.structure.id)
         .subscribe(newObjectiveList => (this.objectiveList = newObjectiveList))
     );
   }
@@ -48,7 +49,7 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
     if (changes.department) {
       this.objectiveList = undefined;
       this.objectiveMapper
-        .getObjectivesForDepartment$(this.department.id)
+        .getObjectivesForStructure$(this.structure.id)
         .subscribe(newObjectiveList => (this.objectiveList = newObjectiveList));
     }
   }
@@ -74,8 +75,9 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   queryUpdatedObjectiveOrder(): void {
     const sequenceList: number[] = this.calculateDepartmentOrderedIdList();
+    // TODO (R.J. 04.06.2020) change this to structure mapper
     this.departmentMapper
-      .putDepartmentObjectiveSequence$(this.department.id, sequenceList)
+      .putDepartmentObjectiveSequence$(this.structure.id, sequenceList)
       .pipe(take(1))
       .subscribe();
   }
@@ -93,7 +95,7 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   clickedAddObjective(): void {
     const dialogReference: MatDialogRef<ObjectiveFormComponent> = this.matDialog.open(ObjectiveFormComponent, {
-      data: { departmentId: this.department.id }
+      data: { departmentId: this.structure.id }
     });
 
     this.subscriptions.push(
@@ -110,6 +112,6 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   onObjectiveAdded(newObjective: ViewObjective): void {
     this.objectiveList.unshift(newObjective);
-    this.department.objectives.unshift(newObjective.id);
+    this.structure.objectives.unshift(newObjective.id);
   }
 }

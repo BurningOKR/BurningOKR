@@ -40,7 +40,6 @@ export class SubStructureComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    private departmentMapperService: DepartmentMapper,
     private structureMapperService: StructureMapper,
     private departmentContextRoleService: SubStructureContextRoleService,
     private matDialog: MatDialog,

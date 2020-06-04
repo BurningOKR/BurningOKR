@@ -23,6 +23,10 @@ export class ObjectiveApiService {
     return this.api.getData$(`departments/${departmentId}/objectives`);
   }
 
+  getObjectivesForStructure$(structureId: StructureId): Observable<ObjectiveDto[]> {
+    return this.api.getData$(`structures/${structureId}/objectives`);
+  }
+
   postObjectiveForCompany$(companyId: CompanyId, objective: ObjectiveDto): Observable<ObjectiveDto> {
     return this.api.postData$(`companies/${companyId}/objectives`, objective);
   }

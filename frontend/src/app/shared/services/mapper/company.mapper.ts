@@ -9,6 +9,7 @@ import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { CompanyApiService } from '../api/company-api.service';
 import { CycleMapper } from './cycle.mapper';
 import { DepartmentApiService } from '../api/department-api.service';
+import { StructureApiService } from '../api/structure-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class CompanyMapper {
   constructor(
     private companyApiService: CompanyApiService,
     private cycleMapperService: CycleMapper,
-    private departmentApiService: DepartmentApiService
+    private departmentApiService: DepartmentApiService,
+    private structureApiService: StructureApiService
   ) {}
 
   static mapCompany(company: CompanyDto): CompanyUnit {
@@ -103,6 +105,11 @@ export class CompanyMapper {
 
   getParentCompanyOfDepartment$(departmentId: number): Observable<CompanyUnit> {
     return this.departmentApiService.getParentCompanyOfDepartment$(departmentId)
+      .pipe(map(CompanyMapper.mapCompany));
+  }
+
+  getParentCompanyOfStructure$(structureId: number): Observable<CompanyUnit> {
+    return this.structureApiService.getParentCompanyOfStructure$(structureId)
       .pipe(map(CompanyMapper.mapCompany));
   }
 

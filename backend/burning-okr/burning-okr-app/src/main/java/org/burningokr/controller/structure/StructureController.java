@@ -5,10 +5,12 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.ObjectiveDto;
+import org.burningokr.dto.structure.CompanyDto;
 import org.burningokr.dto.structure.StructureSchemaDto;
 import org.burningokr.dto.structure.SubStructureDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.okr.ObjectiveMapper;
+import org.burningokr.mapper.structure.CompanyMapper;
 import org.burningokr.mapper.structure.StructureMapperPicker;
 import org.burningokr.mapper.structure.StructureSchemaMapper;
 import org.burningokr.model.okr.Objective;
@@ -34,6 +36,7 @@ public class StructureController {
   private final UserService userService;
   private final StructureSchemaMapper structureSchemaMapper;
   private final ObjectiveMapper objectiveMapper;
+  private final CompanyMapper companyMapper;
 
   @GetMapping("/structures/{structureId}")
   public ResponseEntity<SubStructureDto> getStructureByStructureId(@PathVariable long structureId) {
@@ -66,11 +69,11 @@ public class StructureController {
   /**
    * API Endpoint to get all Objectives of a Department.
    *
-   * @param departmentId a long value
+   * @param structureId a long value
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Objectives
    */
   @GetMapping("/structures/{structureId}/objectives")
-  public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfDepartment(
+  public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfStructure(
       @PathVariable long structureId) {
     StructureService<SubStructure> structureService =
         structureServicePicker.getRoleServiceForDepartment(structureId);
@@ -78,6 +81,20 @@ public class StructureController {
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(objectives));
   }
 
+  /**
+   * API Endpoint to get the parent-Company of a Department.
+   *
+   * @param structureId a long value
+   * @return a {@link ResponseEntity} ok with the parent-Company
+   */
+  @GetMapping("/structures/{structureId}/company")
+  public ResponseEntity<CompanyDto> getParentCompanyOfStructure(@PathVariable long structureId) {
+    StructureService<SubStructure> structureService =
+        structureServicePicker.getRoleServiceForDepartment(structureId);
+    SubStructure structure = structureService.findById(structureId);
+    Company parentCompany = entityCrawlerService.getCompanyOfStructure(structure);
+    return ResponseEntity.ok(companyMapper.mapEntityToDto(parentCompany));
+  }
 
   @PutMapping(value = "/structures/{structureId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<SubStructureDto> updateStructure(

@@ -23,7 +23,7 @@ export class CurrentStructureSchemeService {
   setCurrentStructureSchemaByStructureId(departmentId: number): void {
     this.currentStructureId$.next(departmentId);
     this.structureSchemaMapperService
-      .getStructureSchemaOfDepartment$(departmentId)
+      .getStructureSchemaByStructureId$(departmentId)
       .pipe(take(1))
       .subscribe(structureSchema => {
         this.currentStructureSchema$.next(structureSchema);
