@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyComponent } from './company/company.component';
-import { DepartmentComponent } from './substructure/department/department.component';
+import { SubStructureComponent } from './substructure/department/sub-structure.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { AuthGuard } from '../core/auth/guards/auth.guard';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: `departments/:departmentId`,
-        component: DepartmentComponent
+        component: SubStructureComponent
       },
       {
         path: `companies/:companyId`,

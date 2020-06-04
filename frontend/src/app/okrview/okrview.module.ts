@@ -28,7 +28,7 @@ import { SubstructureOverviewTabComponent } from './substructure/substructure-ta
 import { SubStructuresTabComponent } from './substructure/substructures-tab/sub-structures-tab.component';
 import { DepartmentTabTeamComponent } from './substructure/department/department-tab-team/department-tab-team.component';
 import { DepartmentTeamNewUserComponent } from './substructure/department/department-team-new-user/department-team-new-user.component';
-import { DepartmentComponent } from './substructure/department/department.component';
+import { SubStructureComponent } from './substructure/department/sub-structure.component';
 import { KeyresultComponent } from './keyresult/keyresult.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { NavigationSidebarComponent } from './navigation-sidebar/navigation-sidebar.component';
@@ -49,7 +49,7 @@ import { AvatarModule } from 'ngx-avatar';
     ObjectiveFormComponent,
     SubstructureFormComponent,
     KeyResultFormComponent,
-    DepartmentComponent,
+    SubStructureComponent,
     SubstructureOverviewTabComponent,
     DepartmentTabTeamComponent,
     SubStructuresTabComponent,

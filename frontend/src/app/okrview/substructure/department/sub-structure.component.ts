@@ -28,10 +28,10 @@ interface DepartmentView {
 
 @Component({
   selector: 'app-department',
-  templateUrl: './department.component.html',
-  styleUrls: ['./department.component.scss']
+  templateUrl: './sub-structure.component.html',
+  styleUrls: ['./sub-structure.component.scss']
 })
-export class DepartmentComponent implements OnInit, OnDestroy {
+export class SubStructureComponent implements OnInit, OnDestroy {
   currentUserRole$: Observable<ContextRole>;
   cycle$: Observable<CycleUnit>;
   departmentView$: Observable<DepartmentView>;

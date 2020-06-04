@@ -1,7 +1,7 @@
 // tslint:disable:rxjs-finnish
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DepartmentComponent } from './department.component';
+import { SubStructureComponent } from './sub-structure.component';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { DepartmentContextRoleService } from '../../../shared/services/helper/department-context-role.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -25,9 +25,9 @@ import { of } from 'rxjs';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('DepartmentComponent', () => {
-  let component: DepartmentComponent;
-  let fixture: ComponentFixture<DepartmentComponent>;
+describe('SubStructureComponent', () => {
+  let component: SubStructureComponent;
+  let fixture: ComponentFixture<SubStructureComponent>;
 
   const departmentMapperService: any = {
     getDepartmentById$: jest.fn(),
@@ -74,7 +74,7 @@ describe('DepartmentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DepartmentComponent,
+        SubStructureComponent,
         SubStructuresTabComponent,
         SubstructureOverviewTabComponent,
         DepartmentTabTeamComponent,
@@ -136,7 +136,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('should create', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -147,7 +147,7 @@ describe('DepartmentComponent', () => {
   it('should get department by id given in params', done => {
     paramMapGetSpy.mockReturnValue('1');
 
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -161,7 +161,7 @@ describe('DepartmentComponent', () => {
   it('should browse department with id given in params', done => {
     paramMapGetSpy.mockReturnValue('1');
 
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -175,7 +175,7 @@ describe('DepartmentComponent', () => {
   it('should getContextRoleForDepartment$', done => {
     paramMapGetSpy.mockReturnValue('1');
 
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -187,7 +187,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('toggleDepartmentActive toggles active', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -200,7 +200,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('toggleDepartmentActive toggles active with falsy value', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -213,7 +213,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('toggleDepartmentActive toggles inactive', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -226,7 +226,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('toggleDepartmentActive puts department', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -239,7 +239,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('queryRemoveDepartment deletes department', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -250,7 +250,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('onDepartmentDeleted refreshes department view when parent structure is a corporateObjectiveStructure', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -263,7 +263,7 @@ describe('DepartmentComponent', () => {
   });
 
   it('onDepartmentDeleted refreshes department view when parent structure is not a corporateObjectiveStructure', () => {
-    fixture = TestBed.createComponent(DepartmentComponent);
+    fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
