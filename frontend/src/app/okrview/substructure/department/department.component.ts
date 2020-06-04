@@ -54,30 +54,6 @@ export class DepartmentComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.updateView();
-  }
-
-  private updateView(): void {
-    this.updateDepartment();
-    this.updateCurrentCycle();
-    this.updateCurrentUserRole();
-    this.updateDepartmentViewAndComponentLoaded();
-  }
-
-  private updateCurrentUserRole(): void {
-    this.currentUserRole$ =  this.department$
-      .pipe(
-        switchMap(department => {
-          return this.departmentContextRoleService.getContextRoleForDepartment$(department);
-        })
-      );
-  }
-
-  private updateCurrentCycle(): void {
-    this.cycle$ = this.currentCycleService.getCurrentCycle$();
-  }
-
-  private updateDepartment(): void {
     this.department$ = this.route.paramMap
       .pipe(
         switchMap(params => {
@@ -91,9 +67,16 @@ export class DepartmentComponent implements OnInit, OnDestroy {
           this.department = department;
         })
       );
-  }
 
-  private updateDepartmentViewAndComponentLoaded(): void {
+    this.currentUserRole$ = this.department$
+      .pipe(
+        switchMap(department => {
+          return this.departmentContextRoleService.getContextRoleForDepartment$(department);
+        })
+      );
+
+    this.cycle$ = this.currentCycleService.getCurrentCycle$();
+
     this.departmentView$ = combineLatest([
       this.department$,
       this.cycle$,
@@ -135,7 +118,7 @@ export class DepartmentComponent implements OnInit, OnDestroy {
 
   onDepartmentEdited(department: DepartmentUnit): void {
     this.currentOkrViewService.refreshCurrentDepartmentView(this.department.id);
-    this.updateView();
+    // this.updateView(); TODO: (R.J 04.06.20) Update View
   }
 
   toggleWhetherDepartmentIsActive(): void {
