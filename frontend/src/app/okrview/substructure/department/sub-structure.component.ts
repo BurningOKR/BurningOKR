@@ -90,6 +90,7 @@ export class SubStructureComponent implements OnInit, OnDestroy {
       );
   }
 
+  // TODO: (R.J. 04.06.20) clickedEditDepartment for SubStructures
   // Template actions
   clickedEditDepartment(department: DepartmentUnit): void {
     const dialogReference: MatDialogRef<SubstructureFormComponent, object> = this.matDialog.open(SubstructureFormComponent, {
@@ -104,31 +105,31 @@ export class SubStructureComponent implements OnInit, OnDestroy {
           filter(v => v as any),
           switchMap(n => n as any),
         )
-        .subscribe(editedDepartment => this.onDepartmentEdited(editedDepartment as DepartmentUnit))
+        .subscribe(editedDepartment => this.onSubStructureEdited(editedDepartment as DepartmentUnit))
     );
   }
 
-  toggleDepartmentActive(department: DepartmentUnit): void {
-    department.isActive = !department.isActive;
+  toggleSubStructureActive(subStructure: SubStructure): void {
+    subStructure.isActive = !subStructure.isActive;
 
     this.subscriptions.push(
-      this.departmentMapperService
-        .putDepartment$(department)
+      this.structureMapperService
+        .putSubStructure$(subStructure)
         .pipe(take(1))
-        .subscribe(returnedDepartment => this.onDepartmentEdited(returnedDepartment))
+        .subscribe(returnedSubStructure => this.onSubStructureEdited(returnedSubStructure))
     );
   }
 
-  onDepartmentEdited(department: DepartmentUnit): void {
-    this.currentOkrViewService.refreshCurrentDepartmentView(department.id);
+  onSubStructureEdited(subStructure: SubStructure): void {
+    this.currentOkrViewService.refreshCurrentDepartmentView(subStructure.id);
     // this.updateView(); TODO: (R.J 04.06.20) Update View
   }
 
-  clickedRemoveDepartment(department: DepartmentUnit): void {
+  clickedRemoveSubStructure(subStructure: SubStructure): void {
     const title: string = this.i18n({
       id: 'deleteDepartmentDialogTitle',
-      value: 'Department {{name}} löschen?'
-    }, {name: department.name});
+      value: '{{name}} löschen?'
+    }, {name: subStructure.name});
     const message: string = this.i18n({
       id: 'deleteDepartmentDialogMessage',
       value: 'Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.'
@@ -149,7 +150,7 @@ export class SubStructureComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe(isConfirmed => {
           if (isConfirmed) {
-            this.queryRemoveDepartment(department);
+            this.queryRemoveSubStructure(subStructure);
           }
         })
     );
@@ -160,25 +161,26 @@ export class SubStructureComponent implements OnInit, OnDestroy {
     return true; // this.subStructure.subStructureIds.length === 0;
   }
 
-  queryRemoveDepartment(department: DepartmentUnit): void {
+  queryRemoveSubStructure(subStructure: SubStructure): void {
     this.subscriptions.push(
-      this.departmentMapperService
-        .deleteDepartment$(department.id)
+      this.structureMapperService
+        .deleteSubStructure$(subStructure)
         .pipe(take(1))
         .subscribe(() => {
-          this.onDepartmentDeleted(department);
+          this.onSubStructureDeleted(subStructure);
         })
     );
   }
 
-  onDepartmentDeleted(department: DepartmentUnit): void {
-    if (department.isParentStructureACorporateObjectiveStructure) {
-      this.currentOkrViewService.refreshCurrentDepartmentView(department.parentStructureId);
-    } else {
-      // Therefore the parent structure is a company
-      this.currentOkrViewService.refreshCurrentCompanyView(department.parentStructureId);
-    }
-    this.moveToParentStructure(department);
+  onSubStructureDeleted(subStructure: SubStructure): void {
+    // TODO: refresh View
+    // if (subStructure.isParentStructureACorporateObjectiveStructure) {
+    //   this.currentOkrViewService.refreshCurrentDepartmentView(subStructure.parentStructureId);
+    // } else {
+    //   // Therefore the parent structure is a company
+    //   this.currentOkrViewService.refreshCurrentCompanyView(subStructure.parentStructureId);
+    // }
+    this.moveToParentStructure(subStructure);
   }
 
   downloadDepartmentExcelFile(department: DepartmentUnit): void {
@@ -190,14 +192,15 @@ export class SubStructureComponent implements OnInit, OnDestroy {
   }
 
   // Template helper functions
-  moveToParentStructure(department: DepartmentUnit): void {
-    if (department.isParentStructureACorporateObjectiveStructure) {
-      this.router.navigate([`../${department.parentStructureId}`], { relativeTo: this.route })
-        .catch();
-    } else {
-      this.router.navigate([`../../companies/${department.parentStructureId}`], { relativeTo: this.route })
-        .catch();
-    }
+  moveToParentStructure(subStructure: SubStructure): void {
+    // TODO: Move to parent structure
+    // if (subStructure.isParentStructureACorporateObjectiveStructure) {
+    //   this.router.navigate([`../${subStructure.parentStructureId}`], { relativeTo: this.route })
+    //     .catch();
+    // } else {
+    //   this.router.navigate([`../../companies/${subStructure.parentStructureId}`], { relativeTo: this.route })
+    //     .catch();
+    // }
   }
 
   ngOnDestroy(): void {

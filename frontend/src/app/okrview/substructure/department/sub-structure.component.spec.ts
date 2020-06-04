@@ -37,7 +37,9 @@ describe('SubStructureComponent', () => {
   };
 
   const structureMapperService: any = {
-    getSubStructureById$: jest.fn()
+    getSubStructureById$: jest.fn(),
+    putSubStructure$: jest.fn(),
+    deleteSubStructure$: jest.fn()
   };
 
   const departmentContextRoleService: any = {
@@ -120,6 +122,10 @@ describe('SubStructureComponent', () => {
 
     structureMapperService.getSubStructureById$.mockReset();
     structureMapperService.getSubStructureById$.mockReturnValue(of(department));
+    structureMapperService.putSubStructure$.mockReset();
+    structureMapperService.putSubStructure$.mockReturnValue(of(department));
+    structureMapperService.deleteSubStructure$.mockReset();
+    structureMapperService.deleteSubStructure$.mockReturnValue(of(true));
 
     currentCycleService.getCurrentCycle$.mockReset();
     currentCycleService.getCurrentCycle$.mockReturnValue(of(null));
@@ -195,90 +201,90 @@ describe('SubStructureComponent', () => {
     });
   });
 
-  it('toggleDepartmentActive toggles active', () => {
+  it('toggleSubStructureActive toggles active', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     department.isActive = false;
 
-    component.toggleDepartmentActive(department);
+    component.toggleSubStructureActive(department);
 
     expect(department.isActive)
       .toBeTruthy();
   });
 
-  it('toggleDepartmentActive toggles active with falsy value', () => {
+  it('toggleSubStructureActive toggles active with falsy value', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     department.isActive = null;
 
-    component.toggleDepartmentActive(department);
+    component.toggleSubStructureActive(department);
 
     expect(department.isActive)
       .toBeTruthy();
   });
 
-  it('toggleDepartmentActive toggles inactive', () => {
+  it('toggleSubStructureActive toggles inactive', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     department.isActive = true;
 
-    component.toggleDepartmentActive(department);
+    component.toggleSubStructureActive(department);
 
     expect(department.isActive)
       .toBeFalsy();
   });
 
-  it('toggleDepartmentActive puts subStructure', () => {
+  it('toggleSubStructureActive puts subStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     department.isActive = true;
 
-    component.toggleDepartmentActive(department);
+    component.toggleSubStructureActive(department);
 
-    expect(departmentMapperService.putDepartment$)
+    expect(structureMapperService.putSubStructure$)
       .toHaveBeenCalledWith(department);
   });
 
-  it('queryRemoveDepartment deletes subStructure', () => {
+  it('queryRemoveSubStructure deletes subStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    component.queryRemoveDepartment(department);
+    component.queryRemoveSubStructure(department);
 
-    expect(departmentMapperService.deleteDepartment$)
+    expect(structureMapperService.deleteSubStructure$)
       .toHaveBeenCalled();
   });
 
-  it('onDepartmentDeleted refreshes subStructure view when parent structure is a corporateObjectiveStructure', () => {
+  it('onSubStructureDeleted refreshes subStructure view when parent structure is a corporateObjectiveStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     department.isParentStructureACorporateObjectiveStructure = true;
 
-    component.onDepartmentDeleted(department);
+    component.onSubStructureDeleted(department);
 
     expect(currentOkrViewService.refreshCurrentDepartmentView)
       .toHaveBeenCalled();
   });
 
-  it('onDepartmentDeleted refreshes subStructure view when parent structure is not a corporateObjectiveStructure', () => {
+  it('onSubStructureDeleted refreshes subStructure view when parent structure is not a corporateObjectiveStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     department.isParentStructureACorporateObjectiveStructure = false;
 
-    component.onDepartmentDeleted(department);
+    component.onSubStructureDeleted(department);
 
     expect(currentOkrViewService.refreshCurrentCompanyView)
       .toHaveBeenCalled();

@@ -79,7 +79,7 @@
       <mat-icon>edit</mat-icon>
       <span i18n="@@component_department_editStructure">Struktur bearbeiten</span>
     </button>
-    <button mat-menu-item (click)="toggleDepartmentActive(department)">
+    <button mat-menu-item (click)="toggleSubStructureActive(department)">
       <div *ngIf="department.isActive">
         <mat-icon>power_off</mat-icon>
         <span i18n="@@component_department_disableStructure">Struktur auf inaktiv setzen</span>
@@ -98,7 +98,7 @@
       <span i18n="@@component_department_exportContacts">Kontakte exportieren</span>
     </button>
     <div *ngIf="canDepartmentBeRemoved(); else cannotDeleteStructure;">
-      <button mat-menu-item (click)="clickedRemoveDepartment(department)" [disabled]="!canDepartmentBeRemoved()">
+      <button mat-menu-item (click)="clickedRemoveSubStructure(department)" [disabled]="!canDepartmentBeRemoved()">
         <mat-icon>delete</mat-icon>
         <span i18n="@@component_department_deleteStructure">Struktur löschen</span>
       </button>
