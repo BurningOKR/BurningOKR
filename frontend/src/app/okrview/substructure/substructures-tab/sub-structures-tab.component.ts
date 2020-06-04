@@ -1,5 +1,4 @@
 import { SubstructureFormComponent } from '../substructure-form/substructure-form.component';
-import { ContextRole } from '../../../shared/services/helper/sub-structure-context-role.service';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
@@ -7,6 +6,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
+import { ContextRole } from '../../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-substructures-tab',

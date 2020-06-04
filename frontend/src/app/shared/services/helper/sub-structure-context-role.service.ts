@@ -4,6 +4,7 @@ import { CurrentUserService } from '../../../core/services/current-user.service'
 import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-unit';
 import { User } from '../../model/api/user';
 import { combineLatest, Observable } from 'rxjs';
+import { ContextRole } from '../../model/ui/context-role';
 
 @Injectable({
   providedIn: 'root'

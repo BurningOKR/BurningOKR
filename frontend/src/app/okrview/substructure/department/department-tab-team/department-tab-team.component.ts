@@ -7,7 +7,6 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { ContextRole } from '../../../../shared/services/helper/sub-structure-context-role.service';
 import { DepartmentUnit } from '../../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
@@ -16,6 +15,7 @@ import { structureSchemaRole } from '../../../../shared/model/ui/structure-schem
 import { User } from '../../../../shared/model/api/user';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentStructureSchemeService } from '../../../current-structure-scheme.service';
+import { ContextRole } from '../../../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-department-tab-team',

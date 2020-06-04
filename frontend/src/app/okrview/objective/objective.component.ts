@@ -1,5 +1,4 @@
 import { ObjectiveFormComponent } from './objective-form/objective-form.component';
-import { ContextRole } from '../../shared/services/helper/sub-structure-context-role.service';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
@@ -14,6 +13,7 @@ import {
 import { Subscription } from 'rxjs';
 import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { ContextRole } from '../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-objective',

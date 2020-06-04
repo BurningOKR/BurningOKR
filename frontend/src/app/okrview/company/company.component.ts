@@ -1,5 +1,4 @@
 import {
-  ContextRole,
   SubStructureContextRoleService
 } from '../../shared/services/helper/sub-structure-context-role.service';
 import { filter, switchMap, take } from 'rxjs/operators';
@@ -18,6 +17,7 @@ import { CurrentStructureSchemeService } from '../current-structure-scheme.servi
 import { CurrentCompanyService } from '../current-company.service';
 import { CurrentCycleService } from '../current-cycle.service';
 import { CompanyId } from '../../shared/model/id-types';
+import { ContextRole } from '../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-company',

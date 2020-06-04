@@ -2,13 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable, Subscription } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
-import {
-  ContextRole,
-  SubStructureContextRoleService
-} from '../../../shared/services/helper/sub-structure-context-role.service';
+import { SubStructureContextRoleService } from '../../../shared/services/helper/sub-structure-context-role.service';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { SubstructureFormComponent } from '../substructure-form/substructure-form.component';
 import {
@@ -19,6 +16,7 @@ import { CurrentOkrviewService } from '../../current-okrview.service';
 import { ExcelMapper } from '../../excel-file/excel.mapper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentCycleService } from '../../current-cycle.service';
+import { ContextRole } from '../../../shared/model/ui/context-role';
 
 interface DepartmentView {
   cycle: CycleUnit;

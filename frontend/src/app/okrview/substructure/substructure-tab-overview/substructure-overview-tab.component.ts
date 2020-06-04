@@ -5,11 +5,11 @@ import { Subscription } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
-import { ContextRole } from '../../../shared/services/helper/sub-structure-context-role.service';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
 import { ObjectiveFormComponent } from '../../objective/objective-form/objective-form.component';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
+import { ContextRole } from '../../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-substructure-overview-tab',
