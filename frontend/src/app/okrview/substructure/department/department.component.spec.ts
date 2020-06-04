@@ -31,13 +31,16 @@ describe('DepartmentComponent', () => {
 
   const departmentMapperService: any = {
     getDepartmentById$: jest.fn(),
-    putDepartment$: jest.fn()
+    putDepartment$: jest.fn(),
+    deleteDepartment$: jest.fn()
   };
 
   const departmentContextRoleService: any = {
     getContextRoleForDepartment$: jest.fn()
   };
-  const router: any = {};
+  const router: any = {
+    navigate: jest.fn()
+  };
 
   const paramMapGetSpy: any = jest.fn();
   const paramMapGetAllSpy: any = jest.fn();
@@ -54,7 +57,9 @@ describe('DepartmentComponent', () => {
   };
 
   const currentOkrViewService: any = {
-    browseDepartment: jest.fn()
+    browseDepartment: jest.fn(),
+    refreshCurrentDepartmentView: jest.fn(),
+    refreshCurrentCompanyView: jest.fn()
   };
 
   const currentCycleService: any = {
@@ -104,14 +109,21 @@ describe('DepartmentComponent', () => {
     departmentMapperService.getDepartmentById$.mockReturnValue(of(department));
     departmentMapperService.putDepartment$.mockReset();
     departmentMapperService.putDepartment$.mockReturnValue(of(department));
+    departmentMapperService.deleteDepartment$.mockReset();
+    departmentMapperService.deleteDepartment$.mockReturnValue(of(true));
 
     currentCycleService.getCurrentCycle$.mockReset();
     currentCycleService.getCurrentCycle$.mockReturnValue(of(null));
 
     currentOkrViewService.browseDepartment.mockReset();
+    currentOkrViewService.refreshCurrentCompanyView.mockReset();
+    currentOkrViewService.refreshCurrentDepartmentView.mockReset();
 
     departmentContextRoleService.getContextRoleForDepartment$.mockReset();
     departmentContextRoleService.getContextRoleForDepartment$.mockReturnValue(of(null));
+
+    router.navigate.mockReset();
+    router.navigate.mockReturnValue({catch: jest.fn()});
 
     department = new DepartmentUnit(
       1,
@@ -224,5 +236,42 @@ describe('DepartmentComponent', () => {
 
     expect(departmentMapperService.putDepartment$)
       .toHaveBeenCalledWith(department);
+  });
+
+  it('queryRemoveDepartment deletes department', () => {
+    fixture = TestBed.createComponent(DepartmentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.queryRemoveDepartment(department);
+
+    expect(departmentMapperService.deleteDepartment$)
+      .toHaveBeenCalled();
+  });
+
+  it('onDepartmentDeleted refreshes department view when parent structure is a corporateObjectiveStructure', () => {
+    fixture = TestBed.createComponent(DepartmentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    department.isParentStructureACorporateObjectiveStructure = true;
+
+    component.onDepartmentDeleted(department);
+
+    expect(currentOkrViewService.refreshCurrentDepartmentView)
+      .toHaveBeenCalled();
+  });
+
+  it('onDepartmentDeleted refreshes department view when parent structure is not a corporateObjectiveStructure', () => {
+    fixture = TestBed.createComponent(DepartmentComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    department.isParentStructureACorporateObjectiveStructure = false;
+
+    component.onDepartmentDeleted(department);
+
+    expect(currentOkrViewService.refreshCurrentCompanyView)
+      .toHaveBeenCalled();
   });
 });

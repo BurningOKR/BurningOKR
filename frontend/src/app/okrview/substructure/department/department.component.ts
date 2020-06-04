@@ -163,25 +163,25 @@ export class DepartmentComponent implements OnInit, OnDestroy {
     return true; // this.department.subStructureIds.length === 0;
   }
 
-  private queryRemoveDepartment(department: DepartmentUnit): void {
+  queryRemoveDepartment(department: DepartmentUnit): void {
     this.subscriptions.push(
       this.departmentMapperService
-        .deleteDepartment$(this.department.id)
+        .deleteDepartment$(department.id)
         .pipe(take(1))
         .subscribe(() => {
-          this.onDepartmentDeleted();
+          this.onDepartmentDeleted(department);
         })
     );
   }
 
-  onDepartmentDeleted(): void {
-    if (this.department.isParentStructureACorporateObjectiveStructure) {
-      this.currentOkrViewService.refreshCurrentDepartmentView(this.department.parentStructureId);
+  onDepartmentDeleted(department: DepartmentUnit): void {
+    if (department.isParentStructureACorporateObjectiveStructure) {
+      this.currentOkrViewService.refreshCurrentDepartmentView(department.parentStructureId);
     } else {
       // Therefore the parent structure is a company
-      this.currentOkrViewService.refreshCurrentCompanyView(this.department.parentStructureId);
+      this.currentOkrViewService.refreshCurrentCompanyView(department.parentStructureId);
     }
-    this.moveToParentStructure();
+    this.moveToParentStructure(department);
   }
 
   downloadDepartmentExcelFile(): void {
@@ -193,12 +193,12 @@ export class DepartmentComponent implements OnInit, OnDestroy {
   }
 
   // Template helper functions
-  moveToParentStructure(): void {
-    if (this.department.isParentStructureACorporateObjectiveStructure) {
-      this.router.navigate([`../${this.department.parentStructureId}`], { relativeTo: this.route })
+  moveToParentStructure(department: DepartmentUnit): void {
+    if (department.isParentStructureACorporateObjectiveStructure) {
+      this.router.navigate([`../${department.parentStructureId}`], { relativeTo: this.route })
         .catch();
     } else {
-      this.router.navigate([`../../companies/${this.department.parentStructureId}`], { relativeTo: this.route })
+      this.router.navigate([`../../companies/${department.parentStructureId}`], { relativeTo: this.route })
         .catch();
     }
   }
