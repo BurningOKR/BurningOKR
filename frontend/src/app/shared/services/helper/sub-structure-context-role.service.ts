@@ -5,24 +5,6 @@ import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-uni
 import { User } from '../../model/api/user';
 import { combineLatest, Observable } from 'rxjs';
 
-export class ContextRole {
-  isAdmin = false;
-  isOKRManager = false;
-  isOKRMember = false;
-
-  isAtleastAdmin(): boolean {
-    return this.isAdmin;
-  }
-
-  isAtleastOKRManager(): boolean {
-    return this.isAdmin || this.isOKRManager;
-  }
-
-  isAtleastOKRMember(): boolean {
-    return this.isAdmin || this.isOKRManager || this.isOKRMember;
-  }
-}
-
 @Injectable({
   providedIn: 'root'
 })
