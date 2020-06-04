@@ -1,7 +1,7 @@
 <div class="list-entry" [ngClass]="isSecondStructure? 'secondary-color':'first-color'">
   <div class="flex-nowrap">
     <button mat-button class="entry-title"
-      [ngClass]="isCurrentDepartment()? 'selected-department':!structure.isActive? 'inactive-element-stronger' : '' "
+      [ngClass]="isCurrentDepartment()? 'selected-subStructure':!structure.isActive? 'inactive-element-stronger' : '' "
       [routerLink]="['./departments/'+structure.id]">
       <div class="flex-nowrap">
         <div class="structure-name">{{structure.name}}

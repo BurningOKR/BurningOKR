@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
@@ -17,11 +17,13 @@ import { ExcelMapper } from '../../excel-file/excel.mapper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentCycleService } from '../../current-cycle.service';
 import { ContextRole } from '../../../shared/model/ui/context-role';
+import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
+import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
 
 interface DepartmentView {
   cycle: CycleUnit;
   currentUserRole: ContextRole;
-  department: DepartmentUnit;
+  subStructure: SubStructure;
 }
 
 @Component({
@@ -33,12 +35,13 @@ export class SubStructureComponent implements OnInit, OnDestroy {
   currentUserRole$: Observable<ContextRole>;
   cycle$: Observable<CycleUnit>;
   departmentView$: Observable<DepartmentView>;
-  department$: Observable<DepartmentUnit>;
+  subStructure$: Observable<SubStructure>;
 
   subscriptions: Subscription[] = [];
 
   constructor(
     private departmentMapperService: DepartmentMapper,
+    private structureMapperService: StructureMapper,
     private departmentContextRoleService: SubStructureContextRoleService,
     private matDialog: MatDialog,
     private router: Router,
@@ -50,36 +53,36 @@ export class SubStructureComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.department$ = this.route.paramMap
+    this.subStructure$ = this.route.paramMap
       .pipe(
         switchMap(params => {
-          const departmentId: number = +params.get('departmentId');
-          this.currentOkrViewService.browseDepartment(departmentId);
+          const structureId: number = +params.get('departmentId');
+          this.currentOkrViewService.browseDepartment(structureId);
 
-          return this.departmentMapperService.getDepartmentById$(departmentId);
+          return this.structureMapperService.getSubStructureById$(structureId);
         })
       );
 
-    this.currentUserRole$ = this.department$
+    this.currentUserRole$ = this.subStructure$
       .pipe(
-        switchMap(department => {
-          return this.departmentContextRoleService.getContextRoleForSubStructure$(department);
+        switchMap(subStructure => {
+          return this.departmentContextRoleService.getContextRoleForSubStructure$(subStructure);
         })
       );
 
     this.cycle$ = this.currentCycleService.getCurrentCycle$();
 
     this.departmentView$ = combineLatest([
-      this.department$,
+      this.subStructure$,
       this.cycle$,
       this.currentUserRole$
     ])
       .pipe(
-        map((([department, cycle, userRole]: [DepartmentUnit, CycleUnit, ContextRole]) => {
+        map((([subStructure, cycle, userRole]: [SubStructure, CycleUnit, ContextRole]) => {
           const info: DepartmentView = {
             currentUserRole: userRole,
             cycle,
-            department
+            subStructure
           };
 
           return info;
@@ -154,7 +157,7 @@ export class SubStructureComponent implements OnInit, OnDestroy {
 
   // TODO: (R.J. 02.06.20) THIS SHOULD NOT ALWAYS RETURN TRUE. It should return false, when it is a corporateObjectiveStructure with subStructures.
   canDepartmentBeRemoved(): boolean {
-    return true; // this.department.subStructureIds.length === 0;
+    return true; // this.subStructure.subStructureIds.length === 0;
   }
 
   queryRemoveDepartment(department: DepartmentUnit): void {

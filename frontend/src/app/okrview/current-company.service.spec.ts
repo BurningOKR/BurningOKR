@@ -71,7 +71,7 @@ describe('CurrentCompanyService', () => {
       });
   });
 
-  it('should set current company by child department id', done => {
+  it('should set current company by child subStructure id', done => {
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {

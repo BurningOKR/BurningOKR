@@ -1,6 +1,6 @@
   <div class="flex-nowrap-center">
     <ng-container *ngIf="departmentView$ | async let info; else loading">
-      <ng-container *ngIf="info.department as department">
+      <ng-container *ngIf="info.subStructure as department">
         <ng-container *ngIf="info.cycle as cycle">
           <ng-container *ngIf="info.currentUserRole as currentUserRole">
             <mat-card class="small-padding card-margin card-size"
@@ -117,7 +117,7 @@
 
 </mat-menu>
 
-<!-- Placeholder during loading of the department -->
+<!-- Placeholder during loading of the subStructure -->
 <ng-template #loading2>
   <mat-card class="small-padding card-margin card-size">
     <div class="m-left">

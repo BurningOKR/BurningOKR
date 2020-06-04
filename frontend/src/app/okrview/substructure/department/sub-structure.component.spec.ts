@@ -24,6 +24,7 @@ import { KeyresultComponent } from '../../keyresult/keyresult.component';
 import { of } from 'rxjs';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
 
 describe('SubStructureComponent', () => {
   let component: SubStructureComponent;
@@ -33,6 +34,10 @@ describe('SubStructureComponent', () => {
     getDepartmentById$: jest.fn(),
     putDepartment$: jest.fn(),
     deleteDepartment$: jest.fn()
+  };
+
+  const structureMapperService: any = {
+    getSubStructureById$: jest.fn()
   };
 
   const departmentContextRoleService: any = {
@@ -87,6 +92,7 @@ describe('SubStructureComponent', () => {
       ],
       imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
+        { provide: StructureMapper, useValue: structureMapperService },
         { provide: DepartmentMapper, useValue: departmentMapperService },
         { provide: SubStructureContextRoleService, useValue: departmentContextRoleService },
         { provide: Router, useValue: router },
@@ -111,6 +117,9 @@ describe('SubStructureComponent', () => {
     departmentMapperService.putDepartment$.mockReturnValue(of(department));
     departmentMapperService.deleteDepartment$.mockReset();
     departmentMapperService.deleteDepartment$.mockReturnValue(of(true));
+
+    structureMapperService.getSubStructureById$.mockReset();
+    structureMapperService.getSubStructureById$.mockReturnValue(of(department));
 
     currentCycleService.getCurrentCycle$.mockReset();
     currentCycleService.getCurrentCycle$.mockReturnValue(of(null));
@@ -144,28 +153,28 @@ describe('SubStructureComponent', () => {
       .toBeTruthy();
   });
 
-  it('should get department by id given in params', done => {
+  it('should get subStructure by id given in params', done => {
     paramMapGetSpy.mockReturnValue('1');
 
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    component.department$.subscribe(() => {
-      expect(departmentMapperService.getDepartmentById$)
+    component.subStructure$.subscribe(() => {
+      expect(structureMapperService.getSubStructureById$)
         .toHaveBeenCalledWith(1);
       done();
     });
   });
 
-  it('should browse department with id given in params', done => {
+  it('should browse subStructure with id given in params', done => {
     paramMapGetSpy.mockReturnValue('1');
 
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    component.department$.subscribe(() => {
+    component.subStructure$.subscribe(() => {
       expect(currentOkrViewService.browseDepartment)
         .toHaveBeenCalledWith(1);
       done();
@@ -225,7 +234,7 @@ describe('SubStructureComponent', () => {
       .toBeFalsy();
   });
 
-  it('toggleDepartmentActive puts department', () => {
+  it('toggleDepartmentActive puts subStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -238,7 +247,7 @@ describe('SubStructureComponent', () => {
       .toHaveBeenCalledWith(department);
   });
 
-  it('queryRemoveDepartment deletes department', () => {
+  it('queryRemoveDepartment deletes subStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -249,7 +258,7 @@ describe('SubStructureComponent', () => {
       .toHaveBeenCalled();
   });
 
-  it('onDepartmentDeleted refreshes department view when parent structure is a corporateObjectiveStructure', () => {
+  it('onDepartmentDeleted refreshes subStructure view when parent structure is a corporateObjectiveStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -262,7 +271,7 @@ describe('SubStructureComponent', () => {
       .toHaveBeenCalled();
   });
 
-  it('onDepartmentDeleted refreshes department view when parent structure is not a corporateObjectiveStructure', () => {
+  it('onDepartmentDeleted refreshes subStructure view when parent structure is not a corporateObjectiveStructure', () => {
     fixture = TestBed.createComponent(SubStructureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

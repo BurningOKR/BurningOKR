@@ -9,6 +9,7 @@ import { ControlHelperService } from '../../../shared/services/helper/control-he
 import { InactiveTeamService } from './inactive-team.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { StructureType } from '../../../shared/model/api/structure/structure-type.enum';
+import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
 
 interface SubstructureFormData {
   department?: DepartmentUnit;

@@ -91,7 +91,7 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForSubStructure, department, user has no rights, all false', done => {
+  it('getContextRoleForSubStructure, subStructure, user has no rights, all false', done => {
     service.getContextRoleForSubStructure$(department)
       .subscribe((contextRole: ContextRole) => {
         expect(contextRole.isAdmin)
@@ -105,7 +105,7 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForSubStructure, department, user is Admin, all false except admin', done => {
+  it('getContextRoleForSubStructure, subStructure, user is Admin, all false except admin', done => {
     currentUserService.isCurrentUserAdmin$.mockReturnValue(of(true));
 
     service.getContextRoleForSubStructure$(department)
@@ -121,7 +121,7 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForSubStructure, department, user is okr master, all false except okrManager', done => {
+  it('getContextRoleForSubStructure, subStructure, user is okr master, all false except okrManager', done => {
     department.okrMasterId = 'test';
 
     service.getContextRoleForSubStructure$(department)
@@ -137,7 +137,7 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForSubStructure, department, user is okr topic sponsor, all false except okrManager', done => {
+  it('getContextRoleForSubStructure, subStructure, user is okr topic sponsor, all false except okrManager', done => {
     department.okrTopicSponsorId = 'test';
 
     service.getContextRoleForSubStructure$(department)
@@ -153,7 +153,7 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForSubStructure, department, user is okr topic member, all false except okrMember', done => {
+  it('getContextRoleForSubStructure, subStructure, user is okr topic member, all false except okrMember', done => {
     department.okrMemberIds = ['test'];
 
     service.getContextRoleForSubStructure$(department)
@@ -169,7 +169,7 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForSubStructure, department, user is everything, all true', done => {
+  it('getContextRoleForSubStructure, subStructure, user is everything, all true', done => {
     currentUserService.isCurrentUserAdmin$.mockReturnValue(of(true));
     department.okrMemberIds = ['test'];
     department.okrTopicSponsorId = 'test';
