@@ -13,28 +13,28 @@ import { CompanyId, DepartmentId } from '../../model/id-types';
 export class DepartmentStructureMapper {
   constructor(private departmentApiService: DepartmentApiService, private companyApiService: CompanyApiService) {}
 
-  getDepartmentStructureOfDepartment$(departmentId: DepartmentId): Observable<DepartmentStructure[]> {
+  getDepartmentStructuresOfDepartment$(departmentId: DepartmentId): Observable<DepartmentStructure[]> {
     return this.departmentApiService
       .getDepartmentStructure$(departmentId)
       .pipe(map(dto => this.mapDepartmentStructureDtoList(dto)));
   }
 
-  getDepartmentStructureOfCompany$(companyId: CompanyId): Observable<DepartmentStructure[]> {
+  getDepartmentStructuresOfCompany$(companyId: CompanyId): Observable<DepartmentStructure[]> {
     return this.companyApiService
-      .getDepartmentStructureOfCompany$(companyId)
+      .getDepartmentStructuresOfCompany$(companyId)
       .pipe(map(dto => this.mapDepartmentStructureDtoList(dto)));
   }
 
   mapDepartmentStructureDtoList(dtoList: DepartmentStructureDto[]): DepartmentStructure[] {
-    const departmentStructureList: DepartmentStructure[] = [];
+    const departmentStructures: DepartmentStructure[] = [];
     if (dtoList) {
       for (const dto of dtoList) {
-        departmentStructureList.push(this.mapDepartmentStructureDto(dto));
+        departmentStructures.push(this.mapDepartmentStructureDto(dto));
       }
     }
-    departmentStructureList.sort(this.sortDepartmentStructure);
+    departmentStructures.sort(this.sortDepartmentStructure);
 
-    return departmentStructureList;
+    return departmentStructures;
   }
 
   sortDepartmentStructure(a: DepartmentStructure, b: DepartmentStructure): number {

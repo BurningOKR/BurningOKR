@@ -35,7 +35,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentCompany$ = this.currentCompanyService.getCurrentCompany$();
-    this.currentDepartmentStructure$ = this.currentDepartmentStructureService.getCurrentDepartmentStructureList$();
+    this.currentDepartmentStructure$ = this.currentDepartmentStructureService.getCurrentDepartmentStructures$();
   }
 
   ngOnDestroy(): void {

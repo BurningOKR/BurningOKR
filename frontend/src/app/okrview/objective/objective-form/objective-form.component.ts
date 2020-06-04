@@ -132,7 +132,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   }
 
   fetchParentObjectives(departmentId: number): void {
-    this.currentDepartmentStructureService.getDepartmentStructureListToReachDepartmentWithId$(departmentId)
+    this.currentDepartmentStructureService.getDepartmentStructuresToReachDepartmentWithId$(departmentId)
       .pipe(
         switchMap((departmentList: DepartmentStructure[]) => {
           return this.getDepartmentObjectiveStructuresForDepartments$(departmentList);

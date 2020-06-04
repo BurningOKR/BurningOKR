@@ -29,6 +29,8 @@ describe('CurrentCompanyService', () => {
 
   beforeEach(() => {
     service = TestBed.get(CurrentCompanyService);
+    companyMapperMock.getCompanyById$.mockReset();
+    companyMapperMock.getParentCompanyOfDepartment$.mockReset();
     companyMapperMock.getCompanyById$.mockReturnValue(of(testCompany));
     companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(testCompany));
   });
@@ -49,7 +51,6 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByCompanyId gets null as parameter', done => {
-    companyMapperMock.getCompanyById$.mockReset();
     companyMapperMock.getCompanyById$.mockReturnValue(of(null));
     service.setCurrentCompanyByCompanyId(testCompany.id);
     service.getCurrentCompany$()
@@ -61,7 +62,6 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByCompanyId gets undefined as parameter', done => {
-    companyMapperMock.getCompanyById$.mockReset();
     companyMapperMock.getCompanyById$.mockReturnValue(of(undefined));
     service.setCurrentCompanyByCompanyId(testCompany.id);
     service.getCurrentCompany$()
@@ -83,7 +83,6 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets null as parameter', done => {
-    companyMapperMock.getParentCompanyOfDepartment$.mockReset();
     companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(null));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
@@ -95,7 +94,6 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets undefined as parameter', done => {
-    companyMapperMock.getParentCompanyOfDepartment$.mockReset();
     companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(undefined));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
