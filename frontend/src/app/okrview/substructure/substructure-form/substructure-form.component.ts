@@ -6,7 +6,6 @@ import { NEVER } from 'rxjs';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { DepartmentDto } from '../../../shared/model/api/structure/department.dto';
 import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
-import { InactiveTeamService } from './inactive-team.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { StructureType } from '../../../shared/model/api/structure/structure-type.enum';
 import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
@@ -30,7 +29,6 @@ export class SubstructureFormComponent {
 
   constructor(private dialogRef: MatDialogRef<SubstructureFormComponent>,
               private departmentMapper: DepartmentMapper,
-              private inactiveTeamService: InactiveTeamService,
               private i18n: I18n,
               private controlHelperService: ControlHelperService,
               @Inject(MAT_DIALOG_DATA) private formData: SubstructureFormData) {
@@ -70,8 +68,6 @@ export class SubstructureFormComponent {
       department.label = this.departmentForm.get('label').value;
       department.isActive = this.departmentForm.get('isActive').value;
 
-      this.inactiveTeamService.handleTeam(department);
-
       this.dialogRef.close(this.departmentMapper.putDepartment$(department));
     } else {
       const formData: DepartmentUnit = this.departmentForm.getRawValue();
@@ -86,8 +82,6 @@ export class SubstructureFormComponent {
         __structureType: StructureType.DEPARTMENT,
         parentStructureId: undefined
       };
-
-      this.inactiveTeamService.handleTeam(formData);
 
       if (this.formData.companyId) {
         newDepartment.parentStructureId = this.formData.companyId;
