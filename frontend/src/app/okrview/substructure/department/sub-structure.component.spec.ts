@@ -36,7 +36,7 @@ describe('SubStructureComponent', () => {
   };
 
   const departmentContextRoleService: any = {
-    getContextRoleForDepartment$: jest.fn()
+    getContextRoleForSubStructure$: jest.fn()
   };
   const router: any = {
     navigate: jest.fn()
@@ -119,8 +119,8 @@ describe('SubStructureComponent', () => {
     currentOkrViewService.refreshCurrentCompanyView.mockReset();
     currentOkrViewService.refreshCurrentDepartmentView.mockReset();
 
-    departmentContextRoleService.getContextRoleForDepartment$.mockReset();
-    departmentContextRoleService.getContextRoleForDepartment$.mockReturnValue(of(null));
+    departmentContextRoleService.getContextRoleForSubStructure$.mockReset();
+    departmentContextRoleService.getContextRoleForSubStructure$.mockReturnValue(of(null));
 
     router.navigate.mockReset();
     router.navigate.mockReturnValue({catch: jest.fn()});
@@ -172,7 +172,7 @@ describe('SubStructureComponent', () => {
     });
   });
 
-  it('should getContextRoleForDepartment$', done => {
+  it('should getContextRoleForSubStructure$', done => {
     paramMapGetSpy.mockReturnValue('1');
 
     fixture = TestBed.createComponent(SubStructureComponent);
@@ -180,7 +180,7 @@ describe('SubStructureComponent', () => {
     fixture.detectChanges();
 
     component.currentUserRole$.subscribe(() => {
-      expect(departmentContextRoleService.getContextRoleForDepartment$)
+      expect(departmentContextRoleService.getContextRoleForSubStructure$)
         .toHaveBeenCalledWith(department);
       done();
     });

@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { ContextRole } from '../../model/ui/context-role';
 import { User } from '../../model/api/user';
 import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-unit';
+import { CorporateObjectiveStructure } from '../../model/ui/OrganizationalUnit/corporate-objective-structure';
 
 const currentUserService: any = {
   isCurrentUserAdmin$: jest.fn(),
@@ -13,6 +14,7 @@ const currentUserService: any = {
 };
 
 let department: DepartmentUnit;
+let corporateObjectiveStructure: CorporateObjectiveStructure;
 let service: SubStructureContextRoleService;
 
 describe('SubStructureContextRoleService', () => {
@@ -40,6 +42,16 @@ describe('SubStructureContextRoleService', () => {
       'department',
       null, null, [],
       true, false);
+
+    corporateObjectiveStructure = new CorporateObjectiveStructure(
+      2,
+      'testCorporateObjectiveStructure',
+      [],
+      'corporateObjectiveStructure',
+      0,
+      [],
+      true
+    );
   });
 
   it('should be created', () => {
@@ -79,8 +91,8 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForDepartment, department, user has no rights, all false', done => {
-    service.getContextRoleForDepartment$(department)
+  it('getContextRoleForSubStructure, department, user has no rights, all false', done => {
+    service.getContextRoleForSubStructure$(department)
       .subscribe((contextRole: ContextRole) => {
         expect(contextRole.isAdmin)
           .toBeFalsy();
@@ -93,10 +105,10 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForDepartment, department, user is Admin, all false except admin', done => {
+  it('getContextRoleForSubStructure, department, user is Admin, all false except admin', done => {
     currentUserService.isCurrentUserAdmin$.mockReturnValue(of(true));
 
-    service.getContextRoleForDepartment$(department)
+    service.getContextRoleForSubStructure$(department)
       .subscribe((contextRole: ContextRole) => {
         expect(contextRole.isAdmin)
           .toBeTruthy();
@@ -109,10 +121,10 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForDepartment, department, user is okr master, all false except okrManager', done => {
+  it('getContextRoleForSubStructure, department, user is okr master, all false except okrManager', done => {
     department.okrMasterId = 'test';
 
-    service.getContextRoleForDepartment$(department)
+    service.getContextRoleForSubStructure$(department)
       .subscribe((contextRole: ContextRole) => {
         expect(contextRole.isAdmin)
           .toBeFalsy();
@@ -125,10 +137,10 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForDepartment, department, user is okr topic sponsor, all false except okrManager', done => {
+  it('getContextRoleForSubStructure, department, user is okr topic sponsor, all false except okrManager', done => {
     department.okrTopicSponsorId = 'test';
 
-    service.getContextRoleForDepartment$(department)
+    service.getContextRoleForSubStructure$(department)
       .subscribe((contextRole: ContextRole) => {
         expect(contextRole.isAdmin)
           .toBeFalsy();
@@ -141,10 +153,10 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForDepartment, department, user is okr topic member, all false except okrMember', done => {
+  it('getContextRoleForSubStructure, department, user is okr topic member, all false except okrMember', done => {
     department.okrMemberIds = ['test'];
 
-    service.getContextRoleForDepartment$(department)
+    service.getContextRoleForSubStructure$(department)
       .subscribe((contextRole: ContextRole) => {
         expect(contextRole.isAdmin)
           .toBeFalsy();
@@ -157,13 +169,13 @@ describe('SubStructureContextRoleService', () => {
       });
   });
 
-  it('getContextRoleForDepartment, department, user is everything, all true', done => {
+  it('getContextRoleForSubStructure, department, user is everything, all true', done => {
     currentUserService.isCurrentUserAdmin$.mockReturnValue(of(true));
     department.okrMemberIds = ['test'];
     department.okrTopicSponsorId = 'test';
     department.okrMasterId = 'test';
 
-    service.getContextRoleForDepartment$(department)
+    service.getContextRoleForSubStructure$(department)
       .subscribe((contextRole: ContextRole) => {
         expect(contextRole.isAdmin)
           .toBeTruthy();
@@ -171,6 +183,36 @@ describe('SubStructureContextRoleService', () => {
           .toBeTruthy();
         expect(contextRole.isOKRMember)
           .toBeTruthy();
+
+        done();
+      });
+  });
+
+  it('getContextRoleForSubStructure, CorporateObjectiveStructure, user is Admin, all false except admin', done => {
+    currentUserService.isCurrentUserAdmin$.mockReturnValue(of(true));
+
+    service.getContextRoleForSubStructure$(corporateObjectiveStructure)
+      .subscribe((contextRole: ContextRole) => {
+        expect(contextRole.isAdmin)
+          .toBeTruthy();
+        expect(contextRole.isOKRManager)
+          .toBeFalsy();
+        expect(contextRole.isOKRMember)
+          .toBeFalsy();
+
+        done();
+      });
+  });
+
+  it('getContextRoleForSubStructure, CorporateObjectiveStructure, user has no rights, all false', done => {
+    service.getContextRoleForSubStructure$(corporateObjectiveStructure)
+      .subscribe((contextRole: ContextRole) => {
+        expect(contextRole.isAdmin)
+          .toBeFalsy();
+        expect(contextRole.isOKRManager)
+          .toBeFalsy();
+        expect(contextRole.isOKRMember)
+          .toBeFalsy();
 
         done();
       });

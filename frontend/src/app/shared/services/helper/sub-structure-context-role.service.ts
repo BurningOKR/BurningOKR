@@ -5,6 +5,7 @@ import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-uni
 import { User } from '../../model/api/user';
 import { combineLatest, Observable } from 'rxjs';
 import { ContextRole } from '../../model/ui/context-role';
+import { SubStructure } from '../../model/ui/OrganizationalUnit/sub-structure';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { ContextRole } from '../../model/ui/context-role';
 export class SubStructureContextRoleService {
   constructor(private currentUserService: CurrentUserService) {}
 
-  getContextRoleForDepartment$(department: DepartmentUnit): Observable<ContextRole> {
+  getContextRoleForSubStructure$(subStructure: SubStructure): Observable<ContextRole> {
     return combineLatest([
       this.currentUserService.isCurrentUserAdmin$(),
       this.currentUserService.getCurrentUser$()
@@ -23,8 +24,10 @@ export class SubStructureContextRoleService {
           const role: ContextRole = new ContextRole();
 
           role.isAdmin = isAdmin;
-          role.isOKRManager = department.okrMasterId === currentUser.id || department.okrTopicSponsorId === currentUser.id;
-          role.isOKRMember = department.okrMemberIds.Contains(currentUser.id);
+          if (subStructure instanceof DepartmentUnit) {
+            role.isOKRManager = subStructure.okrMasterId === currentUser.id || subStructure.okrTopicSponsorId === currentUser.id;
+            role.isOKRMember = subStructure.okrMemberIds.Contains(currentUser.id);
+          }
 
           return role;
         })

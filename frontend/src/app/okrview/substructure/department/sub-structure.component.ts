@@ -63,7 +63,7 @@ export class SubStructureComponent implements OnInit, OnDestroy {
     this.currentUserRole$ = this.department$
       .pipe(
         switchMap(department => {
-          return this.departmentContextRoleService.getContextRoleForDepartment$(department);
+          return this.departmentContextRoleService.getContextRoleForSubStructure$(department);
         })
       );
 
