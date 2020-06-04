@@ -14,7 +14,7 @@ export class DepartmentMapper {
   constructor(private departmentApiService: DepartmentApiService) {
   }
 
-  static mapDepartment(department: DepartmentDto): DepartmentUnit {
+  static mapDepartmentDto(department: DepartmentDto): DepartmentUnit {
     return new DepartmentUnit(
       department.structureId,
       department.structureName,
@@ -29,46 +29,52 @@ export class DepartmentMapper {
     );
   }
 
+  static mapDepartmentUnit(department: DepartmentUnit): DepartmentDto {
+    const departmentDto: DepartmentDto = new DepartmentDto();
+    departmentDto.__structureType = StructureType.DEPARTMENT;
+    departmentDto.structureId = department.id;
+    departmentDto.structureName = department.name;
+    departmentDto.label = department.label;
+    departmentDto.isActive = department.isActive;
+    departmentDto.parentStructureId = department.parentStructureId;
+    departmentDto.okrMasterId = department.okrMasterId;
+    departmentDto.okrMemberIds = department.okrMemberIds;
+    departmentDto.okrTopicSponsorId = department.okrTopicSponsorId;
+    departmentDto.objectiveIds = department.objectives;
+    departmentDto.isParentStructureACorporateObjectiveStructure = department.isParentStructureACorporateObjectiveStructure;
+
+    return departmentDto;
+  }
+
   getDepartmentById$(departmentId: StructureId): Observable<DepartmentUnit> {
     return this.departmentApiService
       .getDepartmentById$(departmentId)
-      .pipe(map(departmentDto => DepartmentMapper.mapDepartment(departmentDto)));
+      .pipe(map(departmentDto => DepartmentMapper.mapDepartmentDto(departmentDto)));
   }
 
   getAllDepartmentsForCompanyFlatted$(companyId: CompanyId): Observable<DepartmentUnit[]> {
     return this.departmentApiService
       .getDepartmentsFlattedForCompany$(companyId)
-      .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartment)
+      .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartmentDto)
         .sort((a: DepartmentUnit, b: DepartmentUnit) => a.name < b.name ? -1 : a.name === b.name ? 0 : 1
         )));
   }
 
   postDepartmentForCompany$(companyId: CompanyId, department: DepartmentDto): Observable<DepartmentUnit> {
     return this.departmentApiService.postDepartmentForCompany$(companyId, department)
-      .pipe(map(DepartmentMapper.mapDepartment));
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
   postDepartmentForDepartment$(departmentId: StructureId, department: DepartmentDto): Observable<DepartmentUnit> {
     return this.departmentApiService
       .postDepartmentForDepartment$(departmentId, department)
-      .pipe(map(DepartmentMapper.mapDepartment));
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
   putDepartment$(department: DepartmentUnit): Observable<DepartmentUnit> {
     return this.departmentApiService
-      .putDepartment$({
-        structureId: department.id,
-        structureName: department.name,
-        objectiveIds: department.objectives,
-        parentStructureId: 0,
-        label: department.label,
-        okrMasterId: department.okrMasterId,
-        okrTopicSponsorId: department.okrTopicSponsorId,
-        okrMemberIds: department.okrMemberIds,
-        isActive: department.isActive,
-        __structureType: StructureType.DEPARTMENT
-      })
-      .pipe(map(DepartmentMapper.mapDepartment));
+      .putDepartment$(DepartmentMapper.mapDepartmentUnit(department))
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
   putDepartmentObjectiveSequence$(departmentId: StructureId, sequenceList: number[]): Observable<number[]> {

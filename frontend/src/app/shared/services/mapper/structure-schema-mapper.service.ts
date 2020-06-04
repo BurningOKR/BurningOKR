@@ -6,12 +6,16 @@ import { map } from 'rxjs/operators';
 import { StructureSchemeDto } from '../../model/api/structure/structure-scheme-dto';
 import { StructureSchema } from '../../model/ui/structure-schema';
 import { CompanyId, StructureId } from '../../model/id-types';
+import { StructureApiService } from '../api/structure-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StructureSchemaMapper {
-  constructor(private departmentApiService: DepartmentApiService, private companyApiService: CompanyApiService) {}
+  constructor(
+    private departmentApiService: DepartmentApiService,
+    private companyApiService: CompanyApiService,
+    private structureService: StructureApiService) {}
 
   getStructureSchemaOfDepartment$(departmentId: StructureId): Observable<StructureSchema[]> {
     return this.departmentApiService
@@ -23,6 +27,13 @@ export class StructureSchemaMapper {
     return this.companyApiService
       .getStructureSchemaOfCompany$(companyId)
       .pipe(map(dto => this.mapStructureSchemaDtoList(dto)));
+  }
+
+  getStructureSchemaByStructureId$(id: StructureId): Observable<StructureSchema[]> {
+    return this.structureService.getStructureSchemaByStructureId$(id)
+      .pipe(
+        map((structureSchema: StructureSchema[]) => this.mapStructureSchemaDtoList(structureSchema))
+      );
   }
 
   mapStructureSchemaDtoList(dtoList: StructureSchemeDto[]): StructureSchema[] {

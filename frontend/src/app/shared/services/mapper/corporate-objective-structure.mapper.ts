@@ -14,7 +14,7 @@ export class CorporateObjectiveStructureMapper {
   constructor(private corporateObjectiveStructureApiService: CorporateObjectiveStructureApiService) {
   }
 
-  private static mapToCorporateObjectiveStructure(dto: CorporateObjectiveStructureDto): CorporateObjectiveStructure {
+  static mapToCorporateObjectiveStructure(dto: CorporateObjectiveStructureDto): CorporateObjectiveStructure {
     return new CorporateObjectiveStructure(
       dto.structureId,
       dto.structureName,
@@ -26,17 +26,18 @@ export class CorporateObjectiveStructureMapper {
     );
   }
 
-  private static mapToCorporateObjectiveStructureDto(entity: CorporateObjectiveStructure): CorporateObjectiveStructureDto {
-    return {
-      structureId: entity.id,
-      structureName: entity.name,
-      objectiveIds: entity.objectives,
-      label: entity.label,
-      parentStructureId: entity.parentStructureId,
-      subStructureIds: entity.subStructureIds,
-      isActive: entity.isActive,
-      __structureType: StructureType.CORPORATE_OBJECTIVE_STRUCTURE
-    };
+  static mapToCorporateObjectiveStructureDto(entity: CorporateObjectiveStructure): CorporateObjectiveStructureDto {
+    const dto: CorporateObjectiveStructureDto = new CorporateObjectiveStructureDto();
+    dto.structureId = entity.id;
+    dto.structureName = entity.name;
+    dto.objectiveIds = entity.objectives;
+    dto.label = entity.label;
+    dto.parentStructureId = entity.parentStructureId;
+    dto.subStructureIds = entity.subStructureIds;
+    dto.isActive = entity.isActive;
+    dto.__structureType = StructureType.CORPORATE_OBJECTIVE_STRUCTURE;
+
+    return dto;
   }
 
   getById$(id: number): Observable<CorporateObjectiveStructure> {

@@ -1,6 +1,6 @@
-import { CompanyId, ObjectiveId, StructureId } from '../../id-types';
+import { ObjectiveId, StructureId } from '../../id-types';
 
-export interface StructureDto {
+export class StructureDto {
   structureId?: StructureId;
   structureName: string;
   label: string;
