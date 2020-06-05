@@ -13,10 +13,11 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.CompanyRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.structureutil.EntityCrawlerService;
@@ -33,7 +34,7 @@ public class CompanyServiceTest {
 
   @Mock private CompanyRepository companyRepository;
 
-  @Mock private DepartmentRepository departmentRepository;
+  @Mock private StructureRepository<SubStructure> structureRepository;
 
   @Mock private EntityCrawlerService entityCrawlerService;
 
@@ -66,14 +67,14 @@ public class CompanyServiceTest {
     Department department = new Department();
     User user = mock(User.class);
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(company);
-    when(departmentRepository.save(any(Department.class))).thenReturn(department);
+    when(structureRepository.save(any(Department.class))).thenReturn(department);
 
     companyService.createDepartment(companyId, department, user);
 
     Assert.assertEquals(company.getId(), department.getParentStructure().getId());
 
     verify(companyRepository).findByIdOrThrow(any(Long.class));
-    verify(departmentRepository).save(any(Department.class));
+    verify(structureRepository).save(any(Department.class));
   }
 
   @Test

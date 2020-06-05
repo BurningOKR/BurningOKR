@@ -63,10 +63,15 @@ export class ObjectiveViewMapper {
       );
   }
 
-
   postObjectiveForDepartment$(departmentId: number, viewObjective: ViewObjective): Observable<ViewObjective> {
     return this.objectiveApiService
       .postObjectiveForDepartment$(departmentId, ObjectiveViewMapper.mapToObjectiveDTO(viewObjective))
+      .pipe(map(ObjectiveViewMapper.mapToViewObjective));
+  }
+
+  postObjectiveForStructure$(structureId: number, viewObjective: ViewObjective): Observable<ViewObjective> {
+    return this.objectiveApiService
+      .postObjectiveForStructure$(structureId, ObjectiveViewMapper.mapToObjectiveDTO(viewObjective))
       .pipe(map(ObjectiveViewMapper.mapToViewObjective));
   }
 

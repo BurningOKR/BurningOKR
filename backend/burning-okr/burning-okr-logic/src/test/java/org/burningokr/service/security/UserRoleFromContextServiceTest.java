@@ -19,7 +19,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.Assert;
@@ -33,7 +33,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class UserRoleFromContextServiceTest {
 
-  @Mock private DepartmentRepository departmentRepository;
+  @Mock private StructureRepository<SubStructure> structureRepository;
   @Mock private ObjectiveRepository objectiveRepository;
   @Mock private KeyResultRepository keyResultRepository;
   @Mock private NoteRepository noteRepository;
@@ -106,7 +106,7 @@ public class UserRoleFromContextServiceTest {
   }
 
   private void setupRepositoryMocks() {
-    when(departmentRepository.findByIdOrThrow(departmentId)).thenReturn(dbDepartment);
+    when(structureRepository.findByIdOrThrow(departmentId)).thenReturn(dbDepartment);
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(dbObjective);
     when(keyResultRepository.findByIdOrThrow(keyResultId)).thenReturn(dbKeyResult);
     when(noteRepository.findByIdOrThrow(noteId)).thenReturn(dbNote);
@@ -142,7 +142,7 @@ public class UserRoleFromContextServiceTest {
   public void getRoleFromDepartment_OkrMaster_expectedManagerRole() {
     when(currentUser.getId()).thenReturn(okrMasterId);
 
-    UserContextRole actualRole = userRoleFromContextService.getUserRoleInDepartmentId(departmentId);
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructureId(departmentId);
 
     Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
@@ -151,7 +151,7 @@ public class UserRoleFromContextServiceTest {
   public void getRoleFromDepartment_OkrTopicSponsor_expectedManagerRole() {
     when(currentUser.getId()).thenReturn(okrThemenpateId);
 
-    UserContextRole actualRole = userRoleFromContextService.getUserRoleInDepartmentId(departmentId);
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructureId(departmentId);
 
     Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
@@ -160,7 +160,7 @@ public class UserRoleFromContextServiceTest {
   public void getRoleFromDepartment_OkrMember_expectedMemberRole() {
     when(currentUser.getId()).thenReturn(okrMemberId);
 
-    UserContextRole actualRole = userRoleFromContextService.getUserRoleInDepartmentId(departmentId);
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructureId(departmentId);
 
     Assert.assertEquals(UserContextRole.OKRMEMBER, actualRole);
   }
@@ -169,7 +169,7 @@ public class UserRoleFromContextServiceTest {
   public void getRoleFromDepartment_User_expectedUserRole() {
     when(currentUser.getId()).thenReturn(unrelatedUserId);
 
-    UserContextRole actualRole = userRoleFromContextService.getUserRoleInDepartmentId(departmentId);
+    UserContextRole actualRole = userRoleFromContextService.getUserRoleInStructureId(departmentId);
 
     Assert.assertEquals(UserContextRole.USER, actualRole);
   }

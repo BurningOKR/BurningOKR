@@ -52,4 +52,8 @@ export class StructureMapper {
   deleteSubStructure$(subStructure: SubStructure): Observable<boolean> {
     return this.structureService.deleteSubStructure$(subStructure.id);
   }
+
+  putStructureObjectiveSequence$(structureId: StructureId, sequenceList: number[]): Observable<number[]> {
+    return this.structureService.putStructureObjectiveSequence$(structureId, sequenceList);
+  }
 }

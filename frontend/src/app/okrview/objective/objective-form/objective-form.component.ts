@@ -15,7 +15,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 interface ObjectiveFormData {
   objective?: ViewObjective;
-  departmentId?: number;
+  structureId?: number;
   currentItem: Structure;
 }
 
@@ -71,7 +71,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       this.objectiveForm.patchValue(this.formData.objective);
       this.fetchParentObjectives(this.objective.parentStructureId);
     } else {
-      this.fetchParentObjectives(this.formData.departmentId);
+      this.fetchParentObjectives(this.formData.structureId);
     }
 
     const editText: string = this.i18n({
@@ -126,8 +126,8 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
         formData.contactPersonId,
         undefined
       );
-      newObjective.parentStructureId = this.formData.departmentId;
-      this.dialogRef.close(this.objectiveMapper.postObjectiveForDepartment$(this.formData.departmentId, newObjective));
+      newObjective.parentStructureId = this.formData.structureId;
+      this.dialogRef.close(this.objectiveMapper.postObjectiveForStructure$(this.formData.structureId, newObjective));
     }
   }
 

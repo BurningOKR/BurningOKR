@@ -77,10 +77,6 @@ export class DepartmentMapper {
       .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
-  putDepartmentObjectiveSequence$(departmentId: StructureId, sequenceList: number[]): Observable<number[]> {
-    return this.departmentApiService.putDepartmentObjectiveSequence$(departmentId, sequenceList);
-  }
-
   deleteDepartment$(departmentId: StructureId): Observable<boolean> {
     return this.departmentApiService.deleteDepartment$(departmentId);
   }

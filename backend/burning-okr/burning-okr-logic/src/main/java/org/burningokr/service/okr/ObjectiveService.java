@@ -36,7 +36,7 @@ public class ObjectiveService {
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private ConfigurationService configurationService;
-  private StructureServiceUsers<SubStructure> departmentService;
+  private StructureServiceUsers<SubStructure> structureService;
 
   /**
    * Initialize ObjectiveService.
@@ -47,7 +47,7 @@ public class ObjectiveService {
    * @param activityService an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
    * @param configurationService a {@link ConfigurationService} object
-   * @param departmentService a {@link StructureServiceUsers} object
+   * @param structureService a {@link StructureServiceUsers} object
    */
   @Autowired
   public ObjectiveService(
@@ -57,14 +57,14 @@ public class ObjectiveService {
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       ConfigurationService configurationService,
-      @Qualifier("structureServiceUsers") StructureServiceUsers<SubStructure> departmentService) {
+      @Qualifier("structureServiceUsers") StructureServiceUsers<SubStructure> structureService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
     this.configurationService = configurationService;
-    this.departmentService = departmentService;
+    this.structureService = structureService;
   }
 
   public Objective findById(Long objectiveId) {
@@ -188,15 +188,15 @@ public class ObjectiveService {
   /**
    * Updates a Sequence.
    *
-   * @param departmentId a long value
+   * @param structureId a long value
    * @param sequenceList a {@link Collection} of long values
    * @param user an {@link User} object
    * @throws Exception if Sequence is invalid
    */
   @Transactional
-  public void updateSequence(Long departmentId, Collection<Long> sequenceList, User user)
+  public void updateSequence(Long structureId, Collection<Long> sequenceList, User user)
       throws Exception {
-    SubStructure structure = departmentService.findById(departmentId);
+    SubStructure structure = structureService.findById(structureId);
     throwIfSequenceInvalid(structure, sequenceList);
 
     ArrayList<Long> sequenceArray = new ArrayList<>(sequenceList);

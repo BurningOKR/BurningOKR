@@ -37,10 +37,6 @@ export class DepartmentApiService {
     return this.api.putData$(`departments/${department.structureId}`, department);
   }
 
-  putDepartmentObjectiveSequence$(departmentId: number, sequenceList: number[]): Observable<number[]> {
-    return this.api.putData$(`department/${departmentId}/objectivesequence`, sequenceList);
-  }
-
   deleteDepartment$(departmentId: number): Observable<boolean> {
     return this.api.deleteData$(`departments/${departmentId}`);
   }

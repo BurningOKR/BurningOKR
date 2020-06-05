@@ -12,7 +12,6 @@ import org.burningokr.dto.structure.CorporateObjectiveStructureDto;
 import org.burningokr.dto.structure.DepartmentDto;
 import org.burningokr.dto.structure.StructureSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.mapper.structure.CorporateObjectiveStructureMapper;
 import org.burningokr.mapper.structure.DepartmentMapper;
 import org.burningokr.mapper.structure.StructureSchemaMapper;
 import org.burningokr.model.cycles.Cycle;
@@ -21,12 +20,9 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
 import org.burningokr.model.structures.CorporateObjectiveStructure;
 import org.burningokr.model.structures.Department;
-import org.burningokr.model.structures.Structure;
 import org.burningokr.model.users.User;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.StructureService;
-import org.burningokr.service.structure.StructureServicePicker;
 import org.burningokr.service.structure.departmentservices.StructureServiceAdmins;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +44,8 @@ public class CompanyController {
   private DataMapper<Cycle, CycleDto> cycleMapper;
   private StructureSchemaMapper structureSchemaMapper;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
-  private DataMapper<CorporateObjectiveStructure, CorporateObjectiveStructureDto> corporateObjectiveStructureMapper;
+  private DataMapper<CorporateObjectiveStructure, CorporateObjectiveStructureDto>
+      corporateObjectiveStructureMapper;
   private AuthorizationService authorizationService;
   private UserService userService;
   private StructureServiceAdmins<CorporateObjectiveStructure> corporateObjectiveStructureService;
@@ -74,7 +71,8 @@ public class CompanyController {
       DataMapper<Cycle, CycleDto> cycleMapper,
       DataMapper<Department, DepartmentDto> departmentMapper,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
-      DataMapper<CorporateObjectiveStructure, CorporateObjectiveStructureDto> corporateObjectiveStructureMapper,
+      DataMapper<CorporateObjectiveStructure, CorporateObjectiveStructureDto>
+          corporateObjectiveStructureMapper,
       AuthorizationService authorizationService,
       StructureSchemaMapper structureSchemaMapper,
       UserService userService,
@@ -209,11 +207,16 @@ public class CompanyController {
   @PostMapping("/companies/{companyId}/corporateObjectiveStructures")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<CorporateObjectiveStructureDto> addCorporateObjectiveStructureToCompanyById(
-      @PathVariable long companyId, @Valid @RequestBody CorporateObjectiveStructureDto corporateObjectiveStructureDto, User user) {
+      @PathVariable long companyId,
+      @Valid @RequestBody CorporateObjectiveStructureDto corporateObjectiveStructureDto,
+      User user) {
 
-    CorporateObjectiveStructure corporateObjectiveStructure = corporateObjectiveStructureMapper.mapDtoToEntity(corporateObjectiveStructureDto);
+    CorporateObjectiveStructure corporateObjectiveStructure =
+        corporateObjectiveStructureMapper.mapDtoToEntity(corporateObjectiveStructureDto);
     corporateObjectiveStructure.setId(null);
-    CorporateObjectiveStructure createdStructure = companyService.createCorporateObjectiveStructure(companyId, corporateObjectiveStructure, user);
+    CorporateObjectiveStructure createdStructure =
+        companyService.createCorporateObjectiveStructure(
+            companyId, corporateObjectiveStructure, user);
 
     return ResponseEntity.ok(corporateObjectiveStructureMapper.mapEntityToDto(createdStructure));
   }

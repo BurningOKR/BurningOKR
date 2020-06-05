@@ -44,4 +44,8 @@ export class StructureApiService {
   getParentCompanyOfStructure$(structureId: number): Observable<CompanyDto> {
     return this.http.getData$(`structures/${structureId}/company`);
   }
+
+  putStructureObjectiveSequence$(departmentId: number, sequenceList: number[]): Observable<number[]> {
+    return this.http.putData$(`structures/${departmentId}/objectivesequence`, sequenceList);
+  }
 }

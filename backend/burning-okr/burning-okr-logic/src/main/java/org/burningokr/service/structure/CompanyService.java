@@ -223,7 +223,8 @@ public class CompanyService {
     return department;
   }
 
-  public CorporateObjectiveStructure createCorporateObjectiveStructure(Long companyId, CorporateObjectiveStructure corporateObjectiveStructure, User user) {
+  public CorporateObjectiveStructure createCorporateObjectiveStructure(
+      Long companyId, CorporateObjectiveStructure corporateObjectiveStructure, User user) {
     Company referencedCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedCompany);

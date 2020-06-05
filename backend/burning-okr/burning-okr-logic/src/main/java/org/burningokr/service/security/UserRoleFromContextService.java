@@ -4,12 +4,14 @@ import java.util.Optional;
 import java.util.UUID;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.structures.Department;
+import org.burningokr.model.structures.Structure;
 import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.structre.DepartmentRepository;
+import org.burningokr.repositories.structre.StructureRepository;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRoleFromContextService {
 
-  private DepartmentRepository departmentRepository;
+  private StructureRepository<SubStructure> structureRepository;
   private ObjectiveRepository objectiveRepository;
   private KeyResultRepository keyResultRepository;
   private NoteRepository noteRepository;
@@ -28,7 +30,7 @@ public class UserRoleFromContextService {
   /**
    * Initialize UserRoleFromContextService.
    *
-   * @param departmentRepository a {@link DepartmentRepository} object
+   * @param structureRepository a {@link DepartmentRepository} object
    * @param objectiveRepository an {@link ObjectiveRepository} object
    * @param keyResultRepository a {@link KeyResultRepository} object
    * @param noteRepository a {@link NoteRepository} object
@@ -37,13 +39,13 @@ public class UserRoleFromContextService {
    */
   @Autowired
   public UserRoleFromContextService(
-      DepartmentRepository departmentRepository,
+      StructureRepository<SubStructure> structureRepository,
       ObjectiveRepository objectiveRepository,
       KeyResultRepository keyResultRepository,
       NoteRepository noteRepository,
       AdminUserRepository adminUserRepository,
       UserService userService) {
-    this.departmentRepository = departmentRepository;
+    this.structureRepository = structureRepository;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
     this.noteRepository = noteRepository;
@@ -64,19 +66,19 @@ public class UserRoleFromContextService {
     return UserContextRole.USER;
   }
 
-  public UserContextRole getUserRoleInDepartmentId(Long departmentId) {
-    Department contextDepartment = getDepartmentOfId(departmentId);
-    return getUserRoleInDepartment(contextDepartment);
+  public UserContextRole getUserRoleInStructureId(Long structureId) {
+    SubStructure contextDepartment = getStructureOfId(structureId);
+    return getUserRoleInStructure(contextDepartment);
   }
 
   public UserContextRole getUserRoleInObjectiveId(Long objectiveId) {
-    Department contextDepartment = getDepartmentOfObjective(objectiveId);
-    return getUserRoleInDepartment(contextDepartment);
+    Structure contextDepartment = getStructureOfObjective(objectiveId);
+    return getUserRoleInStructure(contextDepartment);
   }
 
   public UserContextRole getUserRoleInKeyResultId(Long keyResultId) {
-    Department contextDepartment = getDepartmentOfKeyResult(keyResultId);
-    return getUserRoleInDepartment(contextDepartment);
+    Structure contextDepartment = getStructureOfKeyResult(keyResultId);
+    return getUserRoleInStructure(contextDepartment);
   }
 
   /**
@@ -101,7 +103,7 @@ public class UserRoleFromContextService {
    * @param structure an {@link SubStructure} object
    * @return an {@link UserContextRole} object
    */
-  public UserContextRole getUserRoleInStructure(SubStructure structure) {
+  public UserContextRole getUserRoleInStructure(Structure structure) {
     if (structure instanceof Department) {
       return getUserRoleInDepartment((Department) structure);
     } else {
@@ -150,16 +152,18 @@ public class UserRoleFromContextService {
     return false;
   }
 
-  private Department getDepartmentOfId(long departmentId) {
-    return departmentRepository.findByIdOrThrow(departmentId);
+  private SubStructure getStructureOfId(long structureId) {
+    return structureRepository.findByIdOrThrow(structureId);
   }
 
-  private Department getDepartmentOfObjective(long objectiveId) {
-    return (Department) objectiveRepository.findByIdOrThrow(objectiveId).getParentStructure();
+  private Structure getStructureOfObjective(long objectiveId) {
+    return objectiveRepository.findByIdOrThrow(objectiveId).getParentStructure();
   }
 
-  private Department getDepartmentOfKeyResult(long keyResultId) {
-    return (Department)
-        keyResultRepository.findByIdOrThrow(keyResultId).getParentObjective().getParentStructure();
+  private Structure getStructureOfKeyResult(long keyResultId) {
+    return keyResultRepository
+        .findByIdOrThrow(keyResultId)
+        .getParentObjective()
+        .getParentStructure();
   }
 }

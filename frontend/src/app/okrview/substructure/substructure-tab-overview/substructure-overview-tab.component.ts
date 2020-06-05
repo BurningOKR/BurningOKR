@@ -3,14 +3,13 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
-import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
 import { ObjectiveFormComponent } from '../../objective/objective-form/objective-form.component';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
-import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { SubStructure } from '../../../shared/model/ui/OrganizationalUnit/sub-structure';
+import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
 
 @Component({
   selector: 'app-substructure-overview-tab',
@@ -28,7 +27,7 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   constructor(
     private objectiveMapper: ObjectiveViewMapper,
-    private departmentMapper: DepartmentMapper,
+    private structureMapper: StructureMapper,
     private matDialog: MatDialog
   ) {}
 
@@ -76,8 +75,8 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
   queryUpdatedObjectiveOrder(): void {
     const sequenceList: number[] = this.calculateDepartmentOrderedIdList();
     // TODO (R.J. 04.06.2020) change this to structure mapper
-    this.departmentMapper
-      .putDepartmentObjectiveSequence$(this.structure.id, sequenceList)
+    this.structureMapper
+      .putStructureObjectiveSequence$(this.structure.id, sequenceList)
       .pipe(take(1))
       .subscribe();
   }
@@ -95,7 +94,7 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   clickedAddObjective(): void {
     const dialogReference: MatDialogRef<ObjectiveFormComponent> = this.matDialog.open(ObjectiveFormComponent, {
-      data: { departmentId: this.structure.id }
+      data: { structureId: this.structure.id }
     });
 
     this.subscriptions.push(

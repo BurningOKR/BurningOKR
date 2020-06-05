@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { CompanyId, StructureId, ObjectiveId } from '../../model/id-types';
 import { ObjectiveDto } from '../../model/api/objective.dto';
+import obj from '../../../../_versions';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,10 @@ export class ObjectiveApiService {
 
   postObjectiveForDepartment$(departmentId: StructureId, objective: ObjectiveDto): Observable<ObjectiveDto> {
     return this.api.postData$(`departments/${departmentId}/objectives`, objective);
+  }
+
+  postObjectiveForStructure$(structureId: StructureId, objective: ObjectiveDto): Observable<ObjectiveDto> {
+    return this.api.postData$(`structures/${structureId}/objectives`, objective);
   }
 
   putObjective$(objective: ObjectiveDto, objectiveId: ObjectiveId): Observable<ObjectiveDto> {

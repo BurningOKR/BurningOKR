@@ -2,6 +2,7 @@ package org.burningokr.controller.structure;
 
 import java.util.Collection;
 import java.util.UUID;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.ObjectiveDto;
@@ -15,7 +16,6 @@ import org.burningokr.mapper.structure.StructureMapperPicker;
 import org.burningokr.mapper.structure.StructureSchemaMapper;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
 import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 import org.burningokr.service.structure.StructureService;
@@ -24,6 +24,7 @@ import org.burningokr.service.structureutil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestApiController
@@ -111,6 +112,26 @@ public class StructureController {
     SubStructure updatedStructure = structureService.updateStructure(receivedStructure, user);
 
     return ResponseEntity.ok((SubStructureDto) mapper.mapEntityToDto(updatedStructure));
+  }
+
+  /**
+   * API Endpoint to add an Objective to a Structure.
+   *
+   * @param structureId a long value
+   * @param objectiveDto an {@link ObjectiveDto} object
+   * @param user an {@link User} object
+   * @return a {@link ResponseEntity} ok with the added objective
+   */
+  @PostMapping("/structures/{structureId}/objectives")
+  @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#structureId)")
+  public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
+      @PathVariable long structureId, @Valid @RequestBody ObjectiveDto objectiveDto, User user) {
+    StructureService<SubStructure> structureService =
+        structureServicePicker.getRoleServiceForDepartment(structureId);
+    Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
+    objective.setId(null);
+    objective = structureService.createObjective(structureId, objective, user);
+    return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
   @DeleteMapping("/structures/{structureId}")
