@@ -65,7 +65,7 @@ import { AvatarModule } from 'ngx-avatar';
     CommentViewDialogComponent,
     CommentCardComponent,
     CycleListDropdownComponent,
-    CorporateObjectiveStructureComponent
+    CorporateObjectiveStructureComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,

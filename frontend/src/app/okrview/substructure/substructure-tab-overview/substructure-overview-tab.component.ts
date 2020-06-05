@@ -74,7 +74,6 @@ export class SubstructureOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   queryUpdatedObjectiveOrder(): void {
     const sequenceList: number[] = this.calculateDepartmentOrderedIdList();
-    // TODO (R.J. 04.06.2020) change this to structure mapper
     this.structureMapper
       .putStructureObjectiveSequence$(this.structure.id, sequenceList)
       .pipe(take(1))
