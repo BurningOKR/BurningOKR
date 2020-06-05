@@ -93,7 +93,7 @@
       <mat-icon>save_alt</mat-icon>
       <span i18n="@@component_department_export">Exportieren</span>
     </button>
-    <button mat-menu-item (click)="downloadDepartmentExcelEmailFile(subStructure)">
+    <button mat-menu-item *ngIf="isDepartmentUnit(subStructure)" (click)="downloadDepartmentExcelEmailFile(subStructure)">
       <mat-icon>save_alt</mat-icon>
       <span i18n="@@component_department_exportContacts">Kontakte exportieren</span>
     </button>

@@ -173,8 +173,12 @@ export class SubStructureComponent implements OnInit, OnDestroy {
   }
 
   canSubStructureBeRemoved(subStructure: SubStructure): boolean {
-    return subStructure instanceof DepartmentUnit ||
+    return this.isDepartmentUnit(subStructure) ||
       (subStructure instanceof CorporateObjectiveStructure && subStructure.subStructureIds.length === 0);
+  }
+
+  isDepartmentUnit(subStructure: SubStructure): boolean {
+    return subStructure instanceof DepartmentUnit;
   }
 
   queryRemoveSubStructure(subStructure: SubStructure): void {
