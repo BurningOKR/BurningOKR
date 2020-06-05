@@ -29,8 +29,8 @@ export class DepartmentApiService {
     return this.api.postData$(`companies/${companyId}/departments`, department);
   }
 
-  postDepartmentForDepartment$(departmentId: number, department: DepartmentDto): Observable<DepartmentDto> {
-    return this.api.postData$(`departments/${departmentId}/subdepartments`, department);
+  postDepartmentForCorporateObjectiveStructure$(structureId: number, department: DepartmentDto): Observable<DepartmentDto> {
+    return this.api.postData$(`corporateobjectivestructure/${structureId}/subdepartments`, department);
   }
 
   putDepartment$(department: DepartmentDto): Observable<DepartmentDto> {

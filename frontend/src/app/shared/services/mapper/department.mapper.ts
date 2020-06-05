@@ -65,9 +65,9 @@ export class DepartmentMapper {
       .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
-  postDepartmentForDepartment$(departmentId: StructureId, department: DepartmentDto): Observable<DepartmentUnit> {
+  postDepartmentForCorporateObjectiveStructure$(structureId: StructureId, department: DepartmentDto): Observable<DepartmentUnit> {
     return this.departmentApiService
-      .postDepartmentForDepartment$(departmentId, department)
+      .postDepartmentForCorporateObjectiveStructure$(structureId, department)
       .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 

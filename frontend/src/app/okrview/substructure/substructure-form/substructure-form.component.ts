@@ -4,7 +4,6 @@ import { DepartmentMapper } from '../../../shared/services/mapper/department.map
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NEVER } from 'rxjs';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
-import { DepartmentDto } from '../../../shared/model/api/structure/department.dto';
 import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { StructureType } from '../../../shared/model/api/structure/structure-type.enum';
@@ -87,7 +86,6 @@ export class SubstructureFormComponent {
 
   createSubStructure(): void {
     const formData: SubStructure = this.subStructureForm.getRawValue();
-    console.log(formData);
     const subStructure: SubStructure = {
       id: undefined,
       parentStructureId: undefined,
@@ -114,7 +112,7 @@ export class SubstructureFormComponent {
     } else if (this.formData.subStructureId) {
       department.parentStructureId = this.formData.subStructureId;
       this.dialogRef.close(this.departmentMapper
-        .postDepartmentForDepartment$(this.formData.subStructureId, DepartmentMapper.mapDepartmentUnit(department)));
+        .postDepartmentForCorporateObjectiveStructure$(this.formData.subStructureId, DepartmentMapper.mapDepartmentUnit(department)));
     }
   }
 
