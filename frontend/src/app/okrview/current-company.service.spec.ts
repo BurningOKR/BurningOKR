@@ -22,7 +22,7 @@ let service: CurrentCompanyService;
 describe('CurrentCompanyService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      {provide: CompanyMapper, useValue: companyMapperMock}       // TODO: wegmachen?
+      {provide: CompanyMapper, useValue: companyMapperMock}
     ]
   }));
 
