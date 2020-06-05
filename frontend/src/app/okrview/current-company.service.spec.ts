@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 const companyMapperMock: any = {
   getCompanyById$: jest.fn(),
-  getParentCompanyOfDepartment$: jest.fn()
+  getParentCompanyOfStructure$: jest.fn()
 };
 const testCompany: CompanyUnit = {
   id: 1,
@@ -29,7 +29,7 @@ describe('CurrentCompanyService', () => {
   beforeEach(() => {
     service = TestBed.get(CurrentCompanyService);
     companyMapperMock.getCompanyById$.mockReturnValue(of(testCompany));
-    companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(testCompany));
+    companyMapperMock.getParentCompanyOfStructure$.mockReturnValue(of(testCompany));
   });
 
   it('should be created', () => {
@@ -82,8 +82,8 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets null as parameter', done => {
-    companyMapperMock.getParentCompanyOfDepartment$.mockReset();
-    companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(null));
+    companyMapperMock.getParentCompanyOfStructure$.mockReset();
+    companyMapperMock.getParentCompanyOfStructure$.mockReturnValue(of(null));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {
@@ -94,8 +94,8 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets undefined as parameter', done => {
-    companyMapperMock.getParentCompanyOfDepartment$.mockReset();
-    companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(undefined));
+    companyMapperMock.getParentCompanyOfStructure$.mockReset();
+    companyMapperMock.getParentCompanyOfStructure$.mockReturnValue(of(undefined));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {
