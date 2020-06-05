@@ -15,4 +15,10 @@ export class CorporateObjectiveStructureApiService {
   createForCompany$(companyId: StructureId, dto: CorporateObjectiveStructureDto): Observable<CorporateObjectiveStructureDto> {
     return this.api.postData$(`companies/${companyId}/corporateObjectiveStructures`, dto);
   }
+
+  createForCorporateObjectiveStructure$(structureId: StructureId, dto: CorporateObjectiveStructureDto)
+    : Observable<CorporateObjectiveStructureDto> {
+
+    return this.api.postData$(`corporateobjectivestructure/${structureId}/corporateobjectivestructures`, dto);
+  }
 }

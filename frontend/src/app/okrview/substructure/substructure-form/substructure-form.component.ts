@@ -122,7 +122,9 @@ export class SubstructureFormComponent {
       this.dialogRef.close(this.corporateObjectiveStructureMapper
         .createForCompany$(this.formData.companyId, corporateObjectiveStructure));
     } else if (this.formData.subStructureId) {
-
+      corporateObjectiveStructure.parentStructureId = this.formData.subStructureId;
+      this.dialogRef.close(this.corporateObjectiveStructureMapper
+        .createForCorporateObjectiveStructure$(this.formData.subStructureId, corporateObjectiveStructure));
     }
   }
 

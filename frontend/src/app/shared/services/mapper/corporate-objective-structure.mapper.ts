@@ -52,4 +52,15 @@ export class CorporateObjectiveStructureMapper {
         map((dto: CorporateObjectiveStructureDto) => CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructure(dto))
       );
   }
+
+  createForCorporateObjectiveStructure$(structureId: StructureId, corporateObjectiveStructure: CorporateObjectiveStructure)
+    : Observable<CorporateObjectiveStructure> {
+
+    return this.corporateObjectiveStructureApiService
+      .createForCorporateObjectiveStructure$(
+        structureId, CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructureDto(corporateObjectiveStructure))
+      .pipe(
+        map((dto: CorporateObjectiveStructureDto) => CorporateObjectiveStructureMapper.mapToCorporateObjectiveStructure(dto))
+      );
+  }
 }
