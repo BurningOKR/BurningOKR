@@ -104,14 +104,15 @@ public class StructureServiceAdmins<T extends SubStructure> extends StructureSer
 
   @Override
   @Transactional
-  public T createSubstructure(Long parentStructureId, T subDepartment, User user) {
+  public SubStructure createSubstructure(
+      Long parentStructureId, SubStructure subDepartment, User user) {
     Structure parentStructure = superStructureRepository.findByIdOrThrow(parentStructureId);
 
     throwIfCycleForDepartmentIsClosed(parentStructure);
 
     subDepartment.setParentStructure(parentStructure);
 
-    subDepartment = structureRepository.save(subDepartment);
+    subDepartment = superStructureRepository.save(subDepartment);
     logger.info(
         "Created subdepartment: "
             + subDepartment.getName()

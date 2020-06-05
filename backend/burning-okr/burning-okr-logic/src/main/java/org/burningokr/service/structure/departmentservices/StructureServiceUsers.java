@@ -65,7 +65,8 @@ public class StructureServiceUsers<T extends SubStructure> implements StructureS
   }
 
   @Override
-  public T createSubstructure(Long parentStructureId, T subDepartment, User user) {
+  public SubStructure createSubstructure(
+      Long parentStructureId, SubStructure subDepartment, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 

@@ -181,27 +181,6 @@ public class DepartmentController {
   }
 
   /**
-   * API Endpoint to add a sub-Department to an existing Department.
-   *
-   * @param departmentId a long value
-   * @param departmentDto a {@link DepartmentDto} object
-   * @param user an {@link User} object
-   * @return a {@link ResponseEntity} ok with the added sub-Department
-   */
-  @PostMapping("/departments/{departmentId}/subdepartments")
-  @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity<DepartmentDto> addSubDepartmentToDepartment(
-      @PathVariable long departmentId, @Valid @RequestBody DepartmentDto departmentDto, User user)
-      throws DuplicateTeamMemberException {
-    StructureService<Department> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
-    Department department = departmentMapper.mapDtoToEntity(departmentDto);
-    department.setId(null);
-    department = departmentService.createSubstructure(departmentId, department, user);
-    return ResponseEntity.ok(departmentMapper.mapEntityToDto(department));
-  }
-
-  /**
    * API Endpoint to add an Objective to a Department.
    *
    * @param departmentId a long value

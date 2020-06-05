@@ -3,6 +3,7 @@ package org.burningokr.service.structure;
 import java.util.Collection;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.structures.Structure;
+import org.burningokr.model.structures.SubStructure;
 import org.burningokr.model.users.User;
 
 public interface StructureService<T extends Structure> {
@@ -14,7 +15,7 @@ public interface StructureService<T extends Structure> {
 
   void deleteStructure(Long structureId, User user);
 
-  T createSubstructure(Long parentStructureId, T subStructure, User user);
+  SubStructure createSubstructure(Long parentStructureId, SubStructure subStructure, User user);
 
   Objective createObjective(Long structureId, Objective objective, User user);
 }
