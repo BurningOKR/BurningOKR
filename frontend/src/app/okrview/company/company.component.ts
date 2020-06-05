@@ -76,16 +76,16 @@ export class CompanyComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
   }
 
-  calculateMembershipDepartmentIds(structureList: StructureSchema[]): void {
+  calculateMembershipDepartmentIds(structures: StructureSchema[]): void {
     this.currentlyManagerDepartmentIds = [];
     this.currentlyMemberDepartmentIds = [];
 
-    this.categorizestructureSchemaMemberships(structureList);
+    this.categorizestructureSchemaMemberships(structures);
   }
 
-  categorizestructureSchemaMemberships(currentStructureList: StructureSchema[]): void {
-    if (currentStructureList) {
-      currentStructureList.forEach(structure => {
+  categorizestructureSchemaMemberships(currentStructures: StructureSchema[]): void {
+    if (currentStructures) {
+      currentStructures.forEach(structure => {
         if (structure.userRole === structureSchemaRole.MEMBER) {
           this.currentlyMemberDepartmentIds.push(structure.id);
         } else if (structure.userRole === structureSchemaRole.MANAGER) {
