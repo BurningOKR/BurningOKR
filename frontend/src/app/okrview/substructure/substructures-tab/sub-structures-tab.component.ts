@@ -45,7 +45,6 @@ export class SubStructuresTabComponent implements OnDestroy {
     );
   }
 
-  // TODO: (R.J. 02.06.20) Make this work with CorporateObjectiveStructures, because departments no longer have subStructureIds.
   onSubDepartmentAdded(addedSubStructure: SubStructure): void {
     this.corporateObjectiveStructure.subStructureIds.push(addedSubStructure.id);
     this.currentOkrViewService.refreshCurrentDepartmentView(this.corporateObjectiveStructure.id);

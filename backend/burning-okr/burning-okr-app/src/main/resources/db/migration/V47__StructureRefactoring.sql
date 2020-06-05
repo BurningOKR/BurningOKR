@@ -18,7 +18,7 @@ ALTER TABLE public.department
 ALTER TABLE public.department
     DROP COLUMN is_active;
 ALTER TABLE public.department
-    DROP CONSTRAINT fk_department_companystructure_id;
+    DROP CONSTRAINT fktqv08tc4aufiv4bu0kwcj185q;
 ALTER TABLE public.department
     ADD CONSTRAINT "fk_department_structure" FOREIGN KEY (id) REFERENCES public.sub_structure (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
 
@@ -30,7 +30,7 @@ ALTER TABLE public.corporate_objective_structure
 ALTER TABLE public.corporate_objective_structure
     DROP COLUMN department_structure_id;
 ALTER TABLE public.corporate_objective_structure
-    DROP CONSTRAINT fk_corporateobjectivestructure_corporateobjectivestructure_pare;
+    DROP CONSTRAINT parent_structure_fkey;
 ALTER TABLE public.corporate_objective_structure
     ADD CONSTRAINT "fk_corporateobjectivestructure_substructure" FOREIGN KEY (id) REFERENCES public.sub_structure (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE public.corporate_objective_structure

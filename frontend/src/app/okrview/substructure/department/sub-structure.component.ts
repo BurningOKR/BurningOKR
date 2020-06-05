@@ -172,9 +172,9 @@ export class SubStructureComponent implements OnInit, OnDestroy {
     );
   }
 
-  // TODO: (R.J. 02.06.20) THIS SHOULD NOT ALWAYS RETURN TRUE. It should return false, when it is a corporateObjectiveStructure with subStructures.
-  canDepartmentBeRemoved(): boolean {
-    return true; // this.subStructure.subStructureIds.length === 0;
+  canSubStructureBeRemoved(subStructure: SubStructure): boolean {
+    return subStructure instanceof DepartmentUnit ||
+      (subStructure instanceof CorporateObjectiveStructure && subStructure.subStructureIds.length === 0);
   }
 
   queryRemoveSubStructure(subStructure: SubStructure): void {

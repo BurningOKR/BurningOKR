@@ -66,7 +66,6 @@ export class SubstructureFormComponent {
     this.dialogRef.close(NEVER);
   }
 
-  // TODO: Save department
   saveDepartment(): void {
     if (this.formData.subStructure) {
       this.updateSubStructure();

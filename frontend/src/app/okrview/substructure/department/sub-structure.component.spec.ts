@@ -25,6 +25,7 @@ import { of } from 'rxjs';
 import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
+import { CorporateObjectiveStructure } from '../../../shared/model/ui/OrganizationalUnit/corporate-objective-structure';
 
 describe('SubStructureComponent', () => {
   let component: SubStructureComponent;
@@ -77,6 +78,7 @@ describe('SubStructureComponent', () => {
   const i18n: any = {};
 
   let department: DepartmentUnit;
+  let corporateObjectiveStructure: CorporateObjectiveStructure;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -148,6 +150,17 @@ describe('SubStructureComponent', () => {
       'department',
       'master', 'topicSponsor', ['member'],
       true, false);
+
+    corporateObjectiveStructure = new CorporateObjectiveStructure(
+      2,
+      'testCorporateObjectiveStructure',
+      [],
+      'testLAbel',
+      0,
+      [],
+      true,
+      false
+    );
   });
 
   it('should create', () => {
@@ -289,4 +302,55 @@ describe('SubStructureComponent', () => {
     expect(currentOkrViewService.refreshCurrentCompanyView)
       .toHaveBeenCalled();
   });
+
+  it('canSubStructureBeRemoved can remove departments', () => {
+    fixture = TestBed.createComponent(SubStructureComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const canBeRemoved: boolean = component.canSubStructureBeRemoved(department);
+
+    expect(canBeRemoved)
+      .toBeTruthy();
+  });
+
+  it('canSubStructureBeRemoved can remove CorporateObjectiveStructures without substructures', () => {
+    fixture = TestBed.createComponent(SubStructureComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    corporateObjectiveStructure.subStructureIds = [];
+
+    const canBeRemoved: boolean = component.canSubStructureBeRemoved(corporateObjectiveStructure);
+
+    expect(canBeRemoved)
+      .toBeTruthy();
+  });
+
+  it('canSubStructureBeRemoved cannot remove CorporateObjectiveStructures with substructures', () => {
+    fixture = TestBed.createComponent(SubStructureComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    corporateObjectiveStructure.subStructureIds = [1, 2, 3];
+
+    const canBeRemoved: boolean = component.canSubStructureBeRemoved(corporateObjectiveStructure);
+
+    expect(canBeRemoved)
+      .toBeFalsy();
+  });
+
+  it('canSubStructureBeRemoved cannot remove CorporateObjectiveStructures with single substructure', () => {
+    fixture = TestBed.createComponent(SubStructureComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    corporateObjectiveStructure.subStructureIds = [1];
+
+    const canBeRemoved: boolean = component.canSubStructureBeRemoved(corporateObjectiveStructure);
+
+    expect(canBeRemoved)
+      .toBeFalsy();
+  });
+
 });
