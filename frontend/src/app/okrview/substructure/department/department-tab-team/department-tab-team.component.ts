@@ -202,7 +202,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
           newRole = DepartmentStructureRole.USER;
         }
 
-        this.currentDepartmentStructureService.updateDepartmentStructureTeamRole(this.department.id, newRole);
+        this.currentDepartmentStructureService.updateDepartmentStructuresTeamRole(this.department.id, newRole);
       });
   }
 

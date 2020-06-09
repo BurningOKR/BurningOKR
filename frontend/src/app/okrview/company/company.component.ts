@@ -66,8 +66,8 @@ export class CompanyComponent implements OnInit, OnDestroy {
     );
     this.subscriptions.push(
       this.currentDepartmentStructureService
-        .getCurrentDepartmentStructureList$()
-        .subscribe(structureList => this.calculateMembershipDepartmentIds(structureList))
+        .getCurrentDepartmentStructures$()
+        .subscribe(structures => this.calculateMembershipDepartmentIds(structures))
     );
   }
 
@@ -76,16 +76,16 @@ export class CompanyComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
   }
 
-  calculateMembershipDepartmentIds(structureList: DepartmentStructure[]): void {
+  calculateMembershipDepartmentIds(structures: DepartmentStructure[]): void {
     this.currentlyManagerDepartmentIds = [];
     this.currentlyMemberDepartmentIds = [];
 
-    this.categorizeDepartmentStructureMemberships(structureList);
+    this.categorizeDepartmentStructureMemberships(structures);
   }
 
-  categorizeDepartmentStructureMemberships(currentStructureList: DepartmentStructure[]): void {
-    if (currentStructureList) {
-      currentStructureList.forEach(structure => {
+  categorizeDepartmentStructureMemberships(currentStructures: DepartmentStructure[]): void {
+    if (currentStructures) {
+      currentStructures.forEach(structure => {
         if (structure.userRole === DepartmentStructureRole.MEMBER) {
           this.currentlyMemberDepartmentIds.push(structure.id);
         } else if (structure.userRole === DepartmentStructureRole.MANAGER) {

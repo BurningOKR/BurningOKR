@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { startEqualsEndError } from './errors/start-not-equal-end-validator-error';
+import { startEqualsEndError } from './start-not-equal-end-validator-error';
 
 export const startNotEqualEndValidatorFunction: ValidatorFn = (control: AbstractControl): ValidationErrors => {
   const startValue: any = control.get('start').value;

@@ -53,13 +53,12 @@ describe('UserService', () => {
     userService = new UserService(userApiServiceMock);
   });
 
-
   it('getAllUsers$ should return User from ApiService', done => {
     userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2, mockUser3]));
 
-    const actual: Observable<User[]> = userService.getAllUsers$();
+    const actual$: Observable<User[]> = userService.getAllUsers$();
 
-    actual.subscribe((users: User[]) => {
+    actual$.subscribe((users: User[]) => {
       expect(users)
         .toContain(mockUser1);
       expect(users)
@@ -73,10 +72,10 @@ describe('UserService', () => {
     userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2, mockUser3]));
     userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2]));
 
-    const fromApi: Observable<User[]> = userService.getAllUsers$();
-    const fromCache: Observable<User[]> = userService.getAllUsers$();
+    const fromApi$: Observable<User[]> = userService.getAllUsers$();
+    const fromCache$: Observable<User[]> = userService.getAllUsers$();
 // Todo 26.05.2020 dturnschek; This is not nice. Change TSLint to allow userService['users$'] = something; ?
-    fromApi.subscribe((users: User[]) => {
+    fromApi$.subscribe((users: User[]) => {
       expect(users)
         .toContain(mockUser1);
       expect(users)
@@ -84,7 +83,7 @@ describe('UserService', () => {
       expect(users)
         .toContain(mockUser3);
     });
-    fromCache.subscribe((users: User[]) => {
+    fromCache$.subscribe((users: User[]) => {
       expect(users)
         .toContain(mockUser1);
       expect(users)
@@ -98,9 +97,9 @@ describe('UserService', () => {
   it('getUserById$ should return a user from ApiService', done => {
     userApiServiceMock.getUserById$.mockReturnValueOnce(of(mockUser1));
 
-    const actual: Observable<User> = userService.getUserById$(mockUser1.id);
+    const actual$: Observable<User> = userService.getUserById$(mockUser1.id);
 
-    actual.subscribe((user: User) => {
+    actual$.subscribe((user: User) => {
       expect(user)
         .toEqual(mockUser1);
       done();
@@ -112,9 +111,9 @@ describe('UserService', () => {
 
     userService.getAllUsers$();
 
-    const actual: Observable<User> = userService.getUserById$(mockUser1.id);
+    const  actual$: Observable<User> = userService.getUserById$(mockUser1.id);
 
-    actual.subscribe((user: User) => {
+    actual$.subscribe((user: User) => {
       expect(user)
         .toEqual(mockUser1);
       expect(userApiServiceMock.getUserById$)
@@ -126,9 +125,9 @@ describe('UserService', () => {
   it('getUserById$ should return undefined', done => {
     userApiServiceMock.getUserById$.mockReturnValueOnce(of(undefined));
 
-    const actual: Observable<User> = userService.getUserById$('notAnID');
+    const actual$: Observable<User> = userService.getUserById$('notAnID');
 
-    actual.subscribe((user: User) => {
+    actual$.subscribe((user: User) => {
       expect(user)
         .toBeUndefined();
       done();
@@ -138,9 +137,9 @@ describe('UserService', () => {
   it('addAdmin$ should call userApiService.addAdmin$', done => {
     userApiServiceMock.addAdmin$.mockReturnValueOnce(of(mockUser1));
 
-    const actual: Observable<AdminUser> = userService.addAdmin$(mockUser1);
+    const actual$: Observable<AdminUser> = userService.addAdmin$(mockUser1);
 
-    actual.subscribe((mockAdmin: AdminUser) => {
+    actual$.subscribe((mockAdmin: AdminUser) => {
       expect(userApiServiceMock.addAdmin$)
         .toHaveBeenCalledWith(new AdminUser(mockUser1.id));
       expect(mockAdmin)
@@ -152,9 +151,9 @@ describe('UserService', () => {
   it('deleteAdmin$ should return true if backend returns true', done => {
     userApiServiceMock.deleteAdmin$.mockReturnValueOnce(of(true));
 
-    const actual: Observable<boolean> = userService.deleteAdmin$(mockUser1.id);
+    const actual$: Observable<boolean> = userService.deleteAdmin$(mockUser1.id);
 
-    actual.subscribe((returnValue: boolean) => {
+    actual$.subscribe((returnValue: boolean) => {
       expect(returnValue)
         .toBeTruthy();
       done();
@@ -164,9 +163,9 @@ describe('UserService', () => {
   it('deleteAdmin$ should return false if backend returns false', done => {
     userApiServiceMock.deleteAdmin$.mockReturnValueOnce(of(false));
 
-    const actual: Observable<boolean> = userService.deleteAdmin$(mockUser1.id);
+    const actual$: Observable<boolean> = userService.deleteAdmin$(mockUser1.id);
 
-    actual.subscribe((returnValue: boolean) => {
+    actual$.subscribe((returnValue: boolean) => {
       expect(returnValue)
         .toBeFalsy();
       done();

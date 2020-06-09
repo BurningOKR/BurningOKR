@@ -41,12 +41,12 @@ export class CurrentOkrviewService {
   private fetchNewValuesForCompanyId(companyId: number): void {
     this.currentNavigationService.clearDepartmentNavigationInformation();
     this.currentCompanyService.setCurrentCompanyByCompanyId(companyId);
-    this.currentDepartmentStructureService.setCurrentDepartmentStructureByCompanyId(companyId);
+    this.currentDepartmentStructureService.setCurrentDepartmentStructuresByCompanyId(companyId);
   }
 
   private fetchNewValuesForDepartmentId(departmentId: number): void {
     this.currentCompanyService.setCurrentCompanyByChildDepartmentId(departmentId);
-    this.currentDepartmentStructureService.setCurrentDepartmentStructureByDepartmentId(departmentId);
+    this.currentDepartmentStructureService.setCurrentDepartmentStructuresByDepartmentId(departmentId);
     this.currentNavigationService.refreshDepartmentNavigationInformation();
 
   }

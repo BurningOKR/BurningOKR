@@ -29,7 +29,7 @@ export class CompanyApiService {
     return this.api.getData$<CompanyDto>(`companies/${companyId}`);
   }
 
-  getDepartmentStructureOfCompany$(companyId: CompanyId): Observable<DepartmentStructureDto[]> {
+  getDepartmentStructuresOfCompany$(companyId: CompanyId): Observable<DepartmentStructureDto[]> {
     return this.api.getData$(`companies/${companyId}/structure`);
   }
 

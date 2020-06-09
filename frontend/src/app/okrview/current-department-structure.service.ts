@@ -10,7 +10,7 @@ import { DepartmentStructureMapper } from '../shared/services/mapper/department-
 })
 export class CurrentDepartmentStructureService {
 
-  private currentDepartmentStructure$: ReplaySubject<DepartmentStructure[]> = new ReplaySubject<DepartmentStructure[]>(1);
+  private currentDepartmentStructures$: ReplaySubject<DepartmentStructure[]> = new ReplaySubject<DepartmentStructure[]>(1);
   private currentDepartmentId$: ReplaySubject<number> = new ReplaySubject<number>(1);
 
   constructor(private departmentStructureMapperService: DepartmentStructureMapper) {
@@ -20,31 +20,27 @@ export class CurrentDepartmentStructureService {
     return this.currentDepartmentId$.asObservable();
   }
 
-  getCurrentDepartmentStructure$(): Observable<DepartmentStructure[]> {
-    return this.currentDepartmentStructure$.asObservable();
-  }
-
-  setCurrentDepartmentStructureByDepartmentId(departmentId: number): void {
+  setCurrentDepartmentStructuresByDepartmentId(departmentId: number): void {
     this.currentDepartmentId$.next(departmentId);
     this.departmentStructureMapperService
-      .getDepartmentStructureOfDepartment$(departmentId)
+      .getDepartmentStructuresOfDepartment$(departmentId)
       .pipe(take(1))
-      .subscribe(departmentStructure => {
-        this.currentDepartmentStructure$.next(departmentStructure);
+      .subscribe(departmentStructures => {
+        this.currentDepartmentStructures$.next(departmentStructures);
       });
   }
 
-  setCurrentDepartmentStructureByCompanyId(companyId: number): void {
+  setCurrentDepartmentStructuresByCompanyId(companyId: number): void {
     this.departmentStructureMapperService
-      .getDepartmentStructureOfCompany$(companyId)
+      .getDepartmentStructuresOfCompany$(companyId)
       .pipe(take(1))
-      .subscribe(departmentStructure => {
-        this.currentDepartmentStructure$.next(departmentStructure);
+      .subscribe(departmentStructures => {
+        this.currentDepartmentStructures$.next(departmentStructures);
       });
   }
 
-  getCurrentDepartmentStructureList$(): Observable<DepartmentStructure[]> {
-    return this.currentDepartmentStructure$;
+  getCurrentDepartmentStructures$(): Observable<DepartmentStructure[]> {
+    return this.currentDepartmentStructures$.asObservable();
   }
 
   private isDepartmentInStructure(departmentId: number, structure: DepartmentStructureDto[]): boolean {
@@ -59,16 +55,16 @@ export class CurrentDepartmentStructureService {
     }
   }
 
-  getDepartmentStructureListToReachDepartmentWithId$(departmentId: number): Observable<DepartmentStructure[]> {
-    const departmentStructureList: DepartmentStructure[] = [];
+  getDepartmentStructuresToReachDepartmentWithId$(departmentId: number): Observable<DepartmentStructure[]> {
+    const departmentStructures: DepartmentStructure[] = [];
 
-    return this.currentDepartmentStructure$
+    return this.currentDepartmentStructures$
       .pipe(
-        map((departmentStructure: DepartmentStructure[]) => {
-            return this.getDepartmentStructureListToReachDepartmentWithIdRecursive(
+        map((currentDepartmentStructures: DepartmentStructure[]) => {
+            return this.getDepartmentStructuresToReachDepartmentWithIdRecursive(
               departmentId,
-              departmentStructure,
-              departmentStructureList
+              currentDepartmentStructures,
+              departmentStructures
             );
           }
         )
@@ -76,7 +72,7 @@ export class CurrentDepartmentStructureService {
   }
 
   getDepartmentIdListToReachDepartmentWithId$(departmentId: number): Observable<number[]> {
-    return this.getDepartmentStructureListToReachDepartmentWithId$(departmentId)
+    return this.getDepartmentStructuresToReachDepartmentWithId$(departmentId)
       .pipe(
         map((departmentStructureArray: DepartmentStructure[]) => {
             return departmentStructureArray.map((departmentStructure: DepartmentStructure) => {
@@ -88,51 +84,51 @@ export class CurrentDepartmentStructureService {
       );
   }
 
-  private getDepartmentStructureListToReachDepartmentWithIdRecursive(
+  private getDepartmentStructuresToReachDepartmentWithIdRecursive(
     departmentId: number,
     structure: DepartmentStructure[],
-    structureListToOpen: DepartmentStructure[]
+    structuresToOpen: DepartmentStructure[]
   ): DepartmentStructure[] {
     if (structure) {
       for (const subDepartment of structure) {
         if (this.isDepartmentInStructure(departmentId, subDepartment.subDepartments)) {
-          structureListToOpen.push(subDepartment);
-          this.getDepartmentStructureListToReachDepartmentWithIdRecursive(
+          structuresToOpen.push(subDepartment);
+          this.getDepartmentStructuresToReachDepartmentWithIdRecursive(
             departmentId,
             subDepartment.subDepartments,
-            structureListToOpen
+            structuresToOpen
           );
         }
       }
     }
 
-    return structureListToOpen;
+    return structuresToOpen;
   }
 
-  updateDepartmentStructureTeamRole(departmentId: number, newRole: DepartmentStructureRole): void {
-    this.currentDepartmentStructure$.pipe(
+  updateDepartmentStructuresTeamRole(departmentId: number, newRole: DepartmentStructureRole): void {
+    this.currentDepartmentStructures$.pipe(
       take(1),
-      map((currentDepartmentStructure: DepartmentStructure[]) => {
-        this.updateDepartmentStructureTeamRoleRecursive(departmentId, newRole, currentDepartmentStructure);
+      map((currentDepartmentStructures: DepartmentStructure[]) => {
+        this.updateDepartmentStructuresTeamRoleRecursive(departmentId, newRole, currentDepartmentStructures);
 
-        return currentDepartmentStructure;
+        return currentDepartmentStructures;
       })
     )
-      .subscribe((updatedDepartmentStructure: DepartmentStructure[]) => {
-        this.currentDepartmentStructure$.next(updatedDepartmentStructure);
+      .subscribe((updatedDepartmentStructures: DepartmentStructure[]) => {
+        this.currentDepartmentStructures$.next(updatedDepartmentStructures);
       });
   }
 
-  updateDepartmentStructureTeamRoleRecursive(
+  updateDepartmentStructuresTeamRoleRecursive(
     departmentId: number,
     newRole: DepartmentStructureRole,
-    departmentStructureList: DepartmentStructure[]
+    departmentStructures: DepartmentStructure[]
   ): void {
-    departmentStructureList.forEach(structure => {
+    departmentStructures.forEach(structure => {
       if (structure.id === departmentId) {
         structure.userRole = newRole;
       } else {
-        this.updateDepartmentStructureTeamRoleRecursive(departmentId, newRole, structure.subDepartments);
+        this.updateDepartmentStructuresTeamRoleRecursive(departmentId, newRole, structure.subDepartments);
       }
     });
   }

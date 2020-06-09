@@ -8,12 +8,11 @@
   "linterOptions": {
     "exclude": [
       "src/jestGlobalMocks.ts",
-      "src/setupJest.ts"
+      "src/setupJest.ts",
+      "src/_versions.ts"
     ]
   },
   "rules": {
-    "rxjs-add": { "severity": "error" },
-    "rxjs-no-unused-add": { "severity": "error" },
     "rxjs-finnish": {
       "options": [{
         "functions": true,
@@ -170,7 +169,6 @@
     "no-null-undefined-union": true,
     "no-object-literal-type-assertion": true,
     "no-parameter-reassignment": true,
-    "no-promise-as-boolean": true,
     "no-redundant-jsdoc": true,
     "no-return-await": true,
     "no-sparse-arrays": true,
@@ -237,7 +235,6 @@
       0
     ],
     "static-this": true,
-    "strict-string-expressions": true,
     "switch-default": true,
     "trailing-comma": true,
     "triple-equals": [

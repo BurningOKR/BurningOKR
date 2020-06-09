@@ -1,5 +1,5 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { dateNoInThePastError } from './errors/date-not-in-the-past-error';
+import { dateNoInThePastError } from './date-not-in-the-past-error';
 
 export const dateNotInThePastValidatorFunction: ValidatorFn = (control: AbstractControl): { [key: string]: boolean } => {
 
