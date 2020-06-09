@@ -1,6 +1,6 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { CycleUnit } from '../model/ui/cycle-unit';
-import { dateRangeInRangewithinAnotherDatesError } from './errors/date-range-in-range-within-another-dates-error';
+import { CycleUnit } from '../../model/ui/cycle-unit';
+import { dateRangeInRangewithinAnotherDatesError } from './date-range-in-range-within-another-dates-error';
 
 export const dateRangeInRangeWithinAnotherDatesValidatorFunction: (cycles: CycleUnit[]) =>
   ValidatorFn = (cycles: CycleUnit[]): ValidatorFn => {

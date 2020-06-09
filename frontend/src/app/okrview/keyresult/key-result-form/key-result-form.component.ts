@@ -5,8 +5,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { Unit } from '../../../shared/model/api/unit.enum';
 import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
-import { startNotEqualEndValidatorFunction } from '../../../shared/validators/start-not-equal-end-validator-function';
+import { startNotEqualEndValidatorFunction } from '../../../shared/validators/start-not-equal-end-validator/start-not-equal-end-validator-function';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { currentHigherThanEndValidatorFunction } from '../../../shared/validators/current-higher-than-end-validator/current-higher-than-end-validator-function';
 
 interface KeyResultFormData {
   keyResult?: ViewKeyResult;
@@ -36,7 +37,7 @@ export class KeyResultFormComponent {
       start: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl(Unit.NUMBER, [Validators.required]),
       description: new FormControl('', [Validators.maxLength(255)])
-    }, [startNotEqualEndValidatorFunction]);
+    }, [startNotEqualEndValidatorFunction, currentHigherThanEndValidatorFunction]);
 
     if (this.formData.keyResult) {
       this.keyResult = this.formData.keyResult;

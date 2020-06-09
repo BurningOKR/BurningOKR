@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { startNotEqualEndValidatorFunction } from './start-not-equal-end-validator-function';
-import { startEqualsEndError } from './errors/start-not-equal-end-validator-error';
+import { startEqualsEndError } from './start-not-equal-end-validator-error';
 
 describe('startNotEqualEndValidatorFunction', () => {
 
