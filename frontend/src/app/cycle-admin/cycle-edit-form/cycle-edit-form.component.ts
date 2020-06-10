@@ -6,10 +6,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 
 import { ControlHelperService } from '../../shared/services/helper/control-helper.service';
-import { dateFormatValidatorFunction } from '../../shared/validators/date-format-validator-function';
-import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator-function';
-import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator-function';
-import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator-function';
+import { dateFormatValidatorFunction } from '../../shared/validators/date-format-validator/date-format-validator-function';
+import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
+import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
+import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
 import { Observable } from 'rxjs';
 
 export interface CycleEditFormData {

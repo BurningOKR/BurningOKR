@@ -1,6 +1,6 @@
 import { FormControl, ValidationErrors } from '@angular/forms';
 import { dateNotInThePastValidatorFunction } from './date-not-in-the-past-validator-function';
-import { dateNoInThePastError } from './errors/date-not-in-the-past-error';
+import { dateNoInThePastError } from './date-not-in-the-past-error';
 
 describe('dateNotInThePastValidatorFunction', () => {
 

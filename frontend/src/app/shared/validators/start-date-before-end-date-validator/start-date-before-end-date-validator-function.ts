@@ -1,5 +1,5 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { startDateBeforeEndDateError } from './errors/start-date-not-before-end-date-error';
+import { startDateBeforeEndDateError } from './start-date-not-before-end-date-error';
 export const startDateBeforeEndDateValidatorFunction: ValidatorFn = (control: AbstractControl): { [key: string]: boolean } => {
   const startDateControl: AbstractControl = control.get('startDate');
   const endDateControl: AbstractControl = control.get('endDate');

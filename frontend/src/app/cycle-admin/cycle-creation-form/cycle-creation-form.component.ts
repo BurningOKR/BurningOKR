@@ -8,13 +8,13 @@ import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { NEVER } from 'rxjs';
 import { CycleDto } from '../../shared/model/api/cycle.dto';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator-function';
-import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator-function';
-import { dateFormatValidatorFunction } from '../../shared/validators/date-format-validator-function';
+import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
+import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
+import { dateFormatValidatorFunction } from '../../shared/validators/date-format-validator/date-format-validator-function';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CycleDialogData } from '../../shared/model/ui/cycle-dialog-data';
-import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator-function';
+import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
 
 @Component({
   selector: 'app-cycle-creation-form',

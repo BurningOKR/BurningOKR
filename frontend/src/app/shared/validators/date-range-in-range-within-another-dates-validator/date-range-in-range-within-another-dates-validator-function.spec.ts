@@ -1,7 +1,7 @@
 import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from './date-range-in-range-within-another-dates-validator-function';
-import { CycleUnit } from '../model/ui/cycle-unit';
+import { CycleUnit } from '../../model/ui/cycle-unit';
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { dateRangeInRangewithinAnotherDatesError } from './errors/date-range-in-range-within-another-dates-error';
+import { dateRangeInRangewithinAnotherDatesError } from './date-range-in-range-within-another-dates-error';
 
 describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
   let testCycles: CycleUnit[] = [

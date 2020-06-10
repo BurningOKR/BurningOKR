@@ -11,14 +11,22 @@ import { Unit } from '../../model/api/unit.enum';
   providedIn: 'root'
 })
 export class KeyResultMapper {
-  constructor(private keyResultApiService: KeyResultApiService) {}
+  constructor(private keyResultApiService: KeyResultApiService) {
+  }
+
+  private static getEnumKeyByEnumValue(myEnum: object, enumValue: string): string {
+    const keys: string[] = Object.keys(myEnum)
+      .filter(x => myEnum[x] === enumValue);
+
+    return keys.length > 0 ? keys[0] : null;
+  }
 
   private static mapToKeyResultDTO(viewKeyResult: ViewKeyResult): KeyResultDto {
     return {
       startValue: viewKeyResult.start,
       currentValue: viewKeyResult.current,
       targetValue: viewKeyResult.end,
-      unit: Unit[viewKeyResult.unit],
+      unit: KeyResultMapper.getEnumKeyByEnumValue(Unit, viewKeyResult.unit) as Unit,
       title: viewKeyResult.keyResult,
       description: viewKeyResult.description
     };
@@ -41,10 +49,10 @@ export class KeyResultMapper {
   getKeyResultsForObjective$(objectiveId: ObjectiveId): Observable<ViewKeyResult[]> {
     return this.keyResultApiService.getKeyResultsForObjective$(objectiveId)
       .pipe(
-      map((keyResultList: KeyResultDto[]) => {
-        return keyResultList.map(KeyResultMapper.mapToViewKeyResult);
-      })
-    );
+        map((keyResultList: KeyResultDto[]) => {
+          return keyResultList.map(KeyResultMapper.mapToViewKeyResult);
+        })
+      );
   }
 
   putKeyResult$(viewKeyResult: ViewKeyResult): Observable<ViewKeyResult> {
