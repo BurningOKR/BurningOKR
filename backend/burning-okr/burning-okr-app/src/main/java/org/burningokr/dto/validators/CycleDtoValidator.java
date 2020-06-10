@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.exceptions.InvalidDtoException;
-import org.burningokr.model.cycles.CompanyHistory;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.structures.Company;
+import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.repositories.cycle.CycleRepository;
-import org.burningokr.repositories.structre.CompanyRepository;
+import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,20 +60,20 @@ public class CycleDtoValidator {
       throws InvalidDtoException {
     String exceptionString = "";
 
-    Company targetCompany = companyRepository.findByIdOrThrow(cycleDto.getCompanyId());
-    CompanyHistory targetCompanyHistory = targetCompany.getHistory();
+    OkrCompany targetOkrCompany = companyRepository.findByIdOrThrow(cycleDto.getCompanyId());
+    OkrCompanyHistory targetOkrCompanyHistory = targetOkrCompany.getHistory();
 
     if (isDateWithinOtherCycleInCompanyHistory(
-        cycleDto.getId(), cycleDto.getPlannedStartDate(), targetCompanyHistory)) {
+        cycleDto.getId(), cycleDto.getPlannedStartDate(), targetOkrCompanyHistory)) {
       exceptionString +=
           "Cycle planned start can not be inside another cycle of the same company.\n";
     }
     if (isDateWithinOtherCycleInCompanyHistory(
-        cycleDto.getId(), cycleDto.getPlannedEndDate(), targetCompanyHistory)) {
+        cycleDto.getId(), cycleDto.getPlannedEndDate(), targetOkrCompanyHistory)) {
       exceptionString += "Cycle planned end can not be inside another cycle of the same company.\n";
     }
     if (isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
-        cycleDto, targetCompanyHistory)) {
+        cycleDto, targetOkrCompanyHistory)) {
       exceptionString += "Cycle can not completely envelop another cycle of the same company.\n";
     }
 
@@ -87,19 +87,19 @@ public class CycleDtoValidator {
   }
 
   private boolean isDateWithinOtherCycleInCompanyHistory(
-      Long cycleDtoId, LocalDate dateToCheck, CompanyHistory companyHistory) {
+      Long cycleDtoId, LocalDate dateToCheck, OkrCompanyHistory okrCompanyHistory) {
     List<Cycle> collidingCycles =
         cycleRepository.findByCompanyHistoryAndDateBetweenPlannedTimeRange(
-            companyHistory, dateToCheck);
+            okrCompanyHistory, dateToCheck);
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDtoId));
   }
 
   private boolean isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
-      CycleDto cycleDto, CompanyHistory companyHistory) {
+      CycleDto cycleDto, OkrCompanyHistory okrCompanyHistory) {
     List<Cycle> collidingCycles =
         cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(
-            companyHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
+            okrCompanyHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDto.getId()));
   }

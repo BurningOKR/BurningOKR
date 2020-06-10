@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 import org.burningokr.model.excel.TeamMemberRow;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.messages.Messages;
-import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.StructureHelper;
-import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
+import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
+import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {
 
   private final UserService userService;
-  private final StructureServiceUsers<Department> departmentServiceUsers;
+  private final OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers;
   private final CompanyService companyService;
   private final Messages messages;
 
@@ -28,14 +28,14 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
    * Initializes TeamMemberRowBuilderService.
    *
    * @param userService an {@link UserService} object
-   * @param departmentServiceUsers a {@link StructureServiceUsers} object
+   * @param departmentServiceUsers a {@link OkrUnitServiceUsers} object
    * @param companyService a {@link CompanyService} object
    * @param messages a {@link Messages} object
    */
   @Autowired
   public TeamMemberRowBuilderService(
       UserService userService,
-      @Qualifier("structureServiceUsers") StructureServiceUsers<Department> departmentServiceUsers,
+      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers,
       CompanyService companyService,
       Messages messages) {
     this.userService = userService;
@@ -46,32 +46,35 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
 
   @Override
   public Collection<TeamMemberRow> generateForDepartment(long departmentId) {
-    Department department = departmentServiceUsers.findById(departmentId);
-    return generateTeamMemberRowForDepartment(department);
+    OkrDepartment okrDepartment = departmentServiceUsers.findById(departmentId);
+    return generateTeamMemberRowForDepartment(okrDepartment);
   }
 
-  private Collection<TeamMemberRow> generateTeamMemberRowForDepartment(Department department) {
+  private Collection<TeamMemberRow> generateTeamMemberRowForDepartment(
+      OkrDepartment okrDepartment) {
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
 
-    if (department.getOkrMasterId() != null && !(department.getOkrMasterId() == null)) {
-      addUserToList(department.getOkrMasterId(), department, teamMemberRows);
+    if (okrDepartment.getOkrMasterId() != null && !(okrDepartment.getOkrMasterId() == null)) {
+      addUserToList(okrDepartment.getOkrMasterId(), okrDepartment, teamMemberRows);
     }
-    if (department.getOkrTopicSponsorId() != null && !(department.getOkrTopicSponsorId() == null)) {
-      addUserToList(department.getOkrTopicSponsorId(), department, teamMemberRows);
+    if (okrDepartment.getOkrTopicSponsorId() != null
+        && !(okrDepartment.getOkrTopicSponsorId() == null)) {
+      addUserToList(okrDepartment.getOkrTopicSponsorId(), okrDepartment, teamMemberRows);
     }
-    department
+    okrDepartment
         .getOkrMemberIds()
-        .forEach(memberId -> addUserToList(memberId, department, teamMemberRows));
+        .forEach(memberId -> addUserToList(memberId, okrDepartment, teamMemberRows));
 
     return teamMemberRows;
   }
 
-  private void addUserToList(UUID guidUser, Department department, Collection<TeamMemberRow> rows) {
+  private void addUserToList(
+      UUID guidUser, OkrDepartment okrDepartment, Collection<TeamMemberRow> rows) {
     User user = userService.findById(guidUser);
-    String role = getTeamRoleFromUser(user, department);
+    String role = getTeamRoleFromUser(user, okrDepartment);
 
     TeamMemberRow row =
-        new TeamMemberRow(department.getName(), role, getFullName(user), user.getMail());
+        new TeamMemberRow(okrDepartment.getName(), role, getFullName(user), user.getMail());
     rows.add(row);
   }
 
@@ -79,13 +82,13 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
     return user.getGivenName() + " " + user.getSurname();
   }
 
-  private String getTeamRoleFromUser(User user, Department department) {
-    if (user.getId().equals(department.getOkrMasterId())) {
+  private String getTeamRoleFromUser(User user, OkrDepartment okrDepartment) {
+    if (user.getId().equals(okrDepartment.getOkrMasterId())) {
       return messages.get("okrmaster");
-    } else if (user.getId().equals(department.getOkrTopicSponsorId())) {
+    } else if (user.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
       return messages.get("topicsponsor");
     } else {
-      for (UUID memberId : department.getOkrMemberIds()) {
+      for (UUID memberId : okrDepartment.getOkrMemberIds()) {
         if (user.getId().equals(memberId)) {
           return messages.get("teammember");
         }
@@ -96,11 +99,11 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
 
   @Override
   public Collection<TeamMemberRow> generateForCompany(long companyId) {
-    Company company = companyService.findById(companyId);
+    OkrCompany okrCompany = companyService.findById(companyId);
 
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
-    Collection<Department> departments = StructureHelper.collectDepartments(company);
-    departments.forEach(
+    Collection<OkrDepartment> okrDepartments = BranchHelper.collectDepartments(okrCompany);
+    okrDepartments.forEach(
         department -> teamMemberRows.addAll(generateTeamMemberRowForDepartment(department)));
 
     return teamMemberRows;

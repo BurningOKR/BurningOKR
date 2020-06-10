@@ -18,7 +18,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
-import org.burningokr.service.structureutil.EntityCrawlerService;
+import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

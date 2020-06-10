@@ -3,15 +3,15 @@ package org.burningokr.service.security;
 import java.util.Optional;
 import java.util.UUID;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.structures.Department;
-import org.burningokr.model.structures.Structure;
-import org.burningokr.model.structures.SubStructure;
+import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.structre.DepartmentRepository;
-import org.burningokr.repositories.structre.StructureRepository;
+import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
+import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRoleFromContextService {
 
-  private StructureRepository<SubStructure> structureRepository;
+  private UnitRepository<OkrChildUnit> unitRepository;
   private ObjectiveRepository objectiveRepository;
   private KeyResultRepository keyResultRepository;
   private NoteRepository noteRepository;
@@ -30,7 +30,7 @@ public class UserRoleFromContextService {
   /**
    * Initialize UserRoleFromContextService.
    *
-   * @param structureRepository a {@link DepartmentRepository} object
+   * @param unitRepository a {@link OkrDepartmentRepository} object
    * @param objectiveRepository an {@link ObjectiveRepository} object
    * @param keyResultRepository a {@link KeyResultRepository} object
    * @param noteRepository a {@link NoteRepository} object
@@ -39,13 +39,13 @@ public class UserRoleFromContextService {
    */
   @Autowired
   public UserRoleFromContextService(
-      StructureRepository<SubStructure> structureRepository,
+      UnitRepository<OkrChildUnit> unitRepository,
       ObjectiveRepository objectiveRepository,
       KeyResultRepository keyResultRepository,
       NoteRepository noteRepository,
       AdminUserRepository adminUserRepository,
       UserService userService) {
-    this.structureRepository = structureRepository;
+    this.unitRepository = unitRepository;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
     this.noteRepository = noteRepository;
@@ -66,19 +66,19 @@ public class UserRoleFromContextService {
     return UserContextRole.USER;
   }
 
-  public UserContextRole getUserRoleInStructureId(Long structureId) {
-    SubStructure contextDepartment = getStructureOfId(structureId);
-    return getUserRoleInStructure(contextDepartment);
+  public UserContextRole getUserRoleInUnitId(Long unitId) {
+    OkrChildUnit contextDepartment = getUnitOfId(unitId);
+    return getUserRoleInUnit(contextDepartment);
   }
 
   public UserContextRole getUserRoleInObjectiveId(Long objectiveId) {
-    Structure contextDepartment = getStructureOfObjective(objectiveId);
-    return getUserRoleInStructure(contextDepartment);
+    OkrUnit contextDepartment = getUnitOfObjective(objectiveId);
+    return getUserRoleInUnit(contextDepartment);
   }
 
   public UserContextRole getUserRoleInKeyResultId(Long keyResultId) {
-    Structure contextDepartment = getStructureOfKeyResult(keyResultId);
-    return getUserRoleInStructure(contextDepartment);
+    OkrUnit contextDepartment = getUnitOfKeyResult(keyResultId);
+    return getUserRoleInUnit(contextDepartment);
   }
 
   /**
@@ -98,26 +98,26 @@ public class UserRoleFromContextService {
   }
 
   /**
-   * Gets the UserContextRole of a Structure.
+   * Gets the UserContextRole of a okrUnit.
    *
-   * @param structure an {@link SubStructure} object
+   * @param okrUnit an {@link OkrChildUnit} object
    * @return an {@link UserContextRole} object
    */
-  public UserContextRole getUserRoleInStructure(Structure structure) {
-    if (structure instanceof Department) {
-      return getUserRoleInDepartment((Department) structure);
+  public UserContextRole getUserRoleInUnit(OkrUnit okrUnit) {
+    if (okrUnit instanceof OkrDepartment) {
+      return getUserRoleInDepartment((OkrDepartment) okrUnit);
     } else {
       return getUserRoleWithoutContext();
     }
   }
 
-  private UserContextRole getUserRoleInDepartment(Department contextDepartment) {
+  private UserContextRole getUserRoleInDepartment(OkrDepartment contextOkrDepartment) {
     UUID currentUserId = userService.getCurrentUser().getId();
     if (isCurrentUserAdmin(currentUserId)) {
       return UserContextRole.ADMIN;
-    } else if (isOkrManagerOfDepartment(contextDepartment, currentUserId)) {
+    } else if (isOkrManagerOfDepartment(contextOkrDepartment, currentUserId)) {
       return UserContextRole.OKRMANAGER;
-    } else if (isOkrMemberOfDepartment(contextDepartment, currentUserId)) {
+    } else if (isOkrMemberOfDepartment(contextOkrDepartment, currentUserId)) {
       return UserContextRole.OKRMEMBER;
     }
     return UserContextRole.USER;
@@ -129,9 +129,9 @@ public class UserRoleFromContextService {
     return optional.isPresent();
   }
 
-  private boolean isOkrManagerOfDepartment(Department department, UUID targetUserId) {
-    UUID okrMaster = department.getOkrMasterId();
-    UUID okrTopicSponsor = department.getOkrTopicSponsorId();
+  private boolean isOkrManagerOfDepartment(OkrDepartment okrDepartment, UUID targetUserId) {
+    UUID okrMaster = okrDepartment.getOkrMasterId();
+    UUID okrTopicSponsor = okrDepartment.getOkrTopicSponsorId();
     return (isIdDefinedAndEquals(okrMaster, targetUserId)
         || isIdDefinedAndEquals(okrTopicSponsor, targetUserId));
   }
@@ -143,8 +143,8 @@ public class UserRoleFromContextService {
     return false;
   }
 
-  private boolean isOkrMemberOfDepartment(Department department, UUID targetUserId) {
-    for (UUID currentUserId : department.getOkrMemberIds()) {
+  private boolean isOkrMemberOfDepartment(OkrDepartment okrDepartment, UUID targetUserId) {
+    for (UUID currentUserId : okrDepartment.getOkrMemberIds()) {
       if (currentUserId.equals(targetUserId)) {
         return true;
       }
@@ -152,18 +152,15 @@ public class UserRoleFromContextService {
     return false;
   }
 
-  private SubStructure getStructureOfId(long structureId) {
-    return structureRepository.findByIdOrThrow(structureId);
+  private OkrChildUnit getUnitOfId(long unitId) {
+    return unitRepository.findByIdOrThrow(unitId);
   }
 
-  private Structure getStructureOfObjective(long objectiveId) {
-    return objectiveRepository.findByIdOrThrow(objectiveId).getParentStructure();
+  private OkrUnit getUnitOfObjective(long objectiveId) {
+    return objectiveRepository.findByIdOrThrow(objectiveId).getParentOkrUnit();
   }
 
-  private Structure getStructureOfKeyResult(long keyResultId) {
-    return keyResultRepository
-        .findByIdOrThrow(keyResultId)
-        .getParentObjective()
-        .getParentStructure();
+  private OkrUnit getUnitOfKeyResult(long keyResultId) {
+    return keyResultRepository.findByIdOrThrow(keyResultId).getParentObjective().getParentOkrUnit();
   }
 }

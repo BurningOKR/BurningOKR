@@ -2,7 +2,7 @@ package org.burningokr.model.cycles;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import org.burningokr.model.structures.Company;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class CycleTest {
   private LocalDate originalFactualStartDate;
   private LocalDate originalFactualEndDate;
   private CycleState originalCycleState;
-  private ArrayList<Company> originalCompanies;
+  private ArrayList<OkrCompany> originalCompanies;
 
   private Cycle expectedCycle;
 
@@ -33,7 +33,7 @@ public class CycleTest {
     originalFactualEndDate = originalPlannedEndDate.plusDays(1);
     originalCycleState = CycleState.ACTIVE;
     originalCompanies = new ArrayList<>();
-    originalCompanies.add(new Company());
+    originalCompanies.add(new OkrCompany());
 
     expectedCycle = new Cycle();
     expectedCycle.setId(originalId);

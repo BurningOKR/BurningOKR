@@ -13,7 +13,7 @@ import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
-import org.burningokr.service.structureutil.EntityCrawlerService;
+import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

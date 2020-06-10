@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,14 +17,14 @@ public class UserSettingsMapper implements DataMapper<UserSettings, UserSettings
     UserSettings entity = new UserSettings();
     entity.setId(dto.getId());
     if (dto.getDefaultCompanyId() != null) {
-      Company mockCompany = new Company();
-      mockCompany.setId(dto.getDefaultCompanyId());
-      entity.setDefaultCompany(mockCompany);
+      OkrCompany mockOkrCompany = new OkrCompany();
+      mockOkrCompany.setId(dto.getDefaultCompanyId());
+      entity.setDefaultOkrCompany(mockOkrCompany);
     }
     if (dto.getDefaultTeamId() != null) {
-      Department mockDepartment = new Department();
-      mockDepartment.setId(dto.getDefaultTeamId());
-      entity.setDefaultTeam(mockDepartment);
+      OkrDepartment mockOkrDepartment = new OkrDepartment();
+      mockOkrDepartment.setId(dto.getDefaultTeamId());
+      entity.setDefaultTeam(mockOkrDepartment);
     }
     return entity;
   }
@@ -33,8 +33,8 @@ public class UserSettingsMapper implements DataMapper<UserSettings, UserSettings
   public UserSettingsDto mapEntityToDto(UserSettings entity) {
     UserSettingsDto dto = new UserSettingsDto();
     dto.setId(entity.getId());
-    if (entity.getDefaultCompany() != null) {
-      dto.setDefaultCompanyId(entity.getDefaultCompany().getId());
+    if (entity.getDefaultOkrCompany() != null) {
+      dto.setDefaultCompanyId(entity.getDefaultOkrCompany().getId());
     }
     if (entity.getDefaultTeam() != null) {
       dto.setDefaultTeamId(entity.getDefaultTeam().getId());

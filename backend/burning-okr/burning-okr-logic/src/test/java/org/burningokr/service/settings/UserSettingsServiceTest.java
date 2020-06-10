@@ -14,15 +14,15 @@ import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okrUnits.OkrBranch;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.CorporateObjectiveStructure;
-import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.StructureService;
+import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnit.OkrUnitService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -43,7 +43,7 @@ public class UserSettingsServiceTest {
 
   @Mock private ActivityService activityService;
 
-  @Mock private StructureService<Department> departmentService;
+  @Mock private OkrUnitService<OkrDepartment> departmentService;
 
   @Mock private CompanyService companyService;
 
@@ -74,17 +74,17 @@ public class UserSettingsServiceTest {
   public void getUserSettingsByUser_expectNoCompanyIfThereIsMoreThanOneCompany() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
     whenUserSettingsSaveReturnSameValue();
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    Company company1 = new Company();
-    company1.setCycle(new Cycle());
-    company1.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Arrays.asList(company, company1));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    OkrCompany okrCompany1 = new OkrCompany();
+    okrCompany1.setCycle(new Cycle());
+    okrCompany1.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Arrays.asList(okrCompany, okrCompany1));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertNull(userSettings.getDefaultCompany());
+    Assert.assertNull(userSettings.getDefaultOkrCompany());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -92,15 +92,15 @@ public class UserSettingsServiceTest {
   @Test
   public void getUserSettingsByUser_expectCompanyIsSetIfThereIsOnlyOneCompany() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
     whenUserSettingsSaveReturnSameValue();
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(company, userSettings.getDefaultCompany());
+    Assert.assertEquals(okrCompany, userSettings.getDefaultOkrCompany());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -109,17 +109,17 @@ public class UserSettingsServiceTest {
   public void getUserSettingsByUser_expectDepartmentIsSetIfThereIsOnlyOneDepartment() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
     whenUserSettingsSaveReturnSameValue();
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
-    Department department = new Department();
-    company.getSubStructures().add(department);
-    department.setParentStructure(company);
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrCompany.getOkrChildUnits().add(okrDepartment);
+    okrDepartment.setParentOkrUnit(okrCompany);
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(department, userSettings.getDefaultTeam());
+    Assert.assertEquals(okrDepartment, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -127,23 +127,22 @@ public class UserSettingsServiceTest {
   @Test
   public void getUserSettingsByUser_expectedDepartmentIsSetIfUserIsSponsorInOnlyOneTeam() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
     whenUserSettingsSaveReturnSameValue();
-    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-    Department subDepartmentWithUserAsSponsor = new Department();
-    subDepartmentWithUserAsSponsor.setOkrTopicSponsorId(userId);
-    Department subDepartment = new Department();
-    company.getSubStructures().add(corporateObjectiveStructure);
-    corporateObjectiveStructure.setParentStructure(company);
-    corporateObjectiveStructure.setSubStructures(
-        Arrays.asList(subDepartment, subDepartmentWithUserAsSponsor));
+    OkrBranch okrBranch = new OkrBranch();
+    OkrDepartment subOkrDepartmentWithUserAsSponsor = new OkrDepartment();
+    subOkrDepartmentWithUserAsSponsor.setOkrTopicSponsorId(userId);
+    OkrDepartment subOkrDepartment = new OkrDepartment();
+    okrCompany.getOkrChildUnits().add(okrBranch);
+    okrBranch.setParentOkrUnit(okrCompany);
+    okrBranch.setOkrChildUnits(Arrays.asList(subOkrDepartment, subOkrDepartmentWithUserAsSponsor));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(subDepartmentWithUserAsSponsor, userSettings.getDefaultTeam());
+    Assert.assertEquals(subOkrDepartmentWithUserAsSponsor, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -151,23 +150,23 @@ public class UserSettingsServiceTest {
   @Test
   public void getUserSettingsByUser_expectedDepartmentIsSetIfUserIsOkrMasterInOnlyOneTeam() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
     whenUserSettingsSaveReturnSameValue();
-    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-    Department subDepartmentWithUserAsOkrMaster = new Department();
-    subDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
-    Department subDepartment = new Department();
-    company.getSubStructures().add(corporateObjectiveStructure);
-    corporateObjectiveStructure.setParentStructure(company);
-    corporateObjectiveStructure.setSubStructures(
-        Arrays.asList(subDepartment, subDepartmentWithUserAsOkrMaster));
+    OkrBranch okrBranch = new OkrBranch();
+    OkrDepartment subOkrDepartmentWithUserAsOkrMaster = new OkrDepartment();
+    subOkrDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
+    OkrDepartment subOkrDepartment = new OkrDepartment();
+    okrCompany.getOkrChildUnits().add(okrBranch);
+    okrBranch.setParentOkrUnit(okrCompany);
+    okrBranch.setOkrChildUnits(
+        Arrays.asList(subOkrDepartment, subOkrDepartmentWithUserAsOkrMaster));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(subDepartmentWithUserAsOkrMaster, userSettings.getDefaultTeam());
+    Assert.assertEquals(subOkrDepartmentWithUserAsOkrMaster, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -175,20 +174,20 @@ public class UserSettingsServiceTest {
   @Test
   public void getUserSettingsByUser_expectDepartmentIsNotSetIfUserIsSponsorInMultipleTeams() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
     whenUserSettingsSaveReturnSameValue();
-    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-    Department subDepartmentWithUserAsSponsor = new Department();
-    subDepartmentWithUserAsSponsor.setOkrTopicSponsorId(userId);
-    Department subDepartmentWithUserAsSponsor1 = new Department();
-    subDepartmentWithUserAsSponsor1.setOkrTopicSponsorId(userId);
-    company.getSubStructures().add(corporateObjectiveStructure);
-    corporateObjectiveStructure.setParentStructure(company);
-    corporateObjectiveStructure.setSubStructures(
-        Arrays.asList(subDepartmentWithUserAsSponsor1, subDepartmentWithUserAsSponsor));
+    OkrBranch okrBranch = new OkrBranch();
+    OkrDepartment subOkrDepartmentWithUserAsSponsor = new OkrDepartment();
+    subOkrDepartmentWithUserAsSponsor.setOkrTopicSponsorId(userId);
+    OkrDepartment subOkrDepartmentWithUserAsSponsor1 = new OkrDepartment();
+    subOkrDepartmentWithUserAsSponsor1.setOkrTopicSponsorId(userId);
+    okrCompany.getOkrChildUnits().add(okrBranch);
+    okrBranch.setParentOkrUnit(okrCompany);
+    okrBranch.setOkrChildUnits(
+        Arrays.asList(subOkrDepartmentWithUserAsSponsor1, subOkrDepartmentWithUserAsSponsor));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
@@ -201,19 +200,19 @@ public class UserSettingsServiceTest {
   public void getUserSettingsByUser_expectDepartmentIsNotSetIfUserIsOkrMasterInMultipleTeams() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
     whenUserSettingsSaveReturnSameValue();
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
-    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-    Department subDepartmentWithUserAsOkrMaster = new Department();
-    subDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
-    Department subDepartmentWithUserAsOkrMaster1 = new Department();
-    subDepartmentWithUserAsOkrMaster1.setOkrMasterId(userId);
-    company.getSubStructures().add(corporateObjectiveStructure);
-    corporateObjectiveStructure.setParentStructure(company);
-    corporateObjectiveStructure.setSubStructures(
-        Arrays.asList(subDepartmentWithUserAsOkrMaster1, subDepartmentWithUserAsOkrMaster));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
+    OkrBranch okrBranch = new OkrBranch();
+    OkrDepartment subOkrDepartmentWithUserAsOkrMaster = new OkrDepartment();
+    subOkrDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
+    OkrDepartment subOkrDepartmentWithUserAsOkrMaster1 = new OkrDepartment();
+    subOkrDepartmentWithUserAsOkrMaster1.setOkrMasterId(userId);
+    okrCompany.getOkrChildUnits().add(okrBranch);
+    okrBranch.setParentOkrUnit(okrCompany);
+    okrBranch.setOkrChildUnits(
+        Arrays.asList(subOkrDepartmentWithUserAsOkrMaster1, subOkrDepartmentWithUserAsOkrMaster));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
@@ -226,20 +225,20 @@ public class UserSettingsServiceTest {
   public void
       getUserSettingsByUser_expectDepartmentIsNotSetIfUserIsOkrMasterOrTopicSponsorInMultipleTeams() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
     whenUserSettingsSaveReturnSameValue();
-    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-    Department subDepartmentWithUserAsOkrMaster = new Department();
-    subDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
-    Department subDepartmentWithUserAsTopicSponsor = new Department();
-    subDepartmentWithUserAsTopicSponsor.setOkrTopicSponsorId(userId);
-    company.getSubStructures().add(corporateObjectiveStructure);
-    corporateObjectiveStructure.setParentStructure(company);
-    corporateObjectiveStructure.setSubStructures(
-        Arrays.asList(subDepartmentWithUserAsTopicSponsor, subDepartmentWithUserAsOkrMaster));
+    OkrBranch okrBranch = new OkrBranch();
+    OkrDepartment subOkrDepartmentWithUserAsOkrMaster = new OkrDepartment();
+    subOkrDepartmentWithUserAsOkrMaster.setOkrMasterId(userId);
+    OkrDepartment subOkrDepartmentWithUserAsTopicSponsor = new OkrDepartment();
+    subOkrDepartmentWithUserAsTopicSponsor.setOkrTopicSponsorId(userId);
+    okrCompany.getOkrChildUnits().add(okrBranch);
+    okrBranch.setParentOkrUnit(okrCompany);
+    okrBranch.setOkrChildUnits(
+        Arrays.asList(subOkrDepartmentWithUserAsTopicSponsor, subOkrDepartmentWithUserAsOkrMaster));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
@@ -252,22 +251,21 @@ public class UserSettingsServiceTest {
   public void getUserSettingsByUser_expectedDepartmentIsSetIfUserIsMemberInOnlyOneTeam() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
     whenUserSettingsSaveReturnSameValue();
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
-    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-    Department subDepartmentWithUserAsMember = new Department();
-    subDepartmentWithUserAsMember.setOkrMemberIds(Collections.singleton(userId));
-    Department subDepartment = new Department();
-    company.getSubStructures().add(corporateObjectiveStructure);
-    corporateObjectiveStructure.setParentStructure(company);
-    corporateObjectiveStructure.setSubStructures(
-        Arrays.asList(subDepartment, subDepartmentWithUserAsMember));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
+    OkrBranch okrBranch = new OkrBranch();
+    OkrDepartment subOkrDepartmentWithUserAsMember = new OkrDepartment();
+    subOkrDepartmentWithUserAsMember.setOkrMemberIds(Collections.singleton(userId));
+    OkrDepartment subOkrDepartment = new OkrDepartment();
+    okrCompany.getOkrChildUnits().add(okrBranch);
+    okrBranch.setParentOkrUnit(okrCompany);
+    okrBranch.setOkrChildUnits(Arrays.asList(subOkrDepartment, subOkrDepartmentWithUserAsMember));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(subDepartmentWithUserAsMember, userSettings.getDefaultTeam());
+    Assert.assertEquals(subOkrDepartmentWithUserAsMember, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -275,20 +273,20 @@ public class UserSettingsServiceTest {
   @Test
   public void getUserSettingsByUser_expectDepartmentIsNotSetIfUserMemberInMultipleTeams() {
     when(userSettingsRepository.findUserSettingsByUserId(userId)).thenReturn(null);
-    Company company = new Company();
-    company.setCycle(new Cycle());
-    company.getCycle().setCycleState(CycleState.ACTIVE);
-    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(company));
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setCycle(new Cycle());
+    okrCompany.getCycle().setCycleState(CycleState.ACTIVE);
+    when(companyService.getAllCompanies()).thenReturn(Collections.singletonList(okrCompany));
     whenUserSettingsSaveReturnSameValue();
-    CorporateObjectiveStructure corporateObjectiveStructure = new CorporateObjectiveStructure();
-    Department departmentWithUserAsMember = new Department();
-    departmentWithUserAsMember.getOkrMemberIds().add(userId);
-    Department departmentWithUserAsMember1 = new Department();
-    departmentWithUserAsMember1.getOkrMemberIds().add(userId);
-    company.getSubStructures().add(corporateObjectiveStructure);
-    corporateObjectiveStructure.setParentStructure(company);
-    corporateObjectiveStructure.setSubStructures(
-        Arrays.asList(departmentWithUserAsMember1, departmentWithUserAsMember));
+    OkrBranch okrBranch = new OkrBranch();
+    OkrDepartment okrDepartmentWithUserAsMember = new OkrDepartment();
+    okrDepartmentWithUserAsMember.getOkrMemberIds().add(userId);
+    OkrDepartment okrDepartmentWithUserAsMember1 = new OkrDepartment();
+    okrDepartmentWithUserAsMember1.getOkrMemberIds().add(userId);
+    okrCompany.getOkrChildUnits().add(okrBranch);
+    okrBranch.setParentOkrUnit(okrCompany);
+    okrBranch.setOkrChildUnits(
+        Arrays.asList(okrDepartmentWithUserAsMember1, okrDepartmentWithUserAsMember));
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
@@ -341,11 +339,11 @@ public class UserSettingsServiceTest {
     userSettingsParam.setUserId(userId);
     Long defaultCompanyId = 550L;
     Long defaultTeamId = 1300L;
-    Company defaultCompany = new Company();
-    defaultCompany.setId(defaultCompanyId);
-    Department defaultTeam = new Department();
-    defaultCompany.setId(defaultTeamId);
-    userSettingsParam.setDefaultCompany(defaultCompany);
+    OkrCompany defaultOkrCompany = new OkrCompany();
+    defaultOkrCompany.setId(defaultCompanyId);
+    OkrDepartment defaultTeam = new OkrDepartment();
+    defaultOkrCompany.setId(defaultTeamId);
+    userSettingsParam.setDefaultOkrCompany(defaultOkrCompany);
     userSettingsParam.setDefaultTeam(defaultTeam);
 
     UserSettings userSettingsResult =
@@ -354,8 +352,8 @@ public class UserSettingsServiceTest {
     Assert.assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
     Assert.assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
     Assert.assertEquals(
-        userSettingsParam.getDefaultCompany().getId(),
-        userSettingsParam.getDefaultCompany().getId());
+        userSettingsParam.getDefaultOkrCompany().getId(),
+        userSettingsParam.getDefaultOkrCompany().getId());
     Assert.assertEquals(
         userSettingsParam.getDefaultTeam().getId(), userSettingsParam.getDefaultTeam().getId());
     verify(userSettingsRepository, times(1)).save(any());
@@ -373,9 +371,9 @@ public class UserSettingsServiceTest {
     userSettingsParam.setId(id);
     userSettingsParam.setUserId(userId);
     Long defaultCompanyId = 550L;
-    Company defaultCompany = new Company();
-    defaultCompany.setId(defaultCompanyId);
-    userSettingsParam.setDefaultCompany(defaultCompany);
+    OkrCompany defaultOkrCompany = new OkrCompany();
+    defaultOkrCompany.setId(defaultCompanyId);
+    userSettingsParam.setDefaultOkrCompany(defaultOkrCompany);
 
     UserSettings userSettingsResult =
         this.userSettingsService.updateUserSettings(userSettingsParam, user);
@@ -383,8 +381,8 @@ public class UserSettingsServiceTest {
     Assert.assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
     Assert.assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
     Assert.assertEquals(
-        userSettingsParam.getDefaultCompany().getId(),
-        userSettingsParam.getDefaultCompany().getId());
+        userSettingsParam.getDefaultOkrCompany().getId(),
+        userSettingsParam.getDefaultOkrCompany().getId());
     verify(userSettingsRepository, times(1)).save(any());
     verify(userSettingsRepository, times(1)).findByIdOrThrow(id);
   }
@@ -400,7 +398,7 @@ public class UserSettingsServiceTest {
     userSettingsParam.setId(id);
     userSettingsParam.setUserId(userId);
     Long defaultTeamId = 1300L;
-    Department defaultTeam = new Department();
+    OkrDepartment defaultTeam = new OkrDepartment();
     defaultTeam.setId(defaultTeamId);
     userSettingsParam.setDefaultTeam(defaultTeam);
 

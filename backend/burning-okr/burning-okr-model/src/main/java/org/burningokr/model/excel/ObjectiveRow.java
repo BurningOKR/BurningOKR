@@ -16,7 +16,7 @@ public class ObjectiveRow {
   private PercentageCellValue progress;
 
   @ColumnIndex(4)
-  private String parentStructureGoal;
+  private String parentUnitGoal;
 
   @ColumnIndex(5)
   private String keyResult;

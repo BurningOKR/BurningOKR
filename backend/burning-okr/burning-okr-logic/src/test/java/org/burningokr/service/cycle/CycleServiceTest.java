@@ -11,14 +11,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.EntityNotFoundException;
-import org.burningokr.model.cycles.CompanyHistory;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.structures.Company;
+import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
-import org.burningokr.service.structureutil.CyclePreparationCloningService;
+import org.burningokr.service.okrUnitUtil.CyclePreparationCloningService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -222,7 +222,7 @@ public class CycleServiceTest {
 
   @Test
   public void defineCycle_insertActiveCycle_expectedArchivingServiceCall() {
-    Collection<Company> companies = new ArrayList<>();
+    Collection<OkrCompany> companies = new ArrayList<>();
     Cycle newCycle = new Cycle();
     newCycle.setCycleState(CycleState.ACTIVE);
     Cycle oldCycle = new Cycle();
@@ -263,10 +263,10 @@ public class CycleServiceTest {
     return dummyCycle;
   }
 
-  private CompanyHistory createDummyHistory(long dummyId) {
-    CompanyHistory dummyCompanyHistory = new CompanyHistory();
-    dummyCompanyHistory.setId(dummyId);
-    return dummyCompanyHistory;
+  private OkrCompanyHistory createDummyHistory(long dummyId) {
+    OkrCompanyHistory dummyOkrCompanyHistory = new OkrCompanyHistory();
+    dummyOkrCompanyHistory.setId(dummyId);
+    return dummyOkrCompanyHistory;
   }
 
   @Test
@@ -278,19 +278,19 @@ public class CycleServiceTest {
 
   @Test
   public void processAutomaticCycleSwitch_oneActiveCycleFromOneCompany_expectedNoCycleSwap() {
-    CompanyHistory companyHistoryA = createDummyHistory(100L);
+    OkrCompanyHistory okrCompanyHistoryA = createDummyHistory(100L);
     Cycle cycleForHistoryA1 = createDummyCycleWithStateAndEndDateInFuture(CycleState.ACTIVE, 10);
 
     // Mock return data
-    ArrayList<CompanyHistory> companyHistoriesToReturn = new ArrayList<>();
-    companyHistoriesToReturn.add(companyHistoryA);
+    ArrayList<OkrCompanyHistory> companyHistoriesToReturn = new ArrayList<>();
+    companyHistoriesToReturn.add(okrCompanyHistoryA);
     ArrayList<Cycle> cyclesToReturnForCompanyHistoryA = new ArrayList<>();
     cyclesToReturnForCompanyHistoryA.add(cycleForHistoryA1);
 
     when(companyHistoryRepository.findAll()).thenReturn(companyHistoriesToReturn);
     when(cycleRepository
             .findByCompanyHistoryAndPlannedStartBeforeOrEqualAndNotCycleStateOrderByEndDateDescending(
-                companyHistoryA, LocalDate.now(), CycleState.CLOSED))
+                okrCompanyHistoryA, LocalDate.now(), CycleState.CLOSED))
         .thenReturn(cyclesToReturnForCompanyHistoryA);
 
     cycleService.processAutomaticCycleSwitch();
@@ -302,14 +302,14 @@ public class CycleServiceTest {
   @Test
   public void
       processAutomaticCycleSwitch_oneActiveOnePreparationCyclesFromOneCompany_expectedCorrectCycleSwap() {
-    CompanyHistory companyHistoryA = createDummyHistory(100L);
+    OkrCompanyHistory okrCompanyHistoryA = createDummyHistory(100L);
     Cycle cycleForCompanyA1 = createDummyCycleWithStateAndEndDateInFuture(CycleState.ACTIVE, 5);
     Cycle cycleForCompanyA2 =
         createDummyCycleWithStateAndEndDateInFuture(CycleState.PREPARATION, 10);
 
     // Mock return data
-    ArrayList<CompanyHistory> companyHistoriesToReturn = new ArrayList<>();
-    companyHistoriesToReturn.add(companyHistoryA);
+    ArrayList<OkrCompanyHistory> companyHistoriesToReturn = new ArrayList<>();
+    companyHistoriesToReturn.add(okrCompanyHistoryA);
     ArrayList<Cycle> cyclesToReturnForCompanyHistoryA = new ArrayList<>();
     cyclesToReturnForCompanyHistoryA.add(cycleForCompanyA2);
     cyclesToReturnForCompanyHistoryA.add(cycleForCompanyA1);
@@ -317,7 +317,7 @@ public class CycleServiceTest {
     when(companyHistoryRepository.findAll()).thenReturn(companyHistoriesToReturn);
     when(cycleRepository
             .findByCompanyHistoryAndPlannedStartBeforeOrEqualAndNotCycleStateOrderByEndDateDescending(
-                companyHistoryA, LocalDate.now(), CycleState.CLOSED))
+                okrCompanyHistoryA, LocalDate.now(), CycleState.CLOSED))
         .thenReturn(cyclesToReturnForCompanyHistoryA);
 
     cycleService.processAutomaticCycleSwitch();
@@ -334,7 +334,7 @@ public class CycleServiceTest {
   @Test
   public void
       processAutomaticCycleSwitch_oneActiveTwoPreparationCyclesFromOneCompany_expectedCorrectCycleSwap() {
-    CompanyHistory companyHistoryA = createDummyHistory(100L);
+    OkrCompanyHistory okrCompanyHistoryA = createDummyHistory(100L);
     Cycle cycleForCompanyA1 = createDummyCycleWithStateAndEndDateInFuture(CycleState.ACTIVE, 5);
     Cycle cycleForCompanyA2 =
         createDummyCycleWithStateAndEndDateInFuture(CycleState.PREPARATION, 10);
@@ -342,8 +342,8 @@ public class CycleServiceTest {
         createDummyCycleWithStateAndEndDateInFuture(CycleState.PREPARATION, 15);
 
     // Mock return data
-    ArrayList<CompanyHistory> companyHistoriesToReturn = new ArrayList<>();
-    companyHistoriesToReturn.add(companyHistoryA);
+    ArrayList<OkrCompanyHistory> companyHistoriesToReturn = new ArrayList<>();
+    companyHistoriesToReturn.add(okrCompanyHistoryA);
     ArrayList<Cycle> cyclesToReturnForCompanyHistoryA = new ArrayList<>();
     cyclesToReturnForCompanyHistoryA.add(cycleForCompanyA3);
     cyclesToReturnForCompanyHistoryA.add(cycleForCompanyA2);
@@ -352,7 +352,7 @@ public class CycleServiceTest {
     when(companyHistoryRepository.findAll()).thenReturn(companyHistoriesToReturn);
     when(cycleRepository
             .findByCompanyHistoryAndPlannedStartBeforeOrEqualAndNotCycleStateOrderByEndDateDescending(
-                companyHistoryA, LocalDate.now(), CycleState.CLOSED))
+                okrCompanyHistoryA, LocalDate.now(), CycleState.CLOSED))
         .thenReturn(cyclesToReturnForCompanyHistoryA);
 
     cycleService.processAutomaticCycleSwitch();
@@ -372,14 +372,14 @@ public class CycleServiceTest {
   @Test
   public void
       processAutomaticCycleSwitch_oneActiveTwoPreparationCyclesFromTwoCompanies_expectedCorrectCycleSwap() {
-    CompanyHistory companyHistoryA = createDummyHistory(100L);
+    OkrCompanyHistory okrCompanyHistoryA = createDummyHistory(100L);
     Cycle cycleForCompanyA1 = createDummyCycleWithStateAndEndDateInFuture(CycleState.ACTIVE, 5);
     Cycle cycleForCompanyA2 =
         createDummyCycleWithStateAndEndDateInFuture(CycleState.PREPARATION, 10);
     Cycle cycleForCompanyA3 =
         createDummyCycleWithStateAndEndDateInFuture(CycleState.PREPARATION, 15);
 
-    CompanyHistory companyHistoryB = createDummyHistory(200L);
+    OkrCompanyHistory okrCompanyHistoryB = createDummyHistory(200L);
     Cycle cycleForCompanyB1 = createDummyCycleWithStateAndEndDateInFuture(CycleState.ACTIVE, 3);
     Cycle cycleForCompanyB2 =
         createDummyCycleWithStateAndEndDateInFuture(CycleState.PREPARATION, 6);
@@ -387,9 +387,9 @@ public class CycleServiceTest {
         createDummyCycleWithStateAndEndDateInFuture(CycleState.PREPARATION, 12);
 
     // Mock return data
-    ArrayList<CompanyHistory> companyHistoriesToReturn = new ArrayList<>();
-    companyHistoriesToReturn.add(companyHistoryA);
-    companyHistoriesToReturn.add(companyHistoryB);
+    ArrayList<OkrCompanyHistory> companyHistoriesToReturn = new ArrayList<>();
+    companyHistoriesToReturn.add(okrCompanyHistoryA);
+    companyHistoriesToReturn.add(okrCompanyHistoryB);
     ArrayList<Cycle> cyclesToReturnForCompanyHistoryA = new ArrayList<>();
     cyclesToReturnForCompanyHistoryA.add(cycleForCompanyA3);
     cyclesToReturnForCompanyHistoryA.add(cycleForCompanyA2);
@@ -402,11 +402,11 @@ public class CycleServiceTest {
     when(companyHistoryRepository.findAll()).thenReturn(companyHistoriesToReturn);
     when(cycleRepository
             .findByCompanyHistoryAndPlannedStartBeforeOrEqualAndNotCycleStateOrderByEndDateDescending(
-                companyHistoryA, LocalDate.now(), CycleState.CLOSED))
+                okrCompanyHistoryA, LocalDate.now(), CycleState.CLOSED))
         .thenReturn(cyclesToReturnForCompanyHistoryA);
     when(cycleRepository
             .findByCompanyHistoryAndPlannedStartBeforeOrEqualAndNotCycleStateOrderByEndDateDescending(
-                companyHistoryB, LocalDate.now(), CycleState.CLOSED))
+                okrCompanyHistoryB, LocalDate.now(), CycleState.CLOSED))
         .thenReturn(cyclesToReturnForCompanyHistoryB);
 
     cycleService.processAutomaticCycleSwitch();

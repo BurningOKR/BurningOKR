@@ -12,12 +12,12 @@ import java.util.Collection;
 import java.util.List;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.exceptions.InvalidDtoException;
-import org.burningokr.model.cycles.CompanyHistory;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.structures.Company;
+import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.repositories.cycle.CycleRepository;
-import org.burningokr.repositories.structre.CompanyRepository;
+import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,22 +37,22 @@ public class CycleDtoValidatorTest {
 
   private Long cycleDtoId = 100L;
 
-  private CompanyHistory targetCompanyHistory;
-  private Company targetCompany;
+  private OkrCompanyHistory targetOkrCompanyHistory;
+  private OkrCompany targetOkrCompany;
 
   private List<Cycle> repositoryReturnCyclesThatOverlapFromSameCompanyHistory;
   private List<Cycle> repositoryReturnCyclesThatAreEnvelopedFromSameCompanyHistory;
 
   @Before
   public void reset() {
-    targetCompanyHistory = new CompanyHistory();
-    targetCompany = new Company();
-    targetCompany.setHistory(targetCompanyHistory);
+    targetOkrCompanyHistory = new OkrCompanyHistory();
+    targetOkrCompany = new OkrCompany();
+    targetOkrCompany.setHistory(targetOkrCompanyHistory);
 
     repositoryReturnCyclesThatAreEnvelopedFromSameCompanyHistory = new ArrayList<>();
     repositoryReturnCyclesThatOverlapFromSameCompanyHistory = new ArrayList<>();
 
-    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(targetCompany);
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(targetOkrCompany);
     when(cycleRepository.findByCompanyHistoryAndDateBetweenPlannedTimeRange(any(), any()))
         .thenReturn(repositoryReturnCyclesThatOverlapFromSameCompanyHistory);
     when(cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(any(), any(), any()))

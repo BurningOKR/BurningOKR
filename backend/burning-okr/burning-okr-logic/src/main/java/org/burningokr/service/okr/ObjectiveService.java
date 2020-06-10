@@ -7,7 +7,7 @@ import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.SubStructure;
+import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -15,9 +15,9 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.exceptions.KeyResultOverflowException;
-import org.burningokr.service.structure.departmentservices.StructureServiceUsers;
-import org.burningokr.service.structureutil.EntityCrawlerService;
-import org.burningokr.service.structureutil.ParentService;
+import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
+import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
+import org.burningokr.service.okrUnitUtil.ParentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class ObjectiveService {
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private ConfigurationService configurationService;
-  private StructureServiceUsers<SubStructure> structureService;
+  private OkrUnitServiceUsers<OkrChildUnit> unitService;
 
   /**
    * Initialize ObjectiveService.
@@ -47,7 +47,7 @@ public class ObjectiveService {
    * @param activityService an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
    * @param configurationService a {@link ConfigurationService} object
-   * @param structureService a {@link StructureServiceUsers} object
+   * @param unitService a {@link OkrUnitServiceUsers} object
    */
   @Autowired
   public ObjectiveService(
@@ -57,14 +57,14 @@ public class ObjectiveService {
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       ConfigurationService configurationService,
-      @Qualifier("structureServiceUsers") StructureServiceUsers<SubStructure> structureService) {
+      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
     this.configurationService = configurationService;
-    this.structureService = structureService;
+    this.unitService = unitService;
   }
 
   public Objective findById(Long objectiveId) {
@@ -138,8 +138,8 @@ public class ObjectiveService {
               + ").");
     }
 
-    if (referencedObjective.getParentStructure() != null) {
-      for (Objective otherObjective : referencedObjective.getParentStructure().getObjectives()) {
+    if (referencedObjective.getParentOkrUnit() != null) {
+      for (Objective otherObjective : referencedObjective.getParentOkrUnit().getObjectives()) {
         if (otherObjective.getSequence() > referencedObjective.getSequence()) {
           otherObjective.setSequence(otherObjective.getSequence() - 1);
           objectiveRepository.save(otherObjective);
@@ -188,19 +188,19 @@ public class ObjectiveService {
   /**
    * Updates a Sequence.
    *
-   * @param structureId a long value
+   * @param unitId a long value
    * @param sequenceList a {@link Collection} of long values
    * @param user an {@link User} object
    * @throws Exception if Sequence is invalid
    */
   @Transactional
-  public void updateSequence(Long structureId, Collection<Long> sequenceList, User user)
+  public void updateSequence(Long unitId, Collection<Long> sequenceList, User user)
       throws Exception {
-    SubStructure structure = structureService.findById(structureId);
-    throwIfSequenceInvalid(structure, sequenceList);
+    OkrChildUnit childUnit = unitService.findById(unitId);
+    throwIfSequenceInvalid(childUnit, sequenceList);
 
     ArrayList<Long> sequenceArray = new ArrayList<>(sequenceList);
-    structure
+    childUnit
         .getObjectives()
         .forEach(
             objective -> {
@@ -212,9 +212,9 @@ public class ObjectiveService {
             });
   }
 
-  private void throwIfSequenceInvalid(SubStructure structure, Collection<Long> sequenceList)
+  private void throwIfSequenceInvalid(OkrChildUnit childUnit, Collection<Long> sequenceList)
       throws Exception {
-    Collection<Objective> objectiveList = structure.getObjectives();
+    Collection<Objective> objectiveList = childUnit.getObjectives();
 
     if (objectiveList.size() != sequenceList.size()) {
       throw new IllegalArgumentException(

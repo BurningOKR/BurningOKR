@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 
 @Entity
 @Data
@@ -23,10 +23,10 @@ public class UserSettings implements Trackable<Long> {
   private UUID userId;
 
   @ManyToOne(cascade = CascadeType.REMOVE)
-  private Company defaultCompany;
+  private OkrCompany defaultOkrCompany;
 
   @ManyToOne(cascade = CascadeType.REMOVE)
-  private Department defaultTeam;
+  private OkrDepartment defaultTeam;
 
   @Override
   public String getName() {

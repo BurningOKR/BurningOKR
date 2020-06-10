@@ -19,7 +19,7 @@ public class AuthorizationService {
   }
 
   public boolean hasManagerPrivilegeForDepartment(Long departmentId) {
-    UserContextRole userRole = userRoleFromContextService.getUserRoleInStructureId(departmentId);
+    UserContextRole userRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
     return userRole.isHigherAuthorityTypeThan(UserContextRole.OKRMEMBER);
   }
 
@@ -34,7 +34,7 @@ public class AuthorizationService {
   }
 
   public boolean hasMemberPrivilegeForDepartment(Long departmentId) {
-    UserContextRole userRole = userRoleFromContextService.getUserRoleInStructureId(departmentId);
+    UserContextRole userRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
     return userRole.isHigherAuthorityTypeThan(UserContextRole.USER);
   }
 
