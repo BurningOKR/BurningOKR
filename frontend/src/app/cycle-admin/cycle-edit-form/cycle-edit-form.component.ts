@@ -4,12 +4,11 @@ import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { dateFormatValidatorFunction } from '../../shared/validators/date-format-validator-function';
-import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator-function';
-import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator-function';
-import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator-function';
 import { Observable } from 'rxjs';
-import { DateFormValidatorImpl } from '../../shared/validators/abstract-validator';
+import { DateFormValidatorImpl } from '../../shared/validators/date-format-validator/date-format-validator-function';
+import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
+import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
+import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
 
 export interface CycleEditFormData {
   cycle: CycleUnit;
@@ -66,7 +65,7 @@ export class CycleEditFormComponent {
       startDate: new FormControl({value: cycle.startDate, disabled: isStartDateDisabled},
         [DateFormValidatorImpl.Validate, dateNotInThePastValidatorFunction]), // ADD CUSTOM DATE VALIDATOR https://stackoverflow.com/questions/51633047/angular-material-date-validator-get-invalid-value
       endDate: new FormControl({value: cycle.endDate, disabled: isEndDateDisabled},
-        [dateFormatValidatorFunction]),
+        [DateFormValidatorImpl.Validate]),
       isVisible: new FormControl({value: cycle.isVisible, disabled: isVisibilityOptionDisabled})
     }, [startDateBeforeEndDateValidatorFunction,
         dateRangeInRangeWithinAnotherDatesValidatorFunction(cycles)]);

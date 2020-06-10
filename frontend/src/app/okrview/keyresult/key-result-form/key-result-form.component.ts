@@ -4,9 +4,9 @@ import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { Unit } from '../../../shared/model/api/unit.enum';
-import { startNotEqualEndValidatorFunction } from '../../../shared/validators/start-not-equal-end-validator-function';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { currentHigherThanEndValidatorFunction } from '../../../shared/validators/current-higher-than-end-validator/current-higher-than-end-validator-function';
+import { startNotEqualEndValidatorFunction } from '../../../shared/validators/start-not-equal-end-validator/start-not-equal-end-validator-function';
 
 interface KeyResultFormData {
   keyResult?: ViewKeyResult;
