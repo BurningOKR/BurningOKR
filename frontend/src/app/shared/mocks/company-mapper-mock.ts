@@ -7,9 +7,9 @@ import { CycleWithHistoryCompany } from '../model/ui/cycle-with-history-company'
 export class CompanyMapperMock {
   static mapCompany(company: CompanyDto): CompanyUnit {
     return new CompanyUnit(
-      company.unitId,
+      company.okrUnitId,
       company.unitName,
-      company.childUnitIds,
+      company.okrChildUnitIds,
       company.objectiveIds,
       company.cycleId,
       company.label
@@ -17,9 +17,9 @@ export class CompanyMapperMock {
   }
   static mapCompanyUnit(companyUnit: CompanyUnit): CompanyDto {
     return {
-      unitId: companyUnit.id,
+      okrUnitId: companyUnit.id,
       unitName: companyUnit.name,
-      childUnitIds: companyUnit.childUnitIds,
+      okrChildUnitIds: companyUnit.okrChildUnitIds,
       objectiveIds: companyUnit.objectives,
       cycleId: companyUnit.cycleId,
       label: companyUnit.label

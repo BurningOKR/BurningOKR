@@ -38,7 +38,7 @@ describe('OkrUnitMapper', () => {
     okrUnitApiService.deleteOkrChildUnit$.mockReset();
 
     departmentDto = new OkrDepartmentDto();
-    departmentDto.unitId = 1;
+    departmentDto.okrUnitId = 1;
     departmentDto.unitName = 'testName';
     departmentDto.label = 'test';
     departmentDto.isActive = true;
@@ -63,11 +63,11 @@ describe('OkrUnitMapper', () => {
     departmentUnit.isParentUnitABranch = true;
 
     okrBranchDto = new OkrBranchDto();
-    okrBranchDto.unitId = 2;
+    okrBranchDto.okrUnitId = 2;
     okrBranchDto.unitName = 'testName2';
     okrBranchDto.label = 'testLabel';
     okrBranchDto.isActive = true;
-    okrBranchDto.subUnitIds = [1];
+    okrBranchDto.okrChildUnitIds = [1];
     okrBranchDto.parentUnitId = 0;
     okrBranchDto.objectiveIds = [4, 5, 6];
 
@@ -77,7 +77,7 @@ describe('OkrUnitMapper', () => {
     okrBranch.name = 'testName2';
     okrBranch.label = 'testLabel';
     okrBranch.isActive = true;
-    okrBranch.childUnit = [1];
+    okrBranch.okrChildUnitIds = [1];
     okrBranch.parentUnitId = 0;
     okrBranch.objectives = [4, 5, 6];
   });

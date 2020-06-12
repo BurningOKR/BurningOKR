@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.ObjectiveDto;
-import org.burningokr.dto.okrUnit.ChildUnitDto;
+import org.burningokr.dto.okrUnit.OkrChildUnitDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -40,12 +40,12 @@ public class OkrUnitController {
   private final OkrCompanyMapper okrCompanyMapper;
 
   @GetMapping("/units/{unitId}")
-  public ResponseEntity<ChildUnitDto> getUnitByUnitId(@PathVariable long unitId) {
+  public ResponseEntity<OkrChildUnitDto> getUnitByUnitId(@PathVariable long unitId) {
     OkrUnitService<OkrChildUnit> okrUnitService =
         okrUnitServicePicker.getRoleServiceForDepartment(unitId);
     OkrChildUnit unit = okrUnitService.findById(unitId);
     DataMapper mapper = mapperPicker.getMapper(unit.getClass());
-    return ResponseEntity.ok((ChildUnitDto) mapper.mapEntityToDto(unit));
+    return ResponseEntity.ok((OkrChildUnitDto) mapper.mapEntityToDto(unit));
   }
 
   /**
@@ -97,20 +97,20 @@ public class OkrUnitController {
   }
 
   @PutMapping(value = "/units/{unitId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ChildUnitDto> updateUnit(
-      @PathVariable long unitId, @RequestBody ChildUnitDto childUnitDto, User user) {
+  public ResponseEntity<OkrChildUnitDto> updateUnit(
+      @PathVariable long unitId, @RequestBody OkrChildUnitDto okrChildUnitDto, User user) {
     OkrUnitService<OkrChildUnit> okrUnitService =
         okrUnitServicePicker.getRoleServiceForDepartment(unitId);
 
     OkrChildUnit childUnit = okrUnitService.findById(unitId);
     DataMapper mapper = mapperPicker.getMapper(childUnit.getClass());
-    OkrChildUnit receivedUnit = (OkrChildUnit) mapper.mapDtoToEntity(childUnitDto);
+    OkrChildUnit receivedUnit = (OkrChildUnit) mapper.mapDtoToEntity(okrChildUnitDto);
 
     receivedUnit.setId(unitId);
 
     OkrChildUnit updateUnit = okrUnitService.updateUnit(receivedUnit, user);
 
-    return ResponseEntity.ok((ChildUnitDto) mapper.mapEntityToDto(updateUnit));
+    return ResponseEntity.ok((OkrChildUnitDto) mapper.mapEntityToDto(updateUnit));
   }
 
   /**

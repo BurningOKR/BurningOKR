@@ -7,11 +7,11 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OkrBranchDTO extends ChildUnitDto {
+public class OkrBranchDto extends OkrChildUnitDto {
 
-  public OkrBranchDTO() {
+  public OkrBranchDto() {
     super(UnitType.OKR_BRANCH);
   }
 
-  private Collection<Long> childUnits = new ArrayList<>();
+  private Collection<Long> okrChildUnitIds = new ArrayList<>();
 }

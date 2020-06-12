@@ -34,7 +34,7 @@ export class DepartmentApiService {
   }
 
   putDepartment$(department: OkrDepartmentDto): Observable<OkrDepartmentDto> {
-    return this.api.putData$(`departments/${department.unitId}`, department);
+    return this.api.putData$(`departments/${department.okrUnitId}`, department);
   }
 
   deleteDepartment$(departmentId: number): Observable<boolean> {

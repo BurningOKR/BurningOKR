@@ -11,7 +11,7 @@ import { CurrentCycleService } from '../../current-cycle.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { SharedModule } from '../../../shared/shared.module';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
-import { OkChildUnitTabComponent } from '../okr-child-unit-tab/ok-child-unit-tab.component';
+import { OkrChildUnitTabComponent } from '../okr-child-unit-tab/okr-child-unit-tab.component';
 import { OkrChildUnitOverviewTabComponent } from '../okr-child-unit-tab-overview/okr-child-unit-overview-tab.component';
 import { DepartmentTabTeamComponent } from './department-tab-team/department-tab-team.component';
 import { OkrChildUnitPreviewButtonComponent } from '../okr-child-unit-preview-button/okr-child-unit-preview-button.component';
@@ -84,7 +84,7 @@ describe('OkrChildUnitComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         OkrChildUnitComponent,
-        OkChildUnitTabComponent,
+        OkrChildUnitTabComponent,
         OkrChildUnitOverviewTabComponent,
         DepartmentTabTeamComponent,
         OkrChildUnitPreviewButtonComponent,
@@ -319,7 +319,7 @@ describe('OkrChildUnitComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    okrBranch.childUnit = [];
+    okrBranch.okrUnitIds = [];
 
     const canBeRemoved: boolean = component.canChildUnitBeRemoved(okrBranch);
 
@@ -332,7 +332,7 @@ describe('OkrChildUnitComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    okrBranch.childUnit = [1, 2, 3];
+    okrBranch.okrUnitIds = [1, 2, 3];
 
     const canBeRemoved: boolean = component.canChildUnitBeRemoved(okrBranch);
 
@@ -345,7 +345,7 @@ describe('OkrChildUnitComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    okrBranch.childUnit = [1];
+    okrBranch.okrUnitIds = [1];
 
     const canBeRemoved: boolean = component.canChildUnitBeRemoved(okrBranch);
 

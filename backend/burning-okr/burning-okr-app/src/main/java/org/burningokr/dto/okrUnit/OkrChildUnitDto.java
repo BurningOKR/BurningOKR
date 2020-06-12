@@ -14,11 +14,11 @@ import lombok.*;
     visible = true)
 @JsonSubTypes({
   @JsonSubTypes.Type(value = OkrDepartmentDto.class, name = "DEPARTMENT"),
-  @JsonSubTypes.Type(value = OkrBranchDTO.class, name = "OKR_BRANCH")
+  @JsonSubTypes.Type(value = OkrBranchDto.class, name = "OKR_BRANCH")
 })
-public abstract class ChildUnitDto extends OkrUnitDto {
+public abstract class OkrChildUnitDto extends OkrUnitDto {
 
-  protected ChildUnitDto(UnitType unitType) {
+  protected OkrChildUnitDto(UnitType unitType) {
     this.__okrUnitType = unitType;
   }
 
@@ -40,13 +40,13 @@ public abstract class ChildUnitDto extends OkrUnitDto {
 
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)
-  private boolean isParentUnitAOkrBranch;
+  private boolean isParentUnitABranch;
 
-  public boolean getIsParentUnitAOkrBranch() {
-    return isParentUnitAOkrBranch;
+  public boolean getIsParentUnitABranch() {
+    return isParentUnitABranch;
   }
 
-  public void setIsParentUnitAOkrBranch(boolean parentUnitADepartment) {
-    isParentUnitAOkrBranch = parentUnitADepartment;
+  public void setIsParentUnitABranch(boolean parentUnitADepartment) {
+    isParentUnitABranch = parentUnitADepartment;
   }
 }

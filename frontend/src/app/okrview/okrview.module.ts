@@ -25,7 +25,7 @@ import { CompanyComponent } from './company/company.component';
 import { CycleListDropdownComponent } from './cycle-list-dropdown/cycle-list-dropdown.component';
 import { OkrChildUnitPreviewButtonComponent } from './okr-child-unit/okr-child-unit-preview-button/okr-child-unit-preview-button.component';
 import { OkrChildUnitOverviewTabComponent } from './okr-child-unit/okr-child-unit-tab-overview/okr-child-unit-overview-tab.component';
-import { OkChildUnitTabComponent } from './okr-child-unit/okr-child-unit-tab/ok-child-unit-tab.component';
+import { OkrChildUnitTabComponent } from './okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component';
 import { DepartmentTabTeamComponent } from './okr-child-unit/department/department-tab-team/department-tab-team.component';
 import { DepartmentTeamNewUserComponent } from './okr-child-unit/department/department-team-new-user/department-team-new-user.component';
 import { OkrChildUnitComponent } from './okr-child-unit/department/okr-child-unit.component';
@@ -51,7 +51,7 @@ import { AvatarModule } from 'ngx-avatar';
     OkrChildUnitComponent,
     OkrChildUnitOverviewTabComponent,
     DepartmentTabTeamComponent,
-    OkChildUnitTabComponent,
+    OkrChildUnitTabComponent,
     OkrChildUnitPreviewButtonComponent,
     ObjectiveContentsComponent,
     ObjectiveComponent,

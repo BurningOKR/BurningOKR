@@ -4,7 +4,7 @@ import { OkrUnitId } from '../../id-types';
 
 export class OkrChildUnitDto extends OkrUnitDto {
   // tslint:disable-next-line:variable-name
-  __unitType: UnitType;
+  __okrUnitType: UnitType;
   parentUnitId: OkrUnitId;
   isActive: boolean;
   isParentUnitABranch?: boolean;

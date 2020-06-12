@@ -13,7 +13,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.OkrCompanyHistory;
 
 @Entity
-@Table(name = "company")
+@Table(name = "okr_company")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class OkrCompany extends OkrUnit implements OkrParentUnit {

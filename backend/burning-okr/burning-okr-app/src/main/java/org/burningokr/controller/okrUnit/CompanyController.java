@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.dto.okr.ObjectiveDto;
-import org.burningokr.dto.okrUnit.OkrBranchDTO;
+import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
@@ -44,7 +44,7 @@ public class CompanyController {
   private DataMapper<Cycle, CycleDto> cycleMapper;
   private OkrBranchSchemaMapper okrUnitSchemaMapper;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
-  private DataMapper<OkrBranch, OkrBranchDTO> okrBranchMapper;
+  private DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
   private AuthorizationService authorizationService;
   private UserService userService;
   private OkrUnitServiceAdmins<OkrBranch> OkrBranchService;
@@ -71,7 +71,7 @@ public class CompanyController {
       DataMapper<Cycle, CycleDto> cycleMapper,
       DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
-      DataMapper<OkrBranch, OkrBranchDTO> OkrBranchMapper,
+      DataMapper<OkrBranch, OkrBranchDto> OkrBranchMapper,
       AuthorizationService authorizationService,
       OkrBranchSchemaMapper okrUnitSchemaMapper,
       UserService userService,
@@ -207,8 +207,8 @@ public class CompanyController {
 
   @PostMapping("/companies/{companyId}/branch")
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity<OkrBranchDTO> addBranchToCompanyById(
-      @PathVariable long companyId, @Valid @RequestBody OkrBranchDTO okrBranchDTO, User user) {
+  public ResponseEntity<OkrBranchDto> addBranchToCompanyById(
+      @PathVariable long companyId, @Valid @RequestBody OkrBranchDto okrBranchDTO, User user) {
 
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
     okrBranch.setId(null);

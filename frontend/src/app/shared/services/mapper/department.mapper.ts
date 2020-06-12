@@ -16,7 +16,7 @@ export class DepartmentMapper {
 
   static mapDepartmentDto(department: OkrDepartmentDto): OkrDepartment {
     return new OkrDepartment(
-      department.unitId,
+      department.okrUnitId,
       department.unitName,
       department.objectiveIds,
       department.parentUnitId,
@@ -31,8 +31,8 @@ export class DepartmentMapper {
 
   static mapDepartmentUnit(department: OkrDepartment): OkrDepartmentDto {
     const departmentDto: OkrDepartmentDto = new OkrDepartmentDto();
-    departmentDto.__unitType = UnitType.DEPARTMENT;
-    departmentDto.unitId = department.id;
+    departmentDto.__okrUnitType = UnitType.DEPARTMENT;
+    departmentDto.okrUnitId = department.id;
     departmentDto.unitName = department.name;
     departmentDto.label = department.label;
     departmentDto.isActive = department.isActive;

@@ -24,7 +24,7 @@ import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branc
 interface DepartmentView {
   cycle: CycleUnit;
   currentUserRole: ContextRole;
-  childUnit: OkrChildUnit;
+  okrChildUnit: OkrChildUnit;
 }
 
 interface ActiveTabs {
@@ -89,7 +89,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
           const info: DepartmentView = {
             currentUserRole: userRole,
             cycle,
-            childUnit: childUnit
+            okrChildUnit: childUnit
           };
 
           return info;
@@ -174,7 +174,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
 
   canChildUnitBeRemoved(okrChildUnit: OkrChildUnit): boolean {
     return this.isDepartmentUnit(okrChildUnit) ||
-      (okrChildUnit instanceof OkrBranch && okrChildUnit.childUnit.length === 0);
+      (okrChildUnit instanceof OkrBranch && okrChildUnit.okrUnitIds.length === 0);
   }
 
   isDepartmentUnit(okrChildUnit: OkrChildUnit): boolean {
@@ -193,7 +193,9 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   onChildUnitDeleted(okrChildUnit: OkrChildUnit): void {
+    console.log(okrChildUnit);
     if (okrChildUnit.isParentUnitABranch) {
+
       this.currentOkrViewService.refreshCurrentDepartmentView(okrChildUnit.parentUnitId);
     } else {
       // Therefore the parent schema is a company

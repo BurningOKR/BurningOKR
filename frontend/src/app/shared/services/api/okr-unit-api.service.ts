@@ -18,12 +18,12 @@ export class OkrUnitApiService {
   constructor(private http: ApiHttpService) { }
 
   getOkrChildUnitById$(unitId: OkrUnitId): Observable<OkrChildUnitDto> {
-    return this.http.getData$<OkrChildUnitDto>(`unites/${unitId}`)
+    return this.http.getData$<OkrChildUnitDto>(`units/${unitId}`)
       .pipe(
         map((value: OkrChildUnitDto) => {
-          if (value.__unitType === 'DEPARTMENT') {
+          if (value.__okrUnitType === 'DEPARTMENT') {
             return plainToClass(OkrDepartmentDto, value);
-          } else if (value.__unitType === 'OKR_BRANCH') {
+          } else if (value.__okrUnitType === 'OKR_BRANCH') {
             return plainToClass(OkrBranchDto, value);
           }
         })

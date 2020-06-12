@@ -3,6 +3,6 @@ import { OkrUnitDto } from './okrUnit.dto';
 
 export interface CompanyDto extends OkrUnitDto {
   cycleId: CycleId;
-  childUnitIds?: OkrUnitId[];
+  okrChildUnitIds?: OkrUnitId[];
   corporateObjectiveIds?: number[];
 }

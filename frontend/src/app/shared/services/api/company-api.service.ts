@@ -42,6 +42,6 @@ export class CompanyApiService {
   }
 
   putCompany$(company: CompanyDto): Observable<CompanyDto> {
-    return this.api.putData$(`companies/${company.unitId}`, company);
+    return this.api.putData$(`companies/${company.okrUnitId}`, company);
   }
 }

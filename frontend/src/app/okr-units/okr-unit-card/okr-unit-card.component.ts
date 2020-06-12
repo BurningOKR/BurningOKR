@@ -158,6 +158,6 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
   }
 
   hasChildUnit(): boolean {
-    return this.company.childUnitIds.length > 0;
+    return this.company.okrChildUnitIds.length > 0;
   }
 }

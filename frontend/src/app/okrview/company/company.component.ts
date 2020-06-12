@@ -58,7 +58,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
     );
     this.subscriptions.push(
       this.currentCompanyService.getCurrentCompany$()
-        .subscribe(company => (this.company = company))
+        .subscribe(company => this.company = company)
     );
     this.subscriptions.push(
       this.currentCycleService.getCurrentCycle$()
@@ -114,7 +114,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   onSubDepartmentAdded(addedSubDepartment: OkrDepartment): void {
-    this.company.childUnitIds.push(addedSubDepartment.id);
+    this.company.okrChildUnitIds.push(addedSubDepartment.id);
     this.currentOkrViewService.refreshCurrentCompanyView(this.company.id);
   }
 

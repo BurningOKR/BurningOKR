@@ -11,10 +11,10 @@ import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-ch
 
 @Component({
   selector: 'app-okr-child-unit-tab',
-  templateUrl: './ok-child-unit-tab.component.html',
-  styleUrls: ['./ok-child-unit-tab.component.scss']
+  templateUrl: './okr-child-unit-tab.component.html',
+  styleUrls: ['./okr-child-unit-tab.component.scss']
 })
-export class OkChildUnitTabComponent implements OnDestroy {
+export class OkrChildUnitTabComponent implements OnDestroy {
   @Input() okrBranch: OkrBranch;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
@@ -46,7 +46,7 @@ export class OkChildUnitTabComponent implements OnDestroy {
   }
 
   onSubDepartmentAdded(addedChildUnit: OkrChildUnit): void {
-    this.okrBranch.childUnit.push(addedChildUnit.id);
+    this.okrBranch.okrUnitIds.push(addedChildUnit.id);
     this.currentOkrViewService.refreshCurrentDepartmentView(this.okrBranch.id);
   }
 }

@@ -18,3 +18,7 @@ ALTER TABLE public.okr_child_unit
 ALTER TABLE public.okr_branch
     RENAME COLUMN parent_structure_id TO parent_okr_unit_id;
 
+ALTER TABLE public.user_settings
+    RENAME COLUMN default_company_id TO default_okr_company_id;
+ALTER TABLE public.okr_member
+    RENAME COLUMN department_id TO okr_department_id;

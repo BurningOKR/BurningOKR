@@ -21,23 +21,25 @@ export class CompanyMapper {
     private cycleMapperService: CycleMapper,
     private departmentApiService: DepartmentApiService,
     private okrUnitApiService: OkrUnitApiService
-  ) {}
+  ) {
+  }
 
   static mapCompany(company: CompanyDto): CompanyUnit {
     return new CompanyUnit(
-      company.unitId,
+      company.okrUnitId,
       company.unitName,
-      company.childUnitIds,
+      company.okrChildUnitIds,
       company.objectiveIds,
       company.cycleId,
       company.label
     );
   }
+
   static mapCompanyUnit(companyUnit: CompanyUnit): CompanyDto {
     return {
-      unitId: companyUnit.id,
+      okrUnitId: companyUnit.id,
       unitName: companyUnit.name,
-      childUnitIds: companyUnit.childUnitIds,
+      okrChildUnitIds: companyUnit.okrChildUnitIds,
       objectiveIds: companyUnit.objectives,
       cycleId: companyUnit.cycleId,
       label: companyUnit.label
@@ -57,51 +59,51 @@ export class CompanyMapper {
   getActiveCompanies$(): Observable<CompanyUnit[]> {
     return this.companyApiService.getActiveCompanies$()
       .pipe(
-      map((companies: CompanyDto[]) => {
-        return companies
-          .map(CompanyMapper.mapCompany)
-          .sort((a: CompanyUnit, b: CompanyUnit) => (a.name < b.name ? -1 : a.name === b.name ? 0 : 1));
-      })
-    );
+        map((companies: CompanyDto[]) => {
+          return companies
+            .map(CompanyMapper.mapCompany)
+            .sort((a: CompanyUnit, b: CompanyUnit) => (a.name < b.name ? -1 : a.name === b.name ? 0 : 1));
+        })
+      );
   }
 
   getCompanyHistoryByCompanyId$(companyId: number): Observable<CompanyUnit[]> {
     return this.companyApiService.getCompanyHistoryById$(companyId)
       .pipe(
-      map((companies: CompanyDto[]) => {
-        return companies
-          .map(CompanyMapper.mapCompany)
-          .sort((a: CompanyUnit, b: CompanyUnit) => (a.name < b.name ? -1 : a.name === b.name ? 0 : 1));
-      })
-    );
+        map((companies: CompanyDto[]) => {
+          return companies
+            .map(CompanyMapper.mapCompany)
+            .sort((a: CompanyUnit, b: CompanyUnit) => (a.name < b.name ? -1 : a.name === b.name ? 0 : 1));
+        })
+      );
   }
 
   getCyclesOfCompanyHistory$(companyId: number): Observable<CycleUnit[]> {
     return this.getCompanyHistoryByCompanyId$(companyId)
       .pipe(
-      mergeMap((companyUnits: CompanyUnit[]) => {
-        const cycleUnits$: Observable<CycleUnit>[] = companyUnits.map(company => this.cycleMapperService.getCycleById$(company.cycleId));
+        mergeMap((companyUnits: CompanyUnit[]) => {
+          const cycleUnits$: Observable<CycleUnit>[] = companyUnits.map(company => this.cycleMapperService.getCycleById$(company.cycleId));
 
-        return forkJoin(cycleUnits$);
-      })
-    );
+          return forkJoin(cycleUnits$);
+        })
+      );
   }
 
   getCyclesWithHistoryCompanies$(companyId: number): Observable<CycleWithHistoryCompany[]> {
     return this.getCompanyHistoryByCompanyId$(companyId)
       .pipe(
-      mergeMap((companies: CompanyUnit[]) => {
-        const cyclesWithCompanies$: Observable<CycleWithHistoryCompany>[] = companies.map(company =>
-          this.cycleMapperService.getCycleById$(company.cycleId)
-            .pipe(map((cycle: CycleUnit) => {
-              return new CycleWithHistoryCompany(cycle, company);
-            })
-          )
-        );
+        mergeMap((companies: CompanyUnit[]) => {
+          const cyclesWithCompanies$: Observable<CycleWithHistoryCompany>[] = companies.map(company =>
+            this.cycleMapperService.getCycleById$(company.cycleId)
+              .pipe(map((cycle: CycleUnit) => {
+                  return new CycleWithHistoryCompany(cycle, company);
+                })
+              )
+          );
 
-        return forkJoin(cyclesWithCompanies$);
-      })
-    );
+          return forkJoin(cyclesWithCompanies$);
+        })
+      );
   }
 
   getParentCompanyOfDepartment$(departmentId: number): Observable<CompanyUnit> {

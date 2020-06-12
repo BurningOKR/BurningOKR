@@ -46,11 +46,11 @@
           </div>
         </div>
         <!-- Subdepartments -->
-        <div *ngIf="company.childUnitIds.length === 0" class="tab-subtitle" i18n="@@component_commentViewDialog_noChildUnit">
+        <div *ngIf="company.okrChildUnitIds.length === 0" class="tab-subtitle" i18n="@@component_commentViewDialog_noChildUnit">
           Es gibt noch keine Unterstrukturen für diese Struktur
         </div>
         <div class="flex-wrap-spreadinner">
-          <div *ngFor="let currentdepartmentId of company.childUnitIds">
+          <div *ngFor="let currentdepartmentId of company.okrChildUnitIds">
             <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
           </div>
         </div>

@@ -11,7 +11,7 @@ public class OkrCompanyDto extends OkrUnitDto {
 
   private Long cycleId;
 
-  private Collection<Long> OkrChildUnitIds = new ArrayList<>();
+  private Collection<Long> okrChildUnitIds = new ArrayList<>();
 
   private Long historyId;
 }

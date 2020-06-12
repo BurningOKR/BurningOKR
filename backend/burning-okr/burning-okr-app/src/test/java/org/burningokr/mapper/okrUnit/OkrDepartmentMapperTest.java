@@ -61,23 +61,23 @@ public class OkrDepartmentMapperTest {
     okrDepartment.setParentOkrUnit(parentOkrDepartment);
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
     Assert.assertEquals(expected, okrDepartmentDto.getParentUnitId());
-    Assert.assertFalse(okrDepartmentDto.getIsParentUnitAOkrBranch());
+    Assert.assertFalse(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test
-  public void mapEntityToDto_parentIsOkrBranch_expectIsParentUnitAOkrBranchIsMapped() {
+  public void mapEntityToDto_parentIsOkrBranch_expectIsParentUnitABranchIsMapped() {
     OkrBranch parentOkrBranch = new OkrBranch();
     okrDepartment.setParentOkrUnit(parentOkrBranch);
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
-    Assert.assertTrue(okrDepartmentDto.getIsParentUnitAOkrBranch());
+    Assert.assertTrue(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test
-  public void mapEntityToDto_parentIsOkrCompany_expectIsParentUnitAOkrBranchIsMapped() {
+  public void mapEntityToDto_parentIsOkrCompany_expectIsParentUnitABranchIsMapped() {
     OkrCompany company = new OkrCompany();
     okrDepartment.setParentOkrUnit(company);
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
-    Assert.assertFalse(okrDepartmentDto.getIsParentUnitAOkrBranch());
+    Assert.assertFalse(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test
@@ -88,7 +88,7 @@ public class OkrDepartmentMapperTest {
     okrDepartment.setParentOkrUnit(okrCompany);
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
     Assert.assertEquals(expected, okrDepartmentDto.getParentUnitId());
-    Assert.assertFalse(okrDepartmentDto.getIsParentUnitAOkrBranch());
+    Assert.assertFalse(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test

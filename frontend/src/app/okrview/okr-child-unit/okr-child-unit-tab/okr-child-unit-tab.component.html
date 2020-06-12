@@ -12,11 +12,11 @@
       </div>
     </div>
     <!-- Subdepartments -->
-    <div *ngIf="okrBranch.childUnit.length == 0" class="tab-subtitle" i18n="@@component_departmentTabSubDepartments_noChildUnit">
+    <div *ngIf="okrBranch.okrUnitIds.length == 0" class="tab-subtitle" i18n="@@component_departmentTabSubDepartments_noChildUnit">
       Es gibt noch keine Unterstrukturen für diese Struktur
     </div>
     <div class="flex-wrap-spreadinner">
-      <div *ngFor="let currentdepartmentId of okrBranch.childUnit">
+      <div *ngFor="let currentdepartmentId of okrBranch.okrUnitIds">
         <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
       </div>
     </div>

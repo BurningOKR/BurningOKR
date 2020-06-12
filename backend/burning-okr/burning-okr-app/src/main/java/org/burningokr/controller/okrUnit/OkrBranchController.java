@@ -3,7 +3,7 @@ package org.burningokr.controller.okrUnit;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.dto.okrUnit.OkrBranchDTO;
+import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -24,7 +24,7 @@ public class OkrBranchController {
 
   private final OkrUnitServicePicker<OkrBranch> okrBranchOkrUnitServicePicker;
   private final DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper;
-  private final DataMapper<OkrBranch, OkrBranchDTO> okrBranchMapper;
+  private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
 
   /**
    * API Endpoint to add a sub-OkrDepartment to an existing OKR_BRANCH.
@@ -51,14 +51,14 @@ public class OkrBranchController {
    * API Endpoint to add a sub-OKR_BRANCH to an existing OKR_BRANCH.
    *
    * @param unitId a long value
-   * @param okrBranchDTO a {@link OkrBranchDTO} object
+   * @param okrBranchDTO a {@link OkrBranchDto} object
    * @param user an {@link User} object
    * @return a {@link ResponseEntity} ok with the added sub-OKR_BRANCH
    */
   @PostMapping("/branch/{unitId}/branch")
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity<OkrBranchDTO> addSubBranchToBranch(
-      @PathVariable long unitId, @Valid @RequestBody OkrBranchDTO okrBranchDTO, User user)
+  public ResponseEntity<OkrBranchDto> addSubBranchToBranch(
+      @PathVariable long unitId, @Valid @RequestBody OkrBranchDto okrBranchDTO, User user)
       throws DuplicateTeamMemberException {
     OkrUnitService<OkrBranch> branchService =
         okrBranchOkrUnitServicePicker.getRoleServiceForDepartment(unitId);

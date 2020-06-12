@@ -2,7 +2,7 @@ package org.burningokr.mapper.okrUnit;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.burningokr.dto.okrUnit.OkrBranchDTO;
+import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -17,7 +17,7 @@ public class UnitMapperPicker {
 
   public UnitMapperPicker(
       DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
-      DataMapper<OkrBranch, OkrBranchDTO> OkrBranchMapper) {
+      DataMapper<OkrBranch, OkrBranchDto> OkrBranchMapper) {
     this.mapperMap = new HashMap<>();
 
     this.mapperMap.put(OkrDepartment.class, departmentMapper);

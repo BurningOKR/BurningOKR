@@ -44,8 +44,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
     okrDepartmentDto.setUnitName(okrDepartment.getName());
     okrDepartmentDto.setLabel(okrDepartment.getLabel());
     okrDepartmentDto.setParentUnitId(okrDepartment.getParentOkrUnit().getId());
-    okrDepartmentDto.setIsParentUnitAOkrBranch(
-        okrDepartment.getParentOkrUnit() instanceof OkrBranch);
+    okrDepartmentDto.setIsParentUnitABranch(okrDepartment.getParentOkrUnit() instanceof OkrBranch);
     okrDepartmentDto.setIsActive(okrDepartment.isActive());
 
     Collection<Long> objectiveIds = new ArrayList<>();

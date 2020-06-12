@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class OkrDepartmentDto extends ChildUnitDto {
+public class OkrDepartmentDto extends OkrChildUnitDto {
 
   public OkrDepartmentDto() {
     super(UnitType.DEPARTMENT);

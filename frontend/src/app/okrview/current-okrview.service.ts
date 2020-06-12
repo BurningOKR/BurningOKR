@@ -31,7 +31,7 @@ export class CurrentOkrviewService {
     this.fetchNewValuesForDepartmentId(departmentId);
   }
 
-  refreshCurrentDepartmentView(departmentId: CompanyId): void {
+    refreshCurrentDepartmentView(departmentId: CompanyId): void {
     this.fetchNewValuesForDepartmentId(departmentId);
   }
 

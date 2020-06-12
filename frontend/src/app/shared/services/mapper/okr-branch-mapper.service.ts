@@ -17,12 +17,12 @@ export class OkrBranchMapper {
 
   static mapToOkrBranch(dto: OkrBranchDto): OkrBranch {
     return new OkrBranch(
-      dto.unitId,
+      dto.okrUnitId,
       dto.unitName,
       dto.objectiveIds,
       dto.label,
       dto.parentUnitId,
-      dto.subUnitIds,
+      dto.okrChildUnitIds,
       dto.isActive,
       dto.isParentUnitABranch
     );
@@ -30,15 +30,15 @@ export class OkrBranchMapper {
 
   static mapToOkrBranchDto(entity: OkrBranch): OkrBranchDto {
     const dto: OkrBranchDto = new OkrBranchDto();
-    dto.unitId = entity.id;
+    dto.okrUnitId = entity.id;
     dto.isParentUnitABranch = entity.isParentUnitABranch;
     dto.unitName = entity.name;
     dto.objectiveIds = entity.objectives;
     dto.label = entity.label;
     dto.parentUnitId = entity.parentUnitId;
-    dto.subUnitIds = entity.childUnit;
+    dto.okrChildUnitIds = entity.okrUnitIds;
     dto.isActive = entity.isActive;
-    dto.__unitType = UnitType.OKR_BRANCH;
+    dto.__okrUnitType = UnitType.OKR_BRANCH;
 
     return dto;
   }

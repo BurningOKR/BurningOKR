@@ -3,7 +3,7 @@ import { OkrUnitId, ObjectiveId } from '../../id-types';
 import { OkrChildUnit } from './okr-child-unit';
 
 export class OkrBranch extends OkrChildUnit {
-  childUnit: OkrUnitId[];
+  okrUnitIds: OkrUnitId[];
 
   constructor(
     id: number,
@@ -15,6 +15,6 @@ export class OkrBranch extends OkrChildUnit {
     isActive: boolean,
     isParentUnitABranch?: boolean) {
     super(id, name, label, objectives, parentUnitId, isActive, isParentUnitABranch);
-    this.childUnit = childUnit;
+    this.okrUnitIds = childUnit;
   }
 }
