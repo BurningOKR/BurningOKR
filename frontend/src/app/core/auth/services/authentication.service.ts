@@ -1,12 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
 import { AuthConfig, JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
-import { map, shareReplay, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
-import { AzureAuthTypeHandlerService } from './auth-type-handler/azure-auth-type-handler.service';
-import { LocalAuthTypeHandlerService } from './auth-type-handler/local-auth-type-handler.service';
 import { FetchingService } from '../../services/fetching.service';
 import { Consts } from '../../../shared/consts';
+import { AuthTypeHandlerFactoryService } from './auth-type-handler/auth-type-handler-factory.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -18,29 +17,18 @@ export class AuthenticationService {
   constructor(protected oAuthService: OAuthService,
               private oAuthDetails: OAuthFrontendDetailsService,
               private injector: Injector,
-              private fetchingService: FetchingService) {
-
-    this.authTypeHandler = this.oAuthDetails.getAuthType$()
+              private fetchingService: FetchingService,
+              private authTypeHandlerFactoryService: AuthTypeHandlerFactoryService) {
+    this.oAuthDetails.getAuthType$()
       .pipe(
-        take(1),
-        map(authType => {
+        take(1))
+      .subscribe(authType => {
           this.authType = authType;
+        }
+      );
 
-          if (authType === Consts.AUTHTYPE_AZURE) {
-            return this.injector.get(AzureAuthTypeHandlerService);
-          } else {
-            const localAuthTypeHandlerService: LocalAuthTypeHandlerService = this.injector.get(LocalAuthTypeHandlerService);
+    this.authTypeHandler = this.authTypeHandlerFactoryService.getAuthTypeHandler();
 
-            if (this.hasValidAccessToken()) {
-              localAuthTypeHandlerService.setupSilentRefresh(this);
-            }
-
-            return localAuthTypeHandlerService;
-          }
-        }),
-        shareReplay()
-      )
-      .toPromise();
   }
 
   async configure(): Promise<AuthConfig> {
@@ -53,7 +41,7 @@ export class AuthenticationService {
           this.oAuthService.redirectUri = `${window.location.origin}`;
 
           this.startLoginProcedureIfAuthTypeIsAAD()
-              .then(() => resolve(authConfig));
+            .then(() => resolve(authConfig));
 
         });
     });
