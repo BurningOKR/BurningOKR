@@ -1,4 +1,4 @@
-import { OkrUnitDto } from './okrUnit.dto';
+import { OkrUnitDto } from './okr-unit.dto';
 import { UnitType } from './unit-type.enum';
 import { OkrUnitId } from '../../id-types';
 

@@ -9,7 +9,7 @@ import { ControlHelperService } from '../../../shared/services/helper/control-he
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { OkrUnitSchema } from '../../../shared/model/ui/okr-unit-schema';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { OkrUnit } from '../../../shared/model/ui/OrganizationalUnit/okrUnit';
+import { OkrUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-unit';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 import { map, switchMap } from 'rxjs/operators';
 

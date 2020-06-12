@@ -4,7 +4,7 @@ import { OkrUnitMapper } from './okr-unit.mapper.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { OkrUnitApiService } from '../api/okr-unit-api.service';
 import { of } from 'rxjs';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okrDepartment.dto';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';

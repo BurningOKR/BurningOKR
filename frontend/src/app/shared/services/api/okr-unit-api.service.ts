@@ -5,7 +5,7 @@ import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
 import { OkrUnitSchema } from '../../model/ui/okr-unit-schema';
 import { map } from 'rxjs/operators';
 import { plainToClass } from 'class-transformer';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okrDepartment.dto';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 import { OkrUnitId } from '../../model/id-types';

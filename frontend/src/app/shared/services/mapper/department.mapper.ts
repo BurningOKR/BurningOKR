@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 import { DepartmentApiService } from '../api/department-api.service';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okrDepartment.dto';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { CompanyId, OkrUnitId } from '../../model/id-types';
 import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 

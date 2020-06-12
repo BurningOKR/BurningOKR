@@ -19,7 +19,8 @@ export class CurrentOkrviewService {
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private currentNavigationService: CurrentNavigationService,
     private currentCompanyService: CurrentCompanyService
-  ) {}
+  ) {
+  }
 
   browseCompany(companyId: CompanyId): void {
     this.currentNavigationService.clearDepartmentNavigationInformation();
@@ -31,7 +32,7 @@ export class CurrentOkrviewService {
     this.fetchNewValuesForDepartmentId(departmentId);
   }
 
-    refreshCurrentDepartmentView(departmentId: CompanyId): void {
+  refreshCurrentDepartmentView(departmentId: CompanyId): void {
     this.fetchNewValuesForDepartmentId(departmentId);
   }
 

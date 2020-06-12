@@ -1,5 +1,5 @@
 import { CycleId, OkrUnitId } from '../../id-types';
-import { OkrUnitDto } from './okrUnit.dto';
+import { OkrUnitDto } from './okr-unit.dto';
 
 export interface CompanyDto extends OkrUnitDto {
   cycleId: CycleId;

@@ -1,4 +1,4 @@
-import { OkrUnit } from './okrUnit';
+import { OkrUnit } from './okr-unit';
 import { ObjectiveId } from '../../id-types';
 
 export class CompanyUnit extends OkrUnit {

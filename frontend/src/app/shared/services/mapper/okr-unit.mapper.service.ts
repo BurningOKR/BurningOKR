@@ -9,7 +9,7 @@ import { DepartmentMapper } from './department.mapper';
 import { OkrBranchMapper } from './okr-branch-mapper.service';
 import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { map } from 'rxjs/operators';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okrDepartment.dto';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
 
 @Injectable({

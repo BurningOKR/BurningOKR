@@ -1,4 +1,4 @@
-import { OkrUnit } from './okrUnit';
+import { OkrUnit } from './okr-unit';
 import { OkrUnitId, ObjectiveId } from '../../id-types';
 import { OkrChildUnit } from './okr-child-unit';
 

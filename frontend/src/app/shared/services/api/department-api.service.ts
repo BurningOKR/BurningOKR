@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { OkrUnitSchemaDto } from '../../model/api/OkrUnit/okr-unit-schema-dto';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { CompanyId, OkrUnitId } from '../../model/id-types';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okrDepartment.dto';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 
 @Injectable({

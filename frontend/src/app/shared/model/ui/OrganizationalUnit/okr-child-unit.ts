@@ -1,4 +1,4 @@
-import { OkrUnit } from './okrUnit';
+import { OkrUnit } from './okr-unit';
 import { ObjectiveId, OkrUnitId } from '../../id-types';
 
 export abstract class OkrChildUnit extends OkrUnit {
