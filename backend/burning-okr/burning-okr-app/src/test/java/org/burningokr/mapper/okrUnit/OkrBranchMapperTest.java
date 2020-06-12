@@ -7,6 +7,7 @@ import org.burningokr.dto.okrUnit.OkrBranchDTO;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Before;
@@ -84,6 +85,29 @@ public class OkrBranchMapperTest {
     Assert.assertEquals(1L, dto.getObjectiveIds().toArray()[0]);
     Assert.assertEquals(2L, dto.getObjectiveIds().toArray()[1]);
     Assert.assertEquals(3L, dto.getObjectiveIds().toArray()[2]);
+  }
+
+  @Test
+  public void test_mapEntityToDto_parentIsOkrBranch_expectIsParentUnitAOkrBranchIsMapped() {
+    OkrBranch branch2 = new OkrBranch();
+    entity.setParentOkrUnit(branch2);
+    dto = mapper.mapEntityToDto(entity);
+    Assert.assertTrue(dto.getIsParentUnitAOkrBranch());
+  }
+
+  @Test
+  public void test_mapEntityToDto_parentIsNotOkrBranch_expectIsParentUnitAOkrBranchIsMapped() {
+    OkrCompany company = new OkrCompany();
+    entity.setParentOkrUnit(company);
+    dto = mapper.mapEntityToDto(entity);
+    Assert.assertFalse(dto.getIsParentUnitAOkrBranch());
+  }
+
+  @Test
+  public void test_mapEntityToDto_parentIsNotExistent_expectIsParentUnitAOkrBranchIsMapped() {
+    entity.setParentOkrUnit(null);
+    dto = mapper.mapEntityToDto(entity);
+    Assert.assertFalse(dto.getIsParentUnitAOkrBranch());
   }
 
   @Test
