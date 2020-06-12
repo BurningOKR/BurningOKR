@@ -93,25 +93,20 @@ describe('ChildUnitOverviewTabComponent', () => {
 
     currentUserRole = new ContextRole();
     cycle = new CycleUnit(1, 'test', [0], new Date(), new Date(), CycleState.ACTIVE, true);
-  });
 
-  it('should create', () => {
     fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
     component = fixture.componentInstance;
     component.okrChildUnit = department;
     component.currentUserRole = currentUserRole;
     fixture.detectChanges();
+  });
 
+  it('should create', () => {
     expect(component)
       .toBeTruthy();
   });
 
   it('dropObjective moves objective', () => {
-    fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
-    component = fixture.componentInstance;
-    component.okrChildUnit = department;
-    component.currentUserRole = currentUserRole;
-    fixture.detectChanges();
 
     // tslint:disable-next-line:no-object-literal-type-assertion
     component.dropObjective({previousIndex: 0, currentIndex: 2} as CdkDragDrop<ViewObjective[]>);
@@ -121,11 +116,6 @@ describe('ChildUnitOverviewTabComponent', () => {
   });
 
   it('dropObjective on same index does not move objective', () => {
-    fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
-    component = fixture.componentInstance;
-    component.okrChildUnit = department;
-    component.currentUserRole = currentUserRole;
-    fixture.detectChanges();
 
     // tslint:disable-next-line:no-object-literal-type-assertion
     component.dropObjective({previousIndex: 0, currentIndex: 0} as CdkDragDrop<ViewObjective[]>);
@@ -135,11 +125,6 @@ describe('ChildUnitOverviewTabComponent', () => {
   });
 
   it('dropObjective on very high index moves to back', () => {
-    fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
-    component = fixture.componentInstance;
-    component.okrChildUnit = department;
-    component.currentUserRole = currentUserRole;
-    fixture.detectChanges();
 
     // tslint:disable-next-line:no-object-literal-type-assertion
     component.dropObjective({previousIndex: 0, currentIndex: 1337} as CdkDragDrop<ViewObjective[]>);
@@ -149,11 +134,6 @@ describe('ChildUnitOverviewTabComponent', () => {
   });
 
   it('dropObjective on very low index moves to front', () => {
-    fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
-    component = fixture.componentInstance;
-    component.okrChildUnit = department;
-    component.currentUserRole = currentUserRole;
-    fixture.detectChanges();
 
     // tslint:disable-next-line:no-object-literal-type-assertion
     component.dropObjective({previousIndex: 2, currentIndex: -1337} as CdkDragDrop<ViewObjective[]>);
@@ -163,11 +143,6 @@ describe('ChildUnitOverviewTabComponent', () => {
   });
 
   it('dropObjective on index out of bounds moves last objective', () => {
-    fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
-    component = fixture.componentInstance;
-    component.okrChildUnit = department;
-    component.currentUserRole = currentUserRole;
-    fixture.detectChanges();
 
     // tslint:disable-next-line:no-object-literal-type-assertion
     component.dropObjective({previousIndex: 1337, currentIndex: 0} as CdkDragDrop<ViewObjective[]>);
@@ -177,11 +152,6 @@ describe('ChildUnitOverviewTabComponent', () => {
   });
 
   it('dropObjective on negative index out of bounds moves last objective', () => {
-    fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
-    component = fixture.componentInstance;
-    component.okrChildUnit = department;
-    component.currentUserRole = currentUserRole;
-    fixture.detectChanges();
 
     // tslint:disable-next-line:no-object-literal-type-assertion
     component.dropObjective({previousIndex: -1337, currentIndex: 2} as CdkDragDrop<ViewObjective[]>);
@@ -190,5 +160,65 @@ describe('ChildUnitOverviewTabComponent', () => {
       .toEqual([{id: 2}, {id: 3}, {id: 1}]);
   });
 
-  // TODO (R.J. 05.06.20) MEHR TESTS
+  it('moveObjectiveToTop moves objective to top', () => {
+
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    component.moveObjectiveToTop(objectiveList[2] as ViewObjective);
+
+    expect(objectiveList)
+      .toEqual([{id: 3}, {id: 1}, {id: 2}]);
+  });
+
+  it('moveObjectiveToTop objective already at top, does not change anything', () => {
+
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    component.moveObjectiveToTop(objectiveList[0] as ViewObjective);
+
+    expect(objectiveList)
+      .toEqual([{id: 1}, {id: 2}, {id: 3}]);
+  });
+
+  it('moveObjectiveToBottom moves objective to bottom', () => {
+
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    component.moveObjectiveToBottom(objectiveList[0] as ViewObjective);
+
+    expect(objectiveList)
+      .toEqual([{id: 2}, {id: 3}, {id: 1}]);
+  });
+
+  it('moveObjectiveToBottom objective already at bottom, does not change anything', () => {
+
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    component.moveObjectiveToBottom(objectiveList[2] as ViewObjective);
+
+    expect(objectiveList)
+      .toEqual([{id: 1}, {id: 2}, {id: 3}]);
+  });
+
+  it('queryUpdatedObjectiveOrder puts child unit', () => {
+    component.queryUpdatedObjectiveOrder();
+    expect(unitMapper.putOkrUnitObjectiveSequence$)
+      .toHaveBeenCalledWith(department.id, [1, 2, 3]);
+  });
+
+  it('calculateDepartmentOrderedIdList converts list', () => {
+    const list: number[] = component.calculateDepartmentOrderedIdList();
+    expect(list)
+      .toEqual([1, 2, 3]);
+  });
+
+  it('calculateDepartmentOrderedIdList returns empty list, when objectives are empty', () => {
+    objectiveViewMapper.getObjectivesForUnit$.mockReturnValue(of([]));
+
+    fixture = TestBed.createComponent(OkrChildUnitOverviewTabComponent);
+    component = fixture.componentInstance;
+    component.okrChildUnit = department;
+    component.currentUserRole = currentUserRole;
+    fixture.detectChanges();
+
+    const list: number[] = component.calculateDepartmentOrderedIdList();
+    expect(list)
+      .toEqual([]);
+  });
 });
