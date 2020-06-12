@@ -13,7 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OkrOkrCompanyMapperTest {
+public class OkrCompanyMapperTest {
 
   private OkrCompany okrCompany;
   private OkrCompanyDto okrCompanyDto;

@@ -12,9 +12,9 @@ ALTER TABLE public.sub_structure
     RENAME TO okr_child_unit;
 
 ALTER TABLE public.objective
-    RENAME COLUMN parent_structure_id TO parent_okr_unit_id
+    RENAME COLUMN parent_structure_id TO parent_okr_unit_id;
 ALTER TABLE public.okr_child_unit
-    RENAME COLUMN parent_structure_id TO parent_okr_unit_id
+    RENAME COLUMN parent_structure_id TO parent_okr_unit_id;
 ALTER TABLE public.okr_branch
-    RENAME COLUMN parent_structure_id TO parent_okr_unit_id
+    RENAME COLUMN parent_structure_id TO parent_okr_unit_id;
 
