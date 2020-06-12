@@ -193,7 +193,6 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   onChildUnitDeleted(okrChildUnit: OkrChildUnit): void {
-    console.log(okrChildUnit);
     if (okrChildUnit.isParentUnitABranch) {
 
       this.currentOkrViewService.refreshCurrentDepartmentView(okrChildUnit.parentUnitId);
