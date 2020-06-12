@@ -6,4 +6,5 @@ export type CycleId = number;
 export type KeyResultId = number;
 export type ObjectiveId = number;
 export type UserSettingsId = number;
-export type StructureId = number;
+export type OkrUnitId = number;
+export type DepartmentId = number;

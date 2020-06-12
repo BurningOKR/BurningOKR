@@ -7,23 +7,23 @@ import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-v
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
-import { StructureSchema } from '../../../shared/model/ui/structure-schema';
+import { OkrUnitSchema } from '../../../shared/model/ui/okr-unit-schema';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure';
-import { CurrentStructureSchemeService } from '../../current-structure-scheme.service';
+import { OkrUnit } from '../../../shared/model/ui/OrganizationalUnit/okrUnit';
+import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 import { map, switchMap } from 'rxjs/operators';
 
 interface ObjectiveFormData {
   objective?: ViewObjective;
-  structureId?: number;
-  currentItem: Structure;
+  unitId?: number;
+  currentItem: OkrUnit;
 }
 
-class DepartmentObjectiveStructure {
-  department: StructureSchema;
+class DepartmentObjectiveSchema {
+  department: OkrUnitSchema;
   objectiveList: ViewObjective[];
 
-  constructor(department: StructureSchema, objectiveList: ViewObjective[]) {
+  constructor(department: OkrUnitSchema, objectiveList: ViewObjective[]) {
     this.department = department;
     this.objectiveList = objectiveList;
   }
@@ -37,7 +37,7 @@ class DepartmentObjectiveStructure {
 export class ObjectiveFormComponent implements OnInit, OnDestroy {
   objective: ViewObjective;
   objectiveForm: FormGroup;
-  parentElements$ = new Subject<DepartmentObjectiveStructure[]>();
+  parentElements$ = new Subject<DepartmentObjectiveSchema[]>();
   users: User[];
   user: User;
   getErrorMessage = this.controlHelperService.getErrorMessage;
@@ -49,7 +49,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<ObjectiveFormComponent>,
     private objectiveMapper: ObjectiveViewMapper,
     private currentOkrViewService: CurrentOkrviewService,
-    private currentstructureSchemaService: CurrentStructureSchemeService,
+    private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private i18n: I18n,
     private controlHelperService: ControlHelperService,
     @Inject(MAT_DIALOG_DATA) private formData: ObjectiveFormData
@@ -69,9 +69,9 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     if (this.formData.objective) {
       this.objective = this.formData.objective;
       this.objectiveForm.patchValue(this.formData.objective);
-      this.fetchParentObjectives(this.objective.parentStructureId);
+      this.fetchParentObjectives(this.objective.parentUnitId);
     } else {
-      this.fetchParentObjectives(this.formData.structureId);
+      this.fetchParentObjectives(this.formData.unitId);
     }
 
     const editText: string = this.i18n({
@@ -122,34 +122,34 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
         undefined,
         formData.isActive,
         formData.parentObjectiveId,
-        formData.parentStructureId,
+        formData.parentUnitId,
         formData.contactPersonId,
         undefined
       );
-      newObjective.parentStructureId = this.formData.structureId;
-      this.dialogRef.close(this.objectiveMapper.postObjectiveForStructure$(this.formData.structureId, newObjective));
+      newObjective.parentUnitId = this.formData.unitId;
+      this.dialogRef.close(this.objectiveMapper.postObjectiveForUnit$(this.formData.unitId, newObjective));
     }
   }
 
   fetchParentObjectives(departmentId: number): void {
-    this.currentstructureSchemaService.getStructureSchemasToReachStructureWithId$(departmentId)
+    this.currentOkrUnitSchemaService.getUnitSchemasToReachUnitWithId$(departmentId)
       .pipe(
-        switchMap((departmentList: StructureSchema[]) => {
-          return this.getDepartmentObjectiveStructuresForDepartments$(departmentList);
+        switchMap((departmentList: OkrUnitSchema[]) => {
+          return this.getDepartmentObjectiveUnitsForDepartments$(departmentList);
         })
       )
-      .subscribe((departmentObjectiveStructures: DepartmentObjectiveStructure[]) => {
-        this.parentElements$.next(departmentObjectiveStructures);
+      .subscribe((departmentObjectiveSchemas: DepartmentObjectiveSchema[]) => {
+        this.parentElements$.next(departmentObjectiveSchemas);
       });
   }
 
-  private getDepartmentObjectiveStructuresForDepartments$(departmentList: StructureSchema[]):
-    Observable<DepartmentObjectiveStructure[]> {
-    return forkJoin(departmentList.map(currentStructure => {
-      return this.objectiveMapper.getObjectivesForDepartment$(currentStructure.id)
+  private getDepartmentObjectiveUnitsForDepartments$(departmentList: OkrUnitSchema[]):
+    Observable<DepartmentObjectiveSchema[]> {
+    return forkJoin(departmentList.map(currentUnit => {
+      return this.objectiveMapper.getObjectivesForDepartment$(currentUnit.id)
         .pipe(
           map((objectiveList: ViewObjective[]) => {
-            return new DepartmentObjectiveStructure(currentStructure, objectiveList);
+            return new DepartmentObjectiveSchema(currentUnit, objectiveList);
           })
         );
     }));

@@ -7,7 +7,7 @@ import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { RedirectComponent } from './core/auth/components/redirect/redirect.component';
-import { StructureDashboardComponent } from './structures/structures-dashboard/structure-dashboard.component';
+import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { LocalGuard } from './core/auth/guards/local.guard';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
@@ -20,7 +20,7 @@ const routes: Routes = [
    canActivate: [AuthGuard]
   },
   {path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [AuthGuard]},
-  {path: 'companies', component: StructureDashboardComponent, canActivate: [AuthGuard]},
+  {path: 'companies', component: OkrUnitDashboardComponent, canActivate: [AuthGuard]},
   {path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, AdminRoleGuard]},
   {
     path: 'cycle-admin/:companyId',

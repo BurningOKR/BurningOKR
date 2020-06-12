@@ -205,7 +205,7 @@ public class CompanyController {
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
 
-  @PostMapping("/companies/{companyId}/okrbranch")
+  @PostMapping("/companies/{companyId}/branch")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrBranchDTO> addBranchToCompanyById(
       @PathVariable long companyId, @Valid @RequestBody OkrBranchDTO okrBranchDTO, User user) {

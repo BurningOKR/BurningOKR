@@ -40,7 +40,7 @@ public class ObjectiveSequenceController {
    * @return a {@link ResponseEntity} ok
    * @throws Exception if sequence list is invalid
    */
-  @PutMapping("/okrUnits/{okrUnitId}/objectivesequence")
+  @PutMapping("/units/{okrUnitId}/objectivesequence")
   @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#okrUnitId)")
   public ResponseEntity updateSequenceOf(
       @PathVariable long okrUnitId, @RequestBody Collection<Long> sequenceList, User user)

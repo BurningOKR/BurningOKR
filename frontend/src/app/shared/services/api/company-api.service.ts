@@ -2,9 +2,9 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
-import { StructureSchemeDto } from '../../model/api/structure/structure-scheme-dto';
+import { OkrUnitSchemaDto } from '../../model/api/OkrUnit/okr-unit-schema-dto';
 import { CycleDto } from '../../model/api/cycle.dto';
-import { CompanyDto } from '../../model/api/structure/company.dto';
+import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 import { CompanyId } from '../../model/id-types';
 
 @Injectable({
@@ -29,8 +29,8 @@ export class CompanyApiService {
     return this.api.getData$<CompanyDto>(`companies/${companyId}`);
   }
 
-  getStructureSchemaOfCompany$(companyId: CompanyId): Observable<StructureSchemeDto[]> {
-    return this.api.getData$(`companies/${companyId}/structure`);
+  getOkrUnitSchemaOfCompany$(companyId: CompanyId): Observable<OkrUnitSchemaDto[]> {
+    return this.api.getData$(`companies/${companyId}/unit`);
   }
 
   deleteCompanyById$(companyId: CompanyId): Observable<boolean> {
@@ -42,6 +42,6 @@ export class CompanyApiService {
   }
 
   putCompany$(company: CompanyDto): Observable<CompanyDto> {
-    return this.api.putData$(`companies/${company.structureId}`, company);
+    return this.api.putData$(`companies/${company.unitId}`, company);
   }
 }

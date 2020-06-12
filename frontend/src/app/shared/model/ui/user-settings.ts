@@ -1,12 +1,12 @@
-import { CompanyId, StructureId, UserId } from '../id-types';
+import { CompanyId, OkrUnitId, UserId } from '../id-types';
 
 export class UserSettings {
   id: number;
   userId: UserId;
   defaultCompanyId: CompanyId;
-  defaultTeamId: StructureId; // can be wrong
+  defaultTeamId: OkrUnitId; // can be wrong
 
-  constructor(id: number, userId: string, defaultCompanyId: CompanyId, defaultTeamId: StructureId) {
+  constructor(id: number, userId: string, defaultCompanyId: CompanyId, defaultTeamId: OkrUnitId) {
     this.id = id;
     this.userId = userId;
     this.defaultCompanyId = defaultCompanyId;

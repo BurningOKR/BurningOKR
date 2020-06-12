@@ -3,8 +3,8 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@ang
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
-import { StructureSchema } from '../../shared/model/ui/structure-schema';
-import { CurrentStructureSchemeService } from '../current-structure-scheme.service';
+import { OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
+import { CurrentOkrUnitSchemaService } from '../current-okr-unit-schema.service';
 import { CurrentCompanyService } from '../current-company.service';
 
 @Component({
@@ -19,13 +19,13 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   private readonly _mobileQueryListener: () => void;
 
   currentCompany$: Observable<CompanyUnit>;
-  currentstructureSchema$: Observable<StructureSchema[]>;
+  currentUnitSchema$: Observable<OkrUnitSchema[]>;
   navigationInformationSubscription: Subscription;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private currentstructureSchemaService: CurrentStructureSchemeService,
+    private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private currentCompanyService: CurrentCompanyService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
@@ -35,7 +35,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentCompany$ = this.currentCompanyService.getCurrentCompany$();
-    this.currentstructureSchema$ = this.currentstructureSchemaService.getCurrentStructureSchemas$();
+    this.currentUnitSchema$ = this.currentOkrUnitSchemaService.getCurrentUnitSchemas$();
   }
 
   ngOnDestroy(): void {

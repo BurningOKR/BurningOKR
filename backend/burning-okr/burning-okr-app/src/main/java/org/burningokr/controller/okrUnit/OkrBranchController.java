@@ -34,7 +34,7 @@ public class OkrBranchController {
    * @param user an {@link User} object
    * @return a {@link ResponseEntity} ok with the added sub-OkrDepartment
    */
-  @PostMapping("/branch/{unitId}/subdepartments")
+  @PostMapping("/branch/{unitId}/department")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrDepartmentDto> addSubDepartmentToBranch(
       @PathVariable long unitId, @Valid @RequestBody OkrDepartmentDto okrDepartmentDto, User user)

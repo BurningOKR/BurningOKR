@@ -1,14 +1,14 @@
-import { Structure } from './structure';
+import { OkrUnit } from './okrUnit';
 import { ObjectiveId } from '../../id-types';
 
-export class CompanyUnit extends Structure {
+export class CompanyUnit extends OkrUnit {
 
   cycleId: number;
-  subStructureIds: number[];
+  childUnitIds: number[];
 
-  constructor(id: number, name: string, subStructureIds: number[], objectives: ObjectiveId[], cycleId: number, label: string) {
+  constructor(id: number, name: string, childUnitIds: number[], objectives: ObjectiveId[], cycleId: number, label: string) {
     super(id, name, label, objectives);
     this.cycleId = cycleId;
-    this.subStructureIds = subStructureIds;
+    this.childUnitIds = childUnitIds;
   }
 }

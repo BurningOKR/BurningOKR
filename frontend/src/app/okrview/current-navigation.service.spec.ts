@@ -3,11 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { CurrentNavigationService } from './current-navigation.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CurrentStructureSchemeService } from './current-structure-scheme.service';
-import { CurrentstructureSchemaServiceMock } from '../shared/mocks/current-department-structure-service-mock';
+import { CurrentOkrUnitSchemaService } from './current-okr-unit-schema.service';
 
 describe('CurrentNavigationService', () => {
-  const currentstructureSchemaServiceMock: CurrentstructureSchemaServiceMock = new CurrentstructureSchemaServiceMock();
+  const currentUnitSchemaServiceMock: any = {};
 
   beforeEach(() => TestBed.configureTestingModule({
     declarations: [],
@@ -16,7 +15,7 @@ describe('CurrentNavigationService', () => {
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     providers: [
-      { provide: CurrentStructureSchemeService, useValue: currentstructureSchemaServiceMock }
+      { provide: CurrentOkrUnitSchemaService, useValue: currentUnitSchemaServiceMock }
     ]
   }));
 

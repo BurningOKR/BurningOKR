@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/internal/operators';
 import { map } from 'rxjs/operators';
-import { CompanyDto } from '../../model/api/structure/company.dto';
+import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 import { CycleUnit } from '../../model/ui/cycle-unit';
 import { CycleWithHistoryCompany } from '../../model/ui/cycle-with-history-company';
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { CompanyApiService } from '../api/company-api.service';
 import { CycleMapper } from './cycle.mapper';
 import { DepartmentApiService } from '../api/department-api.service';
-import { StructureApiService } from '../api/structure-api.service';
+import { OkrUnitApiService } from '../api/okr-unit-api.service';
+import { OkrUnitId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +20,14 @@ export class CompanyMapper {
     private companyApiService: CompanyApiService,
     private cycleMapperService: CycleMapper,
     private departmentApiService: DepartmentApiService,
-    private structureApiService: StructureApiService
+    private okrUnitApiService: OkrUnitApiService
   ) {}
 
   static mapCompany(company: CompanyDto): CompanyUnit {
     return new CompanyUnit(
-      company.structureId,
-      company.structureName,
-      company.subStructureIds,
+      company.unitId,
+      company.unitName,
+      company.childUnitIds,
       company.objectiveIds,
       company.cycleId,
       company.label
@@ -34,9 +35,9 @@ export class CompanyMapper {
   }
   static mapCompanyUnit(companyUnit: CompanyUnit): CompanyDto {
     return {
-      structureId: companyUnit.id,
-      structureName: companyUnit.name,
-      subStructureIds: companyUnit.subStructureIds,
+      unitId: companyUnit.id,
+      unitName: companyUnit.name,
+      childUnitIds: companyUnit.childUnitIds,
       objectiveIds: companyUnit.objectives,
       cycleId: companyUnit.cycleId,
       label: companyUnit.label
@@ -108,8 +109,8 @@ export class CompanyMapper {
       .pipe(map(CompanyMapper.mapCompany));
   }
 
-  getParentCompanyOfStructure$(structureId: number): Observable<CompanyUnit> {
-    return this.structureApiService.getParentCompanyOfStructure$(structureId)
+  getParentCompanyOfOkrUnits$(okrUnitId: OkrUnitId): Observable<CompanyUnit> {
+    return this.okrUnitApiService.getParentCompanyOfOkrUnit$(okrUnitId)
       .pipe(map(CompanyMapper.mapCompany));
   }
 

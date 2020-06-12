@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyComponent } from './company/company.component';
-import { SubStructureComponent } from './substructure/department/sub-structure.component';
+import { OkrChildUnitComponent } from './okr-child-unit/department/okr-child-unit.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { AuthGuard } from '../core/auth/guards/auth.guard';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: `departments/:departmentId`,
-        component: SubStructureComponent
+        component: OkrChildUnitComponent
       },
       {
         path: `companies/:companyId`,

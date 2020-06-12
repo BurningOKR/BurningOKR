@@ -1,0 +1,36 @@
+<div *ngIf="childUnit$ | async as childUnit; else loading">
+  <button class="previewButton" [ngClass]="{ 'inactive-element': !childUnit.isActive }" mat-raised-button [routerLink]="['../../departments', unitId]" i18n-[matTooltip]="@@component_departmentPreviewButton_showDepartment" [matTooltip]="childUnit.name + ' anzeigen'">
+    <div class="d-flex center">
+      <div class="f-1">
+        <mat-icon class="font-32">group</mat-icon>
+      </div>
+      <div class="f-5">
+        {{ title }}
+        <br/>
+        {{ childUnit.name }}
+        <div class="d-flex">
+          <div class="f-1">
+            <mat-icon i18n-matTooltip="@@component_departmentPreviewButton_listObjectives" matTooltip="Objectives dieses Struktur">list</mat-icon>
+            {{ childUnit.objectives.length }}
+          </div>
+          <div class="f-1">
+            <mat-icon i18n-matTooltip="@@component_departmentPreviewButton_listChildUnit" matTooltip="Unterstrukturen dieser Struktur">low_priority</mat-icon>
+            <!-- TODO: (R.J. 02.06.20) Make this work with OkrBranch -->
+            <!--            {{ childUnit.childUnit.length }}-->
+          </div>
+        </div>
+      </div>
+      <div class="f-05" *ngIf="!childUnit.isActive">
+        <mat-icon i18n-matTooltip="@@component_departmentPreviewButton_notActive" matTooltip="Diese Okr Einheit ist nicht aktiv">info</mat-icon>
+      </div>
+    </div>
+  </button>
+</div>
+
+<!-- Placeholder for loading -->
+<ng-template #loading>
+  <mat-card class="previewButton">
+    <p i18n="@@component_departmentPreviewButton_load">Lade {{ title }}</p>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card>
+</ng-template>

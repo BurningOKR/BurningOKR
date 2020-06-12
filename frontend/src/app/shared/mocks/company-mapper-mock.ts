@@ -1,4 +1,4 @@
-import { CompanyDto } from '../model/api/structure/company.dto';
+import { CompanyDto } from '../model/api/OkrUnit/company.dto';
 import { CompanyUnit } from '../model/ui/OrganizationalUnit/company-unit';
 import { Observable, of } from 'rxjs';
 import { CycleUnit } from '../model/ui/cycle-unit';
@@ -7,9 +7,9 @@ import { CycleWithHistoryCompany } from '../model/ui/cycle-with-history-company'
 export class CompanyMapperMock {
   static mapCompany(company: CompanyDto): CompanyUnit {
     return new CompanyUnit(
-      company.structureId,
-      company.structureName,
-      company.subStructureIds,
+      company.unitId,
+      company.unitName,
+      company.childUnitIds,
       company.objectiveIds,
       company.cycleId,
       company.label
@@ -17,9 +17,9 @@ export class CompanyMapperMock {
   }
   static mapCompanyUnit(companyUnit: CompanyUnit): CompanyDto {
     return {
-      structureId: companyUnit.id,
-      structureName: companyUnit.name,
-      subStructureIds: companyUnit.subStructureIds,
+      unitId: companyUnit.id,
+      unitName: companyUnit.name,
+      childUnitIds: companyUnit.childUnitIds,
       objectiveIds: companyUnit.objectives,
       cycleId: companyUnit.cycleId,
       label: companyUnit.label

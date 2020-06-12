@@ -7,11 +7,11 @@ import { of } from 'rxjs';
 
 const companyMapperMock: any = {
   getCompanyById$: jest.fn(),
-  getParentCompanyOfStructure$: jest.fn()
+  getParentCompanyOfOkrUnits$: jest.fn()
 };
 const testCompany: CompanyUnit = {
   id: 1,
-  subStructureIds: [],
+  childUnitIds: [],
   cycleId: 1,
   label: '',
   name: '',
@@ -30,7 +30,7 @@ describe('CurrentCompanyService', () => {
     service = TestBed.get(CurrentCompanyService);
     companyMapperMock.getCompanyById$.mockReset();
     companyMapperMock.getCompanyById$.mockReturnValue(of(testCompany));
-    companyMapperMock.getParentCompanyOfStructure$.mockReturnValue(of(testCompany));
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReturnValue(of(testCompany));
   });
 
   it('should be created', () => {
@@ -70,7 +70,7 @@ describe('CurrentCompanyService', () => {
       });
   });
 
-  it('should set current company by child subStructure id', done => {
+  it('should set current company by child okrChildUnit id', done => {
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {
@@ -81,8 +81,8 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets null as parameter', done => {
-    companyMapperMock.getParentCompanyOfStructure$.mockReset();
-    companyMapperMock.getParentCompanyOfStructure$.mockReturnValue(of(null));
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReset();
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReturnValue(of(null));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {
@@ -93,8 +93,8 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets undefined as parameter', done => {
-    companyMapperMock.getParentCompanyOfStructure$.mockReset();
-    companyMapperMock.getParentCompanyOfStructure$.mockReturnValue(of(undefined));
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReset();
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReturnValue(of(undefined));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {
