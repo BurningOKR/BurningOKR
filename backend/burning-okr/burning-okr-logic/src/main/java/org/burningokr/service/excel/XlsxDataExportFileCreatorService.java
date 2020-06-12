@@ -39,7 +39,7 @@ public class XlsxDataExportFileCreatorService {
             messages.get("team"),
             messages.get("objective"),
             messages.get("progress"),
-            messages.get("corporateObjectives"),
+            messages.get("branch"),
             messages.get("keyResult"),
             messages.get("description"),
             messages.get("start"),
@@ -68,7 +68,7 @@ public class XlsxDataExportFileCreatorService {
   }
 
   /**
-   * Creates a File for a Company.
+   * Creates a File for a OkrCompany.
    *
    * @param companyId a long value
    * @return a {@link Workbook} object

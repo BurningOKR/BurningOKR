@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
+import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +55,8 @@ public class UserSettingsService {
     if (userSettings == null) {
       userSettings = new UserSettings();
       userSettings.setUserId(user.getId());
-      userSettings.setDefaultCompany(getDefaultCompany());
-      userSettings.setDefaultTeam(getDefaultTeam(user, userSettings.getDefaultCompany()));
+      userSettings.setDefaultOkrCompany(getDefaultCompany());
+      userSettings.setDefaultTeam(getDefaultTeam(user, userSettings.getDefaultOkrCompany()));
       userSettings = userSettingsRepository.save(userSettings);
       activityService.createActivity(user, userSettings, Action.CREATED);
       logger.info(
@@ -69,34 +69,35 @@ public class UserSettingsService {
     return userSettings;
   }
 
-  private Company getDefaultCompany() {
-    Collection<Company> companyCollection =
+  private OkrCompany getDefaultCompany() {
+    Collection<OkrCompany> okrCompanyCollection =
         companyService.getAllCompanies().stream()
             .filter(company -> company.getCycle().getCycleState() == CycleState.ACTIVE)
             .collect(Collectors.toList());
-    if (companyCollection.size() == 1) {
-      return (Company) companyCollection.toArray()[0];
+    if (okrCompanyCollection.size() == 1) {
+      return (OkrCompany) okrCompanyCollection.toArray()[0];
     }
     return null;
   }
 
-  private Department getDefaultTeam(User user, Company company) {
-    if (company == null) {
+  private OkrDepartment getDefaultTeam(User user, OkrCompany okrCompany) {
+    if (okrCompany == null) {
       return null;
     }
-    List<Department> departments = Lists.newArrayList(DepartmentHelper.collectDepartments(company));
-    if (departments.size() == 1) {
-      return departments.get(0);
+    List<OkrDepartment> okrDepartments =
+        Lists.newArrayList(BranchHelper.collectDepartments(okrCompany));
+    if (okrDepartments.size() == 1) {
+      return okrDepartments.get(0);
     }
-    List<Department> departmentsWhereUserIsSponsor =
-        departments.stream()
+    List<OkrDepartment> departmentsWhereUserIsSponsor =
+        okrDepartments.stream()
             .filter(department -> isUserSponsorOrOkrMasterInDepartment(user, department))
             .collect(Collectors.toList());
     if (departmentsWhereUserIsSponsor.size() == 1) {
       return departmentsWhereUserIsSponsor.get(0);
     }
-    List<Department> departmentsWhereUserIsMember =
-        departments.stream()
+    List<OkrDepartment> departmentsWhereUserIsMember =
+        okrDepartments.stream()
             .filter(department -> isUserMemberInDepartment(user, department))
             .collect(Collectors.toList());
     if (departmentsWhereUserIsMember.size() == 1) {
@@ -105,15 +106,15 @@ public class UserSettingsService {
     return null;
   }
 
-  private boolean isUserSponsorOrOkrMasterInDepartment(User user, Department department) {
-    return (department.getOkrTopicSponsorId() != null
-            && department.getOkrTopicSponsorId().equals(user.getId()))
-        || (department.getOkrMasterId() != null
-            && department.getOkrMasterId().equals(user.getId()));
+  private boolean isUserSponsorOrOkrMasterInDepartment(User user, OkrDepartment okrDepartment) {
+    return (okrDepartment.getOkrTopicSponsorId() != null
+            && okrDepartment.getOkrTopicSponsorId().equals(user.getId()))
+        || (okrDepartment.getOkrMasterId() != null
+            && okrDepartment.getOkrMasterId().equals(user.getId()));
   }
 
-  private boolean isUserMemberInDepartment(User user, Department department) {
-    return department.getOkrMemberIds().stream()
+  private boolean isUserMemberInDepartment(User user, OkrDepartment okrDepartment) {
+    return okrDepartment.getOkrMemberIds().stream()
         .anyMatch(memberId -> memberId.equals(user.getId()));
   }
 
@@ -127,7 +128,7 @@ public class UserSettingsService {
   public UserSettings updateUserSettings(UserSettings userSettings, User user) {
     UserSettings dbUserSettings = userSettingsRepository.findByIdOrThrow(userSettings.getId());
 
-    dbUserSettings.setDefaultCompany(userSettings.getDefaultCompany());
+    dbUserSettings.setDefaultOkrCompany(userSettings.getDefaultOkrCompany());
     dbUserSettings.setDefaultTeam(userSettings.getDefaultTeam());
 
     userSettingsRepository.save(dbUserSettings);

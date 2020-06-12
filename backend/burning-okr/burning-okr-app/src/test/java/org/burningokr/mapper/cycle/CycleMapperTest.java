@@ -7,7 +7,7 @@ import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.mapper.CycleMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.structures.Company;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,13 +53,13 @@ public class CycleMapperTest {
     cycleDto.setIsVisible(false);
   }
 
-  private Collection<Company> defaultCompany() {
-    Company company = new Company();
-    company.setId(1337L);
-    Collection<Company> companies =
-        new ArrayList<Company>() {
+  private Collection<OkrCompany> defaultCompany() {
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setId(1337L);
+    Collection<OkrCompany> companies =
+        new ArrayList<OkrCompany>() {
           {
-            add(company);
+            add(okrCompany);
           }
         };
     return companies;

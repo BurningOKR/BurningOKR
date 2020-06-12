@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.structures.Company;
+import org.burningokr.model.okrUnits.OkrCompany;
 
 @Entity
 @Data
@@ -39,7 +39,7 @@ public class Cycle implements Trackable<Long> {
   private CycleState cycleState = CycleState.PREPARATION;
 
   @OneToMany(mappedBy = "cycle", cascade = CascadeType.REMOVE)
-  private Collection<Company> companies = new ArrayList<>();
+  private Collection<OkrCompany> companies = new ArrayList<>();
 
   @Column
   @Getter(AccessLevel.NONE)

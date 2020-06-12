@@ -14,7 +14,7 @@ public class ObjectiveDto {
 
   private Long id;
 
-  @NotNull private Long parentStructureId;
+  @NotNull private Long parentUnitId;
 
   private Long parentObjectiveId;
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CurrentDepartmentStructureService } from './current-department-structure.service';
+import { CurrentOkrUnitSchemaService } from './current-okr-unit-schema.service';
 import { map, switchMap } from 'rxjs/operators';
 import { DepartmentNavigationInformation } from '../shared/model/ui/department-navigation-information';
 
@@ -13,7 +13,7 @@ export class CurrentNavigationService {
     new DepartmentNavigationInformation(-1, [])
   );
 
-  constructor(private currentDepartmentStructureService: CurrentDepartmentStructureService) {
+  constructor(private okrUnitSchemaService: CurrentOkrUnitSchemaService) {
   }
 
   getCurrentDepartmentNavigationInformation$(): Observable<DepartmentNavigationInformation> {
@@ -21,13 +21,13 @@ export class CurrentNavigationService {
   }
 
   refreshDepartmentNavigationInformation(): void {
-    this.currentDepartmentStructureService.getCurrentDepartmentId$()
+    this.okrUnitSchemaService.getCurrentUnitId$()
       .pipe(
-        switchMap((departmentStructureId: number) => {
-            return this.currentDepartmentStructureService.getDepartmentIdListToReachDepartmentWithId$(departmentStructureId)
+        switchMap((unitSchemaId: number) => {
+            return this.okrUnitSchemaService.getUnitIdsToReachUnitWithId$(unitSchemaId)
               .pipe(
                 map((departmentIdList: number[]) => {
-                    return new DepartmentNavigationInformation(departmentStructureId, departmentIdList);
+                    return new DepartmentNavigationInformation(unitSchemaId, departmentIdList);
                   }
                 )
               );

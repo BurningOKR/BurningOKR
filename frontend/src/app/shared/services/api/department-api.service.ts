@@ -1,11 +1,11 @@
 // istanbul ignore file
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DepartmentStructureDto } from '../../model/api/department-structure.dto';
+import { OkrUnitSchemaDto } from '../../model/api/OkrUnit/okr-unit-schema-dto';
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { CompanyId, DepartmentId } from '../../model/id-types';
-import { DepartmentDto } from '../../model/api/department.dto';
-import { CompanyDto } from '../../model/api/company.dto';
+import { CompanyId, OkrUnitId } from '../../model/id-types';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okrDepartment.dto';
+import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,46 +13,34 @@ import { CompanyDto } from '../../model/api/company.dto';
 export class DepartmentApiService {
   constructor(private api: ApiHttpService) {}
 
-  getDepartmentById$(id: DepartmentId): Observable<DepartmentDto> {
-    return this.api.getData$<DepartmentDto>(`departments/${id}`);
+  getDepartmentById$(id: OkrUnitId): Observable<OkrDepartmentDto> {
+    return this.api.getData$<OkrDepartmentDto>(`departments/${id}`);
   }
 
-  getDepartmentsForCompany$(companyId: CompanyId): Observable<DepartmentDto[]> {
-    return this.api.getData$(`companies/${companyId}/departments`);
-  }
-
-  getParentCompanyOfDepartment$(departmentId: DepartmentId): Observable<CompanyDto> {
+  getParentCompanyOfDepartment$(departmentId: OkrUnitId): Observable<CompanyDto> {
     return this.api.getData$(`departments/${departmentId}/company`);
   }
 
-  getDepartmentsForDepartment$(departmentId: DepartmentId): Observable<DepartmentDto[]> {
-    return this.api.getData$(`departments/${departmentId}/departments`);
+  getOkrUnitSchema$(departmentId: OkrUnitId): Observable<OkrUnitSchemaDto[]> {
+    return this.api.getData$(`departments/${departmentId}/schema`);
   }
 
-  getDepartmentStructure$(departmentId: DepartmentId): Observable<DepartmentStructureDto[]> {
-    return this.api.getData$(`departments/${departmentId}/structure`);
-  }
-
-  postDepartmentForCompany$(companyId: CompanyId, department: DepartmentDto): Observable<DepartmentDto> {
+  postDepartmentForCompany$(companyId: CompanyId, department: OkrDepartmentDto): Observable<OkrDepartmentDto> {
     return this.api.postData$(`companies/${companyId}/departments`, department);
   }
 
-  postDepartmentForDepartment$(departmentId: number, department: DepartmentDto): Observable<DepartmentDto> {
-    return this.api.postData$(`departments/${departmentId}/subdepartments`, department);
+  postDepartmentForOkrBranch$(okrUnitId: OkrUnitId, department: OkrDepartmentDto): Observable<OkrDepartmentDto> {
+    return this.api.postData$(`branch/${okrUnitId}/department`, department);
   }
 
-  putDepartment$(department: DepartmentDto): Observable<DepartmentDto> {
-    return this.api.putData$(`departments/${department.structureId}`, department);
-  }
-
-  putDepartmentObjectiveSequence$(departmentId: number, sequenceList: number[]): Observable<number[]> {
-    return this.api.putData$(`department/${departmentId}/objectivesequence`, sequenceList);
+  putDepartment$(department: OkrDepartmentDto): Observable<OkrDepartmentDto> {
+    return this.api.putData$(`departments/${department.okrUnitId}`, department);
   }
 
   deleteDepartment$(departmentId: number): Observable<boolean> {
     return this.api.deleteData$(`departments/${departmentId}`);
   }
-  getDepartmentsFlattedForCompany$(companyId: number): Observable<DepartmentDto[]> {
+  getDepartmentsFlattedForCompany$(companyId: number): Observable<OkrDepartmentDto[]> {
     return this.api.getData$(`departments/flatted/${companyId}`);
   }
 }

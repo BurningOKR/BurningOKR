@@ -6,8 +6,8 @@ import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.CompanyStructure;
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,12 +30,12 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     objective.setActive(objectiveDto.getIsActive());
     objective.setSequence(objectiveDto.getSequence());
 
-    CompanyStructure parentStructure = null;
-    if (objectiveDto.getParentStructureId() != null) {
-      parentStructure = new Department();
-      parentStructure.setId(objectiveDto.getParentStructureId());
+    OkrUnit parentOkrUnit = null;
+    if (objectiveDto.getParentUnitId() != null) {
+      parentOkrUnit = new OkrDepartment();
+      parentOkrUnit.setId(objectiveDto.getParentUnitId());
     }
-    objective.setParentStructure(parentStructure);
+    objective.setParentOkrUnit(parentOkrUnit);
 
     Objective parentObjective = null;
     if (objectiveDto.hasParentObjectiveId()) {
@@ -62,7 +62,7 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     objectiveDto.setReview(objective.getReview());
     objectiveDto.setContactPersonId(objective.getContactPersonId());
     objectiveDto.setIsActive(objective.isActive());
-    objectiveDto.setParentStructureId(objective.getParentStructure().getId());
+    objectiveDto.setParentUnitId(objective.getParentOkrUnit().getId());
     objectiveDto.setSequence(objective.getSequence());
 
     if (objective.hasParentObjective()) {

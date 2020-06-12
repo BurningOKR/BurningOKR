@@ -34,18 +34,18 @@ public class ObjectiveSequenceController {
   /**
    * API Endpoint to update a Sequence.
    *
-   * @param departmentId a long value
+   * @param okrUnitId a long value
    * @param sequenceList a {@ling Collection} of long values
    * @param user an {@link User} object
    * @return a {@link ResponseEntity} ok
    * @throws Exception if sequence list is invalid
    */
-  @PutMapping("/department/{departmentId}/objectivesequence")
-  @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#departmentId)")
+  @PutMapping("/units/{okrUnitId}/objectivesequence")
+  @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#okrUnitId)")
   public ResponseEntity updateSequenceOf(
-      @PathVariable long departmentId, @RequestBody Collection<Long> sequenceList, User user)
+      @PathVariable long okrUnitId, @RequestBody Collection<Long> sequenceList, User user)
       throws Exception {
-    objectiveService.updateSequence(departmentId, sequenceList, user);
+    objectiveService.updateSequence(okrUnitId, sequenceList, user);
 
     return ResponseEntity.ok().build();
   }

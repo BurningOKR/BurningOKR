@@ -16,8 +16,8 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -25,9 +25,9 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.exceptions.KeyResultOverflowException;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
-import org.burningokr.service.structureutil.EntityCrawlerService;
-import org.burningokr.service.structureutil.ParentService;
+import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
+import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
+import org.burningokr.service.okrUnitUtil.ParentService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class ObjectiveServiceTest {
 
   @Mock private ParentService parentService;
 
-  @Mock private DepartmentServiceUsers departmentService;
+  @Mock private OkrUnitServiceUsers departmentService;
 
   @Mock private User user;
 
@@ -211,7 +211,7 @@ public class ObjectiveServiceTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(closedCycle);
 
-    updateObjective.setParentStructure(new Company());
+    updateObjective.setParentOkrUnit(new OkrCompany());
     updateObjective.setParentObjective(new Objective());
     updateObjective.setActive(true);
     updateObjective.setContactPersonId("blargh");
@@ -228,7 +228,7 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertNull(objective.getParentStructure());
+    Assert.assertNull(objective.getParentOkrUnit());
     Assert.assertNull(objective.getParentObjective());
     Assert.assertFalse(objective.isActive());
     Assert.assertNull(objective.getContactPersonId());
@@ -294,18 +294,18 @@ public class ObjectiveServiceTest {
 
   @Test
   public void deleteObjective_expectedOtherObjectiveSequenceAdjusted() {
-    Department parentDepartment = new Department();
+    OkrDepartment parentOkrDepartment = new OkrDepartment();
     Objective objectiveBelowInSequence = new Objective();
     objectiveBelowInSequence.setSequence(5);
     Objective objectiveToDelete = new Objective();
-    objectiveToDelete.setParentStructure(parentDepartment);
+    objectiveToDelete.setParentOkrUnit(parentOkrDepartment);
     objectiveToDelete.setSequence(6);
     Objective objectiveAboveInSequence = new Objective();
     objectiveAboveInSequence.setSequence(7);
 
     Collection<Objective> otherObjectives =
         Arrays.asList(objectiveAboveInSequence, objectiveBelowInSequence, objectiveToDelete);
-    parentDepartment.setObjectives(otherObjectives);
+    parentOkrDepartment.setObjectives(otherObjectives);
 
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objectiveToDelete);
 
@@ -341,20 +341,20 @@ public class ObjectiveServiceTest {
 
   @Test(expected = Exception.class)
   public void updateSequence_NonEqualSizes_expectException() throws Exception {
-    Department department = new Department();
-    department.setId(42L);
-    department.setObjectives(new ArrayList<>());
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setId(42L);
+    okrDepartment.setObjectives(new ArrayList<>());
     Collection<Long> sequenceList = Collections.singletonList(1L);
 
-    when(departmentService.findById(department.getId())).thenReturn(department);
+    when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
-    objectiveService.updateSequence(department.getId(), sequenceList, user);
+    objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
   }
 
   @Test(expected = Exception.class)
   public void updateSequence_WrongObjectiveIdsInSequence_expectException() throws Exception {
-    Department department = new Department();
-    department.setId(50L);
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setId(50L);
     Objective objective0 = new Objective();
     objective0.setId(10L);
     objective0.setSequence(0);
@@ -367,15 +367,15 @@ public class ObjectiveServiceTest {
 
     Collection<Long> sequenceList = Arrays.asList(20L, 30L, 40L);
 
-    when(departmentService.findById(department.getId())).thenReturn(department);
+    when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
-    objectiveService.updateSequence(department.getId(), sequenceList, user);
+    objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
   }
 
   @Test
   public void updateSequence_expectObjectivesHaveNewSequence() throws Exception {
-    Department department = new Department();
-    department.setId(50L);
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setId(50L);
     Objective objective0 = new Objective();
     objective0.setId(10L);
     objective0.setSequence(0);
@@ -386,13 +386,13 @@ public class ObjectiveServiceTest {
     objective2.setId(30L);
     objective2.setSequence(2);
 
-    department.setObjectives(Arrays.asList(objective0, objective1, objective2));
+    okrDepartment.setObjectives(Arrays.asList(objective0, objective1, objective2));
 
     Collection<Long> sequenceList = Arrays.asList(20L, 30L, 10L);
 
-    when(departmentService.findById(department.getId())).thenReturn(department);
+    when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
-    objectiveService.updateSequence(department.getId(), sequenceList, user);
+    objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
 
     Assert.assertEquals(2, objective0.getSequence());
     Assert.assertEquals(0, objective1.getSequence());

@@ -25,7 +25,7 @@ export class CurrentCompanyService {
 
   setCurrentCompanyByChildDepartmentId(departmentId: number): void {
     this.companyMapperService
-      .getParentCompanyOfDepartment$(departmentId)
+      .getParentCompanyOfOkrUnits$(departmentId)
       .pipe(take(1))
       .subscribe(company => {
         this.currentCompany$.next(company);

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
 import { ExcelFileService } from './excel-file.service';
-import { DepartmentId } from '../../shared/model/id-types';
+import { OkrUnitId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ExcelMapper {
     this.blobType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
   }
 
-  downloadExcelFileForOkrTeam(departmentId: DepartmentId): Subscription {
+  downloadExcelFileForOkrTeam(departmentId: OkrUnitId): Subscription {
     return this.excelFileService.downloadExcelFileForOkrTeam$(departmentId)
       .subscribe(data => {
         const blob: Blob = new Blob([data], {type: this.blobType});
@@ -31,7 +31,7 @@ export class ExcelMapper {
       });
   }
 
-  downloadExcelEmailFileForOkrTeam(departmentId: DepartmentId): Subscription {
+  downloadExcelEmailFileForOkrTeam(departmentId: OkrUnitId): Subscription {
     return this.excelFileService.downloadExcelEmailFileForOkrTeam$(departmentId)
       .subscribe(data => {
         const blob: Blob = new Blob([data], {type: this.blobType});

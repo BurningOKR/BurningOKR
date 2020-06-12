@@ -7,13 +7,12 @@ import { of } from 'rxjs';
 
 const companyMapperMock: any = {
   getCompanyById$: jest.fn(),
-  getParentCompanyOfDepartment$: jest.fn()
+  getParentCompanyOfOkrUnits$: jest.fn()
 };
 const testCompany: CompanyUnit = {
   id: 1,
-  corporateObjectiveStructureIds: [],
+  okrChildUnitIds: [],
   cycleId: 1,
-  departmentIds: [],
   label: '',
   name: '',
   objectives: []
@@ -23,16 +22,15 @@ let service: CurrentCompanyService;
 describe('CurrentCompanyService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      {provide: CompanyMapper, useValue: companyMapperMock}       // TODO: wegmachen?
+      {provide: CompanyMapper, useValue: companyMapperMock}
     ]
   }));
 
   beforeEach(() => {
     service = TestBed.get(CurrentCompanyService);
     companyMapperMock.getCompanyById$.mockReset();
-    companyMapperMock.getParentCompanyOfDepartment$.mockReset();
     companyMapperMock.getCompanyById$.mockReturnValue(of(testCompany));
-    companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(testCompany));
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReturnValue(of(testCompany));
   });
 
   it('should be created', () => {
@@ -72,7 +70,7 @@ describe('CurrentCompanyService', () => {
       });
   });
 
-  it('should set current company by child department id', done => {
+  it('should set current company by child okrChildUnit id', done => {
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {
@@ -83,7 +81,8 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets null as parameter', done => {
-    companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(null));
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReset();
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReturnValue(of(null));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {
@@ -94,7 +93,8 @@ describe('CurrentCompanyService', () => {
   });
 
   it('setCurrentCompanyByChildDepartmentId gets undefined as parameter', done => {
-    companyMapperMock.getParentCompanyOfDepartment$.mockReturnValue(of(undefined));
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReset();
+    companyMapperMock.getParentCompanyOfOkrUnits$.mockReturnValue(of(undefined));
     service.setCurrentCompanyByChildDepartmentId(0);
     service.getCurrentCompany$()
       .subscribe(value => {

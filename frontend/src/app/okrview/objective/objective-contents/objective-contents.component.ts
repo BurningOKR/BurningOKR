@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ContextRole } from '../../../shared/services/helper/department-context-role.service';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
@@ -12,6 +11,7 @@ import { KeyResultFormComponent } from '../../keyresult/key-result-form/key-resu
 import { ObservableInput, Subscription } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Configuration } from '../../../shared/model/ui/configuration';
+import { ContextRole } from '../../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-objective-contents',

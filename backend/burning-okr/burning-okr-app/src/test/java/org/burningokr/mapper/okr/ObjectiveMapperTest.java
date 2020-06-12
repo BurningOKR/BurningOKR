@@ -5,8 +5,8 @@ import java.util.Collection;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +21,8 @@ public class ObjectiveMapperTest {
   public void reset() {
     this.objectiveDto = new ObjectiveDto();
     this.objective = new Objective();
-    Department parentDepartment = new Department();
-    this.objective.setParentStructure(parentDepartment);
+    OkrDepartment parentOkrDepartment = new OkrDepartment();
+    this.objective.setParentOkrUnit(parentOkrDepartment);
     Objective parentObjective = new Objective();
     this.objective.setParentObjective(parentObjective);
     this.objectiveMapper = new ObjectiveMapper();
@@ -40,21 +40,21 @@ public class ObjectiveMapperTest {
   @Test
   public void test_mapEntityToDto_expects_parentCompanyIsMapped() {
     Long expected = 1L;
-    Company parentCompany = new Company();
-    parentCompany.setId(expected);
-    objective.setParentStructure(parentCompany);
+    OkrCompany parentOkrCompany = new OkrCompany();
+    parentOkrCompany.setId(expected);
+    objective.setParentOkrUnit(parentOkrCompany);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getParentStructureId());
+    Assert.assertEquals(expected, objectiveDto.getParentUnitId());
   }
 
   @Test
   public void test_mapEntityToDto_expects_parentDepartmentIsMapped() {
     Long expected = 2L;
-    Department parentDepartment = new Department();
-    parentDepartment.setId(expected);
-    objective.setParentStructure(parentDepartment);
+    OkrDepartment parentOkrDepartment = new OkrDepartment();
+    parentOkrDepartment.setId(expected);
+    objective.setParentOkrUnit(parentOkrDepartment);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getParentStructureId());
+    Assert.assertEquals(expected, objectiveDto.getParentUnitId());
   }
 
   @Test
@@ -165,17 +165,17 @@ public class ObjectiveMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_expectsParentStructureIsNull() {
+  public void test_mapDtoToEntity_expects_expectsParentUnitIsNull() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertNull(objective.getParentStructure());
+    Assert.assertNull(objective.getParentOkrUnit());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_expectsParentStructureIsMapped() {
+  public void test_mapDtoToEntity_expects_expectsParentUnitIsMapped() {
     Long expected = 15L;
-    objectiveDto.setParentStructureId(expected);
+    objectiveDto.setParentUnitId(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getParentStructure().getId());
+    Assert.assertEquals(expected, objective.getParentOkrUnit().getId());
   }
 
   @Test
