@@ -1,6 +1,5 @@
 import { FormControl, ValidationErrors } from '@angular/forms';
-import { dateNotInThePastValidatorFunction } from './date-not-in-the-past-validator-function';
-import { dateNoInThePastError } from './date-not-in-the-past-error';
+import { dateIsInThePastError, DateNotInThePastValidator } from './date-not-in-the-past-validator-function';
 
 describe('dateNotInThePastValidatorFunction', () => {
 
@@ -8,7 +7,7 @@ describe('dateNotInThePastValidatorFunction', () => {
 
     const control: FormControl = new FormControl(new Date());
 
-    const actual: ValidationErrors = dateNotInThePastValidatorFunction(control);
+    const actual: ValidationErrors = DateNotInThePastValidator.Validate(control);
 
     expect(actual)
       .toBeUndefined();
@@ -18,9 +17,9 @@ describe('dateNotInThePastValidatorFunction', () => {
 
     const control: FormControl = new FormControl(new Date('01.01.2000'));
 
-    const actual: ValidationErrors = dateNotInThePastValidatorFunction(control);
+    const actual: ValidationErrors = DateNotInThePastValidator.Validate(control);
 
     expect(actual)
-      .toEqual(dateNoInThePastError);
+      .toEqual(dateIsInThePastError);
   });
 });

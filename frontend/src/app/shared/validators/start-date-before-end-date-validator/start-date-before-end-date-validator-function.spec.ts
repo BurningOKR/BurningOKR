@@ -1,8 +1,10 @@
 import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { startDateBeforeEndDateValidatorFunction } from './start-date-before-end-date-validator-function';
-import { startDateBeforeEndDateError } from './start-date-not-before-end-date-error';
+import {
+  StartDateBeforeEndDateValidator,
+  startDateNotBeforeEndDate
+} from './start-date-before-end-date-validator-function';
 
-describe('startDateBeforeEndDateValidatorFunction', () => {
+describe('StartDateBeforeEndDateValidator', () => {
 
   it('should return true if enddate is before startdate', () => {
 
@@ -12,10 +14,10 @@ describe('startDateBeforeEndDateValidatorFunction', () => {
     });
     control.markAllAsTouched();
 
-    const actual: ValidationErrors = startDateBeforeEndDateValidatorFunction(control);
+    const actual: ValidationErrors = StartDateBeforeEndDateValidator.Validate(control);
 
     expect(actual)
-      .toEqual(startDateBeforeEndDateError);
+      .toEqual(startDateNotBeforeEndDate);
   });
 
   it('should return undefined if enddate is after startdate', () => {
@@ -25,7 +27,7 @@ describe('startDateBeforeEndDateValidatorFunction', () => {
     });
     control.markAllAsTouched();
 
-    const actual: ValidationErrors = startDateBeforeEndDateValidatorFunction(control);
+    const actual: ValidationErrors = StartDateBeforeEndDateValidator.Validate(control);
 
     expect(actual)
       .toBeUndefined();

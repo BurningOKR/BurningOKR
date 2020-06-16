@@ -9,10 +9,10 @@ import { CurrentUserService } from '../../../services/current-user.service';
 import { switchMap, take } from 'rxjs/operators';
 import { User } from '../../../../shared/model/api/user';
 import { NGXLogger } from 'ngx-logger';
-import { passwordMatchValidatorFunction } from '../set-password/passwords-match-validator-function';
 import { wrongPasswordValidatorError } from '../../../../shared/validators/errors/wrong-password-validator-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Consts } from '../../../../shared/consts';
+import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -45,7 +45,7 @@ export class ChangePasswordDialogComponent implements OnInit {
       newPassword: ['', [Validators.required, Validators.minLength(7)]],
       newPasswordRepetition: ['', [Validators.required]]
     }) as FormGroupTyped<NewPasswordForm>;
-    newPasswordForm.setValidators([passwordMatchValidatorFunction]);
+    newPasswordForm.setValidators([PasswordsMatchValidator.Validate]);
 
     this.newPasswordForm = newPasswordForm;
   }

@@ -7,15 +7,13 @@ import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { NEVER } from 'rxjs';
 import { CycleDto } from '../../shared/model/api/cycle.dto';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
-import { startDateBeforeEndDateValidatorFunction } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
-import { dateFormatValidatorFunction } from '../../shared/validators/date-format-validator/date-format-validator-function';
+import { DateNotInRangeOfAnotherCycleValidator, } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CycleDialogData } from '../../shared/model/ui/cycle-dialog-data';
-import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator-function';
-import { DateFormValidatorImpl } from '../../shared/validators/abstract-validator';
-import { dateNotInThePastValidatorFunction } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
+import { DateFormValidator } from '../../shared/validators/date-format-validator/date-format-validator-function';
+import { DateNotInThePastValidator } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
+import { StartDateBeforeEndDateValidator } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
 
 @Component({
   selector: 'app-cycle-creation-form',
@@ -39,11 +37,12 @@ export class CycleCreationFormComponent {
         this.cycles = cycles;
         this.cycleForm = new FormGroup({
           name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-          startDate: new FormControl('', [DateFormValidatorImpl.Validate, dateNotInThePastValidatorFunction]),
-          endDate: new FormControl('', [dateFormatValidatorFunction]),
+          startDate: new FormControl('', [DateFormValidator.Validate, DateNotInThePastValidator.Validate]),
+          endDate: new FormControl('', [DateFormValidator.Validate]),
           isVisible: new FormControl(true)
-        }, [startDateBeforeEndDateValidatorFunction,
-          dateRangeInRangeWithinAnotherDatesValidatorFunction(this.cycles)]);
+        }, [StartDateBeforeEndDateValidator.Validate,
+            DateNotInRangeOfAnotherCycleValidator.Validate(this.cycles)
+        ]);
       });
 
     this.title = this.i18n({
@@ -69,15 +68,15 @@ export class CycleCreationFormComponent {
   }
 
   isInPreparation(): boolean {
-      const date: Date = this.cycleForm.get('startDate').value;
+    const date: Date = this.cycleForm.get('startDate').value;
 
-      return date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
+    return date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
   }
 
   createCycle(): void {
     const startDate: Date = this.cycleForm.get('startDate').value;
     const endDate: Date = this.cycleForm.get('endDate').value;
-    const isVisible: boolean = this.cycleForm.get ('isVisible').value;
+    const isVisible: boolean = this.cycleForm.get('isVisible').value;
     const cycle: CycleDto = {
       name: this.cycleForm.get('name').value,
       plannedStartDate:

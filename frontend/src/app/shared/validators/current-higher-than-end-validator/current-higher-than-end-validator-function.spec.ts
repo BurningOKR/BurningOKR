@@ -1,5 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { currentHigherThanEndValidatorFunction } from './current-higher-than-end-validator-function';
+import { CurrentHigherThanEndValidator } from './current-higher-than-end-validator-function';
 
 describe('currentHigherThanEndError', () => {
 
@@ -8,7 +8,7 @@ describe('currentHigherThanEndError', () => {
       current: new FormControl(4),
       end: new FormControl(2)
     });
-    const actual: any = currentHigherThanEndValidatorFunction(control);
+    const actual: any = CurrentHigherThanEndValidator.Validate(control);
 
     expect(actual)
       .toEqual({currentHigherThanEndError: true});
@@ -19,7 +19,7 @@ describe('currentHigherThanEndError', () => {
       current: new FormControl(1),
       end: new FormControl(2)
     });
-    const actual: any = currentHigherThanEndValidatorFunction(control);
+    const actual: any = CurrentHigherThanEndValidator.Validate(control);
 
     expect(actual)
       .toBeFalsy();

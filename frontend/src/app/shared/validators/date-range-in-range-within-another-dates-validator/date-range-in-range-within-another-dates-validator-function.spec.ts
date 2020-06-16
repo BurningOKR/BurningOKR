@@ -1,7 +1,7 @@
-import { dateRangeInRangeWithinAnotherDatesValidatorFunction } from './date-range-in-range-within-another-dates-validator-function';
 import { CycleUnit } from '../../model/ui/cycle-unit';
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { dateRangeInRangewithinAnotherDatesError } from './date-range-in-range-within-another-dates-error';
+import { DateNotInRangeOfAnotherCycleValidator } from './date-range-in-range-within-another-dates-validator-function';
 
 describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
   let testCycles: CycleUnit[] = [
@@ -19,7 +19,7 @@ describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
         endDate: new FormControl(notOverlappingEndDate)
       });
 
-      const actual: ValidationErrors = dateRangeInRangeWithinAnotherDatesValidatorFunction(
+      const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
         testCycles
       )
         .call(testCycles, control);
@@ -36,7 +36,7 @@ describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
         endDate: new FormControl()
       });
 
-      const actual: ValidationErrors = dateRangeInRangeWithinAnotherDatesValidatorFunction(
+      const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
         testCycles
       )
         .call(testCycles, control);
@@ -55,7 +55,7 @@ describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
         endDate: new FormControl(overlappingEndDate)
       });
 
-      const actual: ValidationErrors = dateRangeInRangeWithinAnotherDatesValidatorFunction(
+      const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
         testCycles
       )
         .call(testCycles, control);
@@ -78,7 +78,7 @@ describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
         endDate: new FormControl(overlappingEndDate)
       });
 
-      const actual: { [key: string]: boolean } = dateRangeInRangeWithinAnotherDatesValidatorFunction(
+      const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
         testCycles
       )
         .call(testCycles, control);

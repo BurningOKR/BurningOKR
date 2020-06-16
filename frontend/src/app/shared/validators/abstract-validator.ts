@@ -29,10 +29,10 @@ export abstract class AbstractValidator {
 
 }
 
-type Constructor<T> = {
+interface Constructor<T> {
   new(...args: any[]): T;
   readonly prototype: T;
-};
+}
 const validatorsConstructors: Constructor<AbstractValidator>[] = [];
 let validators: AbstractValidator[] = null;
 
@@ -48,4 +48,4 @@ export function getValidators(i18n: I18n): AbstractValidator[] {
 export function register<T extends Constructor<AbstractValidator>>(ctor: T): void {
   validatorsConstructors.push(ctor);
 }
-
+

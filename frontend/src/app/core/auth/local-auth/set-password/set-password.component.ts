@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PasswordResetData, PasswordService } from '../password-service/password.service';
-import { passwordMatchValidatorFunction } from './passwords-match-validator-function';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 
 @Component({
   selector: 'app-set-password',
@@ -51,7 +51,7 @@ export class SetPasswordComponent implements OnInit {
     return new FormGroup({
       newPassword: new FormControl('', [Validators.required, Validators.minLength(7)]),
       newPasswordRepetition: new FormControl('', [Validators.required])
-    }, [passwordMatchValidatorFunction]);
+    }, [PasswordsMatchValidator.Validate]);
   }
 
   private displaySuccessSnackBarAndRedirectToLogin(): void {

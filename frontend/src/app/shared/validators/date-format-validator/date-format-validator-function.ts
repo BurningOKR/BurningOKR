@@ -2,13 +2,12 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { AbstractValidator, register } from '../abstract-validator';
 
-
 export const dateFormatError: ValidationErrors = {
   dateFormatError: true
 };
 
 @register
-export class DateFormValidatorImpl extends AbstractValidator {
+export class DateFormValidator extends AbstractValidator {
 
   constructor(private i18n: I18n) {
     super(i18n({
@@ -26,4 +25,3 @@ export class DateFormValidatorImpl extends AbstractValidator {
     }
   }
 }
-

@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Injectable } from '@angular/core';
 import { AbstractValidator, getValidators } from '../../validators/abstract-validator';
@@ -6,7 +6,7 @@ import { AbstractValidator, getValidators } from '../../validators/abstract-vali
 @Injectable({
   providedIn: 'root'
 })
-export class ControlHelperService {
+export class ValidationErrorService {
 
   // validators: AbstractValidator[] = [DateFormValidator];
 
@@ -17,11 +17,6 @@ export class ControlHelperService {
   private maxLenghsErrorMessage = this.i18n({
     id: 'maxLengthError',
     value: 'Maximale Zeichenzahl überschritten'
-  });
-  private dateInThePastErrorMessage = this.i18n({
-    id: 'dateInThePastError',
-    description: 'Date is in the past',
-    value: 'Das eingegebene Datum liegt in der Vergangenheit'
   });
   private invalidFormValueErrorMessage = this.i18n({
     id: 'invalidFormValueError',
@@ -40,20 +35,5 @@ export class ControlHelperService {
     } else {
       return this.invalidFormValueErrorMessage;
     }
-
-    // if (control.hasError('required')) {
-    //   return this.requiredErrorMessage;
-    // } else if (control.hasError('maxlength')) {
-    //   return this.maxLenghsErrorMessage;
-    // } else if (control.hasError('dateInThePast')) {
-    //   return this.dateInThePastErrorMessage;
-    // } else {
-    //   return this.invalidFormValueErrorMessage;
-    // }
   }
-
-
-  // get(control: AbstractControl): string {
-  //
-  // }
 }

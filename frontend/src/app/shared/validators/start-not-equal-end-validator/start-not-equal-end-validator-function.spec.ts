@@ -1,6 +1,5 @@
 import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { startNotEqualEndValidatorFunction } from './start-not-equal-end-validator-function';
-import { startEqualsEndError } from './start-not-equal-end-validator-error';
+import { StartDateNotEqualEndDateValidator, startEqualsEndError } from './start-not-equal-end-validator-function';
 
 describe('startNotEqualEndValidatorFunction', () => {
 
@@ -10,7 +9,7 @@ describe('startNotEqualEndValidatorFunction', () => {
       end: new FormControl(1)
     });
 
-    const actual: ValidationErrors = startNotEqualEndValidatorFunction(control);
+    const actual: ValidationErrors = StartDateNotEqualEndDateValidator.Validate(control);
 
     expect(actual)
       .toEqual(
@@ -25,7 +24,7 @@ describe('startNotEqualEndValidatorFunction', () => {
       end: new FormControl(2)
     });
 
-    const actual: ValidationErrors = startNotEqualEndValidatorFunction(control);
+    const actual: ValidationErrors = StartDateNotEqualEndDateValidator.Validate(control);
 
     expect(actual)
       .toBeUndefined();

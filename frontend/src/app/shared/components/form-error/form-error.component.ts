@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ControlHelperService } from '../../services/helper/control-helper.service';
+import { ValidationErrorService } from '../../services/helper/validation-error.service';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ export class FormErrorComponent {
 
   @Input() control: FormControl;
 
-  constructor(private controlHelperService: ControlHelperService,
+  constructor(private controlHelperService: ValidationErrorService,
   ) {
   }
 
