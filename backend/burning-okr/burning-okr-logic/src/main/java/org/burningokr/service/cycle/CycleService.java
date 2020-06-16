@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import org.burningokr.model.cycles.CompanyHistory;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.cycles.OkrCompanyHistory;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
-import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structureutil.CyclePreparationCloningService;
+import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnitUtil.CyclePreparationCloningService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,13 +211,13 @@ public class CycleService {
     cyclesToUpdate.put(true, cyclesToSetActive);
     cyclesToUpdate.put(false, cyclesToSetClosed);
 
-    for (CompanyHistory currentCompanyHistory : companyHistoryRepository.findAll()) {
+    for (OkrCompanyHistory currentOkrCompanyHistory : companyHistoryRepository.findAll()) {
       LocalDate currentDate = LocalDate.now();
       List<Cycle> cyclesToConsiderForStateSwitch;
       cyclesToConsiderForStateSwitch =
           cycleRepository
               .findByCompanyHistoryAndPlannedStartBeforeOrEqualAndNotCycleStateOrderByEndDateDescending(
-                  currentCompanyHistory, currentDate, CycleState.CLOSED);
+                  currentOkrCompanyHistory, currentDate, CycleState.CLOSED);
       if (!cyclesToConsiderForStateSwitch.isEmpty()) {
         Cycle firstCycleInList =
             cyclesToConsiderForStateSwitch.get(

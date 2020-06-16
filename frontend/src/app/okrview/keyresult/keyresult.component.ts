@@ -1,4 +1,3 @@
-import { ContextRole } from '../../shared/services/helper/department-context-role.service';
 import { KeyResultMapper } from '../../shared/services/mapper/key-result.mapper';
 import { debounceTime, distinctUntilChanged, filter, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
@@ -15,6 +14,7 @@ import {
 import { CommentViewDialogComponent } from '../comment/comment-view-dialog/comment-view-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Unit } from '../../shared/model/api/unit.enum';
+import { ContextRole } from '../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-keyresult',

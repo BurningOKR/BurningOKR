@@ -10,12 +10,12 @@ export class ViewObjective {
   isActive: boolean;
   contactPersonId?: string;
   parentObjectiveId: ObjectiveId;
-  parentStructureId: number;
+  parentUnitId: number;
   subObjectivesCount: number;
   review?: string;
 
   constructor(id: ObjectiveId, name: string, description: string, remark: string, progress: number, keyResultIdList: number[],
-              isActive: boolean, parentObjectiveId: number, parentStructureId: number, contactPersonId: string, subObjectivesCount: number,
+              isActive: boolean, parentObjectiveId: number, parentUnitId: number, contactPersonId: string, subObjectivesCount: number,
               review?: string) {
     this.id = id;
     this.name = name;
@@ -25,7 +25,7 @@ export class ViewObjective {
     this.progress = progress;
     this.isActive = isActive;
     this.parentObjectiveId = parentObjectiveId;
-    this.parentStructureId = parentStructureId;
+    this.parentUnitId = parentUnitId;
     this.contactPersonId = contactPersonId;
     this.subObjectivesCount = subObjectivesCount;
     this.review = review;

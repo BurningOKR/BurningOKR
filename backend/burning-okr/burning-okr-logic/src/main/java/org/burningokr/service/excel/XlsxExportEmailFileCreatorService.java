@@ -61,7 +61,7 @@ public class XlsxExportEmailFileCreatorService {
   }
 
   /**
-   * Creates a File for a Company.
+   * Creates a File for a OkrCompany.
    *
    * @param companyId a long value
    * @return a {@link Workbook} object

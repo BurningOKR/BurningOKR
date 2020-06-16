@@ -16,7 +16,7 @@
       <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsManager">Ihre Teams als Manager</div>
       <div class="flex-wrap-spreadinner">
         <div *ngFor="let managerDepartmentId of currentlyManagerDepartmentIds">
-          <app-substructure-preview-button [departmentId]="managerDepartmentId"></app-substructure-preview-button>
+          <app-okr-child-unit-preview-button [unitId]="managerDepartmentId"></app-okr-child-unit-preview-button>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
       <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsMember">Ihre Teams als Mitglied</div>
       <div class="flex-wrap-spreadinner">
         <div *ngFor="let memberDepartmentId of currentlyMemberDepartmentIds">
-          <app-substructure-preview-button [departmentId]="memberDepartmentId"></app-substructure-preview-button>
+          <app-okr-child-unit-preview-button [unitId]="memberDepartmentId"></app-okr-child-unit-preview-button>
         </div>
       </div>
     </div>
@@ -37,21 +37,21 @@
         <!-- Tab title and add subdepartments buton-->
         <div class="flex-nowrap">
           <div class="f-3">
-            <div class="tab-headline" i18n="@@component_commentViewDialog_subStructure">Unterstrukturen</div>
+            <div class="tab-headline" i18n="@@component_commentViewDialog_childUnit">Unterstrukturen</div>
           </div>
           <div class="icon-spacer f-1" *ngIf="(currentUserRole$ | async)?.isAtleastAdmin() && !cycle.isCycleClosed()">
             <button mat-mini-fab color="accent" (click)="clickedAddSubDepartment()">
-              <mat-icon i18n-matTooltip="@@component_commentViewDialog_defineNewSubstructure" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
+              <mat-icon i18n-matTooltip="@@component_commentViewDialog_defineNewChildUnit" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
             </button>
           </div>
         </div>
         <!-- Subdepartments -->
-        <div *ngIf="company.departmentIds.length === 0 && company.corporateObjectiveStructureIds.length === 0" class="tab-subtitle" i18n="@@component_commentViewDialog_noSubstructure">
+        <div *ngIf="company.okrChildUnitIds.length === 0" class="tab-subtitle" i18n="@@component_commentViewDialog_noChildUnit">
           Es gibt noch keine Unterstrukturen für diese Struktur
         </div>
         <div class="flex-wrap-spreadinner">
-          <div *ngFor="let currentdepartmentId of company.departmentIds">
-            <app-substructure-preview-button [departmentId]="currentdepartmentId"></app-substructure-preview-button>
+          <div *ngFor="let currentdepartmentId of company.okrChildUnitIds">
+            <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
           </div>
         </div>
       </div>

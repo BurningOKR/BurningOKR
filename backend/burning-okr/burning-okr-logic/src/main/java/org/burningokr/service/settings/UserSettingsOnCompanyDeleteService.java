@@ -4,8 +4,8 @@ import com.google.common.collect.Lists;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.structures.Company;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,22 +23,22 @@ public class UserSettingsOnCompanyDeleteService {
   }
 
   /**
-   * Removes Default Company from UserSettings when Company is deleted.
+   * Removes Default OkrCompany from UserSettings when OkrCompany is deleted.
    *
-   * @param companiesToDelete a {@link Collection} of {@link Company}
+   * @param companiesToDelete a {@link Collection} of {@link OkrCompany}
    * @return a {@link List} of {@link UserSettings}
    */
-  public List<UserSettings> removeCompaniesFromSettings(Collection<Company> companiesToDelete) {
+  public List<UserSettings> removeCompaniesFromSettings(Collection<OkrCompany> companiesToDelete) {
     List<UserSettings> allUserSettings =
         Lists.newArrayList(userSettingsRepository.findAll()).stream()
             .filter(
                 userSettings ->
-                    userSettings.getDefaultCompany() != null
-                        && companiesToDelete.contains(userSettings.getDefaultCompany()))
+                    userSettings.getDefaultOkrCompany() != null
+                        && companiesToDelete.contains(userSettings.getDefaultOkrCompany()))
             .collect(Collectors.toList());
 
     for (UserSettings userSetting : allUserSettings) {
-      userSetting.setDefaultCompany(null);
+      userSetting.setDefaultOkrCompany(null);
       userSetting.setDefaultTeam(null);
     }
     return allUserSettings;

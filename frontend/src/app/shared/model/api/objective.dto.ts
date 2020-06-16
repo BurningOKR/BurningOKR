@@ -8,7 +8,7 @@ export interface ObjectiveDto {
   isActive: boolean;
   keyResultIds?: number[];
   parentObjectiveId?: number;
-  parentStructureId: number;
+  parentUnitId: number;
   contactPersonId?: string;
   subObjectiveIds?: number[];
   review?: string;

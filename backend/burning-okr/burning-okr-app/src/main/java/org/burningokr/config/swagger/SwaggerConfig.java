@@ -78,7 +78,7 @@ public abstract class SwaggerConfig {
         "Dokumentation der REST Features des OKR Tools",
         "v.0.0.1-SNAPSHOT",
         "terms.of.service.url",
-        new Contact("Department of API-Design", "my.url", "contact@api.invalid"),
+        new Contact("OkrDepartment of API-Design", "my.url", "contact@api.invalid"),
         "No licencing yet",
         "no licensing url yet",
         Collections.emptyList());

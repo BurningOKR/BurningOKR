@@ -4,7 +4,7 @@ For the corresponding Backend please refer to the other Project in this reposito
 
 This tool is designed to help to organise and communicate corporate objectives, which follow the OKR planning framework.
 
-It allows the user to set Objectives for a given company structure, which may or may be formulated vague and then quantify 
+It allows the user to set Objectives for a given company Okr Unit, which may or may not be formulated vague and then quantify 
 these objectives by associating key results, which should be numerically measurable and can therefor be used to track the 
 progress on the associated objectives.
 

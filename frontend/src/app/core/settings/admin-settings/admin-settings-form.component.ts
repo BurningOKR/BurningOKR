@@ -8,7 +8,7 @@ import { UserSettings } from '../../../shared/model/ui/user-settings';
 import { UserSettingsManagerService } from '../../services/user-settings-manager.service';
 import { CompanyMapper } from '../../../shared/services/mapper/company.mapper';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import { DepartmentUnit } from '../../../shared/model/ui/OrganizationalUnit/department-unit';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { CompanyUnit } from '../../../shared/model/ui/OrganizationalUnit/company-unit';
 import { Configuration } from '../../../shared/model/ui/configuration';
 import { filter, map, switchMap, take } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export class AdminSettingsFormComponent implements OnInit {
   adminSettingsForm: FormGroup;
   userSettingsForm: FormGroup;
   companies$: Observable<CompanyUnit[]>;
-  departments$: Observable<DepartmentUnit[]>;
+  departments$: Observable<OkrDepartment[]>;
   authType$: Observable<string>;
 
   private configurationNames: { [key: string]: string } = {
