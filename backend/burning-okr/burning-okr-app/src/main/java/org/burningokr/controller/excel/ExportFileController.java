@@ -27,10 +27,10 @@ public class ExportFileController {
     this.xlsxExportEmailFileCreatorService = xlsxExportEmailFileCreatorService;
   }
 
-  @GetMapping("/export/department/{departmentId}")
-  public HttpEntity<byte[]> generateExcelFileForOkrTeam(@PathVariable long departmentId)
+  @GetMapping("/export/unit/{unitId}")
+  public HttpEntity<byte[]> generateExcelFileForOkrTeam(@PathVariable long unitId)
       throws IOException, IllegalAccessException {
-    Workbook workbook = xlsxDataExportFileCreatorService.createFileForOkrTeam(departmentId);
+    Workbook workbook = xlsxDataExportFileCreatorService.createFileForOkrTeam(unitId);
     return getInputStreamResourceResponseEntity(workbook);
   }
 

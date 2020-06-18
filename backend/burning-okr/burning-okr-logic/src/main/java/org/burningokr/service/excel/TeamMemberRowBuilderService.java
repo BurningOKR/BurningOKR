@@ -45,7 +45,7 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   }
 
   @Override
-  public Collection<TeamMemberRow> generateForDepartment(long departmentId) {
+  public Collection<TeamMemberRow> generateForOkrChildUnit(long departmentId) {
     OkrDepartment okrDepartment = departmentServiceUsers.findById(departmentId);
     return generateTeamMemberRowForDepartment(okrDepartment);
   }

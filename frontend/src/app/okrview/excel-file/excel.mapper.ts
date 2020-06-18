@@ -15,8 +15,8 @@ export class ExcelMapper {
     this.blobType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
   }
 
-  downloadExcelFileForOkrTeam(departmentId: OkrUnitId): Subscription {
-    return this.excelFileService.downloadExcelFileForOkrTeam$(departmentId)
+  downloadExcelFileForOkrChildUnit(okrChildUnitId: OkrUnitId): Subscription {
+    return this.excelFileService.downloadExcelFileForOkrChildUnit$(okrChildUnitId)
       .subscribe(data => {
         const blob: Blob = new Blob([data], {type: this.blobType});
         FileSaver.saveAs(blob, 'okr.xlsx');

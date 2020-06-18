@@ -20,8 +20,8 @@ export class ExcelFileService {
     };
   }
 
-  downloadExcelFileForOkrTeam$(departmentId: OkrUnitId): Observable<any> {
-    return this.http.get(`${Consts.API_URL}export/department/${departmentId}`, {
+  downloadExcelFileForOkrChildUnit$(okrChildUnitId: OkrUnitId): Observable<any> {
+    return this.http.get(`${Consts.API_URL}export/unit/${okrChildUnitId}`, {
       headers: this._headers,
       responseType: 'blob'
     });

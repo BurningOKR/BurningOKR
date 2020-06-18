@@ -9,7 +9,6 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
@@ -19,21 +18,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
 
-  private final OkrUnitServiceUsers<OkrDepartment> departmentService;
+  private final OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService;
 
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrDepartment> departmentService,
+      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService,
       CompanyService companyService) {
-    this.departmentService = departmentService;
+    this.okrChildUnitService = okrChildUnitService;
     this.companyService = companyService;
   }
 
   @Override
-  public Collection<ObjectiveRow> generateForDepartment(long departmentId) {
-    OkrDepartment okrDepartment = departmentService.findById(departmentId);
-    return this.generateObjectiveRowCollectionForDepartment(okrDepartment);
+  public Collection<ObjectiveRow> generateForOkrChildUnit(long okrUnitId) {
+    OkrChildUnit okrChildUnit = okrChildUnitService.findById(okrUnitId);
+    return this.generateObjectiveRowCollectionForDepartment(okrChildUnit);
   }
 
   @Override

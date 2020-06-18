@@ -76,7 +76,7 @@ public class TeamMemberRowBuilderServiceTest {
   public void
       generateForDepartment_ShouldReturnEmptyListIfThereAreNoTeamMembersOrOkrMasterOrTopicSponsor() {
     Collection<TeamMemberRow> rows =
-        teamMemberRowBuilderService.generateForDepartment(departmentId);
+        teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertTrue(rows.isEmpty());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -89,7 +89,7 @@ public class TeamMemberRowBuilderServiceTest {
     okrDepartment.setOkrMemberIds(Collections.singletonList(guidUser3));
 
     Collection<TeamMemberRow> rows =
-        teamMemberRowBuilderService.generateForDepartment(departmentId);
+        teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(3, rows.size());
 
