@@ -18,17 +18,20 @@ export class KeyResultMapper {
     const keys: string[] = Object.keys(myEnum)
       .filter(x => myEnum[x] === enumValue);
 
-    return keys.length > 0 ? keys[0] : null;
+    return keys.length > 0 ? keys[0] : null ;
   }
 
   private static mapToKeyResultDTO(viewKeyResult: ViewKeyResult): KeyResultDto {
     return {
+      id: viewKeyResult.id,
       startValue: viewKeyResult.start,
       currentValue: viewKeyResult.current,
       targetValue: viewKeyResult.end,
-      unit: KeyResultMapper.getEnumKeyByEnumValue(Unit, viewKeyResult.unit) as Unit,
+      unit: KeyResultMapper.getEnumKeyByEnumValue(Unit, viewKeyResult.unit) as keyof Unit,
       title: viewKeyResult.keyResult,
-      description: viewKeyResult.description
+      description: viewKeyResult.description,
+      noteIds: viewKeyResult.commentIdList,
+      parentObjectiveId: viewKeyResult.parentObjectiveId
     };
   }
 
