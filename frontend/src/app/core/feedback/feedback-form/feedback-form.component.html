@@ -9,14 +9,12 @@
           <mat-form-field class="name fullWidth">
             <input type="text" i18n-placeholder="@@component_feedbackForm_name" matInput placeholder="Name *"
                    formControlName="name">
-            <app-form-error [control]="feedbackForm.get('name')"></app-form-error>
-
+            <mat-error><app-form-error [control]="feedbackForm.get('name')"></app-form-error></mat-error>
           </mat-form-field>
           <mat-form-field class="feedbackText fullWidth">
             <textarea type="text" i18n-placeholder="@@component_feedbackForm_feedback" matInput placeholder="Feedback *"
                       formControlName="feedbackText"></textarea>
-            <app-form-error [control]="feedbackForm.get('feedbackText')"></app-form-error>
-
+            <mat-error><app-form-error [control]="feedbackForm.get('feedbackText')"></app-form-error></mat-error>
           </mat-form-field>
         </div>
       </form>

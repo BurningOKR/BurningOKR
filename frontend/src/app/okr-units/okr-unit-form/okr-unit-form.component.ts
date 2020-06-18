@@ -6,6 +6,7 @@ import { CompanyDto } from '../../shared/model/api/OkrUnit/company.dto';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DialogComponent } from '../../shared/components/dialog-component/dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { ValidationErrorService } from '../../shared/services/helper/validation-error.service';
 
 interface CompanyFormData {
   company?: CompanyUnit;
@@ -24,10 +25,11 @@ export class OkrUnitFormComponent {
   constructor(private dialogRef: MatDialogRef<DialogComponent<CompanyFormData>>,
               private companyMapper: CompanyMapper,
               private i18n: I18n,
-              @Inject(MAT_DIALOG_DATA) private formData: CompanyFormData) {
+              @Inject(MAT_DIALOG_DATA) private formData: CompanyFormData,
+              private x: ValidationErrorService) {
     this.companyForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      label: new FormControl(this.getDefaultLabel(), [Validators.required, Validators.minLength(1),  Validators.maxLength(255)])
+      label: new FormControl(this.getDefaultLabel(), [Validators.required, Validators.minLength(1), Validators.maxLength(255)])
     });
 
     if (this.formData.company) {
@@ -51,6 +53,10 @@ export class OkrUnitFormComponent {
       id: 'component_companyForm_createTitle',
       value: '{{label}} {{saveOrCreateText}}'
     }, {label: this.getDefaultLabel(), saveOrCreateText});
+  }
+
+  getErrorMessage(control: FormControl): string {
+    return this.x.getErrorMessage(control);
   }
 
   saveCompany(): void {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ValidationErrorService } from '../../services/helper/validation-error.service';
 import { FormControl } from '@angular/forms';
 
