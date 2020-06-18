@@ -203,8 +203,8 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     this.moveToParentUnit(okrChildUnit);
   }
 
-  downloadDepartmentExcelFile(department: OkrDepartment): void {
-    this.excelService.downloadExcelFileForOkrTeam(department.id);
+  downloadOkrChildUnitExcelFile(okrChildUnit: OkrChildUnit): void {
+    this.excelService.downloadExcelFileForOkrChildUnit(okrChildUnit.id);
   }
 
   downloadDepartmentExcelEmailFile(department: OkrDepartment): void {
