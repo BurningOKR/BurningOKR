@@ -1,5 +1,5 @@
 export enum Unit {
-  NUMBER = '',
+  NUMBER = '#',
   PERCENT = '%',
   EURO = '€'
 }
