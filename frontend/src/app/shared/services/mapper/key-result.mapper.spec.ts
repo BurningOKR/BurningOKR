@@ -59,9 +59,9 @@ describe('KeyResultMapper', () => {
 
   it('should return ViewKeyResult', done => {
 
-    const actual: Observable<ViewKeyResult[]> = service.getKeyResultsForObjective$(123);
+    const actual$: Observable<ViewKeyResult[]> = service.getKeyResultsForObjective$(123);
 
-    actual.subscribe(
+    actual$.subscribe(
       (results: ViewKeyResult[]) => {
         const result: ViewKeyResult = results[0];
 
@@ -94,8 +94,8 @@ describe('KeyResultMapper', () => {
 
   it('should return call api with dto', done => {
 
-    const actual: Observable<ViewKeyResult> = service.putKeyResult$(keyResult);
-    actual.subscribe(() => {
+    const actual$: Observable<ViewKeyResult> = service.putKeyResult$(keyResult);
+    actual$.subscribe(() => {
       expect(keyResultApiServiceMock.putKeyResult$.mock.calls.length)
         .toEqual(1);
       const apiCalledObject: KeyResultDto = keyResultApiServiceMock.putKeyResult$.mock.calls[0][0];
