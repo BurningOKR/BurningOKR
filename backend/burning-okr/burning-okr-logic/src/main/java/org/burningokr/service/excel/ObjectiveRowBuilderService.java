@@ -9,7 +9,6 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
