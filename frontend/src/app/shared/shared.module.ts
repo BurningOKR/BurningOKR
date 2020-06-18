@@ -76,6 +76,7 @@ import { FormErrorComponent } from './components/form-error/form-error.component
     OkrToolbarComponent,
     CapsLockDirective,
     NonLoggedInCardComponent,
+    FormErrorComponent
   ],
 })
 export class SharedModule {
