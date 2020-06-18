@@ -8,19 +8,9 @@ import { AbstractValidator, getValidators } from '../../validators/abstract-vali
 })
 export class ValidationErrorService {
 
-  // validators: AbstractValidator[] = [DateFormValidator];
-
-  private requiredErrorMessage = this.i18n({
-    id: 'requiredError',
-    value: 'Pflichtfeld'
-  });
-  private maxLenghsErrorMessage = this.i18n({
-    id: 'maxLengthError',
-    value: 'Maximale Zeichenzahl überschritten'
-  });
-  private invalidFormValueErrorMessage = this.i18n({
-    id: 'invalidFormValueError',
-    description: 'is shown when no other error gets catched but there still is an error.',
+  private defaultErrorMessage = this.i18n({
+    id: 'defaultErrorMessage',
+    description: 'is shown when no other error gets caught but there still is an error.',
     value: 'kein gültiger Wert.'
   });
 
@@ -33,7 +23,7 @@ export class ValidationErrorService {
     if (validator) {
       return validator.getErrorMessage();
     } else {
-      return this.invalidFormValueErrorMessage;
+      return this.defaultErrorMessage;
     }
   }
 }

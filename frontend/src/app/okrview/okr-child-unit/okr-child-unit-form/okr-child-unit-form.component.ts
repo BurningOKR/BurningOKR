@@ -4,7 +4,6 @@ import { DepartmentMapper } from '../../../shared/services/mapper/department.map
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NEVER } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { ValidationErrorService } from '../../../shared/services/helper/validation-error.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
@@ -28,14 +27,12 @@ export class OkrChildUnitFormComponent {
   childUnitForm: FormGroup;
   title: string;
   unitType = UnitType;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
 
   constructor(private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
               private okrUnitMapper: OkrUnitMapper,
               private departmentMapper: DepartmentMapper,
               private okrBranchMapper: OkrBranchMapper,
               private i18n: I18n,
-              private controlHelperService: ValidationErrorService,
               @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData) {
     this.childUnitForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),

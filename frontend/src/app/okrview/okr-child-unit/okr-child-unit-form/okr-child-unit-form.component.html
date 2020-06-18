@@ -2,11 +2,12 @@
   <form [formGroup]="childUnitForm">
     <mat-form-field class="name">
       <input type="text" i18n-placeholder="@@component_departmentForm_name" matInput placeholder="Name *" cdkTextareaAutosize formControlName="name">
-      <mat-error *ngIf="childUnitForm.get('name').invalid">{{getErrorMessage(childUnitForm, 'name')}}</mat-error>
+      <app-form-error [control]="hildUnitForm.get('name').invalid"></app-form-error>
+
     </mat-form-field>
     <mat-form-field class="name">
       <input type="text" i18n-placeholder="@@component_departmentForm_description" matInput placeholder="Bezeichnung *" cdkTextareaAutosize formControlName="label">
-      <mat-error *ngIf="childUnitForm.get('label').invalid">{{getErrorMessage(childUnitForm, 'label')}}</mat-error>
+      <app-form-error [control]="hildUnitForm.get('label').invalid"></app-form-error>
     </mat-form-field>
     <mat-form-field class="name" *ngIf="!okrChildUnit">
       <mat-select formControlName="unitType">

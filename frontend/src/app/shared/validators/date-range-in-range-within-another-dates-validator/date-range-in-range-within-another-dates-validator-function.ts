@@ -25,27 +25,29 @@ export class DateNotInRangeOfAnotherCycleValidator extends AbstractValidator {
       const endDateFromInput: Date = control.get('endDate').value;
 
       if (startDateFromInput && endDateFromInput) {
-        return periodCollidesWithOther(startDateFromInput, endDateFromInput, cycles);
+        return DateNotInRangeOfAnotherCycleValidator.periodCollidesWithOther(
+          startDateFromInput, endDateFromInput, cycles);
       }
 
       return undefined;
     };
   }
-}
 
-export function periodCollidesWithOther(
-  startDateFromInput: Date,
-  endDateFromInput: Date,
-  cycles: CycleUnit[]
-): { [key: string]: boolean } {
-  for (const cycle of cycles) {
-    const startDateFromExistingCycle: Date = cycle.startDate;
-    const endDateFromExistingCycle: Date = cycle.endDate;
+  private static periodCollidesWithOther(
+    startDateFromInput: Date,
+    endDateFromInput: Date,
+    cycles: CycleUnit[]
+  ): { [key: string]: boolean } {
+    for (const cycle of cycles) {
+      const startDateFromExistingCycle: Date = cycle.startDate;
+      const endDateFromExistingCycle: Date = cycle.endDate;
 
-    if (!(endDateFromInput < startDateFromExistingCycle || endDateFromExistingCycle < startDateFromInput)) {
-      return dateRangeInRangewithinAnotherDatesError;
+      if (!(endDateFromInput < startDateFromExistingCycle || endDateFromExistingCycle < startDateFromInput)) {
+        return dateRangeInRangewithinAnotherDatesError;
+      }
     }
+
+    return undefined;
   }
 
-  return undefined;
 }
