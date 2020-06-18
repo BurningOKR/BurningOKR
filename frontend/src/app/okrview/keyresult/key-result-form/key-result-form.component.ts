@@ -59,7 +59,7 @@ export class KeyResultFormComponent {
   }
 
   getViewUnit(unit: string): string {
-    if (this.unitEnum[unit] === '') {
+    if (this.unitEnum[unit] === '#') {
       return this.i18n({
         id: 'amount',
         value: 'Anzahl'
@@ -72,6 +72,7 @@ export class KeyResultFormComponent {
   closeDialog(): void {
     this.dialogRef.close(undefined);
   }
+
   saveKeyResult(): void {
     const keyResult: ViewKeyResult = this.formData.keyResult;
 
