@@ -1,9 +1,8 @@
 package org.burningokr.controller.configuration;
 
-import java.util.Collection;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.annotation.TurnOff;
 import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.Configuration;
@@ -14,6 +13,9 @@ import org.burningokr.service.security.AuthorizationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Collection;
 
 @RestApiController
 @RequiredArgsConstructor
@@ -56,6 +58,7 @@ public class ConfigurationController {
    * @return
    */
   @PostMapping("/configurations")
+  @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<ConfigurationDto> createConfiguration(
       @Valid @RequestBody ConfigurationDto configurationDto, User user) {
@@ -74,6 +77,7 @@ public class ConfigurationController {
    * @return a {@link ResponseEntity} ok with a Configuration
    */
   @PutMapping("/configurations/{configurationId}")
+  @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<ConfigurationDto> updateConfigurationById(
       @PathVariable Long configurationId,
@@ -86,6 +90,7 @@ public class ConfigurationController {
   }
 
   @DeleteMapping("/configurations/{configurationId}")
+  @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity deleteConfigurationById(@PathVariable Long configurationId, User user) {
     configurationService.deleteConfigurationById(configurationId, user);
