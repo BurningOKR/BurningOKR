@@ -48,4 +48,3 @@ export function getValidators(i18n: I18n): AbstractValidator[] {
 export function register<T extends Constructor<AbstractValidator>>(ctor: T): void {
   validatorsConstructors.push(ctor);
 }
-
