@@ -67,7 +67,7 @@ public class ObjectiveRowBuilderServiceTest {
   @Test
   public void
       generateObjectiveRowCollectionForDepartment_expectEmptyCollectionIfThereAreNoObjectives() {
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertTrue(rows.isEmpty());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -79,7 +79,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     okrDepartment.getObjectives().add(objective);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(1, rows.size());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -90,7 +90,7 @@ public class ObjectiveRowBuilderServiceTest {
       generateObjectiveRowCollectionForDepartment_expectEmptyCollectionIfThereIsOneObjectiveWithNoKeyResults() {
     okrDepartment.getObjectives().add(objective);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertTrue(rows.isEmpty());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -103,7 +103,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     okrDepartment.getObjectives().add(objective);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(teamName, ((ObjectiveRow) rows.toArray()[0]).getTeam());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -116,7 +116,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     okrDepartment.getObjectives().add(objective);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(objectiveName, ((ObjectiveRow) rows.toArray()[0]).getObjective());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -129,7 +129,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     keyResult.setCurrentValue(keyResult.getTargetValue());
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(1, ((ObjectiveRow) rows.toArray()[0]).getProgress().getValue(), 0);
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -142,7 +142,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     keyResult.setCurrentValue(0);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(0, ((ObjectiveRow) rows.toArray()[0]).getProgress().getValue(), 0);
   }
@@ -154,7 +154,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     keyResult.setCurrentValue(5);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(0.5, ((ObjectiveRow) rows.toArray()[0]).getProgress().getValue(), 0);
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -172,7 +172,7 @@ public class ObjectiveRowBuilderServiceTest {
     keyResult1.setTargetValue(5);
     objective.getKeyResults().add(keyResult1);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(0.6, ((ObjectiveRow) rows.toArray()[0]).getProgress().getValue(), 0.001);
     Assert.assertEquals(0.6, ((ObjectiveRow) rows.toArray()[1]).getProgress().getValue(), 0.001);
@@ -186,7 +186,7 @@ public class ObjectiveRowBuilderServiceTest {
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals("", ((ObjectiveRow) rows.toArray()[0]).getParentUnitGoal());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -203,7 +203,7 @@ public class ObjectiveRowBuilderServiceTest {
     parentObjective.setName(parentObjectiveName);
     objective.setParentObjective(parentObjective);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(
         parentObjectiveName, ((ObjectiveRow) rows.toArray()[0]).getParentUnitGoal());
@@ -218,7 +218,7 @@ public class ObjectiveRowBuilderServiceTest {
     String keyResultName = "keyResultName";
     keyResult.setName(keyResultName);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(keyResultName, ((ObjectiveRow) rows.toArray()[0]).getKeyResult());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -232,7 +232,7 @@ public class ObjectiveRowBuilderServiceTest {
     String keyResultDescription = "keyResultDescription";
     keyResult.setDescription(keyResultDescription);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(keyResultDescription, ((ObjectiveRow) rows.toArray()[0]).getDescription());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -246,7 +246,7 @@ public class ObjectiveRowBuilderServiceTest {
     int start = 3;
     keyResult.setStartValue(start);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(start, ((ObjectiveRow) rows.toArray()[0]).getStart());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -260,7 +260,7 @@ public class ObjectiveRowBuilderServiceTest {
     int ende = 5;
     keyResult.setTargetValue(ende);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(ende, ((ObjectiveRow) rows.toArray()[0]).getEnd());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -274,7 +274,7 @@ public class ObjectiveRowBuilderServiceTest {
     int current = 4;
     keyResult.setCurrentValue(current);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(current, ((ObjectiveRow) rows.toArray()[0]).getActual());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -287,7 +287,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     keyResult.setUnit(Unit.NUMBER);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals("", ((ObjectiveRow) rows.toArray()[0]).getUnit());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -300,7 +300,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     keyResult.setUnit(Unit.EURO);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals("€", ((ObjectiveRow) rows.toArray()[0]).getUnit());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -313,7 +313,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.getKeyResults().add(keyResult);
     keyResult.setUnit(Unit.PERCENT);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals("%", ((ObjectiveRow) rows.toArray()[0]).getUnit());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -325,7 +325,7 @@ public class ObjectiveRowBuilderServiceTest {
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
 
-    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForDepartment(departmentId);
+    Collection<ObjectiveRow> rows = objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
     ObjectiveRow row = (ObjectiveRow) rows.toArray()[0];
 
     Assert.assertNotNull(row.getTeam());

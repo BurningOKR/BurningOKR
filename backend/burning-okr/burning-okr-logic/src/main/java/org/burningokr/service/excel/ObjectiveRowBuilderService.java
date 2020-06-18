@@ -19,21 +19,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
 
-  private final OkrUnitServiceUsers<OkrDepartment> departmentService;
+  private final OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService;
 
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrDepartment> departmentService,
+      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService,
       CompanyService companyService) {
-    this.departmentService = departmentService;
+    this.okrChildUnitService = okrChildUnitService;
     this.companyService = companyService;
   }
 
   @Override
-  public Collection<ObjectiveRow> generateForDepartment(long departmentId) {
-    OkrDepartment okrDepartment = departmentService.findById(departmentId);
-    return this.generateObjectiveRowCollectionForDepartment(okrDepartment);
+  public Collection<ObjectiveRow> generateForOkrChildUnit(long okrUnitId) {
+    OkrChildUnit okrChildUnit = okrChildUnitService.findById(okrUnitId);
+    return this.generateObjectiveRowCollectionForDepartment(okrChildUnit);
   }
 
   @Override

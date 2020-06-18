@@ -40,7 +40,7 @@ public class XlsxExportEmailFileCreatorServiceTest {
   public void init() throws IllegalAccessException {
     teamMemberRows = new ArrayList<>();
     this.workbook = new XSSFWorkbook();
-    when(teamMemberRowBuilderService.generateForDepartment(departmentId))
+    when(teamMemberRowBuilderService.generateForOkrChildUnit(departmentId))
         .thenReturn(teamMemberRows);
     when(teamMemberRowBuilderService.generateForCompany(companyId)).thenReturn(teamMemberRows);
     when(genericXlsxFileCreatorService.createWorkbook(
@@ -53,7 +53,7 @@ public class XlsxExportEmailFileCreatorServiceTest {
       throws IllegalAccessException {
     Workbook workbook = xlsxExportEmailFileCreatorService.createFileForOkrTeam(departmentId);
     Assert.assertEquals(this.workbook, workbook);
-    verify(teamMemberRowBuilderService, times(1)).generateForDepartment(departmentId);
+    verify(teamMemberRowBuilderService, times(1)).generateForOkrChildUnit(departmentId);
   }
 
   @Test
