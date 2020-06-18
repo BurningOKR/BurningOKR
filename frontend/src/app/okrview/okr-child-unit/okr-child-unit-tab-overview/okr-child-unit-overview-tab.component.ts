@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
@@ -45,7 +45,7 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.department) {
+    if (changes.okrChildUnit) {
       this.objectiveList = undefined;
       this.objectiveMapper
         .getObjectivesForUnit$(this.okrChildUnit.id)
