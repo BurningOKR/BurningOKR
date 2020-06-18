@@ -2,7 +2,8 @@
   <form [formGroup]="objectiveForm">
     <mat-form-field class="form-whole-line">
       <input type="text" matInput placeholder="Name *" formControlName="name">
-      <mat-error *ngIf="objectiveForm.get('name').invalid">{{getErrorMessage(objectiveForm, 'name')}}</mat-error>
+      <mat-error><app-form-error [control]="objectiveForm.get('name')"></app-form-error></mat-error>
+
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
@@ -17,13 +18,13 @@
 
     <mat-form-field class="form-whole-line">
       <input type="text" i18n-placeholder="@@component_objectiveForm_description" matInput placeholder="Beschreibung" formControlName="description">
-      <app-form-error [control]="cycleForm.get('description')"></app-form-error>
+      <mat-error><app-form-error [control]="objectiveForm.get('description')"></app-form-error></mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
       <input type="text" i18n-placeholder="@@component_objectiveForm_annotation" matInput placeholder="Anmerkungen" formControlName="remark">
-      <app-form-error [control]="cycleForm.get('remark')"></app-form-error>
+      <mat-error><app-form-error [control]="objectiveForm.get('remark')"></app-form-error></mat-error>
 
     </mat-form-field>
 

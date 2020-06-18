@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ValidationErrorService } from '../../services/helper/validation-error.service';
 import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-error',
   templateUrl: './form-error.component.html',
-  styleUrls: ['./form-error.component.css']
+  styleUrls: ['./form-error.component.css'],
 })
 export class FormErrorComponent {
 
