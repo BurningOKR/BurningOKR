@@ -31,7 +31,16 @@ export class OkrUnitApiService {
   }
 
   putOkrChildUnit$(okrUnitId: OkrUnitId, okrChildUnit: OkrChildUnitDto): Observable<OkrChildUnitDto> {
-    return this.http.putData$<OkrChildUnitDto>(`units/${okrUnitId}`, okrChildUnit);
+    return this.http.putData$<OkrChildUnitDto>(`units/${okrUnitId}`, okrChildUnit)
+      .pipe(
+        map((value: OkrChildUnitDto) => {
+          if (value.__okrUnitType === 'DEPARTMENT') {
+            return plainToClass(OkrDepartmentDto, value);
+          } else if (value.__okrUnitType === 'OKR_BRANCH') {
+            return plainToClass(OkrBranchDto, value);
+          }
+        })
+      );
   }
 
   deleteOkrChildUnit$(okrUnitId: OkrUnitId): Observable<boolean> {
