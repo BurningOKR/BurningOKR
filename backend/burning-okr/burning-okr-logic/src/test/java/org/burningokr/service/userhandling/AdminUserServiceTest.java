@@ -29,6 +29,7 @@ public class AdminUserServiceTest {
   @InjectMocks private AdminUserService adminUserService;
 
   private static User userToAdd;
+  private static AdminUser adminUser;
 
   private static UUID userId;
 
@@ -59,6 +60,7 @@ public class AdminUserServiceTest {
     userId = UUID.randomUUID();
     userToAdd = mock(User.class);
     when(userToAdd.getId()).thenReturn(userId);
+    adminUser = new AdminUser();
   }
 
   @Test
@@ -98,7 +100,9 @@ public class AdminUserServiceTest {
   public void addAdmin_expectedSavedAdminUserCorrectId() {
     ArgumentCaptor<AdminUser> capturedSave = ArgumentCaptor.forClass(AdminUser.class);
 
-    adminUserService.addAdmin(userToAdd);
+    adminUser.setId(userToAdd.getId());
+
+    adminUserService.addAdmin(adminUser);
     verify(adminUserRepository).save(capturedSave.capture());
 
     AdminUser capturedAdmin = capturedSave.getValue();
@@ -109,10 +113,11 @@ public class AdminUserServiceTest {
   @Test
   public void addAdmin_expectedReturnFromUserService() {
     User userToReturn = mock(User.class);
+    adminUser.setId(userToAdd.getId());
 
     when(userService.findById(userId)).thenReturn(userToReturn);
 
-    User actual = adminUserService.addAdmin(userToAdd);
+    User actual = adminUserService.addAdmin(adminUser);
 
     Assert.assertEquals(userToReturn, actual);
   }

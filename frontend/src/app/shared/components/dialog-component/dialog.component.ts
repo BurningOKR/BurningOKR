@@ -26,12 +26,11 @@ export class DialogComponent<T> {
     if (this.dialogRef.componentInstance instanceof DeleteDialogComponent) {
       this.dialogRef.close();
     } else {
-      this.dialogRef.close(undefined); // TODO CHECK FORMS
+      this.dialogRef.close(undefined);
     }
   }
 
   sendOk(): void {
     this.okEmitter.emit(this.formGroup.getRawValue());
   }
-
 }

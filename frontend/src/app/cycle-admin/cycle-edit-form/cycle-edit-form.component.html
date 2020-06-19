@@ -4,20 +4,20 @@
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
       <input type="text" i18n-placeholder="@@component_cycleEditForm_Name" matInput placeholder="Name *" formControlName="name">
-      <mat-error *ngIf="cycleForm.get('name').invalid">{{getErrorMessage(cycleForm, 'name')}}</mat-error>
+      <mat-error><app-form-error [control]="cycleForm.get('name')"></app-form-error></mat-error>
     </mat-form-field>
 
     <mat-form-field class="halfWidth leftDate">
       <input matInput [matDatepicker]="cycleEditStartDatePicker" i18n-placeholder="@@component_cycleEditForm_startDate" placeholder="Startdatum" formControlName="startDate">
       <mat-datepicker-toggle matSuffix [for]="cycleEditStartDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #cycleEditStartDatePicker></mat-datepicker>
-      <mat-error *ngIf="cycleForm.get('startDate').invalid">{{getErrorMessage(cycleForm, 'startDate')}}</mat-error>
+      <mat-error><app-form-error [control]="cycleForm.get('startDate')"></app-form-error></mat-error>
     </mat-form-field>
     <mat-form-field class="halfWidth rightDate">
       <input matInput [matDatepicker]="cycleEditEndDatePicker" i18n-placeholder="@@component_cycleEditForm_endDate" placeholder="Enddatum" formControlName="endDate">
       <mat-datepicker-toggle matSuffix [for]="cycleEditEndDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #cycleEditEndDatePicker></mat-datepicker>
-      <mat-error *ngIf="cycleForm.get('endDate').invalid">{{getErrorMessage(cycleForm, 'endDate')}}</mat-error>
+      <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>
     </mat-form-field>
     <mat-slide-toggle formControlName="isVisible">
       <span i18n="@@component_cycleEditForm_visibility">Sichtbarkeit</span>

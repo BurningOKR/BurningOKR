@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import org.burningokr.dto.settings.UserSettingsDto;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class UserSettingsMapperTest {
   public void test_mapDtoToEntity_ExpectCompanyIsNullIfThereIsNoCompanyId() {
     this.entity = this.mapper.mapDtoToEntity(dto);
 
-    Assert.assertNull(this.entity.getDefaultCompany());
+    Assert.assertNull(this.entity.getDefaultOkrCompany());
   }
 
   @Test
@@ -48,7 +48,7 @@ public class UserSettingsMapperTest {
 
     this.entity = this.mapper.mapDtoToEntity(dto);
 
-    Assert.assertEquals(defaultCompanyId, this.entity.getDefaultCompany().getId());
+    Assert.assertEquals(defaultCompanyId, this.entity.getDefaultOkrCompany().getId());
   }
 
   @Test
@@ -81,9 +81,9 @@ public class UserSettingsMapperTest {
   @Test
   public void test_mapEntityToDto_ExpectDefaultCompanyIsMapped() {
     Long companyId = 40L;
-    Company company = new Company();
-    company.setId(companyId);
-    this.entity.setDefaultCompany(company);
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setId(companyId);
+    this.entity.setDefaultOkrCompany(okrCompany);
 
     this.dto = this.mapper.mapEntityToDto(entity);
 
@@ -93,7 +93,7 @@ public class UserSettingsMapperTest {
   @Test
   public void test_mapEntityToDto_ExpectDefaultTeamIsMapped() {
     Long defaultTeamId = 100L;
-    Department defaultTeam = new Department();
+    OkrDepartment defaultTeam = new OkrDepartment();
     defaultTeam.setId(defaultTeamId);
     this.entity.setDefaultTeam(defaultTeam);
 

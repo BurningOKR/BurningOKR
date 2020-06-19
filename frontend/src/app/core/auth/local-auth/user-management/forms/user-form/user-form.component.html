@@ -60,14 +60,6 @@
            placeholder="Jobbezeichnung"
            type="text">
   </mat-form-field>
-  <mat-checkbox [formControl]="userForm.controls.active" class="small-padding">Aktiviert</mat-checkbox>
-  <mat-checkbox [formControl]="userForm.controls.isAdmin" class="small-padding">Admin</mat-checkbox>
-  <br>
-  <button class="small-padding mb-10 mt-10"
-          color="primary"
-          i18n="@@resetPassword"
-          mat-raised-button
-          *ngIf="resetPasswordIsShown"
-  >Passwort zurücksetzen
-  </button>
+  <mat-checkbox [formControl]="userForm.controls.active" [disabled]="canEditAdminStatus" class="small-padding">Aktiviert</mat-checkbox>
+  <mat-checkbox [formControl]="userForm.controls.isAdmin" [disabled]="canEditAdminStatus" class="small-padding">Admin</mat-checkbox>
 </form>

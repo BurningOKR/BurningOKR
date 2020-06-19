@@ -1,7 +1,5 @@
 import { Unit } from '../api/unit.enum';
-import { KeyResultId } from '../api/key-result.dto';
-import { CompanyId } from '../api/company.dto';
-import { ObjectiveId } from '../api/objective.dto';
+import { CompanyId, KeyResultId, ObjectiveId } from '../id-types';
 
 export class ViewKeyResult {
   start: number;

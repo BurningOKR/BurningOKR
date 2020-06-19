@@ -1,9 +1,11 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
-import { CompanyDto, CompanyId } from '../../model/api/company.dto';
-import { DepartmentStructureDto } from '../../model/api/department-structure.dto';
+import { OkrUnitSchemaDto } from '../../model/api/OkrUnit/okr-unit-schema-dto';
 import { CycleDto } from '../../model/api/cycle.dto';
+import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
+import { CompanyId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +29,8 @@ export class CompanyApiService {
     return this.api.getData$<CompanyDto>(`companies/${companyId}`);
   }
 
-  getDepartmentStructureOfCompany$(companyId: CompanyId): Observable<DepartmentStructureDto[]> {
-    return this.api.getData$(`companies/${companyId}/structure`);
+  getOkrUnitSchemaOfCompany$(companyId: CompanyId): Observable<OkrUnitSchemaDto[]> {
+    return this.api.getData$(`companies/${companyId}/unit`);
   }
 
   deleteCompanyById$(companyId: CompanyId): Observable<boolean> {
@@ -40,6 +42,6 @@ export class CompanyApiService {
   }
 
   putCompany$(company: CompanyDto): Observable<CompanyDto> {
-    return this.api.putData$(`companies/${company.structureId}`, company);
+    return this.api.putData$(`companies/${company.okrUnitId}`, company);
   }
 }

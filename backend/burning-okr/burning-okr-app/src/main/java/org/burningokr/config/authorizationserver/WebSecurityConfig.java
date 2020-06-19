@@ -1,9 +1,9 @@
 package org.burningokr.config.authorizationserver;
 
 import lombok.RequiredArgsConstructor;
-import org.burningokr.config.condition.LocalUserCondition;
 import org.burningokr.repositories.users.LocalUserRepository;
 import org.burningokr.service.LocalUserDetailsService;
+import org.burningokr.service.condition.LocalUserCondition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.Order;

@@ -1,9 +1,10 @@
 import { ConfigurationApiService } from '../../../core/settings/configuration-api.service';
 import { Injectable } from '@angular/core';
-import { ConfigurationDto, ConfigurationId } from '../../model/api/configuration.dto';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Configuration } from '../../model/ui/configuration';
+import { ConfigurationDto } from '../../model/api/configuration.dto';
+import { ConfigurationId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,15 @@ export class ConfigurationMapper {
   }
 
   static mapToConfiguration(configuration: ConfigurationDto): Configuration {
-    return new Configuration(configuration.id, configuration.name, configuration.value);
+    return new Configuration(configuration.id, configuration.name, configuration.value, configuration.type);
   }
 
   static mapToConfigurationApi(configuration: Configuration): ConfigurationDto {
     return {
       id: configuration.id,
       name: configuration.name,
-      value: configuration.value
+      value: configuration.value,
+      type: configuration.type
     };
   }
 

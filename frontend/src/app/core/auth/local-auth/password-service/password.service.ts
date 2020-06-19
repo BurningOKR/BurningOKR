@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../services/api-http.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 export class PasswordResetData {
   emailIdentifier: string;
@@ -23,15 +23,17 @@ export class PasswordResetMailData {
 export class PasswordService {
   constructor(private apiService: ApiHttpService) { }
 
-  setPasswordWithEmailIdentifier$(data: PasswordResetData): Observable<PasswordResetData> {
-    return this.apiService.postData$('local-users/password', data);
+  setPasswordWithEmailIdentifier$(data: PasswordResetData): Observable<object> {
+    return this.apiService.postData$('local-users/password', data, (error => {
+      return of(error);
+    }));
   }
 
   setPasswordWhileUserIsLoggedin$(data: PasswordChangeData): Observable<PasswordChangeData> {
     return this.apiService.postData$('local-users/change-password', data);
   }
 
-  sendPasswordResetEmail(data: PasswordResetMailData): Observable<PasswordResetMailData> {
+  sendPasswordResetEmail$(data: PasswordResetMailData): Observable<PasswordResetMailData> {
     return this.apiService.postData$('local-users/forgot-password', data);
   }
 }

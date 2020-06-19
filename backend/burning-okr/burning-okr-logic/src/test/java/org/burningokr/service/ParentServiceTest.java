@@ -1,5 +1,8 @@
 package org.burningokr.service;
 
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.verify;
@@ -7,10 +10,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.CompanyStructure;
-import org.burningokr.model.structures.Department;
-import org.burningokr.service.structureutil.ParentService;
+import org.burningokr.model.okrUnits.OkrBranch;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrUnit;
+import org.burningokr.service.okrUnitUtil.ParentService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +50,7 @@ public class ParentServiceTest {
     verify(mockParentService).isParentObjectiveLegal(any(Objective.class), any(Objective.class));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void test_validateParentObjective_expectsFalse() {
     when(mockParentService.isParentObjectiveLegal(any(Objective.class), any(Objective.class)))
         .thenReturn(false);
@@ -55,60 +59,64 @@ public class ParentServiceTest {
         .validateParentObjective(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
-    mockParentService.validateParentObjective(testObjective, testObjective);
+    try {
+      mockParentService.validateParentObjective(testObjective, testObjective);
+      Assert.fail();
+    } catch (Exception ex) {
+      assertThat(
+          "Should only throw IllegalArgumentException.",
+          ex,
+          instanceOf(IllegalArgumentException.class));
+    }
 
     verify(mockParentService).isParentObjectiveLegal(any(Objective.class), any(Objective.class));
   }
 
   @Test
   public void test_isParentObjectiveLegal_expectsTrue() {
-    when(mockParentService.isStructureChildStructure(
-            any(CompanyStructure.class), any(CompanyStructure.class)))
+    when(mockParentService.isUnitAChildUnit(any(OkrUnit.class), any(OkrUnit.class)))
         .thenReturn(true);
     doCallRealMethod()
         .when(mockParentService)
         .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
-    CompanyStructure testParentStructure = new Department();
-    testObjective.setParentStructure(testParentStructure);
-    Assert.assertTrue(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
+    OkrUnit testParentOkrUnit = new OkrDepartment();
+    testObjective.setParentOkrUnit(testParentOkrUnit);
+    assertTrue(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
 
-    verify(mockParentService)
-        .isStructureChildStructure(any(CompanyStructure.class), any(CompanyStructure.class));
+    verify(mockParentService).isUnitAChildUnit(any(OkrUnit.class), any(OkrUnit.class));
   }
 
   @Test
   public void test_isParentObjectiveLegal_expectsFalse() {
-    when(mockParentService.isStructureChildStructure(
-            any(CompanyStructure.class), any(CompanyStructure.class)))
+    when(mockParentService.isUnitAChildUnit(any(OkrUnit.class), any(OkrUnit.class)))
         .thenReturn(false);
     doCallRealMethod()
         .when(mockParentService)
         .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
-    CompanyStructure testParentStructure = new Department();
-    testObjective.setParentStructure(testParentStructure);
+    OkrUnit testParentOkrUnit = new OkrDepartment();
+    testObjective.setParentOkrUnit(testParentOkrUnit);
     Assert.assertFalse(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
 
-    verify(mockParentService)
-        .isStructureChildStructure(any(CompanyStructure.class), any(CompanyStructure.class));
+    verify(mockParentService).isUnitAChildUnit(any(OkrUnit.class), any(OkrUnit.class));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjCompany_expectsTrue() {
-    Assert.assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveCompany));
+    assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveCompany));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjD2_expectsTrue() {
-    Assert.assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD2));
+    assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD2));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjD22_expectsTrue() {
-    Assert.assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD22));
+    assertTrue(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD22));
   }
 
   @Test
@@ -137,11 +145,11 @@ public class ParentServiceTest {
   /////   For a visualisation look at JTK_Backend/ObjectiveServiceTest_TreeStructure
   // ////////////////////////////
 
-  Company treeCompany;
-  Department treeDepartment1;
-  Department treeDepartment2;
-  Department treeDepartment22;
-  Department treeDepartment221;
+  OkrCompany treeOkrCompany;
+  OkrBranch treeDepartment1;
+  OkrBranch treeDepartment2;
+  OkrBranch treeDepartment22;
+  OkrDepartment treeOkrDepartment221;
   Objective treeObjectiveCompany;
   Objective treeObjectiveD1;
   Objective treeObjectiveD2;
@@ -150,46 +158,46 @@ public class ParentServiceTest {
   Objective treeOrigin;
 
   private void buildTestCompany() {
-    treeCompany = new Company();
+    treeOkrCompany = new OkrCompany();
 
     treeObjectiveCompany = new Objective();
-    treeCompany.getObjectives().add(treeObjectiveCompany);
-    treeObjectiveCompany.setParentStructure(treeCompany);
+    treeOkrCompany.getObjectives().add(treeObjectiveCompany);
+    treeObjectiveCompany.setParentOkrUnit(treeOkrCompany);
 
-    treeDepartment1 = new Department();
-    treeCompany.getDepartments().add(treeDepartment1);
-    treeDepartment1.setParentStructure(treeCompany);
+    treeDepartment1 = new OkrBranch();
+    treeOkrCompany.getOkrChildUnits().add(treeDepartment1);
+    treeDepartment1.setParentOkrUnit(treeOkrCompany);
 
     treeObjectiveD1 = new Objective();
     treeDepartment1.getObjectives().add(treeObjectiveD1);
-    treeObjectiveD1.setParentStructure(treeDepartment1);
+    treeObjectiveD1.setParentOkrUnit(treeDepartment1);
 
-    treeDepartment2 = new Department();
-    treeCompany.getDepartments().add(treeDepartment2);
-    treeDepartment2.setParentStructure(treeCompany);
+    treeDepartment2 = new OkrBranch();
+    treeOkrCompany.getOkrChildUnits().add(treeDepartment2);
+    treeDepartment2.setParentOkrUnit(treeOkrCompany);
 
     treeObjectiveD2 = new Objective();
     treeDepartment2.getObjectives().add(treeObjectiveD2);
-    treeObjectiveD2.setParentStructure(treeDepartment2);
+    treeObjectiveD2.setParentOkrUnit(treeDepartment2);
 
-    treeDepartment22 = new Department();
-    treeDepartment2.setDepartments(Arrays.asList(treeDepartment22));
-    treeDepartment22.setParentStructure(treeDepartment2);
+    treeDepartment22 = new OkrBranch();
+    treeDepartment2.setOkrChildUnits(Arrays.asList(treeDepartment22));
+    treeDepartment22.setParentOkrUnit(treeDepartment2);
 
     treeObjectiveD22 = new Objective();
     treeDepartment22.getObjectives().add(treeObjectiveD22);
-    treeObjectiveD22.setParentStructure(treeDepartment22);
+    treeObjectiveD22.setParentOkrUnit(treeDepartment22);
 
-    treeDepartment221 = new Department();
-    treeDepartment22.setDepartments(Arrays.asList(treeDepartment221));
-    treeDepartment221.setParentStructure(treeDepartment22);
+    treeOkrDepartment221 = new OkrDepartment();
+    treeDepartment22.setOkrChildUnits(Arrays.asList(treeOkrDepartment221));
+    treeOkrDepartment221.setParentOkrUnit(treeDepartment22);
 
     treeObjectiveD221 = new Objective();
-    treeDepartment221.getObjectives().add(treeObjectiveD221);
-    treeObjectiveD221.setParentStructure(treeDepartment221);
+    treeOkrDepartment221.getObjectives().add(treeObjectiveD221);
+    treeObjectiveD221.setParentOkrUnit(treeOkrDepartment221);
 
     treeOrigin = new Objective();
-    treeDepartment221.getObjectives().add(treeOrigin);
-    treeOrigin.setParentStructure(treeDepartment221);
+    treeOkrDepartment221.getObjectives().add(treeOrigin);
+    treeOrigin.setParentOkrUnit(treeOkrDepartment221);
   }
 }

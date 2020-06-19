@@ -1,12 +1,11 @@
 import { Unit } from './unit.enum';
-
-export type KeyResultId = number;
+import { KeyResultId } from '../id-types';
 
 export interface KeyResultDto {
   startValue: number;
   currentValue: number;
   targetValue: number;
-  unit: Unit;
+  unit: keyof Unit;
   title: string;
   description: string;
   id?: KeyResultId;

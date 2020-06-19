@@ -178,7 +178,7 @@ public class GenericXlsxFileCreatorServiceTest {
     Assert.assertEquals(row1.getObjective(), getStringContentOf(sheet, 1, 1));
     Assert.assertEquals(
         String.valueOf(row1.getProgress().getValue()), getStringContentOf(sheet, 1, 2));
-    Assert.assertEquals(row1.getParentStructureGoal(), getStringContentOf(sheet, 1, 3));
+    Assert.assertEquals(row1.getParentUnitGoal(), getStringContentOf(sheet, 1, 3));
     Assert.assertEquals(row1.getKeyResult(), getStringContentOf(sheet, 1, 4));
     Assert.assertEquals(row1.getDescription(), getStringContentOf(sheet, 1, 5));
     Assert.assertEquals((float) row1.getStart(), getFloatValueOf(sheet, 1, 6), 0.0f);
@@ -189,7 +189,7 @@ public class GenericXlsxFileCreatorServiceTest {
     Assert.assertEquals(row2.getObjective(), getStringContentOf(sheet, 2, 1));
     Assert.assertEquals(
         String.valueOf(row2.getProgress().getValue()), getStringContentOf(sheet, 2, 2));
-    Assert.assertEquals(row2.getParentStructureGoal(), getStringContentOf(sheet, 2, 3));
+    Assert.assertEquals(row2.getParentUnitGoal(), getStringContentOf(sheet, 2, 3));
     Assert.assertEquals(String.valueOf(row2.getKeyResult()), getStringContentOf(sheet, 2, 4));
     Assert.assertEquals(row2.getDescription(), getStringContentOf(sheet, 2, 5));
     Assert.assertEquals((float) row2.getStart(), getFloatValueOf(sheet, 2, 6), 0.0f);

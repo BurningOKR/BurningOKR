@@ -2,12 +2,12 @@
   <form [formGroup]="objectiveForm">
     <mat-form-field class="form-whole-line">
       <input type="text" matInput placeholder="Name *" formControlName="name">
-      <mat-error *ngIf="objectiveForm.get('name').invalid">{{getErrorMessage(objectiveForm, 'name')}}</mat-error>
+      <mat-error><app-form-error [control]="objectiveForm.get('name')"></app-form-error></mat-error>
+
     </mat-form-field>
 
-    <mat-form-field *ngIf="getCurrentType()!='company'" class="form-whole-line">
-      <mat-select i18n-placeholder="@@component_objectiveForm_selectParentObjective" placeholder="Übergeordnetes Objective auswählen" formControlName="parentObjectiveId"
-                  *ngIf="getCurrentType()!='company'">
+    <mat-form-field class="form-whole-line">
+      <mat-select i18n-placeholder="@@component_objectiveForm_selectParentObjective" placeholder="Übergeordnetes Objective auswählen" formControlName="parentObjectiveId">
         <mat-option [value]="null"><span i18n="@@component_objectiveForm_noParentObjective">Kein übergeordnetes Objective</span></mat-option>
         <mat-optgroup *ngFor="let item of parentElements$ | async" [label]="item.department.name">
           <mat-option *ngFor="let objective of item.objectiveList" [value]="objective.id">{{objective.name}}
@@ -18,12 +18,14 @@
 
     <mat-form-field class="form-whole-line">
       <input type="text" i18n-placeholder="@@component_objectiveForm_description" matInput placeholder="Beschreibung" formControlName="description">
-      <mat-error *ngIf="objectiveForm.get('description').invalid">{{getErrorMessage(objectiveForm, 'description')}}</mat-error>
+      <mat-error><app-form-error [control]="objectiveForm.get('description')"></app-form-error></mat-error>
+
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
       <input type="text" i18n-placeholder="@@component_objectiveForm_annotation" matInput placeholder="Anmerkungen" formControlName="remark">
-      <mat-error *ngIf="objectiveForm.get('remark').invalid">{{getErrorMessage(objectiveForm, 'remark')}}</mat-error>
+      <mat-error><app-form-error [control]="objectiveForm.get('remark')"></app-form-error></mat-error>
+
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">

@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormGroupTyped } from '../../../../../../../../typings';
 import { NewPasswordForm } from '../../../../../../../shared/model/forms/new-password-form';
 import { AdminUserForm } from '../../../../../../../shared/model/forms/admin-user-form';
-import { passwordMatchValidatorFunction } from '../../../../set-password/passwords-match-validator-function';
 import { InitStateFormComponent } from '../init-state-form/init-state-form.component';
-import { InitService } from '../../../init.service';
-import { PostAdminUserData } from '../../../../../../../shared/model/api/post-admin-user-data';
+import { InitService } from '../../../../../../services/init.service';
+import { PostLocalAdminUserData } from '../../../../../../../shared/model/api/post-local-admin-user-data';
 import { User } from '../../../../../../../shared/model/api/user';
-import { InitState } from '../../../init-state';
+import { InitState } from '../../../../../../../shared/model/api/init-state';
 import { Observable } from 'rxjs';
+import { PasswordsMatchValidator } from '../../../../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 
 @Component({
   selector: 'app-create-user-state-form',
@@ -54,13 +54,13 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
       newPassword: ['', [Validators.required, Validators.minLength(7)]],
       newPasswordRepetition: ['', [Validators.required]]
     });
-    createdNewPasswordForm.setValidators(passwordMatchValidatorFunction);
+    createdNewPasswordForm.setValidators(PasswordsMatchValidator.Validate);
     this.newPasswordForm = createdNewPasswordForm as FormGroupTyped<NewPasswordForm>;
   }
 
   private handleSubmitClick(): void {
     this.form.disable();
-    this.submitData()
+    this.submitData$()
       .subscribe(initState => {
         this.form.enable();
         this.eventEmitter.emit(initState);
@@ -76,11 +76,11 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
     });
   }
 
-  submitData(): Observable<InitState> {
-    return this.initService.postAdminUser$(this.getFormData());
+  submitData$(): Observable<InitState> {
+    return this.initService.postLocalAdminUser$(this.getFormData());
   }
 
-  private getFormData(): PostAdminUserData {
+  private getFormData(): PostLocalAdminUserData {
     return {
       password: this.getPasswordFromForm(),
       userDto: this.getAdminUserFromForm()

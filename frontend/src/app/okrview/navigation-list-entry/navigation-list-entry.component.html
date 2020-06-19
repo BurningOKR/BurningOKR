@@ -1,17 +1,17 @@
-<div class="list-entry" [ngClass]="isSecondStructure? 'secondary-color':'first-color'">
+<div class="list-entry" [ngClass]="isSecondUnit? 'secondary-color':'first-color'">
   <div class="flex-nowrap">
     <button mat-button class="entry-title"
-      [ngClass]="isCurrentDepartment()? 'selected-department':!structure.isActive? 'inactive-element-stronger' : '' "
-      [routerLink]="['./departments/'+structure.id]">
+      [ngClass]="isCurrentDepartment()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' "
+      [routerLink]="['./departments/'+schema.id]">
       <div class="flex-nowrap">
-        <div class="structure-name">{{structure.name}}
+        <div class="unit-name">{{schema.name}}
         </div>
         <div class="fill-space"></div>
-        <mat-icon *ngIf="isManagerOfStructure()" i18n-matTooltip="@@component_navigationListEntry_youAreManager" matTooltip="Sie sind Manager dieser Struktur" class="icon-spacer">
+        <mat-icon *ngIf="isManagerOfUnit()" i18n-matTooltip="@@component_navigationListEntry_youAreManager" matTooltip="Sie sind Manager dieser Struktur" class="icon-spacer">
           person_outline</mat-icon>
-        <mat-icon *ngIf="isMemberOfStructure()" i18n-matTooltip="@@component_navigationListEntry_youAreMember" matTooltip="Sie sind Mitglied dieser Struktur" class="icon-spacer">
+        <mat-icon *ngIf="isMemberOfUnit()" i18n-matTooltip="@@component_navigationListEntry_youAreMember" matTooltip="Sie sind Mitglied dieser Struktur" class="icon-spacer">
           people_outline</mat-icon>
-        <button *ngIf="hasSubStructures()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
+        <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
           <mat-icon *ngIf="isOpen">expand_less</mat-icon>
           <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
         </button>
@@ -19,10 +19,10 @@
     </button>
   </div>
 
-  <div *ngIf="isOpen && hasSubStructures()" class="list-subentries">
-    <app-navigation-list-entry *ngFor="let departmentStructure of structure.subDepartments"
-      [structure]="departmentStructure" [isSecondStructure]="!isSecondStructure"
-      [startsOpen]="structure.subDepartments.length === 1">
+  <div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
+    <app-navigation-list-entry *ngFor="let departmentSchema of schema.subDepartments"
+                               [schema]="departmentSchema" [isSecondUnit]="!isSecondUnit"
+                               [startsOpen]="schema.subDepartments.length === 1">
     </app-navigation-list-entry>
   </div>
 </div>

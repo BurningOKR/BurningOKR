@@ -2,6 +2,9 @@
   <mat-toolbar-row>
     <ng-content></ng-content>
     <span class="fill-space"></span>
+    <div class="warningText" *ngIf="!(hasMailConfigured$ | async)">Warnung: Es wurde kein SMTP Server konfiguriert. <br>
+      <a [routerLink]="['/noMailInformation']" class="warningText">Dies hat massive Auswirkungen auf die Nutzbarkeit im Local-Auth Modus.</a></div>
+    <span class="fill-space"></span>
     <div class="user-interactions">
       <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"
                 i18n-matTooltip="@@component_okrToolbar_authorizeAsAdmin" matTooltip="Als Admin autorisiert">

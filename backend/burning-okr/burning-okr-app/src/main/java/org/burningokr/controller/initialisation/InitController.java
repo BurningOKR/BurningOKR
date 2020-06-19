@@ -11,6 +11,7 @@ import org.burningokr.dto.users.LocalUserDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.initialisation.InitState;
+import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.service.initialisation.InitService;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +54,7 @@ public class InitController {
   }
 
   /**
-   * Initialises a new Admin Account with a password.
+   * Initialises a new Admin Account with a password in a local environment.
    *
    * @param adminAccountInitialisationDto an {@link AdminAccountInitialisationDto} object
    * @return the new InitState
@@ -65,6 +66,21 @@ public class InitController {
     User user = userMapper.mapDtoToEntity(adminAccountInitialisationDto.getUserDto());
     InitState initState =
         initService.setAdminUser(user, adminAccountInitialisationDto.getPassword());
+
+    return ResponseEntity.ok(initStateMapper.mapEntityToDto(initState));
+  }
+
+  /**
+   * Sets the admin user in an azure oauth environment
+   *
+   * @param adminUser an {@link AdminUser} object
+   * @return the new InitState
+   */
+  @PostMapping("/init/azure-admin-user")
+  public ResponseEntity<InitStateDto> setAdminAzureAdminUser(
+      @Valid @RequestBody AdminUser adminUser) {
+
+    InitState initState = initService.setAzureAdminUser(adminUser);
 
     return ResponseEntity.ok(initStateMapper.mapEntityToDto(initState));
   }

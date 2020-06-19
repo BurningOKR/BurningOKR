@@ -40,7 +40,7 @@ public class UserMapperTest {
     when(user1.getMail()).thenReturn("example@company.com");
     when(user1.getGivenName()).thenReturn("Name");
     when(user1.getSurname()).thenReturn("Surname");
-    when(user1.getDepartment()).thenReturn("Department");
+    when(user1.getDepartment()).thenReturn("OkrDepartment");
     when(user1.getJobTitle()).thenReturn("JobTitle");
     when(user1.getPhoto()).thenReturn("Photo");
     user2 = mock(User.class);
@@ -57,7 +57,7 @@ public class UserMapperTest {
     userDto1.setEmail("example@company.com");
     userDto1.setGivenName("Name");
     userDto1.setSurname("Surname");
-    userDto1.setDepartment("Department");
+    userDto1.setDepartment("OkrDepartment");
     userDto1.setJobTitle("JobTitle");
     userDto1.setPhoto("Photo");
     userDto2 = new UserDto();

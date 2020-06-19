@@ -1,6 +1,5 @@
 import { User } from '../../model/api/user';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
-import { CurrentOkrviewService } from '../../../okrview/current-okrview.service';
+import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
@@ -11,6 +10,9 @@ import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/cha
 import { Observable } from 'rxjs';
 import versions from '../../../../../src/_versions';
 import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
+import { CurrentCompanyService } from '../../../okrview/current-company.service';
+import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
+import { ConfigurationApiService } from '../../../core/settings/configuration-api.service';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -23,24 +25,27 @@ export class OkrToolbarComponent implements OnInit {
   currentUser$: Observable<User>;
   isCurrentUserAdmin$: Observable<boolean>;
   isLocalUserbase$: Observable<boolean>;
+  hasMailConfigured$: Observable<boolean>;
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private currentUserService: CurrentUserService,
-    private currentOkrViewService: CurrentOkrviewService,
-    private oAuthDetails: OAuthFrontendDetailsService
+    private currentCompanyService: CurrentCompanyService,
+    private oAuthDetails: OAuthFrontendDetailsService,
+    private configurationApiService: ConfigurationApiService
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.getAuthType$()
       .pipe(
         map(authType => authType === 'local'),
         shareReplay()
       );
-  }
+    this.hasMailConfigured$ = this.configurationApiService.getHasMailConfigured$();
+        }
 
   ngOnInit(): void {
-    this.currentUser$ = this.currentUserService.getCurrentUser();
-    this.isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin();
+    this.currentUser$ = this.currentUserService.getCurrentUser$();
+    this.isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin$();
   }
 
   openVersionChangelog(): void {
@@ -51,8 +56,11 @@ export class OkrToolbarComponent implements OnInit {
   }
 
   routeToCycleAdminPanel(): void {
-    const companyId: number = this.currentOkrViewService.currentCompany.id;
-    this.router.navigate([`cycle-admin/`, companyId]);
+    this.currentCompanyService.getCurrentCompany$()
+      .pipe(take(1))
+      .subscribe((currentCompany: CompanyUnit) => {
+        this.router.navigate([`cycle-admin/`, currentCompany.id]);
+      });
   }
 
   openSettings(): void {

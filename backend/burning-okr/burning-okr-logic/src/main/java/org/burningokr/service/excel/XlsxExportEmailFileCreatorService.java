@@ -49,7 +49,7 @@ public class XlsxExportEmailFileCreatorService {
    */
   public Workbook createFileForOkrTeam(long departmentId) throws IllegalAccessException {
     Collection<TeamMemberRow> teamMemberRows =
-        teamMemberRowBuilderService.generateForDepartment(departmentId);
+        teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Workbook workbook =
         genericXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, "okr-members");
@@ -61,7 +61,7 @@ public class XlsxExportEmailFileCreatorService {
   }
 
   /**
-   * Creates a File for a Company.
+   * Creates a File for a OkrCompany.
    *
    * @param companyId a long value
    * @return a {@link Workbook} object

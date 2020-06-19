@@ -4,9 +4,9 @@ import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { Unit } from '../../../shared/model/api/unit.enum';
-import { ControlHelperService } from '../../../shared/services/helper/control-helper.service';
-import { startNotEqualEndValidatorFunction } from '../../../shared/validators/start-not-equal-end-validator-function';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { CurrentHigherThanEndValidator } from '../../../shared/validators/current-higher-than-end-validator/current-higher-than-end-validator-function';
+import { StartDateNotEqualEndDateValidator } from '../../../shared/validators/start-not-equal-end-validator/start-not-equal-end-validator-function';
 
 interface KeyResultFormData {
   keyResult?: ViewKeyResult;
@@ -23,11 +23,9 @@ export class KeyResultFormComponent {
   keyResultForm: FormGroup;
   unitEnum = Unit;
   title: string;
-  getErrorMessage = this.controlHelperService.getErrorMessage;
 
   constructor(private dialogRef: MatDialogRef<KeyResultFormComponent>,
               private i18n: I18n,
-              private controlHelperService: ControlHelperService,
               private keyResultMapper: KeyResultMapper, @Inject(MAT_DIALOG_DATA) private formData: KeyResultFormData) {
     this.keyResultForm = new FormGroup({
       keyResult: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -36,7 +34,7 @@ export class KeyResultFormComponent {
       start: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl(Unit.NUMBER, [Validators.required]),
       description: new FormControl('', [Validators.maxLength(255)])
-    }, [startNotEqualEndValidatorFunction]);
+    }, [StartDateNotEqualEndDateValidator.Validate, CurrentHigherThanEndValidator.Validate]);
 
     if (this.formData.keyResult) {
       this.keyResult = this.formData.keyResult;
@@ -55,13 +53,13 @@ export class KeyResultFormComponent {
 
     this.title = `Key Result ${this.keyResult ? editText : createText}`;
   }
-// TODO: change name and return type, to not state type but only state function of this method
-  getViewUnitKeysAsStringArray(): string[] {
+
+  getViewUnitKeys(): string[] {
     return Object.keys(Unit);
   }
 
   getViewUnit(unit: string): string {
-    if (this.unitEnum[unit] === '') {
+    if (this.unitEnum[unit] === '#') {
       return this.i18n({
         id: 'amount',
         value: 'Anzahl'

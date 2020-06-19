@@ -44,3 +44,10 @@ jobs:
     - name: Npm Build
       run: npm run build-prod
       working-directory: ./frontend
+    - name: ng lint
+      run: npm run lint
+      working-directory: ./frontend
+    - name: Npm test
+      run: npm test
+      working-directory: ./frontend
+

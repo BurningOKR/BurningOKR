@@ -26,4 +26,13 @@ public abstract class InitOrderService {
     }
     throw new InvalidInitStateException("There is no InitState after the given InitState.");
   }
+
+  /**
+   * Gets the initial Init State, with whom the application should start.
+   *
+   * @return the initial {@link InitStateName}
+   */
+  public InitStateName getInitialInitState() {
+    return this.initStateNames[0];
+  }
 }

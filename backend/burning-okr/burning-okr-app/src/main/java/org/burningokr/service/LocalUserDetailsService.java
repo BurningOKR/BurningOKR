@@ -21,7 +21,7 @@ public class LocalUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Optional<LocalUser> opt = localUserRepository.findByMail(username);
+    Optional<LocalUser> opt = localUserRepository.findByMail(username.toLowerCase());
     if (opt.isPresent()) {
       return new LocalUserDetails(opt.get());
     }

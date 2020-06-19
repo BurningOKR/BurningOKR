@@ -2,7 +2,7 @@
 <div *ngIf="adminUserForm && newPasswordForm">
   <form [formGroup]="form" (ngSubmit)="handleSubmitClick()">
     <p class="tab-subtitle" i18n="@@createYourAdminAccount">Legen Sie Ihren Administratorenaccount an.</p>
-    <app-user-form [userForm]="adminUserForm" [resetPasswordIsShown]="false"></app-user-form>
+    <app-user-form [userForm]="adminUserForm"></app-user-form>
     <app-password-form [newPasswordForm]="newPasswordForm" [previousPasswordNecessary]="false"></app-password-form>
     <button mat-raised-button color="primary" type="submit" class="submit_button" [disabled]="form.invalid" i18n="@@next">Weiter</button>
   </form>

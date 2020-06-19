@@ -12,10 +12,8 @@ import { loggerConfig } from './config-files/logger-config';
 import { OAuthInterceptorService } from './core/auth/services/o-auth-interceptor.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CustomDateAdapterService } from './shared/services/helper/custom-date-adapter.service';
 import { LogoutComponent } from './core/auth/components/logout/logout.component';
-import { HomeModule } from './home_module/home.module';
-import { StructuresModule } from './structures/structures.module';
+import { OkrUnitModule } from './okr-units/okr-unit.module';
 import { SharedModule } from './shared/shared.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -40,6 +38,7 @@ import { AuthenticationService } from './core/auth/services/authentication.servi
 import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-handler/local-auth-type-handler.service';
 import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
+import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -58,6 +57,7 @@ const currentLanguage: string = 'de';
     LogoutComponent,
     RedirectComponent,
     AdminUserIdsPipe,
+    NoMailInformationComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -66,7 +66,6 @@ const currentLanguage: string = 'de';
     CoreModule,
     CycleAdminModule,
     FormsModule,
-    HomeModule,
     HttpClientModule,
     LoggerModule.forRoot(loggerConfig),
     MatButtonModule,
@@ -78,7 +77,7 @@ const currentLanguage: string = 'de';
     OAuthModule.forRoot(),
     ReactiveFormsModule,
     SharedModule,
-    StructuresModule,
+    OkrUnitModule,
     ErrorModule,
     LoggerModule.forRoot(loggerConfig),
   ],
@@ -93,7 +92,6 @@ const currentLanguage: string = 'de';
     LocalAuthTypeHandlerService,
     AzureAuthTypeHandlerService,
 
-    {provide: DateAdapter, useClass: CustomDateAdapterService},
     {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},

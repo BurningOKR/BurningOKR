@@ -6,10 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.burningokr.service.condition.AadCondition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+@Conditional(AadCondition.class)
 @Component
 @Validated
 @ConfigurationProperties("azure.ad")
@@ -17,8 +20,8 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-class AzureAdProperties {
-  @NotEmpty private String tenantId;
+public class AzureAdProperties {
+  @NotEmpty private String issuer;
 
   private List<AzureGroup> azureGroups;
 }

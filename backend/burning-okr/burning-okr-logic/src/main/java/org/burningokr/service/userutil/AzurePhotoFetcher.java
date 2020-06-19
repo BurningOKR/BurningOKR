@@ -10,10 +10,13 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.UUID;
 import javax.imageio.ImageIO;
+import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.exceptions.AzureUserFetchException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
 
+@Conditional(AadCondition.class)
 @Service
 public class AzurePhotoFetcher {
 

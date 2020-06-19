@@ -1,14 +1,16 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { InitStateFormComponent } from '../init-state-form/init-state-form.component';
 import { FormBuilder, Validators } from '@angular/forms';
-import { InitState } from '../../../init-state';
-import { InitService } from '../../../init.service';
+import { InitState } from '../../../../../../../shared/model/api/init-state';
+import { InitService } from '../../../../../../services/init.service';
 import { OauthClientDetails } from '../../../../../../../shared/model/api/oauth-client-details';
 import { FormGroupTyped } from '../../../../../../../../typings';
 import { Consts } from '../../../../../../../shared/consts';
-import { catchError, switchMap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { filter, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
+import { EMPTY, interval, Observable, throwError } from 'rxjs';
 import { OAuthFrontendDetailsService } from '../../../../../services/o-auth-frontend-details.service';
+import { MatSnackBar } from '@angular/material';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-set-oauth-client-details-form',
@@ -20,11 +22,28 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   eventEmitter: EventEmitter<InitState> = new EventEmitter<InitState>();
   oauthClientDetails: OauthClientDetails = new OauthClientDetails();
   spinnerIsHidden: boolean = true;
+  unsuccessfulPingAttempts: number = 0;
+
+  private lastRequestFinished: boolean = true;
+
+  private timeoutErrorMessage: string = this.i18n({
+    id: 'initOauthClientDetailsUpdateTimeoutMessage',
+    description: 'error text when the timeout is reached for updating the oauthclientdetails',
+    value: 'Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.'
+  });
+
+  private timeoutErrorMessageAction: string = this.i18n({
+    id: 'initOauthClientDetailsUpdateTimeoutAction',
+    description: 'action button for the snackbar',
+    value: 'Ok'
+  });
 
   constructor(
     private formBuilder: FormBuilder,
     private initService: InitService,
-    private oAuthFrontendDetails: OAuthFrontendDetailsService
+    private oAuthFrontendDetails: OAuthFrontendDetailsService,
+    private snackBar: MatSnackBar,
+    private i18n: I18n
   ) {
     super();
   }
@@ -46,11 +65,12 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   }
 
   private handleSubmitClick(): void {
+    this.unsuccessfulPingAttempts = 0;
     this.toggleLoadingScreen();
     this.changeOauthClientDetailsBasedOnFormData();
     this.initService.postOauthClientDetails$(this.oauthClientDetails)
       .pipe(
-        switchMap(initState => this.checkIfInitStateHasChanged(initState))
+        switchMap(initState => this.waitForRestart$(initState))
       )
       .subscribe(initState => {
         this.oAuthFrontendDetails.reloadOAuthFrontendDetails();
@@ -58,10 +78,12 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
         this.toggleLoadingScreen();
       }, () => {
         this.toggleLoadingScreen();
+        this.snackBar.open(this.timeoutErrorMessage, this.timeoutErrorMessageAction,
+          {panelClass: 'api-error-snackbar', verticalPosition: 'top'});
       });
   }
 
-  disOrEnableForm(): void {
+  toggleForm(): void {
     if (this.form.enabled) {
       this.form.disable();
     } else {
@@ -74,20 +96,50 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.oauthClientDetails = typedForm.getRawValue();
   }
 
-  private checkIfInitStateHasChanged(initState: InitState): Observable<InitState> {
+  // the server has to restart to save the new oAuthClientDetails.
+  // pings the server until it gets a valid response
+  private waitForRestart$(initState: InitState): Observable<InitState> {
     if (!!initState) {
-      return this.initService.getInitStateAndBypassErrorHandling$()
-        .pipe(switchMap(newInitState => {
-            if (newInitState.runtimeId !== initState.runtimeId) {
-              return of(newInitState);
-            } else {
-              return this.checkIfInitStateHasChanged(initState);
-            }
+      this.lastRequestFinished = true;
+      this.unsuccessfulPingAttempts = 0;
+
+      return interval(Consts.MIN_INTERVAL_BETWEEN_PING_ATTEMPTS)
+        .pipe(
+          filter(() => this.lastRequestFinished),
+          switchMap(() => {
+            this.lastRequestFinished = false;
+
+            return this.pingServerOnce$(initState);
           }),
-          catchError(() => this.checkIfInitStateHasChanged(initState))
+          skipWhile((newInitState: InitState) => !newInitState),
+          take(1)
         );
     } else {
       return throwError('no init state given');
+    }
+  }
+
+  private pingServerOnce$(initState: InitState): Observable<InitState> {
+    return this.initService.getInitState$(() => this.handleError$())
+      .pipe(
+        tap(() => this.lastRequestFinished = true),
+        map((newInitState: InitState) => {
+          if (newInitState.runtimeId !== initState.runtimeId) {
+            return newInitState;
+          } else {
+            return null;
+          }
+        })
+      );
+  }
+
+  private handleError$(): Observable<never> {
+    this.lastRequestFinished = true;
+    this.unsuccessfulPingAttempts = this.unsuccessfulPingAttempts + 1;
+    if (this.unsuccessfulPingAttempts > Consts.MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART) {
+      return throwError('max ping attempts reached');
+    } else {
+      return EMPTY;
     }
   }
 

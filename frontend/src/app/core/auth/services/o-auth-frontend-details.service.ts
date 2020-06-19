@@ -17,7 +17,6 @@ export class OAuthFrontendDetailsService {
   reloadOAuthFrontendDetails(): void {
     this.oAuthFrontendDetails$.next(null);
 
-    // TODO: Use api http handler when error handling was refactored
     this.httpClient
       .get<OAuthFrontendDetails>(`${Consts.API_URL}oAuthFrontendDetails`)
       .subscribe(frontendDetails => {

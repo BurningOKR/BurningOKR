@@ -1,5 +1,5 @@
-import { UserId } from '../api/user';
 import { CommentId } from '../../../okrview/comment/comment';
+import { UserId } from '../id-types';
 
 export class ViewComment {
   id: CommentId;

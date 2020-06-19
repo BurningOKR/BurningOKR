@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../model/api/user';
-import { UserMapper } from '../../services/mapper/user.mapper';
+import { UserService } from '../../services/helper/user.service';
 import { Observable } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-minibutton',
@@ -18,8 +17,7 @@ export class UserMinibuttonComponent implements OnInit {
   user$: Observable<User>;
 
   constructor(
-    private userMapperService: UserMapper,
-    public sanitization: DomSanitizer) {
+    private userMapperService: UserService) {
   }
 
   ngOnInit(): void {

@@ -23,12 +23,12 @@ import { CommentCardComponent } from './comment/comment-card/comment-card.compon
 import { CommentViewDialogComponent } from './comment/comment-view-dialog/comment-view-dialog.component';
 import { CompanyComponent } from './company/company.component';
 import { CycleListDropdownComponent } from './cycle-list-dropdown/cycle-list-dropdown.component';
-import { SubstructurePreviewButtonComponent } from './substructure/substructure-preview-button/substructure-preview-button.component';
-import { SubstructureOverviewTabComponent } from './substructure/substructure-tab-overview/substructure-overview-tab.component';
-import { SubStructuresTabComponent } from './substructure/substructures-tab/sub-structures-tab.component';
-import { DepartmentTabTeamComponent } from './substructure/department/department-tab-team/department-tab-team.component';
-import { DepartmentTeamNewUserComponent } from './substructure/department/department-team-new-user/department-team-new-user.component';
-import { DepartmentComponent } from './substructure/department/department.component';
+import { OkrChildUnitPreviewButtonComponent } from './okr-child-unit/okr-child-unit-preview-button/okr-child-unit-preview-button.component';
+import { OkrChildUnitOverviewTabComponent } from './okr-child-unit/okr-child-unit-tab-overview/okr-child-unit-overview-tab.component';
+import { OkrChildUnitTabComponent } from './okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component';
+import { DepartmentTabTeamComponent } from './okr-child-unit/department/department-tab-team/department-tab-team.component';
+import { DepartmentTeamNewUserComponent } from './okr-child-unit/department/department-team-new-user/department-team-new-user.component';
+import { OkrChildUnitComponent } from './okr-child-unit/department/okr-child-unit.component';
 import { KeyresultComponent } from './keyresult/keyresult.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { NavigationSidebarComponent } from './navigation-sidebar/navigation-sidebar.component';
@@ -37,23 +37,22 @@ import { ObjectiveComponent } from './objective/objective.component';
 import { OkrviewRoutingModule } from './okrview-routing.module';
 import { NavigationListEntryComponent } from './navigation-list-entry/navigation-list-entry.component';
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
-import { SubstructureFormComponent } from './substructure/substructure-form/substructure-form.component';
+import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
 import { MatSlideToggleModule } from '@angular/material';
-import { CorporateObjectiveStructureComponent } from './substructure/corporate-objective-structure/corporate-objective-structure.component';
 import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
     KeyresultComponent,
     ObjectiveFormComponent,
-    SubstructureFormComponent,
+    OkrChildUnitFormComponent,
     KeyResultFormComponent,
-    DepartmentComponent,
-    SubstructureOverviewTabComponent,
+    OkrChildUnitComponent,
+    OkrChildUnitOverviewTabComponent,
     DepartmentTabTeamComponent,
-    SubStructuresTabComponent,
-    SubstructurePreviewButtonComponent,
+    OkrChildUnitTabComponent,
+    OkrChildUnitPreviewButtonComponent,
     ObjectiveContentsComponent,
     ObjectiveComponent,
     DepartmentTeamNewUserComponent,
@@ -65,11 +64,10 @@ import { AvatarModule } from 'ngx-avatar';
     CommentViewDialogComponent,
     CommentCardComponent,
     CycleListDropdownComponent,
-    CorporateObjectiveStructureComponent
   ],
   entryComponents: [
     CommentViewDialogComponent,
-    SubstructureFormComponent,
+    OkrChildUnitFormComponent,
     KeyResultFormComponent,
     ObjectiveFormComponent,
     ],

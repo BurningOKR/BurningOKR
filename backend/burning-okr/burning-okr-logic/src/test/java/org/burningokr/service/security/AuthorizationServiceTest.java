@@ -23,7 +23,7 @@ public class AuthorizationServiceTest {
 
   private void mockCurrentUserRole(UserContextRole roleToMock) {
     when(userRoleFromContextService.getUserRoleWithoutContext()).thenReturn(roleToMock);
-    when(userRoleFromContextService.getUserRoleInDepartmentId(departmentId)).thenReturn(roleToMock);
+    when(userRoleFromContextService.getUserRoleInUnitId(departmentId)).thenReturn(roleToMock);
     when(userRoleFromContextService.getUserRoleInObjectiveId(objectiveId)).thenReturn(roleToMock);
     when(userRoleFromContextService.getUserRoleInKeyResultId(keyResultId)).thenReturn(roleToMock);
     when(userRoleFromContextService.getUserRoleInNoteId(noteId)).thenReturn(roleToMock);

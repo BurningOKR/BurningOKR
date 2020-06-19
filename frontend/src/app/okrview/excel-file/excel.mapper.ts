@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DepartmentId } from '../../shared/model/api/department.dto';
 import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
 import { ExcelFileService } from './excel-file.service';
+import { OkrUnitId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class ExcelMapper {
     this.blobType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
   }
 
-  downloadExcelFileForOkrTeam(departmentId: DepartmentId): Subscription {
-    return this.excelFileService.downloadExcelFileForOkrTeam$(departmentId)
+  downloadExcelFileForOkrChildUnit(okrChildUnitId: OkrUnitId): Subscription {
+    return this.excelFileService.downloadExcelFileForOkrChildUnit$(okrChildUnitId)
       .subscribe(data => {
         const blob: Blob = new Blob([data], {type: this.blobType});
         FileSaver.saveAs(blob, 'okr.xlsx');
@@ -31,7 +31,7 @@ export class ExcelMapper {
       });
   }
 
-  downloadExcelEmailFileForOkrTeam(departmentId: DepartmentId): Subscription {
+  downloadExcelEmailFileForOkrTeam(departmentId: OkrUnitId): Subscription {
     return this.excelFileService.downloadExcelEmailFileForOkrTeam$(departmentId)
       .subscribe(data => {
         const blob: Blob = new Blob([data], {type: this.blobType});

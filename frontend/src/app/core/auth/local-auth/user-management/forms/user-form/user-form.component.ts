@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class UserFormComponent {
   @Input() userForm: FormGroup;
-  @Input() resetPasswordIsShown: boolean = true;
+  @Input() canEditAdminStatus: boolean;
 
   @ViewChild('canvasElement', {static: false}) canvas;
 

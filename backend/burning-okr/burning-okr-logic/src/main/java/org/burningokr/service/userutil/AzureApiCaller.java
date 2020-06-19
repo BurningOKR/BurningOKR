@@ -11,23 +11,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import org.burningokr.properties.AuthentificationProperties;
+import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.exceptions.AzureApiException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
 
+@Conditional(AadCondition.class)
 @Service
 public class AzureApiCaller {
 
-  private AuthentificationProperties authentificationProperties;
-  private AzureAdProperties azureAdProperties;
+  private ExternalOAuthClientDetails externalOAuthClientDetails;
 
   @Autowired
-  public AzureApiCaller(
-      AuthentificationProperties authentificationProperties, AzureAdProperties azureAdProperties) {
-    this.authentificationProperties = authentificationProperties;
-    this.azureAdProperties = azureAdProperties;
+  public AzureApiCaller(ExternalOAuthClientDetails externalOAuthClientDetails) {
+    this.externalOAuthClientDetails = externalOAuthClientDetails;
   }
 
   InputStream callApi(String accessToken, URL url) throws IOException {
@@ -55,16 +54,12 @@ public class AzureApiCaller {
    */
   public String getAccessToken() throws AzureApiException {
     try {
-      final URL url =
-          new URL(
-              "https://login.microsoftonline.com/"
-                  + this.azureAdProperties.getTenantId()
-                  + "/oauth2/v2.0/token");
+      final URL url = new URL(externalOAuthClientDetails.getAccessTokenUri());
 
       ImmutableMap<String, String> params =
           ImmutableMap.<String, String>builder()
-              .put("client_id", authentificationProperties.getClientId())
-              .put("client_secret", authentificationProperties.getClientSecret())
+              .put("client_id", externalOAuthClientDetails.getClientId())
+              .put("client_secret", externalOAuthClientDetails.getClientSecret())
               .put("scope", "https://graph.microsoft.com/.default")
               .put("grant_type", "client_credentials")
               .build();

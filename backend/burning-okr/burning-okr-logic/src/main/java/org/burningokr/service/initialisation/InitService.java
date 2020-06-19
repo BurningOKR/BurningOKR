@@ -7,21 +7,24 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
+import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.initialisation.InitStateRepository;
 import org.burningokr.service.configuration.OAuthClientDetailsService;
-import org.burningokr.service.configuration.OAuthFrontendDetailsService;
+import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.burningokr.service.exceptions.InvalidInitStateException;
 import org.burningokr.service.userhandling.AdminUserService;
 import org.burningokr.service.userhandling.LocalUserService;
 import org.burningokr.service.userhandling.PasswordService;
 import org.burningokr.service.userhandling.UserService;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class InitService {
 
   private final InitStateRepository initStateRepository;
@@ -30,8 +33,13 @@ public class InitService {
   private final PasswordService passwordService;
   private final InitOrderService initOrderService;
   private final OAuthClientDetailsService oauthClientDetailsService;
-  private final OAuthFrontendDetailsService oauthFrontendDetailsService;
+  private final OAuthConfigurationService oauthConfigurationService;
   private final ApplicationContext applicationContext;
+
+  @EventListener(ApplicationReadyEvent.class)
+  public void onApplicationEvent() {
+    setCurrentInitStateToInitialInitStateIfNoneIsPresent();
+  }
 
   /**
    * gets the current InitState.
@@ -78,7 +86,7 @@ public class InitService {
     isInitStateElseThrow(InitStateName.SET_OAUTH_CLIENT_DETAILS);
 
     oauthClientDetailsService.fillDefaultValues(oauthClientDetails);
-    oauthFrontendDetailsService.updateOauthFrontendDetails(oauthClientDetails);
+    oauthConfigurationService.updateOAuthConfiguration(oauthClientDetails);
     oauthClientDetailsService.encodeClientSecret(oauthClientDetails);
     oauthClientDetailsService.updateOAuthClientDetails(oauthClientDetails);
 
@@ -98,12 +106,21 @@ public class InitService {
 
     LocalUser user = ((LocalUserService) userService).createLocalUser(adminUser, false);
     passwordService.setPassword(user, password);
-    adminUserService.addAdmin(user);
+    adminUserService.addAdmin(createAdminUser(user));
+
+    return nextInitState();
+  }
+
+  public InitState setAzureAdminUser(AdminUser adminUser) throws InvalidInitStateException {
+    isInitStateElseThrow(InitStateName.NO_AZURE_ADMIN_USER);
+
+    adminUserService.addAdmin(adminUser);
 
     return nextInitState();
   }
 
   private InitState nextInitState() throws InvalidInitStateException {
+
     InitState currentInitState = getInitState();
 
     InitStateName nextInitStateName =
@@ -113,9 +130,25 @@ public class InitService {
     return saveInitState(currentInitState);
   }
 
+  private void setCurrentInitStateToInitialInitStateIfNoneIsPresent() {
+    List<InitState> initStates = Lists.newArrayList(initStateRepository.findAll());
+
+    if (initStates.isEmpty()) {
+      final InitState initialInitState = new InitState();
+      initialInitState.setInitState(this.initOrderService.getInitialInitState());
+      saveInitState(initialInitState);
+    }
+  }
+
   private void isInitStateElseThrow(InitStateName initStateName) throws InvalidInitStateException {
     if (!checkInitState(initStateName)) {
       throw new InvalidInitStateException("This method is not allowed in the current InitState");
     }
+  }
+
+  private AdminUser createAdminUser(LocalUser user) {
+    AdminUser adminUser = new AdminUser();
+    adminUser.setId(user.getId());
+    return adminUser;
   }
 }

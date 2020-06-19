@@ -1,8 +1,9 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { KeyResultDto, KeyResultId } from '../../model/api/key-result.dto';
 import { Observable } from 'rxjs';
-import { ObjectiveId } from '../../model/api/objective.dto';
+import { KeyResultId, ObjectiveId } from '../../model/id-types';
+import { KeyResultDto } from '../../model/api/key-result.dto';
 
 @Injectable({
   providedIn: 'root'

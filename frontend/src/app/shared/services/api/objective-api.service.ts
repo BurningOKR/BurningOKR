@@ -1,34 +1,35 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ObjectiveDto, ObjectiveId } from '../../model/api/objective.dto';
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { CompanyId } from '../../model/api/company.dto';
-import { DepartmentId } from '../../model/api/department.dto';
+import { CompanyId, ObjectiveId, OkrUnitId } from '../../model/id-types';
+import { ObjectiveDto } from '../../model/api/objective.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ObjectiveApiService {
-  constructor(private api: ApiHttpService) {}
+  constructor(private api: ApiHttpService) {
+  }
 
   getObjectiveById$(id: ObjectiveId): Observable<ObjectiveDto> {
     return this.api.getData$(`objectives/${id}`);
   }
 
-  getObjectivesForCompany$(companyId: CompanyId): Observable<ObjectiveDto[]> {
-    return this.api.getData$(`companies/${companyId}/objectives`);
-  }
-
-  getObjectivesForDepartment$(departmentId: DepartmentId): Observable<ObjectiveDto[]> {
+  getObjectivesForDepartment$(departmentId: OkrUnitId): Observable<ObjectiveDto[]> {
     return this.api.getData$(`departments/${departmentId}/objectives`);
   }
 
-  postObjectiveForCompany$(companyId: CompanyId, objective: ObjectiveDto): Observable<ObjectiveDto> {
-    return this.api.postData$(`companies/${companyId}/objectives`, objective);
+  getObjectivesForUnit$(unitId: OkrUnitId): Observable<ObjectiveDto[]> {
+    return this.api.getData$(`units/${unitId}/objectives`);
   }
 
-  postObjectiveForDepartment$(departmentId: DepartmentId, objective: ObjectiveDto): Observable<ObjectiveDto> {
+  postObjectiveForDepartment$(departmentId: OkrUnitId, objective: ObjectiveDto): Observable<ObjectiveDto> {
     return this.api.postData$(`departments/${departmentId}/objectives`, objective);
+  }
+
+  postObjectiveForUnit$(unitId: OkrUnitId, objective: ObjectiveDto): Observable<ObjectiveDto> {
+    return this.api.postData$(`units/${unitId}/objectives`, objective);
   }
 
   putObjective$(objective: ObjectiveDto, objectiveId: ObjectiveId): Observable<ObjectiveDto> {

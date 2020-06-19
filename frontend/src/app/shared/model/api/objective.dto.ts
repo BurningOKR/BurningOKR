@@ -1,4 +1,4 @@
-export type ObjectiveId = number;
+import { ObjectiveId } from '../id-types';
 
 export interface ObjectiveDto {
   id?: ObjectiveId;
@@ -8,7 +8,7 @@ export interface ObjectiveDto {
   isActive: boolean;
   keyResultIds?: number[];
   parentObjectiveId?: number;
-  parentStructureId: number;
+  parentUnitId: number;
   contactPersonId?: string;
   subObjectiveIds?: number[];
   review?: string;

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ObjectiveDto, ObjectiveId } from '../../model/api/objective.dto';
 import { ViewObjective } from '../../model/ui/view-objective';
 import { ObjectiveApiService } from '../api/objective-api.service';
+import { ObjectiveDto } from '../../model/api/objective.dto';
+import { ObjectiveId, OkrUnitId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ObjectiveViewMapper {
       description: viewObjective.description,
       remark: viewObjective.remark,
       isActive: viewObjective.isActive,
-      parentStructureId: viewObjective.parentStructureId,
+      parentUnitId: viewObjective.parentUnitId,
       parentObjectiveId: viewObjective.parentObjectiveId
     };
   }
@@ -32,7 +33,7 @@ export class ObjectiveViewMapper {
       objective.keyResultIds,
       objective.isActive,
       objective.parentObjectiveId,
-      objective.parentStructureId,
+      objective.parentUnitId,
       objective.contactPersonId,
       objective.subObjectiveIds.length,
       objective.review
@@ -53,9 +54,24 @@ export class ObjectiveViewMapper {
     );
   }
 
+  getObjectivesForUnit$(unitId: OkrUnitId): Observable<ViewObjective[]> {
+    return this.objectiveApiService.getObjectivesForUnit$(unitId)
+      .pipe(
+        map((objectiveList: ObjectiveDto[]) => {
+          return objectiveList.map(ObjectiveViewMapper.mapToViewObjective);
+        })
+      );
+  }
+
   postObjectiveForDepartment$(departmentId: number, viewObjective: ViewObjective): Observable<ViewObjective> {
     return this.objectiveApiService
       .postObjectiveForDepartment$(departmentId, ObjectiveViewMapper.mapToObjectiveDTO(viewObjective))
+      .pipe(map(ObjectiveViewMapper.mapToViewObjective));
+  }
+
+  postObjectiveForUnit$(unitId: OkrUnitId, viewObjective: ViewObjective): Observable<ViewObjective> {
+    return this.objectiveApiService
+      .postObjectiveForUnit$(unitId, ObjectiveViewMapper.mapToObjectiveDTO(viewObjective))
       .pipe(map(ObjectiveViewMapper.mapToViewObjective));
   }
 

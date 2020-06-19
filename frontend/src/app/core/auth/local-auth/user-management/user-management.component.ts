@@ -1,18 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange, MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { EditUserDialogComponent } from './forms/edit-user-dialog/edit-user-dialog.component';
-import { EditUserDialogData } from './forms/edit-user-dialog/edit-user-dialog-data';
 import { Router } from '@angular/router';
-import { UserCreationDialogData } from './forms/create-user-dialog/user-creation-dialog-data';
-import { CreateUserDialogComponent } from './forms/create-user-dialog/create-user-dialog.component';
-import { ResetPasswordDialogData } from './forms/reset-password-dialog/reset-password-dialog-data';
-import { ResetPasswordDialogComponent } from './forms/reset-password-dialog/reset-password-dialog.component';
 import { User } from '../../../../shared/model/api/user';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { LocalUserApiService } from '../../../../shared/services/api/local-user-api.service';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
+import { UserDialogData } from './forms/user-dialog-data';
+import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
+import { CurrentUserService } from '../../../services/current-user.service';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -25,8 +22,9 @@ export interface LocalUserManagementUser extends User {
 })
 export class UserManagementComponent implements OnInit {
 
-  users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
-  filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+  private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+  private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
 
   columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
   rowData = new MatTableDataSource([] as User[]);
@@ -34,16 +32,17 @@ export class UserManagementComponent implements OnInit {
   showDeactivatedUsers: boolean = false;
 
   constructor(
+    private currentUserService: CurrentUserService,
     private dialog: MatDialog,
     private router: Router,
     private userService: LocalUserApiService
   ) {
   }
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  private getUserCreationDialogData(): { data: UserCreationDialogData } {
+  private getUserCreationDialogData(): { data: UserDialogData } {
     return {
       data: {
         title: 'Benutzer erstellen',
@@ -53,6 +52,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeUsers();
+    this.initializeCurrentUser();
     this.rowData.sort = this.sort;
     this.rowData.paginator = this.paginator;
     this.users$.asObservable()
@@ -67,14 +67,14 @@ export class UserManagementComponent implements OnInit {
   }
 
   handleEdit(userToEdit: LocalUserManagementUser): void {
-    this.dialog.open(EditUserDialogComponent, this.getEditDialogData(userToEdit))
+    this.dialog.open(UserDialogComponent, this.getEditDialogData(userToEdit))
       .afterClosed()
       .pipe(
         filter(v => {
           return v;
         }),
         switchMap((editedUser: LocalUserManagementUser) => {
-          return combineLatest([of(editedUser), this.userService.getAdmins$()]);
+          return combineLatest([of(editedUser), this.userService.getAdminIds$()]);
         }),
         switchMap(([editedUser, adminIds]: [LocalUserManagementUser, string[]]) => {
           if (editedUser.isAdmin) {
@@ -152,50 +152,45 @@ export class UserManagementComponent implements OnInit {
       .afterClosed()
       .pipe(
         filter(v => v),
+        switchMap(() => {
+          return this.userService.deactivateUser$(userToDeactivate.id);
+        })
       )
-      .subscribe(_ => {
-        this.userService.deactivateUser$(userToDeactivate.id)
-          .subscribe(__ => {
-            const deactivatedUser: LocalUserManagementUser = userToDeactivate;
-            deactivatedUser.active = false;
-            this.editUserInTable(userToDeactivate, deactivatedUser);
-          });
+      .subscribe(() => {
+        const deactivatedUser: LocalUserManagementUser = userToDeactivate;
+        deactivatedUser.active = false;
+        this.editUserInTable(userToDeactivate, deactivatedUser);
       });
   }
 
   handleActivate(userToBeActivated: LocalUserManagementUser): void {
     this.dialog.open(ConfirmationDialogComponent, this.getConfirmActivateDialogData(userToBeActivated))
       .afterClosed()
-      .pipe(filter(v => v))
-      .subscribe(_ => {
-        const userWithActiveFlagSet: LocalUserManagementUser = userToBeActivated;
+      .pipe(
+        filter(v => v),
+        switchMap(() => {
+          const userWithActiveFlagSet: LocalUserManagementUser = userToBeActivated;
 
-        userWithActiveFlagSet.active = true;
+          userWithActiveFlagSet.active = true;
 
-        this.userService.putUser$(userWithActiveFlagSet)
-          .subscribe(__ => {
-            this.editUserInTable(userToBeActivated, userWithActiveFlagSet);
-          });
+          return this.userService.putUser$(userWithActiveFlagSet);
+        })
+      )
+      .subscribe((activatedUser: LocalUserManagementUser) => {
+        activatedUser.isAdmin = userToBeActivated.isAdmin;
+        this.editUserInTable(userToBeActivated, activatedUser);
       });
   }
 
   handleCreate(): void {
-    this.dialog.open(CreateUserDialogComponent, this.getUserCreationDialogData())
+    this.dialog.open(UserDialogComponent, this.getUserCreationDialogData())
       .afterClosed()
       .pipe(
         filter(v => v)
       )
       .subscribe((user: LocalUserManagementUser) => {
-        this.createNewUser(user); // TODO: Why dont we use an observable here instead of faking an updated user base? /TG 10.03.2020
+        this.createNewUser(user);
       });
-  }
-
-  resetUserPassword(user: LocalUserManagementUser): void {
-    this.dialog.open(ResetPasswordDialogComponent, this.getResetPasswordDialogData(user))
-      .afterClosed()
-      .pipe(
-        filter(v => v)
-      );
   }
 
   getConfirmDeactivateDialogData(user: LocalUserManagementUser): { data: { title: string; message: string }; width: string } {
@@ -221,7 +216,7 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
-  getEditDialogData(user: LocalUserManagementUser): { data: EditUserDialogData } {
+  getEditDialogData(user: LocalUserManagementUser): { data: UserDialogData } {
     return {
       data: {
         title: 'Benutzer bearbeiten',
@@ -230,7 +225,7 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
-  getResetPasswordDialogData(user: LocalUserManagementUser): { data: ResetPasswordDialogData } {
+  getResetPasswordDialogData(user: LocalUserManagementUser): { data: UserDialogData } {
     return {
       data: {
         title: 'Passwort zurücksetzen',
@@ -240,7 +235,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   private initializeUsers(): void {
-    combineLatest([this.userService.getUsers$(), this.userService.getAdmins$()])
+    combineLatest([this.userService.getUsers$(), this.userService.getAdminIds$()])
       .pipe(
         take(1),
         map(([users, adminIds]: [User[], string[]]) => {
@@ -258,10 +253,18 @@ export class UserManagementComponent implements OnInit {
       });
   }
 
+  private initializeCurrentUser(): void {
+    this.currentUserService.getCurrentUser$()
+      .pipe(take(1))
+      .subscribe((reveived: User) => {
+        this.currentUser$.next(reveived);
+      });
+  }
+
   private createNewUser(user: LocalUserManagementUser): void {
-    this.createNewUserOnServer(user)
+    this.createNewUserOnServer$(user)
       .subscribe((newUser: LocalUserManagementUser) => {
-          this.addUserToTable(user);
+          this.addUserToTable(newUser);
         }
       );
   }
@@ -272,7 +275,7 @@ export class UserManagementComponent implements OnInit {
     this.users$.next(userListToUpdate);
   }
 
-  private createNewUserOnServer(user: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+  private createNewUserOnServer$(user: LocalUserManagementUser): Observable<LocalUserManagementUser> {
     return this.userService.createUser$(user)
       .pipe(
         take(1),

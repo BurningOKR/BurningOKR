@@ -1,79 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 import { UserApiService } from '../../shared/services/api/user-api.service';
-import { ConfigurationManagerService } from '../settings/configuration-manager.service';
-import { UserSettingsManagerService } from './user-settings-manager.service';
-import { UserSettings } from '../../shared/model/ui/user-settings';
-import { Router } from '@angular/router';
-import { shareReplay, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { User } from '../../shared/model/api/user';
+import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 
+@Fetchable()
 @Injectable({
   providedIn: 'root'
 })
-export class CurrentUserService {
-  private isAdmin$: Observable<boolean>;
+export class CurrentUserService implements Fetchable {
+  private isAdmin$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  private currentUser$: ReplaySubject<User> = new ReplaySubject<User>(1);
 
   constructor(private oAuthService: OAuthService,
-              private userApiService: UserApiService,
-              private configurationManagerService: ConfigurationManagerService,
-              private userSettingsManagerService: UserSettingsManagerService,
-              private router: Router) {
-    this.initUserAdmin();
+              private userApiService: UserApiService) {
   }
 
-  thereIsACurrentUser(): boolean {
-    return this.oAuthService.hasValidAccessToken();
+  getCurrentUser$(): Observable<User> {
+    return this.currentUser$.asObservable();
   }
 
-  getCurrentUser(): Observable<User> {
-    return this.userApiService.getCurrentUser();
+  isCurrentUserAdmin$(): Observable<boolean> {
+    return this.isAdmin$.asObservable();
   }
 
-  redirect(userSettings: UserSettings): void {
-    // has to be null checks, else business logic will fail
-    if (this.isRedirectableSite()) {
-      if (this.userHasNoDefaultTeamButDefaultCompany(userSettings)) {
-        this.router.navigate([`/okr/companies/`, userSettings.defaultCompanyId])
-          .catch();
-      } else if (this.userHasADefaultTeam(userSettings)) {
-        this.router.navigate([`/okr/departments/`, userSettings.defaultTeamId])
-          .catch();
-      }
-    }
-  }
-
-  isCurrentUserAdmin(): Observable<boolean> {
-    return this.isAdmin$;
-  }
-
-  private initUserAdmin(): void {
-    this.isAdmin$ = this.userApiService.isCurrentUserAdmin$()
-      .pipe(
-        tap(() => {
-          this.configurationManagerService.fetchConfigurations();
-          this.userSettingsManagerService.fetchUserSettings$()
-            .add(() => {
-              this.redirect(this.userSettingsManagerService.userUserSettings);
-            });
-        }),
-        shareReplay(1),
-      );
-  }
-
-  private userHasADefaultTeam(userSettings: UserSettings): boolean {
-    return userSettings.defaultTeamId !== null;
-  }
-
-  private userHasNoDefaultTeamButDefaultCompany(userSettings: UserSettings): boolean {
-    return userSettings.defaultTeamId === null && userSettings.defaultCompanyId !== null;
-  }
-
-  private isRedirectableSite(): boolean {
-    return this.router.url === '/'
-      || this.router.url === '/landingpage'
-      || this.router.url.includes('companies/')
-      || this.router.url.includes('/companies');
+  fetchData(): void {
+    this.userApiService.getCurrentUser$()
+      .pipe(take(1))
+      .subscribe((reveived: User) => {
+        this.currentUser$.next(reveived);
+      });
+    this.userApiService.isCurrentUserAdmin$()
+      .pipe(take(1))
+      .subscribe((isAdmin: boolean) => {
+        this.isAdmin$.next(isAdmin);
+      });
   }
 }

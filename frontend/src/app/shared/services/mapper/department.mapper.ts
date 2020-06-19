@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DepartmentDto, DepartmentId } from '../../model/api/department.dto';
-import { DepartmentUnit } from '../../model/ui/OrganizationalUnit/department-unit';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 import { DepartmentApiService } from '../api/department-api.service';
-import { CompanyId } from '../../model/api/company.dto';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
+import { CompanyId, OkrUnitId } from '../../model/id-types';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -13,81 +14,70 @@ export class DepartmentMapper {
   constructor(private departmentApiService: DepartmentApiService) {
   }
 
-  static mapDepartment(department: DepartmentDto): DepartmentUnit {
-    return new DepartmentUnit(
-      department.structureId,
-      department.structureName,
-      department.subDepartmentIds,
+  static mapDepartmentDto(department: OkrDepartmentDto): OkrDepartment {
+    return new OkrDepartment(
+      department.okrUnitId,
+      department.unitName,
       department.objectiveIds,
-      department.parentStructureId,
+      department.parentUnitId,
       department.label,
       department.okrMasterId,
       department.okrTopicSponsorId,
       department.okrMemberIds,
       department.isActive,
-      department.isParentStructureADepartment
+      department.isParentUnitABranch
     );
   }
 
-  getDepartmentById$(departmentId: DepartmentId): Observable<DepartmentUnit> {
+  static mapDepartmentUnit(department: OkrDepartment): OkrDepartmentDto {
+    const departmentDto: OkrDepartmentDto = new OkrDepartmentDto();
+    departmentDto.__okrUnitType = UnitType.DEPARTMENT;
+    departmentDto.okrUnitId = department.id;
+    departmentDto.unitName = department.name;
+    departmentDto.label = department.label;
+    departmentDto.isActive = department.isActive;
+    departmentDto.parentUnitId = department.parentUnitId;
+    departmentDto.okrMasterId = department.okrMasterId;
+    departmentDto.okrMemberIds = department.okrMemberIds;
+    departmentDto.okrTopicSponsorId = department.okrTopicSponsorId;
+    departmentDto.objectiveIds = department.objectives;
+    departmentDto.isParentUnitABranch = department.isParentUnitABranch;
+
+    return departmentDto;
+  }
+
+  getDepartmentById$(departmentId: OkrUnitId): Observable<OkrDepartment> {
     return this.departmentApiService
       .getDepartmentById$(departmentId)
-      .pipe(map(departmentDto => DepartmentMapper.mapDepartment(departmentDto)));
+      .pipe(map(departmentDto => DepartmentMapper.mapDepartmentDto(departmentDto)));
   }
 
-  getDepartmentsForCompany$(companyId: CompanyId): Observable<DepartmentUnit[]> {
-    return this.departmentApiService
-      .getDepartmentsForCompany$(companyId)
-      .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartment)));
-  }
-
-  getAllDepartmentsForCompanyFlatted$(companyId: CompanyId): Observable<DepartmentUnit[]> {
+  getAllDepartmentsForCompanyFlatted$(companyId: CompanyId): Observable<OkrDepartment[]> {
     return this.departmentApiService
       .getDepartmentsFlattedForCompany$(companyId)
-      .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartment)
-        .sort((a: DepartmentUnit, b: DepartmentUnit) => a.name < b.name ? -1 : a.name === b.name ? 0 : 1
+      .pipe(map((departments: OkrDepartmentDto[]) => departments.map(DepartmentMapper.mapDepartmentDto)
+        .sort((a: OkrDepartment, b: OkrDepartment) => a.name < b.name ? -1 : a.name === b.name ? 0 : 1
         )));
   }
 
-  getDepartmentsForDepartment$(departmentId: DepartmentId): Observable<DepartmentUnit[]> {
-    return this.departmentApiService
-      .getDepartmentsForDepartment$(departmentId)
-      .pipe(map((departments: DepartmentDto[]) => departments.map(DepartmentMapper.mapDepartment)));
-  }
-
-  postDepartmentForCompany$(companyId: CompanyId, department: DepartmentDto): Observable<DepartmentUnit> {
+  postDepartmentForCompany$(companyId: CompanyId, department: OkrDepartmentDto): Observable<OkrDepartment> {
     return this.departmentApiService.postDepartmentForCompany$(companyId, department)
-      .pipe(map(DepartmentMapper.mapDepartment));
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
-  postDepartmentForDepartment$(departmentId: DepartmentId, department: DepartmentDto): Observable<DepartmentUnit> {
+  postDepartmentForOkrBranch$(branchId: OkrUnitId, department: OkrDepartmentDto): Observable<OkrDepartment> {
     return this.departmentApiService
-      .postDepartmentForDepartment$(departmentId, department)
-      .pipe(map(DepartmentMapper.mapDepartment));
+      .postDepartmentForOkrBranch$(branchId, department)
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
-  putDepartment$(department: DepartmentUnit): Observable<DepartmentUnit> {
+  putDepartment$(department: OkrDepartment): Observable<OkrDepartment> {
     return this.departmentApiService
-      .putDepartment$({
-        structureId: department.id,
-        structureName: department.name,
-        subDepartmentIds: department.subDepartmentIds,
-        objectiveIds: department.objectives,
-        parentStructureId: 0,
-        label: department.label,
-        okrMasterId: department.okrMasterId,
-        okrTopicSponsorId: department.okrTopicSponsorId,
-        okrMemberIds: department.okrMemberIds,
-        isActive: department.isActive
-      })
-      .pipe(map(DepartmentMapper.mapDepartment));
+      .putDepartment$(DepartmentMapper.mapDepartmentUnit(department))
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 
-  putDepartmentObjectiveSequence$(departmentId: DepartmentId, sequenceList: number[]): Observable<number[]> {
-    return this.departmentApiService.putDepartmentObjectiveSequence$(departmentId, sequenceList);
-  }
-
-  deleteDepartment$(departmentId: DepartmentId): Observable<boolean> {
+  deleteDepartment$(departmentId: OkrUnitId): Observable<boolean> {
     return this.departmentApiService.deleteDepartment$(departmentId);
   }
 }

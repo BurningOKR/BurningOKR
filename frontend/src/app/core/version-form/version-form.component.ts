@@ -11,9 +11,9 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
-      version: '1.0 (01.03.2020)',
+      version: '1.0.0 (18.06.2020)',
       changes: [
-        'Inititaler Release.'
+        'Initital Release.'
       ]
     }
   ];

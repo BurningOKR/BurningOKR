@@ -1,0 +1,17 @@
+<app-dialog-component [title]="title" [formGroup]="companyForm"
+                      (okEmitter)="saveCompany()">
+  <ng-container>
+    <form [formGroup]="companyForm">
+      <mat-form-field class="name">
+        <input type="text" i18n-placeholder="@@component_companyForm_name" matInput placeholder="Name *" formControlName="name">
+        <mat-error><app-form-error [control]="companyForm.get('name')"></app-form-error></mat-error>
+
+
+      </mat-form-field> <mat-form-field class="name">
+      <input type="text"  matInput i18n-placeholder="@@component_companyForm_description" placeholder="Bezeichung *" formControlName="label">
+      <app-form-error [control]="companyForm.get('label')"></app-form-error>
+
+    </mat-form-field>
+    </form>
+  </ng-container>
+</app-dialog-component>

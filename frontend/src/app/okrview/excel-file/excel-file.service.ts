@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DepartmentId } from '../../shared/model/api/department.dto';
 import { Observable } from 'rxjs';
 import { Consts } from '../../shared/consts';
+import { OkrUnitId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class ExcelFileService {
     };
   }
 
-  downloadExcelFileForOkrTeam$(departmentId: DepartmentId): Observable<any> {
-    return this.http.get(`${Consts.API_URL}export/department/${departmentId}`, {
+  downloadExcelFileForOkrChildUnit$(okrChildUnitId: OkrUnitId): Observable<any> {
+    return this.http.get(`${Consts.API_URL}export/unit/${okrChildUnitId}`, {
       headers: this._headers,
       responseType: 'blob'
     });
@@ -34,7 +34,7 @@ export class ExcelFileService {
     });
   }
 
-  downloadExcelEmailFileForOkrTeam$(departmentId: DepartmentId): Observable<any> {
+  downloadExcelEmailFileForOkrTeam$(departmentId: OkrUnitId): Observable<any> {
     return this.http.get(`${Consts.API_URL}export/email/department/${departmentId}`, {
       headers: this._headers,
       responseType: 'blob'

@@ -1,49 +1,54 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CurrentOkrviewService } from '../current-okrview.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
+import { CurrentCycleService } from '../current-cycle.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cycle-list-dropdown',
   templateUrl: './cycle-list-dropdown.component.html',
   styleUrls: ['./cycle-list-dropdown.component.scss']
 })
-export class CycleListDropdownComponent implements OnInit, OnDestroy {
-  constructor(private currentOkrViewService: CurrentOkrviewService, private router: Router, private route: ActivatedRoute) {}
+export class CycleListDropdownComponent implements OnInit {
 
-  cycleListSubscription: Subscription;
-  currentCycleSubscription: Subscription;
+  currentCycle$: Observable<CycleUnit>;
+  currentCycleList$: Observable<CycleUnit[]>;
 
-  currentCycle: CycleUnit;
-  currentCycleList: CycleUnit[];
+  constructor(private currentCycleService: CurrentCycleService,
+              private router: Router,
+              private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit(): void {
-    this.cycleListSubscription = this.currentOkrViewService.getCurrentCycleList$()
-      .subscribe(cycleList => {
-      this.currentCycleList = cycleList.sort((a, b) => {
-        return a.startDate > b.startDate ? -1 : 1;
-      });
-      this.removeAllInvisibleCyclesFromCycleList();
-    });
-    this.currentCycleSubscription = this.currentOkrViewService.getCurrentCycle$()
-      .subscribe(cycle => {
-      this.currentCycle = cycle;
-    });
+    this.updateCycleList();
   }
 
-  private removeAllInvisibleCyclesFromCycleList(): void {
-    this.currentCycleList = this.currentCycleList.filter(cycle => cycle.isVisible);
+  updateCycleList(): void {
+    this.currentCycleList$ = this.currentCycleService.getCurrentCycleList$()
+      .pipe(
+        map(cycleList => {
+            const newCycleList: CycleUnit[] = cycleList.sort((a, b) => {
+              return a.startDate > b.startDate ? -1 : 1;
+            });
+
+            return this.removeAllInvisibleCyclesFromCycleList(newCycleList);
+          }
+        )
+      );
+
+    this.currentCycle$ = this.currentCycleService.getCurrentCycle$();
   }
 
-  ngOnDestroy(): void {
-    this.cycleListSubscription.unsubscribe();
-    this.currentCycleSubscription.unsubscribe();
+  private removeAllInvisibleCyclesFromCycleList(cycleList: CycleUnit[]): CycleUnit[] {
+    return cycleList.filter(cycle => cycle.isVisible);
   }
 
-  onSelectCycle(): void {
-    const chosenCompanyId: number = this.currentCycle.companyIds[0];
-    this.router.navigate([`../okr/companies/${chosenCompanyId}`], { relativeTo: this.route })
+  onSelectCycle(cycleUnit: CycleUnit): void {
+    const chosenCompanyId: number = cycleUnit.companyIds[0];
+    this.router.navigate([`../okr/companies/${chosenCompanyId}`], {relativeTo: this.route})
       .catch();
   }
+
 }

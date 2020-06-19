@@ -126,7 +126,6 @@ public class PasswordService {
         localUser.setPassword(encryptPassword(changePasswordData.getNewPassword()));
         localUserRepository.save(localUser);
       } else {
-        // TODO: Check if there is a better exception for this case
         throw new UnauthorizedClientException("Wrong Password");
       }
     } else {

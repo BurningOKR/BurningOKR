@@ -1,8 +1,5 @@
 export enum Unit {
-  NUMBER = '',
+  NUMBER = '#',
   PERCENT = '%',
   EURO = '€'
 }
-
-// TODO map units to type
-export type Unt1 = 'NUMBER' | 'PERCENT' | 'EURO';

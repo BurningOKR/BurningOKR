@@ -1,7 +1,10 @@
+// istanbul ignore file
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { User, UserId } from '../../model/api/user';
+import { AdminUser } from '../../model/api/admin-user';
+import { User } from '../../model/api/user';
+import { UserId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ export class UserApiService {
     return this.api.getData$(`users/${objectId}`);
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentUser$(): Observable<User> {
     return this.api.getData$(`users/current`);
   }
 
@@ -29,11 +32,11 @@ export class UserApiService {
     return this.api.getData$('admins/self');
   }
 
-  getAdmins$(): Observable<string[]> {
+  getAdminIds$(): Observable<string[]> {
     return this.api.getData$('admins');
   }
 
-  addAdmin$(adminToAdd: User): Observable<User> {
+  addAdmin$(adminToAdd: AdminUser): Observable<User> {
     return this.api.postData$(`admins`, adminToAdd);
   }
 

@@ -7,50 +7,50 @@ import org.burningokr.model.excel.ObjectiveRow;
 import org.burningokr.model.excel.PercentageCellValue;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.structures.Company;
-import org.burningokr.model.structures.Department;
-import org.burningokr.service.structure.CompanyService;
-import org.burningokr.service.structure.departmentservices.DepartmentHelper;
-import org.burningokr.service.structure.departmentservices.DepartmentServiceUsers;
+import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
+import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
 
-  private final DepartmentServiceUsers departmentService;
+  private final OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService;
 
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-      @Qualifier("departmentServiceUsers") DepartmentServiceUsers departmentService,
+      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService,
       CompanyService companyService) {
-    this.departmentService = departmentService;
+    this.okrChildUnitService = okrChildUnitService;
     this.companyService = companyService;
   }
 
   @Override
-  public Collection<ObjectiveRow> generateForDepartment(long departmentId) {
-    Department department = departmentService.findById(departmentId);
-    return this.generateObjectiveRowCollectionForDepartment(department);
+  public Collection<ObjectiveRow> generateForOkrChildUnit(long okrUnitId) {
+    OkrChildUnit okrChildUnit = okrChildUnitService.findById(okrUnitId);
+    return this.generateObjectiveRowCollectionForDepartment(okrChildUnit);
   }
 
   @Override
   public Collection<ObjectiveRow> generateForCompany(long companyId) {
-    Company company = companyService.findById(companyId);
+    OkrCompany okrCompany = companyService.findById(companyId);
 
-    Collection<Department> departments = DepartmentHelper.collectDepartments(company);
+    Collection<OkrChildUnit> okrChildUnitCollection = BranchHelper.collectChildUnits(okrCompany);
 
-    return departments.stream()
-        .flatMap(department -> generateObjectiveRowCollectionForDepartment(department).stream())
+    return okrChildUnitCollection.stream()
+        .flatMap(childUnit -> generateObjectiveRowCollectionForDepartment(childUnit).stream())
         .collect(Collectors.toList());
   }
 
   private Collection<ObjectiveRow> generateObjectiveRowCollectionForDepartment(
-      Department department) {
+      OkrChildUnit okrChildUnit) {
     Collection<ObjectiveRow> rows = new ArrayList<>();
 
-    department
+    okrChildUnit
         .getObjectives()
         .forEach(
             objective ->
@@ -60,7 +60,7 @@ public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRo
                         keyResult -> {
                           ObjectiveRow objectiveRow =
                               new ObjectiveRow(
-                                  ifNullEmptyString(department.getName()),
+                                  ifNullEmptyString(okrChildUnit.getName()),
                                   ifNullEmptyString(objective.getName()),
                                   new PercentageCellValue(getProgress(objective)),
                                   ifNullEmptyString(

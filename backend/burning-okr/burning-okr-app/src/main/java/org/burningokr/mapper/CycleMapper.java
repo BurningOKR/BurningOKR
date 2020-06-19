@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.cycles.Cycle;
-import org.burningokr.model.structures.Company;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,8 +41,8 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
     cycleDto.setIsVisible(cycle.isVisible());
 
     Collection<Long> companyIds = new ArrayList<>();
-    for (Company company : cycle.getCompanies()) {
-      companyIds.add(company.getId());
+    for (OkrCompany okrCompany : cycle.getCompanies()) {
+      companyIds.add(okrCompany.getId());
     }
     cycleDto.setCompanyIds(companyIds);
 

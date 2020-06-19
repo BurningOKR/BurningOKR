@@ -1,4 +1,4 @@
-export type UserId = string;
+import { UserId } from '../id-types';
 
 export class User {
   id: UserId;

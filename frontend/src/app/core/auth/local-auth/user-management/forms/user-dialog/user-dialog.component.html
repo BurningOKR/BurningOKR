@@ -1,6 +1,16 @@
 <div style="min-width: 500px">
-  <app-dialog-component [title]="title" [formGroup]="userForm" (okEmitter)="saveEmitter.emit(userForm.value)" *ngIf="userForm">
-    <app-user-form [userForm]="userForm" [resetPasswordIsShown]="resetPasswordIsShown" *ngIf="userForm">
+  <app-dialog-component [title]="formData.title" [formGroup]="userForm" (okEmitter)="onSave()" *ngIf="userForm">
+    <app-user-form [userForm]="userForm" [canEditAdminStatus]="editedUserIsCurrentUser$ | async" *ngIf="userForm">
     </app-user-form>
+    <br>
+    <button *ngIf="formData.user"
+            [disabled]="resetPasswordButtonDisabled"
+            (click)="resetUserPassword()"
+            class="small-padding mb-10 mt-10"
+            color="primary"
+            i18n="@@resetPassword"
+            mat-button
+    >Passwort zurücksetzen
+    </button>
   </app-dialog-component>
 </div>

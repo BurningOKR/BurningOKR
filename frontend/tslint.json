@@ -1,14 +1,32 @@
 {
+  "extends": [
+    "rxjs-tslint-rules"
+  ],
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
   "linterOptions": {
     "exclude": [
       "src/jestGlobalMocks.ts",
-      "src/setupJest.ts"
+      "src/setupJest.ts",
+      "src/_versions.ts"
     ]
   },
   "rules": {
+    "rxjs-finnish": {
+      "options": [{
+        "functions": true,
+        "methods": true,
+        "parameters": true,
+        "properties": true,
+        "variables": true
+      }],
+      "severity": "error"
+    },
+    "rxjs-no-async-subscribe": true,
+    "rxjs-no-create": true,
+    "rxjs-no-nested-subscribe": { "severity": "error" },
+//    "rxjs-no-ignored-replay-buffer": { "severity":  "error" },
     "align": [
       true,
       "elements",
@@ -151,7 +169,6 @@
     "no-null-undefined-union": true,
     "no-object-literal-type-assertion": true,
     "no-parameter-reassignment": true,
-    "no-promise-as-boolean": true,
     "no-redundant-jsdoc": true,
     "no-return-await": true,
     "no-sparse-arrays": true,
@@ -218,7 +235,6 @@
       0
     ],
     "static-this": true,
-    "strict-string-expressions": true,
     "switch-default": true,
     "trailing-comma": true,
     "triple-equals": [

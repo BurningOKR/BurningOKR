@@ -2,46 +2,31 @@ package org.burningokr.controller.configuration;
 
 import java.util.Collection;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.dto.users.ConfigurationDto;
+import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.users.User;
 import org.burningokr.service.configuration.ConfigurationService;
+import org.burningokr.service.mail.MailService;
 import org.burningokr.service.security.AuthorizationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @RestApiController
+@RequiredArgsConstructor
 public class ConfigurationController {
 
-  private ConfigurationService configurationService;
-  private DataMapper<Configuration, ConfigurationDto> dataMapper;
-  private AuthorizationService authorizationService;
+  private final ConfigurationService configurationService;
+  private final DataMapper<Configuration, ConfigurationDto> dataMapper;
+  private final AuthorizationService authorizationService;
+  private final MailService mailService;
 
-  /**
-   * Initialize ConfigurationController.
-   *
-   * @param configurationService a {@link ConfigurationService} object
-   * @param dataMapper a {@link DataMapper} object with {@link Configuration} and {@link
-   *     ConfigurationDto}
-   * @param authorizationService an {@link AuthorizationService} object
-   */
-  @Autowired
-  public ConfigurationController(
-      ConfigurationService configurationService,
-      DataMapper<Configuration, ConfigurationDto> dataMapper,
-      AuthorizationService authorizationService) {
-    this.configurationService = configurationService;
-    this.dataMapper = dataMapper;
-    this.authorizationService = authorizationService;
+  @GetMapping("/configurations/hasmail")
+  public boolean getHasMailConfigured() {
+    return mailService.hasMailConfigured();
   }
 
   @GetMapping("/configurations")

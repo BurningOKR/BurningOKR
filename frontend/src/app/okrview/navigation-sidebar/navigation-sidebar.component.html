@@ -16,8 +16,8 @@
       </div>
     </div>
 
-    <div *ngFor="let departmentStructure of (currentDepartmentStructure$ | async)">
-      <app-navigation-list-entry [structure]="departmentStructure" [startsOpen]="true">
+    <div *ngFor="let unitSchema of (currentUnitSchema$ | async)">
+      <app-navigation-list-entry [schema]="unitSchema" [startsOpen]="true">
       </app-navigation-list-entry>
     </div>
 

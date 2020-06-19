@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiHttpService } from '../services/api-http.service';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../auth/services/authentication.service';
 import { Location } from '@angular/common';
 import { take } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-error',
@@ -12,7 +13,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit {
-  errors: BehaviorSubject<any>;
+  errors$: Observable<HttpErrorResponse[]>;
   userIsLoggedIn: boolean = false;
 
   constructor(
@@ -21,13 +22,13 @@ export class ErrorComponent implements OnInit {
     private authentificationService: AuthenticationService,
     private location: Location
   ) {
-    this.errors = this.api.getErrors();
+    this.errors$ = this.api.getErrors$();
   }
 
   ngOnInit(): void {
     this.userIsLoggedIn = this.authentificationService.hasValidAccessToken();
 
-    this.errors
+    this.errors$
       .pipe(
         take(1)
       )

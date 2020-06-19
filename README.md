@@ -10,8 +10,10 @@ Burning OKR is our vision to help consistently establish focus and alignment aro
 
 BurningOKR has been developed as a web application with an Angular Frontend and Java Spring Boot Backend. As database Postgres SQL is used. 
 
+## Installation
+You can install BurningOKR using Docker. See [our readme in the /docker folder.](/docker/README.md)
 
-## Getting started
+## Getting started with development
 
 ## Software dependencies
 
@@ -74,6 +76,9 @@ With `gradlew build` the backend can be built.
 
 With `ng build` the frontend can be built.
 
+## Code Guidelines
+
+Please follow our [Code Guidelines](/CODE_GUIDELINES.md)
 
 ## contribute
 

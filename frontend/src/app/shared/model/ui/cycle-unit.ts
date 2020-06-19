@@ -1,5 +1,4 @@
-import { CycleId } from '../api/cycle.dto';
-import { CompanyId } from '../api/company.dto';
+import { CompanyId, CycleId } from '../id-types';
 
 export class CycleUnit {
   id: CycleId;

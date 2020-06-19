@@ -4,13 +4,13 @@ import { filter, map, take } from 'rxjs/operators';
 import { Comment } from './comment';
 import { ViewComment } from '../../shared/model/ui/view-comment';
 import { CommentApiService } from './comment-api.service';
-import { UserMapper } from '../../shared/services/mapper/user.mapper';
+import { UserService } from '../../shared/services/helper/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentMapperService {
-  constructor(private commentService: CommentApiService, private userMapperService: UserMapper) {
+  constructor(private commentService: CommentApiService, private userMapperService: UserService) {
   }
 
   getCommentsFromKeyResult$(keyResultId: number): Observable<ViewComment[]> {

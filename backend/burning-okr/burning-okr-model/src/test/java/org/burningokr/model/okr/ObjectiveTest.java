@@ -1,6 +1,6 @@
 package org.burningokr.model.okr;
 
-import org.burningokr.model.structures.Department;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ public class ObjectiveTest {
 
   private String originalName;
   private long originalId;
-  private Department originalDepartment;
+  private OkrDepartment originalOkrDepartment;
   private String originalDescription;
   private String originalRemark;
   private Objective originalObjective;
@@ -25,14 +25,14 @@ public class ObjectiveTest {
     originalName = "originalName";
     originalId = 100L;
     originalRemark = "originalRemark";
-    originalDepartment = new Department();
+    originalOkrDepartment = new OkrDepartment();
     originalDescription = "originalDescription";
     originalObjective = new Objective();
     originalContactPerson = "originalContactPerson";
 
     expectedObjective = new Objective();
     expectedObjective.setId(originalId);
-    expectedObjective.setParentStructure(originalDepartment);
+    expectedObjective.setParentOkrUnit(originalOkrDepartment);
     expectedObjective.setParentObjective(originalObjective);
     expectedObjective.setContactPersonId(originalContactPerson);
     expectedObjective.setDescription(originalDescription);
@@ -78,6 +78,6 @@ public class ObjectiveTest {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
     Assert.assertNull(actualObjective.getParentObjective());
-    Assert.assertNull(actualObjective.getParentStructure());
+    Assert.assertNull(actualObjective.getParentOkrUnit());
   }
 }

@@ -3,17 +3,7 @@ package org.burningokr.controller.exceptions;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import org.burningokr.exceptions.InvalidDtoException;
-import org.burningokr.service.exceptions.AzureApiException;
-import org.burningokr.service.exceptions.AzureUserFetchException;
-import org.burningokr.service.exceptions.ForbiddenException;
-import org.burningokr.service.exceptions.IdDeviationException;
-import org.burningokr.service.exceptions.InvalidDeleteRequestException;
-import org.burningokr.service.exceptions.InvalidEmailAddressException;
-import org.burningokr.service.exceptions.InvalidInitStateException;
-import org.burningokr.service.exceptions.KeyResultOverflowException;
-import org.burningokr.service.exceptions.MissingAnnotationException;
-import org.burningokr.service.exceptions.SendingMailFailedException;
-import org.burningokr.service.exceptions.UnauthorizedToChangeNoteException;
+import org.burningokr.service.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -343,6 +333,24 @@ public class GlobalExceptionHandler {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
     logger.error(
         "InvalidInitStateException handler executed -> HTTP 400 response - ID: "
+            + errorInformation.getErrorId(),
+        ex);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
+  }
+
+  /**
+   * Global handler for DuplicateTeamMemberException.
+   *
+   * @param request HttpServletRequest
+   * @param ex InvalidInitStateException
+   * @return a ResponseEntity with HttpStatus Bad Request
+   */
+  @ExceptionHandler(DuplicateTeamMemberException.class)
+  public ResponseEntity handleDuplicateTeamMemberException(
+      HttpServletRequest request, DuplicateTeamMemberException ex) {
+    ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
+    logger.error(
+        "DuplicateTeamMemberException handler executed -> HTTP 400 response - ID: "
             + errorInformation.getErrorId(),
         ex);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);

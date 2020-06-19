@@ -1,8 +1,8 @@
 <div *ngIf="keyResultList; else loading">
   <!-- Parent objective button -->
   <div *ngIf="parentObjective" class="flex-nowrap-center">
-    <button mat-stroked-button i18n-matTooltip="@@component_objective_navigateToStructure" matTooltip="Zu der Struktur des Objectives"
-            [routerLink]="['../', parentObjective.parentStructureId]" class="parent-objective">
+    <button mat-stroked-button i18n-matTooltip="@@component_objective_navigateToUnit" matTooltip="Zu der Struktur des Objectives"
+            [routerLink]="['../', parentObjective.parentUnitId]" class="parent-objective">
       <span i18n="@@component_objectiveContents_parentObjective">Übergeordnetes Objective </span>
       <span class="font-w-400">{{parentObjective.name}}</span>
     </button>

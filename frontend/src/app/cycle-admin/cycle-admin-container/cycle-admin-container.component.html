@@ -1,5 +1,9 @@
 <app-okr-toolbar>
-  <button (click)="navigateToCompanies()" i18n-matTooltip="@@component_cycleAdmin_navigateToStructureOverview" matTooltip="Zur Strukturübersicht" class="navbar-item" mat-icon-button>
+  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@component_cycleAdminContainer_goBackToCompany" matTooltip="Zurück zur Struktur"
+          (click)="routeToCompany()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button (click)="navigateToCompanies()" i18n-matTooltip="@@component_cycleAdmin_navigateToOkrUnitOverview" matTooltip="Zur Strukturübersicht" class="navbar-item" mat-icon-button>
     <mat-icon>home</mat-icon>
   </button>
   <span i18n="@@component_cycleAdmin_editCycle">Zyklusverwaltung</span>

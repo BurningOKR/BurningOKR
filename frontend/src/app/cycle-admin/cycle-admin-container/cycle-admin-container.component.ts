@@ -27,6 +27,7 @@ export class CycleAdminContainerComponent implements OnInit {
   ngOnInit(): void {
     const companyId: number = Number(this.route.snapshot.paramMap.get('companyId'));
     this.companyService.getCompanyById$(companyId)
+      .pipe(take(1))
       .subscribe(
         (company: CompanyUnit) => {
           this.company = company;
@@ -58,5 +59,9 @@ export class CycleAdminContainerComponent implements OnInit {
   navigateToCompanies(): void {
     this.router.navigate(['/companies'])
       .catch();
+  }
+
+  routeToCompany(): void {
+    this.router.navigate(['/okr', '/companies', this.company.id]);
   }
 }
