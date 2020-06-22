@@ -97,6 +97,7 @@ export class AdminSettingsFormComponent implements OnInit {
     this.initAdminSettingsForm();
     this.initUserSettingsForm();
     this.companies$ = this.companyService.getActiveCompanies$();
+    this.adminSettingsForm.disable({onlySelf: true});
   }
 
   sendOk(): void {

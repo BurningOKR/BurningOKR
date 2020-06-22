@@ -27,6 +27,7 @@
         </form>
       </mat-tab>
       <mat-tab [disabled]="!(isCurrentUserAdmin$ | async)" i18n-label="@@adminSettings" label="Adminverwaltung">
+        <span i18n="@@Text_DisabledInDemoVersion">⚠ Deaktiviert in der Demo Version </span>
         <form [formGroup]="adminSettingsForm" class="settingsForm">
           <ng-container formArrayName="settings">
             <mat-form-field class="fullWidth" *ngFor="let setting of settings.controls">

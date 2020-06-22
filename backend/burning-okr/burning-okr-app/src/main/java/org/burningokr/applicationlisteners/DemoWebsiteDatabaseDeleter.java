@@ -22,7 +22,7 @@ public class DemoWebsiteDatabaseDeleter {
         "OAuthConfigurationRepository",
         "initStateRepository"
       };
-  private final int rateInMinutes = 1;
+  private final int rateInMinutes = 10000;
   private LocalDateTime nextDeletionDate;
 
   @Autowired
