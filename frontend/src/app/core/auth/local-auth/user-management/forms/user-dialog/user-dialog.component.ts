@@ -16,7 +16,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
   styleUrls: ['./user-dialog.component.css']
 })
 export class UserDialogComponent implements OnInit {
-  @ViewChild('canvasElement', { static: false }) canvas;
+  @ViewChild('canvasElement', {static: false}) canvas;
 
   userForm: FormGroup;
   userEmails: string[] = [];
@@ -72,7 +72,10 @@ export class UserDialogComponent implements OnInit {
         if (!!this.formData.user) {
           this.userForm.patchValue(this.formData.user);
         }
+        this.userForm.disable({onlySelf: true});
+        this.resetPasswordButtonDisabled = true;
       });
+
   }
 
   onSave(): void {
@@ -81,7 +84,7 @@ export class UserDialogComponent implements OnInit {
 
   resetUserPassword(): void {
     this.resetPasswordButtonDisabled = true;
-    this.passwordService.sendPasswordResetEmail$({ email: this.formData.user.email })
+    this.passwordService.sendPasswordResetEmail$({email: this.formData.user.email})
       .subscribe(() => {
         this.resetPasswordButtonDisabled = false;
         this.snackBar.open(this.passwordResetSuccessMsg, this.okMsg,

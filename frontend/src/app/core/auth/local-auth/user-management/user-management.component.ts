@@ -219,7 +219,7 @@ export class UserManagementComponent implements OnInit {
   getEditDialogData(user: LocalUserManagementUser): { data: UserDialogData } {
     return {
       data: {
-        title: 'Benutzer bearbeiten',
+        title: 'Benutzer bearbeiten ⚠ Deaktiviert in der Demo Version',
         user
       }
     };

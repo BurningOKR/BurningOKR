@@ -27,6 +27,8 @@ import { OkrToolbarComponent } from './components/okr-toolbar/okr-toolbar.compon
 import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
+import { ResetCountdownComponent } from './demo-website/reset-countdown/reset-countdown.component';
+import { CountdownTimer } from 'ngx-countdown-timer';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { FormErrorComponent } from './components/form-error/form-error.component
     CapsLockDirective,
     NonLoggedInCardComponent,
     FormErrorComponent,
+    ResetCountdownComponent,
+    CountdownTimer
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -76,7 +80,9 @@ import { FormErrorComponent } from './components/form-error/form-error.component
     OkrToolbarComponent,
     CapsLockDirective,
     NonLoggedInCardComponent,
-    FormErrorComponent
+    FormErrorComponent,
+    ResetCountdownComponent,
+    CountdownTimer
   ],
 })
 export class SharedModule {

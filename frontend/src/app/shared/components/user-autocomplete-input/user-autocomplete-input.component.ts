@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
 export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   @Input() placeHolderText: string = 'Set placeholder text';
   @Input() userIdsToExclude: string[] = [];
+  @Input() disabled: boolean = false;
   @Output() choseUser = new EventEmitter<User>();
   @ViewChild('inputField', { static: true }) inputField: ElementRef;
 
@@ -33,6 +34,9 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadUserListFromService();
     this.setupFormControlAutocomplete();
+    if(this.disabled) {
+      this.inputFormControl.disable({onlySelf: true});
+    }
   }
 
   ngOnDestroy(): void {

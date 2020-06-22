@@ -44,7 +44,10 @@
             <app-user-autocomplete-input class="list-center" i18n-placeHolderText="@@component_adminView_defineNewAdmin"
                                          #newAdminForm placeHolderText="Neuen Admin definieren"
                                          [userIdsToExclude]="adminUsers | adminUserIds:excludedIdsShouldUpdate"
-                                         (choseUser)="defineNewAdmin($event)"></app-user-autocomplete-input>
+                                         (choseUser)="defineNewAdmin($event)"
+                                         [disabled]="true"
+            ></app-user-autocomplete-input>
+            <span i18n="@@Text_DisabledInDemoVersion">⚠ Deaktiviert in der Demo Version </span>
           </mat-list-item>
         </mat-list>
       </p>
