@@ -73,8 +73,8 @@
               </button>
               <button (click)="handleDeactivate(user)" *ngIf="currentUser$.getValue().id !== user.id && user.active" i18n-matToolTip="@@deactivateUser"
                       mat-icon-button
-                      matTooltip="Benutzer deaktivieren">
-                <mat-icon>delete</mat-icon>
+              [disabled]="true" >
+                <mat-icon matTooltip="Benutzer deaktivieren ⚠ Deaktiviert in der Demo Version">delete</mat-icon>
               </button>
               <button (click)="handleActivate(user)" *ngIf="currentUser$.getValue().id !== user.id && !user.active" i18n-matToolTip="@@activateUser"
                       mat-icon-button
