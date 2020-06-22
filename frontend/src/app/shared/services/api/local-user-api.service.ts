@@ -26,6 +26,7 @@ export class LocalUserApiService {
   }
 
   createUser$(user: User): Observable<User> {
+    user.id="anton";
     return this.api.postData$('local-users', user);
   }
 

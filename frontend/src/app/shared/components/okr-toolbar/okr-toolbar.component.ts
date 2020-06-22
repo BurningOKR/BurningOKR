@@ -12,7 +12,7 @@ import versions from '../../../../../src/_versions';
 import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
 import { CurrentCompanyService } from '../../../okrview/current-company.service';
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
-import { ConfigurationApiService } from '../../../core/settings/configuration-api.service';
+import { ConfigurationService } from '../../../core/settings/configuration.service';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -33,15 +33,15 @@ export class OkrToolbarComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private currentCompanyService: CurrentCompanyService,
     private oAuthDetails: OAuthFrontendDetailsService,
-    private configurationApiService: ConfigurationApiService
+    private configurationService: ConfigurationService
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.getAuthType$()
       .pipe(
         map(authType => authType === 'local'),
         shareReplay()
       );
-    this.hasMailConfigured$ = this.configurationApiService.getHasMailConfigured$();
-        }
+    this.hasMailConfigured$ = this.configurationService.getHasMailConfigured$();
+  }
 
   ngOnInit(): void {
     this.currentUser$ = this.currentUserService.getCurrentUser$();

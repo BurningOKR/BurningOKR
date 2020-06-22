@@ -12,6 +12,7 @@ import { AdminUser } from '../../model/api/admin-user';
 export class UserService {
   constructor(private userApiService: UserApiService) {
   }
+
   private users$: BehaviorSubject<User[]>;
 
   getUserById$(objectId: string): Observable<User> {
@@ -54,5 +55,13 @@ export class UserService {
 
   deleteAdmin$(adminToDeleteId: string): Observable<boolean> {
     return this.userApiService.deleteAdmin$(adminToDeleteId);
+  }
+
+  getUsers$(): Observable<User[]> {
+    return this.userApiService.getUsers$();
+
+  }
+  getAdminIds$(): Observable<string[]> {
+    return this.userApiService.getAdminIds$();
   }
 }
