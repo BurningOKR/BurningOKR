@@ -21,11 +21,11 @@
           <mat-form-field class="form-whole-line" class="col-11">
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
-          <button (click)="handleCreate()" class="col-1" color="accent" mat-mini-fab>
-            <mat-icon i18n-matTooltip="@@addNewUser" matTooltip="Neuen Benutzer erstellen">add_circle_outline</mat-icon>
+          <button (click)="handleCreate()" class="col-1" color="accent" mat-mini-fab [disabled]="true">
+            <mat-icon i18n-matTooltip="@@addNewUser" matTooltip="Neuen Benutzer erstellen ⚠ Deaktiviert in der Demo Version">add_circle_outline</mat-icon>
           </button>
-          <button (click)="handleCsvImport()" class="col-1" color="accent" mat-mini-fab style="margin-left: 15px">
-            <mat-icon i18n-matTooltip="@@importUsersFromCsv" matTooltip="Benutzer aus CSV importieren">unarchive
+          <button (click)="handleCsvImport()" class="col-1" color="accent" mat-mini-fab style="margin-left: 15px" [disabled]="true">
+            <mat-icon i18n-matTooltip="@@importUsersFromCsv" matTooltip="Benutzer aus CSV importieren ⚠ Deaktiviert in der Demo Version">unarchive
             </mat-icon>
           </button>
         </div>

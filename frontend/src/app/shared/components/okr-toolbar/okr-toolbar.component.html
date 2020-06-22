@@ -43,7 +43,7 @@
     <mat-icon>account_box</mat-icon>
     <span i18n="@@component_okrToolbar_userManagement">Nutzerverwaltung</span>
   </button>
-  <button *ngIf="isLocalUserbase$ | async" mat-menu-item (click)="openPasswordChangeForm()">
+  <button *ngIf="isLocalUserbase$ | async" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="true">
     <mat-icon>vpn_key</mat-icon>
     <span i18n="@@component_okrTollbar_changePassword">Passwort ändern</span>
   </button>
