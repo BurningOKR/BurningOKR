@@ -5,6 +5,7 @@ import { FeedbackFormComponent } from '../feedback-form/feedback-form.component'
 import { MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ConfigurationApiService } from '../../settings/configuration-api.service';
+import { Consts } from '../../../shared/consts';
 
 @Component({
   selector: 'app-feedback-button',
@@ -35,16 +36,8 @@ export class FeedbackButtonComponent implements OnDestroy {
     this.subscriptions = [];
   }
 
-  openFeedbackPopup(): void {
-    this.subscriptions.push(this.postFeedback$()
-      .subscribe((success: boolean) => {
-        if (success) {
-          this.snackBar.open(this.feedbackSuccessfullySubmittedMessage, undefined, {
-            verticalPosition: 'top',
-            duration: 3500
-          });
-        }
-      }));
+  navigateToGitHub(): void {
+    window.open(Consts.GIT_HUB_ISSUES);
   }
 
   postFeedback$(): Observable<any extends ObservableInput<infer T> ? T : never> {

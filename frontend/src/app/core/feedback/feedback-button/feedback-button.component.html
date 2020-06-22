@@ -1,7 +1,7 @@
 <div class="fab-container">
-  <button mat-fab i18n-matTooltip="@@component_feedbackButton_feedback" matTooltip="Feedback" (click)="openFeedbackPopup()" [disabled]="!(hasMail$ | async)">
+  <button mat-fab i18n-matTooltip="@@component_feedbackButton_feedback" matTooltip="Feedback" (click)="navigateToGitHub()" [disabled]="!(hasMail$ | async)">
     <mat-icon >
-      contact_mail
+      report_problem
     </mat-icon>
   </button>
 </div>

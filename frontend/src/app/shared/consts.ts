@@ -14,6 +14,8 @@ export class Consts {
   static CURRENCY_EURO = 'EURO';
   static NUMBER_FORMAT_PERCENT = 'PERCENT';
 
+  static GIT_HUB_ISSUES = 'https://github.com/BurningOKR/BurningOKR/issues/new/choose';
+
   static AUTHTYPE_LOCAL = 'local';
   static AUTHTYPE_AZURE = 'azure';
 
