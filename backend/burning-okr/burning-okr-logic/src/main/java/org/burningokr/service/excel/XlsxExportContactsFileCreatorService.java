@@ -10,13 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class XlsxExportEmailFileCreatorService {
+public class XlsxExportContactsFileCreatorService {
 
   private final Collection<String> headlines;
   private final TeamMemberRowBuilderService teamMemberRowBuilderService;
   private final GenericXlsxFileCreatorService<TeamMemberRow> genericXlsxFileCreatorService;
   private final Messages messages;
-  private final Logger logger = LoggerFactory.getLogger(XlsxExportEmailFileCreatorService.class);
+  private final Logger logger = LoggerFactory.getLogger(XlsxExportContactsFileCreatorService.class);
 
   /**
    * Initializes XlsxExportEmailFileCreatorService.
@@ -25,7 +25,7 @@ public class XlsxExportEmailFileCreatorService {
    * @param genericXlsxFileCreatorService a {@link GenericXlsxFileCreatorService} object
    * @param messages a {@link Messages} object
    */
-  public XlsxExportEmailFileCreatorService(
+  public XlsxExportContactsFileCreatorService(
       TeamMemberRowBuilderService teamMemberRowBuilderService,
       GenericXlsxFileCreatorService<TeamMemberRow> genericXlsxFileCreatorService,
       Messages messages) {

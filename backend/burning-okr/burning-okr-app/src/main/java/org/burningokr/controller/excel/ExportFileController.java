@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.service.excel.XlsxDataExportFileCreatorService;
-import org.burningokr.service.excel.XlsxExportEmailFileCreatorService;
+import org.burningokr.service.excel.XlsxExportContactsFileCreatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ExportFileController {
 
   private final XlsxDataExportFileCreatorService xlsxDataExportFileCreatorService;
-  private final XlsxExportEmailFileCreatorService xlsxExportEmailFileCreatorService;
+  private final XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService;
 
   @Autowired
   public ExportFileController(
       XlsxDataExportFileCreatorService xlsxDataExportFileCreatorService,
-      XlsxExportEmailFileCreatorService xlsxExportEmailFileCreatorService) {
+      XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService) {
     this.xlsxDataExportFileCreatorService = xlsxDataExportFileCreatorService;
-    this.xlsxExportEmailFileCreatorService = xlsxExportEmailFileCreatorService;
+    this.xlsxExportContactsFileCreatorService = xlsxExportContactsFileCreatorService;
   }
 
   @GetMapping("/export/unit/{unitId}")
@@ -44,14 +44,14 @@ public class ExportFileController {
   @GetMapping("export/email/department/{departmentId}")
   public HttpEntity<byte[]> generateExcelEmailFileForOkrTeam(@PathVariable long departmentId)
       throws IOException, IllegalAccessException {
-    Workbook workbook = xlsxExportEmailFileCreatorService.createFileForOkrTeam(departmentId);
+    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForOkrTeam(departmentId);
     return getInputStreamResourceResponseEntity(workbook);
   }
 
   @GetMapping("export/email/company/{companyId}")
   public HttpEntity<byte[]> generateExcelEmailFileForCompany(@PathVariable long companyId)
       throws IOException, IllegalAccessException {
-    Workbook workbook = xlsxExportEmailFileCreatorService.createFileForCompany(companyId);
+    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
     return getInputStreamResourceResponseEntity(workbook);
   }
 
