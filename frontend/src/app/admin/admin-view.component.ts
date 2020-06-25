@@ -11,7 +11,6 @@ import {
   ConfirmationDialogData
 } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { UserApiService } from '../shared/services/api/user-api.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UserId } from '../shared/model/id-types';
 
@@ -30,7 +29,6 @@ export class AdminViewComponent implements OnInit {
   excludedIdsShouldUpdate: any;
 
   constructor(
-    private userApiService: UserApiService,
     private userService: UserService,
     private currentUserService: CurrentUserService,
     private matDialog: MatDialog,
@@ -56,8 +54,8 @@ export class AdminViewComponent implements OnInit {
   // Todo dturnschek 20.05.2020; Why use subscribe? Pipe([...], ShareReplay() would do the same as a replay subject)
   private getAdminUsers$(): void {
     combineLatest([
-      this.userApiService.getUsers$(),
-      this.userApiService.getAdminIds$()]
+      this.userService.getUsers$(),
+      this.userService.getAdminIds$()]
     )
       .pipe(
         take(1),
