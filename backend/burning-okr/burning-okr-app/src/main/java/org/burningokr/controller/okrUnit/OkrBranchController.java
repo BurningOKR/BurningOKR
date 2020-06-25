@@ -11,7 +11,7 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.okrUnit.OkrUnitService;
-import org.burningokr.service.okrUnit.OkrUnitServicePicker;
+import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class OkrBranchController {
 
-  private final OkrUnitServicePicker<OkrBranch> okrBranchOkrUnitServicePicker;
+  private final OkrUnitServiceFactory<OkrBranch> okrBranchOkrUnitServiceFactory;
   private final DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper;
   private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
 
@@ -40,7 +40,7 @@ public class OkrBranchController {
       @PathVariable long unitId, @Valid @RequestBody OkrDepartmentDto okrDepartmentDto, User user)
       throws DuplicateTeamMemberException {
     OkrUnitService<OkrBranch> branchService =
-        okrBranchOkrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment.setId(null);
     okrDepartment = (OkrDepartment) branchService.createChildUnit(unitId, okrDepartment, user);
@@ -61,7 +61,7 @@ public class OkrBranchController {
       @PathVariable long unitId, @Valid @RequestBody OkrBranchDto okrBranchDTO, User user)
       throws DuplicateTeamMemberException {
     OkrUnitService<OkrBranch> branchService =
-        okrBranchOkrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
     okrBranch.setId(null);
     okrBranch = (OkrBranch) branchService.createChildUnit(unitId, okrBranch, user);

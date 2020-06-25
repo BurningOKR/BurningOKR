@@ -18,7 +18,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
-import org.burningokr.service.okrUnit.OkrUnitServicePicker;
+import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.security.AuthorizationService;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestApiController
 public class OkrDepartmentController {
 
-  private OkrUnitServicePicker<OkrDepartment> departmentServicePicker;
+  private OkrUnitServiceFactory<OkrDepartment> departmentServicePicker;
   private DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private OkrBranchSchemaMapper okrBranchSchemaMapper;
@@ -49,7 +49,7 @@ public class OkrDepartmentController {
   /**
    * Initialize DepartmentController.
    *
-   * @param departmentServicePicker {@link OkrUnitServicePicker}
+   * @param departmentServicePicker {@link OkrUnitServiceFactory}
    * @param departmentMapper {@link DataMapper} with OkrDepartment and OkrDepartmentDto
    * @param objectiveMapper {@link DataMapper} with Objective and ObjectiveDto
    * @param authorizationService {@link AuthorizationService}
@@ -61,7 +61,7 @@ public class OkrDepartmentController {
    */
   @Autowired
   public OkrDepartmentController(
-      OkrUnitServicePicker<OkrDepartment> departmentServicePicker,
+      OkrUnitServiceFactory<OkrDepartment> departmentServicePicker,
       DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       AuthorizationService authorizationService,

@@ -11,11 +11,11 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UnitMapperPicker {
+public class UnitMapperFactory {
 
   private final Map<Class<? extends OkrChildUnit>, DataMapper> mapperMap;
 
-  public UnitMapperPicker(
+  public UnitMapperFactory(
       DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
       DataMapper<OkrBranch, OkrBranchDto> OkrBranchMapper) {
     this.mapperMap = new HashMap<>();

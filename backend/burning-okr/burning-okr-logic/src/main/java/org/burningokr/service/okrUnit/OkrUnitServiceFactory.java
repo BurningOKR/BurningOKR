@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OkrUnitServicePicker<T extends OkrChildUnit> {
+public class OkrUnitServiceFactory<T extends OkrChildUnit> {
 
   private OkrUnitServiceUsers<T> userService;
   private OkrUnitServiceManagers<T> managerService;
@@ -29,7 +29,7 @@ public class OkrUnitServicePicker<T extends OkrChildUnit> {
    * @param userRoleFromContextService an {@link UserRoleFromContextService} object
    */
   @Autowired
-  public OkrUnitServicePicker(
+  public OkrUnitServiceFactory(
       @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<T> departmentServiceUsers,
       @Qualifier("okrUnitServiceManagers") OkrUnitServiceManagers<T> departmentServiceManagers,
       @Qualifier("okrUnitServiceAdmins") OkrUnitServiceAdmins<T> departmentServiceAdmins,

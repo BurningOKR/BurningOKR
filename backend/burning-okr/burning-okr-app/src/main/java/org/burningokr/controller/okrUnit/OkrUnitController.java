@@ -13,13 +13,13 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.okr.ObjectiveMapper;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.mapper.okrUnit.OkrCompanyMapper;
-import org.burningokr.mapper.okrUnit.UnitMapperPicker;
+import org.burningokr.mapper.okrUnit.UnitMapperFactory;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.OkrUnitService;
-import org.burningokr.service.okrUnit.OkrUnitServicePicker;
+import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.http.MediaType;
@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class OkrUnitController {
 
-  private final OkrUnitServicePicker<OkrChildUnit> okrUnitServicePicker;
-  private final UnitMapperPicker mapperPicker;
+  private final OkrUnitServiceFactory<OkrChildUnit> okrUnitServiceFactory;
+  private final UnitMapperFactory mapperPicker;
   private final EntityCrawlerService entityCrawlerService;
   private final UserService userService;
   private final OkrBranchSchemaMapper okrBranchSchemaMapper;
@@ -42,7 +42,7 @@ public class OkrUnitController {
   @GetMapping("/units/{unitId}")
   public ResponseEntity<OkrChildUnitDto> getUnitByUnitId(@PathVariable long unitId) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrChildUnit unit = okrUnitService.findById(unitId);
     DataMapper mapper = mapperPicker.getMapper(unit.getClass());
     return ResponseEntity.ok((OkrChildUnitDto) mapper.mapEntityToDto(unit));
@@ -58,7 +58,7 @@ public class OkrUnitController {
   public ResponseEntity<Collection<OkrUnitSchemaDto>> getDepartmentSchemaOfDepartment(
       @PathVariable long unitId) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrChildUnit childUnit = okrUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(childUnit);
     UUID currentUserId = userService.getCurrentUser().getId();
@@ -76,7 +76,7 @@ public class OkrUnitController {
   @GetMapping("/units/{unitId}/objectives")
   public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfUnit(@PathVariable long unitId) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Collection<Objective> objectives = okrUnitService.findObjectivesOfUnit(unitId);
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(objectives));
   }
@@ -90,7 +90,7 @@ public class OkrUnitController {
   @GetMapping("/units/{unitId}/company")
   public ResponseEntity<OkrCompanyDto> getParentCompanyOfUnit(@PathVariable long unitId) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrChildUnit unit = okrUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(unit);
     return ResponseEntity.ok(okrCompanyMapper.mapEntityToDto(parentOkrCompany));
@@ -100,7 +100,7 @@ public class OkrUnitController {
   public ResponseEntity<OkrChildUnitDto> updateUnit(
       @PathVariable long unitId, @RequestBody OkrChildUnitDto okrChildUnitDto, User user) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
 
     OkrChildUnit childUnit = okrUnitService.findById(unitId);
     DataMapper mapper = mapperPicker.getMapper(childUnit.getClass());
@@ -126,7 +126,7 @@ public class OkrUnitController {
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
       @PathVariable long unitId, @Valid @RequestBody ObjectiveDto objectiveDto, User user) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
     objective = okrUnitService.createObjective(unitId, objective, user);
@@ -136,7 +136,7 @@ public class OkrUnitController {
   @DeleteMapping("/units/{unitId}")
   public ResponseEntity deleteUnit(@PathVariable long unitId, User user) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServicePicker.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     okrUnitService.deleteUnit(unitId, user);
     return ResponseEntity.ok().build();
   }
