@@ -13,13 +13,13 @@ export class ErrorInterceptor implements HttpInterceptor {
     private router: Router,
     private authService: OAuthService
   ) {
-    this.logger.setCustomHttpHeaders(new HttpHeaders({Authorization: `Bearer ${this.authService.getAccessToken()}`}));
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(catchError(err => {
         if (this.authService.hasValidAccessToken()) {
+          this.logger.setCustomHttpHeaders(new HttpHeaders({Authorization: `Bearer ${this.authService.getAccessToken()}`}));
           this.logger.error(err);
         }
 

@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { NGXLogger } from 'ngx-logger';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Consts } from '../../shared/consts';
 import { ApiHttpErrorHandlingService, ErrorHandlingFunction } from './api-http-error-handling.service';
 
@@ -18,10 +14,6 @@ export class ApiHttpService {
 
   constructor(
     private http: HttpClient,
-    private snackbar: MatSnackBar,
-    private router: Router,
-    private logger: NGXLogger,
-    private i18n: I18n,
     private errorHandlerService: ApiHttpErrorHandlingService
   ) {
     this.httpOptions = {
