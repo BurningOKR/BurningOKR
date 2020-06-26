@@ -57,7 +57,6 @@ public class LocalUserController {
    * @return a {@link ResponseEntity} with status ok and a {@link LocalUserDto} object
    */
   @PostMapping("/local-users")
-  @TurnOff
   public ResponseEntity<LocalUserDto> createLocalUser(
       @Valid @RequestBody LocalUserDto localUserDto) {
     LocalUser localUser =
@@ -89,7 +88,6 @@ public class LocalUserController {
    * @return a {@link ResponseEntity} with status ok and the updated {@link LocalUserDto}
    */
   @PutMapping("/local-users/{userId}")
-  @TurnOff
   public ResponseEntity<LocalUserDto> updateLocalUser(
       @PathVariable UUID userId, @Valid @RequestBody LocalUserDto localUserDto) {
     LocalUser responseUser =

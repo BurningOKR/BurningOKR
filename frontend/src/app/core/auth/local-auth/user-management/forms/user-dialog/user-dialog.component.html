@@ -1,5 +1,5 @@
 <div style="min-width: 500px">
-  <app-dialog-component [isSaveButtonDisabled]="true" [title]="formData.title" [formGroup]="userForm" (okEmitter)="onSave()" *ngIf="userForm">
+  <app-dialog-component [title]="formData.title" [formGroup]="userForm" (okEmitter)="onSave()" *ngIf="userForm">
     <app-user-form [userForm]="userForm" [canEditAdminStatus]="editedUserIsCurrentUser$ | async" *ngIf="userForm">
     </app-user-form>
     <br>

@@ -47,7 +47,7 @@
     <mat-icon>vpn_key</mat-icon>
     <span i18n="@@component_okrTollbar_changePassword">Passwort ändern</span>
   </button>
-  <button mat-menu-item routerLink="/logout">
+  <button mat-menu-item routerLink="/logout" [disabled]="true">
     <mat-icon>power_settings_new</mat-icon>
     <span i18n="@@component_okrToolbar_logout">Logout</span>
   </button>

@@ -72,7 +72,6 @@ export class UserDialogComponent implements OnInit {
         if (!!this.formData.user) {
           this.userForm.patchValue(this.formData.user);
         }
-        this.userForm.disable({onlySelf: true});
         this.resetPasswordButtonDisabled = true;
       });
 
