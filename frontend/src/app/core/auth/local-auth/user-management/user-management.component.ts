@@ -10,6 +10,7 @@ import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-d
 import { UserDialogData } from './forms/user-dialog-data';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { CurrentUserService } from '../../../services/current-user.service';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -35,12 +36,43 @@ export class UserManagementComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private dialog: MatDialog,
     private router: Router,
-    private userService: LocalUserApiService
+    private userService: LocalUserApiService,
+    private i18n: I18n
   ) {
   }
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  i18nActiveTableHeader: string = this.i18n({
+    id: 'active_table_header',
+    description: 'User management component "Active" header',
+    value: 'Aktiv'
+  });
+  i18nEmailTableHeader: string = this.i18n({
+    id: 'email_table_header',
+    description: 'User management component "Email" header',
+    value: 'Email'
+  });
+  i18nNameTableHeader: string = this.i18n({
+    id: 'name_table_header',
+    description: 'User management component "Name" header',
+    value: 'Name'
+  });
+  i18nDepartentTableHeader: string = this.i18n({
+    id: 'department_table_header',
+    description: 'User management component "Department" header',
+    value: 'Abteilung'
+  });
+  i18nJobTitleTableHeader: string = this.i18n({
+    id: 'job_title_table_header',
+    description: 'User management component "Job title" header',
+    value: 'Berufsbezeichnung'
+  });
+  i18nAdminTableHeader: string = this.i18n({
+    id: 'admin_table_header',
+    description: 'User management component "Admin" header',
+    value: 'Admin'
+  });
 
   private getUserCreationDialogData(): { data: UserDialogData } {
     return {
