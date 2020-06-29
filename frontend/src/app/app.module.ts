@@ -3,7 +3,7 @@ import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeEnExtra from '@angular/common/locales/extra/en';

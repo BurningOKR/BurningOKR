@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
@@ -55,7 +56,8 @@ import { LandingPageNavigationComponent } from './landing-page-router/landing-pa
     FlexModule,
     RouterModule,
     MatRippleModule,
-    LocalAuthModule
+    LocalAuthModule,
+    MatCheckboxModule
   ]
 })
 export class CoreModule {

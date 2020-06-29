@@ -30,47 +30,52 @@ export class AdminSettingsFormComponent implements OnInit {
 
   private configurationNames: { [key: string]: string } = {
     'max-key-results': this.i18n({
-      id: '@@settingsFormMaxKeyResultsPerObjective',
+      id: '@@settings_form_max_key_results_per_objective',
       description: 'Placeholder for maximal amount of keyresults per objective',
       value: 'Maximale Anzahl von Key Results'
     }),
+    'topic-sponsors-acivated': this.i18n({
+      id: '@@settings_topic_sponsors',
+      description: 'Placeholder for the setting, which de-/activates topic sponsors through out the application',
+      value: 'Themenpaten aktiviert'
+    }),
     'objective-progress-green-yellow-threshold': this.i18n({
-      id: '@@settingsFormObjectiveBarTresholdGreenYellow',
+      id: '@@settings_form_objective_bar_treshold_green_yellow',
       description: 'Treshold for objective progress bar (Green/Yellow)',
       value: 'Objective Prognose Schwellenwert (Grün/Gelb)'
     }),
     'objective-progress-yellow-red-threshold': this.i18n({
-      id: '@@settingsFormObjectiveBarTresholdYellowRed',
+      id: '@@settings_form_objective_bar_treshold_yellow_red',
       description: 'Treshold for objective progress bar (Yellow/Red)',
       value: 'Objective Prognose Schwellenwert (Gelb/Rot)'
     }),
     'general_frontend-base-url': this.i18n({
-      id: '@@settingsFormGeneralFrontendBaseUrl',
+      id: '@@settings_form_general_frontend_base_url',
       description: 'the domain of this angular application',
-      value: 'Frontend-Baseurl'
+      value: 'Frontend-Base-Url'
     }),
     email_from: this.i18n({
-      id: '@@settingsFormGeneralFrontendBaseUrl',
+      id: '@@settings_form_email_sender',
       description: 'The address, from which emails are sent',
       value: 'Email Adresse des OKR Tools'
     }),
     'email_subject_new-user': this.i18n({
-      id: '@@settingsFormGeneralFrontendBaseUrl',
+      id: '@@settings_form_email_subject_forgot_new_user',
       description: 'the subject of the email, which is sent to new users',
       value: 'Email Betreff für neue Benutzer'
     }),
     'email_subject_forgot-password': this.i18n({
-      id: '@@settingsFormGeneralFrontendBaseUrl',
+      id: '@@settings_form_email_subject_forgot_password',
       description: 'the subject of the email, which is sent to users who forgot their password',
       value: 'Email Betreff für die Passwort-Zurücksetzen Email'
     }),
     email_subject_feedback: this.i18n({
-      id: '@@settingsFormEmailSubjectFeedback',
+      id: '@@settings_form_email_subject_feedback',
       description: 'the subject of the feedback email',
       value: 'Email Betreff für Feedback'
     }),
     feedback_receivers: this.i18n({
-      id: '@@settingsFormFeedbackReceivers',
+      id: '@@settings_form_feedback_receivers',
       description: 'the email adresses of the people who receive feedback',
       value: 'Email Adressen der Feedback Empfänger. (Durch Komma getrennt)'
     })
@@ -84,13 +89,17 @@ export class AdminSettingsFormComponent implements OnInit {
               private oAuthDetails: OAuthFrontendDetailsService,
               private userSettingsManager: UserSettingsManagerService,
               private dialogRef: MatDialogRef<AdminSettingsFormComponent>,
-              ) {
+  ) {
   }
 
   private _isCurrentUserAdmin$: Observable<boolean>;
 
   get isCurrentUserAdmin$(): Observable<boolean> {
     return this._isCurrentUserAdmin$;
+  }
+
+  get settings(): FormArray {
+    return this.adminSettingsForm.get('settings') as FormArray;
   }
 
   ngOnInit(): void {
@@ -203,9 +212,5 @@ export class AdminSettingsFormComponent implements OnInit {
 
     this.authType$ = this.oAuthDetails.getAuthType$()
       .pipe(take(1));
-  }
-
-  get settings(): FormArray {
-    return this.adminSettingsForm.get('settings') as FormArray;
   }
 }
