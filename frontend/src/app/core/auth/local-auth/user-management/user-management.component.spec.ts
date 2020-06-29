@@ -13,6 +13,8 @@ import { CurrentUserService } from '../../../services/current-user.service';
 import { User } from '../../../../shared/model/api/user';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 
 describe('UserManagementComponent', () => {
 
@@ -70,7 +72,8 @@ describe('UserManagementComponent', () => {
         {provide: MatDialog, useValue: {}},
         {provide: LocalUserApiService, useValue: localUserApiServiceMock},
         {provide: OAuthService, useValue: oAuthServiceMock},
-        {provide: CurrentUserService, useValue: currentUserServiceMock}
+        {provide: CurrentUserService, useValue: currentUserServiceMock},
+        {provide: I18n, useValue: i18nMock}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
