@@ -76,14 +76,15 @@ export class AdminSettingsFormComponent implements OnInit {
     })
   };
 
-  constructor(private dialogRef: MatDialogRef<AdminSettingsFormComponent>,
-              private currentUserService: CurrentUserService,
+  constructor(private companyService: CompanyMapper,
               private configurationManagerService: ConfigurationManagerService,
-              private userSettingsManager: UserSettingsManagerService,
-              private companyService: CompanyMapper,
+              private currentUserService: CurrentUserService,
               private departmentService: DepartmentMapper,
+              private i18n: I18n,
               private oAuthDetails: OAuthFrontendDetailsService,
-              private i18n: I18n) {
+              private userSettingsManager: UserSettingsManagerService,
+              private dialogRef: MatDialogRef<AdminSettingsFormComponent>,
+              ) {
   }
 
   private _isCurrentUserAdmin$: Observable<boolean>;
