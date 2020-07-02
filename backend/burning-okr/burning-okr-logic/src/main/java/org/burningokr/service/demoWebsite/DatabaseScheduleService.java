@@ -26,7 +26,7 @@ public class DatabaseScheduleService {
 
   private final EntityManagerFactory entityManagerFactory;
 
-  private final int rateInMinutes = 1;
+  private final int rateInMinutes = 120;
   private LocalDateTime nextSchedule = LocalDateTime.now().plusMinutes(rateInMinutes);
 
   @Scheduled(fixedRate = rateInMinutes * 60 * 1000)
