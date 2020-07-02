@@ -3,7 +3,7 @@ package org.burningokr.controller.demoWebsite;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.applicationlisteners.DemoWebsiteDatabaseDeleter;
+import org.burningokr.service.demoWebsite.DatabaseScheduleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class DeleteTimerController {
 
-  private final DemoWebsiteDatabaseDeleter deleter;
+  private final DatabaseScheduleService scheduleService;
 
   /**
    * Get the Date for the next database reset.
@@ -20,6 +20,6 @@ public class DeleteTimerController {
    */
   @GetMapping("/demo/reset")
   public ResponseEntity<LocalDateTime> getNextResetTime() {
-    return ResponseEntity.ok(deleter.getNextDeletionDate());
+    return ResponseEntity.ok(scheduleService.getNextSchedule());
   }
 }
