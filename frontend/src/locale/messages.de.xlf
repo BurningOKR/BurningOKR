@@ -917,6 +917,12 @@
           <context context-type="sourcefile">app/okrview/objective/objective.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
+      </trans-unit><trans-unit id="amount_of_subordinate." datatype="html">
+        <source>Anzahl der untergeordneten Objectives</source><target state="final">Anzahl der untergeordneten Objectives</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/objective/objective.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="component_department_expandObjective" datatype="html">
         <source>Objective aufklappen</source>
@@ -1278,7 +1284,13 @@
         <target state="final">Bearbeitung abbrechen</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/comment/comment-card/comment-card.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/comment/comment-card/comment-card.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit><trans-unit id="userManagementToolbarTitle" datatype="html">
+        <source>Benutzerverwaltung</source><target state="final">Benutzerverwaltung</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="email" datatype="html">
         <source>Email</source>
         <target state="final">Email</target>
@@ -1354,6 +1366,12 @@
           <context context-type="linenumber">48</context>
         </context-group>
         <note priority="1" from="description">caps lock is on</note>
+      </trans-unit><trans-unit id="forgot_password_button" datatype="html">
+        <source>Passwort vergessen</source><target state="final">Passwort vergessen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
       </trans-unit>
       
       
@@ -1562,16 +1580,18 @@
         
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit>
       
-      <trans-unit id="userManagementToolbarTitle" datatype="html">
-        <source>Benutzerverwaltung</source>
-        <target state="final">Benutzerverwaltung</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context><context context-type="linenumber">7</context></context-group></trans-unit>
+      
       <trans-unit id="userManagementCardtitle" datatype="html">
         <source>Benutzerverwaltung</source>
         <target state="final">Benutzerverwaltung</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context><context context-type="linenumber">15</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context><context context-type="linenumber">15</context></context-group></trans-unit><trans-unit id="deactiave_user_checkbox" datatype="html">
+        <source>Deaktivierte Benutzer anzeigen</source><target state="final">Deaktivierte Benutzer anzeigen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="addNewUser" datatype="html">
         <source>Neuen Benutzer erstellen</source>
         <target state="final">Neuen Benutzer erstellen</target>
@@ -1724,6 +1744,48 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Ok Button on resetPasswordSuccessSnackbar</note>
+      </trans-unit><trans-unit id="active_table_header" datatype="html">
+        <source>Aktiv</source><target state="final">Aktiv</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Active" header</note>
+      </trans-unit><trans-unit id="email_table_header" datatype="html">
+        <source>Email</source><target state="final">Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Email" header</note>
+      </trans-unit><trans-unit id="name_table_header" datatype="html">
+        <source>Name</source><target state="final">Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Name" header</note>
+      </trans-unit><trans-unit id="department_table_header" datatype="html">
+        <source>Abteilung</source><target state="final">Abteilung</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Department" header</note>
+      </trans-unit><trans-unit id="job_title_table_header" datatype="html">
+        <source>Berufsbezeichnung</source><target state="final">Berufsbezeichnung</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Job title" header</note>
+      </trans-unit><trans-unit id="admin_table_header" datatype="html">
+        <source>Admin</source><target state="final">Admin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Admin" header</note>
       </trans-unit><trans-unit id="feedbackSuccessfullySubmittedMessage" datatype="html">
         <source>Feedback erfolgreich übermittelt 📬</source><target state="final">Feedback erfolgreich übermittelt 📬</target>
         <context-group purpose="location">
@@ -1871,19 +1933,13 @@
         </context-group>
         <note priority="1" from="description">Warn the user if the company still has childUnits</note>
       </trans-unit><trans-unit id="component_companyForm_saveText" datatype="html">
-        <source>speichern.</source><target state="final">speichern.</target>
+        <source> <x id="INTERPOLATION" equiv-text="{{label}}"/> speichern.</source><target state="final"> <x id="INTERPOLATION" equiv-text="{{label}}"/> speichern.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit><trans-unit id="component_companyForm_createText" datatype="html">
-        <source>erstellen.</source><target state="final">erstellen.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_companyForm_createTitle" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{label}}"/> <x id="INTERPOLATION_1" equiv-text="{{saveOrCreateText}}"/></source><target state="final"><x id="INTERPOLATION" equiv-text="{{label}}"/> <x id="INTERPOLATION_1" equiv-text="{{saveOrCreateText}}"/></target>
+        <source><x id="INTERPOLATION" equiv-text="{{label}}"/> erstellen.</source><target state="final"><x id="INTERPOLATION" equiv-text="{{label}}"/> erstellen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
           <context context-type="linenumber">1</context>
@@ -1942,6 +1998,12 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Do you want to delete key result x</note>
+      </trans-unit><trans-unit id="objective_form_title" datatype="html">
+        <source>Objective <x id="INTERPOLATION" equiv-text="{{editOrCreateText}}"/></source><target state="final">Objective <x id="INTERPOLATION" equiv-text="{{editOrCreateText}}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit><trans-unit id="deleteObjectiveDialogTitle" datatype="html">
         <source>Objective löschen</source><target state="final">Objective löschen</target>
         <context-group purpose="location">
@@ -2046,6 +2108,13 @@
           <context context-type="sourcefile">src/app/shared/components/confirmation-dialog/confirmation-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit><trans-unit id="dialog_component_save_and_close_label" datatype="html">
+        <source>Speichern</source><target state="final">Speichern</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/dialog-component/dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Button label to close a dialog, while saving the input</note>
       </trans-unit><trans-unit id="defaultErrorMessage" datatype="html">
         <source>kein gültiger Wert.</source><target state="final">kein gültiger Wert.</target>
         <context-group purpose="location">
