@@ -26,10 +26,10 @@ public class DatabaseScheduleService {
 
   private final EntityManagerFactory entityManagerFactory;
 
-  private final int rateInMinutes = 120;
-  private LocalDateTime nextSchedule = LocalDateTime.now().plusMinutes(rateInMinutes);
+  private final int RATE_IN_MINUTES = 120;
+  private LocalDateTime nextSchedule = LocalDateTime.now().plusMinutes(RATE_IN_MINUTES);
 
-  @Scheduled(fixedRate = rateInMinutes * 60 * 1000)
+  @Scheduled(fixedRate = RATE_IN_MINUTES * 60 * 1000)
   public void scheduledDeletion() {
     String query = getSQLQueries();
     executeSQL(query);
@@ -37,7 +37,7 @@ public class DatabaseScheduleService {
   }
 
   private void updateSchedule() {
-    nextSchedule = LocalDateTime.now().plusMinutes(rateInMinutes);
+    nextSchedule = LocalDateTime.now().plusMinutes(RATE_IN_MINUTES);
   }
 
   private String getSQLQueries() {
