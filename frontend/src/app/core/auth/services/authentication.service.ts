@@ -1,16 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { AuthConfig, JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
-import { take } from 'rxjs/operators';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
 import { FetchingService } from '../../services/fetching.service';
-import { Consts } from '../../../shared/consts';
 import { AuthTypeHandlerFactoryService } from './auth-type-handler/auth-type-handler-factory.service';
 
 @Injectable()
 export class AuthenticationService {
-  silentRefreshActivated: boolean = false;
-  authType: string;
 
   authTypeHandler: Promise<AuthTypeHandlerBase>;
 
@@ -19,19 +15,14 @@ export class AuthenticationService {
               private injector: Injector,
               private fetchingService: FetchingService,
               private authTypeHandlerFactoryService: AuthTypeHandlerFactoryService) {
-    this.oAuthDetails.getAuthType$()
-      .pipe(
-        take(1))
-      .subscribe(authType => {
-          this.authType = authType;
-        }
-      );
 
     this.authTypeHandler = this.authTypeHandlerFactoryService.getAuthTypeHandler();
 
   }
 
   async configure(): Promise<AuthConfig> {
+    const authTypeHandlerBase: AuthTypeHandlerBase = await this.authTypeHandler;
+
     return new Promise(resolve => {
       this.oAuthDetails.getAuthConfig$()
         .subscribe((authConfig: AuthConfig) => {
@@ -40,7 +31,7 @@ export class AuthenticationService {
           this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
           this.oAuthService.redirectUri = `${window.location.origin}`;
 
-          this.startLoginProcedureIfAuthTypeIsAAD()
+          authTypeHandlerBase.afterConfigured()
             .then(() => resolve(authConfig));
 
         });
@@ -50,38 +41,13 @@ export class AuthenticationService {
   async redirectToLoginProvider(): Promise<boolean> {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
-    return authTypeHandler.startLoginProcedure(this);
+    return authTypeHandler.startLoginProcedure();
   }
 
-  private async startLoginProcedureIfAuthTypeIsAAD(): Promise<boolean> {
-    if (this.authType !== Consts.AUTHTYPE_LOCAL) {
-      return this.redirectToLoginProvider();
-    } else {
-      return true;
-    }
-  }
-
-  async loginLocalUser(email: string, password: string): Promise<object> {
+  async login(email: string, password: string): Promise<any> {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
-    return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
-      .then(object => {
-        authTypeHandler.setupSilentRefresh(this);
-
-        this.fetchingService.refetchAll();
-
-        return object;
-      });
-  }
-
-  async getRefreshToken(): Promise<object> {
-    if (!!this.oAuthService.getRefreshToken()) {
-      return this.oAuthService.refreshToken();
-    } else {
-      return new Promise<object>((resolve, reject) => {
-        reject();
-      });
-    }
+    return authTypeHandler.login(email, password);
   }
 
   hasValidAccessToken(): boolean {
@@ -90,9 +56,5 @@ export class AuthenticationService {
 
   logout(): void {
     this.oAuthService.logOut();
-  }
-
-  async login(): Promise<boolean> {
-    return this.oAuthService.loadDiscoveryDocumentAndLogin();
   }
 }
