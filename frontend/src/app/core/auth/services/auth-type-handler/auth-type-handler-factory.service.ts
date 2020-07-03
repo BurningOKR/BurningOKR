@@ -5,6 +5,7 @@ import { map, shareReplay, take } from 'rxjs/operators';
 import { Consts } from '../../../../shared/consts';
 import { AzureAuthTypeHandlerService } from './azure-auth-type-handler.service';
 import { LocalAuthTypeHandlerService } from './local-auth-type-handler.service';
+import { DemoAuthTypeHandlerService } from './demo-auth-type-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,10 @@ export class AuthTypeHandlerFactoryService {
 
           if (authType === Consts.AUTHTYPE_AZURE) {
             return this.injector.get(AzureAuthTypeHandlerService);
-          } else {
+          } else if (authType === Consts.AUTHTYPE_LOCAL) {
             return this.injector.get(LocalAuthTypeHandlerService);
+          } else {
+            return this.injector.get(DemoAuthTypeHandlerService);
           }
         }),
         shareReplay()

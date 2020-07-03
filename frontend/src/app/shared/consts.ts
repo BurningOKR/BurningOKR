@@ -18,6 +18,7 @@ export class Consts {
 
   static AUTHTYPE_LOCAL = 'local';
   static AUTHTYPE_AZURE = 'azure';
+  static AUTHTYPE_DEMO = 'demo';
 
   static UNAUTHORIZED_ERROR = 401; // HTTP Error Status Code for unauthorized.
   static CLIENT_RESOLVABLE_ERRORS = [ // HTTP Error Status Codes, that can be resolved by simply retrying.

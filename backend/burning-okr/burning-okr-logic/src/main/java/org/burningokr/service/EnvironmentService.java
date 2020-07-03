@@ -10,6 +10,7 @@ public class EnvironmentService {
   public static final String authMode = "system.configuration.auth-mode";
   public static final String authModeAad = "aad";
   public static final String authModeLocal = "local";
+  public static final String authModeDemo = "demo";
 
   public EnvironmentService(ApplicationContext applicationContext) {
     this.applicationContext = applicationContext;

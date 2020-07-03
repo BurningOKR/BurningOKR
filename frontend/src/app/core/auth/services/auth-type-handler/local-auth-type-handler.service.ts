@@ -59,7 +59,7 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
       });
   }
 
-  private async getRefreshToken(): Promise<object> {
+  protected async getRefreshToken(): Promise<object> {
     if (!!this.oAuthService.getRefreshToken()) {
       return this.oAuthService.refreshToken();
     } else {
