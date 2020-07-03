@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminViewComponent } from './admin-view.component';
-import { UserApiService } from '../shared/services/api/user-api.service';
 import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { MatDialogModule } from '@angular/material';
@@ -16,13 +15,11 @@ import { AdminUserIdsPipe } from './pipes/admin-user-ids.pipe';
 describe('AdminViewComponent', () => {
   let component: any;
   let fixture: any;
-
-  const userApiService: any = {
+  const userService: any = {
     getCurrentUser$: jest.fn(),
     getAdminIds$: jest.fn(),
     getUsers$: jest.fn()
   };
-  const userService: any = {};
   const currentUserService: any = {
     getCurrentUser$: jest.fn()
   };
@@ -53,16 +50,15 @@ describe('AdminViewComponent', () => {
   const adminList: string[] = ['testId'];
 
   beforeEach(() => {
-    userApiService.getCurrentUser$.mockReturnValue(of(currentUserMock));
-    userApiService.getAdminIds$.mockReturnValue(of([adminList]));
-    userApiService.getUsers$.mockReturnValue(of([currentUserMock, anotherUserMock]));
+    userService.getCurrentUser$.mockReturnValue(of(currentUserMock));
+    userService.getAdminIds$.mockReturnValue(of([adminList]));
+    userService.getUsers$.mockReturnValue(of([currentUserMock, anotherUserMock]));
     currentUserService.getCurrentUser$.mockReturnValue(of(currentUserMock));
 
     TestBed.configureTestingModule({
       declarations: [AdminViewComponent, TrackByPropertyPipe, AdminUserIdsPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        {provide: UserApiService, useValue: userApiService},
         {provide: UserService, useValue: userService},
         {
           provide: CurrentUserService,

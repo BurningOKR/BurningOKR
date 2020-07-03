@@ -46,17 +46,17 @@ export class OkrChildUnitFormComponent {
       this.childUnitForm.patchValue(this.formData.childUnit);
     }
 
-    const editText: string = this.i18n({
-      id: 'edit',
-      value: 'bearbeiten'
-    });
-
+    const saveText: string = this.i18n({
+        id: 'component_companyForm_saveText',
+        value: ' {{label}} speichern.'
+      }, {label: this.getDefaultLabel()}
+    );
     const createText: string = this.i18n({
-      id: 'create',
-      value: 'erstellen'
-    });
+      id: 'component_companyForm_createText',
+      value: '{{label}} erstellen.'
+    }, {label: this.getDefaultLabel()});
 
-    this.title = `${this.getDefaultLabel()} ${this.okrChildUnit ? editText : createText}`;
+    this.title = this.formData.childUnit ? saveText : createText;
   }
 
   closeDialog(): void {

@@ -17,7 +17,7 @@
 
       <mat-card-content>
         <div class="row">
-          <mat-checkbox (change)="onShowDeactivatedUserChange($event)">Deaktivierte Benutzer anzeigen</mat-checkbox>
+          <mat-checkbox (change)="onShowDeactivatedUserChange($event)" i18n="@@deactiave_user_checkbox">Deaktivierte Benutzer anzeigen</mat-checkbox>
           <mat-form-field class="form-whole-line" class="col-11">
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
@@ -37,29 +37,29 @@
             </td>
           </ng-container>
           <ng-container matColumnDef="active">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Aktiv</th>
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>{{i18nActiveTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>
               <mat-icon *ngIf="user.active">check</mat-icon>
             </td>
           </ng-container>
           <ng-container matColumnDef="email">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Email</th>
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nEmailTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>{{user.email}}</td>
           </ng-container>
           <ng-container matColumnDef="givenName">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Name</th>
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nNameTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>{{user.givenName + ' ' + user.surname}}</td>
           </ng-container>
           <ng-container matColumnDef="department" class="cell">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Abteilung</th>
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nDepartentTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>{{user.department}}</td>
           </ng-container>
           <ng-container matColumnDef="jobTitle">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Jobbezeichnung</th>
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nJobTitleTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>{{user.jobTitle}}</td>
           </ng-container>
           <ng-container matColumnDef="isAdmin">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> Admin</th>
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nAdminTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>
               <mat-icon *ngIf="user.isAdmin">verified_user</mat-icon>
             </td>

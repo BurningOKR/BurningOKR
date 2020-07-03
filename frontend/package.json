@@ -22,6 +22,7 @@
     "build": "ng build",
     "build-en": "npm run build -- --prod --base-href=./ --configuration=en",
     "build-prod": "npm run build -- --output-hashing=all --prod --base-href=/app/",
+    "build-prod-en": "npm run build -- --output-hashing=all --prod --base-href=/app/ --configuration=en",
     "build-docker": "npm run build -- --output-hashing=all --prod --configuration=docker --base-href=/",
     "test": "jest --verbose ./src/app",
     "test:watch": "jest --watch",

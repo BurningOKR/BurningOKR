@@ -3,7 +3,7 @@ import { AbstractValidator, register } from '../abstract-validator';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 export const requiredError: ValidationErrors = {
-  requiredError: true
+  required: true
 };
 
 @register

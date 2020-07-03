@@ -48,7 +48,7 @@ declare const require: any;
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEn, 'de', localeEnExtra);
 
-const currentLanguage: string = 'de';
+const currentLanguage: string = 'en';
 
 @NgModule({
   declarations: [

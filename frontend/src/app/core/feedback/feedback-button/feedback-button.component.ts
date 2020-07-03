@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FeedbackFormComponent } from '../feedback-form/feedback-form.component';
 import { MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { ConfigurationApiService } from '../../settings/configuration-api.service';
+import { ConfigurationService } from '../../settings/configuration.service';
 import { Consts } from '../../../shared/consts';
 
 @Component({
@@ -26,7 +26,7 @@ export class FeedbackButtonComponent implements OnDestroy {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private i18n: I18n,
-    private configService: ConfigurationApiService
+    private configService: ConfigurationService
   ) {
     this.hasMail$ = configService.getHasMailConfigured$();
   }

@@ -21,7 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class XlsxExportEmailFileCreatorServiceTest {
+public class XlsxExportContactsFileCreatorServiceTest {
 
   @Mock private TeamMemberRowBuilderService teamMemberRowBuilderService;
 
@@ -29,7 +29,7 @@ public class XlsxExportEmailFileCreatorServiceTest {
 
   @Mock private Messages messages;
 
-  @InjectMocks private XlsxExportEmailFileCreatorService xlsxExportEmailFileCreatorService;
+  @InjectMocks private XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService;
 
   private Collection<TeamMemberRow> teamMemberRows;
   private long departmentId = 42L;
@@ -51,7 +51,7 @@ public class XlsxExportEmailFileCreatorServiceTest {
   @Test
   public void createFileForOkrTeam_shouldReturnWorkbookWhichIsReturnedByGenericFileCreatorService()
       throws IllegalAccessException {
-    Workbook workbook = xlsxExportEmailFileCreatorService.createFileForOkrTeam(departmentId);
+    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForOkrTeam(departmentId);
     Assert.assertEquals(this.workbook, workbook);
     verify(teamMemberRowBuilderService, times(1)).generateForOkrChildUnit(departmentId);
   }
@@ -59,7 +59,7 @@ public class XlsxExportEmailFileCreatorServiceTest {
   @Test
   public void createFileForOkrTeam_shouldReturnExcelWithJustHeaderRowIfTeamMemberRowIsEmpty()
       throws IllegalAccessException {
-    Workbook workbook = xlsxExportEmailFileCreatorService.createFileForCompany(companyId);
+    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
     Assert.assertEquals(this.workbook, workbook);
     verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
   }

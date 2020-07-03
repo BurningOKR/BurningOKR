@@ -6,7 +6,14 @@ All future code contributed has to be covered by unit tests.
 ### Commit Messages
 We try to structure our commit messages according to [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/).
 
-The recommend the [conventional commit plugin](https://plugins.jetbrains.com/plugin/13389-conventional-commit) for IntelliJ.
+We recommend the [conventional commit plugin](https://plugins.jetbrains.com/plugin/13389-conventional-commit) for IntelliJ.
+
+### Comments
+When you create a comment with a todo, you have to do it in this form:
+```
+// TODO (F.L. 25.06.20): <Your Todo message>
+```
+``F.`` and ``L.`` stand for the first letters of your first and last name.
 
 ## Frontend
 ### TS-Lint

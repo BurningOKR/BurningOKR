@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { OkrChildUnitRoleService } from '../../../shared/services/helper/okr-child-unit-role.service';
-import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit-form.component';
 import {
   ConfirmationDialogComponent,
@@ -108,7 +107,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   // Template actions
-  clickedEditDepartment(childUnit: OkrChildUnit): void {
+  clickedEditChildUnit(childUnit: OkrChildUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
       data: { childUnit }
     });
@@ -137,8 +136,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   onChildUnitEdited(okrChildUnit: OkrChildUnit): void {
-    this.currentOkrViewService.refreshCurrentDepartmentView(okrChildUnit.id);
-    // this.updateView(); TODO: (R.J 04.06.20) Update View
+    this.currentOkrViewService.browseDepartment(okrChildUnit.id);
   }
 
   clickedRemoveChildUnit(okrChildUnit: OkrChildUnit): void {

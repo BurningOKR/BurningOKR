@@ -35,28 +35,18 @@ export class OkrUnitFormComponent {
     if (this.formData.company) {
       this.companyForm.patchValue(this.formData.company);
     }
-    let saveOrCreateText: string;
-    if (this.formData.company) {
-      saveOrCreateText = this.i18n({
+
+    const saveText: string = this.i18n({
         id: 'component_companyForm_saveText',
-        value: 'speichern.'
-      });
-    } else {
-      saveOrCreateText = this.i18n({
+        value: ' {{label}} speichern.'
+      }, {label: this.getDefaultLabel()}
+    );
+    const createText: string = this.i18n({
         id: 'component_companyForm_createText',
-        value: 'erstellen.'
-      });
-    }
+        value: '{{label}} erstellen.'
+      }, {label: this.getDefaultLabel()});
 
-    this.title = `${this.getDefaultLabel()} ${saveOrCreateText}`;
-    this.title = this.i18n({
-      id: 'component_companyForm_createTitle',
-      value: '{{label}} {{saveOrCreateText}}'
-    }, {label: this.getDefaultLabel(), saveOrCreateText});
-  }
-
-  getErrorMessage(control: FormControl): string {
-    return this.x.getErrorMessage(control);
+    this.title = this.formData.company ? saveText : createText;
   }
 
   saveCompany(): void {
