@@ -41,6 +41,24 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
     }
   }
 
+  async afterConfigured(): Promise<any> {
+    return new Promise(resolve => {
+      resolve();
+    });
+  }
+
+  async login(email: string, password: string): Promise<object> {
+
+    return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
+      .then(object => {
+        this.setupSilentRefresh();
+
+        this.fetchingService.refetchAll();
+
+        return object;
+      });
+  }
+
   private async getRefreshToken(): Promise<object> {
     if (!!this.oAuthService.getRefreshToken()) {
       return this.oAuthService.refreshToken();
@@ -60,24 +78,6 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
         this.router.navigate(['auth', 'login']);
 
         return false;
-      });
-  }
-
-  async afterConfigured(): Promise<any> {
-    return new Promise(resolve => {
-      resolve();
-    });
-  }
-
-  async login(email: string, password: string): Promise<object> {
-
-    return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
-      .then(object => {
-        this.setupSilentRefresh();
-
-        this.fetchingService.refetchAll();
-
-        return object;
       });
   }
 }
