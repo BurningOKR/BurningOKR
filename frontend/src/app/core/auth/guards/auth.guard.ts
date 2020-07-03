@@ -16,6 +16,6 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    return this.authService.startLoginProcedure();
+    return this.authService.redirectToLoginProvider();
   }
 }

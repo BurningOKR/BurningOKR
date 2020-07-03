@@ -47,7 +47,7 @@ export class AuthenticationService {
     });
   }
 
-  async startLoginProcedure(): Promise<boolean> {
+  async redirectToLoginProvider(): Promise<boolean> {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
     return authTypeHandler.startLoginProcedure(this);
@@ -55,7 +55,7 @@ export class AuthenticationService {
 
   private async startLoginProcedureIfAuthTypeIsAAD(): Promise<boolean> {
     if (this.authType !== Consts.AUTHTYPE_LOCAL) {
-      return this.startLoginProcedure();
+      return this.redirectToLoginProvider();
     } else {
       return true;
     }
