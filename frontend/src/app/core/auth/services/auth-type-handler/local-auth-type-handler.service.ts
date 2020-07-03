@@ -9,7 +9,7 @@ import { FetchingService } from '../../../services/fetching.service';
 export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
 
   constructor(protected oAuthService: OAuthService,
-              private router: Router,
+              protected router: Router,
               private fetchingService: FetchingService) {
   }
 
