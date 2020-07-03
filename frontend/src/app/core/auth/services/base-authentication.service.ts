@@ -7,10 +7,10 @@ export abstract class BaseAuthenticationService {
                         protected oAuthDetails: OAuthFrontendDetailsService) {
   }
 
-  protected abstract afterConfigured(): Promise<void>;
+  protected abstract afterConfigured(): Promise<any>;
 
   abstract redirectToLoginProvider(): Promise<boolean>;
-  abstract login(email?: string, password?: string): Promise<object>;
+  abstract login(email?: string, password?: string): Promise<any>;
   abstract setupSilentRefresh(): void;
 
   async configure(): Promise<AuthConfig> {

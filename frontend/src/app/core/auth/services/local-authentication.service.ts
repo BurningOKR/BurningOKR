@@ -18,13 +18,13 @@ export class LocalAuthenticationService extends BaseAuthenticationService {
     super(oAuthService, oAuthDetails);
   }
 
-  protected async afterConfigured(): Promise<void> {
+  protected async afterConfigured(): Promise<any> {
     return new Promise<void>(resolve => {
       resolve();
     });
   }
 
-  async login(email?: string, password?: string): Promise<object> {
+  async login(email?: string, password?: string): Promise<any> {
     return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
       .then(object => {
         this.setupSilentRefresh();
