@@ -13,7 +13,7 @@ export class RedirectComponent implements OnInit {
 
   ngOnInit(): void {
       setTimeout(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/landingpage']);
       }, 100);  // setTimeout is needed to navigate in non chromium based browsers /TG 09.03.2020
   }
 }

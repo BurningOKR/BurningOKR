@@ -25,7 +25,7 @@ export class ResetCountdownComponent implements OnInit {
   }
 
   reload(): void {
-    this.router.navigate(['/'])
+    this.router.navigate(['/landingpage'])
       .then(() => location.reload());
   }
 

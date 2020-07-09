@@ -25,7 +25,7 @@ export class DemoAuthTypeHandlerService extends LocalAuthTypeHandlerService {
       })
       .catch(() => {
         this.login(this.EMAIL, this.PASSWORD)
-          .then(() => this.router.navigate(['/']));
+          .then(() => this.router.navigate(['/landingpage']));
 
         return false;
       });

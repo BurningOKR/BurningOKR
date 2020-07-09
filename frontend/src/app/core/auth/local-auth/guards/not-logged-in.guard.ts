@@ -14,7 +14,7 @@ export class NotLoggedInGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authenticationService.hasValidAccessToken()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/landingpage']);
     } else {
       return true;
     }
