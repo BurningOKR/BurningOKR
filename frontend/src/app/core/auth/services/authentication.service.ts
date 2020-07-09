@@ -17,6 +17,11 @@ export class AuthenticationService {
 
   }
 
+  /**
+   * Configures the AuthenticationService with the OAuthDetails from the backend.
+   * Should be called at application startup.
+   * @returns the AuthConfig
+   */
   async configure(): Promise<AuthConfig> {
     const authTypeHandlerBase: AuthTypeHandlerBase = await this.authTypeHandler;
 
@@ -35,22 +40,39 @@ export class AuthenticationService {
     });
   }
 
+  /**
+   * Checks wether the user is logged in.
+   * The user will be redirected to the login page of the current AuthenticationHandler, when they are not logged in.
+   * @returns true when the user is logged. False otherwise.
+   */
   async redirectToLoginProvider(): Promise<boolean> {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
     return authTypeHandler.startLoginProcedure();
   }
 
-  async login(email: string, password: string): Promise<any> {
+  /**
+   * Logs the user in with the current AuthenticationService.
+   * @param email The email of the user
+   * @param password The password of the user
+   */
+  async login(email?: string, password?: string): Promise<any> {
     const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
 
     return authTypeHandler.login(email, password);
   }
 
+  /**
+   * Checks wether the user has a valid access token
+   * @returns true when the user has a valid access token. False otherwise.
+   */
   hasValidAccessToken(): boolean {
     return this.oAuthService.hasValidAccessToken();
   }
 
+  /**
+   * Logs the user out.
+   */
   logout(): void {
     this.oAuthService.logOut();
   }
