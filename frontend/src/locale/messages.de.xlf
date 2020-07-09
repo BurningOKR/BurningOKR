@@ -1934,17 +1934,11 @@
         <note priority="1" from="description">Warn the user if the company still has childUnits</note>
       </trans-unit><trans-unit id="component_companyForm_saveText" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="{{label}}"/> speichern.</source><target state="final"> <x id="INTERPOLATION" equiv-text="{{label}}"/> speichern.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_companyForm_createText" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="component_companyForm_createText" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{label}}"/> erstellen.</source><target state="final"><x id="INTERPOLATION" equiv-text="{{label}}"/> erstellen.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="schema" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="schema" datatype="html">
         <source>Struktur</source><target state="final">Struktur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
@@ -1952,33 +1946,15 @@
         </context-group>
       </trans-unit><trans-unit id="edit" datatype="html">
         <source>bearbeiten</source><target state="final">bearbeiten</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="create" datatype="html">
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="create" datatype="html">
         <source>erstellen</source><target state="final">erstellen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="amount" datatype="html">
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="amount" datatype="html">
         <source>Anzahl</source><target state="final">Anzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context>
