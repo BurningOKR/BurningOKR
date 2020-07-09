@@ -28,7 +28,7 @@ import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
 import { ResetCountdownComponent } from './demo-website/reset-countdown/reset-countdown.component';
-import { CountdownTimer } from 'ngx-countdown-timer';
+import { CountdownTimerModule } from 'ngx-countdown-timer';
 
 @NgModule({
   declarations: [
@@ -44,8 +44,7 @@ import { CountdownTimer } from 'ngx-countdown-timer';
     CapsLockDirective,
     NonLoggedInCardComponent,
     FormErrorComponent,
-    ResetCountdownComponent,
-    CountdownTimer
+    ResetCountdownComponent
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -68,6 +67,7 @@ import { CountdownTimer } from 'ngx-countdown-timer';
     MatSnackBarModule,
     AvatarModule,
     RouterModule,
+    CountdownTimerModule.forRoot()
   ],
   exports: [
     UserAutocompleteInputComponent,
@@ -82,7 +82,6 @@ import { CountdownTimer } from 'ngx-countdown-timer';
     NonLoggedInCardComponent,
     FormErrorComponent,
     ResetCountdownComponent,
-    CountdownTimer
   ],
 })
 export class SharedModule {
