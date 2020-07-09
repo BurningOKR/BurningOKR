@@ -26,7 +26,7 @@ export class AdminSettingsFormComponent implements OnInit {
   userSettingsForm: FormGroup;
   companies$: Observable<CompanyUnit[]>;
   departments$: Observable<OkrDepartment[]>;
-  authType$: Observable<string>;
+  isAzure$: Observable<boolean>;
 
   private configurationNames: { [key: string]: string } = {
     'max-key-results': this.i18n({
@@ -200,7 +200,7 @@ export class AdminSettingsFormComponent implements OnInit {
         });
       });
 
-    this.authType$ = this.oAuthDetails.getAuthType$()
+    this.isAzure$ = this.oAuthDetails.isAzureAuthType$()
       .pipe(take(1));
   }
 
