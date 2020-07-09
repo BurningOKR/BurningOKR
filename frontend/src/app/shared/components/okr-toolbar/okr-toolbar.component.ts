@@ -1,5 +1,5 @@
 import { User } from '../../model/api/user';
-import { map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
@@ -35,11 +35,9 @@ export class OkrToolbarComponent implements OnInit {
     private oAuthDetails: OAuthFrontendDetailsService,
     private configurationService: ConfigurationService
   ) {
-    this.isLocalUserbase$ = this.oAuthDetails.getAuthType$()
-      .pipe(
-        map(authType => authType === 'local'),
-        shareReplay()
-      );
+    this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$()
+      .pipe(take(1));
+
     this.hasMailConfigured$ = this.configurationService.getHasMailConfigured$();
   }
 
