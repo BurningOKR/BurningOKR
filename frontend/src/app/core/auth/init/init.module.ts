@@ -10,14 +10,16 @@ import { SharedModule } from '../../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserManagementModule } from '../local-auth/user-management/user-management.module';
 import { LocalAuthModule } from '../local-auth/local-auth.module';
-import { MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { SetAzureAdminInitStateFormComponent } from './init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component';
 
 @NgModule({
   declarations: [
     InitStateViewComponent,
     CompleteInitStateFormComponent,
     CreateUserInitStateFormComponent,
-    SetOauthClientDetailsFormComponent
+    SetOauthClientDetailsFormComponent,
+    SetAzureAdminInitStateFormComponent,
   ],
   imports: [
     CommonModule,
@@ -29,12 +31,14 @@ import { MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/
     LocalAuthModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ],
   entryComponents: [
     CompleteInitStateFormComponent,
     CreateUserInitStateFormComponent,
-    SetOauthClientDetailsFormComponent
+    SetOauthClientDetailsFormComponent,
+    SetAzureAdminInitStateFormComponent
   ]
 })
 export class InitModule { }

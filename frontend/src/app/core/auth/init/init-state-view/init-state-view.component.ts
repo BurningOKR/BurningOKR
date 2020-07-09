@@ -14,6 +14,7 @@ import { InitStateFormComponent } from './init-state-forms/init-state-form/init-
 import { TypeOf } from '../../../../../typings';
 import { InitService } from '../../../services/init.service';
 import { SetOauthClientDetailsFormComponent } from './init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component';
+import { SetAzureAdminInitStateFormComponent } from './init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component';
 
 @Component({
   selector: 'app-init-state-view',
@@ -62,6 +63,8 @@ export class InitStateViewComponent implements OnInit {
         return SetOauthClientDetailsFormComponent;
       case INIT_STATE_NAME.CREATE_USER:
         return CreateUserInitStateFormComponent;
+      case INIT_STATE_NAME.NO_AZURE_ADMIN_USER:
+        return SetAzureAdminInitStateFormComponent;
       default:
         return null;
     }
