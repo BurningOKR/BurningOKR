@@ -6,14 +6,12 @@ import { LogoutComponent } from './core/auth/components/logout/logout.component'
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
-import { RedirectComponent } from './core/auth/components/redirect/redirect.component';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { LocalGuard } from './core/auth/guards/local.guard';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 
 const routes: Routes = [
-  {path: 'redirect', component: RedirectComponent},
   {path: '', component: LandingPageNavigationComponent, canActivate: [AuthGuard]},
   {path: 'okr', loadChildren: () => import('./okrview/okrview.module')
       .then(mod => mod.OkrviewModule),

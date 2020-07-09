@@ -3,7 +3,7 @@ import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeEnExtra from '@angular/common/locales/extra/en';
@@ -18,7 +18,6 @@ import { SharedModule } from './shared/shared.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { ErrorInterceptor } from './core/error/error.interceptor';
-import { RedirectComponent } from './core/auth/components/redirect/redirect.component';
 import { LoggerModule } from 'ngx-logger';
 import {
   MatCardModule,
@@ -55,7 +54,6 @@ const currentLanguage: string = 'en';
     AdminViewComponent,
     AppComponent,
     LogoutComponent,
-    RedirectComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
   ],
