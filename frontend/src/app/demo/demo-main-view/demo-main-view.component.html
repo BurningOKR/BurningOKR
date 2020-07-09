@@ -5,6 +5,6 @@
   </button>
   <span i18n="@@component_demoMainView_title">Burning OKR</span>
   <span class="spacer"></span>
-  <button mat-raised-button color="accent" routerLink="/landingpage" i18n="@@component_demoMainView_playground">Playground</button>
+  <button mat-raised-button color="accent" i18n="@@component_demoMainView_playground" (click)="openPlayground()">Playground</button>
 </app-okr-toolbar-bare>
 <router-outlet></router-outlet>

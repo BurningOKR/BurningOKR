@@ -1,0 +1,31 @@
+@import '../../../styles/themes/bag-theme.scss';
+
+.icon-container {
+  background-color: map-get($md-primary, 500);
+  color: white;
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  vertical-align: bottom;
+  margin-right: 10px;
+}
+
+.icon-fix {
+  position: relative;
+  top: 7px;
+  left: 7px;
+  font-size: 50px;
+}
+
+.icon-description-container {
+  flex-grow: 1;
+  max-width: 500px;
+  h4, p {
+    margin: 0
+  }
+}
+
+.info-container {
+  display: flex;
+  margin-top: 10px;
+}
