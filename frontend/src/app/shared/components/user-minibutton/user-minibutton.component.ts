@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { User } from '../../model/api/user';
 import { UserService } from '../../services/helper/user.service';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   templateUrl: './user-minibutton.component.html',
   styleUrls: ['./user-minibutton.component.scss']
 })
-export class UserMinibuttonComponent implements OnInit {
+export class UserMinibuttonComponent implements OnInit, OnChanges {
   @Input() userId: string;
   @Input() canBeRemoved: boolean = false;
 
@@ -17,11 +17,23 @@ export class UserMinibuttonComponent implements OnInit {
   user$: Observable<User>;
 
   constructor(
-    private userMapperService: UserService) {
+    private userService: UserService) {
+  }
+
+  private getUser(): void {
+    this.user$ = this.userService.getUserById$(this.userId);
   }
 
   ngOnInit(): void {
-    this.user$ = this.userMapperService.getUserById$(this.userId);
+    this.getUser();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!!changes.userId) {
+      if (!changes.userId.firstChange) {
+        this.getUser();
+      }
+    }
   }
 
   clickedDeleteButton(): void {
