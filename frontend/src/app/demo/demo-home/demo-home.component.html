@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="main-image-container">
+    <img src="../../../assets/logo.png" alt="burning-okr logo" class="main-image" />
+  </div>
+  <div class="main-button-container">
+    <a href="https://github.com/BurningOKR/BurningOKR" mat-raised-button color="accent" i18n="@@component_demoHome_github">Github</a>
+    <button mat-raised-button color="accent" [matMenuTriggerFor]="documentationMenu" i18n="@@component_demoHome_documentation">Dokumentation</button>
+    <button mat-raised-button color="accent" routerLink="/landingpage" i18n="@@component_demoMainView_playground">Playground</button>
+  </div>
+  <h1>Welcome to Burning OKR!</h1>
+  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+</div>
+
+<mat-menu #documentationMenu>
+  <a href="https://burning-okr.gitbook.io/burningokr/" mat-menu-item i18n="@@component_demoHome_germanDocumentation">Deutsch</a>
+  <a href="https://burning-okr.gitbook.io/burningokr/v/en/" mat-menu-item i18n="@@component_demoHome_englishDocumentation">Englisch</a>
+</mat-menu>

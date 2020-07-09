@@ -14,7 +14,9 @@ import { NoMailInformationComponent } from './information/no-mail-information/no
 
 const routes: Routes = [
   {path: 'redirect', component: RedirectComponent},
-  {path: '', component: LandingPageNavigationComponent, canActivate: [AuthGuard]},
+  {path: '', redirectTo: 'demo', pathMatch: 'full'},
+  {path: 'demo', loadChildren: () => import('./demo/demo.module')
+      .then(mod => mod.DemoModule)},
   {path: 'okr', loadChildren: () => import('./okrview/okrview.module')
       .then(mod => mod.OkrviewModule),
    canActivate: [AuthGuard]
