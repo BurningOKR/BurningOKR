@@ -4,11 +4,9 @@ import { LoginComponent } from './login/login.component';
 import { LocalGuard } from '../guards/local.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
-import { InitGuard } from '../init/init.guard';
 import { AuthGuard } from '../guards/auth.guard';
 import { AdminRoleGuard } from '../../../admin/admin-role-guard';
 import { NotLoggedInGuard } from './guards/not-logged-in.guard';
-import { InitStateViewComponent } from '../init/init-state-view/init-state-view.component';
 import { NotInitiliazedGuard } from '../init/not-initiliazed.guard';
 
 const routes: Routes = [
@@ -17,7 +15,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [LocalGuard, NotLoggedInGuard, NotInitiliazedGuard]},
   {path: 'resetpassword', component: ResetPasswordComponent, canActivate: [LocalGuard]},
   {path: 'setpassword/:emailIdentifier', component: SetPasswordComponent, canActivate: [LocalGuard]},
-  {path: 'init', component: InitStateViewComponent, canActivate: [InitGuard, LocalGuard]},
   {
     path: 'users', loadChildren: () => import('./user-management/user-management.module')
       .then(mod => mod.UserManagementModule),

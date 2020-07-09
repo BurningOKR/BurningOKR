@@ -4,7 +4,8 @@ import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
-  // { path: 'init', }
+  { path: 'init', loadChildren: () => import('./init/init.module')
+      .then(mod => mod.InitModule) },
   { path: '', loadChildren: () => import('./local-auth/local-auth.module')
       .then(mod => mod.LocalAuthModule) },
 ];

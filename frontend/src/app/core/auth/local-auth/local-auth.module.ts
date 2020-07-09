@@ -18,11 +18,6 @@ import { SetPasswordComponent } from './set-password/set-password.component';
 import { UserManagementModule } from './user-management/user-management.module';
 import { PasswordFormComponent } from './password-form/password-form.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
-import { InitStateViewComponent } from '../init/init-state-view/init-state-view.component';
-import { CompleteInitStateFormComponent } from '../init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component';
-import { WelcomeInitStateFormComponent } from '../init/init-state-view/init-state-forms/welcome-init-state-form/welcome-init-state-form.component';
-import { CreateUserInitStateFormComponent } from '../init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component';
-import { SetOauthClientDetailsFormComponent } from '../init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component';
 
 @NgModule({
   declarations: [
@@ -31,11 +26,6 @@ import { SetOauthClientDetailsFormComponent } from '../init/init-state-view/init
     SetPasswordComponent,
     PasswordFormComponent,
     ChangePasswordDialogComponent,
-    InitStateViewComponent,
-    CreateUserInitStateFormComponent,
-    CompleteInitStateFormComponent,
-    WelcomeInitStateFormComponent,
-    SetOauthClientDetailsFormComponent,
   ],
   imports: [
     CommonModule,
@@ -53,12 +43,10 @@ import { SetOauthClientDetailsFormComponent } from '../init/init-state-view/init
   ],
   entryComponents: [
     ChangePasswordDialogComponent,
-    CreateUserInitStateFormComponent,
-    WelcomeInitStateFormComponent,
-    CompleteInitStateFormComponent,
-    SetOauthClientDetailsFormComponent,
   ],
-  exports: []
+  exports: [
+    PasswordFormComponent
+  ]
 })
 export class LocalAuthModule {
 }
