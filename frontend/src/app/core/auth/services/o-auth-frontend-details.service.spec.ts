@@ -258,6 +258,19 @@ describe('OAuthFrontendDetailsService', () => {
       });
   });
 
+  it('isLocalAuthType returns true for demo auth type', done => {
+    testOAuthFrontendDetails.authType = Consts.AUTHTYPE_DEMO;
+
+    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+
+    service.isLocalAuthType$()
+      .subscribe((isLocal: boolean) => {
+        expect(isLocal)
+          .toBeTruthy();
+        done();
+      });
+  });
+
   it('isLocalAuthType returns false for azure auth type', done => {
     testOAuthFrontendDetails.authType = Consts.AUTHTYPE_AZURE;
 
