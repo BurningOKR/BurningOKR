@@ -12,7 +12,6 @@ import { loggerConfig } from './config-files/logger-config';
 import { OAuthInterceptorService } from './core/auth/services/o-auth-interceptor.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LogoutComponent } from './core/auth/logout/logout.component';
 import { OkrUnitModule } from './okr-units/okr-unit.module';
 import { SharedModule } from './shared/shared.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
@@ -53,7 +52,6 @@ const currentLanguage: string = 'en';
   declarations: [
     AdminViewComponent,
     AppComponent,
-    LogoutComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
   ],
@@ -81,7 +79,6 @@ const currentLanguage: string = 'en';
   ],
   entryComponents: [
     DeleteDialogComponent,
-    LogoutComponent,
   ],
   providers: [
     OAuthFrontendDetailsService,
