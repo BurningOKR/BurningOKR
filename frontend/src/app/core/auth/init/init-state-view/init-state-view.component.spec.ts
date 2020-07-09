@@ -7,9 +7,9 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { InitService } from '../../../../services/init.service';
-import { InitServiceMock } from '../../../../../shared/mocks/init-service-mock';
-import { ComponentFactoryResolverMock } from '../../../../../shared/mocks/component-factory-resolver-mock';
+import { InitService } from '../../../services/init.service';
+import { InitServiceMock } from '../../../../shared/mocks/init-service-mock';
+import { ComponentFactoryResolverMock } from '../../../../shared/mocks/component-factory-resolver-mock';
 
 describe('InitStateViewComponent', () => {
   const initServiceMock: InitServiceMock = new InitServiceMock();

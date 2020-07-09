@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminViewComponent } from './admin/admin-view.component';
 import { LandingPageNavigationComponent } from './core/landing-page-router/landing-page-navigation.component';
-import { LogoutComponent } from './core/auth/components/logout/logout.component';
+import { LogoutComponent } from './core/auth/logout/logout.component';
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';

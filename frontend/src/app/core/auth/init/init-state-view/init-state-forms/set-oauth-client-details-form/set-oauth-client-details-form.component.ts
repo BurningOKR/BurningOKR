@@ -1,14 +1,14 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { InitStateFormComponent } from '../init-state-form/init-state-form.component';
 import { FormBuilder, Validators } from '@angular/forms';
-import { InitState } from '../../../../../../../shared/model/api/init-state';
-import { InitService } from '../../../../../../services/init.service';
-import { OauthClientDetails } from '../../../../../../../shared/model/api/oauth-client-details';
-import { FormGroupTyped } from '../../../../../../../../typings';
-import { Consts } from '../../../../../../../shared/consts';
+import { InitState } from '../../../../../../shared/model/api/init-state';
+import { InitService } from '../../../../../services/init.service';
+import { OauthClientDetails } from '../../../../../../shared/model/api/oauth-client-details';
+import { FormGroupTyped } from '../../../../../../../typings';
+import { Consts } from '../../../../../../shared/consts';
 import { filter, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 import { EMPTY, interval, Observable, throwError } from 'rxjs';
-import { OAuthFrontendDetailsService } from '../../../../../services/o-auth-frontend-details.service';
+import { OAuthFrontendDetailsService } from '../../../../services/o-auth-frontend-details.service';
 import { MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 

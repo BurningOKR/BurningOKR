@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
-import { OAuthFrontendDetailsService } from '../../services/o-auth-frontend-details.service';
+import { OAuthFrontendDetailsService } from '../services/o-auth-frontend-details.service';
 import { take } from 'rxjs/operators';
-import { Consts } from '../../../../shared/consts';
+import { Consts } from '../../../shared/consts';
 
 @Component({
   selector: 'app-login',

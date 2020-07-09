@@ -4,12 +4,12 @@ import { LoginComponent } from './login/login.component';
 import { LocalGuard } from '../guards/local.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
-import { InitGuard } from './init/init.guard';
+import { InitGuard } from '../init/init.guard';
 import { AuthGuard } from '../guards/auth.guard';
 import { AdminRoleGuard } from '../../../admin/admin-role-guard';
 import { NotLoggedInGuard } from './guards/not-logged-in.guard';
-import { InitStateViewComponent } from './init/init-state-view/init-state-view.component';
-import { NotInitiliazedGuard } from './init/not-initiliazed.guard';
+import { InitStateViewComponent } from '../init/init-state-view/init-state-view.component';
+import { NotInitiliazedGuard } from '../init/not-initiliazed.guard';
 
 const routes: Routes = [
   {path: '*', redirectTo: 'login', pathMatch: 'full'},

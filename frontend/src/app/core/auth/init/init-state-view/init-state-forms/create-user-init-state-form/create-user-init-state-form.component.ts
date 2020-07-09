@@ -1,15 +1,15 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormGroupTyped } from '../../../../../../../../typings';
-import { NewPasswordForm } from '../../../../../../../shared/model/forms/new-password-form';
-import { AdminUserForm } from '../../../../../../../shared/model/forms/admin-user-form';
+import { FormGroupTyped } from '../../../../../../../typings';
+import { NewPasswordForm } from '../../../../../../shared/model/forms/new-password-form';
+import { AdminUserForm } from '../../../../../../shared/model/forms/admin-user-form';
 import { InitStateFormComponent } from '../init-state-form/init-state-form.component';
-import { InitService } from '../../../../../../services/init.service';
-import { PostLocalAdminUserData } from '../../../../../../../shared/model/api/post-local-admin-user-data';
-import { User } from '../../../../../../../shared/model/api/user';
-import { InitState } from '../../../../../../../shared/model/api/init-state';
+import { InitService } from '../../../../../services/init.service';
+import { PostLocalAdminUserData } from '../../../../../../shared/model/api/post-local-admin-user-data';
+import { User } from '../../../../../../shared/model/api/user';
+import { InitState } from '../../../../../../shared/model/api/init-state';
 import { Observable } from 'rxjs';
-import { PasswordsMatchValidator } from '../../../../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { PasswordsMatchValidator } from '../../../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 
 @Component({
   selector: 'app-create-user-state-form',

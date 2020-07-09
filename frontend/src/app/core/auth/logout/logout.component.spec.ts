@@ -3,9 +3,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { LogoutComponent } from './logout.component';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
-import { OAuthFrontendDetailsService } from '../../services/o-auth-frontend-details.service';
+import { OAuthFrontendDetailsService } from '../services/o-auth-frontend-details.service';
 import { of } from 'rxjs';
-import { Consts } from '../../../../shared/consts';
+import { Consts } from '../../../shared/consts';
 
 describe('LogoutComponent', () => {
   let component: any;
