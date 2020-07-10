@@ -30,7 +30,7 @@ export class AdminSettingsFormComponent implements OnInit {
   userSettingsForm: FormGroup;
   companies$: Observable<CompanyUnit[]>;
   departments$: Observable<OkrDepartment[]>;
-  authType$: Observable<string>;
+  isAzure$: Observable<boolean>;
 
   private confirmationTitle: string = this.i18n({
     id: '@@deativate_okr_topic_sponsors_title',
@@ -235,7 +235,7 @@ export class AdminSettingsFormComponent implements OnInit {
         });
       });
 
-    this.authType$ = this.oAuthDetails.getAuthType$()
+    this.isAzure$ = this.oAuthDetails.isAzureAuthType$()
       .pipe(take(1));
   }
 

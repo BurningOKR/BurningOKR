@@ -37,6 +37,20 @@ export class OAuthFrontendDetailsService {
       );
   }
 
+  isLocalAuthType$(): Observable<boolean> {
+    return this.getOAuthFrontendDetails$()
+      .pipe(
+        map(details => details.authType === Consts.AUTHTYPE_LOCAL)
+      );
+  }
+
+  isAzureAuthType$(): Observable<boolean> {
+    return this.getOAuthFrontendDetails$()
+      .pipe(
+        map(details => details.authType === Consts.AUTHTYPE_AZURE)
+      );
+  }
+
   getAuthConfig$(): Observable<AuthConfig> {
     return this.getOAuthFrontendDetails$()
       .pipe(
@@ -44,7 +58,7 @@ export class OAuthFrontendDetailsService {
           return {
             clientId: details.clientId,
             dummyClientSecret: details.dummyClientSecret,
-            issuer: details.authType === 'local' ? `${location.origin}${details.issuer}` : details.issuer,
+            issuer: details.issuer,
             oidc: details.oidc,
             redirectUri: details.redirectUri,
             responseType: details.responseType,

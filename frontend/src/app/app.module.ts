@@ -18,7 +18,6 @@ import { SharedModule } from './shared/shared.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { ErrorInterceptor } from './core/error/error.interceptor';
-import { RedirectComponent } from './core/auth/components/redirect/redirect.component';
 import { LoggerModule } from 'ngx-logger';
 import {
   MatCardModule,
@@ -55,7 +54,6 @@ const currentLanguage: string = 'en';
     AdminViewComponent,
     AppComponent,
     LogoutComponent,
-    RedirectComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
   ],
