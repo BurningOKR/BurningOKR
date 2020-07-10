@@ -17,9 +17,9 @@ export class InitGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.initService.getInitState$()
-      .pipe(map(receivedInitState => {
-        if (receivedInitState.initState === INIT_STATE_NAME.INITIALIZED) {
+    return this.initService.isInitialized$()
+      .pipe(map(initialized => {
+        if (initialized) {
           return this.router.createUrlTree(['/']);
         } else {
           return true;

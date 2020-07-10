@@ -16,12 +16,12 @@ export class NotInitiliazedGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.initService.getInitState$()
-      .pipe(map(receivedInitState => {
-        if (receivedInitState.initState !== INIT_STATE_NAME.INITIALIZED) {
-          return this.router.createUrlTree(['auth', 'init']);
-        } else {
+    return this.initService.isInitialized$()
+      .pipe(map(initialized => {
+        if (initialized) {
           return true;
+        } else {
+          return this.router.createUrlTree(['auth', 'init']);
         }
       }));
   }
