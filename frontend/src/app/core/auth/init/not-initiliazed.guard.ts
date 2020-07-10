@@ -19,9 +19,7 @@ export class NotInitiliazedGuard implements CanActivate {
     return this.initService.getInitState$()
       .pipe(map(receivedInitState => {
         if (receivedInitState.initState !== INIT_STATE_NAME.INITIALIZED) {
-          this.router.navigate(['auth', 'init']);
-
-          return false;
+          return this.router.createUrlTree(['auth', 'init']);
         } else {
           return true;
         }

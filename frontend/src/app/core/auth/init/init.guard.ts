@@ -20,7 +20,7 @@ export class InitGuard implements CanActivate {
     return this.initService.getInitState$()
       .pipe(map(receivedInitState => {
         if (receivedInitState.initState === INIT_STATE_NAME.INITIALIZED) {
-          this.router.navigate(['/']);
+          return this.router.createUrlTree(['/']);
         } else {
           return true;
         }

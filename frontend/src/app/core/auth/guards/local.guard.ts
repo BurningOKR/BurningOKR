@@ -23,9 +23,7 @@ export class LocalGuard implements CanActivate {
           if (isLocal) {
             return true;
           } else {
-            this.router.navigate(['']);
-
-            return false;
+            return this.router.createUrlTree(['']);
           }
         })
       );

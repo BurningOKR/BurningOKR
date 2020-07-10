@@ -7,28 +7,22 @@ import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-containe
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
-import { LocalGuard } from './core/auth/guards/local.guard';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 
 const routes: Routes = [
   {
-    path: '', canActivate: [NotInitiliazedGuard], children: [
-      { path: '', component: LandingPageNavigationComponent, canActivate: [AuthGuard] },
-      {
-        path: 'okr', loadChildren: () => import('./okrview/okrview.module')
-          .then(mod => mod.OkrviewModule),
-        canActivate: [AuthGuard]
-      },
-      { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [AuthGuard] },
-      { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [AuthGuard] },
-      { path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, AdminRoleGuard] },
-      {
-        path: 'cycle-admin/:companyId',
-        component: CycleAdminContainerComponent,
-        canActivate: [AuthGuard, AdminRoleGuard]
-      },
-    ]
+    path: 'okr', loadChildren: () => import('./okrview/okrview.module')
+      .then(mod => mod.OkrviewModule),
+    canActivate: [NotInitiliazedGuard, AuthGuard]
+  },
+  { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
+  { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
+  { path: 'admin', component: AdminViewComponent, canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard] },
+  {
+    path: 'cycle-admin/:companyId',
+    component: CycleAdminContainerComponent,
+    canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard]
   },
   {
     path: 'auth', loadChildren: () => import('./core/auth/auth.module')
@@ -36,6 +30,7 @@ const routes: Routes = [
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
+  { path: '', component: LandingPageNavigationComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
   { path: '**', redirectTo: '' }
 ];
 
