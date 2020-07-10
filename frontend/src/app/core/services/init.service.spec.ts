@@ -80,4 +80,61 @@ describe('InitService', () => {
         done();
       });
   });
+
+  it('isInitialized should return true, when subject is false and http service is initialized', done => {
+    const initState: InitState = {
+      initState: INIT_STATE_NAME.INITIALIZED,
+      runtimeId: 'test'
+    };
+    apiHttpService.getData$.mockReturnValue(of(initState));
+
+    const service: InitService = TestBed.get(InitService);
+
+    (service as any).initialized$.next(false);
+
+    service.isInitialized$()
+      .subscribe((value: boolean) => {
+        expect(value)
+          .toBeTruthy();
+        done();
+      });
+  });
+
+  it('isInitialized should make subject true, when http service is initialized and subject was false', done => {
+    const initState: InitState = {
+      initState: INIT_STATE_NAME.INITIALIZED,
+      runtimeId: 'test'
+    };
+    apiHttpService.getData$.mockReturnValue(of(initState));
+
+    const service: InitService = TestBed.get(InitService);
+
+    (service as any).initialized$.next(false);
+
+    service.isInitialized$()
+      .subscribe(() => {
+        expect((service as any).initialized$.getValue())
+          .toBeTruthy();
+        done();
+      });
+  });
+
+  it('isInitialized should return false, when subject is false and http service is not initialized', done => {
+    const initState: InitState = {
+      initState: INIT_STATE_NAME.CREATE_USER,
+      runtimeId: 'test'
+    };
+    apiHttpService.getData$.mockReturnValue(of(initState));
+
+    const service: InitService = TestBed.get(InitService);
+
+    (service as any).initialized$.next(false);
+
+    service.isInitialized$()
+      .subscribe((value: boolean) => {
+        expect(value)
+          .toBeFalsy();
+        done();
+      });
+  });
 });
