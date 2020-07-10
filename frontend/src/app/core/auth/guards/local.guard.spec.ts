@@ -7,17 +7,17 @@ import { of } from 'rxjs';
 import { Consts } from '../../../shared/consts';
 
 const oAuthDetailsMock: any = {
-  getAuthType$: jest.fn()
+  isLocalAuthType$: jest.fn()
 };
 const routerMock: any = {
   navigate: jest.fn(),
 };
 
 describe('LocalAuthGuard', () => {
-  oAuthDetailsMock.getAuthType$.mockReset();
+  oAuthDetailsMock.isLocalAuthType$.mockReset();
   routerMock.navigate.mockReset();
 
-  oAuthDetailsMock.getAuthType$
+  oAuthDetailsMock.isLocalAuthType$
     .mockReturnValueOnce(of(Consts.AUTHTYPE_AZURE));
   beforeEach(() => {
     TestBed.configureTestingModule({
