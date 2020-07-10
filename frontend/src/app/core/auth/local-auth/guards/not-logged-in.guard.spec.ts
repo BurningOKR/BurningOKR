@@ -2,7 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 
 import { NotLoggedInGuard } from './not-logged-in.guard';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 
 describe('NotLoggedInGuard', () => {
 
@@ -10,7 +10,7 @@ describe('NotLoggedInGuard', () => {
     hasValidAccessToken: jest.fn()
   };
   const routerMock: any = {
-    navigate: jest.fn()
+    createUrlTree: jest.fn()
   };
 
   beforeEach(() => {
@@ -24,26 +24,29 @@ describe('NotLoggedInGuard', () => {
     });
   });
 
+  beforeEach(() => {
+    routerMock.createUrlTree.mockReset();
+    routerMock.createUrlTree.mockReturnValue(new UrlTree());
+  });
+
   it('should create', inject([NotLoggedInGuard], (guard: NotLoggedInGuard) => {
     expect(guard)
       .toBeTruthy();
   }));
 
-  it('should return false and route', inject([NotLoggedInGuard], (guard: NotLoggedInGuard) => {
+  it('should return route', inject([NotLoggedInGuard], (guard: NotLoggedInGuard) => {
     authenticationServiceMock.hasValidAccessToken.mockReturnValue(true);
 
-    const resultValue: boolean = guard.canActivate(null, null);
+    const resultValue: boolean | UrlTree = guard.canActivate(null, null);
 
-    expect(resultValue)
-      .toBeFalsy();
-    expect(routerMock.navigate)
-      .toHaveBeenCalled();
+    expect(resultValue instanceof UrlTree)
+      .toBeTruthy();
   }));
 
   it('should return true an not route', inject([NotLoggedInGuard], (guard: NotLoggedInGuard) => {
     authenticationServiceMock.hasValidAccessToken.mockReturnValue(false);
 
-    const resultValue: boolean = guard.canActivate(null, null);
+    const resultValue: boolean | UrlTree = guard.canActivate(null, null);
 
     expect(resultValue)
       .toBeTruthy();
