@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { CurrentUserService } from '../../services/current-user.service';
 import { forkJoin, NEVER, Observable, of } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,6 +14,10 @@ import { Configuration } from '../../../shared/model/ui/configuration';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogData
+} from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-admin-settings',
@@ -28,13 +32,25 @@ export class AdminSettingsFormComponent implements OnInit {
   departments$: Observable<OkrDepartment[]>;
   authType$: Observable<string>;
 
+  private confirmationTitle: string = this.i18n({
+    id: '@@deativate_okr_topic_sponsors_title',
+    description: 'title of confirmation dialog for deaktivating topic sponsors',
+    value: `OKR Themenpaten deaktivieren`
+  });
+
+  private confirmationText: string = this.i18n({
+    id: '@@deativate_okr_topic_sponsors_text',
+    description: 'text of confirmation dialog for deaktivating topic sponsors',
+    value: `Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.`
+  });
+
   private configurationNames: { [key: string]: string } = {
     'max-key-results': this.i18n({
       id: '@@settings_form_max_key_results_per_objective',
       description: 'Placeholder for maximal amount of keyresults per objective',
       value: 'Maximale Anzahl von Key Results'
     }),
-    'topic-sponsors-acivated': this.i18n({
+    'topic-sponsors-activated': this.i18n({
       id: '@@settings_topic_sponsors',
       description: 'Placeholder for the setting, which de-/activates topic sponsors through out the application',
       value: 'Themenpaten aktiviert'
@@ -85,6 +101,7 @@ export class AdminSettingsFormComponent implements OnInit {
               private configurationManagerService: ConfigurationManagerService,
               private currentUserService: CurrentUserService,
               private departmentService: DepartmentMapper,
+              private dialog: MatDialog,
               private i18n: I18n,
               private oAuthDetails: OAuthFrontendDetailsService,
               private userSettingsManager: UserSettingsManagerService,
@@ -107,6 +124,14 @@ export class AdminSettingsFormComponent implements OnInit {
     this.initAdminSettingsForm();
     this.initUserSettingsForm();
     this.companies$ = this.companyService.getActiveCompanies$();
+  }
+
+  onSave(): void {
+    if (!this.userDeactivatedTopicSponsors()) {
+      this.sendOk();
+    } else {
+      this.openDeactivateTopicSponsorConfirmationDialog();
+    }
   }
 
   sendOk(): void {
@@ -212,5 +237,29 @@ export class AdminSettingsFormComponent implements OnInit {
 
     this.authType$ = this.oAuthDetails.getAuthType$()
       .pipe(take(1));
+  }
+
+  private openDeactivateTopicSponsorConfirmationDialog(): void {
+    const data: ConfirmationDialogData = {
+      title: this.confirmationTitle,
+      message: this.confirmationText,
+    };
+
+    this.dialog.open(ConfirmationDialogComponent, {data})
+      .afterClosed()
+      .pipe(
+        filter(v => v)
+      )
+      .subscribe(_ => this.sendOk());
+  }
+
+  private userDeactivatedTopicSponsors(): boolean {
+    for (const control of this.settings.controls) {
+      if (control.get('name').value === 'topic-sponsors-activated') {
+        return !control.get('value').value && control.dirty;
+      }
+    }
+
+    return false;
   }
 }

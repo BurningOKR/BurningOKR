@@ -43,7 +43,7 @@
               </mat-form-field>
               <ng-template #checkbox>
                 <mat-label> {{configurationNames[setting.controls.name.value]}}:</mat-label>
-                <mat-checkbox [formControl]="setting.controls.value"></mat-checkbox>
+                <mat-checkbox [checked]="setting.controls.value" [formControl]="setting.controls.value"></mat-checkbox>
               </ng-template>
             </ng-container>
           </ng-container>
@@ -54,7 +54,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button color="primary" (click)="sendOk()"
+    <button mat-button color="primary" (click)="onSave()"
             [disabled]="userSettingsForm.invalid || (isCurrentUserAdmin$ && adminSettingsForm.invalid)"><span
       i18n="@@component_settingsForm_save">Speichern</span></button>
     <button mat-button color="warn" (click)="closeDialog()"><span
