@@ -34,7 +34,7 @@ export class AdminSettingsFormComponent implements OnInit {
       description: 'Placeholder for maximal amount of keyresults per objective',
       value: 'Maximale Anzahl von Key Results'
     }),
-    'topic-sponsors-acivated': this.i18n({
+    'topic-sponsors-activated': this.i18n({
       id: '@@settings_topic_sponsors',
       description: 'Placeholder for the setting, which de-/activates topic sponsors through out the application',
       value: 'Themenpaten aktiviert'
