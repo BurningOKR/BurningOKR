@@ -1,18 +1,30 @@
 <div *ngIf="currentUser$ | async; let user; else loading">
-<p class="tab-subtitle" i18n="@@setAzureAdminSubtitle">
-  Folgender Nutzer wird als initialer Administrator eingetragen.
-</p>
-<div class="flex-wrap-spreadinner-nocenter">
-  <app-user-minibutton [userId]="user.id" [canBeRemoved]="false"></app-user-minibutton>
-</div>
-<p i18n="@@otherUserNotice">
-  Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto
-  an.
-</p>
-<div class="text-center">
-  <button mat-raised-button color="primary" (click)="handleSubmitClick(user)" [disabled]="!buttonsEnabled">Diesen Nutzer als Administrator festlegen</button>
-  <button mat-button color="primary" (click)="handleLogoutClick()" [disabled]="!buttonsEnabled">Logout</button>
-</div>
+  <p class="tab-subtitle" i18n="@@setAzureAdminSubtitle">
+    Folgender Nutzer wird als initialer Administrator eingetragen.
+  </p>
+  <div class="flex-wrap-spreadinner-nocenter">
+    <app-user-minibutton [userId]="user.id" [canBeRemoved]="false"></app-user-minibutton>
+  </div>
+  <p i18n="@@otherUserNotice">
+    Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto
+    an.
+  </p>
+  <div class="text-center">
+    <button mat-raised-button
+            color="primary"
+            (click)="handleSubmitClick(user)"
+            [disabled]="!buttonsEnabled"
+            i18n="@@setAdminButton">
+      Diesen Nutzer als Administrator festlegen
+    </button>
+    <button mat-button
+            color="primary"
+            (click)="handleLogoutClick()"
+            [disabled]="!buttonsEnabled"
+            i18n="@@setAdminLogoutButton">
+      Logout
+    </button>
+  </div>
 </div>
 <ng-template #loading>
   <app-loading-spinner></app-loading-spinner>
