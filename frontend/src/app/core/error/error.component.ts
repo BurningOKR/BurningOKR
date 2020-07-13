@@ -34,7 +34,7 @@ export class ErrorComponent implements OnInit {
       )
       .subscribe(errors => {
         if (!errors || errors.length === 0) {
-          this.router.navigateByUrl('/landingpage');
+          this.router.navigateByUrl('/');
         }
       });
   }

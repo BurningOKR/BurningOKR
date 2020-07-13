@@ -14,7 +14,7 @@ export class NotLoggedInGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
     if (this.authenticationService.hasValidAccessToken()) {
-      return this.router.createUrlTree(['/landingpage']);
+      return this.router.createUrlTree(['/']);
     } else {
       return true;
     }
