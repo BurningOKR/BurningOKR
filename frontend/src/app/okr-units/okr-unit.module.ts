@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { OkrUnitCardComponent } from './okr-unit-card/okr-unit-card.component';
 import { OkrUnitDashboardComponent } from './okr-unit-dashboard/okr-unit-dashboard.component';
-import { AppRoutingModule } from '../app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -29,7 +28,6 @@ import { OkrUnitFormComponent } from './okr-unit-form/okr-unit-form.component';
   ],
   imports: [
     SharedModule,
-    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,

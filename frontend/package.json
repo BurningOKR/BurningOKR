@@ -79,7 +79,7 @@
     "codelyzer": "^5.0.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "jest": "^24.9.0",
+    "jest": "^25.0.0",
     "jest-preset-angular": "^8.0.0",
     "protractor": "^5.4.2",
     "rxjs-tslint-rules": "^4.30.1",

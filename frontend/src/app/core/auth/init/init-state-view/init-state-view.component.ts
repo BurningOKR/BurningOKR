@@ -7,14 +7,14 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { INIT_STATE_NAME, InitState } from '../../../../../shared/model/api/init-state';
+import { INIT_STATE_NAME, InitState } from '../../../../shared/model/api/init-state';
 import { CreateUserInitStateFormComponent } from './init-state-forms/create-user-init-state-form/create-user-init-state-form.component';
-import { WelcomeInitStateFormComponent } from './init-state-forms/welcome-init-state-form/welcome-init-state-form.component';
 import { CompleteInitStateFormComponent } from './init-state-forms/complete-init-state-form/complete-init-state-form.component';
 import { InitStateFormComponent } from './init-state-forms/init-state-form/init-state-form.component';
-import { TypeOf } from '../../../../../../typings';
-import { InitService } from '../../../../services/init.service';
+import { TypeOf } from '../../../../../typings';
+import { InitService } from '../../../services/init.service';
 import { SetOauthClientDetailsFormComponent } from './init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component';
+import { SetAzureAdminInitStateFormComponent } from './init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component';
 
 @Component({
   selector: 'app-init-state-view',
@@ -63,8 +63,10 @@ export class InitStateViewComponent implements OnInit {
         return SetOauthClientDetailsFormComponent;
       case INIT_STATE_NAME.CREATE_USER:
         return CreateUserInitStateFormComponent;
+      case INIT_STATE_NAME.NO_AZURE_ADMIN_USER:
+        return SetAzureAdminInitStateFormComponent;
       default:
-        return WelcomeInitStateFormComponent;
+        return null;
     }
   }
 }

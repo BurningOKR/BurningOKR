@@ -1,5 +1,6 @@
 <div *ngIf="spinnerIsHidden else loading">
-  <title i18n="@@setOauthClientDetailsInitStateTitle">Tragen Sie die OAuthclient-Details ein</title>
+<!--  TODO: (R.J. 09.07.20) the title tag is wrong here and will not be displayed-->
+<!--  <title i18n="@@setOauthClientDetailsInitStateTitle">Tragen Sie die OAuthclient-Details ein</title>-->
   <p class="tab-subtitle" i18n="@@setOauthClientDetailInitStateSubtitel">Tragen Sie die OAuthclient-Details ein. <br>Dieser Schritt kann übersprungen werden.</p>
   <br>
   <mat-checkbox class="small-padding" (change)="toggleForm()" i18n="@@onlyDoThisIfYouAreANerdWarning">
