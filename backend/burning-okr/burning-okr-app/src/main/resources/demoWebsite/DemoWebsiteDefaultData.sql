@@ -53,7 +53,7 @@ BEGIN
             1, -- CycleState.ACTIVE
             current_date + INTEGER '7', -- endDate -> today plus seven days
             current_date - INTEGER '7', -- startDate -> today minus seven days
-            'My First Cycle', --name
+            'Mein erster OKR Zyklus', --name
             current_date + INTEGER '7', -- plannedEndDate -> today plus seven days
             current_date - INTEGER '7' -- plannedStartDate -> today minus seven days
            );
@@ -64,12 +64,12 @@ BEGIN
 
     -- Insert all Base Classes for OKRUnits
     INSERT INTO okr_unit (id, label, name)
-    VALUES (firstCompanyId, 'Company', 'My First Company'),
-           (secondCompanyId, 'Company', 'My Second Company'),
-           (marketingDepartmentId, 'Department', 'Marketing Department'),
-           (itBranchId, 'OKR Branch', 'IT Branch'),
-           (developmentDepartmentId, 'Department', 'Department for Application Development'),
-           (integrationDepartmentId, 'Department', 'Department for Application Integration');
+    VALUES (firstCompanyId, 'Firma', 'Meine erste Firma'),
+           (secondCompanyId, 'Company', 'Meine zweite Firma'),
+           (marketingDepartmentId, 'Abteilung', 'Marketing Abteilung'),
+           (itBranchId, 'OKR Zweig', 'IT Zweig'),
+           (developmentDepartmentId, 'Abteilung', 'Entwicklungsabteilung'),
+           (integrationDepartmentId, 'Abteilung', 'Abteilung für Anwendungsintegration');
 
     -- Insert all Base Classes for OKRChildUnits
     INSERT INTO okr_child_unit (id, parent_okr_unit_id, is_active)
@@ -135,21 +135,21 @@ BEGIN
 
     -- Insert all Objectives
     INSERT INTO objective (id, contact_person_id, description, name, remark, review, parent_objective_id, parent_okr_unit_id)
-    VALUES (itBranchObjective, NULL, 'Our OKR Process would be easier with an OKR Tool.', 'Switch to Burning OKR.', '', '', NULL, itBranchId),
-           (firstMarketingObjectiveId, NULL, 'We need to tell everyone about Burning OKR!', 'Spread the word about Burning OKR!', '', '', itBranchObjective, marketingDepartmentId),
-           (firstDevelopmentDepartmentObjectiveId, NULL, '', 'Get Started with the development of Burning OKR.', '', '', NULL, developmentDepartmentId),
-           (secondDevelopmentDepartmentObjectiveId, NULL, 'It is open source! Everybody can contribute to the development of Burning OKR.', 'Develop features for Burning OKR!', '', '', NULL, developmentDepartmentId),
-           (integrationDepartmentObjectiveId, NULL, '', 'Integrate Burning OKR in your company.', '', '', itBranchObjective, integrationDepartmentId);
+    VALUES (itBranchObjective, NULL, 'Unser OKR Prozess wäre einfacher mit einem OKR Tool.', 'Zu Burning OKR wechseln.', '', '', NULL, itBranchId),
+           (firstMarketingObjectiveId, NULL, 'Wir müssen allen Leuten von Burning OKR erzählen!', 'Burning OKR bekannt machen.', '', '', itBranchObjective, marketingDepartmentId),
+           (firstDevelopmentDepartmentObjectiveId, NULL, '', 'Mit der Entwicklung von Burning OKR beginnen.', '', '', NULL, developmentDepartmentId),
+           (secondDevelopmentDepartmentObjectiveId, NULL, 'Burning OKR ist OpenSource! Jeder kann daran mitentwickeln.', 'Weitere Features für Burning OKR entwickeln.', '', '', NULL, developmentDepartmentId),
+           (integrationDepartmentObjectiveId, NULL, '', 'Burning OKR in den OKR Prozess unserer Firma einbinden.', '', '', itBranchObjective, integrationDepartmentId);
 
     -- Insert all KeyResults
     INSERT INTO key_result (id, current_value, description, name, start_value, target_value, unit, parent_objective_id, sequence)
-    VALUES (firstKeyResultId, 0, '', 'Tell three friends about Burning OKR!', 0, 3, 0, firstMarketingObjectiveId, 0),
-           (secondKeyResultId, 0, '', 'Follow the Burning OKR Twitter Account.', 0, 1, 0, firstMarketingObjectiveId, 1),
-           (thirdKeyResultId, 0, '', 'Learn more about us on www.brockhaus-ag.de', 0, 100, 1, firstMarketingObjectiveId, 2),
-           (gettingStartedKeyResultId, 0, 'It is very helpful!', 'Read our Getting Started Guide', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 0),
-           (forkKeyResultId, 0, '', 'Fork our Github Project', 0, 1, 0, firstDevelopmentDepartmentObjectiveId, 1),
-           (codeGuideLinesKeyResultId, 0, 'See https://github.com/BurningOKR/BurningOKR/blob/master/CODE_GUIDELINES.md', 'Read our Code Guidelines', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 2),
-           (developKeyResultId, 0, '', 'Develop five features for Burning OKR.', 0, 5, 0, secondDevelopmentDepartmentObjectiveId, 0),
-           (installGuideKeyResultId, 0, '', 'Take a look at our Install Guide', 0, 100, 1, NULL, integrationDepartmentObjectiveId);
+    VALUES (firstKeyResultId, 0, '', 'Erzähle drei Freunden von Burning OKR!', 0, 3, 0, firstMarketingObjectiveId, 0),
+           (secondKeyResultId, 0, '', 'Folge dem Burning OKR Twitter Account.', 0, 1, 0, firstMarketingObjectiveId, 1),
+           (thirdKeyResultId, 0, '', 'Lerne mehr über uns auf www.brockhaus-ag.de', 0, 100, 1, firstMarketingObjectiveId, 2),
+           (gettingStartedKeyResultId, 0, 'Er ist sehr Hilfreich!', 'Lese unseren Getting Started Guide', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 0),
+           (forkKeyResultId, 0, '', 'Erstelle einen Fork von unserem Github Project', 0, 1, 0, firstDevelopmentDepartmentObjectiveId, 1),
+           (codeGuideLinesKeyResultId, 0, 'Auf https://github.com/BurningOKR/BurningOKR/blob/master/CODE_GUIDELINES.md', 'Lese unsere Code Guidelines', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 2),
+           (developKeyResultId, 0, '', 'Entwickle fünf neue Features für Burning OKR.', 0, 5, 0, secondDevelopmentDepartmentObjectiveId, 0),
+           (installGuideKeyResultId, 0, '', 'Lese unseren Install Guide', 0, 100, 1, NULL, integrationDepartmentObjectiveId);
 
 END $$;
