@@ -15,7 +15,7 @@ import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
 @Injectable({
   providedIn: 'root'
 })
-export class OkrUnitMapper {
+export class OkrUnitService {
 
   private refresh$: BehaviorSubject<null> = new BehaviorSubject<null>(null);
 
@@ -48,7 +48,7 @@ export class OkrUnitMapper {
         switchMap(() => {
           return this.okrUnitApiService.getOkrChildUnitById$(id)
             .pipe(
-              map((okrChildUnit: OkrChildUnitDto) => OkrUnitMapper.mapToEntity(okrChildUnit))
+              map((okrChildUnit: OkrChildUnitDto) => OkrUnitService.mapToEntity(okrChildUnit))
             );
         })
       );
@@ -56,9 +56,9 @@ export class OkrUnitMapper {
   }
 
   putOkrChildUnit$(okrChildUnit: OkrChildUnit): Observable<OkrChildUnit> {
-    return this.okrUnitApiService.putOkrChildUnit$(okrChildUnit.id, OkrUnitMapper.mapToDto(okrChildUnit))
+    return this.okrUnitApiService.putOkrChildUnit$(okrChildUnit.id, OkrUnitService.mapToDto(okrChildUnit))
       .pipe(
-        map((childUnit: OkrChildUnitDto) => OkrUnitMapper.mapToEntity(childUnit))
+        map((childUnit: OkrChildUnitDto) => OkrUnitService.mapToEntity(childUnit))
       );
   }
 

@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
 import { ConfigurationService } from '../../../core/settings/configuration.service';
-import { OkrUnitMapper } from '../../services/mapper/okr-unit.mapper.service';
+import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -38,7 +38,7 @@ describe('OkrToolbarComponent', () => {
   const configurationService: any = {
     getHasMailConfigured$: jest.fn()
   };
-  const okrUnitMapper: any = {
+  const okrUnitService: any = {
     refreshOkrChildUnit: jest.fn()
   };
 
@@ -53,7 +53,7 @@ describe('OkrToolbarComponent', () => {
         {provide: CurrentUserService, useValue: currentUserService},
         {provide: OAuthFrontendDetailsService, useValue: oAuthDetails},
         {provide: ConfigurationService, useValue: configurationService},
-        {provide: OkrUnitMapper, useValue: okrUnitMapper},
+        {provide: OkrUnitService, useValue: okrUnitService},
         {provide: Router, useValue: router}
       ]
     })
@@ -90,7 +90,7 @@ describe('OkrToolbarComponent', () => {
   it('should open settings and refresh after closing', () => {
     component.openSettings();
 
-    expect(okrUnitMapper.refreshOkrChildUnit)
+    expect(okrUnitService.refreshOkrChildUnit)
       .toHaveBeenCalled();
   });
 });
