@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OkrUnitId } from '../../model/id-types';
 import { OkrUnitApiService } from '../api/okr-unit-api.service';
 import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
@@ -8,7 +8,7 @@ import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
 import { DepartmentMapper } from './department.mapper';
 import { OkrBranchMapper } from './okr-branch-mapper.service';
 import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
 
@@ -17,7 +17,10 @@ import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
 })
 export class OkrUnitMapper {
 
-  constructor(private okrUnitApiService: OkrUnitApiService) { }
+  private refresh$: BehaviorSubject<null> = new BehaviorSubject<null>(null);
+
+  constructor(private okrUnitApiService: OkrUnitApiService) {
+  }
 
   private static mapToDto(okrChildUnit: OkrChildUnit): OkrChildUnitDto {
     if (okrChildUnit instanceof OkrDepartment) {
@@ -35,11 +38,21 @@ export class OkrUnitMapper {
     }
   }
 
+  refreshOkrChildUnit(): void {
+    this.refresh$.next(null);
+  }
+
   getOkrChildUnitById$(id: OkrUnitId): Observable<OkrChildUnit> {
-    return this.okrUnitApiService.getOkrChildUnitById$(id)
+    return this.refresh$
       .pipe(
-        map((okrChildUnit: OkrChildUnitDto) => OkrUnitMapper.mapToEntity(okrChildUnit))
+        switchMap(() => {
+          return this.okrUnitApiService.getOkrChildUnitById$(id)
+            .pipe(
+              map((okrChildUnit: OkrChildUnitDto) => OkrUnitMapper.mapToEntity(okrChildUnit))
+            );
+        })
       );
+
   }
 
   putOkrChildUnit$(okrChildUnit: OkrChildUnit): Observable<OkrChildUnit> {
