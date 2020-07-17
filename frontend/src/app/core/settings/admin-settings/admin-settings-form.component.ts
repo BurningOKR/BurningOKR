@@ -222,7 +222,7 @@ export class AdminSettingsFormComponent implements OnInit {
               return new FormGroup({
                 id: new FormControl(configuration.id),
                 name: new FormControl(configuration.name),
-                value: new FormControl(configuration.value, [Validators.required]),
+                value: new FormControl(this.mapConfigurationValueToBooleanIfTypeIsCheckbox(configuration), [Validators.required]),
                 type: new FormControl(configuration.type)
               });
             })
@@ -237,6 +237,14 @@ export class AdminSettingsFormComponent implements OnInit {
 
     this.isAzure$ = this.oAuthDetails.isAzureAuthType$()
       .pipe(take(1));
+  }
+
+  private mapConfigurationValueToBooleanIfTypeIsCheckbox(configuration: Configuration): string | boolean {
+    if (configuration.type === 'checkbox') {
+      return configuration.value === 'true' || configuration.value as unknown as boolean === true;
+    } else {
+      return configuration.value;
+    }
   }
 
   private openDeactivateTopicSponsorConfirmationDialog(): void {
