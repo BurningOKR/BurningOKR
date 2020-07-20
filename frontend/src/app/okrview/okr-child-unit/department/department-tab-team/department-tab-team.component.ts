@@ -98,12 +98,12 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
 
   deleteOkrMaster(): void {
     this.department.okrMasterId = undefined;
-    this.updatedUserList();
+    this.updateUserList();
   }
 
   clickedDefineOKRMaster(user: User): void {
     this.department.okrMasterId = user.id;
-    this.updatedUserList();
+    this.updateUserList();
   }
 
   clickedDeleteOKRTopicSponsor(): void {
@@ -143,12 +143,12 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
 
   deleteOkrTopicSponsor(): void {
     this.department.okrTopicSponsorId = undefined;
-    this.updatedUserList();
+    this.updateUserList();
   }
 
   clickedDefineOKRTopicSponsor(user: User): void {
     this.department.okrTopicSponsorId = user.id;
-    this.updatedUserList();
+    this.updateUserList();
   }
 
   clickedDeleteOKRMember(memberId: string): void {
@@ -189,7 +189,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   deleteOkrMember(memberId: string): void {
     const memberIndex: number = this.department.okrMemberIds.indexOf(memberId);
     this.department.okrMemberIds.splice(memberIndex, 1);
-    this.updatedUserList();
+    this.updateUserList();
   }
 
   clickedDefineOKRMember(user: User): void {
@@ -197,10 +197,10 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
       return;
     }
     this.department.okrMemberIds.push(user.id);
-    this.updatedUserList();
+    this.updateUserList();
   }
 
-  updatedUserList(): void {
+  updateUserList(): void {
     this.querySaveTeam();
     this.getCurrentUserIdPromiseFromUserService$()
       .subscribe((currentUserId: string) => {

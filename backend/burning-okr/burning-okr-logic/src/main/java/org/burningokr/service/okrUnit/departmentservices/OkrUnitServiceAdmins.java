@@ -146,15 +146,22 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
   }
 
   private void degradeTopicSponsor(OkrDepartment department) {
-    final UUID topicSponsorId = department.getOkrTopicSponsorId();
-    final Collection<UUID> memberIds = department.getOkrMemberIds();
-
+    moveTopicSponsorToMembers(department);
     department.setOkrTopicSponsorId(null);
-    if(memberIds.add(topicSponsorId)) {
-      department.setOkrMemberIds(memberIds);
-      superUnitRepository.save(department);
-    } else {
-      logger.warn(String.format("Couldn't add topic sponsor %s to member of department %d", topicSponsorId, department.getId()));
+
+    superUnitRepository.save(department);
+  }
+
+  private void moveTopicSponsorToMembers(OkrDepartment department) {
+    final Collection<UUID> memberIds = department.getOkrMemberIds();
+    final UUID topicSponsorId = department.getOkrTopicSponsorId();
+
+    if(!memberIds.contains(topicSponsorId)) {
+      if(memberIds.add(topicSponsorId)) {
+        department.setOkrMemberIds(memberIds);
+      } else {
+        logger.warn(String.format("Couldn't add topic sponsor %s to member of department %d", topicSponsorId, department.getId()));
+      }
     }
   }
 }
