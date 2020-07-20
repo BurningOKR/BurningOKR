@@ -1,6 +1,8 @@
 export class Consts {
   static API_URL = '/api/'; // The base URL of the api.
 
+  static TOPIC_SPONSORS_ACTIVATED_CONFIGURATION_NAME = 'topic-sponsors-activated';
+
   static SILENT_REFRESH_MULTIPLIER = 0.7; // How long of the access Token validity time to wait, until the token is refreshed.
   static MIN_TOKEN_DURATION = 1; // min access token validity time in seconds
 

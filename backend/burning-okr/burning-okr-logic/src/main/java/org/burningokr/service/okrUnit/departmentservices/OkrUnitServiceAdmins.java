@@ -152,6 +152,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     department.setOkrTopicSponsorId(null);
     if(memberIds.add(topicSponsorId)) {
       department.setOkrMemberIds(memberIds);
+      superUnitRepository.save(department);
     } else {
       logger.warn(String.format("Couldn't add topic sponsor %s to member of department %d", topicSponsorId, department.getId()));
     }

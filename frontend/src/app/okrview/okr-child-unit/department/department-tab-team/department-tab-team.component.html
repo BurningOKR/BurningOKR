@@ -16,16 +16,18 @@
           (userDeleted)="clickedDeleteOKRMaster()">
         </app-user-minibutton>
       </div>
-      <div *ngIf="department.okrTopicSponsorId == null">
-        <div class="tab-subtitle" i18n="@@component_departmentTabTeam_defineTopicSponsor">Kein OKR Themenpate definiert</div>
-        <app-department-team-new-user *ngIf="canEditManagers"  i18n-inputPlaceholderText="@@component_departmentTabTeam_defineTopicSponsor"
-          inputPlaceholderText="Themenpaten definieren" (choseUser)="clickedDefineOKRTopicSponsor($event)">
-        </app-department-team-new-user>
-      </div>
-      <div *ngIf="department.okrTopicSponsorId != null">
-        <div class="tab-subtitle" i18n="@@component_departmentTabTeam_OKRTopicSponsor">OKR Themenpate</div>
-        <app-user-minibutton [userId]="department.okrTopicSponsorId" [canBeRemoved]="canEditManagers"
-          (userDeleted)="clickedDeleteOKRTopicSponsor()"></app-user-minibutton>
+      <div *ngIf="topicSponsorsActivated$ | async">
+        <div *ngIf="department.okrTopicSponsorId == null">
+          <div class="tab-subtitle" i18n="@@component_departmentTabTeam_defineTopicSponsor">Kein OKR Themenpate definiert</div>
+          <app-department-team-new-user *ngIf="canEditManagers"  i18n-inputPlaceholderText="@@component_departmentTabTeam_defineTopicSponsor"
+                                        inputPlaceholderText="Themenpaten definieren" (choseUser)="clickedDefineOKRTopicSponsor($event)">
+          </app-department-team-new-user>
+        </div>
+        <div *ngIf="department.okrTopicSponsorId != null">
+          <div class="tab-subtitle" i18n="@@component_departmentTabTeam_OKRTopicSponsor">OKR Themenpate</div>
+          <app-user-minibutton [userId]="department.okrTopicSponsorId" [canBeRemoved]="canEditManagers"
+                               (userDeleted)="clickedDeleteOKRTopicSponsor()"></app-user-minibutton>
+        </div>
       </div>
     </div>
 

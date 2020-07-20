@@ -16,6 +16,9 @@ import { User } from '../../../../shared/model/api/user';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
 import { ContextRole } from '../../../../shared/model/ui/context-role';
+import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
+import { Configuration } from '../../../../shared/model/ui/configuration';
+import { Consts } from '../../../../shared/consts';
 
 @Component({
   selector: 'app-department-tab-team',
@@ -30,9 +33,11 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   canEditManagers = false;
   canEditMembers = false;
   subscriptions: Subscription[] = [];
+  topicSponsorsActivated$: Observable<boolean>;
 
   constructor(
     private departmentMapperService: DepartmentMapper,
+    private configurationManagerService: ConfigurationManagerService,
     private currentUserService: CurrentUserService,
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private matDialog: MatDialog,
@@ -42,6 +47,13 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.canEditManagers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastAdmin();
     this.canEditMembers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastOKRManager();
+    this.topicSponsorsActivated$ = this.configurationManagerService.getAllConfigurations$()
+      .pipe(map(
+        (configurations: Configuration[]) => {
+          return configurations.Where(config => config.name === Consts.TOPIC_SPONSORS_ACTIVATED_CONFIGURATION_NAME)
+            .First()
+            .value === 'true';
+        }));
   }
 
   ngOnDestroy(): void {
