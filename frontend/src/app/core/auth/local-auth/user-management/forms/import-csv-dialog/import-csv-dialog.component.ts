@@ -11,6 +11,7 @@ import { filter } from 'rxjs/operators';
 import { FormBuilder } from '@angular/forms';
 import { FileInput } from 'ngx-material-file-input';
 import { FormGroupTyped } from '../../../../../../../typings';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 interface ImportCsvDialogForm {
   csvFile: FileInput;
@@ -30,12 +31,25 @@ export class ImportCsvDialogComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  private confirmationTitleI18n: string = this.i18n({
+    id: '@@confirm_user_import_via_csv_title',
+    description: 'title of confirmation dialog for importing users via csv',
+    value: '{list_length} Benutzer erstellen.'
+  }, {list_length: this.rowData.data.length});
+
+  private confirmationTextI18n: string = this.i18n({
+    id: '@@deativate_okr_topic_sponsors_text',
+    description: 'text of confirmation dialog for importing users via csv',
+    value: 'Diese Operation wird alle {list_length} Nutzer hinzufügen.'
+  }, {list_length: this.rowData.data.length});
+
   constructor(
     private dialogRef: MatDialogRef<ImportCsvDialogComponent>,
     private papa: Papa,
     private csvService: CsvUserParseService,
     private dialog: MatDialog,
-    private formbuilder: FormBuilder
+    private formbuilder: FormBuilder,
+    private i18n: I18n
   ) {
     this.fileForm = this.formbuilder.group({
       csvFile: []
@@ -56,7 +70,7 @@ export class ImportCsvDialogComponent implements OnInit {
       const file: File = files[0];
       const reader: FileReader = new FileReader();
       reader.readAsText(file);
-      reader.onload = e => {
+      reader.onload = () => {
         const csvContent: string | ArrayBuffer = reader.result.toString();
         const records: CsvParseResult = this.csvService.parseCsvStringToUserArray(csvContent);
         this.rowData.data = records.users;
@@ -67,9 +81,8 @@ export class ImportCsvDialogComponent implements OnInit {
 
   onSave(): void {
     const data: ConfirmationDialogData = {
-      title: `${this.rowData.data.length} Benutzer erstellen.`,
-      message: `Diese Operation wird alle ${this.rowData.data.length} Nutzer hinzufügen. Möchten sie dies wirklich tun?`,
-      confirmButtonText: 'Bestätigen'
+      title: this.confirmationTitleI18n,
+      message: this.confirmationTextI18n,
     };
     this.dialog.open(ConfirmationDialogComponent, {data})
       .afterClosed()

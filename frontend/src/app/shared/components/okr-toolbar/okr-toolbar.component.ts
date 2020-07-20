@@ -13,6 +13,7 @@ import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-
 import { CurrentCompanyService } from '../../../okrview/current-company.service';
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { ConfigurationService } from '../../../core/settings/configuration.service';
+import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -33,7 +34,8 @@ export class OkrToolbarComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private currentCompanyService: CurrentCompanyService,
     private oAuthDetails: OAuthFrontendDetailsService,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
+    private okrUnitService: OkrUnitService
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$()
       .pipe(take(1));
@@ -65,7 +67,7 @@ export class OkrToolbarComponent implements OnInit {
     this.dialog.open(AdminSettingsFormComponent, {disableClose: true})
       .afterClosed()
       .pipe(switchMap(_ => _))
-      .subscribe();
+      .subscribe(() => this.okrUnitService.refreshOkrChildUnit());
   }
 
   openPasswordChangeForm(): void {

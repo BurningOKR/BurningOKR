@@ -24,7 +24,7 @@ import { KeyresultComponent } from '../../keyresult/keyresult.component';
 import { of } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { OkrUnitMapper } from '../../../shared/services/mapper/okr-unit.mapper.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 
 describe('OkrChildUnitComponent', () => {
@@ -96,7 +96,7 @@ describe('OkrChildUnitComponent', () => {
       ],
       imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
-        { provide: OkrUnitMapper, useValue: unitMapperService },
+        { provide: OkrUnitService, useValue: unitMapperService },
         { provide: DepartmentMapper, useValue: departmentMapperService },
         { provide: OkrChildUnitRoleService, useValue: departmentContextRoleService },
         { provide: Router, useValue: router },

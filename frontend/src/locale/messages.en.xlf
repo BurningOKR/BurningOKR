@@ -381,13 +381,13 @@
         <target state="translated">Save</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context><context context-type="linenumber">52</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context><context context-type="linenumber">59</context></context-group></trans-unit>
       <trans-unit id="component_settingsForm_cancel" datatype="html">
         <source>Abbrechen</source>
         <target state="translated">Cancel</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context><context context-type="linenumber">54</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context><context context-type="linenumber">61</context></context-group></trans-unit>
       <trans-unit id="component_feedbackButton_feedback" datatype="html">
         <source>Feedback</source>
         <target state="translated">Feedback</target>
@@ -1833,54 +1833,70 @@
           <context context-type="sourcefile">src/app/core/services/api-http-error-handling.service.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
-      </trans-unit><trans-unit id="@@settingsFormMaxKeyResultsPerObjective" datatype="html">
+      </trans-unit><trans-unit id="@@settings_form_max_key_results_per_objective" datatype="html">
         <source>Maximale Anzahl von Key Results</source><target state="translated">Maximum number of key results</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Placeholder for maximal amount of keyresults per objective</note>
-      </trans-unit><trans-unit id="@@settingsFormObjectiveBarTresholdGreenYellow" datatype="html">
+      </trans-unit><trans-unit id="@@settings_topic_sponsors" datatype="html">
+        <source>Themenpaten aktiviert</source><target state="translated">Topic sponsors activated</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Placeholder for the setting, which de-/activates topic sponsors through out the application</note>
+      </trans-unit><trans-unit id="@@settings_form_objective_bar_treshold_green_yellow" datatype="html">
         <source>Objective Prognose Schwellenwert (Grün/Gelb)</source><target state="translated">Objective Prognosis threshold (green/yellow)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Treshold for objective progress bar (Green/Yellow)</note>
-      </trans-unit><trans-unit id="@@settingsFormObjectiveBarTresholdYellowRed" datatype="html">
+      </trans-unit><trans-unit id="@@settings_form_objective_bar_treshold_yellow_red" datatype="html">
         <source>Objective Prognose Schwellenwert (Gelb/Rot)</source><target state="translated">Objective Prognosis threshold (yellow/red)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Treshold for objective progress bar (Yellow/Red)</note>
-      </trans-unit><trans-unit id="@@settingsFormGeneralFrontendBaseUrl" datatype="html">
-        <source>Frontend-Baseurl</source><target state="translated">Frontend Baseurl</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
+      </trans-unit><trans-unit id="@@settings_form_general_frontend_base_url" datatype="html">
+        <source>Frontend-Base-Url</source><target state="translated">Front-end base URL</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">the domain of this angular application</note>
-      </trans-unit><trans-unit id="@@settingsFormEmailSubjectFeedback" datatype="html">
+      </trans-unit><trans-unit id="@@settings_form_email_sender" datatype="html">
+        <source>Email Adresse des OKR Tools</source><target state="translated">Email address of the OKR Tool</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">The address, from which emails are sent</note>
+      </trans-unit><trans-unit id="@@settings_form_email_subject_forgot_new_user" datatype="html">
+        <source>Email Betreff für neue Benutzer</source><target state="translated">Email subject for new users</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">the subject of the email, which is sent to new users</note>
+      </trans-unit><trans-unit id="@@settings_form_email_subject_forgot_password" datatype="html">
+        <source>Email Betreff für die Passwort-Zurücksetzen Email</source><target state="translated">Email subject for the password reset email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">the subject of the email, which is sent to users who forgot their password</note>
+      </trans-unit><trans-unit id="@@settings_form_email_subject_feedback" datatype="html">
         <source>Email Betreff für Feedback</source><target state="translated">Email subject for feedback</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">the subject of the feedback email</note>
-      </trans-unit><trans-unit id="@@settingsFormFeedbackReceivers" datatype="html">
+      </trans-unit><trans-unit id="@@settings_form_feedback_receivers" datatype="html">
         <source>Email Adressen der Feedback Empfänger. (Durch Komma getrennt)</source><target state="translated">Email addresses of feedback recipients. (separated by comma)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>

@@ -1,6 +1,8 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
 import org.burningokr.model.activity.Action;
+import org.burningokr.model.configuration.Configuration;
+import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrParentUnit;
@@ -9,12 +11,17 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.service.ConfigurationChangedEvent;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.UUID;
 
 @Service("okrUnitServiceAdmins")
 public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitServiceManagers<T> {
@@ -41,6 +48,20 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
         parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
 
     this.superUnitRepository = superUnitRepository;
+  }
+
+  @EventListener(ConfigurationChangedEvent.class)
+  public void onConfigurationChangedEvent(ConfigurationChangedEvent event) {
+    final Configuration changedConfiguration = event.getChangedConfiguration();
+
+    if (changedConfiguration.getName().equals(ConfigurationName.TOPIC_SPONSORS_ACTIVATED.getName())
+            && changedConfiguration.getValue().equals("false")) {
+      for (OkrUnit unit: getAllOkrDepartments()) {
+        if (unit instanceof OkrDepartment) {
+          degradeTopicSponsor((OkrDepartment) unit);
+        }
+      }
+    }
   }
 
   @Override
@@ -118,5 +139,29 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
             + ")");
     activityService.createActivity(user, subDepartment, Action.CREATED);
     return subDepartment;
+  }
+
+  private Iterable<T> getAllOkrDepartments() {
+    return unitRepository.findAll();
+  }
+
+  private void degradeTopicSponsor(OkrDepartment department) {
+    moveTopicSponsorToMembers(department);
+    department.setOkrTopicSponsorId(null);
+
+    superUnitRepository.save(department);
+  }
+
+  private void moveTopicSponsorToMembers(OkrDepartment department) {
+    final Collection<UUID> memberIds = department.getOkrMemberIds();
+    final UUID topicSponsorId = department.getOkrTopicSponsorId();
+
+    if(!memberIds.contains(topicSponsorId)) {
+      if(memberIds.add(topicSponsorId)) {
+        department.setOkrMemberIds(memberIds);
+      } else {
+        logger.warn(String.format("Couldn't add topic sponsor %s to member of department %d", topicSponsorId, department.getId()));
+      }
+    }
   }
 }

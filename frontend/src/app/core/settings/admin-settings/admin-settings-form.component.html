@@ -29,16 +29,23 @@
       <mat-tab [disabled]="!(isCurrentUserAdmin$ | async)" i18n-label="@@adminSettings" label="Adminverwaltung">
         <form [formGroup]="adminSettingsForm" class="settingsForm">
           <ng-container formArrayName="settings">
-            <mat-form-field class="fullWidth" *ngFor="let setting of settings.controls">
-
-              <!-- Intellisense will not work on the controls field -->
-
-              <input [formControl]="setting.controls.value"
-                     matInput
-                     [placeholder]="configurationNames[setting.controls.name.value]"
-                     [disabled]="setting.controls.name.value === 'general_frontend-base-url' && (isAzure$ | async)"
-                     [type]="setting.controls.type.value">
-            </mat-form-field>
+            <ng-container *ngFor="let setting of settings.controls">
+              <mat-form-field class="fullWidth"
+                              *ngIf="setting.controls.type.value == 'text' || setting.controls.type.value == 'number'; else checkbox">
+                <!-- Intellisense will not work on the controls field -->
+                <mat-label>{{configurationNames[setting.controls.name.value]}}</mat-label>
+                <input
+                  matInput
+                  [formControl]="setting.controls.value"
+                  [placeholder]="configurationNames[setting.controls.name.value]"
+                  [disabled]="setting.controls.name.value === 'general_frontend-base-url' && (isAzure$ | async)"
+                  [type]="setting.controls.type.value">
+              </mat-form-field>
+              <ng-template #checkbox>
+                <mat-label> {{configurationNames[setting.controls.name.value]}}:</mat-label>
+                <mat-checkbox [checked]="setting.controls.value === 'true'" [formControl]="setting.controls.value"></mat-checkbox>
+              </ng-template>
+            </ng-container>
           </ng-container>
         </form>
       </mat-tab>
@@ -47,7 +54,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button color="primary" (click)="sendOk()"
+    <button mat-button color="primary" (click)="onSave()"
             [disabled]="userSettingsForm.invalid || (isCurrentUserAdmin$ && adminSettingsForm.invalid)"><span
       i18n="@@component_settingsForm_save">Speichern</span></button>
     <button mat-button color="warn" (click)="closeDialog()"><span

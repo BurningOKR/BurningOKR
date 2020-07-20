@@ -9,7 +9,8 @@ public enum ConfigurationName {
   EMAIL_FROM("email_from"),
   EMAIL_SUBJECT_NEW_USER("email_subject_new-user"),
   EMAIL_SUBJECT_FORGOT_PASSWORD("email_subject_forgot-password"),
-  EMAIL_SUBJECT_FEEDBACK("email_subject_feedback");
+  EMAIL_SUBJECT_FEEDBACK("email_subject_feedback"),
+  TOPIC_SPONSORS_ACTIVATED("topic-sponsors-activated");
 
   private String name;
 
