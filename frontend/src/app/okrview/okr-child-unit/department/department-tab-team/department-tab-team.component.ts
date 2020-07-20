@@ -50,9 +50,9 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     this.topicSponsorsActivated$ = this.configurationManagerService.getAllConfigurations$()
       .pipe(map(
         (configurations: Configuration[]) => {
-          return configurations.Where(config => config.name === Consts.TOPIC_SPONSORS_ACTIVATED_CONFIGURATION_NAME)
+          return JSON.parse(configurations.Where(config => config.name === Consts.TOPIC_SPONSORS_ACTIVATED_CONFIGURATION_NAME)
             .First()
-            .value === 'true';
+            .value);
         }));
   }
 
