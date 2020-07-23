@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,11 +6,18 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
   @Input() userForm: FormGroup;
   @Input() canEditAdminStatus: boolean;
 
   @ViewChild('canvasElement', {static: false}) canvas;
+
+  ngOnInit(): void {
+    if (this.userForm.get('email').value === 'iwant@burningokr') {
+      this.userForm.get('email')
+        .disable();
+    }
+  }
 
   setPhoto($event: any): void {
     const files: FileList = $event.target.files;

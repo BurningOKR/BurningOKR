@@ -36,7 +36,7 @@
     <mat-icon>history</mat-icon>
     <span i18n="@@component_okrToolbar_cycleManagement">Zyklusverwaltung</span>
   </button>
-  <button mat-menu-item (click)="openSettings()">
+  <button mat-menu-item (click)="openSettings()"  [disabled]="true">
     <mat-icon>settings_applications</mat-icon>
     <span i18n="@@component_okrToolbar_settings">Einstellungen</span>
   </button>
