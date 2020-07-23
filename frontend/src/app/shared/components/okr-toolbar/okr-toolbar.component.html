@@ -1,5 +1,6 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
+    <button mat-raised-button color="accent" i18n="@@component_return_to_demo_mainview" (click)="router.navigate(['']);">Hauptseite</button>
     <ng-content></ng-content>
     <span class="fill-space"></span>
     <app-reset-countdown></app-reset-countdown>
