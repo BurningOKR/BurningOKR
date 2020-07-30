@@ -42,8 +42,8 @@
                   [type]="setting.controls.type.value">
               </mat-form-field>
               <ng-template #checkbox>
-                <mat-label> {{configurationNames[setting.controls.name.value]}}:</mat-label>
                 <mat-checkbox [checked]="setting.controls.value === 'true'" [formControl]="setting.controls.value"></mat-checkbox>
+                <mat-label> {{ configurationNames[setting.controls.name.value]}}</mat-label>
               </ng-template>
             </ng-container>
           </ng-container>
