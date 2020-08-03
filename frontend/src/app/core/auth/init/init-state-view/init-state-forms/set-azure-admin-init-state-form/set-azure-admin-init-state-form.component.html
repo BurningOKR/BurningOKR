@@ -1,7 +1,8 @@
 <div *ngIf="currentUser$ | async; let user; else loading">
-  <p class="tab-subtitle" i18n="@@setAzureAdminSubtitle">
-    Folgender Nutzer wird als initialer Administrator eingetragen.
-  </p>
+  <mat-card-title i18n="@@setAzureAdminTitle">
+    Administrator festlegen
+  </mat-card-title>
+  <p i18n="@@setAzureAdminSubtitle">Folgender Nutzer wird als initialer Administrator festgelegt.</p>
   <div class="flex-wrap-spreadinner-nocenter">
     <app-user-minibutton [userId]="user.id" [canBeRemoved]="false"></app-user-minibutton>
   </div>
