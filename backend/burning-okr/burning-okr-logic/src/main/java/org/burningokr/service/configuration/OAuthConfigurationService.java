@@ -56,6 +56,7 @@ public class OAuthConfigurationService {
 
   /**
    * Sets a specific OAuthConfiguration
+   *
    * @param name the OAuthConfiguration name {@link OAuthConfigurationName}
    * @param value the Value. Must be a String.
    */

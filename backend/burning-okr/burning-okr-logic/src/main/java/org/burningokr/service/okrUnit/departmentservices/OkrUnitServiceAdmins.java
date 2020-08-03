@@ -1,5 +1,7 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
+import java.util.Collection;
+import java.util.UUID;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.configuration.ConfigurationName;
@@ -19,9 +21,6 @@ import org.burningokr.service.okrUnitUtil.ParentService;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collection;
-import java.util.UUID;
 
 @Service("okrUnitServiceAdmins")
 public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitServiceManagers<T> {
@@ -55,8 +54,8 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     final Configuration changedConfiguration = event.getChangedConfiguration();
 
     if (changedConfiguration.getName().equals(ConfigurationName.TOPIC_SPONSORS_ACTIVATED.getName())
-            && changedConfiguration.getValue().equals("false")) {
-      for (OkrUnit unit: getAllOkrDepartments()) {
+        && changedConfiguration.getValue().equals("false")) {
+      for (OkrUnit unit : getAllOkrDepartments()) {
         if (unit instanceof OkrDepartment) {
           degradeTopicSponsor((OkrDepartment) unit);
         }
@@ -156,11 +155,14 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     final Collection<UUID> memberIds = department.getOkrMemberIds();
     final UUID topicSponsorId = department.getOkrTopicSponsorId();
 
-    if(!memberIds.contains(topicSponsorId)) {
-      if(memberIds.add(topicSponsorId)) {
+    if (!memberIds.contains(topicSponsorId)) {
+      if (memberIds.add(topicSponsorId)) {
         department.setOkrMemberIds(memberIds);
       } else {
-        logger.warn(String.format("Couldn't add topic sponsor %s to member of department %d", topicSponsorId, department.getId()));
+        logger.warn(
+            String.format(
+                "Couldn't add topic sponsor %s to member of department %d",
+                topicSponsorId, department.getId()));
       }
     }
   }
