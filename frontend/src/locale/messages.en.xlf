@@ -744,32 +744,32 @@
 
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">22</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">23</context></context-group></trans-unit>
 
       <trans-unit id="component_departmentTabTeam_OKRTopicSponsor" datatype="html">
         <source>OKR Themenpate</source>
         <target state="translated">OKR Topic sponsor</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">27</context></context-group></trans-unit>
       <trans-unit id="component_departmentTabTeam_noMembersDefined" datatype="html">
         <source>Keine Teammitglieder definiert.</source>
         <target state="translated">No team members defined.</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">36</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">38</context></context-group></trans-unit>
       <trans-unit id="component_departmentTabTeam_defineTeamMember" datatype="html">
         <source>Teammitglieder</source>
         <target state="translated">Team members</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">37</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">39</context></context-group></trans-unit>
       <trans-unit id="component_departmentTabTeam_defineNewMember" datatype="html">
         <source>Neues Mitglied definieren</source>
         <target state="translated">Define new member</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit><trans-unit id="component_departmentTabSubDepartments_childUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">47</context></context-group></trans-unit><trans-unit id="component_departmentTabSubDepartments_childUnit" datatype="html">
         <source>Unterstrukturen</source><target state="translated">Substructures</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.html</context>
@@ -1488,82 +1488,102 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit><trans-unit id="createYourAdminAccount" datatype="html">
-        <source>Legen Sie Ihren Administratorenaccount an.</source><target state="translated">Create your administrator account.</target>
+        <source>Administratorenkonto</source><target state="translated">Create your administrator account.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="next" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="createYourAdminAccount_subtitle" datatype="html">
+        <source>Legen Sie ein initiales Administratorenkonto an.</source><target state="translated">Create an initial administrator account.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="next" datatype="html">
         <source>Weiter</source><target state="translated">Continue</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">53</context></context-group></trans-unit><trans-unit id="InitialisationCompletedMessage" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">56</context></context-group></trans-unit><trans-unit id="InitialisationCompleted" datatype="html">
+        <source>Fertig!</source><target state="translated">Done!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit><trans-unit id="InitialisationCompletedMessage" datatype="html">
         <source>Die Initialisierung wurde erfolgreich abgeschlossen🎉</source><target state="translated">The initialization was successfully completed🎉</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="letsGo!" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="letsGo!" datatype="html">
         <source>Los geht's!</source><target state="translated">Let's go!</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="setOauthClientDetailInitStateSubtitel" datatype="html">
-        <source>Tragen Sie die OAuthclient-Details ein. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Dieser Schritt kann übersprungen werden.</source><target state="translated">Enter the OAuthclient details. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/> This step can be skipped.</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="onlyDoThisIfYouAreANerdWarning" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit><trans-unit id="setOauthClientDetails_InitStateForm_Title" datatype="html">
+        <source>Konfiguration der Authentifizierung</source><target state="translated">Configure Authentication</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="setOauthClientDetails_InitStateForm_Explanation" datatype="html">
         <source>
-    Formular aktivieren. ⚠ Tun Sie dies nur, wenn Sie wissen, was Sie tun ⚠
+    Um die Lokale Nutzerdatenbank zu verwenden, müssen die OAuth Einstellungen konfiguriert werden.
+    Wichtig ist dabei, dass die Client-ID und das Client-Secret einzigartig sind.
+    Alle Formularfelder wurden bereits mit sinnvollen Daten befüllt und eine Änderung dieser Daten wird nur
+    fortgeschrittenen Nutzern empfohlen.
+  </source><target state="translated">To use the local user database, you have to configure OAuth. It is important, to keep the Client-ID and the Client-Secret unique to any other application. All form fields have already been filled with meaningful data and a change of this data is only recommended for advanced users.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit><trans-unit id="onlyDoThisIfYouAreANerdWarning" datatype="html">
+        <source>
+    Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!
   </source><target state="translated">
     Activate form. ⚠ Only do this if you know what you are doing ⚠
   </target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">6</context></context-group></trans-unit><trans-unit id="accessTokenValidity" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="accessTokenValidity" datatype="html">
         <source>Lebenszeit des Accesstokens (in Sekunden)</source><target state="translated">Duration of the access token (in seconds)</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">15</context></context-group></trans-unit><trans-unit id="clientId" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="clientId" datatype="html">
         <source>Client-Id</source><target state="translated">Client ID</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">22</context></context-group></trans-unit><trans-unit id="clientSecret" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="clientSecret" datatype="html">
         <source>Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)</source><target state="translated">Client Secret</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="refreshTokenValidity" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">32</context></context-group></trans-unit><trans-unit id="refreshTokenValidity" datatype="html">
         <source>Lebenszeit des Refreshtokens (in Sekunden)</source><target state="translated">Duration of the refresh token (in seconds)</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">36</context></context-group></trans-unit><trans-unit id="webServerRedirectUri" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">39</context></context-group></trans-unit><trans-unit id="webServerRedirectUri" datatype="html">
         <source>Webserver-Redirect-URI</source><target state="translated">Webserver Redirect URI</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">43</context></context-group></trans-unit><trans-unit id="pleaseHangOnTheServerIsBeeingConfigured" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="pleaseHangOnTheServerIsBeeingConfigured" datatype="html">
         <source>Bitte warten Sie einen Moment, während der Server konfiguriert wird.</source><target state="translated">Please wait a moment while the server is beeing configured.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit><trans-unit id="setAzureAdminSubtitle" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context><context context-type="linenumber">63</context></context-group></trans-unit><trans-unit id="setAzureAdminTitle" datatype="html">
         <source>
-    Folgender Nutzer wird als initialer Administrator eingetragen.
-  </source><target state="translated">  The following user will become the initial administrator</target>
+    Administrator festlegen
+  </source><target state="translated">Set an administrator </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
-      </trans-unit><trans-unit id="otherUserNotice" datatype="html">
+      </trans-unit><trans-unit id="setAzureAdminSubtitle" datatype="html">
+        <source>Folgender Nutzer wird als initialer Administrator festgelegt.</source><target state="translated">  The following user will become the initial administrator</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="otherUserNotice" datatype="html">
         <source>
     Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto
     an.
   </source><target state="translated">If you want to set another user as initial administrator, please log in with their account  </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit><trans-unit id="setAdminButton" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="setAdminButton" datatype="html">
         <source>
       Diesen Nutzer als Administrator festlegen
     </source><target state="translated">Set this user as administrator    </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit><trans-unit id="setAdminLogoutButton" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="setAdminLogoutButton" datatype="html">
         <source>
       Logout
     </source><target state="translated">
       Logout
     </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit>
       <trans-unit id="resetPassword" datatype="html">
         <source>
             Passwort zurücksetzen
@@ -1731,6 +1751,24 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">message to be shown after a password was changed successfully</note>
+      </trans-unit><trans-unit id="@@confirm_user_import_via_csv_title" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{list_length}}"/> Benutzer erstellen.</source><target state="translated">Create <x id="INTERPOLATION" equiv-text="{{list_length}}"/> users.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">title of confirmation dialog for importing users via csv</note>
+      </trans-unit><trans-unit id="@@deativate_okr_topic_sponsors_text" datatype="html">
+        <source>Diese Operation wird alle <x id="INTERPOLATION" equiv-text="{{list_length}}"/> Nutzer hinzufügen.</source><target state="translated">This operation will add <x id="INTERPOLATION" equiv-text="{{list_length}}"/> users.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">text of confirmation dialog for importing users via csv</note>
       </trans-unit><trans-unit id="resetPasswordSuccessSnackbar" datatype="html">
         <source>Das Passwort wurde erfolgreich zurückgesetzt.</source><target state="translated">The password was successfully reset.</target>
         <context-group purpose="location">
@@ -1833,6 +1871,13 @@
           <context context-type="sourcefile">src/app/core/services/api-http-error-handling.service.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit><trans-unit id="@@deativate_okr_topic_sponsors_title" datatype="html">
+        <source>OKR Themenpaten deaktivieren</source><target state="translated">Disable OKR Topic Sponsors</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">title of confirmation dialog for deaktivating topic sponsors</note>
       </trans-unit><trans-unit id="@@settings_form_max_key_results_per_objective" datatype="html">
         <source>Maximale Anzahl von Key Results</source><target state="translated">Maximum number of key results</target>
         <context-group purpose="location">

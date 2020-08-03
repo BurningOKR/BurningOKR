@@ -34,13 +34,13 @@ export class ImportCsvDialogComponent implements OnInit {
   private confirmationTitleI18n: string = this.i18n({
     id: '@@confirm_user_import_via_csv_title',
     description: 'title of confirmation dialog for importing users via csv',
-    value: '{list_length} Benutzer erstellen.'
+    value: '{{list_length}} Benutzer erstellen.'
   }, {list_length: this.rowData.data.length});
 
   private confirmationTextI18n: string = this.i18n({
     id: '@@deativate_okr_topic_sponsors_text',
     description: 'text of confirmation dialog for importing users via csv',
-    value: 'Diese Operation wird alle {list_length} Nutzer hinzufügen.'
+    value: 'Diese Operation wird alle {{list_length}} Nutzer hinzufügen.'
   }, {list_length: this.rowData.data.length});
 
   constructor(
