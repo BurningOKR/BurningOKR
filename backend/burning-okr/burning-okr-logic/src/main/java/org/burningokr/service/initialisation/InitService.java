@@ -111,6 +111,13 @@ public class InitService {
     return nextInitState();
   }
 
+  /**
+   * only for InitState NO_AZURE_ADMIN_USER. Sets the given Azure User as an Admin.
+   *
+   * @param adminUser
+   * @return
+   * @throws InvalidInitStateException
+   */
   public InitState setAzureAdminUser(AdminUser adminUser) throws InvalidInitStateException {
     isInitStateElseThrow(InitStateName.NO_AZURE_ADMIN_USER);
 
