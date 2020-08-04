@@ -24,9 +24,12 @@
               "src/silent-refresh.html"
             ],
             "styles": [
-              "src/styles/app.scss"
+              "src/styles/app.scss",
+              "node_modules/animate.css/animate.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/wowjs/dist/wow.js"
+            ]
           },
           "configurations": {
             "production": {

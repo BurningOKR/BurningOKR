@@ -37,6 +37,7 @@ import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-hand
 import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
+import { NgwWowModule } from 'ngx-wow';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -76,6 +77,7 @@ const currentLanguage: string = 'en';
     OkrUnitModule,
     ErrorModule,
     LoggerModule.forRoot(loggerConfig),
+    NgwWowModule
   ],
   entryComponents: [
     DeleteDialogComponent,
