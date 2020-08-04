@@ -241,7 +241,7 @@ export class AdminSettingsFormComponent implements OnInit {
 
   private mapConfigurationValueToBooleanIfTypeIsCheckbox(configuration: Configuration): string | boolean {
     if (configuration.type === 'checkbox') {
-      return configuration.value === 'true' || configuration.value as unknown as boolean === true;
+      return configuration.value === 'true' || configuration.value === true;
     } else {
       return configuration.value;
     }

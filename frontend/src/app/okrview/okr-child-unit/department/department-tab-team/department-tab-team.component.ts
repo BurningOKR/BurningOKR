@@ -18,7 +18,6 @@ import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.se
 import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
 import { Configuration } from '../../../../shared/model/ui/configuration';
-import { Consts } from '../../../../shared/consts';
 
 @Component({
   selector: 'app-department-tab-team',
@@ -47,13 +46,12 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.canEditManagers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastAdmin();
     this.canEditMembers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastOKRManager();
-    this.topicSponsorsActivated$ = this.configurationManagerService.getAllConfigurations$()
-      .pipe(map(
-        (configurations: Configuration[]) => {
-          return JSON.parse(configurations.Where(config => config.name === Consts.TOPIC_SPONSORS_ACTIVATED_CONFIGURATION_NAME)
-            .First()
-            .value);
-        }));
+    this.topicSponsorsActivated$ = this.configurationManagerService.getTopicSponsorsActivated$()
+      .pipe(
+        map((configuration: Configuration) => {
+          return configuration.value === 'true' || configuration.value === true;
+        })
+      );
   }
 
   ngOnDestroy(): void {
