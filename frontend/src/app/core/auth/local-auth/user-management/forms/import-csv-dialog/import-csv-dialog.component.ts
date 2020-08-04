@@ -38,7 +38,7 @@ export class ImportCsvDialogComponent implements OnInit {
   }, {list_length: this.rowData.data.length});
 
   private confirmationTextI18n: string = this.i18n({
-    id: '@@deativate_okr_topic_sponsors_text',
+    id: '@@confirm_user_import_via_csv_text',
     description: 'text of confirmation dialog for importing users via csv',
     value: 'Diese Operation wird alle {{list_length}} Nutzer hinzufügen.'
   }, {list_length: this.rowData.data.length});

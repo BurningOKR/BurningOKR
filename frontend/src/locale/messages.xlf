@@ -1587,14 +1587,10 @@
         </context-group>
         <note priority="1" from="description">title of confirmation dialog for importing users via csv</note>
       </trans-unit>
-      <trans-unit id="@@deativate_okr_topic_sponsors_text" datatype="html">
+      <trans-unit id="@@confirm_user_import_via_csv_text" datatype="html">
         <source>Diese Operation wird alle <x id="INTERPOLATION" equiv-text="{{list_length}}"/> Nutzer hinzufügen.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">text of confirmation dialog for importing users via csv</note>
@@ -1723,6 +1719,14 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">title of confirmation dialog for deaktivating topic sponsors</note>
+      </trans-unit>
+      <trans-unit id="@@deativate_okr_topic_sponsors_text" datatype="html">
+        <source>Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">text of confirmation dialog for deaktivating topic sponsors</note>
       </trans-unit>
       <trans-unit id="@@settings_form_max_key_results_per_objective" datatype="html">
         <source>Maximale Anzahl von Key Results</source>
