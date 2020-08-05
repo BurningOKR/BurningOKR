@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SettingsForm } from '../settings-form';
 import { Observable, of } from 'rxjs';
 import { UserSettings } from '../../../../shared/model/ui/user-settings';
-import { Configuration } from '../../../../shared/model/ui/configuration';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CompanyUnit } from '../../../../shared/model/ui/OrganizationalUnit/company-unit';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
@@ -39,7 +38,7 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
     });
   }
 
-  createUpdate$(): Observable<UserSettings | Configuration> {
+  createUpdate$(): Observable<any> {
     return this.userSettingsManager.getUserSettings$()
       .pipe(
         take(1),

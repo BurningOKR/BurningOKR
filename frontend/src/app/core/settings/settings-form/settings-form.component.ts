@@ -1,8 +1,9 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { forkJoin, NEVER, Observable } from 'rxjs';
+import { combineLatest, forkJoin, NEVER, Observable } from 'rxjs';
 import { CurrentUserService } from '../../services/current-user.service';
 import { SettingsForm } from './settings-form';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings-form',
@@ -27,13 +28,27 @@ export class SettingsFormComponent implements OnInit {
   }
 
   onSave(): void {
-    this.dialogRef.close(
-      forkJoin(this.children.map((form: SettingsForm) => form.createUpdate$()))
-    );
+    this.canClose$()
+      .subscribe((canClose: boolean) => {
+        if (canClose) {
+          this.dialogRef.close(
+            forkJoin(this.children.map((form: SettingsForm) => form.createUpdate$()))
+          );
+        }
+      });
   }
 
   closeDialog(): void {
     this.dialogRef.close(NEVER);
+  }
+
+  private canClose$(): Observable<boolean> {
+    return combineLatest(this.children.map((form: SettingsForm) => form.canClose$()))
+      .pipe(
+        map((values: boolean[]) => {
+          return values.All(value => value); // check if all forms returned true
+        })
+      );
   }
 
 }

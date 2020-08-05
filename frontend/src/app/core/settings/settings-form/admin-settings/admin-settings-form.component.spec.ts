@@ -175,17 +175,41 @@ describe('AdminSettingsForm', () => {
       });
   });
 
-  it('createUpdate$ opens warning dialog, when topic_sponsors_activated is set to false', done => {
+  it('canClose$ opens warning dialog, when topic_sponsors_activated is set to false', done => {
     component.settings.at(1)
       .get('value')
       .setValue(false);
     component.settings.at(1)
       .markAsDirty();
 
-    component.createUpdate$()
+    component.canClose$()
       .subscribe(() => {
         expect(dialog.open)
           .toHaveBeenCalled();
+        done();
+      });
+  });
+
+  it('canClose$ does not open warning dialog, when topic_sponsors_activated is set to true', done => {
+    component.canClose$()
+      .subscribe(() => {
+        expect(dialog.open)
+          .toHaveBeenCalledTimes(0);
+        done();
+      });
+  });
+
+  it('canClose$ does not open warning dialog, when topic_sponsors_activated is set to false but pristine', done => {
+    component.settings.at(1)
+      .get('value')
+      .setValue(false);
+    component.settings.at(1)
+      .markAsPristine();
+
+    component.canClose$()
+      .subscribe(() => {
+        expect(dialog.open)
+          .toHaveBeenCalledTimes(0);
         done();
       });
   });

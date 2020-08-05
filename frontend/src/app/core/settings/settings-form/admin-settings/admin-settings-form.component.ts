@@ -2,11 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { Observable, of } from 'rxjs';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigurationManagerService } from '../../configuration-manager.service';
-import { UserSettings } from '../../../../shared/model/ui/user-settings';
 import { Configuration } from '../../../../shared/model/ui/configuration';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import {
@@ -113,15 +112,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
     });
   }
 
-  createUpdate$(): Observable<UserSettings | Configuration> {
-    if (!this.userDeactivatedTopicSponsors()) {
-      return this.createUpdateObservable$();
-    } else {
-      return this.openDeactivateTopicSponsorConfirmationDialog$();
-    }
-  }
-
-  private createUpdateObservable$(): Observable<Configuration> {
+  createUpdate$(): Observable<any> {
     return this.currentUserService.isCurrentUserAdmin$()
       .pipe(
         take(1),
@@ -133,6 +124,14 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
           }
         })
       );
+  }
+
+  canClose$(): Observable<boolean> {
+    if (!this.userDeactivatedTopicSponsors()) {
+      return of(true);
+    } else {
+      return this.promptTopicSponsorConfirmation$();
+    }
   }
 
   private initAdminSettingsForm(): void {
@@ -169,27 +168,29 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
     }
   }
 
-  private openDeactivateTopicSponsorConfirmationDialog$(): Observable<Configuration> {
+  private promptTopicSponsorConfirmation$(): Observable<boolean> {
     const data: ConfirmationDialogData = {
       title: this.confirmationTitle,
       message: this.confirmationText,
     };
 
     return this.dialog.open(ConfirmationDialogComponent, {data})
-      .afterClosed()
-      .pipe(
-        filter(v => v),
-        switchMap(() => this.createUpdateObservable$())
-      );
+      .afterClosed();
   }
 
   private userDeactivatedTopicSponsors(): boolean {
+    const control: AbstractControl = this.getConfigurationFromFormByName('topic-sponsors-activated');
+
+    return !!control && !control.get('value').value && control.dirty;
+  }
+
+  private getConfigurationFromFormByName(name: string): AbstractControl {
     for (const control of this.settings.controls) {
-      if (control.get('name').value === 'topic-sponsors-activated') {
-        return !control.get('value').value && control.dirty;
+      if (control.get('name').value === name) {
+        return control;
       }
     }
 
-    return false;
+    return null;
   }
 }

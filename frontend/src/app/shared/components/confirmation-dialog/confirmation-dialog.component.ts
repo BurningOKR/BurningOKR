@@ -34,6 +34,6 @@ export class ConfirmationDialogComponent {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }
