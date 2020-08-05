@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="en">
+  <file source-language="de" datatype="plaintext" original="ng2.template" target-language="en">
     <body>
       <trans-unit id="component_departmentForm_name" datatype="html">
         <source>Name *</source>
@@ -1767,8 +1767,8 @@
         <note priority="1" from="description">text of confirmation dialog for importing users via csv</note>
       </trans-unit><trans-unit id="@@deativate_okr_topic_sponsors_text" datatype="html">
         <source>Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.</source><target state="translated">By deactivating all OKR topic sponsors, they become team members in their respective team.</target>
-        
-        
+
+
         <note priority="1" from="description">text of confirmation dialog for deaktivating topic sponsors</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="resetPasswordSuccessSnackbar" datatype="html">
         <source>Das Passwort wurde erfolgreich zurückgesetzt.</source><target state="translated">The password was successfully reset.</target>
