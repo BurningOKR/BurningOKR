@@ -4,7 +4,6 @@ import { CurrentUserService } from '../../../core/services/current-user.service'
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { AdminSettingsFormComponent } from '../../../core/settings/admin-settings/admin-settings-form.component';
 import { VersionFormComponent } from '../../../core/version-form/version-form.component';
 import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/change-password-dialog/change-password-dialog.component';
 import { Observable } from 'rxjs';
@@ -14,6 +13,7 @@ import { CurrentCompanyService } from '../../../okrview/current-company.service'
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { ConfigurationService } from '../../../core/settings/configuration.service';
 import { OkrUnitService } from '../../services/mapper/okr-unit.service';
+import { SettingsFormComponent } from '../../../core/settings/settings-form/settings-form.component';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -64,7 +64,7 @@ export class OkrToolbarComponent implements OnInit {
   }
 
   openSettings(): void {
-    this.dialog.open(AdminSettingsFormComponent, {disableClose: true})
+    this.dialog.open(SettingsFormComponent, {disableClose: true})
       .afterClosed()
       .pipe(switchMap(_ => _))
       .subscribe(() => this.okrUnitService.refreshOkrChildUnit());

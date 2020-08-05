@@ -1,18 +1,18 @@
 import { AdminSettingsFormComponent } from './admin-settings-form.component';
-import { CompanyMapper } from '../../../shared/services/mapper/company.mapper';
+import { CompanyMapper } from '../../../../shared/services/mapper/company.mapper';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ConfigurationManagerService } from '../configuration-manager.service';
-import { CurrentUserService } from '../../services/current-user.service';
+import { ConfigurationManagerService } from '../../configuration-manager.service';
+import { CurrentUserService } from '../../../services/current-user.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
+import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { i18nMock } from '../../../shared/mocks/i18n-mock';
+import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
-import { UserSettingsManagerService } from '../../services/user-settings-manager.service';
+import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
+import { UserSettingsManagerService } from '../../../services/user-settings-manager.service';
 import { of } from 'rxjs';
-import { UserSettings } from '../../../shared/model/ui/user-settings';
-import { CompanyUnit } from '../../../shared/model/ui/OrganizationalUnit/company-unit';
+import { UserSettings } from '../../../../shared/model/ui/user-settings';
+import { CompanyUnit } from '../../../../shared/model/ui/OrganizationalUnit/company-unit';
 
 const configurationManagerServiceStub: any = {
   getAllConfigurations$: jest.fn()

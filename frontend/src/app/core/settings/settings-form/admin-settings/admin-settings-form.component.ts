@@ -1,36 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { CurrentUserService } from '../../services/current-user.service';
-import { forkJoin, NEVER, Observable, of } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CurrentUserService } from '../../../services/current-user.service';
+import { Observable, of } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConfigurationManagerService } from '../configuration-manager.service';
-import { UserSettings } from '../../../shared/model/ui/user-settings';
-import { UserSettingsManagerService } from '../../services/user-settings-manager.service';
-import { CompanyMapper } from '../../../shared/services/mapper/company.mapper';
-import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { CompanyUnit } from '../../../shared/model/ui/OrganizationalUnit/company-unit';
-import { Configuration } from '../../../shared/model/ui/configuration';
+import { ConfigurationManagerService } from '../../configuration-manager.service';
+import { UserSettings } from '../../../../shared/model/ui/user-settings';
+import { Configuration } from '../../../../shared/model/ui/configuration';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
+import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
-} from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+} from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { SettingsForm } from '../settings-form';
 
 @Component({
   selector: 'app-admin-settings',
   templateUrl: './admin-settings-form.component.html',
-  styleUrls: ['./admin-settings-form.component.scss']
+  styleUrls: ['./admin-settings-form.component.scss'],
+  providers: [{provide: SettingsForm, useExisting: AdminSettingsFormComponent}]
 })
-export class AdminSettingsFormComponent implements OnInit {
+export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
 
   adminSettingsForm: FormGroup;
-  userSettingsForm: FormGroup;
-  companies$: Observable<CompanyUnit[]>;
-  departments$: Observable<OkrDepartment[]>;
   isAzure$: Observable<boolean>;
+
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private confirmationTitle: string = this.i18n({
     id: '@@deativate_okr_topic_sponsors_title',
@@ -97,22 +93,13 @@ export class AdminSettingsFormComponent implements OnInit {
     })
   };
 
-  constructor(private companyService: CompanyMapper,
-              private configurationManagerService: ConfigurationManagerService,
+  constructor(private configurationManagerService: ConfigurationManagerService,
               private currentUserService: CurrentUserService,
-              private departmentService: DepartmentMapper,
               private dialog: MatDialog,
               private i18n: I18n,
               private oAuthDetails: OAuthFrontendDetailsService,
-              private userSettingsManager: UserSettingsManagerService,
-              private dialogRef: MatDialogRef<AdminSettingsFormComponent>,
   ) {
-  }
-
-  private _isCurrentUserAdmin$: Observable<boolean>;
-
-  get isCurrentUserAdmin$(): Observable<boolean> {
-    return this._isCurrentUserAdmin$;
+    super();
   }
 
   get settings(): FormArray {
@@ -120,97 +107,32 @@ export class AdminSettingsFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin$();
     this.initAdminSettingsForm();
-    this.initUserSettingsForm();
-    this.companies$ = this.companyService.getActiveCompanies$();
+    this.adminSettingsForm.statusChanges.subscribe(() => {
+      this.valid.emit(this.adminSettingsForm.valid);
+    });
   }
 
-  onSave(): void {
+  createUpdate$(): Observable<UserSettings | Configuration> {
     if (!this.userDeactivatedTopicSponsors()) {
-      this.sendOk();
+      return this.createUpdateObservable$();
     } else {
-      this.openDeactivateTopicSponsorConfirmationDialog();
+      return this.openDeactivateTopicSponsorConfirmationDialog$();
     }
   }
 
-  sendOk(): void {
-    const updates$: Observable<UserSettings | Configuration>[] = [];
-
-    this.currentUserService.isCurrentUserAdmin$()
-      .pipe(take(1))
-      .subscribe(isAdmin => {
-        if (isAdmin) {
-          this.saveAdminSettings(updates$);
-        }
-        this.saveUserSettings(updates$);
-
-        this.dialogRef.close(forkJoin(updates$));
-      });
-  }
-
-  saveAdminSettings(updates$: Observable<UserSettings | Configuration>[]): void {
-    const configurations: Configuration[] = this.adminSettingsForm.getRawValue().settings;
-    updates$.push(this.configurationManagerService.updateConfigurations$(configurations));
-  }
-
-  saveUserSettings(updates$: Observable<UserSettings | Configuration>[]): void {
-    updates$.push(this.userSettingsManager.getUserSettings$()
+  createUpdateObservable$(): Observable<Configuration> {
+    return this.currentUserService.isCurrentUserAdmin$()
       .pipe(
         take(1),
-        switchMap((userSettings: UserSettings) => {
-          userSettings.defaultCompanyId = this.userSettingsForm.get('defaultCompanyId').value;
-          userSettings.defaultTeamId = this.userSettingsForm.get('defaultTeamId').value;
-
-          return this.userSettingsManager.updateUserSettings$(userSettings);
+        switchMap(isAdmin => {
+          if (isAdmin) {
+            return this.configurationManagerService.updateConfigurations$(this.adminSettingsForm.getRawValue().settings);
+          } else {
+            return of(null);
+          }
         })
-      )
-    );
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close(NEVER);
-  }
-
-  onSelectCompany(): void {
-    const companyId: number = this.userSettingsForm.get('defaultCompanyId').value;
-    if (companyId !== null) {
-      this.departments$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
-    } else {
-      this.userSettingsForm.get('defaultTeamId')
-        .setValue(null);
-      this.departments$ = of([]);
-    }
-  }
-
-  private initUserSettingsForm(): void {
-    this.userSettingsManager.getUserSettings$()
-      .pipe(filter(value => !!value), take(1))
-      .subscribe((userSettings: UserSettings) => {
-        this.userSettingsForm = new FormGroup({
-          defaultCompanyId: new FormControl(userSettings.defaultCompanyId),
-          defaultTeamId: new FormControl(userSettings.defaultTeamId)
-        });
-        this.initDepartmentsForCompany(userSettings.defaultCompanyId);
-      });
-
-    this.userSettingsForm.get('defaultCompanyId').valueChanges
-      .subscribe(() => {
-        const companyId: number = this.userSettingsForm.get('defaultCompanyId').value;
-        if (companyId !== null) {
-          this.departments$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
-        }
-      });
-  }
-
-  private initDepartmentsForCompany(companyId: number): void {
-    if (companyId !== null) {
-      this.departments$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
-    } else {
-      this.userSettingsForm.get('defaultTeamId')
-        .setValue(null);
-      this.departments$ = of([]);
-    }
+      );
   }
 
   private initAdminSettingsForm(): void {
@@ -247,18 +169,18 @@ export class AdminSettingsFormComponent implements OnInit {
     }
   }
 
-  private openDeactivateTopicSponsorConfirmationDialog(): void {
+  private openDeactivateTopicSponsorConfirmationDialog$(): Observable<Configuration> {
     const data: ConfirmationDialogData = {
       title: this.confirmationTitle,
       message: this.confirmationText,
     };
 
-    this.dialog.open(ConfirmationDialogComponent, {data})
+    return this.dialog.open(ConfirmationDialogComponent, {data})
       .afterClosed()
       .pipe(
-        filter(v => v)
-      )
-      .subscribe(_ => this.sendOk());
+        filter(v => v),
+        switchMap(() => this.createUpdateObservable$())
+      );
   }
 
   private userDeactivatedTopicSponsors(): boolean {
