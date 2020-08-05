@@ -54,13 +54,7 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
 
   onSelectCompany(): void {
     const companyId: number = this.userSettingsForm.get('defaultCompanyId').value;
-    if (companyId !== null) {
-      this.departments$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
-    } else {
-      this.userSettingsForm.get('defaultTeamId')
-        .setValue(null);
-      this.departments$ = of([]);
-    }
+    this.initDepartmentsForCompany(companyId);
   }
 
   private initUserSettingsForm(): void {
@@ -77,9 +71,7 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
     this.userSettingsForm.get('defaultCompanyId').valueChanges
       .subscribe(() => {
         const companyId: number = this.userSettingsForm.get('defaultCompanyId').value;
-        if (companyId !== null) {
-          this.departments$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
-        }
+        this.initDepartmentsForCompany(companyId);
       });
   }
 
