@@ -121,7 +121,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
     }
   }
 
-  createUpdateObservable$(): Observable<Configuration> {
+  private createUpdateObservable$(): Observable<Configuration> {
     return this.currentUserService.isCurrentUserAdmin$()
       .pipe(
         take(1),

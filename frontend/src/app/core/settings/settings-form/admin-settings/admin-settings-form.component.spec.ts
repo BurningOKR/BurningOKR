@@ -1,36 +1,42 @@
 import { AdminSettingsFormComponent } from './admin-settings-form.component';
-import { CompanyMapper } from '../../../../shared/services/mapper/company.mapper';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfigurationManagerService } from '../../configuration-manager.service';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
-import { UserSettingsManagerService } from '../../../services/user-settings-manager.service';
 import { of } from 'rxjs';
-import { UserSettings } from '../../../../shared/model/ui/user-settings';
-import { CompanyUnit } from '../../../../shared/model/ui/OrganizationalUnit/company-unit';
+import { Configuration } from '../../../../shared/model/ui/configuration';
+import { AbstractControl } from '@angular/forms';
 
 const configurationManagerServiceStub: any = {
-  getAllConfigurations$: jest.fn()
+  getAllConfigurations$: jest.fn(),
+  updateConfigurations$: jest.fn()
 };
+
 const currentUserServiceStub: any = {
   isCurrentUserAdmin$: jest.fn(),
 };
+
 const oAuthFrontendDetailsServiceStub: any = {
   getAuthType$: jest.fn(),
   isAzureAuthType$: jest.fn()
 };
-const userSettingsManagerServiceStub: any = {
-  getUserSettings$: jest.fn(),
+
+const dialog: any = {
+  open: jest.fn()
 };
-const companyServiceStub: any = {
-  getActiveCompanies$: jest.fn()
+
+const configuration: Configuration = {
+  id: 0,
+  name: 'config_name',
+  value: 'true',
+  type: 'text'
 };
-const dialog: any = {};
+
+let configurationCheckBox: Configuration;
 
 describe('AdminSettingsForm', () => {
 
@@ -38,44 +44,39 @@ describe('AdminSettingsForm', () => {
   let component: AdminSettingsFormComponent;
 
   beforeEach(() => {
+    configurationCheckBox = {
+      id: 1,
+      name: 'topic-sponsors-activated',
+      value: 'true',
+      type: 'checkbox'
+    };
+
     configurationManagerServiceStub.getAllConfigurations$.mockReset();
+    configurationManagerServiceStub.updateConfigurations$.mockReset();
     currentUserServiceStub.isCurrentUserAdmin$.mockReset();
-    userSettingsManagerServiceStub.getUserSettings$.mockReset();
     oAuthFrontendDetailsServiceStub.isAzureAuthType$.mockReset();
     oAuthFrontendDetailsServiceStub.getAuthType$.mockReset();
-    companyServiceStub.getActiveCompanies$.mockReset();
+    dialog.open.mockReset();
 
-    configurationManagerServiceStub.getAllConfigurations$.mockReturnValue(
-      of([
-        {
-          id: 0,
-          name: 'config_name',
-          value: 'config_value',
-          type: 'text'
-        }
-      ]));
+    configurationManagerServiceStub.getAllConfigurations$.mockReturnValue(of([configuration, configurationCheckBox]));
+    configurationManagerServiceStub.updateConfigurations$.mockReturnValue(of(null));
     currentUserServiceStub.isCurrentUserAdmin$.mockReturnValue(of(true));
-    userSettingsManagerServiceStub.getUserSettings$.mockReturnValue(
-      of(new UserSettings(0, '', undefined, undefined))
-    );
     oAuthFrontendDetailsServiceStub.isAzureAuthType$.mockReturnValue(of('false'));
     oAuthFrontendDetailsServiceStub.getAuthType$.mockReturnValue(of('local'));
-    companyServiceStub.getActiveCompanies$.mockReturnValue(
-      of([new CompanyUnit(0, '', [], [], 0, '')])
-    );
+    // tslint:disable:rxjs-finnish
+    dialog.open.mockReturnValue({ afterClosed: jest.fn()
+        .mockReturnValue(of(true)) });
+    // tslint:enable:rxjs-finnish
 
     TestBed.configureTestingModule(
       {
         declarations: [AdminSettingsFormComponent],
         providers: [
-          {provide: CompanyMapper, useValue: companyServiceStub},
           {provide: ConfigurationManagerService, useValue: configurationManagerServiceStub},
           {provide: CurrentUserService, useValue: currentUserServiceStub},
-          {provide: DepartmentMapper, useValue: {}},
           {provide: I18n, useValue: i18nMock},
           {provide: MatDialogRef, useValue: {}},
           {provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceStub},
-          {provide: UserSettingsManagerService, useValue: userSettingsManagerServiceStub},
           {provide: MatDialog, useValue: dialog},
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -93,5 +94,99 @@ describe('AdminSettingsForm', () => {
   it('should create', () => {
     expect(component)
       .toBeTruthy();
+  });
+
+  it('should create adminSettingsForm on init', done => {
+    setTimeout(() => {
+      expect(component.settings)
+        .toBeTruthy();
+      done();
+    }, 1000); // wait a second for the getAllConfigurations$ Observable to emit.
+  });
+
+  it('adminSettingsForm should have right length', done => {
+    setTimeout(() => {
+      expect(component.settings.length)
+        .toBe(2);
+      done();
+    }, 1000); // wait a second for the getAllConfigurations$ Observable to emit.
+  });
+
+  it('adminSettingsForm should have right formGroup', done => {
+    setTimeout(() => {
+      const formGroup: AbstractControl = component.settings.at(0);
+
+      expect(formGroup.get('id').value)
+        .toBe(configuration.id);
+      expect(formGroup.get('name').value)
+        .toBe(configuration.name);
+      expect(formGroup.get('value').value)
+        .toBe(configuration.value);
+      expect(formGroup.get('type').value)
+        .toBe(configuration.type);
+      done();
+    }, 1000); // wait a second for the getAllConfigurations$ Observable to emit.
+  });
+
+  it('adminSettingsForm should map strings to boolean when using a checkbox', done => {
+    setTimeout(() => {
+      const formGroup: AbstractControl = component.settings.at(1);
+
+      expect(formGroup.get('value').value)
+        .toBe(true);
+      expect(formGroup.get('value').value)
+        .not
+        .toBe('true');
+      done();
+    }, 1000); // wait a second for the getAllConfigurations$ Observable to emit.
+  });
+
+  it('adminSettingsForm should not map strings to boolean when not using a checkbox', done => {
+    setTimeout(() => {
+      const formGroup: AbstractControl = component.settings.at(0);
+
+      expect(formGroup.get('value').value)
+        .toBe('true');
+      expect(formGroup.get('value').value)
+        .not
+        .toBe(true);
+      done();
+    }, 1000); // wait a second for the getAllConfigurations$ Observable to emit.
+  });
+
+  it('createUpdate$ should call updateConfigurations$', done => {
+    component.createUpdate$()
+      .subscribe(() => {
+        configurationCheckBox.value = true;
+        expect(configurationManagerServiceStub.updateConfigurations$)
+          .toHaveBeenCalledWith([configuration, configurationCheckBox]);
+        done();
+      });
+  });
+
+  it('createUpdate$ should not call updateConfigurations$ when user is not admin', done => {
+    currentUserServiceStub.isCurrentUserAdmin$.mockReturnValue(of(false));
+
+    component.createUpdate$()
+      .subscribe(() => {
+        expect(configurationManagerServiceStub.updateConfigurations$)
+          .toHaveBeenCalledTimes(0);
+        done();
+      });
+  });
+
+  it('createUpdate$ opens warning dialog, when topic_sponsors_activated is set to false', done => {
+    component.settings.at(1)
+      .get('value')
+      .setValue(false);
+    component.settings.at(1)
+      .markAsDirty();
+
+    component.createUpdate$()
+      .subscribe(() => {
+        expect(dialog.open)
+          .toHaveBeenCalled();
+        done();
+      });
   });
 });
