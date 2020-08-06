@@ -1,5 +1,8 @@
 package org.burningokr.config;
 
+import org.burningokr.service.environment.AppEnvironment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -10,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+  @Value("${system.configuration.api-endpoint}")
+  private String apiPrefix;
 
   @Override
   public void configure(WebSecurity web) {
@@ -25,10 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       "/swagger-resources",
       "/swagger-ui.html**",
       "/webjars/**",
-      "/api/init/**",
-      "/api/local-users/password",
-      "/api/local-users/forgot-password",
-      "/api/oAuthFrontendDetails"
+      apiPrefix + "/init/**",
+      apiPrefix + "/local-users/password",
+      apiPrefix + "/local-users/forgot-password",
+      apiPrefix + "/oAuthFrontendDetails"
     };
   }
 }

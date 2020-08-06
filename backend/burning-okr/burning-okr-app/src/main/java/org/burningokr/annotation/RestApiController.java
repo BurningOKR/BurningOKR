@@ -19,5 +19,5 @@ public @interface RestApiController {
    * @return a string value
    */
   @AliasFor(annotation = RequestMapping.class, attribute = "value")
-  String[] value() default "/api";
+  String[] value() default "${system.configuration.api-endpoint}";
 }

@@ -17,4 +17,5 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = EnvironmentPropertyNames.ENVIRONMENT_PREFIX)
 public class AppEnvironment {
   private AuthModes authMode;
+  private String apiPrefix;
 }

@@ -45,4 +45,5 @@ security:
 
 system:
   configuration:
-    auth-mode: "aad"
+    auth-mode: "azure"
+    api-endpoint: "/api"
