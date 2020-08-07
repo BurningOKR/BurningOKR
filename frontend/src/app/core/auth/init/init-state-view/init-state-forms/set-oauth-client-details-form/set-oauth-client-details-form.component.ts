@@ -6,8 +6,6 @@ import { InitService } from '../../../../../services/init.service';
 import { OauthClientDetails } from '../../../../../../shared/model/api/oauth-client-details';
 import { FormGroupTyped } from '../../../../../../../typings';
 import { Consts } from '../../../../../../shared/consts';
-import { filter, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
-import { EMPTY, interval, Observable, throwError } from 'rxjs';
 import { OAuthFrontendDetailsService } from '../../../../services/o-auth-frontend-details.service';
 import { MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -22,9 +20,6 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   eventEmitter: EventEmitter<InitState> = new EventEmitter<InitState>();
   oauthClientDetails: OauthClientDetails = new OauthClientDetails();
   spinnerIsHidden: boolean = true;
-  unsuccessfulPingAttempts: number = 0;
-
-  private lastRequestFinished: boolean = true;
 
   private timeoutErrorMessage: string = this.i18n({
     id: 'initOauthClientDetailsUpdateTimeoutMessage',
@@ -64,14 +59,10 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.form.disable();
   }
 
-  private handleSubmitClick(): void {
-    this.unsuccessfulPingAttempts = 0;
+  handleSubmitClick(): void {
     this.toggleLoadingScreen();
     this.changeOauthClientDetailsBasedOnFormData();
     this.initService.postOauthClientDetails$(this.oauthClientDetails)
-      .pipe(
-        switchMap(initState => this.waitForRestart$(initState))
-      )
       .subscribe(initState => {
         this.oAuthFrontendDetails.reloadOAuthFrontendDetails();
         this.eventEmitter.emit(initState);
@@ -94,53 +85,6 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   private changeOauthClientDetailsBasedOnFormData(): void {
     const typedForm: FormGroupTyped<OauthClientDetails> = this.form;
     this.oauthClientDetails = typedForm.getRawValue();
-  }
-
-  // the server has to restart to save the new oAuthClientDetails.
-  // pings the server until it gets a valid response
-  private waitForRestart$(initState: InitState): Observable<InitState> {
-    if (!!initState) {
-      this.lastRequestFinished = true;
-      this.unsuccessfulPingAttempts = 0;
-
-      return interval(Consts.MIN_INTERVAL_BETWEEN_PING_ATTEMPTS)
-        .pipe(
-          filter(() => this.lastRequestFinished),
-          switchMap(() => {
-            this.lastRequestFinished = false;
-
-            return this.pingServerOnce$(initState);
-          }),
-          skipWhile((newInitState: InitState) => !newInitState),
-          take(1)
-        );
-    } else {
-      return throwError('no init state given');
-    }
-  }
-
-  private pingServerOnce$(initState: InitState): Observable<InitState> {
-    return this.initService.getInitState$(() => this.handleError$())
-      .pipe(
-        tap(() => this.lastRequestFinished = true),
-        map((newInitState: InitState) => {
-          if (newInitState.runtimeId !== initState.runtimeId) {
-            return newInitState;
-          } else {
-            return null;
-          }
-        })
-      );
-  }
-
-  private handleError$(): Observable<never> {
-    this.lastRequestFinished = true;
-    this.unsuccessfulPingAttempts = this.unsuccessfulPingAttempts + 1;
-    if (this.unsuccessfulPingAttempts > Consts.MAX_UNSUCCESSFUL_PING_ATTEMPTS_FOR_RESTART) {
-      return throwError('max ping attempts reached');
-    } else {
-      return EMPTY;
-    }
   }
 
   private toggleLoadingScreen(): void {
