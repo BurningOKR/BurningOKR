@@ -1,8 +1,6 @@
 package org.burningokr.controller.initialisation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.BurningOkrApp;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.configuration.OAuthClientDetailsDto;
 import org.burningokr.dto.initialisation.AdminAccountInitialisationDto;
@@ -14,10 +12,14 @@ import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.service.initialisation.InitService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 @RestApiController
 @RequiredArgsConstructor
@@ -27,11 +29,26 @@ public class InitController {
   private final DataMapper<User, LocalUserDto> userMapper;
   private final DataMapper<OAuthClientDetails, OAuthClientDetailsDto> oauthClientDetailsMapper;
   private final InitService initService;
+  private final Logger logger = LoggerFactory.getLogger(InitController.class);
 
+  /**
+   * Get the current init state
+   * @return the current init state
+   */
   @GetMapping("/init")
   public ResponseEntity<InitStateDto> init() {
     InitState initState = this.initService.getInitState();
     return ResponseEntity.ok(initStateMapper.mapEntityToDto(initState));
+  }
+
+  /**
+   * Tells the client, that the server won't cook coffee, because it is a teapot.
+   * @return the message "I am a teapot"
+   */
+  @GetMapping("/init/teapot")
+  public ResponseEntity<String> teapot() {
+    logger.warn("Someone asked me to cook coffee, but i am a teapot.");
+    return ResponseEntity.status(418).body("I am a Teapot");
   }
 
   /**
@@ -47,8 +64,6 @@ public class InitController {
     OAuthClientDetails oauthClientDetails =
         oauthClientDetailsMapper.mapDtoToEntity(oauthClientDetailsDto);
     InitState initState = initService.setOAuthClientDetails(oauthClientDetails);
-
-    BurningOkrApp.restart();
 
     return ResponseEntity.ok(initStateMapper.mapEntityToDto(initState));
   }
