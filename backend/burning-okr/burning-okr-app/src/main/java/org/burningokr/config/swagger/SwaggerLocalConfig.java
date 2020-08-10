@@ -3,6 +3,7 @@ package org.burningokr.config.swagger;
 import java.util.Arrays;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
+import org.burningokr.model.configuration.OAuthConfigurationName;
 import org.burningokr.service.condition.LocalUserCondition;
 import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,6 +25,8 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 @RequiredArgsConstructor
 public class SwaggerLocalConfig extends SwaggerConfig {
 
+  private final OAuthConfigurationService oAuthConfigurationService;
+
   @Override
   @Bean
   public Docket api() {
@@ -38,7 +41,11 @@ public class SwaggerLocalConfig extends SwaggerConfig {
   }
 
   private SecurityScheme securityScheme() {
-    GrantType passwordGrant = new ResourceOwnerPasswordCredentialsGrant("/oauth/token");
+    GrantType passwordGrant = new ResourceOwnerPasswordCredentialsGrant(
+        oAuthConfigurationService
+            .getOAuthConfigurationByName(OAuthConfigurationName.TOKEN_ENDPOINT)
+            .getValue()
+    );
 
     return new OAuthBuilder()
         .name("spring_oauth")
