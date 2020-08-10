@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.*;
@@ -16,13 +17,12 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 
+@Profile("!prod")
 @Conditional(LocalUserCondition.class)
 @EnableAutoConfiguration
 @Configuration
 @RequiredArgsConstructor
 public class SwaggerLocalConfig extends SwaggerConfig {
-
-  private final OAuthConfigurationService oAuthConfigurationService;
 
   @Override
   @Bean

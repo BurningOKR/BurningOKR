@@ -3,6 +3,7 @@ package org.burningokr.config.swagger;
 import java.util.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.PathSelectors;
@@ -15,6 +16,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@Profile("!prod")
 @Configuration
 @EnableSwagger2
 @Order(50)
