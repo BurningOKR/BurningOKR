@@ -1,3 +1,7 @@
+.container {
+  margin-top: 65px;
+}
+
 .main-image {
   width: 30%;
   height: auto;
@@ -19,17 +23,26 @@
 
 .social-media-container {
   text-align: center;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+}
+
+#github-icon {
+  height: 70px;
+  padding: 11px;
 }
 
 #mail-icon {
-  height: 70px;
+  height: 75px;
 }
+
 
 
 .image-link {
   height: 96px;
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
+  -webkit-filter: grayscale(20%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(20%);
   transition: 0.3s;
   opacity: 0.5;
   &:hover {
@@ -38,10 +51,3 @@
     opacity: 1;
   }
 }
-
-/*
-.icon-display {
-  font-size: 84px;
-  width: 84px;
-}
-*/
