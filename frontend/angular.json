@@ -234,5 +234,10 @@
       }
     }
   },
-  "defaultProject": "OKRFrontEnd"
+  "defaultProject": "OKRFrontEnd",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
