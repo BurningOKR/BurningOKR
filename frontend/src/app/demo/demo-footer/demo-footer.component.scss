@@ -1,0 +1,22 @@
+@import '../../../styles/themes/bag-theme.scss';
+
+
+.footer-container {
+  background-color: map-get($md-primary, 500);
+}
+
+.footer-right {
+  float: right;
+  a {
+    padding: 8px;
+  }
+}
+
+
+a {
+  text-decoration: none;
+}
+
+a, a:visited{
+  color: lightgray;
+}
