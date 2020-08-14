@@ -9,9 +9,19 @@ import { MatDialogModule, MatIconModule, MatMenuModule, MatTooltipModule } from 
 import { DemoWarningComponent } from './demo-warning/demo-warning.component';
 import { DemoFooterComponent } from './demo-footer/demo-footer.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
+import { DemoPrivacyPolicyComponent } from './demo-privacy-policy/demo-privacy-policy.component';
+import { DemoImprintComponent } from './demo-imprint/demo-imprint.component';
 
 @NgModule({
-  declarations: [DemoMainViewComponent, DemoHomeComponent, DemoWarningComponent, DemoFooterComponent, ScrollTopComponent],
+  declarations: [
+    DemoMainViewComponent,
+    DemoHomeComponent,
+    DemoWarningComponent,
+    DemoFooterComponent,
+    ScrollTopComponent,
+    DemoPrivacyPolicyComponent,
+    DemoImprintComponent
+  ],
   imports: [
     CommonModule,
     DemoRoutingModule,

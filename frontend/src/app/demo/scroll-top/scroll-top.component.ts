@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-scroll-top',
   templateUrl: './scroll-top.component.html',
-  styleUrls: ['./scroll-top.component.css']
+  styleUrls: ['./scroll-top.component.scss']
 })
 export class ScrollTopComponent {
   windowScrolled: boolean;
