@@ -65,6 +65,9 @@ dependencies {
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.0'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
+    compile "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
+    compile "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
 }
 
 

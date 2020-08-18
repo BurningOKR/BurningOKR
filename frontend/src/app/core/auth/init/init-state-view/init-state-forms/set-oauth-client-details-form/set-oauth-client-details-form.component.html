@@ -1,10 +1,13 @@
 <div *ngIf="spinnerIsHidden else loading">
-<!--  TODO: (R.J. 09.07.20) the title tag is wrong here and will not be displayed-->
-<!--  <title i18n="@@setOauthClientDetailsInitStateTitle">Tragen Sie die OAuthclient-Details ein</title>-->
-  <p class="tab-subtitle" i18n="@@setOauthClientDetailInitStateSubtitel">Tragen Sie die OAuthclient-Details ein. <br>Dieser Schritt kann übersprungen werden.</p>
-  <br>
+  <mat-card-title i18n="@@setOauthClientDetails_InitStateForm_Title">Konfiguration der Authentifizierung</mat-card-title>
+  <p i18n="@@setOauthClientDetails_InitStateForm_Explanation">
+    Um die Lokale Nutzerdatenbank zu verwenden, müssen die OAuth Einstellungen konfiguriert werden.
+    Wichtig ist dabei, dass die Client-ID und das Client-Secret einzigartig sind.
+    Alle Formularfelder wurden bereits mit sinnvollen Daten befüllt und eine Änderung dieser Daten wird nur
+    fortgeschrittenen Nutzern empfohlen.
+  </p>
   <mat-checkbox class="small-padding" (change)="toggleForm()" i18n="@@onlyDoThisIfYouAreANerdWarning">
-    Formular aktivieren. ⚠ Tun Sie dies nur, wenn Sie wissen, was Sie tun ⚠
+    Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!
   </mat-checkbox>
   <div *ngIf="form">
     <form [formGroup]="form" (ngSubmit)="handleSubmitClick()">

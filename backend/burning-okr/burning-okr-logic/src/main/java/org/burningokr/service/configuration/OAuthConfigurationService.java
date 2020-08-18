@@ -54,6 +54,12 @@ public class OAuthConfigurationService {
     logger.info("Updated OAuth Configuration");
   }
 
+  /**
+   * Sets a specific OAuthConfiguration
+   *
+   * @param name the OAuthConfiguration name {@link OAuthConfigurationName}
+   * @param value the Value. Must be a String.
+   */
   public void setOAuthConfiguration(OAuthConfigurationName name, String value) {
     OAuthConfiguration configuration = getConfigurationByName(getOAuthConfigurations(), name);
     configuration.setValue(value);

@@ -4,8 +4,15 @@
     <ng-content></ng-content>
     <span class="fill-space"></span>
     <app-reset-countdown></app-reset-countdown>
-    <!--<div class="warningText" *ngIf="!(hasMailConfigured$ | async)">Warnung: Es wurde kein SMTP Server konfiguriert. <br>-->
-      <!--<a [routerLink]="['/noMailInformation']" class="warningText">Dies hat massive Auswirkungen auf die Nutzbarkeit im Local-Auth Modus.</a></div>-->
+    <!--<div class="warningText" *ngIf="!(hasMailConfigured$ | async)">
+      <span i18n="@@component_okrToolbar_noSMTPWarningText">
+        Warnung: Es wurde kein SMTP Server konfiguriert.
+      </span>
+      <br>-->
+      <!--<a [routerLink]="['/noMailInformation']" class="warningText" i18n="@@component_okrToolbar_noSMTPWarningLink">
+        Dies kann die Nutzbarkeit der Anwendung stark einschränken.
+      </a>
+    </div>-->
     <span class="fill-space"></span>
     <div class="user-interactions">
       <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"

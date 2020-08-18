@@ -4,13 +4,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { OkrChildUnitOverviewTabComponent } from './okr-child-unit-overview-tab.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
-import { OkrUnitMapper } from '../../../shared/services/mapper/okr-unit.mapper.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
-import { ObjectiveComponent } from '../../objective/objective.component';
-import { ObjectiveContentsComponent } from '../../objective/objective-contents/objective-contents.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { KeyresultComponent } from '../../keyresult/keyresult.component';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { of } from 'rxjs';
 import { ContextRole } from '../../../shared/model/ui/context-role';
@@ -62,7 +59,7 @@ describe('ChildUnitOverviewTabComponent', () => {
       imports: [MaterialTestingModule, RouterTestingModule],
       providers: [
         { provide: ObjectiveViewMapper, useValue: objectiveViewMapper },
-        { provide: OkrUnitMapper, useValue: unitMapper },
+        { provide: OkrUnitService, useValue: unitMapper },
         { provide: MatDialog, useValue: matDialog }
       ]
     })

@@ -39,7 +39,7 @@ public class AadConditionTest {
   @Test
   public void test_auth_mode_aad_matches_should_be_true() {
     MockEnvironment environment = new MockEnvironment();
-    environment.setProperty("system.configuration.auth-mode", "aad");
+    environment.setProperty("system.configuration.auth-mode", "azure");
     BDDMockito.given(conditionContext.getEnvironment()).willReturn(environment);
     Assert.assertTrue(aadCondition.matches(conditionContext, annotatedTypeMetadata));
   }
