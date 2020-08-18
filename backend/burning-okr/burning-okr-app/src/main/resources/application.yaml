@@ -18,6 +18,8 @@ spring:
     test-connection: false
   messages:
     basename: messages
+  pid:
+    file: ./shutdown.pid
 
 security:
   oauth2:

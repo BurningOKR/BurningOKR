@@ -23,13 +23,9 @@ public class BurningOkrApp extends SpringBootServletInitializer {
    * @param args an array of Strings
    */
   public static void main(String[] args) {
-    startApplication(args);
-  }
-
-  private static void startApplication(String[] sourceArgs) {
     SpringApplication app = new SpringApplication(BurningOkrApp.class);
     app.setWebApplicationType(WebApplicationType.SERVLET);
-    app.addListeners(new ApplicationPidFileWriter("./shutdown.pid"));
-    app.run(sourceArgs);
+    app.addListeners(new ApplicationPidFileWriter());
+    app.run(args);
   }
 }
