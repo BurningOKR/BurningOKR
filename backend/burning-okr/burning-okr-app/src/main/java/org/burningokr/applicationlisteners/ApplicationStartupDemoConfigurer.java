@@ -2,13 +2,12 @@ package org.burningokr.applicationlisteners;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthClientDetails;
-import org.burningokr.model.configuration.OAuthConfiguration;
 import org.burningokr.model.configuration.OAuthConfigurationName;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
-import org.burningokr.service.EnvironmentService;
 import org.burningokr.service.configuration.OAuthClientDetailsService;
 import org.burningokr.service.configuration.OAuthConfigurationService;
+import org.burningokr.service.environment.AuthModes;
 import org.burningokr.service.initialisation.InitService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -29,7 +28,7 @@ public class ApplicationStartupDemoConfigurer {
     @Order(2)
     public void onApplicationEvent(ApplicationReadyEvent event) {
         oAuthConfigurationService.setOAuthConfiguration(
-                OAuthConfigurationName.AUTH_TYPE, EnvironmentService.authModeDemo);
+                OAuthConfigurationName.AUTH_TYPE, AuthModes.DEMO.getName());
 
         OAuthClientDetails oAuthClientDetails = new OAuthClientDetails();
         oAuthClientDetails.setAccessTokenValidity(43200);
