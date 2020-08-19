@@ -16,7 +16,7 @@ export class ResetCountdownComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.countdownService.getDateForNextReset()
+    this.countdownService.getDateForNextReset$()
       .subscribe((nextReset: Date) => {
         this.nextReset = `${nextReset.getFullYear()}-${nextReset.getMonth() + 1}-${nextReset.getDate()} `
           + `${nextReset.getHours()}:${nextReset.getMinutes()}:${nextReset.getSeconds()}`;

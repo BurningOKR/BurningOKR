@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -63,8 +64,8 @@ public class DatabaseScheduleService {
     transaction.commit();
   }
 
-  public LocalDateTime getNextSchedule() {
-    return this.nextSchedule;
+  public long getNextSchedule() {
+    return Duration.between(LocalDateTime.now(), this.nextSchedule).toMillis();
   }
 
 }

@@ -19,7 +19,7 @@ public class DeleteTimerController {
    * @return
    */
   @GetMapping("/demo/reset")
-  public ResponseEntity<LocalDateTime> getNextResetTime() {
+  public ResponseEntity<Long> getNextResetTime() {
     return ResponseEntity.ok(scheduleService.getNextSchedule());
   }
 }
