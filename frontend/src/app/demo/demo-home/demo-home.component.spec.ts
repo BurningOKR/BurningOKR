@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DemoHomeComponent } from './demo-home.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { MatDialog } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const matDialog: any = {
   open: jest.fn()
@@ -14,7 +15,7 @@ describe('DemoHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule ],
+      imports: [ MaterialTestingModule, RouterTestingModule ],
       providers: [ { provide: MatDialog, useValue: matDialog } ],
       declarations: [ DemoHomeComponent ]
     })

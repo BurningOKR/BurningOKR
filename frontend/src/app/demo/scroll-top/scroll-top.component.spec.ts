@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScrollTopComponent } from './scroll-top.component';
+import { MaterialTestingModule } from '../../testing/material-testing.module';
 
 describe('ScrollTopComponent', () => {
   let component: ScrollTopComponent;
@@ -8,7 +9,8 @@ describe('ScrollTopComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScrollTopComponent ]
+      declarations: [ ScrollTopComponent ],
+      imports: [ MaterialTestingModule ]
     })
     .compileComponents();
   }));
