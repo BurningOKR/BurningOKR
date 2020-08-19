@@ -11,11 +11,11 @@ export class CountdownTimestampApiService {
   constructor(private api: ApiHttpService) {
   }
 
-  getDateForNextReset(): Observable<Date> {
+  getDateForNextReset$(): Observable<Date> {
 
     return this.api.getData$('demo/reset')
-      .pipe(map((date: number[]) => {
-          return new Date(date[0], date[1] - 1, date[2], date[3], date[4], date[5]);
+      .pipe(map((timeLeft: number) => {
+          return new Date(Date.now() + timeLeft);
         }
       ));
   }
