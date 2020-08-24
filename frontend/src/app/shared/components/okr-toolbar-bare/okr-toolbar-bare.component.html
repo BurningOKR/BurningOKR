@@ -1,6 +1,11 @@
 <div [class.fixed]="fixedPosition">
   <mat-toolbar [color]="'primary'" class="app-toolbar">
     <mat-toolbar-row>
+      <button mat-icon-button routerLink="/">
+        <mat-icon>
+          home
+        </mat-icon>
+      </button>
       <ng-content></ng-content>
     </mat-toolbar-row>
   </mat-toolbar>
