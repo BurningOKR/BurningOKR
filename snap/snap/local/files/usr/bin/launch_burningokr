@@ -1,0 +1,32 @@
+#!/bin/bash -e
+
+. "$SNAP/etc/helpers/helpers" # Include Helper Methods
+
+# Set Configuration
+echo Reading Configuration...
+POSTGRES_HOST="$(snapctl get postgres-host)"
+POSTGRES_USER="$(snapctl get postgres-user)"
+POSTGRES_PASSWORD="$(snapctl get postgres-password)"
+
+# execute Postgres if not running
+if ! $SNAP/usr/lib/postgresql/10/bin/pg_isready -h "$POSTGRES_SOCKETS_DIRECTORY" -U postgres; then
+    echo Starting Postgres...
+
+    run_as_user $SNAP/usr/lib/postgresql/10/bin/pg_ctl -D "$POSTGRES_DATA_DIRECTORY" -l "$POSTGRES_BASE_DIRECTORY/logfile" -o "-k '$POSTGRES_SOCKETS_DIRECTORY' -h ''" start # Start Database
+    wait_for_db
+fi
+
+# execute nginx for BurningOKR frontend
+echo Starting BurningOKR Frontend
+$SNAP/usr/sbin/nginx -c "$SNAP/etc/nginx/nginx.conf"
+
+# execute BurningOKR
+echo Starting BurningOKR...
+
+export SPRING_DATASOURCE_USERNAME=$POSTGRES_USER
+export SPRING_DATASOURCE_PASSWORD=$POSTGRES_USER
+export SPRING_DATASOURCE_URL="$POSTGRES_HOST"
+export SPRING_PROFILES_ACTIVE="prod"
+export SPRING_PID_FILE="$BURNINGOKR_DIRECTORY/shutdown.pid"
+
+run_as_user java -jar $SNAP/jar/burning-okr-app-$SNAPCRAFT_PROJECT_VERSION.jar

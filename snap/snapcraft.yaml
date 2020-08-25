@@ -1,0 +1,68 @@
+name: burningokr
+version: 1.0.0
+title: Burning OKR
+summary: An OKR Tool by BROCKHAUS-AG
+description: |
+  Manage your objectives, key results, okr teams, departments and branches
+  with the Burning OKR Web App.
+
+grade: stable
+confinement: strict
+base: core18
+
+system-usernames:
+  snap_daemon: shared
+
+apps:
+  burningokr:
+    command: usr/bin/launch_burningokr
+    environment:
+      JAVA_HOME: $SNAP/usr/lib/jvm/java-8-openjdk-amd64
+      PATH: $JAVA_HOME/bin:$PATH
+      SNAPCRAFT_PROJECT_VERSION: $SNAPCRAFT_PROJECT_VERSION
+    plugs:
+      - network
+      - network-bind
+
+parts:
+  burningokr:
+    plugin: gradle
+    gradle-openjdk-version: "8"
+    source: https://github.com/BurningOKR/BurningOKR.git
+    source-subdir: backend/burning-okr
+    # source-tag: $SNAPCRAFT_PROJECT_VERSION
+    source-branch: deployment-fixes
+    gradle-output-dir: burning-okr-app/build/libs
+    gradle-options: [bootJar]
+    stage-packages:
+      - postgresql
+      - postgresql-contrib
+      - setpriv
+
+  burningokr-frontend:
+    after: [nginx]
+    plugin: dump
+    source: https://github.com/BurningOKR/BurningOKR/releases/download/$SNAPCRAFT_PROJECT_VERSION/frontend.zip
+    source-subdir: frontend/dist/OKRFrontEnd
+    organize:
+      '*' : /usr/share/nginx/html/
+
+  nginx:
+    plugin: dump
+    source: snap/local/files-nginx
+    stage-packages:
+      - libatm1
+      - nginx-core
+    override-stage: |
+      snapcraftctl stage
+      rm /usr/share/nginx/html/index.html
+
+  files:
+    plugin: dump
+    source: snap/local/files
+
+hooks:
+  install:
+    plugs:
+      - network
+      - network-bind
