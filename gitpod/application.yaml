@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/okr?useSSL=false
+    username: admin
+    password: burningokrsecret
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    baseline-on-migrate: true
+  mail:
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          auth: true
+    test-connection: false
+  messages:
+    basename: messages
+
+security:
+  oauth2:
+    client:
+      clientAuthenticationScheme: form
+      scope: openid
+      grant-type: client_credentials
+      auto-approve-scopes: '.*'
+      token-name: access_token
+    resource:
+      preferTokenInfo: false
+
+system:
+  configuration:
+    auth-mode: "local"

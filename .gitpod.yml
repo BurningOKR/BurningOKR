@@ -1,0 +1,49 @@
+image:
+  file: .gitpod.Dockerfile
+
+# List the ports you want to expose and what to do when they are served. See https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 5432
+    onOpen: ignore
+  - port: 8080
+    onOpen: ignore
+  - port: 4200
+    onOpen: open-browser
+
+# List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+
+# initialize backend config
+  - init: |
+      cp gitpod/application.yaml "backend/burning-okr/burning-okr-app/src/main/resources/"
+      cp gitpod/log4j2-spring.xml "backend/burning-okr/burning-okr-app/src/main/resources/"
+
+# initialize postgres
+  - init: |
+        psql -c "create role admin with login password 'burningokrsecret';"
+        psql -c "create database okr with owner admin"
+
+# initialize backend
+  - init: |
+        cd backend/burning-okr/
+        chmod +x gradlew
+        ./gradlew
+        ./gradlew build
+    command: |
+        ./gradlew bootRun
+
+# initialize frontend
+  - init: |
+      cd frontend
+      export NG_CLI_ANALYTICS=ci
+      npm install -g @angular/cli
+      npm install
+    command: |
+      cd frontend
+      bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "401" ]]; do sleep 3; done'
+      npm start
+vscode:
+  extensions:
+    - cool2k.vscode-lombok@1.0.2:e816/wZO588Jp8PN58Wj6g==
+    - Pivotal.vscode-spring-boot@1.20.0:jaH7mimG3KKfktrKqHw8Kg==
+    - Angular.ng-template@0.1000.7:0IUEFuDEuIrPL5WlPLev9A==
