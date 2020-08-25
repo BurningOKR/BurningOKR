@@ -1,5 +1,6 @@
 package org.burningokr.controller.initialisation;
 
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.configuration.OAuthClientDetailsDto;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
-
 @RestApiController
 @RequiredArgsConstructor
 public class InitController {
@@ -33,6 +32,7 @@ public class InitController {
 
   /**
    * Get the current init state
+   *
    * @return the current init state
    */
   @GetMapping("/init")
@@ -43,6 +43,7 @@ public class InitController {
 
   /**
    * Tells the client, that the server won't cook coffee, because it is a teapot.
+   *
    * @return the message "I am a teapot"
    */
   @GetMapping("/init/teapot")

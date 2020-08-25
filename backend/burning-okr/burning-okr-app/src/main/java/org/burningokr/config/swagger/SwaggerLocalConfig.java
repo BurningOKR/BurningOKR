@@ -41,11 +41,11 @@ public class SwaggerLocalConfig extends SwaggerConfig {
   }
 
   private SecurityScheme securityScheme() {
-    GrantType passwordGrant = new ResourceOwnerPasswordCredentialsGrant(
-        oAuthConfigurationService
-            .getOAuthConfigurationByName(OAuthConfigurationName.TOKEN_ENDPOINT)
-            .getValue()
-    );
+    GrantType passwordGrant =
+        new ResourceOwnerPasswordCredentialsGrant(
+            oAuthConfigurationService
+                .getOAuthConfigurationByName(OAuthConfigurationName.TOKEN_ENDPOINT)
+                .getValue());
 
     return new OAuthBuilder()
         .name("spring_oauth")
