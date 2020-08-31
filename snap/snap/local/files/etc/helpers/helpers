@@ -1,0 +1,28 @@
+# -*- mode: sh -*-
+# shellcheck shell=bash
+
+POSTGRES_BASE_DIRECTORY="$SNAP_COMMON/postgres"
+POSTGRES_SOCKETS_DIRECTORY="$POSTGRES_BASE_DIRECTORY/sockets"
+POSTGRES_DATA_DIRECTORY="$POSTGRES_BASE_DIRECTORY/data"
+BURNINGOKR_DIRECTORY="$SNAP_COMMON/burningokr"
+NGINX_DIRECTORY="$SNAP_COMMON/http"
+SNAP_USER="snap_daemon"
+
+export PATH="$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH"
+export LD_LIBRARY_PATH="$SNAP/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH=$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH
+
+run_as_user() {
+  $SNAP/usr/bin/setpriv --clear-groups --reuid "$SNAP_USER" --regid "$SNAP_USER" -- "$@"
+}
+
+wait_for_db() {
+    local timeout=10
+    while [ "$timeout" -gt 0 ]; do
+        if $SNAP/usr/lib/postgresql/10/bin/pg_isready -h "$POSTGRES_SOCKETS_DIRECTORY" -U postgres; then
+            return 0
+        fi
+        sleep 1
+        timeout=$((timeout-1))
+    done
+}

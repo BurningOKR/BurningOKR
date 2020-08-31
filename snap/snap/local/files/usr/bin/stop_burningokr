@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+. "$SNAP/etc/helpers/helpers" # Include Helper Methods
+
+kill -9 "$(cat $BURNINGOKR_DIRECTORY/shutdown.pid)" # Stop BurningOKR
+$SNAP/usr/sbin/nginx  -c "$SNAP/etc/nginx/nginx.conf" -p "$SNAP/etc/nginx" -s stop # Stop Nginx
+run_as_user $SNAP/usr/lib/postgresql/10/bin/pg_ctl -D "$POSTGRES_DATA_DIRECTORY" -l "$POSTGRES_BASE_DIRECTORY/logfile" -o "-k '$POSTGRES_SOCKETS_DIRECTORY' -h ''" stop # Stop Database
+
+echo BurningOKR stopped.
