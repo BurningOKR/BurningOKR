@@ -175,7 +175,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "styles": [
-              "src/styles.scss"
+              "src/styles/app.scss"
             ],
             "scripts": [],
             "assets": [

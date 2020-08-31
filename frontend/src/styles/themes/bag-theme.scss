@@ -196,7 +196,7 @@ $md-tertiary: (
 
 
 $bag-theme-primary: mat-palette($md-primary);
-$bag-theme-accent: mat-palette($md-secondary);
+$bag-theme-accent: mat-palette($md-warn);
 $bag-theme-warn: mat-palette($md-warn);
 $bag-theme-green: mat-palette($md-success);
 $bag-theme-blue: mat-palette($md-info);

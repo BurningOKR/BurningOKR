@@ -3,15 +3,27 @@
 
 .footer-container {
   background-color: map-get($md-primary, 500);
+  overflow-x:hidden;
+  position: relative;
 }
 
 .footer-right {
-  float: right;
+  text-align: right;
   a {
     padding: 8px;
   }
 }
 
+.row {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.margin-left-right {
+  margin-right: 5px;
+  margin-left: 5px;
+}
 
 a {
   text-decoration: none;
