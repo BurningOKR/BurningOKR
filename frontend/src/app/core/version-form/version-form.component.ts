@@ -13,7 +13,16 @@ export class VersionFormComponent {
     {
       version: '1.0.0 (18.06.2020)',
       changes: [
-        'Initital Release.'
+        'Initial Release.'
+      ]
+    },
+    {
+      version: '1.0.1 (01.09.2020)',
+      changes: [
+        'POST Requests to log errors in the frontend no longer return a 401 error.',
+        'BurningOKR can now be configured to not use Topic Sponsors.',
+        'Other minor improvements and bug fixes.',
+        'Our Demowebsite is now online: http://burningokr.org'
       ]
     }
   ];
