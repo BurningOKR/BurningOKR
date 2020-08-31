@@ -31,8 +31,7 @@ parts:
     plugin: gradle
     source: https://github.com/BurningOKR/BurningOKR.git
     source-subdir: backend/burning-okr
-    # source-tag: $SNAPCRAFT_PROJECT_VERSION
-    source-branch: deployment-fixes
+    source-tag: $SNAPCRAFT_PROJECT_VERSION
     gradle-options: [bootJar]
     gradle-output-dir: burning-okr-app/build/libs
     gradle-openjdk-version: "8"
