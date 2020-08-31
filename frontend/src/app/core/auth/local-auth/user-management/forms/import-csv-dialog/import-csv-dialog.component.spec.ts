@@ -6,6 +6,9 @@ import { Papa } from 'ngx-papaparse';
 import { CsvUserParseService } from '../../services/csv-user-parse.service';
 import { FormBuilder } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { HAMMER_LOADER } from '@angular/platform-browser';
+import { i18nMock } from '../../../../../../shared/mocks/i18n-mock';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 describe('ImportCsvDialogComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();
@@ -21,6 +24,8 @@ describe('ImportCsvDialogComponent', () => {
         {provide: CsvUserParseService, useValue: {}},
         {provide: Papa, useValue: {}},
         {provide: MatDialogRef, useValue: {}},
+        {provide: HAMMER_LOADER, useValue: {}},
+        {provide: I18n, useValue: i18nMock},
       ],
       imports: [MatTableModule],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],

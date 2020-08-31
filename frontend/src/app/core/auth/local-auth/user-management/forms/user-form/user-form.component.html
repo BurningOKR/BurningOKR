@@ -3,7 +3,7 @@
   <table class="form-whole-line">
     <tr>
       <td rowspan="3">
-        <app-user-avatar (clickOnAvatar)="uploader.click()" [size]="150" [user]="userForm.value"
+        <app-user-avatar (clickOnAvatar)="uploader.click()" [size]="150" [user]="userForm.value" [clickable]="true"
                          bgColor="#575756"></app-user-avatar>
         <input #uploader (change)="setPhoto($event)" accept=".jpg, .png" hidden type="file"/>
 

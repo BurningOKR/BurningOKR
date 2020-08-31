@@ -13,9 +13,7 @@ export class AdminRoleGuard implements CanActivate {
     this.currentUserService.isCurrentUserAdmin$()
       .subscribe((isAdmin: boolean) => {
       if (!isAdmin) {
-        this.router.navigate(['/companies']);
-
-        return false;
+        return this.router.createUrlTree(['/companies']);
       }
     });
 

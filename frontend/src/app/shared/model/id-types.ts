@@ -1,7 +1,7 @@
 export type UserId = string;
 export type CompanyId = number;
 export type ConfigurationId = number;
-export type ConfigurationValue = string;
+export type ConfigurationValue = string | boolean;
 export type CycleId = number;
 export type KeyResultId = number;
 export type ObjectiveId = number;

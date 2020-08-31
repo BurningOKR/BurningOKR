@@ -2,12 +2,13 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TrackByPropertyPipe } from '../admin/pipes/track-by-property.pipe';
 import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
-import { AdminSettingsFormComponent } from './settings/admin-settings/admin-settings-form.component';
+import { AdminSettingsFormComponent } from './settings/settings-form/admin-settings/admin-settings-form.component';
 import { VersionFormComponent } from './version-form/version-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
@@ -21,6 +22,8 @@ import { FlexModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { LocalAuthModule } from './auth/local-auth/local-auth.module';
 import { LandingPageNavigationComponent } from './landing-page-router/landing-page-navigation.component';
+import { SettingsFormComponent } from './settings/settings-form/settings-form.component';
+import { UserSettingsComponent } from './settings/settings-form/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { LandingPageNavigationComponent } from './landing-page-router/landing-pa
     TrackByPropertyPipe,
     VersionFormComponent,
     LandingPageNavigationComponent,
+    SettingsFormComponent,
+    UserSettingsComponent,
   ],
   exports: [
     TrackByPropertyPipe,
@@ -39,7 +44,7 @@ import { LandingPageNavigationComponent } from './landing-page-router/landing-pa
   entryComponents: [
     FeedbackFormComponent,
     VersionFormComponent,
-    AdminSettingsFormComponent,
+    SettingsFormComponent
   ],
   imports: [
     MatInputModule,
@@ -55,7 +60,8 @@ import { LandingPageNavigationComponent } from './landing-page-router/landing-pa
     FlexModule,
     RouterModule,
     MatRippleModule,
-    LocalAuthModule
+    LocalAuthModule,
+    MatCheckboxModule
   ]
 })
 export class CoreModule {

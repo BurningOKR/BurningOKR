@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { AuthTypeHandlerBase } from './auth-type-handler-base';
 
 @Injectable()
 export class AzureAuthTypeHandlerService implements AuthTypeHandlerBase {
+  private silentRefreshActivated: boolean = false;
 
   constructor(protected oAuthService: OAuthService) {
   }
 
-  async startLoginProcedure(authenticationService: AuthenticationService): Promise<boolean> {
-    const loginResult: Promise<boolean> = authenticationService.login();
+  async startLoginProcedure(): Promise<boolean> {
+    const loginResult: Promise<boolean> = this.login();
 
     await loginResult
       .then(_ => {
-        if (authenticationService.hasValidAccessToken() && !authenticationService.silentRefreshActivated) {
+        if (this.oAuthService.hasValidAccessToken() && !this.silentRefreshActivated) {
           this.setupSilentRefresh();
-          authenticationService.silentRefreshActivated = true;
+          this.silentRefreshActivated = true;
         }
       });
 
@@ -25,5 +25,13 @@ export class AzureAuthTypeHandlerService implements AuthTypeHandlerBase {
 
   setupSilentRefresh(): void {
     this.oAuthService.setupAutomaticSilentRefresh();
+  }
+
+  async afterConfigured(): Promise<any> {
+    return this.startLoginProcedure();
+  }
+
+  async login(): Promise<boolean> {
+    return this.oAuthService.loadDiscoveryDocumentAndLogin();
   }
 }

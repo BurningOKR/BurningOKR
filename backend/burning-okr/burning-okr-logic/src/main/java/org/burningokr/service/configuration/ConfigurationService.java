@@ -4,30 +4,27 @@ import com.google.common.collect.Lists;
 import java.util.Collection;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
+import org.burningokr.service.ConfigurationChangedEvent;
 import org.burningokr.service.activity.ActivityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ConfigurationService {
 
   private final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
 
-  private ConfigurationRepository configurationRepository;
-  private ActivityService activityService;
-
-  @Autowired
-  public ConfigurationService(
-      ConfigurationRepository configurationRepository, ActivityService activityService) {
-    this.configurationRepository = configurationRepository;
-    this.activityService = activityService;
-  }
+  private final ConfigurationRepository configurationRepository;
+  private final ActivityService activityService;
+  private final ApplicationEventPublisher applicationEventPublisher;
 
   public Collection<Configuration> getAllConfigurations() {
     return Lists.newArrayList(configurationRepository.findAll());
@@ -84,6 +81,7 @@ public class ConfigurationService {
             + dbConfiguration.getId()
             + ")");
     activityService.createActivity(user, dbConfiguration, Action.EDITED);
+    publishConfigurationChangedEvent(dbConfiguration);
     return configurationRepository.save(dbConfiguration);
   }
 
@@ -103,5 +101,11 @@ public class ConfigurationService {
             + ")");
     activityService.createActivity(user, configuration, Action.DELETED);
     configurationRepository.delete(configuration);
+  }
+
+  private void publishConfigurationChangedEvent(final Configuration configuration) {
+    ConfigurationChangedEvent configurationChangedEvent =
+        new ConfigurationChangedEvent(this, configuration);
+    applicationEventPublisher.publishEvent(configurationChangedEvent);
   }
 }

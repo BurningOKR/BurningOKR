@@ -3,20 +3,20 @@
 </app-okr-toolbar>
 <br>
 <div class="container">
-  <h1>Es wurde keine SMTP Konfiguration gefunden.</h1>
-  <p>Dies kann die Benutzbarkeit der Anwendung massiv einschränken.</p>
-  <p>Ist als Usermanagement AAD konfiguriert, sind folgende Funktionen deaktiviert:</p>
+  <h1 i18n="@@component_noMailInformation_Title">Es wurde keine SMTP Konfiguration gefunden.</h1>
+  <p i18n="@@component_noMailInformation_Info">Dies kann die Benutzbarkeit der Anwendung stark einschränken.</p>
+  <p i18n="@@component_noMailInformation_AAD">Wird ein Azure Active Directory zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:</p>
   <ul>
-    <li>Senden von Feedback</li>
+    <li i18n="@@component_noMailInformation_AAD_Feedback">Senden von Feedback</li>
   </ul>
-  <p>Ist als Usermanagement Local konfiguriert, sind folgende Funktionen deativiert:</p>
+  <p i18n="@@component_noMailInformation_local">Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:</p>
   <ul>
-    <li>Senden von Feedback</li>
-    <li>Senden von Mails für die Anlegung von Nutzern</li>
-    <li>Senden von Passwort-reset Mails</li>
+    <li i18n="@@component_noMailInformation_local_Feedback">Senden von Feedback</li>
+    <li i18n="@@component_noMailInformation_local_CreateUserMails">Senden von Mails für die Anlegung von Nutzern</li>
+    <li i18n="@@component_noMailInformation_local_PasswordResetMails">Senden von Passwort-reset Mails</li>
   </ul>
 
-  <button mat-raised-button color="primary" routerLink="/">Zurück zu Startseite</button>
+  <button mat-raised-button color="primary" routerLink="/" i18n="@@component_noMailInformation_backToHome">Zurück zu Startseite</button>
 
 
 </div>

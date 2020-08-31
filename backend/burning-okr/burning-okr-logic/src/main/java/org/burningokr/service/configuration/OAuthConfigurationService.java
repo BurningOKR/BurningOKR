@@ -6,6 +6,8 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.*;
 import org.burningokr.repositories.configuration.OAuthConfigurationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class OAuthConfigurationService {
 
   private final OAuthConfigurationRepository oAuthConfigurationRepository;
+
+  private final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
 
   /** Gets the OAuthConfigurations. */
   public Collection<OAuthConfiguration> getOAuthConfigurations() {
@@ -46,8 +50,16 @@ public class OAuthConfigurationService {
     oAuthConfigurationRepository.save(clientId);
     oAuthConfigurationRepository.save(clientSecret);
     oAuthConfigurationRepository.save(scope);
+
+    logger.info("Updated OAuth Configuration");
   }
 
+  /**
+   * Sets a specific OAuthConfiguration
+   *
+   * @param name the OAuthConfiguration name {@link OAuthConfigurationName}
+   * @param value the Value. Must be a String.
+   */
   public void setOAuthConfiguration(OAuthConfigurationName name, String value) {
     OAuthConfiguration configuration = getConfigurationByName(getOAuthConfigurations(), name);
     configuration.setValue(value);

@@ -25,8 +25,7 @@ describe('AuthTypeHandlerFactoryService', () => {
       {provide: Injector, useValue: injectorMock},
       {provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceMock},
       {provide: AzureAuthTypeHandlerService, useValue: azureAuthTypeHandlerServiceMock},
-      {provide: LocalAuthTypeHandlerService, useValue: localAuthTypeHandlerServiceMock},
-      {provide: Injector, useValue: injectorMock}
+      {provide: LocalAuthTypeHandlerService, useValue: localAuthTypeHandlerServiceMock}
     ]
   }));
 

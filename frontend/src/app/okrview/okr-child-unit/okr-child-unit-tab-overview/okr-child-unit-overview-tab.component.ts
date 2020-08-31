@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
@@ -9,7 +9,7 @@ import { ObjectiveFormComponent } from '../../objective/objective-form/objective
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { OkrUnitMapper } from '../../../shared/services/mapper/okr-unit.mapper.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 
 @Component({
   selector: 'app-okr-child-unit-overview-tab',
@@ -27,7 +27,7 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   constructor(
     private objectiveMapper: ObjectiveViewMapper,
-    private okrUnitMapper: OkrUnitMapper,
+    private okrUnitService: OkrUnitService,
     private matDialog: MatDialog
   ) {}
 
@@ -74,7 +74,7 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   queryUpdatedObjectiveOrder(): void {
     const sequenceList: number[] = this.calculateDepartmentOrderedIdList();
-    this.okrUnitMapper
+    this.okrUnitService
       .putOkrUnitObjectiveSequence$(this.okrChildUnit.id, sequenceList)
       .pipe(take(1))
       .subscribe();

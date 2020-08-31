@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   login(): void {
     const email: string = this.loginForm.get('email').value;
     const password: string = this.loginForm.get('password').value;
-    this.authenticationService.loginLocalUser(email, password)
+    this.authenticationService.login(email, password)
       .then(() => {
         this.router.navigate(['/']);
       })

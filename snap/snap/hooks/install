@@ -1,0 +1,37 @@
+#!/bin/bash -e
+
+. "$SNAP/etc/helpers/helpers" # Include Helper Methods
+
+# Prepare nginx
+mkdir "$NGINX_DIRECTORY"
+mkdir "$NGINX_DIRECTORY/log"
+chown root:root "$NGINX_DIRECTORY/log"
+
+# Prepare For BurningOKR
+mkdir "$BURNINGOKR_DIRECTORY"
+chmod 777 "$BURNINGOKR_DIRECTORY"
+
+# Initialize Postgres
+mkdir -p "$POSTGRES_DATA_DIRECTORY" "$POSTGRES_SOCKETS_DIRECTORY" # Create Data ans Sockets Directory for Postgres
+chown "$SNAP_USER:$SNAP_USER" "$POSTGRES_BASE_DIRECTORY" "$POSTGRES_DATA_DIRECTORY" # Own the directory to the snap_daemon
+chmod 755 "$POSTGRES_SOCKETS_DIRECTORY" # Setup Sockets Directory
+chown "$SNAP_USER:root" "$POSTGRES_SOCKETS_DIRECTORY" # ...
+
+run_as_user $SNAP/usr/lib/postgresql/10/bin/initdb -D "$POSTGRES_DATA_DIRECTORY" -A "trust" -U postgres -E UTF8 --locale=C # Initialize Postgres with this Data Directory
+
+run_as_user $SNAP/usr/lib/postgresql/10/bin/pg_ctl -D "$POSTGRES_DATA_DIRECTORY" -l "$POSTGRES_BASE_DIRECTORY/logfile" -o "-k '$POSTGRES_SOCKETS_DIRECTORY' -h ''" start # Start Database
+wait_for_db # Wait for Database
+
+$SNAP/usr/lib/postgresql/10/bin/createuser -U postgres -h "$POSTGRES_SOCKETS_DIRECTORY" admin # Create Burning OKR User
+$SNAP/usr/lib/postgresql/10/bin/createdb -U postgres -O admin -h "$POSTGRES_SOCKETS_DIRECTORY" okr # Create OKR Database
+
+
+run_as_user $SNAP/usr/lib/postgresql/10/bin/pg_ctl -D "$POSTGRES_DATA_DIRECTORY" -o "-k '$POSTGRES_SOCKETS_DIRECTORY' -h ''" stop # Stop Database
+
+# $SNAP/usr/sbin/nginx -c "$SNAP/etc/nginx/nginx.conf" -s stop # Stop nginx (automatically starts as a service)
+# systemctl disable nginx # disable nginx autostart
+
+# Set Default Configuration Values
+snapctl set postgres-host="jdbc:postgresql:///okr?socketFactory=org.newsclub.net.unix.socketfactory.PostgresqlAFUNIXSocketFactory&socketFactoryArg=$POSTGRES_SOCKETS_DIRECTORY/.s.PGSQL.5432"
+snapctl set postgres-user="admin"
+snapctl set postgres-password=""

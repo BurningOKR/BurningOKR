@@ -10,5 +10,6 @@ export class UserAvatarComponent {
   @Input() user: User;
   @Input() size = 64;
   @Input() bgColor = '';
+  @Input() clickable = false;
   @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 }

@@ -102,110 +102,102 @@
       </trans-unit><trans-unit id="component_settingsForm_settings" datatype="html">
         <source>Einstellungen</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_settingsForm_NoCompany" datatype="html">
-        <source>Kein Unternehmen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit><trans-unit id="defaultCompany" datatype="html">
-        <source>Standard Unternehmen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_settingsForm_NoTeam" datatype="html">
-        <source>Kein Team</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit><trans-unit id="defaultTeam" datatype="html">
-        <source>Standard Team</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/settings-form.component.html</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit><trans-unit id="settings" datatype="html">
         <source>Einstellungen</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/settings-form.component.html</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit><trans-unit id="adminSettings" datatype="html">
         <source>Adminverwaltung</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/settings-form.component.html</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit><trans-unit id="component_settingsForm_save" datatype="html">
         <source>Speichern</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/settings-form.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit><trans-unit id="component_settingsForm_cancel" datatype="html">
         <source>Abbrechen</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/settings/admin-settings/admin-settings-form.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/settings-form.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_okrToolbar_noSMTPWarningText" datatype="html">
+        <source>
+        Warnung: Es wurde kein SMTP Server konfiguriert.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_okrToolbar_noSMTPWarningLink" datatype="html">
+        <source>
+        Dies kann die Nutzbarkeit der Anwendung stark einschränken.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_authorizeAsAdmin" datatype="html">
         <source>Als Admin autorisiert</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_menu" datatype="html">
         <source>Menü</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_adminPanel" datatype="html">
         <source>Admin Panel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_cycleManagement" datatype="html">
         <source>Zyklusverwaltung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_settings" datatype="html">
         <source>Einstellungen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_userManagement" datatype="html">
         <source>Nutzerverwaltung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrTollbar_changePassword" datatype="html">
         <source>Passwort ändern</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_logout" datatype="html">
         <source>Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_version" datatype="html">
         <source>v</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit><trans-unit id="component_adminView_NavigateToUnitOverview" datatype="html">
         <source>Zur Strukturübersicht</source>
@@ -277,25 +269,65 @@
           <context context-type="sourcefile">app/admin/admin-view.component.html</context>
           <context context-type="linenumber">45</context>
         </context-group>
-      </trans-unit><trans-unit id="component_login_loggedOut" datatype="html">
-        <source>Sie wurden erfolgreich ausgelogt.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/components/logout/logout.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_login_redirect" datatype="html">
-        <source>
-          Sie werden sofort weitergeleitet.
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/components/logout/logout.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
       </trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
         <source>Kein SMTP Konfiguriert</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
+        <source>Es wurde keine SMTP Konfiguration gefunden.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_Info" datatype="html">
+        <source>Dies kann die Benutzbarkeit der Anwendung stark einschränken.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_AAD" datatype="html">
+        <source>Wird ein Azure Active Directory zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_AAD_Feedback" datatype="html">
+        <source>Senden von Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_local" datatype="html">
+        <source>Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_local_Feedback" datatype="html">
+        <source>Senden von Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_local_CreateUserMails" datatype="html">
+        <source>Senden von Mails für die Anlegung von Nutzern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_local_PasswordResetMails" datatype="html">
+        <source>Senden von Passwort-reset Mails</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_backToHome" datatype="html">
+        <source>Zurück zu Startseite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit><trans-unit id="component_cycleCreation_startDate" datatype="html">
         <source>Startdatum</source>
@@ -733,35 +765,35 @@
         <source>Kein OKR Themenpate definiert</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabTeam_OKRTopicSponsor" datatype="html">
         <source>OKR Themenpate</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabTeam_noMembersDefined" datatype="html">
         <source>Keine Teammitglieder definiert.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabTeam_defineTeamMember" datatype="html">
         <source>Teammitglieder</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabTeam_defineNewMember" datatype="html">
         <source>Neues Mitglied definieren</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabSubDepartments_childUnit" datatype="html">
         <source>Unterstrukturen</source>
@@ -868,6 +900,12 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/objective/objective.component.html</context>
           <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit><trans-unit id="amount_of_subordinate." datatype="html">
+        <source>Anzahl der untergeordneten Objectives</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/objective/objective.component.html</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit><trans-unit id="component_department_expandObjective" datatype="html">
         <source>Objective aufklappen</source>
@@ -1041,6 +1079,20 @@
           <context context-type="sourcefile">app/okrview/comment/comment-card/comment-card.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
+      </trans-unit><trans-unit id="component_login_loggedOut" datatype="html">
+        <source>Sie wurden erfolgreich ausgelogt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/logout/logout.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_login_redirect" datatype="html">
+        <source>
+          Sie werden sofort weitergeleitet.
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/logout/logout.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
       </trans-unit><trans-unit id="userManagementToolbarTitle" datatype="html">
         <source>Benutzerverwaltung</source>
         <context-group purpose="location">
@@ -1052,6 +1104,12 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context>
           <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit><trans-unit id="deactiave_user_checkbox" datatype="html">
+        <source>Deaktivierte Benutzer anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit><trans-unit id="addNewUser" datatype="html">
         <source>Neuen Benutzer erstellen</source>
@@ -1140,6 +1198,227 @@
           <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context>
           <context context-type="linenumber">60</context>
         </context-group>
+      </trans-unit><trans-unit id="previousPassword" datatype="html">
+        <source>Vorheriges Passwort</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="errorMessagePreviousPasswordRequired" datatype="html">
+        <source>
+      Das vorherige Passwort muss angegeben werden.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="errorMessagePreviousPasswordWrong" datatype="html">
+        <source>
+      Das vorherige Password ist falsch angegeben worden.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit><trans-unit id="newPassword" datatype="html">
+        <source>Neues Passwort</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit><trans-unit id="newPasswordRepetition" datatype="html">
+        <source>Neues Passwort wiederholen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit><trans-unit id="passwordsDoNotMatch" datatype="html">
+        <source>
+    Die Eingaben stimmen nicht überein.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <note priority="1" from="description">password do not match</note>
+      </trans-unit><trans-unit id="newPasswordInvalid" datatype="html">
+        <source>
+    Das Passwort muss mindestens 7 Zeichen enthalten
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">new password not valid</note>
+      </trans-unit><trans-unit id="capsLockOn" datatype="html">
+        <source>
+    Die Feststelltaste ist aktiv
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <note priority="1" from="description">caps lock is on</note>
+      </trans-unit><trans-unit id="createYourAdminAccount" datatype="html">
+        <source>Administratorenkonto</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit><trans-unit id="createYourAdminAccount_subtitle" datatype="html">
+        <source>Legen Sie ein initiales Administratorenkonto an.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="next" datatype="html">
+        <source>Weiter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit><trans-unit id="InitialisationCompleted" datatype="html">
+        <source>Fertig!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit><trans-unit id="InitialisationCompletedMessage" datatype="html">
+        <source>Die Initialisierung wurde erfolgreich abgeschlossen🎉</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="letsGo!" datatype="html">
+        <source>Los geht's!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit><trans-unit id="setOauthClientDetails_InitStateForm_Title" datatype="html">
+        <source>Konfiguration der Authentifizierung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="setOauthClientDetails_InitStateForm_Explanation" datatype="html">
+        <source>
+    Um die Lokale Nutzerdatenbank zu verwenden, müssen die OAuth Einstellungen konfiguriert werden.
+    Wichtig ist dabei, dass die Client-ID und das Client-Secret einzigartig sind.
+    Alle Formularfelder wurden bereits mit sinnvollen Daten befüllt und eine Änderung dieser Daten wird nur
+    fortgeschrittenen Nutzern empfohlen.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit><trans-unit id="onlyDoThisIfYouAreANerdWarning" datatype="html">
+        <source>
+    Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="accessTokenValidity" datatype="html">
+        <source>Lebenszeit des Accesstokens (in Sekunden)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit><trans-unit id="clientId" datatype="html">
+        <source>Client-Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit><trans-unit id="clientSecret" datatype="html">
+        <source>Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit><trans-unit id="refreshTokenValidity" datatype="html">
+        <source>Lebenszeit des Refreshtokens (in Sekunden)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit><trans-unit id="webServerRedirectUri" datatype="html">
+        <source>Webserver-Redirect-URI</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit><trans-unit id="pleaseHangOnTheServerIsBeeingConfigured" datatype="html">
+        <source>Bitte warten Sie einen Moment, während der Server konfiguriert wird.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit><trans-unit id="setAzureAdminTitle" datatype="html">
+        <source>
+    Administrator festlegen
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="setAzureAdminSubtitle" datatype="html">
+        <source>Folgender Nutzer wird als initialer Administrator festgelegt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit><trans-unit id="otherUserNotice" datatype="html">
+        <source>
+    Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto
+    an.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="setAdminButton" datatype="html">
+        <source>
+      Diesen Nutzer als Administrator festlegen
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit><trans-unit id="setAdminLogoutButton" datatype="html">
+        <source>
+      Logout
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/set-azure-admin-init-state-form/set-azure-admin-init-state-form.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
       </trans-unit><trans-unit id="password" datatype="html">
         <source>Passwort</source>
         <context-group purpose="location">
@@ -1162,19 +1441,12 @@
           <context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context>
           <context context-type="linenumber">40</context>
         </context-group>
-      </trans-unit><trans-unit id="capsLockOn" datatype="html">
-        <source>
-        Die Feststelltaste ist aktiv
-      </source>
+      </trans-unit><trans-unit id="forgot_password_button" datatype="html">
+        <source>Passwort vergessen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">59</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">48</context>
-        </context-group>
-        <note priority="1" from="description">caps lock is on</note>
       </trans-unit><trans-unit id="passwordResetTitle" datatype="html">
         <source> Burning OKR - Passwort zurücksetzen
     </source>
@@ -1202,52 +1474,6 @@
           <context context-type="linenumber">4</context>
         </context-group>
         <note priority="1" from="description">set new password</note>
-      </trans-unit><trans-unit id="newPassword" datatype="html">
-        <source>Neues Passwort</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit><trans-unit id="newPasswordRepetition" datatype="html">
-        <source>Neues Passwort wiederholen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit><trans-unit id="passwordsDoNotMatch" datatype="html">
-        <source>
-      Die Eingaben stimmen nicht überein.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
-        <note priority="1" from="description">password do not match</note>
-      </trans-unit><trans-unit id="newPasswordInvalid" datatype="html">
-        <source>
-      Das Passwort muss mindestens 7 Zeichen enthalten
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/set-password/set-password.component.html</context>
-          <context context-type="linenumber">46</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-        <note priority="1" from="description">new password not valid</note>
       </trans-unit><trans-unit id="setNewPasswordTitle" datatype="html">
         <source>Burning OKR - Passwort ändern</source>
         <context-group purpose="location">
@@ -1255,117 +1481,29 @@
           <context context-type="linenumber">2</context>
         </context-group>
         <note priority="1" from="description">title of change password page page</note>
-      </trans-unit><trans-unit id="previousPassword" datatype="html">
-        <source>Vorheriges Passwort</source>
+      </trans-unit><trans-unit id="component_settingsForm_NoCompany" datatype="html">
+        <source>Kein Unternehmen</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit><trans-unit id="errorMessagePreviousPasswordRequired" datatype="html">
-        <source>
-      Das vorherige Passwort muss angegeben werden.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit><trans-unit id="errorMessagePreviousPasswordWrong" datatype="html">
-        <source>
-      Das vorherige Password ist falsch angegeben worden.
-    </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/password-form/password-form.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit><trans-unit id="createUserInitStateTitle" datatype="html">
-        <source>Adminkonto anlegen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="createYourAdminAccount" datatype="html">
-        <source>Legen Sie Ihren Administratorenaccount an.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit><trans-unit id="next" datatype="html">
-        <source>Weiter</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-      </trans-unit><trans-unit id="InitialisationCompletedMessage" datatype="html">
-        <source>Die Initialisierung wurde erfolgreich abgeschlossen🎉</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="letsGo!" datatype="html">
-        <source>Los geht's!</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/complete-init-state-form/complete-init-state-form.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit><trans-unit id="setOauthClientDetailsInitStateTitle" datatype="html">
-        <source>Tragen Sie die OAuthclient-Details ein</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit><trans-unit id="setOauthClientDetailInitStateSubtitel" datatype="html">
-        <source>Tragen Sie die OAuthclient-Details ein. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Dieser Schritt kann übersprungen werden.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit><trans-unit id="onlyDoThisIfYouAreANerdWarning" datatype="html">
-        <source>
-    Formular aktivieren. ⚠ Tun Sie dies nur, wenn Sie wissen, was Sie tun ⚠
-  </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/user-settings/user-settings.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
-      </trans-unit><trans-unit id="accessTokenValidity" datatype="html">
-        <source>Lebenszeit des Accesstokens (in Sekunden)</source>
+      </trans-unit><trans-unit id="defaultCompany" datatype="html">
+        <source>Standard Unternehmen</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/user-settings/user-settings.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_settingsForm_NoTeam" datatype="html">
+        <source>Kein Team</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/settings/settings-form/user-settings/user-settings.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
-      </trans-unit><trans-unit id="clientId" datatype="html">
-        <source>Client-Id</source>
+      </trans-unit><trans-unit id="defaultTeam" datatype="html">
+        <source>Standard Team</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit><trans-unit id="clientSecret" datatype="html">
-        <source>Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit><trans-unit id="refreshTokenValidity" datatype="html">
-        <source>Lebenszeit des Refreshtokens (in Sekunden)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit><trans-unit id="webServerRedirectUri" datatype="html">
-        <source>Webserver-Redirect-URI</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-      </trans-unit><trans-unit id="pleaseHangOnTheServerIsBeeingConfigured" datatype="html">
-        <source>Bitte warten Sie einen Moment, während der Server konfiguriert wird.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="sourcefile">app/core/settings/settings-form/user-settings/user-settings.component.html</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit><trans-unit id="component_cycleEditForm_Name" datatype="html">
         <source>Name *</source>
@@ -1480,17 +1618,10 @@
         </context-group>
         <note priority="1" from="description">deleteButtonText</note>
       </trans-unit>
-      <trans-unit id="changePasswordFormTitle" datatype="html">
-        <source>Passwort ändern</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/auth/local-auth/change-password-dialog/change-password-dialog.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="initOauthClientDetailsUpdateTimeoutMessage" datatype="html">
         <source>Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">error text when the timeout is reached for updating the oauthclientdetails</note>
@@ -1498,10 +1629,17 @@
       <trans-unit id="initOauthClientDetailsUpdateTimeoutAction" datatype="html">
         <source>Ok</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/auth/local-auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">action button for the snackbar</note>
+      </trans-unit>
+      <trans-unit id="changePasswordFormTitle" datatype="html">
+        <source>Passwort ändern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/change-password-dialog/change-password-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="passwordChangedSuccessfully" datatype="html">
         <source>Passwort erfolgreich geändert ✅</source>
@@ -1510,6 +1648,22 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">message to be shown after a password was changed successfully</note>
+      </trans-unit>
+      <trans-unit id="@@confirm_user_import_via_csv_title" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{list_length}}"/> Benutzer erstellen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">title of confirmation dialog for importing users via csv</note>
+      </trans-unit>
+      <trans-unit id="@@confirm_user_import_via_csv_text" datatype="html">
+        <source>Diese Operation wird alle <x id="INTERPOLATION" equiv-text="{{list_length}}"/> Nutzer hinzufügen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">text of confirmation dialog for importing users via csv</note>
       </trans-unit>
       <trans-unit id="resetPasswordSuccessSnackbar" datatype="html">
         <source>Das Passwort wurde erfolgreich zurückgesetzt.</source>
@@ -1526,6 +1680,54 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Ok Button on resetPasswordSuccessSnackbar</note>
+      </trans-unit>
+      <trans-unit id="active_table_header" datatype="html">
+        <source>Aktiv</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Active" header</note>
+      </trans-unit>
+      <trans-unit id="email_table_header" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Email" header</note>
+      </trans-unit>
+      <trans-unit id="name_table_header" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Name" header</note>
+      </trans-unit>
+      <trans-unit id="department_table_header" datatype="html">
+        <source>Abteilung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Department" header</note>
+      </trans-unit>
+      <trans-unit id="job_title_table_header" datatype="html">
+        <source>Berufsbezeichnung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Job title" header</note>
+      </trans-unit>
+      <trans-unit id="admin_table_header" datatype="html">
+        <source>Admin</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">User management component "Admin" header</note>
       </trans-unit>
       <trans-unit id="feedbackSuccessfullySubmittedMessage" datatype="html">
         <source>Feedback erfolgreich übermittelt 📬</source>
@@ -1580,62 +1782,98 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="@@settingsFormMaxKeyResultsPerObjective" datatype="html">
+      <trans-unit id="@@deativate_okr_topic_sponsors_title" datatype="html">
+        <source>OKR Themenpaten deaktivieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">title of confirmation dialog for deaktivating topic sponsors</note>
+      </trans-unit>
+      <trans-unit id="@@deativate_okr_topic_sponsors_text" datatype="html">
+        <source>Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">text of confirmation dialog for deaktivating topic sponsors</note>
+      </trans-unit>
+      <trans-unit id="@@settings_form_max_key_results_per_objective" datatype="html">
         <source>Maximale Anzahl von Key Results</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Placeholder for maximal amount of keyresults per objective</note>
       </trans-unit>
-      <trans-unit id="@@settingsFormObjectiveBarTresholdGreenYellow" datatype="html">
+      <trans-unit id="@@settings_topic_sponsors" datatype="html">
+        <source>Themenpaten aktiviert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Placeholder for the setting, which de-/activates topic sponsors through out the application</note>
+      </trans-unit>
+      <trans-unit id="@@settings_form_objective_bar_treshold_green_yellow" datatype="html">
         <source>Objective Prognose Schwellenwert (Grün/Gelb)</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Treshold for objective progress bar (Green/Yellow)</note>
       </trans-unit>
-      <trans-unit id="@@settingsFormObjectiveBarTresholdYellowRed" datatype="html">
+      <trans-unit id="@@settings_form_objective_bar_treshold_yellow_red" datatype="html">
         <source>Objective Prognose Schwellenwert (Gelb/Rot)</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Treshold for objective progress bar (Yellow/Red)</note>
       </trans-unit>
-      <trans-unit id="@@settingsFormGeneralFrontendBaseUrl" datatype="html">
-        <source>Frontend-Baseurl</source>
+      <trans-unit id="@@settings_form_general_frontend_base_url" datatype="html">
+        <source>Frontend-Base-Url</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">the domain of this angular application</note>
       </trans-unit>
-      <trans-unit id="@@settingsFormEmailSubjectFeedback" datatype="html">
+      <trans-unit id="@@settings_form_email_sender" datatype="html">
+        <source>Email Adresse des OKR Tools</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">The address, from which emails are sent</note>
+      </trans-unit>
+      <trans-unit id="@@settings_form_email_subject_forgot_new_user" datatype="html">
+        <source>Email Betreff für neue Benutzer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">the subject of the email, which is sent to new users</note>
+      </trans-unit>
+      <trans-unit id="@@settings_form_email_subject_forgot_password" datatype="html">
+        <source>Email Betreff für die Passwort-Zurücksetzen Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">the subject of the email, which is sent to users who forgot their password</note>
+      </trans-unit>
+      <trans-unit id="@@settings_form_email_subject_feedback" datatype="html">
         <source>Email Betreff für Feedback</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">the subject of the feedback email</note>
       </trans-unit>
-      <trans-unit id="@@settingsFormFeedbackReceivers" datatype="html">
+      <trans-unit id="@@settings_form_feedback_receivers" datatype="html">
         <source>Email Adressen der Feedback Empfänger. (Durch Komma getrennt)</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/settings/admin-settings/admin-settings-form.component.ts</context>
+          <context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">the email adresses of the people who receive feedback</note>
@@ -1694,23 +1932,24 @@
         <note priority="1" from="description">Warn the user if the company still has childUnits</note>
       </trans-unit>
       <trans-unit id="component_companyForm_saveText" datatype="html">
-        <source>speichern.</source>
+        <source> <x id="INTERPOLATION" equiv-text="{{label}}"/> speichern.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="component_companyForm_createText" datatype="html">
-        <source>erstellen.</source>
+        <source><x id="INTERPOLATION" equiv-text="{{label}}"/> erstellen.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="component_companyForm_createTitle" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{label}}"/> <x id="INTERPOLATION_1" equiv-text="{{saveOrCreateText}}"/></source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context>
+          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1731,10 +1970,6 @@
           <context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="create" datatype="html">
         <source>erstellen</source>
@@ -1744,10 +1979,6 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -1773,6 +2004,13 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Do you want to delete key result x</note>
+      </trans-unit>
+      <trans-unit id="objective_form_title" datatype="html">
+        <source>Objective <x id="INTERPOLATION" equiv-text="{{editOrCreateText}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="deleteObjectiveDialogTitle" datatype="html">
         <source>Objective löschen</source>
@@ -1894,6 +2132,14 @@
           <context context-type="sourcefile">src/app/shared/components/confirmation-dialog/confirmation-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="dialog_component_save_and_close_label" datatype="html">
+        <source>Speichern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/dialog-component/dialog.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Button label to close a dialog, while saving the input</note>
       </trans-unit>
       <trans-unit id="defaultErrorMessage" datatype="html">
         <source>kein gültiger Wert.</source>

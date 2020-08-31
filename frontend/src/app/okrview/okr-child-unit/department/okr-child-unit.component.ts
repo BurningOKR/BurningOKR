@@ -17,7 +17,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentCycleService } from '../../current-cycle.service';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { OkrUnitMapper } from '../../../shared/services/mapper/okr-unit.mapper.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 
 interface DepartmentView {
@@ -46,7 +46,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    private okrUnitMapper: OkrUnitMapper,
+    private okrUnitService: OkrUnitService,
     private departmentContextRoleService: OkrChildUnitRoleService,
     private matDialog: MatDialog,
     private router: Router,
@@ -64,7 +64,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
           const unitId: number = +params.get('departmentId');
           this.currentOkrViewService.browseDepartment(unitId);
 
-          return this.okrUnitMapper.getOkrChildUnitById$(unitId);
+          return this.okrUnitService.getOkrChildUnitById$(unitId);
         }),
         shareReplay(1)
       );
@@ -128,7 +128,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     okrChildUnit.isActive = !okrChildUnit.isActive;
 
     this.subscriptions.push(
-      this.okrUnitMapper
+      this.okrUnitService
         .putOkrChildUnit$(okrChildUnit)
         .pipe(take(1))
         .subscribe(returnedChildUnit => this.onChildUnitEdited(returnedChildUnit))
@@ -181,7 +181,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
 
   queryRemoveChildUnit(okrChildUnit: OkrChildUnit): void {
     this.subscriptions.push(
-      this.okrUnitMapper
+      this.okrUnitService
         .deleteOkrChildUnit$(okrChildUnit)
         .pipe(take(1))
         .subscribe(() => {

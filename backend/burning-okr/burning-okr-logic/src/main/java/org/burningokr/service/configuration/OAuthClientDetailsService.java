@@ -6,6 +6,8 @@ import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.repositories.configuration.OAuthClientDetailsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class OAuthClientDetailsService {
 
   private final OAuthClientDetailsRepository oauthClientDetailsRepository;
   private final PasswordEncoder passwordEncoder;
+  private final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
 
   private final String defaultResourceIds = "oauth2-resource";
   private final String defaultScope = "USER";
@@ -65,6 +68,7 @@ public class OAuthClientDetailsService {
    * @param oauthClientDetails an {@link OAuthClientDetails} model
    */
   public void updateOAuthClientDetails(OAuthClientDetails oauthClientDetails) {
+    logger.info("Updated OAuthClientDetails");
     oauthClientDetailsRepository.deleteAll();
     oauthClientDetailsRepository.save(oauthClientDetails);
   }

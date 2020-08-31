@@ -7,7 +7,7 @@ import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-d
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { OkrUnitMapper } from '../../../shared/services/mapper/okr-unit.mapper.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
 
@@ -29,7 +29,7 @@ export class OkrChildUnitFormComponent {
   unitType = UnitType;
 
   constructor(private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
-              private okrUnitMapper: OkrUnitMapper,
+              private okrUnitService: OkrUnitService,
               private departmentMapper: DepartmentMapper,
               private okrBranchMapper: OkrBranchMapper,
               private i18n: I18n,
@@ -46,17 +46,17 @@ export class OkrChildUnitFormComponent {
       this.childUnitForm.patchValue(this.formData.childUnit);
     }
 
-    const editText: string = this.i18n({
-      id: 'edit',
-      value: 'bearbeiten'
-    });
-
+    const saveText: string = this.i18n({
+        id: 'component_companyForm_saveText',
+        value: ' {{label}} speichern.'
+      }, {label: this.getDefaultLabel()}
+    );
     const createText: string = this.i18n({
-      id: 'create',
-      value: 'erstellen'
-    });
+      id: 'component_companyForm_createText',
+      value: '{{label}} erstellen.'
+    }, {label: this.getDefaultLabel()});
 
-    this.title = `${this.getDefaultLabel()} ${this.okrChildUnit ? editText : createText}`;
+    this.title = this.formData.childUnit ? saveText : createText;
   }
 
   closeDialog(): void {
@@ -77,7 +77,7 @@ export class OkrChildUnitFormComponent {
     childUnit.label = this.childUnitForm.get('label').value;
     childUnit.isActive = this.childUnitForm.get('isActive').value;
 
-    this.dialogRef.close(this.okrUnitMapper.putOkrChildUnit$(childUnit));
+    this.dialogRef.close(this.okrUnitService.putOkrChildUnit$(childUnit));
   }
 
   createChildUnit(): void {

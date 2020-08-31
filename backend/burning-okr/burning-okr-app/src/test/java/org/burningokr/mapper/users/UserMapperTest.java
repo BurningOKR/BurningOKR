@@ -12,7 +12,8 @@ import org.burningokr.dto.users.UserDto;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
-import org.burningokr.service.EnvironmentService;
+import org.burningokr.service.environment.AppEnvironment;
+import org.burningokr.service.environment.AuthModes;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class UserMapperTest {
   private static UserDto userDto1;
   private static UserDto userDto2;
 
-  @Mock public EnvironmentService environmentService;
+  @Mock public AppEnvironment appEnvironment;
 
   @InjectMocks public UserMapper userMapper;
 
@@ -72,8 +73,7 @@ public class UserMapperTest {
 
   @Test
   public void test_mapDtoToEntity_aadUser_ShouldMapCorrectly() {
-    when(environmentService.getProperty(EnvironmentService.authMode))
-        .thenReturn(EnvironmentService.authModeAad);
+    when(appEnvironment.getAuthMode()).thenReturn(AuthModes.AZURE);
     User user = userMapper.mapDtoToEntity(userDto1);
     Assert.assertThat(user, instanceOf(AadUser.class));
     assertDtoWithUser(userDto1, user);
@@ -81,8 +81,7 @@ public class UserMapperTest {
 
   @Test
   public void test_mapDtoToEntity_localUser_ShouldMapCorrectly() {
-    when(environmentService.getProperty(EnvironmentService.authMode))
-        .thenReturn(EnvironmentService.authModeLocal);
+    when(appEnvironment.getAuthMode()).thenReturn(AuthModes.LOCAL);
     User user = userMapper.mapDtoToEntity(userDto1);
     Assert.assertThat(user, instanceOf(LocalUser.class));
     assertDtoWithUser(userDto1, user);
@@ -109,8 +108,7 @@ public class UserMapperTest {
 
   @Test
   public void test_mapDtosToEntities() {
-    when(environmentService.getProperty(EnvironmentService.authMode))
-        .thenReturn(EnvironmentService.authModeAad);
+    when(appEnvironment.getAuthMode()).thenReturn(AuthModes.AZURE);
     Collection<UserDto> dtos = Arrays.asList(userDto1, userDto2);
     Collection<User> users = userMapper.mapDtosToEntities(dtos);
     Assert.assertEquals(2, dtos.size());

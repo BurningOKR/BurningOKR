@@ -2,6 +2,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
   flyway:
     baseline-on-migrate: true
   mail:
@@ -14,6 +18,8 @@ spring:
     test-connection: false
   messages:
     basename: messages
+  pid:
+    file: ./shutdown.pid
 
 security:
   oauth2:
@@ -29,3 +35,4 @@ security:
 system:
   configuration:
     auth-mode: "local"
+    api-endpoint: "/api"

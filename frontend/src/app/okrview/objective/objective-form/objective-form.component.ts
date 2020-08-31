@@ -81,7 +81,10 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       value: 'erstellen'
     });
 
-    this.title = `Objective ${this.objective ? editText : createText}`;
+    this.title = this.i18n({
+      id: 'objective_form_title',
+      value: 'Objective {{editOrCreateText}}'
+    }, {editOrCreateText: this.objective ? editText : createText});
   }
 
   ngOnDestroy(): void {
