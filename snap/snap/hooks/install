@@ -5,6 +5,7 @@
 # Prepare nginx
 mkdir "$NGINX_DIRECTORY"
 mkdir "$NGINX_DIRECTORY/log"
+chown root:root "$NGINX_DIRECTORY/log"
 
 # Prepare For BurningOKR
 mkdir "$BURNINGOKR_DIRECTORY"
@@ -27,7 +28,8 @@ $SNAP/usr/lib/postgresql/10/bin/createdb -U postgres -O admin -h "$POSTGRES_SOCK
 
 run_as_user $SNAP/usr/lib/postgresql/10/bin/pg_ctl -D "$POSTGRES_DATA_DIRECTORY" -o "-k '$POSTGRES_SOCKETS_DIRECTORY' -h ''" stop # Stop Database
 
-systemctl restart nginx
+# $SNAP/usr/sbin/nginx -c "$SNAP/etc/nginx/nginx.conf" -s stop # Stop nginx (automatically starts as a service)
+# systemctl disable nginx # disable nginx autostart
 
 # Set Default Configuration Values
 snapctl set postgres-host="jdbc:postgresql:///okr?socketFactory=org.newsclub.net.unix.socketfactory.PostgresqlAFUNIXSocketFactory&socketFactoryArg=$POSTGRES_SOCKETS_DIRECTORY/.s.PGSQL.5432"

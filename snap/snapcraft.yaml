@@ -14,7 +14,7 @@ system-usernames:
   snap_daemon: shared
 
 apps:
-  burningokr:
+  start:
     command: usr/bin/launch_burningokr
     environment:
       JAVA_HOME: $SNAP/usr/lib/jvm/java-8-openjdk-amd64
@@ -23,21 +23,24 @@ apps:
     plugs:
       - network
       - network-bind
+  stop:
+    command: usr/bin/stop_burningokr
 
 parts:
   burningokr:
     plugin: gradle
-    gradle-openjdk-version: "8"
     source: https://github.com/BurningOKR/BurningOKR.git
     source-subdir: backend/burning-okr
     # source-tag: $SNAPCRAFT_PROJECT_VERSION
     source-branch: deployment-fixes
-    gradle-output-dir: burning-okr-app/build/libs
     gradle-options: [bootJar]
+    gradle-output-dir: burning-okr-app/build/libs
+    gradle-openjdk-version: "8"
     stage-packages:
       - postgresql
       - postgresql-contrib
       - setpriv
+      - openjdk-8-jdk
 
   burningokr-frontend:
     after: [nginx]
@@ -45,7 +48,8 @@ parts:
     source: https://github.com/BurningOKR/BurningOKR/releases/download/$SNAPCRAFT_PROJECT_VERSION/frontend.zip
     source-subdir: frontend/dist/OKRFrontEnd
     organize:
-      '*' : /usr/share/nginx/html/
+      '*' : usr/share/nginx/html/app/
+      '*.html' : usr/share/nginx/html
 
   nginx:
     plugin: dump
@@ -53,9 +57,8 @@ parts:
     stage-packages:
       - libatm1
       - nginx-core
-    override-stage: |
-      snapcraftctl stage
-      rm /usr/share/nginx/html/index.html
+    stage:
+      - -usr/share/nginx/html/index.html
 
   files:
     plugin: dump

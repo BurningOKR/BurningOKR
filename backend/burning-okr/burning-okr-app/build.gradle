@@ -1,6 +1,7 @@
 buildscript {
     ext {
         swaggerVersion = '2.9.2'
+        lombokVersion = '1.18.4'
     }
     repositories {
         mavenCentral()
@@ -34,7 +35,15 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 dependencies {
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     implementation project(':burning-okr-logic')
