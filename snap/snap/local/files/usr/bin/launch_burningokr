@@ -29,7 +29,7 @@ export SPRING_DATASOURCE_URL="$POSTGRES_HOST"
 export SPRING_PROFILES_ACTIVE="prod"
 export SPRING_PID_FILE="$BURNINGOKR_DIRECTORY/shutdown.pid"
 
-run_as_user nohup java -jar $SNAP/jar/burning-okr-app-$SNAPCRAFT_PROJECT_VERSION.jar >> $BURNINGOKR_DIRECTORY/nohup.out &
+run_as_user nohup java -Dlogging.config="$SNAP/jar/log4j2-spring-snap.xml" -jar $SNAP/jar/burning-okr-app-$SNAPCRAFT_PROJECT_VERSION.jar >> $BURNINGOKR_DIRECTORY/nohup.out &
 
 sleep 2
 
