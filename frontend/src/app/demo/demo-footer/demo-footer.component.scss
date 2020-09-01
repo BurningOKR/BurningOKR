@@ -5,6 +5,7 @@
   background-color: map-get($md-primary, 500);
   overflow-x:hidden;
   position: relative;
+  color: black;
 }
 
 .footer-right {
@@ -23,6 +24,10 @@
 .margin-left-right {
   margin-right: 5px;
   margin-left: 5px;
+}
+
+.color-black {
+  color: black;
 }
 
 a {
