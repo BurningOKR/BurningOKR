@@ -92,7 +92,7 @@ export class ApiHttpErrorHandlingService {
 
   private getUnauthorizedErrorHandler$<T>(error: HttpErrorResponse): ErrorObservable<T> {
     this.authenticationService.logout();
-    this.authenticationService.startLoginProcedure();
+    this.authenticationService.redirectToLoginProvider();
 
     return throwError(error);
   }

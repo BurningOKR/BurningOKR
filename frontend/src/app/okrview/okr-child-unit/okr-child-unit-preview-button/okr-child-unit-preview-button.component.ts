@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { OkrUnitMapper } from '../../../shared/services/mapper/okr-unit.mapper.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 
 @Component({
@@ -15,11 +15,11 @@ export class OkrChildUnitPreviewButtonComponent implements OnInit {
 
   childUnit$: Observable<OkrChildUnit>;
 
-  constructor(private okrUnitMapper: OkrUnitMapper) {
+  constructor(private okrUnitService: OkrUnitService) {
   }
 
   ngOnInit(): void {
-    this.childUnit$ = this.okrUnitMapper.getOkrChildUnitById$(this.unitId);
+    this.childUnit$ = this.okrUnitService.getOkrChildUnitById$(this.unitId);
   }
 
   isOkrBranch(okrChildUnit: OkrChildUnit): boolean {

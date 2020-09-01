@@ -14,13 +14,12 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.context.ApplicationEventPublisher;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ConfigurationServiceTest {
@@ -31,12 +30,9 @@ public class ConfigurationServiceTest {
 
   @Mock private User mockedUser;
 
-  @InjectMocks private ConfigurationService configurationService;
+  @Mock private ApplicationEventPublisher applicationEventPublisher;
 
-  @Before
-  public void init() {
-    MockitoAnnotations.initMocks(this);
-  }
+  @InjectMocks private ConfigurationService configurationService;
 
   @Test
   public void getAllConfiguration_expectEmptyCollection() {

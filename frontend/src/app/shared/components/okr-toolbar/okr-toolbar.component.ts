@@ -1,10 +1,9 @@
 import { User } from '../../model/api/user';
-import { map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { AdminSettingsFormComponent } from '../../../core/settings/admin-settings/admin-settings-form.component';
 import { VersionFormComponent } from '../../../core/version-form/version-form.component';
 import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/change-password-dialog/change-password-dialog.component';
 import { Observable } from 'rxjs';
@@ -12,7 +11,9 @@ import versions from '../../../../../src/_versions';
 import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
 import { CurrentCompanyService } from '../../../okrview/current-company.service';
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
-import { ConfigurationApiService } from '../../../core/settings/configuration-api.service';
+import { ConfigurationService } from '../../../core/settings/configuration.service';
+import { OkrUnitService } from '../../services/mapper/okr-unit.service';
+import { SettingsFormComponent } from '../../../core/settings/settings-form/settings-form.component';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -33,15 +34,14 @@ export class OkrToolbarComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private currentCompanyService: CurrentCompanyService,
     private oAuthDetails: OAuthFrontendDetailsService,
-    private configurationApiService: ConfigurationApiService
+    private configurationService: ConfigurationService,
+    private okrUnitService: OkrUnitService
   ) {
-    this.isLocalUserbase$ = this.oAuthDetails.getAuthType$()
-      .pipe(
-        map(authType => authType === 'local'),
-        shareReplay()
-      );
-    this.hasMailConfigured$ = this.configurationApiService.getHasMailConfigured$();
-        }
+    this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$()
+      .pipe(take(1));
+
+    this.hasMailConfigured$ = this.configurationService.getHasMailConfigured$();
+  }
 
   ngOnInit(): void {
     this.currentUser$ = this.currentUserService.getCurrentUser$();
@@ -64,10 +64,10 @@ export class OkrToolbarComponent implements OnInit {
   }
 
   openSettings(): void {
-    this.dialog.open(AdminSettingsFormComponent, {disableClose: true})
+    this.dialog.open(SettingsFormComponent, {disableClose: true})
       .afterClosed()
       .pipe(switchMap(_ => _))
-      .subscribe();
+      .subscribe(() => this.okrUnitService.refreshOkrChildUnit());
   }
 
   openPasswordChangeForm(): void {

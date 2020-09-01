@@ -7,7 +7,7 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
-import org.burningokr.service.EnvironmentService;
+import org.burningokr.service.environment.AppEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 public class UserMapper implements DataMapper<User, UserDto> {
 
   private final Logger logger = LoggerFactory.getLogger(UserMapper.class);
-  private final EnvironmentService environmentService;
+  private final AppEnvironment appEnvironment;
 
   @Autowired
-  public UserMapper(EnvironmentService environmentService) {
-    this.environmentService = environmentService;
+  public UserMapper(AppEnvironment appEnvironment) {
+    this.appEnvironment = appEnvironment;
   }
 
   @Override
@@ -69,11 +69,11 @@ public class UserMapper implements DataMapper<User, UserDto> {
 
   private User getEmptyUser() {
     User user = null;
-    switch (environmentService.getProperty(EnvironmentService.authMode)) {
-      case EnvironmentService.authModeAad:
+    switch (appEnvironment.getAuthMode()) {
+      case AZURE:
         user = new AadUser();
         break;
-      case EnvironmentService.authModeLocal:
+      case LOCAL:
         user = new LocalUser();
         break;
       default:

@@ -3,16 +3,18 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 import { Consts } from '../../../../shared/consts';
 import { AuthTypeHandlerBase } from './auth-type-handler-base';
-import { AuthenticationService } from '../authentication.service';
+import { FetchingService } from '../../../services/fetching.service';
 
 @Injectable()
 export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
 
   constructor(protected oAuthService: OAuthService,
-              private router: Router) { }
+              private router: Router,
+              private fetchingService: FetchingService) {
+  }
 
-  async startLoginProcedure(authenticationService: AuthenticationService): Promise<boolean> {
-    return authenticationService.getRefreshToken()
+  async startLoginProcedure(): Promise<boolean> {
+    return this.getRefreshToken()
       .then(() => {
         return true;
       })
@@ -23,24 +25,52 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
       });
   }
 
-  setupSilentRefresh(authenticationService: AuthenticationService): void {
+  setupSilentRefresh(): void {
     const expirationTime: number = this.oAuthService.getAccessTokenExpiration();
     const now: number = Date.now();
     const duration: number = (expirationTime - now) * Consts.SILENT_REFRESH_MULTIPLIER;
     if (duration < 0) {
-      this.safeRefreshToken(authenticationService);
+      this.safeRefreshToken();
     } else {
       setTimeout(() => {
-        this.safeRefreshToken(authenticationService)
+        this.safeRefreshToken()
           .then(() => {
-            this.setupSilentRefresh(authenticationService);
+            this.setupSilentRefresh();
           });
       }, duration);
     }
   }
 
-  private async safeRefreshToken(authenticationService: AuthenticationService): Promise<boolean> {
-    return authenticationService.getRefreshToken()
+  async afterConfigured(): Promise<any> {
+    return new Promise(resolve => {
+      resolve();
+    });
+  }
+
+  async login(email: string, password: string): Promise<object> {
+
+    return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
+      .then(object => {
+        this.setupSilentRefresh();
+
+        this.fetchingService.refetchAll();
+
+        return object;
+      });
+  }
+
+  private async getRefreshToken(): Promise<object> {
+    if (!!this.oAuthService.getRefreshToken()) {
+      return this.oAuthService.refreshToken();
+    } else {
+      return new Promise<object>((resolve, reject) => {
+        reject();
+      });
+    }
+  }
+
+  private async safeRefreshToken(): Promise<boolean> {
+    return this.getRefreshToken()
       .then(() => {
         return true;
       })

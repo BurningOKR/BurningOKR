@@ -1,5 +1,5 @@
 <div *ngIf="childUnit$ | async as childUnit; else loading">
-  <button class="previewButton" [ngClass]="{ 'inactive-element': !childUnit.isActive }" mat-raised-button [routerLink]="['../../departments', unitId]" i18n-[matTooltip]="@@component_departmentPreviewButton_showDepartment" [matTooltip]="childUnit.name + ' anzeigen'">
+  <button class="previewButton" [ngClass]="{ 'inactive-element': !childUnit.isActive }" mat-raised-button [routerLink]="['../../departments', unitId]" i18n-[matTooltip]="@@component_departmentPreviewButton_showDepartment" matTooltip="Struktur anzeigen">
     <div class="d-flex center">
       <div class="f-1">
         <mat-icon class="font-32">{{isOkrBranch(childUnit) ? 'account_tree' : 'group'}}</mat-icon>

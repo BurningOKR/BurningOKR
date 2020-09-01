@@ -1,0 +1,22 @@
+<h1 mat-dialog-title class="form-header"><span i18n="@@component_settingsForm_settings">Einstellungen</span></h1>
+
+<mat-dialog-content>
+
+  <mat-tab-group dynamicHeight>
+    <mat-tab i18n-label="@@settings" label="Einstellungen">
+      <app-user-settings (valid)="userSettingsValid = $event"></app-user-settings>
+    </mat-tab>
+    <mat-tab [disabled]="!(isCurrentUserAdmin$ | async)" i18n-label="@@adminSettings" label="Adminverwaltung">
+      <app-admin-settings (valid)="adminSettingsValid = $event"></app-admin-settings>
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="onSave()"
+          [disabled]="!userSettingsValid || !(adminSettingsValid && isCurrentUserAdmin$ | async)"><span
+    i18n="@@component_settingsForm_save">Speichern</span></button>
+  <button mat-button color="warn" (click)="closeDialog()"><span
+    i18n="@@component_settingsForm_cancel">Abbrechen</span></button>
+</mat-dialog-actions>

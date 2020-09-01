@@ -1,9 +1,10 @@
 import { ValidationErrorService } from './validation-error.service';
 import { TestBed } from '@angular/core/testing';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { dateIsInThePastError } from '../../validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
 import { TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
+import { RequiredValidator } from '../../validators/wrapper/required-validator';
 
 describe('ValidationErrorService', () => {
 
@@ -22,24 +23,21 @@ describe('ValidationErrorService', () => {
 
   it('should return default error code', () => {
     const control: FormControl = new FormControl();
-    control.setErrors({error: true});
 
     const actual: string = service.getErrorMessage(control);
 
     expect(actual)
-      .toBe('kein gültiger Wert.');
+      .toEqual('kein gültiger Wert.');
 
   });
 
   it('should return specific error code', () => {
-    const control: FormControl = new FormControl();
-    control.setErrors(dateIsInThePastError);
+    const control: FormControl = new FormControl(null, [RequiredValidator.Validate]);
 
     const actual: string = service.getErrorMessage(control);
 
     expect(actual)
-      .not
-      .toBe('kein gültiger Wert.');
+      .toEqual('Pflichtfeld');
 
   });
 });

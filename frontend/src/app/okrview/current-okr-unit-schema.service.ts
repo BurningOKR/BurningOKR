@@ -31,6 +31,7 @@ export class CurrentOkrUnitSchemaService {
   }
 
   setCurrentUnitSchemaByCompanyId(companyId: number): void {
+    this.currentUnitId$.next(companyId);
     this.okrUnitSchemaMapper
       .getOkrUnitSchemaOfCompany$(companyId)
       .pipe(take(1))

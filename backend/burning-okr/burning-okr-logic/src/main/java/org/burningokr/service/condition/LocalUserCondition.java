@@ -1,6 +1,7 @@
 package org.burningokr.service.condition;
 
-import org.burningokr.service.EnvironmentService;
+import org.burningokr.service.environment.AuthModes;
+import org.burningokr.service.environment.EnvironmentPropertyNames;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
@@ -11,8 +12,8 @@ public class LocalUserCondition implements Condition {
     boolean isLocalUserCondition =
         context
             .getEnvironment()
-            .getProperty(EnvironmentService.authMode)
-            .equals(EnvironmentService.authModeLocal);
+            .getProperty(EnvironmentPropertyNames.AUTH_MODE.getFullName())
+            .equals(AuthModes.LOCAL.getName());
     return isLocalUserCondition;
   }
 }

@@ -29,7 +29,7 @@ export class OAuthInterceptorService implements HttpInterceptor {
           req.url.toLowerCase();
 
           let headers: HttpHeaders;
-          if (req.url.startsWith('/oauth')) {
+          if (req.url === authConfig.tokenEndpoint) {
             headers = this.setBasicAuthorizationHeader(req, authConfig);
           } else {
             headers = this.setBearerAuthorizationHeader(req, authConfig);

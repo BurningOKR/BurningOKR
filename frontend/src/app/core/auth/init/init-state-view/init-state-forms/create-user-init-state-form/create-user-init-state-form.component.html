@@ -1,0 +1,10 @@
+<mat-card-title i18n="@@createYourAdminAccount">Administratorenkonto</mat-card-title>
+<p i18n="@@createYourAdminAccount_subtitle">Legen Sie ein initiales Administratorenkonto an.</p>
+<div *ngIf="adminUserForm && newPasswordForm">
+  <form [formGroup]="form" (ngSubmit)="handleSubmitClick()">
+    <app-user-form [userForm]="adminUserForm"></app-user-form>
+    <app-password-form [newPasswordForm]="newPasswordForm" [previousPasswordNecessary]="false"></app-password-form>
+    <button mat-raised-button color="primary" type="submit" class="submit_button" [disabled]="form.invalid" i18n="@@next">Weiter</button>
+  </form>
+</div>
+

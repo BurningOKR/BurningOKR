@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Injectable({
@@ -12,9 +12,9 @@ export class NotLoggedInGuard implements CanActivate {
 ) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
     if (this.authenticationService.hasValidAccessToken()) {
-      this.router.navigate(['/']);
+      return this.router.createUrlTree(['/']);
     } else {
       return true;
     }

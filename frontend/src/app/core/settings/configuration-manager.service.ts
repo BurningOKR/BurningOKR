@@ -32,6 +32,10 @@ export class ConfigurationManagerService implements Fetchable {
     return this.getConfigurationByName$('objective-progress-yellow-red-threshold');
   }
 
+  getTopicSponsorsActivated$(): Observable<Configuration> {
+    return this.getConfigurationByName$('topic-sponsors-activated');
+  }
+
   fetchData(): void {
     this.configurationMapperService.getConfigurations$()
       .pipe(take(1))
