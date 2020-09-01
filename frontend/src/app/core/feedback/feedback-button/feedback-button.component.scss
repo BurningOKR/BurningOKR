@@ -1,11 +1,18 @@
+@import '../../../../styles/themes/bag-theme.scss';
+
+
 .fab-container {
   display: block;
   position: fixed;
-  bottom: 65px;
+  bottom: 15px;
   right: 20px;
   z-index: 1;
 }
 
 .fab-button {
   margin: 10px;
+}
+
+.color-white {
+  color: white !important;
 }

@@ -1,4 +1,5 @@
 @import "src/styles/abstracts/colors";
+@import '../../styles/themes/bag-theme';
 
 .left {
   float: left
@@ -50,12 +51,12 @@
 }
 
 .no-vertical-padding {
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .no-padding {
-  padding: 0px;
+  padding: 0;
 }
 
 .small-padding {
@@ -91,5 +92,25 @@
   width: 100%
 }
 
+.button-bag-layout {
+  color: white !important;
+  background-color: mat-color($md-primary, 500) !important;
+  border-color: white !important;
+}
+
+.button-bag-layout-inverted {
+  color: mat-color($md-primary, 500) !important;
+  background-color: white;
+  border-color: mat-color($md-primary, 500) !important;
+}
+
+
+.mat-button-wrapper {
+  padding: 0 !important;
+}
+
+.fill-svg-white {
+  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(5%) hue-rotate(123deg) brightness(102%) contrast(102%);
+}
 
 
