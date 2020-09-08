@@ -1,0 +1,93 @@
+.klaro .cookie-modal {
+  z-index: 99000 !important;
+}
+
+.klaro .cookie-modal a,
+.klaro .cookie-notice a {
+  color: #b81f40 !important;
+}
+
+.klaro .cm-btn-decline {
+  font-size: 1.8rem !important;
+}
+
+.klaro .cookie-modal .cm-app-input:checked+.cm-app-label .slider,
+.klaro .cookie-notice .cm-app-input:checked+.cm-app-label .slider {
+  background-color: #b81f40 !important;
+}
+
+.klaro .cookie-modal .cm-btn,
+.klaro .cookie-notice .cm-btn {
+  margin-right: unset !important;
+}
+
+.klaro .cookie-modal .cm-modal {
+  background: #f6f6f6 !important;
+}
+
+.klaro .cm-app {
+  padding-left: 0 !important;
+}
+
+.klaro .title {
+  font-size  : 1.8em !important;
+  line-height: 1em !important;
+}
+
+.klaro input[type=checkbox]+label::after {
+  content: unset !important;
+}
+
+.klaro .cm-app>div>div {
+  margin-left: 65px !important;
+}
+
+.klaro .cm-app-title {
+  margin-left: 65px !important;
+}
+
+.klaro .cookie-modal p,
+.klaro .cookie-modal strong,
+.klaro .cookie-modal h1,
+.klaro .cookie-modal h2,
+.klaro .cookie-modal ul,
+.klaro .cookie-modal li,
+.klaro .cookie-notice p,
+.klaro .cookie-notice strong,
+.klaro .cookie-notice h1,
+.klaro .cookie-notice h2,
+.klaro .cookie-notice ul,
+.klaro .cookie-notice li {
+  color: #575756 !important;
+}
+
+.klaro .purposes {
+  display: none !important;
+}
+
+.klaro .cm-toggle-all {
+  display: none !important;
+}
+
+.klaro .cm-btn {
+  width: 100%;
+}
+
+.klaro .cm-btn-decline,
+.klaro .cm-btn-accept {
+  background : #555 !important;
+  font-size  : 1.3rem !important;
+  line-height: 25px;
+}
+
+.klaro .cm-btn-accept-all {
+  background-color: #b81f40 !important;
+  font-size       : 1.8rem !important;
+  white-space     : normal;
+  line-height     : unset !important;
+  min-height      : 60px;
+}
+
+.klaro .cm-btn-accept, .klaro .cm-btn-decline{
+  display: none;
+}
