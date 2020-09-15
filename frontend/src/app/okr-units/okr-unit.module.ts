@@ -19,6 +19,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { OkrUnitFormComponent } from './okr-unit-form/okr-unit-form.component';
+import { DemoModule } from '../demo/demo.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { OkrUnitFormComponent } from './okr-unit-form/okr-unit-form.component';
     MatMenuModule,
     ReactiveFormsModule,
     MatInputModule,
+    DemoModule,
   ],
   entryComponents: [
     OkrUnitFormComponent,

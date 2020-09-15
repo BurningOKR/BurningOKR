@@ -4,8 +4,14 @@
 .footer-container {
   background-color: map-get($md-primary, 500);
   overflow-x:hidden;
-  position: relative;
+  z-index: 10;
   color: black;
+  padding-right: 80px;
+  padding-left: 5vw;
+
+  position:fixed;
+  bottom:0;
+  width: 100vw;
 }
 
 .footer-right {

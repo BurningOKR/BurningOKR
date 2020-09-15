@@ -13,24 +13,27 @@ import { DemoPrivacyPolicyComponent } from './demo-privacy-policy/demo-privacy-p
 import { DemoImprintComponent } from './demo-imprint/demo-imprint.component';
 
 @NgModule({
-  declarations: [
-    DemoMainViewComponent,
-    DemoHomeComponent,
-    DemoWarningComponent,
-    DemoFooterComponent,
-    ScrollTopComponent,
-    DemoPrivacyPolicyComponent,
-    DemoImprintComponent
-  ],
-  imports: [
-    CommonModule,
-    DemoRoutingModule,
-    SharedModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatDialogModule
-  ],
-  entryComponents: [DemoWarningComponent]
+    declarations: [
+        DemoMainViewComponent,
+        DemoHomeComponent,
+        DemoWarningComponent,
+        DemoFooterComponent,
+        ScrollTopComponent,
+        DemoPrivacyPolicyComponent,
+        DemoImprintComponent
+    ],
+    imports: [
+        CommonModule,
+        DemoRoutingModule,
+        SharedModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatDialogModule
+    ],
+    exports: [
+        DemoFooterComponent
+    ],
+    entryComponents: [DemoWarningComponent]
 })
 export class DemoModule { }

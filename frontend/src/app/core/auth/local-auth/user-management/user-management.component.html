@@ -7,7 +7,7 @@
   <span i18n="@@userManagementToolbarTitle">Benutzerverwaltung</span>
 </app-okr-toolbar>
 
-<div class="container">
+<div class="container user-container">
   <div class="row">
     <mat-card class="col-m-12 col-l-12 col-xl-10 col-s-12 col-centered">
       <mat-card-title>
@@ -18,7 +18,7 @@
       <mat-card-content>
         <div class="row">
           <mat-checkbox (change)="onShowDeactivatedUserChange($event)" i18n="@@deactiave_user_checkbox">Deaktivierte Benutzer anzeigen</mat-checkbox>
-          <mat-form-field class="form-whole-line" class="col-11">
+          <mat-form-field class="form-whole-line col-11">
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
           <button (click)="handleCreate()" class="col-1" color="accent" mat-mini-fab>

@@ -39,7 +39,9 @@
       <span i18n="@@component_unitCard_editName">Namen bearbeiten</span>
     </button>
 
-    <button [disabled]=!isCurrentUserAdmin mat-stroked-button (click)="$event.stopPropagation(); deleteCompany()"
+<!--      [disabled]=!isCurrentUserAdmin-->
+    <button
+      [disabled]="true" mat-stroked-button (click)="$event.stopPropagation(); deleteCompany()"
             [matTooltipDisabled]="!this.isCurrentUserAdmin" i18n-matTooltip="@@component_unitCard_deleteUnit"
             matTooltip="Struktur löschen">
       <mat-icon>delete</mat-icon>

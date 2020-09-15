@@ -38,6 +38,7 @@ import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-hand
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { NgwWowModule } from 'ngx-wow';
+import { DemoModule } from './demo/demo.module';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -57,28 +58,29 @@ const currentLanguage: string = 'de';
     NoMailInformationComponent,
   ],
   imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    CoreModule,
-    CycleAdminModule,
-    FormsModule,
-    HttpClientModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    OAuthModule.forRoot(),
-    ReactiveFormsModule,
-    SharedModule,
-    OkrUnitModule,
-    ErrorModule,
-    LoggerModule.forRoot(loggerConfig),
-    NgwWowModule
-  ],
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        CoreModule,
+        CycleAdminModule,
+        FormsModule,
+        HttpClientModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        OAuthModule.forRoot(),
+        ReactiveFormsModule,
+        SharedModule,
+        OkrUnitModule,
+        ErrorModule,
+        LoggerModule.forRoot(loggerConfig),
+        NgwWowModule,
+        DemoModule
+    ],
   entryComponents: [
     DeleteDialogComponent,
   ],
