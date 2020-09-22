@@ -147,10 +147,10 @@ BEGIN
     VALUES (firstKeyResultId, 0, '', 'Erzähle drei Freunden von Burning OKR!', 0, 3, 0, firstMarketingObjectiveId, 0),
            (secondKeyResultId, 0, '', 'Folge dem Burning OKR Twitter Account.', 0, 1, 0, firstMarketingObjectiveId, 1),
            (thirdKeyResultId, 0, '', 'Lerne mehr über uns auf www.brockhaus-ag.de', 0, 100, 1, firstMarketingObjectiveId, 2),
-           (gettingStartedKeyResultId, 0, 'Er ist sehr Hilfreich!', 'Lese unseren Getting Started Guide', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 0),
-           (forkKeyResultId, 0, '', 'Erstelle einen Fork von unserem Github Project', 0, 1, 0, firstDevelopmentDepartmentObjectiveId, 1),
-           (codeGuideLinesKeyResultId, 0, 'Auf https://github.com/BurningOKR/BurningOKR/blob/master/CODE_GUIDELINES.md', 'Lese unsere Code Guidelines', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 2),
+           (gettingStartedKeyResultId, 0, 'Er ist sehr Hilfreich!', 'Lies unseren Getting Started Guide.', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 0),
+           (forkKeyResultId, 0, '', 'Erstelle einen Fork von unserem Github Project.', 0, 1, 0, firstDevelopmentDepartmentObjectiveId, 1),
+           (codeGuideLinesKeyResultId, 0, 'https://github.com/BurningOKR/BurningOKR/blob/master/CODE_GUIDELINES.md', 'Lies unsere Code Guidelines.', 0, 100, 1, firstDevelopmentDepartmentObjectiveId, 2),
            (developKeyResultId, 0, '', 'Entwickle fünf neue Features für Burning OKR.', 0, 5, 0, secondDevelopmentDepartmentObjectiveId, 0),
-           (installGuideKeyResultId, 0, '', 'Lese unseren Install Guide', 0, 100, 1, NULL, integrationDepartmentObjectiveId);
+           (installGuideKeyResultId, 0, '', 'Lies unseren Install Guide.', 0, 100, 1, NULL, integrationDepartmentObjectiveId);
 
 END $$;
