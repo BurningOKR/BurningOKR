@@ -137,7 +137,7 @@ BEGIN
     -- Insert all Objectives
     INSERT INTO objective (id, contact_person_id, description, name, remark, review, parent_objective_id, parent_okr_unit_id)
     VALUES (itBranchObjective, NULL, 'Unser OKR Prozess wäre einfacher mit einem OKR Tool.', 'Zu Burning OKR wechseln.', '', '', NULL, itBranchId),
-           (firstMarketingObjectiveId, NULL, 'Wir müssen allen Leuten von Burning OKR erzählen!', 'Burning OKR bekannt machen.', '', '', itBranchObjective, marketingDepartmentId),
+           (firstMarketingObjectiveId, NULL, 'Wir müssen allen Leuten von Burning OKR erzählen!', 'Burning OKR bekannt machen.', '', '', NULL, marketingDepartmentId),
            (firstDevelopmentDepartmentObjectiveId, NULL, '', 'Mit der Entwicklung von Burning OKR beginnen.', '', '', NULL, developmentDepartmentId),
            (secondDevelopmentDepartmentObjectiveId, NULL, 'Burning OKR ist OpenSource! Jeder kann daran mitentwickeln.', 'Weitere Features für Burning OKR entwickeln.', '', '', NULL, developmentDepartmentId),
            (integrationDepartmentObjectiveId, NULL, '', 'Burning OKR in den OKR Prozess unserer Firma einbinden.', '', '', itBranchObjective, integrationDepartmentId);
