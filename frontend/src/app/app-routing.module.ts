@@ -9,12 +9,10 @@ import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-un
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
-import { DemoGuard } from './demo/demo.guard';
 
 const routes: Routes = [
   {path: 'demo', loadChildren: () => import('./demo/demo.module')
-      .then(mod => mod.DemoModule),
-   canActivate: [DemoGuard]
+      .then(mod => mod.DemoModule)
   },
   {
     path: 'okr', loadChildren: () => import('./okrview/okrview.module')

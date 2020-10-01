@@ -8,13 +8,14 @@ import { AuthGuard } from '../guards/auth.guard';
 import { AdminRoleGuard } from '../../../admin/admin-role-guard';
 import { NotLoggedInGuard } from './guards/not-logged-in.guard';
 import { NotInitiliazedGuard } from '../init/not-initiliazed.guard';
+import { DemoGuard } from '../../../demo/demo.guard';
 
 const routes: Routes = [
   {path: '*', redirectTo: 'login', pathMatch: 'full'},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, canActivate: [LocalGuard, NotLoggedInGuard, NotInitiliazedGuard]},
-  {path: 'resetpassword', component: ResetPasswordComponent, canActivate: [LocalGuard]},
-  {path: 'setpassword/:emailIdentifier', component: SetPasswordComponent, canActivate: [LocalGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [LocalGuard, NotLoggedInGuard, NotInitiliazedGuard, DemoGuard]},
+  {path: 'resetpassword', component: ResetPasswordComponent, canActivate: [LocalGuard, DemoGuard]},
+  {path: 'setpassword/:emailIdentifier', component: SetPasswordComponent, canActivate: [LocalGuard, DemoGuard]},
   {
     path: 'users', loadChildren: () => import('./user-management/user-management.module')
       .then(mod => mod.UserManagementModule),
