@@ -1,16 +1,3 @@
-.scroll-to-top {
-  position: fixed;
-  bottom: 85px;
-  right: 20px;
-  opacity: 0;
-  transition: all .2s ease-in-out;
-  z-index: 15;
-}
-.show-scrollTop {
-  opacity: 1;
-  transition: all .2s ease-in-out;
-}
-
 .turn-icon {
   transform: rotate(270deg);
 }
