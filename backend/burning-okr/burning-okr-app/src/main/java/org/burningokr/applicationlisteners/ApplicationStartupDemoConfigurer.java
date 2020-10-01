@@ -31,8 +31,8 @@ public class ApplicationStartupDemoConfigurer {
                 OAuthConfigurationName.AUTH_TYPE, AuthModes.DEMO.getName());
 
         OAuthClientDetails oAuthClientDetails = new OAuthClientDetails();
-        oAuthClientDetails.setAccessTokenValidity(43200);
-        oAuthClientDetails.setRefreshTokenValidity(43200);
+        oAuthClientDetails.setAccessTokenValidity(Integer.MAX_VALUE);
+        oAuthClientDetails.setRefreshTokenValidity(Integer.MAX_VALUE);
         oAuthClientDetails.setClientId(UUID.randomUUID().toString()); // R.J. 03.08.20: We are using a random UUID as a random string here.
         oAuthClientDetails.setClientSecret(UUID.randomUUID().toString()); // R.J. 03.08.20: We are using a random UUID as a random string here.
 
