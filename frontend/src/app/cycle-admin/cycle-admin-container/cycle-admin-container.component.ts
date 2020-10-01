@@ -57,11 +57,11 @@ export class CycleAdminContainerComponent implements OnInit {
   }
 
   navigateToCompanies(): void {
-    this.router.navigate(['/companies'])
+    this.router.navigate(['companies'])
       .catch();
   }
 
   routeToCompany(): void {
-    this.router.navigate(['/okr', '/companies', this.company.id]);
+    this.router.navigate(['okr', 'companies', this.company.id]);
   }
 }
