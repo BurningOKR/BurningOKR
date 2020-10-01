@@ -23,6 +23,7 @@ DECLARE
     secondCompanyId INTEGER = nextval('hibernate_sequence');
     cycleId INTEGER = nextval('hibernate_sequence');
     historyId INTEGER = nextval('hibernate_sequence');
+    history2Id INTEGER = nextval('hibernate_sequence');
 
     itBranchObjective INTEGER = nextval('hibernate_sequence');
 
@@ -61,6 +62,8 @@ BEGIN
     -- Insert Company History
     INSERT INTO okr_company_history (id)
     VALUES (historyId);
+    INSERT INTO okr_company_history (id)
+    VALUES (history2Id);
 
     -- Insert all Base Classes for OKRUnits
     INSERT INTO okr_unit (id, label, name)
@@ -81,7 +84,7 @@ BEGIN
     -- Insert all Companies
     INSERT INTO okr_company (id, cycle_id, history_id)
     VALUES (firstCompanyId, cycleId, historyId),
-           (secondCompanyId, cycleId, historyId);
+           (secondCompanyId, cycleId, history2Id);
 
     -- Insert all OKRBranches
     INSERT INTO okr_branch (id)
