@@ -27,7 +27,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   // Time to wait after new input before calculating the suggestions for autocomplete in ms
   private autoCompleteWaitTime: number = 200;
 
-  constructor(private userMapperService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   }
 
   private loadUserListFromService(): void {
-    this.userList$ = this.userMapperService
+    this.userList$ = this.userService
       .getAllUsers$()
       .pipe(
         map((users: User[]) =>
