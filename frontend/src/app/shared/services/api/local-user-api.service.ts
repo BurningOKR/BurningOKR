@@ -13,14 +13,6 @@ export class LocalUserApiService {
   constructor(private api: ApiHttpService) {
   }
 
-  getUserById$(objectId: string): Observable<User> {
-    return this.api.getData$(`local-users/${objectId}`);
-  }
-
-  getCurrentUser$(): Observable<User> {
-    return this.api.getData$(`users/current`);
-  }
-
   getUsers$(): Observable<User[]> {
     return this.api.getData$(`local-users`);
   }
@@ -35,22 +27,6 @@ export class LocalUserApiService {
 
   putUser$(user: User): Observable<User> {
     return this.api.putData$(`local-users/${user.id}`, user);
-  }
-
-  isCurrentUserAdmin$(): Observable<boolean> {
-    return this.api.getData$('admins/self');
-  }
-
-  getAdminIds$(): Observable<string[]> {
-    return this.api.getData$('admins');
-  }
-
-  addAdmin$(adminToAdd: User): Observable<User> {
-    return this.api.postData$(`admins`, adminToAdd);
-  }
-
-  deleteAdmin$(adminToDeleteId: UserId): Observable<boolean> {
-    return this.api.deleteData$(`admins/${adminToDeleteId}`);
   }
 
   deactivateUser$(id: UserId): Observable<boolean> {
