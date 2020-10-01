@@ -13,6 +13,10 @@ export class LocalUserApiService {
   constructor(private api: ApiHttpService) {
   }
 
+  getUserById$(objectId: string): Observable<User> {
+    return this.api.getData$(`local-users/${objectId}`);
+  }
+
   getUsers$(): Observable<User[]> {
     return this.api.getData$(`local-users`);
   }

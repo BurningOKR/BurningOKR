@@ -29,7 +29,7 @@ export class LocalUserService implements  IUserService {
   }
 
   getUserById$(objectId: string): Observable<User> {
-    return this.userService.getUserById$(objectId);
+    return this.localUserApiService.getUserById$(objectId);
   }
 
   getUsers$(): Observable<User[]> {
