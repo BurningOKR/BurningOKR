@@ -6,6 +6,8 @@ import { User } from '../../model/api/user';
 import { Observable } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
 import { UserId } from '../../model/id-types';
+import { FetchingService } from '../../../core/services/fetching.service';
+import { CurrentUserService } from '../../../core/services/current-user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ import { UserId } from '../../model/id-types';
 export class LocalUserService implements  IUserService {
 
   constructor(private localUserApiService: LocalUserApiService,
-              private userService: UserService) {
+              private userService: UserService,
+              private fetchingService: FetchingService) {
   }
 
   addAdmin$(adminToAdd: User): Observable<User> {
@@ -40,7 +43,7 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.createUser$(user)
       .pipe(
         take(1),
-        finalize(() => this.userService.updateUserCache())
+        finalize(() => this.updateServices())
       );
   }
 
@@ -48,7 +51,7 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.bulkCreateUsers$(users)
       .pipe(
         take(1),
-        finalize(() => this.userService.updateUserCache())
+        finalize(() => this.updateServices())
       );
   }
 
@@ -56,7 +59,7 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.putUser$(user)
       .pipe(
         take(1),
-        finalize(() => this.userService.updateUserCache())
+        finalize(() => this.updateServices())
       );
   }
 
@@ -64,7 +67,12 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.deactivateUser$(id)
       .pipe(
         take(1),
-        finalize(() => this.userService.updateUserCache())
+        finalize(() => this.updateServices())
       );
+  }
+
+  private updateServices(): void {
+    this.userService.updateUserCache();
+    this.fetchingService.refetchSingle(CurrentUserService);
   }
 }

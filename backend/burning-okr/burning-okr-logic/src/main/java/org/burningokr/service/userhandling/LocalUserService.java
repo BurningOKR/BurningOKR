@@ -46,7 +46,13 @@ public class LocalUserService implements UserService {
     Object decodedDetails = ((OAuth2AuthenticationDetails) auth.getDetails()).getDecodedDetails();
     Gson g = new Gson();
     String userString = g.toJson(decodedDetails);
-    return parseUserString(userString);
+    LocalUser user = parseUserString(userString);
+    Optional<LocalUser> userFromDb = localUserRepository.findById(user.getId());
+    if (userFromDb.isPresent()) {
+      return userFromDb.get();
+    } else {
+      throw new EntityNotFoundException();
+    }
   }
 
   @Override

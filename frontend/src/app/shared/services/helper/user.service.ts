@@ -39,7 +39,6 @@ export class UserService implements IUserService {
     if (this.users$) {
       return this.users$.asObservable();
     } else {
-      this.users$ = new BehaviorSubject<User[]>([]);
       this.updateUserCache();
 
       return this.users$;
@@ -47,6 +46,10 @@ export class UserService implements IUserService {
   }
 
   updateUserCache(): void {
+    if (!this.users$) {
+      this.users$ = new BehaviorSubject<User[]>([]);
+    }
+
     this.userApiService
       .getUsers$()
       .pipe(take(1))
