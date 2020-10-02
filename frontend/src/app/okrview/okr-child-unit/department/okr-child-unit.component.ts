@@ -19,6 +19,7 @@ import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 
 interface DepartmentView {
   cycle: CycleUnit;
