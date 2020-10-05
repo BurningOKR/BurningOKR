@@ -25,6 +25,14 @@ export class VersionFormComponent {
         'Other minor improvements and bug fixes.',
         'Our demo website is now online: http://burningokr.org'
       ]
+    },
+    {
+      version: '1.0.2 (05.10.2020)',
+      changes: [
+        'Newly created users can now be added to a team without having to reload the page first.',
+        'After updating your username, it will now be displayed correctly in the top right corner of the navigation bar.',
+        'Creating a cycle when there are Structures (Branches) in the company, will no longer cause errors.'
+      ]
     }
   ];
 

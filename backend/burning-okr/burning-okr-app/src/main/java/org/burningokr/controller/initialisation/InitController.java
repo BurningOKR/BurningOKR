@@ -33,11 +33,6 @@ public class InitController {
 
   private final CompanyService branchService;
 
-  @GetMapping("/init/branch")
-  public ResponseEntity<String> getBranchString() {
-    return ResponseEntity.ok(branchService.findById(79).toString());
-  }
-
   /**
    * Get the current init state
    *
