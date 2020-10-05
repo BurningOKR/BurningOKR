@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { OkrUnitSchema, OkrUnitRole } from '../shared/model/ui/okr-unit-schema';
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { OkrUnitRole, OkrUnitSchema } from '../shared/model/ui/okr-unit-schema';
+import { Observable, ReplaySubject } from 'rxjs';
 import { OkrUnitSchemaDto } from '../shared/model/api/OkrUnit/okr-unit-schema-dto';
 import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { OkrUnitSchemaMapper } from '../shared/services/mapper/okr-unit-schema.mapper';
@@ -130,7 +130,7 @@ export class CurrentOkrUnitSchemaService {
       });
   }
 
-  updateUnitSchemaTeamRoleRecursive(
+  private updateUnitSchemaTeamRoleRecursive(
     departmentId: number,
     newRole: OkrUnitRole,
     okrUnitSchemas: OkrUnitSchema[]
