@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { UserApiService } from '../api/user-api.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../../model/api/user';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { AdminUser } from '../../model/api/admin-user';
+import { IUserService } from './i-user-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements IUserService {
+
   constructor(private userApiService: UserApiService) {
   }
 
@@ -38,13 +40,21 @@ export class UserService {
     if (this.users$) {
       return this.users$.asObservable();
     } else {
-      this.users$ = new BehaviorSubject<User[]>([]);
-      this.userApiService
-        .getUsers$()
-        .subscribe(u => this.users$.next(u));
+      this.updateUserCache();
 
       return this.users$;
     }
+  }
+
+  updateUserCache(): void {
+    if (!this.users$) {
+      this.users$ = new BehaviorSubject<User[]>([]);
+    }
+
+    this.userApiService
+      .getUsers$()
+      .pipe(take(1))
+      .subscribe(u => this.users$.next(u));
   }
 
   addAdmin$(adminToAdd: User): Observable<User> {
@@ -59,8 +69,8 @@ export class UserService {
 
   getUsers$(): Observable<User[]> {
     return this.userApiService.getUsers$();
-
   }
+
   getAdminIds$(): Observable<string[]> {
     return this.userApiService.getAdminIds$();
   }

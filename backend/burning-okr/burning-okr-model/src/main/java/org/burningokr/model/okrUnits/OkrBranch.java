@@ -49,6 +49,7 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
   public OkrBranch getCopyWithoutRelations() {
     OkrBranch copy = new OkrBranch();
     copy.setName(this.getName());
+    copy.setLabel(this.getLabel());
     return copy;
   }
 }

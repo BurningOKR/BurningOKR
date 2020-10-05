@@ -10,10 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrUnit;
 
@@ -25,9 +22,9 @@ public class Objective implements Trackable<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @ManyToOne private OkrUnit parentOkrUnit;
+  @ToString.Exclude @ManyToOne private OkrUnit parentOkrUnit;
 
-  @ManyToOne private Objective parentObjective;
+  @ToString.Exclude @ManyToOne private Objective parentObjective;
 
   @Column(length = 255)
   private String name;
