@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { OkrUnitSchema, OkrUnitRole } from '../shared/model/ui/okr-unit-schema';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { OkrUnitSchemaDto } from '../shared/model/api/OkrUnit/okr-unit-schema-dto';
-import { map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { OkrUnitSchemaMapper } from '../shared/services/mapper/okr-unit-schema.mapper';
 
 @Injectable({
@@ -18,6 +18,16 @@ export class CurrentOkrUnitSchemaService {
 
   getCurrentUnitId$(): Observable<number> {
     return this.currentUnitId$.asObservable();
+  }
+
+  getCurrentParentUnitId$(): Observable<number> {
+    return this.getCurrentUnitId$()
+      .pipe(
+        switchMap((id: number) => this.getUnitSchemasToReachUnitWithId$(id)),
+        filter((schemas: OkrUnitSchema[]) => schemas.length > 0),
+        map((schema: OkrUnitSchema[]) => schema[schema.length - 1].id),
+        distinctUntilChanged()
+      );
   }
 
   setCurrentUnitSchemaByDepartmentId(departmentId: number): void {

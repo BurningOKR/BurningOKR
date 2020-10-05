@@ -4,13 +4,13 @@ import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/model/api/user';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { LocalUserApiService } from '../../../../shared/services/api/local-user-api.service';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
 import { UserDialogData } from './forms/user-dialog-data';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -36,7 +36,7 @@ export class UserManagementComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private dialog: MatDialog,
     private router: Router,
-    private userService: LocalUserApiService,
+    private userService: LocalUserService,
     private i18n: I18n
   ) {
   }
@@ -89,6 +89,7 @@ export class UserManagementComponent implements OnInit {
     this.rowData.paginator = this.paginator;
     this.users$.asObservable()
       .subscribe(users => {
+
         const filteredUsers: LocalUserManagementUser[] = this.filterUsers(users);
         this.filteredUsers$.next(filteredUsers);
       });
@@ -124,7 +125,7 @@ export class UserManagementComponent implements OnInit {
   private updateUserAndRemoveAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
     if (adminIds.Contains(editedUser.id)) {
       return forkJoin([
-        this.userService.putUser$(editedUser)
+        this.userService.updateUser$(editedUser)
           .pipe(map((user: LocalUserManagementUser) => {
             user.isAdmin = false;
 
@@ -134,7 +135,7 @@ export class UserManagementComponent implements OnInit {
       )
         .pipe(map(([user, _]: [LocalUserManagementUser, boolean]) => user));
     } else {
-      return this.userService.putUser$(editedUser)
+      return this.userService.updateUser$(editedUser)
         .pipe(map((user: LocalUserManagementUser) => {
           user.isAdmin = adminIds.Contains(user.id);
 
@@ -146,7 +147,7 @@ export class UserManagementComponent implements OnInit {
   private updateUserAndSetToAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
     if (!adminIds.Contains(editedUser.id)) {
       return forkJoin([
-        this.userService.putUser$(editedUser)
+        this.userService.updateUser$(editedUser)
           .pipe(map((user: LocalUserManagementUser) => {
             user.isAdmin = true;
 
@@ -156,7 +157,7 @@ export class UserManagementComponent implements OnInit {
       )
         .pipe(map(([user, _]: [LocalUserManagementUser, User]) => user));
     } else {
-      return this.userService.putUser$(editedUser)
+      return this.userService.updateUser$(editedUser)
         .pipe(map((user: LocalUserManagementUser) => {
           user.isAdmin = adminIds.Contains(user.id);
 
@@ -205,7 +206,7 @@ export class UserManagementComponent implements OnInit {
 
           userWithActiveFlagSet.active = true;
 
-          return this.userService.putUser$(userWithActiveFlagSet);
+          return this.userService.updateUser$(userWithActiveFlagSet);
         })
       )
       .subscribe((activatedUser: LocalUserManagementUser) => {
