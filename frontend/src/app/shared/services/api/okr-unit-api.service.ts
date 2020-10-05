@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
 import { OkrUnitSchema } from '../../model/ui/okr-unit-schema';
 import { map } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 import { OkrUnitId } from '../../model/id-types';
+import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,13 @@ export class OkrUnitApiService {
 
   constructor(private http: ApiHttpService) { }
 
-  getOkrChildUnitById$(unitId: OkrUnitId): Observable<OkrChildUnitDto> {
-    return this.http.getData$<OkrChildUnitDto>(`units/${unitId}`)
+  getOkrChildUnitById$(unitId: OkrUnitId, handleErrors: boolean): Observable<OkrChildUnitDto> {
+    let errorHandlingFunction: ErrorHandlingFunction<OkrChildUnitDto>;
+    if (!handleErrors) {
+      errorHandlingFunction = throwError;
+    }
+
+    return this.http.getData$<OkrChildUnitDto>(`units/${unitId}`, errorHandlingFunction)
       .pipe(
         map((value: OkrChildUnitDto) => {
           if (value.__okrUnitType === 'DEPARTMENT') {

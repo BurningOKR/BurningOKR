@@ -111,6 +111,26 @@ describe('OkrChildUnitComponent', () => {
   }));
 
   beforeEach(() => {
+    department = new OkrDepartment(
+      1,
+      'testDepartment',
+      [],
+      0,
+      'department',
+      'master', 'topicSponsor', ['member'],
+      true, false);
+
+    okrBranch = new OkrBranch(
+      2,
+      'testBranch',
+      [],
+      'testLAbel',
+      0,
+      [],
+      true,
+      false
+    );
+
     paramMapGetSpy.mockReset();
     paramMapGetAllSpy.mockReset();
     paramMapHasSpy.mockReset();
@@ -141,26 +161,6 @@ describe('OkrChildUnitComponent', () => {
 
     router.navigate.mockReset();
     router.navigate.mockReturnValue({catch: jest.fn()});
-
-    department = new OkrDepartment(
-      1,
-      'testDepartment',
-      [],
-      0,
-      'department',
-      'master', 'topicSponsor', ['member'],
-      true, false);
-
-    okrBranch = new OkrBranch(
-      2,
-      'testBranch',
-      [],
-      'testLAbel',
-      0,
-      [],
-      true,
-      false
-    );
   });
 
   it('should create', () => {
@@ -181,7 +181,7 @@ describe('OkrChildUnitComponent', () => {
 
     component.okrChildUnit$.subscribe(() => {
       expect(unitMapperService.getOkrChildUnitById$)
-        .toHaveBeenCalledWith(1);
+        .toHaveBeenCalledWith(1, false);
       done();
     });
   });

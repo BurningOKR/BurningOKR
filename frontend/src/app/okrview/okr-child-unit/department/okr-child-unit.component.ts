@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable, Subscription } from 'rxjs';
-import { filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { combineLatest, NEVER, Observable, Subscription } from 'rxjs';
+import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { OkrChildUnitRoleService } from '../../../shared/services/helper/okr-child-unit-role.service';
@@ -19,6 +19,8 @@ import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CurrentNavigationService } from '../../current-navigation.service';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 
 interface DepartmentView {
@@ -44,6 +46,8 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   okrChildUnit$: Observable<OkrChildUnit>;
   activeTabs$: Observable<ActiveTabs>;
 
+  error404: boolean = false;
+
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -54,18 +58,27 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private currentOkrViewService: CurrentOkrviewService,
     private currentCycleService: CurrentCycleService,
+    private currentUnitSchemaService: CurrentOkrUnitSchemaService,
     private excelService: ExcelMapper,
     private i18n: I18n
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.okrChildUnit$ = this.route.paramMap
       .pipe(
         switchMap(params => {
           const unitId: number = +params.get('departmentId');
-          this.currentOkrViewService.browseDepartment(unitId);
 
-          return this.okrUnitService.getOkrChildUnitById$(unitId);
+          return this.okrUnitService.getOkrChildUnitById$(unitId, false);
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.error404 = true;
+
+          return NEVER;
+        }),
+        tap((unit: OkrChildUnit) => {
+          this.currentOkrViewService.browseDepartment(unit.id);
         }),
         shareReplay(1)
       );
@@ -144,12 +157,12 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     const title: string = this.i18n({
       id: 'deleteDepartmentDialogTitle',
       value: '{{name}} löschen?'
-    }, {name: okrChildUnit.name});
+    }, { name: okrChildUnit.name });
     const message: string = this.i18n({
       id: 'deleteDepartmentDialogMessage',
       value: 'Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.'
     });
-    const confirmButtonText: string = this.i18n({id: 'delete', value: 'Löschen'});
+    const confirmButtonText: string = this.i18n({ id: 'delete', value: 'Löschen' });
 
     const data: ConfirmationDialogData = {
       message,
@@ -158,7 +171,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object> =
-      this.matDialog.open(ConfirmationDialogComponent, {width: '600px', data});
+      this.matDialog.open(ConfirmationDialogComponent, { width: '600px', data });
     this.subscriptions.push(
       dialogReference
         .afterClosed()
@@ -219,6 +232,16 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
       this.router.navigate([`../../companies/${okrChildUnit.parentUnitId}`], { relativeTo: this.route })
         .catch();
     }
+  }
+
+  moveToParentUnit404(): void {
+    this.currentUnitSchemaService.getCurrentParentUnitId$()
+      .pipe(take(1))
+      .subscribe((id: number) => {
+        if (!!id) {
+
+        }
+      })
   }
 
   ngOnDestroy(): void {

@@ -11,6 +11,7 @@ import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { map, switchMap } from 'rxjs/operators';
 import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
+import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +43,11 @@ export class OkrUnitService {
     this.refresh$.next(null);
   }
 
-  getOkrChildUnitById$(id: OkrUnitId): Observable<OkrChildUnit> {
+  getOkrChildUnitById$(id: OkrUnitId, handleErrors: boolean = true): Observable<OkrChildUnit> {
     return this.refresh$
       .pipe(
         switchMap(() => {
-          return this.okrUnitApiService.getOkrChildUnitById$(id)
+          return this.okrUnitApiService.getOkrChildUnitById$(id, handleErrors)
             .pipe(
               map((okrChildUnit: OkrChildUnitDto) => OkrUnitService.mapToEntity(okrChildUnit))
             );

@@ -143,33 +143,62 @@
 
 
 <ng-template #loading>
-  <mat-card class="small-padding card-margin card-size">
-    <div class="flex-wrap inner-padding">
-      <div class="icon-spacer-large">
-        <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" disabled>
-          <mat-icon>arrow_upward</mat-icon>
-        </button>
-      </div>
+  <ng-container *ngIf="!error404; else loadingError">
+    <mat-card class="small-padding card-margin card-size">
+      <div class="flex-wrap inner-padding">
+        <div class="icon-spacer-large">
+          <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" disabled>
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
+        </div>
 
-      <div class="flex-wrap-spreadinner f-1">
-        <div class="department-flex">
-          <div class="department-title" i18n="@@component_department_loadDepartment">Lade Department</div>
-          <div class="department-subtitle" i18n="@@component_department_pleaseWait"> Bitte warten</div>
+        <div class="flex-wrap-spreadinner f-1">
+          <div class="department-flex">
+            <div class="department-title" i18n="@@component_department_loadDepartment">Lade Department</div>
+            <div class="department-subtitle" i18n="@@component_department_pleaseWait"> Bitte warten</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <br>
+      <br>
 
-    <mat-tab-group>
-      <mat-tab i18n-label="@@component_department_overview" label="Übersicht" class="inner-padding">
-        <div class="loading-content">
-          <br/>
-          <mat-spinner></mat-spinner>
-          <br/>
+      <mat-tab-group>
+        <mat-tab i18n-label="@@component_department_overview" label="Übersicht" class="inner-padding">
+          <div class="loading-content">
+            <br/>
+            <mat-spinner></mat-spinner>
+            <br/>
+          </div>
+        </mat-tab>
+        <mat-tab i18n-label="@@component_department_tab_loading" label="Lade..." class="inner-padding"></mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #loadingError>
+    <mat-card class="small-padding card-margin card-size">
+      <div class="flex-wrap inner-padding">
+        <div class="icon-spacer-large">
+          <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" disabled>
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
         </div>
-      </mat-tab>
-      <mat-tab i18n-label="@@component_department_tab_loading" label="Lade..." class="inner-padding"></mat-tab>
-    </mat-tab-group>
-  </mat-card>
+
+        <div class="flex-wrap-spreadinner f-1">
+          <div class="department-flex">
+            <div class="department-title" i18n="@@component_department_loadDepartment">Laden Fehlgeschlagen</div>
+            <div class="department-subtitle" i18n="@@component_department_pleaseWait"> -</div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <mat-tab-group>
+        <mat-tab i18n-label="@@component_department_overview" label="Info" class="inner-padding">
+          <p>Laden fehlgeschlagen</p>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </ng-template>
 </ng-template>
