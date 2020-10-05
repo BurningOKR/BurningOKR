@@ -21,7 +21,7 @@
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
         </Logger>
-        <Root level="warn">
+        <Root level="debug">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
         </Root>
