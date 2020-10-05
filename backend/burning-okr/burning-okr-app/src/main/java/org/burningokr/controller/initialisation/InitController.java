@@ -13,7 +13,6 @@ import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.service.initialisation.InitService;
-import org.burningokr.service.okrUnit.CompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +29,6 @@ public class InitController {
   private final DataMapper<OAuthClientDetails, OAuthClientDetailsDto> oauthClientDetailsMapper;
   private final InitService initService;
   private final Logger logger = LoggerFactory.getLogger(InitController.class);
-
-  private final CompanyService branchService;
 
   /**
    * Get the current init state
