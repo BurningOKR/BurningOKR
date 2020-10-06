@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, NEVER, Observable, Subscription } from 'rxjs';
+import { combineLatest, EMPTY, Observable, Subscription } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
@@ -20,7 +20,6 @@ import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-ch
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CurrentNavigationService } from '../../current-navigation.service';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 
 interface DepartmentView {
@@ -70,12 +69,14 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
         switchMap(params => {
           const unitId: number = +params.get('departmentId');
 
-          return this.okrUnitService.getOkrChildUnitById$(unitId, false);
-        }),
-        catchError((error: HttpErrorResponse) => {
-          this.error404 = true;
+          return this.okrUnitService.getOkrChildUnitById$(unitId, false)
+            .pipe(
+              catchError((error: HttpErrorResponse) => {
+                this.error404 = true;
 
-          return NEVER;
+                return EMPTY;
+              })
+            );
         }),
         tap((unit: OkrChildUnit) => {
           this.currentOkrViewService.browseDepartment(unit.id);
@@ -235,13 +236,17 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   moveToParentUnit404(): void {
-    this.currentUnitSchemaService.getCurrentParentUnitId$()
+    const unitId: number = +this.route.snapshot.paramMap.get('departmentId');
+    this.currentUnitSchemaService.getParentUnitId$(unitId)
       .pipe(take(1))
       .subscribe((id: number) => {
         if (!!id) {
-
+          this.error404 = false;
+          this.router.navigate(['..', id], { relativeTo: this.route });
+        } else {
+          this.router.navigate(['/companies']);
         }
-      })
+      });
   }
 
   ngOnDestroy(): void {

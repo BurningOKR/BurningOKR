@@ -246,13 +246,11 @@ describe('CurrentOkrUnitSchemaService', () => {
 
     service.setCurrentUnitSchemaByDepartmentId(1);
     service.getCurrentParentUnitId$()
-      .subscribe(() => {
-        fail();
+      .subscribe((unitId: number) => {
+        expect(unitId)
+          .toBeNull();
+        done();
       });
-
-    setTimeout(() => {
-      done();
-    }, 1000);
   });
 
   it('should get parent unit id, has parent unit, emits id', done => {
@@ -276,13 +274,11 @@ describe('CurrentOkrUnitSchemaService', () => {
 
     service.setCurrentUnitSchemaByDepartmentId(6);
     service.getCurrentParentUnitId$()
-      .subscribe(() => {
-        fail();
+      .subscribe((unitId: number) => {
+        expect(unitId)
+          .toBeNull();
+        done();
       });
-
-    setTimeout(() => {
-      done();
-    }, 1000);
   });
 
   it('should get parent unit id, is not in list, does not emit', done => {
@@ -292,13 +288,11 @@ describe('CurrentOkrUnitSchemaService', () => {
 
     service.setCurrentUnitSchemaByDepartmentId(1);
     service.getCurrentParentUnitId$()
-      .subscribe(() => {
-        fail();
+      .subscribe((unitId: number) => {
+        expect(unitId)
+          .toBeNull();
+        done();
       });
-
-    setTimeout(() => {
-      done();
-    }, 1000);
   });
 
   it('getUnitSchemasToReachUnitWithId, empty list, returns empty list', done => {
