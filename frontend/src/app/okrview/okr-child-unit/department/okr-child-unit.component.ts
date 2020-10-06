@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, EMPTY, Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
@@ -74,12 +74,14 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
               catchError((error: HttpErrorResponse) => {
                 this.error404 = true;
 
-                return EMPTY;
-              })
+                return of(null);
+              }),
             );
         }),
         tap((unit: OkrChildUnit) => {
-          this.currentOkrViewService.browseDepartment(unit.id);
+          if (unit) {
+            this.currentOkrViewService.browseDepartment(unit.id);
+          }
         }),
         shareReplay(1)
       );
