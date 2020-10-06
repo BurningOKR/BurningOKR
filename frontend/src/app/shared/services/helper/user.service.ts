@@ -11,7 +11,8 @@ import { IUserService } from './i-user-service';
   providedIn: 'root'
 })
 export class UserService implements IUserService {
-  constructor(protected userApiService: UserApiService) {
+
+  constructor(private userApiService: UserApiService) {
   }
 
   private users$: BehaviorSubject<User[]>;
