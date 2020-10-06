@@ -11,7 +11,6 @@ import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { map, switchMap } from 'rxjs/operators';
 import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
-import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
 
 @Injectable({
   providedIn: 'root'
@@ -56,18 +55,18 @@ export class OkrUnitService {
 
   }
 
-  putOkrChildUnit$(okrChildUnit: OkrChildUnit): Observable<OkrChildUnit> {
-    return this.okrUnitApiService.putOkrChildUnit$(okrChildUnit.id, OkrUnitService.mapToDto(okrChildUnit))
+  putOkrChildUnit$(okrChildUnit: OkrChildUnit, handleErrors: boolean = true): Observable<OkrChildUnit> {
+    return this.okrUnitApiService.putOkrChildUnit$(okrChildUnit.id, OkrUnitService.mapToDto(okrChildUnit), handleErrors)
       .pipe(
         map((childUnit: OkrChildUnitDto) => OkrUnitService.mapToEntity(childUnit))
       );
   }
 
-  deleteOkrChildUnit$(okrChildUnit: OkrChildUnit): Observable<boolean> {
-    return this.okrUnitApiService.deleteOkrChildUnit$(okrChildUnit.id);
+  deleteOkrChildUnit$(okrChildUnit: OkrChildUnit, handleErrors: boolean = true): Observable<boolean> {
+    return this.okrUnitApiService.deleteOkrChildUnit$(okrChildUnit.id, handleErrors);
   }
 
-  putOkrUnitObjectiveSequence$(okrUnitId: OkrUnitId, sequenceList: number[]): Observable<number[]> {
-    return this.okrUnitApiService.putOkrUnitObjectiveSequence$(okrUnitId, sequenceList);
+  putOkrUnitObjectiveSequence$(okrUnitId: OkrUnitId, sequenceList: number[], handleErrors: boolean = true): Observable<number[]> {
+    return this.okrUnitApiService.putOkrUnitObjectiveSequence$(okrUnitId, sequenceList, handleErrors);
   }
 }

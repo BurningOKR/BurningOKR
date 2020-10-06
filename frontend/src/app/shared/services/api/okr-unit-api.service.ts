@@ -10,7 +10,6 @@ import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 import { OkrUnitId } from '../../model/id-types';
 import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +18,8 @@ export class OkrUnitApiService {
 
   constructor(private http: ApiHttpService) { }
 
-  getOkrChildUnitById$(unitId: OkrUnitId, handleErrors: boolean): Observable<OkrChildUnitDto> {
-    let errorHandlingFunction: ErrorHandlingFunction<OkrChildUnitDto>;
-    if (!handleErrors) {
-      errorHandlingFunction = throwError;
-    }
+  getOkrChildUnitById$(unitId: OkrUnitId, handleErrors?: boolean): Observable<OkrChildUnitDto> {
+    const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
 
     return this.http.getData$<OkrChildUnitDto>(`units/${unitId}`, errorHandlingFunction)
       .pipe(
@@ -37,8 +33,10 @@ export class OkrUnitApiService {
       );
   }
 
-  putOkrChildUnit$(okrUnitId: OkrUnitId, okrChildUnit: OkrChildUnitDto): Observable<OkrChildUnitDto> {
-    return this.http.putData$<OkrChildUnitDto>(`units/${okrUnitId}`, okrChildUnit)
+  putOkrChildUnit$(okrUnitId: OkrUnitId, okrChildUnit: OkrChildUnitDto, handleErrors?: boolean): Observable<OkrChildUnitDto> {
+    const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
+
+    return this.http.putData$<OkrChildUnitDto>(`units/${okrUnitId}`, okrChildUnit, errorHandlingFunction)
       .pipe(
         map((value: OkrChildUnitDto) => {
           if (value.__okrUnitType === 'DEPARTMENT') {
@@ -50,19 +48,36 @@ export class OkrUnitApiService {
       );
   }
 
-  deleteOkrChildUnit$(okrUnitId: OkrUnitId): Observable<boolean> {
-    return this.http.deleteData$(`units/${okrUnitId}`);
+  deleteOkrChildUnit$(okrUnitId: OkrUnitId, handleErrors?: boolean): Observable<boolean> {
+    const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
+
+    return this.http.deleteData$(`units/${okrUnitId}`, errorHandlingFunction);
   }
 
-  getOkrUnitSchemaByUnitId$(okrUnitId: OkrUnitId): Observable<OkrUnitSchema[]> {
-    return this.http.getData$<OkrUnitSchema[]>(`units/${okrUnitId}/schema`);
+  getOkrUnitSchemaByUnitId$(okrUnitId: OkrUnitId, handleErrors?: boolean): Observable<OkrUnitSchema[]> {
+    const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
+
+    return this.http.getData$<OkrUnitSchema[]>(`units/${okrUnitId}/schema`, errorHandlingFunction);
   }
 
-  getParentCompanyOfOkrUnit$(okrUnitId: OkrUnitId): Observable<CompanyDto> {
-    return this.http.getData$(`units/${okrUnitId}/company`);
+  getParentCompanyOfOkrUnit$(okrUnitId: OkrUnitId, handleErrors?: boolean): Observable<CompanyDto> {
+    const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
+
+    return this.http.getData$(`units/${okrUnitId}/company`, errorHandlingFunction);
   }
 
-  putOkrUnitObjectiveSequence$(departmentId: number, sequenceList: number[]): Observable<number[]> {
-    return this.http.putData$(`units/${departmentId}/objectivesequence`, sequenceList);
+  putOkrUnitObjectiveSequence$(departmentId: number, sequenceList: number[], handleErrors?: boolean): Observable<number[]> {
+    const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
+
+    return this.http.putData$(`units/${departmentId}/objectivesequence`, sequenceList, errorHandlingFunction);
+  }
+
+  private getErrorHandlingFunction(handleErrors: boolean = true): ErrorHandlingFunction<any> {
+    let errorHandlingFunction: ErrorHandlingFunction<any>;
+    if (!handleErrors) {
+      errorHandlingFunction = throwError;
+    }
+
+    return errorHandlingFunction;
   }
 }

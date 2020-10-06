@@ -72,7 +72,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
           return this.okrUnitService.getOkrChildUnitById$(unitId, false)
             .pipe(
               catchError((error: HttpErrorResponse) => {
-                this.error404 = true;
+                this.set404State();
 
                 return of(null);
               }),
@@ -124,6 +124,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   // Template actions
+  // TODO: (R.J. 06.10.2020) 404 Error handling for dialogs is also needed...
   clickedEditChildUnit(childUnit: OkrChildUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
       data: { childUnit }
@@ -146,9 +147,11 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.okrUnitService
-        .putOkrChildUnit$(okrChildUnit)
+        .putOkrChildUnit$(okrChildUnit, false)
         .pipe(take(1))
-        .subscribe(returnedChildUnit => this.onChildUnitEdited(returnedChildUnit))
+        .subscribe(
+          returnedChildUnit => this.onChildUnitEdited(returnedChildUnit),
+          () => this.set404State())
     );
   }
 
@@ -199,11 +202,12 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   queryRemoveChildUnit(okrChildUnit: OkrChildUnit): void {
     this.subscriptions.push(
       this.okrUnitService
-        .deleteOkrChildUnit$(okrChildUnit)
+        .deleteOkrChildUnit$(okrChildUnit, false)
         .pipe(take(1))
         .subscribe(() => {
           this.onChildUnitDeleted(okrChildUnit);
-        })
+        },
+          () => this.onChildUnitDeleted(okrChildUnit))
     );
   }
 
@@ -249,6 +253,10 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
           this.router.navigate(['/companies']);
         }
       });
+  }
+
+  private set404State(): void {
+    this.error404 = true;
   }
 
   ngOnDestroy(): void {
