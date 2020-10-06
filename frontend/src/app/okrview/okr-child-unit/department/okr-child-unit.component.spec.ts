@@ -268,7 +268,7 @@ describe('OkrChildUnitComponent', () => {
     component.toggleChildActive(department);
 
     expect(unitMapperService.putOkrChildUnit$)
-      .toHaveBeenCalledWith(department);
+      .toHaveBeenCalledWith(department, false);
   });
 
   it('queryRemoveChildUnit deletes okrChildUnit', () => {
