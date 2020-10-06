@@ -26,6 +26,7 @@ import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-d
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 
 describe('OkrChildUnitComponent', () => {
   let component: OkrChildUnitComponent;
@@ -46,9 +47,12 @@ describe('OkrChildUnitComponent', () => {
   const departmentContextRoleService: any = {
     getContextRoleForOkrChildUnit$: jest.fn()
   };
+
   const router: any = {
     navigate: jest.fn()
   };
+
+  const currentOkrUnitSchemaService: any = {};
 
   const paramMapGetSpy: any = jest.fn();
   const paramMapGetAllSpy: any = jest.fn();
@@ -103,6 +107,7 @@ describe('OkrChildUnitComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: CurrentOkrviewService, useValue: currentOkrViewService },
         { provide: CurrentCycleService, useValue: currentCycleService },
+        { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaService },
         { provide: ExcelMapper, useValue: excelService },
         { provide: I18n, useValue: i18n }
       ]
@@ -111,6 +116,26 @@ describe('OkrChildUnitComponent', () => {
   }));
 
   beforeEach(() => {
+    department = new OkrDepartment(
+      1,
+      'testDepartment',
+      [],
+      0,
+      'department',
+      'master', 'topicSponsor', ['member'],
+      true, false);
+
+    okrBranch = new OkrBranch(
+      2,
+      'testBranch',
+      [],
+      'testLAbel',
+      0,
+      [],
+      true,
+      false
+    );
+
     paramMapGetSpy.mockReset();
     paramMapGetAllSpy.mockReset();
     paramMapHasSpy.mockReset();
@@ -141,26 +166,6 @@ describe('OkrChildUnitComponent', () => {
 
     router.navigate.mockReset();
     router.navigate.mockReturnValue({catch: jest.fn()});
-
-    department = new OkrDepartment(
-      1,
-      'testDepartment',
-      [],
-      0,
-      'department',
-      'master', 'topicSponsor', ['member'],
-      true, false);
-
-    okrBranch = new OkrBranch(
-      2,
-      'testBranch',
-      [],
-      'testLAbel',
-      0,
-      [],
-      true,
-      false
-    );
   });
 
   it('should create', () => {
@@ -181,7 +186,7 @@ describe('OkrChildUnitComponent', () => {
 
     component.okrChildUnit$.subscribe(() => {
       expect(unitMapperService.getOkrChildUnitById$)
-        .toHaveBeenCalledWith(1);
+        .toHaveBeenCalledWith(1, false);
       done();
     });
   });
@@ -263,7 +268,7 @@ describe('OkrChildUnitComponent', () => {
     component.toggleChildActive(department);
 
     expect(unitMapperService.putOkrChildUnit$)
-      .toHaveBeenCalledWith(department);
+      .toHaveBeenCalledWith(department, false);
   });
 
   it('queryRemoveChildUnit deletes okrChildUnit', () => {

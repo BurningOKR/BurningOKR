@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class OkrChildUnit extends OkrUnit implements OkrChildUnitSchema {
-  @ManyToOne @EqualsAndHashCode.Exclude protected OkrUnit parentOkrUnit;
+  @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude protected OkrUnit parentOkrUnit;
 
   @Column
   @Getter(AccessLevel.NONE)

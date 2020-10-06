@@ -42,11 +42,11 @@ export class OkrUnitService {
     this.refresh$.next(null);
   }
 
-  getOkrChildUnitById$(id: OkrUnitId): Observable<OkrChildUnit> {
+  getOkrChildUnitById$(id: OkrUnitId, handleErrors: boolean = true): Observable<OkrChildUnit> {
     return this.refresh$
       .pipe(
         switchMap(() => {
-          return this.okrUnitApiService.getOkrChildUnitById$(id)
+          return this.okrUnitApiService.getOkrChildUnitById$(id, handleErrors)
             .pipe(
               map((okrChildUnit: OkrChildUnitDto) => OkrUnitService.mapToEntity(okrChildUnit))
             );
@@ -55,18 +55,18 @@ export class OkrUnitService {
 
   }
 
-  putOkrChildUnit$(okrChildUnit: OkrChildUnit): Observable<OkrChildUnit> {
-    return this.okrUnitApiService.putOkrChildUnit$(okrChildUnit.id, OkrUnitService.mapToDto(okrChildUnit))
+  putOkrChildUnit$(okrChildUnit: OkrChildUnit, handleErrors: boolean = true): Observable<OkrChildUnit> {
+    return this.okrUnitApiService.putOkrChildUnit$(okrChildUnit.id, OkrUnitService.mapToDto(okrChildUnit), handleErrors)
       .pipe(
         map((childUnit: OkrChildUnitDto) => OkrUnitService.mapToEntity(childUnit))
       );
   }
 
-  deleteOkrChildUnit$(okrChildUnit: OkrChildUnit): Observable<boolean> {
-    return this.okrUnitApiService.deleteOkrChildUnit$(okrChildUnit.id);
+  deleteOkrChildUnit$(okrChildUnit: OkrChildUnit, handleErrors: boolean = true): Observable<boolean> {
+    return this.okrUnitApiService.deleteOkrChildUnit$(okrChildUnit.id, handleErrors);
   }
 
-  putOkrUnitObjectiveSequence$(okrUnitId: OkrUnitId, sequenceList: number[]): Observable<number[]> {
-    return this.okrUnitApiService.putOkrUnitObjectiveSequence$(okrUnitId, sequenceList);
+  putOkrUnitObjectiveSequence$(okrUnitId: OkrUnitId, sequenceList: number[], handleErrors: boolean = true): Observable<number[]> {
+    return this.okrUnitApiService.putOkrUnitObjectiveSequence$(okrUnitId, sequenceList, handleErrors);
   }
 }

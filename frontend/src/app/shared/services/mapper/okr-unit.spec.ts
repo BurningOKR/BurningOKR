@@ -169,7 +169,7 @@ describe('OkrUnitService', () => {
     service.putOkrChildUnit$(departmentUnit)
       .subscribe((okrChildUnit: OkrChildUnit) => {
         expect(okrUnitApiService.putOkrChildUnit$)
-          .toHaveBeenCalledWith(1, any(OkrDepartmentDto));
+          .toHaveBeenCalledWith(1, any(OkrDepartmentDto), true);
         done();
       });
   });
@@ -182,7 +182,7 @@ describe('OkrUnitService', () => {
     service.putOkrChildUnit$(okrBranch)
       .subscribe((okrChildUnit: OkrChildUnit) => {
         expect(okrUnitApiService.putOkrChildUnit$)
-          .toHaveBeenCalledWith(2, any(OkrBranchDto));
+          .toHaveBeenCalledWith(2, any(OkrBranchDto), true);
         done();
       });
   });
