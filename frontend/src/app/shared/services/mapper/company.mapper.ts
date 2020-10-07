@@ -116,8 +116,8 @@ export class CompanyMapper {
       .pipe(map(CompanyMapper.mapCompany));
   }
 
-  getCompanyById$(companyId: number): Observable<CompanyUnit> {
-    return this.companyApiService.getCompanyById$(companyId)
+  getCompanyById$(companyId: number, handleErrors?: boolean): Observable<CompanyUnit> {
+    return this.companyApiService.getCompanyById$(companyId, handleErrors)
       .pipe(map(CompanyMapper.mapCompany));
   }
 
