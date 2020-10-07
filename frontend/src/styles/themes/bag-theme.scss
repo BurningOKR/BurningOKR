@@ -200,6 +200,8 @@ $bag-theme-accent: mat-palette($md-info);
 $bag-theme-warn: mat-palette($md-warn);
 $bag-theme-green: mat-palette($md-success);
 $bag-theme-blue: mat-palette($md-info);
+$bag-theme-black: #575756;
+$bag-theme-white: #f0f0f0;
 
 $bag-theme: mat-light-theme($bag-theme-primary, $bag-theme-accent, $bag-theme-warn);
 

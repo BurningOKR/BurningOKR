@@ -5,20 +5,23 @@
   background-color: map-get($md-primary, 500);
   overflow-x:hidden;
   z-index: 10;
-  color: black;
-  padding-right: 80px;
-  padding-left: 5vw;
+  color: $bag-theme-white;
+  padding-right: 20px;
+  padding-left: 20px;
 
   position:fixed;
   bottom:0;
   width: 100vw;
+
+  font-size: small;
+}
+
+.padding-top-bottom {
+  padding: 5px 0;
 }
 
 .footer-right {
   text-align: right;
-  a {
-    padding: 8px;
-  }
 }
 
 .row {
@@ -32,14 +35,12 @@
   margin-left: 5px;
 }
 
-.color-black {
-  color: black;
-}
+
 
 a {
   text-decoration: none;
 }
 
 a, a:visited{
-  color: lightgray;
+  color: $bag-theme-white;
 }

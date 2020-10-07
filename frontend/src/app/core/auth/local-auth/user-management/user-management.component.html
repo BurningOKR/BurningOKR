@@ -7,7 +7,7 @@
   <span i18n="@@userManagementToolbarTitle">Benutzerverwaltung</span>
 </app-okr-toolbar>
 
-<div class="container user-container">
+<div class="container footer-margin">
   <div class="row">
     <mat-card class="col-m-12 col-l-12 col-xl-10 col-s-12 col-centered">
       <mat-card-title>
@@ -73,8 +73,9 @@
               </button>
               <button (click)="handleDeactivate(user)" *ngIf="currentUser$.getValue().id !== user.id && user.active" i18n-matToolTip="@@deactivateUser"
                       mat-icon-button
+                      matTooltip="Benutzer deaktivieren ⚠ Deaktiviert in der Demo Version"
               [disabled]="true" >
-                <mat-icon matTooltip="Benutzer deaktivieren ⚠ Deaktiviert in der Demo Version">delete</mat-icon>
+                <mat-icon>delete</mat-icon>
               </button>
               <button (click)="handleActivate(user)" *ngIf="currentUser$.getValue().id !== user.id && !user.active" i18n-matToolTip="@@activateUser"
                       mat-icon-button
