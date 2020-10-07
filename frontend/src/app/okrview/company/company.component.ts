@@ -1,5 +1,5 @@
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { CurrentOkrviewService } from '../current-okrview.service';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { Component, OnInit } from '@angular/core';
@@ -8,7 +8,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ExcelMapper } from '../excel-file/excel.mapper';
-import { combineLatest, Observable, ObservableInput } from 'rxjs';
+import { combineLatest, Observable, ObservableInput, of } from 'rxjs';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { OkrChildUnitFormComponent } from '../okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { CurrentOkrUnitSchemaService } from '../current-okr-unit-schema.service';
@@ -39,6 +39,8 @@ export class CompanyComponent implements OnInit {
 
   currentUserRole$: Observable<ContextRole>;
 
+  loadingError = false;
+
   constructor(
     private route: ActivatedRoute,
     private currentOkrViewService: CurrentOkrviewService,
@@ -57,8 +59,17 @@ export class CompanyComponent implements OnInit {
     this.company$ = this.route.paramMap
       .pipe(
         map((params: ParamMap) => +params.get('companyId')),
-        switchMap((companyId: number) => this.companyMapperService.getCompanyById$(companyId)),
-        tap((company: CompanyUnit) => this.currentOkrViewService.browseCompany(company.id))
+        switchMap((companyId: number) => this.companyMapperService.getCompanyById$(companyId, false)),
+        catchError(() => {
+          this.set404Error();
+
+          return of(null);
+        }),
+        tap((company: CompanyUnit) => {
+          if (company) {
+            this.currentOkrViewService.browseCompany(company.id);
+          }
+        })
       );
 
     this.cycle$ = this.currentCycleService.getCurrentCycle$();
@@ -122,5 +133,9 @@ export class CompanyComponent implements OnInit {
 
   clickedDownloadExcelEmailFileForCompany(company: CompanyUnit): void {
     this.excelFileService.downloadExcelEmailFileForCompany(company.id);
+  }
+
+  private set404Error(): void {
+    this.loadingError = true;
   }
 }

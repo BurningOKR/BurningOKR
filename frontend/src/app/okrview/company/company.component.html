@@ -1,3 +1,6 @@
+<ng-container *ngIf="!loadingError else error">
+
+
 <ng-container *ngIf="companyView$ | async; let companyView; else loading">
   <div class="flex-nowrap-center">
     <mat-card class="card-size card-margin">
@@ -77,7 +80,20 @@
     </ng-template>
   </mat-menu>
 </ng-container>
+</ng-container>
 
 <ng-template #loading>
-  <h3 i18n="@@component_commentViewDialog_loadingCompany">Lade Firma...</h3>
+  <h3 i18n="@@component_commentViewDialog_loadingCompany" class="card-margin">Lade Firma...</h3>
+</ng-template>
+
+<ng-template #error>
+  <div class="card-margin">
+    <h3 i18n="@@component_commentViewDialog_errorLoadingCompany">Fehler</h3>
+    <p i18n="@@component_commentViewDialog_errorLoadingCompanyText">
+      Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
+      oder der Server antwortet nicht.
+    </p>
+    <button mat-button mat-raised-button color="primary" routerLink="/companies" i18n="@@component_commentViewDialog_errorLoadingCompanyButton">Zur Strukturübersicht</button>
+  </div>
+
 </ng-template>
