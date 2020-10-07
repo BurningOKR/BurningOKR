@@ -16,7 +16,9 @@ tasks:
 # initialize backend config
   - init: |
       cp gitpod/application.yaml "backend/burning-okr/burning-okr-app/src/main/resources/"
+      git update-index --assume-unchanged "backend/burning-okr/burning-okr-app/src/main/resources/application.yaml"
       cp gitpod/log4j2-spring.xml "backend/burning-okr/burning-okr-app/src/main/resources/"
+      git update-index --assume-unchanged "backend/burning-okr/burning-okr-app/src/main/resources/log4j2-spring.xml"
 
 # initialize postgres
   - init: |
@@ -30,6 +32,7 @@ tasks:
         ./gradlew
         ./gradlew build
     command: |
+        cd backend/burning-okr/
         ./gradlew bootRun
 
 # initialize frontend
