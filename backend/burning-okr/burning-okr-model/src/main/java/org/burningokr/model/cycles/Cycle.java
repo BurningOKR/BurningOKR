@@ -10,10 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrCompany;
 
@@ -39,6 +36,7 @@ public class Cycle implements Trackable<Long> {
   private CycleState cycleState = CycleState.PREPARATION;
 
   @OneToMany(mappedBy = "cycle", cascade = CascadeType.REMOVE)
+  @EqualsAndHashCode.Exclude
   private Collection<OkrCompany> companies = new ArrayList<>();
 
   @Column

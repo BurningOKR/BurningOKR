@@ -5,7 +5,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LocalUserApiService } from '../../../../shared/services/api/local-user-api.service';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { LoggerTestingModule } from 'ngx-logger/testing';
@@ -15,6 +14,7 @@ import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { i18nMock } from '../../../../shared/mocks/i18n-mock';
+import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 
 describe('UserManagementComponent', () => {
 
@@ -22,10 +22,12 @@ describe('UserManagementComponent', () => {
   let fixture: ComponentFixture<UserManagementComponent>;
 
   const oAuthServiceMock: any = {};
-  const localUserApiServiceMock: any = {
+
+  const localUserServiceMock: any = {
     getUsers$: jest.fn(),
     getAdminIds$: jest.fn(),
   };
+
   const currentUserServiceMock: any = {
     getCurrentUser$: jest.fn()
   };
@@ -52,12 +54,12 @@ describe('UserManagementComponent', () => {
   };
 
   beforeEach(async(() => {
-    localUserApiServiceMock.getUsers$.mockReset();
-    localUserApiServiceMock.getAdminIds$.mockReset();
+    localUserServiceMock.getUsers$.mockReset();
+    localUserServiceMock.getAdminIds$.mockReset();
     currentUserServiceMock.getCurrentUser$.mockReset();
 
-    localUserApiServiceMock.getUsers$.mockReturnValue(of([currentUserMock, anotherUserMock]));
-    localUserApiServiceMock.getAdminIds$.mockReturnValue(of([anotherUserMock.id]));
+    localUserServiceMock.getUsers$.mockReturnValue(of([currentUserMock, anotherUserMock]));
+    localUserServiceMock.getAdminIds$.mockReturnValue(of([anotherUserMock.id]));
     currentUserServiceMock.getCurrentUser$.mockReturnValue(of(currentUserMock));
     TestBed.configureTestingModule({
       declarations: [UserManagementComponent],
@@ -70,7 +72,7 @@ describe('UserManagementComponent', () => {
       ],
       providers: [
         {provide: MatDialog, useValue: {}},
-        {provide: LocalUserApiService, useValue: localUserApiServiceMock},
+        {provide: LocalUserService, useValue: localUserServiceMock},
         {provide: OAuthService, useValue: oAuthServiceMock},
         {provide: CurrentUserService, useValue: currentUserServiceMock},
         {provide: I18n, useValue: i18nMock}

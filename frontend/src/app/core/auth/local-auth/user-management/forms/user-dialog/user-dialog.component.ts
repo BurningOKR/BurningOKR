@@ -2,13 +2,14 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Observable, of } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { LocalUserApiService } from '../../../../../../shared/services/api/local-user-api.service';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { User } from '../../../../../../shared/model/api/user';
 import { emailAlreadyInUseValidatorFunction } from '../email-already-in-use-validator-function';
 import { UserDialogData } from '../user-dialog-data';
 import { PasswordService } from '../../../password-service/password.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { LocalUserService } from '../../../../../../shared/services/helper/local-user.service';
+import { CurrentUserService } from '../../../../../services/current-user.service';
 
 @Component({
   selector: 'app-user-dialog',
@@ -38,7 +39,8 @@ export class UserDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public formData: UserDialogData,
               private formBuilder: FormBuilder,
-              private userService: LocalUserApiService,
+              private userService: LocalUserService,
+              private currentUserService: CurrentUserService,
               private passwordService: PasswordService,
               private snackBar: MatSnackBar,
               private i18n: I18n) {
@@ -46,12 +48,12 @@ export class UserDialogComponent implements OnInit {
 
   ngOnInit(): void {
     // Disable Admin Checkbox when the user edits himself and is admin.
-    this.editedUserIsCurrentUser$ = this.userService.getCurrentUser$()
+    this.editedUserIsCurrentUser$ = this.currentUserService.getCurrentUser$()
       .pipe(
         switchMap((user: User) => {
           if (!!this.formData.user) {
             if (user.id === this.formData.user.id) {
-              return this.userService.isCurrentUserAdmin$();
+              return this.currentUserService.isCurrentUserAdmin$();
             }
           }
 

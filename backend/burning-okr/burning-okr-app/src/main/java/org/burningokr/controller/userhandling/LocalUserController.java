@@ -40,13 +40,12 @@ public class LocalUserController {
 
   @GetMapping("/local-users")
   public ResponseEntity<Collection<LocalUserDto>> getAllUsers() {
-    return ResponseEntity.ok(
-        localUserMapper.mapEntitiesToDtos(localUserService.retrieveAllUsers()));
+    return ResponseEntity.ok(localUserMapper.mapEntitiesToDtos(localUserService.findAll()));
   }
 
   @GetMapping("/local-users/{userId}")
   public ResponseEntity<LocalUserDto> getUserById(@PathVariable UUID userId) {
-    LocalUser localUser = localUserService.retrieveLocalUserById(userId);
+    LocalUser localUser = localUserService.findById(userId);
     return ResponseEntity.ok(localUserMapper.mapEntityToDto(localUser));
   }
 

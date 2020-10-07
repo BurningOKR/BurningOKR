@@ -1,3 +1,5 @@
-1.0.1
+1.0.2
 
-- POST Requests to log errors in the frontend no longer return a 401 error.
+- Newly created users can now be added to a team without having to reload the page first.
+- After updating your username, it will now be displayed correctly in the top right corner of the navigation bar.
+- Creating a cycle when there are Structures (Branches) in the company, will no longer cause errors.
