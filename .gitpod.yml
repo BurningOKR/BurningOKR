@@ -48,5 +48,4 @@ tasks:
 vscode:
   extensions:
     - cool2k.vscode-lombok@1.0.2:e816/wZO588Jp8PN58Wj6g==
-    - Pivotal.vscode-spring-boot@1.20.0:jaH7mimG3KKfktrKqHw8Kg==
     - Angular.ng-template@0.1000.7:0IUEFuDEuIrPL5WlPLev9A==
