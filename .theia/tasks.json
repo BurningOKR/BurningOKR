@@ -1,0 +1,41 @@
+{
+    "tasks": [
+        {
+            "label": "BUILD&RUN BACKEND gradlew",
+            "type": "shell",
+            "command": "cd /workspace/BurningOKR/backend/burning-okr && ./gradlew bootRun",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "BUILD BACKEND gradlew",
+            "type": "shell",
+            "group": "build",
+            "command": "gradlew",
+            "args": [
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/BurningOKR/backend/burning-okr"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "BUILD&RUN&DEBUG BACKEND gradlew",
+            "type": "shell",
+            "command": "cd /workspace/BurningOKR/backend/burning-okr && ./gradlew bootRun --debug-jvm",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "path": "frontend/",
+            "problemMatcher": []
+        }
+    ]
+}
