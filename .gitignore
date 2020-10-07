@@ -1,2 +1,4 @@
 gitpod/burning-okr.log
 gitpod/time-based-logs/*
+bin
+.vscode/settings.json
