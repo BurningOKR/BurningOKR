@@ -138,7 +138,7 @@ describe('CompanyComponent', () => {
 
     component.company$.subscribe(() => {
       expect(companyServiceMock.getCompanyById$)
-        .toHaveBeenCalledWith(10);
+        .toHaveBeenCalledWith(10, false);
       done();
     });
   });
