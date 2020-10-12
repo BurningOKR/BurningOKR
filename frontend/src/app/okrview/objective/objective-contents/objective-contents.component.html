@@ -14,7 +14,7 @@
       <div class="tab-subtitle">KeyResults</div>
     </div>
     <div *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()" class="f-1">
-      <button mat-mini-fab color="accent" (click)="clickedAddKeyResult()"
+      <button mat-mini-fab color="accent" class="add-keyresult-button" (click)="clickedAddKeyResult()"
               [disabled]="objective.keyResultIdList.length >= maxKeyResults">
         <mat-icon i18n-matTooltip="@@component_objectiveContents_defineNewKeyResult" matTooltip="Neues KeyResult definieren">add_circle_outline</mat-icon>
       </button>
