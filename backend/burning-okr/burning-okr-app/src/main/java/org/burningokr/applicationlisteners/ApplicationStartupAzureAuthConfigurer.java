@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Conditional(AadCondition.class)
 @Component
 @RequiredArgsConstructor
-public class ApplicationStartupAzureConfigurer {
+public class ApplicationStartupAzureAuthConfigurer {
 
   private final OAuthConfigurationService oAuthConfigurationService;
   private final ExternalOAuthClientDetails externalOAuthClientDetails;
