@@ -1,6 +1,7 @@
 package org.burningokr.applicationlisteners;
 
 import lombok.RequiredArgsConstructor;
+import org.burningokr.consts.DefaultLocalAuthData;
 import org.burningokr.model.configuration.OAuthConfigurationName;
 import org.burningokr.service.condition.LocalUserCondition;
 import org.burningokr.service.configuration.OAuthConfigurationService;
@@ -14,11 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ApplicationStartupLocalAuthConfigurer {
-  
+
   private final Environment environment;
   private final OAuthConfigurationService oAuthConfigurationService;
-
-  private final String defaultTokenEndpoint = "/oauth/token";
 
   /**
    * This function adds the token endpoint prefix to the token endpoint setting in the database.
@@ -27,7 +26,10 @@ public class ApplicationStartupLocalAuthConfigurer {
    */
   @EventListener(ApplicationReadyEvent.class)
   public void onApplicationEvent(ApplicationReadyEvent event) {
-    String tokenEndpointPrefix = environment.getProperty("system.configuration.token-endpoint-prefix");
-    oAuthConfigurationService.setOAuthConfiguration(OAuthConfigurationName.TOKEN_ENDPOINT, tokenEndpointPrefix + defaultTokenEndpoint);
+    String tokenEndpointPrefix =
+        environment.getProperty("system.configuration.token-endpoint-prefix");
+    oAuthConfigurationService.setOAuthConfiguration(
+        OAuthConfigurationName.TOKEN_ENDPOINT,
+        tokenEndpointPrefix + DefaultLocalAuthData.tokenEndpoint);
   }
 }

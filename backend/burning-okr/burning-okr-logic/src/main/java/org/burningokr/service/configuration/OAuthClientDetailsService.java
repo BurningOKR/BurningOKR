@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.burningokr.consts.DefaultLocalAuthData;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.repositories.configuration.OAuthClientDetailsRepository;
 import org.slf4j.Logger;
@@ -19,13 +20,6 @@ public class OAuthClientDetailsService {
   private final PasswordEncoder passwordEncoder;
   private final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
 
-  private final String defaultResourceIds = "oauth2-resource";
-  private final String defaultScope = "USER";
-  private final String defaultAuthorizedGrantTypes = "password,refresh_token";
-  private final String defaultAuthorities = "";
-  private final String defaultAdditionalInformation = "{}";
-  private final String defaultAutoapprove = "";
-
   /**
    * Fills the fields of an OAuthClientDetails Model, which cannot be filled by mapping an
    * OAuthClientDetailsDTO to the model.
@@ -33,12 +27,12 @@ public class OAuthClientDetailsService {
    * @param oauthClientDetails the model
    */
   public void fillDefaultValues(OAuthClientDetails oauthClientDetails) {
-    oauthClientDetails.setResourceIds(defaultResourceIds);
-    oauthClientDetails.setScope(defaultScope);
-    oauthClientDetails.setAuthorizedGrantTypes(defaultAuthorizedGrantTypes);
-    oauthClientDetails.setAuthorities(defaultAuthorities);
-    oauthClientDetails.setAdditionalInformation(defaultAdditionalInformation);
-    oauthClientDetails.setAutoapprove(defaultAutoapprove);
+    oauthClientDetails.setResourceIds(DefaultLocalAuthData.resourceIds);
+    oauthClientDetails.setScope(DefaultLocalAuthData.scope);
+    oauthClientDetails.setAuthorizedGrantTypes(DefaultLocalAuthData.authorizedGrantTypes);
+    oauthClientDetails.setAuthorities(DefaultLocalAuthData.authorities);
+    oauthClientDetails.setAdditionalInformation(DefaultLocalAuthData.additionalInformation);
+    oauthClientDetails.setAutoapprove(DefaultLocalAuthData.autoApprove);
   }
 
   /**
