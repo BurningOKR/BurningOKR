@@ -35,7 +35,7 @@
 13. Open the frontend-de/en.zip and move to the directory `fronted\dist\OKRFrontEnd`.
 14. Copy all files within this directory to `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps\ROOT`
 15. Within the `ROOT` directory, create a new directory called `WEB-INF`
-16. Place the `web.xml`, which can be downloaded [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/BurningOKR/BurningOKR/blob/development/docs/files/web.xml) in the `WEB-INF` directory.
+16. Place the `web.xml`, which can be downloaded [here](./files/web.xml) (right click the "raw" button and select "save as...") in the `WEB-INF` directory.
 17. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).
 18. Open your browser on http://localhost:8080/manager and login with your tomcat administrator account
 19. Click "Start" on the "/api" application
