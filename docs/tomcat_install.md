@@ -126,4 +126,17 @@ system:
 6. You can insert the url, port, username and password of your mail server if you have one under `spring: > mail: > ....`. Otherwise remove the placeholders and leave these configurations empty.
 7. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use Azure Active Directory as your userbase by replacing the placeholder under `system: > configuration: > auth-mode: ...` with either local or azure.
     1. **When using an Azure Active Directory as the userbase, you also need to do the following steps. You do not need to this, when you are using the local user database.**
-        1. COMING SOON
+        1. Uncomment the Azure Active Directory configuration by removing the first "#" of each line.
+        2. Replace `<OAuth client id>`, `<OAuth client secret>`, `<OAuth access token url>` and `<OAuth use authorization token url>` with the corresponding values from your Azure Active Directory App registration.
+        3. Replace `<Azure issuer>` with the azure issuer URI. e.g. `https://<login-provider>/<tenant-id>/v2.0`
+        4. Add as many Azure Active Directory Groups as you want. All users from these groups will be authorized, to use the BurningOKR Tool. The rest will not be able to use the tool. You need to specify the `<Azure ad group name>` and the `<Azure ad group id>`.
+        5. To add more groups, you need to add more entries to the list. Here is an example:
+```yaml
+azureGroups:
+  - name: <Azure ad group name>
+    id: <Azure ad group id>
+  - name: <Azure ad group name>
+    id: <Azure ad group id>
+  - name: <Azure ad group name>
+    id: <Azure ad group id>
+```
