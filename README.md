@@ -2,7 +2,7 @@
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
 <p align="center">
-<a href="http://www.burningokr.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation (de)</a> | <a href="https://burning-okr.gitbook.io/burningokr/v/en/" target="_blank">documentation (en) </a> </a></p>
+<a href="http://burningokr.org" target="_blank">demo</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation (de)</a> | <a href="https://burning-okr.gitbook.io/burningokr/v/en/" target="_blank">documentation (en) </a> </a></p>
 <br/><br/><br/>
 
 # BurningOKR 
