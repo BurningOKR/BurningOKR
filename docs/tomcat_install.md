@@ -90,6 +90,7 @@
    sudo update-java-alternatives -l
    ```
    ![update-java-alternatives output](./images/update_java_alternatives_output.PNG)
+   
    Copy the path from the output.
 9. Create a new Systemd service by creating a tomcat.service file:
     ```
