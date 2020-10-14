@@ -1,10 +1,11 @@
-<app-dialog-component (okEmitter)="onSave()" [isSaveButtonDisabled]="rowData.data.length === 0">
+<app-dialog-component (okEmitter)="onSave()" [isSaveButtonDisabled]="rowData.data.length === 0 || warnings.duplicateEmailAdresses">
   <p i18n="@@importCsvDialog_description"> Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei
     in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung </p>
   <p *ngIf="rowData.data.length > 0" i18n="@@importCsvDialog_amountOfEntriesLoaded">Es wurden {{rowData.data.length}} Einträge geladen.</p>
-  <div *ngIf="warnings">
+  <p *ngIf="warnings">
     <mat-error *ngIf="warnings.tooManyFields" i18n="@@importCsvDialog_toManyEntriesWarning">Mindestens ein Eintrag hat zu viele spalten.</mat-error>
-  </div>
+    <mat-error *ngIf="warnings.duplicateEmailAdresses" i18n="@@importCsvDialog_duplicateEmailAdressesWarning">In diesem Datensatz sind doppelte Email Adressen.</mat-error>
+  </p>
   <mat-form-field [formGroup]="fileForm">
     <ngx-mat-file-input [formControl]="fileForm.controls.csvFile" accept=".csv, .txt"
                         placeholder="CSV-Datei" i18n-placeholder="@@importCsvDialog_csv-file"></ngx-mat-file-input>

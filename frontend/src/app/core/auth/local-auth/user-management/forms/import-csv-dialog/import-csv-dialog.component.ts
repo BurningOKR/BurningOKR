@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Papa } from 'ngx-papaparse';
 import { MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { User } from '../../../../../../shared/model/api/user';
 import { CsvParseResult, CsvUserParseService } from '../../services/csv-user-parse.service';
@@ -17,6 +16,11 @@ interface ImportCsvDialogForm {
   csvFile: FileInput;
 }
 
+interface ImportCsvWarnings {
+  tooManyFields: boolean;
+  duplicateEmailAdresses: boolean;
+}
+
 @Component({
   selector: 'app-import-csv-dialog',
   templateUrl: './import-csv-dialog.component.html',
@@ -27,13 +31,12 @@ export class ImportCsvDialogComponent implements OnInit {
   fileForm: FormGroupTyped<ImportCsvDialogForm>;
   rowData = new MatTableDataSource([] as User[]);
   columnsToDisplay = ['givenName', 'email', 'department', 'jobTitle'];
-  warnings: { tooManyFields: boolean };
+  warnings: ImportCsvWarnings;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private dialogRef: MatDialogRef<ImportCsvDialogComponent>,
-    private papa: Papa,
     private csvService: CsvUserParseService,
     private dialog: MatDialog,
     private formbuilder: FormBuilder,
@@ -62,9 +65,16 @@ export class ImportCsvDialogComponent implements OnInit {
         const csvContent: string | ArrayBuffer = reader.result.toString();
         const records: CsvParseResult = this.csvService.parseCsvStringToUserArray(csvContent);
         this.rowData.data = records.users;
-        this.warnings = records.warnings;
+        this.warnings = {
+          tooManyFields: records.warnings ? records.warnings.tooManyFields : false,
+          duplicateEmailAdresses: this.hasDuplicateEmailAdresses(records.users)
+        };
       };
     }
+  }
+
+  private hasDuplicateEmailAdresses(users: User[]): boolean {
+    return users.Any(user => users.Any(anotherUser => user !== anotherUser && user.email === anotherUser.email));
   }
 
   onSave(): void {
