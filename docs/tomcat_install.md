@@ -49,11 +49,13 @@
     ```
 2. Create the "admin" user role for BurningOKR: 
     ```
-    sudo -u postgres createuser --interactive
+    sudo -u postgres createuser --interactive --pwprompt
     ```
     This should look like this:
     ````
    Enter name of role to add: admin
+   Enter password for new role:
+   Enter it again:
    Shall the new role be a superuser? (y/n) n
    Shall the new role be allowed to create databases? (y/n) n
    Shall the new role be allowed to create more new roles? (y/n) n
