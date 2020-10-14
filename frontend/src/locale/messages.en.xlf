@@ -513,7 +513,56 @@
         </target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/logout/logout.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/logout/logout.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit><trans-unit id="importCsvDialog_description" datatype="html">
+        <source> Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei
+    in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung </source><target state="translated"> This function allows you to import users with a CSV file. The CSV file must provide the user data in the following order: First name, last name, email, job title, department </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_amountOfEntriesLoaded" datatype="html">
+        <source>Es wurden <x id="INTERPOLATION" equiv-text="{{rowData.data.length}}"/> Einträge geladen.</source><target state="translated"><x id="INTERPOLATION" equiv-text="{{rowData.data.length}}"/> entries were loaded.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_toManyEntriesWarning" datatype="html">
+        <source>Mindestens ein Eintrag hat zu viele spalten.</source><target state="translated">At least one entry has too many columns.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_csv-file" datatype="html">
+        <source>CSV-Datei</source><target state="translated">CSV file</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_table_name" datatype="html">
+        <source> Name</source><target state="translated"> Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_table_email" datatype="html">
+        <source> Email</source><target state="translated"> Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_table_department" datatype="html">
+        <source> Abteilung</source><target state="translated">Department</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_table_jobTitle" datatype="html">
+        <source> Jobbezeichnung</source><target state="translated">Job Title</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
         <source>Kein SMTP Konfiguriert</source><target state="translated">No SMPT configured</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
@@ -1116,69 +1165,45 @@
         <source>Fortschritt anpassen</source>
         <target state="translated">Adjust progress</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">33</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moreOptions" datatype="html">
         <source>Mehr Optionen zu diesem KeyResult</source>
         <target state="translated">More options for this KeyResult</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_commentsForThisKeyResult" datatype="html">
         <source>Kommentare zu diesem KeyResult</source>
         <target state="translated">Comments about this KeyResult</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">48</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_editKeyResult" datatype="html">
         <source>KeyResult bearbeiten</source>
         <target state="translated">Edit KeyResult</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">60</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">62</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultUp" datatype="html">
         <source>KeyResult nach oben verschieben</source>
         <target state="translated">Move KeyResult up</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">64</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">66</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultDown" datatype="html">
         <source>KeyResult nach unten verschieben</source>
         <target state="translated">Move KeyResult down</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">70</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_deleteKeyResult" datatype="html">
         <source>KeyResult löschen</source>
         <target state="translated">Delete KeyResult</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">72</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">74</context></context-group></trans-unit>
       <trans-unit id="component_mainView_toggleNavigation" datatype="html">
         <source>Navigationsmenü anzeigen/verbergen</source>
         <target state="translated">Show/hide navigation menu</target>
