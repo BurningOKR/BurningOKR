@@ -18,10 +18,12 @@ import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.LocalUserRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.burningokr.service.exceptions.DuplicateEmailException;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -99,7 +101,17 @@ public class LocalUserService implements UserService {
   public LocalUser createLocalUser(User user, boolean sendPassword) {
     LocalUser localUser = (LocalUser) user;
     localUser.setCreatedAt(LocalDateTime.now());
-    LocalUser result = localUserRepository.save(localUser);
+    LocalUser result;
+    try {
+      result = localUserRepository.save(localUser);
+    } catch (DataIntegrityViolationException e) {
+
+      // (R.J. 14.10.20)
+      // The only DataIntegrityViolationException possible is an exception due to a duplicate email
+      // adress
+      // So we can simply throw a DuplicateEmailException.
+      throw new DuplicateEmailException("The given Email adress already exists.");
+    }
 
     if (sendPassword) {
       passwordService.sendPasswordLinkToNewUser(result);
