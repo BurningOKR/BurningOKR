@@ -66,7 +66,7 @@ public class OkrBranchService {
 
   private void throwIdDeviationExceptionIfIdsAreDeviating(long branchId, OkrBranch okrBranch) {
     if (okrBranch.getId() != branchId) {
-      throw new IdDeviationException("IDs are deviating, but they has to be equal.");
+      throw new IdDeviationException("IDs are deviating, but they have to be equal.");
     }
   }
 

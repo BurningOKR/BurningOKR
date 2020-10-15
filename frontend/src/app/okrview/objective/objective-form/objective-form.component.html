@@ -28,7 +28,7 @@
 
     </mat-form-field>
 
-    <mat-form-field class="form-whole-line">
+    <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
       <mat-select (selectionChange)="onSelectUser($event)" formControlName="contactPersonId"
                   i18n-placeholder="@@contactPerson" placeholder="Ansprechpartner">
         <mat-option [value]="null"><span i18n="@@component_objectiveForm_noContactPerson">Kein Ansprechpartner</span></mat-option>

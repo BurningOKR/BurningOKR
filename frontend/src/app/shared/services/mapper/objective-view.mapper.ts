@@ -19,7 +19,8 @@ export class ObjectiveViewMapper {
       remark: viewObjective.remark,
       isActive: viewObjective.isActive,
       parentUnitId: viewObjective.parentUnitId,
-      parentObjectiveId: viewObjective.parentObjectiveId
+      parentObjectiveId: viewObjective.parentObjectiveId,
+      contactPersonId: viewObjective.contactPersonId
     };
   }
 

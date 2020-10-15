@@ -9,8 +9,13 @@
     <div class="customFlex-1">
 
       <div class="flex-wrap">
-        <div class="keyresult-title customFlex-2">
-          {{ keyResult.keyResult }}
+        <div class="customFlex-2">
+          <div class="keyresult-title">
+            {{ keyResult.keyResult }}
+          </div>
+          <div class="keyresult-description">
+            {{keyResult.description}}
+          </div>
         </div>
         <div class="flex-nowrap keyresult-slider">
           <div class="f-5">
@@ -33,9 +38,6 @@
             {{getKeyResultProgressText()}}
           </div>
         </div>
-      </div>
-      <div class="keyresult-description">
-        {{keyResult.description}}
       </div>
     </div>
 

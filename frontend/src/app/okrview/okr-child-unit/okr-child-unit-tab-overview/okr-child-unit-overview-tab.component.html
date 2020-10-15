@@ -2,7 +2,7 @@
   <div class="f-3 text-center">
     <div class="tab-headline">Objectives</div>
   </div>
-  <div class="f-1" *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()">
+  <div class="f-1 add-objective-button-container" *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()">
     <button mat-mini-fab color="accent" (click)="clickedAddObjective()">
       <mat-icon i18n-matTooltip="@@component_departmentTabOverview_createNewObjective"
                 matTooltip="Neues Objective erstellen">add_circle_outline

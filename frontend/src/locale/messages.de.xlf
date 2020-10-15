@@ -619,7 +619,48 @@
         </target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/logout/logout.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/logout/logout.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit><trans-unit id="importCsvDialog_description" datatype="html">
+        <source> Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei
+    in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung </source><target state="final"> Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei
+    in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_amountOfEntriesLoaded" datatype="html">
+        <source>Es wurden <x id="INTERPOLATION" equiv-text="{{rowData.data.length}}"/> Einträge geladen.</source><target state="final">Es wurden <x id="INTERPOLATION" equiv-text="{{rowData.data.length}}"/> Einträge geladen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_toManyEntriesWarning" datatype="html">
+        <source>Mindestens ein Eintrag hat zu viele spalten.</source><target state="final">Mindestens ein Eintrag hat zu viele spalten.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_duplicateEmailAdressesWarning" datatype="html">
+        <source>In diesem Datensatz sind doppelte Email Adressen.</source><target state="final">In diesem Datensatz sind doppelte Email Adressen.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="importCsvDialog_csv-file" datatype="html">
+        <source>CSV-Datei</source><target state="final">CSV-Datei</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_name" datatype="html">
+        <source> Name</source><target state="final"> Name</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_email" datatype="html">
+        <source> Email</source><target state="final"> Email</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_department" datatype="html">
+        <source> Abteilung</source><target state="final"> Abteilung</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_jobTitle" datatype="html">
+        <source> Jobbezeichnung</source><target state="final"> Jobbezeichnung</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
         <source>Kein SMTP Konfiguriert</source><target state="final">Kein SMTP Konfiguriert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
@@ -1231,69 +1272,45 @@
         <source>Fortschritt anpassen</source>
         <target state="final">Fortschritt anpassen</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">33</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moreOptions" datatype="html">
         <source>Mehr Optionen zu diesem KeyResult</source>
         <target state="final">Mehr Optionen zu diesem KeyResult</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_commentsForThisKeyResult" datatype="html">
         <source>Kommentare zu diesem KeyResult</source>
         <target state="final">Kommentare zu diesem KeyResult</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">48</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_editKeyResult" datatype="html">
         <source>KeyResult bearbeiten</source>
         <target state="final">KeyResult bearbeiten</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">60</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">62</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultUp" datatype="html">
         <source>KeyResult nach oben verschieben</source>
         <target state="final">KeyResult nach oben verschieben</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">64</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">66</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultDown" datatype="html">
         <source>KeyResult nach unten verschieben</source>
         <target state="final">KeyResult nach unten verschieben</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">70</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_deleteKeyResult" datatype="html">
         <source>KeyResult löschen</source>
         <target state="final">KeyResult löschen</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
-          <context context-type="linenumber">72</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">74</context></context-group></trans-unit>
       <trans-unit id="component_mainView_toggleNavigation" datatype="html">
         <source>Navigationsmenü anzeigen/verbergen</source>
         <target state="final">Navigationsmenü anzeigen/verbergen</target>

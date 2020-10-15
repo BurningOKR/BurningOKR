@@ -42,7 +42,7 @@ jobs:
       run: npm version $PACKAGE_VERSION --allow-same-version
       working-directory: ./frontend
     - name: Npm Build
-      run: npm run build-prod
+      run: npm run build-prod-new
       working-directory: ./frontend
     - name: ng lint
       run: npm run lint

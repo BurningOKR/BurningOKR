@@ -1,6 +1,7 @@
 package org.burningokr.applicationlisteners;
 
 import lombok.RequiredArgsConstructor;
+import org.burningokr.consts.DefaultAzureAuthData;
 import org.burningokr.model.configuration.OAuthConfigurationName;
 import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.configuration.OAuthConfigurationService;
@@ -14,15 +15,11 @@ import org.springframework.stereotype.Component;
 @Conditional(AadCondition.class)
 @Component
 @RequiredArgsConstructor
-public class ApplicationStartupAzureConfigurer {
+public class ApplicationStartupAzureAuthConfigurer {
 
   private final OAuthConfigurationService oAuthConfigurationService;
   private final ExternalOAuthClientDetails externalOAuthClientDetails;
   private final AzureAdProperties azureAdProperties;
-
-  private final String defaultResponseType = "id_token token";
-  private final String defaultOIDC = "true";
-  private final String azureAuthType = "azure";
 
   /**
    * This function moves the required configurations from the application.yml to the
@@ -36,9 +33,10 @@ public class ApplicationStartupAzureConfigurer {
     oAuthConfigurationService.setOAuthConfiguration(
         OAuthConfigurationName.ISSUER, azureAdProperties.getIssuer());
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.RESPONSE_TYPE, defaultResponseType);
-    oAuthConfigurationService.setOAuthConfiguration(OAuthConfigurationName.OIDC, defaultOIDC);
+        OAuthConfigurationName.RESPONSE_TYPE, DefaultAzureAuthData.responseType);
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.AUTH_TYPE, azureAuthType);
+        OAuthConfigurationName.OIDC, DefaultAzureAuthData.oidc);
+    oAuthConfigurationService.setOAuthConfiguration(
+        OAuthConfigurationName.AUTH_TYPE, DefaultAzureAuthData.authType);
   }
 }

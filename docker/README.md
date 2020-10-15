@@ -48,7 +48,7 @@ database location (E.g. Line 13 for a Docker based Database, recommended for tes
 and ``<smtp-port>``. You might need to acquire these from your system administrator. If mails are not wanted, delete 
 placeholder.
 6. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use 
-Azure Active Directory as your userbase by replacing ``<local|aad>`` with either ``local`` or ``aad``. 
+Azure Active Directory as your userbase by replacing ``<local|aad>`` with either ``local`` or ``azure``. 
     1. **When using aad as the userbase, you also need to do the following steps. You do not need to this,
     when you are using the local user database.**
         1. Replace the ``<azure-issuer>`` placeholder with your azure issuer URI. e.g. ``https://<login-provider>/<tenannt-id>/v2.0``
