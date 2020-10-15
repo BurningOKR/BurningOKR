@@ -57,7 +57,7 @@ public class DatabaseScheduleService {
   @Transactional
   public void executeSQL(String sql) {
     EntityManager entityManager = null;
-    try{
+    try {
       entityManager = entityManagerFactory.createEntityManager();
       EntityTransaction transaction = entityManager.getTransaction();
       transaction.begin();
@@ -66,7 +66,7 @@ public class DatabaseScheduleService {
     } catch (Exception e) {
 
     } finally {
-      if(entityManager != null && entityManager.isOpen()) {
+      if (entityManager != null && entityManager.isOpen()) {
         entityManager.close();
       }
     }

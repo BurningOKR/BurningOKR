@@ -1,6 +1,5 @@
 package org.burningokr.controller.demoWebsite;
 
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.service.demoWebsite.DatabaseScheduleService;
