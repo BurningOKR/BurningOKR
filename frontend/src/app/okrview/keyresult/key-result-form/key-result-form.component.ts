@@ -97,7 +97,8 @@ export class KeyResultFormComponent {
         formData.keyResult,
         formData.description,
         undefined,
-        undefined
+        undefined,
+        []
       );
 
       this.dialogRef.close(this.keyResultMapper.postKeyResult$(this.formData.objectiveId, newKeyResult));

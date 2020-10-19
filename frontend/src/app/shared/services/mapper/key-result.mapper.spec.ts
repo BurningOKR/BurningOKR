@@ -20,7 +20,8 @@ const keyResultDto: KeyResultDto = {
   startValue: 0,
   targetValue: 10,
   title: 'test key result',
-  unit: Unit[Unit.EURO]
+  unit: Unit[Unit.EURO],
+  keyResultMilstoneDtos: []
 };
 
 const keyResult: ViewKeyResult = new ViewKeyResult(
@@ -32,7 +33,8 @@ const keyResult: ViewKeyResult = new ViewKeyResult(
   'result',
   'description',
   11,
-  [12345]
+  [12345],
+  []
   )
 ;
 let service: KeyResultMapper;

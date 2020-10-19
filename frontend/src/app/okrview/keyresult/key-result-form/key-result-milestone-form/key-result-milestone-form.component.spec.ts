@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { KeyResultMilestoneFormComponent } from './key-result-milestone-form.component';
+import { MaterialTestingModule } from '../../../../testing/material-testing.module';
+import { FormErrorComponent } from '../../../../shared/components/form-error/form-error.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('KeyResultMilestoneFormComponent', () => {
   let component: KeyResultMilestoneFormComponent;
@@ -8,7 +11,8 @@ describe('KeyResultMilestoneFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KeyResultMilestoneFormComponent ]
+      declarations: [ KeyResultMilestoneFormComponent, FormErrorComponent ],
+      imports: [ MaterialTestingModule, ReactiveFormsModule, FormsModule ]
     })
     .compileComponents();
   }));
@@ -20,6 +24,7 @@ describe('KeyResultMilestoneFormComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });
