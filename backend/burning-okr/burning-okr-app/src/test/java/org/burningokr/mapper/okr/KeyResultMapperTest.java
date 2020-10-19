@@ -3,10 +3,8 @@ package org.burningokr.mapper.okr;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.burningokr.dto.okr.KeyResultDto;
-import org.burningokr.model.okr.KeyResult;
-import org.burningokr.model.okr.Note;
-import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okr.Unit;
+import org.burningokr.dto.okr.KeyResultMilestoneDto;
+import org.burningokr.model.okr.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +21,7 @@ public class KeyResultMapperTest {
     this.keyResult = new KeyResult();
     Objective parentObjective = new Objective();
     this.keyResult.setParentObjective(parentObjective);
-    this.keyResultMapper = new KeyResultMapper();
+    this.keyResultMapper = new KeyResultMapper(new KeyResultMilestoneMapper());
   }
 
   // region EntityToDto
@@ -123,6 +121,37 @@ public class KeyResultMapperTest {
 
     Assert.assertEquals(expected, keyResultDto.getUnit());
   }
+
+  @Test
+  public void test_mapEntityToDto_expectsEmptyKeyResultMilestonesAreMapped() {
+    Collection<KeyResultMilestone> milestones = new ArrayList<>();
+
+    keyResult.setMilestones(milestones);
+
+    keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
+
+    Assert.assertTrue(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
+  }
+
+  @Test
+  public void test_mapEntityToDto_expectsKeyResultMilestonesAreMapped() {
+    Long expectedId = 18L;
+
+    Collection<KeyResultMilestone> milestones = new ArrayList<>();
+    KeyResultMilestone milestone = new KeyResultMilestone();
+    milestone.setId(expectedId);
+    milestone.setParentKeyResult(keyResult);
+    milestones.add(milestone);
+
+    keyResult.setMilestones(milestones);
+
+    keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
+
+    Assert.assertFalse(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
+    Assert.assertTrue(
+        keyResultDto.getKeyResultMilestoneDtos().stream()
+            .anyMatch(keyResultDto -> keyResultDto.getId().equals(expectedId)));
+  }
   // endregion
 
   // region DtoToEntity
@@ -216,6 +245,38 @@ public class KeyResultMapperTest {
     keyResultDto.setUnit(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     Assert.assertEquals(expected, keyResult.getUnit());
+  }
+
+  @Test
+  public void test_mapDtoToentity_expectsEmptyKeyResultMilestonesAreMapped() {
+    Collection<KeyResultMilestoneDto> milestonesDtos = new ArrayList<>();
+
+    keyResultDto.setKeyResultMilestoneDtos(milestonesDtos);
+
+    keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
+
+    Assert.assertTrue(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
+  }
+
+  @Test
+  public void test_mapDtoToEntity_expectsKeyResultMilestonesAreMapped() {
+    Long expectedId = 18L;
+
+    Collection<KeyResultMilestoneDto> milestoneDtos = new ArrayList<>();
+    KeyResultMilestoneDto milestoneDto = new KeyResultMilestoneDto();
+    keyResult.setId(10L);
+    milestoneDto.setId(expectedId);
+    milestoneDto.setParentKeyResultId(keyResult.getId());
+    milestoneDtos.add(milestoneDto);
+
+    keyResultDto.setKeyResultMilestoneDtos(milestoneDtos);
+
+    keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
+
+    Assert.assertFalse(keyResult.getMilestones().isEmpty());
+    Assert.assertTrue(
+        keyResult.getMilestones().stream()
+            .anyMatch(keyResult -> keyResult.getId().equals(expectedId)));
   }
   // endregion
 }

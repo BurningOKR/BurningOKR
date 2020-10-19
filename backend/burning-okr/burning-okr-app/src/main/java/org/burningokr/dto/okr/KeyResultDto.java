@@ -36,4 +36,6 @@ public class KeyResultDto {
   private int sequence;
 
   private Collection<Long> noteIds = new ArrayList<>();
+
+  private Collection<KeyResultMilestoneDto> keyResultMilestoneDtos = new ArrayList<>();
 }
