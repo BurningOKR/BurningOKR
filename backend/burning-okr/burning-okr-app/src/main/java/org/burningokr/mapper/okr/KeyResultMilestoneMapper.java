@@ -6,7 +6,9 @@ import org.burningokr.dto.okr.KeyResultMilestoneDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
+import org.springframework.stereotype.Service;
 
+@Service
 public class KeyResultMilestoneMapper
     implements DataMapper<KeyResultMilestone, KeyResultMilestoneDto> {
   @Override
