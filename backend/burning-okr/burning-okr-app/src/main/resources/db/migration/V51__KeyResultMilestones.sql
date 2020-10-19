@@ -1,4 +1,4 @@
-CREATE TABLE public.key_result_milestones
+CREATE TABLE public.key_result_milestone
 (
    id bigint NOT NULL,
    name character varying(255) NOT NULL,
