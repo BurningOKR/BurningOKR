@@ -40,4 +40,7 @@ public class KeyResult implements Trackable<Long> {
 
   @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
   private Collection<Note> notes = new ArrayList<>();
+
+  @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
+  private Collection<KeyResultMilestone> milestones = new ArrayList<>();
 }
