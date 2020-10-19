@@ -16,17 +16,18 @@ export class KeyResultMilestoneFormComponent implements OnInit {
   isChecked: boolean = false;
 
   ngOnInit(): void {
-    this.keyResult.viewKeyResultMilestones.forEach((viewKeyResultMilestone: ViewKeyResultMilestone) => {
-      this.addMilestone(viewKeyResultMilestone.name, viewKeyResultMilestone.value);
-    });
+    if (this.keyResult) {
+      this.keyResult.viewKeyResultMilestones.forEach((viewKeyResultMilestone: ViewKeyResultMilestone) => {
+        this.addMilestone(viewKeyResultMilestone.name, viewKeyResultMilestone.value);
+      });
+    }
   }
 
   addMilestone(name: string, value: number): void {
-    this.formArray.controls.push(new FormGroup({
+    this.formArray.push(new FormGroup({
       nameControl: new FormControl(name, [Validators.required, Validators.maxLength(255)]),
       targetValueControl: new FormControl(value, [Validators.required, Validators.min(1)]),
     }));
-    this.formArray.updateValueAndValidity();
   }
 
   deleteMilestone(milestoneForm: FormGroup): void {
