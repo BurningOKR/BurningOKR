@@ -39,8 +39,9 @@ import { NavigationListEntryComponent } from './navigation-list-entry/navigation
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
 import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
-import { MatSlideToggleModule } from '@angular/material';
+import {MatCheckboxModule, MatSlideToggleModule} from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
+import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AvatarModule } from 'ngx-avatar';
     CommentViewDialogComponent,
     CommentCardComponent,
     CycleListDropdownComponent,
+    KeyResultMilestoneFormComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
@@ -95,7 +97,8 @@ import { AvatarModule } from 'ngx-avatar';
     DragDropModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
-    AvatarModule
+    AvatarModule,
+    MatCheckboxModule
   ]
 })
 export class OkrviewModule {}

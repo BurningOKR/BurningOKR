@@ -1,0 +1,16 @@
+mat-form-field.text-input, mat-form-field.number-input {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.inputs {
+  display: flex;
+}
+
+.delete-button {
+  top: 10px;
+}
+
+.toggleMilestone {
+  width: 50%;
+}

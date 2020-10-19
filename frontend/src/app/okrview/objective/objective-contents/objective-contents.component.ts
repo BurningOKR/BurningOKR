@@ -111,7 +111,7 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
   clickedAddKeyResult(): void {
     if (this.objective.keyResultIdList.length < this.maxKeyResults) {
       const dialogReference: MatDialogRef<KeyResultFormComponent, ObservableInput<any>> = this.matDialog.open(KeyResultFormComponent, {
-        data: {objectiveId: this.objective.id}
+        data: {objectiveId: this.objective.id}, width: '75%'
       });
 
       dialogReference

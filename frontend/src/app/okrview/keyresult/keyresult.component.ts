@@ -142,7 +142,7 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   clickedEditKeyResult(): void {
     const dialogReference: MatDialogRef<KeyResultFormComponent, any> = this.matDialog.open(KeyResultFormComponent, {
-      data: { keyResult: this.keyResult }
+      data: { keyResult: this.keyResult }, width: '75%'
     });
 
     this.subscriptions.push(
