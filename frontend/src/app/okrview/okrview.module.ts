@@ -42,6 +42,7 @@ import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-f
 import {MatCheckboxModule, MatSlideToggleModule} from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -73,32 +74,33 @@ import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key
     KeyResultFormComponent,
     ObjectiveFormComponent,
     ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    OkrviewRoutingModule,
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDividerModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatBadgeModule,
-    MatSliderModule,
-    MatSidenavModule,
-    MatDialogModule,
-    MatInputModule,
-    MatSelectModule,
-    FormsModule,
-    DragDropModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    AvatarModule,
-    MatCheckboxModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        OkrviewRoutingModule,
+        MatCardModule,
+        MatTabsModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatDividerModule,
+        MatMenuModule,
+        MatExpansionModule,
+        MatBadgeModule,
+        MatSliderModule,
+        MatSidenavModule,
+        MatDialogModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule,
+        DragDropModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        AvatarModule,
+        MatCheckboxModule,
+        ScrollingModule
+    ]
 })
 export class OkrviewModule {}
