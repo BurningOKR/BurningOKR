@@ -1,13 +1,13 @@
 <mat-slide-toggle class="toggleMilestone" (change)="isChecked=$event.checked">Meilenstein</mat-slide-toggle>
 
-<button class="addMilestone-button" mat-mini-fab matTooltip="Meilenstein hinzufügen" (click)="addMilestone()" *ngIf="isChecked">
+<button class="addMilestone-button" mat-mini-fab matTooltip="Meilenstein hinzufügen" (click)="addMilestone(undefined, undefined)" *ngIf="isChecked">
   <mat-icon>
     add_circle_outline
   </mat-icon>
 </button>
 
 <div *ngIf="isChecked">
-  <div class="inputs" *ngFor="let formGroup of milestoneForm.controls">
+  <div class="inputs" *ngFor="let formGroup of formArray.controls">
     <mat-form-field class="text-input">
       <input type="text" matInput placeholder="Name *" [formControl]="formGroup.get('nameControl')">
       <mat-error><app-form-error [control]="formGroup.get('nameControl')"></app-form-error></mat-error>

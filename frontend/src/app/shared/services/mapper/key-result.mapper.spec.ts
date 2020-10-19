@@ -21,7 +21,7 @@ const keyResultDto: KeyResultDto = {
   targetValue: 10,
   title: 'test key result',
   unit: Unit[Unit.EURO],
-  keyResultMilstoneDtos: []
+  keyResultMilestoneDtos: []
 };
 
 const keyResult: ViewKeyResult = new ViewKeyResult(

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { Unit } from '../../../shared/model/api/unit.enum';
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -19,6 +19,7 @@ interface KeyResultFormData {
   styleUrls: ['./key-result-form.component.scss'],
 })
 export class KeyResultFormComponent {
+
   keyResult: ViewKeyResult;
   keyResultForm: FormGroup;
   unitEnum = Unit;
@@ -33,7 +34,8 @@ export class KeyResultFormComponent {
       end: new FormControl(10, [Validators.required, Validators.min(0)]),
       start: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl(Unit.NUMBER, [Validators.required]),
-      description: new FormControl('', [Validators.maxLength(255)])
+      description: new FormControl('', [Validators.maxLength(255)]),
+      milestones: new FormArray([])
     }, [StartDateNotEqualEndDateValidator.Validate, CurrentHigherThanEndValidator.Validate]);
 
     if (this.formData.keyResult) {
@@ -83,6 +85,7 @@ export class KeyResultFormComponent {
       keyResult.start = this.keyResultForm.get('start').value;
       keyResult.description = this.keyResultForm.get('description').value;
       keyResult.unit = this.keyResultForm.get('unit').value;
+      keyResult.viewKeyResultMilestones = [];
 
       this.dialogRef.close(this.keyResultMapper.putKeyResult$(keyResult));
     } else {

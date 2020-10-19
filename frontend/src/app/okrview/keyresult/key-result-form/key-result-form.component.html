@@ -35,7 +35,7 @@
 
     </mat-form-field>
 
-    <app-key-result-milestone-form></app-key-result-milestone-form>
+    <app-key-result-milestone-form [keyResult]="keyResult" [formArray]="keyResultForm.get('milestones')"></app-key-result-milestone-form>
 
     <mat-form-field class="fullWidth">
       <textarea matInput matTextareaAutosize i18n-placeholder="@@component_keyResultForm_description" placeholder="Beschreibung" formControlName="description"></textarea>

@@ -12,5 +12,5 @@ export interface KeyResultDto {
   id?: KeyResultId;
   noteIds?: number[];
   parentObjectiveId?: number;
-  keyResultMilstoneDtos?: KeyResultMilestoneDto[];
+  keyResultMilestoneDtos?: KeyResultMilestoneDto[];
 }

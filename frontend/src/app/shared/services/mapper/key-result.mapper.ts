@@ -33,7 +33,7 @@ export class KeyResultMapper {
       description: viewKeyResult.description,
       noteIds: viewKeyResult.commentIdList,
       parentObjectiveId: viewKeyResult.parentObjectiveId,
-      keyResultMilstoneDtos: KeyResultMilestoneMapper.mapToKeyResultMilestoneDtos(viewKeyResult.viewKeyResultMilestones)
+      keyResultMilestoneDtos: KeyResultMilestoneMapper.mapToKeyResultMilestoneDtos(viewKeyResult.viewKeyResultMilestones)
     };
   }
 
@@ -48,7 +48,7 @@ export class KeyResultMapper {
       keyResult.description,
       keyResult.parentObjectiveId,
       keyResult.noteIds,
-      KeyResultMilestoneMapper.mapToViewkeyResultMilestones(keyResult.keyResultMilstoneDtos)
+      KeyResultMilestoneMapper.mapToViewkeyResultMilestones(keyResult.keyResultMilestoneDtos)
     );
   }
 
