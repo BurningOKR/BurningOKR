@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-key-result-milestone-form',
@@ -13,8 +13,8 @@ export class KeyResultMilestoneFormComponent {
 
   addMilestone(): void {
     this.milestoneForm.controls.push(new FormGroup({
-      nameControl: new FormControl(),
-      targetValueControl: new FormControl(),
+      nameControl: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      targetValueControl: new FormControl('', [Validators.required, Validators.min(1)]),
     }));
   }
 

@@ -10,11 +10,15 @@
   <div class="inputs" *ngFor="let formGroup of milestoneForm.controls">
     <mat-form-field class="text-input">
       <input type="text" matInput placeholder="Name *" [formControl]="formGroup.get('nameControl')">
+      <mat-error><app-form-error [control]="formGroup.get('nameControl')"></app-form-error></mat-error>
     </mat-form-field>
+
 
     <mat-form-field class="number-input">
       <input type="number" matInput placeholder="Ziel-Wert *" [formControl]="formGroup.get('targetValueControl')">
+      <mat-error><app-form-error [control]="formGroup.get('targetValueControl')"></app-form-error></mat-error>
     </mat-form-field>
+
 
     <button class="delete-button" mat-icon-button (click)="deleteMilestone(formGroup)">
       <mat-icon>
