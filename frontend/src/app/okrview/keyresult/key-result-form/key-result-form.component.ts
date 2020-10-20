@@ -35,7 +35,7 @@ export class KeyResultFormComponent {
       start: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl(Unit.NUMBER, [Validators.required]),
       description: new FormControl('', [Validators.maxLength(255)]),
-      milestones: new FormArray([])
+      viewKeyResultMilestones: new FormArray([])
     }, [StartDateNotEqualEndDateValidator.Validate, CurrentHigherThanEndValidator.Validate]);
 
     if (this.formData.keyResult) {
@@ -85,7 +85,7 @@ export class KeyResultFormComponent {
       keyResult.start = this.keyResultForm.get('start').value;
       keyResult.description = this.keyResultForm.get('description').value;
       keyResult.unit = this.keyResultForm.get('unit').value;
-      keyResult.viewKeyResultMilestones = [];
+      keyResult.viewKeyResultMilestones = this.keyResultForm.get('viewKeyResultMilestones').value;
 
       this.dialogRef.close(this.keyResultMapper.putKeyResult$(keyResult));
     } else {
@@ -101,7 +101,7 @@ export class KeyResultFormComponent {
         formData.description,
         undefined,
         undefined,
-        []
+        formData.viewKeyResultMilestones
       );
 
       this.dialogRef.close(this.keyResultMapper.postKeyResult$(this.formData.objectiveId, newKeyResult));
