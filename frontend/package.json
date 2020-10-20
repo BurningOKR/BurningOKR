@@ -53,6 +53,7 @@
     "@saithodev/ts-appversion": "^2.1.3",
     "@types/file-saver": "^2.0.1",
     "angular-oauth2-oidc": "^8.0.4",
+    "angular-resize-event": "^2.0.0",
     "class-transformer": "^0.2.3",
     "core-js": "^3.1.4",
     "file-saver": "^2.0.2",

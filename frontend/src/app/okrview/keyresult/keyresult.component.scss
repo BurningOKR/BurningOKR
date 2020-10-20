@@ -47,10 +47,25 @@
   flex: 3.0 0.3 256px
 }
 
+.changePositonListNumberForEvent {
+  position: relative;
+  bottom: 38px;
+}
+
+.changePositionForEvent {
+  right: 110px;
+  bottom: 38px;
+}
+
+.keyresult-sliderForEvent {
+  right: 25px;
+  margin-right: 5px;
+}
+
 @media only screen and (max-width: 510px) {
   .changePositonListNumber {
     position: relative;
-    bottom: 38px !important;
+    bottom: 38px;
   }
 
   .changePosition {

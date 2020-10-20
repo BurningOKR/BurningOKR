@@ -39,10 +39,11 @@ import { NavigationListEntryComponent } from './navigation-list-entry/navigation
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
 import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
-import {MatCheckboxModule, MatSlideToggleModule} from '@angular/material';
+import { MatCheckboxModule, MatSlideToggleModule } from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     KeyResultFormComponent,
     ObjectiveFormComponent,
     ],
-    imports: [
+  imports: [
         CommonModule,
         SharedModule,
         OkrviewRoutingModule,
@@ -100,7 +101,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         MatSlideToggleModule,
         AvatarModule,
         MatCheckboxModule,
-        ScrollingModule
+        ScrollingModule,
+        AngularResizedEventModule,
     ]
 })
 export class OkrviewModule {}

@@ -1,10 +1,10 @@
 <mat-card class="keyresult-card">
-  <div class="flex-nowrap">
+  <div class="flex-nowrap" (resized)="onResized($event)">
 
     <!-- Drag handle by parent component contained here -->
     <ng-content></ng-content>
 
-    <div class="icon-spacer keyresult-title changePositonListNumber">{{ listNumber }} .</div>
+    <div class="icon-spacer keyresult-title changePositonListNumber" [class.changePositonListNumberForEvent]=style>{{ listNumber }} .</div>
 
     <div class="customFlex-1">
 
@@ -42,11 +42,11 @@
     </div>
 
     <button *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()" [matMenuTriggerFor]="optionsMenu"
-      [matMenuTriggerData]="{ keyResult: keyResult }" class="icon-spacer changePosition" mat-icon-button>
+      [matMenuTriggerData]="{ keyResult: keyResult }" class="icon-spacer changePosition" mat-icon-button [class.changePositionForEvent]=style>
       <mat-icon i18n-matTooltip="@@component_keyResult_moreOptions" matTooltip="Mehr Optionen zu diesem KeyResult">more_vert</mat-icon>
     </button>
 
-    <button class="icon-spacer changePosition" mat-icon-button (click)="clickedOpenComments()">
+    <button class="icon-spacer changePosition" mat-icon-button (click)="clickedOpenComments()" [class.changePositionForEvent]=style>
       <mat-icon [matBadge]="getKeyResultCommentCount()" i18n-matTooltip="@@component_keyResult_commentsForThisKeyResult" matTooltip="Kommentare zu diesem KeyResult">chat
       </mat-icon>
     </button>
