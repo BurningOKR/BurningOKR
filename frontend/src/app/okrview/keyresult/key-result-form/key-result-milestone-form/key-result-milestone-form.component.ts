@@ -33,6 +33,8 @@ export class KeyResultMilestoneFormComponent implements OnInit {
 
   deleteMilestone(milestoneForm: AbstractControl): void {
     const index: number = this.formArray.controls.findIndex(control => control === milestoneForm);
-    this.formArray.removeAt(index);
+    if (index >= 0) {
+      this.formArray.removeAt(index);
+    }
   }
 }
