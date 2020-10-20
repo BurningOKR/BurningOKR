@@ -28,4 +28,11 @@
 .info-container {
   display: flex;
   margin-top: 10px;
+  align-items: center;
+}
+
+@media (max-width: 780px) {
+  .icon-container {
+    display: none;
+  }
 }
