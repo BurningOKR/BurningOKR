@@ -39,8 +39,10 @@ import { NavigationListEntryComponent } from './navigation-list-entry/navigation
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
 import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
-import { MatSlideToggleModule } from '@angular/material';
+import {MatCheckboxModule, MatSlideToggleModule} from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
+import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,7 @@ import { AvatarModule } from 'ngx-avatar';
     CommentViewDialogComponent,
     CommentCardComponent,
     CycleListDropdownComponent,
+    KeyResultMilestoneFormComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
@@ -71,31 +74,33 @@ import { AvatarModule } from 'ngx-avatar';
     KeyResultFormComponent,
     ObjectiveFormComponent,
     ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    OkrviewRoutingModule,
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDividerModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatBadgeModule,
-    MatSliderModule,
-    MatSidenavModule,
-    MatDialogModule,
-    MatInputModule,
-    MatSelectModule,
-    FormsModule,
-    DragDropModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    AvatarModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        OkrviewRoutingModule,
+        MatCardModule,
+        MatTabsModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatDividerModule,
+        MatMenuModule,
+        MatExpansionModule,
+        MatBadgeModule,
+        MatSliderModule,
+        MatSidenavModule,
+        MatDialogModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule,
+        DragDropModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        AvatarModule,
+        MatCheckboxModule,
+        ScrollingModule
+    ]
 })
 export class OkrviewModule {}

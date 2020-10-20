@@ -6,6 +6,7 @@ import { ViewKeyResult } from '../../model/ui/view-key-result';
 import { KeyResultApiService } from '../api/key-result-api.service';
 import { ObjectiveId } from '../../model/id-types';
 import { Unit } from '../../model/api/unit.enum';
+import { KeyResultMilestoneMapper } from './key-result-milestone.mapper';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,8 @@ export class KeyResultMapper {
       title: viewKeyResult.keyResult,
       description: viewKeyResult.description,
       noteIds: viewKeyResult.commentIdList,
-      parentObjectiveId: viewKeyResult.parentObjectiveId
+      parentObjectiveId: viewKeyResult.parentObjectiveId,
+      keyResultMilestoneDtos: KeyResultMilestoneMapper.mapToKeyResultMilestoneDtos(viewKeyResult.viewKeyResultMilestones)
     };
   }
 
@@ -45,7 +47,8 @@ export class KeyResultMapper {
       keyResult.title,
       keyResult.description,
       keyResult.parentObjectiveId,
-      keyResult.noteIds
+      keyResult.noteIds,
+      KeyResultMilestoneMapper.mapToViewkeyResultMilestones(keyResult.keyResultMilestoneDtos)
     );
   }
 

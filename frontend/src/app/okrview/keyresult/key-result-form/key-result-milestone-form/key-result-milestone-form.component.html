@@ -1,0 +1,29 @@
+<mat-slide-toggle class="toggleMilestone" (change)="isChecked=$event.checked">Meilenstein</mat-slide-toggle>
+
+<button class="addMilestone-button" mat-mini-fab matTooltip="Meilenstein hinzufügen" (click)="addMilestone(undefined,undefined, undefined)" *ngIf="isChecked">
+  <mat-icon>
+    add_circle_outline
+  </mat-icon>
+</button>
+
+<div *ngIf="isChecked">
+  <div class="inputs" *ngFor="let formGroup of formArray.controls">
+    <mat-form-field class="text-input">
+      <input type="text" matInput placeholder="Name *" [formControl]="formGroup.get('name')">
+      <mat-error><app-form-error [control]="formGroup.get('name')"></app-form-error></mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="number-input">
+      <input type="number" matInput placeholder="Ziel-Wert *" [formControl]="formGroup.get('value')">
+      <mat-error><app-form-error [control]="formGroup.get('value')"></app-form-error></mat-error>
+    </mat-form-field>
+
+
+    <button class="delete-button" mat-icon-button (click)="deleteMilestone(formGroup)">
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
+  </div>
+</div>
