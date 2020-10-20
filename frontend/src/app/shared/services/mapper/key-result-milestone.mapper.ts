@@ -11,7 +11,7 @@ export class KeyResultMilestoneMapper {
     return {
       id: viewKeyResultMilestone.id,
       name: viewKeyResultMilestone.name,
-      parentKeyResult: viewKeyResultMilestone.parentKeyResult,
+      parentKeyResultId: viewKeyResultMilestone.parentKeyResult,
       value: viewKeyResultMilestone.value
     };
   }
@@ -26,7 +26,7 @@ export class KeyResultMilestoneMapper {
     return new ViewKeyResultMilestone(
       keyResultMilestoneDto.id,
       keyResultMilestoneDto.name,
-      keyResultMilestoneDto.parentKeyResult,
+      keyResultMilestoneDto.parentKeyResultId,
       keyResultMilestoneDto.value
     );
   }

@@ -18,16 +18,22 @@ export class KeyResultMilestoneFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.keyResult) {
       this.keyResult.viewKeyResultMilestones.forEach((viewKeyResultMilestone: ViewKeyResultMilestone) => {
-        this.addMilestone(viewKeyResultMilestone.id, viewKeyResultMilestone.name, viewKeyResultMilestone.value);
+        this.addMilestone(
+          viewKeyResultMilestone.id,
+          viewKeyResultMilestone.name,
+          viewKeyResultMilestone.value,
+          viewKeyResultMilestone.parentKeyResult
+        );
       });
     }
   }
 
-  addMilestone(id: number, name: string, value: number): void {
+  addMilestone(id: number, name: string, value: number, parentKeyResultId: number): void {
     this.formArray.push(new FormGroup({
       id: new FormControl(id),
       name: new FormControl(name, [Validators.required, Validators.maxLength(255)]),
       value: new FormControl(value, [Validators.required, Validators.min(1)]),
+      parentKeyResult: new FormControl(parentKeyResultId)
     }));
   }
 
