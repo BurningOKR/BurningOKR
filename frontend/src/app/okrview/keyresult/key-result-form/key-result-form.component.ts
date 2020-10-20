@@ -27,7 +27,8 @@ export class KeyResultFormComponent {
 
   constructor(private dialogRef: MatDialogRef<KeyResultFormComponent>,
               private i18n: I18n,
-              private keyResultMapper: KeyResultMapper, @Inject(MAT_DIALOG_DATA) private formData: KeyResultFormData) {
+              private keyResultMapper: KeyResultMapper,
+              @Inject(MAT_DIALOG_DATA) private formData: KeyResultFormData) {
     this.keyResultForm = new FormGroup({
       keyResult: new FormControl('', [Validators.required, Validators.maxLength(255)]),
       current: new FormControl(0, [Validators.required, Validators.min(0)]),
