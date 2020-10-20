@@ -80,3 +80,15 @@ mat-expansion-panel-body {}
 .objective-title-flex {
   flex: 3.0 0.4 256px;
 }
+
+@media only screen and (max-width: 480px) {
+  .circle {
+    display: none;
+  }
+  .objective-title {
+    max-width: 75%;
+  }
+  .objective-progressBar {
+    margin-right: 20px;
+  }
+}
