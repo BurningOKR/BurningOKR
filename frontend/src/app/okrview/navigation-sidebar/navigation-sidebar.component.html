@@ -7,7 +7,7 @@
       <app-cycle-list-dropdown></app-cycle-list-dropdown>
     </div>
 
-    <div *ngIf="(currentCompany$ | async ) as company">
+    <div *ngIf="(currentCompany$ | async ) as company" (click)="toggleOpenSideNav()">
       <div class="flex-nowrap">
         <button mat-button class="entry-title" [routerLink]="['./companies/'+company.id]">
           <mat-icon class="icon-spacer">business</mat-icon>
@@ -17,7 +17,7 @@
     </div>
 
     <div *ngFor="let unitSchema of (currentUnitSchema$ | async)">
-      <app-navigation-list-entry [schema]="unitSchema" [startsOpen]="true">
+      <app-navigation-list-entry [schema]="unitSchema" [startsOpen]="true" (click)="toggleOpenSideNav()">
       </app-navigation-list-entry>
     </div>
 
