@@ -21,6 +21,7 @@
 
 .objective-title {
   font-size: medium;
+  word-break: break-all;
 }
 
 .objective-progressBar {
@@ -29,7 +30,7 @@
 
 .mat-expansion-panel,
 .mat-expansion-panel-header {
-  padding: 0px 0px;
+  padding: 0 0;
   background-color: whitesmoke
 }
 
@@ -40,7 +41,7 @@ mat-expansion-panel-body {}
 }
 
 .progress-bar {
-  margin: 0px 8px;
+  margin: 0 8px;
 }
 
 .circle {
@@ -82,6 +83,10 @@ mat-expansion-panel-body {}
 }
 
 @media only screen and (max-width: 480px) {
+  .objective-lineNumber {
+    position: relative;
+    bottom: 10px;
+  }
   .circle {
     display: none;
   }
@@ -89,6 +94,21 @@ mat-expansion-panel-body {}
     max-width: 75%;
   }
   .objective-progressBar {
-    margin-right: 20px;
+    margin-right: 28px;
+  }
+
+}
+
+@media only screen and (max-width: 390px) {
+  .margin-expansion-panel {
+    width: 325px;
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .margin-expansion-panel {
+    width: 285px;
+    margin: 0;
   }
 }

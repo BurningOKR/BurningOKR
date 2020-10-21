@@ -14,12 +14,12 @@
 }
 
 .no-padding{
-  padding: 0px;
+  padding: 0;
 }
 
 .card-margin{
   margin: 16px 8px;
-  padding:0px;
+  padding:0;
 }
 
 .inner-padding{
@@ -46,4 +46,10 @@
 
 .m-left {
   margin-left: 70px;
+}
+
+@media only screen and(max-width: 500px) {
+  .changePositionButton {
+    right: 20px;
+  }
 }
