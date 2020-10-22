@@ -20,7 +20,7 @@
 }
 
 .toLongWords {
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .adminIcon {
@@ -28,4 +28,18 @@
   position: relative;
   left: 20px;
   top: 17px;
+}
+
+@media only screen and (max-width: 350px) {
+  .profileIcon {
+    position: relative;
+    right: 20px;
+  }
+  .adminIcon {
+    left: 0;
+  }
+  .menuIcon {
+    position: relative;
+    right: 25px;
+  }
 }

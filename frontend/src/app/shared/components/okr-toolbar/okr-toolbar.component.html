@@ -19,13 +19,12 @@
           verified_user
         </mat-icon>
       </div>
-
-      <button mat-icon-button class="icon-spacer-large" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Benutzer"
+      <button mat-icon-button class="icon-spacer-large profileIcon" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Benutzer"
              [matMenuTriggerFor]="menu" *ngIf="currentUser$ | async as currentUser" (click)="changeMenuToUser()">
          <app-user-avatar [user]="currentUser" size="40"></app-user-avatar>
       </button>
 
-      <button mat-icon-button class="icon-spacer-large" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
+      <button mat-icon-button class="icon-spacer-large menuIcon" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
               [matMenuTriggerFor]="menu" (click)="changeMenuToMenu()">
         <mat-icon>more_vert</mat-icon>
       </button>
