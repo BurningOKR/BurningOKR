@@ -18,3 +18,14 @@
 .toolbar-spacer {
   min-height: 64px;
 }
+
+.toLongWords {
+  word-break: break-all;
+}
+
+.adminIcon {
+  z-index: 2;
+  position: relative;
+  left: 20px;
+  top: 17px;
+}
