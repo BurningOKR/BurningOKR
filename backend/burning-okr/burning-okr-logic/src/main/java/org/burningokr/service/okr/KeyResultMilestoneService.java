@@ -92,6 +92,8 @@ public class KeyResultMilestoneService {
     if (referencedMilestone.getParentKeyResult() != null) {
       KeyResult parent = referencedMilestone.getParentKeyResult();
       parent.getMilestones().remove(referencedMilestone);
+
+      keyResultRepository.save(parent);
     }
 
     keyResultMilestoneRepository.deleteById(milestoneId);
@@ -121,7 +123,7 @@ public class KeyResultMilestoneService {
                     keyResult.getMilestones().stream()
                         .noneMatch(
                             existingMilestone ->
-                                existingMilestone.getId().equals(milestone.getId())))
+                                milestone.getId().equals(existingMilestone.getId())))
             .collect(Collectors.toList());
 
     // Find all milestones that exist in the oldKeyResult and in the keyResult.
