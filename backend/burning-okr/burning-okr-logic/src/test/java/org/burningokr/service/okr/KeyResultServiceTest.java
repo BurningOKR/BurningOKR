@@ -1,16 +1,15 @@
 package org.burningokr.service.okr;
 
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.KeyResultMilestone;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.Unit;
 import org.burningokr.model.users.User;
@@ -193,6 +192,24 @@ public class KeyResultServiceTest {
     keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
 
     Assert.assertEquals(expectedUnit, keyResult.getUnit());
+  }
+
+  @Test
+  public void updateKeyResult_expectsMilestonesAreUpdated() {
+    List<KeyResultMilestone> milestones = new ArrayList<>();
+    milestones.add(new KeyResultMilestone());
+    milestones.add(new KeyResultMilestone());
+    milestones.add(new KeyResultMilestone());
+
+    updateKeyResult.setId(keyResultId);
+    updateKeyResult.setMilestones(milestones);
+
+    when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
+    when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+
+    keyResultService.updateKeyResult(updateKeyResult, user);
+
+    verify(keyResultMilestoneService).updateMilestones(any(), any());
   }
 
   @Test(expected = Exception.class)
