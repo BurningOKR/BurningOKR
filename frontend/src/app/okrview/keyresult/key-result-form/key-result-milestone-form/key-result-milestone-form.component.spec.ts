@@ -132,7 +132,7 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(undefined, undefined, undefined);
+    component.addMilestone(undefined, undefined, undefined, undefined);
 
     expect(component.formArray.length)
       .toBe(1);
@@ -152,7 +152,7 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(null, null, null);
+    component.addMilestone(null, null, null, null);
 
     expect(component.formArray.length)
       .toBe(1);
@@ -172,7 +172,7 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(5, 'test', 10);
+    component.addMilestone(5, 'test', 10, 1);
 
     expect(component.formArray.length)
       .toBe(1);
@@ -182,6 +182,8 @@ describe('KeyResultMilestoneFormComponent', () => {
       .toBe('test');
     expect(component.formArray.controls[0].get('value').value)
       .toBe(10);
+    expect(component.formArray.controls[0].get('parentKeyResult').value)
+      .toBe(1);
   });
 
   it('addMilestone adds multiple milestones', () => {
@@ -192,10 +194,10 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(5, 'test', 10);
-    component.addMilestone(5, 'test', 10);
-    component.addMilestone(5, 'test', 10);
-    component.addMilestone(5, 'test', 10);
+    component.addMilestone(5, 'test', 10, 1);
+    component.addMilestone(5, 'test', 10, 1);
+    component.addMilestone(5, 'test', 10, 1);
+    component.addMilestone(5, 'test', 10, 1);
 
     expect(component.formArray.length)
       .toBe(4);
