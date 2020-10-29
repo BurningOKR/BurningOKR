@@ -1,7 +1,6 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,6 +50,8 @@ public class ObjectiveServiceTest {
 
   @Mock private OkrUnitServiceUsers departmentService;
 
+  @Mock private KeyResultMilestoneService keyResultMilestoneService;
+
   @Mock private User user;
 
   @Mock ConfigurationService configurationService;
@@ -63,7 +64,7 @@ public class ObjectiveServiceTest {
   private KeyResult keyResult;
 
   @Before
-  public void reset() throws NoSuchFieldException, IllegalAccessException {
+  public void reset() {
     this.objective = new Objective();
     objective.setId(objectiveId);
     updateObjective = new Objective();
@@ -80,12 +81,16 @@ public class ObjectiveServiceTest {
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
+    //    when(keyResultMilestoneService.createKeyResultMilestone(anyInt(), any(), any()))
+    //        .thenReturn(new KeyResultMilestone());
   }
 
   @Test
   public void createKeyResult_expectsParentIdIsSet() throws KeyResultOverflowException {
     Long expected = 18L;
     objective.setId(expected);
+
+    keyResult.setId(12L);
 
     objectiveService.createKeyResult(expected, keyResult, user);
 
@@ -99,6 +104,8 @@ public class ObjectiveServiceTest {
       throws KeyResultOverflowException {
     Long expected = 18L;
     objective.setId(expected);
+
+    keyResult.setId(12L);
 
     KeyResult otherKeyResult1 = new KeyResult();
     otherKeyResult1.setSequence(5);

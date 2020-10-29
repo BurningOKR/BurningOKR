@@ -1,7 +1,6 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -38,6 +37,8 @@ public class KeyResultServiceTest {
 
   @Mock ObjectiveService objectiveService;
 
+  @Mock KeyResultMilestoneService keyResultMilestoneService;
+
   @Mock private User user;
 
   @InjectMocks private KeyResultService keyResultService;
@@ -55,6 +56,8 @@ public class KeyResultServiceTest {
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult), any()))
+        .thenReturn(updateKeyResult);
   }
 
   @Test(expected = EntityNotFoundException.class)
