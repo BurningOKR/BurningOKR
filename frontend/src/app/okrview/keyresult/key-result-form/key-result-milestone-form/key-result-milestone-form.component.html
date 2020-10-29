@@ -1,6 +1,14 @@
-<mat-slide-toggle class="toggleMilestone" (change)="isChecked=$event.checked">Meilenstein</mat-slide-toggle>
+<mat-slide-toggle class="toggleMilestone"
+                  [checked]="isChecked"
+                  [disabled]="formArray?.length > 0"
+                  (change)="isChecked=$event.checked">
+  Meilenstein
+</mat-slide-toggle>
 
-<button class="addMilestone-button" mat-mini-fab matTooltip="Meilenstein hinzufügen" (click)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked">
+<button class="addMilestone-button"
+        mat-mini-fab matTooltip="Meilenstein hinzufügen"
+        (click)="addMilestone(undefined, undefined,undefined, undefined)"
+        *ngIf="isChecked">
   <mat-icon>
     add_circle_outline
   </mat-icon>

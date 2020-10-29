@@ -17,6 +17,7 @@ export class KeyResultMilestoneFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.keyResult) {
+      this.isChecked = this.keyResult.viewKeyResultMilestones.length > 0;
       this.keyResult.viewKeyResultMilestones.forEach((viewKeyResultMilestone: ViewKeyResultMilestone) => {
         this.addMilestone(
           viewKeyResultMilestone.id,
