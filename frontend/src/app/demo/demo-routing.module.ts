@@ -4,13 +4,15 @@ import { DemoMainViewComponent } from './demo-main-view/demo-main-view.component
 import { DemoHomeComponent } from './demo-home/demo-home.component';
 import { DemoPrivacyPolicyComponent } from './demo-privacy-policy/demo-privacy-policy.component';
 import { DemoImprintComponent } from './demo-imprint/demo-imprint.component';
+import { DemoCreditsComponent } from './demo-credits/demo-credits.component';
 
 const routes: Routes = [
   {
     path: '', component: DemoMainViewComponent, children: [
       { path: '', component: DemoHomeComponent },
       { path: 'privacy-policy', component: DemoPrivacyPolicyComponent },
-      { path: 'imprint', component: DemoImprintComponent }
+      { path: 'imprint', component: DemoImprintComponent },
+      { path: 'credits', component: DemoCreditsComponent }
     ]
   }
 ];

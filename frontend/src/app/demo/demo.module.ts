@@ -11,6 +11,7 @@ import { DemoFooterComponent } from './demo-footer/demo-footer.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { DemoPrivacyPolicyComponent } from './demo-privacy-policy/demo-privacy-policy.component';
 import { DemoImprintComponent } from './demo-imprint/demo-imprint.component';
+import { DemoCreditsComponent } from './demo-credits/demo-credits.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { DemoImprintComponent } from './demo-imprint/demo-imprint.component';
         DemoFooterComponent,
         ScrollTopComponent,
         DemoPrivacyPolicyComponent,
-        DemoImprintComponent
+        DemoImprintComponent,
+        DemoCreditsComponent
     ],
     imports: [
         CommonModule,
