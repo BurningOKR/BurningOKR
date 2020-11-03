@@ -44,6 +44,8 @@ import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { DepartmentTabTaskboardComponent } from './okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component';
+import { DepartmentTabTaskCardComponent } from './okr-child-unit/department/department-tab-task-card/department-tab-task-card.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     CommentCardComponent,
     CycleListDropdownComponent,
     KeyResultMilestoneFormComponent,
+    DepartmentTabTaskboardComponent,
+    DepartmentTabTaskCardComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,

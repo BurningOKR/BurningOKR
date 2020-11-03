@@ -68,6 +68,16 @@
                     </div>
                   </ng-template>
                 </mat-tab>
+
+                <!-- Tasks Tab -->
+                <mat-tab i18n-label="@@component_department_taskboard" label="Aufgaben" *ngIf="activeTabs.teamsTab">
+                  <div class="inner-padding">
+                    <app-department-tab-taskboard [childUnit]="childUnit" [currentUserRole]="currentUserRole" [cycle]="cycle">
+
+                    </app-department-tab-taskboard>
+                  </div>
+                </mat-tab>
+
               </mat-tab-group>
             </mat-card>
           </ng-container>

@@ -1,0 +1,57 @@
+<div class="flex-nowrap-center">
+    <div class="tab-limited-width">
+      <div class="text-center">
+        <div class="tab-headline" i18n="@@component_departmentTabTaskboard_TaskHeadline">Aufgaben</div>
+      </div>
+      <div class="taskboard">
+        <div class="taskboard-column">
+            <div class="taskboard-headline">
+                <div i18n="@@component_departmentTabTaskboard_ColumnHeadlineTodo">Todo</div>
+            </div>
+            <div class="tasks">
+                <div *ngFor="let task of taskListTodo" class="taskcard">
+                    <app-department-tab-task-card [task]="task" >
+
+                    </app-department-tab-task-card>
+                </div>
+            </div>
+        </div>
+        <div class="taskboard-column">
+            <div class="taskboard-headline">
+                <div i18n="@@component_departmentTabTaskboard_ColumnHeadlineInProgress">In Arbeit</div>
+            </div>
+            <div class="tasks">
+                <div *ngFor="let task of taskListInProgress" class="taskcard">
+                    <app-department-tab-task-card [task]="task">
+
+                    </app-department-tab-task-card>
+                </div>
+            </div>
+        </div>
+        <div class="taskboard-column">
+            <div class="taskboard-headline">
+                <div i18n="@@component_departmentTabTaskboard_ColumnHeadlineBlocked">Blockiert</div>
+            </div>
+            <div class="tasks">
+                <div *ngFor="let task of taskListBlocked" class="taskcard">
+                    <app-department-tab-task-card [task]="task" >
+
+                    </app-department-tab-task-card>
+                </div>
+            </div>
+        </div>
+        <div class="taskboard-column">
+            <div class="taskboard-headline">
+                <div i18n="@@component_departmentTabTaskboard_ColumnHeadlineFinished">Erledigt</div>
+            </div>
+            <div class="tasks">
+                <div *ngFor="let task of taskListFinished" class="taskcard">
+                    <app-department-tab-task-card [task]="task">
+
+                    </app-department-tab-task-card>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
