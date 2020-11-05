@@ -45,4 +45,10 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   toggleOpenSideNav(): void {
     this.sideNav.toggle();
   }
+
+  closeSideNavMobileOnly(): void {
+    if (this.mobileQuery.matches) {
+      this.sideNav.close();
+    }
+  }
 }
