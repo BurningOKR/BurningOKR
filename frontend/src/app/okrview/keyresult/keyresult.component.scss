@@ -11,20 +11,25 @@
 }
 
 .keyresult-card{
-  margin:0px;
+  margin:0;
   margin-top: 12px;
   padding: 12px;
   border: solid mat-color($md-primary, 500) 4px;
-  border-top: 0px;
-  border-bottom: 0px;
+  border-top: 0;
+  border-bottom: 0;
 }
 
 .keyresult-title{
-      font-size: medium;
+  font-size: medium;
 }
 
 .keyresult-description{
   font-weight: 200;
+}
+
+.keyresult-title, .keyresult-description {
+  max-width: 60%;
+  word-break: break-all;
 }
 
 .keyresult-progress-text{
@@ -40,4 +45,73 @@
 
 .customFlex-2 {
   flex: 3.0 0.3 256px
+}
+
+.changePositonListNumberForEvent {
+  position: relative;
+  bottom: 38px;
+}
+
+.changePositionForEvent {
+  right: 110px;
+  bottom: 38px;
+}
+
+.keyresult-sliderForEvent {
+  right: 25px;
+  margin-right: 5px;
+}
+
+@media only screen and (max-width: 450px) {
+  .changePositonListNumber {
+    position: relative;
+    bottom: 38px;
+  }
+
+  .changePosition {
+    right: 110px;
+    bottom: 38px;
+  }
+
+  .keyresult-slider {
+    right: 25px;
+    margin-right: 5px;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .changePositonListNumber {
+    position: relative;
+    bottom: 36px;
+  }
+  .changePosition {
+    right: 125px;
+    bottom: 36px;
+  }
+  .keyresult-slider {
+    right: 45px;
+  }
+  .keyresult-title {
+    max-width: 50%;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .changePositonListNumber {
+    position: relative;
+    bottom: 34px;
+  }
+  .changePosition {
+    right: 140px;
+    bottom: 34px;
+  }
+  .keyresult-slider {
+    right: 48px;
+  }
+  .keyresult-card {
+    right: 10px;
+    width: 255px;
+    padding-left: 0;
+    margin-left: 0;
+  }
 }
