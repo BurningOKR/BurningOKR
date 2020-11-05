@@ -28,7 +28,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private currentCompanyService: CurrentCompanyService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 700px)');
+    this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
