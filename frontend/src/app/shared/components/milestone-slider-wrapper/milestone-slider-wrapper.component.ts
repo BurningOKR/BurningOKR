@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { ViewKeyResultMilestone } from '../../model/ui/view-key-result-milestone';
 import { ViewKeyResult } from '../../model/ui/view-key-result';
 
@@ -19,8 +19,13 @@ export class MilestoneSliderWrapperComponent implements AfterViewInit {
 
   private width: number = 0;
 
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    this.updateWidth();
+  }
+
   ngAfterViewInit(): void {
-    this.width = this.wrapper.nativeElement.clientWidth - this.SLIDER_BORDER * 2;
+    this.updateWidth();
   }
 
   getMilestoneLeftPxValue(milestone: ViewKeyResultMilestone): number {
@@ -30,5 +35,9 @@ export class MilestoneSliderWrapperComponent implements AfterViewInit {
       + this.MILESTONE_TICK_OFFSET
       - this.MILESTONE_TICK_WIDTH / 2
     );
+  }
+
+  private updateWidth(): void {
+    this.width = this.wrapper.nativeElement.clientWidth - this.SLIDER_BORDER * 2;
   }
 }
