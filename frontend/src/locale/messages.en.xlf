@@ -33,10 +33,10 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit><trans-unit id="component_department_unitNotActive" datatype="html">
         <source>Diese Struktur ist nicht aktiv</source><target state="translated">This structure is inactive</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="component_department_moreOptionsUnit" datatype="html">
         <source>Mehr Optionen zu dieser Struktur</source><target state="translated">More options for this structure</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">32</context></context-group></trans-unit>
       <trans-unit id="component_objectiveForm_noParentObjective" datatype="html">
         <source>Kein übergeordnetes Objective</source>
@@ -540,19 +540,19 @@
         </context-group>
       </trans-unit><trans-unit id="importCsvDialog_csv-file" datatype="html">
         <source>CSV-Datei</source><target state="translated">CSV file</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_name" datatype="html">
         <source> Name</source><target state="translated"> Name</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_email" datatype="html">
         <source> Email</source><target state="translated"> Email</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_department" datatype="html">
         <source> Abteilung</source><target state="translated">Department</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_jobTitle" datatype="html">
         <source> Jobbezeichnung</source><target state="translated">Job Title</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
         <source>Kein SMTP Konfiguriert</source><target state="translated">No SMPT configured</target>
         <context-group purpose="location">
@@ -713,17 +713,17 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">51</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">140</context></context-group></trans-unit><trans-unit id="component_department_childUnit" datatype="html">
         <source>Unterstrukturen</source><target state="translated">Substructure</target>
-        
-        
+
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">61</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">141</context></context-group></trans-unit><trans-unit id="component_department_editchildUnit" datatype="html">
         <source>Struktur bearbeiten</source><target state="translated">Edit structure</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">85</context></context-group></trans-unit><trans-unit id="component_department_disableUnit" datatype="html">
         <source>Struktur auf inaktiv setzen</source><target state="translated">Set structure inactive</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">90</context></context-group></trans-unit><trans-unit id="component_department_enableUnit" datatype="html">
         <source>Struktur auf aktiv setzen</source><target state="translated">Set structure active</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">94</context></context-group></trans-unit>
 
 
@@ -742,11 +742,11 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">103</context></context-group></trans-unit><trans-unit id="component_department_deleteUnit" datatype="html">
         <source>Struktur löschen</source><target state="translated">Delete structure</target>
-        
-        
+
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">108</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">117</context></context-group></trans-unit><trans-unit id="component_department_cannotDeleteUnit" datatype="html">
         <source>Kann wegen Unterstrukturen nicht gelöscht werden!</source><target state="translated">Cannot be deleted due to existing substructures!</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">114</context></context-group></trans-unit>
 
 
@@ -765,7 +765,7 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">130</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">159</context></context-group></trans-unit><trans-unit id="component_department_tab_loading" datatype="html">
         <source>Lade...</source><target state="translated">Loading…</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">174</context></context-group></trans-unit><trans-unit id="component_department_loadDepartmentFailed" datatype="html">
         <source>Laden Fehlgeschlagen</source><target state="translated">Loading Failed</target>
         <context-group purpose="location">
@@ -863,8 +863,8 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">27</context></context-group></trans-unit>
       <trans-unit id="component_departmentTabTeam_noMembersDefined" datatype="html">
-        <source>Keine Teammitglieder definiert.</source>
-        <target state="translated">No team members defined.</target>
+        <source>Keine Teammitglieder definiert</source>
+        <target state="translated">No team members defined</target>
 
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context><context context-type="linenumber">38</context></context-group></trans-unit>
@@ -1156,44 +1156,44 @@
         <source>Fortschritt anpassen</source>
         <target state="translated">Adjust progress</target>
 
-        
-        
+
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">33</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moreOptions" datatype="html">
         <source>Mehr Optionen zu diesem KeyResult</source>
         <target state="translated">More options for this KeyResult</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_commentsForThisKeyResult" datatype="html">
         <source>Kommentare zu diesem KeyResult</source>
         <target state="translated">Comments about this KeyResult</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_editKeyResult" datatype="html">
         <source>KeyResult bearbeiten</source>
         <target state="translated">Edit KeyResult</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">62</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultUp" datatype="html">
         <source>KeyResult nach oben verschieben</source>
         <target state="translated">Move KeyResult up</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">66</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultDown" datatype="html">
         <source>KeyResult nach unten verschieben</source>
         <target state="translated">Move KeyResult down</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">70</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_deleteKeyResult" datatype="html">
         <source>KeyResult löschen</source>
         <target state="translated">Delete KeyResult</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">74</context></context-group></trans-unit>
       <trans-unit id="component_mainView_toggleNavigation" datatype="html">
         <source>Navigationsmenü anzeigen/verbergen</source>
@@ -1248,32 +1248,32 @@
         <source>Mehr Optionen zu dieser Struktur</source>
         <target state="translated">More options for this structure</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_yourTeamAsManager" datatype="html">
         <source>Ihre Teams als Manager</source>
         <target state="translated">Your teams as manager</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_yourTeamAsMember" datatype="html">
         <source>Ihre Teams als Mitglied</source>
         <target state="translated">Your teams as member</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">32</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_childUnit" datatype="html">
         <source>Unterstrukturen</source><target state="translated">Substructures</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_defineNewChildUnit" datatype="html">
         <source>Neue Unterstruktur definieren</source><target state="translated">Define new substructures</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_noChildUnit" datatype="html">
         <source>
           Es gibt noch keine Unterstrukturen für diese Struktur
         </source><target state="translated">
       There aren’t any substructures for this structure yet
     </target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">55</context></context-group></trans-unit>
 
 
@@ -1282,19 +1282,19 @@
         <source>Exportieren</source>
         <target state="translated">Export</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">74</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_exportContacts" datatype="html">
         <source>Kontakte exportieren</source>
         <target state="translated">Export contacts</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">78</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_loadingCompany" datatype="html">
         <source>Lade Firma...</source>
         <target state="translated">Load company...</target>
 
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">86</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompany" datatype="html">
         <source>Fehler</source><target state="translated">Error</target>
         <context-group purpose="location">
@@ -1954,47 +1954,47 @@
         </context-group>
       </trans-unit><trans-unit id="@@deativate_okr_topic_sponsors_title" datatype="html">
         <source>OKR Themenpaten deaktivieren</source><target state="translated">Disable OKR Topic Sponsors</target>
-        
+
         <note priority="1" from="description">title of confirmation dialog for deaktivating topic sponsors</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_max_key_results_per_objective" datatype="html">
         <source>Maximale Anzahl von Key Results</source><target state="translated">Maximum number of key results</target>
-        
+
         <note priority="1" from="description">Placeholder for maximal amount of keyresults per objective</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_topic_sponsors" datatype="html">
         <source>Themenpaten aktiviert</source><target state="translated">Topic sponsors activated</target>
-        
+
         <note priority="1" from="description">Placeholder for the setting, which de-/activates topic sponsors through out the application</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_objective_bar_treshold_green_yellow" datatype="html">
         <source>Objective Prognose Schwellenwert (Grün/Gelb)</source><target state="translated">Objective Prognosis threshold (green/yellow)</target>
-        
+
         <note priority="1" from="description">Treshold for objective progress bar (Green/Yellow)</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_objective_bar_treshold_yellow_red" datatype="html">
         <source>Objective Prognose Schwellenwert (Gelb/Rot)</source><target state="translated">Objective Prognosis threshold (yellow/red)</target>
-        
+
         <note priority="1" from="description">Treshold for objective progress bar (Yellow/Red)</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_general_frontend_base_url" datatype="html">
         <source>Frontend-Base-Url</source><target state="translated">Front-end base URL</target>
-        
+
         <note priority="1" from="description">the domain of this angular application</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_email_sender" datatype="html">
         <source>Email Adresse des OKR Tools</source><target state="translated">Email address of the OKR Tool</target>
-        
+
         <note priority="1" from="description">The address, from which emails are sent</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_email_subject_forgot_new_user" datatype="html">
         <source>Email Betreff für neue Benutzer</source><target state="translated">Email subject for new users</target>
-        
+
         <note priority="1" from="description">the subject of the email, which is sent to new users</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_email_subject_forgot_password" datatype="html">
         <source>Email Betreff für die Passwort-Zurücksetzen Email</source><target state="translated">Email subject for the password reset email</target>
-        
+
         <note priority="1" from="description">the subject of the email, which is sent to users who forgot their password</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_email_subject_feedback" datatype="html">
         <source>Email Betreff für Feedback</source><target state="translated">Email subject for feedback</target>
-        
+
         <note priority="1" from="description">the subject of the feedback email</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="@@settings_form_feedback_receivers" datatype="html">
         <source>Email Adressen der Feedback Empfänger. (Durch Komma getrennt)</source><target state="translated">Email addresses of feedback recipients. (separated by comma)</target>
-        
+
         <note priority="1" from="description">the email adresses of the people who receive feedback</note>
       <context-group purpose="location"><context context-type="sourcefile">src/app/core/settings/settings-form/admin-settings/admin-settings-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="cycleDeletionTitle" datatype="html">
         <source>Den Zyklus löschen?</source><target state="translated">Clear the cycle?</target>

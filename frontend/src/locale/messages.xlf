@@ -811,7 +811,7 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabTeam_noMembersDefined" datatype="html">
-        <source>Keine Teammitglieder definiert.</source>
+        <source>Keine Teammitglieder definiert</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.html</context>
           <context context-type="linenumber">38</context>
