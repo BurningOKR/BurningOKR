@@ -28,8 +28,6 @@ export class OkrToolbarComponent implements OnInit {
   isLocalUserbase$: Observable<boolean>;
   hasMailConfigured$: Observable<boolean>;
 
-  changeMenuCheck: boolean = false;
-
   constructor(
     private router: Router,
     private dialog: MatDialog,
@@ -76,13 +74,5 @@ export class OkrToolbarComponent implements OnInit {
     this.dialog.open(ChangePasswordDialogComponent, {disableClose: true})
       .afterClosed()
       .subscribe();
-  }
-
-  // change menu
-  changeMenuToUser(): void {
-    this.changeMenuCheck = true;
-  }
-  changeMenuToMenu(): void {
-    this.changeMenuCheck = false;
   }
 }

@@ -135,65 +135,63 @@
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_authorizeAsAdmin" datatype="html">
         <source>Als Admin autorisiert</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_menu" datatype="html">
         <source>Menü</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_adminPanel" datatype="html">
         <source>Admin Panel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_cycleManagement" datatype="html">
         <source>Zyklusverwaltung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_settings" datatype="html">
         <source>Einstellungen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_userManagement" datatype="html">
         <source>Nutzerverwaltung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
         <source>Passwort ändern</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_logout" datatype="html">
         <source>Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_version" datatype="html">
         <source>v</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">60</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_okrToolbar_version" datatype="html">
-        <source>v</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit><trans-unit id="component_resetCountdown_UntilNext" datatype="html">
         <source>Zurücksetzen der Daten in: </source>
@@ -240,6 +238,24 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/error/error.component.html</context>
           <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_demoFooter_credits" datatype="html">
+        <source>Credits</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_demoFooter_privacyPolicy" datatype="html">
+        <source>Datenschutzerklärung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_demoFooter_imprint" datatype="html">
+        <source>Impressum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit><trans-unit id="component_adminView_adminPanel" datatype="html">
         <source>Admin Panel</source>
@@ -484,43 +500,31 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit><trans-unit id="component_demoHome_github" datatype="html">
-        <source>Github</source>
+        <source>GitHub</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit><trans-unit id="component_demoHome_documentation" datatype="html">
         <source>Dokumentation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit><trans-unit id="component_demoHome_germanDocumentation" datatype="html">
         <source>Deutsch</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">203</context>
         </context-group>
       </trans-unit><trans-unit id="component_demoHome_englishDocumentation" datatype="html">
         <source>Englisch</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoFooter_privacyPolicy" datatype="html">
-        <source>Datenschutzerklärung</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoFooter_imprint" datatype="html">
-        <source>Impressum</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">204</context>
         </context-group>
       </trans-unit><trans-unit id="component_keyResultForm_keyResult" datatype="html">
         <source>Key Result *</source>
@@ -1368,7 +1372,7 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit><trans-unit id="addNewUser" datatype="html">
-        <source>Neuen Benutzer erstellen</source>
+        <source>Neuen Benutzer erstellen ⚠ Deaktiviert in der Demo Version</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context>
           <context context-type="linenumber">25</context>
@@ -1837,11 +1841,11 @@
         <source>Struktur löschen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okr-units/okr-unit-card/okr-unit-card.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okr-units/okr-unit-card/okr-unit-card.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="deleteAdminDialog_title" datatype="html">

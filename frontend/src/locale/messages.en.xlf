@@ -255,51 +255,27 @@
         </context-group>
       </trans-unit><trans-unit id="component_demoMainView_playground" datatype="html">
         <source>Playground</source><target state="translated">Playground</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-main-view/demo-main-view.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoHome_github" datatype="html">
-        <source>Github</source><target state="translated">Github</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoHome_documentation" datatype="html">
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/demo/demo-main-view/demo-main-view.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="component_demoHome_github" datatype="html">
+        <source>GitHub</source><target state="translated">Github</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context><context context-type="linenumber">8</context></context-group></trans-unit><trans-unit id="component_demoHome_documentation" datatype="html">
         <source>Dokumentation</source><target state="translated">Documentation</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoHome_germanDocumentation" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context><context context-type="linenumber">12</context></context-group></trans-unit><trans-unit id="component_demoHome_germanDocumentation" datatype="html">
         <source>Deutsch</source><target state="translated">German</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">56</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoHome_englishDocumentation" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context><context context-type="linenumber">203</context></context-group></trans-unit><trans-unit id="component_demoHome_englishDocumentation" datatype="html">
         <source>Englisch</source><target state="translated">English</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoFooter_privacyPolicy" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/demo/demo-home/demo-home.component.html</context><context context-type="linenumber">204</context></context-group></trans-unit><trans-unit id="component_demoFooter_privacyPolicy" datatype="html">
         <source>Datenschutzerklärung</source><target state="translated">Privacy Policy</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_demoFooter_imprint" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="component_demoFooter_imprint" datatype="html">
         <source>Impressum</source><target state="translated">Imprint</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context><context context-type="linenumber">13</context></context-group></trans-unit>
       <trans-unit id="component_feedbackForm_name" datatype="html">
         <source>Name *</source>
         <target state="translated">Name *</target>
@@ -491,11 +467,8 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/settings/settings-form/settings-form.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="component_return_to_demo_mainview" datatype="html">
         <source>Hauptseite</source><target state="translated">Homepage</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit>
       <trans-unit id="component_feedbackButton_feedback" datatype="html">
         <source>Feedback</source>
         <target state="translated">Feedback</target>
@@ -531,54 +504,51 @@
         <target state="translated">Authorized as Admin</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_menu" datatype="html">
         <source>Menü</source>
         <target state="translated">Menu</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_adminPanel" datatype="html">
         <source>Admin Panel</source>
         <target state="translated">Admin panel</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">41</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">44</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_cycleManagement" datatype="html">
         <source>Zyklusverwaltung</source>
         <target state="translated">Cycle administration</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">49</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_settings" datatype="html">
         <source>Einstellungen</source>
         <target state="translated">Settings</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">53</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_userManagement" datatype="html">
         <source>Nutzerverwaltung</source>
         <target state="translated">User Management</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">54</context></context-group></trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">57</context></context-group></trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
         <source>Passwort ändern</source><target state="translated">Change password</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">61</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_logout" datatype="html">
         <source>Logout</source>
         <target state="translated">Logout</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">65</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_version" datatype="html">
         <source>v</source>
         <target state="translated">v</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">64</context></context-group></trans-unit><trans-unit id="component_resetCountdown_UntilNext" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">69</context></context-group></trans-unit><trans-unit id="component_resetCountdown_UntilNext" datatype="html">
         <source>Zurücksetzen der Daten in: </source><target state="translated">Data Reset in: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/demo-website/reset-countdown/reset-countdown.component.html</context>
@@ -604,7 +574,13 @@
         <target state="translated">Error ID:</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/error/error.component.html</context><context context-type="linenumber">33</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/error/error.component.html</context><context context-type="linenumber">33</context></context-group></trans-unit><trans-unit id="component_demoFooter_credits" datatype="html">
+        <source>Credits</source><target state="translated">Credits</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/demo-footer/demo-footer.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="component_login_loggedOut" datatype="html">
         <source>Sie wurden erfolgreich ausgelogt.</source>
         <target state="translated">You have been successfully logged out.</target>
@@ -1846,7 +1822,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="addNewUser" datatype="html">
-        <source>Neuen Benutzer erstellen</source>
+        <source>Neuen Benutzer erstellen ⚠ Deaktiviert in der Demo Version</source>
         <target state="translated">Creating new user</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="importUsersFromCsv" datatype="html">
@@ -1921,15 +1897,9 @@
         </context-group>
       </trans-unit><trans-unit id="component_unitCard_deleteUnit" datatype="html">
         <source>Struktur löschen</source><target state="translated">Delete structure</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okr-units/okr-unit-card/okr-unit-card.component.html</context>
-          <context context-type="linenumber">46</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okr-units/okr-unit-card/okr-unit-card.component.html</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-      </trans-unit><trans-unit id="deleteAdminDialog_title" datatype="html">
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okr-units/okr-unit-card/okr-unit-card.component.html</context><context context-type="linenumber">48</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okr-units/okr-unit-card/okr-unit-card.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="deleteAdminDialog_title" datatype="html">
         <source>Admin löschen</source><target state="translated">Delete admin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/admin-view.component.ts</context>
