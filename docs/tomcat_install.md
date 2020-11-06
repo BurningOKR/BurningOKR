@@ -51,7 +51,7 @@
     ```
     sudo -u postgres createuser --interactive --pwprompt
     ```
-    This should look like this:
+    Enter name and password for the new role, then answer with "n" to the three questions. This should look like this:
     ````
    Enter name of role to add: admin
    Enter password for new role:
@@ -73,27 +73,29 @@
     sudo groupadd tomcat
     sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
     ```
-6. Download and extract Tomcat: 
+6. Go into the "tmp" folder and then download and extract Tomcat: 
     ```
     cd /tmp
+    sudo apt install curl
     curl -O https://mirror.synyx.de/apache/tomcat/tomcat-9/v9.0.39/bin/apache-tomcat-9.0.39.tar.gz
+    sudo mkdir /opt/tomcat
     sudo tar xzvf apache-tomcat-9*tar.gz -C /opt/tomcat --strip-components=1
     ```
 7. Add privileges for the Tomcat user to access the Tomcat directory:
     ```
    cd /opt/tomcat
-   sudo chgrp –R tomcat /opt/tomcat
-   sudo chmod –R g+r conf
+   sudo chgrp tomcat /opt/tomcat –R
+   sudo chmod g+r conf –R
    sudo chmod g+x conf
-   sudo chown –R tomcat webapps/ work temp/ logs
+   sudo chown tomcat webapps/ work temp/ logs –R
    ```
-8. Find the "JAVA_HOME" path and copy it:
+8. Find the "JAVA_HOME" path:
     ```
    sudo update-java-alternatives -l
    ```
    ![update-java-alternatives output](./images/update_java_alternatives_output.PNG)
    
-   Copy the path from the output.
+   Copy the path from the output and save it somewhere.
 9. Create a new Systemd service by creating a tomcat.service file:
     ```
     sudo nano /etc/systemd/system/tomcat.service
@@ -136,6 +138,8 @@
     sudo systemctl status tomcat
     ```
     The status should be **active (running)**
+    
+    Exit by pressing `q`.
 11. Allow tomcat through the firewall.
     ```
     sudo ufw allow 8080
@@ -154,6 +158,8 @@
     </tomcat-users>
     ```
     Change `username` and `password` to a secure account.
+    
+    **Save** and **Exit** the file by using `Ctrl+X`, followed by `y`es and `Enter`.
     
     Restart tomcat afterwards:
     ```
@@ -205,8 +211,10 @@
             ```
         5. Download a web.xml and place it in the WEB-INF directory
             ```
+            sudo su
             cd /opt/tomcat/webapps/ROOT/WEB-INF
             sudo wget https://raw.githubusercontent.com/BurningOKR/BurningOKR/development/docs/files/web.xml
+            exit
             ```
 15. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).
 16. Open your browser on http://localhost:8080/manager and login with your tomcat administrator account which was created in step 12.
@@ -217,8 +225,15 @@
 
 ### Configuration (Windows and Linux)
 1. Go to the webapps directory of your tomcat server
-    1. For Windows: `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps`
-    2. For Linux: `cd /opt/tomcat/webapps`
+    1. For Windows:
+    ```
+    C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps
+    ```
+    2. For Linux:
+    ```
+    sudo su
+    cd /opt/tomcat/webapps
+    ```
 2. Go to `api\WEB-INF\classes`
 3. Edit the `application.yaml` and overwrite everything with the following sample:
 
@@ -291,18 +306,28 @@ system:
     token-endpoint-prefix: "/api"
 ```
 
-4. Insert the port and the database name of your Postgres database, that you have just created under `spring: > datasource: > url: ...`
+4. Insert the port and the database name of your Postgres database, that you have created earlier under `spring: > datasource: > url: ...`. The database name is the name, that you provided when creating the database and it is most likely just `okr`. To get the port number, you have to do the following steps.
+For Windows:
+The port number was set in step 1.
+For Linux:
+```
+sudo apt-get install net-tools
+sudo netstat -plunt |grep postgres
+```
+
+![Linux Get Port Number](./images/linux_postgres_get_port_number.PNG)
+
 5. Insert the password of the admin role of your Postgres server under `spring: > datasource: > password: ...`
 6. You can insert the url, port, username and password of your mail server if you have one under `spring: > mail: > ....`. Otherwise remove the placeholders and leave these configurations empty.
-7. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use Azure Active Directory as your userbase by replacing the placeholder under `system: > configuration: > auth-mode: ...` with either local or azure.
-    1. **When using an Azure Active Directory as the userbase, you also need to do the following steps. You do not need to this, when you are using the local user database.**
-        1. Uncomment the Azure Active Directory configuration by removing the first "#" of each line.
-        2. Replace `<OAuth client id>`, `<OAuth client secret>`, `<OAuth access token url>` and `<OAuth use authorization token url>` with the corresponding values from your Azure Active Directory App registration.
-        3. Replace `<Azure issuer>` with the azure issuer URI. e.g. `https://<login-provider>/<tenant-id>/v2.0`
-        4. Add as many Azure Active Directory Groups as you want. All users from these groups will be authorized, to use the BurningOKR Tool. The rest will not be able to use the tool. You need to specify the `<Azure ad group name>` and the `<Azure ad group id>`.
-        5. To add more groups, you need to add more entries to the list. Here is an example:
+7. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use Azure Active Directory as your userbase by replacing the placeholder under `system: > configuration: > auth-mode: ...` with either `local` or `azure`.
+8. **When using an Azure Active Directory as the userbase, you also need to do the following steps. You do not need to this, when you are using the local user database.**
+    1. Uncomment the Azure Active Directory configuration by removing the first "#" of each line.
+    2. Replace `<OAuth client id>`, `<OAuth client secret>`, `<OAuth access token url>` and `<OAuth use authorization token url>` with the corresponding values from your Azure Active Directory App registration.
+    3. Replace `<Azure issuer>` with the azure issuer URI. e.g. `https://<login-provider>/<tenant-id>/v2.0`
+    4. Add as many Azure Active Directory Groups as you want. All users from these groups will be authorized, to use the BurningOKR Tool. The rest will not be able to use the tool. You need to specify the `<Azure ad group name>` and the `<Azure ad group id>`.
+    5. To add more groups, you need to add more entries to the list. Here is an example:
 ```yaml
-azureGroups:
+azureGroups:    
   - name: <Azure ad group name>
     id: <Azure ad group id>
   - name: <Azure ad group name>
@@ -310,3 +335,4 @@ azureGroups:
   - name: <Azure ad group name>
     id: <Azure ad group id>
 ```
+9. **Save** and **Exit** the file by using `Ctrl+X`, followed by `y`es and `Enter`.

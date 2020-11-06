@@ -1,5 +1,6 @@
 import { Unit } from './unit.enum';
 import { KeyResultId } from '../id-types';
+import { KeyResultMilestoneDto } from './key-result-milestone.dto';
 
 export interface KeyResultDto {
   startValue: number;
@@ -11,4 +12,5 @@ export interface KeyResultDto {
   id?: KeyResultId;
   noteIds?: number[];
   parentObjectiveId?: number;
+  keyResultMilestoneDtos?: KeyResultMilestoneDto[];
 }

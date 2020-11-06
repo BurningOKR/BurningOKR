@@ -7,3 +7,9 @@
   font-size: 16px;
   line-height: 150%;
 }
+
+@media only screen and (max-width: 420px) {
+  .previewButton {
+    width: 240px;
+  }
+}

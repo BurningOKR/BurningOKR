@@ -97,7 +97,7 @@ const currentLanguage: string = 'de';
     {
       provide: TRANSLATIONS,
       useFactory: locale => {
-        return require(`raw-loader!../locale/messages.${locale}.xlf`);
+        return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
       },
       deps: [LOCALE_ID]
     },

@@ -29,6 +29,7 @@ import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-lo
 import { FormErrorComponent } from './components/form-error/form-error.component';
 import { ResetCountdownComponent } from './demo-website/reset-countdown/reset-countdown.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
+import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CountdownTimerModule } from 'ngx-countdown-timer';
     CapsLockDirective,
     NonLoggedInCardComponent,
     FormErrorComponent,
+    MilestoneSliderWrapperComponent,
     ResetCountdownComponent
   ],
   entryComponents: [
@@ -82,6 +84,7 @@ import { CountdownTimerModule } from 'ngx-countdown-timer';
     NonLoggedInCardComponent,
     FormErrorComponent,
     ResetCountdownComponent,
+    MilestoneSliderWrapperComponent
   ],
 })
 export class SharedModule {

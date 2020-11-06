@@ -47,7 +47,7 @@ describe('ObjectiveContentsComponent', () => {
     fixture = TestBed.createComponent(ObjectiveContentsComponent);
     component = fixture.debugElement.componentInstance;
     component.subscription = new Subscription();
-    component.keyResultList = [new ViewKeyResult(1,  1, 1, 1, Unit.PERCENT, 'test title', ' test description', null, [])];
+    component.keyResultList = [new ViewKeyResult(1,  1, 1, 1, Unit.PERCENT, 'test title', ' test description', null, [], [])];
     component.objective = new ViewObjective(1, 'testName', 'testDescription', 'testRemark', 0, [], true, 0, 0, '', 0, undefined);
   });
 

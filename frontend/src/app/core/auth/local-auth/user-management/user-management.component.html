@@ -29,6 +29,7 @@
             </mat-icon>
           </button>
         </div>
+
         <table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">
           <ng-container matColumnDef="photo">
             <th *matHeaderCellDef mat-header-cell></th>
@@ -43,24 +44,24 @@
             </td>
           </ng-container>
           <ng-container matColumnDef="email">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nEmailTableHeader}}</th>
-            <td *matCellDef="let user" mat-cell>{{user.email}}</td>
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nEmailTableHeader}}</th>
+            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.email}}</td>
           </ng-container>
           <ng-container matColumnDef="givenName">
             <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nNameTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>{{user.givenName + ' ' + user.surname}}</td>
           </ng-container>
           <ng-container matColumnDef="department" class="cell">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nDepartentTableHeader}}</th>
-            <td *matCellDef="let user" mat-cell>{{user.department}}</td>
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nDepartentTableHeader}}</th>
+            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.department}}</td>
           </ng-container>
           <ng-container matColumnDef="jobTitle">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nJobTitleTableHeader}}</th>
-            <td *matCellDef="let user" mat-cell>{{user.jobTitle}}</td>
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nJobTitleTableHeader}}</th>
+            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.jobTitle}}</td>
           </ng-container>
           <ng-container matColumnDef="isAdmin">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nAdminTableHeader}}</th>
-            <td *matCellDef="let user" mat-cell>
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nAdminTableHeader}}</th>
+            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>
               <mat-icon *ngIf="user.isAdmin">verified_user</mat-icon>
             </td>
           </ng-container>
@@ -88,6 +89,7 @@
           <tr *matHeaderRowDef="columnsToDisplay;" mat-header-row></tr>
           <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>
         </table>
+
         <mat-paginator [pageSizeOptions]="[10,20,25,50,100]" pageSize="25"></mat-paginator>
       </mat-card-content>
     </mat-card>

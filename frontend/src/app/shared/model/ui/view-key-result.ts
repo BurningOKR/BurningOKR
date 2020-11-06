@@ -1,5 +1,6 @@
 import { Unit } from '../api/unit.enum';
 import { CompanyId, KeyResultId, ObjectiveId } from '../id-types';
+import { ViewKeyResultMilestone } from './view-key-result-milestone';
 
 export class ViewKeyResult {
   start: number;
@@ -11,6 +12,7 @@ export class ViewKeyResult {
   commentIdList: CompanyId[];
   id: KeyResultId;
   parentObjectiveId: ObjectiveId;
+  viewKeyResultMilestones: ViewKeyResultMilestone[];
 
   constructor(
     id: KeyResultId,
@@ -21,7 +23,8 @@ export class ViewKeyResult {
     keyResultTitle: string,
     description: string,
     parentObjectiveId: ObjectiveId,
-    commentIdList: CompanyId[]
+    commentIdList: CompanyId[],
+    viewKeyResultMilestones: ViewKeyResultMilestone[],
   ) {
     this.id = id;
     this.start = start;
@@ -32,6 +35,7 @@ export class ViewKeyResult {
     this.description = description;
     this.parentObjectiveId = parentObjectiveId;
     this.commentIdList = commentIdList;
+    this.viewKeyResultMilestones = viewKeyResultMilestones;
   }
 
   getProgress(): number {

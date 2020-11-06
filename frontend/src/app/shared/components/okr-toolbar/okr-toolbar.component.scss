@@ -22,3 +22,35 @@
 #mainPageButton {
   margin-right: 10px;
 }
+
+.toLongWords {
+  word-break: break-word;
+}
+
+.adminIcon {
+  z-index: 2;
+  position: relative;
+  left: 20px;
+  top: 17px;
+}
+
+
+mat-toolbar mat-toolbar-row {
+  height: 64px;
+  min-height: 64px;
+}
+
+
+@media only screen and (max-width: 350px) {
+  .profileIcon {
+    position: relative;
+    right: 20px;
+  }
+  .adminIcon {
+    left: 0;
+  }
+  .menuIcon {
+    position: relative;
+    right: 25px;
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ValidationErrorService } from '../../services/helper/validation-error.service';
-import { FormControl } from '@angular/forms';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-error',
@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 })
 export class FormErrorComponent {
 
-  @Input() control: FormControl;
+  @Input() control: AbstractControl;
 
   constructor(private controlHelperService: ValidationErrorService,
   ) {
