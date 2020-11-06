@@ -22,13 +22,12 @@
           verified_user
         </mat-icon>
       </div>
-      <button mat-icon-button class="icon-spacer-large profileIcon" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Benutzer"
-             [matMenuTriggerFor]="menu" *ngIf="currentUser$ | async as currentUser" (click)="changeMenuToUser()">
-         <app-user-avatar [user]="currentUser" size="40"></app-user-avatar>
-      </button>
+      <span [matTooltip]="currentUser.givenName + ' ' + currentUser.surname" *ngIf="currentUser$ | async as currentUser">
+         <app-user-avatar class="icon-spacer-large profileIcon"  [user]="currentUser" size="40"></app-user-avatar>
+      </span>
 
       <button mat-icon-button class="icon-spacer-large menuIcon" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
-              [matMenuTriggerFor]="menu" (click)="changeMenuToMenu()">
+              [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>
@@ -39,55 +38,34 @@
 <!-- Interactions menu -->
 <mat-menu #menu="matMenu">
   <!-- show menu settings-->
-  <ng-container *ngIf="!(isLocalUserbase$ | async) && !changeMenuCheck">
+  <ng-container *ngIf="!(isLocalUserbase$ | async)">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
       <span i18n="@@component_okrToolbar_adminPanel">Admin Panel</span>
     </button>
   </ng-container>
-  <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async) && !changeMenuCheck" mat-menu-item (click)="routeToCycleAdminPanel()">
+  <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item (click)="routeToCycleAdminPanel()">
     <mat-icon>history</mat-icon>
     <span i18n="@@component_okrToolbar_cycleManagement">Zyklusverwaltung</span>
   </button>
-  <button mat-menu-item (click)="openSettings()" [disabled]="true" *ngIf="!changeMenuCheck">
+  <button mat-menu-item (click)="openSettings()" [disabled]="true">
     <mat-icon>settings_applications</mat-icon>
     <span i18n="@@component_okrToolbar_settings">Einstellungen</span>
   </button>
-  <button *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async) && !changeMenuCheck" mat-menu-item routerLink="/auth/users">
+  <button *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)" mat-menu-item routerLink="/auth/users">
     <mat-icon>account_box</mat-icon>
     <span i18n="@@component_okrToolbar_userManagement">Nutzerverwaltung</span>
   </button>
-  <button mat-menu-item (click)="openVersionChangelog()" *ngIf="!changeMenuCheck">
-    <mat-icon>info</mat-icon>
-    <span><span i18n="@@component_okrToolbar_version">v</span> {{ versionString }}</span>
-  </button>
-
-  <!-- show user -->
-  <div  *ngIf="changeMenuCheck && currentUser$ | async as currentUser">
-    <span mat-menu-item *ngIf="(currentUser.givenName != '') && currentUser.surname != ''">
-      <mat-icon>account_circle</mat-icon>
-      <span>{{ currentUser.givenName }} {{ currentUser.surname }}</span>
-    </span>
-    <span mat-menu-item *ngIf="currentUser.email != ''">
-      <mat-icon>mail</mat-icon>
-      <span>{{ currentUser.email }}</span>
-    </span>
-    <span mat-menu-item *ngIf="currentUser.jobTitle != ''">
-      <mat-icon>title</mat-icon>
-      <span>{{ currentUser.jobTitle }}</span>
-    </span>
-    <span mat-menu-item *ngIf="currentUser.department != ''">
-      <mat-icon>account_balance</mat-icon>
-      <span >{{ currentUser.department }}</span>
-    </span>
-  </div>
-
-  <button *ngIf="(isLocalUserbase$ | async) && changeMenuCheck" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="true">
+  <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="true">
     <mat-icon>vpn_key</mat-icon>
-    <span i18n="@@component_okrTollbar_changePassword">Passwort ändern</span>
+    <span i18n="@@component_okrToolbar_changePassword">Passwort ändern</span>
   </button>
-  <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="true" *ngIf="changeMenuCheck">
+  <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="true">
     <mat-icon>power_settings_new</mat-icon>
     <span i18n="@@component_okrToolbar_logout">Logout</span>
+  </button>
+  <button mat-menu-item (click)="openVersionChangelog()">
+    <mat-icon>info</mat-icon>
+    <span><span i18n="@@component_okrToolbar_version">v</span> {{ versionString }}</span>
   </button>
 </mat-menu>
