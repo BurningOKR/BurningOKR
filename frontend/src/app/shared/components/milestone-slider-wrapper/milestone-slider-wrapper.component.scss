@@ -1,27 +1,14 @@
 @import "../../../../styles/themes/bag-theme";
 
-.milestone-wrapper {
+.milestone {
   width: 6px;
   height: 10px;
   position: absolute;
   top: 23px;
   left: 12px;
   z-index: 100;
-}
-
-.milestone {
-  width: 6px;
-  height: 4px;
   background-color: rgba(0, 0, 0, 0.26);
-}
-
-.milestone-top {
-  border-radius: 10px 10px 0 0;
-}
-
-.milestone-bottom {
-  margin-top: 2px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
 }
 
 .milestone-reached {
