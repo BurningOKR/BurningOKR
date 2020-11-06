@@ -11,7 +11,6 @@
 }
 
 .keyresult-card{
-  margin:0;
   margin-top: 12px;
   padding: 12px;
   border: solid mat-color($md-primary, 500) 4px;
@@ -27,11 +26,6 @@
   font-weight: 200;
 }
 
-.keyresult-title, .keyresult-description {
-  max-width: 60%;
-  word-break: break-all;
-}
-
 .keyresult-progress-text{
    text-align: center;
    white-space: nowrap;
@@ -40,78 +34,30 @@
 }
 
 .customFlex-1 {
-  flex: 1.0 0.0 256px;
+  flex: 1.0 0.0;
 }
 
 .customFlex-2 {
-  flex: 3.0 0.3 256px
+  flex: 3.0 0.3
 }
 
-.changePositonListNumberForEvent {
-  position: relative;
-  bottom: 38px;
-}
-
-.changePositionForEvent {
-  right: 110px;
-  bottom: 38px;
-}
-
-.keyresult-sliderForEvent {
-  right: 25px;
-  margin-right: 5px;
-}
-
-@media only screen and (max-width: 450px) {
-  .changePositonListNumber {
-    position: relative;
-    bottom: 38px;
-  }
-
-  .changePosition {
-    right: 110px;
-    bottom: 38px;
-  }
-
+@media only screen and (max-width: 480px) {
   .keyresult-slider {
-    right: 25px;
-    margin-right: 5px;
+    flex: 1.0 0.3 100%;
   }
-}
 
-@media only screen and (max-width: 390px) {
-  .changePositonListNumber {
-    position: relative;
-    bottom: 36px;
-  }
-  .changePosition {
-    right: 125px;
-    bottom: 36px;
-  }
-  .keyresult-slider {
-    right: 45px;
-  }
-  .keyresult-title {
-    max-width: 50%;
+  .keyresult-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
   }
 }
 
 @media only screen and (max-width: 360px) {
-  .changePositonListNumber {
-    position: relative;
-    bottom: 34px;
-  }
-  .changePosition {
-    right: 140px;
-    bottom: 34px;
-  }
   .keyresult-slider {
-    right: 48px;
-  }
-  .keyresult-card {
-    right: 10px;
-    width: 255px;
-    padding-left: 0;
-    margin-left: 0;
+    display: none;
   }
 }
