@@ -55,7 +55,7 @@
   </button>
   <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()">
     <mat-icon>vpn_key</mat-icon>
-    <span i18n="@@component_okrTollbar_changePassword">Passwort ändern</span>
+    <span i18n="@@component_okrToolbar_changePassword">Passwort ändern</span>
   </button>
   <button mat-menu-item [routerLink]="['/auth', 'logout']">
     <mat-icon>power_settings_new</mat-icon>
