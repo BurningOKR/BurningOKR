@@ -128,7 +128,7 @@
         <target state="final">Beschreibung</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-form.component.html</context><context context-type="linenumber">39</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-form.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit>
       <trans-unit id="component_deleteDialog_delete" datatype="html">
         <source>Löschen</source>
         <target state="final">Löschen</target>
@@ -439,51 +439,51 @@
         <target state="final">Als Admin autorisiert</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_menu" datatype="html">
-        <source>Menü</source>
-        <target state="final">Menü</target>
+        <source>Benutzer</source>
+        <target state="final">Benutzer</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">23</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">22</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">27</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_adminPanel" datatype="html">
         <source>Admin Panel</source>
         <target state="final">Admin Panel</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">37</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">42</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_cycleManagement" datatype="html">
         <source>Zyklusverwaltung</source>
         <target state="final">Zyklusverwaltung</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">42</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">47</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_settings" datatype="html">
         <source>Einstellungen</source>
         <target state="final">Einstellungen</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">51</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_userManagement" datatype="html">
         <source>Nutzerverwaltung</source>
         <target state="final">Nutzerverwaltung</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit><trans-unit id="component_okrTollbar_changePassword" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">55</context></context-group></trans-unit><trans-unit id="component_okrTollbar_changePassword" datatype="html">
         <source>Passwort ändern</source><target state="final">Passwort ändern</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">54</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">84</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_logout" datatype="html">
         <source>Logout</source>
         <target state="final">Logout</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">58</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">88</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_version" datatype="html">
         <source>v</source>
         <target state="final">v</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">62</context></context-group></trans-unit><trans-unit id="component_adminView_NavigateToUnitOverview" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">59</context></context-group></trans-unit><trans-unit id="component_adminView_NavigateToUnitOverview" datatype="html">
         <source>Zur Strukturübersicht</source><target state="final">Zur Strukturübersicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/error/error.component.html</context>
@@ -1168,43 +1168,43 @@
 
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">33</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">38</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moreOptions" datatype="html">
         <source>Mehr Optionen zu diesem KeyResult</source>
         <target state="final">Mehr Optionen zu diesem KeyResult</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">52</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_commentsForThisKeyResult" datatype="html">
         <source>Kommentare zu diesem KeyResult</source>
         <target state="final">Kommentare zu diesem KeyResult</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">59</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_editKeyResult" datatype="html">
         <source>KeyResult bearbeiten</source>
         <target state="final">KeyResult bearbeiten</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">62</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">71</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultUp" datatype="html">
         <source>KeyResult nach oben verschieben</source>
         <target state="final">KeyResult nach oben verschieben</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">66</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">75</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_moveKeyResultDown" datatype="html">
         <source>KeyResult nach unten verschieben</source>
         <target state="final">KeyResult nach unten verschieben</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">70</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">79</context></context-group></trans-unit>
       <trans-unit id="component_keyResult_deleteKeyResult" datatype="html">
         <source>KeyResult löschen</source>
         <target state="final">KeyResult löschen</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">74</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context><context context-type="linenumber">83</context></context-group></trans-unit>
       <trans-unit id="component_mainView_toggleNavigation" datatype="html">
         <source>Navigationsmenü anzeigen/verbergen</source>
         <target state="final">Navigationsmenü anzeigen/verbergen</target>
@@ -1375,7 +1375,41 @@
         <target state="final">Bearbeitung abbrechen</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/comment/comment-card/comment-card.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit><trans-unit id="userManagementToolbarTitle" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/comment/comment-card/comment-card.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit><trans-unit id="component_keyResultMilestoneForm_toggle" datatype="html">
+        <source>
+  Meilensteine aktiv
+</source><target state="final">
+  Meilensteine aktiv
+</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_keyResultMilestoneForm_addButton" datatype="html">
+        <source>Meilenstein hinzufügen</source><target state="final">Meilenstein hinzufügen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_keyResultMilestoneForm_nameInput" datatype="html">
+        <source>Name *</source><target state="final">Name *</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_keyResultMilestoneForm_valueInput" datatype="html">
+        <source>Ziel-Wert *</source><target state="final">Ziel-Wert *</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_keyResultMilestoneForm_deleteButton" datatype="html">
+        <source>Meilenstein löschen</source><target state="final">Meilenstein löschen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit><trans-unit id="userManagementToolbarTitle" datatype="html">
         <source>Benutzerverwaltung</source><target state="final">Benutzerverwaltung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context>
