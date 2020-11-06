@@ -10,14 +10,18 @@ import { ViewKeyResultMilestone } from '../../../../shared/model/ui/view-key-res
 })
 export class KeyResultMilestoneFormComponent implements OnInit, OnChanges {
 
-  @Input() keyResult: ViewKeyResult;
-  @Input() formArray: FormArray;
-  @Input() min: number;
-  @Input() max: number;
-
   isChecked: boolean = false;
 
+  @Input() keyResult: ViewKeyResult;
+  @Input() formArray: FormArray;
+  @Input() start: number;
+  @Input() end: number;
+
+  private min: number;
+  private max: number;
+
   ngOnInit(): void {
+    this.updateMinMaxValues();
     if (this.keyResult) {
       this.isChecked = this.keyResult.viewKeyResultMilestones.length > 0;
       this.keyResult.viewKeyResultMilestones.forEach((viewKeyResultMilestone: ViewKeyResultMilestone) => {
@@ -32,7 +36,7 @@ export class KeyResultMilestoneFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.min || changes.max) {
+    if (changes.start || changes.end) {
       this.updateMinMaxValidators();
     }
   }
@@ -53,7 +57,18 @@ export class KeyResultMilestoneFormComponent implements OnInit, OnChanges {
     }
   }
 
+  private updateMinMaxValues(): void {
+    if (this.start <= this.end) {
+      this.min = this.start;
+      this.max = this.end;
+    } else {
+      this.min = this.end;
+      this.max = this.start;
+    }
+  }
+
   private updateMinMaxValidators(): void {
+    this.updateMinMaxValues();
     this.formArray.controls.forEach((control: AbstractControl) => {
       const valueControl: AbstractControl = control.get('value');
       valueControl.clearValidators();

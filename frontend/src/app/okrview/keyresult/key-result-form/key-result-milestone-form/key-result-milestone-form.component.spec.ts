@@ -284,9 +284,9 @@ describe('KeyResultMilestoneFormComponent', () => {
     expect(component.formArray.valid)
       .toBeTruthy();
 
-    component.min = 10;
-    component.max = 15;
-    component.ngOnChanges({ min: { previousValue: 1, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+    component.start = 10;
+    component.end = 15;
+    component.ngOnChanges({ start: { previousValue: 1, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
 
     expect(component.formArray.at(0).valid)
       .toBeFalsy();
@@ -305,12 +305,36 @@ describe('KeyResultMilestoneFormComponent', () => {
     expect(component.formArray.valid)
       .toBeTruthy();
 
-    component.min = 1;
-    component.max = 10;
-    component.ngOnChanges({ max: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+    component.start = 1;
+    component.end = 10;
+    component.ngOnChanges({ end: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
 
     expect(component.formArray.at(0).valid)
       .toBeFalsy();
+  });
+
+  it('max value can be smaller than min value', () => {
+    const formGroup: FormGroup = new FormGroup({
+      value: new FormControl(12, [Validators.required, Validators.min(1), Validators.max(15)])
+    });
+
+    fixture = TestBed.createComponent(KeyResultMilestoneFormComponent);
+    component = fixture.componentInstance;
+    component.formArray = new FormArray([formGroup]);
+    fixture.detectChanges();
+
+    expect(component.formArray.valid)
+      .toBeTruthy();
+
+    component.start = 20;
+    component.end = 10;
+    component.ngOnChanges({
+      end: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() },
+      start: { previousValue: 1, currentValue: 200, firstChange: false, isFirstChange: jest.fn() }
+    });
+
+    expect(component.formArray.at(0).valid)
+      .toBeTruthy();
   });
 
   it('changing min value marks formcontrol as touched', () => {
@@ -326,9 +350,9 @@ describe('KeyResultMilestoneFormComponent', () => {
     expect(component.formArray.at(0).touched)
       .toBeFalsy();
 
-    component.min = 10;
-    component.max = 15;
-    component.ngOnChanges({ min: { previousValue: 1, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+    component.start = 10;
+    component.end = 15;
+    component.ngOnChanges({ start: { previousValue: 1, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
 
     expect(component.formArray.at(0).touched)
       .toBeTruthy();
@@ -347,9 +371,9 @@ describe('KeyResultMilestoneFormComponent', () => {
     expect(component.formArray.at(0).touched)
       .toBeFalsy();
 
-    component.min = 1;
-    component.max = 10;
-    component.ngOnChanges({ max: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+    component.start = 1;
+    component.end = 10;
+    component.ngOnChanges({ end: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
 
     expect(component.formArray.at(0).touched)
       .toBeTruthy();
