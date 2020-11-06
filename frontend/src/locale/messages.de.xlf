@@ -561,7 +561,7 @@
         <source> Jobbezeichnung</source><target state="final"> Jobbezeichnung</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
-        <source>Kein SMTP Konfiguriert</source><target state="final">Kein SMTP Konfiguriert</target>
+        <source>Kein SMTP konfiguriert</source><target state="final">Kein SMTP konfiguriert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
           <context context-type="linenumber">2</context>
@@ -609,13 +609,13 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit><trans-unit id="component_noMailInformation_local_PasswordResetMails" datatype="html">
-        <source>Senden von Passwort-reset Mails</source><target state="final">Senden von Passwort-reset Mails</target>
+        <source>Senden von Mails um Passwörter zurückzusetzen</source><target state="final">Senden von Mails um Passwörter zurückzusetzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit><trans-unit id="component_noMailInformation_backToHome" datatype="html">
-        <source>Zurück zu Startseite</source><target state="final">Zurück zu Startseite</target>
+        <source>Zurück zur Startseite</source><target state="final">Zurück zur Startseite</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
           <context context-type="linenumber">19</context>

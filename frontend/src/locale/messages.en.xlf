@@ -554,7 +554,7 @@
         <source> Jobbezeichnung</source><target state="translated">Job Title</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
-        <source>Kein SMTP Konfiguriert</source><target state="translated">No SMPT configured</target>
+        <source>Kein SMTP konfiguriert</source><target state="translated">No SMPT configured</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
           <context context-type="linenumber">2</context>
@@ -602,13 +602,13 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit><trans-unit id="component_noMailInformation_local_PasswordResetMails" datatype="html">
-        <source>Senden von Passwort-reset Mails</source><target state="translated">Sending mails when resetting a password</target>
+        <source>Senden von Mails um Passwörter zurückzusetzen</source><target state="translated">Sending mails when resetting a password</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit><trans-unit id="component_noMailInformation_backToHome" datatype="html">
-        <source>Zurück zu Startseite</source><target state="translated">Back to home page</target>
+        <source>Zurück zur Startseite</source><target state="translated">Back to home page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
           <context context-type="linenumber">19</context>
