@@ -2,6 +2,7 @@ package org.burningokr.service.okr;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.cycles.CycleState;
@@ -30,13 +31,14 @@ public class ObjectiveService {
 
   private final Logger logger = LoggerFactory.getLogger(ObjectiveService.class);
 
-  private ParentService parentService;
-  private ObjectiveRepository objectiveRepository;
-  private KeyResultRepository keyResultRepository;
-  private ActivityService activityService;
-  private EntityCrawlerService entityCrawlerService;
-  private ConfigurationService configurationService;
-  private OkrUnitServiceUsers<OkrChildUnit> unitService;
+  private final ParentService parentService;
+  private final ObjectiveRepository objectiveRepository;
+  private final KeyResultRepository keyResultRepository;
+  private final ActivityService activityService;
+  private final EntityCrawlerService entityCrawlerService;
+  private final ConfigurationService configurationService;
+  private final OkrUnitServiceUsers<OkrChildUnit> unitService;
+  private final KeyResultMilestoneService keyResultMilestoneService;
 
   /**
    * Initialize ObjectiveService.
@@ -57,6 +59,7 @@ public class ObjectiveService {
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       ConfigurationService configurationService,
+      KeyResultMilestoneService keyResultMilestoneService,
       @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
@@ -65,6 +68,7 @@ public class ObjectiveService {
     this.entityCrawlerService = entityCrawlerService;
     this.configurationService = configurationService;
     this.unitService = unitService;
+    this.keyResultMilestoneService = keyResultMilestoneService;
   }
 
   public Objective findById(Long objectiveId) {
@@ -172,7 +176,17 @@ public class ObjectiveService {
       keyResultRepository.save(otherKeyResult);
     }
     keyResult.setParentObjective(referencedObjective);
+
     keyResult = keyResultRepository.save(keyResult);
+
+    long id = keyResult.getId();
+    keyResult.setMilestones(
+        keyResult.getMilestones().stream()
+            .map(
+                milestone ->
+                    keyResultMilestoneService.createKeyResultMilestone(id, milestone, user))
+            .collect(Collectors.toList()));
+
     logger.info(
         "Created Key Result "
             + keyResult.getName()

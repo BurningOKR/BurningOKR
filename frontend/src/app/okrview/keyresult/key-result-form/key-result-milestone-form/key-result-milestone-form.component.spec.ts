@@ -3,14 +3,18 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { KeyResultMilestoneFormComponent } from './key-result-milestone-form.component';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { FormErrorComponent } from '../../../../shared/components/form-error/form-error.component';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../../shared/model/api/unit.enum';
 import { ViewKeyResultMilestone } from '../../../../shared/model/ui/view-key-result-milestone';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 let keyResult: ViewKeyResult;
 let milestone1: ViewKeyResultMilestone;
 let milestone2: ViewKeyResultMilestone;
+
+const i18nMock: any = jest.fn();
 
 describe('KeyResultMilestoneFormComponent', () => {
   let component: KeyResultMilestoneFormComponent;
@@ -19,7 +23,8 @@ describe('KeyResultMilestoneFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ KeyResultMilestoneFormComponent, FormErrorComponent ],
-      imports: [ MaterialTestingModule, ReactiveFormsModule, FormsModule ]
+      imports: [ MaterialTestingModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule ],
+      providers: [ { provide: I18n, useValue: i18nMock } ]
     })
     .compileComponents();
   }));
@@ -132,7 +137,7 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(undefined, undefined, undefined);
+    component.addMilestone(undefined, undefined, undefined, undefined);
 
     expect(component.formArray.length)
       .toBe(1);
@@ -152,7 +157,7 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(null, null, null);
+    component.addMilestone(null, null, null, null);
 
     expect(component.formArray.length)
       .toBe(1);
@@ -172,7 +177,7 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(5, 'test', 10);
+    component.addMilestone(5, 'test', 10, 1);
 
     expect(component.formArray.length)
       .toBe(1);
@@ -182,6 +187,8 @@ describe('KeyResultMilestoneFormComponent', () => {
       .toBe('test');
     expect(component.formArray.controls[0].get('value').value)
       .toBe(10);
+    expect(component.formArray.controls[0].get('parentKeyResult').value)
+      .toBe(1);
   });
 
   it('addMilestone adds multiple milestones', () => {
@@ -192,10 +199,10 @@ describe('KeyResultMilestoneFormComponent', () => {
 
     fixture.detectChanges();
 
-    component.addMilestone(5, 'test', 10);
-    component.addMilestone(5, 'test', 10);
-    component.addMilestone(5, 'test', 10);
-    component.addMilestone(5, 'test', 10);
+    component.addMilestone(5, 'test', 10, 1);
+    component.addMilestone(5, 'test', 10, 1);
+    component.addMilestone(5, 'test', 10, 1);
+    component.addMilestone(5, 'test', 10, 1);
 
     expect(component.formArray.length)
       .toBe(4);
@@ -262,5 +269,113 @@ describe('KeyResultMilestoneFormComponent', () => {
       .toBe(1);
     expect(component.formArray.controls[0])
       .toBe(formControl);
+  });
+
+  it('changing min value updates validators', () => {
+    const formGroup: FormGroup = new FormGroup({
+      value: new FormControl(2, [Validators.required, Validators.min(1), Validators.max(15)])
+    });
+
+    fixture = TestBed.createComponent(KeyResultMilestoneFormComponent);
+    component = fixture.componentInstance;
+    component.formArray = new FormArray([formGroup]);
+    fixture.detectChanges();
+
+    expect(component.formArray.valid)
+      .toBeTruthy();
+
+    component.start = 10;
+    component.end = 15;
+    component.ngOnChanges({ start: { previousValue: 1, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+
+    expect(component.formArray.at(0).valid)
+      .toBeFalsy();
+  });
+
+  it('changing max value updates validators', () => {
+    const formGroup: FormGroup = new FormGroup({
+      value: new FormControl(12, [Validators.required, Validators.min(1), Validators.max(15)])
+    });
+
+    fixture = TestBed.createComponent(KeyResultMilestoneFormComponent);
+    component = fixture.componentInstance;
+    component.formArray = new FormArray([formGroup]);
+    fixture.detectChanges();
+
+    expect(component.formArray.valid)
+      .toBeTruthy();
+
+    component.start = 1;
+    component.end = 10;
+    component.ngOnChanges({ end: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+
+    expect(component.formArray.at(0).valid)
+      .toBeFalsy();
+  });
+
+  it('max value can be smaller than min value', () => {
+    const formGroup: FormGroup = new FormGroup({
+      value: new FormControl(12, [Validators.required, Validators.min(1), Validators.max(15)])
+    });
+
+    fixture = TestBed.createComponent(KeyResultMilestoneFormComponent);
+    component = fixture.componentInstance;
+    component.formArray = new FormArray([formGroup]);
+    fixture.detectChanges();
+
+    expect(component.formArray.valid)
+      .toBeTruthy();
+
+    component.start = 20;
+    component.end = 10;
+    component.ngOnChanges({
+      end: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() },
+      start: { previousValue: 1, currentValue: 200, firstChange: false, isFirstChange: jest.fn() }
+    });
+
+    expect(component.formArray.at(0).valid)
+      .toBeTruthy();
+  });
+
+  it('changing min value marks formcontrol as touched', () => {
+    const formGroup: FormGroup = new FormGroup({
+      value: new FormControl(2, [Validators.required, Validators.min(1), Validators.max(15)])
+    });
+
+    fixture = TestBed.createComponent(KeyResultMilestoneFormComponent);
+    component = fixture.componentInstance;
+    component.formArray = new FormArray([formGroup]);
+    fixture.detectChanges();
+
+    expect(component.formArray.at(0).touched)
+      .toBeFalsy();
+
+    component.start = 10;
+    component.end = 15;
+    component.ngOnChanges({ start: { previousValue: 1, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+
+    expect(component.formArray.at(0).touched)
+      .toBeTruthy();
+  });
+
+  it('changing max value marks formcontrol as touched', () => {
+    const formGroup: FormGroup = new FormGroup({
+      value: new FormControl(12, [Validators.required, Validators.min(1), Validators.max(15)])
+    });
+
+    fixture = TestBed.createComponent(KeyResultMilestoneFormComponent);
+    component = fixture.componentInstance;
+    component.formArray = new FormArray([formGroup]);
+    fixture.detectChanges();
+
+    expect(component.formArray.at(0).touched)
+      .toBeFalsy();
+
+    component.start = 1;
+    component.end = 10;
+    component.ngOnChanges({ end: { previousValue: 15, currentValue: 10, firstChange: false, isFirstChange: jest.fn() }});
+
+    expect(component.formArray.at(0).touched)
+      .toBeTruthy();
   });
 });

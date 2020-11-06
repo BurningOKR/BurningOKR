@@ -27,6 +27,7 @@ import { OkrToolbarComponent } from './components/okr-toolbar/okr-toolbar.compon
 import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
+import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FormErrorComponent } from './components/form-error/form-error.component
     CapsLockDirective,
     NonLoggedInCardComponent,
     FormErrorComponent,
+    MilestoneSliderWrapperComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -76,7 +78,8 @@ import { FormErrorComponent } from './components/form-error/form-error.component
     OkrToolbarComponent,
     CapsLockDirective,
     NonLoggedInCardComponent,
-    FormErrorComponent
+    FormErrorComponent,
+    MilestoneSliderWrapperComponent
   ],
 })
 export class SharedModule {

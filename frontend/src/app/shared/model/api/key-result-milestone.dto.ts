@@ -1,6 +1,6 @@
 export interface KeyResultMilestoneDto {
   id?: number;
   name: string;
-  parentKeyResult?: number;
+  parentKeyResultId?: number;
   value: number;
 }

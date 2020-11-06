@@ -3,6 +3,7 @@ package org.burningokr.model.okr;
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.Data;
+import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 
 @Entity
@@ -13,7 +14,7 @@ public class KeyResultMilestone implements Trackable<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @ManyToOne private KeyResult parentKeyResult;
+  @ToString.Exclude @ManyToOne private KeyResult parentKeyResult;
 
   @Column(length = 255)
   private String name;
