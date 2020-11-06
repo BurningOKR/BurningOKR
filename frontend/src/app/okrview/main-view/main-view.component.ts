@@ -23,7 +23,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
     private media: MediaMatcher,
     private currentCycleService: CurrentCycleService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 700px)');
+    this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
