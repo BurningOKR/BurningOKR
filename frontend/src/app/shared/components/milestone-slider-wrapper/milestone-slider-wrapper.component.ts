@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { ViewKeyResultMilestone } from '../../model/ui/view-key-result-milestone';
 import { ViewKeyResult } from '../../model/ui/view-key-result';
 
@@ -7,7 +7,7 @@ import { ViewKeyResult } from '../../model/ui/view-key-result';
   templateUrl: './milestone-slider-wrapper.component.html',
   styleUrls: ['./milestone-slider-wrapper.component.scss']
 })
-export class MilestoneSliderWrapperComponent implements AfterViewInit {
+export class MilestoneSliderWrapperComponent implements AfterContentInit {
 
   @Input() keyResult: ViewKeyResult;
 
@@ -24,7 +24,7 @@ export class MilestoneSliderWrapperComponent implements AfterViewInit {
     this.updateWidth();
   }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this.updateWidth();
   }
 
