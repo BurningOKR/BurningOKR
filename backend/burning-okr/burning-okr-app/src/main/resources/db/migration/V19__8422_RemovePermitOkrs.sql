@@ -1,1 +1,0 @@
-ALTER TABLE public.department DROP COLUMN permit_okrs

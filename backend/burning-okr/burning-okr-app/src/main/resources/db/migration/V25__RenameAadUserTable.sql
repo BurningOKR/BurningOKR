@@ -1,1 +1,0 @@
-ALTER TABLE public.aaduser RENAME TO aad_user;
