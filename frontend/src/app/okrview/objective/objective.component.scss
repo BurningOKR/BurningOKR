@@ -8,15 +8,13 @@
 .objective-inactive {
   color: mat-contrast($md-primary, 500);
   font-style: italic;
-  background-attachment: fixed;
   background: repeating-linear-gradient(45deg,
-      transparent,
-      transparent 10px,
-      mat-color($md-primary, 600) 10px,
-      mat-color($md-primary, 500) 20px)top left fixed,
-    linear-gradient(to bottom,
-      mat-color($md-primary, 700),
-      mat-color($md-primary, 900));
+    transparent,
+    transparent 10px,
+    mat-color($md-primary, 600) 10px,
+    mat-color($md-primary, 500) 20px) linear-gradient(to bottom,
+    mat-color($md-primary, 700),
+    mat-color($md-primary, 900)) fixed top left;
 }
 
 .objective-title {
@@ -29,18 +27,16 @@
 
 .mat-expansion-panel,
 .mat-expansion-panel-header {
-  padding: 0px 0px;
+  padding: 0 0;
   background-color: whitesmoke
 }
-
-mat-expansion-panel-body {}
 
 .header-padding {
   padding: 16px 16px;
 }
 
 .progress-bar {
-  margin: 0px 8px;
+  margin: 0 8px;
 }
 
 .circle {
@@ -79,4 +75,42 @@ mat-expansion-panel-body {}
 
 .objective-title-flex {
   flex: 3.0 0.4 256px;
+}
+
+@media only screen and (max-width: 480px) {
+  .objective-lineNumber {
+    position: relative;
+    bottom: 10px;
+  }
+  .circle {
+    display: none;
+  }
+  .objective-title {
+    max-width: 75%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+  }
+  .objective-progressBar {
+    margin-right: 28px;
+  }
+
+}
+
+@media only screen and (max-width: 390px) {
+  .margin-expansion-panel {
+    width: 325px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .margin-expansion-panel {
+    width: 285px;
+  }
+  .objective-title {
+    max-width: 65%;
+  }
 }

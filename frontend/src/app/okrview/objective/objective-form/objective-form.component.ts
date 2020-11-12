@@ -11,6 +11,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { OkrUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-unit';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 import { map, switchMap } from 'rxjs/operators';
+import { UserService } from '../../../shared/services/helper/user.service';
 
 interface ObjectiveFormData {
   objective?: ViewObjective;
@@ -39,6 +40,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   parentElements$ = new Subject<DepartmentObjectiveSchema[]>();
   users: User[];
   user: User;
+  users$: Observable<User[]>;
 
   subscriptions: Subscription[] = [];
   title: string;
@@ -48,6 +50,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     private objectiveMapper: ObjectiveViewMapper,
     private currentOkrViewService: CurrentOkrviewService,
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
+    private userService: UserService,
     private i18n: I18n,
     @Inject(MAT_DIALOG_DATA) private formData: ObjectiveFormData
   ) {
@@ -70,6 +73,8 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     } else {
       this.fetchParentObjectives(this.formData.unitId);
     }
+
+    this.users$ = this.userService.getAllUsers$();
 
     const editText: string = this.i18n({
       id: 'edit',

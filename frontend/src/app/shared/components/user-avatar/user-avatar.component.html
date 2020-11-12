@@ -1,8 +1,10 @@
-<ngx-avatar (clickOnAvatar)="clickOnAvatar.emit($event)"
-            [value]="'📁'"
-            [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null"
-            [size]="size"
-            [bgColor]="bgColor"
-            [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''"
-            [style.cursor]="clickable ? 'pointer' : ''"
-></ngx-avatar>
+<ng-container *ngIf="render">
+  <ngx-avatar (clickOnAvatar)="clickOnAvatar.emit($event)"
+              [value]="'📁'"
+              [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null"
+              [size]="size"
+              [bgColor]="bgColor"
+              [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''"
+              [style.cursor]="clickable ? 'pointer' : ''"
+  ></ngx-avatar>
+</ng-container>

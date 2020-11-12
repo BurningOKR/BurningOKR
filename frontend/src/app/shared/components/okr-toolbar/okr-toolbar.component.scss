@@ -8,6 +8,7 @@
   color: white;
   text-align: center;
   font-size: small;
+  line-height: 1.2;
 }
 .user-interactions {
   float: right;
@@ -17,4 +18,22 @@
 
 .toolbar-spacer {
   min-height: 64px;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.adminIcon {
+  z-index: 2;
+  position: relative;
+  left: 20px;
+  top: 17px;
+}
+
+
+mat-toolbar mat-toolbar-row {
+  height: 64px;
+  min-height: 64px;
+  padding: 0 10px;
 }

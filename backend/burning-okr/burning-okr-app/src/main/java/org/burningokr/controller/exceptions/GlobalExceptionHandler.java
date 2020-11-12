@@ -342,7 +342,7 @@ public class GlobalExceptionHandler {
    * Global handler for DuplicateTeamMemberException.
    *
    * @param request HttpServletRequest
-   * @param ex InvalidInitStateException
+   * @param ex DuplicateTeamMemberException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(DuplicateTeamMemberException.class)
@@ -351,6 +351,24 @@ public class GlobalExceptionHandler {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
     logger.error(
         "DuplicateTeamMemberException handler executed -> HTTP 400 response - ID: "
+            + errorInformation.getErrorId(),
+        ex);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
+  }
+
+  /**
+   * Global handler for DuplicateEmailException.
+   *
+   * @param request HttpServletRequest
+   * @param ex DuplicateEmailException
+   * @return a ResponseEntity with HttpStatus Bad Request
+   */
+  @ExceptionHandler(DuplicateEmailException.class)
+  public ResponseEntity handleDuplicateEmailException(
+      HttpServletRequest request, DuplicateEmailException ex) {
+    ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
+    logger.error(
+        "DuplicateEmailException handler executed -> HTTP 400 response - ID: "
             + errorInformation.getErrorId(),
         ex);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);

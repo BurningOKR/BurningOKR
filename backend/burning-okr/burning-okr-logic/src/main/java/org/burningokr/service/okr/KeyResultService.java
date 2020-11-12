@@ -3,6 +3,7 @@ package org.burningokr.service.okr;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
@@ -16,43 +17,21 @@ import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class KeyResultService {
 
   private final Logger logger = LoggerFactory.getLogger(KeyResultService.class);
 
-  private KeyResultRepository keyResultRepository;
-  private NoteRepository noteRepository;
-  private ActivityService activityService;
-  private EntityCrawlerService entityCrawlerService;
-  private ObjectiveService objectiveService;
-
-  /**
-   * Initializes KeyResultService.
-   *
-   * @param keyResultRepository a {@link KeyResultRepository} object
-   * @param noteRepository a {@link NoteRepository} object
-   * @param activityService an {@link ActivityService} object
-   * @param entityCrawlerService an {@link EntityCrawlerService} object
-   * @param objectiveService an {@link ObjectiveService} object
-   */
-  @Autowired
-  public KeyResultService(
-      KeyResultRepository keyResultRepository,
-      NoteRepository noteRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService,
-      ObjectiveService objectiveService) {
-    this.keyResultRepository = keyResultRepository;
-    this.noteRepository = noteRepository;
-    this.activityService = activityService;
-    this.entityCrawlerService = entityCrawlerService;
-    this.objectiveService = objectiveService;
-  }
+  private final KeyResultRepository keyResultRepository;
+  private final NoteRepository noteRepository;
+  private final ActivityService activityService;
+  private final EntityCrawlerService entityCrawlerService;
+  private final ObjectiveService objectiveService;
+  private final KeyResultMilestoneService keyResultMilestoneService;
 
   public KeyResult findById(long keyResultId) {
     return keyResultRepository.findByIdOrThrow(keyResultId);
@@ -81,6 +60,8 @@ public class KeyResultService {
     referencedKeyResult.setCurrentValue(updatedKeyResult.getCurrentValue());
     referencedKeyResult.setTargetValue(updatedKeyResult.getTargetValue());
     referencedKeyResult.setUnit(updatedKeyResult.getUnit());
+
+    referencedKeyResult = keyResultMilestoneService.updateMilestones(updatedKeyResult, user);
 
     referencedKeyResult = keyResultRepository.save(referencedKeyResult);
     logger.info(

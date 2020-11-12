@@ -1,6 +1,6 @@
 @import '../../../styles/themes/bag-theme';
 
-.keyresult-slider{
+.keyresult-slider {
       flex: 1.0 0.3 256px;
       padding: 4px;
       flex-direction: column;
@@ -10,24 +10,23 @@
       top: -8px;
 }
 
-.keyresult-card{
-  margin:0px;
+.keyresult-card {
   margin-top: 12px;
   padding: 12px;
   border: solid mat-color($md-primary, 500) 4px;
-  border-top: 0px;
-  border-bottom: 0px;
+  border-top: 0;
+  border-bottom: 0;
 }
 
-.keyresult-title{
-      font-size: medium;
+.keyresult-title {
+  font-size: medium;
 }
 
-.keyresult-description{
+.keyresult-description {
   font-weight: 200;
 }
 
-.keyresult-progress-text{
+.keyresult-progress-text {
    text-align: center;
    white-space: nowrap;
    position:relative;
@@ -35,9 +34,30 @@
 }
 
 .customFlex-1 {
-  flex: 1.0 0.0 256px;
+  flex: 1.0 0.0;
 }
 
 .customFlex-2 {
-  flex: 3.0 0.3 256px
+  flex: 3.0 0.3
+}
+
+@media only screen and (max-width: 480px) {
+  .keyresult-slider {
+    flex: 1.0 0.3 100%;
+  }
+
+  .keyresult-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .keyresult-slider {
+    display: none;
+  }
 }

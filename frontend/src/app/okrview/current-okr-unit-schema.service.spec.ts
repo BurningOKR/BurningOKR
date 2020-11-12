@@ -80,7 +80,7 @@ describe('CurrentOkrUnitSchemaService', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        {provide: OkrUnitSchemaMapper, useValue: unitSchemaMapperMock}
+        { provide: OkrUnitSchemaMapper, useValue: unitSchemaMapperMock }
       ]
     }));
 
@@ -246,13 +246,11 @@ describe('CurrentOkrUnitSchemaService', () => {
 
     service.setCurrentUnitSchemaByDepartmentId(1);
     service.getCurrentParentUnitId$()
-      .subscribe(() => {
-        fail();
+      .subscribe((unitId: number) => {
+        expect(unitId)
+          .toBeNull();
+        done();
       });
-
-    setTimeout(() => {
-      done();
-    }, 1000);
   });
 
   it('should get parent unit id, has parent unit, emits id', done => {
@@ -276,13 +274,11 @@ describe('CurrentOkrUnitSchemaService', () => {
 
     service.setCurrentUnitSchemaByDepartmentId(6);
     service.getCurrentParentUnitId$()
-      .subscribe(() => {
-        fail();
+      .subscribe((unitId: number) => {
+        expect(unitId)
+          .toBeNull();
+        done();
       });
-
-    setTimeout(() => {
-      done();
-    }, 1000);
   });
 
   it('should get parent unit id, is not in list, does not emit', done => {
@@ -292,13 +288,11 @@ describe('CurrentOkrUnitSchemaService', () => {
 
     service.setCurrentUnitSchemaByDepartmentId(1);
     service.getCurrentParentUnitId$()
-      .subscribe(() => {
-        fail();
+      .subscribe((unitId: number) => {
+        expect(unitId)
+          .toBeNull();
+        done();
       });
-
-    setTimeout(() => {
-      done();
-    }, 1000);
   });
 
   it('getUnitSchemasToReachUnitWithId, empty list, returns empty list', done => {
@@ -312,4 +306,177 @@ describe('CurrentOkrUnitSchemaService', () => {
         done();
       });
   });
+
+  it('getUnitSchemasToReachUnitWithId, three unit schema, returns parent units', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.getUnitSchemasToReachUnitWithId$(7)
+      .subscribe((schemas: OkrUnitSchema[]) => {
+        expect(schemas)
+          .toEqual([
+            threeUnitSchema[0],
+            threeUnitSchema[0].subDepartments[0]
+          ]);
+        done();
+      });
+  });
+
+  it('getUnitSchemasToReachUnitWithId, three unit schema, id not in list, returns empty list', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.getUnitSchemasToReachUnitWithId$(10)
+      .subscribe((schemas: OkrUnitSchema[]) => {
+        expect(schemas)
+          .toEqual([]);
+        done();
+      });
+  });
+
+  it('getUnitSchemasToReachUnitWithId, three unit schema, is parent, returns empty list', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.getUnitSchemasToReachUnitWithId$(5)
+      .subscribe((schemas: OkrUnitSchema[]) => {
+        expect(schemas)
+          .toEqual([]);
+        done();
+      });
+  });
+
+  it('getUnitIdsToReachUnitWithId, empty list, returns empty list', done => {
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.getUnitIdsToReachUnitWithId$(1)
+      .subscribe((schemas: number[]) => {
+        expect(schemas)
+          .toEqual([]);
+        done();
+      });
+  });
+
+  it('getUnitIdsToReachUnitWithId, three unit schema, returns parent units', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.getUnitIdsToReachUnitWithId$(7)
+      .subscribe((schemas: number[]) => {
+        expect(schemas)
+          .toEqual([
+            threeUnitSchema[0].id,
+            threeUnitSchema[0].subDepartments[0].id
+          ]);
+        done();
+      });
+  });
+
+  it('getUnitIdsToReachUnitWithId, three unit schema, id not in list, returns empty list', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.getUnitIdsToReachUnitWithId$(10)
+      .subscribe((schemas: number[]) => {
+        expect(schemas)
+          .toEqual([]);
+        done();
+      });
+  });
+
+  it('getUnitIdsToReachUnitWithId, three unit schema, is parent, returns empty list', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.getUnitIdsToReachUnitWithId$(5)
+      .subscribe((schemas: number[]) => {
+        expect(schemas)
+          .toEqual([]);
+        done();
+      });
+  });
+
+  it('updateUnitSchemaTeamRole, empty schema list, does nothing', done => {
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.updateSchemaTeamRole(2, OkrUnitRole.MANAGER);
+
+    service.getCurrentUnitSchemas$()
+      .subscribe((schema: OkrUnitSchema[]) => {
+        expect(schema)
+          .toEqual([]);
+        done();
+      });
+  });
+
+  it('updateUnitSchemaTeamRole, three unit schema, updates', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.updateSchemaTeamRole(7, OkrUnitRole.MANAGER);
+
+    service.getCurrentUnitSchemas$()
+      .subscribe((schema: OkrUnitSchema[]) => {
+        expect(schema)
+          .toEqual([
+            {
+              id: 5,
+              isActive: true,
+              name: 'testUnitSchema',
+              userRole: OkrUnitRole.MEMBER,
+              subDepartments: [
+                {
+                  id: 6,
+                  isActive: true,
+                  name: 'testUnitSchema2',
+                  userRole: OkrUnitRole.MANAGER,
+                  subDepartments: [
+                    {
+                      id: 7,
+                      isActive: true,
+                      name: 'testUnitSchema3',
+                      userRole: OkrUnitRole.MANAGER,
+                      subDepartments: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]);
+        done();
+      });
+  });
+
+  it('updateUnitSchemaTeamRole, three unit schema, id not in list, does nothing', done => {
+    unitSchemaMapperMock.getOkrUnitSchemaByUnitId$.mockReturnValue(of(threeUnitSchema));
+
+    const service: CurrentOkrUnitSchemaService = TestBed.get(CurrentOkrUnitSchemaService);
+
+    service.setCurrentUnitSchemaByDepartmentId(1);
+    service.updateSchemaTeamRole(10, OkrUnitRole.MANAGER);
+
+    service.getCurrentUnitSchemas$()
+      .subscribe((schema: OkrUnitSchema[]) => {
+        expect(schema)
+          .toEqual(threeUnitSchema);
+        done();
+      });
+  });
+// tslint:disable-next-line:max-file-line-count
 });

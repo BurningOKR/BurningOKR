@@ -4,7 +4,7 @@
 
 }
 
-.avatar /deep/ .avatar-content:hover {
+.avatar::ng-deep .avatar-content:hover {
   opacity: 0.6 !important;
   cursor: pointer;
   transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);

@@ -1,7 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { dateFormatError } from '../date-format-validator/date-format-validator-function';
 
 export const currentHigherThanEndError: ValidationErrors = {
   currentHigherThanEndError: true
@@ -21,8 +20,9 @@ export class CurrentHigherThanEndValidator extends AbstractValidator {
   static Validate(control: AbstractControl): ValidationErrors {
     const current: number = control.get('current').value;
     const end: number = control.get('end').value;
+    const start: number = control.get('start').value;
 
-    if (current > end) {
+    if ((current > end && end > start) || (current < end && end < start)) {
       return currentHigherThanEndError;
     }
   }

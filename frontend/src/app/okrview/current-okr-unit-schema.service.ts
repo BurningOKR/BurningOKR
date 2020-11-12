@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { OkrUnitSchema, OkrUnitRole } from '../shared/model/ui/okr-unit-schema';
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { OkrUnitRole, OkrUnitSchema } from '../shared/model/ui/okr-unit-schema';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OkrUnitSchemaDto } from '../shared/model/api/OkrUnit/okr-unit-schema-dto';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { OkrUnitSchemaMapper } from '../shared/services/mapper/okr-unit-schema.mapper';
 
 @Injectable({
@@ -10,8 +10,8 @@ import { OkrUnitSchemaMapper } from '../shared/services/mapper/okr-unit-schema.m
 })
 export class CurrentOkrUnitSchemaService {
 
-  private currentUnitSchema$: ReplaySubject<OkrUnitSchema[]> = new ReplaySubject<OkrUnitSchema[]>(1);
-  private currentUnitId$: ReplaySubject<number> = new ReplaySubject<number>(1);
+  private currentUnitSchema$: BehaviorSubject<OkrUnitSchema[]> = new BehaviorSubject<OkrUnitSchema[]>([]);
+  private currentUnitId$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
   constructor(private okrUnitSchemaMapper: OkrUnitSchemaMapper) {
   }
@@ -24,9 +24,27 @@ export class CurrentOkrUnitSchemaService {
     return this.getCurrentUnitId$()
       .pipe(
         switchMap((id: number) => this.getUnitSchemasToReachUnitWithId$(id)),
-        filter((schemas: OkrUnitSchema[]) => schemas.length > 0),
-        map((schema: OkrUnitSchema[]) => schema[schema.length - 1].id),
+        map((schema: OkrUnitSchema[]) => {
+          if (schema.length > 0) {
+            return schema[schema.length - 1].id;
+          } else {
+            return null;
+          }
+        }),
         distinctUntilChanged()
+      );
+  }
+
+  getParentUnitId$(id: number): Observable<number> {
+    return this.getUnitIdsToReachUnitWithId$(id)
+      .pipe(
+        map((ids: number[]) => {
+          if (ids.length > 0) {
+            return ids[ids.length - 1];
+          } else {
+            return null;
+          }
+        })
       );
   }
 
@@ -130,7 +148,7 @@ export class CurrentOkrUnitSchemaService {
       });
   }
 
-  updateUnitSchemaTeamRoleRecursive(
+  private updateUnitSchemaTeamRoleRecursive(
     departmentId: number,
     newRole: OkrUnitRole,
     okrUnitSchemas: OkrUnitSchema[]

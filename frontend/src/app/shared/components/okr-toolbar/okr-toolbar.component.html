@@ -1,26 +1,31 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
     <ng-content></ng-content>
-    <span class="fill-space"></span>
-    <div class="warningText" *ngIf="!(hasMailConfigured$ | async)">
-      <span i18n="@@component_okrToolbar_noSMTPWarningText">
+    <span class="fill-space hidden-m-down"></span>
+    <div class="warningText hidden-m-down" *ngIf="!(hasMailConfigured$ | async)">
+      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">
         Warnung: Es wurde kein SMTP Server konfiguriert.
       </span>
       <br>
-      <a [routerLink]="['/noMailInformation']" class="warningText" i18n="@@component_okrToolbar_noSMTPWarningLink">
-        Dies kann die Nutzbarkeit der Anwendung stark einschränken.
+      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">
+        Dies kann die Nutzbarkeit der
+        <br class="hidden-l-up">
+        Anwendung stark einschränken.
       </a>
     </div>
     <span class="fill-space"></span>
     <div class="user-interactions">
-      <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"
-                i18n-matTooltip="@@component_okrToolbar_authorizeAsAdmin" matTooltip="Als Admin autorisiert">
-        verified_user
-      </mat-icon>
-      <span *ngIf="currentUser$ | async as currentUser">
-        {{ currentUser.givenName }} {{ currentUser.surname }}
+      <div class="adminIcon">
+        <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"
+                  i18n-matTooltip="@@component_okrToolbar_authorizeAsAdmin" matTooltip="Als Admin autorisiert">
+          verified_user
+        </mat-icon>
+      </div>
+      <span [matTooltip]="currentUser.givenName + ' ' + currentUser.surname" *ngIf="currentUser$ | async as currentUser">
+         <app-user-avatar class="icon-spacer-large profileIcon"  [user]="currentUser" size="40"></app-user-avatar>
       </span>
-      <button mat-icon-button class="icon-spacer-large" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
+
+      <button mat-icon-button class="icon-spacer-large menuIcon" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
               [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
@@ -31,6 +36,7 @@
 
 <!-- Interactions menu -->
 <mat-menu #menu="matMenu">
+  <!-- show menu settings-->
   <ng-container *ngIf="!(isLocalUserbase$ | async)">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
@@ -45,13 +51,13 @@
     <mat-icon>settings_applications</mat-icon>
     <span i18n="@@component_okrToolbar_settings">Einstellungen</span>
   </button>
-  <button *ngIf="(isLocalUserbase$ | async) && isCurrentUserAdmin$ | async" mat-menu-item routerLink="/auth/users">
+  <button *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)" mat-menu-item routerLink="/auth/users">
     <mat-icon>account_box</mat-icon>
     <span i18n="@@component_okrToolbar_userManagement">Nutzerverwaltung</span>
   </button>
-  <button *ngIf="isLocalUserbase$ | async" mat-menu-item (click)="openPasswordChangeForm()">
+  <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()">
     <mat-icon>vpn_key</mat-icon>
-    <span i18n="@@component_okrTollbar_changePassword">Passwort ändern</span>
+    <span i18n="@@component_okrToolbar_changePassword">Passwort ändern</span>
   </button>
   <button mat-menu-item [routerLink]="['/auth', 'logout']">
     <mat-icon>power_settings_new</mat-icon>

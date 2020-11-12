@@ -14,3 +14,7 @@ mat-form-field.number-input:first-child {
 mat-form-field.number-input:last-child {
   padding-left: 5px;
 }
+
+mat-dialog-content {
+  overflow: auto !important;
+}

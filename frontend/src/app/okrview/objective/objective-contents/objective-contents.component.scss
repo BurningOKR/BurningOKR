@@ -19,11 +19,11 @@
 }
 
 .custom.mat-card {
-  padding: 0px;
+  padding: 0;
 }
 
 .parent-objective {
-  margin: 8px 32px 0px 32px;
+  margin: 8px 32px 0 32px;
   padding: 4px 32px;
   flex: 1;
   white-space: normal;
@@ -38,4 +38,8 @@
   margin: 4px;
   padding: 8px;
   text-align: center
+}
+
+.add-keyresult-button {
+  margin-top: 12px;
 }

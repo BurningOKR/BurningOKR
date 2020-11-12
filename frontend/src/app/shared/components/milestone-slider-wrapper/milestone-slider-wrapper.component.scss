@@ -1,0 +1,16 @@
+@import "../../../../styles/themes/bag-theme";
+
+.milestone {
+  width: 6px;
+  height: 10px;
+  position: absolute;
+  top: 23px;
+  left: 12px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+}
+
+.milestone-reached {
+  background-color: mat-color($md-secondary, 500);
+}

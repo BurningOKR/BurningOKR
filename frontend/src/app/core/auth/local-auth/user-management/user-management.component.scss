@@ -2,84 +2,26 @@
 
 .app-is-mobile .app-toolbar {
   position: fixed;
-  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  // Make sure the toolbar will stay on top of the content as it scrolls past.
   z-index: 2;
 }
 
-.mat-column-active {
-  max-width: 15em;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.mat-column-email {
-  max-width: 15em;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.mat-column-givenName {
-  max-width: 15em;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.mat-column-department {
-  max-width: 15em;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.mat-column-jobTitle {
-  max-width: 15em;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
+.mat-column-active, .mat-column-email, .mat-column-givenName, .mat-column-department, .mat-column-jobTitle,
 .mat-column-isAdmin {
   max-width: 15em;
 
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: initial;
 
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+}
+
+@media only screen and (max-width: 810px) {
+  .hidden-mobile-table {
+    display: none !important;
+  }
 }
