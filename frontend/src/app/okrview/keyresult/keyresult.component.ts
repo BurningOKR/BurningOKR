@@ -15,7 +15,6 @@ import { CommentViewDialogComponent } from '../comment/comment-view-dialog/comme
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
-import { ResizedEvent } from 'angular-resize-event';
 
 @Component({
   selector: 'app-keyresult',
@@ -42,9 +41,6 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   timeInMsToWaitUntilPushingSliderChanges = 2000;
 
   isKeyResultSliderInverted: boolean = false;
-
-  keyResultWidth: number;
-  style: boolean;
 
   constructor(private matDialog: MatDialog, private keyResultMapperService: KeyResultMapper, private i18n: I18n) {
   }
@@ -232,10 +228,5 @@ export class KeyresultComponent implements OnInit, OnDestroy {
       message,
       confirmButtonText
     };
-  }
-
-  onResized(event: ResizedEvent): void {
-    this.keyResultWidth = event.newWidth;
-    this.style = this.keyResultWidth > 300 && this.keyResultWidth < 400;
   }
 }

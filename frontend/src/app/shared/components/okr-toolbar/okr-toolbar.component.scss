@@ -8,6 +8,7 @@
   color: white;
   text-align: center;
   font-size: small;
+  line-height: 1.2;
 }
 .user-interactions {
   float: right;
@@ -23,7 +24,7 @@
   margin-right: 10px;
 }
 
-.toLongWords {
+.break-word {
   word-break: break-word;
 }
 
@@ -38,4 +39,5 @@
 mat-toolbar mat-toolbar-row {
   height: 64px;
   min-height: 64px;
+  padding: 0 10px;
 }

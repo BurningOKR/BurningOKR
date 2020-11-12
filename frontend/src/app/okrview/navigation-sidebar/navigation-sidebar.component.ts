@@ -42,7 +42,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  toggleOpenSideNav(): void {
+  toggleSideNav(): void {
     this.sideNav.toggle();
   }
 
