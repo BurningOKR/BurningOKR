@@ -1,6 +1,6 @@
 @import '../../../styles/themes/bag-theme';
 
-.keyresult-slider{
+.keyresult-slider {
       flex: 1.0 0.3 256px;
       padding: 4px;
       flex-direction: column;
@@ -10,7 +10,7 @@
       top: -8px;
 }
 
-.keyresult-card{
+.keyresult-card {
   margin-top: 12px;
   padding: 12px;
   border: solid mat-color($md-primary, 500) 4px;
@@ -18,15 +18,15 @@
   border-bottom: 0;
 }
 
-.keyresult-title{
+.keyresult-title {
   font-size: medium;
 }
 
-.keyresult-description{
+.keyresult-description {
   font-weight: 200;
 }
 
-.keyresult-progress-text{
+.keyresult-progress-text {
    text-align: center;
    white-space: nowrap;
    position:relative;
@@ -46,7 +46,7 @@
     flex: 1.0 0.3 100%;
   }
 
-  .keyresult-title{
+  .keyresult-title {
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;

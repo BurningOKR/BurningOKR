@@ -37,6 +37,6 @@ export class MainViewComponent implements OnInit, OnDestroy {
   }
 
   toggleSideBar(): void {
-    this.sideBar.toggleOpenSideNav();
+    this.sideBar.toggleSideNav();
   }
 }

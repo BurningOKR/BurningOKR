@@ -3,11 +3,11 @@
     <ng-content></ng-content>
     <span class="fill-space hidden-m-down"></span>
     <div class="warningText hidden-m-down" *ngIf="!(hasMailConfigured$ | async)">
-      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="toLongWords">
+      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">
         Warnung: Es wurde kein SMTP Server konfiguriert.
       </span>
       <br>
-      <a [routerLink]="['/noMailInformation']" class="warningText toLongWords" i18n="@@component_okrToolbar_noSMTPWarningLink">
+      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">
         Dies kann die Nutzbarkeit der Anwendung stark einschränken.
       </a>
     </div>
