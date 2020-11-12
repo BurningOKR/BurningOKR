@@ -26,3 +26,4 @@ shutdown.pid
 /nbdist/
 /.nb-gradle/
 /burning-okr-app/src/main/resources/application-local.yaml
+/burning-okr-app/src/main/resources/application-mssql.yaml
