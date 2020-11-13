@@ -195,6 +195,7 @@
     2. Install the zip file:
         1. Clear the tomcat ROOT directory:
             ```
+            sudo su
             sudo rm -r /opt/tomcat/webapps/ROOT/*
             ```
         2. Install unzip
@@ -211,7 +212,6 @@
             ```
         5. Download a web.xml and place it in the WEB-INF directory
             ```
-            sudo su
             cd /opt/tomcat/webapps/ROOT/WEB-INF
             sudo wget https://raw.githubusercontent.com/BurningOKR/BurningOKR/development/docs/files/web.xml
             exit
