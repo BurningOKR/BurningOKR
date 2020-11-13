@@ -1,5 +1,10 @@
 <app-okr-toolbar>
-  <span i18n="@@component_noMailInformation_Header">Kein SMTP konfiguriert</span>
+  <button (click)="navigateToCompanies()" class="navbar-item"
+          i18n-matTooltip="@@component_adminView_NavigateToUnitOverview" mat-icon-button
+          matTooltip="Zur Strukturübersicht">
+    <mat-icon>home</mat-icon>
+  </button>
+<!--  <span i18n="@@component_noMailInformation_Header">Kein SMTP konfiguriert</span>-->
 </app-okr-toolbar>
 <br>
 <div class="container">
