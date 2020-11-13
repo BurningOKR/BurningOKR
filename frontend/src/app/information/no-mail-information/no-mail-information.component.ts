@@ -12,7 +12,7 @@ export class NoMailInformationComponent  {
   }
 
   navigateToCompanies(): void {
-    this.router.navigate(['/companies'])
+    this.router.navigate(['companies'])
       .catch();
   }
 }
