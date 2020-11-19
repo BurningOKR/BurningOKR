@@ -13,7 +13,7 @@ CREATE TABLE activity
 (
     id      bigint NOT NULL,
     action  integer,
-    date    timestamp,
+    date    datetime2,
     object  character varying(255),
     user_id character varying(255),
     CONSTRAINT activity_pkey PRIMARY KEY (id)
@@ -151,7 +151,7 @@ CREATE TABLE note
 (
     id                   bigint    NOT NULL,
     text                 character varying(255),
-    date                 timestamp NOT NULL default CURRENT_TIMESTAMP,
+    date                 datetime2 NOT NULL default GETDATE(),
     user_id              uniqueidentifier,
     parent_key_result_id bigint,
     CONSTRAINT note_pkey PRIMARY KEY (id),
@@ -193,15 +193,15 @@ CREATE TABLE aad_user
 CREATE TABLE local_user
 (
     id         uniqueidentifier NOT NULL,
-    given_name character varying NOT NULL,
-    surname    character varying NOT NULL,
-    mail       character varying UNIQUE NOT NULL,
-    job_title  character varying,
-    department character varying,
-    photo      character varying,
+    given_name character varying(255) NOT NULL,
+    surname    character varying(255) NOT NULL,
+    mail       character varying(255) UNIQUE NOT NULL,
+    job_title  character varying(255),
+    department character varying(255),
+    photo      character varying(255),
     active     bit,
-    created_at timestamp default CURRENT_TIMESTAMP NOT NULL,
-    password   character varying,
+    created_at datetime2 default GETDATE() NOT NULL,
+    password   character varying(255),
     CONSTRAINT local_user_pkey PRIMARY KEY (id)
 );
 
@@ -209,7 +209,7 @@ CREATE TABLE password_token
 (
     email_identifier uniqueidentifier                        NOT NULL,
     local_user_id    uniqueidentifier                        NOT NULL,
-    created_at       timestamp NOT NULL,
+    created_at       datetime2 NOT NULL,
     CONSTRAINT password_token_pkey PRIMARY KEY (email_identifier)
 );
 
@@ -219,7 +219,7 @@ CREATE TABLE log
 (
     id          BIGINT                 NOT NULL,
     level       CHARACTER VARYING(255) NOT NULL,
-    timestamp   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    timestamp   DATETIME2 DEFAULT GETDATE(),
     file_name   CHARACTER VARYING(255) NOT NULL,
     line_number CHARACTER VARYING(255) NOT NULL,
     message     TEXT,
