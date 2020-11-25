@@ -1,0 +1,22 @@
+<div class="taskboard-column">
+    <div class="column-headline">
+        <div>{{state.name}}</div>
+    </div>
+    <div class="tasks">
+        <div class="f-1 text-center add-button">
+            <button mat-mini-fab color="accent" (click)="createNewTask()">
+                <mat-icon i18n-matTooltip="@@component_departmentTabTasks_createNewTask"
+                    matTooltip="Neue Aufgabe erstellen">add_circle_outline
+                </mat-icon>
+            </button>
+        </div>
+        <div cdkDropList [cdkDropListData]="taskList" (cdkDropListDropped)="dropTask($event)" class="card-list">
+            <div *ngFor="let task of taskList" class="taskcard " cdkDrag>
+                <div class="taskcard-placeholder" *cdkDragPlaceholder></div>
+                <app-department-tab-task-card  [task]="task" (click)="openTask(task)" (deleteEmitter)="onDelete($event)">
+
+                </app-department-tab-task-card>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,5 +8,6 @@ export type ObjectiveId = number;
 export type UserSettingsId = number;
 export type OkrUnitId = number;
 export type DepartmentId = number;
+export type TaskBoardId = number;
 export type TaskId = number;
-
+export type TaskStateId = number;

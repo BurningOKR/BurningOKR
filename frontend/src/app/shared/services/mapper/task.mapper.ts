@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiHttpService } from 'src/app/core/services/api-http.service';
-import { TaskDto, TaskState } from '../../model/api/task.dto';
+import { TaskDto } from '../../model/api/task.dto';
 import { ViewTask } from '../../model/ui/view-task';
 import { TaskApiService } from '../api/task-api.service';
 
@@ -14,14 +14,19 @@ export class TaskMapperService {
   constructor(private taskApiService: TaskApiService) { }
 
   private static mapToTaskDTO(viewTask: ViewTask): TaskDto {
+    let userIds = [];
+    if (viewTask.assignedUserIds) {
+      userIds = viewTask.assignedUserIds;
+    }
+
     return {
       id: viewTask.id,
       title: viewTask.title,
       description: viewTask.description,
-      assignedKeyResultIds: viewTask.assignedKeyResultIds,
-      assignedUserIds: viewTask.assignedUserIds,
-      state: viewTask.state,
-      parentDepartmentIds: viewTask.parentDepartmentIds
+      assignedKeyResultId: viewTask.assignedKeyResultId,
+      assignedUserIds: userIds,
+      stateId: viewTask.stateId,
+      parentOkrUnitId: viewTask.parentOkrUnit
     };
   }
 
@@ -31,9 +36,9 @@ export class TaskMapperService {
       task.title,
       task.description,
       task.assignedUserIds,
-      task.assignedKeyResultIds,
-      task.parentDepartmentIds,
-      task.state
+      task.assignedKeyResultId,
+      task.parentOkrUnitId,
+      task.stateId
     );
   }
 
@@ -42,14 +47,8 @@ export class TaskMapperService {
       .pipe(map(TaskMapperService.mapToViewTask));
   }
 
-  getTasksForDepartment$(departmentId: number): Observable<ViewTask[]> {
-    return of(
-      [{
-        id: 1, title: 'test1', description: 'Test Numero 1', assignedKeyResultIds: null,
-        assignedUserIds: null, parentDepartmentIds: 79, state: TaskState.todo
-      }]
-    );
-    return this.taskApiService.getTasksForDepartment$(departmentId)
+  getTasksForOkrUnit$(unitId: number): Observable<ViewTask[]> {
+    return this.taskApiService.getTasksForOkrUnit$(unitId)
       .pipe(
         map((taskList: TaskDto[]) => {
           return taskList.map(TaskMapperService.mapToViewTask);
@@ -60,25 +59,25 @@ export class TaskMapperService {
   getTasksForKeyResult$(keyResultId: number): Observable<ViewTask[]> {
     return this.taskApiService.getTasksForKeyResult$(keyResultId)
       .pipe(
-        map((objectiveList: TaskDto[]) => {
-          return objectiveList.map(TaskMapperService.mapToViewTask);
+        map((taskList: TaskDto[]) => {
+          return taskList.map(TaskMapperService.mapToViewTask);
         })
       );
   }
 
-  postObjectiveForDepartment$(departmentId: number, viewObjective: ViewTask): Observable<ViewTask> {
+  createTaskForOkrUnit$(unitId: number, task: ViewTask): Observable<ViewTask> {
     return this.taskApiService
-      .postTaskForDepartment$(departmentId, TaskMapperService.mapToTaskDTO(viewObjective))
+      .postTask$(TaskMapperService.mapToTaskDTO(task), unitId)
       .pipe(map(TaskMapperService.mapToViewTask));
   }
 
-  postObjectiveForUnit$(unitId: number, viewObjective: ViewTask): Observable<ViewTask> {
+  updateTask$(unitId: number, task: ViewTask): Observable<ViewTask> {
     return this.taskApiService
-      .postTaskForKeyResult$(unitId, TaskMapperService.mapToTaskDTO(viewObjective))
+      .putTask$(TaskMapperService.mapToTaskDTO(task), unitId)
       .pipe(map(TaskMapperService.mapToViewTask));
   }
 
-  deleteObjective$(taskId: number): Observable<boolean> {
-    return this.taskApiService.deleteTask$(taskId);
+  deleteTask$(unitId: number, taskId: number): Observable<boolean> {
+    return this.taskApiService.deleteTask$(taskId, unitId);
   }
 }

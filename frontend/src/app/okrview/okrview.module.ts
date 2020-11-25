@@ -46,6 +46,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { DepartmentTabTaskboardComponent } from './okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component';
 import { DepartmentTabTaskCardComponent } from './okr-child-unit/department/department-tab-task-card/department-tab-task-card.component';
+import { TaskFormComponent } from './okr-child-unit/department/department-tab-task-form/department-tab-task-form.component';
+import { TaskboardColumnComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-column/taskboard-column.component';
 
 @NgModule({
   declarations: [
@@ -72,12 +74,15 @@ import { DepartmentTabTaskCardComponent } from './okr-child-unit/department/depa
     KeyResultMilestoneFormComponent,
     DepartmentTabTaskboardComponent,
     DepartmentTabTaskCardComponent,
+    TaskFormComponent,
+    TaskboardColumnComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
     OkrChildUnitFormComponent,
     KeyResultFormComponent,
     ObjectiveFormComponent,
+    TaskFormComponent,
     ],
   imports: [
         CommonModule,

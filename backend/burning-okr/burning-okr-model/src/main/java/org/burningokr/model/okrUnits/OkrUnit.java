@@ -2,20 +2,16 @@ package org.burningokr.model.okrUnits;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.TaskBoard;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -33,6 +29,9 @@ public abstract class OkrUnit implements Trackable<Long> {
   @NotNull
   @Size(min = 1)
   protected String label;
+
+  @OneToOne(mappedBy = "parentOkrUnit", cascade = CascadeType.REMOVE)
+  private TaskBoard taskBoard;
 
   @OneToMany(mappedBy = "parentOkrUnit", cascade = CascadeType.REMOVE)
   @EqualsAndHashCode.Exclude

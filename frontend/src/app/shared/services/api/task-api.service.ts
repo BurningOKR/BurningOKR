@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiHttpService } from 'src/app/core/services/api-http.service';
 import { TaskDto } from '../../model/api/task.dto';
+import { KeyResultId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +14,23 @@ export class TaskApiService {
   getTaskById$(id: number): Observable<TaskDto> {
     return this.api.getData$(`tasks/${id}`);
   }
-
-  getTasksForDepartment$(departmentId: number): Observable<TaskDto[]> {
-    return this.api.getData$(`departments/${departmentId}/tasks`);
+  getTasksForKeyResult$(keyResultId: KeyResultId): Observable<TaskDto[]> {
+    return this.api.getData$(`tasks/keyresults/${keyResultId}`);
   }
 
-  getTasksForKeyResult$(keyResultId: number): Observable<TaskDto[]> {
-    return this.api.getData$(`keyresults/${keyResultId}/tasks`);
+  getTasksForOkrUnit$(unitId: number): Observable<TaskDto[]> {
+    return this.api.getData$(`unit/${unitId}/tasks`);
   }
 
-  postTaskForDepartment$(departmentId: number, task: TaskDto): Observable<TaskDto> {
-    return this.api.postData$(`departments/${departmentId}/tasks`, task);
+  postTask$(task: TaskDto, unitId: number): Observable<TaskDto> {
+    return this.api.postData$(`unit/${unitId}/tasks`, task);
   }
 
-  postTaskForKeyResult$(keyResultId: number, task: TaskDto): Observable<TaskDto> {
-    return this.api.postData$(`keyresults/${keyResultId}/tasks`, task);
+  putTask$(task: TaskDto, unitId: number): Observable<TaskDto> {
+    return this.api.putData$(`unit/${unitId}/tasks/${task.id}`, task);
   }
 
-  deleteTask$(taskId: number): Observable<boolean> {
-    return this.api.deleteData$(`tasks/${taskId}`);
+  deleteTask$(taskId: number, unitId: number): Observable<boolean> {
+    return this.api.deleteData$(`unit/${unitId}/tasks/${taskId}`);
   }
 }

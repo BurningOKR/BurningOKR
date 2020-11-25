@@ -5,12 +5,14 @@ import java.util.UUID;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.configuration.ConfigurationName;
+import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrParentUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
+import org.burningokr.repositories.okr.TaskBoardRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.ConfigurationChangedEvent;
@@ -26,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitServiceManagers<T> {
 
   private final UnitRepository<OkrUnit> superUnitRepository;
+  private TaskBoardRepository taskBoardRepository;
 
   /**
    * Initialize DepartmentServiceAdmins.
@@ -42,11 +45,13 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       UnitRepository<OkrUnit> superUnitRepository,
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
-      EntityCrawlerService entityCrawlerService) {
+      EntityCrawlerService entityCrawlerService,
+      TaskBoardRepository taskBoardRepository) {
     super(
         parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
 
     this.superUnitRepository = superUnitRepository;
+    this.taskBoardRepository = taskBoardRepository;
   }
 
   @EventListener(ConfigurationChangedEvent.class)
@@ -128,6 +133,11 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     subDepartment.setParentOkrUnit(parentOkrUnit);
 
     subDepartment = superUnitRepository.save(subDepartment);
+    TaskBoard taskBoard = new TaskBoard();
+    taskBoard.setId(null);
+    taskBoard.setParentOkrUnit(subDepartment);
+    this.taskBoardRepository.save(taskBoard);
+
     logger.info(
         "Created subdepartment: "
             + subDepartment.getName()

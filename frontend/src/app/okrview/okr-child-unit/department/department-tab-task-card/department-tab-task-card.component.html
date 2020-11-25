@@ -1,4 +1,10 @@
-<mat-card class="taskcard">
+<mat-card class="taskcard" [class.mat-elevation-z8]="isActive" (mouseenter)="setIsActive(true)"
+    (mouseleave)="setIsActive(false)">
     <mat-card-title>{{task.title}}</mat-card-title>
     <mat-card-content>{{task.description}}</mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="onDelete($event,task)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-actions>
 </mat-card>
