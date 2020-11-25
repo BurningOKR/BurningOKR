@@ -1,10 +1,10 @@
 <mat-card class="keyresult-card">
-  <div class="flex-nowrap" (resized)="onResized($event)">
+  <div class="flex-nowrap">
 
     <!-- Drag handle by parent component contained here -->
     <ng-content></ng-content>
 
-    <div class="icon-spacer keyresult-title changePositonListNumber" [class.changePositonListNumberForEvent]=style>{{ listNumber }} .</div>
+    <div class="icon-spacer keyresult-title changePositonListNumber">{{ listNumber }} .</div>
 
     <div class="customFlex-1">
 
@@ -19,20 +19,26 @@
         </div>
         <div class="flex-nowrap keyresult-slider">
           <div class="f-5">
-            <mat-slider *ngIf="isKeyResultSliderInverted; else invertedKeyResultSlider" thumbLabel min="{{ keyResult.start }}"
-                        [disabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())"
-                        value="{{ keyResult.current }}" max="{{ keyResult.end }}" (change)="onKeyResultSliderDropped($event)"
-                        [matTooltipDisabled]="!currentUserRole.isAdmin" [matTooltipShowDelay]="500" class="fullWidth"
-                        i18n-matTooltip="@@component_keyResult_adjustProgress" matTooltip="Fortschritt anpassen">
-            </mat-slider>
-            <ng-template #invertedKeyResultSlider>
-              <mat-slider thumbLabel max="{{ keyResult.start }}" [invert]="true"
+            <app-milestone-slider-wrapper [keyResult]="keyResult">
+              <mat-slider *ngIf="isKeyResultSliderInverted; else invertedKeyResultSlider" thumbLabel
+                          min="{{ keyResult.start }}"
                           [disabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())"
-                          value="{{ keyResult.current }}" min="{{ keyResult.end }}" (change)="onKeyResultSliderDropped($event)"
+                          value="{{ keyResult.current }}" max="{{ keyResult.end }}"
+                          (change)="onKeyResultSliderDropped($event)"
                           [matTooltipDisabled]="!currentUserRole.isAdmin" [matTooltipShowDelay]="500" class="fullWidth"
                           i18n-matTooltip="@@component_keyResult_adjustProgress" matTooltip="Fortschritt anpassen">
               </mat-slider>
-            </ng-template>
+              <ng-template #invertedKeyResultSlider>
+                <mat-slider thumbLabel max="{{ keyResult.start }}" [invert]="true"
+                            [disabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())"
+                            value="{{ keyResult.current }}" min="{{ keyResult.end }}"
+                            (change)="onKeyResultSliderDropped($event)"
+                            [matTooltipDisabled]="!currentUserRole.isAdmin" [matTooltipShowDelay]="500"
+                            class="fullWidth"
+                            i18n-matTooltip="@@component_keyResult_adjustProgress" matTooltip="Fortschritt anpassen">
+                </mat-slider>
+              </ng-template>
+            </app-milestone-slider-wrapper>
           </div>
           <div class="keyresult-progress-text f-1">
             {{getKeyResultProgressText()}}
@@ -42,12 +48,15 @@
     </div>
 
     <button *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()" [matMenuTriggerFor]="optionsMenu"
-      [matMenuTriggerData]="{ keyResult: keyResult }" class="icon-spacer changePosition" mat-icon-button [class.changePositionForEvent]=style>
-      <mat-icon i18n-matTooltip="@@component_keyResult_moreOptions" matTooltip="Mehr Optionen zu diesem KeyResult">more_vert</mat-icon>
+            [matMenuTriggerData]="{ keyResult: keyResult }" class="icon-spacer changePosition" mat-icon-button>
+      <mat-icon i18n-matTooltip="@@component_keyResult_moreOptions" matTooltip="Mehr Optionen zu diesem KeyResult">
+        more_vert
+      </mat-icon>
     </button>
 
-    <button class="icon-spacer changePosition" mat-icon-button (click)="clickedOpenComments()" [class.changePositionForEvent]=style>
-      <mat-icon [matBadge]="getKeyResultCommentCount()" i18n-matTooltip="@@component_keyResult_commentsForThisKeyResult" matTooltip="Kommentare zu diesem KeyResult">chat
+    <button class="icon-spacer changePosition" mat-icon-button (click)="clickedOpenComments()">
+      <mat-icon [matBadge]="getKeyResultCommentCount()" i18n-matTooltip="@@component_keyResult_commentsForThisKeyResult"
+                matTooltip="Kommentare zu diesem KeyResult">chat
       </mat-icon>
     </button>
 

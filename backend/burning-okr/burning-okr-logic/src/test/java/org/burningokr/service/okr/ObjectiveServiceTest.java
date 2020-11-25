@@ -1,20 +1,16 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.KeyResultMilestone;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -51,6 +47,8 @@ public class ObjectiveServiceTest {
 
   @Mock private OkrUnitServiceUsers departmentService;
 
+  @Mock private KeyResultMilestoneService keyResultMilestoneService;
+
   @Mock private User user;
 
   @Mock ConfigurationService configurationService;
@@ -63,7 +61,7 @@ public class ObjectiveServiceTest {
   private KeyResult keyResult;
 
   @Before
-  public void reset() throws NoSuchFieldException, IllegalAccessException {
+  public void reset() {
     this.objective = new Objective();
     objective.setId(objectiveId);
     updateObjective = new Objective();
@@ -80,6 +78,17 @@ public class ObjectiveServiceTest {
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
+    //    when(keyResultMilestoneService.createKeyResultMilestone(anyInt(), any(), any()))
+    //        .thenReturn(new KeyResultMilestone());
+  }
+
+  @Test
+  public void createKeyResult_expectsKeyResultIsCreated() throws KeyResultOverflowException {
+    keyResult.setId(12L);
+
+    objectiveService.createKeyResult(10L, keyResult, user);
+
+    verifyCreateKeyResult();
   }
 
   @Test
@@ -87,11 +96,13 @@ public class ObjectiveServiceTest {
     Long expected = 18L;
     objective.setId(expected);
 
+    keyResult.setId(12L);
+
     objectiveService.createKeyResult(expected, keyResult, user);
 
     Assert.assertEquals(expected, keyResult.getParentObjective().getId());
 
-    veryfyCreateKeyResult();
+    verifyCreateKeyResult();
   }
 
   @Test
@@ -99,6 +110,8 @@ public class ObjectiveServiceTest {
       throws KeyResultOverflowException {
     Long expected = 18L;
     objective.setId(expected);
+
+    keyResult.setId(12L);
 
     KeyResult otherKeyResult1 = new KeyResult();
     otherKeyResult1.setSequence(5);
@@ -133,7 +146,7 @@ public class ObjectiveServiceTest {
 
   @Test(expected = KeyResultOverflowException.class)
   public void
-      createKeyResult_expectsKeyResultOverflowExceptionBecauseOfMAximumNumberOfKeyResultsReached()
+      createKeyResult_expectsKeyResultOverflowExceptionBecauseOfMaximumNumberOfKeyResultsReached()
           throws KeyResultOverflowException {
 
     int maxKeyResultsPerObjective = 7;
@@ -146,7 +159,37 @@ public class ObjectiveServiceTest {
 
     objectiveService.createKeyResult(anyLong(), keyResult, user);
 
-    veryfyCreateKeyResult();
+    verifyCreateKeyResult();
+  }
+
+  @Test
+  public void createKeyResult_savesAllKeyResultMilestones() throws KeyResultOverflowException {
+    List<KeyResultMilestone> milestoneList = new ArrayList<>();
+    milestoneList.add(new KeyResultMilestone());
+    milestoneList.add(new KeyResultMilestone());
+    milestoneList.add(new KeyResultMilestone());
+
+    keyResult.setMilestones(milestoneList);
+    keyResult.setId(12L);
+
+    objectiveService.createKeyResult(anyLong(), keyResult, user);
+
+    verifyCreateKeyResult();
+    verify(keyResultMilestoneService, times(3)).createKeyResultMilestone(anyLong(), any(), any());
+  }
+
+  @Test
+  public void createKeyResult_doesNotSaveMilestonesWhenThereAreNoMilestones()
+      throws KeyResultOverflowException {
+    List<KeyResultMilestone> milestoneList = new ArrayList<>();
+
+    keyResult.setMilestones(milestoneList);
+    keyResult.setId(12L);
+
+    objectiveService.createKeyResult(anyLong(), keyResult, user);
+
+    verifyCreateKeyResult();
+    verify(keyResultMilestoneService, never()).createKeyResultMilestone(anyLong(), any(), any());
   }
 
   @Test
@@ -400,7 +443,7 @@ public class ObjectiveServiceTest {
   }
 
   // region Hilfsfunktionen
-  private void veryfyCreateKeyResult() {
+  private void verifyCreateKeyResult() {
     verify(objectiveRepository).findByIdOrThrow(anyLong());
     verify(keyResultRepository).save(any(KeyResult.class));
   }

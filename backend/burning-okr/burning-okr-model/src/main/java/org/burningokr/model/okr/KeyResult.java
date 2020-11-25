@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.Data;
+import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 
 @Entity
@@ -22,7 +23,7 @@ public class KeyResult implements Trackable<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @ManyToOne private Objective parentObjective = null;
+  @ToString.Exclude @ManyToOne private Objective parentObjective = null;
 
   @Column(length = 255)
   private String name;
@@ -38,9 +39,11 @@ public class KeyResult implements Trackable<Long> {
 
   @Column private int sequence;
 
+  @ToString.Exclude
   @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
   private Collection<Note> notes = new ArrayList<>();
 
+  @ToString.Exclude
   @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
   private Collection<KeyResultMilestone> milestones = new ArrayList<>();
 }

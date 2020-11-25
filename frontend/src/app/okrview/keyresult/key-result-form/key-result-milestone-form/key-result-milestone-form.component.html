@@ -1,6 +1,16 @@
-<mat-slide-toggle class="toggleMilestone" (change)="isChecked=$event.checked">Meilenstein</mat-slide-toggle>
+<mat-slide-toggle class="toggleMilestone"
+                  [checked]="isChecked"
+                  [disabled]="formArray?.length > 0"
+                  (change)="isChecked=$event.checked"
+                  i18n="@@component_keyResultMilestoneForm_toggle">
+  Meilensteine aktiv
+</mat-slide-toggle>
 
-<button class="addMilestone-button" mat-mini-fab matTooltip="Meilenstein hinzufügen" (click)="addMilestone(undefined,undefined, undefined)" *ngIf="isChecked">
+<button class="addMilestone-button"
+        mat-mini-fab matTooltip="Meilenstein hinzufügen"
+        i18n-matTooltip="@@component_keyResultMilestoneForm_addButton"
+        (click)="addMilestone(undefined, undefined,undefined, undefined)"
+        *ngIf="isChecked">
   <mat-icon>
     add_circle_outline
   </mat-icon>
@@ -9,18 +19,24 @@
 <div *ngIf="isChecked">
   <div class="inputs" *ngFor="let formGroup of formArray.controls">
     <mat-form-field class="text-input">
-      <input type="text" matInput placeholder="Name *" [formControl]="formGroup.get('name')">
+      <input type="text" matInput placeholder="Name *"
+             [formControl]="formGroup.get('name')"
+             i18n-placeholder="@@component_keyResultMilestoneForm_nameInput">
       <mat-error><app-form-error [control]="formGroup.get('name')"></app-form-error></mat-error>
     </mat-form-field>
 
 
     <mat-form-field class="number-input">
-      <input type="number" matInput placeholder="Ziel-Wert *" [formControl]="formGroup.get('value')">
+      <input type="number" matInput placeholder="Ziel-Wert *"
+             [formControl]="formGroup.get('value')"
+             i18n-placeholder="@@component_keyResultMilestoneForm_valueInput">
       <mat-error><app-form-error [control]="formGroup.get('value')"></app-form-error></mat-error>
     </mat-form-field>
 
 
-    <button class="delete-button" mat-icon-button (click)="deleteMilestone(formGroup)">
+    <button class="delete-button" mat-icon-button matTooltip="Meilenstein löschen"
+            i18n-matTooltip="@@component_keyResultMilestoneForm_deleteButton"
+            (click)="deleteMilestone(formGroup)">
       <mat-icon>
         delete
       </mat-icon>

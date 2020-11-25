@@ -17,7 +17,7 @@
         <div *ngIf="objective.isActive && objective.keyResultIdList.length > 0" class="objective-progressBar">
           <!-- Progress bar if KeyResults have been loaded in-->
           <div *ngIf="isProgressValueSetForObjective(); else progressNotSet" class="flex-nowrap-center progress-bar">
-            <div [ngSwitch]="currentObjectiveScore.toString()" class="flex-nowrap-center f-1">
+            <div [ngSwitch]="currentObjectiveScore.toString()" class="flex-nowrap-center f-1 hidden-m-down">
               <div *ngSwitchCase="2" class="circle off-track">
                 <mat-icon i18n-matTooltip="@@component_objective_badProgress" matTooltip="Das Objective macht einen schlechten Fortschritt ">trending_down</mat-icon>
               </div>
@@ -28,7 +28,7 @@
                 <mat-icon i18n-matTooltip="@@component_objective_goodProgress" matTooltip="Das Objective macht einen guten Fortschritt">trending_up</mat-icon>
               </div>
             </div>
-            <mat-progress-bar class="f-5 h-6" mode="determinate" [value]="getProgressValueForObjective()"
+            <mat-progress-bar class="f-5 h-6 hidden-m-down" mode="determinate" [value]="getProgressValueForObjective()"
                               color="accent">
             </mat-progress-bar>
             <div class="text-center f-15">{{getProgressValueForObjective()}} %</div>
