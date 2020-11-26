@@ -261,9 +261,6 @@ CREATE TABLE public.init_state
     CONSTRAINT init_state_pkey PRIMARY KEY (id)
 );
 
-INSERT INTO public.init_state (id, init_state)
-VALUES (1, 1);
-
 CREATE TABLE public.oauth_client_details
 (
     client_id character varying(255),

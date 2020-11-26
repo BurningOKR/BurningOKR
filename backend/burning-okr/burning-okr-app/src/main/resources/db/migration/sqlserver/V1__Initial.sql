@@ -233,9 +233,6 @@ CREATE TABLE init_state
     CONSTRAINT init_state_pkey PRIMARY KEY (id)
 );
 
-INSERT INTO init_state (id, init_state)
-VALUES (1, 1);
-
 CREATE TABLE oauth_client_details
 (
     client_id character varying(255),
