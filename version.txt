@@ -1,5 +1,8 @@
-1.0.2
+1.0.3
 
-- Newly created users can now be added to a team without having to reload the page first.
-- After updating your username, it will now be displayed correctly in the top right corner of the navigation bar.
-- Creating a cycle when there are Structures (Branches) in the company, will no longer cause errors.
+- BurningOKR is now responsive and mobile-ready!
+- key results can now contain milestones
+- objectives can now have a contact person
+- importing users via CSV checks for validity
+- added better error handling for 404 errors
+- minor UI fixes
