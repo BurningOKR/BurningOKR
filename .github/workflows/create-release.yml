@@ -13,11 +13,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Read package version
       run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
-      with: 
+      env: 
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     - name: Read changelog
       run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo ::set-env name=CHANGELOG::$CHANGELOG
-      with: 
+      env: 
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
