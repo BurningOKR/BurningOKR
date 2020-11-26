@@ -24,6 +24,8 @@
 
 .keyresult-description {
   font-weight: 200;
+  -webkit-line-clamp: 3;
+  word-break: break-word;
 }
 
 .keyresult-progress-text {
@@ -58,6 +60,9 @@
 
 @media only screen and (max-width: 360px) {
   .keyresult-slider {
+    display: none;
+  }
+  .keyresult-description {
     display: none;
   }
 }

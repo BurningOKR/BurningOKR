@@ -19,6 +19,13 @@
 
 .objective-title {
   font-size: medium;
+  max-width: 75%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 
 .objective-progressBar {
@@ -82,18 +89,11 @@
     position: relative;
     bottom: 10px;
   }
+
   .circle {
     display: none;
   }
-  .objective-title {
-    max-width: 75%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
-  }
+
   .objective-progressBar {
     margin-right: 28px;
   }
