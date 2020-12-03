@@ -80,7 +80,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    this.dialogRef.close(this.userForm.value);
+    this.dialogRef.close(this.userForm.getRawValue());
   }
 
   resetUserPassword(): void {
