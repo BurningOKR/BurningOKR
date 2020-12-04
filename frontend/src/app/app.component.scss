@@ -1,3 +1,16 @@
+#main-wrapper {
+  min-height: 100%;
+}
+
+#content-wrapper {
+  padding-bottom: 27px;
+  height: 100vh;
+}
+
+#footer-wrapper {
+  margin-top: -27px;
+}
+
 .sidebar-item {
   padding: 0;
 }
@@ -45,7 +58,6 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;

@@ -1,3 +1,9 @@
-<router-outlet (activate)="userLoggedIn = this.checkIfUserIsLoggedIn()"></router-outlet>
-<app-feedback-button *ngIf="userLoggedIn && demoGithubButtonHidden()"></app-feedback-button>
-<app-demo-footer></app-demo-footer>
+<div id="main-wrapper">
+  <div id="content-wrapper">
+  <router-outlet (activate)="userLoggedIn = this.checkIfUserIsLoggedIn()"></router-outlet>
+  <app-feedback-button *ngIf="userLoggedIn && demoGithubButtonHidden()"></app-feedback-button>
+  </div>
+  <div id="footer-wrapper">
+    <app-demo-footer></app-demo-footer>
+  </div>
+</div>
