@@ -1,10 +1,14 @@
 #main-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 #content-wrapper {
 }
 
 #footer-wrapper {
+  margin-top: auto;
 }
 
 .sidebar-item {
