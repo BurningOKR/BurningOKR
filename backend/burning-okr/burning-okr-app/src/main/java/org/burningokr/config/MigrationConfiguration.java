@@ -1,5 +1,9 @@
 package org.burningokr.config;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.burningokr.model.configuration.DeprecatedMigrationChecksum;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -13,11 +17,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.io.Resource;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 public class MigrationConfiguration {
@@ -52,10 +51,12 @@ public class MigrationConfiguration {
 
   private List<DeprecatedMigrationChecksum> getDeprecatedMigrationChecksums() {
     ObjectMapper mapper = new ObjectMapper();
-    TypeReference<List<DeprecatedMigrationChecksum>> typeReference = new TypeReference<List<DeprecatedMigrationChecksum>>(){};
+    TypeReference<List<DeprecatedMigrationChecksum>> typeReference =
+        new TypeReference<List<DeprecatedMigrationChecksum>>() {};
     List<DeprecatedMigrationChecksum> deprecatedMigrationChecksums;
     try {
-      deprecatedMigrationChecksums = mapper.readValue(deprecatedChecksumsJson.getFile(), typeReference);
+      deprecatedMigrationChecksums =
+          mapper.readValue(deprecatedChecksumsJson.getFile(), typeReference);
     } catch (IOException e) {
       // return an empty list, because the file does not exist.
       return new ArrayList<>();
@@ -64,13 +65,21 @@ public class MigrationConfiguration {
   }
 
   private boolean doesContainDeprecatedMigrations(MigrationInfo[] infos) {
-    List<DeprecatedMigrationChecksum> deprecatedMigrationChecksums = getDeprecatedMigrationChecksums();
+    List<DeprecatedMigrationChecksum> deprecatedMigrationChecksums =
+        getDeprecatedMigrationChecksums();
 
     return Arrays.stream(infos)
-        .anyMatch(migrationInfo ->
-            deprecatedMigrationChecksums.stream()
-                .anyMatch(deprecatedMigrationChecksum -> migrationInfo.getVersion().getVersion().equals(deprecatedMigrationChecksum.getVersion())
-                    && migrationInfo.getChecksum().equals(deprecatedMigrationChecksum.getOldChecksum()))
-        );
+        .anyMatch(
+            migrationInfo ->
+                deprecatedMigrationChecksums.stream()
+                    .anyMatch(
+                        deprecatedMigrationChecksum ->
+                            migrationInfo
+                                    .getVersion()
+                                    .getVersion()
+                                    .equals(deprecatedMigrationChecksum.getVersion())
+                                && migrationInfo
+                                    .getChecksum()
+                                    .equals(deprecatedMigrationChecksum.getOldChecksum())));
   }
 }
