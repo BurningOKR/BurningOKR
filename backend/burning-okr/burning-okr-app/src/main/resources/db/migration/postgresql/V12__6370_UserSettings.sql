@@ -15,6 +15,3 @@ CREATE TABLE public.user_settings
     WITH (
         OIDS= FALSE
     );
-
-ALTER TABLE public.user_settings
-    OWNER TO admin;

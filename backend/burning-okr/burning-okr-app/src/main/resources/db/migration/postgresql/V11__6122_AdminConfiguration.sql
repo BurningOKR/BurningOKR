@@ -8,8 +8,6 @@ CREATE TABLE public.configuration
     WITH (
         OIDS= FALSE
     );
-ALTER TABLE public.configuration
-    OWNER TO admin;
 
 INSERT INTO public.configuration (id, name, value)
 VALUES (nextval('public.hibernate_sequence'), 'max_key_results', 7);
