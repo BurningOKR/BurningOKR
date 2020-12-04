@@ -6,5 +6,4 @@ import lombok.Data;
 public class DeprecatedMigrationChecksum {
   private String version;
   private int oldChecksum;
-  private int newChecksum;
 }

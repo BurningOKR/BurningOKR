@@ -5,6 +5,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.MigrationInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,8 @@ import java.util.List;
 
 @Configuration
 public class MigrationConfiguration {
+
+  private final Logger logger = LoggerFactory.getLogger(MigrationConfiguration.class);
 
   @Value("classpath:db/deprecated-checksums.json")
   Resource deprecatedChecksumsJson;
@@ -41,6 +45,7 @@ public class MigrationConfiguration {
   private void safeRepairDatabase(Flyway flyway) {
     MigrationInfo[] appliedMigrations = flyway.info().applied();
     if (doesContainDeprecatedMigrations(appliedMigrations)) {
+      logger.info("Detected deprecated migration checksums. Updating migration checksums...");
       flyway.repair();
     }
   }
