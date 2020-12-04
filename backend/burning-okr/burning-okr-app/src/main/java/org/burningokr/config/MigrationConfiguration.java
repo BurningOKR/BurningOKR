@@ -65,7 +65,7 @@ public class MigrationConfiguration {
         .anyMatch(migrationInfo ->
             deprecatedMigrationChecksums.stream()
                 .anyMatch(deprecatedMigrationChecksum -> migrationInfo.getVersion().getVersion().equals(deprecatedMigrationChecksum.getVersion())
-                    && !migrationInfo.getChecksum().equals(deprecatedMigrationChecksum.getNewChecksum()))
+                    && migrationInfo.getChecksum().equals(deprecatedMigrationChecksum.getOldChecksum()))
         );
   }
 }
