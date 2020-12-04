@@ -16,7 +16,7 @@
   </mat-icon>
 </button>
 
-<div *ngIf="isChecked">
+<div *ngIf="isChecked" class="keyresult-milestone-form-wrapper">
   <div class="inputs" *ngFor="let formGroup of formArray.controls">
     <mat-form-field class="text-input">
       <input type="text" matInput placeholder="Name *"
