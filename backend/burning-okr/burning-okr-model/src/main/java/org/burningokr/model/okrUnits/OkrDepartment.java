@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.burningokr.model.okr.OkrTeamDescription;
 
 @Entity
 @Data
@@ -25,6 +25,11 @@ public class OkrDepartment extends OkrChildUnit {
   @CollectionTable(name = "okr_member")
   @Column(name = "okr_member_id")
   private Collection<UUID> okrMemberIds = new ArrayList<>();
+
+  @ToString.Exclude
+  @ManyToOne
+  @EqualsAndHashCode.Exclude
+  private OkrTeamDescription okrTeamDescription;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
