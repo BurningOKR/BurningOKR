@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 
 @Component({
   selector: 'app-department-tab-description',
@@ -6,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./department-tab-description.component.css']
 })
 export class DepartmentTabDescriptionComponent implements OnInit {
-
-  constructor() { }
+  @Input() department: OkrDepartment;
 
   ngOnInit() {
   }
