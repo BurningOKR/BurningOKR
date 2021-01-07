@@ -18,7 +18,7 @@ public class OkrTopicDescription {
   @Column(length = 255)
   private String name;
 
-  @NotNull private UUID initiatorId;
+  private UUID initiatorId;
 
   @ElementCollection
   @CollectionTable(name = "okr_description_member")
@@ -49,4 +49,10 @@ public class OkrTopicDescription {
 
   @Column(length = 1023)
   private String handoverPlan;
+
+  public OkrTopicDescription() {}
+
+  public OkrTopicDescription(String name) {
+    this.name = name;
+  }
 }

@@ -1,5 +1,8 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceAdminsTest;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -8,6 +11,7 @@ import java.util.List;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.users.LocalUser;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +28,24 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
   @Override
   protected Class<OkrBranch> getDepartment() {
     return OkrBranch.class;
+  }
+
+  @Test
+  public void createChildDepartment_expectsTopicDescriptionIsCreated() {
+    OkrDepartment department = new OkrDepartment();
+    department.setName("testDepartment");
+
+    when(unitRepository.findByIdOrThrow(any(Long.class))).thenReturn(new OkrBranch());
+    when(unitRepository.save(any())).thenReturn(department);
+    when(okrTopicDescriptionRepository.save(any()))
+        .thenAnswer(invocation -> invocation.getArgument(0));
+
+    OkrDepartment actual =
+        (OkrDepartment)
+            okrUnitServiceAdmins.createChildUnit(departmentId, department, new LocalUser());
+
+    assertNotNull(actual.getOkrTopicDescription());
+    assertEquals(department.getName(), actual.getOkrTopicDescription().getName());
   }
 
   @Test(expected = InvalidDeleteRequestException.class)
