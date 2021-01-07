@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
