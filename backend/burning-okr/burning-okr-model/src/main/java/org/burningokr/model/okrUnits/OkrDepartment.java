@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.*;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -26,9 +25,7 @@ public class OkrDepartment extends OkrChildUnit {
   @Column(name = "okr_member_id")
   private Collection<UUID> okrMemberIds = new ArrayList<>();
 
-  @ToString.Exclude
-  @ManyToOne
-  @EqualsAndHashCode.Exclude
+  @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
   /**

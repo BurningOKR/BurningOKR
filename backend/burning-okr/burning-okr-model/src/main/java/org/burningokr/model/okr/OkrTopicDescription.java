@@ -1,12 +1,11 @@
 package org.burningokr.model.okr;
 
-import lombok.Data;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import lombok.Data;
 
 @Entity
 @Data
@@ -19,8 +18,7 @@ public class OkrTopicDescription {
   @Column(length = 255)
   private String name;
 
-  @NotNull
-  private UUID initiatorId;
+  @NotNull private UUID initiatorId;
 
   @ElementCollection
   @CollectionTable(name = "okr_description_member")
