@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class OkrTeamDescription {
+public class OkrTopicDescription {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Data
-public class OkrTeamDescriptionDto {
+public class OkrTopicDescriptionDto {
   private Long id;
   private String name;
   private UUID initiatorId;

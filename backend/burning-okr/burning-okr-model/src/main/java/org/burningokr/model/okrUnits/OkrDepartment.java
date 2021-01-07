@@ -9,7 +9,7 @@ import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.burningokr.model.okr.OkrTeamDescription;
+import org.burningokr.model.okr.OkrTopicDescription;
 
 @Entity
 @Data
@@ -29,7 +29,7 @@ public class OkrDepartment extends OkrChildUnit {
   @ToString.Exclude
   @ManyToOne
   @EqualsAndHashCode.Exclude
-  private OkrTeamDescription okrTeamDescription;
+  private OkrTopicDescription okrTopicDescription;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
