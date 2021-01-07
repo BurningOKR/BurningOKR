@@ -51,19 +51,19 @@ export class DepartmentDescriptionMapper {
 
   getDepartmentDescriptionById$(descriptionId: DepartmentDescriptionId): Observable<OkrDepartmentDescription> {
       return this.departmentDescriptionApiService
-        .getDescriptionById$(descriptionId)
+        .getDepartmentDescriptionById$(descriptionId)
         .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescriptionDto(descriptionDto)));
     }
   postDepartmentDescription$(descriptionId: DepartmentDescriptionId,
                              description: OkrDepartmentDescription): Observable<OkrDepartmentDescription> {
     return this.departmentDescriptionApiService
-      .postDescription$(descriptionId, description)
+      .postDepartmentDescription$(descriptionId, description)
       .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescriptionDto(descriptionDto)));
     }
   putDepartmentDescription$(descriptionId: DepartmentDescriptionId,
                             description: OkrDepartmentDescription): Observable<OkrDepartmentDescription> {
     return this.departmentDescriptionApiService
-      .postDescription$(descriptionId, description)
+      .postDepartmentDescription$(descriptionId, description)
       .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescriptionDto(descriptionDto)));
     }
   }
