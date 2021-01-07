@@ -1,6 +1,6 @@
 import { UserId, DepartmentDescriptionId } from '../../id-types';
 
-export interface OkrDepartmentDescriptionDto {
+export class OkrDepartmentDescriptionDto {
   descriptionId: DepartmentDescriptionId;
   name: string;
   initiatorId: UserId;

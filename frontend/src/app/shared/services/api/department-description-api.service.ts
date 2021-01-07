@@ -12,7 +12,7 @@ export class DepartmentDescriptionApiService {
 
   // Todo: P.B. 07.01.2021 Change the path when backend is done with that
   getDescriptionById$(id: DepartmentDescriptionId): Observable<OkrDepartmentDescriptionDto> {
-    return this.api.getData$<OkrDepartmentDescriptionDto>(`TODO/${id}`);
+    return this.api.getData$<OkrDepartmentDescriptionDto>(`/departments/${id}/topicdescription`);
   }
   putDescription$(description: OkrDepartmentDescriptionDto): Observable<OkrDepartmentDescriptionDto> {
     return this.api.putData$(`TODO/${description.descriptionId}`, description);
