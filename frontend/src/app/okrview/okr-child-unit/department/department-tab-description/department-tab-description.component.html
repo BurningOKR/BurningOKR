@@ -1,1 +1,28 @@
 <p>department-tab-description works!</p>
+<div *ngIf="description$ | async as description">
+
+
+  <p>Thema: </p> {{description.name}}
+  <p>Akzeptanzkriterien: </p> {{description.acceptanceCriteria}}
+  <p>Zählt ein auf: </p>{{description.contributesTo}}
+  <p>Abgrenzung: </p>{{description.delimitation}}
+  <p>Beginn: </p>{{description.beginning}}
+  <p>Abhängig:</p>{{description.dependencies}}
+  <p>Benötigte Ressourcen: </p>{{description.resources}}
+  <p>Übergabeplan: </p>{{description.handoverPlan}}
+
+  <!-- User -->
+  <div class="flex-wrap-spreadinner">
+    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
+    </app-user-minibutton>
+    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
+    </app-user-minibutton>
+    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
+    </app-user-minibutton>
+    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
+    </app-user-minibutton>
+    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
+    </app-user-minibutton>
+  </div>
+  <!-- TODO: P.B. 14.01.2021 Team, Initiator, Stakeholder anzeigen; Ansicht anpassen -->
+</div>
