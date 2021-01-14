@@ -1,7 +1,7 @@
 import { OkrTopicDescriptionDto } from '../../model/api/OkrUnit/okr-topic-description.dto';
 import { Injectable } from '@angular/core';
 import { OkrTopicDescription } from '../../model/ui/OrganizationalUnit/okr-topic-description';
-import { TopicDescriptionId } from '../../model/id-types';
+import { DepartmentId } from '../../model/id-types';
 import { Observable } from '../../../../typings';
 import { TopicDescriptionApiService } from '../api/topic-description-api.service';
 import { map } from 'rxjs/internal/operators';
@@ -49,14 +49,14 @@ export class TopicDescriptionMapper {
       return descriptionDto;
     }
 
-  getTopicDescriptionById$(descriptionId: TopicDescriptionId): Observable<OkrTopicDescription> {
+  getTopicDescriptionById$(departmentId: DepartmentId): Observable<OkrTopicDescription> {
       return this.topicDescriptionApiService
-        .getTopicDescriptionById$(descriptionId)
+        .getTopicDescriptionById$(departmentId)
         .pipe(map(descriptionDto => TopicDescriptionMapper.mapTopicDescription(descriptionDto)));
     }
-  putTopicDescription$(description: OkrTopicDescription): Observable<OkrTopicDescription> {
+  putTopicDescription$(departmentId: DepartmentId, description: OkrTopicDescription): Observable<OkrTopicDescription> {
     return this.topicDescriptionApiService
-      .putTopicDescription$(description.descriptionId, TopicDescriptionMapper.mapTopicDescriptionDto(description))
+      .putTopicDescription$(departmentId, TopicDescriptionMapper.mapTopicDescriptionDto(description))
       .pipe(map(descriptionDto => TopicDescriptionMapper.mapTopicDescription(descriptionDto)));
     }
   }
