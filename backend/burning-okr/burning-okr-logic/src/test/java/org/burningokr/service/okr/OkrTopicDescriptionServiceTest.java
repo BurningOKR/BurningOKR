@@ -1,14 +1,19 @@
 package org.burningokr.service.okr;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.users.LocalUser;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
+import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.service.activity.ActivityService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +27,10 @@ public class OkrTopicDescriptionServiceTest {
 
   @Mock private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
 
+  @Mock private ActivityService activityService;
+
+  @Mock private UnitRepository<OkrDepartment> okrDepartmentRepository;
+
   @InjectMocks private OkrTopicDescriptionService okrTopicDescriptionService;
 
   private OkrTopicDescription okrTopicDescription;
@@ -29,6 +38,7 @@ public class OkrTopicDescriptionServiceTest {
   @Before
   public void setUp() {
     okrTopicDescription = new OkrTopicDescription();
+    okrTopicDescription.setId(10L);
   }
 
   @Test
@@ -43,7 +53,6 @@ public class OkrTopicDescriptionServiceTest {
     stakeholder.add(UUID.randomUUID());
     stakeholder.add(UUID.randomUUID());
 
-    okrTopicDescription.setId(10L);
     okrTopicDescription.setInitiatorId(UUID.randomUUID());
     okrTopicDescription.setAcceptanceCriteria("testCriteria");
     okrTopicDescription.setContributesTo("testContributesTo");
@@ -62,7 +71,7 @@ public class OkrTopicDescriptionServiceTest {
         .thenAnswer(invocation -> invocation.getArgument(0));
 
     OkrTopicDescription updatedDescription =
-        okrTopicDescriptionService.updateOkrTopicDescription(okrTopicDescription);
+        okrTopicDescriptionService.updateOkrTopicDescription(okrTopicDescription, new LocalUser());
 
     assertEquals(okrTopicDescription.getInitiatorId(), updatedDescription.getInitiatorId());
     assertEquals(okrTopicDescription.getName(), updatedDescription.getName());
@@ -79,5 +88,131 @@ public class OkrTopicDescriptionServiceTest {
         updatedDescription.getStakeholders().size());
     assertEquals(
         (long) okrTopicDescription.getStartTeam().size(), updatedDescription.getStartTeam().size());
+  }
+
+  @Test
+  public void getOkrDepartmentsWithTopicDescription_returnsEmptyListWhenThereAreNoDepartments() {
+    when(okrDepartmentRepository.findAll()).thenReturn(new ArrayList<>());
+
+    List<OkrDepartment> okrDepartments =
+        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+            okrTopicDescription.getId());
+
+    assertEquals(0, okrDepartments.size());
+  }
+
+  @Test
+  public void
+      getOkrDepartmentsWithTopicDescription_returnsEmptyListWhenThereAreNoDepartmentsThatReferenceTheTopicDescriptionId() {
+    OkrTopicDescription okrTopicDescription1 = new OkrTopicDescription();
+    okrTopicDescription1.setId(11L);
+    OkrTopicDescription okrTopicDescription2 = new OkrTopicDescription();
+    okrTopicDescription2.setId(12L);
+    OkrTopicDescription okrTopicDescription3 = new OkrTopicDescription();
+    okrTopicDescription3.setId(13L);
+
+    OkrDepartment department1 = new OkrDepartment();
+    department1.setOkrTopicDescription(okrTopicDescription1);
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setOkrTopicDescription(okrTopicDescription2);
+    OkrDepartment department3 = new OkrDepartment();
+    department3.setOkrTopicDescription(okrTopicDescription3);
+
+    ArrayList<OkrDepartment> okrDepartments = new ArrayList<>();
+    okrDepartments.add(department1);
+    okrDepartments.add(department2);
+    okrDepartments.add(department3);
+
+    when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
+
+    List<OkrDepartment> actualOkrDepartments =
+        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+            okrTopicDescription.getId());
+
+    assertEquals(0, actualOkrDepartments.size());
+  }
+
+  @Test
+  public void
+      getOkrDepartmentsWithTopicDescription_returnsOnlyDepartmentsWithTheCorrectTopicDescription() {
+    OkrTopicDescription okrTopicDescription1 = new OkrTopicDescription();
+    okrTopicDescription1.setId(11L);
+
+    OkrDepartment department1 = new OkrDepartment();
+    department1.setOkrTopicDescription(okrTopicDescription1);
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setOkrTopicDescription(okrTopicDescription);
+    OkrDepartment department3 = new OkrDepartment();
+    department3.setOkrTopicDescription(okrTopicDescription);
+
+    ArrayList<OkrDepartment> okrDepartments = new ArrayList<>();
+    okrDepartments.add(department1);
+    okrDepartments.add(department2);
+    okrDepartments.add(department3);
+
+    when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
+
+    List<OkrDepartment> actualOkrDepartments =
+        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+            okrTopicDescription.getId());
+
+    assertEquals(2, actualOkrDepartments.size());
+  }
+
+  @Test
+  public void
+      getOkrDepartmentsWithTopicDescription_returnsAllDepartmentsWithTheCorrectTopicDescription() {
+    OkrDepartment department1 = new OkrDepartment();
+    department1.setOkrTopicDescription(okrTopicDescription);
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setOkrTopicDescription(okrTopicDescription);
+    OkrDepartment department3 = new OkrDepartment();
+    department3.setOkrTopicDescription(okrTopicDescription);
+
+    ArrayList<OkrDepartment> okrDepartments = new ArrayList<>();
+    okrDepartments.add(department1);
+    okrDepartments.add(department2);
+    okrDepartments.add(department3);
+
+    when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
+
+    List<OkrDepartment> actualOkrDepartments =
+        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+            okrTopicDescription.getId());
+
+    assertEquals(3, actualOkrDepartments.size());
+  }
+
+  @Test
+  public void safeDeleteOkrTopicDescription_deletesOkrTopicDescription() {
+    when(okrDepartmentRepository.findAll()).thenReturn(new ArrayList<>());
+    when(okrTopicDescriptionRepository.findByIdOrThrow(anyLong())).thenReturn(okrTopicDescription);
+
+    okrTopicDescriptionService.safeDeleteOkrTopicDescription(
+        okrTopicDescription.getId(), new LocalUser());
+
+    verify(okrTopicDescriptionRepository).delete(okrTopicDescription);
+  }
+
+  @Test
+  public void safeDeleteOkrTopicDescription_doesNotDeleteWhenThereAreOtherDepartmentsReferencing() {
+    OkrDepartment department1 = new OkrDepartment();
+    department1.setOkrTopicDescription(okrTopicDescription);
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setOkrTopicDescription(okrTopicDescription);
+    OkrDepartment department3 = new OkrDepartment();
+    department3.setOkrTopicDescription(okrTopicDescription);
+
+    ArrayList<OkrDepartment> okrDepartments = new ArrayList<>();
+    okrDepartments.add(department1);
+    okrDepartments.add(department2);
+    okrDepartments.add(department3);
+
+    when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
+
+    okrTopicDescriptionService.safeDeleteOkrTopicDescription(
+        okrTopicDescription.getId(), new LocalUser());
+
+    verify(okrTopicDescriptionRepository, never()).delete(any());
   }
 }

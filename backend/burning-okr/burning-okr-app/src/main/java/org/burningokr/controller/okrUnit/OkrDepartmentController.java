@@ -1,8 +1,6 @@
 package org.burningokr.controller.okrUnit;
 
-import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.UUID;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
@@ -217,6 +215,7 @@ public class OkrDepartmentController {
 
   /**
    * API Endpoint to update the OkrTopicDescription of an OkrDepartment
+   *
    * @param departmentId the id of the OkrDepartment
    * @param okrTopicDescriptionDto an {@link OkrTopicDescriptionDto} object
    * @param user an {@link User} object
@@ -232,11 +231,13 @@ public class OkrDepartmentController {
         departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentService.findById(departmentId);
     OkrTopicDescription oldOkrTopicDescription = okrDepartment.getOkrTopicDescription();
-    OkrTopicDescription updatedOkrTopicDescription = okrTopicDescriptionMapper.mapDtoToEntity(okrTopicDescriptionDto);
+    OkrTopicDescription updatedOkrTopicDescription =
+        okrTopicDescriptionMapper.mapDtoToEntity(okrTopicDescriptionDto);
 
     updatedOkrTopicDescription.setId(oldOkrTopicDescription.getId());
 
-    updatedOkrTopicDescription = okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription);
+    updatedOkrTopicDescription =
+        okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription, user);
 
     return ResponseEntity.ok(okrTopicDescriptionMapper.mapEntityToDto(updatedOkrTopicDescription));
   }

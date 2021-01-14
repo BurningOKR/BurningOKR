@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
-
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.junit.Assert;
 import org.junit.Before;
@@ -109,6 +108,7 @@ public class OkrDepartmentTest {
   public void getCopyWithoutRelations_expectedTopicDescriptionsAreEqual() {
     OkrDepartment actualDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
-    Assert.assertSame(expectedOkrDepartment.getOkrTopicDescription(), actualDepartment.getOkrTopicDescription());
+    Assert.assertSame(
+        expectedOkrDepartment.getOkrTopicDescription(), actualDepartment.getOkrTopicDescription());
   }
 }
