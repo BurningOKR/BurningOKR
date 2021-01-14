@@ -1,7 +1,7 @@
-import { DepartmentDescriptionId, UserId } from '../../id-types';
+import { TopicDescriptionId, UserId } from '../../id-types';
 
-export class OkrDepartmentDescription {
-  descriptionId: DepartmentDescriptionId;
+export class OkrTopicDescription {
+  descriptionId: TopicDescriptionId;
   name: string;
   initiatorId: UserId;
   startTeam: UserId[];
@@ -14,7 +14,7 @@ export class OkrDepartmentDescription {
   resources: string;
   handoverPlan: string;
 
-  constructor(descriptionId: DepartmentDescriptionId, name: string, initiatorId: UserId, startTeam: UserId[], stakeholders: UserId[],
+  constructor(descriptionId: TopicDescriptionId, name: string, initiatorId: UserId, startTeam: UserId[], stakeholders: UserId[],
               acceptanceCriteria: string, contributesTo: string, delimitation: string, beginning: Date,
               dependencies: string, resources: string, handoverPlan: string) {
     this.descriptionId = descriptionId;

@@ -8,4 +8,4 @@ export type ObjectiveId = number;
 export type UserSettingsId = number;
 export type OkrUnitId = number;
 export type DepartmentId = number;
-export type DepartmentDescriptionId = number;
+export type TopicDescriptionId = number;

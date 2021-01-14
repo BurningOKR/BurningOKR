@@ -1,7 +1,7 @@
-import { UserId, DepartmentDescriptionId } from '../../id-types';
+import { UserId, TopicDescriptionId } from '../../id-types';
 
-export class OkrDepartmentDescriptionDto {
-  descriptionId: DepartmentDescriptionId;
+export class OkrTopicDescriptionDto {
+  descriptionId: TopicDescriptionId;
   name: string;
   initiatorId: UserId;
   startTeam: UserId[];
