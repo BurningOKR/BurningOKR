@@ -54,6 +54,7 @@ public class OkrDepartment extends OkrChildUnit {
     copy.setActive(this.isActive);
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
+    copy.setOkrTopicDescription(this.getOkrTopicDescription());
     return copy;
   }
   // endregion

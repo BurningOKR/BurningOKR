@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
+
+import org.burningokr.model.okr.OkrTopicDescription;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,7 @@ public class OkrDepartmentTest {
   private UUID originalOkrMasterUuid;
   private UUID originalOkrSponsorUuid;
   private Collection<OkrDepartment> originalOkrDepartments;
+  private OkrTopicDescription originalOkrTopicDescription;
 
   @Before
   public void init() {
@@ -37,6 +40,7 @@ public class OkrDepartmentTest {
     originalOkrDepartments = new ArrayList<>();
     originalOkrDepartments.add(new OkrDepartment());
     originalId = 100L;
+    originalOkrTopicDescription = new OkrTopicDescription();
 
     expectedOkrDepartment = new OkrDepartment();
     expectedOkrDepartment.setName(originalName);
@@ -47,6 +51,7 @@ public class OkrDepartmentTest {
     expectedOkrDepartment.setParentOkrUnit(originalOkrCompany);
     expectedOkrDepartment.setId(originalId);
     expectedOkrDepartment.setActive(true);
+    expectedOkrDepartment.setOkrTopicDescription(originalOkrTopicDescription);
 
     okrBranch = new OkrBranch();
     okrBranch.setOkrChildUnits(Collections.singleton(expectedOkrDepartment));
@@ -98,5 +103,12 @@ public class OkrDepartmentTest {
 
     Assert.assertNull(actualDepartment.getParentOkrUnit());
     Assert.assertEquals(0, actualDepartment.getOkrChildUnits().size());
+  }
+
+  @Test
+  public void getCopyWithoutRelations_expectedTopicDescriptionsAreEqual() {
+    OkrDepartment actualDepartment = expectedOkrDepartment.getCopyWithoutRelations();
+
+    Assert.assertSame(expectedOkrDepartment.getOkrTopicDescription(), actualDepartment.getOkrTopicDescription());
   }
 }
