@@ -108,5 +108,4 @@ describe('DepartmentDescriptionMapper', () => {
         done();
       });
   });
-  // TODO: P.B. 07.01.2021 Write more Tests
 });
