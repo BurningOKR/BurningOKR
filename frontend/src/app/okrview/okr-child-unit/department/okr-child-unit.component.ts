@@ -31,6 +31,7 @@ interface DepartmentView {
 interface ActiveTabs {
   teamsTab: boolean;
   childUnitTab: boolean;
+  descriptionTab: boolean;
 }
 
 @Component({
@@ -117,7 +118,8 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
         map((childUnit: OkrChildUnit) => {
           return {
             childUnitTab: childUnit instanceof OkrBranch,
-            teamsTab: childUnit instanceof OkrDepartment
+            teamsTab: childUnit instanceof OkrDepartment,
+            descriptionTab: childUnit instanceof OkrDepartment
           };
         })
       );
