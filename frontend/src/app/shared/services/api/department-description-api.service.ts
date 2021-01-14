@@ -10,18 +10,11 @@ import { OkrDepartmentDescriptionDto } from '../../model/api/OkrUnit/okr-departm
 export class DepartmentDescriptionApiService {
   constructor(private api: ApiHttpService) {}
 
-  // Todo: P.B. 07.01.2021 Change the path when backend is done with that
   getDepartmentDescriptionById$(id: DepartmentDescriptionId): Observable<OkrDepartmentDescriptionDto> {
     return this.api.getData$<OkrDepartmentDescriptionDto>(`/departments/${id}/topicdescription`);
   }
-  putDepartmentDescription$(description: OkrDepartmentDescriptionDto): Observable<OkrDepartmentDescriptionDto> {
-    return this.api.putData$(`TODO/${description.descriptionId}`, description);
-  }
-  postDepartmentDescription$(id: DepartmentDescriptionId,
-                             description: OkrDepartmentDescriptionDto): Observable<OkrDepartmentDescriptionDto> {
-    return this.api.postData$(`TODO/${id}`, description);
-  }
-  deleteDepartmentDescription$(id: DepartmentDescriptionId): Observable<boolean> {
-    return this.api.deleteData$(`TODO/${id}`);
+  putDepartmentDescription$(descriptionId: DepartmentDescriptionId , descriptionDto:
+    OkrDepartmentDescriptionDto): Observable<OkrDepartmentDescriptionDto> {
+    return this.api.putData$(`/departments/${descriptionId}/topicdescription`, descriptionDto);
   }
 }

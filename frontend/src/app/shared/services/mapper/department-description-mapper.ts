@@ -31,7 +31,7 @@ export class DepartmentDescriptionMapper {
     );
   }
 
-  static mapDepartmentDescriptionUnit(description: OkrDepartmentDescription): OkrDepartmentDescriptionDto {
+  static mapDepartmentDescription(description: OkrDepartmentDescription): OkrDepartmentDescriptionDto {
       const descriptionDto: OkrDepartmentDescriptionDto = new OkrDepartmentDescriptionDto();
       descriptionDto.descriptionId = description.descriptionId;
       descriptionDto.name = description.name;
@@ -52,18 +52,11 @@ export class DepartmentDescriptionMapper {
   getDepartmentDescriptionById$(descriptionId: DepartmentDescriptionId): Observable<OkrDepartmentDescription> {
       return this.departmentDescriptionApiService
         .getDepartmentDescriptionById$(descriptionId)
-        .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescriptionDto(descriptionDto)));
+        .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescription(descriptionDto)));
     }
-  postDepartmentDescription$(descriptionId: DepartmentDescriptionId,
-                             description: OkrDepartmentDescription): Observable<OkrDepartmentDescription> {
+  putDepartmentDescription$(description: OkrDepartmentDescription): Observable<OkrDepartmentDescription> {
     return this.departmentDescriptionApiService
-      .postDepartmentDescription$(descriptionId, description)
-      .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescriptionDto(descriptionDto)));
-    }
-  putDepartmentDescription$(descriptionId: DepartmentDescriptionId,
-                            description: OkrDepartmentDescription): Observable<OkrDepartmentDescription> {
-    return this.departmentDescriptionApiService
-      .postDepartmentDescription$(descriptionId, description)
-      .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescriptionDto(descriptionDto)));
+      .putDepartmentDescription$(description.descriptionId, DepartmentDescriptionMapper.mapDepartmentDescriptionDto(description))
+      .pipe(map(descriptionDto => DepartmentDescriptionMapper.mapDepartmentDescription(descriptionDto)));
     }
   }

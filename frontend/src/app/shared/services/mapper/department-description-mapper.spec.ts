@@ -43,8 +43,6 @@ describe('DepartmentDescriptionMapper', () => {
 
     departmentDescriptionApiServiceMock.getDepartmentDescriptionById$.mockReset();
     departmentDescriptionApiServiceMock.getDepartmentDescriptionById$.mockReturnValue(of(descriptionDto));
-    departmentDescriptionApiServiceMock.postDepartmentDescription$.mockReset();
-    departmentDescriptionApiServiceMock.postDepartmentDescription$.mockReturnValue(of(descriptionDto));
     departmentDescriptionApiServiceMock.putDepartmentDescription$.mockReset();
     departmentDescriptionApiServiceMock.putDepartmentDescription$.mockReturnValue(of(descriptionDto));
   });
@@ -65,5 +63,50 @@ describe('DepartmentDescriptionMapper', () => {
       });
   });
 
+  it('putDepartmentDescription$ should map', done => {
+    service = TestBed.get(DepartmentDescriptionMapper);
+
+    service.putDepartmentDescription$(description)
+      .subscribe((departmentDescription: OkrDepartmentDescription) => {
+        expect(departmentDescription)
+          .toEqual(description);
+        done();
+      });
+  });
+
+  it('putDepartmentDescription$ should call service', done => {
+    service = TestBed.get(DepartmentDescriptionMapper);
+
+    service.putDepartmentDescription$(description)
+      .subscribe(() => {
+        expect(departmentDescriptionApiServiceMock.putDepartmentDescription$)
+          .toHaveBeenCalled();
+        done();
+      });
+  });
+
+  it('putDepartmentDescription$ should map description to descriptionDto', done => {
+    service = TestBed.get(DepartmentDescriptionMapper);
+
+    service.putDepartmentDescription$(description)
+      .subscribe(() => {
+        expect(departmentDescriptionApiServiceMock.putDepartmentDescription$)
+          .toHaveBeenCalledWith(1, {
+            descriptionId: 1,
+            name: 'DescriptionName',
+            initiatorId: '2',
+            startTeam: ['2', '3', '4'],
+            stakeholders: ['3', '4'],
+            acceptanceCriteria: 'acceptanceCriteria',
+            contributesTo: 'Contributes To',
+            delimitation: 'Delimination',
+            beginning: new Date(1, 1, 2021),
+            dependencies: 'Dependencies',
+            resources: 'Resources',
+            handoverPlan: 'Handover Plan'
+          });
+        done();
+      });
+  });
   // TODO: P.B. 07.01.2021 Write more Tests
 });
