@@ -84,11 +84,6 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .objective-lineNumber {
-    position: relative;
-    bottom: 10px;
-  }
-
   .circle {
     display: none;
   }
@@ -99,16 +94,7 @@
 
 }
 
-@media only screen and (max-width: 390px) {
-  .margin-expansion-panel {
-    width: 325px;
-  }
-}
-
-@media only screen and (max-width: 360px) {
-  .margin-expansion-panel {
-    width: 285px;
-  }
+@media only screen and (max-width: 480px) {
   .objective-title {
     max-width: 65%;
   }
