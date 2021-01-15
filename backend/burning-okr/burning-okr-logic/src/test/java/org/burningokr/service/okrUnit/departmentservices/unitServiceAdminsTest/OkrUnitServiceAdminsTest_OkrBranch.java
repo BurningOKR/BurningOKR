@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +51,24 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
   @Test(expected = InvalidDeleteRequestException.class)
   public void deleteUnitWithChildUnit_expectsInvalidDeleteRequestException() {
     OkrBranch okrBranch = new OkrBranch();
-    okrBranch.setId(1337L);
+    okrBranch.setId(13L);
     List<OkrChildUnit> okrChildUnits = new ArrayList<>();
     okrChildUnits.add(new OkrDepartment());
     okrBranch.setOkrChildUnits(okrChildUnits);
 
     when(unitRepository.findByIdOrThrow(anyLong())).thenReturn(okrBranch);
 
-    okrUnitServiceAdmins.deleteUnit(1337L, user);
+    okrUnitServiceAdmins.deleteUnit(13L, user);
+  }
+
+  @Test
+  public void deleteUnit_expectsOkrTopicDescriptionIsNotDeleted() {
+    OkrBranch okrBranch = new OkrBranch();
+    okrBranch.setId(1L);
+
+    okrUnitServiceAdmins.deleteUnit(okrBranch.getId(), user);
+
+    verify(unitRepository).deleteById(okrBranch.getId());
+    verify(okrTopicDescriptionService, never()).safeDeleteOkrTopicDescription(any(), any());
   }
 }

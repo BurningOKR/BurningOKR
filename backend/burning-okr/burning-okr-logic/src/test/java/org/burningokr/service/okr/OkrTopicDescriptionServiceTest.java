@@ -12,7 +12,7 @@ import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class OkrTopicDescriptionServiceTest {
 
   @Mock private ActivityService activityService;
 
-  @Mock private UnitRepository<OkrDepartment> okrDepartmentRepository;
+  @Mock private OkrDepartmentRepository okrDepartmentRepository;
 
   @InjectMocks private OkrTopicDescriptionService okrTopicDescriptionService;
 

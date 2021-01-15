@@ -18,6 +18,7 @@ import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.ConfigurationChangedEvent;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
+import org.burningokr.service.okr.OkrTopicDescriptionService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
 import org.springframework.context.event.EventListener;
@@ -29,6 +30,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
 
   private final UnitRepository<OkrUnit> superUnitRepository;
   private final OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  private final OkrTopicDescriptionService okrTopicDescriptionService;
 
   /**
    * Initialize DepartmentServiceAdmins.
@@ -46,12 +48,14 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       ObjectiveRepository objectiveRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
-      OkrTopicDescriptionRepository okrTopicDescriptionRepository) {
+      OkrTopicDescriptionRepository okrTopicDescriptionRepository,
+      OkrTopicDescriptionService okrTopicDescriptionService) {
     super(
         parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
 
     this.superUnitRepository = superUnitRepository;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
+    this.okrTopicDescriptionService = okrTopicDescriptionService;
   }
 
   @EventListener(ConfigurationChangedEvent.class)
@@ -112,8 +116,10 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       unitRepository.deleteById(unitId);
       logger.info("Deleted OkrDepartment with id: " + unitId);
       activityService.createActivity(user, referencedUnit, Action.DELETED);
-
-      if (referencedUnit instanceof OkrDepartment) {}
+      if (referencedUnit instanceof OkrDepartment) {
+        okrTopicDescriptionService.safeDeleteOkrTopicDescription(
+            ((OkrDepartment) referencedUnit).getOkrTopicDescription().getId(), user);
+      }
 
     } else {
       logger.info(

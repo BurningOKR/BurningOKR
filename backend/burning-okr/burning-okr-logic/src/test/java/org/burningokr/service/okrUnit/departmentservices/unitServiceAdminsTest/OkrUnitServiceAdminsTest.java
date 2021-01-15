@@ -16,6 +16,7 @@ import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
+import org.burningokr.service.okr.OkrTopicDescriptionService;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.Assert;
@@ -34,6 +35,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
   @Mock protected EntityCrawlerService entityCrawlerService;
   @Mock protected ActivityService activityService;
   @Mock protected OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  @Mock protected OkrTopicDescriptionService okrTopicDescriptionService;
   @InjectMocks protected OkrUnitServiceAdmins<T> okrUnitServiceAdmins;
   protected T unit;
 

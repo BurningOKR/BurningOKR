@@ -8,7 +8,7 @@ import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class OkrTopicDescriptionService {
 
   private final OkrTopicDescriptionRepository okrTopicDescriptionRepository;
-  private final UnitRepository<OkrDepartment> okrDepartmentRepository;
+  private final OkrDepartmentRepository okrDepartmentRepository;
   private final ActivityService activityService;
   private final Logger logger = LoggerFactory.getLogger(OkrTopicDescriptionService.class);
 
