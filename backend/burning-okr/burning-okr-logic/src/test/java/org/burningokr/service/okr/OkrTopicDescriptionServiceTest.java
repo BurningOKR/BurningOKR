@@ -1,19 +1,24 @@
 package org.burningokr.service.okr;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.hibernate.event.spi.PostDeleteEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +35,12 @@ public class OkrTopicDescriptionServiceTest {
   @Mock private ActivityService activityService;
 
   @Mock private OkrDepartmentRepository okrDepartmentRepository;
+
+  @Mock private EntityManagerFactory entityManagerFactory;
+
+  @Mock private EntityManager entityManager;
+
+  @Mock private EntityTransaction entityTransaction;
 
   @InjectMocks private OkrTopicDescriptionService okrTopicDescriptionService;
 
@@ -186,12 +197,15 @@ public class OkrTopicDescriptionServiceTest {
   @Test
   public void safeDeleteOkrTopicDescription_deletesOkrTopicDescription() {
     when(okrDepartmentRepository.findAll()).thenReturn(new ArrayList<>());
-    when(okrTopicDescriptionRepository.findByIdOrThrow(anyLong())).thenReturn(okrTopicDescription);
+    when(entityManager.find(OkrTopicDescription.class, okrTopicDescription.getId()))
+        .thenReturn(okrTopicDescription);
+    when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
+    when(entityManager.getTransaction()).thenReturn(entityTransaction);
 
     okrTopicDescriptionService.safeDeleteOkrTopicDescription(
         okrTopicDescription.getId(), new LocalUser());
 
-    verify(okrTopicDescriptionRepository).delete(okrTopicDescription);
+    verify(entityManager).remove(okrTopicDescription);
   }
 
   @Test
@@ -213,6 +227,68 @@ public class OkrTopicDescriptionServiceTest {
     okrTopicDescriptionService.safeDeleteOkrTopicDescription(
         okrTopicDescription.getId(), new LocalUser());
 
-    verify(okrTopicDescriptionRepository, never()).delete(any());
+    verify(entityManager, never()).remove(any());
+  }
+
+  @Test
+  public void onPostDelete_doesNothingWhenItIsNotAnOkrDepartment() {
+    PostDeleteEvent postDeleteEvent = new PostDeleteEvent(new OkrBranch(), null, null, null, null);
+    okrTopicDescriptionService.onPostDelete(postDeleteEvent);
+
+    verify(entityManager, never()).remove(any());
+  }
+
+  @Test
+  public void onPostDelete_deletesWhenItIsAnOkrDepartment() {
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setOkrTopicDescription(okrTopicDescription);
+
+    PostDeleteEvent postDeleteEvent = new PostDeleteEvent(okrDepartment, null, null, null, null);
+
+    when(okrDepartmentRepository.findAll()).thenReturn(new ArrayList<>());
+    when(entityManager.find(OkrTopicDescription.class, okrTopicDescription.getId()))
+        .thenReturn(okrTopicDescription);
+    when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
+    when(entityManager.getTransaction()).thenReturn(entityTransaction);
+
+    okrTopicDescriptionService.onPostDelete(postDeleteEvent);
+
+    verify(entityManager).remove(okrTopicDescription);
+  }
+
+  @Test
+  public void onPostDelete_doesNotDeleteWhenThereAreOtherDepartmentsReferencing() {
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setOkrTopicDescription(okrTopicDescription);
+
+    PostDeleteEvent postDeleteEvent = new PostDeleteEvent(okrDepartment, null, null, null, null);
+
+    OkrDepartment department1 = new OkrDepartment();
+    department1.setOkrTopicDescription(okrTopicDescription);
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setOkrTopicDescription(okrTopicDescription);
+    OkrDepartment department3 = new OkrDepartment();
+    department3.setOkrTopicDescription(okrTopicDescription);
+
+    ArrayList<OkrDepartment> okrDepartments = new ArrayList<>();
+    okrDepartments.add(department1);
+    okrDepartments.add(department2);
+    okrDepartments.add(department3);
+
+    when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
+
+    okrTopicDescriptionService.onPostDelete(postDeleteEvent);
+
+    verify(entityManager, never()).remove(any());
+  }
+
+  @Test
+  public void requiresPostCommitHanding_returnsTrue() {
+    assertTrue(okrTopicDescriptionService.requiresPostCommitHanding(null));
+  }
+
+  @Test
+  public void requiresPostCommitHandling_returnsTrue() {
+    assertTrue(okrTopicDescriptionService.requiresPostCommitHandling(null));
   }
 }
