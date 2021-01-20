@@ -45,6 +45,7 @@ import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/department-tab-description/department-tab-description.component';
+import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/d
     CycleListDropdownComponent,
     KeyResultMilestoneFormComponent,
     DepartmentTabDescriptionComponent,
+    DepartmentDescriptionEditFormComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
