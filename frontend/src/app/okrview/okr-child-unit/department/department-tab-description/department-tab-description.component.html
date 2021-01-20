@@ -1,28 +1,47 @@
-<p>department-tab-description works!</p>
-<div *ngIf="description$ | async as description">
+<div class="flex-nowrap-center">
+  <div class="tab-limited-width">
+    <div class="text-center">
+      <div class="tab-headline" i18n="@@component_departmentTabDescription_description">Beschreibung</div>
+      <div *ngIf="description$ | async as description" >
+        <div i18n="@@component_departmentTabDescription_topic">Thema: {{description.name}} </div>
+        <div i18n="@@component_departmentTabDescription_acceptanceCriteria"> Akzeptanzkriterien: {{description.acceptanceCriteria}}</div>
+        <div i18n="@@component_departmentTabDescription_contributesTo">Zählt ein auf: {{description.contributesTo}}</div>
+        <div i18n="@@component_departmentTabDescription_delimitation">Abgrenzung: {{description.delimitation}}</div>
+        <div i18n="@@component_departmentTabDescription_beginning">Beginn: {{description.beginning}}</div>
+        <div i18n="@@component_departmentTabDescription_dependencies">Abhängig: {{description.dependencies}}</div>
+        <div i18n="@@component_departmentTabDescription_resources">Benötigte Ressourcen: {{description.resources}}</div>
+        <div i18n="@@component_departmentTabDescription_handoverPlan">Übergabeplan: {{description.handoverPlan}}</div>
 
+        <!-- User -->
+        <div class="flex-wrap-spreadinner">
+          <div *ngIf="description.initiatorId != null">
+            <div class="tab-subtitle" i18n="@@component_departmentTabDescription_initiator">Initiator:</div>
+            <app-user-minibutton [userId]="description.initiatorId" [canBeRemoved]="false">
+            </app-user-minibutton>
+          </div>
+        </div>
 
-  <p>Thema: </p> {{description.name}}
-  <p>Akzeptanzkriterien: </p> {{description.acceptanceCriteria}}
-  <p>Zählt ein auf: </p>{{description.contributesTo}}
-  <p>Abgrenzung: </p>{{description.delimitation}}
-  <p>Beginn: </p>{{description.beginning}}
-  <p>Abhängig:</p>{{description.dependencies}}
-  <p>Benötigte Ressourcen: </p>{{description.resources}}
-  <p>Übergabeplan: </p>{{description.handoverPlan}}
+        <div class="flex-wrap-spreadinner">
+          <div *ngIf="description.startTeam.length != 0">
+            <div *ngFor="let currentuser of description.startTeam">
+              <div class="tab-subtitle" i18n="@@component_departmentTabDescription_startteam">Startteam:</div>
+              <app-user-minibutton [userId]="currentuser" [canBeRemoved]="false">
+              </app-user-minibutton>
+            </div>
+          </div>
+        </div>
 
-  <!-- User -->
-  <div class="flex-wrap-spreadinner">
-    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
-    </app-user-minibutton>
-    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
-    </app-user-minibutton>
-    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
-    </app-user-minibutton>
-    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
-    </app-user-minibutton>
-    <app-user-minibutton [userId]="department.okrMasterId" [canBeRemoved]="false">
-    </app-user-minibutton>
+        <div class="flex-wrap-spreadinner">
+          <div *ngIf="description.stakeholders.length != 0">
+            <div *ngFor="let currentuser of department.okrMemberIds">
+              <div class="tab-subtitle" i18n="@@component_departmentTabDescription_stakeholder">Stakeholder:</div>
+              <app-user-minibutton [userId]="currentuser" [canBeRemoved]="false">
+              </app-user-minibutton>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
-  <!-- TODO: P.B. 14.01.2021 Team, Initiator, Stakeholder anzeigen; Ansicht anpassen -->
 </div>
