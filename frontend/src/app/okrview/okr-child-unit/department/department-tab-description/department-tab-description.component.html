@@ -3,18 +3,23 @@
     <div class="text-center">
       <div class="tab-headline" i18n="@@component_departmentTabDescription_description">Beschreibung</div>
       <div *ngIf="description$ | async as description" >
-        <div i18n="@@component_departmentTabDescription_topic">Thema: {{description.name}} </div>
-        <div i18n="@@component_departmentTabDescription_acceptanceCriteria"> Akzeptanzkriterien: {{description.acceptanceCriteria}}</div>
-        <div i18n="@@component_departmentTabDescription_contributesTo">Zählt ein auf: {{description.contributesTo}}</div>
-        <div i18n="@@component_departmentTabDescription_delimitation">Abgrenzung: {{description.delimitation}}</div>
-        <div i18n="@@component_departmentTabDescription_beginning">Beginn: {{description.beginning}}</div>
-        <div i18n="@@component_departmentTabDescription_dependencies">Abhängig: {{description.dependencies}}</div>
-        <div i18n="@@component_departmentTabDescription_resources">Benötigte Ressourcen: {{description.resources}}</div>
-        <div i18n="@@component_departmentTabDescription_handoverPlan">Übergabeplan: {{description.handoverPlan}}</div>
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_topic">Thema:  </div> {{description.name}}
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_acceptanceCriteria"> Akzeptanzkriterien: </div> {{description.acceptanceCriteria}}
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_contributesTo">Zählt ein auf: </div>  {{description.contributesTo}}
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_delimitation">Abgrenzung: </div> {{description.delimitation}}
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_beginning">Beginn: </div> {{description.beginning}}
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_dependencies">Abhängig: </div> {{description.dependencies}}
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_resources">Benötigte Ressourcen: </div> {{description.resources}}
+        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_handoverPlan">Übergabeplan: </div> {{description.handoverPlan}}
 
         <!-- User -->
         <div class="flex-wrap-spreadinner">
           <div *ngIf="description.initiatorId != null">
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
             <div class="tab-subtitle" i18n="@@component_departmentTabDescription_initiator">Initiator:</div>
             <app-user-minibutton [userId]="description.initiatorId" [canBeRemoved]="false">
             </app-user-minibutton>
@@ -23,6 +28,11 @@
 
         <div class="flex-wrap-spreadinner">
           <div *ngIf="description.startTeam.length != 0">
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
             <div *ngFor="let currentuser of description.startTeam">
               <div class="tab-subtitle" i18n="@@component_departmentTabDescription_startteam">Startteam:</div>
               <app-user-minibutton [userId]="currentuser" [canBeRemoved]="false">
@@ -33,6 +43,11 @@
 
         <div class="flex-wrap-spreadinner">
           <div *ngIf="description.stakeholders.length != 0">
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
             <div *ngFor="let currentuser of department.okrMemberIds">
               <div class="tab-subtitle" i18n="@@component_departmentTabDescription_stakeholder">Stakeholder:</div>
               <app-user-minibutton [userId]="currentuser" [canBeRemoved]="false">
