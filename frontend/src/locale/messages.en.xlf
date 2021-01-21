@@ -391,7 +391,9 @@
         </context-group>
       </trans-unit><trans-unit id="component_okrToolbar_noSMTPWarningLink" datatype="html">
         <source>
-        Dies kann die Nutzbarkeit der Anwendung stark einschränken.
+        Dies kann die Nutzbarkeit der
+        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+        Anwendung stark einschränken.
       </source><target state="translated">This can restrict the usability of the application.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
@@ -433,68 +435,56 @@
         <target state="translated">Authorized as Admin</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">20</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_menu" datatype="html">
         <source>Menü</source>
         <target state="translated">Menu</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">28</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_adminPanel" datatype="html">
         <source>Admin Panel</source>
         <target state="translated">Admin panel</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">41</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">43</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_cycleManagement" datatype="html">
         <source>Zyklusverwaltung</source>
         <target state="translated">Cycle administration</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">48</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_settings" datatype="html">
         <source>Einstellungen</source>
         <target state="translated">Settings</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">52</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_userManagement" datatype="html">
         <source>Nutzerverwaltung</source>
         <target state="translated">User Management</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">54</context></context-group></trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">56</context></context-group></trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
         <source>Passwort ändern</source><target state="translated">Change password</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_logout" datatype="html">
         <source>Logout</source>
         <target state="translated">Logout</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">62</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">64</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_version" datatype="html">
         <source>v</source>
         <target state="translated">v</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">66</context></context-group></trans-unit><trans-unit id="component_adminView_NavigateToUnitOverview" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">68</context></context-group></trans-unit><trans-unit id="component_adminView_NavigateToUnitOverview" datatype="html">
         <source>Zur Strukturübersicht</source><target state="translated">Go to the structure overview</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/error/error.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/admin/admin-view.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
+        
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/core/error/error.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/admin/admin-view.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/user-management.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit>
       <trans-unit id="component_error_errorId" datatype="html">
         <source>Fehler ID:</source>
         <target state="translated">Error ID:</target>
@@ -556,67 +546,34 @@
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_jobTitle" datatype="html">
         <source> Jobbezeichnung</source><target state="translated">Job Title</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Header" datatype="html">
-        <source>Kein SMTP konfiguriert</source><target state="translated">No SMPT configured</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
         <source>Es wurde keine SMTP Konfiguration gefunden.</source><target state="translated">No SMTP configuration was found.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_Info" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Info" datatype="html">
         <source>Dies kann die Benutzbarkeit der Anwendung stark einschränken.</source><target state="translated">This can restrict the usability of the application.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_AAD" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">12</context></context-group></trans-unit><trans-unit id="component_noMailInformation_AAD" datatype="html">
         <source>Wird ein Azure Active Directory zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:</source><target state="translated">If an Azure Active Directory is used for user management, the following functions are not available:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_AAD_Feedback" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">13</context></context-group></trans-unit><trans-unit id="component_noMailInformation_AAD_Feedback" datatype="html">
         <source>Senden von Feedback</source><target state="translated">Sending feedback</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_local" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">15</context></context-group></trans-unit><trans-unit id="component_noMailInformation_local" datatype="html">
         <source>Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:</source><target state="translated">If the local user database of BurningOKR is used for user management, the following functions are not available:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_local_Feedback" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="component_noMailInformation_local_Feedback" datatype="html">
         <source>Senden von Feedback</source><target state="translated">Sending feedback</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_local_CreateUserMails" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit><trans-unit id="component_noMailInformation_local_CreateUserMails" datatype="html">
         <source>Senden von Mails für die Anlegung von Nutzern</source><target state="translated">Sending mails when creating a new user</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_local_PasswordResetMails" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">20</context></context-group></trans-unit><trans-unit id="component_noMailInformation_local_PasswordResetMails" datatype="html">
         <source>Senden von Mails um Passwörter zurückzusetzen</source><target state="translated">Sending mails when resetting a password</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_noMailInformation_backToHome" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="component_noMailInformation_backToHome" datatype="html">
         <source>Zurück zur Startseite</source><target state="translated">Back to home page</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">24</context></context-group></trans-unit>
       <trans-unit id="component_adminView_NavigateToPrevious" datatype="html">
         <source>Zur vorherigen Seite zurückkehren</source><target state="translated">Return to the previous page</target>
         <context-group purpose="location">
@@ -705,7 +662,7 @@
 
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">42</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">133</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">167</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">42</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">145</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">179</context></context-group></trans-unit>
       <trans-unit id="component_department_teamMember" datatype="html">
         <source>Teammitglieder</source>
         <target state="translated">Team members</target>
@@ -714,20 +671,26 @@
 
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">51</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">140</context></context-group></trans-unit><trans-unit id="component_department_childUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">51</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">152</context></context-group></trans-unit><trans-unit id="component_department_childUnit" datatype="html">
         <source>Unterstrukturen</source><target state="translated">Substructure</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">61</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">141</context></context-group></trans-unit><trans-unit id="component_department_editchildUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">61</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">153</context></context-group></trans-unit><trans-unit id="component_department_description" datatype="html">
+        <source>Beschreibung</source><target state="translated">Description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_department_editchildUnit" datatype="html">
         <source>Struktur bearbeiten</source><target state="translated">Edit structure</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">85</context></context-group></trans-unit><trans-unit id="component_department_disableUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">97</context></context-group></trans-unit><trans-unit id="component_department_disableUnit" datatype="html">
         <source>Struktur auf inaktiv setzen</source><target state="translated">Set structure inactive</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">90</context></context-group></trans-unit><trans-unit id="component_department_enableUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">102</context></context-group></trans-unit><trans-unit id="component_department_enableUnit" datatype="html">
         <source>Struktur auf aktiv setzen</source><target state="translated">Set structure active</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">94</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">106</context></context-group></trans-unit>
 
 
 
@@ -737,20 +700,20 @@
         <target state="translated">Export</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">99</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">111</context></context-group></trans-unit>
       <trans-unit id="component_department_exportContacts" datatype="html">
         <source>Kontakte exportieren</source>
         <target state="translated">Export contacts</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">103</context></context-group></trans-unit><trans-unit id="component_department_deleteUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">115</context></context-group></trans-unit><trans-unit id="component_department_deleteUnit" datatype="html">
         <source>Struktur löschen</source><target state="translated">Delete structure</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">108</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">117</context></context-group></trans-unit><trans-unit id="component_department_cannotDeleteUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">120</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">129</context></context-group></trans-unit><trans-unit id="component_department_cannotDeleteUnit" datatype="html">
         <source>Kann wegen Unterstrukturen nicht gelöscht werden!</source><target state="translated">Cannot be deleted due to existing substructures!</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">114</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">126</context></context-group></trans-unit>
 
 
       <trans-unit id="component_department_loadDepartment" datatype="html">
@@ -759,50 +722,35 @@
 
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">129</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">158</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">141</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">170</context></context-group></trans-unit>
       <trans-unit id="component_department_pleaseWait" datatype="html">
         <source> Bitte warten</source>
         <target state="translated"> Please wait</target>
 
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">130</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">159</context></context-group></trans-unit><trans-unit id="component_department_tab_loading" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">142</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">171</context></context-group></trans-unit><trans-unit id="component_department_tab_loading" datatype="html">
         <source>Lade...</source><target state="translated">Loading…</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">174</context></context-group></trans-unit><trans-unit id="component_department_loadDepartmentFailed" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">186</context></context-group></trans-unit><trans-unit id="component_department_loadDepartmentFailed" datatype="html">
         <source>Laden Fehlgeschlagen</source><target state="translated">Loading Failed</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
-          <context context-type="linenumber">190</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_department_emptyLabel" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">202</context></context-group></trans-unit><trans-unit id="component_department_emptyLabel" datatype="html">
         <source> -</source><target state="translated"> -</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
-          <context context-type="linenumber">191</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_department_loadDepartmentFailedInfoText" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">203</context></context-group></trans-unit><trans-unit id="component_department_loadDepartmentFailedInfoText" datatype="html">
         <source>
             Die Struktur konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
             oder der Server antwortet nicht.
           </source><target state="translated">The structure could not be loaded. It could have been deleted by another user, or the server is not responding</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
-          <context context-type="linenumber">201</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_department_loadDepartmentFailedButton" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">213</context></context-group></trans-unit><trans-unit id="component_department_loadDepartmentFailedButton" datatype="html">
         <source>Zur nächsthöheren Struktur</source><target state="translated">Go to next higher structure</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
-          <context context-type="linenumber">205</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_department_errorInfoLabel" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">217</context></context-group></trans-unit><trans-unit id="component_department_errorInfoLabel" datatype="html">
         <source>Info</source><target state="translated">Info</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
-          <context context-type="linenumber">199</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">211</context></context-group></trans-unit>
 
       <trans-unit id="component_departmentTabOverview_createNewObjective" datatype="html">
         <source>Neues Objective erstellen</source>
@@ -1395,6 +1343,160 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component.html</context>
           <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_topic" datatype="html">
+        <source>Thema</source><target state="translated">Topic</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_beginning" datatype="html">
+        <source>Beginn</source><target state="translated">Beginning</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_acceptanceCriteria" datatype="html">
+        <source>Akzeptanzkriterien</source><target state="translated">Acceptance Criteria</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_contributesTo" datatype="html">
+        <source>Zählt ein auf</source><target state="translated">Contributes to</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_delimitation" datatype="html">
+        <source>Abgrenzung</source><target state="translated">Delimitation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_dependencies" datatype="html">
+        <source>Abhängigkeiten</source><target state="translated">Dependencies</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_resources" datatype="html">
+        <source>Benötigte Ressourcen</source><target state="translated">Required Resources</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_handoverPlan" datatype="html">
+        <source>Übergabeplan</source><target state="translated">Handover Plan</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_initiator" datatype="html">
+        <source>Kein Initiator</source><target state="translated">No initiator</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit><trans-unit id="initiator" datatype="html">
+        <source>Initiator</source><target state="translated">Initiator</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit><trans-unit id="startteam" datatype="html">
+        <source>Start Team</source><target state="translated">Start Team</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit><trans-unit id="stakeholder" datatype="html">
+        <source>Stakeholder</source><target state="translated">Stakeholders</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_description" datatype="html">
+        <source>Beschreibung</source><target state="translated">Description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_topic" datatype="html">
+        <source>Thema:</source><target state="translated">Topic:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_beginning" datatype="html">
+        <source>Beginn:</source><target state="translated">Beginning:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_acceptanceCriteria" datatype="html">
+        <source>
+      Akzeptanzkriterien:
+    </source><target state="translated">Acceptance Criteria:
+    </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_contributesTo" datatype="html">
+        <source>Zählt ein auf:</source><target state="translated">Contributes To:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_delimitation" datatype="html">
+        <source>Abgrenzung:</source><target state="translated">Delimitation:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_dependencies" datatype="html">
+        <source>Abhängigkeiten:</source><target state="translated">Dependencies:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_resources" datatype="html">
+        <source>Benötigte Ressourcen:
+    </source><target state="translated">Required Resources:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_handoverPlan" datatype="html">
+        <source>Übergabeplan:</source><target state="translated">Handover Plan:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_initiator" datatype="html">
+        <source>Initiator:</source><target state="translated">Initiator:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_startteam" datatype="html">
+        <source>Startteam:</source><target state="translated">Start Team:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_stakeholder" datatype="html">
+        <source>Stakeholder:</source><target state="translated">Stakeholders:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_editDescription" datatype="html">
+        <source>Beschreibung bearbeiten</source><target state="translated">Edit Description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit><trans-unit id="userManagementToolbarTitle" datatype="html">
         <source>Benutzerverwaltung</source><target state="translated">User administration</target>
@@ -2140,6 +2242,13 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Do you want to delete objective x</note>
+      </trans-unit><trans-unit id="component_descriptionEditForm_headline" datatype="html">
+        <source>Beschreibung bearbeiten</source><target state="translated">Edit Description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Title of the OkrTopicDescription dialog</note>
       </trans-unit><trans-unit id="deleteOkrMasterDialog_title" datatype="html">
         <source>OKR Master entfernen</source><target state="translated">Remove OKR master</target>
         <context-group purpose="location">

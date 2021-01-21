@@ -1,8 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { User } from '../../../../../shared/model/api/user';
 import { UserService } from '../../../../../shared/services/helper/user.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { OkrTopicDescription } from '../../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
+import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper.service';
+import { DepartmentId } from '../../../../../shared/model/id-types';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
+interface OkrTopicDescriptionFormData {
+  departmentId: DepartmentId;
+  okrTopicDescription: OkrTopicDescription;
+}
 
 @Component({
   selector: 'app-department-description-edit-form',
@@ -13,16 +23,16 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
   descriptionForm: FormGroup;
   title: string;
   users$: Observable<User[]>;
-  user: User;
-  startteam: User[] = [];
 
-  constructor(
-    private userService: UserService
-  ) { }
+  constructor(private userService: UserService,
+              private okrTopicDescriptionService: TopicDescriptionMapper,
+              private dialogRef: MatDialogRef<DepartmentDescriptionEditFormComponent>,
+              private i18n: I18n,
+              @Inject(MAT_DIALOG_DATA) private formData: OkrTopicDescriptionFormData) { }
 
   ngOnInit(): void {
     this.descriptionForm = new FormGroup({
-      topic: new FormControl('', Validators.maxLength(255)),
+      name: new FormControl('', Validators.maxLength(255)),
       acceptanceCriteria: new FormControl('', Validators.maxLength(255)),
       contributesTo: new FormControl('', Validators.maxLength(255)),
       delimitation: new FormControl('', Validators.maxLength(255)),
@@ -30,34 +40,29 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
       dependencies: new FormControl('', Validators.maxLength(255)),
       resources: new FormControl('', Validators.maxLength(255)),
       handoverPlan: new FormControl('', Validators.maxLength(255)),
-      initiator: new FormControl(),
-      startteam: new FormArray([new FormControl()]),
-      stakeholder: new FormArray([])
+      initiatorId: new FormControl(),
+      startTeam: new FormControl([]),
+      stakeholders: new FormControl([])
       });
 
-    this.users$ = this.userService.getAllUsers$();
-  }
-
-  temp(): void {  }
-
-  onSelectInitiator($event: { value: User; }): void {
-    this.user = $event.value;
-  }
-
-  onSelectStartteamMember($event: {value: User; }, member: FormControl): void {
-    const formArray: FormArray = this.getFormArray();
-    if (!$event.value) {
-      const position: number = formArray.controls.indexOf(member);
-      if(formArray.controls.length > 1) {
-        formArray.removeAt(position);
-      }
-    } else {
-      this.startteam.Add($event.value);
-      formArray.push(new FormControl());
+    if (this.formData.okrTopicDescription) {
+      this.descriptionForm.patchValue(this.formData.okrTopicDescription);
     }
+
+    this.users$ = this.userService.getAllUsers$();
+
+    this.title = this.i18n({
+      id: 'component_descriptionEditForm_headline',
+      description: 'Title of the OkrTopicDescription dialog',
+      value: 'Beschreibung bearbeiten'
+    });
   }
 
-  getFormArray(): FormArray {
-    return (this.descriptionForm.get('startteam') as FormArray);
+  saveDescription(): void {
+    const okrTopicDescription: OkrTopicDescription = this.descriptionForm.getRawValue();
+    this.dialogRef.close(
+      this.okrTopicDescriptionService.putTopicDescription$(this.formData.departmentId, okrTopicDescription)
+    );
   }
+
 }
