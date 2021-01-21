@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { User } from '../../../../../shared/model/api/user';
 import { UserService } from '../../../../../shared/services/helper/user.service';
@@ -14,6 +14,7 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
   title: string;
   users$: Observable<User[]>;
   user: User;
+  startteam: User[] = [];
 
   constructor(
     private userService: UserService
@@ -30,16 +31,33 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
       resources: new FormControl('', Validators.maxLength(255)),
       handoverPlan: new FormControl('', Validators.maxLength(255)),
       initiator: new FormControl(),
-      startteam: new FormControl(),
-      stakeholder: new FormControl()
+      startteam: new FormArray([new FormControl()]),
+      stakeholder: new FormArray([])
       });
 
     this.users$ = this.userService.getAllUsers$();
   }
 
-  temp(): void {}
+  temp(): void {  }
 
-  onSelectUser($event: { value: User; }): void {
+  onSelectInitiator($event: { value: User; }): void {
     this.user = $event.value;
+  }
+
+  onSelectStartteamMember($event: {value: User; }, member: FormControl): void {
+    const formArray: FormArray = this.getFormArray();
+    if (!$event.value) {
+      const position: number = formArray.controls.indexOf(member);
+      if(formArray.controls.length > 1) {
+        formArray.removeAt(position);
+      }
+    } else {
+      this.startteam.Add($event.value);
+      formArray.push(new FormControl());
+    }
+  }
+
+  getFormArray(): FormArray {
+    return (this.descriptionForm.get('startteam') as FormArray);
   }
 }

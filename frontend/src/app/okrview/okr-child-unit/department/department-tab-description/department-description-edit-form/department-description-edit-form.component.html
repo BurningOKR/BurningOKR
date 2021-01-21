@@ -24,11 +24,11 @@
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <input type="text" i18n-placeholder="@@component_descriptionEditForm_dependencies" matInput placeholder="Abhängig" formControlName="dependencies">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_dependencies" matInput placeholder="Abhängigkeiten" formControlName="dependencies">
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <input type="text" i18n-placeholder="@@component_descriptionEditForm_resources" matInput placeholder="Ressourcen" formControlName="resources">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_resources" matInput placeholder="Benötigte Ressourcen" formControlName="resources">
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
@@ -38,7 +38,7 @@
 
 
     <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
-      <mat-select (selectionChange)="onSelectUser($event)" formControlName="initiator"
+      <mat-select (selectionChange)="onSelectInitiator($event)" formControlName="initiator"
                   i18n-placeholder="@@initiator" placeholder="Initiator">
         <mat-option [value]="null"><span i18n="@@component_descriptionEditForm_initiator">Kein Initiator</span></mat-option>
         <mat-option *ngFor="let user of users" [value]="user.id">
@@ -46,6 +46,19 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+  <ng-container formArrayName="startteam" *ngIf="users$ | async; let users">
+    <mat-form-field *ngFor="let member of getFormArray().controls" class="form-whole-line">
+      <mat-select (selectionChange)="onSelectStartteamMember($event, member)" [formControl]="member"
+                  i18n-placeholder="@@startteam" placeholder="Teammitglied hinzufügen">
+        <mat-option [value]="null"><span i18n="@@component_descriptionEditForm_teammember">Kein Teammitglied</span></mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.id">
+          {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+
 
 
   </form>
