@@ -4,6 +4,8 @@ import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { TopicDescriptionMapper } from '../../../../shared/services/mapper/topic-description-mapper.service';
 import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { DepartmentDescriptionEditFormComponent } from './department-description-edit-form/department-description-edit-form.component';
 
 @Component({
   selector: 'app-department-tab-description',
@@ -17,7 +19,8 @@ export class DepartmentTabDescriptionComponent implements OnInit {
   description$: Observable<OkrTopicDescription>;
 
   constructor(
-    private topicDescriptionMapperService: TopicDescriptionMapper
+    private topicDescriptionMapperService: TopicDescriptionMapper,
+    private dialog: MatDialog
   ) {
   }
 
@@ -25,4 +28,7 @@ export class DepartmentTabDescriptionComponent implements OnInit {
     this.description$ = this.topicDescriptionMapperService.getTopicDescriptionById$(this.department.id);
   }
 
+  openDialog(): void {
+    this.dialog.open(DepartmentDescriptionEditFormComponent);
+  }
 }

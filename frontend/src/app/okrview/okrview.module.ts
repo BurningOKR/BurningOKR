@@ -78,6 +78,7 @@ import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/departm
     OkrChildUnitFormComponent,
     KeyResultFormComponent,
     ObjectiveFormComponent,
+    DepartmentDescriptionEditFormComponent
     ],
   imports: [
         CommonModule,

@@ -1,1 +1,52 @@
-<p>department-description-edit-form works!</p>
+<app-dialog-component [title]="title" (okEmitter)="temp()" [formGroup]="descriptionForm">
+  <div i18n-placeholder="@@@@component_descriptionEditForm_headline">Beschreibung</div>
+
+  <form [formGroup]="descriptionForm">
+
+    <mat-form-field class="form-whole-line">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_topic" matInput placeholder="Thema" formControlName="topic">
+    </mat-form-field>
+
+    <mat-form-field class="form-whole-line">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_acceptanceCriteria" matInput placeholder="Akzeptanzkriterien" formControlName="acceptanceCriteria">
+    </mat-form-field>
+
+    <mat-form-field class="form-whole-line">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_contributesTo" matInput placeholder="Zählt ein auf" formControlName="contributesTo">
+    </mat-form-field>
+
+    <mat-form-field class="form-whole-line">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_delimitation" matInput placeholder="Abgrenzung" formControlName="delimitation">
+    </mat-form-field>
+
+    <mat-form-field class="form-whole-line">
+      <input type="date" i18n-placeholder="@@component_descriptionEditForm_beginning" matInput placeholder="Beginn" formControlName="beginning">
+    </mat-form-field>
+
+    <mat-form-field class="form-whole-line">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_dependencies" matInput placeholder="Abhängig" formControlName="dependencies">
+    </mat-form-field>
+
+    <mat-form-field class="form-whole-line">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_resources" matInput placeholder="Ressourcen" formControlName="resources">
+    </mat-form-field>
+
+    <mat-form-field class="form-whole-line">
+      <input type="text" i18n-placeholder="@@component_descriptionEditForm_handoverPlan" matInput placeholder="Übergabeplan" formControlName="handoverPlan">
+    </mat-form-field>
+
+
+
+    <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
+      <mat-select (selectionChange)="onSelectUser($event)" formControlName="initiator"
+                  i18n-placeholder="@@initiator" placeholder="Initiator">
+        <mat-option [value]="null"><span i18n="@@component_descriptionEditForm_initiator">Kein Initiator</span></mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.id">
+          {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+  </form>
+</app-dialog-component>
