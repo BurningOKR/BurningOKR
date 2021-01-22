@@ -33,13 +33,13 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
   ngOnInit(): void {
     this.descriptionForm = new FormGroup({
       name: new FormControl('', Validators.maxLength(255)),
-      acceptanceCriteria: new FormControl('', Validators.maxLength(255)),
-      contributesTo: new FormControl('', Validators.maxLength(255)),
-      delimitation: new FormControl('', Validators.maxLength(255)),
+      acceptanceCriteria: new FormControl('', Validators.maxLength(1024)),
+      contributesTo: new FormControl('', Validators.maxLength(1024)),
+      delimitation: new FormControl('', Validators.maxLength(1024)),
       beginning: new FormControl(),
-      dependencies: new FormControl('', Validators.maxLength(255)),
-      resources: new FormControl('', Validators.maxLength(255)),
-      handoverPlan: new FormControl('', Validators.maxLength(255)),
+      dependencies: new FormControl('', Validators.maxLength(1024)),
+      resources: new FormControl('', Validators.maxLength(1024)),
+      handoverPlan: new FormControl('', Validators.maxLength(1024)),
       initiatorId: new FormControl(),
       startTeam: new FormControl([]),
       stakeholders: new FormControl([])
