@@ -1490,33 +1490,24 @@
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabDescription_handoverPlan" datatype="html">
         <source>Übergabeplan:</source><target state="final">Übergabeplan:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_departmentTabDescription_initiator" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_initiator" datatype="html">
         <source>Initiator:</source><target state="final">Initiator:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_departmentTabDescription_startteam" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">30</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_startteam" datatype="html">
         <source>Startteam:</source><target state="final">Startteam:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_departmentTabDescription_stakeholder" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">39</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_stakeholder" datatype="html">
         <source>Stakeholder:</source><target state="final">Stakeholder:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">53</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_departmentTabDescription_editDescription" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">52</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_editDescription" datatype="html">
         <source>Beschreibung bearbeiten</source><target state="final">Beschreibung bearbeiten</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">66</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_noEditRights" datatype="html">
+        <source>Nur OKR Master können Beschreibungen bearbeiten</source><target state="final">Nur OKR Master können Beschreibungen bearbeiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit><trans-unit id="userManagementToolbarTitle" datatype="html">
         <source>Benutzerverwaltung</source><target state="final">Benutzerverwaltung</target>

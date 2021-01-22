@@ -1288,8 +1288,7 @@
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabDescription_resources" datatype="html">
-        <source>Benötigte Ressourcen:
-    </source>
+        <source>Benötigte Ressourcen:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
           <context context-type="linenumber">19</context>
@@ -1298,31 +1297,37 @@
         <source>Übergabeplan:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabDescription_initiator" datatype="html">
         <source>Initiator:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabDescription_startteam" datatype="html">
         <source>Startteam:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabDescription_stakeholder" datatype="html">
         <source>Stakeholder:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabDescription_editDescription" datatype="html">
         <source>Beschreibung bearbeiten</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_departmentTabDescription_noEditRights" datatype="html">
+        <source>Nur OKR Master können Beschreibungen bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit><trans-unit id="component_login_loggedOut" datatype="html">
         <source>Sie wurden erfolgreich ausgelogt.</source>
