@@ -18,6 +18,7 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
   @Input() currentUserRole: ContextRole;
 
   description$: Observable<OkrTopicDescription>;
+  canEdit: boolean;
 
   constructor(
     private topicDescriptionMapperService: TopicDescriptionMapper,
@@ -27,6 +28,7 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.updateDescription();
+    this.canEdit = this.currentUserRole.isAtleastAdmin() || this.currentUserRole.isAtleastOKRManager();
   }
 
   ngOnChanges(): void {

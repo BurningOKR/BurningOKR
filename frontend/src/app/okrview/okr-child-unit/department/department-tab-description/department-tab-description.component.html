@@ -59,8 +59,8 @@
       </div>
     </div>
     <br><br>
-    <div class="text-center">
-      <button mat-raised-button color="primary" (click)="openDialog(description)">
+    <div class="text-center mb-10">
+      <button mat-raised-button color="primary" (click)="openDialog(description)" [disabled]="!canEdit">
         <mat-icon>edit</mat-icon>
         <span i18n="@@component_departmentTabDescription_editDescription">Beschreibung bearbeiten</span>
       </button>

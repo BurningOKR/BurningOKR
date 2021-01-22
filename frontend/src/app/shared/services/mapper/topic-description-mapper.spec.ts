@@ -23,7 +23,7 @@ describe('TopicDescriptionMapper', () => {
 
   beforeEach(() => {
     description = new OkrTopicDescription(1, 'DescriptionName', '2', ['2', '3', '4'], ['3', '4'], 'acceptanceCriteria',
-      'Contributes To', 'Delimination', new Date(1, 1, 2021), 'Dependencies', 'Resources', 'Handover Plan');
+      'Contributes To', 'Delimination', new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover Plan');
 
     descriptionDto = {
       descriptionId: 1,
@@ -34,7 +34,7 @@ describe('TopicDescriptionMapper', () => {
       acceptanceCriteria: 'acceptanceCriteria',
       contributesTo: 'Contributes To',
       delimitation: 'Delimination',
-      beginning: new Date(1, 1, 2021),
+      beginning: [2021, 2, 1],
       dependencies: 'Dependencies',
       resources: 'Resources',
       handoverPlan: 'Handover Plan'
@@ -54,6 +54,8 @@ describe('TopicDescriptionMapper', () => {
   });
 
   it('getTopicDescriptionById$ should map', done => {
+    service = TestBed.get(TopicDescriptionMapper);
+
     service.getTopicDescriptionById$(1)
       .subscribe((departmentDescription: OkrTopicDescription) => {
         expect(departmentDescription)
@@ -65,7 +67,7 @@ describe('TopicDescriptionMapper', () => {
   it('putTopicDescription$ should map', done => {
     service = TestBed.get(TopicDescriptionMapper);
 
-    service.putTopicDescription$(description)
+    service.putTopicDescription$(1, description)
       .subscribe((departmentDescription: OkrTopicDescription) => {
         expect(departmentDescription)
           .toEqual(description);
@@ -76,7 +78,7 @@ describe('TopicDescriptionMapper', () => {
   it('putTopicDescription$ should call service', done => {
     service = TestBed.get(TopicDescriptionMapper);
 
-    service.putTopicDescription$(description)
+    service.putTopicDescription$(1, description)
       .subscribe(() => {
         expect(topicDescriptionApiServiceMock.putTopicDescription$)
           .toHaveBeenCalled();
@@ -87,7 +89,7 @@ describe('TopicDescriptionMapper', () => {
   it('putTopicDescription$ should map description to descriptionDto', done => {
     service = TestBed.get(TopicDescriptionMapper);
 
-    service.putTopicDescription$(description)
+    service.putTopicDescription$(1, description)
       .subscribe(() => {
         expect(topicDescriptionApiServiceMock.putTopicDescription$)
           .toHaveBeenCalledWith(1, {
@@ -99,7 +101,7 @@ describe('TopicDescriptionMapper', () => {
             acceptanceCriteria: 'acceptanceCriteria',
             contributesTo: 'Contributes To',
             delimitation: 'Delimination',
-            beginning: new Date(1, 1, 2021),
+            beginning: [2021, 2, 1],
             dependencies: 'Dependencies',
             resources: 'Resources',
             handoverPlan: 'Handover Plan'

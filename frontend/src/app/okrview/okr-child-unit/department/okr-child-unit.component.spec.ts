@@ -27,6 +27,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
+import { DepartmentTabDescriptionComponent } from './department-tab-description/department-tab-description.component';
 
 describe('OkrChildUnitComponent', () => {
   let component: OkrChildUnitComponent;
@@ -96,7 +97,8 @@ describe('OkrChildUnitComponent', () => {
         ObjectiveComponent,
         DepartmentTeamNewUserComponent,
         ObjectiveContentsComponent,
-        KeyresultComponent
+        KeyresultComponent,
+        DepartmentTabDescriptionComponent
       ],
       imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [

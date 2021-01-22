@@ -43,11 +43,11 @@ export class TopicDescriptionMapper {
     descriptionDto.acceptanceCriteria = description.acceptanceCriteria;
     descriptionDto.contributesTo = description.contributesTo;
     descriptionDto.delimitation = description.delimitation;
-    descriptionDto.beginning = [
+    descriptionDto.beginning = description.beginning ? [
       Number(description.beginning.getFullYear()),
       Number(description.beginning.getMonth()) + 1,
       Number(description.beginning.getDate())
-    ];
+    ] : null;
     descriptionDto.dependencies = description.dependencies;
     descriptionDto.resources = description.resources;
     descriptionDto.handoverPlan = description.handoverPlan;
