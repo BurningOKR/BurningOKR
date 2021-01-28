@@ -1,10 +1,4 @@
-.taskboard {
-    display        : flex;
-    flex-direction : row;
-    justify-content: space-between;
-    width          : 100%;
-    flex-grow      : 1;
-    
+.taskboards-switch-buttons {
+    margin-left: 1em;
+    margin-bottom: 1em;
 }
-
-

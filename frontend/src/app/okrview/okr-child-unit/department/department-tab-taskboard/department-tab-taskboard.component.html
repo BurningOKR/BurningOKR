@@ -3,10 +3,23 @@
         <div class="tab-headline">Aufgaben</div>
     </div>
 </div>
-<div class="taskboard" cdkDropListGroup>
-    <app-taskboard-column *ngFor="let map of stateTaskMap" [taskList]="map.tasks" [state]="map.state"
-        [childUnit]="childUnit" (createTask)="onTaskAdd($event)" (updateTask)="onTaskUpdate($event)"
-        (deleteTask)="onTaskDelete($event)" (movedTask)="onTaskMoved($event)">
+<div class="taskboards-switch-buttons">
+    <mat-button-toggle-group #viewgroup="matButtonToggleGroup">
+        <mat-button-toggle [checked]="true" value="states" aria-label="Text align left">
+            <mat-icon>view_column</mat-icon>
+            columns
+        </mat-button-toggle>
+        <mat-button-toggle value="swimlanes" aria-label="Text align center">
+            <mat-icon>view_stream</mat-icon>
+            swimlanes
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+<div *ngIf="viewgroup.value === 'states'">
+    <app-taskboard-state-column-view [data$]="viewDataEmitter$"></app-taskboard-state-column-view>
+</div>
+<div *ngIf="viewgroup.value === 'swimlanes'">
+    <app-taskboard-swimlane-view [data$]="viewDataEmitter$">
 
-    </app-taskboard-column>
+    </app-taskboard-swimlane-view>
 </div>
