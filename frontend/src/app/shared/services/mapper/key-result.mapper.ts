@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { KeyResultDto } from '../../model/api/key-result.dto';
 import { ViewKeyResult } from '../../model/ui/view-key-result';
 import { KeyResultApiService } from '../api/key-result-api.service';
-import { ObjectiveId } from '../../model/id-types';
+import { ObjectiveId, OkrUnitId } from '../../model/id-types';
 import { Unit } from '../../model/api/unit.enum';
 import { KeyResultMilestoneMapper } from './key-result-milestone.mapper';
 
@@ -19,7 +19,7 @@ export class KeyResultMapper {
     const keys: string[] = Object.keys(myEnum)
       .filter(x => myEnum[x] === enumValue);
 
-    return keys.length > 0 ? keys[0] : null ;
+    return keys.length > 0 ? keys[0] : null;
   }
 
   private static mapToKeyResultDTO(viewKeyResult: ViewKeyResult): KeyResultDto {
@@ -50,6 +50,15 @@ export class KeyResultMapper {
       keyResult.noteIds,
       KeyResultMilestoneMapper.mapToViewkeyResultMilestones(keyResult.keyResultMilestoneDtos)
     );
+  }
+
+  getKeyResultsForOkrUnit(okrUnitId: OkrUnitId): Observable<ViewKeyResult[]> {
+    return this.keyResultApiService.getKeyResultsForOkrUnit$(okrUnitId)
+      .pipe(
+        map(((keyResultList: KeyResultDto[]) => {
+          return keyResultList.map(KeyResultMapper.mapToViewKeyResult);
+        }))
+      );
   }
 
   getKeyResultsForObjective$(objectiveId: ObjectiveId): Observable<ViewKeyResult[]> {

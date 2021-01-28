@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
-import { KeyResultId, ObjectiveId } from '../../model/id-types';
+import { KeyResultId, ObjectiveId, OkrUnitId } from '../../model/id-types';
 import { KeyResultDto } from '../../model/api/key-result.dto';
 
 @Injectable({
@@ -19,6 +19,10 @@ export class KeyResultApiService {
 
   getKeyResultsForObjective$(id: ObjectiveId): Observable<KeyResultDto[]> {
     return this.api.getData$(`objectives/${id}/keyresults`);
+  }
+
+  getKeyResultsForOkrUnit$(unitId: OkrUnitId): Observable<KeyResultDto[]> {
+    return this.api.getData$(`/units/${unitId}/keyresults`);
   }
 
   putKeyResult$(keyResult: KeyResultDto, keyResultId: KeyResultId): Observable<KeyResultDto> {
