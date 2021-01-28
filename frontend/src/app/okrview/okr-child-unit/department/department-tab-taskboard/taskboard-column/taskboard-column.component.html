@@ -1,6 +1,6 @@
 <div class="taskboard-column">
     <div class="column-headline">
-        <div>{{state.name}}</div>
+        <div>{{map.state.name}}</div>
     </div>
     <div class="tasks">
         <div class="f-1 text-center add-button">
@@ -10,10 +10,10 @@
                 </mat-icon>
             </button>
         </div>
-        <div cdkDropList [cdkDropListData]="taskList" (cdkDropListDropped)="dropTask($event)" class="card-list">
-            <div *ngFor="let task of taskList" class="taskcard " cdkDrag>
+        <div cdkDropList [id]="id" [cdkDropListData]="map.tasks" (cdkDropListDropped)="dropTask($event)" class="card-list">
+            <div *ngFor="let task of map.tasks" class="taskcard " cdkDrag>
                 <div class="taskcard-placeholder" *cdkDragPlaceholder></div>
-                <app-department-tab-task-card  [task]="task" (click)="openTask(task)" (deleteEmitter)="onDelete($event)">
+                <app-department-tab-task-card  [task]="task" (deleteEmitter)="onDelete($event)">
 
                 </app-department-tab-task-card>
             </div>

@@ -12,11 +12,11 @@ mat-card:hover {
 }
 
 .card-list {
-    height: 100%;
+    min-height: 300px;
 }
 
 .tasks {
-    height: 100%;
+    height: auto;
 }
 
 
