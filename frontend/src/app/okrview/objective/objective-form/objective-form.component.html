@@ -33,7 +33,7 @@
                   i18n-placeholder="@@contactPerson" placeholder="Ansprechpartner">
         <mat-option [value]="null"><span i18n="@@component_objectiveForm_noContactPerson">Kein Ansprechpartner</span></mat-option>
         <mat-option *ngFor="let user of users" [value]="user.id">
-          {{user?.email | lowercase}} ({{user.surname}}, {{user.givenName}})
+          {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
         </mat-option>
       </mat-select>
     </mat-form-field>
