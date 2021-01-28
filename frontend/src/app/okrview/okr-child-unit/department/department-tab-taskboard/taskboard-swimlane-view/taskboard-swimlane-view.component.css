@@ -1,0 +1,21 @@
+.taskboard-swimlane-header-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.taskboard-swimlane-header-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    width: 100%;
+    height: 3em;
+}
+
+.taskboard-swimlane-header-container div {
+    margin: auto;
+}
+
+.taskboard-swimlane-container {
+    border: 1px solid blue;
+}

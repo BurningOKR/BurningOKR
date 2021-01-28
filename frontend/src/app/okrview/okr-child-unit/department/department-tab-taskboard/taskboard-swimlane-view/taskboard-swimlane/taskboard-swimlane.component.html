@@ -1,0 +1,18 @@
+<mat-expansion-panel [expanded]="panelOpenState"  (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="taskboard-swimlane">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{keyResult.keyResult}}
+        </mat-panel-title>
+        <mat-panel-description>
+            <div class="swimlane-key-result-actions">
+                <button color="accent" mat-button (click)="createNewTask()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </div>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="swimlane-content">
+        <app-taskboard-column [id]="keyResult.id" class="taskboard-column" *ngFor="let tasksForState of tasksForStates"
+            [map]="tasksForState" ></app-taskboard-column>
+    </div>
+</mat-expansion-panel>

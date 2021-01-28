@@ -1,0 +1,12 @@
+.taskboard-state-column-view {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    width          : 100%;
+    flex-grow      : 1;  
+}
+
+
+.taskboard-column {
+    display: inline-block;
+}
