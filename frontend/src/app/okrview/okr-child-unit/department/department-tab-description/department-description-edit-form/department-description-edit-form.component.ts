@@ -5,7 +5,7 @@ import { User } from '../../../../../shared/model/api/user';
 import { UserService } from '../../../../../shared/services/helper/user.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { OkrTopicDescription } from '../../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
-import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper.service';
+import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper';
 import { DepartmentId } from '../../../../../shared/model/id-types';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 

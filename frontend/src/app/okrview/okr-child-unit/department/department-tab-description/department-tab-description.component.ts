@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { ContextRole } from '../../../../shared/model/ui/context-role';
-import { TopicDescriptionMapper } from '../../../../shared/services/mapper/topic-description-mapper.service';
+import { TopicDescriptionMapper } from '../../../../shared/services/mapper/topic-description-mapper';
 import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
