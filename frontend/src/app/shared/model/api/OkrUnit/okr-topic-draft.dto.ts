@@ -1,8 +1,8 @@
-import { TopicDescriptionId, UserId } from '../../id-types';
+import { TopicDraftId, UserId } from '../../id-types';
+import { OkrChildUnitDto } from './okr-child-unit.dto';
 
-// Attributes changed here need to be changed in okr-topic-draft.dto.ts as well!
-export class OkrTopicDescriptionDto {
-  descriptionId: TopicDescriptionId;
+export class OkrTopicDraftDto extends OkrChildUnitDto {
+  topicDraftID: TopicDraftId;
   name: string;
   initiatorId: UserId;
   startTeam: UserId[];

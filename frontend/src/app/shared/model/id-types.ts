@@ -9,3 +9,4 @@ export type UserSettingsId = number;
 export type OkrUnitId = number;
 export type DepartmentId = number;
 export type TopicDescriptionId = number;
+export type TopicDraftId = number;
