@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiHttpService } from 'src/app/core/services/api-http.service';
 import { TaskDto } from '../../model/api/task.dto';
-import { ViewTask } from '../../model/ui/view-task';
+import { ViewTask } from '../../model/ui/taskboard/view-task';
 import { TaskApiService } from '../api/task-api.service';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class TaskMapperService {
 
   constructor(private taskApiService: TaskApiService) { }
 
-  private static mapToTaskDTO(viewTask: ViewTask): TaskDto {
+  mapToTaskDTO(viewTask: ViewTask): TaskDto {
     let userIds = [];
     if (viewTask.assignedUserIds) {
       userIds = viewTask.assignedUserIds;
@@ -25,33 +25,37 @@ export class TaskMapperService {
       description: viewTask.description,
       assignedKeyResultId: viewTask.assignedKeyResultId,
       assignedUserIds: userIds,
-      stateId: viewTask.stateId,
-      parentOkrUnitId: viewTask.parentOkrUnit
+      taskStateId: viewTask.taskStateId,
+      parentTaskBoardId: viewTask.parentTaskBoardId,
+      previousTaskId: viewTask.previousTaskId,
+      version: viewTask.version
     };
   }
 
-  private static mapToViewTask(task: TaskDto): ViewTask {
+  mapToViewTask(task: TaskDto): ViewTask {
     return new ViewTask(
       task.id,
       task.title,
       task.description,
       task.assignedUserIds,
       task.assignedKeyResultId,
-      task.parentOkrUnitId,
-      task.stateId
+      task.parentTaskBoardId,
+      task.taskStateId,
+      task.previousTaskId,
+      task.version
     );
   }
 
   getTaskById$(id: number): Observable<ViewTask> {
     return this.taskApiService.getTaskById$(id)
-      .pipe(map(TaskMapperService.mapToViewTask));
+      .pipe(map(this.mapToViewTask));
   }
 
   getTasksForOkrUnit$(unitId: number): Observable<ViewTask[]> {
     return this.taskApiService.getTasksForOkrUnit$(unitId)
       .pipe(
         map((taskList: TaskDto[]) => {
-          return taskList.map(TaskMapperService.mapToViewTask);
+          return taskList.map(this.mapToViewTask);
         })
       );
   }
@@ -60,21 +64,21 @@ export class TaskMapperService {
     return this.taskApiService.getTasksForKeyResult$(keyResultId)
       .pipe(
         map((taskList: TaskDto[]) => {
-          return taskList.map(TaskMapperService.mapToViewTask);
+          return taskList.map(this.mapToViewTask);
         })
       );
   }
 
   createTaskForOkrUnit$(unitId: number, task: ViewTask): Observable<ViewTask> {
     return this.taskApiService
-      .postTask$(TaskMapperService.mapToTaskDTO(task), unitId)
-      .pipe(map(TaskMapperService.mapToViewTask));
+      .postTask$(this.mapToTaskDTO(task), unitId)
+      .pipe(map(this.mapToViewTask));
   }
 
   updateTask$(unitId: number, task: ViewTask): Observable<ViewTask> {
     return this.taskApiService
-      .putTask$(TaskMapperService.mapToTaskDTO(task), unitId)
-      .pipe(map(TaskMapperService.mapToViewTask));
+      .putTask$(this.mapToTaskDTO(task), unitId)
+      .pipe(map(this.mapToViewTask));
   }
 
   deleteTask$(unitId: number, taskId: number): Observable<boolean> {

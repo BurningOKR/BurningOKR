@@ -1,34 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TaskStateDto } from '../../model/api/task-state.dto';
-import { TaskDto } from '../../model/api/task.dto';
 import { OkrUnitId } from '../../model/id-types';
-import { ViewTask } from '../../model/ui/view-task';
+import { ViewTaskState } from '../../model/ui/taskboard/view-task-state';
 
-import { ViewTaskState } from '../../model/ui/view-task-state';
+
+import { TaskStateApiService } from '../api/task-state-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskStateMapperService {
+export class TaskStateMapper {
+
+  constructor(private taskStateService: TaskStateApiService) { }
 
   private static mapToTaskStateDTO(viewState: ViewTaskState): TaskStateDto {
     return {
       id: viewState.id,
-      name: viewState.name
+      title: viewState.name
     };
   }
 
   private static mapToViewTaskState(taskState: TaskStateDto): ViewTaskState {
-    return new ViewTaskState(taskState.id, taskState.name);
+    return new ViewTaskState(taskState.id, taskState.title);
   }
 
   getTaskStates$(unitId: OkrUnitId): Observable<ViewTaskState[]> {
-    return of([
-      { id: 0, name: 'Todo' },
-      { id: 1, name: 'In Progress' },
-      { id: 2, name: 'Blocked' },
-      { id: 3, name: 'Finished' },
-    ]);
+    return this.taskStateService.getTaskStatesForOkrUnit$(unitId)
+      .pipe(
+        map((stateList: TaskStateDto[]) => {
+          return stateList.map(TaskStateMapper.mapToViewTaskState);
+        })
+      );
   }
 }
