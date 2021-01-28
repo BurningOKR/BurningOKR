@@ -1,5 +1,8 @@
 <mat-card class="taskcard" [class.mat-elevation-z8]="isActive" (mouseenter)="setIsActive(true)"
-    (mouseleave)="setIsActive(false)">
+    (mouseleave)="setIsActive(false)" *ngIf="task" (click)="updateOrViewTask()">
+    <div *ngIf="keyResult$ | async as keyResult; else taskCardLoading" class="task-card-key-result">
+        <div>{{keyResult.keyResult}}</div>
+    </div>
     <mat-card-title>{{task.title}}</mat-card-title>
     <mat-card-content>{{task.description}}</mat-card-content>
     <mat-card-actions>
@@ -7,4 +10,15 @@
             <mat-icon>delete</mat-icon>
         </button>
     </mat-card-actions>
+    <mat-card-footer class="taskcard-footer">
+        <div *ngFor="let user$ of users">
+            <ngx-avatar *ngIf="user$ | async as user" [value]="'📁'"
+                [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null"
+                [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''">
+            </ngx-avatar>
+        </div>
+    </mat-card-footer>
 </mat-card>
+<ng-template #taskCardLoading>
+
+</ng-template>
