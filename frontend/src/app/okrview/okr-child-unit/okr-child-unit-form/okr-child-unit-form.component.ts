@@ -11,6 +11,7 @@ import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
 import { OkrTopicDraft } from '../../../shared/model/ui/OrganizationalUnit/okr-topic-draft';
+import { TopicDraftMapper } from '../../../shared/services/mapper/topic-draft-mapper';
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -32,6 +33,7 @@ export class OkrChildUnitFormComponent {
   constructor(private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
               private okrUnitService: OkrUnitService,
               private departmentMapper: DepartmentMapper,
+              private topicDraftMapper: TopicDraftMapper,
               private okrBranchMapper: OkrBranchMapper,
               private i18n: I18n,
               @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData) {
@@ -101,7 +103,7 @@ export class OkrChildUnitFormComponent {
         this.createOkrBranch(okrChildUnit1 as OkrBranch);
         break;
       case UnitType.TOPIC_DRAFT:
-        // TODO
+        this.createTopicDraft(okrChildUnit1 as OkrTopicDraft);
         break;
       default:
         this.createOkrBranch(okrChildUnit1 as OkrBranch);
@@ -135,7 +137,15 @@ export class OkrChildUnitFormComponent {
   }
 
   createTopicDraft(topicDraft: OkrTopicDraft): void {
-    // TODO
+    if (this.formData.companyId) {
+      topicDraft.parentUnitId = this.formData.companyId;
+      this.dialogRef.close(this.topicDraftMapper
+        .postTopicDraftForCompany$(this.formData.companyId, topicDraft));
+    } else if (this.formData.childUnitId) {
+      topicDraft.parentUnitId = this.formData.childUnitId;
+      this.dialogRef.close(this.topicDraftMapper
+        .postTopicDraftForOkrBranch$(this.formData.childUnitId, topicDraft));
+    }
   }
 
   private getDefaultLabel(): string {
