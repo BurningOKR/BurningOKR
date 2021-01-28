@@ -10,7 +10,7 @@ export class OkrTopicDraftDto extends OkrChildUnitDto {
   acceptanceCriteria: string;
   contributesTo: string;
   delimitation: string;
-  beginning: number[];
+  beginning: Date;
   dependencies: string;
   resources: string;
   handoverPlan: string;
