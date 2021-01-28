@@ -10,6 +10,7 @@ import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 import { OkrUnitId } from '../../model/id-types';
 import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
+import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,8 @@ export class OkrUnitApiService {
             return plainToClass(OkrDepartmentDto, value);
           } else if (value.__okrUnitType === 'OKR_BRANCH') {
             return plainToClass(OkrBranchDto, value);
+          } else if (value.__okrUnitType === 'TOPIC_DRAFT') {
+            return plainToClass(OkrTopicDraftDto, value);
           }
         })
       );
@@ -43,6 +46,8 @@ export class OkrUnitApiService {
             return plainToClass(OkrDepartmentDto, value);
           } else if (value.__okrUnitType === 'OKR_BRANCH') {
             return plainToClass(OkrBranchDto, value);
+          } else if (value.__okrUnitType === 'TOPIC_DRAFT') {
+            return plainToClass(OkrTopicDraftDto, value);
           }
         })
       );
