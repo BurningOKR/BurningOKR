@@ -10,7 +10,4 @@ CREATE TABLE public.aaduser
       OIDS= FALSE
     );
 
-ALTER TABLE public.aaduser
-    OWNER TO admin;
-
 ALTER TABLE public.note ADD date date NOT NULL default current_date;

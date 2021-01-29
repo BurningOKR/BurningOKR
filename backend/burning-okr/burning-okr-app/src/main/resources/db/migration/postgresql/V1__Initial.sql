@@ -37,9 +37,6 @@ CREATE TABLE public.company_structure
     WITH (
         OIDS=FALSE
     );
-ALTER TABLE public.company_structure
-    OWNER TO admin;
-
 
 CREATE TABLE public.cycle
 (
@@ -55,8 +52,6 @@ CREATE TABLE public.cycle
     WITH (
         OIDS=FALSE
     );
-ALTER TABLE public.cycle
-    OWNER TO admin;
 
 CREATE TABLE public.department
 (
@@ -72,9 +67,6 @@ ALTER TABLE public.activity
     ADD object character varying(255),
     ADD user_id character varying(255);
 
-ALTER TABLE public.activity
-    OWNER TO admin;
-
 CREATE TABLE public.gruppen
 (
     id bigint NOT NULL
@@ -82,8 +74,6 @@ CREATE TABLE public.gruppen
     WITH (
         OIDS=FALSE
     );
-ALTER TABLE public.gruppen
-    OWNER TO admin;
 
 CREATE TABLE public.key_result
 (
@@ -92,8 +82,6 @@ CREATE TABLE public.key_result
     WITH (
         OIDS=FALSE
     );
-ALTER TABLE public.key_result
-    OWNER TO admin;
 
 CREATE TABLE public.note
 (
@@ -102,8 +90,6 @@ CREATE TABLE public.note
     WITH (
         OIDS=FALSE
     );
-ALTER TABLE public.note
-    OWNER TO admin;
 
 CREATE TABLE public.objective
 (
@@ -112,12 +98,6 @@ CREATE TABLE public.objective
     WITH (
         OIDS=FALSE
     );
-ALTER TABLE public.objective
-    OWNER TO admin;
-
-
-
-
 
 ALTER TABLE public.company
     ADD cycle_id bigint,
@@ -131,17 +111,6 @@ ALTER TABLE public.company
     ADD CONSTRAINT fkp9450spu2659bdjr9efnhp02e FOREIGN KEY (id)
         REFERENCES public.company_structure (id) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE public.company
-    OWNER TO admin;
-
-
-ALTER TABLE public.company_history
-    OWNER TO admin;
-
-
-ALTER TABLE public.department
-    OWNER TO admin;
 
 ALTER TABLE public.department
     ADD permit_okrs boolean NOT NULL default true,
@@ -210,5 +179,3 @@ CREATE SEQUENCE public.hibernate_sequence
     MAXVALUE 9223372036854775807
     START 54
     CACHE 1;
-ALTER TABLE public.hibernate_sequence
-    OWNER TO admin;

@@ -78,6 +78,8 @@ dependencies {
 
     compile "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
     compile "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
+
+    compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
 }
 
 

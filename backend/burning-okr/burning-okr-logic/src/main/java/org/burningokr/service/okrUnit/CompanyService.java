@@ -7,13 +7,13 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.*;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
-import org.burningokr.repositories.okr.ObjectiveRepository;
+import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
@@ -32,9 +32,9 @@ public class CompanyService {
   private CompanyHistoryRepository companyHistoryRepository;
   private CompanyRepository companyRepository;
   private UnitRepository<OkrChildUnit> unitRepository;
-  private ObjectiveRepository objectiveRepository;
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
+  private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
 
   /**
    * Initialize CompanyService.
@@ -42,26 +42,26 @@ public class CompanyService {
    * @param cycleRepository a {@link CycleRepository} object
    * @param companyHistoryRepository a {@link CompanyHistoryRepository} object
    * @param companyRepository a {@link CompanyRepository} object
-   * @param departmentRepository a {@link OkrDepartmentRepository} object
-   * @param objectiveRepository an {@link ObjectiveRepository} object
+   * @param unitRepository a {@link UnitRepository} object
    * @param activityService an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
+   * @param okrTopicDescriptionRepository an {@link OkrTopicDescriptionRepository} object
    */
   public CompanyService(
       CycleRepository cycleRepository,
       CompanyHistoryRepository companyHistoryRepository,
       CompanyRepository companyRepository,
       UnitRepository<OkrChildUnit> unitRepository,
-      ObjectiveRepository objectiveRepository,
       ActivityService activityService,
-      EntityCrawlerService entityCrawlerService) {
+      EntityCrawlerService entityCrawlerService,
+      OkrTopicDescriptionRepository okrTopicDescriptionRepository) {
     this.cycleRepository = cycleRepository;
     this.companyHistoryRepository = companyHistoryRepository;
     this.companyRepository = companyRepository;
     this.unitRepository = unitRepository;
-    this.objectiveRepository = objectiveRepository;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
+    this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
   }
 
   public OkrCompany findById(long companyId) {
@@ -208,6 +208,10 @@ public class CompanyService {
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     okrDepartment.setParentOkrUnit(referencedOkrCompany);
+
+    OkrTopicDescription description = new OkrTopicDescription(okrDepartment.getName());
+    description = okrTopicDescriptionRepository.save(description);
+    okrDepartment.setOkrTopicDescription(description);
 
     okrDepartment = unitRepository.save(okrDepartment);
     logger.info(
