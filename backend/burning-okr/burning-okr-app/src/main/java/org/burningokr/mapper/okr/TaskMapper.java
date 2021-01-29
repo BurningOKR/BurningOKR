@@ -5,39 +5,56 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Task;
 import org.burningokr.model.okr.TaskBoard;
+import org.burningokr.model.okr.TaskState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 @Service
 public class TaskMapper implements DataMapper<Task, TaskDto> {
-    private final Logger logger = LoggerFactory.getLogger(ObjectiveMapper.class);
+    private final Logger logger = LoggerFactory.getLogger(TaskMapper.class);
 
     public Task mapDtoToEntity(TaskDto taskDto) {
-        logger.info("mapDtoToEntity dto: {id: %s, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %s, parentOkrUnitId: %s, stateId: %s}",
-                taskDto.getId(), taskDto.getDescription(), taskDto.getAssignedUserIds(), taskDto.getAssignedKeyResultId(), taskDto.getParentOkrUnitId(), taskDto.getStateId());
+        logger.info(String.format("mapDtoToEntity dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d, previousTaskId: %d}",
+                taskDto.getId(), taskDto.getTitle(), taskDto.getDescription(), String.valueOf(taskDto.getAssignedUserIds()), taskDto.getAssignedKeyResultId(), taskDto.getParentTaskBoardId(), taskDto.getTaskStateId(), taskDto.getPreviousTaskId()));
         Task taskEntity = new Task();
 
         taskEntity.setId(taskDto.getId());
         taskEntity.setTitle(taskDto.getTitle());
         taskEntity.setDescription(taskDto.getDescription());
-        taskEntity.setOkrStateId(taskDto.getStateId());
-        taskEntity.setAssignedUserIds(taskDto.getAssignedUserIds());
 
-        TaskBoard parentTaskBoard =new TaskBoard();
-        taskEntity.setParentTaskBoard(parentTaskBoard);
+        if (taskDto.getAssignedUserIds() == null) {
+            taskEntity.setAssignedUserIds(new ArrayList<UUID>());
+        } else {
+            Collection<UUID> copiedUserIds = copyUUIDList(taskDto.getAssignedUserIds());
+            taskEntity.setAssignedUserIds(copiedUserIds);
+        }
 
-        if(taskDto.hasAssignedKeyResult()) {
+        TaskState taskState = new TaskState();
+        taskState.setId(taskDto.getTaskStateId());
+        taskEntity.setTaskState(taskState);
+
+        TaskBoard taskboard = new TaskBoard();
+        taskboard.setId(taskDto.getParentTaskBoardId());
+        taskEntity.setParentTaskBoard(taskboard);
+
+        if (taskDto.getPreviousTaskId() != null) {
+            Task previousTask = new Task();
+            previousTask.setId(taskDto.getPreviousTaskId());
+            taskEntity.setPreviousTask(previousTask);
+        }
+
+
+        if (taskDto.hasAssignedKeyResult()) {
             KeyResult keyResult = new KeyResult();
             keyResult.setId(taskDto.getAssignedKeyResultId());
             taskEntity.setAssignedKeyResult(keyResult);
         }
-
-        logger.info("Mapped TaskDto (id:" + taskDto.getId() + ", "+ taskDto.getTitle()+") successful into Task.");
+        taskEntity.setVersion(taskDto.getVersion());
         return taskEntity;
     }
 
@@ -47,16 +64,26 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
         taskDto.setId(taskEntity.getId());
         taskDto.setTitle(taskEntity.getTitle());
         taskDto.setDescription(taskEntity.getDescription());
-        taskDto.setStateId(taskEntity.getOkrStateId());
-        taskDto.setAssignedUserIds(taskEntity.getAssignedUserIds());
+        taskDto.setTaskStateId(taskEntity.getTaskState().getId());
+        taskDto.setVersion(taskEntity.getVersion());
+        taskDto.setParentTaskBoardId(taskEntity.getParentTaskBoard().getId());
 
-        taskDto.setParentOkrUnitId(taskEntity.getParentTaskBoard().getParentOkrUnit().getId());
+        if (taskEntity.hasPreviousTask()) {
+            taskDto.setPreviousTaskId(taskEntity.getPreviousTask().getId());
+        }
 
-        if(taskDto.hasAssignedKeyResult()) {
+        if (taskEntity.getAssignedUserIds() == null) {
+            taskDto.setAssignedUserIds(new ArrayList<UUID>());
+        } else {
+            Collection<UUID> copiedUserIds = copyUUIDList(taskEntity.getAssignedUserIds());
+            taskDto.setAssignedUserIds(copiedUserIds);
+        }
+
+        if (taskEntity.hasAssignedKeyResult()) {
             taskDto.setAssignedKeyResultId(taskEntity.getAssignedKeyResult().getId());
         }
 
-        logger.info("Mapped Task (id:" + taskEntity.getId() + ") successful into TaskDto.");
+        logger.info("mapEntityToDto (id:" + taskDto.getId() + " assigned Key Result id: "+ taskDto.getAssignedKeyResultId()+") successful into TaskDto.");
         return taskDto;
     }
 
@@ -71,6 +98,34 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
     public Collection<TaskDto> mapEntitiesToDtos(Collection<Task> inputTasks) {
         Collection<TaskDto> taskDtos = new ArrayList<>();
         inputTasks.forEach(task -> taskDtos.add(mapEntityToDto(task)));
+        logDTOList(taskDtos);
         return taskDtos;
+    }
+
+    private Collection<UUID> copyUUIDList(Collection<UUID> list) {
+        ArrayList copy = new ArrayList<UUID>();
+        for (UUID userId : list) {
+            UUID copyID = new UUID(userId.getMostSignificantBits(), userId.getLeastSignificantBits());
+            copy.add(copyID);
+        }
+        return copy;
+    }
+
+    private void logDTOList(Collection<TaskDto> taskList) {
+
+        String result = "Log DTO List\n";
+        for (TaskDto task : taskList) {
+            result += "--------------\n";
+            result += "Id: " + task.getId() + "\n";
+            result += "title: " + task.getTitle() + "\n";
+            result += "description: " + task.getDescription() + "\n";
+            result += "stateId: " + task.getTaskStateId() + "\n";
+            result += "Assigned Key Result Id: " + task.getAssignedKeyResultId() + "\n";
+            result += "previous Task Id: " + task.getPreviousTaskId() + "\n";
+            result += "parent TaskBoard Id: " + task.getParentTaskBoardId() + "\n";
+            result += "My Assigned User Ids: " + String.valueOf(task.getAssignedUserIds()) + "\n";
+            result += "Version: " + task.getVersion() + "\n";
+        }
+        logger.info(result);
     }
 }

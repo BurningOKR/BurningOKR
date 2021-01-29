@@ -25,6 +25,9 @@ public class TaskBoard implements Trackable<Long> {
     @EqualsAndHashCode.Exclude
     private Collection<Task> tasks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "parentTaskBoard")
+    private Collection<TaskState> availableStates = new ArrayList<>();
+
     @Override
     public String getName() {
         return "";

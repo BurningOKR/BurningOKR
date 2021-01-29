@@ -7,6 +7,7 @@ import org.burningokr.model.okr.Task;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.TaskService;
 import org.burningokr.service.security.AuthorizationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +20,15 @@ public class TaskController {
     private TaskService taskService;
     private TaskMapper taskMapper;
 
+    @Autowired
     public TaskController(
             AuthorizationService authorizationService,
             TaskService taskService,
             TaskMapper taskMapper
     ){
-    this.authorizationService = authorizationService;
-    this.taskService =taskService;
-    this.taskMapper = taskMapper;
+        this.authorizationService = authorizationService;
+        this.taskService =taskService;
+        this.taskMapper = taskMapper;
     }
 
     @GetMapping("/unit/{unitId}/tasks")
@@ -37,22 +39,23 @@ public class TaskController {
 
 
     @PostMapping("/unit/{unitId}/tasks")
-    public ResponseEntity<TaskDto> addTask(@PathVariable long unitId, @Valid @RequestBody TaskDto taskDto, User user) {
+    public ResponseEntity<Collection<TaskDto>> addTask(@PathVariable long unitId, @Valid @RequestBody TaskDto taskDto, User user) {
         Task newTask = taskMapper.mapDtoToEntity(taskDto);
-        newTask= taskService.createTask(newTask, taskDto.getAssignedKeyResultId(), unitId,user);
-        return ResponseEntity.ok(taskMapper.mapEntityToDto(newTask));
+        Collection<Task> createdAndUpdatedTasks = taskService.createTask(newTask, unitId,user);
+
+        return ResponseEntity.ok(taskMapper.mapEntitiesToDtos(createdAndUpdatedTasks));
     }
 
     @PutMapping("/unit/{unitId}/tasks/{taskId}")
-    public ResponseEntity<TaskDto>  updateTask(@PathVariable long unitId, @PathVariable Long taskId, @Valid @RequestBody TaskDto taskDto, User user) {
+    public ResponseEntity<Collection<TaskDto>> updateTask(@PathVariable long unitId, @PathVariable Long taskId, @Valid @RequestBody TaskDto taskDto, User user) throws Exception {
         Task updatedTask = taskMapper.mapDtoToEntity(taskDto);
-        updatedTask = taskService.updateTask(updatedTask, user);
-        return ResponseEntity.ok(taskMapper.mapEntityToDto(updatedTask));
+        Collection<Task> updatedTasks = taskService.updateTask(updatedTask, user);
+        return ResponseEntity.ok(taskMapper.mapEntitiesToDtos(updatedTasks));
 
     }
 
     @DeleteMapping("/unit/{unitId}/tasks/{taskId}")
-    public ResponseEntity updateTask(@PathVariable long unitId, @PathVariable Long taskId, User user) {
+    public ResponseEntity deleteTask(@PathVariable long unitId, @PathVariable Long taskId, User user) {
         this.taskService.deleteTaskById(taskId,unitId,user);
         return ResponseEntity.ok().build();
     }

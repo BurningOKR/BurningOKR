@@ -8,3 +8,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface ExtendedRepository<T, I extends Serializable> extends CrudRepository<T, I> {
   T findByIdOrThrow(I id);
 }
+
+
