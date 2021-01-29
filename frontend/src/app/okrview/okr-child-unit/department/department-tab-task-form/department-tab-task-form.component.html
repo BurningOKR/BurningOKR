@@ -19,11 +19,13 @@
         <mat-form-field class="form-whole-line">
             <mat-select i18n-placeholder="@@component_objectiveForm_selectParentKeyResult"
                 placeholder="Übergeordnetes Key Result auswählen" formControlName="assignedKeyResultId">
-                <mat-option [value]="null"><span i18n="@@component_objectiveForm_noParentKeyResult">Kein
-                        übergeordnetes
-                        Key Result</span></mat-option>
-                <mat-optgroup *ngFor="let map of keyResultMap$ | async" [label]="map.objective.name">
-                    <mat-option *ngFor="let keyResult of map.keyResults$ | async;" [value]="keyResult.id">
+                <mat-option [value]="null">
+                    <span i18n="@@component_objectiveForm_noParentKeyResult">
+                        Kein übergeordnetes Key Result
+                    </span>
+                </mat-option>
+                <mat-optgroup *ngFor="let map of keyResultMaps$ |async" [label]="map.objective.name">
+                    <mat-option *ngFor="let keyResult of map.keyResults" [value]="keyResult.id">
                         {{keyResult.keyResult}}
                     </mat-option>
                 </mat-optgroup>
@@ -40,8 +42,7 @@
         </mat-form-field>
 
         <mat-form-field class="form-whole-line">
-            <mat-select formControlName="stateId" i18n-placeholder="@@taskState"
-                placeholder="Status">
+            <mat-select formControlName="taskStateId" i18n-placeholder="@@taskState" placeholder="Status">
                 <mat-option *ngFor="let state of states" [value]="state.id">
                     {{state.name}}
                 </mat-option>

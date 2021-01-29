@@ -44,11 +44,6 @@ export class TaskboardColumnComponent implements OnInit, OnDestroy {
     }
   }
 
-  createNewTask(): void {
-    console.log("Column: create Task Button Click");
-    this.taskBoardEventService.taskAddButtonClick$.next(this.map.state);
-  }
-
   updateOrViewTask(task: ViewTask): void {
     this.taskBoardEventService.taskUpdateButtonClick$.next(task);
   }

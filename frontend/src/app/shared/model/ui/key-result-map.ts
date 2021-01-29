@@ -4,5 +4,5 @@ import { ViewObjective } from "./view-objective";
 
 export interface KeyResultMap {
     objective: ViewObjective;
-    keyResults$: Observable<ViewKeyResult[]>;
+    keyResults: ViewKeyResult[];
 }

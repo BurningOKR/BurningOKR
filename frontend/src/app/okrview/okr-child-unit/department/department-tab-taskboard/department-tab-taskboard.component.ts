@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { RxStompService } from '@stomp/ng2-stompjs';
@@ -9,6 +9,7 @@ import { TaskBoardViewEventService } from 'src/app/okrview/taskboard-services/ta
 import { ConfirmationDialogData, ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { TaskDto } from 'src/app/shared/model/api/task.dto';
 import { ViewTaskBoardEvent } from 'src/app/shared/model/events/view-taskboard-event';
+import { OkrUnitId } from 'src/app/shared/model/id-types';
 import { ContextRole } from 'src/app/shared/model/ui/context-role';
 import { CycleUnit } from 'src/app/shared/model/ui/cycle-unit';
 import { OkrChildUnit } from 'src/app/shared/model/ui/OrganizationalUnit/okr-child-unit';
@@ -27,7 +28,7 @@ import { TaskBoardDragDropEvent } from './taskboard-column/taskboard-column.comp
   templateUrl: './department-tab-taskboard.component.html',
   styleUrls: ['./department-tab-taskboard.component.css']
 })
-export class DepartmentTabTaskboardComponent implements OnInit, OnDestroy {
+export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
   @Input() childUnit: OkrChildUnit;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
@@ -36,7 +37,7 @@ export class DepartmentTabTaskboardComponent implements OnInit, OnDestroy {
   viewDataEmitter$: BehaviorSubject<ViewTaskBoardEvent> = new BehaviorSubject(null);
 
   viewData: ViewTaskBoardEvent = new ViewTaskBoardEvent();
-  subscriptions: Subscription[];
+  subscriptions: Subscription[] = [];
 
   constructor(
     private taskMapperService: TaskMapperService,
@@ -48,32 +49,73 @@ export class DepartmentTabTaskboardComponent implements OnInit, OnDestroy {
     private stompService: RxStompService,
     private i18n: I18n) { }
 
-  ngOnInit(): void {
-    this.subscriptions = [];
-    this.subscriptions.push(
-      forkJoin({
-        tasks$: this.taskMapperService.getTasksForOkrUnit$(this.childUnit.id),
-        states$: this.taskStateMapper.getTaskStates$(this.childUnit.id),
-        keyResults$: this.keyResultMapper.getKeyResultsForOkrUnit(this.childUnit.id)
-      })
-        .subscribe(result => {
-          this.viewData.tasks.push(...result["tasks$"]);
-          this.viewData.taskStates.push(...result["states$"]);
-          this.viewData.keyResults.push(...result['keyResults$']);
+  ngOnDestroy(): void {
+    console.log("taskboard wird abgebaut");
+    this.clearSubscriptions();
+    this.stompService.deactivate();
+  }
 
-          this.viewData.tasks = this.taskHelper.orderTaskList(this.viewData.tasks);
-          console.log("after sorting");
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.stompService.active) {
+      this.stompService.activate();
+    }
+
+    console.log('changes');
+    console.log(changes);
+    if (changes.childUnit) {
+      this.clearSubscriptions();
+      this.updateEventHandler();
+      this.viewData = null;
+      this.viewDataEmitter$.next(this.viewData);
+      this.loadViewData(this.childUnit.id)
+        .pipe(
+          map(viewData => {
+            viewData.tasks = this.taskHelper.orderTaskList(viewData.tasks);
+            return viewData;
+          })
+        ).subscribe(viewData => {
+          this.viewData = viewData;
+          console.log("on change - view data");
           console.log(this.viewData);
-
+          this.updateWebsocketConnections();
           this.viewDataEmitter$.next(this.viewData);
-        })
-    );
+        });
+    }
+  }
 
+  updateEventHandler(): void {
     this.subscriptions.push(
       this.taskBoardEventService.taskAddButtonClick$.subscribe(task => this.onTaskAddButtonClick(task)),
       this.taskBoardEventService.taskDeleteButtonClick$.subscribe(task => this.onTaskDeleteButtonClick(task)),
       this.taskBoardEventService.taskUpdateButtonClick$.subscribe(task => this.onTaskUpdateButtonClick(task)),
-      this.taskBoardEventService.taskMovedInView$.subscribe(dropEvent => this.onTaskDragAndDrop(dropEvent)),
+      this.taskBoardEventService.taskMovedInView$.subscribe(dropEvent => this.onTaskDragAndDrop(dropEvent))
+    );
+  }
+
+  loadViewData(childUnitId: OkrUnitId): Observable<ViewTaskBoardEvent> {
+    return forkJoin({
+      tasks$: this.taskMapperService.getTasksForOkrUnit$(childUnitId),
+      states$: this.taskStateMapper.getTaskStates$(childUnitId),
+      keyResults$: this.keyResultMapper.getKeyResultsForOkrUnit(childUnitId)
+    })
+      .pipe(
+        map(result => {
+          const viewData: ViewTaskBoardEvent = new ViewTaskBoardEvent();
+          viewData.tasks.push(...result["tasks$"]);
+          viewData.taskStates.push(...result["states$"]);
+          viewData.keyResults.push(...result['keyResults$']);
+          console.log('viewdata updated');
+          console.log(viewData);
+
+          return viewData;
+        })
+      );
+  }
+
+
+
+  updateWebsocketConnections(): void {
+    this.subscriptions.push(
       this.stompService.watch({ destination: `/topic/unit/${this.childUnit.id}/tasks` })
         .pipe(
           map(taskDtosMessage => {
@@ -90,7 +132,7 @@ export class DepartmentTabTaskboardComponent implements OnInit, OnDestroy {
 
           if (newAndUpdatedTasks && newAndUpdatedTasks[0]) {
             this.taskHelper.mergeTaskListWithNewOrUpdatedElements(this.viewData.tasks, newAndUpdatedTasks);
-            this.viewData.tasks= this.taskHelper.orderTaskList(this.viewData.tasks);
+            this.viewData.tasks = this.taskHelper.orderTaskList(this.viewData.tasks);
             console.log('after merge');
             console.log(this.viewData);
             this.viewDataEmitter$.next(this.viewData);
@@ -111,17 +153,14 @@ export class DepartmentTabTaskboardComponent implements OnInit, OnDestroy {
           this.viewDataEmitter$.next(this.viewData);
         })
     );
-
-    this.stompService.activate();
-    this.stompService.webSocketErrors$.subscribe(error => console.log(error));
   }
 
-  ngOnDestroy(): void {
-    console.log("taskboard wird abgebaut");
+  clearSubscriptions(): void {
+    console.log('clear task board subscriptions');
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
-    this.stompService.deactivate();
+    this.subscriptions = [];
   }
 
   viewToggleChanged(): void {
@@ -131,7 +170,11 @@ export class DepartmentTabTaskboardComponent implements OnInit, OnDestroy {
   onTaskUpdateButtonClick(task: ViewTask): void {
     const states: ViewTaskState[] = this.viewData.taskStates;
     const formData: TaskFormData = {
-      unitId: this.childUnit.id, defaultState: states.find(state => state.id === task.taskStateId), states, task
+      unitId: this.childUnit.id,
+      defaultState: states.find(state => state.id === task.taskStateId),
+      states,
+      task,
+      keyResults: this.viewData.keyResults
     };
 
     const updatedTask$: Observable<ViewTask> = this.openDialog$(formData);
@@ -147,9 +190,15 @@ export class DepartmentTabTaskboardComponent implements OnInit, OnDestroy {
   }
 
   onTaskAddButtonClick(taskState: ViewTaskState): void {
+    let state: ViewTaskState;
+    if (!taskState) {
+      state = this.viewData.taskStates[0];
+    } else {
+      state = taskState;
+    }
     const states: ViewTaskState[] = this.viewData.taskStates;
     const formData: TaskFormData = {
-      unitId: this.childUnit.id, defaultState: taskState, states
+      unitId: this.childUnit.id, defaultState: state, states, keyResults: this.viewData.keyResults
     };
 
     const newTask$: Observable<ViewTask> = this.openDialog$(formData);

@@ -2,6 +2,13 @@
     <div class="f-3 text-center">
         <div class="tab-headline">Aufgaben</div>
     </div>
+    <div class="f-1 text-center add-button">
+        <button mat-mini-fab color="accent" (click)="onTaskAddButtonClick(null)">
+            <mat-icon i18n-matTooltip="@@component_departmentTabTasks_createNewTask"
+                matTooltip="Neue Aufgabe erstellen">add_circle_outline
+            </mat-icon>
+        </button>
+    </div>
 </div>
 <div class="taskboards-switch-buttons">
     <mat-button-toggle-group #viewgroup="matButtonToggleGroup">
