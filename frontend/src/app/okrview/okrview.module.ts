@@ -39,11 +39,13 @@ import { NavigationListEntryComponent } from './navigation-list-entry/navigation
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
 import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
-import { MatCheckboxModule, MatSlideToggleModule } from '@angular/material';
+import { MatCheckboxModule, MatDatepickerModule, MatSlideToggleModule } from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/department-tab-description/department-tab-description.component';
+import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -68,41 +70,46 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     CommentCardComponent,
     CycleListDropdownComponent,
     KeyResultMilestoneFormComponent,
+    DepartmentTabDescriptionComponent,
+    DepartmentDescriptionEditFormComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
     OkrChildUnitFormComponent,
     KeyResultFormComponent,
     ObjectiveFormComponent,
-    ],
+    DepartmentDescriptionEditFormComponent
+  ],
   imports: [
-        CommonModule,
-        SharedModule,
-        OkrviewRoutingModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatProgressBarModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatDividerModule,
-        MatMenuModule,
-        MatExpansionModule,
-        MatBadgeModule,
-        MatSliderModule,
-        MatSidenavModule,
-        MatDialogModule,
-        MatInputModule,
-        MatSelectModule,
-        FormsModule,
-        DragDropModule,
-        ReactiveFormsModule,
-        MatSlideToggleModule,
-        AvatarModule,
-        MatCheckboxModule,
-        ScrollingModule,
-        AngularResizedEventModule,
-    ]
+    CommonModule,
+    SharedModule,
+    OkrviewRoutingModule,
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatBadgeModule,
+    MatSliderModule,
+    MatSidenavModule,
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    AvatarModule,
+    MatCheckboxModule,
+    ScrollingModule,
+    AngularResizedEventModule,
+    MatDatepickerModule,
+  ]
 })
-export class OkrviewModule {}
+export class OkrviewModule {
+}
