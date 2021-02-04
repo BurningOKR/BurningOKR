@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NEVER } from 'rxjs';
+import { NEVER, Observable } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
@@ -12,6 +12,9 @@ import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branc
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
 import { OkrTopicDraft } from '../../../shared/model/ui/OrganizationalUnit/okr-topic-draft';
 import { TopicDraftMapper } from '../../../shared/services/mapper/topic-draft-mapper';
+import { TopicDraftCreationFormComponent } from './topic-draft-creation-form/topic-draft-creation-form.component';
+import { MatDialog } from '@angular/material';
+import { switchMap, take } from 'rxjs/operators';
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -31,6 +34,7 @@ export class OkrChildUnitFormComponent {
   unitType = UnitType;
 
   constructor(private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
+              private dialog: MatDialog,
               private okrUnitService: OkrUnitService,
               private departmentMapper: DepartmentMapper,
               private topicDraftMapper: TopicDraftMapper,
@@ -103,7 +107,7 @@ export class OkrChildUnitFormComponent {
         this.createOkrBranch(okrChildUnit1 as OkrBranch);
         break;
       case UnitType.TOPIC_DRAFT:
-        this.createTopicDraft(okrChildUnit1 as OkrTopicDraft);
+        this.showTopicDraftDialog(okrChildUnit1 as OkrTopicDraft);
         break;
       default:
         this.createOkrBranch(okrChildUnit1 as OkrBranch);
@@ -136,16 +140,24 @@ export class OkrChildUnitFormComponent {
     }
   }
 
-  createTopicDraft(topicDraft: OkrTopicDraft): void {
-    if (this.formData.companyId) {
-      topicDraft.parentUnitId = this.formData.companyId;
-      this.dialogRef.close(this.topicDraftMapper
-        .postTopicDraftForCompany$(this.formData.companyId, topicDraft));
-    } else if (this.formData.childUnitId) {
-      topicDraft.parentUnitId = this.formData.childUnitId;
-      this.dialogRef.close(this.topicDraftMapper
-        .postTopicDraftForOkrBranch$(this.formData.childUnitId, topicDraft));
-    }
+  showTopicDraftDialog(topicDraft: OkrTopicDraft): void {
+    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent, Observable <any>> =
+    this.dialog.open(TopicDraftCreationFormComponent, {
+        width: '600px', data: {
+          topicDraft,
+          companyId: this.formData.companyId,
+          childUnitId: this.formData.childUnitId
+        }
+      });
+
+    dialogReference.afterClosed()
+      .pipe(
+        switchMap(o$ => o$),
+        take(1)
+      )
+      .subscribe(() => {
+        this.closeDialog();
+      });
   }
 
   private getDefaultLabel(): string {

@@ -46,6 +46,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/department-tab-description/department-tab-description.component';
 import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
+import { TopicDraftCreationFormComponent } from './okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 
 @NgModule({
   declarations: [
@@ -72,13 +73,15 @@ import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/departm
     KeyResultMilestoneFormComponent,
     DepartmentTabDescriptionComponent,
     DepartmentDescriptionEditFormComponent,
+    TopicDraftCreationFormComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
     OkrChildUnitFormComponent,
     KeyResultFormComponent,
     ObjectiveFormComponent,
-    DepartmentDescriptionEditFormComponent
+    DepartmentDescriptionEditFormComponent,
+    TopicDraftCreationFormComponent
   ],
   imports: [
     CommonModule,
