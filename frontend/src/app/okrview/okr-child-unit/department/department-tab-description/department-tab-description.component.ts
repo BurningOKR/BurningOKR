@@ -44,7 +44,6 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
         }
       });
 
-    // TODO P.B. 04.02.2021 Fix dialog not closing when saving. Also maybe change the "Save" button in this form when selecting Topic-Draft?
     dialogReference.afterClosed()
       .pipe(
         switchMap(o$ => o$),
