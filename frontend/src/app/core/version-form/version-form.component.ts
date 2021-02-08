@@ -33,6 +33,24 @@ export class VersionFormComponent {
         'After updating your username, it will now be displayed correctly in the top right corner of the navigation bar.',
         'Creating a cycle when there are Structures (Branches) in the company, will no longer cause errors.'
       ]
+    },
+    {
+      version: '1.0.3 (12.11.2020)',
+      changes: [
+        'BurningOKR is now responsive and mobile-ready!',
+        'Key Results can now contain milestones',
+        'Objectives can now have a contact person',
+        'Importing users via CSV checks for validity',
+        'Added better error handling for 404 errors',
+        'Minor UI fixes'
+      ]
+    },
+    {
+      version: '1.0.4 (08.02.2021)',
+      changes: [
+        'Descriptions can now be added to OKR Teams',
+        'Minor UI fixes'
+      ]
     }
   ];
 
