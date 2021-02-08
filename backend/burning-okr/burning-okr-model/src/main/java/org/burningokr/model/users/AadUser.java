@@ -5,15 +5,13 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import lombok.Data;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AadUser implements User {
 
-  @Id
-  private UUID id;
+  @Id private UUID id;
   private String givenName;
   private String surname;
   private String mail;
