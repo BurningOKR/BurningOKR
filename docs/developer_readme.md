@@ -60,10 +60,10 @@ should generally do the same, but they need to stick to the dialect of the corre
 
 
 
-#Frontend
+# Frontend
 
-##Decorators
-###Fetchable Decorator
+## Decorators
+### Fetchable Decorator
 A Service which needs to Fetch Data on Application Startup or when a User logs in, needs to have the `@Fetchable()` Decorator and the `Fetchable` interface.
 The Fetchable Interface enforces the implementation of the `fetchData(): void` method.
 
