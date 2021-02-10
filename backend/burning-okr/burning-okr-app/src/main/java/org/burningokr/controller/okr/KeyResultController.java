@@ -89,7 +89,6 @@ public class KeyResultController {
    * @return a {@link ResponseEntity} ok with a Note
    */
   @PostMapping("/keyresults/{keyResultId}/notes")
-  @PreAuthorize("@authorizationService.hasMemberPrivilegeForKeyResult(#keyResultId)")
   public ResponseEntity<NoteDto> addNoteToKeyResult(
       @PathVariable long keyResultId, @Valid @RequestBody NoteDto noteDto, User user) {
     Note note = noteMapper.mapDtoToEntity(noteDto);
