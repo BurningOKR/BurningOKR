@@ -35,6 +35,7 @@ Here is a table with equivalent data types, to keep the migrations consistent:
 |------------|-------|
 | boolean    | bit   |
 | timestamp without timezone | datetime2 |
+| uuid		 | uniqueidentifier |
 
 #Frontend
 
