@@ -116,10 +116,6 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       unitRepository.deleteById(unitId);
       logger.info("Deleted OkrDepartment with id: " + unitId);
       activityService.createActivity(user, referencedUnit, Action.DELETED);
-      //      if (referencedUnit instanceof OkrDepartment) {
-      //        okrTopicDescriptionService.safeDeleteOkrTopicDescription(
-      //            ((OkrDepartment) referencedUnit).getOkrTopicDescription().getId(), user);
-      //      }
 
     } else {
       logger.info(
