@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NEVER, Observable } from 'rxjs';
+import { NEVER } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
