@@ -6,9 +6,18 @@
         <div class="tab-headline" i18n="@@component_departmentTabSubDepartments_childUnit">Unterstrukturen</div>
       </div>
       <div class="icon-spacer f-1" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
-        <button mat-mini-fab color="accent" (click)="clickedAddSubDepartment()">
+        <button mat-icon-button mat-mini-fab [matMenuTriggerFor]="unitTypeDropdown" color="accent">
           <mat-icon i18n-matTooltip="@@component_departmentTabSubDepartments_defineChildUnit" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
         </button>
+      <mat-menu #unitTypeDropdown="matMenu">
+        <button mat-menu-item (click)="clickedAddSubDepartment()">
+          <div i18n="@@component_departmentMenu_ChildUnit">Unterstruktur</div>
+        </button>
+        <button mat-menu-item (click)="clickedAddTopicDraft()">
+          <div i18n="@@component_departmentMenu_Topic_draft">Themenentwurf</div>
+        </button>
+      </mat-menu>
+
       </div>
     </div>
     <!-- Subdepartments -->

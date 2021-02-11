@@ -45,6 +45,9 @@ export class OkrChildUnitTabComponent implements OnDestroy {
     );
   }
 
+  clickedAddTopicDraft(): void { 
+  }
+
   onSubDepartmentAdded(addedChildUnit: OkrChildUnit): void {
     this.okrBranch.okrUnitIds.push(addedChildUnit.id);
     this.currentOkrViewService.refreshCurrentDepartmentView(this.okrBranch.id);

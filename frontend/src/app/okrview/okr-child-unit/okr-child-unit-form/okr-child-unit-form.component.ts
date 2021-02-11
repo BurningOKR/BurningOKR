@@ -10,11 +10,9 @@ import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-ch
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
-import { OkrTopicDraft } from '../../../shared/model/ui/OrganizationalUnit/okr-topic-draft';
 import { TopicDraftMapper } from '../../../shared/services/mapper/topic-draft-mapper';
-import { TopicDraftCreationFormComponent } from './topic-draft-creation-form/topic-draft-creation-form.component';
 import { MatDialog } from '@angular/material';
-import { switchMap, take } from 'rxjs/operators';
+
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -34,10 +32,8 @@ export class OkrChildUnitFormComponent {
   unitType = UnitType;
 
   constructor(private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
-              private dialog: MatDialog,
               private okrUnitService: OkrUnitService,
               private departmentMapper: DepartmentMapper,
-              private topicDraftMapper: TopicDraftMapper,
               private okrBranchMapper: OkrBranchMapper,
               private i18n: I18n,
               @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData) {
@@ -106,9 +102,6 @@ export class OkrChildUnitFormComponent {
       case UnitType.OKR_BRANCH:
         this.createOkrBranch(okrChildUnit1 as OkrBranch);
         break;
-      case UnitType.TOPIC_DRAFT:
-        this.showTopicDraftDialog(okrChildUnit1 as OkrTopicDraft);
-        break;
       default:
         this.createOkrBranch(okrChildUnit1 as OkrBranch);
         break;
@@ -138,26 +131,6 @@ export class OkrChildUnitFormComponent {
       this.dialogRef.close(this.okrBranchMapper
         .createForOkrBranch$(this.formData.childUnitId, okrBranch));
     }
-  }
-
-  showTopicDraftDialog(topicDraft: OkrTopicDraft): void {
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent, Observable <any>> =
-    this.dialog.open(TopicDraftCreationFormComponent, {
-        width: '600px', data: {
-          topicDraft,
-          companyId: this.formData.companyId,
-          childUnitId: this.formData.childUnitId
-        }
-      });
-
-    dialogReference.afterClosed()
-      .pipe(
-        switchMap(o$ => o$),
-        take(1)
-      )
-      .subscribe(() => {
-        this.closeDialog();
-      });
   }
 
   private getDefaultLabel(): string {
