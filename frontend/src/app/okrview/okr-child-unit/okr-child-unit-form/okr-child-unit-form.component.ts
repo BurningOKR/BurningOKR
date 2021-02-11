@@ -10,8 +10,6 @@ import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-ch
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
-import { TopicDraftMapper } from '../../../shared/services/mapper/topic-draft-mapper';
-import { MatDialog } from '@angular/material';
 
 
 interface OkrChildUnitFormData {
