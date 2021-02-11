@@ -1,17 +1,6 @@
-import { TopicDraftId, UserId } from '../../id-types';
-import { OkrChildUnitDto } from './okr-child-unit.dto';
+import { OkrUnitId } from '../../id-types';
+import { OkrTopicDescriptionDto } from './okr-topic-description.dto';
 
-export class OkrTopicDraftDto extends OkrChildUnitDto {
-  topicDraftID: TopicDraftId;
-  name: string;
-  initiatorId: UserId;
-  startTeam: UserId[];
-  stakeholders: UserId[];
-  acceptanceCriteria: string;
-  contributesTo: string;
-  delimitation: string;
-  beginning: Date;
-  dependencies: string;
-  resources: string;
-  handoverPlan: string;
+export class OkrTopicDraftDto extends OkrTopicDescriptionDto {
+  parentUnitId: OkrUnitId;
 }

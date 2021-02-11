@@ -1,7 +1,8 @@
-import { OkrChildUnit } from './okr-child-unit';
-import { ObjectiveId, UserId } from '../../id-types';
+import { OkrUnitId, UserId } from '../../id-types';
+import { OkrTopicDescription } from './okr-topic-description';
 
-export class OkrTopicDraft extends OkrChildUnit {
+export class OkrTopicDraft extends OkrTopicDescription {
+  parentUnitId: OkrUnitId;
   initiatorId: UserId;
   startTeam: UserId[];
   stakeholders: UserId[];
@@ -14,13 +15,9 @@ export class OkrTopicDraft extends OkrChildUnit {
   handoverPlan: string;
 
   constructor(
-    id: number,
+    parentUnitId: OkrUnitId,
+    topicDraftId: number,
     name: string,
-    label: string,
-    objectives: ObjectiveId[],
-    parentUnitId: number,
-    isActive: boolean,
-    isParentUnitABranch: boolean,
     initiatorId: UserId,
     startTeam: UserId[],
     stakeholders: UserId[],
@@ -31,16 +28,8 @@ export class OkrTopicDraft extends OkrChildUnit {
     dependencies: string,
     resources: string,
     handoverPlan: string) {
-    super(id, name, label, objectives, parentUnitId, isActive, isParentUnitABranch);
-    this.initiatorId = initiatorId;
-    this.startTeam = startTeam;
-    this.stakeholders = stakeholders;
-    this.acceptanceCriteria = acceptanceCriteria;
-    this.contributesTo = contributesTo;
-    this.delimitation = delimitation;
-    this.beginning = beginning;
-    this.dependencies = dependencies;
-    this.resources = resources;
-    this.handoverPlan = handoverPlan;
-  }
+      super(topicDraftId, name, initiatorId, startTeam, stakeholders, acceptanceCriteria,
+      contributesTo, delimitation, beginning, dependencies, resources, handoverPlan);
+      this.parentUnitId = parentUnitId;
+    }
 }
