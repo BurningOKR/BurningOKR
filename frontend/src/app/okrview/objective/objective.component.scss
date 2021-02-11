@@ -19,6 +19,12 @@
 
 .objective-title {
   font-size: medium;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 
 .objective-progressBar {
@@ -78,38 +84,17 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .objective-lineNumber {
-    position: relative;
-    bottom: 10px;
-  }
   .circle {
     display: none;
   }
-  .objective-title {
-    max-width: 75%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
-  }
+
   .objective-progressBar {
     margin-right: 28px;
   }
 
 }
 
-@media only screen and (max-width: 390px) {
-  .margin-expansion-panel {
-    width: 325px;
-  }
-}
-
-@media only screen and (max-width: 360px) {
-  .margin-expansion-panel {
-    width: 285px;
-  }
+@media only screen and (max-width: 480px) {
   .objective-title {
     max-width: 65%;
   }

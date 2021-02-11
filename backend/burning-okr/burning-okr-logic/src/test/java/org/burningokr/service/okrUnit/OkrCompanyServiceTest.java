@@ -1,7 +1,7 @@
 package org.burningokr.service.okrUnit;
 
 import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -14,6 +14,7 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
+import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -39,6 +40,8 @@ public class OkrCompanyServiceTest {
   @Mock private ObjectiveRepository objectiveRepository;
 
   @Mock private ActivityService activityService;
+
+  @Mock private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
 
   @Mock private User user;
 
@@ -90,6 +93,24 @@ public class OkrCompanyServiceTest {
     } catch (Exception ex) {
       assertThat("Should only throw ForbiddenException.", ex, instanceOf(ForbiddenException.class));
     }
+  }
+
+  @Test
+  public void createDepartment_expectOkrTopicDescriptionIsCreated() {
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setName("test");
+
+    User user = mock(User.class);
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
+    when(okrTopicDescriptionRepository.save(any()))
+        .thenAnswer(invocation -> invocation.getArgument(0));
+
+    OkrDepartment created = companyService.createDepartment(companyId, okrDepartment, user);
+
+    assertNotNull(created.getOkrTopicDescription());
+    assertEquals(okrDepartment.getName(), created.getOkrTopicDescription().getName());
   }
 
   @Test

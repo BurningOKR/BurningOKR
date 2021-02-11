@@ -5,4 +5,10 @@ html {
 body {
   margin: 0;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-root {
+  height: 100%;
 }

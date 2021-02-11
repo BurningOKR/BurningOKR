@@ -2,12 +2,12 @@ package org.burningokr.model.configuration;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Data;
-import org.hibernate.annotations.Table;
 
 @Entity
 @Data
-@Table(appliesTo = "oauth_client_details")
+@Table(name = "oauth_client_details")
 public class OAuthClientDetails implements AuthenticationProperties {
   @Id private String clientId;
   private String clientSecret;

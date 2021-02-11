@@ -1,2 +1,7 @@
-<router-outlet (activate)="userLoggedIn = this.checkIfUserIsLoggedIn()"></router-outlet>
-<app-feedback-button *ngIf="userLoggedIn"></app-feedback-button>
+<div id="main-wrapper">
+  <div id="content-wrapper">
+    <router-outlet (activate)="userLoggedIn = this.checkIfUserIsLoggedIn()"></router-outlet>
+    <app-feedback-button *ngIf="userLoggedIn"></app-feedback-button>
+  </div>
+</div>
+
