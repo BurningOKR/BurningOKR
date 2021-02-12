@@ -9,7 +9,7 @@
     
     Expand all entries as shown in the image.
 4. Right click on "Login/Group Roles" and choose "Create > Login/Group Role..."
-    1. In the general tab, set the "Name" to "admin".
+    1. In the general tab, set the "Name" to a meaningful name, like "BurningOKR".
     2. In the definition tab, set a strong password.
     3. Click on "Save" to exit the window.
 5. In the server browser right click on "Databases" and choose "Create > Database...".
@@ -24,6 +24,7 @@
    ![Two Databases and a new Login Role](./images/pgAdmin_done.PNG)
    
    Your Database is now ready for usage. You can now close pgAdmin4.
+   You can now go back to the Installation Tutorial.
    
 ## Linux (Ubuntu)
 1. Install PostgreSQL: 
@@ -48,3 +49,4 @@
     sudo -u postgres createdb okr -O admin
    ```
    Your Database is now ready for usage.
+   You can now go back to the Installation Tutorial.

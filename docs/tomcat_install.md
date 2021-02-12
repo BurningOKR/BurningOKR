@@ -25,7 +25,6 @@
 ### Linux (Ubuntu)
 1. Install and Setup a supported Database:
     - [PostgreSQL (Tutorial)](./postgres_install.md)
-    - [Microsoft SQL Server (Tutorial)](./mssql_install.md)
 
 2. Install Java 8: 
     ```
@@ -203,9 +202,10 @@
 ```yaml
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:<PORT>/<DATABASE NAME>?useSSL=false
-    username: admin
-    password: <admin Password>
+#   url: jdbc:sqlserver://localhost;databaseName=<DATABASE NAME>;Initial Catalog=<DATABASE NAME> # For Microsoft SQL Server
+    url: jdbc:postgresql://localhost:<PORT>/<DATABASE NAME>?useSSL=false # For PostgreSQL Server
+    username: <login name>
+    password: <login Password>
 
   jpa:
     hibernate:
@@ -213,6 +213,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect # For postgres
+#       dialect: org.burningokr.dialects.SQLServer2012UUIDFixDialect # For Microsoft SQL Server
         format_sql: true
 
   flyway:
@@ -269,20 +270,25 @@ system:
     token-endpoint-prefix: "/api"
 ```
 
-4. Insert the port and the database name of your Postgres database, that you have created earlier under `spring: > datasource: > url: ...`. The database name is the name, that you provided when creating the database and it is most likely just `okr`. To get the port number, you have to do the following steps.
+4. Insert the port and the database name of your database, that you have created earlier under `spring: > datasource: > url: ...`. The database name is the name, that you provided when creating the database. To get the port number, you have to do the following steps.
+   
+    **For Windows:**
+   
+   The port number was set in step 1 of the PostgreSQL Tutorial.
+    
+   **For Linux:**
+   ```
+   sudo apt-get install net-tools
+   sudo netstat -plunt |grep postgres
+   ```
+    
+   ![Linux Get Port Number](./images/linux_postgres_get_port_number.PNG)
 
-For Windows:
-The port number was set in step 1.
+   When you want to use a **Microsoft SQL Server** instead of PostgreSQL, you have to remove the `#` in front of `url` and `dialect`.
+   Then place a `#` in front of the respective other `url` and `dialect` line.
+   Make sure that the indentation matches with the rest of the block.
 
-For Linux:
-```
-sudo apt-get install net-tools
-sudo netstat -plunt |grep postgres
-```
-
-![Linux Get Port Number](./images/linux_postgres_get_port_number.PNG)
-
-5. Insert the password of the admin role of your Postgres server under `spring: > datasource: > password: ...`
+5. Insert the username and password of the login role of your database server under `spring: > datasource: > username: ...` and `spring: > datasource: > password: ...`
 6. You can insert the url, port, username and password of your mail server if you have one under `spring: > mail: > ....`. Otherwise remove the placeholders and leave these configurations empty.
 7. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use Azure Active Directory as your userbase by replacing the placeholder under `system: > configuration: > auth-mode: ...` with either `local` or `azure`.
 8. **When using an Azure Active Directory as the userbase, you also need to do the following steps. You do not need to this, when you are using the local user database.**
