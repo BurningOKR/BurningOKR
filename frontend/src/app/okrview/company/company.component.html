@@ -1,85 +1,91 @@
 <ng-container *ngIf="!loadingError else error">
 
 
-<ng-container *ngIf="companyView$ | async; let companyView; else loading">
-  <div class="flex-nowrap-center">
-    <mat-card class="card-size card-margin">
-      <div class="company-title">{{ companyView.company.name }}
-        <div class="icon-spacer-large icon-spacer-company">
-          <button mat-icon-button [matMenuTriggerFor]="optionsMenu">
-            <mat-icon i18n-matTooltip="@@component_company_moreOptions" matTooltip="Mehr Optionen zu dieser Struktur">more_vert</mat-icon>
+  <ng-container *ngIf="companyView$ | async; let companyView; else loading">
+    <div class="flex-nowrap-center">
+      <mat-card class="card-size card-margin">
+        <div class="company-title">{{ companyView.company.name }}
+          <button mat-icon-button [matMenuTriggerFor]="optionsMenu" class="more-button">
+            <mat-icon i18n-matTooltip="@@component_company_moreOptions" matTooltip="Mehr Optionen zu dieser Struktur">
+              more_vert
+            </mat-icon>
           </button>
         </div>
-      </div>
 
-      <div class="company-subtitle"> {{ companyView.company.label }}</div>
-
-      <mat-divider></mat-divider>
-
-      <ng-container *ngIf="roleDepartmentIds$ | async; let roleDepartmentIds">
-        <div *ngIf="roleDepartmentIds.currentlyManagerDepartmentIds.length > 0">
-          <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsManager">Ihre Teams als Manager</div>
-          <div class="flex-wrap-spreadinner">
-            <div *ngFor="let managerDepartmentId of roleDepartmentIds.currentlyManagerDepartmentIds">
-              <app-okr-child-unit-preview-button [unitId]="managerDepartmentId"></app-okr-child-unit-preview-button>
-            </div>
-          </div>
-        </div>
+        <div class="company-subtitle"> {{ companyView.company.label }}</div>
 
         <mat-divider></mat-divider>
 
-        <div *ngIf="roleDepartmentIds.currentlyMemberDepartmentIds.length > 0">
-          <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsMember">Ihre Teams als Mitglied</div>
-          <div class="flex-wrap-spreadinner">
-            <div *ngFor="let memberDepartmentId of roleDepartmentIds.currentlyMemberDepartmentIds">
-              <app-okr-child-unit-preview-button [unitId]="memberDepartmentId"></app-okr-child-unit-preview-button>
+        <ng-container *ngIf="roleDepartmentIds$ | async; let roleDepartmentIds">
+          <div *ngIf="roleDepartmentIds.currentlyManagerDepartmentIds.length > 0">
+            <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsManager">Ihre Teams als Manager
+            </div>
+            <div class="flex-wrap-spreadinner">
+              <div *ngFor="let managerDepartmentId of roleDepartmentIds.currentlyManagerDepartmentIds">
+                <app-okr-child-unit-preview-button [unitId]="managerDepartmentId"></app-okr-child-unit-preview-button>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div *ngIf="roleDepartmentIds.currentlyMemberDepartmentIds.length > 0">
+            <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsMember">Ihre Teams als Mitglied
+            </div>
+            <div class="flex-wrap-spreadinner">
+              <div *ngFor="let memberDepartmentId of roleDepartmentIds.currentlyMemberDepartmentIds">
+                <app-okr-child-unit-preview-button [unitId]="memberDepartmentId"></app-okr-child-unit-preview-button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="flex-nowrap-center">
+          <div class="tab-limited-width">
+            <!-- Tab title and add subdepartments buton-->
+            <div class="flex-nowrap">
+              <div class="f-3">
+                <div class="tab-headline" i18n="@@component_commentViewDialog_childUnit">Unterstrukturen</div>
+              </div>
+              <div class="icon-spacer f-1"
+                   *ngIf="(currentUserRole$ | async)?.isAtleastAdmin() && !companyView.cycle.isCycleClosed()">
+                <button mat-mini-fab color="accent" (click)="clickedAddSubDepartment(companyView.company)">
+                  <mat-icon i18n-matTooltip="@@component_commentViewDialog_defineNewChildUnit"
+                            matTooltip="Neue Unterstruktur definieren">add_circle_outline
+                  </mat-icon>
+                </button>
+              </div>
+            </div>
+            <!-- Subdepartments -->
+            <div *ngIf="companyView.company.okrChildUnitIds.length === 0" class="tab-subtitle"
+                 i18n="@@component_commentViewDialog_noChildUnit">
+              Es gibt noch keine Unterstrukturen für diese Struktur
+            </div>
+            <div class="flex-wrap-spreadinner">
+              <div *ngFor="let currentdepartmentId of companyView.company.okrChildUnitIds">
+                <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
+              </div>
             </div>
           </div>
         </div>
-      </ng-container>
 
-      <div class="flex-nowrap-center">
-        <div class="tab-limited-width">
-          <!-- Tab title and add subdepartments buton-->
-          <div class="flex-nowrap">
-            <div class="f-3">
-              <div class="tab-headline" i18n="@@component_commentViewDialog_childUnit">Unterstrukturen</div>
-            </div>
-            <div class="icon-spacer f-1" *ngIf="(currentUserRole$ | async)?.isAtleastAdmin() && !companyView.cycle.isCycleClosed()">
-              <button mat-mini-fab color="accent" (click)="clickedAddSubDepartment(companyView.company)">
-                <mat-icon i18n-matTooltip="@@component_commentViewDialog_defineNewChildUnit" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
-              </button>
-            </div>
-          </div>
-          <!-- Subdepartments -->
-          <div *ngIf="companyView.company.okrChildUnitIds.length === 0" class="tab-subtitle" i18n="@@component_commentViewDialog_noChildUnit">
-            Es gibt noch keine Unterstrukturen für diese Struktur
-          </div>
-          <div class="flex-wrap-spreadinner">
-            <div *ngFor="let currentdepartmentId of companyView.company.okrChildUnitIds">
-              <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </mat-card>
+    </div>
 
-    </mat-card>
-  </div>
-
-  <!-- Options menu -->
-  <mat-menu #optionsMenu="matMenu" xPosition="before">
-    <ng-template matMenuContent>
-      <button mat-menu-item (click)="clickedDownloadExcelFileForCompany(companyView.company)">
-        <mat-icon>save_alt</mat-icon>
-        <span i18n="@@component_commentViewDialog_export">Exportieren</span>
-      </button>
-      <button mat-menu-item (click)="clickedDownloadExcelEmailFileForCompany(companyView.company)">
-        <mat-icon>save_alt</mat-icon>
-        <span i18n="@@component_commentViewDialog_exportContacts">Kontakte exportieren</span>
-      </button>
-    </ng-template>
-  </mat-menu>
-</ng-container>
+    <!-- Options menu -->
+    <mat-menu #optionsMenu="matMenu" xPosition="before">
+      <ng-template matMenuContent>
+        <button mat-menu-item (click)="clickedDownloadExcelFileForCompany(companyView.company)">
+          <mat-icon>save_alt</mat-icon>
+          <span i18n="@@component_commentViewDialog_export">Exportieren</span>
+        </button>
+        <button mat-menu-item (click)="clickedDownloadExcelEmailFileForCompany(companyView.company)">
+          <mat-icon>save_alt</mat-icon>
+          <span i18n="@@component_commentViewDialog_exportContacts">Kontakte exportieren</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+  </ng-container>
 </ng-container>
 
 <ng-template #loading>
@@ -93,7 +99,9 @@
       Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
       oder der Server antwortet nicht.
     </p>
-    <button mat-button mat-raised-button color="primary" routerLink="/companies" i18n="@@component_commentViewDialog_errorLoadingCompanyButton">Zur Strukturübersicht</button>
+    <button mat-button mat-raised-button color="primary" routerLink="/companies"
+            i18n="@@component_commentViewDialog_errorLoadingCompanyButton">Zur Strukturübersicht
+    </button>
   </div>
 
 </ng-template>
