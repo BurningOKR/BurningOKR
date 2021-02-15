@@ -47,6 +47,8 @@ import { AngularResizedEventModule } from 'angular-resize-event';
 import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/department-tab-description/department-tab-description.component';
 import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
 import { TopicDraftCreationFormComponent } from './okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form/okr-topic-description-form.component';
+import { OkrDraftFormComponent } from './okr-draft-form/okr-draft-form.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { TopicDraftCreationFormComponent } from './okr-child-unit/okr-child-unit
     DepartmentTabDescriptionComponent,
     DepartmentDescriptionEditFormComponent,
     TopicDraftCreationFormComponent,
+    OkrTopicDescriptionFormComponent,
+    OkrDraftFormComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
