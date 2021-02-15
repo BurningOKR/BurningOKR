@@ -4,7 +4,7 @@
   <ng-container *ngIf="companyView$ | async; let companyView; else loading">
     <div class="flex-nowrap-center">
       <mat-card class="card-size card-margin">
-        <div class="company-title">{{ companyView.company.name }}
+        <div class="company-title overflow-ellipsis">{{ companyView.company.name }}
           <button mat-icon-button [matMenuTriggerFor]="optionsMenu" class="more-button">
             <mat-icon i18n-matTooltip="@@component_company_moreOptions" matTooltip="Mehr Optionen zu dieser Struktur">
               more_vert

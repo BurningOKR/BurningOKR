@@ -4,7 +4,7 @@
       [ngClass]="isCurrentDepartment()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' "
       [routerLink]="['./departments/'+schema.id]">
       <div class="flex-nowrap">
-        <div class="unit-name">{{schema.name}}
+        <div class="unit-name overflow-ellipsis">{{schema.name}}
         </div>
         <div class="fill-space"></div>
         <mat-icon *ngIf="isManagerOfUnit()" i18n-matTooltip="@@component_navigationListEntry_youAreManager" matTooltip="Sie sind Manager dieser Struktur" class="icon-spacer">
