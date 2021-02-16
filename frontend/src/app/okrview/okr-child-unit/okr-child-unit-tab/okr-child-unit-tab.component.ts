@@ -46,6 +46,11 @@ export class OkrChildUnitTabComponent implements OnDestroy {
     );
   }
 
+  private onSubDepartmentAdded(addedChildUnit: OkrChildUnit): void {
+    this.okrBranch.okrUnitIds.push(addedChildUnit.id);
+    this.currentOkrViewService.refreshCurrentDepartmentView(this.okrBranch.id);
+  }
+
   clickedAddTopicDraft(): void {
     const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {
       width: '600px', data: {  unitId: this.okrBranch.id }
@@ -63,12 +68,5 @@ export class OkrChildUnitTabComponent implements OnDestroy {
           // (R.J: 16.02.20) Do nothing yet
         })
     );
-
-    // TODO P.B. 2021-02-11 Create and add Form stuff.
-  }
-
-  onSubDepartmentAdded(addedChildUnit: OkrChildUnit): void {
-    this.okrBranch.okrUnitIds.push(addedChildUnit.id);
-    this.currentOkrViewService.refreshCurrentDepartmentView(this.okrBranch.id);
   }
 }
