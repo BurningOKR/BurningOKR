@@ -47,7 +47,22 @@ export class OkrChildUnitTabComponent implements OnDestroy {
   }
 
   clickedAddTopicDraft(): void {
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {});
+    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {
+      width: '600px', data: {  unitId: this.okrBranch.id }
+    });
+
+    this.subscriptions.push(
+      dialogReference
+        .afterClosed()
+        .pipe(
+          take(1),
+          filter(v => v),
+          switchMap(n => n)
+        )
+        .subscribe(addedTopicDraft => {
+          // (R.J: 16.02.20) Do nothing yet
+        })
+    );
 
     // TODO P.B. 2021-02-11 Create and add Form stuff.
   }

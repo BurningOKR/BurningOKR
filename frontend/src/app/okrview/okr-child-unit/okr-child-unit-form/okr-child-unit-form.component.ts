@@ -11,7 +11,6 @@ import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
 
-
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
   companyId?: number;
