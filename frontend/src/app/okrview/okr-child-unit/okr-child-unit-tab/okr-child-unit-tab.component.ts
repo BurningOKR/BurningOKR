@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { TopicDraftCreationFormComponent } from '../okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 
 @Component({
   selector: 'app-okr-child-unit-tab',
@@ -46,6 +47,8 @@ export class OkrChildUnitTabComponent implements OnDestroy {
   }
 
   clickedAddTopicDraft(): void {
+    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {});
+
     // TODO P.B. 2021-02-11 Create and add Form stuff.
   }
 
