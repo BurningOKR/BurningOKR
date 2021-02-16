@@ -587,8 +587,8 @@
           <context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
-      </trans-unit><trans-unit id="component_departmentForm_teamActive" datatype="html">
-        <source>Team aktiv</source>
+      </trans-unit><trans-unit id="component_departmentForm_active" datatype="html">
+        <source>Aktiv</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.html</context>
           <context context-type="linenumber">13</context>

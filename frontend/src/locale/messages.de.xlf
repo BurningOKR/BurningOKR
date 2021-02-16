@@ -13,13 +13,14 @@
         <target state="final">Bezeichnung *</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit>
-      <trans-unit id="component_departmentForm_teamActive" datatype="html">
-        <source>Team aktiv</source>
-        <target state="final">Team aktiv</target>
-
-
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.html</context><context context-type="linenumber">13</context></context-group></trans-unit><trans-unit id="component_department_unitNotActive" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="component_departmentForm_active" datatype="html">
+        <source>Aktiv</source><target state="final">Aktiv</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="component_department_unitNotActive" datatype="html">
         <source>Diese Struktur ist nicht aktiv</source><target state="final">Diese Struktur ist nicht aktiv</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="component_department_moreOptionsUnit" datatype="html">
