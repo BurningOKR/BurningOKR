@@ -1,13 +1,17 @@
 @import '../../../styles/themes/bag-theme';
 
 .keyresult-slider {
-      flex: 1.0 0.3 256px;
+      flex: 1.0 0.3 100px;
       padding: 4px;
       flex-direction: column;
       align-items: stretch;
       height: 56px;
       position: relative;
       top: -8px;
+}
+
+mat-slider {
+  min-width: 100px;
 }
 
 .keyresult-card {
@@ -40,7 +44,8 @@
 }
 
 .customFlex-2 {
-  flex: 3.0 0.3
+  flex: 3.0 0.3;
+  max-width: 100%;
 }
 
 @media only screen and (max-width: 480px) {
@@ -58,7 +63,7 @@
   }
 }
 
-@media only screen and (max-width: 360px) {
+@media only screen and (max-width: 400px) {
   .keyresult-slider {
     display: none;
   }

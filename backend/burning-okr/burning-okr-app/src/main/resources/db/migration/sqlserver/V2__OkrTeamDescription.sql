@@ -15,18 +15,18 @@ CREATE TABLE okr_topic_description
 
 CREATE TABLE okr_description_member
 (
-    okr_description_id bigint NOT NULL,
+    okr_topic_description_id bigint NOT NULL,
     okr_member_id uniqueidentifier,
-    CONSTRAINT okr_member_description_fkey FOREIGN KEY (okr_description_id)
+    CONSTRAINT okr_member_description_fkey FOREIGN KEY (okr_topic_description_id)
         REFERENCES okr_topic_description (id)
         ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 CREATE TABLE okr_description_stakeholder
 (
-    okr_description_id bigint NOT NULL,
+    okr_topic_description_id bigint NOT NULL,
     okr_stakeholder_id uniqueidentifier,
-    CONSTRAINT okr_stakeholder_description_fkey FOREIGN KEY (okr_description_id)
+    CONSTRAINT okr_stakeholder_description_fkey FOREIGN KEY (okr_topic_description_id)
         REFERENCES okr_topic_description (id)
         ON UPDATE NO ACTION ON DELETE NO ACTION
 );

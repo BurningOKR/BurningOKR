@@ -28,7 +28,7 @@
 }
 
 .objective-progressBar {
-  flex: 1.0 0.4 256px;
+  flex: 1.0 0.4 230px;
 }
 
 .mat-expansion-panel,
@@ -84,11 +84,6 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .objective-lineNumber {
-    position: relative;
-    bottom: 10px;
-  }
-
   .circle {
     display: none;
   }
@@ -97,19 +92,17 @@
     margin-right: 28px;
   }
 
-}
-
-@media only screen and (max-width: 390px) {
-  .margin-expansion-panel {
-    width: 325px;
-  }
-}
-
-@media only screen and (max-width: 360px) {
-  .margin-expansion-panel {
-    width: 285px;
-  }
   .objective-title {
     max-width: 65%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .circle {
+    display: none;
+  }
+
+  .objective-title-flex {
+    flex: 3.0 0.4 100%;
   }
 }
