@@ -12,6 +12,7 @@ import { CycleState, CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit-form.component';
 import { of } from 'rxjs';
 import { TopicDraftCreationFormComponent } from '../okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 const currentOkrViewServiceMock: any = {
   refreshCurrentDepartmentView: jest.fn()
@@ -77,17 +78,38 @@ describe('OkrChildUnitTabComponent', () => {
       .toBeTruthy();
   });
 
-  it('clickedAddSubDepartment opens dialog', () => {
-    component.clickedAddSubDepartment();
+  it('clickedAddChildOkrBranch opens dialog', () => {
+    component.clickedAddChildOkrBranch();
 
     expect(dialogMock.open)
       .toHaveBeenCalledWith(OkrChildUnitFormComponent, {
-        data: { childUnitId: okrBranch.id }
+        data: { childUnitId: okrBranch.id, unitType: UnitType.OKR_BRANCH }
       });
   });
 
-  it('clickedAddSubDepartment adds subdepartment after closed', done => {
-    component.clickedAddSubDepartment();
+  it('clickedAddChildOkrBranch adds subdepartment after closed', done => {
+    component.clickedAddChildOkrBranch();
+
+    setTimeout(() => {
+      expect(component.okrBranch.okrUnitIds.includes(1))
+        .toBeTruthy();
+      expect(currentOkrViewServiceMock.refreshCurrentDepartmentView)
+        .toHaveBeenCalled();
+      done();
+    }, 500);
+  });
+
+  it('clickedAddChildDepartment opens dialog', () => {
+    component.clickedAddChildDepartment();
+
+    expect(dialogMock.open)
+      .toHaveBeenCalledWith(OkrChildUnitFormComponent, {
+        data: { childUnitId: okrBranch.id, unitType: UnitType.DEPARTMENT }
+      });
+  });
+
+  it('clickedAddChildDepartment adds subdepartment after closed', done => {
+    component.clickedAddChildDepartment();
 
     setTimeout(() => {
       expect(component.okrBranch.okrUnitIds.includes(1))

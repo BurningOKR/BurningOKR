@@ -9,12 +9,6 @@
       <input type="text" i18n-placeholder="@@component_departmentForm_description" matInput placeholder="Bezeichnung *" cdkTextareaAutosize formControlName="label">
       <mat-error><app-form-error [control]="childUnitForm.get('label').invalid"></app-form-error></mat-error>
     </mat-form-field>
-    <mat-form-field class="name" *ngIf="!okrChildUnit">
-      <mat-select formControlName="unitType">
-        <mat-option i18n="@@component_departmentForm_option_department" [value]="unitType.DEPARTMENT">OKR Team</mat-option>
-        <mat-option i18n="@@component_departmentForm_option_Okr_branch" [value]="unitType.OKR_BRANCH">Struktur</mat-option>
-      </mat-select>
-    </mat-form-field>
 
     <mat-slide-toggle class="col-l-6 toggle-fix" formControlName="isActive"><span i18n="@@component_departmentForm_teamActive">Team aktiv</span></mat-slide-toggle>
   </form>

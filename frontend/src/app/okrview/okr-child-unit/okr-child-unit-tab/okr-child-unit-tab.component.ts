@@ -9,6 +9,7 @@ import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { TopicDraftCreationFormComponent } from '../okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 @Component({
   selector: 'app-okr-child-unit-tab',
@@ -29,11 +30,21 @@ export class OkrChildUnitTabComponent implements OnDestroy {
     this.subscriptions = [];
   }
 
-  clickedAddSubDepartment(): void {
+  clickedAddChildOkrBranch(): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { childUnitId: this.okrBranch.id }
+      data: { childUnitId: this.okrBranch.id, unitType: UnitType.OKR_BRANCH }
     });
+    this.handleChildUnitDialogReference(dialogReference);
+  }
 
+  clickedAddChildDepartment(): void {
+    const dialogReference: MatDialogRef<OkrChildUnitFormComponent> = this.matDialog.open(OkrChildUnitFormComponent, {
+      data: { childUnitId: this.okrBranch.id, unitType: UnitType.DEPARTMENT }
+    });
+    this.handleChildUnitDialogReference(dialogReference);
+  }
+
+  private handleChildUnitDialogReference(dialogReference: MatDialogRef<OkrChildUnitFormComponent>): void {
     this.subscriptions.push(
       dialogReference
         .afterClosed()

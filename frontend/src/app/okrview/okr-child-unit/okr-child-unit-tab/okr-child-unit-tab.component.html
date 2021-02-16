@@ -10,11 +10,17 @@
           <mat-icon i18n-matTooltip="@@component_departmentTabSubDepartments_defineChildUnit" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
         </button>
       <mat-menu #unitTypeDropdown="matMenu">
-        <button mat-menu-item (click)="clickedAddSubDepartment()">
-          <div i18n="@@component_departmentMenu_ChildUnit">Unterstruktur</div>
+        <button mat-menu-item (click)="clickedAddChildDepartment()">
+          <mat-icon>group_add</mat-icon>
+          <span i18n="@@component_departmentMenu_ChildUnit">OKR Team</span>
+        </button>
+        <button mat-menu-item (click)="clickedAddChildOkrBranch()">
+          <mat-icon>add</mat-icon>
+          <span i18n="@@component_departmentMenu_ChildUnit">Unterstruktur</span>
         </button>
         <button mat-menu-item (click)="clickedAddTopicDraft()">
-          <div i18n="@@component_departmentMenu_Topic_draft">Themenentwurf</div>
+          <mat-icon>note_add</mat-icon>
+          <span i18n="@@component_departmentMenu_Topic_draft">Themenentwurf</span>
         </button>
       </mat-menu>
 

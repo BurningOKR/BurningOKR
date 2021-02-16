@@ -15,6 +15,7 @@ interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
   companyId?: number;
   childUnitId?: number;
+  unitType: UnitType;
 }
 
 @Component({
@@ -38,7 +39,7 @@ export class OkrChildUnitFormComponent {
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
       label: new FormControl(this.getDefaultLabel(), [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
       isActive: new FormControl(true),
-      unitType: new FormControl(UnitType.OKR_BRANCH)
+      // unitType: new FormControl(UnitType.OKR_BRANCH)
     });
 
     if (this.formData.childUnit) {
@@ -47,8 +48,8 @@ export class OkrChildUnitFormComponent {
     }
 
     const saveText: string = this.i18n({
-        id: 'component_companyForm_saveText',
-        value: ' {{label}} speichern.'
+        id: 'component_companyForm_editText',
+        value: '{{label}} bearbeiten.'
       }, {label: this.getDefaultLabel()}
     );
     const createText: string = this.i18n({
@@ -92,7 +93,7 @@ export class OkrChildUnitFormComponent {
       isParentUnitABranch: false,
     };
 
-    switch ((this.childUnitForm.get('unitType').value)) {
+    switch (this.formData.unitType) {
       case UnitType.DEPARTMENT:
         this.createDepartment(okrChildUnit1 as OkrDepartment);
         break;
@@ -134,7 +135,12 @@ export class OkrChildUnitFormComponent {
     if (this.formData.childUnit) {
       return this.formData.childUnit.label;
     } else {
-      return this.i18n({id: 'OkrBranch', value: 'Unterstruktur'});
+      if (this.formData.unitType === UnitType.DEPARTMENT) {
+        return this.i18n({id: 'Department', value: 'Okr Team'});
+      } else {
+        return this.i18n({id: 'OkrBranch', value: 'Unterstruktur'});
+      }
+
     }
   }
 }
