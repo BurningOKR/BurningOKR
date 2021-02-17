@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.dto.okr.ObjectiveDto;
+import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
@@ -17,11 +18,13 @@ import org.burningokr.mapper.okrUnit.OkrDepartmentMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.userhandling.UserService;
@@ -45,6 +48,7 @@ public class CompanyController {
   private OkrBranchSchemaMapper okrUnitSchemaMapper;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
+  private DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
   private AuthorizationService authorizationService;
   private UserService userService;
   private OkrUnitServiceAdmins<OkrBranch> OkrBranchService;
@@ -247,4 +251,13 @@ public class CompanyController {
     companyService.deleteCompany(companyId, true, user);
     return ResponseEntity.ok().build();
   }
+
+  @PostMapping("/companies/{companyId}/topicdraft")
+  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(@PathVariable long companyId, @RequestBody OkrTopicDraftDto topicDraftDto, User user) {
+    OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
+    OkrTopicDraft newOkrTopicDraft = companyService.createTopicDraft(companyId, topicDraft, user);
+    OkrTopicDraftDto newOkrTopicDraftDto = okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
+    return ResponseEntity.ok(newOkrTopicDraftDto);
+  }
 }
+

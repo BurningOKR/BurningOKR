@@ -8,6 +8,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.cycles.OkrCompanyHistory;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
@@ -245,6 +246,11 @@ public class CompanyService {
             + ")");
     activityService.createActivity(user, okrBranch, Action.CREATED);
     return okrBranch;
+  }
+
+  // TODO (R.J. 17.02.2021) create this method
+  public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) {
+    return null;
   }
 
   private void throwIfCompanyInClosedCycle(OkrCompany okrCompanyToCheck) {
