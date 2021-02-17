@@ -14,6 +14,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
+import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -36,6 +37,7 @@ public class CompanyService {
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  private OkrTopicDraftRepository okrTopicDraftRepository;
 
   /**
    * Initialize CompanyService.
@@ -55,7 +57,8 @@ public class CompanyService {
       UnitRepository<OkrChildUnit> unitRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
-      OkrTopicDescriptionRepository okrTopicDescriptionRepository) {
+      OkrTopicDescriptionRepository okrTopicDescriptionRepository,
+      OkrTopicDraftRepository okrTopicDraftRepository) {
     this.cycleRepository = cycleRepository;
     this.companyHistoryRepository = companyHistoryRepository;
     this.companyRepository = companyRepository;
@@ -63,6 +66,7 @@ public class CompanyService {
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
+    this.okrTopicDraftRepository = okrTopicDraftRepository;
   }
 
   public OkrCompany findById(long companyId) {
@@ -250,7 +254,25 @@ public class CompanyService {
 
   // TODO (R.J. 17.02.2021) create this method
   public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) {
-    return null;
+    OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
+
+    throwIfCompanyInClosedCycle(referencedOkrCompany);
+
+    topicDraft.setParentUnit(referencedOkrCompany);
+
+    topicDraft = okrTopicDraftRepository.save(topicDraft);
+    logger.info(
+        "Created Topic Draft: "
+            + topicDraft.getName()
+            + " into department "
+            + referencedOkrCompany.getName()
+            + "(id:"
+            + companyId
+            + ")");
+
+    activityService.createActivity(user, topicDraft, Action.CREATED);
+
+    return topicDraft;
   }
 
   private void throwIfCompanyInClosedCycle(OkrCompany okrCompanyToCheck) {

@@ -7,14 +7,17 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 import javax.persistence.EntityNotFoundException;
+import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
+import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -42,6 +45,8 @@ public class OkrCompanyServiceTest {
   @Mock private ActivityService activityService;
 
   @Mock private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+
+  @Mock private OkrTopicDraftRepository okrTopicDraftRepository;
 
   @Mock private User user;
 
@@ -193,5 +198,53 @@ public class OkrCompanyServiceTest {
           ex,
           instanceOf(EntityNotFoundException.class));
     }
+  }
+
+  @Test(expected = ForbiddenException.class)
+  public void createOkrDraft_cycleClosed_expectedThrow() {
+    Cycle closedCycle = new Cycle();
+    closedCycle.setCycleState(CycleState.CLOSED);
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(entityCrawlerService.getCycleOfCompany(any())).thenReturn(closedCycle);
+
+    OkrTopicDraft topicDraft = new OkrTopicDraft();
+
+    companyService.createTopicDraft(1L, topicDraft, user);
+  }
+
+  @Test
+  public void createOkrDraft_expectIsSavedToDatabase() {
+    OkrTopicDraft topicDraft = new OkrTopicDraft();
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
+
+    companyService.createTopicDraft(1L, topicDraft, user);
+
+    verify(okrTopicDraftRepository).save(any());
+  }
+
+  @Test
+  public void createOkrDraft_expectCreatesActivity() {
+    OkrTopicDraft topicDraft = new OkrTopicDraft();
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
+
+    companyService.createTopicDraft(1L, topicDraft, user);
+
+    verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
+  }
+
+  @Test
+  public void createOkrDraft_expectSetsParentUnit() {
+    OkrTopicDraft topicDraft = new OkrTopicDraft();
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
+
+    OkrTopicDraft actual = companyService.createTopicDraft(1L, topicDraft, user);
+
+    assertEquals(actual.getParentUnit(), okrCompany);
   }
 }

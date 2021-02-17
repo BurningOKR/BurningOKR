@@ -90,7 +90,7 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
 
     topicDraft = topicDraftRepository.save(topicDraft);
     logger.info(
-        "Created Objective: "
+        "Created Topic Draft: "
             + topicDraft.getName()
             + " into department "
             + parentUnit.getName()
