@@ -19,6 +19,6 @@ export class TopicDraftApiService {
   }
 
   postTopicDraftForOkrBranch$(unitId: OkrUnitId, topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
-    return this.api.postData$('TODO', topicDraftDto);
+    return this.api.postData$(`branch/${unitId}/topicdraft`, topicDraftDto);
   }
 }

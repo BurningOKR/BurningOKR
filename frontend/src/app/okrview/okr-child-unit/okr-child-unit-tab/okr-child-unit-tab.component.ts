@@ -3,13 +3,14 @@ import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { Component, Input, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { TopicDraftCreationFormComponent } from '../okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-okr-child-unit-tab',
@@ -23,7 +24,8 @@ export class OkrChildUnitTabComponent implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private matDialog: MatDialog, private currentOkrViewService: CurrentOkrviewService) {}
+  constructor(private matDialog: MatDialog, private currentOkrViewService: CurrentOkrviewService,
+              private snackBar: MatSnackBar, private i18n: I18n) {}
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -76,7 +78,9 @@ export class OkrChildUnitTabComponent implements OnDestroy {
           switchMap(n => n)
         )
         .subscribe(addedTopicDraft => {
-          // (R.J: 16.02.20) Do nothing yet
+          const snackBarText: string = this.i18n({id: 'snackbar_addTopicDraft', value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'});
+          const snackBarOk: string = this.i18n({id: 'snackbar_ok', value: 'Ok'});
+          this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
         })
     );
   }

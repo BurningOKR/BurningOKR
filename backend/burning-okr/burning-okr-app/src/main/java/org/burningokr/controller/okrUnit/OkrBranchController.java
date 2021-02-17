@@ -71,6 +71,14 @@ public class OkrBranchController {
     return ResponseEntity.ok(okrBranchMapper.mapEntityToDto(okrBranch));
   }
 
+  /**
+   * API Endpoint to add a TopicDraft to an existing Okr Branch
+   *
+   * @param unitId the id of the Okr Branch
+   * @param topicDraftDto a {@link OkrTopicDraftDto} object
+   * @param user an {@link User} object
+   * @return a {@link ResponseEntity} ok with the added topicdraft
+   */
   @PostMapping("/branch/{unitId}/topicdraft")
   public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(@PathVariable long unitId, @RequestBody OkrTopicDraftDto topicDraftDto, User user){
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
