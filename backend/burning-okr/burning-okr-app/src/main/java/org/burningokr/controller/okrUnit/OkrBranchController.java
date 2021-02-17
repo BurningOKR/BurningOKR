@@ -80,11 +80,13 @@ public class OkrBranchController {
    * @return a {@link ResponseEntity} ok with the added topicdraft
    */
   @PostMapping("/branch/{unitId}/topicdraft")
-  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(@PathVariable long unitId, @RequestBody OkrTopicDraftDto topicDraftDto, User user){
+  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(
+      @PathVariable long unitId, @RequestBody OkrTopicDraftDto topicDraftDto, User user) {
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
-    OkrUnitService<OkrBranch> okrUnitService = okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+    OkrUnitService<OkrBranch> okrUnitService =
+        okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrTopicDraft newOkrTopicDraft = okrUnitService.createTopicDraft(unitId, topicDraft, user);
-    OkrTopicDraftDto newOkrTopicDraftDto =okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
+    OkrTopicDraftDto newOkrTopicDraftDto = okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
     return ResponseEntity.ok(newOkrTopicDraftDto);
   }
 }

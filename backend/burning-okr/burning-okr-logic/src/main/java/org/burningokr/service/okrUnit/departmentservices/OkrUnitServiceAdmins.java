@@ -53,7 +53,12 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       OkrTopicDescriptionRepository okrTopicDescriptionRepository,
       OkrTopicDescriptionService okrTopicDescriptionService) {
     super(
-        parentService, unitRepository, objectiveRepository, topicDraftRepository, activityService, entityCrawlerService);
+        parentService,
+        unitRepository,
+        objectiveRepository,
+        topicDraftRepository,
+        activityService,
+        entityCrawlerService);
 
     this.superUnitRepository = superUnitRepository;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;

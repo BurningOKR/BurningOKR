@@ -5,6 +5,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OkrTopicDraftDto extends OkrTopicDescriptionDto{
-    private Long okrParentUnitId;
+public class OkrTopicDraftDto extends OkrTopicDescriptionDto {
+  private Long okrParentUnitId;
 }

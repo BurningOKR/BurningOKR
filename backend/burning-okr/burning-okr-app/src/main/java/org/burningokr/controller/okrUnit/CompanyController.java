@@ -24,7 +24,6 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.userhandling.UserService;
@@ -253,11 +252,11 @@ public class CompanyController {
   }
 
   @PostMapping("/companies/{companyId}/topicdraft")
-  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(@PathVariable long companyId, @RequestBody OkrTopicDraftDto topicDraftDto, User user) {
+  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(
+      @PathVariable long companyId, @RequestBody OkrTopicDraftDto topicDraftDto, User user) {
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
     OkrTopicDraft newOkrTopicDraft = companyService.createTopicDraft(companyId, topicDraft, user);
     OkrTopicDraftDto newOkrTopicDraftDto = okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
     return ResponseEntity.ok(newOkrTopicDraftDto);
   }
 }
-

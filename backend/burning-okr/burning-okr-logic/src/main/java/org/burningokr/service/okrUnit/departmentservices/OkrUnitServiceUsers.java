@@ -1,7 +1,6 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
 import java.util.Collection;
-
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
@@ -91,13 +90,13 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
 
     topicDraft = topicDraftRepository.save(topicDraft);
     logger.info(
-            "Created Objective: "
-                    + topicDraft.getName()
-                    + " into department "
-                    + parentUnit.getName()
-                    + "(id:"
-                    + unitId
-                    + ")");
+        "Created Objective: "
+            + topicDraft.getName()
+            + " into department "
+            + parentUnit.getName()
+            + "(id:"
+            + unitId
+            + ")");
 
     activityService.createActivity(user, topicDraft, Action.CREATED);
 
