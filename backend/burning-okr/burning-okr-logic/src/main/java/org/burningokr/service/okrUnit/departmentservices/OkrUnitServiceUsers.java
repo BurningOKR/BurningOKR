@@ -1,12 +1,16 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
 import java.util.Collection;
+
+import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
+import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
@@ -25,6 +29,7 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
   protected final Logger logger = LoggerFactory.getLogger(OkrUnitServiceUsers.class);
   protected UnitRepository<T> unitRepository;
   protected ObjectiveRepository objectiveRepository;
+  protected OkrTopicDraftRepository topicDraftRepository;
   protected ActivityService activityService;
   ParentService parentService;
   private EntityCrawlerService entityCrawlerService;
@@ -34,11 +39,13 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
       ParentService parentService,
       UnitRepository<T> unitRepository,
       ObjectiveRepository objectiveRepository,
+      OkrTopicDraftRepository topicDraftRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
     this.parentService = parentService;
     this.unitRepository = unitRepository;
     this.objectiveRepository = objectiveRepository;
+    this.topicDraftRepository = topicDraftRepository;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
   }
@@ -72,6 +79,29 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
   @Override
   public Objective createObjective(Long unitId, Objective objective, User user) {
     throw new UnauthorizedUserException("Service method not supported for current user role.");
+  }
+
+  @Override
+  public OkrTopicDraft createTopicDraft(Long unitId, OkrTopicDraft topicDraft, User user) {
+    T parentUnit = unitRepository.findByIdOrThrow(unitId);
+
+    throwIfCycleForDepartmentIsClosed(parentUnit);
+
+    topicDraft.setParentUnit(parentUnit);
+
+    topicDraft = topicDraftRepository.save(topicDraft);
+    logger.info(
+            "Created Objective: "
+                    + topicDraft.getName()
+                    + " into department "
+                    + parentUnit.getName()
+                    + "(id:"
+                    + unitId
+                    + ")");
+
+    activityService.createActivity(user, topicDraft, Action.CREATED);
+
+    return topicDraft;
   }
 
   void throwIfCycleForDepartmentIsClosed(OkrUnit okrUnitToCheck) {
