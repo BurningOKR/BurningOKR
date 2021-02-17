@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class OkrTopicDraft extends OkrTopicDescription{
 
     @ManyToOne
