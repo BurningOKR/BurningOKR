@@ -48,6 +48,7 @@ import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/d
 import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
 import { TopicDraftCreationFormComponent } from './okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form/okr-topic-description-form.component';
+import { AddChildUnitButtonComponent } from './add-child-unit-button/add-child-unit-button.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form/o
     DepartmentDescriptionEditFormComponent,
     TopicDraftCreationFormComponent,
     OkrTopicDescriptionFormComponent,
+    AddChildUnitButtonComponent
   ],
   entryComponents: [
     CommentViewDialogComponent,

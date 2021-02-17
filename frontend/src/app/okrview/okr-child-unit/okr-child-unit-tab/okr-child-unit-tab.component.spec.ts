@@ -13,6 +13,7 @@ import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit
 import { of } from 'rxjs';
 import { TopicDraftCreationFormComponent } from '../okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
+import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-child-unit-button.component';
 
 const currentOkrViewServiceMock: any = {
   refreshCurrentDepartmentView: jest.fn()
@@ -38,7 +39,7 @@ describe('OkrChildUnitTabComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OkrChildUnitTabComponent, OkrChildUnitPreviewButtonComponent ],
+      declarations: [ OkrChildUnitTabComponent, OkrChildUnitPreviewButtonComponent, AddChildUnitButtonComponent ],
       imports: [ MaterialTestingModule, RouterTestingModule, MatDialogModule ],
       providers: [
         { provide: CurrentOkrviewService, useValue: currentOkrViewServiceMock },
@@ -91,7 +92,7 @@ describe('OkrChildUnitTabComponent', () => {
     component.clickedAddChildOkrBranch();
 
     setTimeout(() => {
-      expect(component.okrBranch.okrUnitIds.includes(1))
+      expect(component.okrBranch.okrChildUnitIds.includes(1))
         .toBeTruthy();
       expect(currentOkrViewServiceMock.refreshCurrentDepartmentView)
         .toHaveBeenCalled();
@@ -112,7 +113,7 @@ describe('OkrChildUnitTabComponent', () => {
     component.clickedAddChildDepartment();
 
     setTimeout(() => {
-      expect(component.okrBranch.okrUnitIds.includes(1))
+      expect(component.okrBranch.okrChildUnitIds.includes(1))
         .toBeTruthy();
       expect(currentOkrViewServiceMock.refreshCurrentDepartmentView)
         .toHaveBeenCalled();

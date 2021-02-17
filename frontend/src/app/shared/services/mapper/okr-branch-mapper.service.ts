@@ -36,7 +36,7 @@ export class OkrBranchMapper {
     dto.objectiveIds = entity.objectives;
     dto.label = entity.label;
     dto.parentUnitId = entity.parentUnitId;
-    dto.okrChildUnitIds = entity.okrUnitIds;
+    dto.okrChildUnitIds = entity.okrChildUnitIds;
     dto.isActive = entity.isActive;
     dto.__okrUnitType = UnitType.OKR_BRANCH;
 

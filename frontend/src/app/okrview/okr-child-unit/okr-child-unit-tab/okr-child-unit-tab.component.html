@@ -6,32 +6,19 @@
         <div class="tab-headline" i18n="@@component_departmentTabSubDepartments_childUnit">Unterstrukturen</div>
       </div>
       <div class="icon-spacer f-1" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
-        <button mat-icon-button mat-mini-fab [matMenuTriggerFor]="unitTypeDropdown" color="accent">
-          <mat-icon i18n-matTooltip="@@component_departmentTabSubDepartments_defineChildUnit" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
-        </button>
-      <mat-menu #unitTypeDropdown="matMenu">
-        <button mat-menu-item (click)="clickedAddChildDepartment()">
-          <mat-icon>group_add</mat-icon>
-          <span i18n="@@component_departmentMenu_ChildUnit">OKR Team</span>
-        </button>
-        <button mat-menu-item (click)="clickedAddChildOkrBranch()">
-          <mat-icon>add</mat-icon>
-          <span i18n="@@component_departmentMenu_ChildUnit">Unterstruktur</span>
-        </button>
-        <button mat-menu-item (click)="clickedAddTopicDraft()">
-          <mat-icon>note_add</mat-icon>
-          <span i18n="@@component_departmentMenu_Topic_draft">Themenentwurf</span>
-        </button>
-      </mat-menu>
-
+        <app-add-child-unit-button (clickedAddSubBranch)="clickedAddChildOkrBranch()"
+                                   (clickedAddSubDepartment)="clickedAddChildDepartment()"
+                                   (clickedAddTopicDraft)="clickedAddTopicDraft()">
+        </app-add-child-unit-button>
       </div>
     </div>
     <!-- Subdepartments -->
-    <div *ngIf="okrBranch.okrUnitIds.length == 0" class="tab-subtitle" i18n="@@component_departmentTabSubDepartments_noChildUnit">
+    <div *ngIf="okrBranch.okrChildUnitIds.length == 0" class="tab-subtitle"
+         i18n="@@component_departmentTabSubDepartments_noChildUnit">
       Es gibt noch keine Unterstrukturen für diese Struktur
     </div>
     <div class="flex-wrap-spreadinner">
-      <div *ngFor="let currentdepartmentId of okrBranch.okrUnitIds">
+      <div *ngFor="let currentdepartmentId of okrBranch.okrChildUnitIds">
         <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
       </div>
     </div>

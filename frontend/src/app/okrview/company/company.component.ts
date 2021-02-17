@@ -15,6 +15,8 @@ import { CurrentOkrUnitSchemaService } from '../current-okr-unit-schema.service'
 import { CurrentCycleService } from '../current-cycle.service';
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
+import { UnitType } from '../../shared/model/api/OkrUnit/unit-type.enum';
+import { OkrChildUnit } from '../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 
 interface CompanyView {
   company: CompanyUnit;
@@ -107,11 +109,23 @@ export class CompanyComponent implements OnInit {
     return { currentlyMemberDepartmentIds, currentlyManagerDepartmentIds };
   }
 
-  clickedAddSubDepartment(company: CompanyUnit): void {
+  clickedAddSubBranch(company: CompanyUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { companyId: company.id }
+      data: { companyId: company.id, unitType: UnitType.OKR_BRANCH }
     });
 
+    this.handleDialogClosed(dialogReference, company);
+  }
+
+  clickedAddSubDepartment(company: CompanyUnit): void {
+    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
+      data: { companyId: company.id, unitType: UnitType.DEPARTMENT }
+    });
+
+    this.handleDialogClosed(dialogReference, company);
+  }
+
+  private handleDialogClosed(dialogReference: MatDialogRef<OkrChildUnitFormComponent>, company: CompanyUnit): void {
     dialogReference
       .afterClosed()
       .pipe(
@@ -119,10 +133,10 @@ export class CompanyComponent implements OnInit {
         filter(v => v as any),
         switchMap((dialogClosed$: ObservableInput<object>) => dialogClosed$)
       )
-      .subscribe(addedSubDepartment => this.onSubDepartmentAdded(company, addedSubDepartment as OkrDepartment));
+      .subscribe(addedSubDepartment => this.onSubDepartmentAdded(company, addedSubDepartment as OkrChildUnit));
   }
 
-  private onSubDepartmentAdded(company: CompanyUnit, addedSubDepartment: OkrDepartment): void {
+  private onSubDepartmentAdded(company: CompanyUnit, addedSubDepartment: OkrChildUnit): void {
     company.okrChildUnitIds.push(addedSubDepartment.id);
     this.currentOkrViewService.refreshCurrentCompanyView(company.id);
   }
