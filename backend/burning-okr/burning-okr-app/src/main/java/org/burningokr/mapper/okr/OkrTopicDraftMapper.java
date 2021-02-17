@@ -6,10 +6,12 @@ import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.OkrTopicDraft;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Service
 @RequiredArgsConstructor
 public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDraftDto> {
 
@@ -17,18 +19,40 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
 
     @Override
     public OkrTopicDraft mapDtoToEntity(OkrTopicDraftDto input) {
-        OkrTopicDraft entity;
-        entity = (OkrTopicDraft) topicDescriptionMapper.mapDtoToEntity(input);
+        OkrTopicDraft entity = new OkrTopicDraft();
+        entity.setAcceptanceCriteria(input.getAcceptanceCriteria());
+        entity.setBeginning(input.getBeginning());
+        entity.setContributesTo(input.getContributesTo());
+        entity.setDelimitation(input.getDelimitation());
+        entity.setDependencies(input.getDependencies());
+        entity.setHandoverPlan(input.getHandoverPlan());
+        entity.setId(input.getId());
+        entity.setInitiatorId(input.getInitiatorId());
+        entity.setName(input.getName());
+        entity.setResources(input.getResources());
+        entity.setStakeholders(input.getStakeholders());
+        entity.setStartTeam(input.getStartTeam());
         return entity;
     }
 
     @Override
     public OkrTopicDraftDto mapEntityToDto(OkrTopicDraft input) {
-        OkrTopicDraftDto entity;
-        entity = (OkrTopicDraftDto) topicDescriptionMapper.mapEntityToDto(input);
-        entity.setOkrParentUnitId(input.getParentUnit().getId());
+        OkrTopicDraftDto dto = new OkrTopicDraftDto();
+        dto.setAcceptanceCriteria(input.getAcceptanceCriteria());
+        dto.setBeginning(input.getBeginning());
+        dto.setContributesTo(input.getContributesTo());
+        dto.setDelimitation(input.getDelimitation());
+        dto.setDependencies(input.getDependencies());
+        dto.setHandoverPlan(input.getHandoverPlan());
+        dto.setId(input.getId());
+        dto.setInitiatorId(input.getInitiatorId());
+        dto.setName(input.getName());
+        dto.setResources(input.getResources());
+        dto.setStakeholders(input.getStakeholders());
+        dto.setStartTeam(input.getStartTeam());
+        dto.setOkrParentUnitId(input.getParentUnit().getId());
 
-        return entity;
+        return dto;
     }
 
     @Override

@@ -3,9 +3,11 @@ package org.burningokr.controller.okrUnit;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
@@ -25,6 +27,7 @@ public class OkrBranchController {
   private final OkrUnitServiceFactory<OkrBranch> okrBranchOkrUnitServiceFactory;
   private final DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper;
   private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
+  private final DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
 
   /**
    * API Endpoint to add a sub-OkrDepartment to an existing OKR_BRANCH.
@@ -66,5 +69,14 @@ public class OkrBranchController {
     okrBranch.setId(null);
     okrBranch = (OkrBranch) branchService.createChildUnit(unitId, okrBranch, user);
     return ResponseEntity.ok(okrBranchMapper.mapEntityToDto(okrBranch));
+  }
+
+  @PostMapping("/branch/{unitId}/topicdraft")
+  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(@PathVariable long unitId, @RequestBody OkrTopicDraftDto topicDraftDto, User user){
+    OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
+    OkrUnitService<OkrBranch> okrUnitService = okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+    OkrTopicDraft newOkrTopicDraft = okrUnitService.createTopicDraft(unitId, topicDraft, user);
+    OkrTopicDraftDto newOkrTopicDraftDto =okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
+    return ResponseEntity.ok(newOkrTopicDraftDto);
   }
 }
