@@ -75,6 +75,7 @@ public class CompanyController {
       DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       DataMapper<OkrBranch, OkrBranchDto> OkrBranchMapper,
+      DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper,
       AuthorizationService authorizationService,
       OkrBranchSchemaMapper okrUnitSchemaMapper,
       UserService userService,
@@ -89,6 +90,7 @@ public class CompanyController {
     this.okrBranchMapper = OkrBranchMapper;
     this.userService = userService;
     this.OkrBranchService = OkrBranchService;
+    this.okrTopicDraftMapper = okrTopicDraftMapper;
   }
 
   /**
