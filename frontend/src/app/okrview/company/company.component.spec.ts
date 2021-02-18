@@ -10,7 +10,7 @@ import { CurrentCycleService } from '../current-cycle.service';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { ExcelMapper } from '../excel-file/excel.mapper';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { of } from 'rxjs';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { OkrUnitRole, OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
@@ -18,6 +18,9 @@ import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { Component, Input } from '@angular/core';
+import { AddChildUnitButtonComponent } from '../add-child-unit-button/add-child-unit-button.component';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TopicDraftCreationFormComponent } from '../okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 
 @Component({
   selector: 'app-okr-child-unit-preview-button',
@@ -57,11 +60,23 @@ describe('CompanyComponent', () => {
     downloadExcelEmailFileForCompany: jest.fn()
   };
 
-  const matDialogMock: any = {};
+  const matDialogMock: any = {
+    open: jest.fn()
+  };
+
+  const dialogRefMock: any = {
+    afterClosed: jest.fn()
+  };
 
   const route: any = {
     paramMap: of(convertToParamMap({companyId: '10'}))
   };
+
+  const snackBarMock: any = {
+    open: jest.fn()
+  };
+
+  const i18nMock: any = jest.fn();
 
   let cycle: CycleUnit;
   let unitSchemas: OkrUnitSchema[];
@@ -71,7 +86,7 @@ describe('CompanyComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        CompanyComponent, OkrChildUnitPreviewButtonMockComponent
+        CompanyComponent, OkrChildUnitPreviewButtonMockComponent, AddChildUnitButtonComponent
       ],
       imports: [MaterialTestingModule, RouterTestingModule],
       providers: [
@@ -82,7 +97,9 @@ describe('CompanyComponent', () => {
         { provide: OkrChildUnitRoleService, useValue: roleServiceMock },
         { provide: ExcelMapper, useValue: excelServiceMock },
         { provide: MatDialog, useValue: matDialogMock },
-        { provide: ActivatedRoute, useValue: route }
+        { provide: ActivatedRoute, useValue: route },
+        { provide: I18n, useValue: i18nMock },
+        { provide: MatSnackBar, useValue: snackBarMock }
       ]
     })
       .compileComponents();
@@ -120,6 +137,12 @@ describe('CompanyComponent', () => {
 
     excelServiceMock.downloadExcelFileForCompany.mockReset();
     excelServiceMock.downloadExcelEmailFileForCompany.mockReset();
+
+    matDialogMock.open.mockReset();
+    matDialogMock.open.mockReturnValue(dialogRefMock);
+
+    dialogRefMock.afterClosed.mockReset();
+    dialogRefMock.afterClosed.mockReturnValue(of(of(company)));
   });
 
   it('should create', () => {
@@ -243,5 +266,32 @@ describe('CompanyComponent', () => {
 
     expect(excelServiceMock.downloadExcelEmailFileForCompany)
       .toHaveBeenCalledWith(company.id);
+  });
+
+  it('clickedAddTopicDraft opens dialog', () => {
+    fixture = TestBed.createComponent(CompanyComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.clickedAddTopicDraft(company);
+
+    expect(matDialogMock.open)
+      .toHaveBeenCalledWith(TopicDraftCreationFormComponent, {
+        width: '600px', data: {  companyId: company.id }
+      });
+  });
+
+  it('clickedAddTopicDraft opens snackBar', done => {
+    fixture = TestBed.createComponent(CompanyComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.clickedAddTopicDraft(company);
+
+    setTimeout(() => {
+      expect(snackBarMock.open)
+        .toHaveBeenCalled();
+      done();
+    }, 500);
   });
 });
