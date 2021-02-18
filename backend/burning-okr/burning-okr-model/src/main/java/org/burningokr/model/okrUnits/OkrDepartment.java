@@ -28,6 +28,9 @@ public class OkrDepartment extends OkrChildUnit {
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
+//  private OkrDepartment previousDepartment;
+//  private OkrDepartment nextDepartment;
+
   /**
    * Creates a copy of the OkrDepartment without relations.
    *
@@ -55,7 +58,12 @@ public class OkrDepartment extends OkrChildUnit {
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
     copy.setOkrTopicDescription(this.getOkrTopicDescription());
+//    copy.setPreviousDepartment(this);
+//    this.setNextDepartment(copy);
     return copy;
   }
   // endregion
 }
+
+// (R.J. 18.02.21) Example for setting the OkrDepartment when the cycle changes
+// topicDraft.setOkrDepartment(topicDraft.getOkrDepartment().getNextDepartment());
