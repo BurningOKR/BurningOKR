@@ -4,8 +4,7 @@ import { CurrentOkrviewService } from '../current-okrview.service';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { Component, OnInit } from '@angular/core';
 import { OkrUnitRole, OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ExcelMapper } from '../excel-file/excel.mapper';
 import { combineLatest, Observable, ObservableInput, of } from 'rxjs';
@@ -17,6 +16,8 @@ import { ContextRole } from '../../shared/model/ui/context-role';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { UnitType } from '../../shared/model/api/OkrUnit/unit-type.enum';
 import { OkrChildUnit } from '../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { TopicDraftCreationFormComponent } from '../okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 interface CompanyView {
   company: CompanyUnit;
@@ -51,7 +52,9 @@ export class CompanyComponent implements OnInit {
     private companyMapperService: CompanyMapper,
     private matDialog: MatDialog,
     private roleService: OkrChildUnitRoleService,
-    private excelFileService: ExcelMapper
+    private excelFileService: ExcelMapper,
+    private i18n: I18n,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -130,7 +133,7 @@ export class CompanyComponent implements OnInit {
       .afterClosed()
       .pipe(
         take(1),
-        filter(v => v as any),
+        filter(v => v),
         switchMap((dialogClosed$: ObservableInput<object>) => dialogClosed$)
       )
       .subscribe(addedSubDepartment => this.onSubDepartmentAdded(company, addedSubDepartment as OkrChildUnit));
@@ -139,6 +142,29 @@ export class CompanyComponent implements OnInit {
   private onSubDepartmentAdded(company: CompanyUnit, addedSubDepartment: OkrChildUnit): void {
     company.okrChildUnitIds.push(addedSubDepartment.id);
     this.currentOkrViewService.refreshCurrentCompanyView(company.id);
+  }
+
+  // TODO: (R.J. 17.02.21) Refactor this and other occurrence in OkrChildUnitTabComponent, to remove duplicate code.
+  clickedAddTopicDraft(company: CompanyUnit): void {
+    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {
+      width: '600px', data: { companyId: company.id }
+    });
+
+    dialogReference
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter(v => v),
+        switchMap(n => n)
+      )
+      .subscribe(addedTopicDraft => {
+        const snackBarText: string = this.i18n({
+          id: 'snackbar_addTopicDraft',
+          value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'
+        });
+        const snackBarOk: string = this.i18n({ id: 'snackbar_ok', value: 'Ok' });
+        this.snackBar.open(snackBarText, snackBarOk, { verticalPosition: 'top' });
+      });
   }
 
   clickedDownloadExcelFileForCompany(company: CompanyUnit): void {

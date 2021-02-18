@@ -253,8 +253,16 @@ public class CompanyController {
     return ResponseEntity.ok().build();
   }
 
+  /**
+   * API Endpoint to create TopicDrafts for a company
+   *
+   * @param companyId the id of the parent company
+   * @param topicDraftDto an {@link OkrTopicDraftDto} object
+   * @param user an {@link User} object
+   * @return
+   */
   @PostMapping("/companies/{companyId}/topicdraft")
-  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraftForBranch(
+  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraft(
       @PathVariable long companyId, @RequestBody OkrTopicDraftDto topicDraftDto, User user) {
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
     OkrTopicDraft newOkrTopicDraft = companyService.createTopicDraft(companyId, topicDraft, user);
