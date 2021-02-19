@@ -5,8 +5,10 @@
       <div class="f-3">
         <div class="tab-headline" i18n="@@component_departmentTabSubDepartments_childUnit">Unterstrukturen</div>
       </div>
-      <div class="icon-spacer f-1" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
-        <app-add-child-unit-button (clickedAddSubBranch)="clickedAddChildOkrBranch()"
+      <div class="icon-spacer f-1">
+        <app-add-child-unit-button [userRole]="currentUserRole"
+                                   [cycleClosed]="cycle.isCycleClosed()"
+                                   (clickedAddSubBranch)="clickedAddChildOkrBranch()"
                                    (clickedAddSubDepartment)="clickedAddChildDepartment()"
                                    (clickedAddTopicDraft)="clickedAddTopicDraft()">
         </app-add-child-unit-button>

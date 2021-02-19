@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ContextRole } from '../../shared/model/ui/context-role';
 
 @Component({
   selector: 'app-add-child-unit-button',
@@ -6,6 +7,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./add-child-unit-button.component.css']
 })
 export class AddChildUnitButtonComponent {
+
+  @Input() cycleClosed: boolean;
+  @Input() userRole: ContextRole;
 
   @Output() clickedAddSubDepartment: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedAddSubBranch: EventEmitter<void> = new EventEmitter<void>();

@@ -47,14 +47,10 @@
               <div class="f-3">
                 <div class="tab-headline" i18n="@@component_commentViewDialog_childUnit">Unterstrukturen</div>
               </div>
-              <div class="icon-spacer f-1"
-                   *ngIf="(currentUserRole$ | async)?.isAtleastAdmin() && !companyView.cycle.isCycleClosed()">
-<!--                <button mat-mini-fab color="accent" (click)="clickedAddSubDepartment(companyView.company)">-->
-<!--                  <mat-icon i18n-matTooltip="@@component_commentViewDialog_defineNewChildUnit"-->
-<!--                            matTooltip="Neue Unterstruktur definieren">add_circle_outline-->
-<!--                  </mat-icon>-->
-<!--                </button>-->
-                <app-add-child-unit-button (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)"
+              <div class="icon-spacer f-1">
+                <app-add-child-unit-button [userRole]="currentUserRole$ | async"
+                                           [cycleClosed]="companyView.cycle.isCycleClosed()"
+                                           (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)"
                                            (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)"
                                            (clickedAddTopicDraft)="clickedAddTopicDraft(companyView.company)"></app-add-child-unit-button>
               </div>

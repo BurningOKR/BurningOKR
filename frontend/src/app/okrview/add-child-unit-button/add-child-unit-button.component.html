@@ -1,19 +1,22 @@
-<button mat-icon-button mat-mini-fab [matMenuTriggerFor]="unitTypeDropdown" color="accent">
-  <mat-icon i18n-matTooltip="@@component_departmentTabSubDepartments_defineChildUnit"
-            matTooltip="Neue Unterstruktur definieren">add_circle_outline
-  </mat-icon>
-</button>
-<mat-menu #unitTypeDropdown="matMenu">
-  <button mat-menu-item (click)="clickedAddSubDepartment.emit()">
-    <mat-icon>group_add</mat-icon>
-    <span i18n="@@component_departmentMenu_ChildUnit">OKR Team</span>
+<ng-container *ngIf="!cycleClosed">
+  <button mat-icon-button mat-mini-fab [matMenuTriggerFor]="unitTypeDropdown" color="accent">
+    <mat-icon i18n-matTooltip="@@component_departmentTabSubDepartments_defineChildUnit"
+              matTooltip="Neue Unterstruktur definieren">add_circle_outline
+    </mat-icon>
   </button>
-  <button mat-menu-item (click)="clickedAddSubBranch.emit()">
-    <mat-icon>add</mat-icon>
-    <span i18n="@@component_departmentMenu_ChildUnit">Unterstruktur</span>
-  </button>
-  <button mat-menu-item (click)="clickedAddTopicDraft.emit()">
-    <mat-icon>note_add</mat-icon>
-    <span i18n="@@component_departmentMenu_Topic_draft">Themenentwurf</span>
-  </button>
-</mat-menu>
+  <mat-menu #unitTypeDropdown="matMenu">
+    <button mat-menu-item (click)="clickedAddSubDepartment.emit()" *ngIf="userRole.isAtleastAdmin()">
+      <mat-icon>group_add</mat-icon>
+      <span i18n="@@component_departmentMenu_ChildUnit">OKR Team</span>
+    </button>
+    <button mat-menu-item (click)="clickedAddSubBranch.emit()" *ngIf="userRole.isAtleastAdmin()">
+      <mat-icon>add</mat-icon>
+      <span i18n="@@component_departmentMenu_ChildUnit">Unterstruktur</span>
+    </button>
+    <button mat-menu-item (click)="clickedAddTopicDraft.emit()">
+      <mat-icon>note_add</mat-icon>
+      <span i18n="@@component_departmentMenu_Topic_draft">Themenentwurf</span>
+    </button>
+  </mat-menu>
+</ng-container>
+
