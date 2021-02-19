@@ -11,27 +11,10 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
-      version: '1.0.0 (18.06.2020)',
+      version: '1.0.4 (08.02.2021)',
       changes: [
-        'Initial Release.'
-      ]
-    },
-    {
-      version: '1.0.1 (01.09.2020)',
-      changes: [
-        'BurningOKR is now also available in English!',
-        'POST Requests to log errors in the frontend no longer return a 401 error.',
-        'BurningOKR can now be configured to not use Topic Sponsors.',
-        'Other minor improvements and bug fixes.',
-        'Our demo website is now online: http://burningokr.org'
-      ]
-    },
-    {
-      version: '1.0.2 (05.10.2020)',
-      changes: [
-        'Newly created users can now be added to a team without having to reload the page first.',
-        'After updating your username, it will now be displayed correctly in the top right corner of the navigation bar.',
-        'Creating a cycle when there are Structures (Branches) in the company, will no longer cause errors.'
+        'Descriptions can now be added to OKR Teams',
+        'Minor UI fixes'
       ]
     },
     {
@@ -46,10 +29,27 @@ export class VersionFormComponent {
       ]
     },
     {
-      version: '1.0.4 (08.02.2021)',
+      version: '1.0.2 (05.10.2020)',
       changes: [
-        'Descriptions can now be added to OKR Teams',
-        'Minor UI fixes'
+        'Newly created users can now be added to a team without having to reload the page first.',
+        'After updating your username, it will now be displayed correctly in the top right corner of the navigation bar.',
+        'Creating a cycle when there are Structures (Branches) in the company, will no longer cause errors.'
+      ]
+    },
+    {
+      version: '1.0.1 (01.09.2020)',
+      changes: [
+        'BurningOKR is now also available in English!',
+        'POST Requests to log errors in the frontend no longer return a 401 error.',
+        'BurningOKR can now be configured to not use Topic Sponsors.',
+        'Other minor improvements and bug fixes.',
+        'Our demo website is now online: http://burningokr.org'
+      ]
+    },
+    {
+      version: '1.0.0 (18.06.2020)',
+      changes: [
+        'Initial Release.'
       ]
     }
   ];
