@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.model.cycles.Cycle;
-import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -29,7 +29,7 @@ public class OkrCompanyMapperTest {
     cycle.setId(14L);
     okrCompany.setCycle(cycle);
 
-    OkrCompanyHistory history = new OkrCompanyHistory();
+    OkrUnitHistory<OkrCompany> history = new OkrUnitHistory<>();
     history.setId(24L);
     okrCompany.setHistory(history);
   }
@@ -96,7 +96,7 @@ public class OkrCompanyMapperTest {
   @Test
   public void test_mapEntityToDto_expects_HistoryIsMapped() {
     Long expected = 27L;
-    OkrCompanyHistory history = new OkrCompanyHistory();
+    OkrUnitHistory<OkrCompany> history = new OkrUnitHistory<>();
     history.setId(expected);
     okrCompany.setHistory(history);
     okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);

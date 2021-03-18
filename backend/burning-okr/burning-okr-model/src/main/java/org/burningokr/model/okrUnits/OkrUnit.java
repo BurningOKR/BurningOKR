@@ -2,19 +2,13 @@ package org.burningokr.model.okrUnits;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
+import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.Objective;
 
 @Entity

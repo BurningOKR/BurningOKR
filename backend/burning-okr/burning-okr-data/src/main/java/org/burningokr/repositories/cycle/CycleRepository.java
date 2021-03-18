@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.cycles.OkrUnitHistory;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ public interface CycleRepository extends ExtendedRepository<Cycle, Long> {
           + "WHERE a.history = ?1 "
           + "AND ?2 BETWEEN c.plannedStartDate AND c.plannedEndDate")
   List<Cycle> findByCompanyHistoryAndDateBetweenPlannedTimeRange(
-      OkrCompanyHistory okrCompanyHistory, LocalDate dateToCheck);
+      OkrUnitHistory<OkrCompany> okrUnitHistory, LocalDate dateToCheck);
 
   @Query(
       "SELECT c FROM Cycle c "
@@ -26,7 +27,7 @@ public interface CycleRepository extends ExtendedRepository<Cycle, Long> {
           + "AND c.plannedStartDate > ?2 "
           + "AND c.plannedEndDate < ?3")
   List<Cycle> findByCompanyHistoryAndPlannedTimeRangeBetweenDates(
-      OkrCompanyHistory okrCompanyHistory, LocalDate startDate, LocalDate endDate);
+      OkrUnitHistory<OkrCompany> okrUnitHistory, LocalDate startDate, LocalDate endDate);
 
   @Query(
       "SELECT c from Cycle c "
@@ -37,5 +38,5 @@ public interface CycleRepository extends ExtendedRepository<Cycle, Long> {
           + "ORDER BY c.plannedEndDate DESC")
   List<Cycle>
       findByCompanyHistoryAndPlannedStartBeforeOrEqualAndNotCycleStateOrderByEndDateDescending(
-          OkrCompanyHistory okrCompanyHistory, LocalDate currentDate, CycleState cycleStateNotToBe);
+      OkrUnitHistory<OkrCompany> okrUnitHistory, LocalDate currentDate, CycleState cycleStateNotToBe);
 }

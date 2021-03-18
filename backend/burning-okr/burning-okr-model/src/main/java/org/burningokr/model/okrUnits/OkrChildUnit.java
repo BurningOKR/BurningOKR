@@ -2,6 +2,7 @@ package org.burningokr.model.okrUnits;
 
 import javax.persistence.*;
 import lombok.*;
+import org.burningokr.model.cycles.OkrUnitHistory;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

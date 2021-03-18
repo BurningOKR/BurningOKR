@@ -11,17 +11,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.cycles.Cycle;
-import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.cycles.OkrUnitHistory;
 
 @Entity
 @Table(name = "okr_company")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OkrCompany extends OkrUnit implements OkrParentUnit {
+public class OkrCompany extends OkrUnit implements OkrParentUnit, Historical<OkrCompany> {
 
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude private Cycle cycle;
-
-  @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude private OkrCompanyHistory history;
 
   @OneToMany(
       mappedBy = "parentOkrUnit",
@@ -43,6 +41,9 @@ public class OkrCompany extends OkrUnit implements OkrParentUnit {
   public void setOkrChildUnits(Collection<OkrChildUnit> subDepartments) {
     this.okrChildUnits = subDepartments;
   }
+
+  @ManyToOne
+  private OkrUnitHistory<OkrCompany> history;
 
   /**
    * Creates a copy of the OkrCompany without relations.

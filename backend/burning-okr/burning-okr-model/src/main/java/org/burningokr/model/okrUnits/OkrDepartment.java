@@ -8,12 +8,13 @@ import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.OkrTopicDescription;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OkrDepartment extends OkrChildUnit {
+public class OkrDepartment extends OkrChildUnit implements Historical<OkrDepartment> {
 
   private UUID okrMasterId;
 
@@ -28,8 +29,8 @@ public class OkrDepartment extends OkrChildUnit {
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
-//  private OkrDepartment previousDepartment;
-//  private OkrDepartment nextDepartment;
+  @ManyToOne
+  private OkrUnitHistory<OkrDepartment> history;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
@@ -64,6 +65,3 @@ public class OkrDepartment extends OkrChildUnit {
   }
   // endregion
 }
-
-// (R.J. 18.02.21) Example for setting the OkrDepartment when the cycle changes
-// topicDraft.setOkrDepartment(topicDraft.getOkrDepartment().getNextDepartment());

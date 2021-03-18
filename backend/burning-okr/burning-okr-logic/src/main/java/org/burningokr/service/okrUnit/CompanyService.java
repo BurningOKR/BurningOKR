@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
@@ -79,7 +79,7 @@ public class CompanyService {
 
   public Collection<OkrCompany> findCompanyHistoryByCompanyId(long companyId) {
     OkrCompany okrCompany = findById(companyId);
-    return okrCompany.getHistory().getCompanies();
+    return okrCompany.getHistory().getUnits();
   }
 
   /**
@@ -91,7 +91,7 @@ public class CompanyService {
   public Collection<Cycle> findCycleListByCompanyId(long companyId) {
     OkrCompany okrCompany = findById(companyId);
     ArrayList<Cycle> cycleList = new ArrayList<>();
-    for (OkrCompany currentOkrCompany : okrCompany.getHistory().getCompanies()) {
+    for (OkrCompany currentOkrCompany : okrCompany.getHistory().getUnits()) {
       cycleList.add(currentOkrCompany.getCycle());
     }
     return cycleList;
@@ -117,7 +117,7 @@ public class CompanyService {
     cycleRepository.save(cycle);
     okrCompany.setCycle(cycle);
 
-    OkrCompanyHistory history = new OkrCompanyHistory();
+    OkrUnitHistory<OkrCompany> history = new OkrUnitHistory<>();
     companyHistoryRepository.save(history);
     okrCompany.setHistory(history);
 
@@ -171,7 +171,7 @@ public class CompanyService {
     Collection<OkrCompany> companiesToDelete = new ArrayList<>();
 
     if (deleteWholeHistory && okrCompany.getHistory() != null) {
-      companiesToDelete = okrCompany.getHistory().getCompanies();
+      companiesToDelete = okrCompany.getHistory().getUnits();
     } else {
       companiesToDelete.add(okrCompany);
     }
@@ -191,8 +191,8 @@ public class CompanyService {
         deleteEmptyCycle(cycle, user);
       }
 
-      OkrCompanyHistory history = okrCompanyToDelete.getHistory();
-      if (history != null && history.getCompanies() != null && history.getCompanies().isEmpty()) {
+      OkrUnitHistory<OkrCompany> history = okrCompanyToDelete.getHistory();
+      if (history != null && history.getUnits() != null && history.getUnits().isEmpty()) {
         deleteEmptyHistory(history, user);
       }
     }
@@ -289,7 +289,7 @@ public class CompanyService {
     activityService.createActivity(user, cycle, Action.DELETED);
   }
 
-  private void deleteEmptyHistory(OkrCompanyHistory history, User user) {
+  private void deleteEmptyHistory(OkrUnitHistory<OkrCompany> history, User user) {
     companyHistoryRepository.deleteById(history.getId());
     logger.info("Deleted cycle with id: " + history.getId());
     activityService.createActivity(user, history, Action.DELETED);

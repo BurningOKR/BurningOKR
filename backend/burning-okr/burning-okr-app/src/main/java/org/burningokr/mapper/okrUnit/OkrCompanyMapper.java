@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.cycles.Cycle;
-import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -36,9 +36,9 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
     }
     okrCompany.setCycle(cycle);
 
-    OkrCompanyHistory history = null;
+    OkrUnitHistory<OkrCompany> history = null;
     if (okrCompanyDto.getHistoryId() != null) {
-      history = new OkrCompanyHistory();
+      history = new OkrUnitHistory<>();
       history.setId(okrCompanyDto.getHistoryId());
     }
     okrCompany.setHistory(history);
