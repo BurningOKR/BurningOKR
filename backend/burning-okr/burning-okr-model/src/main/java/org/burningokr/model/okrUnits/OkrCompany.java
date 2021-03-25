@@ -42,8 +42,7 @@ public class OkrCompany extends OkrUnit implements OkrParentUnit {
     this.okrChildUnits = subDepartments;
   }
 
-  @ManyToOne
-  private OkrCompanyHistory history;
+  @ManyToOne private OkrCompanyHistory history;
 
   /**
    * Creates a copy of the OkrCompany without relations.

@@ -1,8 +1,6 @@
 package org.burningokr.repositories.cycle;
 
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
-import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.stereotype.Repository;
 

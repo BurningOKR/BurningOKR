@@ -29,9 +29,7 @@ public class OkrDepartment extends OkrChildUnit {
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
-  @ManyToOne
-  private OkrDepartmentHistory history;
-
+  @ManyToOne private OkrDepartmentHistory history;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
@@ -60,9 +58,7 @@ public class OkrDepartment extends OkrChildUnit {
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
     copy.setOkrTopicDescription(this.getOkrTopicDescription());
-//    copy.setPreviousDepartment(this);
-//    this.setNextDepartment(copy);
+    copy.setHistory(this.getHistory());
     return copy;
   }
-  // endregion
 }
