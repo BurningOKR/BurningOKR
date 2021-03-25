@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.cycles.OkrUnitHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.data.jpa.repository.Query;

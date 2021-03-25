@@ -1,4 +1,4 @@
-package org.burningokr.model.cycles;
+package org.burningokr.model.okrUnits.okrUnitHistories;
 
 import java.util.ArrayList;
 import java.util.Collection;

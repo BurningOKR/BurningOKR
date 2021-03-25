@@ -11,7 +11,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.cycles.Cycle;
-import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 
 @Entity

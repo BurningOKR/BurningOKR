@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.Objective;
 
 @Entity

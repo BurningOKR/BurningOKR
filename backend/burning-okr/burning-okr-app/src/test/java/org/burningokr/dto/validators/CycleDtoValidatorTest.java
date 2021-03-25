@@ -14,7 +14,8 @@ import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.cycles.OkrUnitHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
@@ -37,7 +38,7 @@ public class CycleDtoValidatorTest {
 
   private Long cycleDtoId = 100L;
 
-  private OkrUnitHistory<OkrCompany> targetOkrUnitHistory;
+  private OkrCompanyHistory targetOkrUnitHistory;
   private OkrCompany targetOkrCompany;
 
   private List<Cycle> repositoryReturnCyclesThatOverlapFromSameCompanyHistory;
@@ -45,7 +46,7 @@ public class CycleDtoValidatorTest {
 
   @Before
   public void reset() {
-    targetOkrUnitHistory = new OkrUnitHistory<>();
+    targetOkrUnitHistory = new OkrCompanyHistory();
     targetOkrCompany = new OkrCompany();
     targetOkrCompany.setHistory(targetOkrUnitHistory);
 

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.*;
-import org.burningokr.model.cycles.OkrUnitHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 
 @Entity
 @Data
@@ -36,6 +36,9 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
   public void setOkrChildUnits(Collection<OkrChildUnit> subDepartments) {
     this.okrChildUnits = subDepartments;
   }
+
+  @ManyToOne
+  private OkrBranchHistory history;
 
   /**
    * Creates a copy of the OkrBranch without relations.

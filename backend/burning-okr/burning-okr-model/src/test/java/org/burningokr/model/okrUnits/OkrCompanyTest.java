@@ -2,7 +2,8 @@ package org.burningokr.model.okrUnits;
 
 import java.util.ArrayList;
 import org.burningokr.model.cycles.Cycle;
-import org.burningokr.model.cycles.OkrUnitHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class OkrCompanyTest {
   private long originalId;
   private OkrCompany expectedOkrCompany;
   private Cycle originalCycle;
-  private OkrUnitHistory<OkrCompany> originalHistory;
+  private OkrCompanyHistory originalHistory;
   private String originalName;
   private String originalLabel;
   private ArrayList<OkrChildUnit> originalDepartments;
@@ -23,7 +24,7 @@ public class OkrCompanyTest {
   @Before
   public void init() {
     originalCycle = new Cycle();
-    originalHistory = new OkrUnitHistory<>();
+    originalHistory = new OkrCompanyHistory();
     originalName = "originalName";
     originalLabel = "originalLabel";
     originalDepartments = new ArrayList<>();

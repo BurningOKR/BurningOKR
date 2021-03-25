@@ -2,7 +2,8 @@ package org.burningokr.model.okrUnits.okrUnitHistories;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.burningokr.model.okrUnits.OkrCompany;
+import lombok.ToString;
+import org.burningokr.model.okrUnits.OkrBranch;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,18 +14,20 @@ import java.util.Collection;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class OkrCompanyHistory extends OkrUnitHistory<OkrCompany> {
+public class OkrBranchHistory extends OkrUnitHistory<OkrBranch> {
 
-    @OneToMany(mappedBy = "history", cascade = CascadeType.REMOVE, targetEntity = OkrCompany.class)
-    private Collection<OkrCompany> units = new ArrayList<>();
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "history", cascade = CascadeType.REMOVE, targetEntity = OkrBranch.class)
+    private Collection<OkrBranch> units = new ArrayList<>();
 
     @Override
-    public void addUnit(OkrCompany unit) {
+    public void addUnit(OkrBranch unit) {
         units.add(unit);
     }
 
     @Override
-    public Collection<OkrCompany> getUnits() {
+    public Collection<OkrBranch> getUnits() {
         return units;
     }
 
@@ -34,7 +37,7 @@ public class OkrCompanyHistory extends OkrUnitHistory<OkrCompany> {
     }
 
     @Override
-    public void removeUnit(OkrCompany unit) {
+    public void removeUnit(OkrBranch unit) {
         units.remove(unit);
     }
 }

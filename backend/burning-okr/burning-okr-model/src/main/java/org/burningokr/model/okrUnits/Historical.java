@@ -1,6 +1,6 @@
 package org.burningokr.model.okrUnits;
 
-import org.burningokr.model.cycles.OkrUnitHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 
 public interface Historical<T extends OkrUnit> {
   OkrUnitHistory<T> getHistory();

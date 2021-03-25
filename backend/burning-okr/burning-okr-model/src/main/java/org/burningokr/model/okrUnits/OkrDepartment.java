@@ -8,8 +8,8 @@ import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 
 @Entity
 @Data
@@ -28,6 +28,9 @@ public class OkrDepartment extends OkrChildUnit {
 
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
+
+  @ManyToOne
+  private OkrDepartmentHistory history;
 
 
   /**
