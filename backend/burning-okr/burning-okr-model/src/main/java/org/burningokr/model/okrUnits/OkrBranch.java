@@ -12,7 +12,7 @@ import org.burningokr.model.cycles.OkrUnitHistory;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OkrBranch extends OkrChildUnit implements OkrParentUnit, Historical<OkrBranch> {
+public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
 
   @OneToMany(
       mappedBy = "parentOkrUnit",
@@ -36,9 +36,6 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit, Historical
   public void setOkrChildUnits(Collection<OkrChildUnit> subDepartments) {
     this.okrChildUnits = subDepartments;
   }
-
-  @ManyToOne
-  private OkrUnitHistory<OkrBranch> history;
 
   /**
    * Creates a copy of the OkrBranch without relations.

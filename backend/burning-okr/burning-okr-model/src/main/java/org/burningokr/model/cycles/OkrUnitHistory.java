@@ -13,18 +13,23 @@ import org.burningokr.model.okrUnits.OkrUnit;
 
 @Entity
 @Data
-public class OkrUnitHistory<T extends OkrUnit> implements Trackable<Long> {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class OkrUnitHistory<T extends OkrUnit> implements Trackable<Long> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  // TODO: (R.J. 18.03.2021) OkrCompany.class is not correct here. It should be changed, so that it also covers departments and branches.
-  @OneToMany(mappedBy = "history", cascade = CascadeType.REMOVE, targetEntity = OkrCompany.class)
-  private Collection<T> units = new ArrayList<>();
-
   @Override
   public String getName() {
     return "History " + id;
   }
+
+  public abstract void addUnit(T unit);
+
+  public abstract Collection<T> getUnits();
+
+  public abstract void clearUnits();
+
+  public abstract void removeUnit(T unit);
 }

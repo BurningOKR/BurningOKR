@@ -14,7 +14,7 @@ import org.burningokr.model.okr.OkrTopicDescription;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OkrDepartment extends OkrChildUnit implements Historical<OkrDepartment> {
+public class OkrDepartment extends OkrChildUnit {
 
   private UUID okrMasterId;
 
@@ -29,8 +29,6 @@ public class OkrDepartment extends OkrChildUnit implements Historical<OkrDepartm
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
-  @ManyToOne
-  private OkrUnitHistory<OkrDepartment> history;
 
   /**
    * Creates a copy of the OkrDepartment without relations.

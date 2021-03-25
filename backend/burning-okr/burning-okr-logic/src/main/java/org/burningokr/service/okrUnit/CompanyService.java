@@ -10,6 +10,7 @@ import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
@@ -117,7 +118,7 @@ public class CompanyService {
     cycleRepository.save(cycle);
     okrCompany.setCycle(cycle);
 
-    OkrUnitHistory<OkrCompany> history = new OkrUnitHistory<>();
+    OkrCompanyHistory history = new OkrCompanyHistory();
     companyHistoryRepository.save(history);
     okrCompany.setHistory(history);
 

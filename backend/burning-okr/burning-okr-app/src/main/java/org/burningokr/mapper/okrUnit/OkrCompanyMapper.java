@@ -9,6 +9,7 @@ import org.burningokr.model.cycles.OkrUnitHistory;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,9 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
     }
     okrCompany.setCycle(cycle);
 
-    OkrUnitHistory<OkrCompany> history = null;
+    OkrCompanyHistory history = null;
     if (okrCompanyDto.getHistoryId() != null) {
-      history = new OkrUnitHistory<>();
+      history = new OkrCompanyHistory();
       history.setId(okrCompanyDto.getHistoryId());
     }
     okrCompany.setHistory(history);
