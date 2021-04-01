@@ -7,14 +7,13 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-    border: 1px dotted red;
     flex-grow: 1;
     flex-shrink: 1;
+    
 }
 .swimlane-task-container {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     width: 100%;
 }
 
@@ -22,4 +21,11 @@
     width: 100%;
     margin: 2px;
     border: 1px solid green;
+}
+
+@media (max-width: 1550px) {
+    .swimlane-content {
+        justify-content: initial;
+        overflow-x: auto;
+    }
 }
