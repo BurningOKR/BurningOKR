@@ -6,7 +6,6 @@ import org.burningokr.mapper.okr.TaskMapper;
 import org.burningokr.model.okr.Task;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.TaskService;
-import org.burningokr.service.security.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +15,14 @@ import java.util.Collection;
 
 @RestApiController
 public class TaskController {
-    private AuthorizationService authorizationService;
-    private TaskService taskService;
-    private TaskMapper taskMapper;
+    private final TaskService taskService;
+    private final TaskMapper taskMapper;
 
     @Autowired
     public TaskController(
-            AuthorizationService authorizationService,
             TaskService taskService,
             TaskMapper taskMapper
     ){
-        this.authorizationService = authorizationService;
         this.taskService =taskService;
         this.taskMapper = taskMapper;
     }

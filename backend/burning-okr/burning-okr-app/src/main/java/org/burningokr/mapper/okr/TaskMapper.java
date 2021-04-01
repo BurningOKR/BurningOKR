@@ -28,7 +28,7 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
         taskEntity.setDescription(taskDto.getDescription());
 
         if (taskDto.getAssignedUserIds() == null) {
-            taskEntity.setAssignedUserIds(new ArrayList<UUID>());
+            taskEntity.setAssignedUserIds(new ArrayList<>());
         } else {
             Collection<UUID> copiedUserIds = copyUUIDList(taskDto.getAssignedUserIds());
             taskEntity.setAssignedUserIds(copiedUserIds);
@@ -73,7 +73,7 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
         }
 
         if (taskEntity.getAssignedUserIds() == null) {
-            taskDto.setAssignedUserIds(new ArrayList<UUID>());
+            taskDto.setAssignedUserIds(new ArrayList<>());
         } else {
             Collection<UUID> copiedUserIds = copyUUIDList(taskEntity.getAssignedUserIds());
             taskDto.setAssignedUserIds(copiedUserIds);
@@ -113,19 +113,19 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
 
     private void logDTOList(Collection<TaskDto> taskList) {
 
-        String result = "Log DTO List\n";
+        StringBuilder result = new StringBuilder("Log DTO List\n");
         for (TaskDto task : taskList) {
-            result += "--------------\n";
-            result += "Id: " + task.getId() + "\n";
-            result += "title: " + task.getTitle() + "\n";
-            result += "description: " + task.getDescription() + "\n";
-            result += "stateId: " + task.getTaskStateId() + "\n";
-            result += "Assigned Key Result Id: " + task.getAssignedKeyResultId() + "\n";
-            result += "previous Task Id: " + task.getPreviousTaskId() + "\n";
-            result += "parent TaskBoard Id: " + task.getParentTaskBoardId() + "\n";
-            result += "My Assigned User Ids: " + String.valueOf(task.getAssignedUserIds()) + "\n";
-            result += "Version: " + task.getVersion() + "\n";
+            result.append("--------------\n");
+            result.append("Id: ").append(task.getId()).append("\n");
+            result.append("title: ").append(task.getTitle()).append("\n");
+            result.append("description: ").append(task.getDescription()).append("\n");
+            result.append("stateId: ").append(task.getTaskStateId()).append("\n");
+            result.append("Assigned Key Result Id: ").append(task.getAssignedKeyResultId()).append("\n");
+            result.append("previous Task Id: ").append(task.getPreviousTaskId()).append("\n");
+            result.append("parent TaskBoard Id: ").append(task.getParentTaskBoardId()).append("\n");
+            result.append("My Assigned User Ids: ").append(String.valueOf(task.getAssignedUserIds())).append("\n");
+            result.append("Version: ").append(task.getVersion()).append("\n");
         }
-        logger.info(result);
+        logger.info(result.toString());
     }
 }
