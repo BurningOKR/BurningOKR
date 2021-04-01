@@ -25,6 +25,7 @@ export interface TaskFormData {
   defaultState: ViewTaskState;
   states: ViewTaskState[];
   keyResults: ViewKeyResult[];
+  isInteractive: boolean;
 }
 
 @Component({
@@ -43,6 +44,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   states: ViewTaskState[];
   subscriptions: Subscription[] = [];
   title: string;
+  isInteractive: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<TaskFormComponent>,
@@ -57,12 +59,13 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.isInteractive = this.formData.isInteractive;
     this.taskForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      description: new FormControl('', [Validators.maxLength(255)]),
-      assignedUserIds: new FormControl(),
-      assignedKeyResultId: new FormControl(),
-      taskStateId: new FormControl(this.formData.defaultState.id, [Validators.required]),
+      title: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.required, Validators.maxLength(255)]),
+      description: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.maxLength(255)]),
+      assignedUserIds: new FormControl({ value: null, disabled: !this.isInteractive }),
+      assignedKeyResultId: new FormControl({ value: null, disabled: !this.isInteractive }),
+      taskStateId: new FormControl({ value: this.formData.defaultState.id, disabled: !this.isInteractive }, [Validators.required]),
     });
 
     this.states = this.formData.states;
@@ -73,12 +76,12 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         description: this.formData.task.description,
         assignedUserIds: this.formData.task.assignedUserIds,
         assignedKeyResultId: this.formData.task.assignedKeyResultId,
-        taskStateId: this.formData.task.taskStateId
+        taskStateId: this.formData.task.taskStateId,
       });
     }
 
     this.users$ = this.userService.getAllUsers$();
-    
+
     this.keyResultMaps$ = this.objectiveMapper.getObjectivesForUnit$(this.formData.unitId)
       .pipe(
         switchMap(objectives => {

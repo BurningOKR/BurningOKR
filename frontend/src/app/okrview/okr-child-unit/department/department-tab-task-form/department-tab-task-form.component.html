@@ -1,4 +1,4 @@
-<app-dialog-component [title]="title" (okEmitter)="saveObjective()" [formGroup]="taskForm">
+<app-dialog-component [title]="title" [isSaveButtonDisabled]="!isInteractive" (okEmitter)="saveObjective()" [formGroup]="taskForm">
     <form [formGroup]="taskForm">
         <mat-form-field class="form-whole-line">
             <input type="text" matInput i18n-placeholder="@@component_TaskForm_title" placeholder="Titel *"
