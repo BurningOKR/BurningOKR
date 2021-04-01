@@ -34,25 +34,27 @@ export class TaskBoardGeneralHelper extends TaskService {
         let result: ViewTask[] = this.copyTaskList(currentList);
         if (result && task) {
             const currentListIndex: number = this.getListIndexForTaskId(result, task.id);
-            const oldTask: ViewTask = result[currentListIndex];
-            let precessor: ViewTask = result[currentListIndex - 1];
-            let successor: ViewTask = result[currentListIndex + 1];
+            if (currentListIndex >= 0) {
+                const oldTask: ViewTask = result[currentListIndex];
+                let precessor: ViewTask = result[currentListIndex - 1];
+                let successor: ViewTask = result[currentListIndex + 1];
 
-            if (successor && (successor.taskStateId !== oldTask.taskStateId || successor.previousTaskId !== oldTask.id)) {
-                successor = null;
-            }
+                if (successor && (successor.taskStateId !== oldTask.taskStateId || successor.previousTaskId !== oldTask.id)) {
+                    successor = null;
+                }
 
-            if (precessor && (precessor.taskStateId !== oldTask.taskStateId || oldTask.previousTaskId !== precessor.id)) {
-                precessor = null;
-            }
+                if (precessor && (precessor.taskStateId !== oldTask.taskStateId || oldTask.previousTaskId !== precessor.id)) {
+                    precessor = null;
+                }
 
-            if (successor && precessor) {
-                successor.previousTaskId = precessor.id;
-                console.log('removetask');
-            } else if (successor) {
-                successor.previousTaskId = null;
+                if (successor && precessor) {
+                    successor.previousTaskId = precessor.id;
+                    console.log('removetask');
+                } else if (successor) {
+                    successor.previousTaskId = null;
+                }
+                result = this.removeTaskFromTaskList(result, oldTask);
             }
-            result = this.removeTaskFromTaskList(result, oldTask);
         }
 
         return result;

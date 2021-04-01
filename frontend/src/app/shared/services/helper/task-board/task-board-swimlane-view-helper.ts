@@ -18,17 +18,19 @@ export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper 
 
         const tasksWithoutKeyResults: ViewTask[] = this.findTasksWithoutKeyResult(tasks);
         this.removeTasksFromTaskList(copiedTasks, tasksWithoutKeyResults);
-        map.push({ keyResult: emptyKeyResult, statesWithTasks: this.createStateTaskMapList(states, tasksWithoutKeyResults) });
+        if (copiedTasks.length >= 0) {
+            map.push({ keyResult: emptyKeyResult, statesWithTasks: this.createStateTaskMapList(states, tasksWithoutKeyResults) });
 
-        for (const keyResult of keyResults) {
-            const tasksForKeyResult: ViewTask[] = copiedTasks.filter(task => task.assignedKeyResultId === keyResult.id);
-            this.removeTasksFromTaskList(copiedTasks, tasksForKeyResult);
+            for (const keyResult of keyResults) {
+                const tasksForKeyResult: ViewTask[] = copiedTasks.filter(task => task.assignedKeyResultId === keyResult.id);
+                this.removeTasksFromTaskList(copiedTasks, tasksForKeyResult);
 
-            const keyResultMap: KeyResultStateTaskMap = {
-                keyResult,
-                statesWithTasks: this.createStateTaskMapList(states, tasksForKeyResult)
-            };
-            map.push(keyResultMap);
+                const keyResultMap: KeyResultStateTaskMap = {
+                    keyResult,
+                    statesWithTasks: this.createStateTaskMapList(states, tasksForKeyResult)
+                };
+                map.push(keyResultMap);
+            }
         }
 
         return map;
@@ -41,12 +43,15 @@ export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper 
 
         const result: ViewTask = super
             .getMovedTaskWithNewPositionData(previousIndex, previousContainer, currentIndex, currentContainer, newTaskState);
+
         console.log("getMovedTaskWithNewPositionDataInSwimlane");
         console.log("before keyresult");
         console.log(result);
+
         if (result && newKeyResult && result.assignedKeyResultId !== newKeyResult.id) {
             result.assignedKeyResultId = newKeyResult.id;
         }
+
         console.log("after keyresult");
         console.log(result);
         return result;

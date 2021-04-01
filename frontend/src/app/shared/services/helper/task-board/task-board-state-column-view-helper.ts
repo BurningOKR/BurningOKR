@@ -18,12 +18,13 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
      *                            attribute is title. Id and tasks are not required.
      */
     createStateTaskMapList(states: ViewTaskState[], tasks: ViewTask[], defaultStateTaskMap?: StateTaskMap): StateTaskMap[] {
-        const copiedTasks: ViewTask[] = this.copyTaskList(tasks);
+        console.log("TaskBoardStateColumnViewHelper - createStateTaskMapList");
+        let copiedTasks: ViewTask[] = this.copyTaskList(tasks);
 
         const map: StateTaskMap[] = [];
         for (const state of states) {
             const tasksForStates: ViewTask[] = copiedTasks.filter(viewTask => viewTask.taskStateId === state.id);
-            this.removeTasksFromTaskList(copiedTasks, tasksForStates);
+            copiedTasks = this.removeTasksFromTaskList(copiedTasks, tasksForStates);
             map.push({
                 state,
                 tasks: tasksForStates
@@ -31,6 +32,10 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
         }
 
         if (defaultStateTaskMap && (copiedTasks.length > 0 || map.length === 0)) {
+            console.log("default state task map added");
+            console.log(defaultStateTaskMap);
+            console.log(copiedTasks);
+            console.log(map);
             defaultStateTaskMap.tasks = copiedTasks;
             map.unshift(defaultStateTaskMap);
         }
@@ -56,12 +61,25 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
             if (currentIndex >= 0 && currentContainer) {
                 // Set Task to the first position
                 if (currentIndex === 0) {
-                    result.previousTaskId = null;
+                    if (currentContainer[currentIndex]) {
+                        result.previousTaskId = currentContainer[currentIndex].previousTaskId;
+                    } else {
+                        result.previousTaskId = null;
+                    }
+
                 } else
-                    // append task to the end the list 
+                    // append task to the end the list, when
                     if (currentContainer.length > 0 &&
-                        ((currentIndex === currentContainer.length) || (currentIndex > previousIndex))) {
-                        if (currentContainer[currentIndex]) {
+                        (
+                            (currentIndex === currentContainer.length) ||
+                            (currentIndex > previousIndex)
+                        )
+                    ) {
+                        if (
+                            currentContainer[currentIndex] &&
+                            currentContainer[currentIndex] !== result &&
+                            currentContainer[currentIndex].taskStateId === result.taskStateId
+                        ) {
                             result.previousTaskId = currentContainer[currentIndex].id;
                         } else {
                             result.previousTaskId = currentContainer[currentIndex - 1].id;
@@ -122,6 +140,7 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
         console.log("extract states end");
         console.log(stateTaskMap);
         console.log(states);
+
         return states;
     }
 
