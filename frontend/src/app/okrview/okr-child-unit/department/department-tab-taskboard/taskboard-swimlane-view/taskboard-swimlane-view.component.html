@@ -1,15 +1,8 @@
 <div class="swmimlane-taskboard" *ngIf="viewData$ |async as viewdata">
-    <!--<div class="taskboard-swimlane-header-row" >
-        <div class="taskboard-swimlane-header-container" *ngFor="let state of viewdata.states">
-            <div>
-                {{state.name}}
-            </div>
-        </div>
-    </div>-->
     <div class="taskboard-swimlane-container" cdkDropListGroup>
         <mat-accordion multi>
             <app-taskboard-swimlane *ngFor="let map of viewdata.maps" [keyResult]="map.keyResult"
-                [tasksForStates]="map.statesWithTasks"></app-taskboard-swimlane>
+                [tasksForStates]="map.statesWithTasks" [keyResultList]="viewdata.keyResults" [isInteractive]="isInteractive"></app-taskboard-swimlane>
         </mat-accordion>
     </div>
 </div>

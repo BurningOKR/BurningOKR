@@ -60,8 +60,11 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
       this.stompService.activate();
     }
 
-    console.log('changes');
-    console.log(changes);
+    if (changes.cycle) {
+      this.cycle = changes.cycle.currentValue;
+      this.viewDataEmitter$.next(this.viewData);
+    }
+
     if (changes.childUnit) {
       this.clearSubscriptions();
       this.updateEventHandler();
@@ -111,8 +114,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
         })
       );
   }
-
-
 
   updateWebsocketConnections(): void {
     this.subscriptions.push(
@@ -174,7 +175,8 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
       defaultState: states.find(state => state.id === task.taskStateId),
       states,
       task,
-      keyResults: this.viewData.keyResults
+      keyResults: this.viewData.keyResults,
+      isInteractive: this.cycle.isCycleActive()
     };
 
     const updatedTask$: Observable<ViewTask> = this.openDialog$(formData);
@@ -198,7 +200,10 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
     }
     const states: ViewTaskState[] = this.viewData.taskStates;
     const formData: TaskFormData = {
-      unitId: this.childUnit.id, defaultState: state, states, keyResults: this.viewData.keyResults
+      unitId: this.childUnit.id,
+      defaultState: state, states,
+      keyResults: this.viewData.keyResults,
+      isInteractive: this.cycle.isCycleActive()
     };
 
     const newTask$: Observable<ViewTask> = this.openDialog$(formData);

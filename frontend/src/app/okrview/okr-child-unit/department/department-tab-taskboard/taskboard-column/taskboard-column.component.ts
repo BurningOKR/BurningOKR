@@ -9,6 +9,7 @@ import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
 import { ViewTaskState } from "src/app/shared/model/ui/taskboard/view-task-state";
 import { ViewKeyResult } from "src/app/shared/model/ui/view-key-result";
 import { TaskBoardStateColumnViewHelper } from "src/app/shared/services/helper/task-board/task-board-state-column-view-helper";
+import { TaskCardInformation } from "../../department-tab-task-card/department-tab-task-card.component";
 
 
 
@@ -29,14 +30,21 @@ export interface TaskBoardDragDropEvent {
 export class TaskboardColumnComponent implements OnInit, OnDestroy {
   @Input() public map: StateTaskMap;
   @Input() public id: number;
+  @Input() keyResults: ViewKeyResult[];
+  @Input() isInteractive: boolean;
 
+  taskCardInformations: TaskCardInformation[] = [];
   subscriptions: Subscription[] = [];
 
   constructor(
     private taskBoardEventService: TaskBoardViewEventService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    for (let task of this.map.tasks) {
+      this.taskCardInformations.push(this.createTaskInformation(task, this.keyResults));
+    }
+  }
 
   ngOnDestroy(): void {
     for (const subscription of this.subscriptions) {
@@ -56,8 +64,11 @@ export class TaskboardColumnComponent implements OnInit, OnDestroy {
     this.taskBoardEventService.taskDragAndDropInView$.next(dropEvent);
   }
 
+  createTaskInformation(task: ViewTask, availableKeyResults: ViewKeyResult[]): TaskCardInformation {
+    return { keyResult: availableKeyResults.find(keyResult => keyResult.id === task.assignedKeyResultId), task };
+  }
 
-  onDelete(task: ViewTask) {
+  onDelete(task: ViewTask): void {
     this.taskBoardEventService.taskDeleteButtonClick$.next(task);
   }
 }

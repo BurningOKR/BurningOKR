@@ -25,29 +25,27 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
 
   @Input() public tasksForStates: StateTaskMap[];
   @Input() public keyResult: ViewKeyResult;
+  @Input() keyResultList: ViewKeyResult[];
+  @Input() isInteractive: boolean;
 
   constructor(
     private taskBoardEventService: TaskBoardViewEventService
   ) { }
-
 
   ngOnInit() {
     this.subscriptions.push(
       this.taskBoardEventService.taskDragAndDropInView$
         .pipe(
           filter(event => {
-            console.log('TaskboardSwimlaneComponent filter id: ' + this.keyResult.id + ' container id: '+event.$event.container.id);
-            console.log(event);
             let idToCompare: string = null;
             if (this.keyResult && this.keyResult.id) {
               idToCompare = `${this.keyResult.id}`;
             }
-            console.log(''+ event.$event.container.id=== idToCompare);
-            return ''+event.$event.container.id === ''+idToCompare;
+
+            return '' + event.$event.container.id === '' + idToCompare;
           })
         )
         .subscribe(event => {
-          console.log('TaskboardSwimlaneComponent subscribe id: ' + this.keyResult.id);
           let keyResult: ViewKeyResult = null;
 
           if (this.keyResult) {
@@ -71,8 +69,6 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
         })
     );
   }
-
-  createNewTask() { }
 
   ngOnDestroy(): void {
     for (const subscription of this.subscriptions) {

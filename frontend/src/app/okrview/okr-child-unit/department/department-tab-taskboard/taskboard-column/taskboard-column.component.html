@@ -4,9 +4,9 @@
     </div>
     <div class="tasks">
         <div cdkDropList [id]="id" [cdkDropListData]="map.tasks" (cdkDropListDropped)="dropTask($event)" class="card-list">
-            <div *ngFor="let task of map.tasks" class="taskcard " cdkDrag>
+            <div *ngFor="let cardInformation of taskCardInformations" class="taskcard " cdkDrag [cdkDragDisabled]="!isInteractive">
                 <div class="taskcard-placeholder" *cdkDragPlaceholder></div>
-                <app-department-tab-task-card  [task]="task" (deleteEmitter)="onDelete($event)">
+                <app-department-tab-task-card [taskInformations]="cardInformation" [isInteractive]="isInteractive" (deleteEmitter)="onDelete($event)">
 
                 </app-department-tab-task-card>
             </div>

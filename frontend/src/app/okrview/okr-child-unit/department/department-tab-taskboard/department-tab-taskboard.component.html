@@ -1,9 +1,9 @@
-<div class="d-flex center middle">
+<div class="d-flex center middle tab-limited-width">
     <div class="f-3 text-center">
         <div class="tab-headline">Aufgaben</div>
     </div>
-    <div class="f-1 text-center add-button">
-        <button mat-mini-fab color="accent" (click)="onTaskAddButtonClick(null)">
+    <div class="f-1 text-center add-button" *ngIf="this.cycle.isCycleActive()">
+        <button mat-mini-fab color="accent" (click)="onTaskAddButtonClick()">
             <mat-icon i18n-matTooltip="@@component_departmentTabTasks_createNewTask"
                 matTooltip="Neue Aufgabe erstellen">add_circle_outline
             </mat-icon>
@@ -23,10 +23,12 @@
     </mat-button-toggle-group>
 </div>
 <div *ngIf="viewgroup.value === 'states'">
-    <app-taskboard-state-column-view [data$]="viewDataEmitter$"></app-taskboard-state-column-view>
+    <app-taskboard-state-column-view [data$]="viewDataEmitter$" [isInteractive]="cycle.isCycleActive()">
+        
+    </app-taskboard-state-column-view>
 </div>
 <div *ngIf="viewgroup.value === 'swimlanes'">
-    <app-taskboard-swimlane-view [data$]="viewDataEmitter$">
+    <app-taskboard-swimlane-view [data$]="viewDataEmitter$" [isInteractive]="cycle.isCycleActive()">
 
     </app-taskboard-swimlane-view>
 </div>

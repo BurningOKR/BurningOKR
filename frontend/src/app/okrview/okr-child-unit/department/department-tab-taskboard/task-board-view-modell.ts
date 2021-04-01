@@ -4,4 +4,5 @@ import { ViewTaskBoardEvent } from "src/app/shared/model/events/view-taskboard-e
 
 export abstract class TaskBoardView {
     @Input() public data$: Observable<ViewTaskBoardEvent>;
+    @Input() public isInteractive: boolean;
 }

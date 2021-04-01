@@ -5,6 +5,7 @@ import { TaskBoardViewEventService } from "src/app/okrview/taskboard-services/ta
 import { KeyResultStateTaskMap } from "src/app/shared/model/ui/taskboard/key-result-state-task-map";
 import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
 import { ViewTaskState } from "src/app/shared/model/ui/taskboard/view-task-state";
+import { ViewKeyResult } from "src/app/shared/model/ui/view-key-result";
 import { TaskBoardSwimlaneViewHelper } from "src/app/shared/services/helper/task-board/task-board-swimlane-view-helper";
 import { TaskBoardView } from "../task-board-view-modell";
 import { TaskBoardSwimlaneDragDropEvent } from "./taskboard-swimlane/taskboard-swimlane.component";
@@ -12,6 +13,7 @@ import { TaskBoardSwimlaneDragDropEvent } from "./taskboard-swimlane/taskboard-s
 export interface TaskBoardSwimlaneViewData {
   states: ViewTaskState[];
   maps: KeyResultStateTaskMap[];
+  keyResults: ViewKeyResult[];
 }
 
 @Component({
@@ -22,6 +24,7 @@ export interface TaskBoardSwimlaneViewData {
 export class TaskboardSwimlaneViewComponent extends TaskBoardView implements OnInit, OnDestroy {
   dataEmitter$: Subject<KeyResultStateTaskMap> = new Subject();
   viewData$: Observable<TaskBoardSwimlaneViewData>;
+
   states$: Observable<ViewTaskState[]>;
 
   subscriptions: Subscription[] = [];
@@ -40,14 +43,15 @@ export class TaskboardSwimlaneViewComponent extends TaskBoardView implements OnI
   }
 
   ngOnInit(): void {
-    console.log('swimlane-view');
     this.viewData$ = this.data$.pipe(
       filter(value => !!value),
       map(viewData => {
         const data: TaskBoardSwimlaneViewData = {
           states: viewData.taskStates,
-          maps: this.taskHelper.createKeyResultStateTaskMapList(viewData.keyResults, viewData.taskStates, viewData.tasks)
-        }
+          maps: this.taskHelper.createKeyResultStateTaskMapList(viewData.keyResults, viewData.taskStates, viewData.tasks),
+          keyResults: viewData.keyResults
+        };
+
         return data;
       }));
 
@@ -55,7 +59,6 @@ export class TaskboardSwimlaneViewComponent extends TaskBoardView implements OnI
   }
 
   onTaskMovedInView(dropEvent: TaskBoardSwimlaneDragDropEvent): void {
-    console.log("swimlane move event");
     const result: ViewTask = this.taskHelper
       .getMovedTaskWithNewPositionDataInSwimlane(
         dropEvent.taskboardEvent.$event.previousIndex,
@@ -65,7 +68,7 @@ export class TaskboardSwimlaneViewComponent extends TaskBoardView implements OnI
         dropEvent.taskboardEvent.state,
         dropEvent.keyResult
       );
-    console.log(result);
+
     this.taskBoardEventService.taskMovedInView$.next(result);
   }
 }
