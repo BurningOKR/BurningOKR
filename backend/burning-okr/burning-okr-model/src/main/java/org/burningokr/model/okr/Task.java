@@ -1,15 +1,12 @@
 package org.burningokr.model.okr;
 
+import lombok.Data;
+import lombok.ToString;
+import org.burningokr.model.activity.Trackable;
+
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-
-import lombok.*;
-import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.okrUnits.OkrUnit;
-import org.hibernate.annotations.ColumnDefault;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -68,5 +65,18 @@ public class Task implements Trackable<Long> {
   @Override
   public String getName() {
     return title;
+  }
+
+  public Task copyWithNoRelations() {
+    Task copiedTask = new Task();
+    copiedTask.setTitle(this.getTitle());
+    copiedTask.setDescription(this.getDescription());
+
+    Collection<UUID> userIds = new ArrayList<>(this.getAssignedUserIds());
+
+    copiedTask.setAssignedUserIds(userIds);
+    copiedTask.setTaskState(this.getTaskState());
+    copiedTask.setPreviousTask(this.getPreviousTask());
+    return copiedTask;
   }
 }

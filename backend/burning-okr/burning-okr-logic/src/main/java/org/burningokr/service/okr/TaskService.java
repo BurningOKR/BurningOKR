@@ -5,12 +5,12 @@ import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Task;
 import org.burningokr.model.okr.TaskBoard;
+import org.burningokr.model.okr.TaskState;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
-import org.burningokr.repositories.okr.KeyResultRepository;
-import org.burningokr.repositories.okr.TaskBoardRepository;
 import org.burningokr.repositories.okr.TaskRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
@@ -22,35 +22,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class TaskService {
     private final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
-    private TaskRepository taskRepository;
-    private TaskBoardRepository taskBoardRepository;
-    private UnitRepository<OkrUnit> okrUnitRepository;
-    private KeyResultRepository keyResultRepository;
-    private ActivityService activityService;
-    private EntityCrawlerService entityCrawlerService;
+    private final TaskRepository taskRepository;
 
+    private final OkrDepartmentRepository okrDepartmentRepository;
+
+    private final ActivityService activityService;
+    private final EntityCrawlerService entityCrawlerService;
 
     @Autowired
     public TaskService(
             TaskRepository taskRepository,
-            UnitRepository okrUnitRepository,
+            OkrDepartmentRepository okrDepartmentRepository,
             ActivityService activityService,
-            EntityCrawlerService entityCrawlerService,
-            KeyResultRepository keyResultRepository,
-            TaskBoardRepository taskBoardRepository
+            EntityCrawlerService entityCrawlerService
     ) {
         this.taskRepository = taskRepository;
-        this.okrUnitRepository = okrUnitRepository;
+        this.okrDepartmentRepository = okrDepartmentRepository;
         this.activityService = activityService;
         this.entityCrawlerService = entityCrawlerService;
-        this.keyResultRepository = keyResultRepository;
-        this.taskBoardRepository = taskBoardRepository;
     }
 
     public Task getById(Long taskId) {
@@ -58,10 +52,9 @@ public class TaskService {
     }
 
     public Collection<Task> findTaskForOkrUnit(Long okrUnitId) {
-        OkrUnit okrUnit = this.okrUnitRepository.findByIdOrThrow(okrUnitId);
+        OkrDepartment okrUnit = this.okrDepartmentRepository.findByIdOrThrow(okrUnitId);
         TaskBoard taskboard = okrUnit.getTaskBoard();
-        Collection<Task> tasks = taskRepository.findByTaskBoard(taskboard);
-        return tasks;
+        return taskRepository.findByTaskBoard(taskboard);
     }
 
     public Collection<Task> findTasksForKeyResult(KeyResult keyResult) {
@@ -70,8 +63,8 @@ public class TaskService {
 
     public Collection<Task> createTask(Task newTask, Long okrUnitId, User user) {
         Collection<Task> newOrUpdatedTasks = new ArrayList<>();
-        OkrUnit okrUnit = this.okrUnitRepository.findByIdOrThrow(okrUnitId);
-        throwIfCycleOfTaskIsClosed(okrUnit);
+        OkrDepartment okrUnit = this.okrDepartmentRepository.findByIdOrThrow(okrUnitId);
+        throwIfCycleOfTaskIsNotActive(okrUnit);
 
         Task firstTaskInList = this.taskRepository.findFirstTaskOfList(okrUnit.getTaskBoard(), newTask.getTaskState());
         newTask.setPreviousTask(null);
@@ -97,9 +90,9 @@ public class TaskService {
     @Transactional
     public Collection<Task> updateTask(Task updatedTask, User user) throws Exception {
         logger.info("---------update Task--------------");
-
         Task referencedTask = taskRepository.findByIdOrThrow(updatedTask.getId());
-        throwIfCycleOfTaskIsClosed(referencedTask.getParentTaskBoard().getParentOkrUnit());
+        throwIfCycleOfTaskIsNotActive(referencedTask.getParentTaskBoard().getParentOkrDepartment());
+
         logger.info("updated Task: ");
         this.logTask(updatedTask);
         logger.info("old Task");
@@ -161,8 +154,8 @@ public class TaskService {
         Collection<Task> updatedTasks = new ArrayList<>();
 
         Task newPreviousTask = null;
-        // TODO In einen Validator Klasse auslagern
         /*
+            TODO In einen Validator Klasse auslagern
             überprüft, ob eine Aufgabe auf sich selbst referenziert oder sich der neue Vorgänger in einer anderen Spalte/Zustand befindet
          */
         logger.info("updateTaskWithPositioning - Validation");
@@ -221,14 +214,15 @@ public class TaskService {
 
         updateTaskWithoutPositioning(newVersion, oldVersion);
         oldVersion.setTaskState(newVersion.getTaskState());
+        oldVersion.setVersion(newVersion.getVersion());
         updatedTasks.add(oldVersion);
 
         return updatedTasks;
     }
 
     public Collection<Task> deleteTaskById(long taskId, long unitId, User user) {
-        OkrUnit unit = okrUnitRepository.findByIdOrThrow(unitId);
-        throwIfCycleOfTaskIsClosed(unit);
+        OkrUnit unit = okrDepartmentRepository.findByIdOrThrow(unitId);
+        throwIfCycleOfTaskIsNotActive(unit);
         Collection<Task> updatedTasks = new ArrayList<>();
 
         Task taskToDelete = this.taskRepository.findByIdOrThrow(taskId);
@@ -275,10 +269,10 @@ public class TaskService {
         return result;
     }
 
-    private void throwIfCycleOfTaskIsClosed(OkrUnit unit) {
+    private void throwIfCycleOfTaskIsNotActive(OkrUnit unit) {
         if (entityCrawlerService.getCycleOfUnit(unit).getCycleState()
-                == CycleState.CLOSED) {
-            throw new ForbiddenException("Cannot modify this resource on a Task in a closed cycle.");
+                != CycleState.ACTIVE) {
+            throw new ForbiddenException("Cannot modify this Task in a closed cycle.");
         }
     }
 
@@ -289,5 +283,20 @@ public class TaskService {
                 task.getId(),task.getTitle(),task.getTaskState().getId(),keyresultId, previousTaskId, task.getParentTaskBoard().getId(), task.getVersion());
         this.logger.info(text);
 
+    }
+
+    public Collection<Task> copyTasksAndBindToNewCopyOfTaskStatesListAndTaskBoard(Collection<Task> notFinishedTasks, Collection<TaskState> copiedStates, TaskBoard copiedTaskBoard) {
+        Collection<Task> copiedTasks = new ArrayList<>();
+        for(Task oldTask : notFinishedTasks) {
+            Task copiedTask = oldTask.copyWithNoRelations();
+            copiedTask.setParentTaskBoard(copiedTaskBoard);
+            for(TaskState newState : copiedStates) {
+                if(copiedTask.getTaskState().getTitle().equals(newState.getTitle())) {
+                    copiedTask.setTaskState(newState);
+                }
+            }
+            copiedTasks.add(copiedTask);
+        }
+        return copiedTasks;
     }
 }

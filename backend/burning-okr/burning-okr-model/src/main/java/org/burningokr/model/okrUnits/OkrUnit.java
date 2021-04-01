@@ -30,9 +30,6 @@ public abstract class OkrUnit implements Trackable<Long> {
   @Size(min = 1)
   protected String label;
 
-  @OneToOne(mappedBy = "parentOkrUnit", cascade = CascadeType.REMOVE)
-  private TaskBoard taskBoard;
-
   @OneToMany(mappedBy = "parentOkrUnit", cascade = CascadeType.REMOVE)
   @EqualsAndHashCode.Exclude
   protected Collection<Objective> objectives = new ArrayList<>();

@@ -3,12 +3,12 @@ package org.burningokr.model.okr;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.okrUnits.OkrUnit;
+import org.burningokr.model.okrUnits.OkrDepartment;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 @Entity
 @Data
@@ -18,14 +18,15 @@ public class TaskBoard implements Trackable<Long> {
     private Long id;
 
     @OneToOne
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "parent_unit_id")
-    private OkrUnit parentOkrUnit;
+    private OkrDepartment parentOkrDepartment;
 
-    @OneToMany(mappedBy = "parentTaskBoard")
+    @OneToMany(mappedBy = "parentTaskBoard", cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude
     private Collection<Task> tasks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "parentTaskBoard")
+    @OneToMany(mappedBy = "parentTaskBoard", cascade = CascadeType.REMOVE)
     private Collection<TaskState> availableStates = new ArrayList<>();
 
     @Override
@@ -36,5 +37,19 @@ public class TaskBoard implements Trackable<Long> {
     @Override
     public Long getId() {
         return id;
+    }
+
+    public TaskBoard getCopyWithCopiedTasksWhichNotFinished() {
+        TaskBoard copiedTaskboard = new TaskBoard();
+        Collection<TaskState> copiedAvailableStates = new ArrayList<>();
+        for(TaskState state: this.getAvailableStates()) {
+            TaskState copiedState = state.copy();
+            copiedState.setParentTaskBoard(copiedTaskboard);
+            copiedAvailableStates.add(copiedState);
+        }
+
+        copiedTaskboard.setAvailableStates(copiedAvailableStates);
+
+        return copiedTaskboard;
     }
 }

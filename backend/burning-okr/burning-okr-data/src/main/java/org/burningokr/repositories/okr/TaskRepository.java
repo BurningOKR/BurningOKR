@@ -22,4 +22,7 @@ public interface TaskRepository extends ExtendedRepository<Task, Long> {
 
     @Query("Select t from Task t where t.previousTask=?1 and t.taskState=?2 and t.parentTaskBoard=?3")
     Task findByPreviousTask(Task task, TaskState state, TaskBoard taskBoard);
+
+    @Query("SELECT t FROM Task t WHERE t.parentTaskBoard = ?1 and not t.taskState=?2")
+    List<Task> findNotFinishedTasksByTaskBoard(TaskBoard taskBoard, TaskState state);
 }

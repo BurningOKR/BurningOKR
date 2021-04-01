@@ -29,4 +29,12 @@ public class TaskState implements Trackable<Long> {
     public Long getId() {
         return id;
     }
+
+    public TaskState copy() {
+        TaskState copy = new TaskState();
+        copy.setParentTaskBoard(this.getParentTaskBoard());
+        copy.setTitle(this.getTitle());
+
+        return copy;
+    }
 }

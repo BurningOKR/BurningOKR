@@ -1,6 +1,7 @@
 package org.burningokr.service.okr;
 
-import org.burningokr.model.okr.DefaultTaskState;
+import org.burningokr.model.okr.DefaultTaskBoardState;
+import org.burningokr.model.okr.TaskState;
 import org.burningokr.repositories.okr.DefaultTaskStateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,23 @@ public class DefaultTaskStateService {
         this.defaultStatesRepository = defaultStatesRepository;
     }
 
-    public Collection<DefaultTaskState> findDefaultTaskStates() {
-        ArrayList<DefaultTaskState> defaultStates = new ArrayList<>();
-        Iterable<DefaultTaskState> stateIterable = defaultStatesRepository.findAll();
-        for (DefaultTaskState state : stateIterable) {
+    public Collection<DefaultTaskBoardState> findDefaultTaskStates() {
+        ArrayList<DefaultTaskBoardState> defaultStates = new ArrayList<>();
+        Iterable<DefaultTaskBoardState> stateIterable = defaultStatesRepository.findAll();
+        for (DefaultTaskBoardState state : stateIterable) {
             defaultStates.add(state);
         }
         return defaultStates;
+    }
+
+    public Collection<TaskState> getDefaultTaskStatesForNewTaskBoard() {
+        ArrayList<TaskState> states = new ArrayList<>();
+        Iterable<DefaultTaskBoardState> stateIterable = defaultStatesRepository.findAll();
+        for (DefaultTaskBoardState defaultState : stateIterable) {
+            TaskState state = new TaskState();
+            state.setTitle(defaultState.getTitle());
+            states.add(state);
+        }
+        return states;
     }
 }
