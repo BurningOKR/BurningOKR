@@ -11,10 +11,13 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.OkrTopicDraft;
+import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.cycle.BranchHistoryRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
@@ -45,6 +48,8 @@ public class OkrCompanyServiceTest {
   @Mock private ActivityService activityService;
 
   @Mock private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+
+  @Mock private BranchHistoryRepository branchHistoryRepository;
 
   @Mock private OkrTopicDraftRepository okrTopicDraftRepository;
 
@@ -246,5 +251,44 @@ public class OkrCompanyServiceTest {
     OkrTopicDraft actual = companyService.createTopicDraft(1L, topicDraft, user);
 
     assertEquals(actual.getParentUnit(), okrCompany);
+  }
+
+  @Test
+  public void createOkrBranch_expectsSetsHistory() {
+    OkrBranchHistory okrBranchHistory = new OkrBranchHistory();
+    OkrBranch okrBranch = new OkrBranch();
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(branchHistoryRepository.save(any())).thenReturn(okrBranchHistory);
+    when(unitRepository.save(any())).thenReturn(okrBranch);
+
+    OkrBranch createdOkrBranch = companyService.createOkrBranch(1L, okrBranch, user);
+
+    assertSame(okrBranchHistory, createdOkrBranch.getHistory());
+  }
+
+  @Test (expected = ForbiddenException.class)
+  public void createOkrBranch_expectsForbiddenException() {
+    OkrBranch okrBranch = new OkrBranch();
+    Cycle closedCycle = new Cycle();
+    closedCycle.setCycleState(CycleState.CLOSED);
+    when(entityCrawlerService.getCycleOfCompany(okrCompany)).thenReturn(closedCycle);
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+
+    companyService.createOkrBranch(1L, okrBranch, user);
+  }
+
+  @Test
+  public void createOkrBranchHistory_expectsToBeSavedToDb() {
+    OkrBranchHistory okrBranchHistory = new OkrBranchHistory();
+    OkrBranch okrBranch = new OkrBranch();
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(branchHistoryRepository.save(any())).thenReturn(okrBranchHistory);
+    when(unitRepository.save(any())).thenReturn(okrBranch);
+
+    companyService.createOkrBranch(1L, okrBranch, user);
+
+    verify(branchHistoryRepository).save(okrBranchHistory);
   }
 }

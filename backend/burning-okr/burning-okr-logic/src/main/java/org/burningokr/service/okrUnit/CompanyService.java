@@ -6,12 +6,14 @@ import java.util.Collection;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.cycle.BranchHistoryRepository;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
@@ -33,6 +35,7 @@ public class CompanyService {
 
   private CycleRepository cycleRepository;
   private CompanyHistoryRepository companyHistoryRepository;
+  private BranchHistoryRepository branchHistoryRepository;
   private CompanyRepository companyRepository;
   private UnitRepository<OkrChildUnit> unitRepository;
   private ActivityService activityService;
@@ -54,6 +57,7 @@ public class CompanyService {
   public CompanyService(
       CycleRepository cycleRepository,
       CompanyHistoryRepository companyHistoryRepository,
+      BranchHistoryRepository branchHistoryRepository,
       CompanyRepository companyRepository,
       UnitRepository<OkrChildUnit> unitRepository,
       ActivityService activityService,
@@ -62,6 +66,7 @@ public class CompanyService {
       OkrTopicDraftRepository okrTopicDraftRepository) {
     this.cycleRepository = cycleRepository;
     this.companyHistoryRepository = companyHistoryRepository;
+    this.branchHistoryRepository = branchHistoryRepository;
     this.companyRepository = companyRepository;
     this.unitRepository = unitRepository;
     this.activityService = activityService;
@@ -238,7 +243,12 @@ public class CompanyService {
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
+    OkrBranchHistory history = new OkrBranchHistory();
+    history.addUnit(okrBranch);
+    history =  branchHistoryRepository.save(history);
+
     okrBranch.setParentOkrUnit(referencedOkrCompany);
+    okrBranch.setHistory(history);
 
     okrBranch = unitRepository.save(okrBranch);
     logger.info(
@@ -250,6 +260,7 @@ public class CompanyService {
             + companyId
             + ")");
     activityService.createActivity(user, okrBranch, Action.CREATED);
+
     return okrBranch;
   }
 
