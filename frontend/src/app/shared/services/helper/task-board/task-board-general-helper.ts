@@ -1,4 +1,5 @@
 
+import { ViewTaskBoardEvent } from "src/app/shared/model/events/view-taskboard-event";
 import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
 import { TaskService } from "./task.service";
 
@@ -94,30 +95,73 @@ export class TaskBoardGeneralHelper extends TaskService {
 
     orderTaskList(taskList: ViewTask[]): ViewTask[] {
         let result: ViewTask[] = this.copyTaskList(taskList);
+
         console.log('orderTaskList - before sorting');
         console.log(taskList);
         if (result) {
-            result = result.sort((firstTask, secondTask) => {
-                let result: number = 0;
-                if (firstTask.taskStateId === secondTask.taskStateId) {
-                    if (firstTask.previousTaskId === null || firstTask.id === secondTask.previousTaskId) {
-                        result = -1;
-                    } else if (secondTask.previousTaskId === null || firstTask.previousTaskId === secondTask.id) {
-                        result = 1;
-                    } else {
-                        result = 0;
-                    }
-                } else if (firstTask.taskStateId < secondTask.taskStateId) {
-                    result = -1;
-                } else {
-                    result = 1;
-                }
-
-                return result;
-            });
+            result = this.orderManually(result);
         }
         console.log('orderTaskList - after sorting');
         console.log(result);
+        if (!this.isOrderValid(result)) {
+            console.log("order is NOT valid");
+        } else {
+            console.log("normal sort - order is VALID");
+        }
+
+        return result;
+    }
+
+    private orderManually(taskList: ViewTask[]): ViewTask[] {
+        let unsortedTasks: ViewTask[] = this.copyTaskList(taskList);
+
+        let sortedTasks: ViewTask[] = this.getAllFirstTasksSortedOnTaskState(unsortedTasks);
+        unsortedTasks = this.removeTasksFromTaskList(unsortedTasks, sortedTasks);
+
+        for (let index: number = 0; index < sortedTasks.length; index++) {
+            const nextTask: ViewTask = unsortedTasks.find(task => task.previousTaskId === sortedTasks[index].id);
+            if (nextTask) {
+                sortedTasks = this.addTaskOnPosition(sortedTasks, nextTask, index + 1);
+                unsortedTasks = this.removeTaskFromTaskList(unsortedTasks, nextTask);
+            }
+
+        }
+
+        return sortedTasks;
+    }
+
+    getAllFirstTasksSortedOnTaskState(taskList: ViewTask[]): ViewTask[] {
+        let result: ViewTask[] = taskList.filter(task => task.previousTaskId === null);
+        result = result.sort((firstTask, secondTask) => {
+            let sortResult: number;
+            if (firstTask.taskStateId < secondTask.taskStateId) {
+                sortResult = -1;
+            } else {
+                sortResult = 1;
+            }
+
+            return sortResult;
+        });
+
+        return result;
+    }
+
+    private isOrderValid(taskList: ViewTask[]): boolean {
+        let result: boolean = true;
+
+        for (let index: number = 0; index < taskList.length - 2; index++) {
+
+            if (
+                (taskList[index].taskStateId === taskList[index + 1].taskStateId) &&
+                (taskList[index].id !== taskList[index + 1].previousTaskId)
+            ) {
+                result = false;
+                break;
+            } else if (taskList[index].taskStateId !== taskList[index + 1].taskStateId) {
+                result = (taskList[index].taskStateId < taskList[index + 1].taskStateId);
+            }
+
+        }
 
         return result;
     }

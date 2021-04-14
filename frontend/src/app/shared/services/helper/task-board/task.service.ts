@@ -95,14 +95,9 @@ export abstract class TaskService {
 
   removeTaskFromTaskList(currentTaskList: ViewTask[], taskToRemove: ViewTask): ViewTask[] {
     const copiedTasks: ViewTask[] = this.copyTaskList(currentTaskList);
-    console.log("TaskService - removeTaskFromTaskList - initial");
-    console.log(currentTaskList);
-    console.log(taskToRemove);
+
     const taskIndex: number = this.getListIndexForTask(copiedTasks, taskToRemove);
     copiedTasks.splice(taskIndex, 1);
-
-    console.log("TaskService - removeTaskFromTaskList - after deleting");
-    console.log(copiedTasks);
 
     return copiedTasks;
   }
@@ -110,7 +105,7 @@ export abstract class TaskService {
   removeTasksFromTaskList(currentTaskList: ViewTask[], tasksToRemove: ViewTask[]): ViewTask[] {
     let result: ViewTask[] = this.copyTaskList(currentTaskList);
     for (const task of tasksToRemove) {
-      result=this.removeTaskFromTaskList(result, task);
+      result = this.removeTaskFromTaskList(result, task);
     }
 
     return result;
