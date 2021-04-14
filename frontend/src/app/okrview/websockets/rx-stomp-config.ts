@@ -1,5 +1,5 @@
 import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 export const myRxStompConfig: InjectableRxStompConfig = {
     // Which server?
@@ -16,11 +16,14 @@ export const myRxStompConfig: InjectableRxStompConfig = {
     reconnectDelay: 200,
 
     beforeConnect: (client): void => {
-        const token: string = localStorage.getItem('access_token');
-        console.log(token);
-        client.stompClient.connectHeaders = {
-            Authorization: "Bearer " + token
-        };
+        console.log("before connect");
+        client.configure(
+            {
+                connectHeaders: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            }
+        )
     },
 
     // Will log diagnostics on console

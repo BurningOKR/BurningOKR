@@ -3,6 +3,7 @@ package org.burningokr.controller.okr;
 import org.burningokr.dto.okr.TaskDto;
 import org.burningokr.mapper.okr.TaskMapper;
 import org.burningokr.model.okr.Task;
+import org.burningokr.model.users.User;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskService;
 import org.burningokr.service.security.AuthorizationService;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 
 import java.security.Principal;
@@ -40,7 +44,7 @@ public class WebsocketTaskController {
     }
 
     @MessageMapping("unit/{unitId}/tasks/add")
-    public void addTask(@DestinationVariable long unitId, TaskDto taskDto, Principal user) {
+    public void addTask(@DestinationVariable long unitId, TaskDto taskDto, @AuthenticationPrincipal Authentication currentUser) {
         logger.info(String.format("Websocket add Task dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d}",
                 taskDto.getId(), taskDto.getTitle(), taskDto.getDescription(), String.valueOf(taskDto.getAssignedUserIds()), taskDto.getAssignedKeyResultId(), taskDto.getParentTaskBoardId(), taskDto.getTaskStateId()));
 
@@ -58,7 +62,7 @@ public class WebsocketTaskController {
     }
 
     @MessageMapping("unit/{unitId}/tasks/update")
-    public void updateTask(@DestinationVariable long unitId, TaskDto taskDto, Principal user) throws Exception {
+    public void updateTask(@DestinationVariable long unitId, TaskDto taskDto, @AuthenticationPrincipal Authentication currentUser) throws Exception {
         logger.info("update Task on Websocket");
         try {
             Task updatedTask = taskMapper.mapDtoToEntity(taskDto);
@@ -77,7 +81,7 @@ public class WebsocketTaskController {
     }
 
     @MessageMapping("unit/{unitId}/tasks/delete")
-    public void deleteTask(@DestinationVariable long unitId, TaskDto taskDto, Principal user) {
+    public void deleteTask(@DestinationVariable long unitId, TaskDto taskDto, @AuthenticationPrincipal Authentication currentUser) {
         logger.info("delete Task on Websocket");
 
         try {

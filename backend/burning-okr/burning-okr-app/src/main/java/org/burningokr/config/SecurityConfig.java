@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       apiPrefix + "/local-users/password",
       apiPrefix + "/local-users/forgot-password",
       apiPrefix + "/oAuthFrontendDetails",
-      "/ws"
+      "/wsregistry"
     };
   }
 }
