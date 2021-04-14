@@ -49,14 +49,17 @@ subprojects {
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.3.5.RELEASE'
         compile group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
         compile("org.springframework:spring-messaging")
+        compile ('org.springframework.security:spring-security-messaging:5.0.4.RELEASE')
 
 
         compile("org.webjars:sockjs-client:1.1.2")
 
 
         implementation 'com.google.code.gson:gson:2.8.5'
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.3.9.RELEASE'
 
         testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
+
     }
 
     test {
