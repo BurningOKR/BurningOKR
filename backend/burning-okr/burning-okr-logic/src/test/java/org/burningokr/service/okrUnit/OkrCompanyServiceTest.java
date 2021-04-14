@@ -10,14 +10,17 @@ import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.BranchHistoryRepository;
+import org.burningokr.repositories.cycle.DepartmentHistoryRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
@@ -50,6 +53,8 @@ public class OkrCompanyServiceTest {
   @Mock private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
 
   @Mock private BranchHistoryRepository branchHistoryRepository;
+
+  @Mock private DepartmentHistoryRepository departmentHistoryRepository;
 
   @Mock private OkrTopicDraftRepository okrTopicDraftRepository;
 
@@ -290,5 +295,33 @@ public class OkrCompanyServiceTest {
     companyService.createOkrBranch(1L, okrBranch, user);
 
     verify(branchHistoryRepository).save(okrBranchHistory);
+  }
+
+  @Test
+  public void createDepartment_expectsSetsHistory() {
+    OkrDepartment okrDepartment = new OkrDepartment();
+    OkrDepartmentHistory okrDepartmentHistory = new OkrDepartmentHistory();
+    OkrTopicDescription okrTopicDescription = new OkrTopicDescription();
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(departmentHistoryRepository.save(any())).thenReturn(okrDepartmentHistory);
+    when(okrTopicDescriptionRepository.save(any())).thenReturn(okrTopicDescription);
+    when(unitRepository.save(any())).thenReturn(okrDepartment);
+
+    OkrDepartment createdOkrDepartment = companyService.createDepartment(1L, okrDepartment, user);
+
+    assertSame(okrDepartmentHistory, createdOkrDepartment.getHistory());
+  }
+
+  @Test
+  public void createOkrDepartmentHistory_expectsToBeSavedToDb() {
+    OkrDepartmentHistory okrDepartmentHistory = new OkrDepartmentHistory();
+    OkrDepartment okrDepartment = new OkrDepartment();
+
+    when(departmentHistoryRepository.save(any())).thenReturn(okrDepartmentHistory);
+
+    companyService.createHistory(okrDepartment, okrDepartmentHistory, departmentHistoryRepository);
+
+    verify(departmentHistoryRepository).save(any());
   }
 }

@@ -224,7 +224,7 @@ public class CompanyService {
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
-    OkrDepartmentHistory history = getHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository);
+    OkrDepartmentHistory history = createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository);
 
     okrDepartment.setParentOkrUnit(referencedOkrCompany);
     okrDepartment.setHistory(history);
@@ -253,7 +253,7 @@ public class CompanyService {
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
-    OkrBranchHistory history = getHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository);
+    OkrBranchHistory history = createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository);
 
     okrBranch.setParentOkrUnit(referencedOkrCompany);
     okrBranch.setHistory(history);
@@ -272,7 +272,7 @@ public class CompanyService {
     return okrBranch;
   }
 
-  private <T extends OkrUnitHistory, U extends OkrChildUnit> T getHistory (U unit, T history, ExtendedRepository<T, Long> repository) {
+    protected  <T extends OkrUnitHistory, U extends OkrChildUnit> T createHistory(U unit, T history, ExtendedRepository<T, Long> repository) {
     history.addUnit(unit);
     history =  repository.save(history);
     return history;
