@@ -13,6 +13,7 @@ import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.ExtendedRepository;
 import org.burningokr.repositories.cycle.BranchHistoryRepository;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
@@ -238,14 +239,13 @@ public class CompanyService {
     return okrDepartment;
   }
 
+  @Transactional
   public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch, User user) {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
-    OkrBranchHistory history = new OkrBranchHistory();
-    history.addUnit(okrBranch);
-    history =  branchHistoryRepository.save(history);
+    OkrBranchHistory history = getHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository);
 
     okrBranch.setParentOkrUnit(referencedOkrCompany);
     okrBranch.setHistory(history);
@@ -262,6 +262,12 @@ public class CompanyService {
     activityService.createActivity(user, okrBranch, Action.CREATED);
 
     return okrBranch;
+  }
+
+  private <T extends OkrUnitHistory, U extends OkrChildUnit> T getHistory (U unit, T history, ExtendedRepository<T, Long> repository) {
+    history.addUnit(unit);
+    history =  repository.save(history);
+    return history;
   }
 
   // TODO (R.J. 17.02.2021) create this method
