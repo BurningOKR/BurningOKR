@@ -34,6 +34,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
   @Input() cycle: CycleUnit;
 
   showSwimlanes: boolean = false;
+  isInteractive: boolean;
   viewDataEmitter$: BehaviorSubject<ViewTaskBoardEvent> = new BehaviorSubject(null);
 
   viewData: ViewTaskBoardEvent = new ViewTaskBoardEvent();
@@ -62,6 +63,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
 
     if (changes.cycle) {
       this.cycle = changes.cycle.currentValue;
+      this.isInteractive = this.cycle.isCycleActive() || this.cycle.isCycleInPreparation();
       this.viewDataEmitter$.next(this.viewData);
     }
 
@@ -176,7 +178,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
       states,
       task,
       keyResults: this.viewData.keyResults,
-      isInteractive: this.cycle.isCycleActive()
+      isInteractive: this.isInteractive
     };
 
     const updatedTask$: Observable<ViewTask> = this.openDialog$(formData);
@@ -203,7 +205,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
       unitId: this.childUnit.id,
       defaultState: state, states,
       keyResults: this.viewData.keyResults,
-      isInteractive: this.cycle.isCycleActive()
+      isInteractive: this.isInteractive
     };
 
     const newTask$: Observable<ViewTask> = this.openDialog$(formData);

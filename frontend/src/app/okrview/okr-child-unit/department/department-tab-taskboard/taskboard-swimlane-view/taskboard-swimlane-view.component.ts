@@ -53,7 +53,8 @@ export class TaskboardSwimlaneViewComponent extends TaskBoardView implements OnI
         };
 
         return data;
-      }));
+      })
+    );
 
     this.subscriptions.push(this.taskBoardEventService.taskInSwimlaneMoved$.subscribe(event => this.onTaskMovedInView(event)));
   }
