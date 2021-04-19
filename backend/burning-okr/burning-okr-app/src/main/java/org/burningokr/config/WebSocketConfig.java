@@ -1,6 +1,5 @@
 package org.burningokr.config;
 
-
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,18 +39,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/wsregistry").setAllowedOrigins("*").addInterceptors(new HandshakeInterceptor() {
-            @Override
-            public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-                logger.info("beforeHandshake");
-                return true;
-            }
-
-            @Override
-            public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
-                logger.info("afterHandshake");
-            }
-        });
+        registry.addEndpoint("/wsregistry").setAllowedOrigins("*");
     }
 
     @Override
