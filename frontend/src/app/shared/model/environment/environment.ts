@@ -2,7 +2,8 @@ export interface Environment {
   production: boolean;
 
   /**
-   * Websockets
+   * Definition of the websocket broker url for register your connection
+   * Default for testing/developing it is 'ws://localhost:8080/wsregistry'
    */
-  brokerURL?: string,
+  brokerURL: string,
 }
