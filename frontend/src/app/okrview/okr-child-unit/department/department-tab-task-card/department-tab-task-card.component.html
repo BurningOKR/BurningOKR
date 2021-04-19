@@ -5,11 +5,14 @@
     </div>
     <div class="taskcard-content">
         <mat-card-title>{{taskInformations.task.title}}</mat-card-title>
-        <mat-card-content>{{taskInformations.task.description}}</mat-card-content>
+        <mat-card-content class="taskcard-description">
+            <div>{{taskInformations.task.description}}</div>
+        </mat-card-content>
         <div class="taskcard-footer">
             <div *ngIf="isInteractive">
-                <mat-card-actions >
-                    <button mat-button (click)="onDelete($event,taskInformations.task)">
+                <mat-card-actions>
+                    <button mat-button (click)="onDelete($event,taskInformations.task)" i18n-[matTooltip]="@@taskBoardDeleteTooltip"
+                    [matTooltip]="'löschen'">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-card-actions>
@@ -28,6 +31,6 @@
 </mat-card>
 <ng-template #taskCardLoading>
     <div class="task-card-key-result">
-        <div>loading</div>
+        <div i18n="@@taskBoardLoading">loading</div>
     </div>
 </ng-template>

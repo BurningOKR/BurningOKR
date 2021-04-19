@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -23,7 +24,8 @@ export class TaskboardStateColumnViewComponent extends TaskBoardView implements 
 
   constructor(
     private taskHelper: TaskBoardStateColumnViewHelper,
-    private taskBoardEventService: TaskBoardViewEventService
+    private taskBoardEventService: TaskBoardViewEventService,
+    private i18n: I18n
   ) {
     super();
   }
@@ -37,7 +39,13 @@ export class TaskboardStateColumnViewComponent extends TaskBoardView implements 
       filter(value => !!value),
       map(viewdata => {
         this.keyResults = viewdata.keyResults;
-        const defaultMap: StateTaskMap = { state: new ViewTaskState(null, 'not assigned'), tasks: null };
+        const defaultStateText: string =  this.i18n({
+          id: 'taskBoardDefaultStateText',
+          description: 'Text for the default state column in task boards',
+          value: 'not assigned'
+        });
+
+        const defaultMap: StateTaskMap = { state: new ViewTaskState(null, 'defaultStateText'), tasks: null };
 
         return this.taskHelper.createStateTaskMapList(viewdata.taskStates, viewdata.tasks, defaultMap);
       }));
