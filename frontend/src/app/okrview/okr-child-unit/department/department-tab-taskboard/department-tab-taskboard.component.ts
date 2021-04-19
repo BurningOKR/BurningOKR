@@ -1,6 +1,5 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
@@ -19,16 +18,15 @@ import { TaskBoardGeneralHelper } from 'src/app/shared/services/helper/task-boar
 import { KeyResultMapper } from 'src/app/shared/services/mapper/key-result.mapper';
 import { TaskStateMapper } from 'src/app/shared/services/mapper/task-state.mapper';
 import { TaskMapperService } from 'src/app/shared/services/mapper/task.mapper';
-
 import { TaskFormComponent, TaskFormData } from '../department-tab-task-form/department-tab-task-form.component';
-import { TaskBoardDragDropEvent } from './taskboard-column/taskboard-column.component';
+import { RxStompState } from '@stomp/rx-stomp';
 
 @Component({
   selector: 'app-department-tab-taskboard',
   templateUrl: './department-tab-taskboard.component.html',
   styleUrls: ['./department-tab-taskboard.component.css']
 })
-export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
+export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, OnInit {
   @Input() childUnit: OkrChildUnit;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
@@ -39,6 +37,14 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
 
   viewData: ViewTaskBoardEvent = new ViewTaskBoardEvent();
   subscriptions: Subscription[] = [];
+  websocketErrorsOccured: boolean = false;
+
+  private snackbarDuration: number = 2000;
+  private websocketNotConnectedMessage: string = this.i18n({
+    id: 'websocketNotConnectedMessage',
+    description: 'Websocket connection not established',
+    value: 'Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen.'
+  });
 
   constructor(
     private taskMapperService: TaskMapperService,
@@ -48,10 +54,23 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
     private taskBoardEventService: TaskBoardViewEventService,
     private keyResultMapper: KeyResultMapper,
     private stompService: RxStompService,
+    private snackBar: MatSnackBar,
     private i18n: I18n) { }
 
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.stompService.webSocketErrors$.subscribe(tmp => {
+        this.websocketErrorsOccured = true;
+        this.isInteractive = false;
+        this.snackBar.open(this.websocketNotConnectedMessage, null, {
+          verticalPosition: 'top',
+          duration: 2000
+        });
+      }),
+    );
+  }
+
   ngOnDestroy(): void {
-    console.log("taskboard wird abgebaut");
     this.clearSubscriptions();
     this.stompService.deactivate();
   }
@@ -61,31 +80,48 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
       this.stompService.activate();
     }
 
-    if (changes.cycle) {
-      this.cycle = changes.cycle.currentValue;
-      this.isInteractive = this.cycle.isCycleActive() || this.cycle.isCycleInPreparation();
-      this.viewDataEmitter$.next(this.viewData);
+    let isConnected: boolean = this.isWebsocketConnected();
+    if (isConnected && this.websocketErrorsOccured) {
+      this.websocketErrorsOccured = false;
+      this.isInteractive = true;
+    }
+    isConnected = this.isWebsocketConnected();
+    if (!this.websocketErrorsOccured) {
+      if (changes.cycle) {
+        this.cycle = changes.cycle.currentValue;
+        this.isInteractive = this.isTaskBoardInteractive();
+        this.viewDataEmitter$.next(this.viewData);
+      }
+
+      if (changes.childUnit) {
+        this.clearSubscriptions();
+        this.updateEventHandler();
+        this.viewData = null;
+        this.viewDataEmitter$.next(this.viewData);
+        this.loadViewData(this.childUnit.id)
+          .pipe(
+            map(viewData => {
+              viewData.tasks = this.taskHelper.orderTaskList(viewData.tasks);
+
+              return viewData;
+            })
+          )
+          .subscribe(viewData => {
+            this.viewData = viewData;
+            this.updateWebsocketConnections();
+            this.viewDataEmitter$.next(this.viewData);
+          });
+      }
     }
 
-    if (changes.childUnit) {
-      this.clearSubscriptions();
-      this.updateEventHandler();
-      this.viewData = null;
-      this.viewDataEmitter$.next(this.viewData);
-      this.loadViewData(this.childUnit.id)
-        .pipe(
-          map(viewData => {
-            viewData.tasks = this.taskHelper.orderTaskList(viewData.tasks);
-            return viewData;
-          })
-        ).subscribe(viewData => {
-          this.viewData = viewData;
-          console.log("on change - view data");
-          console.log(this.viewData);
-          this.updateWebsocketConnections();
-          this.viewDataEmitter$.next(this.viewData);
-        });
-    }
+  }
+
+  private isWebsocketConnected(): boolean {
+    return this.stompService.connected();
+  }
+
+  private isTaskBoardInteractive(): boolean {
+    return this.cycle.isCycleActive() || this.cycle.isCycleInPreparation();
   }
 
   updateEventHandler(): void {
@@ -109,8 +145,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
           viewData.tasks.push(...result["tasks$"]);
           viewData.taskStates.push(...result["states$"]);
           viewData.keyResults.push(...result['keyResults$']);
-          console.log('viewdata updated');
-          console.log(viewData);
 
           return viewData;
         })
@@ -129,15 +163,9 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
           })
         )
         .subscribe(newAndUpdatedTasks => {
-          console.log("Websocket Topic");
-          console.log(newAndUpdatedTasks);
-          console.log(this.viewData);
-
           if (newAndUpdatedTasks && newAndUpdatedTasks[0]) {
             this.taskHelper.mergeTaskListWithNewOrUpdatedElements(this.viewData.tasks, newAndUpdatedTasks);
             this.viewData.tasks = this.taskHelper.orderTaskList(this.viewData.tasks);
-            console.log('after merge');
-            console.log(this.viewData);
             this.viewDataEmitter$.next(this.viewData);
           }
         }),
@@ -151,7 +179,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
           })
         )
         .subscribe(task => {
-          console.log("delete Topic");
           this.viewData.tasks = this.taskHelper.removeTaskAndUpdateTaskList(this.viewData.tasks, task);
           this.viewDataEmitter$.next(this.viewData);
         })
@@ -159,7 +186,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
   }
 
   clearSubscriptions(): void {
-    console.log('clear task board subscriptions');
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
@@ -185,8 +211,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
     this.subscriptions.push(
       updatedTask$.pipe(
         tap(task => {
-          console.log("updated task before send");
-          console.log(task);
           this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/update`, body: JSON.stringify(task) });
         })
       ).subscribe()
@@ -212,7 +236,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
     this.subscriptions.push(
       newTask$.pipe(
         tap(task => {
-          // task.previousTaskId = this.taskHelper.getTaskIdForNewTask(this.stateTaskMap, task.taskStateId);
           this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/add`, body: JSON.stringify(task) });
         }),
       )
@@ -262,21 +285,11 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges {
   }
 
   onTaskDragAndDrop(movedAndUpdatedTask: ViewTask): void {
-    console.log("drop Task");
-    console.log(movedAndUpdatedTask);
-
     this.viewData.tasks = this.moveTaskInList(this.viewData.tasks, movedAndUpdatedTask);
-
-    console.log('update global tasklist after moving task');
-    console.log(this.viewData.tasks);
 
     this.viewDataEmitter$.next(this.viewData);
 
-
     const updatedTaskDto = this.taskMapperService.mapToTaskDTO(movedAndUpdatedTask);
-    console.log("Task moved");
-    console.log(updatedTaskDto);
-
 
     this.stompService.publish({
       destination: `/ws/unit/${this.childUnit.id}/tasks/update`,

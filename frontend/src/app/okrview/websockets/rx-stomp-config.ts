@@ -4,7 +4,6 @@ import { environment } from '../../../environments/environment';
 export const myRxStompConfig: InjectableRxStompConfig = {
     // Which server?
     brokerURL: environment.brokerURL,
-
     // How often to heartbeat?
     // Interval in milliseconds, set to 0 to disable
     heartbeatIncoming: 0, // Typical value 0 - disabled
@@ -13,14 +12,13 @@ export const myRxStompConfig: InjectableRxStompConfig = {
     // Wait in milliseconds before attempting auto reconnect
     // Set to 0 to disable
     // Typical value 500 (500 milli seconds)
-    reconnectDelay: 200,
+    reconnectDelay: 1000,
 
     beforeConnect: (client): void => {
-        console.log("before connect");
         client.configure(
             {
                 connectHeaders: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 }
             }
         )
