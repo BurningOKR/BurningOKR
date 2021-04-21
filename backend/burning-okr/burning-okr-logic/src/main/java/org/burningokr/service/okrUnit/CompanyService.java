@@ -6,19 +6,14 @@ import java.util.Collection;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
+import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.*;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.ExtendedRepository;
-import org.burningokr.repositories.cycle.BranchHistoryRepository;
-import org.burningokr.repositories.cycle.CompanyHistoryRepository;
-import org.burningokr.repositories.cycle.CycleRepository;
-import org.burningokr.repositories.cycle.DepartmentHistoryRepository;
+import org.burningokr.repositories.cycle.*;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
@@ -46,6 +41,7 @@ public class CompanyService {
   private EntityCrawlerService entityCrawlerService;
   private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
   private OkrTopicDraftRepository okrTopicDraftRepository;
+  private TopicDraftHistoryRepository topicDraftHistoryRepository;
 
   /**
    * Initialize CompanyService.
@@ -68,7 +64,8 @@ public class CompanyService {
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       OkrTopicDescriptionRepository okrTopicDescriptionRepository,
-      OkrTopicDraftRepository okrTopicDraftRepository) {
+      OkrTopicDraftRepository okrTopicDraftRepository,
+      TopicDraftHistoryRepository topicDraftHistoryRepository) {
     this.cycleRepository = cycleRepository;
     this.companyHistoryRepository = companyHistoryRepository;
     this.branchHistoryRepository = branchHistoryRepository;
@@ -79,6 +76,7 @@ public class CompanyService {
     this.entityCrawlerService = entityCrawlerService;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
     this.okrTopicDraftRepository = okrTopicDraftRepository;
+    this.topicDraftHistoryRepository = topicDraftHistoryRepository;
   }
 
   public OkrCompany findById(long companyId) {
@@ -268,11 +266,17 @@ public class CompanyService {
     return okrBranch;
   }
 
-    protected  <T extends OkrUnitHistory, U extends OkrChildUnit> T createHistory(U unit, T history, ExtendedRepository<T, Long> repository) {
+  protected  <T extends OkrUnitHistory, U extends OkrChildUnit> T createHistory(U unit, T history, ExtendedRepository<T, Long> repository) {
     history.addUnit(unit);
     history =  repository.save(history);
     return history;
   }
+
+    protected  OkrTopicDraftHistory createTopicDraftHistory(OkrTopicDraft draft, OkrTopicDraftHistory history, TopicDraftHistoryRepository repository) {
+        history.addUnit(draft);
+        history =  repository.save(history);
+        return history;
+    }
 
   // TODO (R.J. 17.02.2021) create this method
   public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) {
@@ -281,6 +285,7 @@ public class CompanyService {
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     topicDraft.setParentUnit(referencedOkrCompany);
+    topicDraft.setHistory(createTopicDraftHistory(topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
     logger.info(
