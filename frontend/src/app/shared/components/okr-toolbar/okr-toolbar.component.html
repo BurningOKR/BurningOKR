@@ -43,6 +43,10 @@
       <span i18n="@@component_okrToolbar_adminPanel">Admin Panel</span>
     </button>
   </ng-container>
+  <button mat-menu-item routerLink="/">
+    <mat-icon>assignment</mat-icon>
+    <span i18n="@@component_okrToolbar_topicDrafts">Themenentwürfe</span>
+  </button>
   <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item (click)="routeToCycleAdminPanel()">
     <mat-icon>history</mat-icon>
     <span i18n="@@component_okrToolbar_cycleManagement">Zyklusverwaltung</span>
