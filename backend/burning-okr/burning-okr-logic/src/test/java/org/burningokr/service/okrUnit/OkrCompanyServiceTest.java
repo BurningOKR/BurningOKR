@@ -12,6 +12,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.OkrTopicDraft;
+import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -21,6 +22,7 @@ import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.BranchHistoryRepository;
 import org.burningokr.repositories.cycle.DepartmentHistoryRepository;
+import org.burningokr.repositories.cycle.TopicDraftHistoryRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
@@ -55,6 +57,8 @@ public class OkrCompanyServiceTest {
   @Mock private BranchHistoryRepository branchHistoryRepository;
 
   @Mock private DepartmentHistoryRepository departmentHistoryRepository;
+
+  @Mock private TopicDraftHistoryRepository topicDraftHistoryRepository;
 
   @Mock private OkrTopicDraftRepository okrTopicDraftRepository;
 
@@ -323,5 +327,30 @@ public class OkrCompanyServiceTest {
     companyService.createHistory(okrDepartment, okrDepartmentHistory, departmentHistoryRepository);
 
     verify(departmentHistoryRepository).save(any());
+  }
+
+  @Test
+  public void createTopicDraftHistory_expectsToBeSavedToDb() {
+    OkrTopicDraftHistory okrTopicDraftHistory = new OkrTopicDraftHistory();
+    OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
+
+    companyService.createTopicDraftHistory(okrTopicDraft, okrTopicDraftHistory, topicDraftHistoryRepository);
+    verify(topicDraftHistoryRepository).save(any());
+  }
+
+  @Test
+  public void createTopicDraftHistory_expectsSetsHistory() {
+    OkrTopicDraftHistory okrTopicDraftHistory = new OkrTopicDraftHistory();
+    OkrTopicDescription okrTopicDescription = new OkrTopicDescription();
+    OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(topicDraftHistoryRepository.save(any())).thenReturn(okrTopicDraftHistory);
+    when(okrTopicDescriptionRepository.save(any())).thenReturn(okrTopicDescription);
+    when(okrTopicDraftRepository.save(any())).thenReturn(okrTopicDraft);
+
+    OkrTopicDraft createdOkrTopicDraft = companyService.createTopicDraft(1L, okrTopicDraft, user);
+
+    assertSame(okrTopicDraftHistory, createdOkrTopicDraft.getHistory());
   }
 }

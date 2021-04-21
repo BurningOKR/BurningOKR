@@ -274,7 +274,7 @@ public class CompanyService {
 
     protected  OkrTopicDraftHistory createTopicDraftHistory(OkrTopicDraft draft, OkrTopicDraftHistory history, TopicDraftHistoryRepository repository) {
         history.addUnit(draft);
-        history =  repository.save(history);
+        history = repository.save(history);
         return history;
     }
 
