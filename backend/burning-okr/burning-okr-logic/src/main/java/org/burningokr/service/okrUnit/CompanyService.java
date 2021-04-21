@@ -224,10 +224,8 @@ public class CompanyService {
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
-    OkrDepartmentHistory history = createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository);
-
     okrDepartment.setParentOkrUnit(referencedOkrCompany);
-    okrDepartment.setHistory(history);
+    okrDepartment.setHistory(createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository));
 
     OkrTopicDescription description = new OkrTopicDescription(okrDepartment.getName());
     description = okrTopicDescriptionRepository.save(description);
@@ -253,10 +251,8 @@ public class CompanyService {
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
-    OkrBranchHistory history = createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository);
-
     okrBranch.setParentOkrUnit(referencedOkrCompany);
-    okrBranch.setHistory(history);
+    okrBranch.setHistory(createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository));
 
     okrBranch = unitRepository.save(okrBranch);
     logger.info(
