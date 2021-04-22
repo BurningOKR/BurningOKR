@@ -37,6 +37,7 @@ import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-hand
 import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
+import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -54,6 +55,7 @@ const currentLanguage: string = 'de';
     AppComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
+    SubmittedTopicDraftsComponent,
   ],
   imports: [
     AppRoutingModule,
