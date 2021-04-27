@@ -38,6 +38,7 @@ import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-hand
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
+import { MatTableModule } from '@angular/material/table';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -58,27 +59,28 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftsComponent,
   ],
   imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    CoreModule,
-    CycleAdminModule,
-    FormsModule,
-    HttpClientModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    OAuthModule.forRoot(),
-    ReactiveFormsModule,
-    SharedModule,
-    OkrUnitModule,
-    ErrorModule,
-    LoggerModule.forRoot(loggerConfig),
-  ],
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        CoreModule,
+        CycleAdminModule,
+        FormsModule,
+        HttpClientModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        OAuthModule.forRoot(),
+        ReactiveFormsModule,
+        SharedModule,
+        OkrUnitModule,
+        ErrorModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatTableModule,
+    ],
   entryComponents: [
     DeleteDialogComponent,
   ],
