@@ -7,6 +7,47 @@
 </app-okr-toolbar>
 
 
-<div *ngFor="let topicDraft of topicDrafts$ | async">
-{{topicDraft.name}}
+<div class="container">
+    <div class="row">
+        <mat-card class="col-m-12 col-l-12 col-xl-10 col-s-12 col-centered">
+            <mat-card-title>
+                <mat-icon>assignment</mat-icon>
+                <span i18n="@component_@submittedTopiDrafts_Cardtitle">Eingereichte Themenentwürfe</span>
+            </mat-card-title>
+            <mat-card-content>
+                <table [dataSource]="rowData" mat-table>
+                    <ng-container matColumnDef="topic">
+                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nTopicTableHeader}}</th>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.thema}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="initiator">
+                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nInitiatorTableHeader}}</th>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.initiator}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="beginning">
+                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nBeginningTableHeader}}</th>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.beginning}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="contributesTo">
+                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nContributesToTableHeader}}</th>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.contributesTo}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nStatusTableHeader}}</th>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>STATUS TODO</td>
+                    </ng-container>
+                    <ng-container matColumnDef="comments">
+                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nCommentsTableHeader}}</th>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>NO. OF COMMENTS TODO</td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nActionsTableHeader}}</th>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>ACTIONS TODO</td>
+                    </ng-container>
+                    <tr *matHeaderRowDef="columnsToDisplay;" mat-header-row></tr>
+                    <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
