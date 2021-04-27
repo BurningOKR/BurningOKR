@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { OkrTopicDraft } from '../shared/model/ui/OrganizationalUnit/okr-topic-draft';
+import { OkrTopicDraft } from '../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../shared/services/mapper/topic-draft-mapper';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TopicDraftApiService } from '../api/topic-draft-api.service';
 import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
-import { OkrTopicDraft } from '../../model/ui/OrganizationalUnit/okr-topic-draft';
+import { OkrTopicDraft } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { CompanyId, OkrUnitId } from '../../model/id-types';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators';
@@ -16,6 +16,7 @@ export class TopicDraftMapper {
     static mapTopicDraftDto(topicDraft: OkrTopicDraftDto): OkrTopicDraft {
         return new OkrTopicDraft(
             topicDraft.parentUnitId,
+            topicDraft.currentStatus,
             topicDraft.descriptionId,
             topicDraft.name,
             topicDraft.initiatorId,
@@ -37,6 +38,7 @@ export class TopicDraftMapper {
         const topicDraftDto: OkrTopicDraftDto = new OkrTopicDraftDto();
 
         topicDraftDto.parentUnitId = topicDraft.parentUnitId;
+        topicDraftDto.currentStatus = topicDraft.currentStatus;
         topicDraftDto.name = topicDraft.name;
         topicDraftDto.initiatorId = topicDraft.initiatorId;
         topicDraftDto.startTeam = topicDraft.startTeam;
