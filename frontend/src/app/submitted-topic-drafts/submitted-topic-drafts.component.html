@@ -5,3 +5,8 @@
     <span i18n="@@component_submittedTopicDrafts_submittedTopicDrafts">Eingereichte Themenentwürfe</span>
     <span class="fill-space"></span>
 </app-okr-toolbar>
+
+
+<div *ngFor="let topicDraft of topicDrafts$ | async">
+{{topicDraft.name}}
+</div>

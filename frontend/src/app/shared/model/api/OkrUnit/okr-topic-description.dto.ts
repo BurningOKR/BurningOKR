@@ -1,6 +1,5 @@
 import { TopicDescriptionId, UserId } from '../../id-types';
 
-// Attributes changed here need to be changed in okr-topic-draft.dto.ts as well!
 export class OkrTopicDescriptionDto {
   descriptionId: TopicDescriptionId;
   name: string;

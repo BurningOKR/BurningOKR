@@ -21,6 +21,6 @@ export class TopicDraftApiService {
   }
 
   getAllTopicDrafts$(): Observable<OkrTopicDraftDto[]> {
-    return this.api.getData$(`topicDraft/all`);
+    return this.api.getData$(`topicDrafts/all`);
   }
 }
