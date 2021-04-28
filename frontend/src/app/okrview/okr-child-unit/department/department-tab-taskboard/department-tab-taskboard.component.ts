@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { RxStompService } from '@stomp/ng2-stompjs';
+import { RxStompService, StompState } from '@stomp/ng2-stompjs';
 import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
 import { TaskBoardViewEventService } from 'src/app/okrview/taskboard-services/task-board-view-event.service';
@@ -36,8 +36,10 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   viewDataEmitter$: BehaviorSubject<ViewTaskBoardEvent> = new BehaviorSubject(null);
 
   viewData: ViewTaskBoardEvent = new ViewTaskBoardEvent();
-  subscriptions: Subscription[] = [];
-  websocketErrorsOccured: boolean = false;
+
+  eventSubscriptions: Subscription[] = [];
+  websocketSubcriptions: Subscription[] = [];
+  tryingToReconnect: boolean = false;
 
   private snackbarDuration: number = 2000;
   private websocketNotConnectedMessage: string = this.i18n({
@@ -58,35 +60,47 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     private i18n: I18n) { }
 
   ngOnInit(): void {
-    this.subscriptions.push(
+    this.eventSubscriptions.push(
+
       this.stompService.webSocketErrors$.subscribe(tmp => {
-        this.websocketErrorsOccured = true;
-        this.isInteractive = false;
-        this.snackBar.open(this.websocketNotConnectedMessage, null, {
-          verticalPosition: 'top',
-          duration: 2000
-        });
+        if (!this.tryingToReconnect) {
+          this.tryingToReconnect = true;
+          this.isInteractive = false;
+          this.snackBar.open(this.websocketNotConnectedMessage, null, {
+            verticalPosition: 'top',
+            duration: this.snackbarDuration
+          });
+          this.clearWebsocketConnectionSubscriptions();
+        }
+      }),
+      this.stompService.connectionState$.subscribe(observer => {
+        if (observer === RxStompState.OPEN && this.tryingToReconnect) {
+          this.tryingToReconnect = false;
+          this.isInteractive = true;
+          this.updateWebsocketConnections();
+        }
       }),
     );
   }
 
   ngOnDestroy(): void {
-    this.clearSubscriptions();
+    this.clearEventSubscriptions();
+    this.clearWebsocketConnectionSubscriptions();
     this.stompService.deactivate();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.stompService.active) {
+    if (!this.stompService.active && !this.tryingToReconnect) {
       this.stompService.activate();
     }
 
-    let isConnected: boolean = this.isWebsocketConnected();
-    if (isConnected && this.websocketErrorsOccured) {
-      this.websocketErrorsOccured = false;
+    const isConnected: boolean = this.isWebsocketConnected();
+    if (isConnected && this.tryingToReconnect) {
+      this.tryingToReconnect = false;
       this.isInteractive = true;
     }
-    isConnected = this.isWebsocketConnected();
-    if (!this.websocketErrorsOccured) {
+
+    if (!this.tryingToReconnect) {
       if (changes.cycle) {
         this.cycle = changes.cycle.currentValue;
         this.isInteractive = this.isTaskBoardInteractive();
@@ -94,7 +108,8 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       }
 
       if (changes.childUnit) {
-        this.clearSubscriptions();
+        this.clearEventSubscriptions();
+        this.clearWebsocketConnectionSubscriptions();
         this.updateEventHandler();
         this.viewData = null;
         this.viewDataEmitter$.next(this.viewData);
@@ -125,7 +140,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   }
 
   updateEventHandler(): void {
-    this.subscriptions.push(
+    this.eventSubscriptions.push(
       this.taskBoardEventService.taskAddButtonClick$.subscribe(task => this.onTaskAddButtonClick(task)),
       this.taskBoardEventService.taskDeleteButtonClick$.subscribe(task => this.onTaskDeleteButtonClick(task)),
       this.taskBoardEventService.taskUpdateButtonClick$.subscribe(task => this.onTaskUpdateButtonClick(task)),
@@ -152,7 +167,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   }
 
   updateWebsocketConnections(): void {
-    this.subscriptions.push(
+    this.websocketSubcriptions.push(
       this.stompService.watch({ destination: `/topic/unit/${this.childUnit.id}/tasks` })
         .pipe(
           map(taskDtosMessage => {
@@ -185,11 +200,18 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     );
   }
 
-  clearSubscriptions(): void {
-    for (const subscription of this.subscriptions) {
+  clearEventSubscriptions(): void {
+    for (const subscription of this.eventSubscriptions) {
       subscription.unsubscribe();
     }
-    this.subscriptions = [];
+    this.eventSubscriptions = [];
+  }
+
+  clearWebsocketConnectionSubscriptions(): void {
+    for (const subscription of this.websocketSubcriptions) {
+      subscription.unsubscribe();
+    }
+    this.websocketSubcriptions = [];
   }
 
   viewToggleChanged(): void {
@@ -208,7 +230,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     };
 
     const updatedTask$: Observable<ViewTask> = this.openDialog$(formData);
-    this.subscriptions.push(
+    this.eventSubscriptions.push(
       updatedTask$.pipe(
         tap(task => {
           this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/update`, body: JSON.stringify(task) });
@@ -233,7 +255,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     };
 
     const newTask$: Observable<ViewTask> = this.openDialog$(formData);
-    this.subscriptions.push(
+    this.eventSubscriptions.push(
       newTask$.pipe(
         tap(task => {
           this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/add`, body: JSON.stringify(task) });
@@ -244,7 +266,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   }
 
   onTaskDeleteButtonClick(task: ViewTask): void {
-    console.log("onTaskDelete");
     const title: string = this.i18n({
       id: 'deleteTaskDialog_title',
       value: 'Aufgabe löschen'
@@ -264,7 +285,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       title, message, confirmButtonText
     };
 
-    this.subscriptions.push(
+    this.eventSubscriptions.push(
       this.openConfirmationDialog$(formData)
         .pipe(
           tap(_ => {
