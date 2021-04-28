@@ -28,7 +28,6 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.updateDescription();
-    this.canEdit = this.currentUserRole.isAtleastAdmin() || this.currentUserRole.isAtleastOKRManager();
   }
 
   ngOnChanges(): void {
@@ -56,6 +55,7 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
   }
 
   private updateDescription(): void {
+    this.canEdit = this.currentUserRole.isAtleastAdmin() || this.currentUserRole.isAtleastOKRManager();
     this.description$ = this.topicDescriptionMapperService.getTopicDescriptionById$(this.department.id);
   }
 }

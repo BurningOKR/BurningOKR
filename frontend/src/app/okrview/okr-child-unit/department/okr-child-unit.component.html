@@ -15,10 +15,10 @@
                   </button>
                 </div>
 
-                <div class="flex-wrap-spreadinner f-1">
-                  <div class="department-flex">
-                    <div class="department-title">{{ childUnit.name }}</div>
-                    <div class="department-subtitle"> {{ childUnit.label }}</div>
+                <div class="flex-wrap-spreadinner f-1 flex-department-title">
+                  <div class="department-flex overflow-ellipsis">
+                    <div class="department-title overflow-ellipsis">{{ childUnit.name }}</div>
+                    <div class="department-subtitle overflow-ellipsis"> {{ childUnit.label }}</div>
                   </div>
                   <div *ngIf="!childUnit.isActive" class="flex-nowrap-center department-inactive-box">
                     <mat-icon>info</mat-icon>

@@ -897,7 +897,13 @@
         <target state="final">Diese Okr Einheit ist nicht aktiv</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-preview-button/okr-child-unit-preview-button.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-preview-button/okr-child-unit-preview-button.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="component_departmentPreviewButton_showDepartment" datatype="html">
+        <source>Struktur anzeigen</source><target state="final">Struktur anzeigen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-preview-button/okr-child-unit-preview-button.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
 
       <trans-unit id="component_departmentPreviewButton_load" datatype="html">
         <source>Lade <x id="INTERPOLATION" equiv-text="{{ title }}"/>
@@ -1104,12 +1110,18 @@
         </context-group>
       </trans-unit>
       <trans-unit id="component_commentViewDialog_writeNewComment" datatype="html">
-        <source>Neues Kommentar schreiben</source>
-        <target state="final">Neues Kommentar schreiben</target>
+        <source>Neuen Kommentar schreiben</source>
+        <target state="final">Neuen Kommentar schreiben</target>
 
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/comment/comment-view-dialog/comment-view-dialog.component.html</context>
           <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_commentViewDialog_commentToSmall" datatype="html">
+        <source>Ihr Kommentar muss länger sein</source><target state="final">Ihr Kommentar muss länger sein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/comment/comment-view-dialog/comment-view-dialog.component.html</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="component_commentViewDialog_close" datatype="html">
@@ -1224,7 +1236,7 @@
         <target state="final">Mehr Optionen zu dieser Struktur</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_yourTeamAsManager" datatype="html">
         <source>Ihre Teams als Manager</source>
         <target state="final">Ihre Teams als Manager</target>
@@ -1236,20 +1248,20 @@
         <target state="final">Ihre Teams als Mitglied</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">32</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_childUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">33</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_childUnit" datatype="html">
         <source>Unterstrukturen</source><target state="final">Unterstrukturen</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_defineNewChildUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">48</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_defineNewChildUnit" datatype="html">
         <source>Neue Unterstruktur definieren</source><target state="final">Neue Unterstruktur definieren</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">50</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_noChildUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">54</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_noChildUnit" datatype="html">
         <source>
           Es gibt noch keine Unterstrukturen für diese Struktur
         </source><target state="final">
           Es gibt noch keine Unterstrukturen für diese Struktur
         </target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">55</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">61</context></context-group></trans-unit>
 
 
 
@@ -1258,25 +1270,22 @@
         <target state="final">Exportieren</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">74</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">80</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_exportContacts" datatype="html">
         <source>Kontakte exportieren</source>
         <target state="final">Kontakte exportieren</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">78</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">84</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_loadingCompany" datatype="html">
         <source>Lade Firma...</source>
         <target state="final">Lade Firma...</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">86</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompany" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">92</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompany" datatype="html">
         <source>Fehler</source><target state="final">Fehler</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
-          <context context-type="linenumber">91</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyText" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">97</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyText" datatype="html">
         <source>
       Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
       oder der Server antwortet nicht.
@@ -1284,17 +1293,11 @@
       Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
       oder der Server antwortet nicht.
     </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
-          <context context-type="linenumber">92</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyButton" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">98</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyButton" datatype="html">
         <source>Zur Strukturübersicht</source><target state="final">Zur Strukturübersicht</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
-          <context context-type="linenumber">96</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">103</context></context-group></trans-unit>
       <trans-unit id="component_navigationListEntry_youAreManager" datatype="html">
         <source>Sie sind Manager dieser Struktur</source>
         <target state="final">Sie sind Manager dieser Struktur</target>

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -24,7 +24,7 @@ import { Configuration } from '../../../../shared/model/ui/configuration';
   templateUrl: './department-tab-team.component.html',
   styleUrls: ['./department-tab-team.component.scss']
 })
-export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
+export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges {
   @Input() department: OkrDepartment;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
@@ -43,15 +43,24 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     private i18n: I18n
   ) {}
 
-  ngOnInit(): void {
+  private updateRights(): void {
     this.canEditManagers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastAdmin();
     this.canEditMembers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastOKRManager();
+  }
+
+  ngOnInit(): void {
+    this.updateRights();
+
     this.topicSponsorsActivated$ = this.configurationManagerService.getTopicSponsorsActivated$()
       .pipe(
         map((configuration: Configuration) => {
           return configuration.value === 'true' || configuration.value === true;
         })
       );
+  }
+
+  ngOnChanges(): void {
+    this.updateRights();
   }
 
   ngOnDestroy(): void {
@@ -94,7 +103,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteOkrMaster(): void {
+  private deleteOkrMaster(): void {
     this.department.okrMasterId = undefined;
     this.updateUserList();
   }
@@ -139,7 +148,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteOkrTopicSponsor(): void {
+  private deleteOkrTopicSponsor(): void {
     this.department.okrTopicSponsorId = undefined;
     this.updateUserList();
   }
@@ -184,7 +193,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteOkrMember(memberId: string): void {
+  private deleteOkrMember(memberId: string): void {
     const memberIndex: number = this.department.okrMemberIds.indexOf(memberId);
     this.department.okrMemberIds.splice(memberIndex, 1);
     this.updateUserList();
@@ -198,7 +207,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
     this.updateUserList();
   }
 
-  updateUserList(): void {
+  private updateUserList(): void {
     this.querySaveTeam();
     this.getCurrentUserIdPromiseFromUserService$()
       .subscribe((currentUserId: string) => {
@@ -216,14 +225,14 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy {
       });
   }
 
-  querySaveTeam(): void {
+  private querySaveTeam(): void {
     this.departmentMapperService
       .putDepartment$(this.department)
       .pipe(take(1))
       .subscribe();
   }
 
-  getCurrentUserIdPromiseFromUserService$(): Observable<string> {
+  private getCurrentUserIdPromiseFromUserService$(): Observable<string> {
     return this.currentUserService.getCurrentUser$()
       .pipe(
         map(currentUser => currentUser.id),

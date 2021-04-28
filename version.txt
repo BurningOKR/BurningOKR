@@ -1,8 +1,4 @@
-1.0.3
+1.0.4
 
-- BurningOKR is now responsive and mobile-ready!
-- key results can now contain milestones
-- objectives can now have a contact person
-- importing users via CSV checks for validity
-- added better error handling for 404 errors
-- minor UI fixes
+- Descriptions can now be added to OKR Teams
+- Minor UI fixes

@@ -35,11 +35,35 @@ Here is a table with equivalent data types, to keep the migrations consistent:
 |------------|-------|
 | boolean    | bit   |
 | timestamp without timezone | datetime2 |
+| uuid		 | uniqueidentifier |
 
-#Frontend
+To use the PostgreSQL Server you have to set the following setting in the `application.yaml`:
+```yaml
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+```
+and to use the MSSQL Server yiu have to set the following setting in the `application.yaml`:
+```yaml
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.burningokr.dialects.SQLServer2012UUIDFixDialect
+```
+For every migration you create, you **MUST** create a migration for the MSSQL Server and for the PostgreSQL server.
+Migrations are simple sql scripts and they can be found in `burning-okr-app/src/main/resources/db/migration`.
+There are two directories, `postgresql` and `sqlserver`. Create a migration script in each directory. The migration scripts
+should generally do the same, but they need to stick to the dialect of the corresponding dbms.
 
-##Decorators
-###Fetchable Decorator
+
+
+# Frontend
+
+## Decorators
+### Fetchable Decorator
 A Service which needs to Fetch Data on Application Startup or when a User logs in, needs to have the `@Fetchable()` Decorator and the `Fetchable` interface.
 The Fetchable Interface enforces the implementation of the `fetchData(): void` method.
 
