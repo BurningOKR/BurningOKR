@@ -41,7 +41,7 @@ export class TaskboardColumnComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    for (let task of this.map.tasks) {
+    for (const task of this.map.tasks) {
       this.taskCardInformations.push(this.createTaskInformation(task, this.keyResults));
     }
   }
@@ -50,10 +50,6 @@ export class TaskboardColumnComponent implements OnInit, OnDestroy {
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
-  }
-
-  updateOrViewTask(task: ViewTask): void {
-    this.taskBoardEventService.taskUpdateButtonClick$.next(task);
   }
 
   dropTask($event: CdkDragDrop<ViewTask[]>): void {
@@ -66,9 +62,5 @@ export class TaskboardColumnComponent implements OnInit, OnDestroy {
 
   createTaskInformation(task: ViewTask, availableKeyResults: ViewKeyResult[]): TaskCardInformation {
     return { keyResult: availableKeyResults.find(keyResult => keyResult.id === task.assignedKeyResultId), task };
-  }
-
-  onDelete(task: ViewTask): void {
-    this.taskBoardEventService.taskDeleteButtonClick$.next(task);
   }
 }
