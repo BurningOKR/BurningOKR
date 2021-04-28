@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 
 export const myRxStompConfig: InjectableRxStompConfig = {
     // Which server?
-    brokerURL: environment.brokerURL,
+    brokerURL: `ws://${window.location.host}/${environment.brokerURLSuffix}`,
     // How often to heartbeat?
     // Interval in milliseconds, set to 0 to disable
     heartbeatIncoming: 10000, // Typical value 0 - disabled
