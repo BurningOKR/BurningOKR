@@ -1,6 +1,7 @@
 import { OkrUnitId, UserId } from '../../../id-types';
 import { OkrTopicDescription } from '../okr-topic-description';
 import { status } from './okr-topic-draft-status-enum';
+import { User } from '../../../api/user';
 
 export class OkrTopicDraft extends OkrTopicDescription {
   parentUnitId: OkrUnitId;
@@ -15,10 +16,12 @@ export class OkrTopicDraft extends OkrTopicDescription {
   resources: string;
   handoverPlan: string;
   currentStatus: status;
+  initiator: User;
 
   constructor(
     parentUnitId: OkrUnitId,
     currentStatus: status,
+    initiator: User,
     topicDraftId: number,
     name: string,
     initiatorId: UserId,
@@ -35,5 +38,6 @@ export class OkrTopicDraft extends OkrTopicDescription {
       contributesTo, delimitation, beginning, dependencies, resources, handoverPlan);
       this.parentUnitId = parentUnitId;
       this.currentStatus = currentStatus;
+      this.initiator = initiator;
     }
 }

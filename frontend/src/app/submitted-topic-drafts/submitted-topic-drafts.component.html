@@ -18,11 +18,11 @@
                 <table [dataSource]="rowData" mat-table>
                     <ng-container matColumnDef="topic">
                         <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nTopicTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.thema}}</td>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.name}}</td>
                     </ng-container>
                     <ng-container matColumnDef="initiator">
                         <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nInitiatorTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.initiator}}</td>
+                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.initiator.surname}}, {{topicDraft.initiator.givenName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="beginning">
                         <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nBeginningTableHeader}}</th>

@@ -17,6 +17,7 @@ export class TopicDraftMapper {
         return new OkrTopicDraft(
             topicDraft.parentUnitId,
             topicDraft.currentStatus,
+            topicDraft.initiator,
             topicDraft.descriptionId,
             topicDraft.name,
             topicDraft.initiatorId,

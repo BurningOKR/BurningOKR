@@ -1,6 +1,8 @@
 package org.burningokr.mapper.okr;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,10 +12,21 @@ import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.model.okr.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrUnit;
+import org.burningokr.model.users.User;
+import org.burningokr.service.userhandling.UserService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class OkrTopicDraftMapperTest {
+
+  @Mock private UserService userService;
+
+  @Mock private User user;
 
   private OkrTopicDraft topicDraft;
   private OkrTopicDraftDto topicDraftDto;
@@ -23,7 +36,8 @@ public class OkrTopicDraftMapperTest {
   public void setUp() {
     topicDraft = new OkrTopicDraft();
     topicDraftDto = new OkrTopicDraftDto();
-    mapper = new OkrTopicDraftMapper();
+    mapper = new OkrTopicDraftMapper(userService);
+    when(userService.findById(any())).thenReturn(user);
   }
 
   // Entity To Dto
@@ -296,4 +310,6 @@ public class OkrTopicDraftMapperTest {
     OkrTopicDraft actual = mapper.mapDtoToEntity(topicDraftDto);
     assertNull(actual.getParentUnit());
   }
+
+  // ToDo(C.K. 29.04.21) add tests for getting user by id
 }
