@@ -17,32 +17,32 @@
             <mat-card-content>
                 <table [dataSource]="rowData" mat-table>
                     <ng-container matColumnDef="topic">
-                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nTopicTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.name}}</td>
+                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nTopicTableHeader}}</th>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.name}}</td>
                     </ng-container>
                     <ng-container matColumnDef="initiator">
-                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nInitiatorTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.initiator.surname}}, {{topicDraft.initiator.givenName}}</td>
+                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nInitiatorTableHeader}}</th>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.initiator.surname}}, {{topicDraft.initiator.givenName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="beginning">
-                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nBeginningTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.beginning}}</td>
+                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nBeginningTableHeader}}</th>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.beginning | date:'shortDate'}}</td>
                     </ng-container>
                     <ng-container matColumnDef="contributesTo">
-                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nContributesToTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>{{topicDraft.contributesTo}}</td>
+                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nContributesToTableHeader}}</th>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.contributesTo}}</td>
                     </ng-container>
                     <ng-container matColumnDef="status">
-                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nStatusTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>STATUS TODO</td>
+                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nStatusTableHeader}}</th>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>STATUS TODO</td>
                     </ng-container>
                     <ng-container matColumnDef="comments">
-                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nCommentsTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>NO. OF COMMENTS TODO</td>
+                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nCommentsTableHeader}}</th>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>NO. OF COMMENTS TODO</td>
                     </ng-container>
                     <ng-container matColumnDef="actions">
-                        <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell> {{i18nActionsTableHeader}}</th>
-                        <td class="hidden-mobile-table" *matCellDef="let topicDraft" mat-cell>ACTIONS TODO</td>
+                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nActionsTableHeader}}</th>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>ACTIONS TODO</td>
                     </ng-container>
                     <tr *matHeaderRowDef="columnsToDisplay;" mat-header-row></tr>
                     <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>
