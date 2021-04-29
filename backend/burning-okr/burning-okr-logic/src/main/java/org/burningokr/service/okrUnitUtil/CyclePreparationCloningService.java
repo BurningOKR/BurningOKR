@@ -81,23 +81,15 @@ public class CyclePreparationCloningService {
 
     subUnitRepository.save(copy);
 
-    this.logger.info("cloneChildUnitIntoParentUnitForPreparation - before taskboard");
     if(okrChildUnitToClone instanceof OkrDepartment) {
-      this.logger.info("Unit IS an OkrDepartment");
-      this.logger.info("Copy:");
       this.logOkrDepartment((OkrDepartment) copy);
 
       TaskBoard newTaskBoard = taskBoardService.cloneTaskBoard((OkrDepartment) copy,((OkrDepartment) okrChildUnitToClone).getTaskBoard());
-      //newTaskBoard.setParentOkrDepartment((OkrDepartment) copy);
       taskBoardService.saveTaskBoard(newTaskBoard);
 
-      this.logger.info("NewTaskboard");
-      this.taskBoardService.logTaskBoard(newTaskBoard);
-      //((OkrDepartment) copy).setTaskBoard(newTaskBoard);
       subUnitRepository.save(copy);
-    } else {
-      this.logger.info("Unit IS NOT an OkrDepartment");
     }
+    
     this.logger.info("cloneChildUnitIntoParentUnitForPreparation - after taskboard");
     cloneObjectiveListIntoOkrUnitForPreparation(okrChildUnitToClone.getObjectives(), copy);
 
