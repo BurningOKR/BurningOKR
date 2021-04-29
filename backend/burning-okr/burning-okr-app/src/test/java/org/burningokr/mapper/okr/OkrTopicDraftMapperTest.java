@@ -2,6 +2,7 @@ package org.burningokr.mapper.okr;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -176,6 +177,20 @@ public class OkrTopicDraftMapperTest {
     assertEquals(expected.getId(), actual.getOkrParentUnitId());
   }
 
+  @Test
+  public void test_mapEntityToDto_expect_initiator_isSet() {
+    OkrTopicDraftDto actual = mapper.mapEntityToDto(topicDraft);
+
+    assertSame(user, actual.getInitiator());
+  }
+
+  @Test
+  public void test_mapEntityToDto_expect_findById_isCalled() {
+    mapper.mapEntityToDto(topicDraft);
+
+    verify(userService).findById(any());
+  }
+
   // Dto to Entity
 
   @Test
@@ -310,6 +325,4 @@ public class OkrTopicDraftMapperTest {
     OkrTopicDraft actual = mapper.mapDtoToEntity(topicDraftDto);
     assertNull(actual.getParentUnit());
   }
-
-  // ToDo(C.K. 29.04.21) add tests for getting user by id
 }
