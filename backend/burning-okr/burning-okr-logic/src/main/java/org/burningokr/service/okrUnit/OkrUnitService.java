@@ -1,7 +1,6 @@
 package org.burningokr.service.okrUnit;
 
 import java.util.Collection;
-
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;

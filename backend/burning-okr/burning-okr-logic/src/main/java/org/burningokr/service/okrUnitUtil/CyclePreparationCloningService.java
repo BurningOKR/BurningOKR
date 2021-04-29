@@ -2,7 +2,6 @@ package org.burningokr.service.okrUnitUtil;
 
 import java.util.Collection;
 import java.util.HashMap;
-
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
@@ -81,15 +80,17 @@ public class CyclePreparationCloningService {
 
     subUnitRepository.save(copy);
 
-    if(okrChildUnitToClone instanceof OkrDepartment) {
+    if (okrChildUnitToClone instanceof OkrDepartment) {
       this.logOkrDepartment((OkrDepartment) copy);
 
-      TaskBoard newTaskBoard = taskBoardService.cloneTaskBoard((OkrDepartment) copy,((OkrDepartment) okrChildUnitToClone).getTaskBoard());
+      TaskBoard newTaskBoard =
+          taskBoardService.cloneTaskBoard(
+              (OkrDepartment) copy, ((OkrDepartment) okrChildUnitToClone).getTaskBoard());
       taskBoardService.saveTaskBoard(newTaskBoard);
 
       subUnitRepository.save(copy);
     }
-    
+
     this.logger.info("cloneChildUnitIntoParentUnitForPreparation - after taskboard");
     cloneObjectiveListIntoOkrUnitForPreparation(okrChildUnitToClone.getObjectives(), copy);
 
@@ -97,7 +98,6 @@ public class CyclePreparationCloningService {
       cloneChildUnitListIntoParentUnitForPreparation(
           ((OkrParentUnit) okrChildUnitToClone).getOkrChildUnits(), copy);
     }
-
   }
 
   private void cloneObjectiveListIntoOkrUnitForPreparation(
@@ -152,6 +152,6 @@ public class CyclePreparationCloningService {
   }
 
   private void logOkrDepartment(OkrDepartment okrDepartment) {
-    this.logger.info("Id" +okrDepartment.getId() +" Name: " + okrDepartment.getName());
+    this.logger.info("Id" + okrDepartment.getId() + " Name: " + okrDepartment.getName());
   }
 }

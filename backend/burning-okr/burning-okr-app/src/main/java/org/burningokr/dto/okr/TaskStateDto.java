@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class TaskStateDto {
-    private Long id;
-    private String title;
+  private Long id;
+  private String title;
 }

@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okr.TaskBoard;
-import org.springframework.lang.Nullable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -20,7 +20,6 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.users.User;
-import org.burningokr.service.okr.KeyResultService;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
@@ -94,7 +93,7 @@ public class OkrUnitController {
   @GetMapping("/units/{unitId}/keyresults")
   public ResponseEntity<Collection<KeyResultDto>> getKeyResultsOfUnit(@PathVariable long unitId) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-            okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Collection<KeyResult> keyResults = okrUnitService.findKeyResultsOfUnit(unitId);
     return ResponseEntity.ok(keyResultMapper.mapEntitiesToDtos(keyResults));
   }

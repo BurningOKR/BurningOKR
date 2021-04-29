@@ -1,5 +1,7 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
+import java.util.Collection;
+import java.util.UUID;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.configuration.ConfigurationName;
@@ -23,9 +25,6 @@ import org.burningokr.service.okrUnitUtil.ParentService;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collection;
-import java.util.UUID;
 
 @Service("okrUnitServiceAdmins")
 public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitServiceManagers<T> {
@@ -141,7 +140,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     OkrUnit parentOkrUnit = superUnitRepository.findByIdOrThrow(parentUnitId);
 
     throwIfCycleForDepartmentIsClosed(parentOkrUnit);
-    TaskBoard taskBoard=null;
+    TaskBoard taskBoard = null;
 
     subDepartment.setParentOkrUnit(parentOkrUnit);
 
@@ -157,12 +156,11 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
 
     subDepartment = superUnitRepository.save(subDepartment);
 
-    if(taskBoard != null) {
+    if (taskBoard != null) {
       taskBoard.setParentOkrDepartment((OkrDepartment) subDepartment);
 
       this.taskBoardService.saveTaskBoard(taskBoard);
     }
-
 
     logger.info(
         "Created subdepartment: "

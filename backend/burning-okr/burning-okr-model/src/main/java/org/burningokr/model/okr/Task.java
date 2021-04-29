@@ -1,15 +1,14 @@
 package org.burningokr.model.okr;
 
-import lombok.Data;
-import lombok.ToString;
-import org.burningokr.model.activity.Trackable;
-
-import javax.annotation.Nullable;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import javax.annotation.Nullable;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.ToString;
+import org.burningokr.model.activity.Trackable;
 
 @Entity
 @Data
@@ -28,7 +27,7 @@ public class Task implements Trackable<Long> {
 
   @OneToOne
   @NotNull
-  @JoinColumn(name="task_state_id")
+  @JoinColumn(name = "task_state_id")
   private TaskState taskState;
 
   @ElementCollection(fetch = FetchType.EAGER)
@@ -38,29 +37,29 @@ public class Task implements Trackable<Long> {
 
   @ToString.Exclude
   @ManyToOne
-  @JoinColumn(name="parent_task_board_id")
+  @JoinColumn(name = "parent_task_board_id")
   private TaskBoard parentTaskBoard;
 
   @ToString.Exclude
   @ManyToOne
   @Nullable
-  @JoinColumn(name="assigned_key_result_id")
+  @JoinColumn(name = "assigned_key_result_id")
   private KeyResult assignedKeyResult;
+
   public boolean hasAssignedKeyResult() {
-    return assignedKeyResult !=null;
+    return assignedKeyResult != null;
   }
 
   @OneToOne
   @Nullable
-  @JoinColumn(name="previous_task_id")
+  @JoinColumn(name = "previous_task_id")
   private Task previousTask;
+
   public boolean hasPreviousTask() {
-      return previousTask!=null;
+    return previousTask != null;
   }
 
-  @Column
-  @Version
-  private Long version;
+  @Column @Version private Long version;
 
   @Override
   public String getName() {

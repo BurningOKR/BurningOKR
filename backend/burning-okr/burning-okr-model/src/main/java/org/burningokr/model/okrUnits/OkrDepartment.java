@@ -29,7 +29,6 @@ public class OkrDepartment extends OkrChildUnit {
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
-
   @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.REMOVE)
   private TaskBoard taskBoard;
 

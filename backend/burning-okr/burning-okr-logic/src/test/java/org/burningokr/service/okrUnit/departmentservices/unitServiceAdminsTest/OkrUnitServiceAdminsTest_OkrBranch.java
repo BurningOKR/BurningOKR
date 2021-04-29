@@ -8,7 +8,6 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
@@ -44,7 +43,6 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
         .thenAnswer(invocation -> invocation.getArgument(0));
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any(TaskBoard.class))).thenReturn(taskBoard);
-
 
     OkrDepartment actual =
         (OkrDepartment)
