@@ -346,7 +346,6 @@ public class OkrCompanyServiceTest {
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(topicDraftHistoryRepository.save(any())).thenReturn(okrTopicDraftHistory);
-    when(okrTopicDescriptionRepository.save(any())).thenReturn(okrTopicDescription);
     when(okrTopicDraftRepository.save(any())).thenReturn(okrTopicDraft);
 
     OkrTopicDraft createdOkrTopicDraft = companyService.createTopicDraft(1L, okrTopicDraft, user);
