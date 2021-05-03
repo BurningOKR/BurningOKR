@@ -6,6 +6,7 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrParentUnit;
@@ -18,7 +19,7 @@ import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.ConfigurationChangedEvent;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
-import org.burningokr.service.okr.OkrTopicDescriptionService;
+import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
 import org.springframework.context.event.EventListener;
@@ -30,7 +31,8 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
 
   private final UnitRepository<OkrUnit> superUnitRepository;
   private final OkrTopicDescriptionRepository okrTopicDescriptionRepository;
-  private final OkrTopicDescriptionService okrTopicDescriptionService;
+
+  private final TaskBoardService taskBoardService;
 
   /**
    * Initialize DepartmentServiceAdmins.
@@ -49,13 +51,14 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       OkrTopicDescriptionRepository okrTopicDescriptionRepository,
-      OkrTopicDescriptionService okrTopicDescriptionService) {
+      TaskBoardService taskBoardService) {
     super(
         parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
 
     this.superUnitRepository = superUnitRepository;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
-    this.okrTopicDescriptionService = okrTopicDescriptionService;
+
+    this.taskBoardService = taskBoardService;
   }
 
   @EventListener(ConfigurationChangedEvent.class)
@@ -137,6 +140,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     OkrUnit parentOkrUnit = superUnitRepository.findByIdOrThrow(parentUnitId);
 
     throwIfCycleForDepartmentIsClosed(parentOkrUnit);
+    TaskBoard taskBoard = null;
 
     subDepartment.setParentOkrUnit(parentOkrUnit);
 
@@ -146,9 +150,18 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       OkrTopicDescription description = new OkrTopicDescription(okrDepartment.getName());
       description = okrTopicDescriptionRepository.save(description);
       okrDepartment.setOkrTopicDescription(description);
+
+      taskBoard = taskBoardService.createNewTaskBoardWithDefaultStates();
     }
 
     subDepartment = superUnitRepository.save(subDepartment);
+
+    if (taskBoard != null) {
+      taskBoard.setParentOkrDepartment((OkrDepartment) subDepartment);
+
+      this.taskBoardService.saveTaskBoard(taskBoard);
+    }
+
     logger.info(
         "Created subdepartment: "
             + subDepartment.getName()

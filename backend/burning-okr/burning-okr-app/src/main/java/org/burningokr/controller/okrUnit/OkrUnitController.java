@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.dto.okrUnit.OkrChildUnitDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
@@ -14,6 +15,7 @@ import org.burningokr.mapper.okr.ObjectiveMapper;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.mapper.okrUnit.OkrCompanyMapper;
 import org.burningokr.mapper.okrUnit.UnitMapperFactory;
+import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -38,6 +40,7 @@ public class OkrUnitController {
   private final OkrBranchSchemaMapper okrBranchSchemaMapper;
   private final ObjectiveMapper objectiveMapper;
   private final OkrCompanyMapper okrCompanyMapper;
+  private final DataMapper<KeyResult, KeyResultDto> keyResultMapper;
 
   @GetMapping("/units/{unitId}")
   public ResponseEntity<OkrChildUnitDto> getUnitByUnitId(@PathVariable long unitId) {
@@ -79,6 +82,20 @@ public class OkrUnitController {
         okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Collection<Objective> objectives = okrUnitService.findObjectivesOfUnit(unitId);
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(objectives));
+  }
+
+  /**
+   * API Endpoint to get all Key Results of an OkrDepartment.
+   *
+   * @param unitId a long value
+   * @return a {@link ResponseEntity} ok with a {@link Collection} of KeyResult
+   */
+  @GetMapping("/units/{unitId}/keyresults")
+  public ResponseEntity<Collection<KeyResultDto>> getKeyResultsOfUnit(@PathVariable long unitId) {
+    OkrUnitService<OkrChildUnit> okrUnitService =
+        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+    Collection<KeyResult> keyResults = okrUnitService.findKeyResultsOfUnit(unitId);
+    return ResponseEntity.ok(keyResultMapper.mapEntitiesToDtos(keyResults));
   }
 
   /**

@@ -1,0 +1,54 @@
+<app-dialog-component [title]="title" [isSaveButtonDisabled]="!isInteractive" (okEmitter)="saveObjective()"
+    [formGroup]="taskForm">
+    <form [formGroup]="taskForm">
+        <mat-form-field class="form-whole-line">
+            <input type="text" matInput i18n-placeholder="@@component_TaskForm_title" placeholder="Titel *"
+                formControlName="title">
+            <mat-error>
+                <app-form-error [control]="taskForm.get('title')"></app-form-error>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-whole-line">
+
+            <mat-label i18n-placeholder="@@component_TaskForm_description">Beschreibung</mat-label>
+            <textarea formControlName="description" matInput i18n-placeholder="@@component_TaskForm_description" [mat-autosize]="true"></textarea>
+            <mat-error>
+                <app-form-error [control]="taskForm.get('description')"></app-form-error>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-whole-line">
+            <mat-select i18n-placeholder="@@component_objectiveForm_selectParentKeyResult"
+                placeholder="Übergeordnetes Key Result auswählen" formControlName="assignedKeyResultId">
+                <mat-option [value]="null">
+                    <span i18n="@@component_objectiveForm_noParentKeyResult">
+                        Kein übergeordnetes Key Result
+                    </span>
+                </mat-option>
+                <mat-optgroup *ngFor="let map of keyResultMaps$ |async" [label]="map.objective.name">
+                    <mat-option *ngFor="let keyResult of map.keyResults" [value]="keyResult.id">
+                        {{keyResult.keyResult}}
+                    </mat-option>
+                </mat-optgroup>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
+            <mat-select (selectionChange)="onSelectUser($event)" formControlName="assignedUserIds"
+                i18n-placeholder="@@assignedUserIds" placeholder="Bearbeiter" multiple>
+                <mat-option *ngFor="let user of users" [value]="user.id">
+                    {{user?.email | lowercase}} ({{user.surname}}, {{user.givenName}})
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-whole-line">
+            <mat-select formControlName="taskStateId" i18n-placeholder="@@taskState" placeholder="Status">
+                <mat-option *ngFor="let state of states" [value]="state.id">
+                    {{state.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+
+</app-dialog-component>
