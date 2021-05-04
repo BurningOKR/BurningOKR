@@ -74,7 +74,7 @@ The Databases' volume is saved at the default location (Windows: ``C:\Users\Publ
 
 The ports used by the application can be configured in the docker-compose.yml.
 
-The network allows external access to port 4200 for the frontend and port 54023 for the database (in case you want to 
+The network allows external access to port 4200 for the frontend and port 54032 for the database (in case you want to 
 access it with pgAdmin for example). The backend can't be called from the outside. 
 
 After the first application start, the database persists even if you rebuild the containers.
