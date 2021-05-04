@@ -52,7 +52,7 @@ export class KeyResultMapper {
     );
   }
 
-  getKeyResultsForOkrUnit(okrUnitId: OkrUnitId): Observable<ViewKeyResult[]> {
+  getKeyResultsForOkrUnit$(okrUnitId: OkrUnitId): Observable<ViewKeyResult[]> {
     return this.keyResultApiService.getKeyResultsForOkrUnit$(okrUnitId)
       .pipe(
         map(((keyResultList: KeyResultDto[]) => {

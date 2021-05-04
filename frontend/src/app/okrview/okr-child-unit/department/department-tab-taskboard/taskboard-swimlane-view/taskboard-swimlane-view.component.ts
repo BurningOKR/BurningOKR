@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subject, Observable, Subscription } from "rxjs";
-import { filter, map } from "rxjs/operators";
-import { TaskBoardViewEventService } from "src/app/okrview/taskboard-services/task-board-view-event.service";
-import { KeyResultStateTaskMap } from "src/app/shared/model/ui/taskboard/key-result-state-task-map";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { ViewTaskState } from "src/app/shared/model/ui/taskboard/view-task-state";
-import { ViewKeyResult } from "src/app/shared/model/ui/view-key-result";
-import { TaskBoardSwimlaneViewHelper } from "src/app/shared/services/helper/task-board/task-board-swimlane-view-helper";
-import { TaskBoardView } from "../task-board-view-modell";
-import { TaskBoardSwimlaneDragDropEvent } from "./taskboard-swimlane/taskboard-swimlane.component";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject, Observable, Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { TaskBoardViewEventService } from '../../../../taskboard-services/task-board-view-event.service';
+import { KeyResultStateTaskMap } from '../../../../../shared/model/ui/taskboard/key-result-state-task-map';
+import { ViewTask } from '../../../../../shared/model/ui/taskboard/view-task';
+import { ViewTaskState } from '../../../../../shared/model/ui/taskboard/view-task-state';
+import { ViewKeyResult } from '../../../../../shared/model/ui/view-key-result';
+import { TaskBoardSwimlaneViewHelper } from '../../../../../shared/services/helper/task-board/task-board-swimlane-view-helper';
+import { TaskBoardView } from '../task-board-view-modell';
+import { TaskBoardSwimlaneDragDropEvent } from './taskboard-swimlane/taskboard-swimlane.component';
 
 export interface TaskBoardSwimlaneViewData {
   states: ViewTaskState[];

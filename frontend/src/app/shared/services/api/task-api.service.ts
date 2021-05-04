@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
+import { ApiHttpService } from '../../../core/services/api-http.service';
 import { TaskDto } from '../../model/api/task.dto';
 import { KeyResultId } from '../../model/id-types';
 

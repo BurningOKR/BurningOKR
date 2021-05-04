@@ -1,6 +1,6 @@
-import { inject, TestBed } from "@angular/core/testing";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { TaskBoardGeneralHelper } from "./task-board-general-helper";
+import { inject, TestBed } from '@angular/core/testing';
+import { ViewTask } from '../../../model/ui/taskboard/view-task';
+import { TaskBoardGeneralHelper } from './task-board-general-helper';
 
 describe('TaskBoardGeneralHelper', () => {
     let service: TaskBoardGeneralHelper;

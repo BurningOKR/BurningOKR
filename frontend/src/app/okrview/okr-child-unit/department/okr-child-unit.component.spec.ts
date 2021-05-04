@@ -28,6 +28,8 @@ import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 import { DepartmentTabDescriptionComponent } from './department-tab-description/department-tab-description.component';
+import { DepartmentTabTaskboardComponent } from './department-tab-taskboard/department-tab-taskboard.component';
+import { Component, Input } from '@angular/core';
 
 describe('OkrChildUnitComponent', () => {
   let component: OkrChildUnitComponent;
@@ -85,6 +87,26 @@ describe('OkrChildUnitComponent', () => {
   let department: OkrDepartment;
   let okrBranch: OkrBranch;
 
+  @Component({
+    // tslint:disable-next-line:component-selector
+    selector: 'app-taskboard-state-column-view',
+    template: ''
+  })
+  class TaskBoardStateColumnViewMock {
+    @Input() data$ = of();
+    @Input() isInteractive = false;
+  }
+
+  @Component({
+    // tslint:disable-next-line:component-selector
+    selector: 'app-taskboard-swimlane-view',
+    template: ''
+  })
+  class TaskBoardSwimlaneViewMock {
+    @Input() data$ = of();
+    @Input() isInteractive = false;
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -98,7 +120,10 @@ describe('OkrChildUnitComponent', () => {
         DepartmentTeamNewUserComponent,
         ObjectiveContentsComponent,
         KeyresultComponent,
-        DepartmentTabDescriptionComponent
+        DepartmentTabDescriptionComponent,
+        DepartmentTabTaskboardComponent,
+        TaskBoardStateColumnViewMock,
+        TaskBoardSwimlaneViewMock
       ],
       imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
@@ -111,7 +136,7 @@ describe('OkrChildUnitComponent', () => {
         { provide: CurrentCycleService, useValue: currentCycleService },
         { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaService },
         { provide: ExcelMapper, useValue: excelService },
-        { provide: I18n, useValue: i18n }
+        { provide: I18n, useValue: i18n },
       ]
     })
       .compileComponents();

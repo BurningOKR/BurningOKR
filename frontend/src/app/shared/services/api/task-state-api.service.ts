@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
+import { ApiHttpService } from '../../../core/services/api-http.service';
 import { TaskStateDto } from '../../model/api/task-state.dto';
 
 @Injectable({

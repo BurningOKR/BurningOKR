@@ -1,17 +1,15 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 
-import { Subscription } from "rxjs";
-import { filter } from "rxjs/operators";
-import { TaskBoardViewEventService } from "src/app/okrview/taskboard-services/task-board-view-event.service";
-import { KeyResultId } from "src/app/shared/model/id-types";
-import { StateTaskMap } from "src/app/shared/model/ui/taskboard/state-task-map";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { ViewKeyResult } from "src/app/shared/model/ui/view-key-result";
-import { TaskBoardDragDropEvent } from "../../taskboard-column/taskboard-column.component";
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { TaskBoardViewEventService } from '../../../../../taskboard-services/task-board-view-event.service';
+import { StateTaskMap } from '../../../../../../shared/model/ui/taskboard/state-task-map';
+import { ViewKeyResult } from '../../../../../../shared/model/ui/view-key-result';
+import { TaskBoardDragDropEvent } from '../../taskboard-column/taskboard-column.component';
 
 export interface TaskBoardSwimlaneDragDropEvent {
-  keyResult: ViewKeyResult,
-  taskboardEvent: TaskBoardDragDropEvent
+  keyResult: ViewKeyResult;
+  taskboardEvent: TaskBoardDragDropEvent;
 }
 
 @Component({
@@ -23,8 +21,8 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
   panelOpenState = true;
   subscriptions: Subscription[] = [];
 
-  @Input() public tasksForStates: StateTaskMap[];
-  @Input() public keyResult: ViewKeyResult;
+  @Input() tasksForStates: StateTaskMap[];
+  @Input() keyResult: ViewKeyResult;
   @Input() keyResultList: ViewKeyResult[];
   @Input() isInteractive: boolean;
 
@@ -32,7 +30,7 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
     private taskBoardEventService: TaskBoardViewEventService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions.push(
       this.taskBoardEventService.taskDragAndDropInView$
         .pipe(
@@ -42,7 +40,7 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
               idToCompare = `${this.keyResult.id}`;
             }
 
-            return '' + event.$event.container.id === '' + idToCompare;
+            return `${event.$event.container.id}` === `${idToCompare}`;
           })
         )
         .subscribe(event => {

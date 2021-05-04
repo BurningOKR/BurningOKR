@@ -1,8 +1,8 @@
-import { Input } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { ViewTaskBoardEvent } from "src/app/shared/model/events/view-taskboard-event";
+import { Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ViewTaskBoardEvent } from '../../../../shared/model/events/view-taskboard-event';
 
 export abstract class TaskBoardView {
-    @Input() public data$: Observable<ViewTaskBoardEvent>;
-    @Input() public isInteractive: boolean;
+    @Input() data$: Observable<ViewTaskBoardEvent>;
+    @Input() isInteractive: boolean;
 }

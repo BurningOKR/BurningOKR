@@ -1,23 +1,22 @@
-import { state } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+// import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA,  MatDialogRef } from '@angular/material/dialog';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NEVER, Observable, of, Subject, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { CurrentOkrUnitSchemaService } from 'src/app/okrview/current-okr-unit-schema.service';
-import { CurrentOkrviewService } from 'src/app/okrview/current-okrview.service';
-import { User } from 'src/app/shared/model/api/user';
-import { KeyResultMap } from 'src/app/shared/model/ui/key-result-map';
-import { ViewTask } from 'src/app/shared/model/ui/taskboard/view-task';
-import { ViewTaskState } from 'src/app/shared/model/ui/taskboard/view-task-state';
-import { ViewKeyResult } from 'src/app/shared/model/ui/view-key-result';
-import { ViewObjective } from 'src/app/shared/model/ui/view-objective';
-
-import { UserService } from 'src/app/shared/services/helper/user.service';
-import { KeyResultMapper } from 'src/app/shared/services/mapper/key-result.mapper';
-import { ObjectiveViewMapper } from 'src/app/shared/services/mapper/objective-view.mapper';
-import { TaskMapperService } from 'src/app/shared/services/mapper/task.mapper';
+import { switchMap } from 'rxjs/operators';
+import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
+import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
+import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
+import { User } from '../../../../shared/model/api/user';
+import { ViewObjective } from '../../../../shared/model/ui/view-objective';
+import { KeyResultMap } from '../../../../shared/model/ui/key-result-map';
+import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
+import { ObjectiveViewMapper } from '../../../../shared/services/mapper/objective-view.mapper';
+import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
+import { CurrentOkrviewService } from '../../../current-okrview.service';
+import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
+import { UserService } from '../../../../shared/services/helper/user.service';
 
 export interface TaskFormData {
   task?: ViewTask;
@@ -35,7 +34,6 @@ export interface TaskFormData {
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm: FormGroup;
-  parentElements$ = new Subject<TaskFormData[]>();
   users: User[];
   user: User;
   users$: Observable<User[]>;
@@ -47,15 +45,11 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   isInteractive: boolean;
 
   constructor(
-    private dialogRef: MatDialogRef<TaskFormComponent>,
-    private taskMapper: TaskMapperService,
     private objectiveMapper: ObjectiveViewMapper,
-    private keyResultMapper: KeyResultMapper,
-    private currentOkrViewService: CurrentOkrviewService,
-    private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
+    private dialogRef: MatDialogRef<TaskFormComponent>,
     private userService: UserService,
     private i18n: I18n,
-    @Inject(MAT_DIALOG_DATA) private formData: TaskFormData
+    @Inject(MAT_DIALOG_DATA) private formData: (TaskFormData | any)
   ) { }
 
   ngOnInit(): void {
@@ -85,7 +79,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     this.keyResultMaps$ = this.objectiveMapper.getObjectivesForUnit$(this.formData.unitId)
       .pipe(
         switchMap(objectives => {
-          let keyResultMap: KeyResultMap[] = [];
+          const keyResultMap: KeyResultMap[] = [];
           for (const objective of objectives) {
             keyResultMap.push({
               objective,
@@ -109,7 +103,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     this.title = this.i18n({
       id: 'task_form_title',
       value: 'Aufgabe {{editOrCreateText}}'
-    }, { editOrCreateText: this.formData.task ? editText : createText });
+    }, {editOrCreateText: this.formData.task ? editText : createText});
   }
 
   ngOnDestroy(): void {
@@ -129,7 +123,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     const task: ViewTask = this.formData.task;
 
     if (task) {
-      console.log(task);
       task.title = this.taskForm.get('title').value;
       task.description = this.taskForm.get('description').value;
       task.assignedUserIds = this.taskForm.get('assignedUserIds').value;
@@ -140,8 +133,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       this.dialogRef.close(task);
     } else {
       const formData: ViewTask = this.taskForm.getRawValue();
-      console.log("Raw Value: ");
-      console.log(this.taskForm.getRawValue());
+
       const newTask: ViewTask = new ViewTask(
         undefined,
         formData.title,
@@ -153,7 +145,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         null,
         null
       );
-      console.log(newTask);
 
       this.dialogRef.close(newTask);
     }

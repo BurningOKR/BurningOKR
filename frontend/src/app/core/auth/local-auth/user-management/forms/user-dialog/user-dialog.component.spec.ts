@@ -13,6 +13,7 @@ import { LocalUserService } from '../../../../../../shared/services/helper/local
 import { CurrentUserService } from '../../../../../services/current-user.service';
 import { of } from 'rxjs';
 import { User } from '../../../../../../shared/model/api/user';
+import 'linq4js';
 
 describe('UserDialogComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();

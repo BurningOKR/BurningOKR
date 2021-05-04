@@ -1,4 +1,4 @@
-import { TaskBoardObject } from "./task-board-object";
+import { TaskBoardObject } from './task-board-object';
 
 export class ViewTaskState implements TaskBoardObject {
     id: number;
