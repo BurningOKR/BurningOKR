@@ -8,6 +8,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.cycles.OkrCompanyHistory;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.*;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
@@ -17,6 +18,7 @@ import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
+import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,7 @@ public class CompanyService {
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  private TaskBoardService taskBoardService;
 
   /**
    * Initialize CompanyService.
@@ -54,7 +57,8 @@ public class CompanyService {
       UnitRepository<OkrChildUnit> unitRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
-      OkrTopicDescriptionRepository okrTopicDescriptionRepository) {
+      OkrTopicDescriptionRepository okrTopicDescriptionRepository,
+      TaskBoardService taskBoardService) {
     this.cycleRepository = cycleRepository;
     this.companyHistoryRepository = companyHistoryRepository;
     this.companyRepository = companyRepository;
@@ -62,6 +66,7 @@ public class CompanyService {
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
+    this.taskBoardService = taskBoardService;
   }
 
   public OkrCompany findById(long companyId) {
@@ -214,6 +219,12 @@ public class CompanyService {
     okrDepartment.setOkrTopicDescription(description);
 
     okrDepartment = unitRepository.save(okrDepartment);
+
+    TaskBoard taskBoard = taskBoardService.createNewTaskBoardWithDefaultStates();
+    okrDepartment.setTaskBoard(taskBoard);
+    taskBoard.setParentOkrDepartment(okrDepartment);
+    taskBoardService.saveTaskBoard(taskBoard);
+
     logger.info(
         "Created okrDepartment "
             + okrDepartment.getName()
