@@ -1,9 +1,9 @@
-import { KeyResultStateTaskMap } from "src/app/shared/model/ui/taskboard/key-result-state-task-map";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { ViewTaskState } from "src/app/shared/model/ui/taskboard/view-task-state";
-import { ViewKeyResult } from "src/app/shared/model/ui/view-key-result";
-import { TaskBoardStateColumnViewHelper } from "./task-board-state-column-view-helper";
 
+import { TaskBoardStateColumnViewHelper } from './task-board-state-column-view-helper';
+import { ViewKeyResult } from '../../../model/ui/view-key-result';
+import { ViewTaskState } from '../../../model/ui/taskboard/view-task-state';
+import { ViewTask } from '../../../model/ui/taskboard/view-task';
+import { KeyResultStateTaskMap } from '../../../model/ui/taskboard/key-result-state-task-map';
 
 export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper {
     createKeyResultStateTaskMapList(keyResults: ViewKeyResult[], states: ViewTaskState[], tasks: ViewTask[]): KeyResultStateTaskMap[] {
@@ -44,16 +44,10 @@ export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper 
         const result: ViewTask = super
             .getMovedTaskWithNewPositionData(previousIndex, previousContainer, currentIndex, currentContainer, newTaskState);
 
-        console.log("getMovedTaskWithNewPositionDataInSwimlane");
-        console.log("before keyresult");
-        console.log(result);
-
         if (result && newKeyResult && result.assignedKeyResultId !== newKeyResult.id) {
             result.assignedKeyResultId = newKeyResult.id;
         }
 
-        console.log("after keyresult");
-        console.log(result);
         return result;
     }
 

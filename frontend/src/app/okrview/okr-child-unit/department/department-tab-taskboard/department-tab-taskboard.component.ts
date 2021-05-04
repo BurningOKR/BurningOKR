@@ -1,24 +1,29 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { RxStompService, StompState } from '@stomp/ng2-stompjs';
+import { RxStompService } from '@stomp/ng2-stompjs';
 import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
-import { TaskBoardViewEventService } from 'src/app/okrview/taskboard-services/task-board-view-event.service';
-import { ConfirmationDialogData, ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
-import { TaskDto } from 'src/app/shared/model/api/task.dto';
-import { ViewTaskBoardEvent } from 'src/app/shared/model/events/view-taskboard-event';
-import { OkrUnitId } from 'src/app/shared/model/id-types';
-import { ContextRole } from 'src/app/shared/model/ui/context-role';
-import { CycleUnit } from 'src/app/shared/model/ui/cycle-unit';
-import { OkrChildUnit } from 'src/app/shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { ViewTask } from 'src/app/shared/model/ui/taskboard/view-task';
-import { ViewTaskState } from 'src/app/shared/model/ui/taskboard/view-task-state';
-import { TaskBoardGeneralHelper } from 'src/app/shared/services/helper/task-board/task-board-general-helper';
-import { KeyResultMapper } from 'src/app/shared/services/mapper/key-result.mapper';
-import { TaskStateMapper } from 'src/app/shared/services/mapper/task-state.mapper';
-import { TaskMapperService } from 'src/app/shared/services/mapper/task.mapper';
+
 import { TaskFormComponent, TaskFormData } from '../department-tab-task-form/department-tab-task-form.component';
+import { OkrChildUnit } from '../../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { ContextRole } from '../../../../shared/model/ui/context-role';
+import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
+import { ViewTaskBoardEvent } from '../../../../shared/model/events/view-taskboard-event';
+import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
+import { TaskStateMapper } from '../../../../shared/services/mapper/task-state.mapper';
+import { TaskBoardGeneralHelper } from '../../../../shared/services/helper/task-board/task-board-general-helper';
+import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
+import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
+import { OkrUnitId } from '../../../../shared/model/id-types';
+import { TaskDto } from '../../../../shared/model/api/task.dto';
+import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
+import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogData
+} from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { RxStompState } from '@stomp/rx-stomp';
 
 @Component({
@@ -61,7 +66,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
 
   ngOnInit(): void {
     this.eventSubscriptions.push(
-
       this.stompService.webSocketErrors$.subscribe(tmp => {
         if (!this.tryingToReconnect) {
           this.tryingToReconnect = true;
@@ -113,7 +117,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
         this.updateEventHandler();
         this.viewData = null;
         this.viewDataEmitter$.next(this.viewData);
-        this.loadViewData(this.childUnit.id)
+        this.loadViewData$(this.childUnit.id)
           .pipe(
             map(viewData => {
               viewData.tasks = this.taskHelper.orderTaskList(viewData.tasks);
@@ -148,18 +152,18 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     );
   }
 
-  loadViewData(childUnitId: OkrUnitId): Observable<ViewTaskBoardEvent> {
+  loadViewData$(childUnitId: OkrUnitId): Observable<ViewTaskBoardEvent> {
     return forkJoin({
       tasks$: this.taskMapperService.getTasksForOkrUnit$(childUnitId),
       states$: this.taskStateMapper.getTaskStates$(childUnitId),
-      keyResults$: this.keyResultMapper.getKeyResultsForOkrUnit(childUnitId)
+      keyResults$: this.keyResultMapper.getKeyResultsForOkrUnit$(childUnitId)
     })
       .pipe(
         map(result => {
           const viewData: ViewTaskBoardEvent = new ViewTaskBoardEvent();
-          viewData.tasks.push(...result["tasks$"]);
-          viewData.taskStates.push(...result["states$"]);
-          viewData.keyResults.push(...result['keyResults$']);
+          viewData.tasks.push(...result.tasks$);
+          viewData.taskStates.push(...result.states$);
+          viewData.keyResults.push(...result.keyResults$);
 
           return viewData;
         })
@@ -232,10 +236,11 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     const updatedTask$: Observable<ViewTask> = this.openDialog$(formData);
     this.eventSubscriptions.push(
       updatedTask$.pipe(
-        tap(task => {
-          this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/update`, body: JSON.stringify(task) });
+        tap((updatedTask: ViewTask) => {
+          this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/update`, body: JSON.stringify(updatedTask) });
         })
-      ).subscribe()
+      )
+        .subscribe()
     );
   }
 
@@ -296,7 +301,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     );
   }
 
-
   moveTaskInList(currentList: ViewTask[], movedAndUpdatedTask: ViewTask): ViewTask[] {
     let copiedTasks: ViewTask[] = this.taskHelper.copyTaskList(currentList);
     copiedTasks = this.taskHelper.removeTaskAndUpdateTaskList(copiedTasks, movedAndUpdatedTask);
@@ -310,7 +314,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
 
     this.viewDataEmitter$.next(this.viewData);
 
-    const updatedTaskDto = this.taskMapperService.mapToTaskDTO(movedAndUpdatedTask);
+    const updatedTaskDto: TaskDto = this.taskMapperService.mapToTaskDTO(movedAndUpdatedTask);
 
     this.stompService.publish({
       destination: `/ws/unit/${this.childUnit.id}/tasks/update`,

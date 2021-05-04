@@ -7,6 +7,7 @@ describe('TaskBoardViewEventService', () => {
 
   it('should be created', () => {
     const service: TaskBoardViewEventService = TestBed.get(TaskBoardViewEventService);
-    expect(service).toBeTruthy();
+    expect(service)
+      .toBeTruthy();
   });
 });

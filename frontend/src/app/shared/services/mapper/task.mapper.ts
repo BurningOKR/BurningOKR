@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiHttpService } from 'src/app/core/services/api-http.service';
 import { TaskDto } from '../../model/api/task.dto';
 import { ViewTask } from '../../model/ui/taskboard/view-task';
 import { TaskApiService } from '../api/task-api.service';
+import { UserId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class TaskMapperService {
   constructor(private taskApiService: TaskApiService) { }
 
   mapToTaskDTO(viewTask: ViewTask): TaskDto {
-    let userIds = [];
+    let userIds: UserId[] = [];
     if (viewTask.assignedUserIds) {
       userIds = viewTask.assignedUserIds;
     }

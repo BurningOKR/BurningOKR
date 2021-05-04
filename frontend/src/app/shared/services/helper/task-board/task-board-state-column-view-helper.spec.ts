@@ -1,12 +1,9 @@
-import { identifierModuleUrl } from "@angular/compiler";
-import { inject, TestBed } from "@angular/core/testing";
-import { mapTo } from "rxjs/operators";
-import { StateTaskMap } from "src/app/shared/model/ui/taskboard/state-task-map";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { ViewTaskState } from "src/app/shared/model/ui/taskboard/view-task-state";
-import { TaskBoardGeneralHelper } from "./task-board-general-helper";
-import { TaskBoardStateColumnViewHelper } from "./task-board-state-column-view-helper";
-
+import { inject, TestBed } from '@angular/core/testing';
+import { StateTaskMap } from '../../../model/ui/taskboard/state-task-map';
+import { ViewTask } from '../../../model/ui/taskboard/view-task';
+import { ViewTaskState } from '../../../model/ui/taskboard/view-task-state';
+import { TaskBoardGeneralHelper } from './task-board-general-helper';
+import { TaskBoardStateColumnViewHelper } from './task-board-state-column-view-helper';
 
 describe('TaskBoardStateColumnViewHelper', () => {
     let service: TaskBoardStateColumnViewHelper;
@@ -36,7 +33,7 @@ describe('TaskBoardStateColumnViewHelper', () => {
         new ViewTask(1, 'test1', 'test1-description', [], 1, 0, 2, null, 1)
     ];
 
-    const referenceStates = [
+    const referenceStates: ViewTaskState[] = [
         new ViewTaskState(1, 'state1'),
         new ViewTaskState(2, 'state2'),
         new ViewTaskState(3, 'state3'),
@@ -99,15 +96,12 @@ describe('TaskBoardStateColumnViewHelper', () => {
 
     it('findNewIndexInCompleteList: moved task with id 3 to position of task with id 6. Expected index is 2', () => {
         const expectedIndex: number = 2;
-        const tasksOfState1: ViewTask[] = [
-            new ViewTask(0, 'test0', 'test0-description', [], 1, 0, 1, null, 1),
-            new ViewTask(3, 'test3', 'test3-description', [], 0, 0, 1, 0, 1),
-            new ViewTask(6, 'test6', 'test6-description', [], 1, 0, 1, 3, 1),
-            new ViewTask(9, 'test9', 'test9-description', [], 2, 0, 1, 6, 1),
-        ];
+        const taskIdToTest: number = 3;
+
         const orderedCompleteList: ViewTask[] = [
             new ViewTask(0, 'test0', 'test0-description', [], 1, 0, 1, null, 1),
             new ViewTask(6, 'test6', 'test6-description', [], 1, 0, 1, 0, 1),
+            new ViewTask(3, 'test3', 'test3-description', [], 0, 0, 1, 6, 1),
             new ViewTask(9, 'test9', 'test9-description', [], 2, 0, 1, 6, 1),
             new ViewTask(1, 'test1', 'test1-description', [], 0, 0, 2, null, 1),
             new ViewTask(4, 'test4', 'test4-description', [], 1, 0, 2, 1, 1),
@@ -116,14 +110,14 @@ describe('TaskBoardStateColumnViewHelper', () => {
             new ViewTask(5, 'test5', 'test5-description', [], 0, 0, 3, 2, 1),
             new ViewTask(8, 'test8', 'test8-description', [], 2, 0, 3, 5, 1),
         ];
-        const movedTask: ViewTask = new ViewTask(3, 'test3', 'test3-description', [], 0, 0, 1, 6, 1);
-        //const indexToTest: number = service.findNewIndexInUpdatedCompleteList(orderedCompleteList, tasksOfState1, movedTask);
-        expect(true)
-            .toEqual(true);
+
+        const indexToTest: number = service.getListIndexForTaskId(orderedCompleteList, taskIdToTest);
+        expect(indexToTest)
+            .toEqual(expectedIndex);
     });
 
-    it('getMovedTaskWithNewPositionData - move task with id 9 one position higher in the same state: should get task with previousId = 3', () => {
-
+    it('getMovedTaskWithNewPositionData - ' +
+      'move task with id 9 one position higher in the same state: should get task with previousId = 3', () => {
         const previousContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
         const previousIndex: number = 3;
         const currentContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
@@ -137,7 +131,8 @@ describe('TaskBoardStateColumnViewHelper', () => {
             .toEqual(expectedMovedTask);
     });
 
-    it('getMovedTaskWithNewPositionData - move task with id 0 one position lower in the same state: should get task with previousId = 3', () => {
+    it('getMovedTaskWithNewPositionData -' +
+      ' move task with id 0 one position lower in the same state: should get task with previousId = 3', () => {
         const previousContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
         const previousIndex: number = 0;
         const currentContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
@@ -151,7 +146,8 @@ describe('TaskBoardStateColumnViewHelper', () => {
             .toEqual(expectedMovedTask);
     });
 
-    it('getMovedTaskWithNewPositionData - move task with id 0 to the end of list in the same state: should get task with previousId = 9', () => {
+    it('getMovedTaskWithNewPositionData - ' +
+      'move task with id 0 to the end of list in the same state: should get task with previousId = 9', () => {
         const previousContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
         const previousIndex: number = 0;
         const currentContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
@@ -165,7 +161,8 @@ describe('TaskBoardStateColumnViewHelper', () => {
             .toEqual(expectedMovedTask);
     });
 
-    it('getMovedTaskWithNewPositionData - move last task in list with id 9 to the beginning of list in the same state: should get task with previousId = null', () => {
+    it('getMovedTaskWithNewPositionData - ' +
+      'move last task in list with id 9 to the beginning of list in the same state: should get task with previousId = null', () => {
         const previousContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
         const previousIndex: number = 3;
         const currentContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
@@ -179,7 +176,8 @@ describe('TaskBoardStateColumnViewHelper', () => {
             .toEqual(expectedMovedTask);
     });
 
-    it('getMovedTaskWithNewPositionData - move first task in list of one state to the first position of another state: should get task with previousId = null', () => {
+    it('getMovedTaskWithNewPositionData - ' +
+      'move first task in list of one state to the first position of another state: should get task with previousId = null', () => {
         const previousContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
         const previousIndex: number = 0;
         const currentContainer: ViewTask[] = [];
@@ -193,7 +191,9 @@ describe('TaskBoardStateColumnViewHelper', () => {
             .toEqual(expectedMovedTask);
     });
 
-    it('getMovedTaskWithNewPositionData - move first task in list of one state to the first position of another state with one task in list: should get task with previousId = null', () => {
+    it('getMovedTaskWithNewPositionData - ' +
+      'move first task in list of one state to the first position of another state with one task in list: ' +
+      'should get task with previousId = null', () => {
         const previousContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
         const previousIndex: number = 0;
         const currentContainer: ViewTask[] = service.copyTaskList(referenceStateTwoTaskList);
@@ -207,7 +207,9 @@ describe('TaskBoardStateColumnViewHelper', () => {
             .toEqual(expectedMovedTask);
     });
 
-    it('getMovedTaskWithNewPositionData - move first task in list of one state to the second position of another state with one task in list: should get task with previousId = 1', () => {
+    it('getMovedTaskWithNewPositionData - ' +
+      'move first task in list of one state to the second position of another state with one task in list: ' +
+      'should get task with previousId = 1', () => {
         const previousContainer: ViewTask[] = service.copyTaskList(referenceStateOneTaskList);
         const previousIndex: number = 0;
         const currentContainer: ViewTask[] = service.copyTaskList(referenceStateTwoTaskList);

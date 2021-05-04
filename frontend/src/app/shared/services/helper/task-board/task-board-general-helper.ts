@@ -1,7 +1,5 @@
-
-import { ViewTaskBoardEvent } from "src/app/shared/model/events/view-taskboard-event";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { TaskService } from "./task.service";
+import { ViewTask } from '../../../model/ui/taskboard/view-task';
+import { TaskService } from './task.service';
 
 export class TaskBoardGeneralHelper extends TaskService {
 
@@ -50,7 +48,6 @@ export class TaskBoardGeneralHelper extends TaskService {
 
                 if (successor && precessor) {
                     successor.previousTaskId = precessor.id;
-                    console.log('removetask');
                 } else if (successor) {
                     successor.previousTaskId = null;
                 }
@@ -62,7 +59,7 @@ export class TaskBoardGeneralHelper extends TaskService {
     }
 
     addTaskAndUpdateTaskList(currentList: ViewTask[], movedAndUpdatedTask: ViewTask): ViewTask[] {
-        let listIndexOfNewPrecessor: number = this.getListIndexForTaskId(currentList, movedAndUpdatedTask.previousTaskId);
+        const listIndexOfNewPrecessor: number = this.getListIndexForTaskId(currentList, movedAndUpdatedTask.previousTaskId);
         let listIndexOfNewSuccessor: number = -1;
         let resultList: ViewTask[] = this.copyTaskList(currentList);
 
@@ -96,17 +93,8 @@ export class TaskBoardGeneralHelper extends TaskService {
     orderTaskList(taskList: ViewTask[]): ViewTask[] {
         let result: ViewTask[] = this.copyTaskList(taskList);
 
-        console.log('orderTaskList - before sorting');
-        console.log(taskList);
         if (result) {
             result = this.orderManually(result);
-        }
-        console.log('orderTaskList - after sorting');
-        console.log(result);
-        if (!this.isOrderValid(result)) {
-            console.log("order is NOT valid");
-        } else {
-            console.log("normal sort - order is VALID");
         }
 
         return result;

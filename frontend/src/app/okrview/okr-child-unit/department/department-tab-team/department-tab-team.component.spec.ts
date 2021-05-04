@@ -16,6 +16,13 @@ import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { of } from 'rxjs';
 import { Configuration } from '../../../../shared/model/ui/configuration';
 import { User } from '../../../../shared/model/api/user';
+import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
+import { TaskStateMapper } from '../../../../shared/services/mapper/task-state.mapper';
+import { TaskBoardGeneralHelper } from '../../../../shared/services/helper/task-board/task-board-general-helper';
+import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
+import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const currentUserServiceMock: any = {
   getCurrentUser$: jest.fn()
@@ -81,7 +88,7 @@ describe('DepartmentTabTeamComponent', () => {
         { provide: ConfigurationManagerService, useValue: configurationManagerServiceMock },
         { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaServiceMock },
         { provide: MatDialog, useValue: matDialogMock },
-        { provide: I18n, useValue: i18nMock }
+        { provide: I18n, useValue: i18nMock },
       ]
     })
       .compileComponents();

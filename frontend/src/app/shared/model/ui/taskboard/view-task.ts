@@ -1,6 +1,6 @@
 
-import { TaskId, TaskStateId, UserId, KeyResultId, DepartmentId, TaskBoardId } from "../../id-types";
-import { TaskBoardObject } from "./task-board-object";
+import { TaskId, TaskStateId, UserId, KeyResultId, DepartmentId, TaskBoardId } from '../../id-types';
+import { TaskBoardObject } from './task-board-object';
 
 export class ViewTask implements TaskBoardObject {
     id?: TaskId;
@@ -15,8 +15,8 @@ export class ViewTask implements TaskBoardObject {
     version: number;
 
     constructor(id: number, title: string, description: string, assignedUserIds: UserId[],
-        assignedKeyResultId: KeyResultId, parentTaskBoardId: TaskBoardId,
-        state: TaskStateId, previousTaskId: number, version: number) {
+                assignedKeyResultId: KeyResultId, parentTaskBoardId: TaskBoardId,
+                state: TaskStateId, previousTaskId: number, version: number) {
         this.id = id;
         this.title = title;
         this.description = description;

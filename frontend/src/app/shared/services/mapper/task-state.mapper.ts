@@ -4,8 +4,6 @@ import { map } from 'rxjs/operators';
 import { TaskStateDto } from '../../model/api/task-state.dto';
 import { OkrUnitId } from '../../model/id-types';
 import { ViewTaskState } from '../../model/ui/taskboard/view-task-state';
-
-
 import { TaskStateApiService } from '../api/task-state-api.service';
 
 @Injectable({

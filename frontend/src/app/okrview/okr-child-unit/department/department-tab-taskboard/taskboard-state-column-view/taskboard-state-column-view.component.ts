@@ -3,12 +3,12 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { TaskBoardViewEventService } from 'src/app/okrview/taskboard-services/task-board-view-event.service';
-import { StateTaskMap } from 'src/app/shared/model/ui/taskboard/state-task-map';
-import { ViewTask } from 'src/app/shared/model/ui/taskboard/view-task';
-import { ViewTaskState } from 'src/app/shared/model/ui/taskboard/view-task-state';
-import { ViewKeyResult } from 'src/app/shared/model/ui/view-key-result';
-import { TaskBoardStateColumnViewHelper } from 'src/app/shared/services/helper/task-board/task-board-state-column-view-helper';
+import { TaskBoardViewEventService } from '../../../../taskboard-services/task-board-view-event.service';
+import { StateTaskMap } from '../../../../../shared/model/ui/taskboard/state-task-map';
+import { ViewTask } from '../../../../../shared/model/ui/taskboard/view-task';
+import { ViewTaskState } from '../../../../../shared/model/ui/taskboard/view-task-state';
+import { ViewKeyResult } from '../../../../../shared/model/ui/view-key-result';
+import { TaskBoardStateColumnViewHelper } from '../../../../../shared/services/helper/task-board/task-board-state-column-view-helper';
 import { TaskBoardView } from '../task-board-view-modell';
 import { TaskBoardDragDropEvent } from '../taskboard-column/taskboard-column.component';
 

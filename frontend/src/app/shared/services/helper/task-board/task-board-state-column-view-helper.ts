@@ -1,9 +1,8 @@
-import { TaskId } from "src/app/shared/model/id-types";
-import { StateTaskMap } from "src/app/shared/model/ui/taskboard/state-task-map";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { ViewTaskState } from "src/app/shared/model/ui/taskboard/view-task-state";
 
-import { TaskService } from "./task.service";
+import { TaskService } from './task.service';
+import { ViewTaskState } from '../../../model/ui/taskboard/view-task-state';
+import { ViewTask } from '../../../model/ui/taskboard/view-task';
+import { StateTaskMap } from '../../../model/ui/taskboard/state-task-map';
 
 export class TaskBoardStateColumnViewHelper extends TaskService {
     /**
@@ -12,13 +11,12 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
      * this parameter and these map is also added to the result map list.
      * When parameter defaultStateTaskMap is null, then all tasks were can not mapped to one the given states are not
      * part of the result map list.
-     * @param states
-     * @param tasks
+     * @param states: available task states
+     * @param tasks: list of tasks
      * @param defaultStateTaskMap default container for the tasks, which can not map to one of the given states. Recommended
      *                            attribute is title. Id and tasks are not required.
      */
     createStateTaskMapList(states: ViewTaskState[], tasks: ViewTask[], defaultStateTaskMap?: StateTaskMap): StateTaskMap[] {
-        console.log("TaskBoardStateColumnViewHelper - createStateTaskMapList");
         let copiedTasks: ViewTask[] = this.copyTaskList(tasks);
 
         const map: StateTaskMap[] = [];
@@ -32,10 +30,6 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
         }
 
         if (defaultStateTaskMap && (copiedTasks.length > 0 || map.length === 0)) {
-            console.log("default state task map added");
-            console.log(defaultStateTaskMap);
-            console.log(copiedTasks);
-            console.log(map);
             defaultStateTaskMap.tasks = copiedTasks;
             map.unshift(defaultStateTaskMap);
         }
@@ -54,7 +48,7 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
     }
 
     getMovedTaskWithNewPositionData(previousIndex: number, previousContainer: ViewTask[],
-        currentIndex: number, currentContainer: ViewTask[], newTaskState: ViewTaskState): ViewTask {
+                                    currentIndex: number, currentContainer: ViewTask[], newTaskState: ViewTaskState): ViewTask {
         let result: ViewTask = null;
         if (previousIndex >= 0 && previousContainer) {
             result = previousContainer[previousIndex].copy();
@@ -86,7 +80,7 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
                         }
 
                     } else {
-                        // 
+                        //
                         result.previousTaskId = currentContainer[currentIndex - 1].id;
                     }
 
@@ -123,7 +117,6 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
     }
 
     removeTaskFromStateTaskMap(stateTaskMap: StateTaskMap[], task: ViewTask, oldStateId: number): void {
-        console.log("removeTaskFromList");
         const index: number = this.getListIndexOfState(oldStateId, stateTaskMap);
         if (index >= 0) {
             this.removeTaskFromTaskList(stateTaskMap[index].tasks, task);
@@ -132,14 +125,9 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
 
     extractStates(stateTaskMap: StateTaskMap[]): ViewTaskState[] {
         const states: ViewTaskState[] = [];
-        console.log("extract states beginning");
         for (const taskMap of stateTaskMap) {
             states.push(taskMap.state);
-            console.log(taskMap);
         }
-        console.log("extract states end");
-        console.log(stateTaskMap);
-        console.log(states);
 
         return states;
     }

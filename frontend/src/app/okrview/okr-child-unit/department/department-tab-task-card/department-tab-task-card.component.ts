@@ -26,7 +26,6 @@ export class DepartmentTabTaskCardComponent implements OnInit {
   isActive: boolean;
 
   constructor(
-    private taskboardEventService: TaskBoardViewEventService,
     private userService: UserService,
     private keyResultService: KeyResultMapper,
     private taskBoardEventService: TaskBoardViewEventService
@@ -52,6 +51,6 @@ export class DepartmentTabTaskCardComponent implements OnInit {
   onDelete($event: Event, task: ViewTask): void {
     $event.stopPropagation();
 
-    this.taskboardEventService.taskDeleteButtonClick$.next(task);
+    this.taskBoardEventService.taskDeleteButtonClick$.next(task);
   }
 }

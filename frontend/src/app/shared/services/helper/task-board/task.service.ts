@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TaskId, TaskStateId } from 'src/app/shared/model/id-types';
-import { ViewTask } from 'src/app/shared/model/ui/taskboard/view-task';
+import { ViewTask } from '../../../model/ui/taskboard/view-task';
+import { TaskId, TaskStateId } from '../../../model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +47,7 @@ export abstract class TaskService {
   }
 
   addTaskOnPosition(taskList: ViewTask[], task: ViewTask, index: number): ViewTask[] {
-    let result: ViewTask[] = this.copyTaskList(taskList);
+    const result: ViewTask[] = this.copyTaskList(taskList);
     if (taskList && task && index >= 0) {
       result.splice(index, 0, task);
     }

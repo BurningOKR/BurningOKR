@@ -1,10 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
-import { ViewTask } from "src/app/shared/model/ui/taskboard/view-task";
-import { ViewTaskState } from "src/app/shared/model/ui/taskboard/view-task-state";
-import { TaskBoardDragDropEvent } from "../okr-child-unit/department/department-tab-taskboard/taskboard-column/taskboard-column.component";
-import { TaskBoardSwimlaneDragDropEvent } from "../okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component";
-
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ViewTask } from '../../shared/model/ui/taskboard/view-task';
+import { ViewTaskState } from '../../shared/model/ui/taskboard/view-task-state';
+import { TaskBoardDragDropEvent } from '../okr-child-unit/department/department-tab-taskboard/taskboard-column/taskboard-column.component';
+import { TaskBoardSwimlaneDragDropEvent } from '../okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,5 @@
-import { not } from '@angular/compiler/src/output/output_ast';
 import { inject, TestBed } from '@angular/core/testing';
-import { ViewTask } from 'src/app/shared/model/ui/taskboard/view-task';
+import { ViewTask } from '../../../model/ui/taskboard/view-task';
 
 import { TaskService } from './task.service';
 
@@ -30,7 +29,8 @@ describe('TaskService', () => {
   }));
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(service)
+      .toBeTruthy();
   });
 
   it('getFirstTaskId: get id of the first task in array', () => {
@@ -59,5 +59,5 @@ describe('TaskService', () => {
     .toBeNull();
     expect(emptyCopy)
     .toEqual([]);
-  })
+  });
 });
