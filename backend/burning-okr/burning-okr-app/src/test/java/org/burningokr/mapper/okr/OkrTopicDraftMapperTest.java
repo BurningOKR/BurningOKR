@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
-import org.burningokr.model.okr.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
@@ -18,7 +18,6 @@ import org.burningokr.service.userhandling.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 

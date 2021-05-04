@@ -4,9 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.okr.OkrTopicDraft;
-import org.burningokr.model.okrUnits.OkrBranch;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 
 import javax.persistence.*;
 import java.util.ArrayList;

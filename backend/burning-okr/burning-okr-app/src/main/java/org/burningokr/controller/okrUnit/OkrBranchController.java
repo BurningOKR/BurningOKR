@@ -7,7 +7,7 @@ import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.okr.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;

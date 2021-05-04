@@ -1,6 +1,6 @@
 package org.burningokr.service.okr;
 
-import org.burningokr.model.okr.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.junit.Before;
 import org.junit.Test;

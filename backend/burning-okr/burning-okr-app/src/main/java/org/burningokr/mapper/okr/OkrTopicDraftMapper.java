@@ -5,9 +5,8 @@ import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.okr.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +20,7 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
     OkrTopicDraft entity = new OkrTopicDraft();
     entity.setAcceptanceCriteria(input.getAcceptanceCriteria());
     entity.setBeginning(input.getBeginning());
+    entity.setCurrentStatus(input.getCurrentStatus());
     entity.setContributesTo(input.getContributesTo());
     entity.setDelimitation(input.getDelimitation());
     entity.setDependencies(input.getDependencies());
@@ -39,6 +39,7 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
     OkrTopicDraftDto dto = new OkrTopicDraftDto();
     dto.setAcceptanceCriteria(input.getAcceptanceCriteria());
     dto.setInitiator(userService.findById(input.getInitiatorId()));
+    dto.setCurrentStatus(input.getCurrentStatus());
     dto.setBeginning(input.getBeginning());
     dto.setContributesTo(input.getContributesTo());
     dto.setDelimitation(input.getDelimitation());
