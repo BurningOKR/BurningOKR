@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
@@ -190,6 +191,20 @@ public class OkrTopicDraftMapperTest {
     verify(userService).findById(any());
   }
 
+  @Test
+  public void test_mapEntityToDto_expect_currentStatus_ismapped() {
+    topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
+
+    OkrTopicDraftDto mappedDto = mapper.mapEntityToDto(topicDraft);
+    assertEquals(topicDraft.getCurrentStatus(), mappedDto.getCurrentStatus());
+  }
+
+  @Test
+  public void test_mapEntityToDto_expect_currentStatus_isnotmapped() {
+    OkrTopicDraftDto mappedDto = mapper.mapEntityToDto(topicDraft);
+    assertNull(mappedDto.getCurrentStatus());
+  }
+
   // Dto to Entity
 
   @Test
@@ -323,5 +338,21 @@ public class OkrTopicDraftMapperTest {
     topicDraftDto.setOkrParentUnitId(id);
     OkrTopicDraft actual = mapper.mapDtoToEntity(topicDraftDto);
     assertNull(actual.getParentUnit());
+  }
+
+  @Test
+  public void test_mapDtoToEntity_expect_currentStatus_ismapped() {
+    topicDraftDto.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
+
+    OkrTopicDraft mappedTopicDraft = mapper.mapDtoToEntity(topicDraftDto);
+    assertEquals(topicDraftDto.getCurrentStatus(), mappedTopicDraft.getCurrentStatus());
+  }
+
+  @Test
+  public void test_mapDtoToEntity_expect_currentStatus_isnotmapped() {
+    OkrTopicDraftDto topicDraftDto = new OkrTopicDraftDto();
+
+    OkrTopicDraft mappedTopicDraft = mapper.mapDtoToEntity(topicDraftDto);
+    assertNull(mappedTopicDraft.getCurrentStatus());
   }
 }
