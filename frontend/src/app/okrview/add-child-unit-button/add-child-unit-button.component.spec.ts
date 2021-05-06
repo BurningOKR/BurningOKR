@@ -7,10 +7,16 @@ describe('AddChildUnitButtonComponent', () => {
   let component: AddChildUnitButtonComponent;
   let fixture: ComponentFixture<AddChildUnitButtonComponent>;
 
+  const contextRoleMock: any = {
+    isAtleastAdmin: jest.fn()
+    };
+
   beforeEach(async(() => {
+    contextRoleMock.isAtleastAdmin.mockReset();
+    contextRoleMock.isAtleastAdmin.mockReturnValue(true);
     TestBed.configureTestingModule({
       declarations: [ AddChildUnitButtonComponent ],
-      imports: [ MaterialTestingModule ]
+      imports: [ MaterialTestingModule ],
     })
     .compileComponents();
   }));
@@ -18,10 +24,11 @@ describe('AddChildUnitButtonComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddChildUnitButtonComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    component.userRole = contextRoleMock;
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component)
       .toBeTruthy();
   });
