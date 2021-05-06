@@ -42,7 +42,9 @@
                     </ng-container>
                     <ng-container matColumnDef="actions">
                         <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nActionsTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>ACTIONS TODO</td>
+                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>
+                            <app-submitted-topic-draft-action-button [topicDraft]=topicDraft></app-submitted-topic-draft-action-button>
+                        </td>
                     </ng-container>
                     <tr *matHeaderRowDef="columnsToDisplay;" mat-header-row></tr>
                     <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>

@@ -19,11 +19,12 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ErrorInterceptor } from './core/error/error.interceptor';
 import { LoggerModule } from 'ngx-logger';
 import {
-  MatCardModule,
-  MatIconModule,
-  MatListModule,
-  MatProgressSpinnerModule,
-  MatTooltipModule
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatMenuModule
 } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,6 +40,7 @@ import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-fronten
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
 import { MatTableModule } from '@angular/material/table';
+import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -51,14 +53,15 @@ registerLocaleData(localeEn, 'de', localeEnExtra);
 const currentLanguage: string = 'de';
 
 @NgModule({
-  declarations: [
-    AdminViewComponent,
-    AppComponent,
-    AdminUserIdsPipe,
-    NoMailInformationComponent,
-    SubmittedTopicDraftsComponent,
-  ],
-  imports: [
+    declarations: [
+        AdminViewComponent,
+        AppComponent,
+        AdminUserIdsPipe,
+        NoMailInformationComponent,
+        SubmittedTopicDraftsComponent,
+        SubmittedTopicDraftActionButtonComponent,
+    ],
+    imports: [
         AppRoutingModule,
         BrowserAnimationsModule,
         BrowserModule,
@@ -80,35 +83,36 @@ const currentLanguage: string = 'de';
         ErrorModule,
         LoggerModule.forRoot(loggerConfig),
         MatTableModule,
+        MatMenuModule,
     ],
-  entryComponents: [
-    DeleteDialogComponent,
-  ],
-  providers: [
-    OAuthFrontendDetailsService,
+    entryComponents: [
+        DeleteDialogComponent,
+    ],
+    providers: [
+        OAuthFrontendDetailsService,
 
-    AuthenticationService,
-    LocalAuthTypeHandlerService,
-    AzureAuthTypeHandlerService,
+        AuthenticationService,
+        LocalAuthTypeHandlerService,
+        AzureAuthTypeHandlerService,
 
-    {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
-    {
-      provide: TRANSLATIONS,
-      useFactory: locale => {
-        return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
-      },
-      deps: [LOCALE_ID]
-    },
-    {
-      provide: LOCALE_ID,
-      useValue: currentLanguage
-    },
-    {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-    I18n
-  ],
-  bootstrap: [AppComponent]
+        {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
+        {
+            provide: TRANSLATIONS,
+            useFactory: locale => {
+                return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
+            },
+            deps: [LOCALE_ID]
+        },
+        {
+            provide: LOCALE_ID,
+            useValue: currentLanguage
+        },
+        {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
+        I18n
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
