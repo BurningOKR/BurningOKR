@@ -19,4 +19,12 @@ export class SubmittedTopicDraftActionButtonComponent {
   @Output() clickedDiscardApprovalAction: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedRefuse: EventEmitter<void>  = new EventEmitter<void>();
   @Output() clickedDiscardRefusalAction: EventEmitter<void> = new EventEmitter<void>();
+
+  printNotImplementet(): string {
+    // TODO: metode Endfernen
+    // tslint:disable-next-line: no-console
+    console.log('Not Implementet');
+
+    return 'Not Implementet';
+  }
 }
