@@ -1,0 +1,27 @@
+.submitted-topic-draft-card {
+  margin-left: 25px;
+  margin-right: 25px;
+  max-width: 1600px;
+}
+
+.submitted-topic-draft-fold-button {
+  margin: 5px;
+}
+
+.card-head-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-head-info-wrapper {
+  width: 50%;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  justify-items: left;
+  justify-content: space-between;
+}
+
+.card-head-info {
+  margin-right: 10px;
+}

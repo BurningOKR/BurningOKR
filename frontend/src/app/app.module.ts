@@ -41,6 +41,7 @@ import { NoMailInformationComponent } from './information/no-mail-information/no
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
 import { MatTableModule } from '@angular/material/table';
 import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component';
+import { SubmittedTopicDraftCardComponent } from './submitted-topic-drafts/submitted-topic-draft-card/submitted-topic-draft-card.component';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -53,12 +54,13 @@ registerLocaleData(localeEn, 'de', localeEnExtra);
 const currentLanguage: string = 'de';
 
 @NgModule({
-    declarations: [
-        AdminViewComponent,
-        AppComponent,
-        AdminUserIdsPipe,
-        NoMailInformationComponent,
-        SubmittedTopicDraftsComponent,
+  declarations: [
+    AdminViewComponent,
+    AppComponent,
+    AdminUserIdsPipe,
+    NoMailInformationComponent,
+    SubmittedTopicDraftsComponent,
+    SubmittedTopicDraftCardComponent,
         SubmittedTopicDraftActionButtonComponent,
     ],
     imports: [

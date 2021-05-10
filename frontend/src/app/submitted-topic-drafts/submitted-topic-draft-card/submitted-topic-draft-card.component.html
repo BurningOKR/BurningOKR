@@ -1,0 +1,15 @@
+<mat-card class="submitted-topic-draft-card">
+  <div class="card-head-wrapper">
+    <div class="card-head-info-wrapper">
+      <span class="card-head-info">Some text</span>
+      <span class="card-head-info">Some text</span>
+      <span class="card-head-info">Some text</span>
+    </div>
+    <div class="card-head-button-wrapper">
+      <button (click)="foldButtonClicked()" class="submitted-topic-draft-fold-button" mat-mini-fab><mat-icon>{{foldIcon}}</mat-icon></button>
+    </div>
+  </div>
+  <div *ngIf="isFolded">
+    hello there
+  </div>
+</mat-card>
