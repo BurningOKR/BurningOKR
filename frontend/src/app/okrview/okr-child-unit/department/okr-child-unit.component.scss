@@ -27,12 +27,11 @@
 }
 
 .department-title{
-      font-size: x-large;
-      font-weight: bold;
+  font-size: x-large;
+  font-weight: bold;
 }
 
 .department-subtitle{
-
 }
 
 .department-flex {
@@ -52,4 +51,8 @@
   .changePositionButton {
     right: 20px;
   }
+}
+
+.flex-department-title {
+  min-width: 0;
 }

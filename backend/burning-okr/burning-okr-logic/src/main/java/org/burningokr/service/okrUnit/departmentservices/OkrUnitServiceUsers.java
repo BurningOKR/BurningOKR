@@ -1,7 +1,9 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
@@ -52,6 +54,17 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
   public Collection<Objective> findObjectivesOfUnit(long departmentId) {
     T department = findById(departmentId);
     return objectiveRepository.findByUnitAndOrderBySequence(department);
+  }
+
+  @Override
+  public Collection<KeyResult> findKeyResultsOfUnit(long departmentId) {
+    T department = findById(departmentId);
+    Collection<KeyResult> keyResults = new ArrayList<>();
+    Collection<Objective> objectives = department.getObjectives();
+    for (Objective objective : objectives) {
+      keyResults.addAll(objective.getKeyResults());
+    }
+    return keyResults;
   }
 
   @Override

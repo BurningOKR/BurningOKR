@@ -25,6 +25,7 @@ import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
+import org.burningokr.service.okr.TaskBoardService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +44,8 @@ public class CyclePreparationCloningServiceTest {
   @Mock private ObjectiveRepository objectiveRepository;
 
   @Mock private UserSettingsRepository userSettingsRepository;
+
+  @Mock private TaskBoardService taskBoardService;
 
   @InjectMocks private CyclePreparationCloningService cyclePreparationCloningService;
   private Collection<OkrCompany> unwrappedOkrCompanyList;
@@ -198,7 +201,7 @@ public class CyclePreparationCloningServiceTest {
     ArgumentCaptor<Objective> savedObjectiveCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository).save(savedCompanyCaptor.capture());
-    verify(subUnitRepository).save(savedDepartmentCaptor.capture());
+    verify(subUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
     verify(objectiveRepository, times(4)).save(savedObjectiveCaptor.capture());
 
     OkrCompany savedOkrCompany = savedCompanyCaptor.getValue();
@@ -287,7 +290,7 @@ public class CyclePreparationCloningServiceTest {
         ArgumentCaptor.forClass(UserSettings.class);
 
     verify(userSettingsRepository, times(1)).save(savedUserSettingsCaptor.capture());
-    verify(subUnitRepository).save(savedDepartmentCaptor.capture());
+    verify(subUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
     verify(companyRepository).save(savedCompanyCaptor.capture());
 
     OkrCompany savedOkrCompany = savedCompanyCaptor.getValue();
@@ -461,7 +464,7 @@ public class CyclePreparationCloningServiceTest {
 
     // Twice because it is saved once for the okrBranch and a second time for the
     // okrDepartment.
-    verify(subUnitRepository, times(2)).save(departmentArgumentCaptor.capture());
+    verify(subUnitRepository, times(3)).save(departmentArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrDepartment okrDepartmentCaptured = departmentArgumentCaptor.getValue();

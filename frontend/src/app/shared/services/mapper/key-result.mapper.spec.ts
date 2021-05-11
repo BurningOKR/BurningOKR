@@ -88,7 +88,7 @@ describe('KeyResultMapper', () => {
         expect(result.keyResult)
           .toEqual(keyResultDto.title);
         expect(result.unit)
-          .toEqual(keyResultDto.unit);
+          .toEqual(Unit[keyResultDto.unit]);
         done();
       }
     );

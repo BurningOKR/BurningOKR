@@ -6,9 +6,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okr.TaskBoard;
+import org.burningokr.model.okr.TaskState;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -19,6 +23,7 @@ import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
+import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -47,6 +52,8 @@ public class OkrCompanyServiceTest {
 
   @InjectMocks private CompanyService companyService;
 
+  @Mock private TaskBoardService taskBoardService;
+
   private final Long companyId = 1337L;
   private final String companyName = "Brockhaus AG";
   private final String updatedCompanyName = "BAG";
@@ -66,9 +73,13 @@ public class OkrCompanyServiceTest {
   @Test
   public void createDepartment_expectsParentUnitIsSet() {
     OkrDepartment okrDepartment = new OkrDepartment();
+    TaskBoard taskBoard = new TaskBoard();
+
     User user = mock(User.class);
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
+    when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
+    when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
     companyService.createDepartment(companyId, okrDepartment, user);
 
@@ -99,6 +110,7 @@ public class OkrCompanyServiceTest {
   public void createDepartment_expectOkrTopicDescriptionIsCreated() {
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setName("test");
+    TaskBoard taskBoard = new TaskBoard();
 
     User user = mock(User.class);
 
@@ -106,11 +118,42 @@ public class OkrCompanyServiceTest {
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
     when(okrTopicDescriptionRepository.save(any()))
         .thenAnswer(invocation -> invocation.getArgument(0));
+    when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
+    when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
     OkrDepartment created = companyService.createDepartment(companyId, okrDepartment, user);
 
     assertNotNull(created.getOkrTopicDescription());
     assertEquals(okrDepartment.getName(), created.getOkrTopicDescription().getName());
+  }
+
+  @Test
+  public void createDepartment_expectTaskBoardIsCreated() {
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setName("test");
+    TaskBoard taskBoard = new TaskBoard();
+    Collection<TaskState> availableStates = new ArrayList();
+
+    TaskState state1 = new TaskState();
+    state1.setParentTaskBoard(taskBoard);
+    state1.setTitle("state1");
+    state1.setId(1l);
+
+    availableStates.add(state1);
+    taskBoard.setAvailableStates(availableStates);
+
+    User user = mock(User.class);
+
+    when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
+    when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
+    when(okrTopicDescriptionRepository.save(any()))
+        .thenAnswer(invocation -> invocation.getArgument(0));
+    when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
+    when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
+
+    OkrDepartment created = companyService.createDepartment(companyId, okrDepartment, user);
+
+    assertNotNull(created.getTaskBoard());
   }
 
   @Test
