@@ -5,20 +5,20 @@
         <ng-container *ngIf="info.cycle as cycle">
           <ng-container *ngIf="info.currentUserRole as currentUserRole">
             <mat-card class="small-padding card-margin card-size"
-                      [ngClass]="{ 'inactive-element': !childUnit.isActive }">
+              [ngClass]="{ 'inactive-element': !childUnit.isActive }">
 
               <div class="flex-wrap inner-padding">
                 <div class="icon-spacer-large">
                   <button mat-icon-button matTooltip="Zu der übergeordneten Struktur"
-                          (click)="moveToParentUnit(childUnit)" class="changePositionButton">
+                    (click)="moveToParentUnit(childUnit)" class="changePositionButton">
                     <mat-icon>arrow_upward</mat-icon>
                   </button>
                 </div>
 
-                <div class="flex-wrap-spreadinner f-1">
-                  <div class="department-flex">
-                    <div class="department-title">{{ childUnit.name }}</div>
-                    <div class="department-subtitle"> {{ childUnit.label }}</div>
+                <div class="flex-wrap-spreadinner f-1 flex-department-title">
+                  <div class="department-flex overflow-ellipsis">
+                    <div class="department-title overflow-ellipsis">{{ childUnit.name }}</div>
+                    <div class="department-subtitle overflow-ellipsis"> {{ childUnit.label }}</div>
                   </div>
                   <div *ngIf="!childUnit.isActive" class="flex-nowrap-center department-inactive-box">
                     <mat-icon>info</mat-icon>
@@ -27,43 +27,43 @@
                 </div>
                 <div class="icon-spacer-large" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
                   <button mat-icon-button [matMenuTriggerFor]="optionsMenu"
-                          [matMenuTriggerData]="{ childUnit: childUnit }">
+                    [matMenuTriggerData]="{ childUnit: childUnit }">
                     <mat-icon i18n-matTooltip="@@component_department_moreOptionsUnit"
-                              matTooltip="Mehr Optionen zu dieser Struktur">more_vert
+                      matTooltip="Mehr Optionen zu dieser Struktur">more_vert
                     </mat-icon>
                   </button>
                 </div>
               </div>
 
-              <br/>
+              <br />
               <!-- Tabs -->
               <mat-tab-group animationDuration="350ms" *ngIf="activeTabs$ | async; let activeTabs">
                 <!-- Overview Tab-->
                 <mat-tab i18n-label="@@component_department_overview" label="Übersicht">
                   <div class="inner-padding">
                     <app-okr-child-unit-overview-tab [okrChildUnit]="childUnit" [currentUserRole]="currentUserRole"
-                                                     [cycle]="cycle">
+                      [cycle]="cycle">
                     </app-okr-child-unit-overview-tab>
                   </div>
                 </mat-tab>
 
                 <!-- Members Tab-->
                 <mat-tab i18n-label="@@component_department_teamMember" label="Teammitglieder"
-                         *ngIf="activeTabs.teamsTab">
+                  *ngIf="activeTabs.teamsTab">
                   <div class="inner-padding">
                     <app-department-tab-team [department]="childUnit" [currentUserRole]="currentUserRole"
-                                             [cycle]="cycle">
+                      [cycle]="cycle">
                     </app-department-tab-team>
                   </div>
                 </mat-tab>
 
                 <!-- Subdepartments Tab-->
                 <mat-tab i18n-label="@@component_department_childUnit" label="Unterstrukturen"
-                         *ngIf="activeTabs.childUnitTab">
+                  *ngIf="activeTabs.childUnitTab">
                   <ng-template matTabContent>
                     <div class="inner-padding">
                       <app-okr-child-unit-tab [okrBranch]="childUnit" [currentUserRole]="currentUserRole"
-                                              [cycle]="cycle">
+                        [cycle]="cycle">
                       </app-okr-child-unit-tab>
                     </div>
                   </ng-template>
@@ -77,6 +77,19 @@
                         <app-department-tab-description [department]="childUnit" [currentUserRole]="currentUserRole">
                         </app-department-tab-description>
                       </div>
+                  </ng-template>
+                </mat-tab>
+
+
+                <!-- Tasks Tab -->
+                <mat-tab i18n-label="@@component_department_taskboard" label="Aufgaben" *ngIf="activeTabs.teamsTab">
+                  <ng-template matTabContent>
+                    <div class="inner-padding">
+                      <app-department-tab-taskboard [childUnit]="childUnit" [currentUserRole]="currentUserRole"
+                        [cycle]="cycle">
+
+                      </app-department-tab-taskboard>
+                    </div>
                   </ng-template>
                 </mat-tab>
 
@@ -123,7 +136,7 @@
 
     <ng-template #cannotDeleteUnit>
       <div i18n-matTooltip="@@component_department_cannotDeleteUnit"
-           matTooltip="Kann wegen Unterstrukturen nicht gelöscht werden!">
+        matTooltip="Kann wegen Unterstrukturen nicht gelöscht werden!">
         <button mat-menu-item [disabled]="true">
           <mat-icon>delete</mat-icon>
           <span i18n="@@component_department_deleteUnit">Struktur löschen</span>
@@ -144,13 +157,14 @@
     <mat-tab-group>
       <mat-tab i18n-label="@@component_department_overview" label="Übersicht">
         <div class="loading-content">
-          <br/>
+          <br />
           <mat-spinner></mat-spinner>
-          <br/>
+          <br />
         </div>
       </mat-tab>
       <mat-tab i18n-label="@@component_department_teamMember" label="Teammitglieder"></mat-tab>
       <mat-tab i18n-label="@@component_department_childUnit" label="Unterstrukturen"></mat-tab>
+      <mat-tab i18n-label="@@component_department_taskboard" label="Aufgaben"></mat-tab>
     </mat-tab-group>
   </mat-card>
 </ng-template>
@@ -178,9 +192,9 @@
     <mat-tab-group>
       <mat-tab i18n-label="@@component_department_overview" label="Übersicht" class="inner-padding">
         <div class="loading-content">
-          <br/>
+          <br />
           <mat-spinner></mat-spinner>
-          <br/>
+          <br />
         </div>
       </mat-tab>
       <mat-tab i18n-label="@@component_department_tab_loading" label="Lade..." class="inner-padding"></mat-tab>
@@ -214,7 +228,8 @@
             Die Struktur konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
             oder der Server antwortet nicht.
           </p>
-          <button mat-button mat-raised-button color="primary" (click)="moveToParentUnit404()" i18n="@@component_department_loadDepartmentFailedButton">Zur nächsthöheren Struktur</button>
+          <button mat-button mat-raised-button color="primary" (click)="moveToParentUnit404()"
+            i18n="@@component_department_loadDepartmentFailedButton">Zur nächsthöheren Struktur</button>
         </div>
       </mat-tab>
     </mat-tab-group>

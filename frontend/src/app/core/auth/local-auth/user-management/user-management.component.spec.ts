@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
+import 'linq4js';
 
 describe('UserManagementComponent', () => {
 

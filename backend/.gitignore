@@ -210,3 +210,10 @@ gradle-app.setting
 
 build/
 *.env
+
+### Eclipse ###
+.settings
+.project
+
+### VS Code ###
+.vscode

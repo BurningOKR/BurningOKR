@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okr.TaskBoard;
 
 @Entity
 @Data
@@ -27,6 +28,9 @@ public class OkrDepartment extends OkrChildUnit {
 
   @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
+
+  @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.REMOVE)
+  private TaskBoard taskBoard;
 
   /**
    * Creates a copy of the OkrDepartment without relations.

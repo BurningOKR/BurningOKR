@@ -1,0 +1,65 @@
+.taskcard {
+    margin: 0px;
+    text-overflow: ellipsis;
+    padding: 0px;
+}
+
+.taskcard-description div, .taskcard-title {
+    display: -webkit-box;
+    overflow: hidden;  
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+
+.taskcard-user-pictures {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 1em;
+}
+
+.taskcard-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 0.5em;
+}
+
+.task-card-key-result {
+    background-color: #b81f40;
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+    text-align: center;
+    margin-bottom: 1em;
+    height: 2em;
+    max-height: 3em;
+    text-overflow: ellipsis;
+    font-size: x-small;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.task-card-key-result div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+mat-card-footer {
+    margin: 0px;
+}
+
+mat-card-actions {
+    padding: 0px;
+    margin:0px;
+}
+
+.taskcard-content {
+    padding: 16px;
+}

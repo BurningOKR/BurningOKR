@@ -11,10 +11,10 @@ export class TopicDescriptionApiService {
   constructor(private api: ApiHttpService) {}
 
   getTopicDescriptionById$(departmentId: DepartmentId): Observable<OkrTopicDescriptionDto> {
-    return this.api.getData$<OkrTopicDescriptionDto>(`/departments/${departmentId}/topicdescription`);
+    return this.api.getData$<OkrTopicDescriptionDto>(`departments/${departmentId}/topicdescription`);
   }
   putTopicDescription$(departmentId: DepartmentId , descriptionDto:
     OkrTopicDescriptionDto): Observable<OkrTopicDescriptionDto> {
-    return this.api.putData$(`/departments/${departmentId}/topicdescription`, descriptionDto);
+    return this.api.putData$(`departments/${departmentId}/topicdescription`, descriptionDto);
   }
 }
