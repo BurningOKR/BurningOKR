@@ -51,6 +51,12 @@ export class VersionFormComponent {
         'Descriptions can now be added to OKR Teams',
         'Minor UI fixes'
       ]
+    },
+    {
+      version: '1.1.0 (10.05.2021)',
+      changes: [
+        'BurningOKR now allows teams to manage tasks on a task board to further improve productivity and is offering a greater overview.'
+      ]
     }
   ];
 
