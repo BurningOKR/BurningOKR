@@ -51,6 +51,9 @@
                 </table>
             </mat-card-content>
         </mat-card>
+      <div *ngFor="let topicDraft of rowData.data">
+        <app-submitted-topic-draft-card [topicDraft]="topicDraft"></app-submitted-topic-draft-card>
+      </div>
     </div>
 </div>
 <app-submitted-topic-draft-card></app-submitted-topic-draft-card>

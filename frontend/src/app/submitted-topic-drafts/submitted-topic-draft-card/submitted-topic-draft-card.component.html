@@ -1,15 +1,20 @@
 <mat-card class="submitted-topic-draft-card">
   <div class="card-head-wrapper">
     <div class="card-head-info-wrapper">
-      <span class="card-head-info">Some text</span>
-      <span class="card-head-info">Some text</span>
-      <span class="card-head-info">Some text</span>
+      <span class="card-head-info">{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</span>
+      <span class="card-head-info">2 days ago</span>
+      <span class="card-head-info">{{topicDraft.name}}</span>
     </div>
     <div class="card-head-button-wrapper">
       <button (click)="foldButtonClicked()" class="submitted-topic-draft-fold-button" mat-mini-fab><mat-icon>{{foldIcon}}</mat-icon></button>
     </div>
   </div>
-  <div *ngIf="isFolded">
-    hello there
+  <div *ngIf="isFolded" class="card-body">
+    <mat-divider class="card-divider"></mat-divider>
+    <mat-list>
+      <mat-list-item>{{topicDraft.contributesTo}} <button mat-flat-button (click)="foldButtonClicked()" id="submitted-topic-draft-option-button" mat-mini-fab><mat-icon>more_vert</mat-icon></button></mat-list-item>
+      <mat-list-item>{{topicDraft.beginning}}</mat-list-item>
+      <mat-list-item>Kommentare ToDo implement</mat-list-item>
+    </mat-list>
   </div>
 </mat-card>

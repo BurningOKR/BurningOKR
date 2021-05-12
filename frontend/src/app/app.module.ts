@@ -42,6 +42,7 @@ import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitte
 import { MatTableModule } from '@angular/material/table';
 import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component';
 import { SubmittedTopicDraftCardComponent } from './submitted-topic-drafts/submitted-topic-draft-card/submitted-topic-draft-card.component';
+import { MatGridListModule } from "@angular/material/grid-list";
 
 // use the require method provided by webpack
 declare const require: any;
@@ -86,6 +87,7 @@ const currentLanguage: string = 'de';
         LoggerModule.forRoot(loggerConfig),
         MatTableModule,
         MatMenuModule,
+        MatGridListModule,
     ],
     entryComponents: [
         DeleteDialogComponent,
