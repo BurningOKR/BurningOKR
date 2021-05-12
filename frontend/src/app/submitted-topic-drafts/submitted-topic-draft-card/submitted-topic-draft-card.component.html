@@ -6,8 +6,9 @@
       <span class="card-head-info">{{topicDraft.name}}</span>
     </div>
     <div class="card-head-button-wrapper">
-      <button (click)="foldButtonClicked()" class="submitted-topic-draft-fold-button" mat-mini-fab><mat-icon>{{foldIcon}}</mat-icon></button>
+      <button mat-flat-button (click)="foldButtonClicked()" class="submitted-topic-draft-fold-button" mat-mini-fab><mat-icon>{{foldIcon}}</mat-icon></button>
     </div>
+    <span id="status-dot" [class.status-submitted]="topicDraft.currentStatus === 'submitted'" class="status-dot"></span>
   </div>
   <div *ngIf="isFolded" class="card-body">
     <mat-divider class="card-divider"></mat-divider>
