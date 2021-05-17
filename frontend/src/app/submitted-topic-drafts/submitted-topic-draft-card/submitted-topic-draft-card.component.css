@@ -1,6 +1,4 @@
 .submitted-topic-draft-card {
-  margin-left: 25px;
-  margin-right: 25px;
   max-width: 1600px;
 }
 
@@ -28,7 +26,8 @@
 }
 
 .card-head-info {
-  margin-right: 10px;
+  width: 33%;
+  overflow: hidden;
 }
 
 .card-divider {

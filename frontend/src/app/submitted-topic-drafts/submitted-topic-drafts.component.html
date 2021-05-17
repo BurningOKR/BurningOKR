@@ -54,5 +54,6 @@
       <div *ngFor="let topicDraft of rowData.data">
         <app-submitted-topic-draft-card [topicDraft]="topicDraft"></app-submitted-topic-draft-card>
       </div>
+      <app-submitted-topic-draft-cards-wrapper [topicDrafts]="rowData.data"></app-submitted-topic-draft-cards-wrapper>
     </div>
 </div>

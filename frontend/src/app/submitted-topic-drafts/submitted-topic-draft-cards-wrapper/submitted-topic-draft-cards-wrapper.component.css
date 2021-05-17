@@ -1,0 +1,20 @@
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 1600px;
+}
+.card-wrapper-head-wrapper {
+  display: flex;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.card-wrapper-head {
+  display: flex;
+  width: 65%;
+  justify-content: space-between;
+}
+
+.card-wrapper-head-column-info {
+  width: 33%;
+}

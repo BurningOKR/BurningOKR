@@ -1,0 +1,12 @@
+<div class="card-wrapper">
+  <div class="card-wrapper-head-wrapper">
+    <div class="card-wrapper-head">
+      <span class="card-wrapper-head-column-info">column 1</span>
+      <span class="card-wrapper-head-column-info">column 2</span>
+      <span class="card-wrapper-head-column-info">column 3</span>
+    </div>
+  </div>
+  <div *ngFor="let topicDraft of topicDrafts">
+    <app-submitted-topic-draft-card [topicDraft]="topicDraft"></app-submitted-topic-draft-card>
+  </div>
+</div>
