@@ -1,22 +1,25 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 
 @Component({
   selector: 'app-submitted-topic-draft-card',
   templateUrl: './submitted-topic-draft-card.component.html',
   styleUrls: ['./submitted-topic-draft-card.component.css']
 })
-export class SubmittedTopicDraftCardComponent {
-
-  private isFolded: boolean = false;
-  private foldIcon: string = 'arrow_drop_down';
+export class SubmittedTopicDraftCardComponent implements OnInit {
+  isFolded: boolean;
+  foldIcon: string;
 
   @Input()
-  private topicDraft: OkrTopicDraft;
+  topicDraft: OkrTopicDraft;
 
   foldButtonClicked(): void {
     this.isFolded = !this.isFolded;
     this.isFolded ? this.foldIcon = 'arrow_drop_up' : this.foldIcon = 'arrow_drop_down';
+  }
+
+  ngOnInit(): void {
+    this.foldIcon = 'arrow_drop_down';
+    this.isFolded = false;
   }
 }
