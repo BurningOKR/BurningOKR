@@ -1,5 +1,6 @@
 .submitted-topic-draft-card {
   max-width: 1600px;
+  margin-bottom: 0.9rem;
 }
 
 .submitted-topic-draft-fold-button {
@@ -32,8 +33,6 @@
 
 .card-divider {
   margin-top: 18px;
-  width: 99%;
-  position: static;
 }
 
 .body-item-wrapper {
@@ -51,6 +50,10 @@
   position: absolute;
   right: 8px;
   top: 8px;
+}
+
+.card-body-list {
+  padding-top: 20px;
 }
 
 .status-approved {

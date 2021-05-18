@@ -1,13 +1,8 @@
-td.topic-draft-content {
-  padding-right: 6px;
-  padding-left: 6px;
+.content-wrapper {
+  display: flex;
+  justify-content: center;
 }
 
-th.topic-draft-content-header {
-  padding-right: 6px;
-  padding-left: 6px;
-}
-
-app-submitted-topic-draft-card {
-  margin-bottom: 30px;
+.content {
+  width: 80%;
 }
