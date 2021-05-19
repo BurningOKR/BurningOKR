@@ -1,0 +1,72 @@
+.submitted-topic-draft-card {
+  max-width: 1600px;
+  margin-bottom: 0.9rem;
+}
+
+.submitted-topic-draft-fold-button {
+  margin: 5px;
+}
+
+#submitted-topic-draft-option-button {
+  margin: 5px;
+  position: absolute;
+  right: 0;
+}
+
+.card-head-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-head-info-wrapper {
+  width: 65%;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-head-info {
+  width: 33%;
+  overflow: hidden;
+}
+
+.card-divider {
+  margin-top: 18px;
+}
+
+.body-item-wrapper {
+  width: 100%;
+}
+
+.status-dot {
+  height: 12px;
+  width: 12px;
+  background-color: #c9c9c9;
+  border-radius: 50%;
+  border: 1px solid;
+  border-color: #a9a9a9;
+  display: inline-block;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.card-body-list {
+  padding-top: 20px;
+}
+
+.status-approved {
+  background-color: #81e173;
+  border-color: #086E23;
+}
+
+.status-rejected {
+  background-color: #e88567;
+  border-color: #790000;
+}
+
+.status-submitted {
+  background-color: #ffe869;
+  border-color: #d79c2c;
+}

@@ -7,49 +7,8 @@
 </app-okr-toolbar>
 
 
-<div class="container">
-    <div class="row">
-        <mat-card class="col-m-12 col-l-12 col-xl-10 col-s-12 col-centered">
-            <mat-card-title>
-                <mat-icon>assignment</mat-icon>
-                <span i18n="@component_@submittedTopiDrafts_Cardtitle">Eingereichte Themenentwürfe</span>
-            </mat-card-title>
-            <mat-card-content>
-                <table [dataSource]="rowData" mat-table>
-                    <ng-container matColumnDef="topic">
-                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nTopicTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.name}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="initiator">
-                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nInitiatorTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.initiator.surname}}, {{topicDraft.initiator.givenName}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="beginning">
-                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nBeginningTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.beginning | date:'shortDate'}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="contributesTo">
-                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nContributesToTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>{{topicDraft.contributesTo}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="status">
-                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nStatusTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>STATUS TODO</td>
-                    </ng-container>
-                    <ng-container matColumnDef="comments">
-                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nCommentsTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>NO. OF COMMENTS TODO</td>
-                    </ng-container>
-                    <ng-container matColumnDef="actions">
-                        <th class="hidden-mobile-table topic-draft-content-header" *matHeaderCellDef mat-header-cell> {{i18nActionsTableHeader}}</th>
-                        <td class="hidden-mobile-table topic-draft-content" *matCellDef="let topicDraft" mat-cell>
-                            <app-submitted-topic-draft-action-button [topicDraft]=topicDraft></app-submitted-topic-draft-action-button>
-                        </td>
-                    </ng-container>
-                    <tr *matHeaderRowDef="columnsToDisplay;" mat-header-row></tr>
-                    <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>
-                </table>
-            </mat-card-content>
-        </mat-card>
-    </div>
+<div class="content-wrapper">
+  <div class="content">
+    <app-submitted-topic-draft-cards-wrapper [topicDrafts]="rowData.data"></app-submitted-topic-draft-cards-wrapper>
+  </div>
 </div>
