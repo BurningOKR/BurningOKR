@@ -1,6 +1,8 @@
 .card-wrapper {
   max-width: 1600px;
   margin: auto;
+  height: 100%;
+  padding-bottom: 20px;
 }
 .card-wrapper-head-wrapper {
   display: flex;
@@ -19,4 +21,15 @@
 .card-wrapper-head-column-info {
   width: 33%;
   font-weight: bold;
+  margin-right: 20px;
+}
+
+@media (max-width: 768px){
+  .card-wrapper-head-wrapper {
+    display: none;
+  }
+
+  .card-wrapper {
+    margin-top: 0.9rem;
+  }
 }

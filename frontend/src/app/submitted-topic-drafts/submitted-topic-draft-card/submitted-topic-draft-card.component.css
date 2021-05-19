@@ -29,6 +29,7 @@
 .card-head-info {
   width: 33%;
   overflow: hidden;
+  margin-right: 20px;
 }
 
 .card-divider {
@@ -69,4 +70,25 @@
 .status-submitted {
   background-color: #ffe869;
   border-color: #d79c2c;
+}
+
+@media (max-width: 768px) {
+  .submitted-topic-draft-card {
+    min-height: 150px;
+  }
+
+  .card-head-wrapper {
+    height: 100%;
+  }
+
+  .card-head-info {
+    min-width: 200px;
+    margin-bottom: 10px;
+    width: auto;
+  }
+
+  .card-head-info-wrapper {
+    flex-direction: column;
+    margin-right: 10px;
+  }
 }
