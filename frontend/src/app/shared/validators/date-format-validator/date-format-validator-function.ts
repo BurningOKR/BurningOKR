@@ -19,15 +19,9 @@ export class DateFormValidator extends AbstractValidator {
 
   static Validate(control: AbstractControl): ValidationErrors {
     const date: string = control.value;
-    const dates: string[] = date.split('.');
+
     if (date === null || date === '') {
       return dateFormatError;
-    }
-    if (Number(dates[0]) >= 31 && Number(dates[1]) >= 12) {
-        return dateFormatError;
-      }
-    if (Number(dates[0]) <= 0 && Number(dates[1]) <= 0) {
-        return dateFormatError;
     }
   }
 }
