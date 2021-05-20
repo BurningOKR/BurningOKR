@@ -19,12 +19,12 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ErrorInterceptor } from './core/error/error.interceptor';
 import { LoggerModule } from 'ngx-logger';
 import {
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    MatMenuModule
+  MatCardModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatTooltipModule
 } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,7 +42,7 @@ import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitte
 import { MatTableModule } from '@angular/material/table';
 import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component';
 import { SubmittedTopicDraftCardComponent } from './submitted-topic-drafts/submitted-topic-draft-card/submitted-topic-draft-card.component';
-import { MatGridListModule } from "@angular/material/grid-list";
+import { MatGridListModule } from '@angular/material/grid-list';
 import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
 
 // use the require method provided by webpack
@@ -63,10 +63,10 @@ const currentLanguage: string = 'de';
     NoMailInformationComponent,
     SubmittedTopicDraftsComponent,
     SubmittedTopicDraftCardComponent,
-        SubmittedTopicDraftActionButtonComponent,
+    SubmittedTopicDraftActionButtonComponent,
     SubmittedTopicDraftCardsWrapperComponent,
   ],
-    imports: [
+  imports: [
         AppRoutingModule,
         BrowserAnimationsModule,
         BrowserModule,
@@ -91,10 +91,10 @@ const currentLanguage: string = 'de';
         MatMenuModule,
         MatGridListModule,
     ],
-    entryComponents: [
+  entryComponents: [
         DeleteDialogComponent,
     ],
-    providers: [
+  providers: [
         OAuthFrontendDetailsService,
 
         AuthenticationService,
@@ -118,7 +118,7 @@ const currentLanguage: string = 'de';
         {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
         I18n
     ],
-    bootstrap: [AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
