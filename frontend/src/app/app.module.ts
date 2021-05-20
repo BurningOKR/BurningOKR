@@ -3,7 +3,7 @@ import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeEnExtra from '@angular/common/locales/extra/en';
@@ -67,57 +67,65 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftCardsWrapperComponent,
   ],
   imports: [
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        BrowserModule,
-        CoreModule,
-        CycleAdminModule,
-        FormsModule,
-        HttpClientModule,
-        LoggerModule.forRoot(loggerConfig),
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        MatListModule,
-        MatProgressSpinnerModule,
-        MatTooltipModule,
-        OAuthModule.forRoot(),
-        ReactiveFormsModule,
-        SharedModule,
-        OkrUnitModule,
-        ErrorModule,
-        LoggerModule.forRoot(loggerConfig),
-        MatTableModule,
-        MatMenuModule,
-        MatGridListModule,
-    ],
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    CoreModule,
+    CycleAdminModule,
+    FormsModule,
+    HttpClientModule,
+    LoggerModule.forRoot(loggerConfig),
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    OAuthModule.forRoot(),
+    ReactiveFormsModule,
+    SharedModule,
+    OkrUnitModule,
+    ErrorModule,
+    LoggerModule.forRoot(loggerConfig),
+    MatTableModule,
+    MatMenuModule,
+    MatGridListModule
+  ],
   entryComponents: [
-        DeleteDialogComponent,
-    ],
+    DeleteDialogComponent,
+  ],
   providers: [
-        OAuthFrontendDetailsService,
+    OAuthFrontendDetailsService,
 
-        AuthenticationService,
-        LocalAuthTypeHandlerService,
-        AzureAuthTypeHandlerService,
+    AuthenticationService,
+    LocalAuthTypeHandlerService,
+    AzureAuthTypeHandlerService,
 
-        {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
-        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
-        {
-            provide: TRANSLATIONS,
-            useFactory: locale => {
-                return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
-            },
-            deps: [LOCALE_ID]
+    {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
+    {
+      provide: TRANSLATIONS,
+      useFactory: locale => {
+        return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
+      },
+      deps: [LOCALE_ID]
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: currentLanguage
+    },
+    {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
+    I18n,
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        display: {
+          dateInput: 'YYYY-MM-DD',
         },
-        {
-            provide: LOCALE_ID,
-            useValue: currentLanguage
-        },
-        {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-        I18n
-    ],
+      },
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
