@@ -5,14 +5,9 @@
   </mat-form-field>
 
   <mat-form-field class="half-width">
-    <input [matDatepicker]="startDatePicker" i18n-placeholder="@@component_descriptionEditForm_beginning" matInput placeholder="Beginn" formControlName="beginning">
+    <input [matDatepicker]="startDatePicker" [min]="minBeginn" i18n-placeholder="@@component_descriptionEditForm_beginning" matInput placeholder="Beginn" formControlName="beginning">
     <mat-datepicker-toggle [for]="startDatePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #startDatePicker></mat-datepicker>
-  </mat-form-field>
-  
-  <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_acceptanceCriteria" matInput placeholder= dates[0] formControlName="acceptanceCriteria">
-      </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
