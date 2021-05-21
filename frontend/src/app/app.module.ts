@@ -3,7 +3,7 @@ import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeEnExtra from '@angular/common/locales/extra/en';
@@ -117,14 +117,6 @@ const currentLanguage: string = 'de';
     },
     {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
     I18n,
-    {
-      provide: MAT_DATE_FORMATS,
-      useValue: {
-        display: {
-          dateInput: 'YYYY-MM-DD',
-        },
-      },
-    },
   ],
   bootstrap: [AppComponent]
 })
