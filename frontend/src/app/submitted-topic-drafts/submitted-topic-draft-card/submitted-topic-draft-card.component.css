@@ -4,7 +4,7 @@
   cursor: pointer;
 }
 
-.submitted-topic-draft-fold-button {
+.submitted-topic-draft-option-button {
   margin: 5px;
 }
 
@@ -82,5 +82,10 @@
     margin-right: 10px;
     margin-top: auto;
     margin-bottom: auto;
+  }
+
+  .card-head-button-wrapper {
+    display: flex;
+    align-items: center;
   }
 }
