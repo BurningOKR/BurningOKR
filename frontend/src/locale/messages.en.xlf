@@ -436,39 +436,45 @@
         <target state="translated">Admin panel</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">43</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">43</context></context-group></trans-unit><trans-unit id="component_okrToolbar_topicDrafts" datatype="html">
+        <source>Themenentwürfe</source><target state="new">Themenentwürfe</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="component_okrToolbar_cycleManagement" datatype="html">
         <source>Zyklusverwaltung</source>
         <target state="translated">Cycle administration</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">48</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">52</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_settings" datatype="html">
         <source>Einstellungen</source>
         <target state="translated">Settings</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">52</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">56</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_userManagement" datatype="html">
         <source>Nutzerverwaltung</source>
         <target state="translated">User Management</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">56</context></context-group></trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
         <source>Passwort ändern</source><target state="translated">Change password</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">64</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_logout" datatype="html">
         <source>Logout</source>
         <target state="translated">Logout</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">64</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">68</context></context-group></trans-unit>
       <trans-unit id="component_okrToolbar_version" datatype="html">
         <source>v</source>
         <target state="translated">v</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">68</context></context-group></trans-unit><trans-unit id="component_adminView_NavigateToUnitOverview" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context><context context-type="linenumber">72</context></context-group></trans-unit><trans-unit id="component_adminView_NavigateToUnitOverview" datatype="html">
         <source>Zur Strukturübersicht</source><target state="translated">Go to the structure overview</target>
         
         
@@ -562,7 +568,40 @@
       <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="component_noMailInformation_backToHome" datatype="html">
         <source>Zurück zur Startseite</source><target state="translated">Back to home page</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">24</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">24</context></context-group></trans-unit><trans-unit id="component_submittedTopicDrafts_navigateToOkrUnitOverview" datatype="html">
+        <source>Zur Strukturübersicht</source><target state="new">Zur Strukturübersicht</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-drafts.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_submittedTopicDrafts_submittedTopicDrafts" datatype="html">
+        <source>Eingereichte Themenentwürfe</source><target state="new">Eingereichte Themenentwürfe</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-drafts.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit><trans-unit id="submitted-topic-draft-card-column-initiator" datatype="html">
+        <source>Eingereicht von</source><target state="translated">Created from</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Eingereicht von</note>
+      </trans-unit><trans-unit id="submitted-topic-draft-card-column-startDate" datatype="html">
+        <source>Start</source><target state="translated">start</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">Start</note>
+      </trans-unit><trans-unit id="submitted-topic-draft-card-column-name" datatype="html">
+        <source>Name</source><target state="translated">Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <note priority="1" from="description">Name</note>
+      </trans-unit>
       <trans-unit id="component_adminView_NavigateToPrevious" datatype="html">
         <source>Zur vorherigen Seite zurückkehren</source><target state="translated">Return to the previous page</target>
         <context-group purpose="location">
@@ -828,21 +867,21 @@
       </trans-unit><trans-unit id="component_departmentTabSubDepartments_defineChildUnit" datatype="html">
         <source>Neue Unterstruktur definieren</source><target state="translated">Define new substructure</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit><trans-unit id="component_departmentMenu_ChildUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="component_departmentMenu_ChildUnit" datatype="html">
         <source>OKR Team</source><target state="translated">OKR Team</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">13</context></context-group></trans-unit><trans-unit id="component_departmentMenu_Topic_draft" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">14</context></context-group></trans-unit><trans-unit id="component_departmentMenu_Topic_draft" datatype="html">
         <source>Themenentwurf</source><target state="translated">Topic Draft</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="component_departmentTabSubDepartments_noChildUnit" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/add-child-unit-button/add-child-unit-button.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="component_departmentTabSubDepartments_noChildUnit" datatype="html">
         <source>
       Es gibt noch keine Unterstrukturen für diese Struktur
     </source><target state="translated">
       There aren’t any substructures for this structure yet
     </target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit>
 
 
 
@@ -1224,7 +1263,7 @@
       There aren’t any substructures for this structure yet
     </target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">63</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
 
 
 
@@ -1233,31 +1272,31 @@
         <target state="translated">Export</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">82</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">79</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_exportContacts" datatype="html">
         <source>Kontakte exportieren</source>
         <target state="translated">Export contacts</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">86</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">83</context></context-group></trans-unit>
       <trans-unit id="component_commentViewDialog_loadingCompany" datatype="html">
         <source>Lade Firma...</source>
         <target state="translated">Load company...</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">94</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompany" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">91</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompany" datatype="html">
         <source>Fehler</source><target state="translated">Error</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">99</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyText" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">96</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyText" datatype="html">
         <source>
       Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
       oder der Server antwortet nicht.
     </source><target state="translated">The company could not be loaded. It could have been deleted by another user, or the server does not respond.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">100</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyButton" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">97</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyButton" datatype="html">
         <source>Zur Strukturübersicht</source><target state="translated">Back to structure overview</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">105</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">102</context></context-group></trans-unit>
       <trans-unit id="component_navigationListEntry_youAreManager" datatype="html">
         <source>Sie sind Manager dieser Struktur</source>
         <target state="translated">You are manager of this structure</target>
@@ -2293,17 +2332,11 @@
         <note priority="1" from="description">Title of the OkrTopicDraftCreation dialog</note>
       </trans-unit><trans-unit id="snackbar_addTopicDraft" datatype="html">
         <source>Ihr Themenentwurf wurde zur Prüfung abgeschickt.</source><target state="translated">Your Topic Draft has been submitted for review.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="snackbar_ok" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/okrview/company/company.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="snackbar_ok" datatype="html">
         <source>Ok</source><target state="translated">Ok</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="submitButtonText" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/okrview/company/company.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="submitButtonText" datatype="html">
         <source>Bestätigen</source><target state="translated">Confirm</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/confirmation-dialog/confirmation-dialog.component.ts</context>
@@ -2389,6 +2422,55 @@
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Required Field</note>
+      </trans-unit><trans-unit id="topic_table_header" datatype="html">
+        <source>Thema</source><target state="new">Thema</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-drafts.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Submitted topic drafts component "Topic" header</note>
+      </trans-unit><trans-unit id="initiator_table_header" datatype="html">
+        <source>Einreicher</source><target state="new">Einreicher</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-drafts.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Submitted topic drafts component "Initiator" header</note>
+      </trans-unit><trans-unit id="beginning_table_header" datatype="html">
+        <source>Beginn</source><target state="new">Beginn</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-drafts.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Submitted topic drafts component "Beginning" header</note>
+      </trans-unit><trans-unit id="ContributesTo_table_header" datatype="html">
+        <source>Zählt ein auf</source><target state="new">Zählt ein auf</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-drafts.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Submitted topic drafts component "Contributes To" header</note>
+      </trans-unit><trans-unit id="status_table_header" datatype="html">
+        <source>Status</source><target state="new">Status</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-drafts.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Submitted topic drafts component "Status" header</note>
+      </trans-unit><trans-unit id="comments_table_header" datatype="html">
+        <source>Kommentare</source><target state="new">Kommentare</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-drafts.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Submitted topic drafts component "Comments" header</note>
+      </trans-unit><trans-unit id="actions_table_header" datatype="html">
+        <source>Aktionen</source><target state="new">Aktionen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-drafts.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">Submitted topic drafts component "Actions" header</note>
       </trans-unit>
 
 
