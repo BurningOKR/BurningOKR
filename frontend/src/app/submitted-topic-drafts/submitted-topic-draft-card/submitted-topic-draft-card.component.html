@@ -6,7 +6,7 @@
       <span class="card-head-info" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
     </div>
     <div class="card-head-button-wrapper">
-      <button mat-flat-button class="submitted-topic-draft-option-button" mat-mini-fab><mat-icon>more_vert</mat-icon></button>
+      <button><app-submitted-topic-draft-action-button></app-submitted-topic-draft-action-button></button>
     </div>
     <span id="status-dot" class="status-dot status-dot-{{enumStatus[topicDraft.currentStatus]}}"></span>
   </div>
