@@ -5,9 +5,10 @@
   </mat-form-field>
 
   <mat-form-field class="half-width">
-    <input [matDatepicker]="startDatePicker" i18n-placeholder="@@component_descriptionEditForm_beginning" matInput placeholder="Beginn" formControlName="beginning">
+    <input [matDatepicker]="startDatePicker" readonly [min]="minBeginn" i18n-placeholder="@@component_descriptionEditForm_beginning" matInput placeholder="Beginn" formControlName="beginning">
     <mat-datepicker-toggle [for]="startDatePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #startDatePicker></mat-datepicker>
+    <mat-error><app-form-error [control]="descriptionForm.get('beginning')"></app-form-error></mat-error>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">

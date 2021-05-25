@@ -34,7 +34,7 @@ export class TopicDraftCreationFormComponent implements OnInit {
       acceptanceCriteria: new FormControl('', Validators.maxLength(1024)),
       contributesTo: new FormControl('', Validators.maxLength(1024)),
       delimitation: new FormControl('', Validators.maxLength(1024)),
-      beginning: new FormControl(),
+      beginning: new FormControl('', [Validators.required]),
       dependencies: new FormControl('', Validators.maxLength(1024)),
       resources: new FormControl('', Validators.maxLength(1024)),
       handoverPlan: new FormControl('', Validators.maxLength(1024)),

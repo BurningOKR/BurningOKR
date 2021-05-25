@@ -19,12 +19,12 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ErrorInterceptor } from './core/error/error.interceptor';
 import { LoggerModule } from 'ngx-logger';
 import {
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    MatMenuModule
+  MatCardModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatTooltipModule
 } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,7 +42,7 @@ import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitte
 import { MatTableModule } from '@angular/material/table';
 import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component';
 import { SubmittedTopicDraftCardComponent } from './submitted-topic-drafts/submitted-topic-draft-card/submitted-topic-draft-card.component';
-import { MatGridListModule } from "@angular/material/grid-list";
+import { MatGridListModule } from '@angular/material/grid-list';
 import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
 
 // use the require method provided by webpack
@@ -63,62 +63,62 @@ const currentLanguage: string = 'de';
     NoMailInformationComponent,
     SubmittedTopicDraftsComponent,
     SubmittedTopicDraftCardComponent,
-        SubmittedTopicDraftActionButtonComponent,
+    SubmittedTopicDraftActionButtonComponent,
     SubmittedTopicDraftCardsWrapperComponent,
   ],
-    imports: [
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        BrowserModule,
-        CoreModule,
-        CycleAdminModule,
-        FormsModule,
-        HttpClientModule,
-        LoggerModule.forRoot(loggerConfig),
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        MatListModule,
-        MatProgressSpinnerModule,
-        MatTooltipModule,
-        OAuthModule.forRoot(),
-        ReactiveFormsModule,
-        SharedModule,
-        OkrUnitModule,
-        ErrorModule,
-        LoggerModule.forRoot(loggerConfig),
-        MatTableModule,
-        MatMenuModule,
-        MatGridListModule,
-    ],
-    entryComponents: [
-        DeleteDialogComponent,
-    ],
-    providers: [
-        OAuthFrontendDetailsService,
+  imports: [
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    CoreModule,
+    CycleAdminModule,
+    FormsModule,
+    HttpClientModule,
+    LoggerModule.forRoot(loggerConfig),
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    OAuthModule.forRoot(),
+    ReactiveFormsModule,
+    SharedModule,
+    OkrUnitModule,
+    ErrorModule,
+    LoggerModule.forRoot(loggerConfig),
+    MatTableModule,
+    MatMenuModule,
+    MatGridListModule
+  ],
+  entryComponents: [
+    DeleteDialogComponent,
+  ],
+  providers: [
+    OAuthFrontendDetailsService,
 
-        AuthenticationService,
-        LocalAuthTypeHandlerService,
-        AzureAuthTypeHandlerService,
+    AuthenticationService,
+    LocalAuthTypeHandlerService,
+    AzureAuthTypeHandlerService,
 
-        {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
-        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
-        {
-            provide: TRANSLATIONS,
-            useFactory: locale => {
-                return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
-            },
-            deps: [LOCALE_ID]
-        },
-        {
-            provide: LOCALE_ID,
-            useValue: currentLanguage
-        },
-        {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-        I18n
-    ],
-    bootstrap: [AppComponent]
+    {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
+    {
+      provide: TRANSLATIONS,
+      useFactory: locale => {
+        return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
+      },
+      deps: [LOCALE_ID]
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: currentLanguage
+    },
+    {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
+    I18n,
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
