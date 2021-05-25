@@ -5,6 +5,6 @@ import { User } from '../user';
 
 export class OkrTopicDraftDto extends OkrTopicDescriptionDto {
   parentUnitId: OkrUnitId;
-  currentStatus: status;
+  currentStatus: number;
   initiator: User;
 }

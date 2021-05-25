@@ -8,6 +8,6 @@
     <div class="card-head-button-wrapper">
       <button mat-flat-button class="submitted-topic-draft-fold-button" mat-mini-fab><mat-icon>more_vert</mat-icon></button>
     </div>
-    <span id="status-dot"class="status-dot {{currentStatus}}"></span>
+    <span id="status-dot"class="status-dot status-dot-{{enumStatus[topicDraft.currentStatus]}}"></span>
   </div>
 </mat-card>

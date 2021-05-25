@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
     OkrTopicDraft entity = new OkrTopicDraft();
     entity.setAcceptanceCriteria(input.getAcceptanceCriteria());
     entity.setBeginning(input.getBeginning());
-    entity.setCurrentStatus(input.getCurrentStatus());
+    entity.setCurrentStatus(OkrTopicDraftStatusEnum.values()[input.getCurrentStatus()]);
     entity.setContributesTo(input.getContributesTo());
     entity.setDelimitation(input.getDelimitation());
     entity.setDependencies(input.getDependencies());
@@ -39,7 +40,9 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
     OkrTopicDraftDto dto = new OkrTopicDraftDto();
     dto.setAcceptanceCriteria(input.getAcceptanceCriteria());
     dto.setInitiator(userService.findById(input.getInitiatorId()));
-    dto.setCurrentStatus(input.getCurrentStatus());
+    if(input.getCurrentStatus() != null) {
+      dto.setCurrentStatus(input.getCurrentStatus().ordinal());
+    }
     dto.setBeginning(input.getBeginning());
     dto.setContributesTo(input.getContributesTo());
     dto.setDelimitation(input.getDelimitation());

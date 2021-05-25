@@ -10,5 +10,5 @@ import org.burningokr.model.users.User;
 public class OkrTopicDraftDto extends OkrTopicDescriptionDto {
   private Long okrParentUnitId;
   private User initiator;
-  private OkrTopicDraftStatusEnum currentStatus;
+  private int currentStatus;
 }

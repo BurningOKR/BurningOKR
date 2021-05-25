@@ -196,13 +196,7 @@ public class OkrTopicDraftMapperTest {
     topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
 
     OkrTopicDraftDto mappedDto = mapper.mapEntityToDto(topicDraft);
-    assertEquals(topicDraft.getCurrentStatus(), mappedDto.getCurrentStatus());
-  }
-
-  @Test
-  public void test_mapEntityToDto_expect_currentStatus_isnotmapped() {
-    OkrTopicDraftDto mappedDto = mapper.mapEntityToDto(topicDraft);
-    assertNull(mappedDto.getCurrentStatus());
+    assertEquals(topicDraft.getCurrentStatus().ordinal(), mappedDto.getCurrentStatus());
   }
 
   // Dto to Entity
@@ -342,17 +336,9 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void test_mapDtoToEntity_expect_currentStatus_ismapped() {
-    topicDraftDto.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
+    topicDraftDto.setCurrentStatus(OkrTopicDraftStatusEnum.submitted.ordinal());
 
     OkrTopicDraft mappedTopicDraft = mapper.mapDtoToEntity(topicDraftDto);
-    assertEquals(topicDraftDto.getCurrentStatus(), mappedTopicDraft.getCurrentStatus());
-  }
-
-  @Test
-  public void test_mapDtoToEntity_expect_currentStatus_isnotmapped() {
-    OkrTopicDraftDto topicDraftDto = new OkrTopicDraftDto();
-
-    OkrTopicDraft mappedTopicDraft = mapper.mapDtoToEntity(topicDraftDto);
-    assertNull(mappedTopicDraft.getCurrentStatus());
+    assertEquals(topicDraftDto.getCurrentStatus(), mappedTopicDraft.getCurrentStatus().ordinal());
   }
 }
