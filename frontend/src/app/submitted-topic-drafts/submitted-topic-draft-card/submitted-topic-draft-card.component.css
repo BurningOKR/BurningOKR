@@ -36,8 +36,6 @@
 
 .card-head-info-name {
   width: 40%;
-  overflow: hidden;
-  margin-right: 20px;
 }
 
 .status-dot {
@@ -94,11 +92,5 @@
   .card-head-button-wrapper {
     display: flex;
     align-items: center;
-  }
-
-  .card-head-info-name {
-    min-width: 200px;
-    margin-bottom: 15px;
-    width: auto;
   }
 }
