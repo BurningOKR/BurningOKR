@@ -575,7 +575,7 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit><trans-unit id="component_submittedTopicDrafts_submittedTopicDrafts" datatype="html">
-        <source>Eingereichte Themenentwürfe</source><target state="new">Eingereichte Themenentwürfe</target>
+        <source>Eingereichte Themenentwürfe</source><target state="translated">Submitted topic drafts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-drafts.component.html</context>
           <context context-type="linenumber">5</context>

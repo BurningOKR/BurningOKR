@@ -20,7 +20,8 @@
 }
 
 .card-head-info-wrapper {
-  width: 65%;
+  width: 80%;
+  max-width: 1100px;
   margin-top: auto;
   margin-bottom: auto;
   display: flex;
@@ -28,7 +29,13 @@
 }
 
 .card-head-info {
-  width: 33%;
+  width: 30%;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.card-head-info-name {
+  width: 40%;
   overflow: hidden;
   margin-right: 20px;
 }
@@ -73,7 +80,7 @@
 
   .card-head-info {
     min-width: 200px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     width: auto;
   }
 
@@ -87,5 +94,11 @@
   .card-head-button-wrapper {
     display: flex;
     align-items: center;
+  }
+
+  .card-head-info-name {
+    min-width: 200px;
+    margin-bottom: 15px;
+    width: auto;
   }
 }
