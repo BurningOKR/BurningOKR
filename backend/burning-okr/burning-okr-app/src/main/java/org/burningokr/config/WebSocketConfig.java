@@ -1,5 +1,7 @@
 package org.burningokr.config;
 
+import java.util.List;
+import javax.naming.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +31,6 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-
-import javax.naming.AuthenticationException;
-import java.util.List;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -97,14 +96,14 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
 
             if (StompCommand.CONNECT.equals(accessor.getCommand())) {
               String token = getToken(accessor);
-              if(token == null) {
+              if (token == null) {
                 return message;
               }
 
               try {
-                Authentication authByService= getAuthentication(token);
+                Authentication authByService = getAuthentication(token);
 
-                if(authByService != null) {
+                if (authByService != null) {
                   accessor.setUser(authByService);
                 } else {
                   throw new AuthenticationException();
@@ -121,11 +120,12 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
 
   private Authentication getAuthentication(String token) {
     Authentication authByService;
-    if(tokenStore != null) {
+    if (tokenStore != null) {
       authByService = tokenStore.readAuthentication(token);
     }
     // DM 26.05.2021:
-    // The following code is for new authentication functions. This is usefull when there is no bean for TokenStore or ResourceServerTokenServices defined.
+    // The following code is for new authentication functions. This is usefull when there is no bean
+    // for TokenStore or ResourceServerTokenServices defined.
     /* else if(endpoints != null) {
       authByService = endpoints.getEndpointsConfigurer().getTokenStore().readAuthentication(token);
     } */ else {
@@ -133,7 +133,6 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
     }
     return authByService;
   }
-
 
   private String getToken(StompHeaderAccessor accessor) {
     List<String> tokenList = accessor.getNativeHeader("Authorization");

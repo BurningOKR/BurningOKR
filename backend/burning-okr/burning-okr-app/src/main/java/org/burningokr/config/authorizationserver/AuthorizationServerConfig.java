@@ -30,8 +30,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
   private final AuthenticationManager authenticationManager;
   private final DataSource dataSource;
   private final PasswordEncoder passwordEncoder;
+
   @Qualifier("LocalUserAccessTokenConverter")
   private final LocalUserAccessTokenConverter accessTokenConverter;
+
   private final UserDetailsService userDetailsService;
 
   @Override

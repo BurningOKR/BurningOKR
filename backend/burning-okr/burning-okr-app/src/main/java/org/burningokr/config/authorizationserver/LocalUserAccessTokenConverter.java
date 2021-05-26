@@ -1,11 +1,7 @@
 package org.burningokr.config.authorizationserver;
 
 import java.util.Map;
-
-import org.burningokr.service.condition.LocalUserCondition;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.stereotype.Component;
