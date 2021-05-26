@@ -6,3 +6,9 @@
 .content {
   width: 80%;
 }
+
+@media (max-width: 768px) {
+  #submitted-topic-drafts-page-topic {
+    font-size: medium;
+  }
+}
