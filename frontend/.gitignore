@@ -41,7 +41,7 @@ Thumbs.db
 
 #Jenkis
 Jenkinsfile
-package-lock.json
+
 #VS Code
 .angulardoc.json
 /src/environments/environment.local.ts

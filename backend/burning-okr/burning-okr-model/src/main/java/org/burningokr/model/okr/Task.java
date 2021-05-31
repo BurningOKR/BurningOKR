@@ -35,6 +35,10 @@ public class Task implements Trackable<Long> {
   @Column(name = "user_id")
   private Collection<UUID> assignedUserIds = new ArrayList<>();
 
+  public boolean hasAssignedUserIds() {
+    return assignedUserIds.size() > 0;
+  }
+
   @ToString.Exclude
   @ManyToOne
   @JoinColumn(name = "parent_task_board_id")
