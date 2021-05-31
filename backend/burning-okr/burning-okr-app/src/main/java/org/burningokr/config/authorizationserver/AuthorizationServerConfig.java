@@ -4,6 +4,7 @@ import java.util.Arrays;
 import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.service.condition.LocalUserCondition;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
   private final AuthenticationManager authenticationManager;
   private final DataSource dataSource;
   private final PasswordEncoder passwordEncoder;
+
+  @Qualifier("LocalUserAccessTokenConverter")
   private final LocalUserAccessTokenConverter accessTokenConverter;
+
   private final UserDetailsService userDetailsService;
 
   @Override

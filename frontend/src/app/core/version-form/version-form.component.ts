@@ -57,7 +57,13 @@ export class VersionFormComponent {
       changes: [
         'BurningOKR now allows teams to manage tasks on a task board to further improve productivity and is offering a greater overview.'
       ]
-    }
+    },
+    {
+      version: '1.1.1 (31.05.2021)',
+      changes: [
+        'Proper handling of active directory credentials.'
+      ]
+    },
   ];
 
   constructor(private dialogRef: MatDialogRef<VersionFormComponent>) {

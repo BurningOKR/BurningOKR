@@ -133,7 +133,7 @@ public class TaskService {
       taskToSave.setAssignedKeyResult(null);
     }
 
-    if (newVersion.hasAssignedKeyResult()) {
+    if (newVersion.hasAssignedUserIds()) {
       taskToSave.setAssignedUserIds(newVersion.getAssignedUserIds());
     } else {
       taskToSave.setAssignedUserIds(null);

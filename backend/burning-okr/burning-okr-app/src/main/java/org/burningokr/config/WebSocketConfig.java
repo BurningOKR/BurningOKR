@@ -1,9 +1,12 @@
 package org.burningokr.config;
 
 import java.util.List;
+import javax.naming.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -19,20 +22,30 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
 import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerEndpointsConfiguration;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
 @EnableWebSocketMessageBroker
+@EnableWebSecurity
 @RequiredArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
-  private final DefaultTokenServices defaultTokenServices;
+  private final ResourceServerTokenServices resourceServerTokenServices;
+
+  @Autowired(required = false)
+  private TokenStore tokenStore;
+
+  @Autowired(required = false)
+  private AuthorizationServerEndpointsConfiguration endpoints;
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -78,27 +91,23 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
           @Override
           public Message<?> preSend(Message<?> message, MessageChannel channel) {
             logger.info("customizeClientInboundChannel:preSend");
-
             StompHeaderAccessor accessor =
                 MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-            if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-              List<String> tokenList = accessor.getNativeHeader("Authorization");
 
-              String token = null;
-              if (tokenList == null || tokenList.size() < 1) {
+            if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+              String token = getToken(accessor);
+              if (token == null) {
                 return message;
-              } else {
-                token = tokenList.get(0);
-                token = token.split(" ")[1];
-                if (token == null) {
-                  return message;
-                }
               }
 
               try {
-                OAuth2Authentication authByService = defaultTokenServices.loadAuthentication(token);
+                Authentication authByService = getAuthentication(token);
 
-                accessor.setUser(authByService);
+                if (authByService != null) {
+                  accessor.setUser(authByService);
+                } else {
+                  throw new AuthenticationException();
+                }
               } catch (Exception ex) {
                 logger.info(ex.getMessage());
               }
@@ -109,7 +118,34 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
         });
   }
 
+  private Authentication getAuthentication(String token) {
+    Authentication authByService;
+    if (tokenStore != null) {
+      authByService = tokenStore.readAuthentication(token);
+    }
+    // DM 26.05.2021:
+    // The following code is for new authentication functions. This is usefull when there is no bean
+    // for TokenStore or ResourceServerTokenServices defined.
+    /* else if(endpoints != null) {
+      authByService = endpoints.getEndpointsConfigurer().getTokenStore().readAuthentication(token);
+    } */ else {
+      authByService = resourceServerTokenServices.loadAuthentication(token);
+    }
+    return authByService;
+  }
+
+  private String getToken(StompHeaderAccessor accessor) {
+    List<String> tokenList = accessor.getNativeHeader("Authorization");
+    String token = null;
+    if (tokenList != null && tokenList.size() > 0) {
+      token = tokenList.get(0);
+      token = token.split(" ")[1];
+    }
+    return token;
+  }
+
   @Bean
+  @Qualifier("heartBeatScheduler")
   public TaskScheduler heartBeatScheduler() {
     return new ThreadPoolTaskScheduler();
   }

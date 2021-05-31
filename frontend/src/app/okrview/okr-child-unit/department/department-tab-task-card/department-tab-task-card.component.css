@@ -6,7 +6,7 @@
 
 .taskcard-description div, .taskcard-title {
     display: -webkit-box;
-    overflow: hidden;  
+    overflow: hidden;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
