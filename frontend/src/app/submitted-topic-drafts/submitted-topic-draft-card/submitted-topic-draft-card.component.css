@@ -30,7 +30,9 @@
 
 .card-head-info {
   width: 30%;
+  text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
   margin-right: 20px;
 }
 

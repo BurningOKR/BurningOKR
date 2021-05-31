@@ -20,14 +20,12 @@
 
 .card-wrapper-head-column-info {
   width: 30%;
-  font-weight: bold;
+  font-weight: bolder;
   margin-right: 20px;
 }
 
 .card-wrapper-head-column-info-name {
   width: 40%;
-  font-weight: bold;
-  margin-right: 20px;
 }
 
 @media (max-width: 768px){
