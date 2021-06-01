@@ -1,0 +1,18 @@
+.taskboards-switch-buttons {
+    margin-left: 1em;
+    margin-bottom: 1em;
+    justify-content: center;
+}
+
+.taskboard-button-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+
+}
+
+.add-button {
+    margin-left: 1em;
+    margin-right: 1em;
+}

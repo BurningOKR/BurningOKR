@@ -43,6 +43,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
     testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
@@ -81,6 +82,8 @@ dependencies {
 
     compile "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
     compile "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
+
+    compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
 }
 
 

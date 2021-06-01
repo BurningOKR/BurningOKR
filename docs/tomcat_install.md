@@ -2,78 +2,40 @@
 ## Getting Started
 ### Windows
 
-1. Install PostgreSQL (Version 9.5 or higher): https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-    1. IMPORTANT: During installation you have to set a password for the postgres superuser and you have to choose a port number. You must remember these two values.
-2. The PostgreSQL Installer also should have installed pgAdmin4. Search for pgAdmin4 on your computer and start it. This should open your browser. You may have to set a master password for pgAdmin on the first startup.
-3. On the left, you should see your server browser. 
+1. Install and Setup a supported Database:
+    - [PostgreSQL (Tutorial)](./postgres_install.md)
+    - [Microsoft SQL Server (Tutorial)](./mssql_install.md)
 
-    ![Server Browser](./images/pgAdmin_browser.PNG)
-    
-    Expand all entries as shown in the image.
-4. Right click on "Login/Group Roles" and choose "Create > Login/Group Role..."
-    1. In the general tab, set the "Name" to "admin".
-    2. In the definition tab, set a strong password.
-    3. Click on "Save" to exit the window.
-5. In the server browser right click on "Databases" and choose "Create > Database...".
-    1. Give your database a name by filling out the database field. You can choose any name, but it is recommended to use a meaningful name like "okr" or "burningokr".
-    2. Set the owner to "admin"
-    
-        ![Create Database](./images/pgAdmin_create_database.PNG)
-        
-    3. Click on "Save" to exit the window.
-6. You should now see two databases and the admin login role in your server browser:
-   
-   ![Two Databases and a new Login Role](./images/pgAdmin_done.PNG)
-   
-   Your Database is now ready for usage. You can now close pgAdmin4.
-7. Install Java 8: https://www.java.com/en/download/
-8. Install Tomcat 9: https://tomcat.apache.org/download-90.cgi (Download the 32-bit/64-bit Windows Service Installer)
-9. Go to https://github.com/BurningOKR/BurningOKR/releases/latest and download the .war file and the frontend-de.zip or frontend-en.zip (depends on your preferred language)
-10. Rename the .war file to "api.war".
-11. Place the api.war in the following directory: `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps`. Once this is done, you should see that a new directory called "api" was automatically created within this directory.
-12. Delete all files in the directory `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps\ROOT`
-13. Open the frontend-de/en.zip and move to the directory `fronted\dist\OKRFrontEnd`.
-14. Copy all files within this directory to `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps\ROOT`
-15. Within the `ROOT` directory, create a new directory called `WEB-INF`
-16. Place the `web.xml`, which can be downloaded [here](./files/web.xml) (right click the "raw" button and select "save as...") in the `WEB-INF` directory.
-17. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).
-18. Open your browser on http://localhost:8080/manager and login with your tomcat administrator account
-19. Click "Start" on the "/api" application
+2. Install Java 8: https://www.java.com/en/download/
+3. Install Tomcat 9: https://tomcat.apache.org/download-90.cgi (Download the 32-bit/64-bit Windows Service Installer)
+4. Go to https://github.com/BurningOKR/BurningOKR/releases/latest and download the .war file and the frontend-de.zip or frontend-en.zip (depends on your preferred language)
+5. Rename the .war file to "api.war".
+6. Place the api.war in the following directory: `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps`. Once this is done, you should see that a new directory called "api" was automatically created within this directory.
+7. Delete all files in the directory `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps\ROOT`
+8. Open the frontend-de/en.zip and move to the directory `fronted\dist\OKRFrontEnd`.
+9. Copy all files within this directory to `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps\ROOT`
+10. Within the `ROOT` directory, create a new directory called `WEB-INF`
+11. Place the `web.xml`, which can be downloaded [here](./files/web.xml) (right click the "raw" button and select "save as...") in the `WEB-INF` directory.
+12. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).
+13. Open your browser on http://localhost:8080/manager and login with your tomcat administrator account
+14. Click "Start" on the "/api" application
     ![Tomcat start](./images/tomcat_start.PNG)
-20. Done. You can now open your browser on http://localhost:8080 and see BurningOKR.
+15. Done. You can now open your browser on http://localhost:8080 and see BurningOKR.
 
-### Linux
-1. Install PostgreSQL: 
-    ```
-    sudo apt install postgresql postgresql-contrib
-    ```
-2. Create the "admin" user role for BurningOKR: 
-    ```
-    sudo -u postgres createuser --interactive --pwprompt
-    ```
-    Enter name and password for the new role, then answer with "n" to the three questions. This should look like this:
-    ````
-   Enter name of role to add: admin
-   Enter password for new role:
-   Enter it again:
-   Shall the new role be a superuser? (y/n) n
-   Shall the new role be allowed to create databases? (y/n) n
-   Shall the new role be allowed to create more new roles? (y/n) n
-   ````
-3. Create a database for BurningOKR: 
-    ```
-    sudo -u postgres createdb okr -O admin
-   ```
-4. Install Java 8: 
+### Linux (Ubuntu)
+1. Install and Setup a supported Database:
+    - [PostgreSQL (Tutorial)](./postgres_install.md)
+
+2. Install Java 8: 
     ```
     sudo apt install openjdk-8-jre-headless
     ```
-5. Create a usergroup and user for Tomcat: 
+3. Create a usergroup and user for Tomcat: 
     ```
     sudo groupadd tomcat
     sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
     ```
-6. Go into the "tmp" folder and then download and extract Tomcat: 
+4. Go into the "tmp" folder and then download and extract Tomcat: 
     ```
     cd /tmp
     sudo apt install curl
@@ -81,7 +43,7 @@
     sudo mkdir /opt/tomcat
     sudo tar xzvf apache-tomcat-9*tar.gz -C /opt/tomcat --strip-components=1
     ```
-7. Add privileges for the Tomcat user to access the Tomcat directory:
+5. Add privileges for the Tomcat user to access the Tomcat directory:
     ```
    cd /opt/tomcat
    sudo chgrp tomcat /opt/tomcat –R
@@ -89,14 +51,14 @@
    sudo chmod g+x conf
    sudo chown tomcat webapps/ work temp/ logs –R
    ```
-8. Find the "JAVA_HOME" path:
+6. Find the "JAVA_HOME" path:
     ```
    sudo update-java-alternatives -l
    ```
    ![update-java-alternatives output](./images/update_java_alternatives_output.PNG)
    
    Copy the path from the output and save it somewhere.
-9. Create a new Systemd service by creating a tomcat.service file:
+7. Create a new Systemd service by creating a tomcat.service file:
     ```
     sudo nano /etc/systemd/system/tomcat.service
     ```
@@ -131,7 +93,7 @@
     Do not forget to insert your JAVA_HOME path fromstep 9 into the first `Environment` entry.
 
     **Save** and **Exit** the file by using `Ctrl+X`, followed by `y`es and `Enter`.
-10. Reload the system daemon and start the tomcat service, so that the changes take place:
+8. Reload the system daemon and start the tomcat service, so that the changes take place:
     ```
     sudo systemctl daemon-reload
     sudo systemctl start tomcat
@@ -140,11 +102,11 @@
     The status should be **active (running)**
     
     Exit by pressing `q`.
-11. Allow tomcat through the firewall.
+9. Allow tomcat through the firewall.
     ```
     sudo ufw allow 8080
     ```
-12. Create a tomcat user for the web management console.
+10. Create a tomcat user for the web management console.
     You need to do this to access the manager app, that comes with tomcat.
     Start by editing the `tomcat-users.xml` file
     ```
@@ -165,7 +127,7 @@
     ```
     sudo systemctl restart tomcat
     ```
-13. Download the latest BurningOKR release:
+11. Download the latest BurningOKR release:
     1. Change to temp directory
         ```
         cd /tmp
@@ -187,7 +149,7 @@
             ```
             wget https://github.com/$(wget https://github.com/burningokr/burningokr/releases/latest -O - | egrep '/.*/.*/.*frontend-en.zip' -o)
             ```
-14. Install the BurningOKR release:
+12. Install the BurningOKR release:
     1. Install the war file:
         ```
         sudo mv /tmp/api.war /opt/tomcat/webapps/api.war
@@ -216,11 +178,11 @@
             sudo wget https://raw.githubusercontent.com/BurningOKR/BurningOKR/development/docs/files/web.xml
             exit
             ```
-15. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).
-16. Open your browser on http://localhost:8080/manager and login with your tomcat administrator account which was created in step 12.
-17. Click "Start" on the "/api" application
+13. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).
+14. Open your browser on http://localhost:8080/manager and login with your tomcat administrator account which was created in step 12.
+15. Click "Start" on the "/api" application
     ![Tomcat start](./images/tomcat_start.PNG)
-18. Done. You can now open your browser on http://localhost:8080 and see BurningOKR.
+16. Done. You can now open your browser on http://localhost:8080 and see BurningOKR.
 
 
 ### Configuration (Windows and Linux)
@@ -240,9 +202,10 @@
 ```yaml
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:<PORT>/<DATABASE NAME>?useSSL=false
-    username: admin
-    password: <admin Password>
+#   url: jdbc:sqlserver://localhost;databaseName=<DATABASE NAME>;Initial Catalog=<DATABASE NAME> # For Microsoft SQL Server
+    url: jdbc:postgresql://localhost:<PORT>/<DATABASE NAME>?useSSL=false # For PostgreSQL Server
+    username: <login name>
+    password: <login Password>
 
   jpa:
     hibernate:
@@ -250,6 +213,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect # For postgres
+#       dialect: org.burningokr.dialects.SQLServer2012UUIDFixDialect # For Microsoft SQL Server
         format_sql: true
 
   flyway:
@@ -306,18 +270,25 @@ system:
     token-endpoint-prefix: "/api"
 ```
 
-4. Insert the port and the database name of your Postgres database, that you have created earlier under `spring: > datasource: > url: ...`. The database name is the name, that you provided when creating the database and it is most likely just `okr`. To get the port number, you have to do the following steps.
-For Windows:
-The port number was set in step 1.
-For Linux:
-```
-sudo apt-get install net-tools
-sudo netstat -plunt |grep postgres
-```
+4. Insert the port and the database name of your database, that you have created earlier under `spring: > datasource: > url: ...`. The database name is the name, that you provided when creating the database. To get the port number, you have to do the following steps.
+   
+    **For Windows:**
+   
+   The port number was set in step 1 of the PostgreSQL Tutorial.
+    
+   **For Linux:**
+   ```
+   sudo apt-get install net-tools
+   sudo netstat -plunt |grep postgres
+   ```
+    
+   ![Linux Get Port Number](./images/linux_postgres_get_port_number.PNG)
 
-![Linux Get Port Number](./images/linux_postgres_get_port_number.PNG)
+   When you want to use a **Microsoft SQL Server** instead of PostgreSQL, you have to remove the `#` in front of `url` and `dialect`.
+   Then place a `#` in front of the respective other `url` and `dialect` line.
+   Make sure that the indentation matches with the rest of the block.
 
-5. Insert the password of the admin role of your Postgres server under `spring: > datasource: > password: ...`
+5. Insert the username and password of the login role of your database server under `spring: > datasource: > username: ...` and `spring: > datasource: > password: ...`
 6. You can insert the url, port, username and password of your mail server if you have one under `spring: > mail: > ....`. Otherwise remove the placeholders and leave these configurations empty.
 7. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use Azure Active Directory as your userbase by replacing the placeholder under `system: > configuration: > auth-mode: ...` with either `local` or `azure`.
 8. **When using an Azure Active Directory as the userbase, you also need to do the following steps. You do not need to this, when you are using the local user database.**

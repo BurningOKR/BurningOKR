@@ -5,17 +5,21 @@ import java.util.UUID;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.ObjectiveDto;
+import org.burningokr.dto.okr.OkrTopicDescriptionDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.mapper.okr.OkrTopicDescriptionMapper;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.mapper.okrUnit.OkrCompanyMapper;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
+import org.burningokr.service.okr.OkrTopicDescriptionService;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
@@ -41,6 +45,8 @@ public class OkrDepartmentController {
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private OkrBranchSchemaMapper okrBranchSchemaMapper;
   private OkrCompanyMapper okrCompanyMapper;
+  private OkrTopicDescriptionMapper okrTopicDescriptionMapper;
+  private OkrTopicDescriptionService okrTopicDescriptionService;
   private CompanyService companyService;
   private AuthorizationService authorizationService;
   private EntityCrawlerService entityCrawlerService;
@@ -55,6 +61,7 @@ public class OkrDepartmentController {
    * @param authorizationService {@link AuthorizationService}
    * @param entityCrawlerService {@link EntityCrawlerService}
    * @param okrBranchSchemaMapper {@link OkrBranchSchemaMapper}
+   * @param okrTopicDescriptionMapper {@link OkrTopicDescriptionMapper}
    * @param userService {@link UserService}
    * @param okrCompanyMapper {@link OkrCompanyMapper}
    * @param companyService {@link CompanyService}
@@ -67,6 +74,8 @@ public class OkrDepartmentController {
       AuthorizationService authorizationService,
       EntityCrawlerService entityCrawlerService,
       OkrBranchSchemaMapper okrBranchSchemaMapper,
+      OkrTopicDescriptionMapper okrTopicDescriptionMapper,
+      OkrTopicDescriptionService okrTopicDescriptionService,
       UserService userService,
       OkrCompanyMapper okrCompanyMapper,
       CompanyService companyService) {
@@ -79,6 +88,8 @@ public class OkrDepartmentController {
     this.userService = userService;
     this.okrCompanyMapper = okrCompanyMapper;
     this.companyService = companyService;
+    this.okrTopicDescriptionMapper = okrTopicDescriptionMapper;
+    this.okrTopicDescriptionService = okrTopicDescriptionService;
   }
 
   /**
@@ -147,6 +158,25 @@ public class OkrDepartmentController {
   }
 
   /**
+   * API Endpoint to get the OkrTopicDescription of an OkrDepartment
+   *
+   * @param departmentId a long value
+   * @return a {@link ResponseEntity} ok with a {@link OkrTopicDescriptionDto}.
+   */
+  @GetMapping("/departments/{departmentId}/topicdescription")
+  public ResponseEntity<OkrTopicDescriptionDto> getTopicDescriptionOfDepartment(
+      @PathVariable long departmentId) {
+    OkrUnitService<OkrDepartment> departmentService =
+        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+    OkrDepartment department = departmentService.findById(departmentId);
+    OkrTopicDescription topicDescription = department.getOkrTopicDescription();
+
+    OkrTopicDescriptionDto dto = okrTopicDescriptionMapper.mapEntityToDto(topicDescription);
+
+    return ResponseEntity.ok(dto);
+  }
+
+  /**
    * API Endpoint to get all Departments for a given OkrCompany.
    *
    * @param companyId a long value
@@ -166,7 +196,7 @@ public class OkrDepartmentController {
    * @param departmentId a long value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
    * @param user an {@link User} object
-   * @return
+   * @return the updated department
    */
   @PutMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
@@ -181,6 +211,35 @@ public class OkrDepartmentController {
     okrDepartment.setId(departmentId);
     okrDepartment = departmentService.updateUnit(okrDepartment, user);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
+  }
+
+  /**
+   * API Endpoint to update the OkrTopicDescription of an OkrDepartment
+   *
+   * @param departmentId the id of the OkrDepartment
+   * @param okrTopicDescriptionDto an {@link OkrTopicDescriptionDto} object
+   * @param user an {@link User} object
+   * @return the updated OkrTopicDescription
+   */
+  @PutMapping("/departments/{departmentId}/topicdescription")
+  @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
+  public ResponseEntity<OkrTopicDescriptionDto> updateOkrTopicDescription(
+      @PathVariable long departmentId,
+      @Valid @RequestBody OkrTopicDescriptionDto okrTopicDescriptionDto,
+      User user) {
+    OkrUnitService<OkrDepartment> departmentService =
+        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+    OkrDepartment okrDepartment = departmentService.findById(departmentId);
+    OkrTopicDescription oldOkrTopicDescription = okrDepartment.getOkrTopicDescription();
+    OkrTopicDescription updatedOkrTopicDescription =
+        okrTopicDescriptionMapper.mapDtoToEntity(okrTopicDescriptionDto);
+
+    updatedOkrTopicDescription.setId(oldOkrTopicDescription.getId());
+
+    updatedOkrTopicDescription =
+        okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription, user);
+
+    return ResponseEntity.ok(okrTopicDescriptionMapper.mapEntityToDto(updatedOkrTopicDescription));
   }
 
   /**

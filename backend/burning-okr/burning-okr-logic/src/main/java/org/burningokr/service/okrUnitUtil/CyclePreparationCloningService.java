@@ -5,16 +5,22 @@ import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.*;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
+import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
+import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 @Service
@@ -23,11 +29,13 @@ import org.springframework.web.context.WebApplicationContext;
 public class CyclePreparationCloningService {
 
   private HashMap<Objective, Objective> clonedObjectives = new HashMap<>();
-
+  private final Logger logger = LoggerFactory.getLogger(CyclePreparationCloningService.class);
   private final CompanyRepository companyRepository;
   private final UnitRepository<OkrChildUnit> subUnitRepository;
+  private final OkrDepartmentRepository okrDepartmentRepository;
   private final ObjectiveRepository objectiveRepository;
   private final UserSettingsRepository userSettingsRepository;
+  private final TaskBoardService taskBoardService;
 
   public void cloneCompanyListIntoCycleForPreparation(
       Collection<OkrCompany> companiesToClone, Cycle cycleToCloneInto) {
@@ -60,7 +68,8 @@ public class CyclePreparationCloningService {
         original -> cloneChildUnitIntoParentUnitForPreparation(original, okrUnitToCloneInto));
   }
 
-  private void cloneChildUnitIntoParentUnitForPreparation(
+  @Transactional
+  void cloneChildUnitIntoParentUnitForPreparation(
       OkrChildUnit okrChildUnitToClone, OkrUnit okrUnitToCloneInto) {
     OkrChildUnit copy = okrChildUnitToClone.getCopyWithoutRelations();
 
@@ -70,6 +79,19 @@ public class CyclePreparationCloningService {
     }
 
     subUnitRepository.save(copy);
+
+    if (okrChildUnitToClone instanceof OkrDepartment) {
+      this.logOkrDepartment((OkrDepartment) copy);
+
+      TaskBoard newTaskBoard =
+          taskBoardService.cloneTaskBoard(
+              (OkrDepartment) copy, ((OkrDepartment) okrChildUnitToClone).getTaskBoard());
+      taskBoardService.saveTaskBoard(newTaskBoard);
+
+      subUnitRepository.save(copy);
+    }
+
+    this.logger.info("cloneChildUnitIntoParentUnitForPreparation - after taskboard");
     cloneObjectiveListIntoOkrUnitForPreparation(okrChildUnitToClone.getObjectives(), copy);
 
     if (okrChildUnitToClone instanceof OkrParentUnit) {
@@ -127,5 +149,9 @@ public class CyclePreparationCloningService {
     }
 
     return null;
+  }
+
+  private void logOkrDepartment(OkrDepartment okrDepartment) {
+    this.logger.info("Id" + okrDepartment.getId() + " Name: " + okrDepartment.getName());
   }
 }

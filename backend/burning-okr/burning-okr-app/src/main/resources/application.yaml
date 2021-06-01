@@ -6,8 +6,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        globally_quoted_identifiers: true
   flyway:
     baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:db/migration/{vendor}
   mail:
     properties:
       mail:

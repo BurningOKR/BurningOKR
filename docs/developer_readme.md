@@ -25,10 +25,45 @@ To trigger autoformat manually run `mvn com.coveo:fmt-maven-plugin:format` in th
 The [Checkstyle Maven Plugin](https://maven.apache.org/plugins/maven-checkstyle-plugin/index.html) can be run via `mvn checkstyle:check`.
 It uses a [modified](build-tools/src/main/resources/google_checks.xml) [google java style](https://google.github.io/styleguide/javaguide.html) configuration.
 
-#Frontend
+## Migrations
 
-##Decorators
-###Fetchable Decorator
+Migrations have to be created for PostgreSQL and Microsoft SQL Server separately.
+Some data types are different between these two database systems.
+Here is a table with equivalent data types, to keep the migrations consistent:
+
+| PostgreSQL | MSSQL |
+|------------|-------|
+| boolean    | bit   |
+| timestamp without timezone | datetime2 |
+| uuid		 | uniqueidentifier |
+
+To use the PostgreSQL Server you have to set the following setting in the `application.yaml`:
+```yaml
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+```
+and to use the MSSQL Server yiu have to set the following setting in the `application.yaml`:
+```yaml
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.burningokr.dialects.SQLServer2012UUIDFixDialect
+```
+For every migration you create, you **MUST** create a migration for the MSSQL Server and for the PostgreSQL server.
+Migrations are simple sql scripts and they can be found in `burning-okr-app/src/main/resources/db/migration`.
+There are two directories, `postgresql` and `sqlserver`. Create a migration script in each directory. The migration scripts
+should generally do the same, but they need to stick to the dialect of the corresponding dbms.
+
+
+
+# Frontend
+
+## Decorators
+### Fetchable Decorator
 A Service which needs to Fetch Data on Application Startup or when a User logs in, needs to have the `@Fetchable()` Decorator and the `Fetchable` interface.
 The Fetchable Interface enforces the implementation of the `fetchData(): void` method.
 

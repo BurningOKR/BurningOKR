@@ -1,0 +1,11 @@
+<mat-expansion-panel [expanded]="panelOpenState"  (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="taskboard-swimlane">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{keyResult.keyResult}}
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="swimlane-content">
+        <app-taskboard-column [id]="keyResult.id" class="taskboard-column" *ngFor="let tasksForState of tasksForStates"
+            [map]="tasksForState" [keyResults]="keyResultList" [isInteractive]="isInteractive"></app-taskboard-column>
+    </div>
+</mat-expansion-panel>

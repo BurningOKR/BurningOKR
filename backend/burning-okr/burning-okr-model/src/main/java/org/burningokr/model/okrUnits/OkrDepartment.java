@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okr.TaskBoard;
 
 @Entity
 @Data
@@ -25,6 +25,12 @@ public class OkrDepartment extends OkrChildUnit {
   @CollectionTable(name = "okr_member")
   @Column(name = "okr_member_id")
   private Collection<UUID> okrMemberIds = new ArrayList<>();
+
+  @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude
+  private OkrTopicDescription okrTopicDescription;
+
+  @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.REMOVE)
+  private TaskBoard taskBoard;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
@@ -52,6 +58,7 @@ public class OkrDepartment extends OkrChildUnit {
     copy.setActive(this.isActive);
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
+    copy.setOkrTopicDescription(this.getOkrTopicDescription());
     return copy;
   }
   // endregion

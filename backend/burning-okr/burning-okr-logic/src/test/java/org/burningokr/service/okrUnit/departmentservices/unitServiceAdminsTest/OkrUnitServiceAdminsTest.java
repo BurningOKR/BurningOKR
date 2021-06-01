@@ -12,9 +12,12 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
+import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
+import org.burningokr.service.okr.OkrTopicDescriptionService;
+import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.Assert;
@@ -29,9 +32,12 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
   protected final String departmentName = "Java Academy";
   @Mock protected UnitRepository<T> unitRepository;
   @Mock protected ObjectiveRepository objectiveRepository;
+  @Mock protected TaskBoardService taskBoardService;
   @Mock protected User user;
   @Mock protected EntityCrawlerService entityCrawlerService;
   @Mock protected ActivityService activityService;
+  @Mock protected OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  @Mock protected OkrTopicDescriptionService okrTopicDescriptionService;
   @InjectMocks protected OkrUnitServiceAdmins<T> okrUnitServiceAdmins;
   protected T unit;
 

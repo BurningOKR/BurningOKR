@@ -39,11 +39,26 @@ import { NavigationListEntryComponent } from './navigation-list-entry/navigation
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
 import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
-import { MatCheckboxModule, MatSlideToggleModule } from '@angular/material';
+import { MatCheckboxModule, MatDatepickerModule, MatButtonToggleModule, MatSlideToggleModule } from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/department-tab-description/department-tab-description.component';
+import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
+import { DepartmentTabTaskboardComponent } from './okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component';
+import { DepartmentTabTaskCardComponent } from './okr-child-unit/department/department-tab-task-card/department-tab-task-card.component';
+import { TaskFormComponent } from './okr-child-unit/department/department-tab-task-form/department-tab-task-form.component';
+import { TaskboardColumnComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-column/taskboard-column.component';
+import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
+import { myRxStompConfig } from './websockets/rx-stomp-config';
+import { TaskboardSwimlaneViewComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane-view.component';
+
+import { TaskboardStateColumnViewComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-state-column-view/taskboard-state-column-view.component';
+import { TaskBoardGeneralHelper } from '../shared/services/helper/task-board/task-board-general-helper';
+import { TaskBoardStateColumnViewHelper } from '../shared/services/helper/task-board/task-board-state-column-view-helper';
+import { TaskBoardSwimlaneViewHelper } from '../shared/services/helper/task-board/task-board-swimlane-view-helper';
+import { TaskboardSwimlaneComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component';
 
 @NgModule({
   declarations: [
@@ -68,41 +83,69 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     CommentCardComponent,
     CycleListDropdownComponent,
     KeyResultMilestoneFormComponent,
+    DepartmentTabDescriptionComponent,
+    DepartmentDescriptionEditFormComponent,
+    DepartmentTabTaskboardComponent,
+    DepartmentTabTaskCardComponent,
+    TaskFormComponent,
+    TaskboardColumnComponent,
+    TaskboardSwimlaneViewComponent,
+    TaskboardSwimlaneComponent,
+    TaskboardStateColumnViewComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
     OkrChildUnitFormComponent,
     KeyResultFormComponent,
     ObjectiveFormComponent,
-    ],
+    DepartmentDescriptionEditFormComponent,
+    TaskFormComponent,
+  ],
   imports: [
-        CommonModule,
-        SharedModule,
-        OkrviewRoutingModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatProgressBarModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatDividerModule,
-        MatMenuModule,
-        MatExpansionModule,
-        MatBadgeModule,
-        MatSliderModule,
-        MatSidenavModule,
-        MatDialogModule,
-        MatInputModule,
-        MatSelectModule,
-        FormsModule,
-        DragDropModule,
-        ReactiveFormsModule,
-        MatSlideToggleModule,
-        AvatarModule,
-        MatCheckboxModule,
-        ScrollingModule,
-        AngularResizedEventModule,
-    ]
+    CommonModule,
+    SharedModule,
+    OkrviewRoutingModule,
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatBadgeModule,
+    MatSliderModule,
+    MatSidenavModule,
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    AvatarModule,
+    MatCheckboxModule,
+    ScrollingModule,
+    AngularResizedEventModule,
+    MatDatepickerModule,
+    MatButtonToggleModule,
+  ],
+  providers: [
+    {
+      provide: InjectableRxStompConfig,
+      useValue: myRxStompConfig
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig]
+    },
+    TaskBoardGeneralHelper,
+    TaskBoardStateColumnViewHelper,
+    TaskBoardSwimlaneViewHelper
+  ]
 })
-export class OkrviewModule {}
+export class OkrviewModule {
+}

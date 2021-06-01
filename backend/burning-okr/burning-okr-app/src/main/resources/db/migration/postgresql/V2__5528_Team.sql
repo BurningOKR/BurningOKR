@@ -13,9 +13,6 @@ CREATE TABLE public.department_okr_member_ids
     WITH (
         OIDS=FALSE
     );
-ALTER TABLE public.department_okr_member_ids
-    OWNER TO admin;
-
 
 ALTER TABLE public.department ADD okr_master_id character varying(255);
 ALTER TABLE public.department ADD okr_topic_sponsor_id character varying(255);

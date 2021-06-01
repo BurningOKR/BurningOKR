@@ -9,6 +9,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 import { i18nMock } from '../../../../../../shared/mocks/i18n-mock';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import 'linq4js';
 
 describe('ImportCsvDialogComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();
