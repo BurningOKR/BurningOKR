@@ -84,6 +84,10 @@
     width: auto;
   }
 
+  .card-head-info:last-child {
+    margin-bottom: 0;
+  }
+
   .card-head-info-wrapper {
     flex-direction: column;
     margin-right: 10px;
