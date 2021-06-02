@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "skipLibCheck": true,
     "baseUrl": "./",
     "downlevelIteration": true,
     "module": "esnext",
@@ -14,7 +15,7 @@
     "target": "es2015",
     "resolveJsonModule": true,
     "plugins": [
-      { "name": "tslint-language-service"}
+      { "name": "tslint-language-service" }
     ],
     "typeRoots": [
       "node_modules/@types"
