@@ -5,16 +5,6 @@ import { User } from '../../../api/user';
 
 export class OkrTopicDraft extends OkrTopicDescription {
   parentUnitId: OkrUnitId;
-  initiatorId: UserId;
-  startTeam: UserId[];
-  stakeholders: UserId[];
-  acceptanceCriteria: string;
-  contributesTo: string;
-  delimitation: string;
-  beginning: Date;
-  dependencies: string;
-  resources: string;
-  handoverPlan: string;
   currentStatus: status;
   initiator: User;
 
