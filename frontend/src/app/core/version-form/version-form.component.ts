@@ -64,6 +64,12 @@ export class VersionFormComponent {
         'Proper handling of active directory credentials.'
       ]
     },
+    {
+      version: '1.1.2 (02.06.2021)',
+      changes: [
+        'Fixed an issue with the docker installation (Issue #20, JDK).'
+      ]
+    },
   ];
 
   constructor(private dialogRef: MatDialogRef<VersionFormComponent>) {
