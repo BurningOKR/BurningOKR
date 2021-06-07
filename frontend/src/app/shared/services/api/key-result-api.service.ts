@@ -22,7 +22,7 @@ export class KeyResultApiService {
   }
 
   getKeyResultsForOkrUnit$(unitId: OkrUnitId): Observable<KeyResultDto[]> {
-    return this.api.getData$(`/units/${unitId}/keyresults`);
+    return this.api.getData$(`units/${unitId}/keyresults`);
   }
 
   putKeyResult$(keyResult: KeyResultDto, keyResultId: KeyResultId): Observable<KeyResultDto> {
