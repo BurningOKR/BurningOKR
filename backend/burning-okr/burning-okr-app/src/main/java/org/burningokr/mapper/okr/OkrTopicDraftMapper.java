@@ -22,6 +22,7 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
     entity.setAcceptanceCriteria(input.getAcceptanceCriteria());
     entity.setBeginning(input.getBeginning());
     entity.setCurrentStatus(OkrTopicDraftStatusEnum.values()[input.getCurrentStatus()]);
+    System.out.println(entity.getCurrentStatus().toString());
     entity.setContributesTo(input.getContributesTo());
     entity.setDelimitation(input.getDelimitation());
     entity.setDependencies(input.getDependencies());

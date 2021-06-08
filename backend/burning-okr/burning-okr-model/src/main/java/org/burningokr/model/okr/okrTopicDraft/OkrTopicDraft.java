@@ -13,10 +13,6 @@ import org.hibernate.annotations.TypeDef;
 
 @Entity
 @Data
-@TypeDef(
-        name = "pgsql_status",
-        typeClass = PostgreSQLEnumType.class
-)
 @EqualsAndHashCode(callSuper = false)
 public class OkrTopicDraft extends OkrTopicDescription {
 
@@ -25,7 +21,5 @@ public class OkrTopicDraft extends OkrTopicDescription {
   @ManyToOne private OkrTopicDraftHistory history;
 
   @Enumerated(EnumType.STRING)
-  @Column(columnDefinition = "status", name = "current_status")
-  @Type(type = "pgsql_status")
   private OkrTopicDraftStatusEnum currentStatus;
 }
