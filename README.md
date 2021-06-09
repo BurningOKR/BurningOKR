@@ -89,8 +89,11 @@ Please follow our [Code Guidelines](/CODE_GUIDELINES.md)
 Thank you to all the people and bots who already contributed to BurningOKR!
 
 <!-- generate new contributor list.. https://contributors-img.firebaseapp.com/ -->
-<a href="https://github.com/BurningOKR/BurningOKR/graphs/contributors"><img src="https://contributors-img.firebaseapp.com/image?repo=BurningOKR/BurningOKR"/>
+<a href="https://github.com/BurningOKR/BurningOKR/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=BurningOKR/BurningOKR" />
 </a>
+
+Made with [contributors-img](https://contrib.rocks).
 
 <br/>
 
