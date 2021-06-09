@@ -39,7 +39,9 @@
 .card-head-info-name {
   width: 40%;
 }
-
+/* status-dot is also used in another component: submitted-topic-draft-details
+ TODO
+ */
 .status-dot {
   height: 12px;
   width: 12px;
