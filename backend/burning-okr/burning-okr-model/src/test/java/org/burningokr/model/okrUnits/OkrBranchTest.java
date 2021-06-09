@@ -1,6 +1,7 @@
 package org.burningokr.model.okrUnits;
 
 import java.util.Collections;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,11 @@ public class OkrBranchTest {
     original.setId(4L);
     original.setName("originalName");
     original.setLabel("originalLabel");
+
+    OkrBranchHistory history = new OkrBranchHistory();
+    history.setUnits(Collections.singleton(original));
+
+    original.setHistory(history);
 
     parentBranch = new OkrBranch();
     parentBranch.setId(5L);
@@ -65,5 +71,12 @@ public class OkrBranchTest {
 
     Assert.assertNull(copy.getParentOkrUnit());
     Assert.assertEquals(0, copy.getOkrChildUnits().size());
+  }
+
+  @Test
+  public void getCopyWithoutRelation_ExpectHistoryToBeEquals() {
+    OkrBranch copy = original.getCopyWithoutRelations();
+
+    Assert.assertSame(original.getHistory(), copy.getHistory());
   }
 }

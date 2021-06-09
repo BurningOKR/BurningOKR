@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 import org.burningokr.model.okr.OkrTopicDescription;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +52,10 @@ public class OkrDepartmentTest {
     expectedOkrDepartment.setId(originalId);
     expectedOkrDepartment.setActive(true);
     expectedOkrDepartment.setOkrTopicDescription(originalOkrTopicDescription);
+
+    OkrDepartmentHistory history = new OkrDepartmentHistory();
+    history.setUnits(Collections.singleton(expectedOkrDepartment));
+    expectedOkrDepartment.setHistory(history);
 
     okrBranch = new OkrBranch();
     okrBranch.setOkrChildUnits(Collections.singleton(expectedOkrDepartment));
@@ -110,5 +115,12 @@ public class OkrDepartmentTest {
 
     Assert.assertSame(
         expectedOkrDepartment.getOkrTopicDescription(), actualDepartment.getOkrTopicDescription());
+  }
+
+  @Test
+  public void getCopyWithoutRelations_expectHistoriesAreEqual() {
+    OkrDepartment actualDepartment = expectedOkrDepartment.getCopyWithoutRelations();
+
+    Assert.assertSame(expectedOkrDepartment.getHistory(), actualDepartment.getHistory());
   }
 }

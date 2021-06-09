@@ -6,14 +6,17 @@ import java.util.Collection;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.cycles.OkrCompanyHistory;
+import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.*;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
 import org.burningokr.model.users.User;
-import org.burningokr.repositories.cycle.CompanyHistoryRepository;
-import org.burningokr.repositories.cycle.CycleRepository;
+import org.burningokr.repositories.ExtendedRepository;
+import org.burningokr.repositories.cycle.*;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
+import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -32,12 +35,16 @@ public class CompanyService {
 
   private CycleRepository cycleRepository;
   private CompanyHistoryRepository companyHistoryRepository;
+  private BranchHistoryRepository branchHistoryRepository;
+  private DepartmentHistoryRepository departmentHistoryRepository;
   private CompanyRepository companyRepository;
   private UnitRepository<OkrChildUnit> unitRepository;
   private ActivityService activityService;
   private EntityCrawlerService entityCrawlerService;
   private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
   private TaskBoardService taskBoardService;
+  private OkrTopicDraftRepository okrTopicDraftRepository;
+  private TopicDraftHistoryRepository topicDraftHistoryRepository;
 
   /**
    * Initialize CompanyService.
@@ -53,20 +60,28 @@ public class CompanyService {
   public CompanyService(
       CycleRepository cycleRepository,
       CompanyHistoryRepository companyHistoryRepository,
+      BranchHistoryRepository branchHistoryRepository,
+      DepartmentHistoryRepository departmentHistoryRepository,
       CompanyRepository companyRepository,
       UnitRepository<OkrChildUnit> unitRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       OkrTopicDescriptionRepository okrTopicDescriptionRepository,
+      OkrTopicDraftRepository okrTopicDraftRepository,
+      TopicDraftHistoryRepository topicDraftHistoryRepository,
       TaskBoardService taskBoardService) {
     this.cycleRepository = cycleRepository;
     this.companyHistoryRepository = companyHistoryRepository;
+    this.branchHistoryRepository = branchHistoryRepository;
+    this.departmentHistoryRepository = departmentHistoryRepository;
     this.companyRepository = companyRepository;
     this.unitRepository = unitRepository;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
     this.taskBoardService = taskBoardService;
+    this.okrTopicDraftRepository = okrTopicDraftRepository;
+    this.topicDraftHistoryRepository = topicDraftHistoryRepository;
   }
 
   public OkrCompany findById(long companyId) {
@@ -79,7 +94,7 @@ public class CompanyService {
 
   public Collection<OkrCompany> findCompanyHistoryByCompanyId(long companyId) {
     OkrCompany okrCompany = findById(companyId);
-    return okrCompany.getHistory().getCompanies();
+    return okrCompany.getHistory().getUnits();
   }
 
   /**
@@ -91,7 +106,7 @@ public class CompanyService {
   public Collection<Cycle> findCycleListByCompanyId(long companyId) {
     OkrCompany okrCompany = findById(companyId);
     ArrayList<Cycle> cycleList = new ArrayList<>();
-    for (OkrCompany currentOkrCompany : okrCompany.getHistory().getCompanies()) {
+    for (OkrCompany currentOkrCompany : okrCompany.getHistory().getUnits()) {
       cycleList.add(currentOkrCompany.getCycle());
     }
     return cycleList;
@@ -171,7 +186,7 @@ public class CompanyService {
     Collection<OkrCompany> companiesToDelete = new ArrayList<>();
 
     if (deleteWholeHistory && okrCompany.getHistory() != null) {
-      companiesToDelete = okrCompany.getHistory().getCompanies();
+      companiesToDelete = okrCompany.getHistory().getUnits();
     } else {
       companiesToDelete.add(okrCompany);
     }
@@ -191,8 +206,8 @@ public class CompanyService {
         deleteEmptyCycle(cycle, user);
       }
 
-      OkrCompanyHistory history = okrCompanyToDelete.getHistory();
-      if (history != null && history.getCompanies() != null && history.getCompanies().isEmpty()) {
+      OkrUnitHistory<OkrCompany> history = okrCompanyToDelete.getHistory();
+      if (history != null && history.getUnits() != null && history.getUnits().isEmpty()) {
         deleteEmptyHistory(history, user);
       }
     }
@@ -213,6 +228,7 @@ public class CompanyService {
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     okrDepartment.setParentOkrUnit(referencedOkrCompany);
+    okrDepartment.setHistory(createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository));
 
     OkrTopicDescription description = new OkrTopicDescription(okrDepartment.getName());
     description = okrTopicDescriptionRepository.save(description);
@@ -238,12 +254,14 @@ public class CompanyService {
     return okrDepartment;
   }
 
+  @Transactional
   public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch, User user) {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     okrBranch.setParentOkrUnit(referencedOkrCompany);
+    okrBranch.setHistory(createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository));
 
     okrBranch = unitRepository.save(okrBranch);
     logger.info(
@@ -255,7 +273,44 @@ public class CompanyService {
             + companyId
             + ")");
     activityService.createActivity(user, okrBranch, Action.CREATED);
+
     return okrBranch;
+  }
+
+  protected  <T extends OkrUnitHistory, U extends OkrChildUnit> T createHistory(U unit, T history, ExtendedRepository<T, Long> repository) {
+    history.addUnit(unit);
+    history =  repository.save(history);
+    return history;
+  }
+
+    protected  OkrTopicDraftHistory createTopicDraftHistory(OkrTopicDraft draft, OkrTopicDraftHistory history, TopicDraftHistoryRepository repository) {
+        history.addUnit(draft);
+        history = repository.save(history);
+        return history;
+    }
+
+  // TODO (R.J. 17.02.2021) create this method
+  public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) {
+    OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
+
+    throwIfCompanyInClosedCycle(referencedOkrCompany);
+
+    topicDraft.setParentUnit(referencedOkrCompany);
+    topicDraft.setHistory(createTopicDraftHistory(topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
+
+    topicDraft = okrTopicDraftRepository.save(topicDraft);
+    logger.info(
+        "Created Topic Draft: "
+            + topicDraft.getName()
+            + " into department "
+            + referencedOkrCompany.getName()
+            + "(id:"
+            + companyId
+            + ")");
+
+    activityService.createActivity(user, topicDraft, Action.CREATED);
+
+    return topicDraft;
   }
 
   private void throwIfCompanyInClosedCycle(OkrCompany okrCompanyToCheck) {
@@ -272,7 +327,7 @@ public class CompanyService {
     activityService.createActivity(user, cycle, Action.DELETED);
   }
 
-  private void deleteEmptyHistory(OkrCompanyHistory history, User user) {
+  private void deleteEmptyHistory(OkrUnitHistory<OkrCompany> history, User user) {
     companyHistoryRepository.deleteById(history.getId());
     logger.info("Deleted cycle with id: " + history.getId());
     activityService.createActivity(user, history, Action.DELETED);

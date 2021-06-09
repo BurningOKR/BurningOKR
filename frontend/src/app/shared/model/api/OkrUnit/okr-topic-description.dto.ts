@@ -1,4 +1,4 @@
-import { UserId, TopicDescriptionId } from '../../id-types';
+import { TopicDescriptionId, UserId } from '../../id-types';
 
 export class OkrTopicDescriptionDto {
   descriptionId: TopicDescriptionId;

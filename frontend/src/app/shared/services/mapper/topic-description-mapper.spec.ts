@@ -1,4 +1,4 @@
-import { TopicDescriptionMapper } from './topic-description-mapper.service';
+import { TopicDescriptionMapper } from './topic-description-mapper';
 import { TestBed } from '@angular/core/testing';
 import { OkrTopicDescriptionDto } from '../../model/api/OkrUnit/okr-topic-description.dto';
 import { TopicDescriptionApiService } from '../api/topic-description-api.service';

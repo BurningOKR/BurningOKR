@@ -194,7 +194,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
 
   canChildUnitBeRemoved(okrChildUnit: OkrChildUnit): boolean {
     return this.isDepartmentUnit(okrChildUnit) ||
-      (okrChildUnit instanceof OkrBranch && okrChildUnit.okrUnitIds.length === 0);
+      (okrChildUnit instanceof OkrBranch && okrChildUnit.okrChildUnitIds.length === 0);
   }
 
   isDepartmentUnit(okrChildUnit: OkrChildUnit): boolean {
