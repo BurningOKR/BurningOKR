@@ -1,4 +1,23 @@
 .information-row {
   display: flex;
   width: 100%;
+  flex-wrap: nowrap;
+}
+
+.first-information-row {
+  flex-basis: 2;
+}
+
+.information-row-item {
+  margin: 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.first-item {
+  width: 70px;
+}
+
+.status-dot {
+  overflow: auto;
 }
