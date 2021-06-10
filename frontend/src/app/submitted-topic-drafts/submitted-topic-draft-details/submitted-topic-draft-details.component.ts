@@ -10,14 +10,15 @@ import { User } from '../../shared/model/api/user';
 })
 export class SubmittedTopicDraftDetailsComponent {
 
-  @Input() topicDraft: OkrTopicDraft;
+  // @Input()
+  topicDraft: OkrTopicDraft;
   enumStatus = status;
 
-  /*constructor() {
+  constructor() {
     this.topicDraft = new OkrTopicDraft(
       1,
       status.rejected,
-      new User("1001", "Markus","Mueller","mmueller@web.de","IT-Consultant","IT","photo.jpg",true),
+      new User("uuid", "Markus","Mueller","mmueller@web.de","IT-Consultant","IT","photo.jpg",true),
       2,
       'Automatische Generierung von Essen',
       'sddasdasadsdafs',
@@ -31,5 +32,5 @@ export class SubmittedTopicDraftDetailsComponent {
       'Irgendwas mit Resourcen',
       'Ein ganz toller Plan zum Übergeben von Sachen und Essen'
     )
-  }*/
+  }
 }

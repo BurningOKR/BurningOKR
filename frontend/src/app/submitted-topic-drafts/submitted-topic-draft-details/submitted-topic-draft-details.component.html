@@ -27,18 +27,13 @@
   <div class="information-row">
     <div class="information-row-item">
       <mat-icon class="mat-icon first-item">person</mat-icon>
-      <div>{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</div>
+      <div><app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton></div>
     </div>
   </div>
 
-  <span class="information-row topic-details-subheading" i18n="component_departmentTabDescription_contributesTo">Zählt ein auf:</span>
-  <div class="multiline-text-wrapper">
-    <textarea class="multiline-text" disabled rows="7">{{ topicDraft.contributesTo }}</textarea>
-  </div>
-
-  <span class="information-row topic-details-subheading" i18n="component_departmentTabDescription_handoverPlan">Handover Plan:</span>
-  <div class="multiline-text-wrapper">
-    <textarea class="multiline-text" disabled rows="7">{{ topicDraft.handoverPlan }}</textarea>
-  </div>
+  <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo"></app-multiline-text-field>
+  <app-multiline-text-field [heading]="1" [content]="topicDraft.handoverPlan"></app-multiline-text-field>
+  <app-multiline-text-field [heading]="2" [content]="topicDraft.dependencies"></app-multiline-text-field>
+  <app-multiline-text-field [heading]="3" [content]="topicDraft.resources"></app-multiline-text-field>
 
 </div>

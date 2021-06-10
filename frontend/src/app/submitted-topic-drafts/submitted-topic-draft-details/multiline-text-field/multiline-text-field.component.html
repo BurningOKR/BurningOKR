@@ -1,0 +1,9 @@
+<div class="topic-details-subheading">
+  <span *ngIf="heading == 0" i18n="@@heading_contributes_to">Zählt auf ein:</span>
+  <span *ngIf="heading == 1" i18n="@@heading_handover">Handover Plan:</span>
+  <span *ngIf="heading == 2" i18n="@@heading_dependencies">Abhängigkeiten:</span>
+  <span *ngIf="heading == 3" i18n="@@heading_resources">Resourcen:</span>
+</div>
+<div class="multiline-text-wrapper">
+  <textarea class="multiline-text" disabled rows="7">{{ content }}</textarea>
+</div>
