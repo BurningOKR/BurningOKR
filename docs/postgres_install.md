@@ -1,4 +1,15 @@
 # Install and Setup PostgreSQL
+
+## Overview
+You haven't created a database yet? Then you are at the right place!
+
+1. We need to provide a separate PostgreSQL database for the backend application.
+
+2. Additionally, we need to create a user who can connect to the database.
+
+Note: Please remember the **username**, **password** and **database-name** you have chosen.
+You will need those in the coming application yaml configuration.
+
 ## Windows
 1. Install PostgreSQL (Version 9.5 or higher): https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
     1. IMPORTANT: During installation you have to set a password for the postgres superuser and you have to choose a port number. You must remember these two values.

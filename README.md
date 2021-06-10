@@ -19,11 +19,15 @@ You can install BurningOKR using the following technologies.
 
 ## Getting started with the development
 
-## Software dependencies
+### Code Guidelines
 
-### PostgreSQL
+Please follow our [Code Guidelines](/CODE_GUIDELINES.md)
 
-We use Postgres as an SQL database for local development. Therefore PostgresSQL must be installed locally on the development machines to allow database access.
+### Software dependencies
+
+#### PostgreSQL
+
+We use Postgres as an SQL database for local development. Therefore, PostgresSQL must be installed locally on the development machines to allow database access.
 
 Therefore, Postgres must be downloaded first. A compatible version of the project is version 9.5.14. Other versions, especially higher ones, should also be compatible.
 
@@ -35,23 +39,23 @@ For this, the pgAdmin must be started. In the object browser, you have to connec
 
 
 
-### Node & npm
+#### Node & npm
 
-Node and npm are required for the Angular SPA. These can be downloaded and installed via the installer. For Angular development, the Angular CLI must be installed with `npm install -g @angular/cli`
+Node and npm are required for the Angular SPA.These can be downloaded and installed via the installer. For Angular development, the Angular CLI must be installed with `npm install -g @angular/cli`
+Please use the LTS Version of node.
 
-
-### JDK
+#### JDK
 
 For the backend, the JDK 8 is required. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
 
-## Source Code
+### Source Code
 
-The source code of the project consists of two parts. A Frontend SPA with the framework Angular and a Spring Boot project for the backend.
+The source code of the project consists of two parts. A Frontend SPA with the framework **Angular** and a **Spring Boot** project for the backend.
 
 With `git clone https://github.com/BurningOKR/BurningOKR` the complete repository (including frontend and backend) is cloned.
 
 
-## Frontend
+### Frontend
 
 With IntelliJ, you can now import the frontend project.
 
@@ -62,7 +66,7 @@ Next, you have to run `npm install` on the command line to download the dependen
 With `npm start` the application is started and can now be called via `http://localhost:4200`.
 
 
-## Backend
+### Backend
 
 To open the project in IntelliJ, go to Import Project and select the file build.gradle in the folder backend. In the dialog that opens you have to select the field use auto-import.
 
@@ -74,17 +78,13 @@ If PostgresSQL has already been successfully installed and configured in the pre
 
 The REST interfaces are listed under `localhost:8080/swagger-ui.html` and can be called there.
 
-## Build and Test
+### Build and Test
 
 With `gradlew build` the backend can be built.
 
 With `ng build` the frontend can be built.
 
-## Code Guidelines
-
-Please follow our [Code Guidelines](/CODE_GUIDELINES.md)
-
-## contribute
+## Contribute
 
 Thank you to all the people and bots who already contributed to BurningOKR!
 
@@ -102,14 +102,14 @@ Made with [contributors-img](https://contrib.rocks).
 The current user documentation is available at https://burning-okr.gitbook.io/burningokr
 
 
-## contact
+## Contact
 <br/>
 
 You can write an [E-Mail](mailto:burningokr@brockhaus-ag.de) or mention our Twitter account [@BurningOKR](https://twitter.com/BurningOkr).
 
 <br/>
 
-## license
+## License
 <br/>
 
 BurningOKR was initially developed as part of a training project at [BROCKHAUS AG](http://brockhaus-ag.de) in Lünen.
