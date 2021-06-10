@@ -1,51 +1,44 @@
 <div class="submitted-topic-draft-details">
 
-  <div class="information-row"><h1>Eingereichter Themenentwurf</h1></div>
+  <!-- TODO Translation-->
+  <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
 
-  <div class="first-information-row information-row">
+  <div class="information-row">
     <div class="information-row-item">
-      <div class="first-item">Thema:</div>
-      <div class="topic-name">"Eingereichtes Thema" "Eingereichtes Thema" "Eingereichtes Thema"</div>
+      <span class="first-item" i18n="@@component_departmentTabDescription_topic">Thema:</span>
+      <span class="topic-name">{{ topicDraft.name }}</span>
     </div>
     <div class="information-row-item status-display">
-      <span id="status-dot" class="status-dot status-dot-rejected" i18n-title title="Aktueller Status"></span>
-      <div>Pending</div>
+      <span id="status-dot" class="status-dot status-dot-{{ enumStatus[topicDraft.currentStatus] }}" i18n-title title="Aktueller Status"></span>
+      <span *ngIf="topicDraft.currentStatus == 0" i18n="@@status_draft">Vorlage</span>
+      <span *ngIf="topicDraft.currentStatus == 1" i18n="@@status_submitted">Eingereicht</span>
+      <span *ngIf="topicDraft.currentStatus == 2" i18n="@@status_approved">Angenommen</span>
+      <span *ngIf="topicDraft.currentStatus == 3" i18n="@@status_rejected">Abgelehnt</span>
     </div>
   </div>
 
   <div class="information-row">
     <div class="information-row-item">
       <mat-icon class="mat-icon first-item">schedule</mat-icon>
-      <div>09.09.2021</div>
+      <span>{{ topicDraft.beginning.toLocaleDateString() }}</span>
     </div>
   </div>
 
   <div class="information-row">
     <div class="information-row-item">
       <mat-icon class="mat-icon first-item">person</mat-icon>
-      <div>Max Mustermann</div>
+      <div>{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</div>
     </div>
   </div>
 
-  <div class="multiline-text-block">
-    <span class="information-row topic-details-subheading">Zahl ein auf:</span>
-    <div class="multiline-text-wrapper">
-      <textarea class="multiline-text" disabled rows="7">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-  Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
-      </textarea>
-    </div>
+  <span class="information-row topic-details-subheading" i18n="component_departmentTabDescription_contributesTo">Zählt ein auf:</span>
+  <div class="multiline-text-wrapper">
+    <textarea class="multiline-text" disabled rows="7">{{ topicDraft.contributesTo }}</textarea>
   </div>
 
-  <div class="multiline-text-block">
-    <span class="information-row topic-details-subheading">Handover Plan:</span>
-    <div class="multiline-text-wrapper">
-      <textarea class="multiline-text" disabled rows="7">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-  Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
-      </textarea>
-    </div>
+  <span class="information-row topic-details-subheading" i18n="component_departmentTabDescription_handoverPlan">Handover Plan:</span>
+  <div class="multiline-text-wrapper">
+    <textarea class="multiline-text" disabled rows="7">{{ topicDraft.handoverPlan }}</textarea>
   </div>
+
 </div>

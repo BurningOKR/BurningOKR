@@ -5,10 +5,6 @@
   flex-wrap: nowrap;
 }
 
-.first-information-row {
-  flex-basis: auto;
-}
-
 .information-row-item {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -44,10 +40,6 @@
 .status-dot-submitted{
   background-color: #ffe869;
   border-color: #d79c2c;
-}
-
-.multiline-text-block {
-  width: 100%;
 }
 
 .multiline-text {
