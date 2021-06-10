@@ -66,3 +66,10 @@
   height: 20px;
   white-space:nowrap;
 }
+
+.user-list-panel {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

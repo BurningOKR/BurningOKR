@@ -46,6 +46,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
 import { SubmittedTopicDraftDetailsComponent } from './submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
 import { MultilineTextFieldComponent } from './submitted-topic-drafts/submitted-topic-draft-details/multiline-text-field/multiline-text-field.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -93,7 +94,8 @@ const currentLanguage: string = 'de';
     LoggerModule.forRoot(loggerConfig),
     MatTableModule,
     MatMenuModule,
-    MatGridListModule
+    MatGridListModule,
+    MatExpansionModule
   ],
   entryComponents: [
     DeleteDialogComponent,
