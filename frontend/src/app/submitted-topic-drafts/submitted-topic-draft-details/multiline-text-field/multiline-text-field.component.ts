@@ -9,4 +9,5 @@ export class MultilineTextFieldComponent {
 
   @Input() heading: number;
   @Input() content: string;
+  @Input() countRows: number = 2;
 }

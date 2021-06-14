@@ -9,7 +9,7 @@
       <span class="topic-name">{{ topicDraft.name }}</span>
     </div>
     <div class="information-row-item status-display">
-      <span id="status-dot" class="status-dot status-dot-{{ enumStatus[topicDraft.currentStatus] }}" i18n-title title="Aktueller Status"></span>
+      <span id="status-dot" class="status-dot status-dot-{{ enumStatus[topicDraft.currentStatus] }}" title="Aktueller Status"></span>
       <span *ngIf="topicDraft.currentStatus == 0" i18n="@@status_draft">Vorlage</span>
       <span *ngIf="topicDraft.currentStatus == 1" i18n="@@status_submitted">Eingereicht</span>
       <span *ngIf="topicDraft.currentStatus == 2" i18n="@@status_approved">Angenommen</span>
@@ -27,10 +27,10 @@
   <div class="topic-details-subheading information-row">Initiator:</div>
   <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton>
 
-  <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo"></app-multiline-text-field>
-  <app-multiline-text-field [heading]="1" [content]="topicDraft.handoverPlan"></app-multiline-text-field>
-  <app-multiline-text-field [heading]="2" [content]="topicDraft.dependencies"></app-multiline-text-field>
-  <app-multiline-text-field [heading]="3" [content]="topicDraft.resources"></app-multiline-text-field>
+  <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo" [countRows]="3"></app-multiline-text-field>
+  <app-multiline-text-field [heading]="1" [content]="topicDraft.handoverPlan" [countRows]="3"></app-multiline-text-field>
+  <app-multiline-text-field [heading]="2" [content]="topicDraft.dependencies" [countRows]="3"></app-multiline-text-field>
+  <app-multiline-text-field [heading]="3" [content]="topicDraft.resources" [countRows]="3"></app-multiline-text-field>
 
   <mat-expansion-panel class="user-list-panel">
     <mat-expansion-panel-header>

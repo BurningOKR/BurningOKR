@@ -5,5 +5,5 @@
   <span *ngIf="heading == 3" i18n="@@heading_resources">Resourcen:</span>
 </div>
 <div class="multiline-text-wrapper">
-  <textarea class="multiline-text" disabled rows="5">{{ content }}</textarea>
+  <textarea class="multiline-text" disabled rows="{{countRows}}">{{ content }}</textarea>
 </div>
