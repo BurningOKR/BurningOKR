@@ -15,5 +15,10 @@
 .multiline-text {
   width: 100%;
   resize: none;
-  background-color: #ededed;
+  background-color: #f7f7f7;
+  border-radius: 0px;
+}
+
+.multiline-text-wrapper textarea {
+  font-size: 1.1rem;
 }

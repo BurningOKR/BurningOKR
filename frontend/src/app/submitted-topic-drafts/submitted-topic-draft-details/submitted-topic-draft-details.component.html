@@ -24,16 +24,8 @@
     </div>
   </div>
 
-  <div>
-    <mat-expansion-panel [expanded]="true" class="user-list-panel">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon class="mat-icon first-item">person</mat-icon>Initiator:
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div><app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton></div>
-    </mat-expansion-panel>
-  </div>
+  <div class="topic-details-subheading information-row">Initiator:</div>
+  <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton>
 
   <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo"></app-multiline-text-field>
   <app-multiline-text-field [heading]="1" [content]="topicDraft.handoverPlan"></app-multiline-text-field>
@@ -43,7 +35,7 @@
   <mat-expansion-panel class="user-list-panel">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Start Team
+        <div class="topic-details-subheading">Start Team</div>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngFor="let user of topicDraft.startTeam">
@@ -54,7 +46,7 @@
   <mat-expansion-panel class="user-list-panel">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Stakeholder Team
+        <div class="topic-details-subheading">Stakeholder Team</div>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngFor="let user of topicDraft.stakeholders">
