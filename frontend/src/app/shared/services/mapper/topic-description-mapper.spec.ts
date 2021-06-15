@@ -26,7 +26,7 @@ describe('TopicDescriptionMapper', () => {
       'Contributes To', 'Delimination', new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover Plan');
 
     descriptionDto = {
-      descriptionId: 1,
+      id: 1,
       name: 'DescriptionName',
       initiatorId: '2',
       startTeam: ['2', '3', '4'],

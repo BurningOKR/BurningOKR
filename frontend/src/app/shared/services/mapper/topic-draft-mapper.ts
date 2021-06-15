@@ -18,7 +18,7 @@ export class TopicDraftMapper {
             topicDraft.parentUnitId,
             topicDraft.currentStatus,
             topicDraft.initiator,
-            topicDraft.descriptionId,
+            topicDraft.id,
             topicDraft.name,
             topicDraft.initiatorId,
             topicDraft.startTeam,
