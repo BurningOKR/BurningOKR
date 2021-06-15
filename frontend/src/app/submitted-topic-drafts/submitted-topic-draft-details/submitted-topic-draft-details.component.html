@@ -1,3 +1,5 @@
+<mat-dialog-content>
+
 <div class="submitted-topic-draft-details">
 
   <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
@@ -54,3 +56,9 @@
   </mat-expansion-panel>
 
 </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="warn" (click)="closeDialog()" i18n="@@component_teamForm_close">Schließen</button>
+</mat-dialog-actions>

@@ -47,6 +47,8 @@ import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-draf
 import { SubmittedTopicDraftDetailsComponent } from './submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
 import { MultilineTextFieldComponent } from './submitted-topic-drafts/submitted-topic-draft-details/multiline-text-field/multiline-text-field.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { SubmittedTopicDraftFormComponent } from './submitted-topic-drafts/submitted-topic-draft-form/submitted-topic-draft-form.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 // use the require method provided by webpack
 declare const require: any;
@@ -70,33 +72,35 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftCardsWrapperComponent,
     SubmittedTopicDraftDetailsComponent,
     MultilineTextFieldComponent,
+    SubmittedTopicDraftFormComponent,
   ],
-  imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    CoreModule,
-    CycleAdminModule,
-    FormsModule,
-    HttpClientModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    OAuthModule.forRoot(),
-    ReactiveFormsModule,
-    SharedModule,
-    OkrUnitModule,
-    ErrorModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatTableModule,
-    MatMenuModule,
-    MatGridListModule,
-    MatExpansionModule
-  ],
+    imports: [
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        CoreModule,
+        CycleAdminModule,
+        FormsModule,
+        HttpClientModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        OAuthModule.forRoot(),
+        ReactiveFormsModule,
+        SharedModule,
+        OkrUnitModule,
+        ErrorModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatTableModule,
+        MatMenuModule,
+        MatGridListModule,
+        MatExpansionModule,
+        MatDialogModule
+    ],
   entryComponents: [
     DeleteDialogComponent,
   ],

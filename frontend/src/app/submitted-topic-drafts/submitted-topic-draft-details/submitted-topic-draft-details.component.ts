@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
+import { NEVER } from "rxjs";
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-submitted-topic-draft-details',
@@ -13,7 +15,7 @@ export class SubmittedTopicDraftDetailsComponent {
   @Input() topicDraft: OkrTopicDraft;
   enumStatus = status;
 
-  constructor() {
+  constructor(private dialogRef: MatDialogRef<SubmittedTopicDraftDetailsComponent>) {
     this.topicDraft = new OkrTopicDraft(
       1,
       status.submitted,
@@ -31,5 +33,9 @@ export class SubmittedTopicDraftDetailsComponent {
       'Irgendwas mit Ressourcen',
       'Ein ganz toller Plan zum Übergeben von Sachen und Essen'
     );
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close(NEVER);
   }
 }
