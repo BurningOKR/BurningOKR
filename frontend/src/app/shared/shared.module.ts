@@ -28,6 +28,7 @@ import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
 import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
+import { StatusDotComponent } from './components/status-dot/status-dot.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MilestoneSliderWrapperComponent } from './components/milestone-slider-w
     NonLoggedInCardComponent,
     FormErrorComponent,
     MilestoneSliderWrapperComponent,
+    StatusDotComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -68,18 +70,19 @@ import { MilestoneSliderWrapperComponent } from './components/milestone-slider-w
     RouterModule,
   ],
   exports: [
-    UserAutocompleteInputComponent,
-    UserMinibuttonComponent,
-    LoadingSpinnerComponent,
-    MatButtonModule,
-    DialogComponent,
-    UserAvatarComponent,
-    OkrToolbarBareComponent,
-    OkrToolbarComponent,
-    CapsLockDirective,
-    NonLoggedInCardComponent,
-    FormErrorComponent,
-    MilestoneSliderWrapperComponent
+      UserAutocompleteInputComponent,
+      UserMinibuttonComponent,
+      LoadingSpinnerComponent,
+      MatButtonModule,
+      DialogComponent,
+      UserAvatarComponent,
+      OkrToolbarBareComponent,
+      OkrToolbarComponent,
+      CapsLockDirective,
+      NonLoggedInCardComponent,
+      FormErrorComponent,
+      MilestoneSliderWrapperComponent,
+      StatusDotComponent
   ],
 })
 export class SharedModule {

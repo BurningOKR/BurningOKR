@@ -16,7 +16,7 @@ export class SubmittedTopicDraftDetailsComponent {
   constructor() {
     this.topicDraft = new OkrTopicDraft(
       1,
-      status.approved,
+      status.submitted,
       new User('575eb66a-75bf-4c5a-88ab-b56ebe49fd42', 'Spongebob', 'Schwammkopf', 'bikiniBottom@mail.de', 'Burgerbratter', '', '', true),
       2,
       'Automatische Generierung von Essen',

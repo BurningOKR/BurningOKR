@@ -1,6 +1,5 @@
 <div class="submitted-topic-draft-details">
 
-  <!-- TODO Translation-->
   <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
 
   <div class="information-row">
@@ -9,7 +8,7 @@
       <span class="topic-name">{{ topicDraft.name }}</span>
     </div>
     <div class="information-row-item status-display">
-      <span id="status-dot" class="status-dot status-dot-{{ enumStatus[topicDraft.currentStatus] }}" i18n-title="@@current_status_state" title="Aktueller Status"></span>
+      <app-status-dot class="display-status-dot" [state]="topicDraft.currentStatus"></app-status-dot>
       <span *ngIf="topicDraft.currentStatus == 0" i18n="@@status_draft">Vorlage</span>
       <span *ngIf="topicDraft.currentStatus == 1" i18n="@@status_submitted">Eingereicht</span>
       <span *ngIf="topicDraft.currentStatus == 2" i18n="@@status_approved">Angenommen</span>
