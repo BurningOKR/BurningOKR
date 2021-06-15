@@ -9,7 +9,7 @@
       <span class="topic-name">{{ topicDraft.name }}</span>
     </div>
     <div class="information-row-item status-display">
-      <span id="status-dot" class="status-dot status-dot-{{ enumStatus[topicDraft.currentStatus] }}" title="Aktueller Status"></span>
+      <span id="status-dot" class="status-dot status-dot-{{ enumStatus[topicDraft.currentStatus] }}" i18n-title="@@current_status_state" title="Aktueller Status"></span>
       <span *ngIf="topicDraft.currentStatus == 0" i18n="@@status_draft">Vorlage</span>
       <span *ngIf="topicDraft.currentStatus == 1" i18n="@@status_submitted">Eingereicht</span>
       <span *ngIf="topicDraft.currentStatus == 2" i18n="@@status_approved">Angenommen</span>
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div class="topic-details-subheading information-row">Initiator:</div>
+  <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
   <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton>
 
   <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo" [countRows]="3"></app-multiline-text-field>
@@ -35,7 +35,7 @@
   <mat-expansion-panel class="user-list-panel">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div class="topic-details-subheading">Start Team</div>
+        <div class="topic-details-subheading" i18n="@@start_team">Start Team</div>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngFor="let user of topicDraft.startTeam">
@@ -46,7 +46,7 @@
   <mat-expansion-panel class="user-list-panel">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div class="topic-details-subheading">Stakeholder Team</div>
+        <div class="topic-details-subheading" i18n="@@stakeholder_team">Stakeholder Team</div>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngFor="let user of topicDraft.stakeholders">
