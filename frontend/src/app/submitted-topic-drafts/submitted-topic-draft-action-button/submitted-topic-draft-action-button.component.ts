@@ -8,6 +8,7 @@ import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -21,6 +22,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private matDialog: MatDialog,
+              private topicDraftMapper: TopicDraftMapper,
               private i18n: I18n) {
   }
 
@@ -80,6 +82,16 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   }
 
   deleteTopicDraft(): void {
-    // TODO
+      this.subscriptions.push(
+          this.topicDraftMapper
+              .deleteTopicDraft$(this.topicDraft.descriptionId)
+              .pipe(take(1))
+              .subscribe(success => {
+                  if (success) {
+                      // TODO: ADD SUCCESS INFO DIALOG OR SMTH ;
+                    }
+                }
+
+      ));
   }
 }
