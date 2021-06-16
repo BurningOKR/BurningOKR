@@ -3,7 +3,6 @@ import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topi
 import { MatDialog } from '@angular/material';
 import { SubmittedTopicDraftDetailsComponent } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 import { SubmittedTopicDraftFormComponent } from '../submitted-topic-draft-form/submitted-topic-draft-form.component';
-import {VersionFormComponent} from "../../core/version-form/version-form.component";
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -35,6 +34,6 @@ export class SubmittedTopicDraftActionButtonComponent {
   }
 
   editTopicDraft(): void {
-      this.dialog.open(SubmittedTopicDraftDetailsComponent);
+      this.dialog.open(SubmittedTopicDraftDetailsComponent, {});
   }
 }
