@@ -49,6 +49,7 @@ import { MultilineTextFieldComponent } from './submitted-topic-drafts/submitted-
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SubmittedTopicDraftFormComponent } from './submitted-topic-drafts/submitted-topic-draft-form/submitted-topic-draft-form.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
 
 // use the require method provided by webpack
 declare const require: any;
@@ -99,7 +100,8 @@ const currentLanguage: string = 'de';
         MatMenuModule,
         MatGridListModule,
         MatExpansionModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSelectModule
     ],
   entryComponents: [
     DeleteDialogComponent,

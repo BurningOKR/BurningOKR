@@ -1,61 +1,68 @@
 <mat-dialog-content>
+  <form [formGroup]="submittedTopicDraftDetailsForm">
+    <div class="submitted-topic-draft-details">
 
-<div class="submitted-topic-draft-details">
+      <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
 
-  <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
+      <div class="information-row">
+        <div class="information-row-item">
+          <span class="first-item" i18n="@@component_departmentTabDescription_topic">Thema:</span>
+          <span class="topic-name">{{ topicDraft.name }}</span>
+          <input formControlName="name" readonly>
+        </div>
+        <div class="information-row-item status-display">
+          <app-status-dot class="display-status-dot" [state]="topicDraft.currentStatus"></app-status-dot>
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="currentStatus">
+              <mat-option [value]="enumStatus.draft">Vorlage</mat-option>
+              <mat-option [value]="enumStatus.submitted">Eingereicht</mat-option>
+              <mat-option [value]="enumStatus.approved">Angenommen</mat-option>
+              <mat-option [value]="enumStatus.rejected">Abgelehnt</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
 
-  <div class="information-row">
-    <div class="information-row-item">
-      <span class="first-item" i18n="@@component_departmentTabDescription_topic">Thema:</span>
-      <span class="topic-name">{{ topicDraft.name }}</span>
+      <div class="information-row">
+        <div class="information-row-item">
+          <mat-icon class="mat-icon first-item">schedule</mat-icon>
+          <span>{{ topicDraft.beginning.toLocaleDateString() }}</span>
+        </div>
+      </div>
+
+      <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
+      <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton>
+
+      <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo" [countRows]="3"></app-multiline-text-field>
+      <app-multiline-text-field [heading]="1" [content]="topicDraft.handoverPlan" [countRows]="3"></app-multiline-text-field>
+      <app-multiline-text-field [heading]="2" [content]="topicDraft.dependencies" [countRows]="3"></app-multiline-text-field>
+      <app-multiline-text-field [heading]="3" [content]="topicDraft.resources" [countRows]="3"></app-multiline-text-field>
+
+      <mat-expansion-panel class="user-list-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="topic-details-subheading" i18n="@@start_team">Start Team</div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let user of topicDraft.startTeam">
+          <app-user-minibutton [userId]="user" [canBeRemoved]="false"></app-user-minibutton>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="user-list-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="topic-details-subheading" i18n="@@stakeholder_team">Stakeholder Team</div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let user of topicDraft.stakeholders">
+          <app-user-minibutton [userId]="user" [canBeRemoved]="false"></app-user-minibutton>
+        </div>
+      </mat-expansion-panel>
+
     </div>
-    <div class="information-row-item status-display">
-      <app-status-dot class="display-status-dot" [state]="topicDraft.currentStatus"></app-status-dot>
-      <span *ngIf="topicDraft.currentStatus == 0" i18n="@@status_draft">Vorlage</span>
-      <span *ngIf="topicDraft.currentStatus == 1" i18n="@@status_submitted">Eingereicht</span>
-      <span *ngIf="topicDraft.currentStatus == 2" i18n="@@status_approved">Angenommen</span>
-      <span *ngIf="topicDraft.currentStatus == 3" i18n="@@status_rejected">Abgelehnt</span>
-    </div>
-  </div>
-
-  <div class="information-row">
-    <div class="information-row-item">
-      <mat-icon class="mat-icon first-item">schedule</mat-icon>
-      <span>{{ topicDraft.beginning.toLocaleDateString() }}</span>
-    </div>
-  </div>
-
-  <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
-  <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton>
-
-  <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo" [countRows]="3"></app-multiline-text-field>
-  <app-multiline-text-field [heading]="1" [content]="topicDraft.handoverPlan" [countRows]="3"></app-multiline-text-field>
-  <app-multiline-text-field [heading]="2" [content]="topicDraft.dependencies" [countRows]="3"></app-multiline-text-field>
-  <app-multiline-text-field [heading]="3" [content]="topicDraft.resources" [countRows]="3"></app-multiline-text-field>
-
-  <mat-expansion-panel class="user-list-panel">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <div class="topic-details-subheading" i18n="@@start_team">Start Team</div>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div *ngFor="let user of topicDraft.startTeam">
-      <app-user-minibutton [userId]="user" [canBeRemoved]="false"></app-user-minibutton>
-    </div>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel class="user-list-panel">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <div class="topic-details-subheading" i18n="@@stakeholder_team">Stakeholder Team</div>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div *ngFor="let user of topicDraft.stakeholders">
-      <app-user-minibutton [userId]="user" [canBeRemoved]="false"></app-user-minibutton>
-    </div>
-  </mat-expansion-panel>
-
-</div>
+  </form>
 
 </mat-dialog-content>
 
