@@ -42,10 +42,33 @@
       <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
       <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton>
 
-      <app-multiline-text-field [heading]="0" [content]="topicDraft.contributesTo" [countRows]="3"></app-multiline-text-field>
-      <app-multiline-text-field [heading]="1" [content]="topicDraft.handoverPlan" [countRows]="3"></app-multiline-text-field>
-      <app-multiline-text-field [heading]="2" [content]="topicDraft.dependencies" [countRows]="3"></app-multiline-text-field>
-      <app-multiline-text-field [heading]="3" [content]="topicDraft.resources" [countRows]="3"></app-multiline-text-field>
+      <div class="testtest">
+      <mat-form-field>
+        <span i18n="@@heading_contributes_to" class="topic-details-subheading-textarea">Zählt auf ein:</span>
+        <div class="multiline-text-wrapper">
+          <textarea class="multiline-text" readonly matInput formControlName='contributesTo'></textarea>
+        </div>
+      </mat-form-field>
+      </div>
+      <mat-form-field>
+        <span i18n="@@heading_handover" class="topic-details-subheading-textarea">Handover Plan:</span>
+        <div class="multiline-text-wrapper">
+          <textarea class="multiline-text" readonly matInput formControlName='handoverPlan'></textarea>
+        </div>
+      </mat-form-field>
+      <mat-form-field>
+        <span i18n="@@heading_dependencies" class="topic-details-subheading-textarea">Abhängigkeiten:</span>
+        <div class="multiline-text-wrapper">
+          <textarea class="multiline-text" readonly matInput formControlName='dependencies'></textarea>
+        </div>
+      </mat-form-field>
+      <mat-form-field>
+        <span i18n="@@heading_resources" class="topic-details-subheading-textarea">Ressourcen:</span>
+        <div class="multiline-text-wrapper">
+          <textarea class="multiline-text" readonly matInput formControlName='resources'></textarea>
+        </div>
+      </mat-form-field>
+
 
       <mat-expansion-panel class="user-list-panel">
         <mat-expansion-panel-header>

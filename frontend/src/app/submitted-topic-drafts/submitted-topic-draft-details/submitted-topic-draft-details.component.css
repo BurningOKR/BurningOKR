@@ -24,12 +24,41 @@
   vertical-align: center;
 }
 
+.multiline-text {
+  width: 100%;
+  resize: vertical;
+  background-color: #f7f7f7;
+  border-radius: 0px;
+}
+
+.multiline-text-wrapper textarea {
+  font-size: 1.1rem;
+}
+
+.multiline-text-wrapper {
+  margin-right: 15px;
+  margin-left: 15px;
+  width: 100%;
+}
+.testtest {
+  width:100%;
+}
+
 .topic-details-subheading {
   color: #000000;
   font-size: 1.2rem;
   font-weight: bold;
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.topic-details-subheading-textarea {
+  color: #000000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 15px;
 }
 
 @media (max-width: 400px) {
