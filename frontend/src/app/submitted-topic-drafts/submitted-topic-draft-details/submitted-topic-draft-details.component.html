@@ -6,19 +6,20 @@
 
       <div class="information-row">
         <div class="information-row-item">
-          <span class="first-item" i18n="@@component_departmentTabDescription_topic">Thema:</span>
-          <span class="topic-name">{{ topicDraft.name }}</span>
-          <input formControlName="name" readonly>
+          <mat-form-field>
+            <mat-label>Thema:</mat-label>
+            <input matInput formControlName="name" readonly>
+          </mat-form-field>
         </div>
         <div class="information-row-item status-display">
           <app-status-dot class="display-status-dot" [state]="topicDraft.currentStatus"></app-status-dot>
           <mat-form-field>
             <mat-label>Status</mat-label>
-            <mat-select formControlName="currentStatus">
-              <mat-option [value]="enumStatus.draft">Vorlage</mat-option>
-              <mat-option [value]="enumStatus.submitted">Eingereicht</mat-option>
-              <mat-option [value]="enumStatus.approved">Angenommen</mat-option>
-              <mat-option [value]="enumStatus.rejected">Abgelehnt</mat-option>
+            <mat-select formControlName="currentStatus" disabled>
+              <mat-option [value]="enumStatus.draft"><div>Vorlage</div></mat-option>
+              <mat-option [value]="enumStatus.submitted"><div>Eingereicht</div></mat-option>
+              <mat-option [value]="enumStatus.approved"><div>Angenommen</div></mat-option>
+              <mat-option [value]="enumStatus.rejected"><div>Abgelehnt</div></mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -27,7 +28,14 @@
       <div class="information-row">
         <div class="information-row-item">
           <mat-icon class="mat-icon first-item">schedule</mat-icon>
-          <span>{{ topicDraft.beginning.toLocaleDateString() }}</span>
+
+          <mat-form-field>
+            <mat-label>Beginn</mat-label>
+            <input matInput readonly formControlName="beginning">
+            <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>-->
+          </mat-form-field>
+
         </div>
       </div>
 
@@ -63,7 +71,6 @@
 
     </div>
   </form>
-
 </mat-dialog-content>
 
 <mat-dialog-actions>

@@ -50,6 +50,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { SubmittedTopicDraftFormComponent } from './submitted-topic-drafts/submitted-topic-draft-form/submitted-topic-draft-form.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 // use the require method provided by webpack
 declare const require: any;
@@ -75,34 +77,36 @@ const currentLanguage: string = 'de';
     MultilineTextFieldComponent,
     SubmittedTopicDraftFormComponent,
   ],
-    imports: [
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        BrowserModule,
-        CoreModule,
-        CycleAdminModule,
-        FormsModule,
-        HttpClientModule,
-        LoggerModule.forRoot(loggerConfig),
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        MatListModule,
-        MatProgressSpinnerModule,
-        MatTooltipModule,
-        OAuthModule.forRoot(),
-        ReactiveFormsModule,
-        SharedModule,
-        OkrUnitModule,
-        ErrorModule,
-        LoggerModule.forRoot(loggerConfig),
-        MatTableModule,
-        MatMenuModule,
-        MatGridListModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatSelectModule
-    ],
+  imports: [
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    CoreModule,
+    CycleAdminModule,
+    FormsModule,
+    HttpClientModule,
+    LoggerModule.forRoot(loggerConfig),
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    OAuthModule.forRoot(),
+    ReactiveFormsModule,
+    SharedModule,
+    OkrUnitModule,
+    ErrorModule,
+    LoggerModule.forRoot(loggerConfig),
+    MatTableModule,
+    MatMenuModule,
+    MatGridListModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule
+  ],
   entryComponents: [
     DeleteDialogComponent,
   ],
