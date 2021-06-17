@@ -2,7 +2,7 @@
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
 <p align="center">
-<a href="http://www.burningokr.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation (de)</a> | <a href="https://burning-okr.gitbook.io/burningokr/v/en/" target="_blank">documentation (en) </a> </a></p>
+<a href="http://www.burningokr.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation (de)</a> | <a href="https://burning-okr.gitbook.io/burningokr/v/en/" target="_blank">documentation (en) </a></p>
 <br/><br/><br/>
 
 # BurningOKR
@@ -19,35 +19,13 @@ You can install BurningOKR using the following technologies.
 
 ## Getting started with the development
 
-### Code Guidelines
-
-Please follow our [Code Guidelines](/CODE_GUIDELINES.md)
-
-### Software dependencies
-
-#### PostgreSQL
-
-We use Postgres as an SQL database for local development. Therefore, PostgresSQL must be installed locally on the development machines to allow database access.
-
-Therefore, Postgres must be downloaded first. A compatible version of the project is version 9.5.14. Other versions, especially higher ones, should also be compatible.
-
-After the download the installer must be executed, an installation Directory and Data Directory must be selected, a superuser password (e.g. admin) must be chosen. The port remains at 5432, the language for the database cluster is German, Germany. After that PostgresSQL can be installed.
-
-The last step is to uncheck Launch Stack Builder at exit. Now you have to configure PostgresSQL.
-
-For this, the pgAdmin must be started. In the object browser, you have to connect to the local Postgres server with the previously defined superuser password. Then you have to create a new database named 'okr' and a new login role with the role name and password 'admin' and all role privileges.
-
-
-
-#### Node & npm
-
-Node and npm are required for the Angular SPA.These can be downloaded and installed via the installer. For Angular development, the Angular CLI must be installed with `npm install -g @angular/cli`
-Please use the LTS Version of node.
-
-#### JDK
-
-For the backend, the JDK 8 is required. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
-
+0. Please follow our [Code Guidelines](/CODE_GUIDELINES.md) and [General information about implementations](/docs/developer_readme.md)
+   0.1 You may also read the [Frontend-Readme](/frontend/README.md)
+1. [PostgreSQL](/docs/postgres_install.md) or [MSSQL](/docs/mssql_install.md)
+2. Install JDK 8. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
+3. Install the (!) LTS Version of node & npm [here](https://nodejs.org/en/download/)
+4. Clone the Repository with `git clone https://github.com/BurningOKR/BurningOKR`. The whole repository (including frontend and backend) is cloned.
+5. Import the project into your favorable IDE (IntelliJ recommended, VS Code should also do the trick )#
 ### Source Code
 
 The source code of the project consists of two parts. A Frontend SPA with the framework **Angular** and a **Spring Boot** project for the backend.
