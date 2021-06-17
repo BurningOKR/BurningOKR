@@ -5,7 +5,7 @@
       <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
 
       <div class="information-row">
-        <div class="information-row-item">
+        <div class="information-row-item mr-30">
           <mat-form-field>
             <mat-label>Thema:</mat-label>
             <input matInput formControlName="name" readonly>
@@ -13,7 +13,7 @@
         </div>
         <div class="information-row-item status-display">
           <app-status-dot class="display-status-dot" [state]="topicDraft.currentStatus"></app-status-dot>
-          <mat-form-field>
+          <mat-form-field class="ml-10">
             <mat-label>Status</mat-label>
             <mat-select formControlName="currentStatus" disabled>
               <mat-option [value]="enumStatus.draft"><div>Vorlage</div></mat-option>
@@ -27,8 +27,6 @@
 
       <div class="information-row">
         <div class="information-row-item">
-          <mat-icon class="mat-icon first-item">schedule</mat-icon>
-
           <mat-form-field>
             <mat-label>Beginn</mat-label>
             <input matInput readonly formControlName="beginning">
@@ -40,38 +38,43 @@
       </div>
 
       <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
-      <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false"></app-user-minibutton>
+      <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false" class="no-margin"></app-user-minibutton>
 
-      <div class="testtest">
-      <mat-form-field>
-        <span i18n="@@heading_contributes_to" class="topic-details-subheading-textarea">Zählt auf ein:</span>
-        <div class="multiline-text-wrapper">
-          <textarea class="multiline-text" readonly matInput formControlName='contributesTo'></textarea>
-        </div>
-      </mat-form-field>
+      <div class="fullWidth">
+        <mat-form-field class="fullWidth">
+          <span i18n="@@heading_contributes_to" class="topic-details-subheading">Zählt auf ein:</span>
+          <div class="multiline-text-wrapper">
+            <textarea class="multiline-text" readonly matInput formControlName='contributesTo' rows="4"></textarea>
+          </div>
+        </mat-form-field>
       </div>
-      <mat-form-field>
-        <span i18n="@@heading_handover" class="topic-details-subheading-textarea">Handover Plan:</span>
-        <div class="multiline-text-wrapper">
-          <textarea class="multiline-text" readonly matInput formControlName='handoverPlan'></textarea>
-        </div>
-      </mat-form-field>
-      <mat-form-field>
-        <span i18n="@@heading_dependencies" class="topic-details-subheading-textarea">Abhängigkeiten:</span>
-        <div class="multiline-text-wrapper">
-          <textarea class="multiline-text" readonly matInput formControlName='dependencies'></textarea>
-        </div>
-      </mat-form-field>
-      <mat-form-field>
-        <span i18n="@@heading_resources" class="topic-details-subheading-textarea">Ressourcen:</span>
-        <div class="multiline-text-wrapper">
-          <textarea class="multiline-text" readonly matInput formControlName='resources'></textarea>
-        </div>
-      </mat-form-field>
-
+      <div class="fullWidth">
+        <mat-form-field class="fullWidth">
+          <span i18n="@@heading_handover" class="topic-details-subheading">Handover Plan:</span>
+          <div class="multiline-text-wrapper">
+            <textarea class="multiline-text" readonly matInput formControlName='handoverPlan' rows="4"></textarea>
+          </div>
+        </mat-form-field>
+      </div>
+      <div class="fullWidth">
+        <mat-form-field class="fullWidth">
+          <span i18n="@@heading_dependencies" class="topic-details-subheading">Abhängigkeiten:</span>
+          <div class="multiline-text-wrapper">
+            <textarea class="multiline-text" readonly matInput formControlName='dependencies' rows="4"></textarea>
+          </div>
+        </mat-form-field>
+      </div>
+      <div class="fullWidth">
+        <mat-form-field class="fullWidth">
+          <span i18n="@@heading_resources" class="topic-details-subheading">Ressourcen:</span>
+          <div class="multiline-text-wrapper">
+            <textarea class="multiline-text" readonly matInput formControlName='resources' rows="4"></textarea>
+          </div>
+        </mat-form-field>
+      </div>
 
       <mat-expansion-panel class="user-list-panel">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class="pt-10 pb-10">
           <mat-panel-title>
             <div class="topic-details-subheading" i18n="@@start_team">Start Team</div>
           </mat-panel-title>
@@ -82,7 +85,7 @@
       </mat-expansion-panel>
 
       <mat-expansion-panel class="user-list-panel">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class="pt-10 pb-10">
           <mat-panel-title>
             <div class="topic-details-subheading" i18n="@@stakeholder_team">Stakeholder Team</div>
           </mat-panel-title>

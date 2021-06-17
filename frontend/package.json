@@ -16,6 +16,7 @@
     "prestart": "ts-appversion",
     "prebuild": "ts-appversion",
     "start": "ng serve --proxy-config=proxy.conf.json",
+    "start-ohne-liveload": "ng serve --live-reload false --proxy-config=proxy.conf.json",
     "start-dev": "npm run start -- --configuration=local",
     "start_en": "npm run start -- --configuration=en",
     "start-prod": "npm run start -- --prod",

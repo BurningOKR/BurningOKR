@@ -1,8 +1,7 @@
 .information-row {
-  margin-left: 15px;
   display: flex;
   width: 100%;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .information-row-item {
@@ -12,14 +11,13 @@
   flex-wrap: nowrap;
 }
 .first-item {
-  width: 70px;
+  width: 30px;
 }
 
 .display-status-dot {
   height: 18px;
   width: 18px;
   display: inline-block;
-  margin-left: 30px;
   margin-right: 10px;
   vertical-align: center;
 }
@@ -27,8 +25,8 @@
 .multiline-text {
   width: 100%;
   resize: vertical;
-  background-color: #f7f7f7;
   border-radius: 0px;
+  margin-top: 15px;
 }
 
 .multiline-text-wrapper textarea {
@@ -36,12 +34,7 @@
 }
 
 .multiline-text-wrapper {
-  margin-right: 15px;
-  margin-left: 15px;
   width: 100%;
-}
-.testtest {
-  width:100%;
 }
 
 .topic-details-subheading {
@@ -50,15 +43,6 @@
   font-weight: bold;
   margin-top: 15px;
   margin-bottom: 15px;
-}
-
-.topic-details-subheading-textarea {
-  color: #000000;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 15px;
 }
 
 @media (max-width: 400px) {
@@ -87,8 +71,6 @@
 }
 
 .user-list-panel {
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }

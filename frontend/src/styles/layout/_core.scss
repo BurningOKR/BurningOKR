@@ -40,13 +40,28 @@
   margin-top: 20px !important;
 }
 
-
 .ml-10 {
-  margin-left: 10px;
+  margin-left: 10px !important;
+}
+
+.mr-30 {
+  margin-right: 30px !important;
+}
+
+.no-margin {
+  margin: 0px !important;
 }
 
 .padding-20 {
   padding: 20px !important;
+}
+
+.pt-10 {
+  padding-top: 10px !important;
+}
+
+.pb-10 {
+  padding-bottom: 10px !important;
 }
 
 .no-vertical-padding {
