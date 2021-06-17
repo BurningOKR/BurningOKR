@@ -8,18 +8,18 @@
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  align-items: baseline;
 }
 .first-item {
   width: 30px;
 }
 
 .display-status-dot {
-  height: 18px;
-  width: 18px;
+  height: 24px;
+  width: 24px;
   display: inline-block;
   margin-right: 10px;
-  vertical-align: center;
 }
 
 .multiline-text {
@@ -46,23 +46,12 @@
 }
 
 @media (max-width: 400px) {
-  .topic-name {
-    width: 100px;
+  .display-status-dot {
+    margin-bottom: 15px;
   }
 }
 
-@media (min-width: 401px) {
-  .topic-name {
-    width: 150px;
-  }
-}
-
-@media (min-width: 900px) {
-  .topic-name {
-    width: 300px;
-  }
-}
-
+/*muss wech*/
 .topic-name {
   overflow: hidden;
   text-overflow: ellipsis;

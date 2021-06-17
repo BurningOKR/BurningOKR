@@ -5,15 +5,9 @@
       <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
 
       <div class="information-row">
-        <div class="information-row-item mr-30">
-          <mat-form-field>
-            <mat-label>Thema:</mat-label>
-            <input matInput formControlName="name" readonly>
-          </mat-form-field>
-        </div>
         <div class="information-row-item status-display">
-          <app-status-dot class="display-status-dot" [state]="topicDraft.currentStatus"></app-status-dot>
-          <mat-form-field class="ml-10">
+          <app-status-dot class="display-status-dot mr-30" [state]="topicDraft.currentStatus"></app-status-dot>
+          <mat-form-field>
             <mat-label>Status</mat-label>
             <mat-select formControlName="currentStatus" disabled>
               <mat-option [value]="enumStatus.draft"><div>Vorlage</div></mat-option>
@@ -22,6 +16,15 @@
               <mat-option [value]="enumStatus.rejected"><div>Abgelehnt</div></mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+
+        <div class="information-row">
+          <div class="information-row-item fullWidth">
+            <mat-form-field class="fullWidth">
+              <mat-label>Thema:</mat-label>
+              <input matInput formControlName="name" readonly>
+            </mat-form-field>
+          </div>
         </div>
       </div>
 
@@ -33,7 +36,6 @@
             <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>-->
           </mat-form-field>
-
         </div>
       </div>
 
@@ -100,5 +102,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
+  <button mat-button color="primary" [disabled]="!canEdit" i18n="@@edit_button">Bearbeiten</button>
   <button mat-button color="warn" (click)="closeDialog()" i18n="@@component_teamForm_close">Schließen</button>
 </mat-dialog-actions>

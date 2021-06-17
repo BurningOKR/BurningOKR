@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
@@ -6,6 +6,9 @@ import { NEVER, Observable } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ContextRole } from '../../shared/model/ui/context-role';
+import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
+import {switchMap} from "rxjs/operators";
 
 export interface SubmittedTopicDraftDetailsFormData {
   topicDraft: OkrTopicDraft;
@@ -17,14 +20,18 @@ export interface SubmittedTopicDraftDetailsFormData {
   styleUrls: ['./submitted-topic-draft-details.component.css']
 })
 
-export class SubmittedTopicDraftDetailsComponent {
+export class SubmittedTopicDraftDetailsComponent implements OnInit {
 
   @Input() topicDraft: OkrTopicDraft;
-  submittedTopicDraftDetailsForm: FormGroup;
-  enumStatus = status;
+  @Input() submittedTopicDraftDetailsForm: FormGroup;
+  @Input() enumStatus = status;
+  @Input() currentUserRole$: Observable<ContextRole>;
+
+  canEdit: boolean;
 
   constructor(private dialogRef: MatDialogRef<SubmittedTopicDraftDetailsComponent>,
-              @Inject(MAT_DIALOG_DATA) private formData: SubmittedTopicDraftDetailsFormData) {
+              @Inject(MAT_DIALOG_DATA) private formData: SubmittedTopicDraftDetailsFormData,
+              private okrChildUnitRoleService: OkrChildUnitRoleService) {
     this.topicDraft = formData.topicDraft;
     this.submittedTopicDraftDetailsForm = new FormGroup({
         name: new FormControl(this.topicDraft.name),
@@ -41,5 +48,13 @@ export class SubmittedTopicDraftDetailsComponent {
 
   closeDialog(): void {
     this.dialogRef.close(NEVER);
+  }
+
+  ngOnInit() {
+    /*this.okrChildUnitRoleService.getRoleWithoutContext$().subscribe(
+      (contextRole: ContextRole) => {
+        this.currentUserRole = contextRole;
+      }
+    );*/
   }
 }
