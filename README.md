@@ -72,6 +72,32 @@ With `gradlew build` the backend can be built.
 
 With `ng build` the frontend can be built.
 
+### FAQ
+
+* **I get some errors with npm install (python2, node-sass, node-gyp):** <br>
+  Use the LTS version of node, not the current! https://nodejs.org/en/download/
+
+
+* **I get a _entityManagerFactory Persistence Exception_ / error on instancing entityManagerFactory when starting the backend**<br>
+  Please make sure to use JDK8 on Tomcat.
+  You can check the JDK Version on `localhost:8080/manager`. Then you can log in with the tomcat user for the gui.
+  It should look like this
+  ![tomcat-jdk](./docs/images/tomcat-jdk.png)
+
+
+* **I can't log in into the tomcat manager gui**
+  Create a tomcat user for the web management console.
+  You need to do this to access the manager app, that comes with tomcat.
+  Start by editing the `tomcat-users.xml` file.
+  Then add the following lines above `</tomcat-users>` (at the bottom of the file)
+    ```xml
+        <role rolename="manager-gui"/>
+        <role rolename="admin-gui"/>
+        <user username="username" password="password" roles="manager-gui,admin-gui"/>
+    </tomcat-users>
+    ```
+  Change `username` and `password` to a secure account.
+
 ## Contribute
 
 Thank you to all the people and bots who already contributed to BurningOKR!

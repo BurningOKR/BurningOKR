@@ -315,37 +315,11 @@ azureGroups:
     id: <Azure ad group id>
 ```
 9. **Save** and **Exit** the file by using `Ctrl+X`, followed by `y`es and `Enter`.
-
+---
 Optional: Please note that the yaml application will be overwritten if you deploy a new version.
 To prevent it from happening go to the tomcat context-configuration file under `<tomcat9-installation>/conf/context.xml` and enter the following in the context
 ```xml
     <Parameter name="spring.config.location" value="C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\application.yaml" />
 </Context>
 ```
-![example-c
-
-##FAQ
-
-* **I get some errors with npm install (python2, node-sass, node-gyp):** <br>
-Use the LTS version of node, not the current! https://nodejs.org/en/download/
-
-
-* **I get a _entityManagerFactory Persistence Exception_ / error on instancing entityManagerFactory when starting the backend**<br>
-Please make sure to use JDK8 on Tomcat.
-You can check the JDK Version on `localhost:8080/manager`. Then you can log in with the tomcat user for the gui.
-  It should look like this
-  ![img.png](images/tomcat-jdk.png)
-
-
-* **I cant login into the tomcat manager gui**
-Create a tomcat user for the web management console.
-    You need to do this to access the manager app, that comes with tomcat.
-    Start by editing the `tomcat-users.xml` file.
-    Then add the following lines above `</tomcat-users>` (at the bottom of the file)
-    ```xml
-        <role rolename="manager-gui"/>
-        <role rolename="admin-gui"/>
-        <user username="username" password="password" roles="manager-gui,admin-gui"/>
-    </tomcat-users>
-    ```
-    Change `username` and `password` to a secure account.
+![example-config](./images/tomcat-context.png)
