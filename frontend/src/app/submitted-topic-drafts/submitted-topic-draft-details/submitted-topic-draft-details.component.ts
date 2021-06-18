@@ -1,18 +1,18 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
-import {OkrTopicDraft} from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import {status} from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import {User} from '../../shared/model/api/user';
-import {NEVER, of, pipe} from 'rxjs';
-import {MatDialogRef} from '@angular/material/dialog';
-import {MAT_DIALOG_DATA} from '@angular/material';
-import {FormControl, FormGroup} from '@angular/forms';
-import {OkrChildUnitRoleService} from '../../shared/services/helper/okr-child-unit-role.service';
-import {CurrentUserService} from '../../core/services/current-user.service';
-import {Observable} from 'rxjs';
-import {map} from "rxjs/internal/operators";
-import {shareReplay, switchMap} from "rxjs/operators";
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
+import { User } from '../../shared/model/api/user';
+import { NEVER, of, pipe } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { FormControl, FormGroup } from '@angular/forms';
+import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
+import { CurrentUserService } from '../../core/services/current-user.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators';
+import { shareReplay, switchMap } from 'rxjs/operators';
 
-export interface SubmittedTopicraftDetailsFormData {
+export interface SubmittedTopicDraftDetailsFormData {
   topicDraft: OkrTopicDraft;
 }
 
@@ -38,7 +38,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
     this.submittedTopicDraftDetailsForm = new FormGroup({
       name: new FormControl(this.topicDraft.name),
       currentStatus: new FormControl(this.topicDraft.currentStatus),
-      beginning: new FormControl(this.topicDraft.beginning),
+      beginning: new FormControl(this.topicDraft.beginning.toLocaleDateString()),
       initiator: new FormControl(this.topicDraft.initiator),
       contributesTo: new FormControl(this.topicDraft.contributesTo),
       handoverPlan: new FormControl(this.topicDraft.handoverPlan),
@@ -63,24 +63,10 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
         }),
         shareReplay()
     );
-    /*this.currentUserService.getCurrentUser$()
-      .subscribe(
-    (currentUser: User) => {
-        this.canEdit = currentUser.id === this.topicDraft.initiatorId;
-        if (!this.canEdit) {
-          this.currentUserService.isCurrentUserAdmin$()
-            .subscribe(
-              (isAdmin: boolean) => {
-                this.canEdit = isAdmin;
-              }
-            );
-        }
-      }
-    );*/
   }
 
   editDialog(): void {
-
+    console.log("dasdsfafdsdfsfds");
   }
 
   closeDialog(): void {
