@@ -25,7 +25,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
   @Input() topicDraft: OkrTopicDraft;
   @Input() submittedTopicDraftDetailsForm: FormGroup;
   @Input() enumStatus = status;
-  @Input() currentUserRole$: Observable<ContextRole>;
+  @Input() currentUserRole: ContextRole;
 
   canEdit: boolean;
 
@@ -50,11 +50,14 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
     this.dialogRef.close(NEVER);
   }
 
-  ngOnInit() {
-    /*this.okrChildUnitRoleService.getRoleWithoutContext$().subscribe(
-      (contextRole: ContextRole) => {
+  ngOnInit(): void {
+    const currentUserRole$: Observable<ContextRole> = this.okrChildUnitRoleService.getRoleWithoutContext$();
+    currentUserRole$.subscribe(
+      (contextRole: ContextRole)  => {
         this.currentUserRole = contextRole;
+        this.canEdit = contextRole.isAtleastAdmin();
+        console.log("CanEdit " + this.canEdit);
       }
-    );*/
+    );
   }
 }
