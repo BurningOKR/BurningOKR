@@ -90,32 +90,21 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
         new ChannelInterceptor() {
           @Override
           public Message<?> preSend(Message<?> message, MessageChannel channel) {
-//            logger.info("customizeClientInboundChannel:preSend");
             StompHeaderAccessor accessor =
                 MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-            //logger.info("customizeClientInboundChannel:message:" + message.toString());
-            //logger.info("customizeClientInboundChannel:messageChannel:" + channel.toString());
 
-            if (accessor != null){
-//              logger.info("customizeClientInboundChannel:accessor not null");
-//              logger.info("customizeClientInboundChannel:accessor-command:" + accessor.getCommand());
+            if (accessor != null) {
               if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-//                logger.info("customizeClientInboundChannel:connectRequest");
                 String token = getToken(accessor);
                 if (token == null) {
-//                  logger.info("customizeClientInboundChannel:tokenNull");
                   return message;
                 }
 
                 try {
                   Authentication authByService = getAuthentication(token);
-
-//                  logger.info("customizeClientInboundChannel:authService:" + authByService);
                   if (authByService != null) {
-//                    logger.info("customizeClientInboundChannel:authByServiceNotNull");
                     accessor.setUser(authByService);
                   } else {
-//                    logger.info("customizeClientInboundChannel:authByServiceNull");
                     throw new AuthenticationException();
                   }
                 } catch (Exception ex) {
