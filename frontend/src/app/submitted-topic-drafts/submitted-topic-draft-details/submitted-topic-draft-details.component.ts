@@ -1,63 +1,89 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import { User } from '../../shared/model/api/user';
-import { NEVER, Observable } from 'rxjs';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ContextRole } from '../../shared/model/ui/context-role';
-import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
-import {switchMap} from "rxjs/operators";
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {OkrTopicDraft} from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import {status} from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
+import {User} from '../../shared/model/api/user';
+import {NEVER, of, pipe} from 'rxjs';
+import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {FormControl, FormGroup} from '@angular/forms';
+import {OkrChildUnitRoleService} from '../../shared/services/helper/okr-child-unit-role.service';
+import {CurrentUserService} from '../../core/services/current-user.service';
+import {Observable} from 'rxjs';
+import {map} from "rxjs/internal/operators";
+import {shareReplay, switchMap} from "rxjs/operators";
 
-export interface SubmittedTopicDraftDetailsFormData {
+export interface SubmittedTopicraftDetailsFormData {
   topicDraft: OkrTopicDraft;
 }
 
 @Component({
   selector: 'app-submitted-topic-draft-details',
   templateUrl: './submitted-topic-draft-details.component.html',
-  styleUrls: ['./submitted-topic-draft-details.component.css']
+  styleUrls: ['./submitted-topic-draft-details.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class SubmittedTopicDraftDetailsComponent implements OnInit {
 
-  @Input() topicDraft: OkrTopicDraft;
-  @Input() submittedTopicDraftDetailsForm: FormGroup;
-  @Input() enumStatus = status;
-  @Input() currentUserRole: ContextRole;
-
-  canEdit: boolean;
+  enumStatus = status;
+  topicDraft: OkrTopicDraft;
+  submittedTopicDraftDetailsForm: FormGroup;
+  canEdit$: Observable<boolean>;
 
   constructor(private dialogRef: MatDialogRef<SubmittedTopicDraftDetailsComponent>,
-              @Inject(MAT_DIALOG_DATA) private formData: SubmittedTopicDraftDetailsFormData,
-              private okrChildUnitRoleService: OkrChildUnitRoleService) {
+              private okrChildUnitRoleService: OkrChildUnitRoleService,
+              private currentUserService: CurrentUserService,
+              @Inject(MAT_DIALOG_DATA) private formData: SubmittedTopicDraftDetailsFormData,) {
     this.topicDraft = formData.topicDraft;
     this.submittedTopicDraftDetailsForm = new FormGroup({
-        name: new FormControl(this.topicDraft.name),
-        currentStatus: new FormControl(this.topicDraft.currentStatus),
-        beginning: new FormControl(this.topicDraft.beginning.toLocaleDateString()),
-        initiator: new FormControl(this.topicDraft.initiator),
-        contributesTo: new FormControl(this.topicDraft.contributesTo),
-        handoverPlan: new FormControl(this.topicDraft.handoverPlan),
-        dependencies: new FormControl(this.topicDraft.dependencies),
-        resources: new FormControl(this.topicDraft.resources)
+      name: new FormControl(this.topicDraft.name),
+      currentStatus: new FormControl(this.topicDraft.currentStatus),
+      beginning: new FormControl(this.topicDraft.beginning),
+      initiator: new FormControl(this.topicDraft.initiator),
+      contributesTo: new FormControl(this.topicDraft.contributesTo),
+      handoverPlan: new FormControl(this.topicDraft.handoverPlan),
+      dependencies: new FormControl(this.topicDraft.dependencies),
+      resources: new FormControl(this.topicDraft.resources)
       }
     );
+  }
+
+  ngOnInit(): void {
+    this.canEdit$ = this.currentUserService.getCurrentUser$()
+      .pipe(
+        map((currentUser: User) => {
+          return currentUser.id === this.topicDraft.initiatorId;
+        }),
+        switchMap((canEdit: boolean) => {
+          if (canEdit) {
+            return of(canEdit);
+          } else {
+            return this.currentUserService.isCurrentUserAdmin$();
+          }
+        }),
+        shareReplay()
+    );
+    /*this.currentUserService.getCurrentUser$()
+      .subscribe(
+    (currentUser: User) => {
+        this.canEdit = currentUser.id === this.topicDraft.initiatorId;
+        if (!this.canEdit) {
+          this.currentUserService.isCurrentUserAdmin$()
+            .subscribe(
+              (isAdmin: boolean) => {
+                this.canEdit = isAdmin;
+              }
+            );
+        }
+      }
+    );*/
+  }
+
+  editDialog(): void {
+
   }
 
   closeDialog(): void {
     this.dialogRef.close(NEVER);
-  }
-
-  ngOnInit(): void {
-    const currentUserRole$: Observable<ContextRole> = this.okrChildUnitRoleService.getRoleWithoutContext$();
-    currentUserRole$.subscribe(
-      (contextRole: ContextRole)  => {
-        this.currentUserRole = contextRole;
-        this.canEdit = contextRole.isAtleastAdmin();
-        console.log("CanEdit " + this.canEdit);
-      }
-    );
   }
 }

@@ -45,6 +45,11 @@
   margin-bottom: 15px;
 }
 
+.tooltip-edit-button.mat-tooltip.tooltip {
+  background-color: #2dc937;
+  font-size: 2rem;
+}
+
 @media (max-width: 400px) {
   .display-status-dot {
     margin-bottom: 15px;
@@ -61,4 +66,12 @@
 .user-list-panel {
   margin-bottom: 15px;
   margin-top: 15px;
+}
+
+.example-button {
+  margin-top: 16px;
+}
+
+.example-tooltip-red {
+  background: #b71c1c;
 }
