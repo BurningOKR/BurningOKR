@@ -19,13 +19,22 @@ You can install BurningOKR using the following technologies.
 
 ## Getting started with the development
 
+### Checklist
+
 0. Please follow our [Code Guidelines](/CODE_GUIDELINES.md) and [General information about implementations](/docs/developer_readme.md)
    0.1 You may also read the [Frontend-Readme](/frontend/README.md)
-1. [PostgreSQL](/docs/postgres_install.md) or [MSSQL](/docs/mssql_install.md)
+1. Install and configure the backend with [PostgreSQL](/docs/postgres_install.md) or [MSSQL](/docs/mssql_install.md)
 2. Install JDK 8. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
 3. Install the (!) LTS Version of node & npm [here](https://nodejs.org/en/download/)
 4. Clone the Repository with `git clone https://github.com/BurningOKR/BurningOKR`. The whole repository (including frontend and backend) is cloned.
 5. Import the project into your favorable IDE (IntelliJ recommended, VS Code should also do the trick )#
+6. Run `npm install @angular/cli -g`
+7. Run `npm install in the frontend folder`
+
+8. Start the frontend with `npm start`
+9. Start the backend with the gradle `burning-okr-backend[boot-run]` configuration.
+
+9.1 Alternatively create the configuration like ![intelliJ-Run-Configuration](/docs/images/boot-run-config.png)
 ### Source Code
 
 The source code of the project consists of two parts. A Frontend SPA with the framework **Angular** and a **Spring Boot** project for the backend.
