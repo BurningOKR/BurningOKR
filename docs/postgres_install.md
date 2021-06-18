@@ -20,12 +20,12 @@ You will need those in the coming application yaml configuration.
     
     Expand all entries as shown in the image.
 4. Right click on "Login/Group Roles" and choose "Create > Login/Group Role..."
-    1. In the general tab, set the "Name" to a meaningful name, like "BurningOKR".
+    1. In the general tab, set the "Name" to a meaningful name, like "admin" or "BurningOKR".
     2. In the definition tab, set a strong password.
     3. Click on "Save" to exit the window.
 5. In the server browser right click on "Databases" and choose "Create > Database...".
     1. Give your database a name by filling out the database field. You can choose any name, but it is recommended to use a meaningful name like "okr" or "burningokr".
-    2. Set the owner to "admin"
+    2. Set the owner to "admin", or the user you just created.
     
         ![Create Database](./images/pgAdmin_create_database.PNG)
         
