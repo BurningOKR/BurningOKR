@@ -6,12 +6,12 @@ import java.util.Collection;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
-import org.burningokr.model.okrUnits.okrUnitHistories.*;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
+import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.*;
+import org.burningokr.model.okrUnits.okrUnitHistories.*;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.ExtendedRepository;
 import org.burningokr.repositories.cycle.*;
@@ -228,7 +228,8 @@ public class CompanyService {
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     okrDepartment.setParentOkrUnit(referencedOkrCompany);
-    okrDepartment.setHistory(createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository));
+    okrDepartment.setHistory(
+        createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository));
 
     OkrTopicDescription description = new OkrTopicDescription(okrDepartment.getName());
     description = okrTopicDescriptionRepository.save(description);
@@ -277,17 +278,19 @@ public class CompanyService {
     return okrBranch;
   }
 
-  protected  <T extends OkrUnitHistory, U extends OkrChildUnit> T createHistory(U unit, T history, ExtendedRepository<T, Long> repository) {
+  protected <T extends OkrUnitHistory, U extends OkrChildUnit> T createHistory(
+      U unit, T history, ExtendedRepository<T, Long> repository) {
     history.addUnit(unit);
-    history =  repository.save(history);
+    history = repository.save(history);
     return history;
   }
 
-    protected  OkrTopicDraftHistory createTopicDraftHistory(OkrTopicDraft draft, OkrTopicDraftHistory history, TopicDraftHistoryRepository repository) {
-        history.addUnit(draft);
-        history = repository.save(history);
-        return history;
-    }
+  protected OkrTopicDraftHistory createTopicDraftHistory(
+      OkrTopicDraft draft, OkrTopicDraftHistory history, TopicDraftHistoryRepository repository) {
+    history.addUnit(draft);
+    history = repository.save(history);
+    return history;
+  }
 
   // TODO (R.J. 17.02.2021) create this method
   public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) {
@@ -296,7 +299,9 @@ public class CompanyService {
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     topicDraft.setParentUnit(referencedOkrCompany);
-    topicDraft.setHistory(createTopicDraftHistory(topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
+    topicDraft.setHistory(
+        createTopicDraftHistory(
+            topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
     logger.info(
