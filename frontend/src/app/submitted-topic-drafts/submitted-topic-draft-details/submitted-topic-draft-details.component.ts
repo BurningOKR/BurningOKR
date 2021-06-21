@@ -65,8 +65,9 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
     );
   }
 
+  // TODO Methode wird in anderer Task bearbeitet
   editDialog(): void {
-    console.log('dasdsfafdsdfsfds');
+    console.log('Not implemented');
   }
 
   closeDialog(): void {

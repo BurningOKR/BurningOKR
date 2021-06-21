@@ -1,3 +1,14 @@
+.display-status-dot {
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.first-item {
+  width: 30px;
+}
+
 .information-row {
   display: flex;
   width: 100%;
@@ -12,15 +23,8 @@
   align-items: baseline;
 }
 
-.first-item {
-  width: 30px;
-}
-
-.display-status-dot {
-  height: 24px;
-  width: 24px;
-  display: inline-block;
-  margin-right: 10px;
+.margin-user-list mat-card.user-card {
+  margin: 10px 0;
 }
 
 .multiline-text {
@@ -36,10 +40,6 @@
 
 .multiline-text-wrapper {
   width: 100%;
-}
-
-.margin-user-list mat-card.user-card {
-  margin: 10px 0;
 }
 
 .no-margin-user-button mat-card.user-card {
