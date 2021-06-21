@@ -46,16 +46,19 @@ jobs:
       run: npm version $PACKAGE_VERSION --allow-same-version
       working-directory: ./frontend
     - name: Npm Build German
-      run: npm run build-prod
+      run: npm run build-prod-new
       working-directory: ./frontend
     - name: Zip German Frontend
       run: zip -r frontend-de.zip ./frontend/dist
     - name: Clean Frontend Build Directory
       run: rm -r ./frontend/dist
     - name: Npm Build English
-      run: npm run build-prod-en
+      run: npm run build-prod-en-new
+      working-directory: ./frontend
     - name: Zip English Frontend
       run: zip -r frontend-en.zip ./frontend/dist
+    - name: Clean Frontend Build Directory
+      run: rm -r ./frontend/dist
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
