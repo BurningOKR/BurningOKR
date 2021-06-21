@@ -45,7 +45,7 @@ these freely.
 database location (E.g. Line 13 for a Docker-based Database, recommended for testing). Remove the # at the front. 
 4. Replace ``<database>``, ``<db-username>`` and ``<db-password>`` with the same as set in the ``postgres.env``.
 5. If you want the software to send mails, replace ``<smtp-username``, ``<smtp-password>``, ``<smtp-host>``
-and ``<smtp-port>``. You might need to acquire these from your system administrator. If mails are not wanted, delete the placeholder.
+and ``<smtp-port>``. You might need to acquire these from your system administrator. If no mails are needed, the placeholders can be removed and left empty.
 6. Decide if you want to use a local user database (also saved in the postgres database) or if you want to use 
 Azure Active Directory as your userbase by replacing ``<local|aad>`` with either ``local`` or ``add``. 
     1. **When using aad as the userbase, you also need to do the following steps. You do not need to this when you are using the local user database.**
