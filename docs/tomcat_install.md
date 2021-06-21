@@ -2,7 +2,7 @@
 ## Getting Started
 ### Windows
 
-#### Prerequisites 
+#### Prerequisites
 1. Install and Setup a supported Database:
     - [PostgreSQL (Tutorial)](./postgres_install.md)
     - [Microsoft SQL Server (Tutorial)](./mssql_install.md)

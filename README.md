@@ -32,10 +32,10 @@ We are already working on a faster and easier installation process, so stay tune
 7. Run `npm install in the frontend folder`
 8. [Configure](/docs/configure) the backend.
 
-8. Start the frontend with `npm start`
-9. Start the backend with the gradle `burning-okr-backend[boot-run]` configuration.
+9. Start the frontend with `npm start`
+10. Start the backend with the gradle `burning-okr-backend[boot-run]` configuration.
 
-9.1 Alternatively create the configuration like ![intelliJ-Run-Configuration](./docs/images/boot-run-config.png)
+10.1 Alternatively create the configuration like ![intelliJ-Run-Configuration](./docs/images/boot-run-config.png)
 ### Source Code
 
 The source code of the project consists of two parts. A Frontend SPA with the framework **Angular** and a **Spring Boot** project for the backend.
