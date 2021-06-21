@@ -33,7 +33,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<SubmittedTopicDraftDetailsComponent>,
               private okrChildUnitRoleService: OkrChildUnitRoleService,
               private currentUserService: CurrentUserService,
-              @Inject(MAT_DIALOG_DATA) private formData: SubmittedTopicDraftDetailsFormData,) {
+              @Inject(MAT_DIALOG_DATA) private formData: SubmittedTopicDraftDetailsFormData) {
     this.topicDraft = formData.topicDraft;
     this.submittedTopicDraftDetailsForm = new FormGroup({
       name: new FormControl(this.topicDraft.name),
@@ -66,7 +66,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
   }
 
   editDialog(): void {
-    console.log("dasdsfafdsdfsfds");
+    console.log('dasdsfafdsdfsfds');
   }
 
   closeDialog(): void {

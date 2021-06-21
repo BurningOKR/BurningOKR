@@ -54,6 +54,20 @@
   .display-status-dot {
     margin-bottom: 15px;
   }
+
+  .responsive-hidden-display app-user-avatar, .user-avatar {
+    display:none !important;
+  }
+
+  mat-card.user-card {
+    min-width: 0 !important;
+  }
+  div .user-infos {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
 }
 
 .topic-name {
@@ -63,10 +77,18 @@
   white-space:nowrap;
 }
 
-.example-button {
-  margin-top: 16px;
+.no-margin-user-button mat-card.user-card {
+  margin: 0px;
 }
 
-.example-tooltip-red {
-  background: #b71c1c;
+.margin-user-list mat-card.user-card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.padding-user-list div.mat-expansion-panel-body {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }

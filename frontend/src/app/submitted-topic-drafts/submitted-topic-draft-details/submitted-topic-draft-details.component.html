@@ -40,7 +40,7 @@
       </div>
 
       <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
-      <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false" class="no-margin"></app-user-minibutton>
+      <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false" class="no-margin-user-button"></app-user-minibutton>
 
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
@@ -75,25 +75,25 @@
         </mat-form-field>
       </div>
 
-      <mat-expansion-panel class="mb-20 mt-10">
+      <mat-expansion-panel class="mb-20 mt-10 padding-user-list">
         <mat-expansion-panel-header class="pt-10 pb-10">
           <mat-panel-title>
             <div class="topic-details-subheading" i18n="@@start_team">Start Team</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let user of topicDraft.startTeam">
-          <app-user-minibutton [userId]="user" [canBeRemoved]="false"></app-user-minibutton>
+          <app-user-minibutton [userId]="user" [canBeRemoved]="false" class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
       </mat-expansion-panel>
 
-      <mat-expansion-panel class="mb-10 mt-10">
+      <mat-expansion-panel class="mb-10 mt-10 padding-user-list">
         <mat-expansion-panel-header class="pt-10 pb-10">
           <mat-panel-title>
             <div class="topic-details-subheading" i18n="@@stakeholder_team">Stakeholder Team</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let user of topicDraft.stakeholders">
-          <app-user-minibutton [userId]="user" [canBeRemoved]="false"></app-user-minibutton>
+          <app-user-minibutton [userId]="user" [canBeRemoved]="false" class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
       </mat-expansion-panel>
 
