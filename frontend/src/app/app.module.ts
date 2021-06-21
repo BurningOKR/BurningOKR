@@ -45,13 +45,12 @@ import { SubmittedTopicDraftCardComponent } from './submitted-topic-drafts/submi
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
 import { SubmittedTopicDraftDetailsComponent } from './submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
-import { MultilineTextFieldComponent } from './submitted-topic-drafts/submitted-topic-draft-details/multiline-text-field/multiline-text-field.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SubmittedTopicDraftFormComponent } from './submitted-topic-drafts/submitted-topic-draft-form/submitted-topic-draft-form.component';
-import {MatDialogModule} from "@angular/material/dialog";
-import {MatSelectModule} from "@angular/material/select";
-import {MatInputModule} from "@angular/material/input";
-import {MatDatepickerModule} from "@angular/material/datepicker";
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -74,7 +73,6 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftActionButtonComponent,
     SubmittedTopicDraftCardsWrapperComponent,
     SubmittedTopicDraftDetailsComponent,
-    MultilineTextFieldComponent,
     SubmittedTopicDraftFormComponent,
   ],
   imports: [

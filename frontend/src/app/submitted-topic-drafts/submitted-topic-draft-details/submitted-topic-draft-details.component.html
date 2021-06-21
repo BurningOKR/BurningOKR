@@ -1,4 +1,4 @@
-<mat-dialog-content>
+<mat-dialog-content class="padding-dialog-content">
   <form [formGroup]="submittedTopicDraftDetailsForm">
     <div class="submitted-topic-draft-details">
 
@@ -42,18 +42,18 @@
       <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
       <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false" class="no-margin-user-button"></app-user-minibutton>
 
-      <div class="fullWidth">
+      <div class="fullWidth mt-30">
         <mat-form-field class="fullWidth">
           <span i18n="@@heading_contributes_to" class="topic-details-subheading">Zählt auf ein:</span>
-          <div class="multiline-text-wrapper">
-            <textarea class="multiline-text" readonly matInput formControlName='contributesTo' rows="4"></textarea>
+          <div class="multiline-text-wrapper mt-10">
+            <textarea class="multiline-text" readonly matInput formControlName='contributesTo' rows="2"></textarea>
           </div>
         </mat-form-field>
       </div>
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
           <span i18n="@@heading_handover" class="topic-details-subheading">Handover Plan:</span>
-          <div class="multiline-text-wrapper">
+          <div class="multiline-text-wrapper mt-10">
             <textarea class="multiline-text" readonly matInput formControlName='handoverPlan' rows="4"></textarea>
           </div>
         </mat-form-field>
@@ -61,7 +61,7 @@
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
           <span i18n="@@heading_dependencies" class="topic-details-subheading">Abhängigkeiten:</span>
-          <div class="multiline-text-wrapper">
+          <div class="multiline-text-wrapper mt-10">
             <textarea class="multiline-text" readonly matInput formControlName='dependencies' rows="4"></textarea>
           </div>
         </mat-form-field>
@@ -69,7 +69,7 @@
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
           <span i18n="@@heading_resources" class="topic-details-subheading">Ressourcen:</span>
-          <div class="multiline-text-wrapper">
+          <div class="multiline-text-wrapper mt-10">
             <textarea class="multiline-text" readonly matInput formControlName='resources' rows="4"></textarea>
           </div>
         </mat-form-field>
