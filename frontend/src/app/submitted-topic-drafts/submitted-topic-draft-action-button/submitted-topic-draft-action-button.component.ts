@@ -1,11 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { MatDialog } from '@angular/material';
-import {
-  SubmittedTopicDraftDetailsComponent,
-  SubmittedTopicDraftDetailsFormData
-} from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
-import { SubmittedTopicDraftFormComponent } from '../submitted-topic-draft-form/submitted-topic-draft-form.component';
+import { SubmittedTopicDraftDetailsComponent } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',

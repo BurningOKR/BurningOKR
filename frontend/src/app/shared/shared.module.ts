@@ -70,19 +70,19 @@ import { StatusDotComponent } from './components/status-dot/status-dot.component
     RouterModule,
   ],
   exports: [
-      UserAutocompleteInputComponent,
-      UserMinibuttonComponent,
-      LoadingSpinnerComponent,
-      MatButtonModule,
-      DialogComponent,
-      UserAvatarComponent,
-      OkrToolbarBareComponent,
-      OkrToolbarComponent,
-      CapsLockDirective,
-      NonLoggedInCardComponent,
-      FormErrorComponent,
-      MilestoneSliderWrapperComponent,
-      StatusDotComponent
+    UserAutocompleteInputComponent,
+    UserMinibuttonComponent,
+    LoadingSpinnerComponent,
+    MatButtonModule,
+    DialogComponent,
+    UserAvatarComponent,
+    OkrToolbarBareComponent,
+    OkrToolbarComponent,
+    CapsLockDirective,
+    NonLoggedInCardComponent,
+    FormErrorComponent,
+    MilestoneSliderWrapperComponent,
+    StatusDotComponent
   ],
 })
 export class SharedModule {

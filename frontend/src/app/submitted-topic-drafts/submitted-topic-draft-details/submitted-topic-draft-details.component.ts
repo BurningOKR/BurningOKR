@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
-import { NEVER, of, pipe } from 'rxjs';
+import { NEVER, of } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -67,6 +67,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
 
   // TODO Methode wird in anderer Task bearbeitet
   editDialog(): void {
+    // tslint:disable-next-line
     console.log('Not implemented');
   }
 

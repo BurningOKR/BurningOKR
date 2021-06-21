@@ -10,10 +10,10 @@
           <mat-form-field>
             <mat-label>Status</mat-label>
             <mat-select formControlName="currentStatus" disabled>
-              <mat-option [value]="enumStatus.draft"><div>Vorlage</div></mat-option>
-              <mat-option [value]="enumStatus.submitted"><div>Eingereicht</div></mat-option>
-              <mat-option [value]="enumStatus.approved"><div>Angenommen</div></mat-option>
-              <mat-option [value]="enumStatus.rejected"><div>Abgelehnt</div></mat-option>
+              <mat-option [value]="enumStatus.draft"><div i18n="@@status_draft">Vorlage</div></mat-option>
+              <mat-option [value]="enumStatus.submitted"><div i18n="@@status_submitted">Eingereicht</div></mat-option>
+              <mat-option [value]="enumStatus.approved"><div i18n="@@status_approved">Angenommen</div></mat-option>
+              <mat-option [value]="enumStatus.rejected"><div i18n="@@status_rejected">Abgelehnt</div></mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -21,7 +21,7 @@
         <div class="information-row">
           <div class="information-row-item fullWidth">
             <mat-form-field class="fullWidth">
-              <mat-label>Thema:</mat-label>
+              <mat-label i18n="@@component_departmentTabDescription_topic">Thema:</mat-label>
               <input matInput formControlName="name" readonly>
             </mat-form-field>
           </div>
@@ -31,7 +31,7 @@
       <div class="information-row">
         <div class="information-row-item">
           <mat-form-field>
-            <mat-label>Beginn</mat-label>
+            <mat-label i18n="@@beginning_table_header">Beginn</mat-label>
             <input matInput readonly formControlName="beginning">
             <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>-->
@@ -52,7 +52,7 @@
       </div>
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
-          <span i18n="@@heading_handover" class="topic-details-subheading">Handover Plan:</span>
+          <span i18n="@@component_departmentTabDescription_handoverPlan" class="topic-details-subheading">Übergabeplan:</span>
           <div class="multiline-text-wrapper mt-10">
             <textarea class="multiline-text" readonly matInput formControlName='handoverPlan' rows="4"></textarea>
           </div>

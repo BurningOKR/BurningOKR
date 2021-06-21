@@ -46,7 +46,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
 import { SubmittedTopicDraftDetailsComponent } from './submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { SubmittedTopicDraftFormComponent } from './submitted-topic-drafts/submitted-topic-draft-form/submitted-topic-draft-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -73,7 +72,6 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftActionButtonComponent,
     SubmittedTopicDraftCardsWrapperComponent,
     SubmittedTopicDraftDetailsComponent,
-    SubmittedTopicDraftFormComponent,
   ],
   imports: [
     AppRoutingModule,
