@@ -70,6 +70,16 @@ export class VersionFormComponent {
         'Fixed an issue with the docker installation (Issue #20, JDK).'
       ]
     },
+    {
+      version: '1.2.0 (22.06.2021)',
+      changes: [
+        `- New Feature: Topic-draft
+          - It is now possible to create topic drafts.
+          - You can create a topic draft in the Add menu of the structure
+          - Via the main menu in the upper right corner it is possible to get an overview of the topic drafts
+          - Submitting and editing is not yet possible`
+      ]
+    }
   ];
 
   constructor(private dialogRef: MatDialogRef<VersionFormComponent>) {
