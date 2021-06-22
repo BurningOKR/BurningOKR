@@ -33,22 +33,22 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<SubmittedTopicDraftDetailsComponent>,
               private okrChildUnitRoleService: OkrChildUnitRoleService,
               private currentUserService: CurrentUserService,
-              @Inject(MAT_DIALOG_DATA) private formData: SubmittedTopicDraftDetailsFormData) {
-    this.topicDraft = formData.topicDraft;
-    this.submittedTopicDraftDetailsForm = new FormGroup({
-      name: new FormControl(this.topicDraft.name),
-      currentStatus: new FormControl(this.topicDraft.currentStatus),
-      beginning: new FormControl(this.topicDraft.beginning.toLocaleDateString()),
-      initiator: new FormControl(this.topicDraft.initiator),
-      contributesTo: new FormControl(this.topicDraft.contributesTo),
-      handoverPlan: new FormControl(this.topicDraft.handoverPlan),
-      dependencies: new FormControl(this.topicDraft.dependencies),
-      resources: new FormControl(this.topicDraft.resources)
-      }
-    );
+              @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)) {
   }
 
   ngOnInit(): void {
+    this.topicDraft = this.formData.topicDraft;
+    this.submittedTopicDraftDetailsForm = new FormGroup({
+        name: new FormControl(this.topicDraft.name),
+        currentStatus: new FormControl(this.topicDraft.currentStatus),
+        beginning: new FormControl(this.topicDraft.beginning.toLocaleDateString()),
+        initiator: new FormControl(this.topicDraft.initiator),
+        contributesTo: new FormControl(this.topicDraft.contributesTo),
+        handoverPlan: new FormControl(this.topicDraft.handoverPlan),
+        dependencies: new FormControl(this.topicDraft.dependencies),
+        resources: new FormControl(this.topicDraft.resources)
+      }
+    );
     this.canEdit$ = this.currentUserService.getCurrentUser$()
       .pipe(
         map((currentUser: User) => {

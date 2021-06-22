@@ -105,6 +105,7 @@ const currentLanguage: string = 'de';
   ],
   entryComponents: [
     DeleteDialogComponent,
+    SubmittedTopicDraftDetailsComponent
   ],
   providers: [
     OAuthFrontendDetailsService,
