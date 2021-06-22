@@ -1,16 +1,15 @@
 package org.burningokr.model.okr.histories;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-
-//@EqualsAndHashCode(callSuper = true)
+// @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 public class OkrTopicDraftHistory implements Trackable<Long> {

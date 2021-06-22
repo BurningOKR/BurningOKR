@@ -1,5 +1,6 @@
 package org.burningokr.controller.okr;
 
+import java.util.Collection;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -16,23 +17,23 @@ import java.util.Collection;
 
 @RestApiController
 public class TopicDraftController {
-    private OkrTopicDraftService okrTopicDraftService;
-    private DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
+  private OkrTopicDraftService okrTopicDraftService;
+  private DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
 
-    /**
-     * Initialize TopicDraftController
-     *
-     * @param okrTopicDraftService a {@Link OkrTopicDraftService} object
-     * @param okrTopicDraftMapper {@link DataMapper} object with {@link OkrTopicDraft} and {@link
-     *      OkrTopicDraftDto}
-     */
-    @Autowired
-    public TopicDraftController(
-            OkrTopicDraftService okrTopicDraftService,
-            DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper){
-        this.okrTopicDraftService = okrTopicDraftService;
-        this.okrTopicDraftMapper = okrTopicDraftMapper;
-    }
+  /**
+   * Initialize TopicDraftController
+   *
+   * @param okrTopicDraftService a {@Link OkrTopicDraftService} object
+   * @param okrTopicDraftMapper {@link DataMapper} object with {@link OkrTopicDraft} and {@link
+   *     OkrTopicDraftDto}
+   */
+  @Autowired
+  public TopicDraftController(
+      OkrTopicDraftService okrTopicDraftService,
+      DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper) {
+    this.okrTopicDraftService = okrTopicDraftService;
+    this.okrTopicDraftMapper = okrTopicDraftMapper;
+  }
 
     /**
      * API Endpoint to get all TopicDrafts.

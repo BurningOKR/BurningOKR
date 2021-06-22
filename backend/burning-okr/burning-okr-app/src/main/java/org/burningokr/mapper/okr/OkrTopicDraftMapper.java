@@ -40,7 +40,7 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
     OkrTopicDraftDto dto = new OkrTopicDraftDto();
     dto.setAcceptanceCriteria(input.getAcceptanceCriteria());
     dto.setInitiator(userService.findById(input.getInitiatorId()));
-    if(input.getCurrentStatus() != null) {
+    if (input.getCurrentStatus() != null) {
       dto.setCurrentStatus(input.getCurrentStatus().ordinal());
     }
     dto.setBeginning(input.getBeginning());

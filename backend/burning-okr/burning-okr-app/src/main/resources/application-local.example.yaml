@@ -1,14 +1,8 @@
 spring:
   datasource:
-    # jdbc:postgresql://<hostname>:<port>/<database>?useSSL=false
-    #url: jdbc:postgresql://localhost:5432/okr-draft?useSSL=false
-    url: <Database URL>
-
-    # The username of the Postgres User of the OKR Tool.
-    username: <Database Username>
-
-    # The password of the Postgres User of the OKR Tool.
-    password: <Database Password>
+    url: jdbc:postgresql://localhost:5432/okr?useSSL=false # I named my database "okr"
+    username: admin # The created user and owner of the created database
+    password: admin # The Password for the new created user
 
   jpa:
     hibernate:
@@ -22,10 +16,10 @@ spring:
     baseline-on-migrate: true
 
   mail:
-    username: <Email username>
-    password: <Email password>
-    host: <Email server url>
-    port: <Email server port>
+    username: bag
+    password: bag
+    host: smtp.gmail.com
+    port: 1234
     properties:
       mail:
         smtp:
@@ -45,7 +39,7 @@ spring:
 #azure:
 #  ad:
 #    issuer: <Azure issuer>
-#    azureGroups:
+#    azureGroups:-
 #      - name: <Azure ad group name>
 #        id: <Azure ad group id>
 #
@@ -67,7 +61,7 @@ spring:
 
 system:
   configuration:
-    auth-mode: <Your preferred auth-mode ("local" or "azure")>
+    auth-mode: "local"
     api-endpoint: "/api"
     token-endpoint-prefix: ""
 
