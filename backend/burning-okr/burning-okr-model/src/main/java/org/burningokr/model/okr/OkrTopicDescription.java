@@ -8,6 +8,7 @@ import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public class OkrTopicDescription implements Trackable<Long> {
 

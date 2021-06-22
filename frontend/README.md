@@ -40,7 +40,7 @@ Here is the access timetable for the server
 ![alt text](zeitplan_azure_vm.png)
 
 # Deployment 
-The master-branch gets deployed to production, therefor master should only receive thoroughly tested commits.
+The master-branch gets deployed to production, therefore master should only receive thoroughly tested commits.
 To inspect the productive Service visit:
 
 https://okr.brockhaus-ag.de/

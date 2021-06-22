@@ -6,8 +6,8 @@ import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.cycles.OkrCompanyHistory;
 import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,19 +61,19 @@ public class CycleDtoValidator {
     String exceptionString = "";
 
     OkrCompany targetOkrCompany = companyRepository.findByIdOrThrow(cycleDto.getCompanyId());
-    OkrCompanyHistory targetOkrCompanyHistory = targetOkrCompany.getHistory();
+    OkrUnitHistory<OkrCompany> targetOkrUnitHistory = targetOkrCompany.getHistory();
 
     if (isDateWithinOtherCycleInCompanyHistory(
-        cycleDto.getId(), cycleDto.getPlannedStartDate(), targetOkrCompanyHistory)) {
+        cycleDto.getId(), cycleDto.getPlannedStartDate(), targetOkrUnitHistory)) {
       exceptionString +=
           "Cycle planned start can not be inside another cycle of the same company.\n";
     }
     if (isDateWithinOtherCycleInCompanyHistory(
-        cycleDto.getId(), cycleDto.getPlannedEndDate(), targetOkrCompanyHistory)) {
+        cycleDto.getId(), cycleDto.getPlannedEndDate(), targetOkrUnitHistory)) {
       exceptionString += "Cycle planned end can not be inside another cycle of the same company.\n";
     }
     if (isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
-        cycleDto, targetOkrCompanyHistory)) {
+        cycleDto, targetOkrUnitHistory)) {
       exceptionString += "Cycle can not completely envelop another cycle of the same company.\n";
     }
 
@@ -87,19 +87,19 @@ public class CycleDtoValidator {
   }
 
   private boolean isDateWithinOtherCycleInCompanyHistory(
-      Long cycleDtoId, LocalDate dateToCheck, OkrCompanyHistory okrCompanyHistory) {
+      Long cycleDtoId, LocalDate dateToCheck, OkrUnitHistory<OkrCompany> okrUnitHistory) {
     List<Cycle> collidingCycles =
         cycleRepository.findByCompanyHistoryAndDateBetweenPlannedTimeRange(
-            okrCompanyHistory, dateToCheck);
+            okrUnitHistory, dateToCheck);
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDtoId));
   }
 
   private boolean isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
-      CycleDto cycleDto, OkrCompanyHistory okrCompanyHistory) {
+      CycleDto cycleDto, OkrUnitHistory<OkrCompany> okrUnitHistory) {
     List<Cycle> collidingCycles =
         cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(
-            okrCompanyHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
+            okrUnitHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDto.getId()));
   }
