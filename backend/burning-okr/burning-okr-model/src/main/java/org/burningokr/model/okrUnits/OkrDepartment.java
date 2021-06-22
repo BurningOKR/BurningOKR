@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 
 @Entity
 @Data
@@ -31,6 +32,8 @@ public class OkrDepartment extends OkrChildUnit {
 
   @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.REMOVE)
   private TaskBoard taskBoard;
+
+  @ManyToOne private OkrDepartmentHistory history;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
@@ -59,7 +62,7 @@ public class OkrDepartment extends OkrChildUnit {
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
     copy.setOkrTopicDescription(this.getOkrTopicDescription());
+    copy.setHistory(this.getHistory());
     return copy;
   }
-  // endregion
 }

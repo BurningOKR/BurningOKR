@@ -53,6 +53,9 @@ import { TaskboardColumnComponent } from './okr-child-unit/department/department
 import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
 import { myRxStompConfig } from './websockets/rx-stomp-config';
 import { TaskboardSwimlaneViewComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane-view.component';
+import { TopicDraftCreationFormComponent } from './okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form/okr-topic-description-form.component';
+import { AddChildUnitButtonComponent } from './add-child-unit-button/add-child-unit-button.component';
 
 import { TaskboardStateColumnViewComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-state-column-view/taskboard-state-column-view.component';
 import { TaskBoardGeneralHelper } from '../shared/services/helper/task-board/task-board-general-helper';
@@ -92,6 +95,9 @@ import { TaskboardSwimlaneComponent } from './okr-child-unit/department/departme
     TaskboardSwimlaneViewComponent,
     TaskboardSwimlaneComponent,
     TaskboardStateColumnViewComponent,
+    TopicDraftCreationFormComponent,
+    OkrTopicDescriptionFormComponent,
+    AddChildUnitButtonComponent,
   ],
   entryComponents: [
     CommentViewDialogComponent,
@@ -100,6 +106,7 @@ import { TaskboardSwimlaneComponent } from './okr-child-unit/department/departme
     ObjectiveFormComponent,
     DepartmentDescriptionEditFormComponent,
     TaskFormComponent,
+    TopicDraftCreationFormComponent,
   ],
   imports: [
     CommonModule,

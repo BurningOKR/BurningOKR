@@ -22,6 +22,7 @@ import {
   MatCardModule,
   MatIconModule,
   MatListModule,
+  MatMenuModule,
   MatProgressSpinnerModule,
   MatTooltipModule
 } from '@angular/material';
@@ -37,6 +38,12 @@ import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-hand
 import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
+import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
+import { MatTableModule } from '@angular/material/table';
+import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component';
+import { SubmittedTopicDraftCardComponent } from './submitted-topic-drafts/submitted-topic-draft-card/submitted-topic-draft-card.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -54,6 +61,10 @@ const currentLanguage: string = 'de';
     AppComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
+    SubmittedTopicDraftsComponent,
+    SubmittedTopicDraftCardComponent,
+    SubmittedTopicDraftActionButtonComponent,
+    SubmittedTopicDraftCardsWrapperComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -76,6 +87,9 @@ const currentLanguage: string = 'de';
     OkrUnitModule,
     ErrorModule,
     LoggerModule.forRoot(loggerConfig),
+    MatTableModule,
+    MatMenuModule,
+    MatGridListModule
   ],
   entryComponents: [
     DeleteDialogComponent,
@@ -102,7 +116,7 @@ const currentLanguage: string = 'de';
       useValue: currentLanguage
     },
     {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-    I18n
+    I18n,
   ],
   bootstrap: [AppComponent]
 })

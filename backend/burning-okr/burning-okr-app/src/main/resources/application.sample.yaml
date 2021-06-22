@@ -1,7 +1,13 @@
 spring:
   datasource:
+    # jdbc:postgresql://<hostname>:<port>/<database>?useSSL=false
+    #url: jdbc:postgresql://localhost:5432/okr-draft?useSSL=false
     url: <Database URL>
+
+    # The username of the Postgres User of the OKR Tool.
     username: <Database Username>
+
+    # The password of the Postgres User of the OKR Tool.
     password: <Database Password>
 
   jpa:

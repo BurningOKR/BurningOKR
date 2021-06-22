@@ -11,7 +11,7 @@ export class TaskStateApiService {
   constructor(private api: ApiHttpService) { }
 
   getTaskStatesForOkrUnit$(unitId: number): Observable<TaskStateDto[]> {
-    return this.api.getData$(`/unit/${unitId}/states`);
+    return this.api.getData$(`unit/${unitId}/states`);
   }
 
 }

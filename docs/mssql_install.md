@@ -36,7 +36,8 @@
            ![SQL_Server_Create_Database](./images/ssms_create_database.PNG)
         3. Click on `Ok` in every open window.
     5. You can now close `Microsoft SQL Server Management Studio`.
-7. Open `SQL Server Configuration Manager`
+7. Open `SQL Server Configuration Manager` 
+(Windows-Key + R and enter `compmgmt.msc` -> Expand `Services and Applications` -> Expand `SQL Server Configuration Manager`)
     1. Click on `SQL Server Network Configuration`.
     2. Click on `Protocols for SQLEXPRESS`.
     3. Right Click on `TCP/IP` and select `Properties`.
