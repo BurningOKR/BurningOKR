@@ -1,7 +1,10 @@
 package org.burningokr.service.okr;
 
+import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
+import org.burningokr.service.activity.ActivityService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,21 +16,24 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.util.*;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OkrTopicDraftServiceTest {
 
     @Mock private OkrTopicDraftRepository okrTopicDraftRepository;
+    @Mock private User user;
+    @Mock private ActivityService activityService;
 
     @InjectMocks private OkrTopicDraftService okrTopicDraftService;
 
     private OkrTopicDraft okrTopicDraft;
-
+    private Long okrTopicDraftId = 10L;
     @Before
     public void setUp() {
         okrTopicDraft = new OkrTopicDraft();
-        okrTopicDraft.setId(10L);
+        okrTopicDraft.setId(okrTopicDraftId);
     }
 
     @Test
@@ -72,5 +78,23 @@ public class OkrTopicDraftServiceTest {
         when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
 
         assertEquals(2, topicDrafts.size());
+    }
+
+    @Test
+    public void deleteTopicDraft_expectedTopicDraftIsDeleted() {
+        when(okrTopicDraftRepository.findByIdOrThrow(okrTopicDraftId)).thenReturn(okrTopicDraft);
+
+        okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId, user);
+
+        verify(okrTopicDraftRepository).deleteById(okrTopicDraftId);
+    }
+
+    @Test
+    public void test_deleteObjective_ExpectedActivityGotCreated() {
+        when(okrTopicDraftRepository.findByIdOrThrow(okrTopicDraftId)).thenReturn(okrTopicDraft);
+
+        okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId, user);
+
+        verify(activityService).createActivity(user, this.okrTopicDraft, Action.DELETED);
     }
 }
