@@ -11,6 +11,7 @@
    *You also have to set up a gui account in the installation!*
 
 #### Deploying Release
+=======
 4. Go to https://github.com/BurningOKR/BurningOKR/releases/latest and download the .war file and the frontend-de.zip or frontend-en.zip (depends on your preferred language)
 5. Rename the .war file to "api.war".
 6. Place the api.war in the following directory: `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps`. Once this is done, you should see that a new directory called "api" was automatically created within this directory.
