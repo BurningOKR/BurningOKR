@@ -4,10 +4,13 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.users.User;
 import org.burningokr.service.okr.OkrTopicDraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
 
@@ -40,5 +43,11 @@ public class TopicDraftController {
     public ResponseEntity<Collection<OkrTopicDraftDto>> getAllCompanies() {
         Collection<OkrTopicDraft> topicDrafts = okrTopicDraftService.getAllTopicDrafts();
         return ResponseEntity.ok(okrTopicDraftMapper.mapEntitiesToDtos(topicDrafts));
+    }
+
+    @DeleteMapping("/topicDraft/{topicDraftId}")
+    public ResponseEntity deleteTopicDraftById(@PathVariable Long topicDraftId, User user){
+        okrTopicDraftService.deleteTopicDraftById(topicDraftId, user);
+        return ResponseEntity.ok().build();
     }
 }

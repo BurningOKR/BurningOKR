@@ -6,7 +6,7 @@
       <span class="card-head-info card-head-info-name" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
     </div>
     <div class="card-head-button-wrapper">
-      <app-submitted-topic-draft-action-button [topicDraft]="topicDraft" class= "submitted-topic-draft-option-button"></app-submitted-topic-draft-action-button>
+      <app-submitted-topic-draft-action-button (topicDraftDeletedEvent)="notifyWrapperOfDeletion()" [topicDraft]="topicDraft" class= "submitted-topic-draft-option-button"></app-submitted-topic-draft-action-button>
     </div>
     <span id="status-dot" class="status-dot status-dot-{{enumStatus[topicDraft.currentStatus]}}" i18n-title title="Aktueller Status"></span>
   </div>

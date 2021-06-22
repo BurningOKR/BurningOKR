@@ -7,7 +7,7 @@
     </div>
   </div>
   <div *ngFor="let topicDraft of topicDrafts">
-    <app-submitted-topic-draft-card [topicDraft]="topicDraft"></app-submitted-topic-draft-card>
+    <app-submitted-topic-draft-card (topicDraftDeletedEvent)="removeDeletedTopicDraft($event)" [topicDraft]="topicDraft"></app-submitted-topic-draft-card>
   </div>
 </div>
 <div *ngIf="topicDrafts[0] === undefined">

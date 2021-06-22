@@ -15,4 +15,9 @@ export class SubmittedTopicDraftCardsWrapperComponent implements OnInit {
     // to implement
   }
 
+  removeDeletedTopicDraft(topicDraft: OkrTopicDraft): void {
+    const position: number = this.topicDrafts.indexOf(topicDraft);
+    this.topicDrafts.splice(position, 1);
+  }
+
 }

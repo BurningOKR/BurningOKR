@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import {
   ConfirmationDialogComponent,
@@ -18,6 +18,7 @@ import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mappe
 export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
 
   @Input() topicDraft: OkrTopicDraft;
+  @Output() topicDraftDeletedEvent = new EventEmitter();
 
   subscriptions: Subscription[] = [];
 
@@ -86,12 +87,9 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
           this.topicDraftMapper
               .deleteTopicDraft$(this.topicDraft.descriptionId)
               .pipe(take(1))
-              .subscribe(success => {
-                  if (success) {
-                      // TODO: ADD SUCCESS INFO DIALOG OR SMTH ;
-                    }
+              .subscribe(() => {
+                  this.topicDraftDeletedEvent.emit();
                 }
-
       ));
   }
 }
