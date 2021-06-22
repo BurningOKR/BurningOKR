@@ -12,11 +12,11 @@ import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
+import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okr.TaskState;
-import org.burningokr.model.okr.OkrTopicDescription;
-import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -319,7 +319,7 @@ public class OkrCompanyServiceTest {
     assertSame(okrBranchHistory, createdOkrBranch.getHistory());
   }
 
-  @Test (expected = ForbiddenException.class)
+  @Test(expected = ForbiddenException.class)
   public void createOkrBranch_expectsForbiddenException() {
     OkrBranch okrBranch = new OkrBranch();
     Cycle closedCycle = new Cycle();
@@ -349,11 +349,13 @@ public class OkrCompanyServiceTest {
     OkrDepartment okrDepartment = new OkrDepartment();
     OkrDepartmentHistory okrDepartmentHistory = new OkrDepartmentHistory();
     OkrTopicDescription okrTopicDescription = new OkrTopicDescription();
+    TaskBoard taskBoard = new TaskBoard();
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(departmentHistoryRepository.save(any())).thenReturn(okrDepartmentHistory);
     when(okrTopicDescriptionRepository.save(any())).thenReturn(okrTopicDescription);
     when(unitRepository.save(any())).thenReturn(okrDepartment);
+    when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
 
     OkrDepartment createdOkrDepartment = companyService.createDepartment(1L, okrDepartment, user);
 
@@ -377,7 +379,8 @@ public class OkrCompanyServiceTest {
     OkrTopicDraftHistory okrTopicDraftHistory = new OkrTopicDraftHistory();
     OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
 
-    companyService.createTopicDraftHistory(okrTopicDraft, okrTopicDraftHistory, topicDraftHistoryRepository);
+    companyService.createTopicDraftHistory(
+        okrTopicDraft, okrTopicDraftHistory, topicDraftHistoryRepository);
     verify(topicDraftHistoryRepository).save(any());
   }
 

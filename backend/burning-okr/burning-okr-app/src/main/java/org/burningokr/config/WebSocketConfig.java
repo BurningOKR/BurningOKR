@@ -90,29 +90,28 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
         new ChannelInterceptor() {
           @Override
           public Message<?> preSend(Message<?> message, MessageChannel channel) {
-            logger.info("customizeClientInboundChannel:preSend");
             StompHeaderAccessor accessor =
                 MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
-            if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-              String token = getToken(accessor);
-              if (token == null) {
-                return message;
-              }
-
-              try {
-                Authentication authByService = getAuthentication(token);
-
-                if (authByService != null) {
-                  accessor.setUser(authByService);
-                } else {
-                  throw new AuthenticationException();
+            if (accessor != null) {
+              if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+                String token = getToken(accessor);
+                if (token == null) {
+                  return message;
                 }
-              } catch (Exception ex) {
-                logger.info(ex.getMessage());
+
+                try {
+                  Authentication authByService = getAuthentication(token);
+                  if (authByService != null) {
+                    accessor.setUser(authByService);
+                  } else {
+                    throw new AuthenticationException();
+                  }
+                } catch (Exception ex) {
+                  logger.info(ex.getMessage());
+                }
               }
             }
-
             return message;
           }
         });

@@ -2,12 +2,15 @@
 ## Getting Started
 ### Windows
 
+#### Prerequisites
 1. Install and Setup a supported Database:
     - [PostgreSQL (Tutorial)](./postgres_install.md)
     - [Microsoft SQL Server (Tutorial)](./mssql_install.md)
+2. Install Java 8: https://www.java.com/en/download/ (**Only this version is supported**! Please make sure that Tomcat uses Java 8 JDK)
+3. Install Tomcat 9: https://tomcat.apache.org/download-90.cgi (Download the 32-bit/64-bit Windows Service Installer).<br>
+   *You also have to set up a gui account in the installation!*
 
-2. Install Java 8: https://www.java.com/en/download/ (Only this version is supported! Please make sure that Tomcat uses Java 8 JDK)
-3. Install Tomcat 9: https://tomcat.apache.org/download-90.cgi (Download the 32-bit/64-bit Windows Service Installer, you also have to set up a gui account in the installation!)
+#### Deploying Release
 4. Go to https://github.com/BurningOKR/BurningOKR/releases/latest and download the .war file and the frontend-de.zip or frontend-en.zip (depends on your preferred language)
 5. Rename the .war file to "api.war".
 6. Place the api.war in the following directory: `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps`. Once this is done, you should see that a new directory called "api" was automatically created within this directory.
@@ -16,7 +19,9 @@
 9. Copy all files within this directory to `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps\ROOT`
 10. Within the `ROOT` directory, create a new directory called `WEB-INF`
 11. Place the `web.xml`, which can be downloaded [here](./files/web.xml) (right click the "raw" button and select "save as...") in the `WEB-INF` directory.
-12. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).
+
+#### Configuration and Start
+12. Configure BurningOKR. See [Configuration](#configuration-windows-and-linux).<br>
 13. Open your browser on http://localhost:8080/manager and login with your tomcat administrator account
 14. Click "Start" on the "/api" application
     ![Tomcat start](./images/tomcat_start.PNG)
@@ -310,3 +315,11 @@ azureGroups:
     id: <Azure ad group id>
 ```
 9. **Save** and **Exit** the file by using `Ctrl+X`, followed by `y`es and `Enter`.
+---
+Optional: Please note that the yaml application will be overwritten if you deploy a new version.
+To prevent it from happening go to the tomcat context-configuration file under `<tomcat9-installation>/conf/context.xml` and enter the following in the context
+```xml
+    <Parameter name="spring.config.location" value="C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\application.yaml" />
+</Context>
+```
+![example-config](./images/tomcat-context.png)

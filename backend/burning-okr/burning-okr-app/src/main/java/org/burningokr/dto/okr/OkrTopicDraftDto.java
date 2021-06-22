@@ -2,7 +2,6 @@ package org.burningokr.dto.okr;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.User;
 
 @Data
