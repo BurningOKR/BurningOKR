@@ -70,6 +70,13 @@
   white-space:nowrap;
 }
 
+.zero-team-member-information {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  color: grey;
+}
+
 @media (max-width: 400px) {
   .display-status-dot {
     margin-bottom: 15px;

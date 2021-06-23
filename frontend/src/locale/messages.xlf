@@ -16,7 +16,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
-          <context context-type="linenumber">111</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit><trans-unit id="generalDeleteDialogContent" datatype="html">
         <source>Wollen sie <x id="INTERPOLATION" equiv-text="{{formData.objectNameWithArticle}}"/> wirklich löschen?</source>
@@ -448,23 +448,33 @@
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
           <context context-type="linenumber">81</context>
         </context-group>
+      </trans-unit><trans-unit id="zero_team_member_info" datatype="html">
+        <source>Keine Teammitglieder vorhanden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
       </trans-unit><trans-unit id="stakeholder_team" datatype="html">
         <source>Stakeholder Team</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit><trans-unit id="edit_button" datatype="html">
         <source>Bearbeiten</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit><trans-unit id="topic_draft_details_edit_no_permission_tooltip" datatype="html">
         <source>Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit><trans-unit id="submitted-topic-draft-card-column-initiator" datatype="html">
         <source>Eingereicht von</source>

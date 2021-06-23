@@ -84,6 +84,7 @@
         <div *ngFor="let user of topicDraft.startTeam">
           <app-user-minibutton [userId]="user" [canBeRemoved]="false" class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
+        <span class="zero-team-member-information" *ngIf="topicDraft.startTeam.length === 0" i18n="@@zero_team_member_info">Keine Teammitglieder vorhanden</span>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="mb-10 mt-10 padding-user-list">
@@ -95,6 +96,7 @@
         <div *ngFor="let user of topicDraft.stakeholders">
           <app-user-minibutton [userId]="user" [canBeRemoved]="false" class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
+        <span class="zero-team-member-information" *ngIf="topicDraft.startTeam.length === 0" i18n="@@zero_team_member_info">Keine Teammitglieder vorhanden</span>
       </mat-expansion-panel>
 
     </div>

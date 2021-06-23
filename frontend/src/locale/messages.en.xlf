@@ -225,7 +225,7 @@
         <target state="translated">Close</target>
 
         
-      <context-group purpose="location"><context context-type="sourcefile">app/core/version-form/version-form.component.html</context><context context-type="linenumber">13</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">111</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/version-form/version-form.component.html</context><context context-type="linenumber">13</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">113</context></context-group></trans-unit>
       <trans-unit id="component_cycleCreation_startDate" datatype="html">
         <source>Startdatum</source>
         <target state="translated">Start date</target>
@@ -1416,22 +1416,26 @@
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">42</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit><trans-unit id="start_team" datatype="html">
         <source>Start Team</source><target state="translated">Start team</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">81</context></context-group></trans-unit><trans-unit id="stakeholder_team" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">81</context></context-group></trans-unit><trans-unit id="zero_team_member_info" datatype="html">
+        <source>Keine Teammitglieder vorhanden</source><target state="translated">No team members assigned</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit><trans-unit id="stakeholder_team" datatype="html">
         <source>Stakeholder Team</source><target state="translated">Stakeholder team</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">92</context></context-group></trans-unit><trans-unit id="edit_button" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">93</context></context-group></trans-unit><trans-unit id="edit_button" datatype="html">
         <source>Bearbeiten</source><target state="translated">Edit</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
-          <context context-type="linenumber">108</context>
-        </context-group>
-      </trans-unit><trans-unit id="topic_draft_details_edit_no_permission_tooltip" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">110</context></context-group></trans-unit><trans-unit id="topic_draft_details_edit_no_permission_tooltip" datatype="html">
         <source>Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten</source><target state="translated">Only the initiator or the admin are allowed to edit this topic draft.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
-          <context context-type="linenumber">105</context>
-        </context-group>
-      </trans-unit><trans-unit id="heading_contributes_to" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">107</context></context-group></trans-unit><trans-unit id="heading_contributes_to" datatype="html">
         <source>Zählt auf ein:</source><target state="translated">Contributes to:</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">47</context></context-group></trans-unit><trans-unit id="heading_dependencies" datatype="html">
