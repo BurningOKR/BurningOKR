@@ -26,6 +26,7 @@
     "build-prod-new": "npm run build -- --output-hashing=all --prod",
     "build-prod-en-new": "npm run build -- --output-hashing=all --prod --configuration=en",
     "build-docker": "npm run build -- --output-hashing=all --prod --configuration=docker --base-href=/",
+    "test": "jest --verbose ./src/app",
     "test:watch": "jest --watch",
     "lint": "ng lint",
     "e2e": "ng e2e",
