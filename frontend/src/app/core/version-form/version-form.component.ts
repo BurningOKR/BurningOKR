@@ -79,6 +79,14 @@ export class VersionFormComponent {
           - Via the main menu in the upper right corner it is possible to get an overview of the topic drafts
           - Submitting and editing is not yet possible`
       ]
+    },
+    {
+      version: '1.3.0 (23.06.2021)',
+      changes: [
+        `- New Feature: display the details of a topic draft
+         - You can now view the details of a topic draft in a new pop-up window
+         - The edit button is only enabled if you are an admin or the initiator of the topic draft`
+      ]
     }
   ];
 
