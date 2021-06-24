@@ -104,11 +104,13 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
- <span matTooltip="Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten" [matTooltipDisabled]="canEdit$ | async"
-    i18n-matTooltip="@@topic_draft_details_edit_no_permission_tooltip">
-      <button mat-button color="primary" [disabled]="!(canEdit$ | async)" (click)="editDialog()">
-      <span i18n="@@edit_button">Bearbeiten</span>
+  <!--<span matTooltip="Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten" [matTooltipDisabled]="canEdit$ | async"
+     i18n-matTooltip="@@topic_draft_details_edit_no_permission_tooltip">-->
+  <span matTooltip="Feature kommt demnächst" i18n-matTooltip="@@feature-coming-soon">
+    <button disabled mat-button color="primary" (click)="editDialog()"><!--[disabled]="!(canEdit$ | async)"-->
+     <span i18n="@@edit_button">Bearbeiten</span>
     </button>
   </span>
+  <!--</span>-->
   <button mat-button color="warn" (click)="closeDialog()" i18n="@@component_teamForm_close">Schließen</button>
 </mat-dialog-actions>
