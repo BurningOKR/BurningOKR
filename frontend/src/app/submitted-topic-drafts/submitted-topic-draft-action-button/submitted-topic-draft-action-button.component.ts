@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { MatDialog } from '@angular/material';
+import { SubmittedTopicDraftDetailsComponent } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -20,11 +22,22 @@ export class SubmittedTopicDraftActionButtonComponent {
   @Output() clickedRefuse: EventEmitter<void>  = new EventEmitter<void>();
   @Output() clickedDiscardRefusalAction: EventEmitter<void> = new EventEmitter<void>();
 
+  constructor(private dialog: MatDialog) { }
+
   printNotImplemented(): string {
     // TODO: methode Entfernen
     // tslint:disable-next-line: no-console
     console.log('Not Implemented');
 
     return 'Not Implemented';
+  }
+
+  editTopicDraft(): void {
+    const data: object = {
+      data: {
+        topicDraft: this.topicDraft
+      }
+    };
+    this.dialog.open(SubmittedTopicDraftDetailsComponent, data);
   }
 }
