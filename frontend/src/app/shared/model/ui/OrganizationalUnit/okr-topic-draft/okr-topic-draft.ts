@@ -4,7 +4,7 @@ import { status } from './okr-topic-draft-status-enum';
 import { User } from '../../../api/user';
 
 export class OkrTopicDraft extends OkrTopicDescription {
-  parentUnitId: OkrUnitId;
+  okrParentUnitId: OkrUnitId;
   currentStatus: status;
   initiator: User;
 
@@ -26,7 +26,7 @@ export class OkrTopicDraft extends OkrTopicDescription {
     handoverPlan: string) {
       super(topicDraftId, name, initiatorId, startTeam, stakeholders, acceptanceCriteria,
       contributesTo, delimitation, beginning, dependencies, resources, handoverPlan);
-      this.parentUnitId = parentUnitId;
+      this.okrParentUnitId = parentUnitId;
       this.currentStatus = currentStatus;
       this.initiator = initiator;
     }

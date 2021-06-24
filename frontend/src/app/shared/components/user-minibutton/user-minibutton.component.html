@@ -1,15 +1,15 @@
 <mat-card class="user-card" *ngIf="user$ | async as user; else loading;">
-  <div class="flex-center f-1">
-    <div class="flex-center f-1">
+  <div class="flex-center f-1 user-details">
+    <div class="flex-center f-1 user-avatar">
       <app-user-avatar [user]="user"></app-user-avatar>
     </div>
-    <div class="f-4 ml-10">
+    <div class="f-4 ml-10 user-infos">
       <div class="name">{{user.surname}}, {{user.givenName}}</div>
       <div class="subtitle">{{user.jobTitle}}</div>
       <div class="subtitle">{{user.department}}</div>
     </div>
     <div *ngIf="canBeRemoved" class="flex-center f-1">
-      <button (click)="clickedDeleteButton()" mat-icon-button i18n-matTooltip="@@component_userMiniButton_removeMember"  matTooltip="Benutzer aus Team entfernen">
+      <button class="delete-button" (click)="clickedDeleteButton()" mat-icon-button i18n-matTooltip="@@component_userMiniButton_removeMember"  matTooltip="Benutzer aus Team entfernen">
         <mat-icon class="icon-centered">delete</mat-icon>
       </button>
     </div>
