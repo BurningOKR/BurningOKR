@@ -11,6 +11,12 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.3.1 (24.06.2021)',
+      changes: [
+        'Non-implemented features from submitted-topic-draft-action-buttons are disabled'
+      ]
+    },
+    {
       version: '1.3.0 (23.06.2021)',
       changes: [
         'New Feature: display the details of a topic draft',
