@@ -8,25 +8,40 @@
         <mat-icon>edit</mat-icon>
         <span>Bearbeiten</span>
       </button>
-      <button mat-menu-item (click)="printNotImplemented()">
-        <mat-icon>delete</mat-icon>
-        <span>Löschen</span>
-      </button>
-      <button mat-menu-item (click)="printNotImplemented()">
-        <mat-icon>chat</mat-icon>
-        <span>Kommentare</span>
-      </button>
-      <button mat-menu-item (click)="printNotImplemented()">
-        <mat-icon>exposure</mat-icon>
-        <span>Einreichen/Zurücknehmen</span>
-      </button>
-      <button mat-menu-item (click)="printNotImplemented()">
-        <mat-icon>check_circle</mat-icon>
-        <span>Genehmigen/Genehmigung verwerfen</span>
-      </button>
-      <button mat-menu-item (click)="printNotImplemented()">
-        <mat-icon >cancel</mat-icon>
-        <span>Ablehnen/Ablehnung zurückziehen</span>
-      </button>
+      <span matTooltip="Feature kommt demnächst"
+            i18n-matTooltip="@@feature-coming-soon">
+        <button mat-menu-item disabled (click)="printNotImplemented()">
+          <mat-icon>delete</mat-icon>
+          <span>Löschen</span>
+        </button>
+      </span>
+      <span matTooltip="Feature kommt demnächst"
+            i18n-matTooltip="@@feature-coming-soon">
+        <button mat-menu-item disabled (click)="printNotImplemented()">
+          <mat-icon>chat</mat-icon>
+          <span>Kommentare</span>
+        </button>
+      </span>
+      <span matTooltip="Feature kommt demnächst"
+            i18n-matTooltip="@@feature-coming-soon">
+        <button mat-menu-item disabled (click)="printNotImplemented()">
+          <mat-icon>exposure</mat-icon>
+          <span>Einreichen/Zurücknehmen</span>
+        </button>
+      </span>
+      <span matTooltip="Feature kommt demnächst"
+            i18n-matTooltip="@@feature-coming-soon">
+        <button mat-menu-item disabled (click)="printNotImplemented()">
+          <mat-icon>check_circle</mat-icon>
+          <span>Genehmigen/Genehmigung verwerfen</span>
+        </button>
+      </span>
+      <span matTooltip="Feature kommt demnächst"
+            i18n-matTooltip="@@feature-coming-soon">
+        <button mat-menu-item disabled (click)="printNotImplemented()">
+          <mat-icon >cancel</mat-icon>
+          <span>Ablehnen/Ablehnung zurückziehen</span>
+        </button>
+      </span>
     </mat-menu>
 </ng-container>
