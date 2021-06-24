@@ -50,6 +50,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SubmittedTopicDraftEditComponent } from './submitted-topic-drafts/submitted-topic-draft-edit/submitted-topic-draft-edit.component';
+import {OkrviewModule} from "./okrview/okrview.module";
 
 // use the require method provided by webpack
 declare const require: any;
@@ -72,6 +74,7 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftActionButtonComponent,
     SubmittedTopicDraftCardsWrapperComponent,
     SubmittedTopicDraftDetailsComponent,
+    SubmittedTopicDraftEditComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -101,11 +104,13 @@ const currentLanguage: string = 'de';
     MatDialogModule,
     MatSelectModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    OkrviewModule
   ],
   entryComponents: [
     DeleteDialogComponent,
-    SubmittedTopicDraftDetailsComponent
+    SubmittedTopicDraftDetailsComponent,
+    SubmittedTopicDraftEditComponent
   ],
   providers: [
     OAuthFrontendDetailsService,

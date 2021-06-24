@@ -4,13 +4,14 @@ import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft
 import { User } from '../../shared/model/api/user';
 import { NEVER, of } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { shareReplay, switchMap } from 'rxjs/operators';
+import {SubmittedTopicDraftEditComponent} from "../submitted-topic-draft-edit/submitted-topic-draft-edit.component";
 
 export interface SubmittedTopicDraftDetailsFormData {
   topicDraft: OkrTopicDraft;
@@ -33,6 +34,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<SubmittedTopicDraftDetailsComponent>,
               private okrChildUnitRoleService: OkrChildUnitRoleService,
               private currentUserService: CurrentUserService,
+              private dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)) {
   }
 
@@ -67,8 +69,13 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
 
   // TODO Methode wird in anderer Task bearbeitet
   editDialog(): void {
-    // tslint:disable-next-line
-    console.log('Not implemented');
+    this.closeDialog();
+    const data: object = {
+      data: {
+        topicDraft: this.topicDraft
+      }
+    };
+    this.dialog.open(SubmittedTopicDraftEditComponent, data);
   }
 
   closeDialog(): void {
