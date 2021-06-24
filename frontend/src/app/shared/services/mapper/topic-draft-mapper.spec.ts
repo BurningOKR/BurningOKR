@@ -57,6 +57,10 @@ describe('TopicDraftMapper', () => {
             resources: 'Resources',
             handoverPlan: 'Handover plan'
         };
+        topicDraftApiServiceMock.postTopicDraftForCompany$.mockReset();
+        topicDraftApiServiceMock.postTopicDraftForCompany$.mockReturnValue(of(topicDraftDto));
+        topicDraftApiServiceMock.postTopicDraftForOkrBranch$.mockReset();
+        topicDraftApiServiceMock.postTopicDraftForOkrBranch$.mockReturnValue(of(topicDraftDto));
         topicDraftApiServiceMock.getAllTopicDrafts$.mockReset();
         topicDraftApiServiceMock.getAllTopicDrafts$.mockReturnValue(of([topicDraftDto]));
         topicDraftApiServiceMock.deleteTopicDraft$.mockReset();
@@ -68,6 +72,50 @@ describe('TopicDraftMapper', () => {
 
         expect(topicDraftMapper)
             .toBeTruthy();
+    });
+
+    it('postTopicDraftForCompany$ should call service', done => {
+        topicDraftMapper = TestBed.get(TopicDraftMapper);
+
+        topicDraftMapper.postTopicDraftForCompany$(0, topicDraft)
+            .subscribe(() => {
+                expect(topicDraftApiServiceMock.postTopicDraftForCompany$)
+                    .toHaveBeenCalled();
+                done();
+            });
+    });
+
+    it('postTopicDraftForCompany$ should map', done => {
+        topicDraftMapper = TestBed.get(TopicDraftMapper);
+
+        topicDraftMapper.postTopicDraftForCompany$(0, topicDraft)
+            .subscribe((okrTopicDraft: OkrTopicDraft) => {
+                expect(okrTopicDraft)
+                    .toEqual(topicDraft);
+                done();
+            });
+    });
+
+    it('postTopicDraftForOkrBranch$ should call servuce', done => {
+        topicDraftMapper = TestBed.get(TopicDraftMapper);
+
+        topicDraftMapper.postTopicDraftForOkrBranch$(0, topicDraft)
+            .subscribe(() => {
+                expect(topicDraftApiServiceMock.postTopicDraftForOkrBranch$)
+                    .toHaveBeenCalled();
+                done();
+            });
+    });
+
+    it('postTopicDraftForOkrBranch$ should map', done => {
+        topicDraftMapper = TestBed.get(TopicDraftMapper);
+
+        topicDraftMapper.postTopicDraftForOkrBranch$(0, topicDraft)
+            .subscribe((okrTopicDraft: OkrTopicDraft) => {
+                expect(okrTopicDraft)
+                    .toEqual(topicDraft);
+                done();
+            });
     });
 
     it('getAllTopicDrafts$ should call service', done => {
