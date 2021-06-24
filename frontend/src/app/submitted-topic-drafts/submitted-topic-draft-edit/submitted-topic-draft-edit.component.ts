@@ -39,6 +39,8 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
 
   saveTopicDraft(): void {
     this.topicDraft = this.topicDraftForm.getRawValue();
+    console.log("Save some random shit");
+    console.log(this.topicDraft);
   }
 
 }
