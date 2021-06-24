@@ -3,7 +3,7 @@ import { OkrTopicDescriptionDto } from './okr-topic-description.dto';
 import { User } from '../user';
 
 export class OkrTopicDraftDto extends OkrTopicDescriptionDto {
-  parentUnitId: OkrUnitId;
+  okrParentUnitId: OkrUnitId;
   currentStatus: number;
   initiator: User;
 }

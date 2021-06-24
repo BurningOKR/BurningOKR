@@ -28,6 +28,11 @@
   width: 40%;
 }
 
+.card-wrapper-info-area {
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 768px){
   .card-wrapper-head-wrapper {
     display: none;
