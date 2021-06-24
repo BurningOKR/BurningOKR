@@ -28,19 +28,13 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
-          # Runs a single command using the runners shell
-      - name: "call action"
-        id: last_release
-        uses: InsonusK/get-latest-release@v1.0.1
+      - id: pkg
+        uses: kriasoft/check-version@v1
         with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
-          exclude_types: "release"
-          view_top: 1
-      - name: "Print result"
-        run: |
-          echo "id: ${{ steps.last_release.outputs.id }}"
-          echo "name: ${{ steps.last_release.outputs.name }}"
-          echo "tag_name: ${{ steps.last_release.outputs.tag_name }}"
-          echo "created_at: ${{ steps.last_release.outputs.created_atd }}"
-          echo "draft: ${{ steps.last_release.outputs.draft }}"
-          echo "prerelease: ${{ steps.last_release.outputs.prerelease }}"
+          path: "api"
+          format: "{name}_v{version}+build.{pr_number}.zip"
+
+      - run: |
+          echo "name: ${{ steps.pkg.outputs.name }}"
+          echo "version: ${{ steps.pkg.outputs.version }}"
+          echo "release: ${{ steps.pkg.outputs.release }}"
