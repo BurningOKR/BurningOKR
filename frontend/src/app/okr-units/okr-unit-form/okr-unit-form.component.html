@@ -3,7 +3,7 @@
   <ng-container>
     <form [formGroup]="companyForm">
       <mat-form-field class="name">
-        <input type="text" i18n-placeholder="@@component_companyForm_name" matInput placeholder="Name *" formControlName="name">
+        <input type="text" i18n-placeholder="@@name-*" matInput placeholder="Name *" formControlName="name">
         <mat-error><app-form-error [control]="companyForm.get('name')"></app-form-error></mat-error>
 
 

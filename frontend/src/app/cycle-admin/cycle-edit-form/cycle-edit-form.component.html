@@ -3,7 +3,7 @@
                       (okEmitter)="saveCycle()">
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
-      <input type="text" i18n-placeholder="@@component_cycleEditForm_Name" matInput placeholder="Name *" formControlName="name">
+      <input type="text" i18n-placeholder="@@name-*" matInput placeholder="Name *" formControlName="name">
       <mat-error><app-form-error [control]="cycleForm.get('name')"></app-form-error></mat-error>
     </mat-form-field>
 
