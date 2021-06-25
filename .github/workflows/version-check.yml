@@ -33,3 +33,12 @@ jobs:
           file-patterns: '["version.txt", "version-form.component.ts"]'
           comparison-mode: "exact"
           token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: "Check for news entry"
+        uses: brettcannon/check-for-changed-files@v1
+        with:
+          file-pattern: |
+            package.json
+            package-lock.json
+          skip-label: "skip version check"
+          failure-message: "Missing a news file in ${file-pattern}; please add one or apply the ${skip-label} label to the pull request"
