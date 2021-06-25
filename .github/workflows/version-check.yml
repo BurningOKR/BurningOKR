@@ -27,9 +27,15 @@ jobs:
         run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      - name: Check Exact Files Changed
-        uses: fforres/validate-changed-files@v1.0.3
+      - name: "Check version.txt changed"
+        uses: brettcannon/check-for-changed-files@v1
         with:
-          file-patterns: '["version.txt", "version-form.component.ts"]'
-          comparison-type: "exact"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          file-pattern: "version.txt"
+          skip-label: "skip version check"
+          failure-message: "Missing change in file ${file-pattern}; please add one or apply the ${skip-label} label to the pull request"
+      - name: "Check version-form.component.ts changed"
+        uses: brettcannon/check-for-changed-files@v1
+        with:
+          file-pattern: "frontend/src/app/core/version-form/version-form.component.ts"
+          skip-label: "skip version check"
+          failure-message: "Missing change in file ${file-pattern}; please add one or apply the ${skip-label} label to the pull request"
