@@ -248,7 +248,9 @@
         <source>
           <x id="INTERPOLATION" equiv-text="{{title}}"/>
         </source>
-        <target state="translated"><x id="INTERPOLATION" equiv-text="{{title}}"/></target>
+        <target state="translated">
+          <x id="INTERPOLATION" equiv-text="{{title}}"/>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/cycle-admin/cycle-creation-form/cycle-creation-form.component.html</context>
           <context context-type="linenumber">1</context>
@@ -533,10 +535,10 @@
         <source> Email</source><target state="translated"> Email</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_department" datatype="html">
-        <source> Abteilung</source><target state="translated">Department</target>
+        <source> Abteilung</source><target state="translated"> Department</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_jobTitle" datatype="html">
-        <source> Jobbezeichnung</source><target state="translated">Job Title</target>
+        <source> Jobbezeichnung</source><target state="translated"> Job Title</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
         <source>Es wurde keine SMTP Konfiguration gefunden.</source><target state="translated">No SMTP configuration was found.</target>
@@ -1411,7 +1413,7 @@
         <source>Kein Initiator</source><target state="translated">No initiator</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="initiator" datatype="html">
-        <source>Initiator:</source><target state="translated">Initiator</target>
+        <source>Initiator</source><target state="translated">Initiator</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">42</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit><trans-unit id="start_team" datatype="html">
         <source>Start Team</source><target state="translated">Start team</target>
@@ -1433,9 +1435,31 @@
         <source>Bearbeiten</source><target state="translated">Edit</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">110</context></context-group></trans-unit><trans-unit id="topic_draft_details_edit_no_permission_tooltip" datatype="html">
-        <source>Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten</source><target state="translated">Only the initiator or the admin are allowed to edit this topic draft.</target>
+        <source>Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein.</source><target state="translated">This topic draft can only be edited by the initiator or the admin and only if it is not approved or rejected yet.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">107</context></context-group></trans-unit><trans-unit id="heading_contributes_to" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">107</context></context-group></trans-unit><trans-unit id="feature-coming-soon" datatype="html">
+        <source>Feature kommt demnächst</source><target state="translated">Feature is coming soon</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit><trans-unit id="heading_contributes_to" datatype="html">
         <source>Zählt auf ein:</source><target state="translated">Contributes to:</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">47</context></context-group></trans-unit><trans-unit id="heading_dependencies" datatype="html">
@@ -1586,7 +1610,7 @@
         </context-group>
         <note priority="1" from="description">Aufgaben</note>
       </trans-unit><trans-unit id="component_departmentTabTasks_createNewTask" datatype="html">
-        <source>Neue Aufgabe erstellen</source><target state="translated">create new task</target>
+        <source>Neue Aufgabe erstellen</source><target state="translated">Create new task</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component.html</context><context context-type="linenumber">23</context></context-group></trans-unit><trans-unit id="userManagementToolbarTitle" datatype="html">
         <source>Benutzerverwaltung</source><target state="translated">User administration</target>
@@ -1796,7 +1820,7 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit><trans-unit id="createYourAdminAccount" datatype="html">
-        <source>Administratorenkonto</source><target state="translated">Create your administrator account.</target>
+        <source>Administratorenkonto</source><target state="translated">Create your administrator account</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/auth/init/init-state-view/init-state-forms/create-user-init-state-form/create-user-init-state-form.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="createYourAdminAccount_subtitle" datatype="html">
         <source>Legen Sie ein initiales Administratorenkonto an.</source><target state="translated">Create an initial administrator account.</target>
@@ -2262,7 +2286,7 @@
         </context-group>
         <note priority="1" from="description">Warn the user if the company still has childUnits</note>
       </trans-unit><trans-unit id="component_companyForm_saveText" datatype="html">
-        <source> <x id="INTERPOLATION" equiv-text="{{label}}"/> speichern.</source><target state="translated">Save <x id="INTERPOLATION" equiv-text="{{label}}"/>.</target>
+        <source> <x id="INTERPOLATION" equiv-text="{{label}}"/> speichern.</source><target state="translated"> Save <x id="INTERPOLATION" equiv-text="{{label}}"/>.</target>
 
       <context-group purpose="location"><context context-type="sourcefile">src/app/okr-units/okr-unit-form/okr-unit-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="component_companyForm_createText" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{label}}"/> erstellen.</source><target state="translated">Create <x id="INTERPOLATION" equiv-text="{{label}}"/>.</target>
@@ -2274,12 +2298,12 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit><trans-unit id="edit" datatype="html">
-        <source>bearbeiten</source><target state="translated">Edit</target>
+        <source>bearbeiten</source><target state="translated">edit</target>
 
 
 
       <context-group purpose="location"><context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/objective/objective-form/objective-form.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-task-form/department-tab-task-form.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="create" datatype="html">
-        <source>erstellen</source><target state="translated">Create</target>
+        <source>erstellen</source><target state="translated">create</target>
 
 
 
@@ -2447,7 +2471,7 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit><trans-unit id="OkrBranch" datatype="html">
-        <source>Unterstruktur</source><target state="translated">substructure</target>
+        <source>Unterstruktur</source><target state="translated">Substructure</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-form/okr-child-unit-form.component.ts</context>
           <context context-type="linenumber">1</context>
