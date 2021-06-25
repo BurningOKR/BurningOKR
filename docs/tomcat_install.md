@@ -9,7 +9,7 @@
 2. Install Java 8: https://www.java.com/en/download/ (**Only this version is supported**! Please make sure that Tomcat uses Java 8 JDK)
 3. Install Tomcat 9: https://tomcat.apache.org/download-90.cgi (Download the 32-bit/64-bit Windows Service Installer).<br>
    *You also have to set up a gui account in the installation!*
-
+test
 #### Deploying Release
 =======
 4. Go to https://github.com/BurningOKR/BurningOKR/releases/latest and download the .war file and the frontend-de.zip or frontend-en.zip (depends on your preferred language)
