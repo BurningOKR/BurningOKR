@@ -6,10 +6,9 @@ name: Check Version
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ mature ]
+    branches: [ master ]
   pull_request:
-    branches: [ mature ]
-  workflow_dispatch:
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,7 +26,6 @@ jobs:
         run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
       - name: "Check version.txt changed"
         uses: brettcannon/check-for-changed-files@v1
         with:
