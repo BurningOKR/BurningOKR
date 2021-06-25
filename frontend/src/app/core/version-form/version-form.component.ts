@@ -13,7 +13,7 @@ export class VersionFormComponent {
     {
       version: '1.3.2 (25.06.2021)',
       changes: [
-        'Non-implemented features from submitted-topic-draft-action-buttons are disabled'
+        'some minor CI changes'
       ]
     },
     {
