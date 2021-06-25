@@ -31,5 +31,5 @@ jobs:
         uses: fforres/validate-changed-files@v1.0.3
         with:
           file-patterns: '["version.txt", "version-form.component.ts"]'
-          comparison-type: "exact"
+          comparison-mode: "exact"
           token: ${{ secrets.GITHUB_TOKEN }}
