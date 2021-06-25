@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OkrTopicDraft} from "../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft";
 import {SubmittedTopicDraftDetailsFormData} from "../submitted-topic-draft-details/submitted-topic-draft-details.component";
 import {MAT_DIALOG_DATA} from "@angular/material";
+import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
 
 @Component({
   selector: 'app-submitted-topic-draft-edit',
@@ -17,6 +18,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   minBegin: Date;
 
   constructor(
+    private topicDraftMapper: TopicDraftMapper,
     @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)
   ) { }
 
@@ -59,8 +61,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
 
   saveTopicDraft(): void {
     this.topicDraft = this.topicDraftForm.getRawValue();
-    console.log("Save some random shit");
-    console.log(this.topicDraft);
+    this.topicDraftMapper.updateTopicDraft$(this.topicDraft.id, this.topicDraft);
   }
 
 }

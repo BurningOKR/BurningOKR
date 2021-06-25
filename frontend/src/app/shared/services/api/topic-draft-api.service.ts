@@ -1,5 +1,5 @@
 import { ApiHttpService } from '../../../core/services/api-http.service';
-import { CompanyId, OkrUnitId } from '../../model/id-types';
+import { CompanyId, OkrUnitId, TopicDraftId } from '../../model/id-types';
 import { Observable } from 'rxjs';
 import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
 import { Injectable } from '@angular/core';
@@ -18,6 +18,11 @@ export class TopicDraftApiService {
 
   postTopicDraftForOkrBranch$(unitId: OkrUnitId, topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
     return this.api.postData$(`branch/${unitId}/topicdraft`, topicDraftDto);
+  }
+
+  updateTopicDraft$(topicDraftId: TopicDraftId, topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
+    console.log("fdfdsasdfafdas");
+    return this.api.postData$(`update-topicdraft/${topicDraftId}`, topicDraftDto);
   }
 
   getAllTopicDrafts$(): Observable<OkrTopicDraftDto[]> {
