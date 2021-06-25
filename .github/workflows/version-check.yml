@@ -27,14 +27,9 @@ jobs:
         run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
-      - id: pkg
-        uses: kriasoft/check-version@v1
+      - name: Check Exact Files Changed
+        uses: fforres/validate-changed-files@v1.0.3
         with:
-          path: "api"
-          format: "{name}_v{version}+build.{pr_number}.zip"
-
-      - run: |
-          echo "name: ${{ steps.pkg.outputs.name }}"
-          echo "version: ${{ steps.pkg.outputs.version }}"
-          echo "release: ${{ steps.pkg.outputs.release }}"
+          file-patterns: '["version.txt", "version-form.component.ts"]'
+          comparison-type: "exact"
+          token: ${{ secrets.GITHUB_TOKEN }}
