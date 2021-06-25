@@ -34,9 +34,9 @@ jobs:
           file-pattern: "version.txt"
           skip-label: "skip version check"
           failure-message: "Missing change in file ${file-pattern}; please add one or apply the ${skip-label} label to the pull request"
-      - name: "Check for news entry"
+      - name: "Check version-form.component.ts changed"
         uses: brettcannon/check-for-changed-files@v1
         with:
-          file-pattern: "version-form.component.ts"
+          file-pattern: "frontend/src/app/core/version-form/version-form.component.ts"
           skip-label: "skip version check"
           failure-message: "Missing change in file ${file-pattern}; please add one or apply the ${skip-label} label to the pull request"
