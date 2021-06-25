@@ -20,6 +20,7 @@ describe('SubmittedTopicDraftEditComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });
