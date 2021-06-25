@@ -19,7 +19,7 @@ You can install BurningOKR using the following technologies.
 
 ## Getting started with the development
 We are already working on a faster and easier installation process, so stay tuned.
-
+test
 ### Checklist
 0. Please follow our [Code Guidelines](/CODE_GUIDELINES.md) and [General information about implementations](/docs/developer_readme.md)
    0.1 You may also read the [Frontend-Readme](/frontend/README.md)
