@@ -1,5 +1,5 @@
 <mat-card class="submitted-topic-draft-card">
-  <div class="card-head-wrapper">
+  <div class="card-head-wrapper" (click)="viewTopicDraft()">
     <div class="card-head-info-wrapper">
       <span class="card-head-info">{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</span>
       <span class="card-head-info">{{topicDraft.beginning.toLocaleDateString()}}</span>

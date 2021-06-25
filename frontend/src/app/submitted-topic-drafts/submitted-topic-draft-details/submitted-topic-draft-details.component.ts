@@ -4,14 +4,14 @@ import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft
 import { User } from '../../shared/model/api/user';
 import { NEVER, of } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { shareReplay, switchMap } from 'rxjs/operators';
-import {SubmittedTopicDraftEditComponent} from "../submitted-topic-draft-edit/submitted-topic-draft-edit.component";
+import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 
 export interface SubmittedTopicDraftDetailsFormData {
   topicDraft: OkrTopicDraft;
