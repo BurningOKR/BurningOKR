@@ -6,9 +6,10 @@ name: Check Version
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ master,mature ]
   pull_request:
-    branches: [ master ]
+    branches: [ master,mature ]
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,15 +27,9 @@ jobs:
         run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      - name: "Check version.txt changed"
-        uses: brettcannon/check-for-changed-files@v1
+      - name: Check Exact Files Changed
+        uses: fforres/validate-changed-files@v1.0.3
         with:
-          file-pattern: "version.txt"
-          skip-label: "skip version check"
-          failure-message: "Missing change in file ${file-pattern}; please add one or apply the ${skip-label} label to the pull request"
-      - name: "Check version-form.component.ts changed"
-        uses: brettcannon/check-for-changed-files@v1
-        with:
-          file-pattern: "frontend/src/app/core/version-form/version-form.component.ts"
-          skip-label: "skip version check"
-          failure-message: "Missing change in file ${file-pattern}; please add one or apply the ${skip-label} label to the pull request"
+          file-patterns: '["version.txt", "version-form.component.ts"]'
+          comparison-type: "exact"
+          token: ${{ secrets.GITHUB_TOKEN }}
