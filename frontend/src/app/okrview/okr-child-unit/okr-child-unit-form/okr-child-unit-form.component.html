@@ -1,7 +1,7 @@
 <app-dialog-component [title]="title" (okEmitter)="saveDepartment()" [formGroup]="childUnitForm" >
   <form [formGroup]="childUnitForm">
     <mat-form-field class="name">
-      <input type="text" i18n-placeholder="@@component_departmentForm_name" matInput placeholder="Name *" cdkTextareaAutosize formControlName="name">
+      <input type="text" i18n-placeholder="@@name-*" matInput placeholder="Name *" cdkTextareaAutosize formControlName="name">
       <mat-error><app-form-error [control]="childUnitForm.get('name').invalid"></app-form-error></mat-error>
 
     </mat-form-field>
