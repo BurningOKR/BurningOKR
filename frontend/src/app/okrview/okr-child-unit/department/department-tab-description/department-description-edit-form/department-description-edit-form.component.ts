@@ -45,7 +45,7 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
     }
 
     this.title = this.i18n({
-      id: 'component_descriptionEditForm_headline',
+      id: 'component_edit_description',
       description: 'Title of the OkrTopicDescription dialog',
       value: 'Beschreibung bearbeiten'
     });

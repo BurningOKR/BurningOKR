@@ -49,7 +49,7 @@ export class UserManagementComponent implements OnInit {
     value: 'Aktiv'
   });
   i18nEmailTableHeader: string = this.i18n({
-    id: 'email_table_header',
+    id: 'email',
     description: 'User management component "Email" header',
     value: 'Email'
   });
