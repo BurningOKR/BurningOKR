@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-draft-action-button.component';
+import { MaterialTestingModule } from '../../testing/material-testing.module';
 
 describe('SubmittedTopicDraftActionButtonComponent', () => {
   let component: SubmittedTopicDraftActionButtonComponent;
@@ -8,7 +9,8 @@ describe('SubmittedTopicDraftActionButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmittedTopicDraftActionButtonComponent ]
+      declarations: [ SubmittedTopicDraftActionButtonComponent ],
+      imports: [ MaterialTestingModule ]
     })
     .compileComponents();
   }));
@@ -20,6 +22,7 @@ describe('SubmittedTopicDraftActionButtonComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+        .toBeTruthy();
   });
 });
