@@ -7,7 +7,7 @@
       <form [formGroup]="feedbackForm">
         <div>
           <mat-form-field class="name fullWidth">
-            <input type="text" i18n-placeholder="@@component_feedbackForm_name" matInput placeholder="Name *"
+            <input type="text" i18n-placeholder="@@name-*" matInput placeholder="Name *"
                    formControlName="name">
             <mat-error><app-form-error [control]="feedbackForm.get('name')"></app-form-error></mat-error>
           </mat-form-field>

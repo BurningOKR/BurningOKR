@@ -57,9 +57,7 @@
             </div>
             <!-- Subdepartments -->
             <div *ngIf="companyView.company.okrChildUnitIds.length === 0" class="tab-subtitle"
-                 i18n="@@component_commentViewDialog_noChildUnit">
-              Es gibt noch keine Unterstrukturen für diese Struktur
-            </div>
+                 i18n="@@component_commentViewDialog_noChildUnit">Es gibt noch keine Unterstrukturen für diese Struktur</div>
             <div class="flex-wrap-spreadinner">
               <div *ngFor="let currentdepartmentId of companyView.company.okrChildUnitIds">
                 <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
@@ -94,10 +92,7 @@
 <ng-template #error>
   <div class="card-margin">
     <h3 i18n="@@component_commentViewDialog_errorLoadingCompany">Fehler</h3>
-    <p i18n="@@component_commentViewDialog_errorLoadingCompanyText">
-      Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein,
-      oder der Server antwortet nicht.
-    </p>
+    <p i18n="@@component_commentViewDialog_errorLoadingCompanyText">Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.</p>
     <button mat-button mat-raised-button color="primary" routerLink="/companies"
             i18n="@@component_commentViewDialog_errorLoadingCompanyButton">Zur Strukturübersicht
     </button>
