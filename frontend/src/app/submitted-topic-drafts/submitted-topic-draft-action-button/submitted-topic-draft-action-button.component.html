@@ -8,7 +8,7 @@
         <mat-icon>edit</mat-icon>
         <span>Bearbeiten</span>
       </button>
-      <button mat-menu-item (click)="clickedDeleteTopicDraft()">
+      <button mat-menu-item [disabled]="currentUserNotAdminOrCreator()" (click)="clickedDeleteTopicDraft()">
         <mat-icon>delete</mat-icon>
         <span>Löschen</span>
       </button>
