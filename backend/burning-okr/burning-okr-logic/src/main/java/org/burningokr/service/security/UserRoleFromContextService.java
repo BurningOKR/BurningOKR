@@ -3,6 +3,7 @@ package org.burningokr.service.security;
 import java.util.Optional;
 import java.util.UUID;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrUnit;
@@ -10,6 +11,7 @@ import org.burningokr.model.users.AdminUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
+import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.repositories.users.AdminUserRepository;
@@ -24,6 +26,7 @@ public class UserRoleFromContextService {
   private ObjectiveRepository objectiveRepository;
   private KeyResultRepository keyResultRepository;
   private NoteRepository noteRepository;
+  private OkrTopicDraftRepository topicDraftRepository;
   private UserService userService;
   private AdminUserRepository adminUserRepository;
 
@@ -43,12 +46,14 @@ public class UserRoleFromContextService {
       ObjectiveRepository objectiveRepository,
       KeyResultRepository keyResultRepository,
       NoteRepository noteRepository,
+      OkrTopicDraftRepository topicDraftRepository,
       AdminUserRepository adminUserRepository,
       UserService userService) {
     this.unitRepository = unitRepository;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
     this.noteRepository = noteRepository;
+    this.topicDraftRepository = topicDraftRepository;
     this.adminUserRepository = adminUserRepository;
     this.userService = userService;
   }
@@ -98,6 +103,23 @@ public class UserRoleFromContextService {
   }
 
   /**
+   *
+   * @param topicDraftId a long value
+   * @return an {@link UserContextRole} object
+   */
+  public UserContextRole getUserRoleTopicDraft(Long topicDraftId){
+    OkrTopicDraft topicDraft = topicDraftRepository.findByIdOrThrow(topicDraftId);
+    UUID currentUserId = userService.getCurrentUser().getId();
+
+    if(currentUserId.equals(topicDraft.getInitiatorId())){
+      return UserContextRole.ENTITYOWNER;
+    }
+    else{
+      return UserContextRole.USER;
+    }
+  }
+
+  /**
    * Gets the UserContextRole of a okrUnit.
    *
    * @param okrUnit an {@link OkrChildUnit} object
@@ -122,6 +144,7 @@ public class UserRoleFromContextService {
     }
     return UserContextRole.USER;
   }
+
 
   private boolean isCurrentUserAdmin(UUID currentUserId) {
     Optional<AdminUser> optional = adminUserRepository.findById(currentUserId);

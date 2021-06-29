@@ -52,4 +52,9 @@ public class AuthorizationService {
     UserContextRole userRole = userRoleFromContextService.getUserRoleInNoteId(noteId);
     return userRole == UserContextRole.ENTITYOWNER;
   }
+
+  public boolean isTopicDraftInitiator(Long topicDraftId) {
+    UserContextRole userRole = userRoleFromContextService.getUserRoleTopicDraft(topicDraftId);
+    return userRole == UserContextRole.ENTITYOWNER;
+  }
 }
