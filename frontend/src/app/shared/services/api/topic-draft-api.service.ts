@@ -22,7 +22,7 @@ export class TopicDraftApiService {
 
   updateTopicDraft$(topicDraftId: TopicDraftId, topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
     console.log("fdfdsasdfafdas");
-    return this.api.postData$(`update-topicdraft/${topicDraftId}`, topicDraftDto);
+    return this.api.putData$(`topicDrafts/${topicDraftId}`, topicDraftDto);
   }
 
   getAllTopicDrafts$(): Observable<OkrTopicDraftDto[]> {

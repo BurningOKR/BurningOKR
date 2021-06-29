@@ -2,13 +2,21 @@ package org.burningokr.controller.okr;
 
 import java.util.Collection;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.users.User;
 import org.burningokr.service.okr.OkrTopicDraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 @RestApiController
 public class TopicDraftController {
@@ -39,5 +47,25 @@ public class TopicDraftController {
   public ResponseEntity<Collection<OkrTopicDraftDto>> getAllCompanies() {
     Collection<OkrTopicDraft> topicDrafts = okrTopicDraftService.getAllTopicDrafts();
     return ResponseEntity.ok(okrTopicDraftMapper.mapEntitiesToDtos(topicDrafts));
+  }
+
+  /**
+   * API Endpoint to update a Topic Draft.
+   *
+   * @param topicDraftId a long value
+   * @param okrTopicDraftDto a {@link OkrTopicDraftDto} object
+   * @param user an {@link User} object
+   * @return a {@link ResponseEntity} ok with a Topic Draft
+   */
+  //TODO
+  //@PreAuthorize("@authorizationService.has(#topicDraftId)")
+  @PutMapping("/topicDrafts/{topicDraftId}")
+  public ResponseEntity<OkrTopicDraftDto> updateTopicResultById(
+      @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
+    System.out.println("Topic Draft url is working");
+    OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
+
+    okrTopicDraft = this.okrTopicDraftService.updateOkrTopicDraft(okrTopicDraft);
+    return ResponseEntity.ok(okrTopicDraftMapper.mapEntityToDto(okrTopicDraft));
   }
 }
