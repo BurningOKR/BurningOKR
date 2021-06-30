@@ -20,10 +20,10 @@ export class TopicDraftApiService {
     return this.api.postData$(`branch/${unitId}/topicdraft`, topicDraftDto);
   }
 
-  updateTopicDraft$(topicDraftId: TopicDraftId, topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
+  updateTopicDraft$(topicDraftDto: OkrTopicDraftDto): Observable<void> {
     console.log("fdfdsasdfafdas");
     console.log(topicDraftDto);
-    return this.api.putData$<OkrTopicDraftDto>(`topicDrafts/${topicDraftId}`, topicDraftDto);
+    return this.api.putData$<void>(`topicDrafts/${topicDraftDto.id}`, topicDraftDto);
   }
 
   getAllTopicDrafts$(): Observable<OkrTopicDraftDto[]> {

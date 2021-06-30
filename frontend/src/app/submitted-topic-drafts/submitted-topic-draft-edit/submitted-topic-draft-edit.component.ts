@@ -47,8 +47,13 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   }
 
   saveTopicDraft(): void {
-    this.topicDraft = this.topicDraftForm.getRawValue();
-    this.topicDraftMapper.updateTopicDraft$(this.topicDraft.id, this.topicDraft);
+    const oldTopicDraft: OkrTopicDraft = this.topicDraft;
+    console.log(this.topicDraft);
+    const formTopicDraft: OkrTopicDraft = this.topicDraftForm.getRawValue();
+    const updatedTopicDraft: OkrTopicDraft = {...oldTopicDraft, ...formTopicDraft};
+    console.log(updatedTopicDraft);
+    this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft)
+      .subscribe();
   }
 
 }

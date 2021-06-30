@@ -38,6 +38,7 @@ export class TopicDraftMapper {
     static mapTopicDraft(topicDraft: OkrTopicDraft): OkrTopicDraftDto {
         const topicDraftDto: OkrTopicDraftDto = new OkrTopicDraftDto();
 
+        topicDraftDto.id = topicDraft.id;
         topicDraftDto.okrParentUnitId = topicDraft.okrParentUnitId;
         topicDraftDto.currentStatus = topicDraft.currentStatus;
         topicDraftDto.name = topicDraft.name;
@@ -69,9 +70,8 @@ export class TopicDraftMapper {
             .pipe(map(TopicDraftMapper.mapTopicDraftDto));
     }
 
-    updateTopicDraft$(topicDraftId: TopicDraftId, topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
-      return this.topicDraftApiService.updateTopicDraft$(topicDraftId, TopicDraftMapper.mapTopicDraft(topicDraft))
-        .pipe(map(TopicDraftMapper.mapTopicDraftDto));
+    updateTopicDraft$(topicDraft: OkrTopicDraft): Observable<void> {
+      return this.topicDraftApiService.updateTopicDraft$(TopicDraftMapper.mapTopicDraft(topicDraft));
     }
 
     getAllTopicDrafts$(): Observable<OkrTopicDraft[]> {
