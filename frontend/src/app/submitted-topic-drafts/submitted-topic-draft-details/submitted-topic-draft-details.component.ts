@@ -48,7 +48,8 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
         contributesTo: new FormControl(this.topicDraft.contributesTo),
         handoverPlan: new FormControl(this.topicDraft.handoverPlan),
         dependencies: new FormControl(this.topicDraft.dependencies),
-        resources: new FormControl(this.topicDraft.resources)
+        resources: new FormControl(this.topicDraft.resources),
+        acceptanceCriteria: new FormControl(this.topicDraft.acceptanceCriteria)
       }
     );
     this.canEdit$ = this.currentUserService.getCurrentUser$()

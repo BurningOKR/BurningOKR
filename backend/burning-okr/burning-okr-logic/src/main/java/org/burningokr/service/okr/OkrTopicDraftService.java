@@ -40,16 +40,11 @@ public class OkrTopicDraftService {
    */
   @Transactional
   public OkrTopicDraft updateOkrTopicDraft(OkrTopicDraft updatedOkrTopicDraft) {
-    logger.info("Updated TopicDraftZeugs");
     OkrTopicDraft referencedOkrTopicDraft = findById(updatedOkrTopicDraft.getId());
 
-    referencedOkrTopicDraft.setName(updatedOkrTopicDraft.getName());
     referencedOkrTopicDraft.setAcceptanceCriteria(updatedOkrTopicDraft.getAcceptanceCriteria());
 
     referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
-    System.out.println("Updated OKRTopicDraft");
-
-    logger.info("Updated TopicDraftZeugs");
 
     return referencedOkrTopicDraft;
   }

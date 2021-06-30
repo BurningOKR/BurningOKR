@@ -54,18 +54,16 @@ public class TopicDraftController {
    *
    * @param topicDraftId a long value
    * @param okrTopicDraftDto a {@link OkrTopicDraftDto} object
-   * @param user an {@link User} object
    * @return a {@link ResponseEntity} ok with a Topic Draft
    */
   //TODO
   //@PreAuthorize("@authorizationService.has(#topicDraftId)")
   @PutMapping("/topicDrafts/{topicDraftId}")
   public ResponseEntity<OkrTopicDraftDto> updateTopicResultById(
-      @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
-    System.out.println("Topic Draft url is working");
+      @PathVariable long topicDraftId, @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
     OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
-
+    okrTopicDraft.setId(topicDraftId);
     okrTopicDraft = this.okrTopicDraftService.updateOkrTopicDraft(okrTopicDraft);
-    return ResponseEntity.ok(okrTopicDraftMapper.mapEntityToDto(okrTopicDraft));
+    return ResponseEntity.ok().build();
   }
 }
