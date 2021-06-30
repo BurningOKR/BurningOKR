@@ -15,4 +15,9 @@ export class SubmittedTopicDraftCardsWrapperComponent implements OnInit {
     // to implement
   }
 
+  // TODO (JZ) muss noch automatisch aufgerufen werden
+  updateEditedTopicDraft(topicDraft: OkrTopicDraft): void {
+    const position: number = this.topicDrafts.indexOf(topicDraft);
+    this.topicDrafts[position] = topicDraft;
+  }
 }
