@@ -5,7 +5,7 @@
 
 - [X] docker installed on your computer
 - [X] a working internet connection to download the tomcat image
-- [X] vs code with docker extension
+- [X] vs code with docker extension (without will be added soon)
 
 ## Create docker volumes
 
@@ -65,7 +65,7 @@ After that navigate to `/usr/local/tomcat/webapps.dist/manager/META-INF` and ope
 Now we need to change the used web app folder. For this we nee to navigate to the folder: `/usr/local/tomcat/conf/`.  
 Open the `server.xml` 
 Then replace the Host section with the following and save the file.  
-```xml
+```
 <Host name="localhost"  appBase="webapps.dist" unpackWARs="true" autoDeploy="true">
   <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
