@@ -5,7 +5,7 @@
 
 - [X] docker installed on your computer
 - [X] a working internet connection to download the tomcat image
-- [X] vs code with docker extension (without will be added soon)
+- [X] vs code with docker extension
 
 ## Create docker volumes
 
