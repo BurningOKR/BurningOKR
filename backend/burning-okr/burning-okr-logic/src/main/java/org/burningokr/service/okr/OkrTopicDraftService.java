@@ -39,10 +39,23 @@ public class OkrTopicDraftService {
    * @return a {@link OkrTopicDraft} object
    */
   @Transactional
-  public OkrTopicDraft updateOkrTopicDraft(OkrTopicDraft updatedOkrTopicDraft) {
-    OkrTopicDraft referencedOkrTopicDraft = findById(updatedOkrTopicDraft.getId());
+  public OkrTopicDraft updateOkrTopicDraft(long topicDraftId,OkrTopicDraft updatedOkrTopicDraft) {
+    OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
 
     referencedOkrTopicDraft.setAcceptanceCriteria(updatedOkrTopicDraft.getAcceptanceCriteria());
+    //referencedOkrTopicDraft.setBeginning(updatedOkrTopicDraft.getBeginning());
+    referencedOkrTopicDraft.setContributesTo(updatedOkrTopicDraft.getContributesTo());
+    referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
+    referencedOkrTopicDraft.setDelimitation(updatedOkrTopicDraft.getDelimitation());
+    referencedOkrTopicDraft.setDependencies(updatedOkrTopicDraft.getDependencies());
+    referencedOkrTopicDraft.setHandoverPlan(updatedOkrTopicDraft.getHandoverPlan());
+    referencedOkrTopicDraft.setId(updatedOkrTopicDraft.getId());
+    referencedOkrTopicDraft.setInitiatorId(updatedOkrTopicDraft.getInitiatorId());
+    referencedOkrTopicDraft.setName(updatedOkrTopicDraft.getName());
+    referencedOkrTopicDraft.setParentUnit(updatedOkrTopicDraft.getParentUnit());
+    referencedOkrTopicDraft.setResources(updatedOkrTopicDraft.getResources());
+    referencedOkrTopicDraft.setStakeholders(updatedOkrTopicDraft.getStakeholders());
+    referencedOkrTopicDraft.setStartTeam(updatedOkrTopicDraft.getStartTeam());
 
     referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
 

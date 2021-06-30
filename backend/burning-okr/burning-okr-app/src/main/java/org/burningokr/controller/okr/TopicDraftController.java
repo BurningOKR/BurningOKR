@@ -60,10 +60,9 @@ public class TopicDraftController {
   //@PreAuthorize("@authorizationService.has(#topicDraftId)")
   @PutMapping("/topicDrafts/{topicDraftId}")
   public ResponseEntity<OkrTopicDraftDto> updateTopicResultById(
-      @PathVariable long topicDraftId, @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
+      @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
     OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
-    okrTopicDraft.setId(topicDraftId);
-    okrTopicDraft = this.okrTopicDraftService.updateOkrTopicDraft(okrTopicDraft);
+    this.okrTopicDraftService.updateOkrTopicDraft(topicDraftId, okrTopicDraft);
     return ResponseEntity.ok().build();
   }
 }
