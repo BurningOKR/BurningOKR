@@ -1,6 +1,8 @@
 package org.burningokr.controller.okr;
 
 import java.util.Collection;
+
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
@@ -50,18 +52,24 @@ public class TopicDraftController {
   }
 
   /**
-   * API Endpoint to update a Topic Draft.
+   * API Endpoint to update/edit a Topic Draft.
    *
    * @param topicDraftId a long value
    * @param okrTopicDraftDto a {@link OkrTopicDraftDto} object
    * @return a {@link ResponseEntity} ok with a Topic Draft
    */
-  //TODO
-  //@PreAuthorize("@authorizationService.has(#topicDraftId)")
   @PutMapping("/topicDrafts/{topicDraftId}")
-  public ResponseEntity<OkrTopicDraftDto> updateTopicResultById(
+  @PreAuthorize("@authorizationService.isAdmin() " +
+          "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
+  public ResponseEntity updateTopicResultById(
       @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
-    OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
+    OkrTopicDraft okrTopicDraft;
+    try {
+      okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
+    }
+    catch (Exception e) {
+      return ResponseEntity.unprocessableEntity().build();
+    }
     this.okrTopicDraftService.updateOkrTopicDraft(topicDraftId, okrTopicDraft);
     return ResponseEntity.ok().build();
   }
