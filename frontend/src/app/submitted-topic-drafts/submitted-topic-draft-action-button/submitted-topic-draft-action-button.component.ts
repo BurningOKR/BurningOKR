@@ -119,4 +119,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
                 }
             ));
   }
+
+    printNotImplemented(): string {
+        // TODO: methode Entfernen
+        // tslint:disable-next-line: no-console
+        console.log('Not Implemented');
+
+        return 'Not Implemented';
+    }
 }
