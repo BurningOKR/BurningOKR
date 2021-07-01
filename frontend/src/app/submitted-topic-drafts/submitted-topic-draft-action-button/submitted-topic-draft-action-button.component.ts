@@ -42,9 +42,4 @@ export class SubmittedTopicDraftActionButtonComponent {
     };
     this.dialog.open(SubmittedTopicDraftEditComponent, data);
   }
-
-  notifyCardOfEditing(topicDraft: OkrTopicDraft): void {
-    this.editedTopicDraftEvent.emit(topicDraft);
-    console.log("3000 ist eine Zahl", topicDraft);
-  }
 }

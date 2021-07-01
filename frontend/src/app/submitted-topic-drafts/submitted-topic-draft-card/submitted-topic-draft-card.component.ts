@@ -22,7 +22,8 @@ export class SubmittedTopicDraftCardComponent {
   viewTopicDraft(): void {
     const data: object = {
       data: {
-        topicDraft: this.topicDraft
+        topicDraft: this.topicDraft,
+        editedTopicDraftEvent: this.editedTopicDraftEvent
       }
     };
     this.dialog.open(SubmittedTopicDraftDetailsComponent, data);

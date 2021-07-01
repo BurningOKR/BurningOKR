@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
@@ -25,6 +25,9 @@ export interface SubmittedTopicDraftDetailsFormData {
 })
 
 export class SubmittedTopicDraftDetailsComponent implements OnInit {
+
+  @Output()
+  editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
 
   enumStatus = status;
   topicDraft: OkrTopicDraft;
@@ -73,7 +76,8 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
     this.closeDialog();
     const data: object = {
       data: {
-        topicDraft: this.topicDraft
+        topicDraft: this.topicDraft,
+        editedTopicDraftEvent: this.editedTopicDraftEvent
       }
     };
     this.dialog.open(SubmittedTopicDraftEditComponent, data);
