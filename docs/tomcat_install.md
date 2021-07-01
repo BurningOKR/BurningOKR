@@ -3,14 +3,14 @@
 ### Windows
 
 #### Prerequisites
-1. Install and Setup a supported Database:
+1. Install and Set up a supported Database:
     - [PostgreSQL (Tutorial)](./postgres_install.md)
     - [Microsoft SQL Server (Tutorial)](./mssql_install.md)
 2. Install Java 8: https://www.java.com/en/download/ (**Only this version is supported**! Please make sure that Tomcat uses Java 8 JDK)
 3. Install Tomcat 9: https://tomcat.apache.org/download-90.cgi (Download the 32-bit/64-bit Windows Service Installer).<br>
    *You also have to set up a gui account in the installation!*
-
 #### Deploying Release
+=======
 4. Go to https://github.com/BurningOKR/BurningOKR/releases/latest and download the .war file and the frontend-de.zip or frontend-en.zip (depends on your preferred language)
 5. Rename the .war file to "api.war".
 6. Place the api.war in the following directory: `C:\Program Files (x86)\Apache Software Foundation\Tomcat 9.0\webapps`. Once this is done, you should see that a new directory called "api" was automatically created within this directory.

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, OnInit } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { SubmittedTopicDraftDetailsComponent } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 import {
     ConfirmationDialogComponent,
     ConfirmationDialogData
@@ -28,7 +29,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     constructor(private matDialog: MatDialog,
                 private topicDraftMapper: TopicDraftMapper,
                 private currentUserService: CurrentUserService,
-                private i18n: I18n) {
+                private i18n: I18n,
+                private dialog: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -57,64 +59,65 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
         return (userNotCreator && userNotAdmin);
     }
 
-    printNotImplemented(): string {
-        // TODO: methode Entfernen
-        // tslint:disable-next-line: no-console
-        console.log('Not Implemented');
-
-        return 'Not Implemented';
-    }
+    editTopicDraft(): void {
+    const data: object = {
+      data: {
+        topicDraft: this.topicDraft
+      }
+    };
+    this.dialog.open(SubmittedTopicDraftDetailsComponent, data);
+  }
 
     clickedDeleteTopicDraft(): void {
-        const title: string =
-            this.i18n({
-                id: 'deleteTopicDraftTitle',
-                description: 'Title of the delete topicdraft dialog',
-                value: 'Themenentwurf löschen'
-            });
-
-        const message: string =
-            this.i18n({
-                id: 'deleteTopicDraftMessage',
-                description: 'Do you want to delete topic draft x',
-                value: 'Themenentwurf "{{name}}" löschen?',
-            }, {name: this.topicDraft.name});
-
-        const confirmButtonText: string = this.i18n({
-            id: 'deleteButtonText',
-            description: 'deleteButtonText',
-            value: 'Löschen'
+    const title: string =
+        this.i18n({
+          id: 'deleteTopicDraftTitle',
+          description: 'Title of the delete topicdraft dialog',
+          value: 'Themenentwurf löschen'
         });
 
-        const dialogData: ConfirmationDialogData = {
-            title,
-            message,
-            confirmButtonText
-        };
+    const message: string =
+        this.i18n({
+          id: 'deleteTopicDraftMessage',
+          description: 'Do you want to delete topic draft x',
+          value: 'Themenentwurf "{{name}}" löschen?',
+        }, {name: this.topicDraft.name});
 
-        const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-            = this.matDialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+    const confirmButtonText: string = this.i18n({
+      id: 'deleteButtonText',
+      description: 'deleteButtonText',
+      value: 'Löschen'
+    });
 
-        this.subscriptions.push(
-            dialogReference
-                .afterClosed()
-                .pipe(take(1))
-                .subscribe(isConfirmed => {
-                    if (isConfirmed) {
-                        this.deleteTopicDraft();
-                    }
-                })
-        );
-    }
+    const dialogData: ConfirmationDialogData = {
+      title,
+      message,
+      confirmButtonText
+    };
+
+    const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
+        = this.matDialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+
+    this.subscriptions.push(
+        dialogReference
+            .afterClosed()
+            .pipe(take(1))
+            .subscribe(isConfirmed => {
+              if (isConfirmed) {
+                this.deleteTopicDraft();
+              }
+            })
+    );
+  }
 
     deleteTopicDraft(): void {
-        this.subscriptions.push(
-            this.topicDraftMapper
-                .deleteTopicDraft$(this.topicDraft.descriptionId)
-                .pipe(take(1))
-                .subscribe(() => {
-                        this.topicDraftDeletedEvent.emit();
-                    }
-                ));
-    }
+    this.subscriptions.push(
+        this.topicDraftMapper
+            .deleteTopicDraft$(this.topicDraft.descriptionId)
+            .pipe(take(1))
+            .subscribe(() => {
+                  this.topicDraftDeletedEvent.emit();
+                }
+            ));
+  }
 }

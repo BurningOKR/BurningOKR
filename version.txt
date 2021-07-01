@@ -1,7 +1,3 @@
-1.2.0
+1.3.2
 
-- New Feature: Topic-draft
-    - It is now possible to create topic drafts.
-    - You can create a topic draft in the Add menu of the structure
-    - Via the main menu in the upper right corner it is possible to get an overview of the topic drafts
-    - Submitting and editing is not yet possible
+- some minor CI changes

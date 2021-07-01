@@ -11,6 +11,54 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.3.2 (25.06.2021)',
+      changes: [
+        'some minor CI changes'
+      ]
+    },
+    {
+      version: '1.3.1 (24.06.2021)',
+      changes: [
+        'Non-implemented features from submitted-topic-draft-action-buttons are disabled'
+      ]
+    },
+    {
+      version: '1.3.0 (23.06.2021)',
+      changes: [
+        'New Feature: display the details of a topic draft',
+        'You can now view the details of a topic draft in a new pop-up window',
+        'The edit button is only enabled if you are an admin or the initiator of the topic draft'
+      ]
+    },
+    {
+      version: '1.2.0 (22.06.2021)',
+      changes: [
+        'New Feature: Topic-draft',
+        'It is now possible to create topic drafts',
+        'You can create a topic draft in the Add menu of the structure',
+        'Via the main menu in the upper right corner it is possible to get an overview of the topic drafts',
+        'Submitting and editing is not yet possible'
+      ]
+    },
+    {
+      version: '1.1.2 (02.06.2021)',
+      changes: [
+        'Fixed an issue with the docker installation (Issue #20, JDK).'
+      ]
+    },
+    {
+      version: '1.1.1 (31.05.2021)',
+      changes: [
+        'Proper handling of active directory credentials.'
+      ]
+    },
+    {
+      version: '1.1.0 (10.05.2021)',
+      changes: [
+        'BurningOKR now allows teams to manage tasks on a task board to further improve productivity and is offering a greater overview.'
+      ]
+    },
+    {
       version: '1.0.4 (08.02.2021)',
       changes: [
         'Descriptions can now be added to OKR Teams',
@@ -50,34 +98,6 @@ export class VersionFormComponent {
       version: '1.0.0 (18.06.2020)',
       changes: [
         'Initial Release.'
-      ]
-    },
-    {
-      version: '1.1.0 (10.05.2021)',
-      changes: [
-        'BurningOKR now allows teams to manage tasks on a task board to further improve productivity and is offering a greater overview.'
-      ]
-    },
-    {
-      version: '1.1.1 (31.05.2021)',
-      changes: [
-        'Proper handling of active directory credentials.'
-      ]
-    },
-    {
-      version: '1.1.2 (02.06.2021)',
-      changes: [
-        'Fixed an issue with the docker installation (Issue #20, JDK).'
-      ]
-    },
-    {
-      version: '1.2.0 (22.06.2021)',
-      changes: [
-        `- New Feature: Topic-draft
-          - It is now possible to create topic drafts.
-          - You can create a topic draft in the Add menu of the structure
-          - Via the main menu in the upper right corner it is possible to get an overview of the topic drafts
-          - Submitting and editing is not yet possible`
       ]
     }
   ];

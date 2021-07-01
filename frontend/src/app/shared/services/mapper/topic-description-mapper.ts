@@ -35,7 +35,7 @@ export class TopicDescriptionMapper {
 
   static mapTopicDescription(description: OkrTopicDescription): OkrTopicDescriptionDto {
     const descriptionDto: OkrTopicDescriptionDto = new OkrTopicDescriptionDto();
-    descriptionDto.id = description.descriptionId;
+    descriptionDto.id = description.id;
     descriptionDto.name = description.name;
     descriptionDto.initiatorId = description.initiatorId;
     descriptionDto.startTeam = description.startTeam;

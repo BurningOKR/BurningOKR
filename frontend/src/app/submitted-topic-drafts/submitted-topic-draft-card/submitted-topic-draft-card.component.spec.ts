@@ -6,6 +6,7 @@ import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topi
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
+import { StatusDotComponent } from '../../shared/components/status-dot/status-dot.component';
 
 describe('SubmittedTopicDraftCardComponent', () => {
   let component: SubmittedTopicDraftCardComponent;
@@ -13,7 +14,7 @@ describe('SubmittedTopicDraftCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmittedTopicDraftCardComponent, SubmittedTopicDraftActionButtonMock ],
+      declarations: [ SubmittedTopicDraftCardComponent, SubmittedTopicDraftActionButtonMock, StatusDotComponent ],
       imports: [ MaterialTestingModule ]
     })
     .compileComponents();
