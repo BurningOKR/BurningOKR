@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Collection;
-
 @RestApiController
 public class TopicDraftController {
   private OkrTopicDraftService okrTopicDraftService;
@@ -26,7 +24,7 @@ public class TopicDraftController {
   /**
    * Initialize TopicDraftController
    *
-   * @param okrTopicDraftService a {@Link OkrTopicDraftService} object
+   * @param okrTopicDraftService a {@link OkrTopicDraftService} object
    * @param okrTopicDraftMapper {@link DataMapper} object with {@link OkrTopicDraft} and {@link
    *     OkrTopicDraftDto}
    */
@@ -40,22 +38,23 @@ public class TopicDraftController {
     this.authorizationService = authorizationService;
   }
 
-    /**
-     * API Endpoint to get all TopicDrafts.
-     *
-     * @return a {@link ResponseEntity} ok with a {@link Collection} of TopicDrafts
-     */
-    @GetMapping("/topicDrafts/all")
-    public ResponseEntity<Collection<OkrTopicDraftDto>> getAllCompanies() {
-        Collection<OkrTopicDraft> topicDrafts = okrTopicDraftService.getAllTopicDrafts();
-        return ResponseEntity.ok(okrTopicDraftMapper.mapEntitiesToDtos(topicDrafts));
-    }
+  /**
+   * API Endpoint to get all TopicDrafts.
+   *
+   * @return a {@link ResponseEntity} ok with a {@link Collection} of TopicDrafts
+   */
+  @GetMapping("/topicDrafts/all")
+  public ResponseEntity<Collection<OkrTopicDraftDto>> getAllCompanies() {
+    Collection<OkrTopicDraft> topicDrafts = okrTopicDraftService.getAllTopicDrafts();
+    return ResponseEntity.ok(okrTopicDraftMapper.mapEntitiesToDtos(topicDrafts));
+  }
 
-    @DeleteMapping("/topicDraft/{topicDraftId}")
-    @PreAuthorize("@authorizationService.isAdmin() " +
-            "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
-    public ResponseEntity deleteTopicDraftById(@PathVariable Long topicDraftId, User user){
-        okrTopicDraftService.deleteTopicDraftById(topicDraftId, user);
-        return ResponseEntity.ok().build();
-    }
+  @DeleteMapping("/topicDraft/{topicDraftId}")
+  @PreAuthorize(
+      "@authorizationService.isAdmin() "
+          + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
+  public ResponseEntity deleteTopicDraftById(@PathVariable Long topicDraftId, User user) {
+    okrTopicDraftService.deleteTopicDraftById(topicDraftId, user);
+    return ResponseEntity.ok().build();
+  }
 }

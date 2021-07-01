@@ -103,18 +103,16 @@ public class UserRoleFromContextService {
   }
 
   /**
-   *
    * @param topicDraftId a long value
    * @return an {@link UserContextRole} object
    */
-  public UserContextRole getUserRoleTopicDraft(Long topicDraftId){
+  public UserContextRole getUserRoleTopicDraft(Long topicDraftId) {
     OkrTopicDraft topicDraft = topicDraftRepository.findByIdOrThrow(topicDraftId);
     UUID currentUserId = userService.getCurrentUser().getId();
 
-    if(currentUserId.equals(topicDraft.getInitiatorId())){
+    if (currentUserId.equals(topicDraft.getInitiatorId())) {
       return UserContextRole.ENTITYOWNER;
-    }
-    else{
+    } else {
       return UserContextRole.USER;
     }
   }
@@ -144,7 +142,6 @@ public class UserRoleFromContextService {
     }
     return UserContextRole.USER;
   }
-
 
   private boolean isCurrentUserAdmin(UUID currentUserId) {
     Optional<AdminUser> optional = adminUserRepository.findById(currentUserId);
