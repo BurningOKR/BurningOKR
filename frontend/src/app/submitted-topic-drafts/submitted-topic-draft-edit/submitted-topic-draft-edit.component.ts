@@ -4,6 +4,7 @@ import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topi
 import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-submitted-topic-draft-edit',
@@ -18,6 +19,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   minBegin: Date;
 
   constructor(
+    private dialogRef: MatDialogRef<SubmittedTopicDraftEditComponent>,
     private topicDraftMapper: TopicDraftMapper,
     @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)
   ) { }
@@ -48,12 +50,12 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
 
   saveTopicDraft(): void {
     const oldTopicDraft: OkrTopicDraft = this.topicDraft;
-    console.log(this.topicDraft);
     const formTopicDraft: OkrTopicDraft = this.topicDraftForm.getRawValue();
     const updatedTopicDraft: OkrTopicDraft = {...oldTopicDraft, ...formTopicDraft};
-    console.log(updatedTopicDraft);
-    this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft)
-      .subscribe();
+    this.dialogRef.close(
+      this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft)
+        .subscribe()
+    );
   }
 
 }
