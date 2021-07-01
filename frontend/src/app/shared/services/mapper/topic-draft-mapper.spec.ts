@@ -41,7 +41,7 @@ describe('TopicDraftMapper', () => {
             ['5', '6'], 'Acceptance Criteria', 'Contributes to', 'Delimitation',
             new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover plan');
         topicDraftDto = {
-            parentUnitId: 1,
+            okrParentUnitId: 1,
             currentStatus: status.draft,
             initiator: userMock,
             id: 3,

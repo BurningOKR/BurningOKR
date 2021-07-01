@@ -26,8 +26,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
 
     subscriptions: Subscription[] = [];
 
-    constructor(private matDialog: MatDialog,
-                private topicDraftMapper: TopicDraftMapper,
+    constructor(private topicDraftMapper: TopicDraftMapper,
                 private currentUserService: CurrentUserService,
                 private i18n: I18n,
                 private dialog: MatDialog) {
@@ -96,7 +95,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-        = this.matDialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+        = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
 
     this.subscriptions.push(
         dialogReference
@@ -113,7 +112,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     deleteTopicDraft(): void {
     this.subscriptions.push(
         this.topicDraftMapper
-            .deleteTopicDraft$(this.topicDraft.descriptionId)
+            .deleteTopicDraft$(this.topicDraft.id)
             .pipe(take(1))
             .subscribe(() => {
                   this.topicDraftDeletedEvent.emit();
