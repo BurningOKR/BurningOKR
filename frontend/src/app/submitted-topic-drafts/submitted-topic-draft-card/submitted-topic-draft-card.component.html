@@ -6,7 +6,7 @@
       <span class="card-head-info card-head-info-name" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
     </div>
     <div class="card-head-button-wrapper" (click)="$event.stopPropagation();">
-      <app-submitted-topic-draft-action-button [topicDraft]="topicDraft" class= "submitted-topic-draft-option-button"></app-submitted-topic-draft-action-button>
+      <app-submitted-topic-draft-action-button (editedTopicDraftEvent)="notifyWrapperOfEditing($event)" [topicDraft]="topicDraft" class= "submitted-topic-draft-option-button"></app-submitted-topic-draft-action-button>
     </div>
     <app-status-dot class="right-upper-corner" [state]="topicDraft.currentStatus"></app-status-dot>
   </div>

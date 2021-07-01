@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
@@ -17,6 +17,8 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   topicDraftForm: FormGroup;
   title: string;
   minBegin: Date;
+  @Output()
+  editedTopicDraftEvent: EventEmitter<OkrTopicDraft>;
 
   constructor(
     private dialogRef: MatDialogRef<SubmittedTopicDraftEditComponent>,
@@ -26,6 +28,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.topicDraft = this.formData.topicDraft;
+    this.editedTopicDraftEvent = this.formData.editedTopicDraftEvent;
     this.minBegin = this.topicDraft.beginning;
     this.topicDraftForm = new FormGroup({
       name: new FormControl(this.topicDraft.name, [Validators.maxLength(255), Validators.required]),
@@ -56,6 +59,8 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
       this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft)
         .subscribe()
     );
+    this.editedTopicDraftEvent.emit(updatedTopicDraft);
+    console.log("Emitted zeugs dies das!");
   }
 
 }

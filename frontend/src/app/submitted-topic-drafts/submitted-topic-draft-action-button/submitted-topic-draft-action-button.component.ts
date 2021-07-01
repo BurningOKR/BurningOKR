@@ -13,6 +13,7 @@ export class SubmittedTopicDraftActionButtonComponent {
   @Input() topicDraft: OkrTopicDraft;
 
   @Output() clickedEditAction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
   @Output() clickedDeleteAction: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedCommentsAction: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedSubmitAction: EventEmitter<void> = new EventEmitter<void>();
@@ -35,9 +36,15 @@ export class SubmittedTopicDraftActionButtonComponent {
   editTopicDraft(): void {
     const data: object = {
       data: {
-        topicDraft: this.topicDraft
+        topicDraft: this.topicDraft,
+        editedTopicDraftEvent: this.editedTopicDraftEvent
       }
     };
     this.dialog.open(SubmittedTopicDraftEditComponent, data);
+  }
+
+  notifyCardOfEditing(topicDraft: OkrTopicDraft): void {
+    this.editedTopicDraftEvent.emit(topicDraft);
+    console.log("3000 ist eine Zahl", topicDraft);
   }
 }
