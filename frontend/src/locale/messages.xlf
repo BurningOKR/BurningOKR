@@ -594,17 +594,25 @@
           <context context-type="linenumber">6</context>
         </context-group>
         <note priority="1" from="description">Name</note>
-      </trans-unit><trans-unit id="component_cycleCreation_startDate" datatype="html">
+      </trans-unit><trans-unit id="capitalised_start_date" datatype="html">
         <source>Startdatum</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/cycle-admin/cycle-creation-form/cycle-creation-form.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
-      </trans-unit><trans-unit id="component_cycleCreation_endDate" datatype="html">
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/cycle-admin/cycle-edit-form/cycle-edit-form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit><trans-unit id="capitalised_end_date" datatype="html">
         <source>Enddatum</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/cycle-admin/cycle-creation-form/cycle-creation-form.component.html</context>
           <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/cycle-admin/cycle-edit-form/cycle-edit-form.component.html</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit><trans-unit id="component_cycleCreation_visibility" datatype="html">
         <source>Sichtbarkeit</source>
@@ -2015,18 +2023,6 @@
           <context context-type="sourcefile">app/core/settings/settings-form/user-settings/user-settings.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
-      </trans-unit><trans-unit id="component_cycleEditForm_startDate" datatype="html">
-        <source>Startdatum</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/cycle-admin/cycle-edit-form/cycle-edit-form.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_cycleEditForm_endDate" datatype="html">
-        <source>Enddatum</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/cycle-admin/cycle-edit-form/cycle-edit-form.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
       </trans-unit><trans-unit id="component_cycleEditForm_visibility" datatype="html">
         <source>Sichtbarkeit</source>
         <context-group purpose="location">
@@ -2466,7 +2462,7 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="edit" datatype="html">
+      <trans-unit id="small_edit" datatype="html">
         <source>bearbeiten</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context>
@@ -2481,7 +2477,7 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="create" datatype="html">
+      <trans-unit id="small_create" datatype="html">
         <source>erstellen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/keyresult/key-result-form/key-result-form.component.ts</context>
@@ -2593,8 +2589,16 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="deleteOkrMasterDialog_confirmButtonText" datatype="html">
+      <trans-unit id="capitalised_remove" datatype="html">
         <source>Entfernen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
           <context context-type="linenumber">1</context>
@@ -2614,13 +2618,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="deleteOkrTopicSponsorDialog_title_confirmButtonText" datatype="html">
-        <source>Entfernen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="deleteOkrMemberDialog_title" datatype="html">
         <source>Mitglied entfernen</source>
         <context-group purpose="location">
@@ -2630,13 +2627,6 @@
       </trans-unit>
       <trans-unit id="deleteOkrMemberDialog_message" datatype="html">
         <source>Möchten Sie dieses Mitglied von dem Team entfernen? Der Benutzer wird seine Mitgliedsrechte in diesem Team verlieren.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="deleteOkrMemberDialog_confirmButtonText" datatype="html">
-        <source>Entfernen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
           <context context-type="linenumber">1</context>

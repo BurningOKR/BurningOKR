@@ -78,7 +78,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
       value: 'Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.'
     });
     const confirmButtonText: string = this.i18n({
-      id: 'deleteOkrMasterDialog_confirmButtonText',
+      id: 'capitalised_remove',
       value: 'Entfernen'
     });
     const data: ConfirmationDialogData = {
@@ -123,7 +123,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
       value: 'Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.'
     });
     const confirmButtonText: string = this.i18n({
-      id: 'deleteOkrTopicSponsorDialog_title_confirmButtonText',
+      id: 'capitalised_remove',
       value: 'Entfernen'
     });
     const data: ConfirmationDialogData = {
@@ -168,7 +168,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
       value: 'Möchten Sie dieses Mitglied von dem Team entfernen? Der Benutzer wird seine Mitgliedsrechte in diesem Team verlieren.'
     });
     const confirmButtonText: string = this.i18n({
-      id: 'deleteOkrMemberDialog_confirmButtonText',
+      id: 'capitalised_remove',
       value: 'Entfernen'
     });
     const data: ConfirmationDialogData = {

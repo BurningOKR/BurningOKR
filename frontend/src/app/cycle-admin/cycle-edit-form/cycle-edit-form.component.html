@@ -8,13 +8,13 @@
     </mat-form-field>
 
     <mat-form-field class="halfWidth leftDate">
-      <input matInput [matDatepicker]="cycleEditStartDatePicker" i18n-placeholder="@@component_cycleEditForm_startDate" placeholder="Startdatum" formControlName="startDate">
+      <input matInput [matDatepicker]="cycleEditStartDatePicker" i18n-placeholder="@@capitalised_start_date" placeholder="Startdatum" formControlName="startDate">
       <mat-datepicker-toggle matSuffix [for]="cycleEditStartDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #cycleEditStartDatePicker></mat-datepicker>
       <mat-error><app-form-error [control]="cycleForm.get('startDate')"></app-form-error></mat-error>
     </mat-form-field>
     <mat-form-field class="halfWidth rightDate">
-      <input matInput [matDatepicker]="cycleEditEndDatePicker" i18n-placeholder="@@component_cycleEditForm_endDate" placeholder="Enddatum" formControlName="endDate">
+      <input matInput [matDatepicker]="cycleEditEndDatePicker" i18n-placeholder="@@capitalised_end_date" placeholder="Enddatum" formControlName="endDate">
       <mat-datepicker-toggle matSuffix [for]="cycleEditEndDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #cycleEditEndDatePicker></mat-datepicker>
       <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>
