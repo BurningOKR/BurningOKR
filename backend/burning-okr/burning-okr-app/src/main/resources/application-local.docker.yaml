@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/okr?useSSL=false # database name POSTGRES_DB
+    url: jdbc:postgresql://localhost:5434/okr?useSSL=false # database name POSTGRES_DB
     username: postgres # The created user and owner of the created database POSTGRES_USER
     password: 4c0K8sJGcxIercJDlmhs # The Password for the new created user POSTGRES_PASSWORD
 
