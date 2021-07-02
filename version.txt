@@ -1,5 +1,3 @@
-1.3.0
+1.3.2
 
-- New Feature: display the details of a topic draft
-    - You can now view the details of a topic draft in a new pop-up window
-    - The edit button is only enabled if you are an admin or the initiator of the topic draft
+- some minor CI changes
