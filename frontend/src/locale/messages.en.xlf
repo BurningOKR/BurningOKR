@@ -454,19 +454,13 @@
       </trans-unit><trans-unit id="importCsvDialog_csv-file" datatype="html">
         <source>CSV-Datei</source><target state="translated">CSV file</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_name" datatype="html">
-        <source> Name</source><target state="translated"> Name</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_email" datatype="html">
-        <source> Email</source><target state="translated"> Email</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_department" datatype="html">
-        <source> Abteilung</source><target state="translated"> Department</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_jobTitle" datatype="html">
-        <source> Jobbezeichnung</source><target state="translated"> Job Title</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="name" datatype="html">
+        <source>Name</source><target state="translated">Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
         <source>Es wurde keine SMTP Konfiguration gefunden.</source><target state="translated">No SMTP configuration was found.</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Info" datatype="html">
@@ -1320,13 +1314,13 @@
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit><trans-unit id="edit_button" datatype="html">
-        <source>Bearbeiten</source><target state="new">Bearbeiten</target>
+        <source>Bearbeiten</source><target state="translated">Edit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
           <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit><trans-unit id="topic_draft_details_edit_no_permission_tooltip" datatype="html">
-        <source>Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein.</source><target state="new">Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein.</target>
+        <source>Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein.</source><target state="translated">Only the initiator or the admin can edit this topic draft and only if the status is not set on approved or rejected.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
           <context context-type="linenumber">115</context>
@@ -1485,7 +1479,13 @@
 
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">35</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/reset-password/reset-password.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">35</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/reset-password/reset-password.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="abteilung_department" datatype="html">
+        <source>Abteilung</source><target state="translated">Department</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="errorInvalidEmail" datatype="html">
         <source>
                       Ungültige E-mail
@@ -1827,7 +1827,7 @@
         <source>Jobbezeichnung</source>
         <target state="translated">Job title</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
       <trans-unit id="component_cycleAdminCard_Visible" datatype="html">
         <source>Sichtbar</source>
         <target state="translated">Visible</target>

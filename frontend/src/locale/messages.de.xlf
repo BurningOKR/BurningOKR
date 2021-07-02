@@ -456,19 +456,13 @@
       </trans-unit><trans-unit id="importCsvDialog_csv-file" datatype="html">
         <source>CSV-Datei</source><target state="final">CSV-Datei</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_name" datatype="html">
-        <source> Name</source><target state="final"> Name</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_email" datatype="html">
-        <source> Email</source><target state="final"> Email</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_department" datatype="html">
-        <source> Abteilung</source><target state="final"> Abteilung</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">25</context></context-group></trans-unit><trans-unit id="importCsvDialog_table_jobTitle" datatype="html">
-        <source> Jobbezeichnung</source><target state="final"> Jobbezeichnung</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="name" datatype="html">
+        <source>Name</source><target state="final">Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_noMailInformation_Title" datatype="html">
         <source>Es wurde keine SMTP Konfiguration gefunden.</source><target state="final">Es wurde keine SMTP Konfiguration gefunden.</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/information/no-mail-information/no-mail-information.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="component_noMailInformation_Info" datatype="html">
@@ -1488,7 +1482,13 @@
 
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">35</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/reset-password/reset-password.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">35</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/login/login.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/reset-password/reset-password.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="abteilung_department" datatype="html">
+        <source>Abteilung</source><target state="final">Abteilung</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="errorInvalidEmail" datatype="html">
         <source>
                       Ungültige E-mail
@@ -1830,7 +1830,7 @@
         <source>Jobbezeichnung</source>
         <target state="final">Jobbezeichnung</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
       <trans-unit id="component_cycleAdminCard_Visible" datatype="html">
         <source>Sichtbar</source>
         <target state="final">Sichtbar</target>
