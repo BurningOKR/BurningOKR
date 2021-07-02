@@ -27,7 +27,7 @@ export interface SubmittedTopicDraftDetailsFormData {
 export class SubmittedTopicDraftDetailsComponent implements OnInit {
 
   @Output()
-  editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
+  editedTopicDraftEvent: EventEmitter<OkrTopicDraft>;
 
   enumStatus = status;
   topicDraft: OkrTopicDraft;
@@ -43,6 +43,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.topicDraft = this.formData.topicDraft;
+    this.editedTopicDraftEvent = this.formData.editedTopicDraftEvent;
     this.submittedTopicDraftDetailsForm = new FormGroup({
         name: new FormControl(this.topicDraft.name),
         currentStatus: new FormControl(this.topicDraft.currentStatus),
@@ -71,7 +72,6 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
     );
   }
 
-  // TODO Methode wird in anderer Task bearbeitet
   editDialog(): void {
     this.closeDialog();
     const data: object = {
