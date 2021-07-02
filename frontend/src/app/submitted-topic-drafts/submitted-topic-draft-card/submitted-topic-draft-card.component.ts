@@ -10,10 +10,9 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./submitted-topic-draft-card.component.css']
 })
 export class SubmittedTopicDraftCardComponent {
-  @Input()
-  topicDraft: OkrTopicDraft;
-  @Output()
-  editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
+  @Input() topicDraft: OkrTopicDraft;
+  @Output() topicDraftDeletedEvent = new EventEmitter<OkrTopicDraft>();
+  @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
 
   enumStatus = status;
 
@@ -31,5 +30,9 @@ export class SubmittedTopicDraftCardComponent {
 
   notifyWrapperOfEditing(topicDraft: OkrTopicDraft): void {
     this.editedTopicDraftEvent.emit(topicDraft);
+  }
+
+  notifyWrapperOfDeletion(): void {
+    this.topicDraftDeletedEvent.emit(this.topicDraft);
   }
 }

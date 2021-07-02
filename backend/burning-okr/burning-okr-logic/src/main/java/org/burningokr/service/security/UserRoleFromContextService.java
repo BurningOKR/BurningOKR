@@ -103,6 +103,21 @@ public class UserRoleFromContextService {
   }
 
   /**
+   * @param topicDraftId a long value
+   * @return an {@link UserContextRole} object
+   */
+  public UserContextRole getUserRoleTopicDraft(Long topicDraftId) {
+    OkrTopicDraft topicDraft = topicDraftRepository.findByIdOrThrow(topicDraftId);
+    UUID currentUserId = userService.getCurrentUser().getId();
+
+    if (currentUserId.equals(topicDraft.getInitiatorId())) {
+      return UserContextRole.ENTITYOWNER;
+    } else {
+      return UserContextRole.USER;
+    }
+  }
+
+  /**
    *
    * @param topicDraftId a long value
    * @return an {@link UserContextRole} object

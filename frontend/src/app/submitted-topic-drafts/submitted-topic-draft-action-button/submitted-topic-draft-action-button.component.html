@@ -8,13 +8,10 @@
         <mat-icon>edit</mat-icon>
         <span>Bearbeiten</span>
       </button>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
-        <button mat-menu-item disabled (click)="printNotImplemented()">
-          <mat-icon>delete</mat-icon>
-          <span>Löschen</span>
-        </button>
-      </span>
+      <button mat-menu-item [disabled]="currentUserNotAdminOrCreator()" (click)="clickedDeleteTopicDraft()">
+        <mat-icon>delete</mat-icon>
+        <span>Löschen</span>
+      </button>
       <span matTooltip="Feature kommt demnächst"
             i18n-matTooltip="@@feature-coming-soon">
         <button mat-menu-item disabled (click)="printNotImplemented()">

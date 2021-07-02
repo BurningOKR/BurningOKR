@@ -82,4 +82,8 @@ export class TopicDraftMapper {
                 })
             );
     }
+
+    deleteTopicDraft$(topicDraftId: number): Observable<boolean> {
+        return this.topicDraftApiService.deleteTopicDraft$(topicDraftId);
+    }
 }

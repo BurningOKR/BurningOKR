@@ -19,4 +19,10 @@ export class SubmittedTopicDraftCardsWrapperComponent implements OnInit {
     const position: number = this.topicDrafts.findIndex((topicDraftsElement: OkrTopicDraft) => topicDraftsElement.id === topicDraft.id);
     this.topicDrafts[position] = topicDraft;
   }
+
+  removeDeletedTopicDraft(topicDraft: OkrTopicDraft): void {
+    const position: number = this.topicDrafts.indexOf(topicDraft);
+    this.topicDrafts.splice(position, 1);
+  }
+
 }
