@@ -2,13 +2,10 @@ package org.burningokr.controller.okr;
 
 import java.util.Collection;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
-import org.burningokr.model.users.User;
 import org.burningokr.service.okr.OkrTopicDraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -63,13 +60,7 @@ public class TopicDraftController {
           "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
   public ResponseEntity updateTopicResultById(
       @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
-    OkrTopicDraft okrTopicDraft;
-    try {
-      okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
-    }
-    catch (Exception e) {
-      return ResponseEntity.unprocessableEntity().build();
-    }
+    OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
     this.okrTopicDraftService.updateOkrTopicDraft(topicDraftId, okrTopicDraft);
     return ResponseEntity.ok().build();
   }
