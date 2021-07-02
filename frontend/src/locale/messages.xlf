@@ -25,7 +25,7 @@
           <context context-type="linenumber">2</context>
         </context-group>
         <note priority="1" from="description">general do you want to delete the object</note>
-      </trans-unit><trans-unit id="component_deleteDialog_delete" datatype="html">
+      </trans-unit><trans-unit id="capitalised_delete" datatype="html">
         <source>Löschen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/delete-dialog/delete-dialog.component.html</context>
@@ -804,7 +804,7 @@
           <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
           <context context-type="linenumber">79</context>
         </context-group>
-      </trans-unit><trans-unit id="component_keyResult_deleteKeyResult" datatype="html">
+      </trans-unit><trans-unit id="delete_keyresult" datatype="html">
         <source>KeyResult löschen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/keyresult/keyresult.component.html</context>
@@ -924,17 +924,25 @@
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">119</context>
         </context-group>
-      </trans-unit><trans-unit id="component_department_export" datatype="html">
+      </trans-unit><trans-unit id="capitalised_export" datatype="html">
         <source>Exportieren</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">124</context>
         </context-group>
-      </trans-unit><trans-unit id="component_department_exportContacts" datatype="html">
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit><trans-unit id="export_contacts" datatype="html">
         <source>Kontakte exportieren</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">128</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit><trans-unit id="component_department_deleteUnit" datatype="html">
         <source>Struktur löschen</source>
@@ -1318,18 +1326,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/company/company.component.html</context>
           <context context-type="linenumber">60</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_commentViewDialog_export" datatype="html">
-        <source>Exportieren</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
-          <context context-type="linenumber">77</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_commentViewDialog_exportContacts" datatype="html">
-        <source>Kontakte exportieren</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
-          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit><trans-unit id="component_commentViewDialog_loadingCompany" datatype="html">
         <source>Lade Firma...</source>
@@ -2102,30 +2098,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="deleteButtonText" datatype="html">
-        <source>Löschen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/admin-view.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/keyresult/keyresult.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/objective/objective.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <note priority="1" from="description">deleteButtonText</note>
-      </trans-unit>
       <trans-unit id="initOauthClientDetailsUpdateTimeoutMessage" datatype="html">
         <source>Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.</source>
         <context-group purpose="location">
@@ -2499,14 +2471,6 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="deleteKeyResultDialogTitle" datatype="html">
-        <source>Keyresult löschen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/keyresult/keyresult.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <note priority="1" from="description">Title of the delete keyresult dialog</note>
-      </trans-unit>
       <trans-unit id="deleteKeyResultDialogMessage" datatype="html">
         <source>KeyResult <x id="INTERPOLATION" equiv-text="{{number}}"/>. <x id="INTERPOLATION_1" equiv-text="{{keyResultTitle}}"/> von dem Objective löschen?</source>
         <context-group purpose="location">
@@ -2641,13 +2605,6 @@
       </trans-unit>
       <trans-unit id="deleteDepartmentDialogMessage" datatype="html">
         <source>Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/okr-child-unit.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="delete" datatype="html">
-        <source>Löschen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/okr-child-unit.component.ts</context>
           <context context-type="linenumber">1</context>

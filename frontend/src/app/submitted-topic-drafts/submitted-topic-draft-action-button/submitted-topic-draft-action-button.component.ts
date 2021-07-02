@@ -104,7 +104,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       }, {name: this.topicDraft.name});
 
   const confirmButtonText: string = this.i18n({
-    id: 'deleteButtonText',
+    id: 'capitalised_delete',
     description: 'deleteButtonText',
     value: 'Löschen'
   });
