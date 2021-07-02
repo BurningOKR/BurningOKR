@@ -14,7 +14,7 @@ After the installation you will have an running postgres instance with the follo
 1. Install Docker
 2. Execute the following command:
    
-    `docker run -p 5434:5432 --name okr-postgres -e POSTGRES_PASSWORD=4c0K8sJGcxIercJDlmhs -e POSTGRES_DB=okr=okr -d postgres`
+    `docker run -p 5434:5432 --name okr-postgres -e POSTGRES_PASSWORD=4c0K8sJGcxIercJDlmhs -e POSTGRES_DB=okr -d postgres`
 
 3. The Database is now ready for usage.
 
