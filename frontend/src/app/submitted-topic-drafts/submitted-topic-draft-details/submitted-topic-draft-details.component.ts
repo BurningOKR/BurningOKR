@@ -26,9 +26,7 @@ export interface SubmittedTopicDraftDetailsFormData {
 
 export class SubmittedTopicDraftDetailsComponent implements OnInit {
 
-  @Output()
   editedTopicDraftEvent: EventEmitter<OkrTopicDraft>;
-
   enumStatus = status;
   topicDraft: OkrTopicDraft;
   submittedTopicDraftDetailsForm: FormGroup;

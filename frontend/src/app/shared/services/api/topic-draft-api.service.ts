@@ -21,8 +21,6 @@ export class TopicDraftApiService {
   }
 
   updateTopicDraft$(topicDraftDto: OkrTopicDraftDto): Observable<void> {
-    console.log("fdfdsasdfafdas");
-    console.log(topicDraftDto);
     return this.api.putData$<void>(`topicDrafts/${topicDraftDto.id}`, topicDraftDto);
   }
 

@@ -31,6 +31,5 @@ export class SubmittedTopicDraftCardComponent {
 
   notifyWrapperOfEditing(topicDraft: OkrTopicDraft): void {
     this.editedTopicDraftEvent.emit(topicDraft);
-    console.log("Topic Draft Card emitted", this.topicDraft, topicDraft);
   }
 }

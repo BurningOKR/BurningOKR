@@ -18,7 +18,5 @@ export class SubmittedTopicDraftCardsWrapperComponent implements OnInit {
   updateEditedTopicDraft(topicDraft: OkrTopicDraft): void {
     const position: number = this.topicDrafts.findIndex((topicDraftsElement: OkrTopicDraft) => topicDraftsElement.id === topicDraft.id);
     this.topicDrafts[position] = topicDraft;
-    console.log("Kann das funktionieren bis in den Wrapper???", topicDraft);
-    console.log("Wrapper action", this.topicDrafts);
   }
 }

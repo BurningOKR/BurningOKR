@@ -17,7 +17,6 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   topicDraftForm: FormGroup;
   title: string;
   minBegin: Date;
-  @Output()
   editedTopicDraftEvent: EventEmitter<OkrTopicDraft>;
 
   constructor(
@@ -60,7 +59,6 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
         .subscribe()
     );
     this.editedTopicDraftEvent.emit(updatedTopicDraft);
-    console.log("Emitted zeugs dies das!");
   }
 
 }
