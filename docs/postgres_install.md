@@ -1,7 +1,9 @@
-# Install and Setup PostgreSQL
+# Install and Setup PostgreSQL (Manual installation)
 
 ## Overview
 You haven't created a database yet? Then you are at the right place!
+
+If you want an easy way, please use the [docker installation of postgres](./postgres_install_docker.md)
 
 1. We need to provide a separate PostgreSQL database for the backend application.
 
