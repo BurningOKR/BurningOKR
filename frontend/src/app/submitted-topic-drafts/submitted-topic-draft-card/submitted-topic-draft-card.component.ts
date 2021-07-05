@@ -19,13 +19,14 @@ export class SubmittedTopicDraftCardComponent {
   constructor(private dialog: MatDialog) { }
 
   viewTopicDraft(): void {
-    const data: object = {
+    const config: object = {
       data: {
         topicDraft: this.topicDraft,
-        editedTopicDraftEvent: this.editedTopicDraftEvent
-      }
+        editedTopicDraftEvent: this.editedTopicDraftEvent,
+      },
+      width: '80vw'
     };
-    this.dialog.open(SubmittedTopicDraftDetailsComponent, data);
+    this.dialog.open(SubmittedTopicDraftDetailsComponent, config);
   }
 
   notifyWrapperOfEditing(topicDraft: OkrTopicDraft): void {
