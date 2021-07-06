@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
@@ -50,6 +50,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
         contributesTo: new FormControl(this.topicDraft.contributesTo),
         handoverPlan: new FormControl(this.topicDraft.handoverPlan),
         dependencies: new FormControl(this.topicDraft.dependencies),
+        delimitation: new FormControl(this.topicDraft.delimitation),
         resources: new FormControl(this.topicDraft.resources),
         acceptanceCriteria: new FormControl(this.topicDraft.acceptanceCriteria)
       }
