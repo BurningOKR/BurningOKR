@@ -59,7 +59,6 @@ export class TopicDraftCreationFormComponent implements OnInit {
   }
 
   saveTopicDraft(): void {
-    // TODO (R.J. 16.02.20) Add logic to update existing topic drafts in the future
     const topicDraft: OkrTopicDraft = this.topicDraftForm.getRawValue();
     this.createTopicDraft(topicDraft);
   }
