@@ -99,7 +99,7 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-form.component.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/objective/objective-form/objective-form.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">73</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit>
 
-      
+
 
       <trans-unit id="component_form_startEqualsEnd" datatype="html">
         <source>Der Startwert darf nicht gleich dem Zielwert sein.</source>
@@ -176,8 +176,8 @@
 
 
       <context-group purpose="location"><context context-type="sourcefile">app/core/version-form/version-form.component.html</context><context context-type="linenumber">13</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">121</context></context-group></trans-unit>
-      
-      
+
+
       <trans-unit id="component_cycleCreation_visibility" datatype="html">
         <source>Sichtbarkeit</source>
         <target state="translated">Visibility</target>
@@ -209,8 +209,8 @@
         </context-group>
       </trans-unit>
 
-      
-      
+
+
       <trans-unit id="component_cycleEditForm_visibility" datatype="html">
         <source>Sichtbarkeit</source>
         <target state="translated">Visibility</target>
@@ -646,7 +646,7 @@
 
 
 
-      
+
       <trans-unit id="component_department_deleteUnit" datatype="html">
         <source>Struktur löschen</source><target state="translated">Delete structure</target>
 
@@ -1088,7 +1088,7 @@
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="component_mainView_toggleNavigation" datatype="html">
         <source>Navigationsmenü anzeigen/verbergen</source>
         <target state="translated">Show/hide navigation menu</target>
@@ -1169,8 +1169,8 @@
 
 
 
-      
-      
+
+
       <trans-unit id="component_commentViewDialog_loadingCompany" datatype="html">
         <source>Lade Firma...</source>
         <target state="translated">Load company...</target>
@@ -1314,9 +1314,9 @@
         </context-group>
       </trans-unit><trans-unit id="feature-coming-soon" datatype="html">
         <source>Feature kommt demnächst</source><target state="translated">Feature is coming soon</target>
-        
-        
-        
+
+
+
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">22</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">36</context></context-group></trans-unit><trans-unit id="heading_contributes_to" datatype="html">
         <source>Zählt auf ein:</source><target state="translated">Contributes to:</target>
 
@@ -1890,7 +1890,13 @@
           <context context-type="sourcefile">src/app/admin/admin-view.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
-      </trans-unit><trans-unit id="changePasswordFormTitle" datatype="html">
+      </trans-unit><trans-unit id="deleteButtonText" datatype="html">
+        <source>Löschen</source><target state="translated">Delete</target>
+
+
+
+        <note priority="1" from="description">deleteButtonText</note>
+      <context-group purpose="location"><context context-type="sourcefile">src/app/admin/admin-view.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/keyresult/keyresult.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/objective/objective.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component.ts</context><context context-type="linenumber">1</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="changePasswordFormTitle" datatype="html">
         <source>Passwort ändern</source><target state="translated">Change password</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/auth/local-auth/change-password-dialog/change-password-dialog.component.ts</context>
@@ -2391,14 +2397,14 @@
         </context-group>
         <note priority="1" from="description">Required Field</note>
       </trans-unit><trans-unit id="deleteTopicDraftTitle" datatype="html">
-        <source>Themenentwurf löschen</source><target state="translated">Delete topic draft</target>
+        <source>Themenentwurf löschen</source><target state="translated">Delete Topic Draft</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <note priority="1" from="description">Title of the delete topicdraft dialog</note>
       </trans-unit><trans-unit id="deleteTopicDraftMessage" datatype="html">
-        <source>Themenentwurf "<x id="INTERPOLATION" equiv-text="{{name}}"/>" löschen?</source><target state="translated">Delete the topic draft "<x id="INTERPOLATION" equiv-text="{{name}}"/>"?</target>
+        <source>Themenentwurf "<x id="INTERPOLATION" equiv-text="{{name}}"/>" löschen?</source><target state="translated">Delete Topic Draft "<x id="INTERPOLATION" equiv-text="{{name}}"/>" ?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
           <context context-type="linenumber">1</context>
