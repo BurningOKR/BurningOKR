@@ -202,7 +202,7 @@
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
           <context context-type="linenumber">55</context>
         </context-group>
-      </trans-unit><trans-unit id="component_okrToolbar_changePassword" datatype="html">
+      </trans-unit><trans-unit id="change_password" datatype="html">
         <source>Passwort ändern</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
@@ -535,6 +535,10 @@
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
       </trans-unit><trans-unit id="heading_resources" datatype="html">
         <source>Ressourcen:</source>
         <context-group purpose="location">
@@ -607,11 +611,15 @@
           <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">Start</note>
-      </trans-unit><trans-unit id="submitted-topic-draft-card-column-name" datatype="html">
+      </trans-unit><trans-unit id="name" datatype="html">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component.html</context>
           <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <note priority="1" from="description">Name</note>
       </trans-unit><trans-unit id="capitalised_start_date" datatype="html">
@@ -664,7 +672,7 @@
           <context context-type="sourcefile">app/cycle-admin/cycle-admin-container/cycle-admin-container.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
-      </trans-unit><trans-unit id="component_cycleAdmin_CreateNewCycle" datatype="html">
+      </trans-unit><trans-unit id="createNewCycle" datatype="html">
         <source>Neuen Zyklus erstellen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/cycle-admin/cycle-admin-container/cycle-admin-container.component.html</context>
@@ -862,11 +870,15 @@
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
-      </trans-unit><trans-unit id="component_department_moreOptionsUnit" datatype="html">
+      </trans-unit><trans-unit id="component_company_moreOptions" datatype="html">
         <source>Mehr Optionen zu dieser Struktur</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit><trans-unit id="component_department_overview" datatype="html">
         <source>Übersicht</source>
@@ -902,11 +914,19 @@
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">166</context>
         </context-group>
-      </trans-unit><trans-unit id="component_department_taskboard" datatype="html">
+      </trans-unit><trans-unit id="taskBoardHeadline" datatype="html">
         <source>Aufgaben</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component.html</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit><trans-unit id="component_department_editchildUnit" datatype="html">
         <source>Struktur bearbeiten</source>
@@ -981,16 +1001,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
           <context context-type="linenumber">185</context>
-        </context-group>
-      </trans-unit><trans-unit id="taskBoardHeadline" datatype="html">
-        <source>Aufgaben</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context>
-          <context context-type="linenumber">167</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component.html</context>
-          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit><trans-unit id="component_department_tab_loading" datatype="html">
         <source>Lade...</source>
@@ -1297,12 +1307,6 @@
           <context context-type="sourcefile">app/okrview/main-view/main-view.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
-      </trans-unit><trans-unit id="component_company_moreOptions" datatype="html">
-        <source>Mehr Optionen zu dieser Struktur</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/company/company.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
       </trans-unit><trans-unit id="component_commentViewDialog_yourTeamAsManager" datatype="html">
         <source>Ihre Teams als Manager
             </source>
@@ -1437,12 +1441,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
           <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_departmentTabDescription_delimitation" datatype="html">
-        <source>Abgrenzung:</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context>
-          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit><trans-unit id="component_departmentTabDescription_resources" datatype="html">
         <source>Benötigte Ressourcen:</source>
@@ -1597,12 +1595,6 @@
           <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
-      </trans-unit><trans-unit id="name" datatype="html">
-        <source>Name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
       </trans-unit><trans-unit id="email" datatype="html">
         <source>Email</source>
         <context-group purpose="location">
@@ -1626,6 +1618,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/import-csv-dialog/import-csv-dialog.component.html</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit><trans-unit id="jobTitle" datatype="html">
         <source>Jobbezeichnung</source>
@@ -1714,12 +1710,6 @@
           <context context-type="linenumber">43</context>
         </context-group>
         <note priority="1" from="description">error message for ab email, wich is already in use </note>
-      </trans-unit><trans-unit id="department_table_header" datatype="html">
-        <source>Abteilung</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/core/auth/local-auth/user-management/forms/user-form/user-form.component.html</context>
-          <context context-type="linenumber">54</context>
-        </context-group>
       </trans-unit><trans-unit id="previousPassword" datatype="html">
         <source>Vorheriges Passwort</source>
         <context-group purpose="location">
@@ -2108,20 +2098,21 @@
         </context-group>
         <note priority="1" from="description">error text when the timeout is reached for updating the oauthclientdetails</note>
       </trans-unit>
-      <trans-unit id="initOauthClientDetailsUpdateTimeoutAction" datatype="html">
+      <trans-unit id="short_okay" datatype="html">
         <source>Ok</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/auth/init/init-state-view/init-state-forms/set-oauth-client-details-form/set-oauth-client-details-form.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
-        <note priority="1" from="description">action button for the snackbar</note>
-      </trans-unit>
-      <trans-unit id="changePasswordFormTitle" datatype="html">
-        <source>Passwort ändern</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/auth/local-auth/change-password-dialog/change-password-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/forms/user-dialog/user-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">action button for the snackbar</note>
       </trans-unit>
       <trans-unit id="passwordChangedSuccessfully" datatype="html">
         <source>Passwort erfolgreich geändert ✅</source>
@@ -2155,21 +2146,13 @@
         </context-group>
         <note priority="1" from="description">Snackbar that is shown when a password was reset successfully</note>
       </trans-unit>
-      <trans-unit id="resetPasswordSuccesOK" datatype="html">
-        <source>Ok</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/forms/user-dialog/user-dialog.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <note priority="1" from="description">Ok Button on resetPasswordSuccessSnackbar</note>
-      </trans-unit>
-      <trans-unit id="name_table_header" datatype="html">
-        <source>Name</source>
+      <trans-unit id="department_table_header" datatype="html">
+        <source>Abteilung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/auth/local-auth/user-management/user-management.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
-        <note priority="1" from="description">User management component "Name" header</note>
+        <note priority="1" from="description">User management component "Department" header</note>
       </trans-unit>
       <trans-unit id="job_title_table_header" datatype="html">
         <source>Berufsbezeichnung</source>
@@ -2352,13 +2335,6 @@
         </context-group>
         <note priority="1" from="description">Deletion dialog content while deleting cycles</note>
       </trans-unit>
-      <trans-unit id="createNewCycle" datatype="html">
-        <source>Neuen Zyklus erstellen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/cycle-admin/cycle-creation-form/cycle-creation-form.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="defineCycle" datatype="html">
         <source>Zyklus definieren</source>
         <context-group purpose="location">
@@ -2429,10 +2405,6 @@
         <source>Ok</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/company/company.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/okr-child-unit-tab/okr-child-unit-tab.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
@@ -2554,6 +2526,10 @@
           <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="capitalised_remove" datatype="html">
         <source>Entfernen</source>
@@ -2572,13 +2548,6 @@
       </trans-unit>
       <trans-unit id="deleteOkrTopicSponsorDialog_title" datatype="html">
         <source>OKR Themenpate entfernen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="deleteOkrTopicSponsorDialog_message" datatype="html">
-        <source>Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/okrview/okr-child-unit/department/department-tab-team/department-tab-team.component.ts</context>
           <context context-type="linenumber">1</context>

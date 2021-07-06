@@ -28,7 +28,7 @@
                 <div class="icon-spacer-large" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
                   <button mat-icon-button [matMenuTriggerFor]="optionsMenu"
                     [matMenuTriggerData]="{ childUnit: childUnit }">
-                    <mat-icon i18n-matTooltip="@@component_department_moreOptionsUnit"
+                    <mat-icon i18n-matTooltip="@@component_company_moreOptions"
                       matTooltip="Mehr Optionen zu dieser Struktur">more_vert
                     </mat-icon>
                   </button>
@@ -82,7 +82,7 @@
 
 
                 <!-- Tasks Tab -->
-                <mat-tab i18n-label="@@component_department_taskboard" label="Aufgaben" *ngIf="activeTabs.teamsTab">
+                <mat-tab i18n-label="@@taskBoardHeadline" label="Aufgaben" *ngIf="activeTabs.teamsTab">
                   <ng-template matTabContent>
                     <div class="inner-padding">
                       <app-department-tab-taskboard [childUnit]="childUnit" [currentUserRole]="currentUserRole"

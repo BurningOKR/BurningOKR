@@ -119,7 +119,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
       value: 'OKR Themenpate entfernen'
     });
     const message: string = this.i18n({
-      id: 'deleteOkrTopicSponsorDialog_message',
+      id: 'deleteOkrMasterDialog_message',
       value: 'Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.'
     });
     const confirmButtonText: string = this.i18n({
