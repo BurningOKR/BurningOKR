@@ -143,7 +143,6 @@ public class UserRoleFromContextService {
     return UserContextRole.USER;
   }
 
-
   private boolean isCurrentUserAdmin(UUID currentUserId) {
     Optional<AdminUser> optional = adminUserRepository.findById(currentUserId);
 
