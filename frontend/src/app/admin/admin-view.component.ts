@@ -108,7 +108,7 @@ export class AdminViewComponent implements OnInit {
         value: '{{surname}}, {{name}} von den Admins löschen?'
       }, {surname: adminToDelete.surname, name: adminToDelete.givenName});
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });

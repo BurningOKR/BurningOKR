@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TopicDraftApiService } from '../api/topic-draft-api.service';
 import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
 import { OkrTopicDraft } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { CompanyId, OkrUnitId } from '../../model/id-types';
+import { CompanyId, OkrUnitId, TopicDraftId } from '../../model/id-types';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators';
 
@@ -38,6 +38,7 @@ export class TopicDraftMapper {
     static mapTopicDraft(topicDraft: OkrTopicDraft): OkrTopicDraftDto {
         const topicDraftDto: OkrTopicDraftDto = new OkrTopicDraftDto();
 
+        topicDraftDto.id = topicDraft.id;
         topicDraftDto.okrParentUnitId = topicDraft.okrParentUnitId;
         topicDraftDto.currentStatus = topicDraft.currentStatus;
         topicDraftDto.name = topicDraft.name;
@@ -67,6 +68,10 @@ export class TopicDraftMapper {
     postTopicDraftForOkrBranch$(branchId: OkrUnitId, topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
         return this.topicDraftApiService.postTopicDraftForOkrBranch$(branchId, TopicDraftMapper.mapTopicDraft(topicDraft))
             .pipe(map(TopicDraftMapper.mapTopicDraftDto));
+    }
+
+    updateTopicDraft$(topicDraft: OkrTopicDraft): Observable<void> {
+      return this.topicDraftApiService.updateTopicDraft$(TopicDraftMapper.mapTopicDraft(topicDraft));
     }
 
     getAllTopicDrafts$(): Observable<OkrTopicDraft[]> {

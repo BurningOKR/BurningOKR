@@ -1,6 +1,7 @@
 package org.burningokr.controller.okr;
 
 import java.util.Collection;
+import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -14,6 +15,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestApiController
 public class TopicDraftController {
@@ -47,6 +50,24 @@ public class TopicDraftController {
   public ResponseEntity<Collection<OkrTopicDraftDto>> getAllCompanies() {
     Collection<OkrTopicDraft> topicDrafts = okrTopicDraftService.getAllTopicDrafts();
     return ResponseEntity.ok(okrTopicDraftMapper.mapEntitiesToDtos(topicDrafts));
+  }
+
+  /**
+   * API Endpoint to update/edit a Topic Draft.
+   *
+   * @param topicDraftId a long value
+   * @param okrTopicDraftDto a {@link OkrTopicDraftDto} object
+   * @return a {@link ResponseEntity} ok with a Topic Draft
+   */
+  @PutMapping("/topicDrafts/{topicDraftId}")
+  @PreAuthorize(
+      "@authorizationService.isAdmin() "
+          + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
+  public ResponseEntity updateTopicResultById(
+      @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
+    OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
+    this.okrTopicDraftService.updateOkrTopicDraft(topicDraftId, okrTopicDraft);
+    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/topicDraft/{topicDraftId}")

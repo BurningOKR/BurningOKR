@@ -12,119 +12,132 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
 import { User } from '../../shared/model/api/user';
 import { CurrentUserService } from '../../core/services/current-user.service';
+import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 
 @Component({
-    selector: 'app-submitted-topic-draft-action-button',
-    templateUrl: './submitted-topic-draft-action-button.component.html',
-    styleUrls: ['./submitted-topic-draft-action-button.component.css']
+  selector: 'app-submitted-topic-draft-action-button',
+  templateUrl: './submitted-topic-draft-action-button.component.html',
+  styleUrls: ['./submitted-topic-draft-action-button.component.css']
 })
 export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnInit {
-    private currentUser: User;
+  private currentUser: User;
 
-    @Input() topicDraft: OkrTopicDraft;
-    @Output() topicDraftDeletedEvent = new EventEmitter();
+  @Input() topicDraft: OkrTopicDraft;
+  @Output() topicDraftDeletedEvent = new EventEmitter();
+  @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
 
-    subscriptions: Subscription[] = [];
+  subscriptions: Subscription[] = [];
 
-    constructor(private topicDraftMapper: TopicDraftMapper,
-                private currentUserService: CurrentUserService,
-                private i18n: I18n,
-                private dialog: MatDialog) {
+  @Output() clickedEditAction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickedDeleteAction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickedCommentsAction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickedSubmitAction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickedWithdrawAction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickedApprove: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickedDiscardApprovalAction: EventEmitter<void> = new EventEmitter<void>();
+  @Output() clickedRefuse: EventEmitter<void>  = new EventEmitter<void>();
+  @Output() clickedDiscardRefusalAction: EventEmitter<void> = new EventEmitter<void>();
+
+  constructor(private topicDraftMapper: TopicDraftMapper,
+              private currentUserService: CurrentUserService,
+              private i18n: I18n,
+              private dialog: MatDialog) {
     }
 
-    ngOnInit(): void {
-        this.currentUserService.getCurrentUser$()
-            .pipe(take(1))
-            .subscribe((received: User) => {
-                this.currentUser = received;
-            }
-        );
+  ngOnInit(): void {
+      this.currentUserService.getCurrentUser$()
+          .pipe(take(1))
+          .subscribe((received: User) => {
+              this.currentUser = received;
+          }
+      );
     }
 
-    ngOnDestroy(): void {
-        this.subscriptions.forEach(sub => sub.unsubscribe());
-        this.subscriptions = [];
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions = [];
+  }
 
-    currentUserNotAdminOrCreator(): boolean {
-        const userNotCreator: boolean = (this.currentUser.id !== this.topicDraft.initiatorId);
-        let userNotAdmin: boolean;
-        this.currentUserService.isCurrentUserAdmin$()
-            .pipe(take(1))
-                .subscribe((received: boolean) => {
-                userNotAdmin = !received;
-        });
+  printNotImplemented(): string {
+    // TODO: methode Entfernen
+    // tslint:disable-next-line: no-console
+    console.log('Not Implemented');
 
-        return (userNotCreator && userNotAdmin);
-    }
+    return 'Not Implemented';
+  }
 
-    editTopicDraft(): void {
+  currentUserNotAdminOrCreator(): boolean {
+    const userNotCreator: boolean = (this.currentUser.id !== this.topicDraft.initiatorId);
+    let userNotAdmin: boolean;
+    this.currentUserService.isCurrentUserAdmin$()
+      .pipe(take(1))
+      .subscribe((received: boolean) => {
+        userNotAdmin = !received;
+      });
+
+    return (userNotCreator && userNotAdmin);
+  }
+
+  editTopicDraft(): void {
     const data: object = {
       data: {
-        topicDraft: this.topicDraft
+        topicDraft: this.topicDraft,
+        editedTopicDraftEvent: this.editedTopicDraftEvent
       }
     };
-    this.dialog.open(SubmittedTopicDraftDetailsComponent, data);
+    this.dialog.open(SubmittedTopicDraftEditComponent, data);
   }
 
-    clickedDeleteTopicDraft(): void {
-    const title: string =
-        this.i18n({
-          id: 'deleteTopicDraftTitle',
-          description: 'Title of the delete topicdraft dialog',
-          value: 'Themenentwurf löschen'
-        });
+  clickedDeleteTopicDraft(): void {
+  const title: string =
+      this.i18n({
+        id: 'deleteTopicDraftTitle',
+        description: 'Title of the delete topicdraft dialog',
+        value: 'Themenentwurf löschen'
+      });
 
-    const message: string =
-        this.i18n({
-          id: 'deleteTopicDraftMessage',
-          description: 'Do you want to delete topic draft x',
-          value: 'Themenentwurf "{{name}}" löschen?',
-        }, {name: this.topicDraft.name});
+  const message: string =
+      this.i18n({
+        id: 'deleteTopicDraftMessage',
+        description: 'Do you want to delete topic draft x',
+        value: 'Themenentwurf "{{name}}" löschen?',
+      }, {name: this.topicDraft.name});
 
-    const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
-      description: 'deleteButtonText',
-      value: 'Löschen'
-    });
+  const confirmButtonText: string = this.i18n({
+    id: 'capitalised_delete',
+    description: 'deleteButtonText',
+    value: 'Löschen'
+  });
 
-    const dialogData: ConfirmationDialogData = {
-      title,
-      message,
-      confirmButtonText
-    };
+  const dialogData: ConfirmationDialogData = {
+    title,
+    message,
+    confirmButtonText
+  };
 
-    const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-        = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+  const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
+      = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
 
-    this.subscriptions.push(
-        dialogReference
-            .afterClosed()
-            .pipe(take(1))
-            .subscribe(isConfirmed => {
-              if (isConfirmed) {
-                this.deleteTopicDraft();
+  this.subscriptions.push(
+      dialogReference
+          .afterClosed()
+          .pipe(take(1))
+          .subscribe(isConfirmed => {
+            if (isConfirmed) {
+              this.deleteTopicDraft();
+            }
+          })
+  );
+  }
+
+  deleteTopicDraft(): void {
+  this.subscriptions.push(
+      this.topicDraftMapper
+          .deleteTopicDraft$(this.topicDraft.id)
+          .pipe(take(1))
+          .subscribe(() => {
+                this.topicDraftDeletedEvent.emit();
               }
-            })
-    );
+          ));
   }
-
-    deleteTopicDraft(): void {
-    this.subscriptions.push(
-        this.topicDraftMapper
-            .deleteTopicDraft$(this.topicDraft.id)
-            .pipe(take(1))
-            .subscribe(() => {
-                  this.topicDraftDeletedEvent.emit();
-                }
-            ));
-  }
-
-    printNotImplemented(): string {
-        // TODO: methode Entfernen
-        // tslint:disable-next-line: no-console
-        console.log('Not Implemented');
-
-        return 'Not Implemented';
-    }
 }
