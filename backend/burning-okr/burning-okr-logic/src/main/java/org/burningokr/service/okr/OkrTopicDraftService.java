@@ -51,6 +51,7 @@ public class OkrTopicDraftService {
     OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
 
     referencedOkrTopicDraft.setAcceptanceCriteria(updatedOkrTopicDraft.getAcceptanceCriteria());
+    // TODO JZ (07.07.2021) update also the date
     // referencedOkrTopicDraft.setBeginning(updatedOkrTopicDraft.getBeginning());
     referencedOkrTopicDraft.setContributesTo(updatedOkrTopicDraft.getContributesTo());
     referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
@@ -65,6 +66,21 @@ public class OkrTopicDraftService {
     referencedOkrTopicDraft.setStakeholders(updatedOkrTopicDraft.getStakeholders());
     referencedOkrTopicDraft.setStartTeam(updatedOkrTopicDraft.getStartTeam());
 
+    referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
+
+    return referencedOkrTopicDraft;
+  }
+
+  /**
+   * Updates the status of a Topic Draft.
+   *
+   * @param updatedOkrTopicDraft a {@link OkrTopicDraft} object
+   * @return a {@link OkrTopicDraft} object
+   */
+  @Transactional
+  public OkrTopicDraft updateOkrTopicDraftStatus(long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
+    OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
+    referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
     referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
 
     return referencedOkrTopicDraft;
