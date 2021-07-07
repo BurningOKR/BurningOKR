@@ -77,11 +77,12 @@ public class TopicDraftController {
    * @param okrTopicDraftDto a {@link OkrTopicDraftDto} object
    * @return a {@link ResponseEntity} ok with a Topic Draft
    */
-  // TODO JZ (07.07.2021) authorization is not completed (also auditor should be allowed to approve/reject)
+  // TODO JZ (07.07.2021) authorization is not completed (also auditor should be allowed to
+  // approve/reject)
   @PutMapping("/topicDrafts/status/{topicDraftId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity updateTopicResultStatusById(
-          @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
+      @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
     OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
     this.okrTopicDraftService.updateOkrTopicDraftStatus(topicDraftId, okrTopicDraft);
     return ResponseEntity.ok().build();

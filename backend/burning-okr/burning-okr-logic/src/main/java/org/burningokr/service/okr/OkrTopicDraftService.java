@@ -1,6 +1,7 @@
 package org.burningokr.service.okr;
 
 import com.google.common.collect.Lists;
+import java.time.LocalDate;
 import java.util.Collection;
 import javax.transaction.Transactional;
 import org.burningokr.model.activity.Action;
@@ -51,8 +52,8 @@ public class OkrTopicDraftService {
     OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
 
     referencedOkrTopicDraft.setAcceptanceCriteria(updatedOkrTopicDraft.getAcceptanceCriteria());
-    // TODO JZ (07.07.2021) update also the date
-    // referencedOkrTopicDraft.setBeginning(updatedOkrTopicDraft.getBeginning());
+    referencedOkrTopicDraft.setBeginning(
+        LocalDate.parse(updatedOkrTopicDraft.getBeginning().toString()));
     referencedOkrTopicDraft.setContributesTo(updatedOkrTopicDraft.getContributesTo());
     referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
     referencedOkrTopicDraft.setDelimitation(updatedOkrTopicDraft.getDelimitation());
@@ -78,7 +79,8 @@ public class OkrTopicDraftService {
    * @return a {@link OkrTopicDraft} object
    */
   @Transactional
-  public OkrTopicDraft updateOkrTopicDraftStatus(long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
+  public OkrTopicDraft updateOkrTopicDraftStatus(
+      long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
     OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
     referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
     referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);

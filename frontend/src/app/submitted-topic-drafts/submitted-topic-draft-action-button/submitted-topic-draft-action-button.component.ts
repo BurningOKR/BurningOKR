@@ -170,12 +170,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       this.topicDraft.currentStatus = status.approved;
       this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
         .subscribe();
-      console.log('Es ist approved worden.', this.topicDraft);
     } else {
       this.topicDraft.currentStatus = status.submitted;
       this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
         .subscribe();
-      console.log('Wurde zurückgenommen.');
     }
   }
 
@@ -184,12 +182,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       this.topicDraft.currentStatus = status.rejected;
       this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
         .subscribe();
-      console.log('Es ist rejected worden.');
     } else {
       this.topicDraft.currentStatus = status.submitted;
       this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
         .subscribe();
-      console.log('Wurde auch zurückgenommen.');
     }
   }
 }

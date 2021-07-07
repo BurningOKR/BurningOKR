@@ -75,7 +75,6 @@ export class TopicDraftMapper {
     }
 
     updateTopicDraftStatus$(topicDraft: OkrTopicDraft): Observable<void> {
-      console.log("Mapper", topicDraft);
       return this.topicDraftApiService.updateTopicDraftStatus$(TopicDraftMapper.mapTopicDraft(topicDraft));
     }
 
