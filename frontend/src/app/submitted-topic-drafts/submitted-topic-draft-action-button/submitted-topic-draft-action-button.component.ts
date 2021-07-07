@@ -51,7 +51,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
 
   editTooltipStatusAndUser: string = this.i18n({
     id: 'StatusSubmittedAndAdminOrIniator',
-    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder der Initiator können bearbeiten'
+    value: 'Der Status muss auf "Eingereicht" oder "Vorlage" sein und nur ein Admin oder der Initiator können bearbeiten'
   });
 
   constructor(private topicDraftMapper: TopicDraftMapper,

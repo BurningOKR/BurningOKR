@@ -52,7 +52,7 @@
 
   <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
     <mat-select formControlName="startTeam" multiple
-                i18n-placeholder="@@startteam" placeholder="Start Team">
+                i18n-placeholder="@@startTeam" placeholder="Start Team">
       <mat-option *ngFor="let user of users" [value]="user.id">
         {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
       </mat-option>
