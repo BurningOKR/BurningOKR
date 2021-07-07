@@ -39,6 +39,21 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   @Output() clickedRefuse: EventEmitter<void>  = new EventEmitter<void>();
   @Output() clickedDiscardRefusalAction: EventEmitter<void> = new EventEmitter<void>();
 
+  editTooltipStatus: string = this.i18n({
+    id: 'statusShouldBeSubmittedOrDraft',
+    value: 'Der Status muss auf "Eingereicht" oder "Vorlage" sein'
+  });
+
+  editTooltipUser: string = this.i18n({
+    id: 'onlyAdminOrInitiatorPermission',
+    value: 'Nur ein Admin oder der Initiator können bearbeiten'
+  });
+
+  editTooltipStatusAndUser: string = this.i18n({
+    id: 'StatusSubmittedAndAdminOrIniator',
+    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder der Initiator können bearbeiten'
+  });
+
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
               private i18n: I18n,
@@ -188,4 +203,20 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
         .subscribe();
     }
   }
+
+  canEditTopicDraft(): boolean {
+    return this.topicDraft.currentStatus === status.submitted && !this.currentUserNotAdminOrCreator();
+  }
+
+  // TODO NL 07.07.2021 ggf Auditor hinzufügen
+  getEditTooltipText(): string {
+    if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
+    this.currentUserNotAdminOrCreator()) {
+      return this.editTooltipStatusAndUser;
+    } else if (this.currentUserNotAdminOrCreator()) {
+      return this.editTooltipUser;
+    } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
+      return this.editTooltipStatus;
+    }
+}
 }
