@@ -13,6 +13,7 @@ import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mappe
 import { User } from '../../shared/model/api/user';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
+import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -66,16 +67,29 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return 'Not Implemented';
   }
 
-  currentUserNotAdminOrCreator(): boolean {
-    const userNotCreator: boolean = (this.currentUser.id !== this.topicDraft.initiatorId);
-    let userNotAdmin: boolean;
+  isCurrentUserAdmin(): boolean {
+    let userAdmin: boolean;
     this.currentUserService.isCurrentUserAdmin$()
       .pipe(take(1))
       .subscribe((received: boolean) => {
-        userNotAdmin = !received;
+        userAdmin = received;
       });
 
+    return userAdmin;
+  }
+
+  currentUserNotAdminOrCreator(): boolean {
+    const userNotCreator: boolean = (this.currentUser.id !== this.topicDraft.initiatorId);
+    const userNotAdmin: boolean = !this.isCurrentUserAdmin();
+
     return (userNotCreator && userNotAdmin);
+  }
+
+  // TODO NL 07.07.2021 Auditor needs to be added
+  currentUserNotAdminOrAuditor(): boolean {
+    const userNotAdmin: boolean = !this.isCurrentUserAdmin();
+
+    return userNotAdmin;
   }
 
   editTopicDraft(): void {
@@ -139,5 +153,35 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
                 this.topicDraftDeletedEvent.emit();
               }
           ));
+  }
+
+  canApproveTopicDraft(): boolean {
+    return !this.currentUserNotAdminOrAuditor() &&
+      (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.approved);
+  }
+
+  canRejectTopicDraft(): boolean {
+    return !this.currentUserNotAdminOrAuditor() &&
+      (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.rejected);
+  }
+
+  approvingTopicDraft(): void {
+    if (this.topicDraft.currentStatus !== status.approved) {
+      this.topicDraft.currentStatus = status.approved;
+      console.log('Es ist approved worden.');
+    } else {
+      this.topicDraft.currentStatus = status.submitted;
+      console.log('Wurde zurückgenommen.');
+    }
+  }
+
+  rejectingTopicDraft(): void {
+    if (this.topicDraft.currentStatus !== status.rejected) {
+      this.topicDraft.currentStatus = status.rejected;
+      console.log('Es ist rejected worden.');
+    } else {
+      this.topicDraft.currentStatus = status.submitted;
+      console.log('Wurde auch zurückgenommen.');
+    }
   }
 }
