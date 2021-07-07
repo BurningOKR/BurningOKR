@@ -1,4 +1,4 @@
-<app-dialog-component i18n-title="@@component_cycleEditForm_editCycle" title="Zyklus bearbeiten" [formGroup]="cycleForm" i18n-[saveAndCloseLabel] saveAndCloseLabel="Speichern"
+<app-dialog-component i18n-title="@@editCycle" title="Zyklus bearbeiten" [formGroup]="cycleForm" i18n-[saveAndCloseLabel] saveAndCloseLabel="Speichern"
                       [hasFormGroupError]="true"
                       (okEmitter)="saveCycle()">
   <form [formGroup]="cycleForm">
@@ -20,7 +20,7 @@
       <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>
     </mat-form-field>
     <mat-slide-toggle formControlName="isVisible">
-      <span i18n="@@component_cycleEditForm_visibility">Sichtbarkeit</span>
+      <span i18n="@@visibility">Sichtbarkeit</span>
     </mat-slide-toggle>
   </form>
 </app-dialog-component>

@@ -13,7 +13,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 export class DialogComponent<T> {
   @Input() title: string;
   @Input() saveAndCloseLabel = this.i18n({
-    id: 'dialog_component_save_and_close_label',
+    id: 'capitalized_save',
     description: 'Button label to close a dialog, while saving the input',
     value: 'Speichern'
   });

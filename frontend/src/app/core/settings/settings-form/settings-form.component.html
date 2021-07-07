@@ -16,7 +16,7 @@
 <mat-dialog-actions>
   <button mat-button color="primary" (click)="onSave()"
           [disabled]="!userSettingsValid || !(adminSettingsValid && isCurrentUserAdmin$ | async)"><span
-    i18n="@@component_settingsForm_save">Speichern</span></button>
+    i18n="@@capitalized_save">Speichern</span></button>
   <button mat-button color="warn" (click)="closeDialog()"><span
     i18n="@@cancelButtonText">Abbrechen</span></button>
 </mat-dialog-actions>

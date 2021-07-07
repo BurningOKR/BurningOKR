@@ -1,7 +1,9 @@
 <form [formGroup]="descriptionForm">
 
   <mat-form-field class="half-width">
-    <input i18n-placeholder="@@component_descriptionEditForm_topic" matInput placeholder="Thema" formControlName="name" />
+    <input i18n-placeholder="@@topic_table_header
+‪
+‪Submitted topic drafts component "Topic" header" matInput placeholder="Thema" formControlName="name" />
   </mat-form-field>
 
   <mat-form-field class="half-width">
@@ -17,7 +19,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_contributesTo" matInput placeholder="Zählt ein auf" formControlName="contributesTo">
+      <textarea type="text" i18n-placeholder="@@component_contributesTo" matInput placeholder="Zählt ein auf" formControlName="contributesTo">
       </textarea>
   </mat-form-field>
 
