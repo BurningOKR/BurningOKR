@@ -79,6 +79,26 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können ablehnen'
   });
 
+  approveTopicDraftText: string = this.i18n({
+    id: 'capitalised-approve',
+    value: 'Genehmigen'
+  });
+
+  withDrawApprovalTopicDraftText: string = this.i18n({
+    id: 'withdraw-approval',
+    value: 'Genehmigung zurücknehmen'
+  });
+
+  rejectTopicDraftText: string = this.i18n({
+    id: 'capitalised-reject',
+    value: 'Ablehnen'
+  });
+
+  withDrawRejectionTopicDraftText: string = this.i18n({
+    id: 'withdraw-rejection',
+    value: 'Ablehnung zurücknehmen'
+  });
+
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
               private i18n: I18n,
@@ -264,6 +284,22 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       return this.userRoleToReject;
     } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.approved) {
       return this.stateMustBeSubmittedTooltip;
+    }
+  }
+
+  getApprovalButtonText(): string {
+    if (this.topicDraft.currentStatus === status.approved) {
+      return this.withDrawApprovalTopicDraftText;
+    } else {
+      return this.approveTopicDraftText;
+    }
+  }
+
+  getRejectionButtonText(): string {
+    if (this.topicDraft.currentStatus === status.rejected) {
+      return this.withDrawRejectionTopicDraftText;
+    } else {
+      return this.rejectTopicDraftText;
     }
   }
 }
