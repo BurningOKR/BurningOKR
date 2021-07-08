@@ -28,15 +28,13 @@
           <span>Einreichen/Zurücknehmen</span>
         </button>
       </span>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
+      <span matTooltip="{{getApproveTooltipText()}}" [matTooltipDisabled]="canApproveTopicDraft()">
         <button mat-menu-item [disabled]="!canApproveTopicDraft()" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
           <span>Genehmigen/Genehmigung verwerfen</span>
         </button>
       </span>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
+      <span matTooltip="{{getRejectTooltipText()}}" [matTooltipDisabled]="canRejectTopicDraft()">
         <button mat-menu-item [disabled]="!canRejectTopicDraft()" (click)="rejectingTopicDraft()">
           <mat-icon >cancel</mat-icon>
           <span>Ablehnen/Ablehnung zurückziehen</span>

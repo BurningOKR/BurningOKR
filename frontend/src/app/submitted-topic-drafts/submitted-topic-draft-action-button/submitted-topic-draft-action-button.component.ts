@@ -54,6 +54,31 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     value: 'Der Status muss auf "Eingereicht" oder "Vorlage" sein und nur ein Admin oder der Initiator können bearbeiten'
   });
 
+  stateMustBeSubmittedTooltip: string = this.i18n({
+    id: 'status-should-be-submitted',
+    value: 'Der Status muss auf "Eingereicht" sein'
+  });
+
+  userRoleToApprove: string = this.i18n({
+    id: 'onlyAdminOrAuditorApprovePermission',
+    value: 'Nur ein Admin oder ein Auditor können annehmen'
+  });
+
+  userRoleToReject: string = this.i18n({
+    id: 'onlyAdminOrAuditorRejectPermission',
+    value: 'Nur ein Admin oder ein Auditor können ablehnen'
+  });
+
+  approveTopicdraftStatusAndUser: string = this.i18n({
+    id: 'approvingStatusAndUser',
+    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen'
+  });
+
+  rejectTopicdraftStatusAndUser: string = this.i18n({
+    id: 'rejectingStatusAndUser',
+    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können ablehnen'
+  });
+
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
               private i18n: I18n,
@@ -218,5 +243,27 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
       return this.editTooltipStatus;
     }
-}
+  }
+
+  getApproveTooltipText(): string {
+    if ((this.topicDraft.currentStatus === status.rejected || this.topicDraft.currentStatus === status.draft) &&
+      this.currentUserNotAdminOrAuditor()) {
+      return this.approveTopicdraftStatusAndUser;
+    } else if (this.currentUserNotAdminOrAuditor()) {
+      return this.userRoleToApprove;
+    } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.rejected) {
+      return this.stateMustBeSubmittedTooltip;
+    }
+  }
+
+  getRejectTooltipText(): string {
+    if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.draft) &&
+      this.currentUserNotAdminOrAuditor()) {
+      return this.rejectTopicdraftStatusAndUser;
+    } else if (this.currentUserNotAdminOrAuditor()) {
+      return this.userRoleToReject;
+    } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.approved) {
+      return this.stateMustBeSubmittedTooltip;
+    }
+  }
 }
