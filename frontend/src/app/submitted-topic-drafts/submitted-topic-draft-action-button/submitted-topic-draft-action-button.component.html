@@ -28,8 +28,8 @@
           <span>Einreichen/Zurücknehmen</span>
         </button>
       </span>
-      <span matTooltip="{{getApproveTooltipText()}}" [matTooltipDisabled]="canApproveTopicDraft()">
-        <button mat-menu-item [disabled]="!canApproveTopicDraft()" (click)="approvingTopicDraft()">
+      <span matTooltip="{{tooltipApprove$ | async}}" [matTooltipDisabled]="!(isAdmin$ | async)">
+        <button mat-menu-item [disabled]="!(isAdmin$ | async)" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
           <span>{{ getApprovalButtonText() }}</span>
         </button>

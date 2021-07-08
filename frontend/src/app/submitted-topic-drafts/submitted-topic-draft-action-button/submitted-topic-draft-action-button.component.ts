@@ -5,8 +5,8 @@ import {
     ConfirmationDialogComponent,
     ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { shareReplay, switchMap, take } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
@@ -14,6 +14,8 @@ import { User } from '../../shared/model/api/user';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -28,6 +30,16 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
 
   subscriptions: Subscription[] = [];
+
+  isAdmin$: Observable<boolean>;
+  isAuditor$: Observable<boolean>;
+  ísCreator$: Observable<boolean>;
+
+  canApprove$: Observable<boolean>;
+  canReject$: Observable<boolean>;
+
+  tooltipApprove$: Observable<string>;
+  tooltipReject$: Observable<string>;
 
   @Output() clickedEditAction: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedDeleteAction: EventEmitter<void> = new EventEmitter<void>();
@@ -106,12 +118,21 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     }
 
   ngOnInit(): void {
+      // TODO Observables??
       this.currentUserService.getCurrentUser$()
           .pipe(take(1))
           .subscribe((received: User) => {
               this.currentUser = received;
           }
       );
+
+      this.isAdmin$ = this.currentUserService.isCurrentUserAdmin$()
+        .pipe(
+          switchMap((isAdmin: boolean) => {
+            return of(isAdmin);
+          }),
+          shareReplay()
+        );
     }
 
   ngOnDestroy(): void {
