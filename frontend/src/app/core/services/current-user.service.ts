@@ -12,6 +12,7 @@ import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 })
 export class CurrentUserService implements Fetchable {
   private isAdmin$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  private isAuditor$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   private currentUser$: ReplaySubject<User> = new ReplaySubject<User>(1);
 
   constructor(private oAuthService: OAuthService,
@@ -26,6 +27,10 @@ export class CurrentUserService implements Fetchable {
     return this.isAdmin$.asObservable();
   }
 
+  isCurrentUserAuditor$(): Observable<boolean> {
+    return this.isAuditor$.asObservable();
+  }
+
   fetchData(): void {
     this.userApiService.getCurrentUser$()
       .pipe(take(1))
@@ -36,6 +41,11 @@ export class CurrentUserService implements Fetchable {
       .pipe(take(1))
       .subscribe((isAdmin: boolean) => {
         this.isAdmin$.next(isAdmin);
+      });
+    this.userApiService.isCurrentUserAuditor$()
+      .pipe(take(1))
+      .subscribe((isAuditor: boolean) => {
+        this.isAdmin$.next(isAuditor);
       });
   }
 }

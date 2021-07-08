@@ -138,6 +138,17 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return userAdmin;
   }
 
+  isCurrentUserAuditor(): boolean {
+    let userAuditor: boolean;
+    this.currentUserService.isCurrentUserAuditor$()
+      .pipe(take(1))
+      .subscribe((received: boolean) => {
+        userAuditor = received;
+      });
+
+    return userAuditor;
+  }
+
   currentUserNotAdminOrCreator(): boolean {
     const userNotCreator: boolean = (this.currentUser.id !== this.topicDraft.initiatorId);
     const userNotAdmin: boolean = !this.isCurrentUserAdmin();
@@ -147,9 +158,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
 
   // TODO NL 07.07.2021 Auditor needs to be added
   currentUserNotAdminOrAuditor(): boolean {
-    const userNotAdmin: boolean = !this.isCurrentUserAdmin();
-
-    return userNotAdmin;
+    console.log("Die das sadssdd", !this.isCurrentUserAdmin() || !this.isCurrentUserAuditor());
+    return !(this.isCurrentUserAdmin() || this.isCurrentUserAuditor());
   }
 
   editTopicDraft(): void {
@@ -216,11 +226,13 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   canApproveTopicDraft(): boolean {
+    console.log("Use of currentUserNotAdminOrAuditor(): canApproveTopicDraft()");
     return !this.currentUserNotAdminOrAuditor() &&
       (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.approved);
   }
 
   canRejectTopicDraft(): boolean {
+    console.log("Use of currentUserNotAdminOrAuditor(): canRejectTopicDraft()");
     return !this.currentUserNotAdminOrAuditor() &&
       (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.rejected);
   }
@@ -266,25 +278,33 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   getApproveTooltipText(): string {
+    console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() A");
     if ((this.topicDraft.currentStatus === status.rejected || this.topicDraft.currentStatus === status.draft) &&
       this.currentUserNotAdminOrAuditor()) {
       return this.approveTopicdraftStatusAndUser;
     } else if (this.currentUserNotAdminOrAuditor()) {
+      console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() B");
       return this.userRoleToApprove;
     } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.rejected) {
+      console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() B");
       return this.stateMustBeSubmittedTooltip;
     }
+    console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() B");
   }
 
   getRejectTooltipText(): string {
+    console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() A");
     if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.draft) &&
       this.currentUserNotAdminOrAuditor()) {
       return this.rejectTopicdraftStatusAndUser;
     } else if (this.currentUserNotAdminOrAuditor()) {
+      console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() B");
       return this.userRoleToReject;
     } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.approved) {
+      console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() B");
       return this.stateMustBeSubmittedTooltip;
     }
+    console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() B");
   }
 
   getApprovalButtonText(): string {

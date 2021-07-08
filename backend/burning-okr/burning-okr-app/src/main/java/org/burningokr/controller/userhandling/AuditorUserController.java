@@ -16,7 +16,7 @@ public class AuditorUserController {
      *
      * @return a {@link ResponseEntity} ok with a boolean
      */
-    @GetMapping("/auditor/self")
+    @GetMapping("/auditors/self")
     public ResponseEntity<Boolean> isCurrentUserAuditor() {
         return ResponseEntity.ok(auditorUserService.isCurrentUserAuditor());
     }

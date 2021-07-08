@@ -32,6 +32,10 @@ export class UserApiService {
     return this.api.getData$('admins/self');
   }
 
+  isCurrentUserAuditor$(): Observable<boolean> {
+    return this.api.getData$('auditors/self');
+  }
+
   getAdminIds$(): Observable<string[]> {
     return this.api.getData$('admins');
   }
