@@ -6,6 +6,7 @@ import { User } from '../../model/api/user';
 import { combineLatest, Observable } from 'rxjs';
 import { ContextRole } from '../../model/ui/context-role';
 import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
+import 'linq4js';
 
 @Injectable({
   providedIn: 'root'
