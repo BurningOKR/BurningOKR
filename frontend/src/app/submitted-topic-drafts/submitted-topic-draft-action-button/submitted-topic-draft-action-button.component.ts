@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, OnInit } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { SubmittedTopicDraftDetailsComponent } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 import {
     ConfirmationDialogComponent,
     ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
@@ -14,6 +13,7 @@ import { User } from '../../shared/model/api/user';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -21,8 +21,6 @@ import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft
   styleUrls: ['./submitted-topic-draft-action-button.component.css']
 })
 export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnInit {
-  private currentUser: User;
-
   @Input() topicDraft: OkrTopicDraft;
   @Output() topicDraftDeletedEvent = new EventEmitter();
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
@@ -100,19 +98,14 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   });
 
   constructor(private topicDraftMapper: TopicDraftMapper,
-              private currentUserService: CurrentUserService,
+              public currentUserService: CurrentUserService,
               private i18n: I18n,
               private dialog: MatDialog) {
     }
 
   ngOnInit(): void {
-      this.currentUserService.getCurrentUser$()
-          .pipe(take(1))
-          .subscribe((received: User) => {
-              this.currentUser = received;
-          }
-      );
-    }
+    // TODO Observables??
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -127,41 +120,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return 'Not Implemented';
   }
 
-  isCurrentUserAdmin(): boolean {
-    let userAdmin: boolean;
-    this.currentUserService.isCurrentUserAdmin$()
-      .pipe(take(1))
-      .subscribe((received: boolean) => {
-        userAdmin = received;
-      });
-
-    return userAdmin;
-  }
-
-  isCurrentUserAuditor(): boolean {
-    let userAuditor: boolean;
-    this.currentUserService.isCurrentUserAuditor$()
-      .pipe(take(1))
-      .subscribe((received: boolean) => {
-        userAuditor = received;
-      });
-
-    return userAuditor;
-  }
-
-  currentUserNotAdminOrCreator(): boolean {
-    const userNotCreator: boolean = (this.currentUser.id !== this.topicDraft.initiatorId);
-    const userNotAdmin: boolean = !this.isCurrentUserAdmin();
-
-    return (userNotCreator && userNotAdmin);
-  }
-
-  // TODO NL 07.07.2021 Auditor needs to be added
-  currentUserNotAdminOrAuditor(): boolean {
-    console.log("Die das sadssdd", !this.isCurrentUserAdmin() || !this.isCurrentUserAuditor());
-    return !(this.isCurrentUserAdmin() || this.isCurrentUserAuditor());
-  }
-
   editTopicDraft(): void {
     const data: object = {
       data: {
@@ -173,45 +131,45 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   clickedDeleteTopicDraft(): void {
-  const title: string =
+    const title: string =
       this.i18n({
         id: 'deleteTopicDraftTitle',
         description: 'Title of the delete topicdraft dialog',
         value: 'Themenentwurf löschen'
       });
 
-  const message: string =
+    const message: string =
       this.i18n({
         id: 'deleteTopicDraftMessage',
         description: 'Do you want to delete topic draft x',
         value: 'Themenentwurf "{{name}}" löschen?',
       }, {name: this.topicDraft.name});
 
-  const confirmButtonText: string = this.i18n({
-    id: 'capitalised_delete',
-    description: 'deleteButtonText',
-    value: 'Löschen'
-  });
+    const confirmButtonText: string = this.i18n({
+      id: 'capitalised_delete',
+      description: 'deleteButtonText',
+      value: 'Löschen'
+    });
 
-  const dialogData: ConfirmationDialogData = {
-    title,
-    message,
-    confirmButtonText
-  };
+    const dialogData: ConfirmationDialogData = {
+      title,
+      message,
+      confirmButtonText
+    };
 
-  const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
+    const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
       = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
 
-  this.subscriptions.push(
+    this.subscriptions.push(
       dialogReference
-          .afterClosed()
-          .pipe(take(1))
-          .subscribe(isConfirmed => {
-            if (isConfirmed) {
-              this.deleteTopicDraft();
-            }
-          })
-  );
+        .afterClosed()
+        .pipe(take(1))
+        .subscribe(isConfirmed => {
+          if (isConfirmed) {
+            this.deleteTopicDraft();
+          }
+        })
+    );
   }
 
   deleteTopicDraft(): void {
@@ -225,101 +183,112 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
           ));
   }
 
-  canApproveTopicDraft(): boolean {
-    console.log("Use of currentUserNotAdminOrAuditor(): canApproveTopicDraft()");
-    return !this.currentUserNotAdminOrAuditor() &&
-      (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.approved);
+  canEditTopicDraft$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && (this.topicDraft.currentStatus === status.draft
+            || this.topicDraft.currentStatus === status.submitted));
+        })
+      );
   }
 
-  canRejectTopicDraft(): boolean {
-    console.log("Use of currentUserNotAdminOrAuditor(): canRejectTopicDraft()");
-    return !this.currentUserNotAdminOrAuditor() &&
-      (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.rejected);
+  canApproveTopicDraft$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrAuditor$()
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && (this.topicDraft.currentStatus === status.submitted
+            || this.topicDraft.currentStatus === status.approved));
+        })
+      );
+  }
+
+  canRejectTopicDraft$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrAuditor$()
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && (this.topicDraft.currentStatus === status.submitted
+            || this.topicDraft.currentStatus === status.rejected));
+        })
+      );
+  }
+
+  changeCurrentStatus(newStatus: status): void {
+    this.topicDraft.currentStatus = newStatus;
+    this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
+      .subscribe();
   }
 
   approvingTopicDraft(): void {
-    if (this.topicDraft.currentStatus !== status.approved) {
-      this.topicDraft.currentStatus = status.approved;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    } else {
-      this.topicDraft.currentStatus = status.submitted;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    }
+     this.changeCurrentStatus(this.topicDraft.currentStatus !== status.approved ? status.approved : status.submitted);
   }
 
   rejectingTopicDraft(): void {
-    if (this.topicDraft.currentStatus !== status.rejected) {
-      this.topicDraft.currentStatus = status.rejected;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    } else {
-      this.topicDraft.currentStatus = status.submitted;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    }
+    this.changeCurrentStatus(this.topicDraft.currentStatus !== status.rejected ? status.rejected : status.submitted);
   }
 
-  canEditTopicDraft(): boolean {
-    return this.topicDraft.currentStatus === status.submitted && !this.currentUserNotAdminOrCreator();
+  getApproveOrRejectTooltipText$(isApproving: boolean): Observable<string> {
+    const possibleAllowedStatus: status = isApproving ? status.rejected : status.approved;
+
+    return this.currentUserService.isCurrentUserAdminOrAuditor$()
+      .pipe(
+        switchMap((isAdminOrAuditor: boolean) => {
+          if ((this.topicDraft.currentStatus === possibleAllowedStatus || this.topicDraft.currentStatus === status.draft) &&
+            !isAdminOrAuditor) {
+            if (isApproving) {
+              return of(this.approveTopicdraftStatusAndUser);
+            } else {
+              return of(this.rejectTopicdraftStatusAndUser);
+            }
+          } else if (!isAdminOrAuditor) {
+            return of(this.userRoleToApprove);
+            if (isApproving) {
+              return of(this.userRoleToApprove);
+            } else {
+              return of(this.userRoleToReject);
+            }
+          } else if (this.topicDraft.currentStatus === possibleAllowedStatus || this.topicDraft.currentStatus === status.draft) {
+            return of(this.stateMustBeSubmittedTooltip);
+          }
+
+          return of('');
+        }
+      ));
   }
 
-  // TODO NL 07.07.2021 ggf Auditor hinzufügen
-  getEditTooltipText(): string {
-    if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
-    this.currentUserNotAdminOrCreator()) {
-      return this.editTooltipStatusAndUser;
-    } else if (this.currentUserNotAdminOrCreator()) {
-      return this.editTooltipUser;
-    } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
-      return this.editTooltipStatus;
-    }
+  getApproveTooltipText$(): Observable<string> {
+    return this.getApproveOrRejectTooltipText$(true);
   }
 
-  getApproveTooltipText(): string {
-    console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() A");
-    if ((this.topicDraft.currentStatus === status.rejected || this.topicDraft.currentStatus === status.draft) &&
-      this.currentUserNotAdminOrAuditor()) {
-      return this.approveTopicdraftStatusAndUser;
-    } else if (this.currentUserNotAdminOrAuditor()) {
-      console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() B");
-      return this.userRoleToApprove;
-    } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.rejected) {
-      console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() B");
-      return this.stateMustBeSubmittedTooltip;
-    }
-    console.log("Use of currentUserNotAdminOrAuditor(): getApproveTooltipText() B");
+  getRejectTooltipText$(): Observable<string> {
+    return this.getApproveOrRejectTooltipText$(false);
   }
 
-  getRejectTooltipText(): string {
-    console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() A");
-    if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.draft) &&
-      this.currentUserNotAdminOrAuditor()) {
-      return this.rejectTopicdraftStatusAndUser;
-    } else if (this.currentUserNotAdminOrAuditor()) {
-      console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() B");
-      return this.userRoleToReject;
-    } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.approved) {
-      console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() B");
-      return this.stateMustBeSubmittedTooltip;
-    }
-    console.log("Use of currentUserNotAdminOrAuditor(): getRejectTooltipText() B");
+  getEditTooltipText$(): Observable<string> {
+    return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
+      .pipe(
+        switchMap((isAdminOrCreator: boolean) => {
+          if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
+            !isAdminOrCreator) {
+            return of(this.editTooltipStatusAndUser);
+          } else if (!isAdminOrCreator) {
+            return of(this.editTooltipUser);
+          } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
+            return of(this.editTooltipStatus);
+          }
+
+          return of('');
+        }
+      ));
   }
 
   getApprovalButtonText(): string {
-    if (this.topicDraft.currentStatus === status.approved) {
-      return this.withDrawApprovalTopicDraftText;
-    } else {
-      return this.approveTopicDraftText;
-    }
+    return this.topicDraft.currentStatus === status.approved ? this.withDrawApprovalTopicDraftText
+      : this.approveTopicDraftText;
   }
 
   getRejectionButtonText(): string {
-    if (this.topicDraft.currentStatus === status.rejected) {
-      return this.withDrawRejectionTopicDraftText;
-    } else {
-      return this.rejectTopicDraftText;
-    }
+    return this.topicDraft.currentStatus === status.rejected ? this.withDrawRejectionTopicDraftText
+      : this.rejectTopicDraftText;
   }
 }

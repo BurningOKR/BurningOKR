@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject, Observable, of } from 'rxjs';
 import { UserApiService } from '../../shared/services/api/user-api.service';
-import { take } from 'rxjs/operators';
+import { shareReplay, switchMap, take } from 'rxjs/operators';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { User } from '../../shared/model/api/user';
 import { Fetchable } from '../../shared/decorators/fetchable.decorator';
+import { map } from 'rxjs/internal/operators';
 
 @Fetchable()
 @Injectable({
@@ -31,6 +32,41 @@ export class CurrentUserService implements Fetchable {
     return this.isAuditor$.asObservable();
   }
 
+  isCurrentUserCreator$(initiatorId: string): Observable<boolean> {
+    return this.getCurrentUser$()
+      .pipe(
+        switchMap((currentUser: User) => {
+          return of(currentUser.id === initiatorId);
+        })
+      );
+  }
+
+  isCurrentUserAdminOrCreator$(initiatorId: string): Observable<boolean> {
+    return this.isCurrentUserCreator$(initiatorId)
+      .pipe(
+        switchMap((isCreator: boolean) => {
+          if (isCreator) {
+            return of(isCreator);
+          } else {
+            return this.isCurrentUserAdmin$();
+          }
+        })
+      );
+  }
+
+  isCurrentUserAdminOrAuditor$(): Observable<boolean> {
+    return this.isCurrentUserAdmin$()
+      .pipe(
+        switchMap((isAdmin: boolean) => {
+          if (isAdmin) {
+            return of(isAdmin);
+          } else {
+            return this.isCurrentUserAuditor$();
+          }
+        })
+      );
+  }
+
   fetchData(): void {
     this.userApiService.getCurrentUser$()
       .pipe(take(1))
@@ -45,7 +81,7 @@ export class CurrentUserService implements Fetchable {
     this.userApiService.isCurrentUserAuditor$()
       .pipe(take(1))
       .subscribe((isAuditor: boolean) => {
-        this.isAdmin$.next(isAuditor);
+        this.isAuditor$.next(isAuditor);
       });
   }
 }

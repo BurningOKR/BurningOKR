@@ -1,44 +1,44 @@
 <ng-container>
-    <button mat-icon-button [matMenuTriggerFor]="actionDropdown">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-<!-- TODO : Router link angeben - mWegmann 10.05.2021 -->
-    <mat-menu #actionDropdown="matMenu">
-      <span matTooltip="{{getEditTooltipText()}}" [matTooltipDisabled]="canEditTopicDraft()">
-        <button mat-menu-item [disabled]="!canEditTopicDraft()" (click)="editTopicDraft()">
+  <button mat-icon-button [matMenuTriggerFor]="actionDropdown">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <!-- TODO : Router link angeben - mWegmann 10.05.2021 -->
+  <mat-menu #actionDropdown="matMenu">
+      <span matTooltip="{{ getEditTooltipText$() | async}}" [matTooltipDisabled]="canEditTopicDraft$() | async">
+        <button mat-menu-item [disabled]="!(canEditTopicDraft$() | async)" (click)="editTopicDraft()">
           <mat-icon>edit</mat-icon>
           <span>Bearbeiten</span>
         </button>
       </span>
-      <button mat-menu-item [disabled]="currentUserNotAdminOrCreator()" (click)="clickedDeleteTopicDraft()">
-        <mat-icon>delete</mat-icon>
-        <span>Löschen</span>
-      </button>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
+    <button mat-menu-item [disabled]="!(currentUserService.isCurrentUserAdminOrCreator$(topicDraft.initiatorId) | async)" (click)="clickedDeleteTopicDraft()">
+      <mat-icon>delete</mat-icon>
+      <span>Löschen</span>
+    </button>
+    <span matTooltip="Feature kommt demnächst"
+          i18n-matTooltip="@@feature-coming-soon">
         <button mat-menu-item disabled (click)="printNotImplemented()">
           <mat-icon>chat</mat-icon>
           <span>Kommentare</span>
         </button>
       </span>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
+    <span matTooltip="Feature kommt demnächst"
+          i18n-matTooltip="@@feature-coming-soon">
         <button mat-menu-item disabled (click)="printNotImplemented()">
           <mat-icon>exposure</mat-icon>
           <span>Einreichen/Zurücknehmen</span>
         </button>
       </span>
-      <span matTooltip="{{getApproveTooltipText()}}" [matTooltipDisabled]="canApproveTopicDraft()">
-        <button mat-menu-item [disabled]="!canApproveTopicDraft()" (click)="approvingTopicDraft()">
+    <span matTooltip="{{ getApproveTooltipText$() | async}}" [matTooltipDisabled]="canApproveTopicDraft$() | async">
+        <button mat-menu-item [disabled]="!(canApproveTopicDraft$() | async)" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
           <span>{{ getApprovalButtonText() }}</span>
         </button>
       </span>
-      <span matTooltip="{{getRejectTooltipText()}}" [matTooltipDisabled]="canRejectTopicDraft()">
-        <button mat-menu-item [disabled]="!canRejectTopicDraft()" (click)="rejectingTopicDraft()">
+    <span matTooltip="{{ getRejectTooltipText$() | async}}" [matTooltipDisabled]="canRejectTopicDraft$() | async">
+        <button mat-menu-item [disabled]="!(canRejectTopicDraft$() | async)" (click)="rejectingTopicDraft()">
           <mat-icon >cancel</mat-icon>
           <span>{{ getRejectionButtonText() }}</span>
         </button>
       </span>
-    </mat-menu>
+  </mat-menu>
 </ng-container>

@@ -14,6 +14,22 @@ import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topi
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { of } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+
+class CurrentUserServiceMock {
+
+  isCurrentUserAdmin$(): Observable<boolean> {
+    return of(true);
+  }
+
+  isCurrentUserAdminOrCreator$(): Observable<boolean> {
+    return of(true);
+  }
+
+  isCurrentUserAdminOrAuditor$(): Observable<boolean> {
+    return of(true);
+  }
+}
 
 describe('SubmittedTopicDraftActionButtonComponent', () => {
   let component: SubmittedTopicDraftActionButtonComponent;
@@ -24,10 +40,6 @@ describe('SubmittedTopicDraftActionButtonComponent', () => {
 
   const i18nMock: any = jest.fn();
   const routerMock: any = jest.fn();
-  const currentUserServiceMock: any = {
-    getCurrentUser$: jest.fn(),
-    isCurrentUserAdmin$: jest.fn()
-  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,7 +53,7 @@ describe('SubmittedTopicDraftActionButtonComponent', () => {
         { provide: NGXLogger, useValue: {} },
         { provide: Router, useValue: routerMock },
         { provide: OAuthService, useValue: {} },
-        { provide: CurrentUserService, useValue: currentUserServiceMock }
+        { provide: CurrentUserService, useClass: CurrentUserServiceMock }
       ]
     })
     .compileComponents();
@@ -50,11 +62,6 @@ describe('SubmittedTopicDraftActionButtonComponent', () => {
   beforeEach(() => {
     currentUser = new User('1', '', '', '', '', '', '', true);
     topicDraft = new OkrTopicDraft(-1, status.submitted, currentUser, 1, '', '1', [], [], '', '', '', new Date(), '', '', '');
-
-    currentUserServiceMock.getCurrentUser$.mockReset();
-    currentUserServiceMock.getCurrentUser$.mockReturnValue(of(currentUser));
-    currentUserServiceMock.isCurrentUserAdmin$.mockReset();
-    currentUserServiceMock.isCurrentUserAdmin$.mockReturnValue(of(false));
 
     fixture = TestBed.createComponent(SubmittedTopicDraftActionButtonComponent);
     component = fixture.componentInstance;

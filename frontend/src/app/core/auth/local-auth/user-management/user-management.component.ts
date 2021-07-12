@@ -11,6 +11,7 @@ import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
+import 'linq4js';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
