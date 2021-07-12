@@ -98,7 +98,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   });
 
   constructor(private topicDraftMapper: TopicDraftMapper,
-              private currentUserService: CurrentUserService,
+              public currentUserService: CurrentUserService,
               private i18n: I18n,
               private dialog: MatDialog) {
     }
@@ -237,6 +237,43 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     }
   }
 
+  getApproveOrRejectTooltipText$(isApproving: boolean): Observable<string> {
+    const possibleAllowedStatus: status = isApproving ? status.rejected : status.approved;
+
+    return this.currentUserService.isCurrentUserAdminOrAuditor$()
+      .pipe(
+        switchMap((isAdminOrAuditor: boolean) => {
+          if ((this.topicDraft.currentStatus === possibleAllowedStatus || this.topicDraft.currentStatus === status.draft) &&
+            !isAdminOrAuditor) {
+            if (isApproving) {
+              return of(this.approveTopicdraftStatusAndUser);
+            } else {
+              return of(this.rejectTopicdraftStatusAndUser);
+            }
+          } else if (!isAdminOrAuditor) {
+            return of(this.userRoleToApprove);
+            if (isApproving) {
+              return of(this.userRoleToApprove);
+            } else {
+              return of(this.userRoleToReject);
+            }
+          } else if (this.topicDraft.currentStatus === possibleAllowedStatus || this.topicDraft.currentStatus === status.draft) {
+            return of(this.stateMustBeSubmittedTooltip);
+          }
+
+          return of('');
+        }
+      ));
+  }
+
+  getApproveTooltipText$(): Observable<string> {
+    return this.getApproveOrRejectTooltipText$(true);
+  }
+
+  getRejectTooltipText$(): Observable<string> {
+    return this.getApproveOrRejectTooltipText$(false);
+  }
+
   // TODO NL 07.07.2021 ggf Auditor hinzufügen
   /*getEditTooltipText(): string {
     if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
@@ -246,28 +283,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       return this.editTooltipUser;
     } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
       return this.editTooltipStatus;
-    }
-  }
-
-  getApproveTooltipText(): string {
-    if ((this.topicDraft.currentStatus === status.rejected || this.topicDraft.currentStatus === status.draft) &&
-      this.currentUserNotAdminOrAuditor()) {
-      return this.approveTopicdraftStatusAndUser;
-    } else if (this.currentUserNotAdminOrAuditor()) {
-      return this.userRoleToApprove;
-    } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.rejected) {
-      return this.stateMustBeSubmittedTooltip;
-    }
-  }
-
-  getRejectTooltipText(): string {
-    if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.draft) &&
-      this.currentUserNotAdminOrAuditor()) {
-      return this.rejectTopicdraftStatusAndUser;
-    } else if (this.currentUserNotAdminOrAuditor()) {
-      return this.userRoleToReject;
-    } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.approved) {
-      return this.stateMustBeSubmittedTooltip;
     }
   }
 
