@@ -274,53 +274,31 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return this.getApproveOrRejectTooltipText$(false);
   }
 
-  // TODO NL 07.07.2021 ggf Auditor hinzufügen
-  // getEditTooltipText(): string {
-  //   if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
-  //   this.currentUserNotAdminOrCreator()) {
-  //     return this.editTooltipStatusAndUser;
-  //   } else if (this.currentUserNotAdminOrCreator()) {
-  //     return this.editTooltipUser;
-  //   } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
-  //     return this.editTooltipStatus;
-  //   }
-  // }
+  getEditTooltipText$(): Observable<string> {
+    return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
+      .pipe(
+        switchMap((isAdminOrCreator: boolean) => {
+          if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
+            !isAdminOrCreator) {
+            return of(this.editTooltipStatusAndUser);
+          } else if (!isAdminOrCreator) {
+            return of(this.editTooltipUser);
+          } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
+            return of(this.editTooltipStatus);
+          }
 
-  // getApproveTooltipText(): string {
-  //   if ((this.topicDraft.currentStatus === status.rejected || this.topicDraft.currentStatus === status.draft) &&
-  //     this.currentUserNotAdminOrAuditor()) {
-  //     return this.approveTopicdraftStatusAndUser;
-  //   } else if (this.currentUserNotAdminOrAuditor()) {
-  //     return this.userRoleToApprove;
-  //   } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.rejected) {
-  //     return this.stateMustBeSubmittedTooltip;
-  //   }
-  // }
-  //
-  // getRejectTooltipText(): string {
-  //   if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.draft) &&
-  //     this.currentUserNotAdminOrAuditor()) {
-  //     return this.rejectTopicdraftStatusAndUser;
-  //   } else if (this.currentUserNotAdminOrAuditor()) {
-  //     return this.userRoleToReject;
-  //   } else if (this.topicDraft.currentStatus === status.draft || this.topicDraft.currentStatus === status.approved) {
-  //     return this.stateMustBeSubmittedTooltip;
-  //   }
-  // }
-  //
-  // getApprovalButtonText(): string {
-  //   if (this.topicDraft.currentStatus === status.approved) {
-  //     return this.withDrawApprovalTopicDraftText;
-  //   } else {
-  //     return this.approveTopicDraftText;
-  //   }
-  // }
-  //
-  // getRejectionButtonText(): string {
-  //   if (this.topicDraft.currentStatus === status.rejected) {
-  //     return this.withDrawRejectionTopicDraftText;
-  //   } else {
-  //     return this.rejectTopicDraftText;
-  //   }
-  // }
+          return of('');
+        }
+      ));
+  }
+
+  getApprovalButtonText(): string {
+    return this.topicDraft.currentStatus === status.approved ? this.withDrawApprovalTopicDraftText
+      : this.approveTopicDraftText;
+  }
+
+  getRejectionButtonText(): string {
+    return this.topicDraft.currentStatus === status.rejected ? this.withDrawRejectionTopicDraftText
+      : this.rejectTopicDraftText;
+  }
 }
