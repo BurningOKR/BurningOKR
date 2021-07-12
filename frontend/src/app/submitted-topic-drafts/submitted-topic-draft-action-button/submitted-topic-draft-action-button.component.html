@@ -31,7 +31,7 @@
       <span matTooltip="{{tooltipApprove$ | async}}" [matTooltipDisabled]="canApproveTopicDraft$() | async">
         <button mat-menu-item [disabled]="!(canApproveTopicDraft$() | async)" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
-          <span>Müssen wir nochmal neu machen (Approve)</span>
+          <span>Kommt gleich wieder</span>
         </button>
       </span>
       <span matTooltip="Müssen wir nochmal neu machen" [matTooltipDisabled]="canRejectTopicDraft$() | async">

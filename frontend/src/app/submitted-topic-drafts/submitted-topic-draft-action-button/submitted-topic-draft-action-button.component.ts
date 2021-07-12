@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, OnInit } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { SubmittedTopicDraftDetailsComponent } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 import {
     ConfirmationDialogComponent,
     ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { shareReplay, switchMap, take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -15,7 +14,6 @@ import { CurrentUserService } from '../../core/services/current-user.service';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -23,23 +21,11 @@ import { map } from 'rxjs/internal/operators';
   styleUrls: ['./submitted-topic-draft-action-button.component.css']
 })
 export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnInit {
-  private currentUser: User;
-
   @Input() topicDraft: OkrTopicDraft;
   @Output() topicDraftDeletedEvent = new EventEmitter();
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
 
   subscriptions: Subscription[] = [];
-
-  isAdmin$: Observable<boolean>;
-  isAuditor$: Observable<boolean>;
-  ísCreator$: Observable<boolean>;
-
-  canApprove$: Observable<boolean>;
-  canReject$: Observable<boolean>;
-
-  tooltipApprove$: Observable<string>;
-  tooltipReject$: Observable<string>;
 
   @Output() clickedEditAction: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedDeleteAction: EventEmitter<void> = new EventEmitter<void>();
@@ -119,21 +105,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
 
   ngOnInit(): void {
       // TODO Observables??
-      this.currentUserService.getCurrentUser$()
-          .pipe(take(1))
-          .subscribe((received: User) => {
-              this.currentUser = received;
-          }
-      );
-
-      /*this.isAdmin$ = this.currentUserService.isCurrentUserAdmin$()
-        .pipe(
-          switchMap((isAdmin: boolean) => {
-            return of(isAdmin);
-          }),
-          shareReplay()
-        );*/
-      this.isAdmin$ = this.currentUserService.isCurrentUserAdmin$();
     }
 
   ngOnDestroy(): void {
@@ -160,45 +131,45 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   clickedDeleteTopicDraft(): void {
-  const title: string =
-      this.i18n({
-        id: 'deleteTopicDraftTitle',
-        description: 'Title of the delete topicdraft dialog',
-        value: 'Themenentwurf löschen'
-      });
+    const title: string =
+        this.i18n({
+          id: 'deleteTopicDraftTitle',
+          description: 'Title of the delete topicdraft dialog',
+          value: 'Themenentwurf löschen'
+        });
 
-  const message: string =
-      this.i18n({
-        id: 'deleteTopicDraftMessage',
-        description: 'Do you want to delete topic draft x',
-        value: 'Themenentwurf "{{name}}" löschen?',
-      }, {name: this.topicDraft.name});
+    const message: string =
+        this.i18n({
+          id: 'deleteTopicDraftMessage',
+          description: 'Do you want to delete topic draft x',
+          value: 'Themenentwurf "{{name}}" löschen?',
+        }, {name: this.topicDraft.name});
 
-  const confirmButtonText: string = this.i18n({
-    id: 'capitalised_delete',
-    description: 'deleteButtonText',
-    value: 'Löschen'
-  });
+    const confirmButtonText: string = this.i18n({
+      id: 'capitalised_delete',
+      description: 'deleteButtonText',
+      value: 'Löschen'
+    });
 
-  const dialogData: ConfirmationDialogData = {
-    title,
-    message,
-    confirmButtonText
-  };
+    const dialogData: ConfirmationDialogData = {
+      title,
+      message,
+      confirmButtonText
+    };
 
-  const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-      = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+    const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
+        = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
 
-  this.subscriptions.push(
-      dialogReference
-          .afterClosed()
-          .pipe(take(1))
-          .subscribe(isConfirmed => {
-            if (isConfirmed) {
-              this.deleteTopicDraft();
-            }
-          })
-  );
+    this.subscriptions.push(
+        dialogReference
+            .afterClosed()
+            .pipe(take(1))
+            .subscribe(isConfirmed => {
+              if (isConfirmed) {
+                this.deleteTopicDraft();
+              }
+            })
+    );
   }
 
   deleteTopicDraft(): void {
