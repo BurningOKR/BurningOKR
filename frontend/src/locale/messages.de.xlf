@@ -1266,11 +1266,17 @@
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">126</context></context-group></trans-unit><trans-unit id="topic_draft_details_edit_no_permission_tooltip" datatype="html">
         <source>Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein.</source><target state="final">Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">123</context></context-group></trans-unit><trans-unit id="feature-coming-soon" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">123</context></context-group></trans-unit><trans-unit id="onlyAdminOrInitiatorPermissionToDelete" datatype="html">
+        <source>Nur ein Admin oder der Initiator können diesen Themenentwurf löschen</source><target state="final">Nur ein Admin oder der Initiator können diesen Themenentwurf löschen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit><trans-unit id="feature-coming-soon" datatype="html">
         <source>Feature kommt demnächst</source><target state="final">Feature kommt demnächst</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">17</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">24</context></context-group></trans-unit><trans-unit id="heading_contributes_to" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">19</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit><trans-unit id="heading_contributes_to" datatype="html">
         <source>Zählt ein auf:</source><target state="final">Zählt ein auf:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">47</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="heading_dependencies" datatype="html">
@@ -1288,10 +1294,7 @@
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">64</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_topic" datatype="html">
         <source>Thema:</source><target state="final">Thema:</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">24</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="current_status_state" datatype="html">
-        <source>Aktueller Status</source><target state="final">Aktueller Status</target>
-
-      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/status-dot/status-dot.component.html</context><context context-type="linenumber">1</context></context-group></trans-unit><trans-unit id="goToOkrUnitOverview" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">24</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="goToOkrUnitOverview" datatype="html">
         <source>Zur Strukturübersicht</source><target state="final">Zur Strukturübersicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/error/error.component.html</context>
@@ -2237,6 +2240,34 @@
           <context context-type="sourcefile">src/app/shared/components/confirmation-dialog/confirmation-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit><trans-unit id="statusTooltipSubmitted" datatype="html">
+        <source>Eingereicht</source><target state="final">Eingereicht</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipSubmittedText</note>
+      </trans-unit><trans-unit id="statusTooltipApproved" datatype="html">
+        <source>Genehmigt</source><target state="final">Genehmigt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipApprovedText</note>
+      </trans-unit><trans-unit id="statusTooltipRejected" datatype="html">
+        <source>Abgelehnt</source><target state="final">Abgelehnt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipRejectedText</note>
+      </trans-unit><trans-unit id="statusTooltipDraft" datatype="html">
+        <source>Entwurf</source><target state="final">Entwurf</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipDraftText</note>
       </trans-unit><trans-unit id="cancelButtonText" datatype="html">
         <source>Abbrechen</source><target state="final">Abbrechen</target>
 

@@ -224,12 +224,6 @@
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
-      </trans-unit><trans-unit id="current_status_state" datatype="html">
-        <source>Aktueller Status</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/components/status-dot/status-dot.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
       </trans-unit><trans-unit id="goToOkrUnitOverview" datatype="html">
         <source>Zur Strukturübersicht</source>
         <context-group purpose="location">
@@ -593,15 +587,21 @@
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
           <context context-type="linenumber">123</context>
         </context-group>
+      </trans-unit><trans-unit id="onlyAdminOrInitiatorPermissionToDelete" datatype="html">
+        <source>Nur ein Admin oder der Initiator können diesen Themenentwurf löschen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
       </trans-unit><trans-unit id="feature-coming-soon" datatype="html">
         <source>Feature kommt demnächst</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit><trans-unit id="submitted-topic-draft-card-column-initiator" datatype="html">
         <source>Eingereicht von</source>
@@ -2586,6 +2586,38 @@
           <context context-type="sourcefile">src/app/shared/components/confirmation-dialog/confirmation-dialog.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="statusTooltipSubmitted" datatype="html">
+        <source>Eingereicht</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipSubmittedText</note>
+      </trans-unit>
+      <trans-unit id="statusTooltipApproved" datatype="html">
+        <source>Genehmigt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipApprovedText</note>
+      </trans-unit>
+      <trans-unit id="statusTooltipRejected" datatype="html">
+        <source>Abgelehnt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipRejectedText</note>
+      </trans-unit>
+      <trans-unit id="statusTooltipDraft" datatype="html">
+        <source>Entwurf</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/status-dot/status-dot.component.ts</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">statusTooltipDraftText</note>
       </trans-unit>
       <trans-unit id="defaultErrorMessage" datatype="html">
         <source>kein gültiger Wert.</source>
