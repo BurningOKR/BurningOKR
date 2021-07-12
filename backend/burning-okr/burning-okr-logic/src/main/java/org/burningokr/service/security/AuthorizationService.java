@@ -18,6 +18,10 @@ public class AuthorizationService {
     return userRole == UserContextRole.ADMIN;
   }
 
+  public boolean isAuditor() {
+    return userRoleFromContextService.isCurrentUserAuditor();
+  }
+
   public boolean hasManagerPrivilegeForDepartment(Long departmentId) {
     UserContextRole userRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
     return userRole.isHigherAuthorityTypeThan(UserContextRole.OKRMEMBER);

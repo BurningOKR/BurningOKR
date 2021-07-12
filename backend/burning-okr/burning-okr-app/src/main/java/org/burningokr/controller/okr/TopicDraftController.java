@@ -80,7 +80,9 @@ public class TopicDraftController {
   // TODO JZ (07.07.2021) authorization is not completed (also auditor should be allowed to
   // approve/reject)
   @PutMapping("/topicDrafts/status/{topicDraftId}")
-  @PreAuthorize("@authorizationService.isAdmin()")
+  @PreAuthorize(
+          "@authorizationService.isAdmin()"
+  + "|| @authorizationService.isAuditor()")
   public ResponseEntity updateTopicResultStatusById(
       @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
     OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
