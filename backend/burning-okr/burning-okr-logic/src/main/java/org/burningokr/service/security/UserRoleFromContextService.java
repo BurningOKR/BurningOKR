@@ -156,7 +156,8 @@ public class UserRoleFromContextService {
   }
 
   public boolean isCurrentUserAuditor() {
-    Optional<AuditorUser> optional = auditorUserRepository.findById(userService.getCurrentUser().getId());
+    Optional<AuditorUser> optional =
+        auditorUserRepository.findById(userService.getCurrentUser().getId());
 
     return optional.isPresent();
   }

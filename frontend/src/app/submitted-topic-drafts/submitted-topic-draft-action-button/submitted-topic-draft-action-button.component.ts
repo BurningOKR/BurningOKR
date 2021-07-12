@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import {
     ConfirmationDialogComponent,
@@ -9,7 +9,6 @@ import { of, Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import { User } from '../../shared/model/api/user';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
@@ -20,7 +19,7 @@ import { Observable } from 'rxjs/internal/Observable';
   templateUrl: './submitted-topic-draft-action-button.component.html',
   styleUrls: ['./submitted-topic-draft-action-button.component.css']
 })
-export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnInit {
+export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   @Input() topicDraft: OkrTopicDraft;
   @Output() topicDraftDeletedEvent = new EventEmitter();
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
@@ -98,14 +97,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   });
 
   constructor(private topicDraftMapper: TopicDraftMapper,
-              public currentUserService: CurrentUserService,
+              private currentUserService: CurrentUserService,
               private i18n: I18n,
               private dialog: MatDialog) {
     }
-
-  ngOnInit(): void {
-    // TODO Observables??
-  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -191,6 +186,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
             || this.topicDraft.currentStatus === status.submitted));
         })
       );
+  }
+
+  canDeleteTopicDraft$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId);
   }
 
   canApproveTopicDraft$(): Observable<boolean> {

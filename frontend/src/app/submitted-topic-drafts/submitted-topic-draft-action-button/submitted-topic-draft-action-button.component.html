@@ -10,10 +10,12 @@
           <span>Bearbeiten</span>
         </button>
       </span>
-    <button mat-menu-item [disabled]="!(currentUserService.isCurrentUserAdminOrCreator$(topicDraft.initiatorId) | async)" (click)="clickedDeleteTopicDraft()">
-      <mat-icon>delete</mat-icon>
-      <span>Löschen</span>
-    </button>
+    <span matTooltip="Nur ein Admin oder der Initiator können diesen Themenentwurf löschen" i18n-matTooltip="@@onlyAdminOrInitiatorPermissionToDelete" [matTooltipDisabled]="canDeleteTopicDraft$() | async">
+      <button mat-menu-item [disabled]="!(canDeleteTopicDraft$() | async)" (click)="clickedDeleteTopicDraft()">
+        <mat-icon>delete</mat-icon>
+        <span>Löschen</span>
+      </button>
+    </span>
     <span matTooltip="Feature kommt demnächst"
           i18n-matTooltip="@@feature-coming-soon">
         <button mat-menu-item disabled (click)="printNotImplemented()">

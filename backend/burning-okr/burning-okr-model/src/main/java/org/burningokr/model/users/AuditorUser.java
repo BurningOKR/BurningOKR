@@ -8,5 +8,5 @@ import lombok.Data;
 @Entity
 @Data
 public class AuditorUser {
-    @Id private UUID id;
+  @Id private UUID id;
 }
