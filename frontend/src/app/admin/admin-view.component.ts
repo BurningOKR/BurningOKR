@@ -13,6 +13,7 @@ import {
 import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UserId } from '../shared/model/id-types';
+import 'linq4js';
 
 @Component({
   selector: 'app-admin-view',
