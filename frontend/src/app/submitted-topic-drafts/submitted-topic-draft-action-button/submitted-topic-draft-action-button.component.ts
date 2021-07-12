@@ -104,8 +104,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     }
 
   ngOnInit(): void {
-      // TODO Observables??
-    }
+    // TODO Observables??
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -132,18 +132,18 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
 
   clickedDeleteTopicDraft(): void {
     const title: string =
-        this.i18n({
-          id: 'deleteTopicDraftTitle',
-          description: 'Title of the delete topicdraft dialog',
-          value: 'Themenentwurf löschen'
-        });
+      this.i18n({
+        id: 'deleteTopicDraftTitle',
+        description: 'Title of the delete topicdraft dialog',
+        value: 'Themenentwurf löschen'
+      });
 
     const message: string =
-        this.i18n({
-          id: 'deleteTopicDraftMessage',
-          description: 'Do you want to delete topic draft x',
-          value: 'Themenentwurf "{{name}}" löschen?',
-        }, {name: this.topicDraft.name});
+      this.i18n({
+        id: 'deleteTopicDraftMessage',
+        description: 'Do you want to delete topic draft x',
+        value: 'Themenentwurf "{{name}}" löschen?',
+      }, {name: this.topicDraft.name});
 
     const confirmButtonText: string = this.i18n({
       id: 'capitalised_delete',
@@ -158,17 +158,17 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-        = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+      = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
 
     this.subscriptions.push(
-        dialogReference
-            .afterClosed()
-            .pipe(take(1))
-            .subscribe(isConfirmed => {
-              if (isConfirmed) {
-                this.deleteTopicDraft();
-              }
-            })
+      dialogReference
+        .afterClosed()
+        .pipe(take(1))
+        .subscribe(isConfirmed => {
+          if (isConfirmed) {
+            this.deleteTopicDraft();
+          }
+        })
     );
   }
 
