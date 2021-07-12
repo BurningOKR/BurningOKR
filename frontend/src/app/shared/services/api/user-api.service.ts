@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AdminUser } from '../../model/api/admin-user';
 import { User } from '../../model/api/user';
 import { UserId } from '../../model/id-types';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,12 @@ export class UserApiService {
 
   isCurrentUserAdmin$(): Observable<boolean> {
     return this.api.getData$('admins/self');
+  }
+
+  // TODO JZ 12.07.2021 implement API Enpoint
+  isCurrentUserAuditor$(): Observable<boolean> {
+    return of(true);
+    return this.api.getData$('auditors/self');
   }
 
   getAdminIds$(): Observable<string[]> {

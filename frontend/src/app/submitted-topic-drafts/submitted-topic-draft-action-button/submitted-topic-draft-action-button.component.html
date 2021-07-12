@@ -4,13 +4,13 @@
     </button>
 <!-- TODO : Router link angeben - mWegmann 10.05.2021 -->
     <mat-menu #actionDropdown="matMenu">
-      <span matTooltip="{{getEditTooltipText()}}" [matTooltipDisabled]="canEditTopicDraft()">
-        <button mat-menu-item [disabled]="!canEditTopicDraft()" (click)="editTopicDraft()">
+      <span matTooltip="Müssen wir nochmal neu machen" [matTooltipDisabled]="canEditTopicDraft$() | async">
+        <button mat-menu-item [disabled]="!(canEditTopicDraft$() | async)" (click)="editTopicDraft()">
           <mat-icon>edit</mat-icon>
           <span>Bearbeiten</span>
         </button>
       </span>
-      <button mat-menu-item [disabled]="currentUserNotAdminOrCreator()" (click)="clickedDeleteTopicDraft()">
+      <button mat-menu-item [disabled]="!(currentUserService.isCurrentUserAdminOrCreator$(topicDraft.initiatorId) | async)" (click)="clickedDeleteTopicDraft()">
         <mat-icon>delete</mat-icon>
         <span>Löschen</span>
       </button>
@@ -28,16 +28,16 @@
           <span>Einreichen/Zurücknehmen</span>
         </button>
       </span>
-      <span matTooltip="{{tooltipApprove$ | async}}" [matTooltipDisabled]="!(isAdmin$ | async)">
-        <button mat-menu-item [disabled]="!(isAdmin$ | async)" (click)="approvingTopicDraft()">
+      <span matTooltip="{{tooltipApprove$ | async}}" [matTooltipDisabled]="canApproveTopicDraft$() | async">
+        <button mat-menu-item [disabled]="!(canApproveTopicDraft$() | async)" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
-          <span>{{ getApprovalButtonText() }}</span>
+          <span>Müssen wir nochmal neu machen (Approve)</span>
         </button>
       </span>
-      <span matTooltip="{{getRejectTooltipText()}}" [matTooltipDisabled]="canRejectTopicDraft()">
-        <button mat-menu-item [disabled]="!canRejectTopicDraft()" (click)="rejectingTopicDraft()">
+      <span matTooltip="Müssen wir nochmal neu machen" [matTooltipDisabled]="canRejectTopicDraft$() | async">
+        <button mat-menu-item [disabled]="!(canRejectTopicDraft$() | async)" (click)="rejectingTopicDraft()">
           <mat-icon >cancel</mat-icon>
-          <span>{{ getRejectionButtonText() }}</span>
+          <span>Müssen wir nochmal neu machen (Reject)</span>
         </button>
       </span>
     </mat-menu>

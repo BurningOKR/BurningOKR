@@ -126,13 +126,14 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
           }
       );
 
-      this.isAdmin$ = this.currentUserService.isCurrentUserAdmin$()
+      /*this.isAdmin$ = this.currentUserService.isCurrentUserAdmin$()
         .pipe(
           switchMap((isAdmin: boolean) => {
             return of(isAdmin);
           }),
           shareReplay()
-        );
+        );*/
+      this.isAdmin$ = this.currentUserService.isCurrentUserAdmin$();
     }
 
   ngOnDestroy(): void {
@@ -146,31 +147,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     console.log('Not Implemented');
 
     return 'Not Implemented';
-  }
-
-  isCurrentUserAdmin(): boolean {
-    let userAdmin: boolean;
-    this.currentUserService.isCurrentUserAdmin$()
-      .pipe(take(1))
-      .subscribe((received: boolean) => {
-        userAdmin = received;
-      });
-
-    return userAdmin;
-  }
-
-  currentUserNotAdminOrCreator(): boolean {
-    const userNotCreator: boolean = (this.currentUser.id !== this.topicDraft.initiatorId);
-    const userNotAdmin: boolean = !this.isCurrentUserAdmin();
-
-    return (userNotCreator && userNotAdmin);
-  }
-
-  // TODO NL 07.07.2021 Auditor needs to be added
-  currentUserNotAdminOrAuditor(): boolean {
-    const userNotAdmin: boolean = !this.isCurrentUserAdmin();
-
-    return userNotAdmin;
   }
 
   editTopicDraft(): void {
@@ -236,14 +212,34 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
           ));
   }
 
-  canApproveTopicDraft(): boolean {
-    return !this.currentUserNotAdminOrAuditor() &&
-      (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.approved);
+  canEditTopicDraft$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && (this.topicDraft.currentStatus === status.draft
+            || this.topicDraft.currentStatus === status.submitted));
+        })
+      );
   }
 
-  canRejectTopicDraft(): boolean {
-    return !this.currentUserNotAdminOrAuditor() &&
-      (this.topicDraft.currentStatus === status.submitted || this.topicDraft.currentStatus === status.rejected);
+  canApproveTopicDraft$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrAuditor$()
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && (this.topicDraft.currentStatus === status.submitted
+            || this.topicDraft.currentStatus === status.approved));
+        })
+      );
+  }
+
+  canRejectTopicDraft$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrAuditor$()
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && (this.topicDraft.currentStatus === status.submitted
+            || this.topicDraft.currentStatus === status.rejected));
+        })
+      );
   }
 
   approvingTopicDraft(): void {
@@ -270,12 +266,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     }
   }
 
-  canEditTopicDraft(): boolean {
-    return this.topicDraft.currentStatus === status.submitted && !this.currentUserNotAdminOrCreator();
-  }
-
   // TODO NL 07.07.2021 ggf Auditor hinzufügen
-  getEditTooltipText(): string {
+  /*getEditTooltipText(): string {
     if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
     this.currentUserNotAdminOrCreator()) {
       return this.editTooltipStatusAndUser;
@@ -322,5 +314,5 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     } else {
       return this.rejectTopicDraftText;
     }
-  }
+  }*/
 }
