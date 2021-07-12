@@ -213,28 +213,18 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       );
   }
 
+  changeCurrentStatus(newStatus: status): void {
+    this.topicDraft.currentStatus = newStatus;
+    this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
+      .subscribe();
+  }
+
   approvingTopicDraft(): void {
-    if (this.topicDraft.currentStatus !== status.approved) {
-      this.topicDraft.currentStatus = status.approved;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    } else {
-      this.topicDraft.currentStatus = status.submitted;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    }
+     this.changeCurrentStatus(this.topicDraft.currentStatus !== status.approved ? status.approved : status.submitted);
   }
 
   rejectingTopicDraft(): void {
-    if (this.topicDraft.currentStatus !== status.rejected) {
-      this.topicDraft.currentStatus = status.rejected;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    } else {
-      this.topicDraft.currentStatus = status.submitted;
-      this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-        .subscribe();
-    }
+    this.changeCurrentStatus(this.topicDraft.currentStatus !== status.rejected ? status.rejected : status.submitted);
   }
 
   getApproveOrRejectTooltipText$(isApproving: boolean): Observable<string> {
