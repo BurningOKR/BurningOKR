@@ -33,10 +33,7 @@ export class UserApiService {
     return this.api.getData$('admins/self');
   }
 
-  // TODO JZ 12.07.2021 implement API Enpoint
   isCurrentUserAuditor$(): Observable<boolean> {
-    return of(true);
-
     return this.api.getData$('auditors/self');
   }
 
