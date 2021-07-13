@@ -52,7 +52,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
         dependencies: new FormControl(this.topicDraft.dependencies),
         delimitation: new FormControl(this.topicDraft.delimitation),
         resources: new FormControl(this.topicDraft.resources),
-        acceptanceCriteria: new FormControl(this.topicDraft.description)
+        description: new FormControl(this.topicDraft.description)
       }
     );
     this.canEdit$ = this.currentUserService.getCurrentUser$()

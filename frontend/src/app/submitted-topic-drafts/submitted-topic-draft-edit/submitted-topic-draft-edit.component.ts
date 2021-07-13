@@ -31,7 +31,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
     this.minBegin = this.topicDraft.beginning;
     this.topicDraftForm = new FormGroup({
       name: new FormControl(this.topicDraft.name, [Validators.maxLength(255), Validators.required]),
-      acceptanceCriteria: new FormControl(this.topicDraft.description, Validators.maxLength(1024)),
+      description: new FormControl(this.topicDraft.description, Validators.maxLength(1024)),
       contributesTo: new FormControl(this.topicDraft.contributesTo, Validators.maxLength(1024)),
       delimitation: new FormControl(this.topicDraft.delimitation, Validators.maxLength(1024)),
       beginning: new FormControl(this.topicDraft.beginning, [Validators.required]),

@@ -86,8 +86,7 @@ public class OkrTopicDescriptionServiceTest {
 
     assertEquals(okrTopicDescription.getInitiatorId(), updatedDescription.getInitiatorId());
     assertEquals(okrTopicDescription.getName(), updatedDescription.getName());
-    assertEquals(
-        okrTopicDescription.getDescription(), updatedDescription.getDescription());
+    assertEquals(okrTopicDescription.getDescription(), updatedDescription.getDescription());
     assertEquals(okrTopicDescription.getBeginning(), updatedDescription.getBeginning());
     assertEquals(okrTopicDescription.getContributesTo(), updatedDescription.getContributesTo());
     assertEquals(okrTopicDescription.getDelimitation(), updatedDescription.getDelimitation());
