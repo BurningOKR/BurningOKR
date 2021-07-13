@@ -2360,25 +2360,13 @@
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit><trans-unit id="onlyAdminOrAuditorApprovePermission" datatype="html">
-        <source>Nur ein Admin oder ein Auditor können annehmen</source><target state="translated">Only admins and auditors can approve a topic draft</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="onlyAdminOrAuditorRejectPermission" datatype="html">
-        <source>Nur ein Admin oder ein Auditor können ablehnen</source><target state="translated">Only admins and auditors can reject a topic draft</target>
+        <source>Nur ein Admin oder ein Auditor können annehmen oder ablehnen</source><target state="translated">Only admins and auditors can approve a topic draft</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit><trans-unit id="approvingStatusAndUser" datatype="html">
-        <source>Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen</source><target state="translated">The state must be "submitted" and only admins or auditors can approve</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="rejectingStatusAndUser" datatype="html">
-        <source>Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können ablehnen</source><target state="translated">The state must be "submitted" and only admins or auditors can reject</target>
+        <source>Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen oder ablehnen</source><target state="translated">The state must be "submitted" and only admins or auditors can approve</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
           <context context-type="linenumber">1</context>

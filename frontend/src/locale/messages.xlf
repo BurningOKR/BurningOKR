@@ -2724,28 +2724,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="onlyAdminOrAuditorApprovePermission" datatype="html">
-        <source>Nur ein Admin oder ein Auditor können annehmen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="onlyAdminOrAuditorRejectPermission" datatype="html">
-        <source>Nur ein Admin oder ein Auditor können ablehnen</source>
+        <source>Nur ein Admin oder ein Auditor können annehmen oder ablehnen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="approvingStatusAndUser" datatype="html">
-        <source>Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="rejectingStatusAndUser" datatype="html">
-        <source>Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können ablehnen</source>
+        <source>Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen oder ablehnen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.ts</context>
           <context context-type="linenumber">1</context>
