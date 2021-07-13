@@ -1,4 +1,4 @@
-export type CommentId = number;
+import { CommentId } from '../../shared/model/id-types';
 
 export interface Comment {
   noteId?: CommentId;

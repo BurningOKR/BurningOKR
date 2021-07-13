@@ -1,9 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
-import { MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
+import { SubmittedTopicDraftDetailsFormData } from '../../../submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
+import { CommentId } from '../../../shared/model/id-types';
+
+export interface CommentViewDialogFormData {
+  component_type: string;
+  component_name: string;
+}
 
 @Component({
   selector: 'app-comment-view-dialog',
@@ -11,6 +18,9 @@ import { CommentMapperService } from '../comment-mapper.service';
   styleUrls: ['./comment-view-dialog.component.scss']
 })
 export class CommentViewDialogComponent implements OnInit {
+
+  commentIdList: CommentId[];
+
   parentKeyResult: ViewKeyResult;
 
   commentList: ViewComment[];
@@ -20,6 +30,7 @@ export class CommentViewDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CommentViewDialogComponent>,
     public commentMapperService: CommentMapperService,
+    @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +51,7 @@ export class CommentViewDialogComponent implements OnInit {
   }
 
   canPostNewComment(): boolean {
-    return !(this.newCommentText.length < 3 || this.isPostingComment);
+    return !(this.newCommentText.length < 3 || this.newCommentText.length > 255 || this.isPostingComment);
   }
 
   postNewComment(): void {

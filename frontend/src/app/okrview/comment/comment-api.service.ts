@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Comment, CommentId } from './comment';
+import { Comment } from './comment';
 import { ApiHttpService } from '../../core/services/api-http.service';
-import { KeyResultId } from '../../shared/model/id-types';
+import { CommentId, KeyResultId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'
