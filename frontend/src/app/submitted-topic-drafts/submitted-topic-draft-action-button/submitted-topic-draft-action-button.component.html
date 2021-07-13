@@ -30,13 +30,13 @@
           <span>Einreichen/Zurücknehmen</span>
         </button>
       </span>
-    <span matTooltip="{{ getApproveTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
+    <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
         <button mat-menu-item [disabled]="!(canChangeCurrentStatus$() | async)" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
           <span>{{ getApprovalButtonText() }}</span>
         </button>
       </span>
-    <span matTooltip="{{ getRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
+    <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
         <button mat-menu-item [disabled]="!(canChangeCurrentStatus$() | async)" (click)="rejectingTopicDraft()">
           <mat-icon >cancel</mat-icon>
           <span>{{ getRejectionButtonText() }}</span>

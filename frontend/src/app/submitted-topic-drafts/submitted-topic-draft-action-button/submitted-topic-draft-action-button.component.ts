@@ -56,24 +56,14 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
     value: 'Der Status muss auf "Eingereicht" sein'
   });
 
-  userRoleToApprove: string = this.i18n({
+  userRoleToChangeStatus: string = this.i18n({
     id: 'onlyAdminOrAuditorApprovePermission',
-    value: 'Nur ein Admin oder ein Auditor können annehmen'
+    value: 'Nur ein Admin oder ein Auditor können annehmen oder ablehnen'
   });
 
-  userRoleToReject: string = this.i18n({
-    id: 'onlyAdminOrAuditorRejectPermission',
-    value: 'Nur ein Admin oder ein Auditor können ablehnen'
-  });
-
-  approveTopicdraftStatusAndUser: string = this.i18n({
+  changeCurrentStatusByStatusAndUser: string = this.i18n({
     id: 'approvingStatusAndUser',
-    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen'
-  });
-
-  rejectTopicdraftStatusAndUser: string = this.i18n({
-    id: 'rejectingStatusAndUser',
-    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können ablehnen'
+    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen oder ablehnen'
   });
 
   approveTopicDraftText: string = this.i18n({
@@ -215,23 +205,14 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
     this.changeCurrentStatus(this.topicDraft.currentStatus !== status.rejected ? status.rejected : status.submitted);
   }
 
-  getApproveOrRejectTooltipText$(isApproving: boolean): Observable<string> {
+  getApproveOrRejectTooltipText$(): Observable<string> {
     return this.currentUserService.isCurrentUserAdminOrAuditor$()
       .pipe(
         switchMap((isAdminOrAuditor: boolean) => {
           if (this.topicDraft.currentStatus === status.draft && !isAdminOrAuditor) {
-            if (isApproving) {
-              return of(this.approveTopicdraftStatusAndUser);
-            } else {
-              return of(this.rejectTopicdraftStatusAndUser);
-            }
+            return of(this.changeCurrentStatusByStatusAndUser);
           } else if (!isAdminOrAuditor) {
-            return of(this.userRoleToApprove);
-            if (isApproving) {
-              return of(this.userRoleToApprove);
-            } else {
-              return of(this.userRoleToReject);
-            }
+            return of(this.userRoleToChangeStatus);
           } else if (this.topicDraft.currentStatus === status.draft) {
             return of(this.stateMustBeSubmittedTooltip);
           }
@@ -239,14 +220,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
           return of('');
         }
       ));
-  }
-
-  getApproveTooltipText$(): Observable<string> {
-    return this.getApproveOrRejectTooltipText$(true);
-  }
-
-  getRejectTooltipText$(): Observable<string> {
-    return this.getApproveOrRejectTooltipText$(false);
   }
 
   getEditTooltipText$(): Observable<string> {
