@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
@@ -31,7 +31,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
     this.minBegin = this.topicDraft.beginning;
     this.topicDraftForm = new FormGroup({
       name: new FormControl(this.topicDraft.name, [Validators.maxLength(255), Validators.required]),
-      acceptanceCriteria: new FormControl(this.topicDraft.acceptanceCriteria, Validators.maxLength(1024)),
+      acceptanceCriteria: new FormControl(this.topicDraft.description, Validators.maxLength(1024)),
       contributesTo: new FormControl(this.topicDraft.contributesTo, Validators.maxLength(1024)),
       delimitation: new FormControl(this.topicDraft.delimitation, Validators.maxLength(1024)),
       beginning: new FormControl(this.topicDraft.beginning, [Validators.required]),

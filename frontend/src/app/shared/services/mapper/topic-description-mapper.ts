@@ -21,7 +21,7 @@ export class TopicDescriptionMapper {
       description.initiatorId,
       description.startTeam,
       description.stakeholders,
-      description.acceptanceCriteria,
+      description.description,
       description.contributesTo,
       description.delimitation,
       description.beginning ?
@@ -40,7 +40,7 @@ export class TopicDescriptionMapper {
     descriptionDto.initiatorId = description.initiatorId;
     descriptionDto.startTeam = description.startTeam;
     descriptionDto.stakeholders = description.stakeholders;
-    descriptionDto.acceptanceCriteria = description.acceptanceCriteria;
+    descriptionDto.description = description.description;
     descriptionDto.contributesTo = description.contributesTo;
     descriptionDto.delimitation = description.delimitation;
     descriptionDto.beginning = description.beginning ? [

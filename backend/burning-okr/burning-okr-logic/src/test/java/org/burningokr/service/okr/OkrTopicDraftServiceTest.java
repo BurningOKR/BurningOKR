@@ -58,7 +58,7 @@ public class OkrTopicDraftServiceTest {
     stakeholder.add(UUID.randomUUID());
 
     okrTopicDraft.setInitiatorId(UUID.randomUUID());
-    okrTopicDraft.setAcceptanceCriteria("testCriteria");
+    okrTopicDraft.setDescription("testCriteria");
     okrTopicDraft.setContributesTo("testContributesTo");
     okrTopicDraft.setDelimitation("testDelimitation");
     okrTopicDraft.setBeginning(LocalDate.of(2020, 3, 3));

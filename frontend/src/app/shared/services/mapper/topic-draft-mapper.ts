@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TopicDraftApiService } from '../api/topic-draft-api.service';
 import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
 import { OkrTopicDraft } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { CompanyId, OkrUnitId, TopicDraftId } from '../../model/id-types';
+import { CompanyId, OkrUnitId } from '../../model/id-types';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators';
 
@@ -23,7 +23,7 @@ export class TopicDraftMapper {
             topicDraft.initiatorId,
             topicDraft.startTeam,
             topicDraft.stakeholders,
-            topicDraft.acceptanceCriteria,
+            topicDraft.description,
             topicDraft.contributesTo,
             topicDraft.delimitation,
             topicDraft.beginning ?
@@ -45,7 +45,7 @@ export class TopicDraftMapper {
         topicDraftDto.initiatorId = topicDraft.initiatorId;
         topicDraftDto.startTeam = topicDraft.startTeam;
         topicDraftDto.stakeholders = topicDraft.stakeholders;
-        topicDraftDto.acceptanceCriteria = topicDraft.acceptanceCriteria;
+        topicDraftDto.description = topicDraft.description;
         topicDraftDto.contributesTo = topicDraft.contributesTo;
         topicDraftDto.delimitation = topicDraft.delimitation;
         topicDraftDto.beginning = topicDraft.beginning ? [
