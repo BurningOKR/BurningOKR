@@ -11,10 +11,14 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { CommentViewDialogComponent } from '../comment/comment-view-dialog/comment-view-dialog.component';
+import {
+  CommentViewDialogComponent,
+  CommentViewDialogFormData
+} from '../comment/comment-view-dialog/comment-view-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
+import { CommentId } from '../../shared/model/id-types';
 
 @Component({
   selector: 'app-keyresult',
@@ -97,8 +101,13 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   }
 
   clickedOpenComments(): void {
+    const dialogData: CommentViewDialogFormData = {
+      componentType: 'Key Result',
+      componentName: this.keyResult.keyResult,
+      commentIdList: this.keyResult.commentIdList
+    };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
-      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false});
+      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, width: '50vw'});
     const dialogComponent: any = dialogReference.componentInstance;
 
     dialogComponent.parentKeyResult = this.keyResult;

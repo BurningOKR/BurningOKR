@@ -8,8 +8,9 @@ import { SubmittedTopicDraftDetailsFormData } from '../../../submitted-topic-dra
 import { CommentId } from '../../../shared/model/id-types';
 
 export interface CommentViewDialogFormData {
-  component_type: string;
-  component_name: string;
+  componentType: string;
+  componentName: string;
+  commentIdList: CommentId[];
 }
 
 @Component({
@@ -17,7 +18,7 @@ export interface CommentViewDialogFormData {
   templateUrl: './comment-view-dialog.component.html',
   styleUrls: ['./comment-view-dialog.component.scss']
 })
-export class CommentViewDialogComponent implements OnInit {
+export class CommentViewDialogComponent implements OnInit, CommentViewDialogFormData {
 
   commentIdList: CommentId[];
 
@@ -26,14 +27,21 @@ export class CommentViewDialogComponent implements OnInit {
   commentList: ViewComment[];
   newCommentText: string = '';
   isPostingComment: boolean = false;
+  componentType: string;
+  componentName: string;
 
   constructor(
     public dialogRef: MatDialogRef<CommentViewDialogComponent>,
     public commentMapperService: CommentMapperService,
-    @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)
-  ) {}
+    @Inject(MAT_DIALOG_DATA) private formData: (CommentViewDialogFormData | any)
+  ) {
+    this.componentType = formData.componentType;
+    this.componentName = formData.componentName;
+    this.commentIdList = formData.commentIdList;
+  }
 
   ngOnInit(): void {
+    console.log(this.commentIdList);
     this.loadCommentList();
   }
 
@@ -42,7 +50,7 @@ export class CommentViewDialogComponent implements OnInit {
   }
 
   loadCommentList(): void {
-    if (this.parentKeyResult.commentIdList.length !== 0) {
+    if (this.commentIdList.length !== 0) {
       this.commentMapperService
         .getCommentsFromKeyResult$(this.parentKeyResult.id)
         .pipe(take(1))
