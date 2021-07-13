@@ -192,22 +192,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
     return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId);
   }
 
-  canApproveTopicDraft$(): Observable<boolean> {
+  canChangeCurrentStatus$(): Observable<boolean> {
     return this.currentUserService.isCurrentUserAdminOrAuditor$()
       .pipe(
         switchMap((hasAuthorization: boolean) => {
-          return of(hasAuthorization && (this.topicDraft.currentStatus === status.submitted
-            || this.topicDraft.currentStatus === status.approved));
-        })
-      );
-  }
-
-  canRejectTopicDraft$(): Observable<boolean> {
-    return this.currentUserService.isCurrentUserAdminOrAuditor$()
-      .pipe(
-        switchMap((hasAuthorization: boolean) => {
-          return of(hasAuthorization && (this.topicDraft.currentStatus === status.submitted
-            || this.topicDraft.currentStatus === status.rejected));
+          return of(hasAuthorization && this.topicDraft.currentStatus !== status.draft);
         })
       );
   }
@@ -227,13 +216,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   }
 
   getApproveOrRejectTooltipText$(isApproving: boolean): Observable<string> {
-    const possibleAllowedStatus: status = isApproving ? status.rejected : status.approved;
-
     return this.currentUserService.isCurrentUserAdminOrAuditor$()
       .pipe(
         switchMap((isAdminOrAuditor: boolean) => {
-          if ((this.topicDraft.currentStatus === possibleAllowedStatus || this.topicDraft.currentStatus === status.draft) &&
-            !isAdminOrAuditor) {
+          if (this.topicDraft.currentStatus === status.draft && !isAdminOrAuditor) {
             if (isApproving) {
               return of(this.approveTopicdraftStatusAndUser);
             } else {
@@ -246,7 +232,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
             } else {
               return of(this.userRoleToReject);
             }
-          } else if (this.topicDraft.currentStatus === possibleAllowedStatus || this.topicDraft.currentStatus === status.draft) {
+          } else if (this.topicDraft.currentStatus === status.draft) {
             return of(this.stateMustBeSubmittedTooltip);
           }
 
