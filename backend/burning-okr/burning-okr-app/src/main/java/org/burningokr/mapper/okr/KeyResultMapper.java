@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
-import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.okr.Objective;
 import org.slf4j.Logger;
