@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
-import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.users.User;
@@ -107,7 +106,7 @@ public class KeyResultService {
    * @param keyResultId a long value
    * @param noteKeyResult a {@link org.burningokr.model.okr.NoteKeyResult} object
    * @param user an {@link User} object
-   * @return a {@link Note} object
+   * @return a {@link NoteKeyResult} object
    */
   @Transactional
   public NoteKeyResult createNoteKeyResult(long keyResultId, NoteKeyResult noteKeyResult, User user) {
@@ -117,7 +116,7 @@ public class KeyResultService {
 
     noteKeyResult = noteKeyResultRepository.save(noteKeyResult);
     logger.info(
-        "Added Note with id "
+        "Added NoteKeyResult with id "
             + noteKeyResult.getId()
             + " from User "
             + user.getGivenName()
