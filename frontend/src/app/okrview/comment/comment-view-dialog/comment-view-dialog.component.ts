@@ -4,13 +4,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
-import { SubmittedTopicDraftDetailsFormData } from '../../../submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
 import { CommentId } from '../../../shared/model/id-types';
+import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
 
 export interface CommentViewDialogFormData {
-  componentType: string;
+  componentTypeTitle: string;
   componentName: string;
   commentIdList: CommentId[];
+  viewCommentParentType: ViewCommentParentType;
+  parentId: number;
 }
 
 @Component({
@@ -20,24 +22,28 @@ export interface CommentViewDialogFormData {
 })
 export class CommentViewDialogComponent implements OnInit, CommentViewDialogFormData {
 
+  componentTypeTitle: string;
+  componentName: string;
   commentIdList: CommentId[];
+  viewCommentParentType: ViewCommentParentType;
+  parentId: number;
 
   parentKeyResult: ViewKeyResult;
 
   commentList: ViewComment[];
   newCommentText: string = '';
   isPostingComment: boolean = false;
-  componentType: string;
-  componentName: string;
 
   constructor(
     public dialogRef: MatDialogRef<CommentViewDialogComponent>,
     public commentMapperService: CommentMapperService,
     @Inject(MAT_DIALOG_DATA) private formData: (CommentViewDialogFormData | any)
   ) {
-    this.componentType = formData.componentType;
+    this.componentTypeTitle = formData.componentTypeTitle;
     this.componentName = formData.componentName;
     this.commentIdList = formData.commentIdList;
+    this.viewCommentParentType = formData.viewCommentParentType;
+    this.parentId = formData.parentId
   }
 
   ngOnInit(): void {
@@ -52,14 +58,14 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   loadCommentList(): void {
     if (this.commentIdList.length !== 0) {
       this.commentMapperService
-        .getCommentsFromKeyResult$(this.parentKeyResult.id)
+        .getCommentsFromKeyResult$(this.parentId)
         .pipe(take(1))
         .subscribe(commentList => (this.commentList = commentList));
     }
   }
 
   canPostNewComment(): boolean {
-    return !(this.newCommentText.length < 3 || this.newCommentText.length > 255 || this.isPostingComment);
+    return !(this.newCommentText.length < 3 || this.isPostingComment);
   }
 
   postNewComment(): void {
@@ -68,7 +74,7 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
       const newComment: ViewComment = new ViewComment(1, '', this.newCommentText, new Date());
 
       this.commentMapperService
-        .createComment$(this.parentKeyResult.id, newComment)
+        .createComment$(this.parentId, newComment)
         .pipe(take(1))
         .subscribe(createdComment => {
           this.parentKeyResult.commentIdList.push(createdComment.id);

@@ -18,7 +18,7 @@ import {
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
-import { CommentId } from '../../shared/model/id-types';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 
 @Component({
   selector: 'app-keyresult',
@@ -102,9 +102,11 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   clickedOpenComments(): void {
     const dialogData: CommentViewDialogFormData = {
-      componentType: 'Key Result',
+      componentTypeTitle: 'Key Result',
       componentName: this.keyResult.keyResult,
-      commentIdList: this.keyResult.commentIdList
+      commentIdList: this.keyResult.commentIdList,
+      viewCommentParentType: ViewCommentParentType.keyResult,
+      parentId: this.keyResult.id
     };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
       this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, width: '50vw'});
