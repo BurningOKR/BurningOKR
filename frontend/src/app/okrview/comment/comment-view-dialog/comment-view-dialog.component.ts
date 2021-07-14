@@ -6,13 +6,13 @@ import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
 import { CommentId } from '../../../shared/model/id-types';
 import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
+import { ViewCommentRequiredAttributes } from '../../../shared/model/ui/view-comment-required-attributes';
 
 export interface CommentViewDialogFormData {
   componentTypeTitle: string;
   componentName: string;
-  commentIdList: CommentId[];
   viewCommentParentType: ViewCommentParentType;
-  parentId: number;
+  parentObject: ViewCommentRequiredAttributes;
 }
 
 @Component({
@@ -24,9 +24,8 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
 
   componentTypeTitle: string;
   componentName: string;
-  commentIdList: CommentId[];
   viewCommentParentType: ViewCommentParentType;
-  parentId: number;
+  parentObject: ViewCommentRequiredAttributes;
 
   parentKeyResult: ViewKeyResult;
 
@@ -41,13 +40,12 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   ) {
     this.componentTypeTitle = formData.componentTypeTitle;
     this.componentName = formData.componentName;
-    this.commentIdList = formData.commentIdList;
     this.viewCommentParentType = formData.viewCommentParentType;
-    this.parentId = formData.parentId
+    this.parentObject = formData.parentObject;
   }
 
   ngOnInit(): void {
-    console.log(this.commentIdList);
+    console.log(this.parentObject.commentIdList);
     this.loadCommentList();
   }
 
@@ -56,9 +54,9 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   }
 
   loadCommentList(): void {
-    if (this.commentIdList.length !== 0) {
+    if (this.parentObject.commentIdList.length !== 0) {
       this.commentMapperService
-        .getCommentsFromKeyResult$(this.parentId)
+        .getCommentsFromKeyResult$(this.parentObject.id)
         .pipe(take(1))
         .subscribe(commentList => (this.commentList = commentList));
     }
@@ -74,10 +72,10 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
       const newComment: ViewComment = new ViewComment(1, '', this.newCommentText, new Date());
 
       this.commentMapperService
-        .createComment$(this.parentId, newComment)
+        .createComment$(this.parentObject.id, newComment)
         .pipe(take(1))
         .subscribe(createdComment => {
-          this.parentKeyResult.commentIdList.push(createdComment.id);
+          this.parentObject.commentIdList.push(createdComment.id);
           this.isPostingComment = false;
           this.newCommentText = '';
           this.loadCommentList();
@@ -95,7 +93,7 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   commentDeleted(deletedComment: ViewComment): void {
     let indexOfComment: number = this.commentList.indexOf(deletedComment);
     this.commentList.splice(indexOfComment, 1);
-    indexOfComment = this.parentKeyResult.commentIdList.indexOf(deletedComment.id);
-    this.parentKeyResult.commentIdList.splice(indexOfComment, 1);
+    indexOfComment = this.parentObject.commentIdList.indexOf(deletedComment.id);
+    this.parentObject.commentIdList.splice(indexOfComment, 1);
   }
 }

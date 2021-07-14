@@ -3,7 +3,7 @@ import { CompanyId, KeyResultId, ObjectiveId } from '../id-types';
 import { ViewKeyResultMilestone } from './view-key-result-milestone';
 import { ViewCommentRequiredAttributes } from './view-comment-required-attributes';
 
-export class ViewKeyResult {
+export class ViewKeyResult implements ViewCommentRequiredAttributes {
   start: number;
   current: number;
   end: number;

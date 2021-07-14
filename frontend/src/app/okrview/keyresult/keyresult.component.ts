@@ -104,15 +104,11 @@ export class KeyresultComponent implements OnInit, OnDestroy {
     const dialogData: CommentViewDialogFormData = {
       componentTypeTitle: 'Key Result',
       componentName: this.keyResult.keyResult,
-      commentIdList: this.keyResult.commentIdList,
       viewCommentParentType: ViewCommentParentType.keyResult,
-      parentId: this.keyResult.id
+      parentObject: this.keyResult
     };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
       this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, width: '50vw'});
-    const dialogComponent: any = dialogReference.componentInstance;
-
-    dialogComponent.parentKeyResult = this.keyResult;
   }
 
   clickedDeleteKeyResult(): void {

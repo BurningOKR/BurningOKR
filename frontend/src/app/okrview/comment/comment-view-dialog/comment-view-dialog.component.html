@@ -1,5 +1,5 @@
 <div>
-  {{ componentType }}
+  {{ componentTypeTitle }}
   <div class="title-keyresult">
     {{ componentName }}
     <br>
@@ -8,7 +8,7 @@
   <div class="comments-title" i18n="@@component_commentViewDialog_title">Kommentare</div>
   <mat-dialog-content>
 
-    <div *ngIf="commentIdList.length !== 0 else noComments">
+    <div *ngIf="parentObject.commentIdList.length !== 0 else noComments">
       <div *ngIf="commentList else loading">
         <div *ngFor="let comment of commentList">
           <app-comment-card [comment]="comment" (deleteComment)="queryDeleteComment($event)"></app-comment-card>
@@ -24,7 +24,7 @@
     </ng-template>
     <!-- Loading comment list placeholder -->
     <ng-template #loading>
-      <mat-card *ngFor="let x of commentIdList">
+      <mat-card *ngFor="let x of parentObject.commentIdList">
         <br>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         <br>
