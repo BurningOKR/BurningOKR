@@ -3,8 +3,10 @@ package org.burningokr.controller.okr;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.NoteDto;
+import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.NoteService;
 import org.burningokr.service.security.AuthorizationService;
@@ -21,43 +23,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class NoteController {
 
   private NoteService noteService;
-  private DataMapper<Note, NoteDto> noteMapper;
+  private DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper;
   private AuthorizationService authorizationService;
 
   /**
    * Initialize NoteController.
    *
    * @param noteService a {@link NoteService} object
-   * @param noteMapper a {@link DataMapper} object with {@link Note} and {@link NoteDto}
+   * @param noteKeyResultMapper a {@link DataMapper} object with {@link NoteKeyResult} and {@link NoteKeyResultDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
   public NoteController(
       NoteService noteService,
-      DataMapper<Note, NoteDto> noteMapper,
+      DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper,
       AuthorizationService authorizationService) {
     this.noteService = noteService;
-    this.noteMapper = noteMapper;
+    this.noteKeyResultMapper = noteKeyResultMapper;
     this.authorizationService = authorizationService;
   }
 
   @GetMapping("/notes/{noteId}")
   public ResponseEntity<NoteDto> getNoteById(@PathVariable Long noteId) {
     Note note = noteService.findById(noteId);
-    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
+    return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto((NoteKeyResult) note));
   }
 
   @GetMapping("/notes/{parentType}/{noteId}")
   public ResponseEntity<NoteDto> getNotesByParentTypeAndId(@PathVariable String parentType, @PathVariable Long noteId) {
     Note note = noteService.findById(noteId);
-    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
+    return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto((NoteKeyResult) note));
   }
 
   /**
    * API Endpoint to update a Note.
    *
    * @param noteId a long value
-   * @param noteDto a {@link NoteDto} object
+   * @param noteDto a {@link NoteKeyResultDto} object
    * @param user an {@link User} object
    * @return a {@link ResponseEntity} ok with a Note
    */
@@ -65,10 +67,10 @@ public class NoteController {
   @PreAuthorize("@authorizationService.isNoteOwner(#noteId)")
   public ResponseEntity<NoteDto> updateNoteById(
       @PathVariable Long noteId, @Valid @RequestBody NoteDto noteDto, User user) {
-    Note note = noteMapper.mapDtoToEntity(noteDto);
+    Note note = noteKeyResultMapper.mapDtoToEntity((NoteKeyResultDto) noteDto);
     note.setId(noteId);
     note = this.noteService.updateNote(note, user);
-    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
+    return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto((NoteKeyResult) note));
   }
 
   @DeleteMapping("/notes/{noteId}")
