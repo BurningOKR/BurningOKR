@@ -8,10 +8,11 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
-import org.burningokr.repositories.okr.NoteRepository;
+import org.burningokr.repositories.okr.NoteKeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
@@ -27,7 +28,7 @@ public class KeyResultService {
   private final Logger logger = LoggerFactory.getLogger(KeyResultService.class);
 
   private final KeyResultRepository keyResultRepository;
-  private final NoteRepository noteRepository;
+  private final NoteKeyResultRepository noteKeyResultRepository;
   private final ActivityService activityService;
   private final EntityCrawlerService entityCrawlerService;
   private final ObjectiveService objectiveService;
@@ -37,7 +38,7 @@ public class KeyResultService {
     return keyResultRepository.findByIdOrThrow(keyResultId);
   }
 
-  public Collection<Note> findNotesOfKeyResult(long keyResultId) {
+  public Collection<NoteKeyResult> findNotesOfKeyResult(long keyResultId) {
     KeyResult keyResult = findById(keyResultId);
     return keyResult.getNotes();
   }
@@ -101,32 +102,32 @@ public class KeyResultService {
   }
 
   /**
-   * Creates a Note.
+   * Creates a NoteKeyResult.
    *
    * @param keyResultId a long value
-   * @param note a {@link Note} object
+   * @param noteKeyResult a {@link org.burningokr.model.okr.NoteKeyResult} object
    * @param user an {@link User} object
    * @return a {@link Note} object
    */
   @Transactional
-  public Note createNote(long keyResultId, Note note, User user) {
-    note.setParentKeyResult(findById(keyResultId));
-    note.setUserId(user.getId());
-    note.setDate(LocalDateTime.now());
+  public NoteKeyResult createNoteKeyResult(long keyResultId, NoteKeyResult noteKeyResult, User user) {
+    noteKeyResult.setParentKeyResult(findById(keyResultId));
+    noteKeyResult.setUserId(user.getId());
+    noteKeyResult.setDate(LocalDateTime.now());
 
-    note = noteRepository.save(note);
+    noteKeyResult = noteKeyResultRepository.save(noteKeyResult);
     logger.info(
         "Added Note with id "
-            + note.getId()
+            + noteKeyResult.getId()
             + " from User "
             + user.getGivenName()
             + " "
             + user.getSurname()
             + " to KeyResult "
             + keyResultId);
-    activityService.createActivity(user, note, Action.CREATED);
+    activityService.createActivity(user, noteKeyResult, Action.CREATED);
 
-    return note;
+    return noteKeyResult;
   }
 
   /**
