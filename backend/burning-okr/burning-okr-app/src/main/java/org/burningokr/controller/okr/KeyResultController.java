@@ -8,6 +8,7 @@ import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.KeyResultService;
 import org.burningokr.service.security.AuthorizationService;
@@ -26,7 +27,7 @@ public class KeyResultController {
 
   private KeyResultService keyResultService;
   private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
-  private DataMapper<Note, NoteDto> noteMapper;
+  private DataMapper<NoteKeyResult, NoteDto> noteMapper;
   private AuthorizationService authorizationService;
 
   /**
@@ -35,7 +36,7 @@ public class KeyResultController {
    * @param keyResultService a {@link KeyResultService} object
    * @param keyResultMapper a {@link DataMapper} object with {@link KeyResult} and {@link
    *     KeyResultDto}
-   * @param noteMapper a {@link DataMapper} object with {@link Note} and {@link NoteDto}
+   * @param noteMapper a {@link DataMapper} object with {@link NoteKeyResult} and {@link NoteDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
