@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Comment } from './comment';
 import { ApiHttpService } from '../../core/services/api-http.service';
 import { CommentId, KeyResultId } from '../../shared/model/id-types';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class CommentApiService {
 
   getCommentsForKeyResult$(keyResultId: KeyResultId): Observable<Comment[]> {
     return this.api.getData$(`keyresults/${keyResultId}/notes`);
+  }
+
+  getCommentForParentObject$(viewCommentParentType: ViewCommentParentType, parentObjectId: number): Observable<Comment[]> {
+    return this.api.getData$(`notes/${viewCommentParentType.toString()}/${parentObjectId}`);
   }
 
   postComment$(keyResultId: KeyResultId, comment: Comment): Observable<Comment> {

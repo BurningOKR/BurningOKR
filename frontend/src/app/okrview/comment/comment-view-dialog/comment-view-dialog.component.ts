@@ -56,7 +56,7 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   loadCommentList(): void {
     if (this.parentObject.commentIdList.length !== 0) {
       this.commentMapperService
-        .getCommentsFromKeyResult$(this.parentObject.id)
+        .getCommentsFromParentObject$(this.viewCommentParentType, this.parentObject.id)
         .pipe(take(1))
         .subscribe(commentList => (this.commentList = commentList));
     }

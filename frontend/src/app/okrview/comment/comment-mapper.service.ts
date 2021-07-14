@@ -5,6 +5,8 @@ import { Comment } from './comment';
 import { ViewComment } from '../../shared/model/ui/view-comment';
 import { CommentApiService } from './comment-api.service';
 import { UserService } from '../../shared/services/helper/user.service';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
+import { CommentId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,13 @@ export class CommentMapperService {
   getCommentsFromKeyResult$(keyResultId: number): Observable<ViewComment[]> {
     return this.commentService
       .getCommentsForKeyResult$(keyResultId)
+      .pipe(map((commentList: Comment[]) => this.mapCommentListDto(commentList)));
+  }
+
+  getCommentsFromParentObject$(viewCommentParentType: ViewCommentParentType,
+                               parentObjectId: number): Observable<ViewComment[]> {
+    return this.commentService
+      .getCommentForParentObject$(viewCommentParentType, parentObjectId)
       .pipe(map((commentList: Comment[]) => this.mapCommentListDto(commentList)));
   }
 

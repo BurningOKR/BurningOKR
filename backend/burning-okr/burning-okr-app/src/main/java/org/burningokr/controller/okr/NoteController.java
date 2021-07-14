@@ -47,6 +47,12 @@ public class NoteController {
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
 
+  @GetMapping("/notes/{parentType}/{noteId}")
+  public ResponseEntity<NoteDto> getNotesByParentTypeAndId(@PathVariable String parentType, @PathVariable Long noteId) {
+    Note note = noteService.findById(noteId);
+    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
+  }
+
   /**
    * API Endpoint to update a Note.
    *
