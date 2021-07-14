@@ -7,6 +7,7 @@ import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.okr.Objective;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,8 +66,8 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
     keyResultDto.setSequence(keyResult.getSequence());
 
     Collection<Long> noteIds = new ArrayList<>();
-    for (Note note : keyResult.getNotes()) {
-      noteIds.add(note.getId());
+    for (NoteKeyResult noteKeyResult : keyResult.getNotes()) {
+      noteIds.add(noteKeyResult.getId());
     }
     keyResultDto.setNoteIds(noteIds);
 
