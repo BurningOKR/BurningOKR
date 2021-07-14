@@ -12,7 +12,7 @@ import org.junit.Test;
 public class NoteMapperTest {
   private Note note;
   private NoteDto noteDto;
-  private NoteMapper noteMapper;
+  private NoteKeyResultMapper noteMapper;
 
   @Before
   public void reset() {
@@ -21,7 +21,7 @@ public class NoteMapperTest {
     KeyResult parentKeyResult = new KeyResult();
     parentKeyResult.setId(1337L);
     this.note.setParentKeyResult(parentKeyResult);
-    this.noteMapper = new NoteMapper();
+    this.noteMapper = new NoteKeyResultMapper();
   }
 
   // region EntityToDto-Tests
