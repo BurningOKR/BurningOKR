@@ -65,7 +65,7 @@ public class KeyResultController {
   /**
    * API Endpoint to update a Key Result.
    *
-   * @param keyResultId a long vlaue
+   * @param keyResultId a long value
    * @param keyResultDto a {@link KeyResultDto} object
    * @param user an {@link User} object
    * @return a {@link ResponseEntity} ok with a Key Result

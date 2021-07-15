@@ -1,0 +1,67 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/okr?useSSL=false # database name POSTGRES_DB
+    username: postgres # The created user and owner of the created database POSTGRES_USER
+    password: 4c0K8sJGcxIercJDlmhs # The Password for the new created user POSTGRES_PASSWORD
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect # For postgres
+        format_sql: true
+
+  flyway:
+    baseline-on-migrate: true
+
+  mail:
+    username: bag
+    password: bag
+    host: smtp.gmail.com
+    port: 1234
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          auth: true
+      test-connection: false
+
+  messages:
+    basename: messages
+    pid:
+      file: ./shutdown.pid
+
+## This section is optional.
+## If you want to use an Azure Active Directory for authentication, uncomment this.
+#
+#azure:
+#  ad:
+#    issuer: <Azure issuer>
+#    azureGroups:-
+#      - name: <Azure ad group name>
+#        id: <Azure ad group id>
+#
+#security:
+#  oauth2:
+#    client:
+#      clientId: <OAuth client id>
+#      clientSecret: <OAuth client secret>
+#      accessTokenUri: <OAuth access token url>
+#      userAuthorizationUri: <OAuth use authorization token url>
+#      clientAuthenticationScheme: form
+#      scope: openid
+#      grant-type: client_credentials
+#      auto-approve-scopes: '.*'
+#      token-name: access_token
+#    resource:
+#      userInfoUri: https://graph.microsoft.com/v1.0/me/
+#      preferTokenInfo: false
+
+system:
+  configuration:
+    auth-mode: "local"
+    api-endpoint: "/api"
+    token-endpoint-prefix: ""
+

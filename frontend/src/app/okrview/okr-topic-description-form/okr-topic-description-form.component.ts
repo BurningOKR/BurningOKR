@@ -13,10 +13,9 @@ export class OkrTopicDescriptionFormComponent implements OnInit {
 
   @Input() descriptionForm: FormGroup;
   users$: Observable<User[]>;
-  minBeginn: Date;
+  @Input() minBeginn: Date = new Date();
 
   constructor(private userService: UserService) {
-    this.minBeginn = new Date();
   }
 
   ngOnInit(): void {

@@ -14,7 +14,7 @@ public class OkrTopicDescriptionMapper
   public OkrTopicDescription mapDtoToEntity(OkrTopicDescriptionDto input) {
     OkrTopicDescription entity = new OkrTopicDescription();
 
-    entity.setAcceptanceCriteria(input.getAcceptanceCriteria());
+    entity.setDescription(input.getDescription());
     entity.setBeginning(input.getBeginning());
     entity.setContributesTo(input.getContributesTo());
     entity.setDelimitation(input.getDelimitation());
@@ -34,7 +34,7 @@ public class OkrTopicDescriptionMapper
   public OkrTopicDescriptionDto mapEntityToDto(OkrTopicDescription input) {
     OkrTopicDescriptionDto dto = new OkrTopicDescriptionDto();
 
-    dto.setAcceptanceCriteria(input.getAcceptanceCriteria());
+    dto.setDescription(input.getDescription());
     dto.setBeginning(input.getBeginning());
     dto.setContributesTo(input.getContributesTo());
     dto.setDelimitation(input.getDelimitation());

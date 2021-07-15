@@ -91,12 +91,12 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         })
       );
     const editText: string = this.i18n({
-      id: 'edit',
+      id: 'small_edit',
       value: 'bearbeiten'
     });
 
     const createText: string = this.i18n({
-      id: 'create',
+      id: 'small_create',
       value: 'erstellen'
     });
 

@@ -34,7 +34,7 @@ describe('OkrTopicDescriptionFormComponent', () => {
 
     component.descriptionForm = new FormGroup({
       name: new FormControl('', Validators.maxLength(255)),
-      acceptanceCriteria: new FormControl('', Validators.maxLength(1024)),
+      description: new FormControl('', Validators.maxLength(1024)),
       contributesTo: new FormControl('', Validators.maxLength(1024)),
       delimitation: new FormControl('', Validators.maxLength(1024)),
       beginning: new FormControl(),

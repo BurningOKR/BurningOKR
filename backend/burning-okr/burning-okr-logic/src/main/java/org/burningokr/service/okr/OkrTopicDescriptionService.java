@@ -71,7 +71,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     existing.setBeginning(okrTopicDescription.getBeginning());
     existing.setDelimitation(okrTopicDescription.getDelimitation());
     existing.setContributesTo(okrTopicDescription.getContributesTo());
-    existing.setAcceptanceCriteria(okrTopicDescription.getAcceptanceCriteria());
+    existing.setDescription(okrTopicDescription.getDescription());
     existing.setInitiatorId(okrTopicDescription.getInitiatorId());
 
     existing = okrTopicDescriptionRepository.save(existing);

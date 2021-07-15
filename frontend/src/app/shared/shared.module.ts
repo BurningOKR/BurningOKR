@@ -67,7 +67,7 @@ import { StatusDotComponent } from './components/status-dot/status-dot.component
     MatToolbarModule,
     MatSnackBarModule,
     AvatarModule,
-    RouterModule,
+    RouterModule
   ],
   exports: [
     UserAutocompleteInputComponent,

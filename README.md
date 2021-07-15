@@ -30,7 +30,7 @@ We are already working on a faster and easier installation process, so stay tune
 5. Import the project into your favorable IDE (IntelliJ recommended, VS Code should also do the trick ). We recommend opening a separate window for the backend and frontend.
 6. Run `npm install @angular/cli -g`
 7. Run `npm install in the frontend folder`
-8. [Configure](/docs/configure) the backend.
+8. [Configure](/docs/configure.md) the backend.
 
 9. Start the frontend with `npm start`
 10. Start the backend with the gradle `burning-okr-backend[boot-run]` configuration.
@@ -59,7 +59,7 @@ With `npm start` the application is started and can now be called via `http://lo
 To open the project in IntelliJ, go to Import Project and select the file build.gradle in the folder backend. In the dialog that opens you have to select the field use auto-import.
 
 If a configuration was not created automatically to start the project in IntelliJ, a gradle configuration must be created. For the gradle project, okr-tool must be selected, and for tasks, bootRun must be entered.
-
+![intelliJ-Run-Configuration](./docs/images/boot-run-config.png)
 The backend project uses [Project Lombok](https://projectlombok.org). To use Project Lombok in your IDE, please refer to [using Lombok](https://projectlombok.org/setup/overview).
 
 If PostgresSQL has already been successfully installed and configured in the previous step, the Spring Boot application can now be started.

@@ -207,9 +207,9 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   private getDataForDeletionDialog(): ConfirmationDialogData {
     const title: string =
       this.i18n({
-        id: 'deleteKeyResultDialogTitle',
+        id: 'delete_keyresult',
         description: 'Title of the delete keyresult dialog',
-        value: 'Keyresult löschen'
+        value: 'KeyResult löschen'
       });
     const message: string =
       this.i18n({
@@ -218,7 +218,7 @@ export class KeyresultComponent implements OnInit, OnDestroy {
         value: 'KeyResult {{number}}. {{keyResultTitle}} von dem Objective löschen?',
       }, {number: this.listNumber, keyResultTitle: this.keyResult.keyResult});
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });

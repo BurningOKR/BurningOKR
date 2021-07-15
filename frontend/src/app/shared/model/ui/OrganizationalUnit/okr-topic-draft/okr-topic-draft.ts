@@ -17,14 +17,14 @@ export class OkrTopicDraft extends OkrTopicDescription {
     initiatorId: UserId,
     startTeam: UserId[],
     stakeholders: UserId[],
-    acceptanceCriteria: string,
+    description: string,
     contributesTo: string,
     delimitation: string,
     beginning: Date,
     dependencies: string,
     resources: string,
     handoverPlan: string) {
-      super(topicDraftId, name, initiatorId, startTeam, stakeholders, acceptanceCriteria,
+      super(topicDraftId, name, initiatorId, startTeam, stakeholders, description,
       contributesTo, delimitation, beginning, dependencies, resources, handoverPlan);
       this.okrParentUnitId = parentUnitId;
       this.currentStatus = currentStatus;

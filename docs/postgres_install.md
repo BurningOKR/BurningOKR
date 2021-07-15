@@ -1,14 +1,16 @@
-# Install and Setup PostgreSQL
+# Install and Setup PostgreSQL (Manual installation)
 
 ## Overview
 You haven't created a database yet? Then you are at the right place!
+
+If you want an easy way, please use the [docker installation of postgres](./postgres_install_docker.md)
 
 1. We need to provide a separate PostgreSQL database for the backend application.
 
 2. Additionally, we need to create a user who can connect to the database.
 
 Note: Please remember the **username**, **password** and **database-name** you have chosen.
-You will need those in the coming application yaml configuration.
+You will need those in the later setup/configuration process.
 
 ## Windows
 1. Install PostgreSQL (Version 9.5 or higher): https://www.enterprisedb.com/downloads/postgres-postgresql-downloads

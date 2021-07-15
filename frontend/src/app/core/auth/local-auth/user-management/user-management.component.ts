@@ -11,6 +11,7 @@ import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
+import 'linq4js';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -49,12 +50,12 @@ export class UserManagementComponent implements OnInit {
     value: 'Aktiv'
   });
   i18nEmailTableHeader: string = this.i18n({
-    id: 'email_table_header',
+    id: 'email',
     description: 'User management component "Email" header',
     value: 'Email'
   });
   i18nNameTableHeader: string = this.i18n({
-    id: 'name_table_header',
+    id: 'name',
     description: 'User management component "Name" header',
     value: 'Name'
   });

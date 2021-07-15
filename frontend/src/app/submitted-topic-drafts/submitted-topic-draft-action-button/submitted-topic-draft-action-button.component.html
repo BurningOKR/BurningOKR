@@ -1,47 +1,46 @@
 <ng-container>
-    <button mat-icon-button [matMenuTriggerFor]="actionDropdown">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-<!-- TODO : Router link angeben - mWegmann 10.05.2021 -->
-    <mat-menu #actionDropdown="matMenu">
-      <button mat-menu-item (click)="editTopicDraft()">
-        <mat-icon>edit</mat-icon>
-        <span>Bearbeiten</span>
-      </button>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
-        <button mat-menu-item disabled (click)="printNotImplemented()">
-          <mat-icon>delete</mat-icon>
-          <span>Löschen</span>
+  <button mat-icon-button [matMenuTriggerFor]="actionDropdown">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <!-- TODO : Router link angeben - mWegmann 10.05.2021 -->
+  <mat-menu #actionDropdown="matMenu">
+      <span matTooltip="{{ getEditTooltipText$() | async}}" [matTooltipDisabled]="canEditTopicDraft$() | async">
+        <button mat-menu-item [disabled]="!(canEditTopicDraft$() | async)" (click)="editTopicDraft()">
+          <mat-icon>edit</mat-icon>
+          <span>Bearbeiten</span>
         </button>
       </span>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
+    <span matTooltip="Nur ein Admin oder der Initiator können diesen Themenentwurf löschen" i18n-matTooltip="@@onlyAdminOrInitiatorPermissionToDelete" [matTooltipDisabled]="canDeleteTopicDraft$() | async">
+      <button mat-menu-item [disabled]="!(canDeleteTopicDraft$() | async)" (click)="clickedDeleteTopicDraft()">
+        <mat-icon>delete</mat-icon>
+        <span>Löschen</span>
+      </button>
+    </span>
+    <span matTooltip="Feature kommt demnächst"
+          i18n-matTooltip="@@feature-coming-soon">
         <button mat-menu-item disabled (click)="printNotImplemented()">
           <mat-icon>chat</mat-icon>
           <span>Kommentare</span>
         </button>
       </span>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
+    <span matTooltip="Feature kommt demnächst"
+          i18n-matTooltip="@@feature-coming-soon">
         <button mat-menu-item disabled (click)="printNotImplemented()">
           <mat-icon>exposure</mat-icon>
           <span>Einreichen/Zurücknehmen</span>
         </button>
       </span>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
-        <button mat-menu-item disabled (click)="printNotImplemented()">
+    <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
+        <button mat-menu-item [disabled]="!(canChangeCurrentStatus$() | async)" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
-          <span>Genehmigen/Genehmigung verwerfen</span>
+          <span>{{ getApprovalButtonText() }}</span>
         </button>
       </span>
-      <span matTooltip="Feature kommt demnächst"
-            i18n-matTooltip="@@feature-coming-soon">
-        <button mat-menu-item disabled (click)="printNotImplemented()">
+    <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
+        <button mat-menu-item [disabled]="!(canChangeCurrentStatus$() | async)" (click)="rejectingTopicDraft()">
           <mat-icon >cancel</mat-icon>
-          <span>Ablehnen/Ablehnung zurückziehen</span>
+          <span>{{ getRejectionButtonText() }}</span>
         </button>
       </span>
-    </mat-menu>
+  </mat-menu>
 </ng-container>

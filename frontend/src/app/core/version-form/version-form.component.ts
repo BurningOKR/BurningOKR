@@ -11,6 +11,13 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.3.3',
+      changes: [
+        'renamed acceptance criteria to description',
+        'added tooltip for topic-draft status'
+      ]
+    },
+    {
       version: '1.3.2 (25.06.2021)',
       changes: [
         'some minor CI changes'

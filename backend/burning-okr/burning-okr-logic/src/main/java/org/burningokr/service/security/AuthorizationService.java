@@ -18,6 +18,10 @@ public class AuthorizationService {
     return userRole == UserContextRole.ADMIN;
   }
 
+  public boolean isAuditor() {
+    return userRoleFromContextService.isCurrentUserAuditor();
+  }
+
   public boolean hasManagerPrivilegeForDepartment(Long departmentId) {
     UserContextRole userRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
     return userRole.isHigherAuthorityTypeThan(UserContextRole.OKRMEMBER);
@@ -50,6 +54,11 @@ public class AuthorizationService {
 
   public boolean isNoteOwner(Long noteId) {
     UserContextRole userRole = userRoleFromContextService.getUserRoleInNoteId(noteId);
+    return userRole == UserContextRole.ENTITYOWNER;
+  }
+
+  public boolean isTopicDraftInitiator(Long topicDraftId) {
+    UserContextRole userRole = userRoleFromContextService.getUserRoleTopicDraft(topicDraftId);
     return userRole == UserContextRole.ENTITYOWNER;
   }
 }
