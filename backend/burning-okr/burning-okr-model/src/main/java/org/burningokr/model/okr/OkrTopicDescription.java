@@ -32,7 +32,7 @@ public class OkrTopicDescription implements Trackable<Long> {
   private Collection<UUID> stakeholders;
 
   @Column(length = 1023)
-  private String acceptanceCriteria;
+  private String description;
 
   @Column(length = 1023)
   private String contributesTo;

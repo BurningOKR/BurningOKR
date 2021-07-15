@@ -65,7 +65,7 @@ public class OkrTopicDescriptionServiceTest {
     stakeholder.add(UUID.randomUUID());
 
     okrTopicDescription.setInitiatorId(UUID.randomUUID());
-    okrTopicDescription.setAcceptanceCriteria("testCriteria");
+    okrTopicDescription.setDescription("testCriteria");
     okrTopicDescription.setContributesTo("testContributesTo");
     okrTopicDescription.setDelimitation("testDelimitation");
     okrTopicDescription.setBeginning(LocalDate.of(2020, 3, 3));
@@ -87,7 +87,7 @@ public class OkrTopicDescriptionServiceTest {
     assertEquals(okrTopicDescription.getInitiatorId(), updatedDescription.getInitiatorId());
     assertEquals(okrTopicDescription.getName(), updatedDescription.getName());
     assertEquals(
-        okrTopicDescription.getAcceptanceCriteria(), updatedDescription.getAcceptanceCriteria());
+        okrTopicDescription.getDescription(), updatedDescription.getDescription());
     assertEquals(okrTopicDescription.getBeginning(), updatedDescription.getBeginning());
     assertEquals(okrTopicDescription.getContributesTo(), updatedDescription.getContributesTo());
     assertEquals(okrTopicDescription.getDelimitation(), updatedDescription.getDelimitation());
