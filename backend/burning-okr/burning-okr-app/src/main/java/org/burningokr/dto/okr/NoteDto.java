@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.burningokr.service.okr.NoteParentType;
 
 @Getter
 @Setter
@@ -14,6 +15,10 @@ public class NoteDto {
   private Long noteId;
 
   private UUID userId;
+
+  private Long parentId;
+
+  private NoteParentType noteParentType;
 
   @NotNull
   @Size(max = 1023, message = "The note text may not be longer than 1023 characters.")

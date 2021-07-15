@@ -2,11 +2,7 @@ package org.burningokr.model.okr;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
@@ -21,11 +17,17 @@ public class Note implements Trackable<Long> {
 
   @NotNull private UUID userId;
 
+  @ManyToOne
+  private KeyResult parentKeyResult;
+
   @Column(length = 1023)
   private String text;
 
   @Column(name = "date", nullable = false)
   private LocalDateTime date;
+
+//  @Column
+//  private NoteParentType noteParentType;
 
   @Override
   public String getName() {
