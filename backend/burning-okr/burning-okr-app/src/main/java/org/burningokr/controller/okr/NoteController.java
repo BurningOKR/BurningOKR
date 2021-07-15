@@ -3,10 +3,8 @@ package org.burningokr.controller.okr;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.NoteDto;
-import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.NoteService;
 import org.burningokr.service.security.AuthorizationService;
@@ -67,7 +65,7 @@ public class NoteController {
   @PreAuthorize("@authorizationService.isNoteOwner(#noteId)")
   public ResponseEntity<NoteDto> updateNoteById(
       @PathVariable Long noteId, @Valid @RequestBody NoteDto noteDto, User user) {
-    Note note = noteMapper.mapDtoToEntity((NoteKeyResultDto) noteDto);
+    Note note = noteMapper.mapDtoToEntity(noteDto);
     note.setId(noteId);
     note = this.noteService.updateNote(note, user);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
