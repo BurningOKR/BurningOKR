@@ -17,8 +17,11 @@ public class Note implements Trackable<Long> {
 
   @NotNull private UUID userId;
 
-  @ManyToOne
-  private KeyResult parentKeyResult;
+  @Column
+  private Long parentId;
+
+  @Column
+  private String noteParentType;
 
   @Column(length = 1023)
   private String text;
