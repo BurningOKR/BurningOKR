@@ -23,7 +23,7 @@ export class ChangePasswordDialogComponent implements OnInit {
 
   newPasswordForm: FormGroupTyped<NewPasswordForm>;
   title: string = this.i18n({
-    id: 'changePasswordFormTitle',
+    id: 'change_password',
     value: 'Passwort ändern'
   });
 

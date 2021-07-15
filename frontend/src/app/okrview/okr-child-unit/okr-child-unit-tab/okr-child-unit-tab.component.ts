@@ -78,8 +78,12 @@ export class OkrChildUnitTabComponent implements OnDestroy {
           switchMap(n => n)
         )
         .subscribe(addedTopicDraft => {
-          const snackBarText: string = this.i18n({id: 'snackbar_addTopicDraft', value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'});
-          const snackBarOk: string = this.i18n({id: 'snackbar_ok', value: 'Ok'});
+          const snackBarText: string = this.i18n({
+            id: 'snackbar_addTopicDraft',
+            value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'});
+          const snackBarOk: string = this.i18n({
+            id: 'short_okay',
+            value: 'Ok'});
           this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
         })
     );

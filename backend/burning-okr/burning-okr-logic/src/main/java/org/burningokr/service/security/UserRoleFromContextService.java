@@ -3,16 +3,20 @@ package org.burningokr.service.security;
 import java.util.Optional;
 import java.util.UUID;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.AdminUser;
+import org.burningokr.model.users.AuditorUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
+import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.repositories.users.AdminUserRepository;
+import org.burningokr.repositories.users.AuditorUserRepository;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +28,10 @@ public class UserRoleFromContextService {
   private ObjectiveRepository objectiveRepository;
   private KeyResultRepository keyResultRepository;
   private NoteRepository noteRepository;
+  private OkrTopicDraftRepository topicDraftRepository;
   private UserService userService;
   private AdminUserRepository adminUserRepository;
+  private AuditorUserRepository auditorUserRepository;
 
   /**
    * Initialize UserRoleFromContextService.
@@ -35,6 +41,7 @@ public class UserRoleFromContextService {
    * @param keyResultRepository a {@link KeyResultRepository} object
    * @param noteRepository a {@link NoteRepository} object
    * @param adminUserRepository an {@link AdminUserRepository} object
+   * @param auditorUserRepository an {@link AuditorUserRepository} object
    * @param userService an {@link UserService} object
    */
   @Autowired
@@ -43,13 +50,17 @@ public class UserRoleFromContextService {
       ObjectiveRepository objectiveRepository,
       KeyResultRepository keyResultRepository,
       NoteRepository noteRepository,
+      OkrTopicDraftRepository topicDraftRepository,
       AdminUserRepository adminUserRepository,
+      AuditorUserRepository auditorUserRepository,
       UserService userService) {
     this.unitRepository = unitRepository;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
     this.noteRepository = noteRepository;
+    this.topicDraftRepository = topicDraftRepository;
     this.adminUserRepository = adminUserRepository;
+    this.auditorUserRepository = auditorUserRepository;
     this.userService = userService;
   }
 
@@ -98,6 +109,21 @@ public class UserRoleFromContextService {
   }
 
   /**
+   * @param topicDraftId a long value
+   * @return an {@link UserContextRole} object
+   */
+  public UserContextRole getUserRoleTopicDraft(Long topicDraftId) {
+    OkrTopicDraft topicDraft = topicDraftRepository.findByIdOrThrow(topicDraftId);
+    UUID currentUserId = userService.getCurrentUser().getId();
+
+    if (currentUserId.equals(topicDraft.getInitiatorId())) {
+      return UserContextRole.ENTITYOWNER;
+    } else {
+      return UserContextRole.USER;
+    }
+  }
+
+  /**
    * Gets the UserContextRole of a okrUnit.
    *
    * @param okrUnit an {@link OkrChildUnit} object
@@ -125,6 +151,13 @@ public class UserRoleFromContextService {
 
   private boolean isCurrentUserAdmin(UUID currentUserId) {
     Optional<AdminUser> optional = adminUserRepository.findById(currentUserId);
+
+    return optional.isPresent();
+  }
+
+  public boolean isCurrentUserAuditor() {
+    Optional<AuditorUser> optional =
+        auditorUserRepository.findById(userService.getCurrentUser().getId());
 
     return optional.isPresent();
   }

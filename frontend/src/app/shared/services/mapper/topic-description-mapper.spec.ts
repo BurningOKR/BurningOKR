@@ -22,7 +22,7 @@ describe('TopicDescriptionMapper', () => {
   }));
 
   beforeEach(() => {
-    description = new OkrTopicDescription(1, 'DescriptionName', '2', ['2', '3', '4'], ['3', '4'], 'acceptanceCriteria',
+    description = new OkrTopicDescription(1, 'DescriptionName', '2', ['2', '3', '4'], ['3', '4'], 'description',
       'Contributes To', 'Delimination', new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover Plan');
 
     descriptionDto = {
@@ -31,7 +31,7 @@ describe('TopicDescriptionMapper', () => {
       initiatorId: '2',
       startTeam: ['2', '3', '4'],
       stakeholders: ['3', '4'],
-      acceptanceCriteria: 'acceptanceCriteria',
+      description: 'description',
       contributesTo: 'Contributes To',
       delimitation: 'Delimination',
       beginning: [2021, 2, 1],
@@ -98,7 +98,7 @@ describe('TopicDescriptionMapper', () => {
             initiatorId: '2',
             startTeam: ['2', '3', '4'],
             stakeholders: ['3', '4'],
-            acceptanceCriteria: 'acceptanceCriteria',
+            description: 'description',
             contributesTo: 'Contributes To',
             delimitation: 'Delimination',
             beginning: [2021, 2, 1],

@@ -109,7 +109,7 @@ export class ObjectiveComponent implements OnDestroy {
       }, {number: this.listNumber, objectiveTitle: this.objective.name});
 
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });
