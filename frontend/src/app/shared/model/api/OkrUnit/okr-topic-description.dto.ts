@@ -6,7 +6,7 @@ export class OkrTopicDescriptionDto {
   initiatorId: UserId;
   startTeam: UserId[];
   stakeholders: UserId[];
-  acceptanceCriteria: string;
+  description: string;
   contributesTo: string;
   delimitation: string;
   beginning: number[];
