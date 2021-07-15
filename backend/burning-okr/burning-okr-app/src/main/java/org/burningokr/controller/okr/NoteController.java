@@ -23,36 +23,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class NoteController {
 
   private NoteService noteService;
-  private DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper;
+  private DataMapper<Note, NoteDto> noteMapper;
   private AuthorizationService authorizationService;
 
   /**
    * Initialize NoteController.
    *
    * @param noteService a {@link NoteService} object
-   * @param noteKeyResultMapper a {@link DataMapper} object with {@link NoteKeyResult} and {@link NoteKeyResultDto}
+   * @param noteMapper a {@link DataMapper} object with {@link Note} and {@link NoteDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
   public NoteController(
       NoteService noteService,
-      DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper,
+      DataMapper<Note, NoteDto> noteMapper,
       AuthorizationService authorizationService) {
     this.noteService = noteService;
-    this.noteKeyResultMapper = noteKeyResultMapper;
+    this.noteMapper = noteMapper;
     this.authorizationService = authorizationService;
   }
 
   @GetMapping("/notes/{noteId}")
   public ResponseEntity<NoteDto> getNoteById(@PathVariable Long noteId) {
     Note note = noteService.findById(noteId);
-    return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto((NoteKeyResult) note));
+    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
 
   @GetMapping("/notes/{parentType}/{noteId}")
   public ResponseEntity<NoteDto> getNotesByParentTypeAndId(@PathVariable String parentType, @PathVariable Long noteId) {
     Note note = noteService.findById(noteId);
-    return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto((NoteKeyResult) note));
+    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
 
   /**
@@ -67,10 +67,10 @@ public class NoteController {
   @PreAuthorize("@authorizationService.isNoteOwner(#noteId)")
   public ResponseEntity<NoteDto> updateNoteById(
       @PathVariable Long noteId, @Valid @RequestBody NoteDto noteDto, User user) {
-    Note note = noteKeyResultMapper.mapDtoToEntity((NoteKeyResultDto) noteDto);
+    Note note = noteMapper.mapDtoToEntity((NoteKeyResultDto) noteDto);
     note.setId(noteId);
     note = this.noteService.updateNote(note, user);
-    return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto((NoteKeyResult) note));
+    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
 
   @DeleteMapping("/notes/{noteId}")

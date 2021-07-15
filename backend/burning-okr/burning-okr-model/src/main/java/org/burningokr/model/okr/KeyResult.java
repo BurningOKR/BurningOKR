@@ -40,7 +40,7 @@ public class KeyResult implements Trackable<Long> {
   @Column private int sequence;
 
   @ToString.Exclude
-  @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "parentId", cascade = CascadeType.REMOVE)
   private Collection<Note> notes = new ArrayList<>();
 
   @ToString.Exclude
