@@ -49,7 +49,7 @@ describe('TopicDraftMapper', () => {
             initiatorId: 'initiatorId',
             startTeam: ['5', '6'],
             stakeholders: ['5', '6'],
-            acceptanceCriteria: 'Acceptance Criteria',
+            description: 'Acceptance Criteria',
             contributesTo: 'Contributes to',
             delimitation: 'Delimitation',
             beginning: [2021, 2, 1],
