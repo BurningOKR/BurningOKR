@@ -12,7 +12,7 @@ public class OkrTopicDescriptionDto {
   private UUID initiatorId;
   private Collection<UUID> startTeam;
   private Collection<UUID> stakeholders;
-  private String acceptanceCriteria;
+  private String description;
   private String contributesTo;
   private String delimitation;
   private LocalDate beginning;

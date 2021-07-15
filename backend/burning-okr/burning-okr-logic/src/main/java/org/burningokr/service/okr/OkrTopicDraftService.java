@@ -51,7 +51,7 @@ public class OkrTopicDraftService {
   public OkrTopicDraft updateOkrTopicDraft(long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
     OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
 
-    referencedOkrTopicDraft.setAcceptanceCriteria(updatedOkrTopicDraft.getAcceptanceCriteria());
+    referencedOkrTopicDraft.setDescription(updatedOkrTopicDraft.getDescription());
     referencedOkrTopicDraft.setBeginning(
         LocalDate.parse(updatedOkrTopicDraft.getBeginning().toString()));
     referencedOkrTopicDraft.setContributesTo(updatedOkrTopicDraft.getContributesTo());
