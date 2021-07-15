@@ -5,11 +5,9 @@ import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.NoteDto;
-import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.KeyResultService;
 import org.burningokr.service.security.AuthorizationService;
@@ -28,7 +26,7 @@ public class KeyResultController {
 
   private KeyResultService keyResultService;
   private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
-  private DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper;
+  private DataMapper<Note, NoteDto> noteMapper;
   private AuthorizationService authorizationService;
 
   /**
@@ -37,18 +35,18 @@ public class KeyResultController {
    * @param keyResultService a {@link KeyResultService} object
    * @param keyResultMapper a {@link DataMapper} object with {@link KeyResult} and {@link
    *     KeyResultDto}
-   * @param noteKeyResultMapper a {@link DataMapper} object with {@link NoteKeyResult} and {@link NoteKeyResultDto}
+   * @param noteMapper a {@link DataMapper} object with {@link Note} and {@link NoteDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
   public KeyResultController(
-      KeyResultService keyResultService,
-      DataMapper<KeyResult, KeyResultDto> keyResultMapper,
-      DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper,
-      AuthorizationService authorizationService) {
+          KeyResultService keyResultService,
+          DataMapper<KeyResult, KeyResultDto> keyResultMapper,
+          DataMapper<Note, NoteDto> noteMapper,
+          AuthorizationService authorizationService) {
     this.keyResultService = keyResultService;
     this.keyResultMapper = keyResultMapper;
-    this.noteKeyResultMapper = noteKeyResultMapper;
+    this.noteMapper = noteMapper;
     this.authorizationService = authorizationService;
   }
 
@@ -58,11 +56,11 @@ public class KeyResultController {
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
   }
 
-  /*@GetMapping("/keyresults/{keyResultId}/notes")
+  @GetMapping("/keyresults/{keyResultId}/notes")
   public ResponseEntity<Collection<NoteDto>> getNotesOfKeyResult(@PathVariable long keyResultId) {
     Collection<Note> notes = keyResultService.findNotesOfKeyResult(keyResultId);
     return ResponseEntity.ok(noteMapper.mapEntitiesToDtos(notes));
-  }*/
+  }
 
   /**
    * API Endpoint to update a Key Result.
@@ -75,7 +73,7 @@ public class KeyResultController {
   @PutMapping("/keyresults/{keyResultId}")
   @PreAuthorize("@authorizationService.hasMemberPrivilegeForKeyResult(#keyResultId)")
   public ResponseEntity<KeyResultDto> updateKeyResultById(
-      @PathVariable long keyResultId, @Valid @RequestBody KeyResultDto keyResultDto, User user) {
+          @PathVariable long keyResultId, @Valid @RequestBody KeyResultDto keyResultDto, User user) {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult.setId(keyResultId);
     keyResult = this.keyResultService.updateKeyResult(keyResult, user);
@@ -90,14 +88,14 @@ public class KeyResultController {
    * @param user an {@link User} object
    * @return a {@link ResponseEntity} ok with a Note
    */
-  /*@PostMapping("/keyresults/{keyResultId}/notes")
+  @PostMapping("/keyresults/{keyResultId}/notes")
   public ResponseEntity<NoteDto> addNoteToKeyResult(
-      @PathVariable long keyResultId, @Valid @RequestBody NoteDto noteDto, User user) {
+          @PathVariable long keyResultId, @Valid @RequestBody NoteDto noteDto, User user) {
     Note note = noteMapper.mapDtoToEntity(noteDto);
     note.setId(null);
     note = this.keyResultService.createNote(keyResultId, note, user);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
-  }*/
+  }
 
   @DeleteMapping("keyresults/{keyResultId}")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForKeyResult(#keyResultId)")

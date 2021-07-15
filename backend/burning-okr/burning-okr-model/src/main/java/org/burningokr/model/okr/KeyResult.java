@@ -41,7 +41,7 @@ public class KeyResult implements Trackable<Long> {
 
   @ToString.Exclude
   @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
-  private Collection<NoteKeyResult> notes = new ArrayList<>();
+  private Collection<Note> notes = new ArrayList<>();
 
   @ToString.Exclude
   @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)

@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
-import org.burningokr.model.okr.NoteKeyResult;
+import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
-import org.burningokr.repositories.okr.NoteKeyResultRepository;
+import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
@@ -27,7 +27,7 @@ public class KeyResultService {
   private final Logger logger = LoggerFactory.getLogger(KeyResultService.class);
 
   private final KeyResultRepository keyResultRepository;
-  private final NoteKeyResultRepository noteKeyResultRepository;
+  private final NoteRepository noteRepository;
   private final ActivityService activityService;
   private final EntityCrawlerService entityCrawlerService;
   private final ObjectiveService objectiveService;
@@ -37,7 +37,7 @@ public class KeyResultService {
     return keyResultRepository.findByIdOrThrow(keyResultId);
   }
 
-  public Collection<NoteKeyResult> findNotesOfKeyResult(long keyResultId) {
+  public Collection<Note> findNotesOfKeyResult(long keyResultId) {
     KeyResult keyResult = findById(keyResultId);
     return keyResult.getNotes();
   }
@@ -65,11 +65,11 @@ public class KeyResultService {
 
     referencedKeyResult = keyResultRepository.save(referencedKeyResult);
     logger.info(
-        "Updated Key Result "
-            + referencedKeyResult.getName()
-            + "(id:"
-            + referencedKeyResult.getId()
-            + ")");
+            "Updated Key Result "
+                    + referencedKeyResult.getName()
+                    + "(id:"
+                    + referencedKeyResult.getId()
+                    + ")");
     activityService.createActivity(user, referencedKeyResult, Action.EDITED);
     return referencedKeyResult;
   }
@@ -87,7 +87,7 @@ public class KeyResultService {
 
     if (referencedKeyResult.getParentObjective() != null) {
       Collection<KeyResult> keyResultList =
-          referencedKeyResult.getParentObjective().getKeyResults();
+              referencedKeyResult.getParentObjective().getKeyResults();
       for (KeyResult keyResult : keyResultList) {
         if (keyResult.getSequence() > referencedKeyResult.getSequence()) {
           keyResult.setSequence(keyResult.getSequence() - 1);
@@ -101,32 +101,33 @@ public class KeyResultService {
   }
 
   /**
-   * Creates a NoteKeyResult.
+   * Creates a Note.
    *
    * @param keyResultId a long value
-   * @param noteKeyResult a {@link org.burningokr.model.okr.NoteKeyResult} object
+   * @param note a {@link Note} object
    * @param user an {@link User} object
-   * @return a {@link NoteKeyResult} object
+   * @return a {@link Note} object
    */
   @Transactional
-  public NoteKeyResult createNoteKeyResult(long keyResultId, NoteKeyResult noteKeyResult, User user) {
-    noteKeyResult.setParentKeyResult(findById(keyResultId));
-    noteKeyResult.setUserId(user.getId());
-    noteKeyResult.setDate(LocalDateTime.now());
+  public Note createNote(long keyResultId, Note note, User user) {
+    note.setParentId(findById(keyResultId).getId());
+    note.setNoteParentType(NoteParentType.keyResult.toString());
+    note.setUserId(user.getId());
+    note.setDate(LocalDateTime.now());
 
-    noteKeyResult = noteKeyResultRepository.save(noteKeyResult);
+    note = noteRepository.save(note);
     logger.info(
-        "Added NoteKeyResult with id "
-            + noteKeyResult.getId()
-            + " from User "
-            + user.getGivenName()
-            + " "
-            + user.getSurname()
-            + " to KeyResult "
-            + keyResultId);
-    activityService.createActivity(user, noteKeyResult, Action.CREATED);
+            "Added Note with id "
+                    + note.getId()
+                    + " from User "
+                    + user.getGivenName()
+                    + " "
+                    + user.getSurname()
+                    + " to KeyResult "
+                    + keyResultId);
+    activityService.createActivity(user, note, Action.CREATED);
 
-    return noteKeyResult;
+    return note;
   }
 
   /**
@@ -139,30 +140,30 @@ public class KeyResultService {
    */
   @Transactional
   public void updateSequence(Long objectiveId, Collection<Long> sequenceList, User user)
-      throws Exception {
+          throws Exception {
     Objective objective = objectiveService.findById(objectiveId);
     throwIfSequenceInvalid(objective, sequenceList);
 
     ArrayList<Long> sequenceArray = new ArrayList<>(sequenceList);
     objective
-        .getKeyResults()
-        .forEach(
-            keyResult -> {
-              int currentOrder = sequenceArray.indexOf(keyResult.getId());
-              keyResult.setSequence(currentOrder);
-              keyResultRepository.save(keyResult);
-              activityService.createActivity(user, keyResult, Action.EDITED);
-              logger.info("Update sequence of KeyResult with id " + keyResult.getId());
-            });
+            .getKeyResults()
+            .forEach(
+                    keyResult -> {
+                      int currentOrder = sequenceArray.indexOf(keyResult.getId());
+                      keyResult.setSequence(currentOrder);
+                      keyResultRepository.save(keyResult);
+                      activityService.createActivity(user, keyResult, Action.EDITED);
+                      logger.info("Update sequence of KeyResult with id " + keyResult.getId());
+                    });
   }
 
   private void throwIfSequenceInvalid(Objective objective, Collection<Long> sequenceList)
-      throws Exception {
+          throws Exception {
     Collection<KeyResult> keyResultList = objective.getKeyResults();
 
     if (keyResultList.size() != sequenceList.size()) {
       throw new IllegalArgumentException(
-          "Size of KeyResult List and Sequence List has to be equal");
+              "Size of KeyResult List and Sequence List has to be equal");
     }
 
     ArrayList<Long> keyResultIdList = new ArrayList<>();
@@ -182,7 +183,7 @@ public class KeyResultService {
 
   private void throwIfCycleOfKeyResultIsClosed(KeyResult keyResultToCheck) {
     if (entityCrawlerService.getCycleOfKeyResult(keyResultToCheck).getCycleState()
-        == CycleState.CLOSED) {
+            == CycleState.CLOSED) {
       throw new ForbiddenException("Cannot modify this resource on a KeyResult in a closed cycle.");
     }
   }
