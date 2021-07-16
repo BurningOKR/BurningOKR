@@ -1,8 +1,16 @@
 ALTER TABLE public.note
-    ADD COLUMN parent_object_type varchar NOT NULL default 'keyResult' check (parent_object_type in ('keyResult', 'topicDraft'));
+    DROP CONSTRAINT fknak03u9uw631nfor92v3ce4uc,
+    DROP COLUMN parent_key_result_id;
 
-ALTER TABLE public.note
-    RENAME COLUMN parent_key_result_id TO parent_object_id;
+CREATE TABLE public.note_key_result (
+    note_id bigint NOT NULL,
+    parent_key_result_id bigint NOT NULL,
+    CONSTRAINT note_id_pk PRIMARY KEY (note_id),
+    CONSTRAINT key_result_fk FOREIGN KEY (parent_key_result_id)
+        REFERENCES public.key_result (id) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION
+) WITH (
+     OIDS=FALSE
+);
 
-ALTER TABLE public.note
-    DROP CONSTRAINT fknak03u9uw631nfor92v3ce4uc;
+
