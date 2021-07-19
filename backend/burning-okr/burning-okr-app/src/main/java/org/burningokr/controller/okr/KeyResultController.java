@@ -92,6 +92,7 @@ public class KeyResultController {
   @PostMapping("/keyresults/{keyResultId}/notes")
   public ResponseEntity<NoteDto> addNoteToKeyResult(
           @PathVariable long keyResultId, @Valid @RequestBody NoteKeyResultDto noteKeyResultDto, User user) {
+    noteKeyResultDto.setParentKeyResultId(keyResultId);
     NoteKeyResult noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
     noteKeyResult.setId(null);
     noteKeyResult = this.keyResultService.createNote(keyResultId, noteKeyResult, user);
