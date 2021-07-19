@@ -20,7 +20,13 @@ export class CommentApiService {
   }
 
   getCommentForParentObject$(viewCommentParentType: ViewCommentParentType, parentObjectId: number): Observable<Comment[]> {
-    return this.api.getData$(`notes/${viewCommentParentType.toString()}/${parentObjectId}`);
+    switch (viewCommentParentType) {
+      case ViewCommentParentType.keyResult:
+        return this.getCommentsForKeyResult$(parentObjectId);
+        break;
+      default:
+        break;
+    };
   }
 
   postComment$(keyResultId: KeyResultId, comment: Comment): Observable<Comment> {
