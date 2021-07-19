@@ -2,6 +2,7 @@ package org.burningokr.mapper.okr;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;

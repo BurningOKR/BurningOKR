@@ -43,7 +43,7 @@ export class CommentApiService {
   getParentObjectUrlPath(viewCommentParentType: ViewCommentParentType): string {
     switch (viewCommentParentType) {
       case ViewCommentParentType.keyResult:
-        return 'keyResults';
+        return 'keyresults';
         break;
       case ViewCommentParentType.topicDraft:
         return 'topicDrafts';
