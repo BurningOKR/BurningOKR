@@ -1,3 +1,4 @@
+-- TODO needs to be tested
 ALTER TABLE note DROP CONSTRAINT note_key_result_fkey;
 
 ALTER TABLE note DROP COLUMN parent_key_result_id;

@@ -22,6 +22,7 @@ public class NoteKeyResultMapperTest {
     this.noteKeyResultMapper = new NoteKeyResultMapper();
   }
 
+  // region DtoToEntity-Tests
   @Test
   public void test_mapDtoToEntity_expectsIdIsMapped() {
     Long expected = 249L;
@@ -63,6 +64,14 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
+  public void test_mapDtoToEntity_expectsParentKeyResultIdIsNull() {
+    noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
+    Assert.assertNull(noteKeyResult.getParentKeyResult());
+  }
+  // endregion
+
+  // region EntityToDto-Tests
+  @Test
   public void test_mapEntityToDto_expectsNoteIdIsMapped() {
     Long expected = 1234L;
     noteKeyResult.setId(expected);
@@ -101,4 +110,5 @@ public class NoteKeyResultMapperTest {
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
     Assert.assertEquals(expected.getId(), noteKeyResultDto.getParentKeyResultId());
   }
+  // endregion
 }
