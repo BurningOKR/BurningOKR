@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
-import { CommentId } from '../../../shared/model/id-types';
 import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
 import { ViewCommentRequiredAttributes } from '../../../shared/model/ui/view-comment-required-attributes';
 
@@ -45,7 +44,6 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   }
 
   ngOnInit(): void {
-    console.log(this.parentObject.commentIdList);
     this.loadCommentList();
   }
 
@@ -72,7 +70,7 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
       const newComment: ViewComment = new ViewComment(1, '', this.newCommentText, new Date());
 
       this.commentMapperService
-        .createComment$(this.parentObject.id, newComment)
+        .createComment$(this.viewCommentParentType, this.parentObject.id, newComment)
         .pipe(take(1))
         .subscribe(createdComment => {
           this.parentObject.commentIdList.push(createdComment.id);

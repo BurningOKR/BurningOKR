@@ -15,12 +15,6 @@ export class CommentMapperService {
   constructor(private commentService: CommentApiService, private userMapperService: UserService) {
   }
 
-  getCommentsFromKeyResult$(keyResultId: number): Observable<ViewComment[]> {
-    return this.commentService
-      .getCommentsForKeyResult$(keyResultId)
-      .pipe(map((commentList: Comment[]) => this.mapCommentListDto(commentList)));
-  }
-
   getCommentsFromParentObject$(viewCommentParentType: ViewCommentParentType,
                                parentObjectId: number): Observable<ViewComment[]> {
     return this.commentService
@@ -28,8 +22,8 @@ export class CommentMapperService {
       .pipe(map((commentList: Comment[]) => this.mapCommentListDto(commentList)));
   }
 
-  createComment$(keyResultId: number, newComment: ViewComment): Observable<ViewComment> {
-    return this.commentService.postComment$(keyResultId, this.mapViewComment(newComment))
+  createComment$(viewCommentParentType: ViewCommentParentType, parentObjectId: number, newComment: ViewComment): Observable<ViewComment> {
+    return this.commentService.postCommentForParentObject$(viewCommentParentType, parentObjectId, this.mapViewComment(newComment))
       .pipe(
       filter(val => val !== undefined),
       map((postedComment: Comment) => this.mapCommentDto(postedComment))
