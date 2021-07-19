@@ -1,7 +1,3 @@
-ALTER TABLE public.note
-    DROP CONSTRAINT fknak03u9uw631nfor92v3ce4uc,
-    DROP COLUMN parent_key_result_id;
-
 CREATE TABLE public.note_key_result (
     id bigint NOT NULL,
     parent_key_result_id bigint NOT NULL,
@@ -13,4 +9,14 @@ CREATE TABLE public.note_key_result (
      OIDS=FALSE
 );
 
+-- Data transfer
+INSERT INTO public.note_key_result (
+                                    id,
+                                    parent_key_result_id)
+SELECT id, parent_key_result_id
+FROM public.note;
 
+
+ALTER TABLE public.note
+    DROP CONSTRAINT fknak03u9uw631nfor92v3ce4uc,
+    DROP COLUMN parent_key_result_id;
