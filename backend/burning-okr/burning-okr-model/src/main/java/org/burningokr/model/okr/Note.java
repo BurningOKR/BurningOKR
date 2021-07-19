@@ -8,6 +8,7 @@ import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public class Note implements Trackable<Long> {
 
@@ -16,12 +17,6 @@ public class Note implements Trackable<Long> {
   private Long id;
 
   @NotNull private UUID userId;
-
-  @Column
-  private Long parentId;
-
-  @Column
-  private String noteParentType;
 
   @Column(length = 1023)
   private String text;

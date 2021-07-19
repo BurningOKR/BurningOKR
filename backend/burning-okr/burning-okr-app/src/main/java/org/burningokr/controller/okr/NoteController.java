@@ -43,7 +43,7 @@ public class NoteController {
 
   @GetMapping("/notes/{noteId}")
   public ResponseEntity<NoteDto> getNoteById(@PathVariable Long noteId) {
-    Note note = noteService.findById(noteId);
+    Note note = noteService.findByIdExtendedRepositories(noteId);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
 
@@ -58,7 +58,7 @@ public class NoteController {
   @PutMapping("/notes/{noteId}")
   @PreAuthorize("@authorizationService.isNoteOwner(#noteId)")
   public ResponseEntity<NoteDto> updateNoteById(
-      @PathVariable Long noteId, @Valid @RequestBody NoteDto noteDto, User user) {
+          @PathVariable Long noteId, @Valid @RequestBody NoteDto noteDto, User user) {
     Note note = noteMapper.mapDtoToEntity(noteDto);
     note.setId(noteId);
     note = this.noteService.updateNote(note, user);

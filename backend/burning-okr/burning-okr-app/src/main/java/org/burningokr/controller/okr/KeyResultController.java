@@ -5,9 +5,11 @@ import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.NoteDto;
+import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.KeyResultService;
 import org.burningokr.service.security.AuthorizationService;
@@ -26,27 +28,26 @@ public class KeyResultController {
 
   private KeyResultService keyResultService;
   private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
-  private DataMapper<Note, NoteDto> noteMapper;
+  private DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper;
   private AuthorizationService authorizationService;
 
   /**
    * Initialize KeyResultController.
-   *
-   * @param keyResultService a {@link KeyResultService} object
+   *  @param keyResultService a {@link KeyResultService} object
    * @param keyResultMapper a {@link DataMapper} object with {@link KeyResult} and {@link
    *     KeyResultDto}
-   * @param noteMapper a {@link DataMapper} object with {@link Note} and {@link NoteDto}
+   * @param noteKeyResultMapper
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
   public KeyResultController(
           KeyResultService keyResultService,
           DataMapper<KeyResult, KeyResultDto> keyResultMapper,
-          DataMapper<Note, NoteDto> noteMapper,
+          DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper,
           AuthorizationService authorizationService) {
     this.keyResultService = keyResultService;
     this.keyResultMapper = keyResultMapper;
-    this.noteMapper = noteMapper;
+    this.noteKeyResultMapper = noteKeyResultMapper;
     this.authorizationService = authorizationService;
   }
 
@@ -57,9 +58,9 @@ public class KeyResultController {
   }
 
   @GetMapping("/keyresults/{keyResultId}/notes")
-  public ResponseEntity<Collection<NoteDto>> getNotesOfKeyResult(@PathVariable long keyResultId) {
-    Collection<Note> notes = keyResultService.findNotesOfKeyResult(keyResultId);
-    return ResponseEntity.ok(noteMapper.mapEntitiesToDtos(notes));
+  public ResponseEntity<Collection<NoteKeyResultDto>> getNotesOfKeyResult(@PathVariable long keyResultId) {
+    Collection<NoteKeyResult> noteKeyResults = keyResultService.findNotesOfKeyResult(keyResultId);
+    return ResponseEntity.ok(noteKeyResultMapper.mapEntitiesToDtos(noteKeyResults));
   }
 
   /**
@@ -90,11 +91,19 @@ public class KeyResultController {
    */
   @PostMapping("/keyresults/{keyResultId}/notes")
   public ResponseEntity<NoteDto> addNoteToKeyResult(
-          @PathVariable long keyResultId, @Valid @RequestBody NoteDto noteDto, User user) {
-    Note note = noteMapper.mapDtoToEntity(noteDto);
-    note.setId(null);
-    note = this.keyResultService.createNote(keyResultId, note, user);
-    return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
+          @PathVariable long keyResultId, @Valid @RequestBody NoteKeyResultDto noteKeyResultDto, User user) {
+    NoteKeyResult noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
+    noteKeyResult.setId(null);
+    noteKeyResult = this.keyResultService.createNote(keyResultId, noteKeyResult, user);
+    return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto(noteKeyResult));
+  }
+
+  @PutMapping("/keyresults/notes")
+  public ResponseEntity<NoteKeyResultDto> updateNoteKeyResult(
+          @Valid @RequestBody NoteKeyResultDto noteKeyResultDto) {
+    NoteKeyResult noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
+    this.keyResultService.updateNote(noteKeyResult);
+    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("keyresults/{keyResultId}")

@@ -16,10 +16,6 @@ public class NoteDto {
 
   private UUID userId;
 
-  private Long parentId;
-
-  private NoteParentType noteParentType;
-
   @NotNull
   @Size(max = 1023, message = "The note text may not be longer than 1023 characters.")
   private String noteBody;

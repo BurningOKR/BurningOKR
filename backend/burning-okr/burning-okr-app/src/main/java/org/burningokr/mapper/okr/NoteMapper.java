@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
 import org.burningokr.service.okr.NoteParentType;
 import org.slf4j.Logger;
@@ -24,8 +23,6 @@ public class NoteMapper implements DataMapper<Note, NoteDto> {
     note.setId(noteDto.getNoteId());
     note.setUserId(noteDto.getUserId());
     note.setDate(noteDto.getDate());
-    note.setParentId(noteDto.getParentId());
-    note.setNoteParentType(noteDto.getNoteParentType().toString());
 
     logger.info("Mapped NoteDto (id:" + noteDto.getNoteId() + ") successful to Note.");
     return note;
@@ -39,8 +36,6 @@ public class NoteMapper implements DataMapper<Note, NoteDto> {
     noteDto.setNoteId(note.getId());
     noteDto.setUserId(note.getUserId());
     noteDto.setDate(note.getDate());
-    noteDto.setParentId(note.getParentId());
-    noteDto.setNoteParentType(NoteParentType.valueOf(note.getNoteParentType()));
 
     logger.info("Mapped Note (id:" + note.getId() + ") successful to NoteDto.");
     return noteDto;
