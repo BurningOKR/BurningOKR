@@ -1,4 +1,5 @@
 -- TODO needs to be tested
+-- TODO data transfer from old table to new table (notes from key results)
 ALTER TABLE note DROP CONSTRAINT note_key_result_fkey;
 
 ALTER TABLE note DROP COLUMN parent_key_result_id;
