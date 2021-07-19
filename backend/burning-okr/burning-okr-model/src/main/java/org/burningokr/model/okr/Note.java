@@ -24,8 +24,8 @@ public class Note implements Trackable<Long> {
   @Column(name = "date", nullable = false)
   private LocalDateTime date;
 
-//  @Column
-//  private NoteParentType noteParentType;
+  //  @Column
+  //  private NoteParentType noteParentType;
 
   @Override
   public String getName() {

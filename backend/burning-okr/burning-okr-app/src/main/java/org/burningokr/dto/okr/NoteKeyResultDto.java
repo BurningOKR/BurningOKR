@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NoteKeyResultDto extends NoteDto{
+public class NoteKeyResultDto extends NoteDto {
 
-    private Long parentKeyResultId;
+  private Long parentKeyResultId;
 }

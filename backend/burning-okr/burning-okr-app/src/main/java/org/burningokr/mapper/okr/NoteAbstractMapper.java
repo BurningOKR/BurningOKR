@@ -2,30 +2,28 @@ package org.burningokr.mapper.okr;
 
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.okr.NoteKeyResult;
 
 public abstract class NoteAbstractMapper {
 
-    public Note mapNoteDtoToEntity(NoteDto noteDto) {
-        Note note = new Note();
+  public Note mapNoteDtoToEntity(NoteDto noteDto) {
+    Note note = new Note();
 
-        note.setText(noteDto.getNoteBody());
-        note.setId(noteDto.getNoteId());
-        note.setUserId(noteDto.getUserId());
-        note.setDate(noteDto.getDate());
+    note.setText(noteDto.getNoteBody());
+    note.setId(noteDto.getNoteId());
+    note.setUserId(noteDto.getUserId());
+    note.setDate(noteDto.getDate());
 
-        return note;
-    }
+    return note;
+  }
 
-    public NoteDto mapNoteEntityToDto(Note note) {
-        NoteDto noteDto = new NoteDto();
+  public NoteDto mapNoteEntityToDto(Note note) {
+    NoteDto noteDto = new NoteDto();
 
-        noteDto.setNoteBody(note.getText());
-        noteDto.setNoteId(note.getId());
-        noteDto.setUserId(note.getUserId());
-        noteDto.setDate(note.getDate());
+    noteDto.setNoteBody(note.getText());
+    noteDto.setNoteId(note.getId());
+    noteDto.setUserId(note.getUserId());
+    noteDto.setDate(note.getDate());
 
-        return noteDto;
-    }
-
+    return noteDto;
+  }
 }

@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Note;
-import org.burningokr.service.okr.NoteParentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
