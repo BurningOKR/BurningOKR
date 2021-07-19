@@ -57,7 +57,9 @@ public class NoteKeyResultMapper extends NoteAbstractMapper
     NoteKeyResultDto noteKeyResultDto =
         this.noteDtoToNoteKeyResultDto(this.mapNoteEntityToDto(input));
 
-    noteKeyResultDto.setParentKeyResultId(input.getParentKeyResult().getId());
+    if (input.getParentKeyResult() != null) {
+      noteKeyResultDto.setParentKeyResultId(input.getParentKeyResult().getId());
+    }
 
     return noteKeyResultDto;
   }
