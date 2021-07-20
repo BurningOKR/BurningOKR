@@ -1,9 +1,4 @@
 -- TODO needs to be tested
--- TODO data transfer from old table to new table (notes from key results)
-ALTER TABLE note DROP CONSTRAINT note_key_result_fkey;
-
-ALTER TABLE note DROP COLUMN parent_key_result_id;
-
 CREATE TABLE note_key_result (
     id bigint NOT NULL,
     parent_key_result_id bigint NOT NULL,
@@ -12,6 +7,14 @@ CREATE TABLE note_key_result (
         REFERENCES key_result (id)
         ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+
+INSERT INTO note_key_result (id, parent_key_result_id)
+SELECT id, parent_key_result_id
+FROM note;
+
+ALTER TABLE note DROP CONSTRAINT note_key_result_fkey;
+
+ALTER TABLE note DROP COLUMN parent_key_result_id;
 
 CREATE TABLE note_topic_draft (
      id bigint NOT NULL,
