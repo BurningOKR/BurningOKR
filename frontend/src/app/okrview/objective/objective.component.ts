@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ContextRole } from '../../shared/model/ui/context-role';
-
 @Component({
   selector: 'app-objective',
   templateUrl: './objective.component.html',
@@ -67,6 +66,16 @@ export class ObjectiveComponent implements OnDestroy {
 
   hasSubObjectives(): boolean {
     return this.objective.subObjectivesCount > 0;
+  }
+
+  // --
+  // Objective comment logic
+  // --
+  // ToDo (C.K. add functionality)
+  clickedCommentObjective(): void {
+
+    // const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
+    //  this.matDialog.open(CommentViewDialogComponent, {autoFocus: false});
   }
 
   // --

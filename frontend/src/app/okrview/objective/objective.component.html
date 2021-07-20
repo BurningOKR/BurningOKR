@@ -87,6 +87,10 @@
       <mat-icon>edit</mat-icon>
       <span i18n="@@component_objective_editObjective">Objective bearbeiten</span>
     </button>
+    <button mat-menu-item (click)="clickedCommentObjective()">
+      <mat-icon>chat</mat-icon>
+      <span i18n="@@component_objective_commentObjective">Objective kommentieren</span>
+    </button>
     <button mat-menu-item (click)="toggleWhetherObjectiveIsActive()">
       <div *ngIf="objective.isActive">
         <mat-icon>power_off</mat-icon>
