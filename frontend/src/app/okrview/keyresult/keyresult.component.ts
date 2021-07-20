@@ -109,7 +109,7 @@ export class KeyresultComponent implements OnInit, OnDestroy {
       onUpdateCommentIdList: this.keyResult.commentIdList
     };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
-      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, width: '50vw'});
+      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
   }
 
   clickedDeleteKeyResult(): void {
