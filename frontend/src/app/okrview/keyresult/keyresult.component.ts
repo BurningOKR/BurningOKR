@@ -105,7 +105,8 @@ export class KeyresultComponent implements OnInit, OnDestroy {
       componentTypeTitle: 'Key Result',
       componentName: this.keyResult.keyResult,
       viewCommentParentType: ViewCommentParentType.keyResult,
-      parentObject: this.keyResult
+      parentId: this.keyResult.id,
+      onUpdateCommentIdList: this.keyResult.commentIdList
     };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
       this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, width: '50vw'});
