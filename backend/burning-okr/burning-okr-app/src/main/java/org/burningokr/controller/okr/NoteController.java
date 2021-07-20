@@ -43,7 +43,7 @@ public class NoteController {
 
   @GetMapping("/notes/{noteId}")
   public ResponseEntity<NoteDto> getNoteById(@PathVariable Long noteId) {
-    Note note = noteService.findById(noteId);
+    Note note = noteService.findByIdExtendedRepositories(noteId);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
 

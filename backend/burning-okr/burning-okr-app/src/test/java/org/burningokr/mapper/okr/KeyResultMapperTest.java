@@ -86,11 +86,11 @@ public class KeyResultMapperTest {
   @Test
   public void test_mapEntityToDto_expectsNotesSizeIsEqual() {
     int expected = 5;
-    Collection<Note> notes = new ArrayList<>();
+    Collection<NoteKeyResult> notesKeyResult = new ArrayList<>();
     for (int i = 1; i <= expected; i++) {
-      notes.add(new Note());
+      notesKeyResult.add(new NoteKeyResult());
     }
-    keyResult.setNotes(notes);
+    keyResult.setNotes(notesKeyResult);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
     Assert.assertEquals(expected, keyResultDto.getNoteIds().size());
   }
