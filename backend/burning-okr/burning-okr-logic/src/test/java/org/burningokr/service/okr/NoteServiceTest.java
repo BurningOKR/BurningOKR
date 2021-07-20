@@ -68,7 +68,6 @@ public class NoteServiceTest {
     Note createdNote = new Note();
     createdNote.setId(originalId);
     createdNote.setUserId(originalUserId);
-    createdNote.setParentKeyResult(originalParentKeyResult);
     createdNote.setText(originalText);
     return createdNote;
   }
@@ -101,7 +100,6 @@ public class NoteServiceTest {
     Assert.assertEquals(changedText, capturedNote.getText());
     Assert.assertEquals(originalId, capturedNote.getId());
     Assert.assertEquals(originalUserId, capturedNote.getUserId());
-    Assert.assertEquals(originalParentKeyResult, capturedNote.getParentKeyResult());
   }
 
   @Test

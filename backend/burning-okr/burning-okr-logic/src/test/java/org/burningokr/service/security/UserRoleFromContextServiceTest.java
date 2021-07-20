@@ -101,7 +101,6 @@ public class UserRoleFromContextServiceTest {
 
     dbNote = new Note();
     dbNote.setId(noteId);
-    dbNote.setParentKeyResult(dbKeyResult);
     dbNote.setUserId(noteOwnerId);
   }
 
