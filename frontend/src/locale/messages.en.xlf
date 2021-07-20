@@ -95,7 +95,7 @@
 
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">87</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/keyresult/key-result-form/key-result-form.component.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/objective/objective-form/objective-form.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/okr-child-unit.component.html</context><context context-type="linenumber">73</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="component_contributesTo" datatype="html">
-        <source>Zählt ein auf</source><target state="translated">Contributes to</target>
+        <source>Zahlt ein auf</source><target state="translated">Contributes to</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">20</context></context-group></trans-unit>
 
@@ -1265,7 +1265,7 @@
 
 
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">19</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit><trans-unit id="heading_contributes_to" datatype="html">
-        <source>Zählt ein auf:</source><target state="translated">Contributes to:</target>
+        <source>Zahlt ein auf:</source><target state="translated">Contributes to:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">47</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit><trans-unit id="heading_dependencies" datatype="html">
         <source>Abhängigkeiten:</source><target state="translated">Dependencies:</target>
