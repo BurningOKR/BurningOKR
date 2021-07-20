@@ -256,8 +256,13 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   }
 
   clickedOpenComments(): void {
+    const topicDraftHeading: string = this.i18n({
+      id: 'component_departmentMenu_Topic_draft',
+      value: 'Themenentwurf'
+    });
+
     const dialogData: CommentViewDialogFormData = {
-      componentTypeTitle: 'Themenentwurf',
+      componentTypeTitle: topicDraftHeading,
       componentName: this.topicDraft.name,
       viewCommentParentType: ViewCommentParentType.topicDraft,
       parentId: this.topicDraft.id,
