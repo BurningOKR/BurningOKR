@@ -11,4 +11,12 @@ import lombok.EqualsAndHashCode;
 public class NoteKeyResult extends Note {
 
   @ManyToOne private KeyResult parentKeyResult;
+
+  public NoteKeyResult() {
+    super();
+  }
+
+  public NoteKeyResult(Note note) {
+    super(note);
+  }
 }
