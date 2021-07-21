@@ -24,11 +24,19 @@ public class Note implements Trackable<Long> {
   @Column(name = "date", nullable = false)
   private LocalDateTime date;
 
-  //  @Column
-  //  private NoteParentType noteParentType;
+  public Note() {
+
+  }
 
   @Override
   public String getName() {
     return "";
+  }
+
+  public Note(Note note) {
+    this.id = note.getId();
+    this.userId = note.getUserId();
+    this.text = note.getText();
+    this.date = note.getDate();
   }
 }

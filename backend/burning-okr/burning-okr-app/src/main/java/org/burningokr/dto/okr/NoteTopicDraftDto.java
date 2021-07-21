@@ -8,4 +8,12 @@ import lombok.Setter;
 public class NoteTopicDraftDto extends NoteDto {
 
     private Long parentTopicDraftId;
+
+    public NoteTopicDraftDto(NoteDto noteDto) {
+        super(noteDto);
+    }
+
+    public NoteTopicDraftDto() {
+        super();
+    }
 }

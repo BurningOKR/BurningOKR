@@ -20,4 +20,15 @@ public class NoteDto {
   private String noteBody;
 
   private LocalDateTime date;
+
+  public NoteDto(NoteDto noteDto) {
+    this.noteId = noteDto.getNoteId();
+    this.userId = noteDto.getUserId();
+    this.noteBody = noteDto.getNoteBody();
+    this.date = noteDto.getDate();
+  }
+
+  public NoteDto() {
+
+  }
 }

@@ -14,7 +14,7 @@ public class NoteTopicDraftMapper extends NoteAbstractMapper
 
     @Override
     public NoteTopicDraft mapDtoToEntity(NoteTopicDraftDto input) {
-        NoteTopicDraft noteTopicDraft = (NoteTopicDraft) this.mapNoteDtoToEntity(input);
+        NoteTopicDraft noteTopicDraft = new NoteTopicDraft(this.mapNoteDtoToEntity(input));
 
         OkrTopicDraft parentTopicDraft = null;
         if (input.getParentTopicDraftId() != null) {
@@ -28,7 +28,7 @@ public class NoteTopicDraftMapper extends NoteAbstractMapper
 
     @Override
     public NoteTopicDraftDto mapEntityToDto(NoteTopicDraft input) {
-        NoteTopicDraftDto noteTopicDraftDto = (NoteTopicDraftDto) this.mapNoteEntityToDto(input);
+        NoteTopicDraftDto noteTopicDraftDto = new NoteTopicDraftDto(this.mapNoteEntityToDto(input));
 
         if (input.getParentTopicDraft() != null) {
             noteTopicDraftDto.setParentTopicDraftId(input.getParentTopicDraft().getId());

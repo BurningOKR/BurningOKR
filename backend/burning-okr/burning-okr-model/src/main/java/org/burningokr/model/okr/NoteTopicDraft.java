@@ -12,4 +12,12 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 public class NoteTopicDraft extends Note {
 
     @ManyToOne private OkrTopicDraft parentTopicDraft;
+
+    public NoteTopicDraft(Note note) {
+        super(note);
+    }
+
+    public NoteTopicDraft() {
+        super();
+    }
 }
