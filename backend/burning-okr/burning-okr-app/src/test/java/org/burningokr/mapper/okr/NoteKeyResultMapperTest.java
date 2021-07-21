@@ -106,9 +106,16 @@ public class NoteKeyResultMapperTest {
   @Test
   public void test_mapEntityToDto_expectsParentKeyResultIsMapped() {
     KeyResult expected = new KeyResult();
-    this.noteKeyResult.setParentKeyResult(expected);
+    expected.setId(34L);
+    noteKeyResult.setParentKeyResult(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
     Assert.assertEquals(expected.getId(), noteKeyResultDto.getParentKeyResultId());
+  }
+
+  @Test
+  public void test_mapEntityToDto_expectsParentKeyResultIsNull() {
+    noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
+    Assert.assertNull(noteKeyResultDto.getParentKeyResultId());
   }
   // endregion
 }
