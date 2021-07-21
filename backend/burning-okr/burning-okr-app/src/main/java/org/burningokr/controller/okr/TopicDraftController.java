@@ -52,6 +52,9 @@ public class TopicDraftController {
     return ResponseEntity.ok(okrTopicDraftMapper.mapEntitiesToDtos(topicDrafts));
   }
 
+//  @GetMapping("/topicDrafts/{topicDraftId}/notes")
+//  public ResponseEntity<Collection<NoteTopic>>
+
   /**
    * API Endpoint to update/edit a Topic Draft.
    *
