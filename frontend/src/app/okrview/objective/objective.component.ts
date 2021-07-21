@@ -76,7 +76,7 @@ export class ObjectiveComponent implements OnDestroy {
   // --
   // Objective comment logic
   // --
-  // ToDo (C.K. add functionality)
+
   clickedCommentObjective(): void {
 
     const dialogData: CommentViewDialogFormData = {
