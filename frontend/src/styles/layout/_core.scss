@@ -1,19 +1,19 @@
 @import "src/styles/abstracts/colors";
 
 .left {
-  float: left
+  float: left;
 }
 
 .right {
-  float: right
+  float: right;
 }
 
 .fullWidth {
-  width: 100%
+  width: 100%;
 }
 
 .halfWidth {
-  width: 48%
+  width: 48%;
 }
 
 .mb-10 {
@@ -40,13 +40,28 @@
   margin-top: 20px !important;
 }
 
-
 .ml-10 {
-  margin-left: 10px;
+  margin-left: 10px !important;
+}
+
+.mr-30 {
+  margin-right: 30px !important;
+}
+
+.no-margin {
+  margin: 0 !important;
 }
 
 .padding-20 {
   padding: 20px !important;
+}
+
+.pt-10 {
+  padding-top: 10px !important;
+}
+
+.pb-10 {
+  padding-bottom: 10px !important;
 }
 
 .no-vertical-padding {

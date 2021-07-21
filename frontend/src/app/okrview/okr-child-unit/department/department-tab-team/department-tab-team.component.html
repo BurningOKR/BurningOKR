@@ -36,7 +36,7 @@
     <br />
 
     <div class="tab-subtitle" *ngIf="department.okrMemberIds.length === 0" i18n="@@component_departmentTabTeam_noMembersDefined">Keine Teammitglieder definiert</div>
-    <div class="tab-subtitle" *ngIf="department.okrMemberIds.length != 0" i18n="@@component_departmentTabTeam_defineTeamMember">Teammitglieder</div>
+    <div class="tab-subtitle" *ngIf="department.okrMemberIds.length != 0" i18n="@@component_department_teamMember">Teammitglieder</div>
     <div class="flex-wrap-spreadinner-nocenter">
       <div *ngFor="let currentuser of department.okrMemberIds">
         <app-user-minibutton [userId]="currentuser" [canBeRemoved]="canEditMembers"

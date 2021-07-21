@@ -1,16 +1,14 @@
 <div>
-  KeyResult
+  {{ componentTypeTitle }}
   <div class="title-keyresult">
-    {{parentKeyResult.keyResult}}
+    {{ componentName }}
     <br>
     <br>
   </div>
-  <div class="comments-title" i18n="@@component_commentViewDialog_title">
-    Kommentare
-  </div>
+  <div class="comments-title" i18n="@@component_commentViewDialog_title">Kommentare</div>
   <mat-dialog-content>
 
-    <div *ngIf="parentKeyResult.commentIdList.length !== 0 else noComments">
+    <div *ngIf="parentObject.commentIdList.length !== 0 else noComments">
       <div *ngIf="commentList else loading">
         <div *ngFor="let comment of commentList">
           <app-comment-card [comment]="comment" (deleteComment)="queryDeleteComment($event)"></app-comment-card>
@@ -21,14 +19,12 @@
 
     <!-- No comments in KeyResult -->
     <ng-template #noComments>
-      <div class="no-comment-placeholder" i18n="@@component_commentViewDialog_noComment">
-        Es gibt noch keine Kommentare für dieses KeyResult
-      </div>
+      <div class="no-comment-placeholder" i18n="@@component_commentViewDialog_noComment">Es gibt noch keine Kommentare für dieses KeyResult</div>
       <mat-divider></mat-divider>
     </ng-template>
     <!-- Loading comment list placeholder -->
     <ng-template #loading>
-      <mat-card *ngFor="let x of parentKeyResult.commentIdList">
+      <mat-card *ngFor="let x of parentObject.commentIdList">
         <br>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         <br>

@@ -3,7 +3,6 @@ package org.burningokr.mapper.okr;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.burningokr.dto.okr.NoteDto;
-import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,9 +17,6 @@ public class NoteMapperTest {
   public void reset() {
     this.noteDto = new NoteDto();
     this.note = new Note();
-    KeyResult parentKeyResult = new KeyResult();
-    parentKeyResult.setId(1337L);
-    this.note.setParentKeyResult(parentKeyResult);
     this.noteMapper = new NoteMapper();
   }
 
@@ -39,17 +35,6 @@ public class NoteMapperTest {
     note.setId(expected);
     noteDto = noteMapper.mapEntityToDto(note);
     Assert.assertEquals(expected, noteDto.getNoteId());
-  }
-
-  @Test
-  public void test_mapEntityToDto_expectsParentKeyResultIsMapped() {
-    Long expected = 5L;
-    KeyResult keyResult = new KeyResult();
-    keyResult.setId(expected);
-
-    note.setParentKeyResult(keyResult);
-    noteDto = noteMapper.mapEntityToDto(note);
-    Assert.assertEquals(expected, noteDto.getParentKeyResultId());
   }
 
   @Test
@@ -84,20 +69,6 @@ public class NoteMapperTest {
     noteDto.setNoteId(expected);
     note = noteMapper.mapDtoToEntity(noteDto);
     Assert.assertEquals(expected, note.getId());
-  }
-
-  @Test
-  public void test_mapDtoToEntity_expects_expectsParentIsNull() {
-    note = noteMapper.mapDtoToEntity(noteDto);
-    Assert.assertNull(note.getParentKeyResult());
-  }
-
-  @Test
-  public void test_mapDtoToEntity_expects_expectsParentIdIsMapped() {
-    Long expected = 123L;
-    noteDto.setParentKeyResultId(expected);
-    note = noteMapper.mapDtoToEntity(noteDto);
-    Assert.assertEquals(expected, note.getParentKeyResult().getId());
   }
 
   @Test

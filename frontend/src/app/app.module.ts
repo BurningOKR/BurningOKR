@@ -45,8 +45,13 @@ import { SubmittedTopicDraftCardComponent } from './submitted-topic-drafts/submi
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
 import { SubmittedTopicDraftDetailsComponent } from './submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
-import { MultilineTextFieldComponent } from './submitted-topic-drafts/submitted-topic-draft-details/multiline-text-field/multiline-text-field.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SubmittedTopicDraftEditComponent } from './submitted-topic-drafts/submitted-topic-draft-edit/submitted-topic-draft-edit.component';
+import { OkrviewModule } from './okrview/okrview.module';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -69,7 +74,7 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftActionButtonComponent,
     SubmittedTopicDraftCardsWrapperComponent,
     SubmittedTopicDraftDetailsComponent,
-    MultilineTextFieldComponent,
+    SubmittedTopicDraftEditComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -95,10 +100,17 @@ const currentLanguage: string = 'de';
     MatTableModule,
     MatMenuModule,
     MatGridListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    OkrviewModule
   ],
   entryComponents: [
     DeleteDialogComponent,
+    SubmittedTopicDraftDetailsComponent,
+    SubmittedTopicDraftEditComponent
   ],
   providers: [
     OAuthFrontendDetailsService,

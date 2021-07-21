@@ -19,7 +19,7 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
   @Override
   public OkrTopicDraft mapDtoToEntity(OkrTopicDraftDto input) {
     OkrTopicDraft entity = new OkrTopicDraft();
-    entity.setAcceptanceCriteria(input.getAcceptanceCriteria());
+    entity.setDescription(input.getDescription());
     entity.setBeginning(input.getBeginning());
     entity.setCurrentStatus(OkrTopicDraftStatusEnum.values()[input.getCurrentStatus()]);
     entity.setContributesTo(input.getContributesTo());
@@ -38,9 +38,9 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
   @Override
   public OkrTopicDraftDto mapEntityToDto(OkrTopicDraft input) {
     OkrTopicDraftDto dto = new OkrTopicDraftDto();
-    dto.setAcceptanceCriteria(input.getAcceptanceCriteria());
+    dto.setDescription(input.getDescription());
     dto.setInitiator(userService.findById(input.getInitiatorId()));
-    if(input.getCurrentStatus() != null) {
+    if (input.getCurrentStatus() != null) {
       dto.setCurrentStatus(input.getCurrentStatus().ordinal());
     }
     dto.setBeginning(input.getBeginning());

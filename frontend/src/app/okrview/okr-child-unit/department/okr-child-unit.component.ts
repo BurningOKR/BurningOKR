@@ -170,7 +170,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
       id: 'deleteDepartmentDialogMessage',
       value: 'Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.'
     });
-    const confirmButtonText: string = this.i18n({ id: 'delete', value: 'Löschen' });
+    const confirmButtonText: string = this.i18n({ id: 'capitalised_delete', value: 'Löschen' });
 
     const data: ConfirmationDialogData = {
       message,

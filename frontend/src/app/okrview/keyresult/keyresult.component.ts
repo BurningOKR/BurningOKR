@@ -11,10 +11,14 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { CommentViewDialogComponent } from '../comment/comment-view-dialog/comment-view-dialog.component';
+import {
+  CommentViewDialogComponent,
+  CommentViewDialogFormData
+} from '../comment/comment-view-dialog/comment-view-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 
 @Component({
   selector: 'app-keyresult',
@@ -97,11 +101,14 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   }
 
   clickedOpenComments(): void {
+    const dialogData: CommentViewDialogFormData = {
+      componentTypeTitle: 'Key Result',
+      componentName: this.keyResult.keyResult,
+      viewCommentParentType: ViewCommentParentType.keyResult,
+      parentObject: this.keyResult
+    };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
-      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false});
-    const dialogComponent: any = dialogReference.componentInstance;
-
-    dialogComponent.parentKeyResult = this.keyResult;
+      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, width: '50vw'});
   }
 
   clickedDeleteKeyResult(): void {
@@ -207,9 +214,9 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   private getDataForDeletionDialog(): ConfirmationDialogData {
     const title: string =
       this.i18n({
-        id: 'deleteKeyResultDialogTitle',
+        id: 'delete_keyresult',
         description: 'Title of the delete keyresult dialog',
-        value: 'Keyresult löschen'
+        value: 'KeyResult löschen'
       });
     const message: string =
       this.i18n({
@@ -218,7 +225,7 @@ export class KeyresultComponent implements OnInit, OnDestroy {
         value: 'KeyResult {{number}}. {{keyResultTitle}} von dem Objective löschen?',
       }, {number: this.listNumber, keyResultTitle: this.keyResult.keyResult});
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });

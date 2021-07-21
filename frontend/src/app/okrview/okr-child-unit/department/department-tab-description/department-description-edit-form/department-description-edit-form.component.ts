@@ -28,7 +28,7 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
   ngOnInit(): void {
     this.descriptionForm = new FormGroup({
       name: new FormControl('', Validators.maxLength(255)),
-      acceptanceCriteria: new FormControl('', Validators.maxLength(1024)),
+      description: new FormControl('', Validators.maxLength(1024)),
       contributesTo: new FormControl('', Validators.maxLength(1024)),
       delimitation: new FormControl('', Validators.maxLength(1024)),
       beginning: new FormControl(),
@@ -45,7 +45,7 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
     }
 
     this.title = this.i18n({
-      id: 'component_descriptionEditForm_headline',
+      id: 'component_edit_description',
       description: 'Title of the OkrTopicDescription dialog',
       value: 'Beschreibung bearbeiten'
     });

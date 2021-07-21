@@ -16,12 +16,12 @@ export class TopicDescriptionMapper {
 
   static mapTopicDescriptionDto(description: OkrTopicDescriptionDto): OkrTopicDescription {
     return new OkrTopicDescription(
-      description.descriptionId,
+      description.id,
       description.name,
       description.initiatorId,
       description.startTeam,
       description.stakeholders,
-      description.acceptanceCriteria,
+      description.description,
       description.contributesTo,
       description.delimitation,
       description.beginning ?
@@ -35,12 +35,12 @@ export class TopicDescriptionMapper {
 
   static mapTopicDescription(description: OkrTopicDescription): OkrTopicDescriptionDto {
     const descriptionDto: OkrTopicDescriptionDto = new OkrTopicDescriptionDto();
-    descriptionDto.descriptionId = description.descriptionId;
+    descriptionDto.id = description.id;
     descriptionDto.name = description.name;
     descriptionDto.initiatorId = description.initiatorId;
     descriptionDto.startTeam = description.startTeam;
     descriptionDto.stakeholders = description.stakeholders;
-    descriptionDto.acceptanceCriteria = description.acceptanceCriteria;
+    descriptionDto.description = description.description;
     descriptionDto.contributesTo = description.contributesTo;
     descriptionDto.delimitation = description.delimitation;
     descriptionDto.beginning = description.beginning ? [

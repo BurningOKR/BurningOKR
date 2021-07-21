@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ContextRole } from '../../shared/model/ui/context-role';
-
 @Component({
   selector: 'app-objective',
   templateUrl: './objective.component.html',
@@ -70,6 +69,16 @@ export class ObjectiveComponent implements OnDestroy {
   }
 
   // --
+  // Objective comment logic
+  // --
+  // ToDo (C.K. add functionality)
+  clickedCommentObjective(): void {
+
+    // const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
+    //  this.matDialog.open(CommentViewDialogComponent, {autoFocus: false});
+  }
+
+  // --
   // Objective ordering logic
   // --
 
@@ -109,7 +118,7 @@ export class ObjectiveComponent implements OnDestroy {
       }, {number: this.listNumber, objectiveTitle: this.objective.name});
 
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });

@@ -28,7 +28,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
   });
 
   private timeoutErrorMessageAction: string = this.i18n({
-    id: 'initOauthClientDetailsUpdateTimeoutAction',
+    id: 'short_okay',
     description: 'action button for the snackbar',
     value: 'Ok'
   });

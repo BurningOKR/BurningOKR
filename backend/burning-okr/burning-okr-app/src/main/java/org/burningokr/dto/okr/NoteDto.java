@@ -13,8 +13,6 @@ public class NoteDto {
 
   private Long noteId;
 
-  private Long parentKeyResultId;
-
   private UUID userId;
 
   @NotNull

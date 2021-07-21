@@ -1,12 +1,12 @@
 import { TopicDescriptionId, UserId } from '../../id-types';
 
 export class OkrTopicDescriptionDto {
-  descriptionId: TopicDescriptionId;
+  id: TopicDescriptionId;
   name: string;
   initiatorId: UserId;
   startTeam: UserId[];
   stakeholders: UserId[];
-  acceptanceCriteria: string;
+  description: string;
   contributesTo: string;
   delimitation: string;
   beginning: number[];

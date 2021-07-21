@@ -1,12 +1,12 @@
 import { TopicDescriptionId, UserId } from '../../id-types';
 
 export class OkrTopicDescription {
-  descriptionId: TopicDescriptionId;
+  id: TopicDescriptionId;
   name: string;
   initiatorId: UserId;
   startTeam: UserId[];
   stakeholders: UserId[];
-  acceptanceCriteria: string;
+  description: string;
   contributesTo: string;
   delimitation: string;
   beginning: Date;
@@ -15,14 +15,14 @@ export class OkrTopicDescription {
   handoverPlan: string;
 
   constructor(descriptionId: TopicDescriptionId, name: string, initiatorId: UserId, startTeam: UserId[], stakeholders: UserId[],
-              acceptanceCriteria: string, contributesTo: string, delimitation: string, beginning: Date,
+              description: string, contributesTo: string, delimitation: string, beginning: Date,
               dependencies: string, resources: string, handoverPlan: string) {
-    this.descriptionId = descriptionId;
+    this.id = descriptionId;
     this.name = name;
     this.initiatorId = initiatorId;
     this.startTeam = startTeam;
     this.stakeholders = stakeholders;
-    this.acceptanceCriteria = acceptanceCriteria;
+    this.description = description;
     this.contributesTo = contributesTo;
     this.delimitation = delimitation;
     this.beginning = beginning;

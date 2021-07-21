@@ -41,12 +41,12 @@ export class SubmittedTopicDraftsComponent implements OnInit {
     value: 'Beginn'
   });
   i18nContributesToTableHeader: string = this.i18n({
-    id: 'ContributesTo_table_header',
+    id: 'component_contributesTo',
     description: 'Submitted topic drafts component "Contributes To" header',
     value: 'Zählt ein auf'
   });
   i18nStatusTableHeader: string = this.i18n({
-    id: 'status_table_header',
+    id: 'taskState',
     description: 'Submitted topic drafts component "Status" header',
     value: 'Status'
   });

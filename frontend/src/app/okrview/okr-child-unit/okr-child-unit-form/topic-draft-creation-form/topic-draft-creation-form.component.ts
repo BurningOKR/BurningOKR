@@ -31,7 +31,7 @@ export class TopicDraftCreationFormComponent implements OnInit {
   ngOnInit(): void {
     this.topicDraftForm = new FormGroup({
       name: new FormControl('', [Validators.maxLength(255), Validators.required]),
-      acceptanceCriteria: new FormControl('', Validators.maxLength(1024)),
+      description: new FormControl('', Validators.maxLength(1024)),
       contributesTo: new FormControl('', Validators.maxLength(1024)),
       delimitation: new FormControl('', Validators.maxLength(1024)),
       beginning: new FormControl('', [Validators.required]),
@@ -59,7 +59,6 @@ export class TopicDraftCreationFormComponent implements OnInit {
   }
 
   saveTopicDraft(): void {
-    // TODO (R.J. 16.02.20) Add logic to update existing topic drafts in the future
     const topicDraft: OkrTopicDraft = this.topicDraftForm.getRawValue();
     this.createTopicDraft(topicDraft);
   }
@@ -67,11 +66,11 @@ export class TopicDraftCreationFormComponent implements OnInit {
   createTopicDraft(topicDraft: OkrTopicDraft): void {
     topicDraft.currentStatus = status.submitted; // ToDo (C.K. 27.04.21) test
     if (this.formData.companyId) {
-      topicDraft.parentUnitId = this.formData.companyId;
+      topicDraft.okrParentUnitId = this.formData.companyId;
       this.dialogRef.close(this.topicDraftMapper
         .postTopicDraftForCompany$(this.formData.companyId, topicDraft));
     } else if (this.formData.unitId) {
-      topicDraft.parentUnitId = this.formData.unitId;
+      topicDraft.okrParentUnitId = this.formData.unitId;
       this.dialogRef.close(this.topicDraftMapper
         .postTopicDraftForOkrBranch$(this.formData.unitId, topicDraft));
     }

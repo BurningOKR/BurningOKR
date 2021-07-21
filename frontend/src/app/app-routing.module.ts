@@ -10,7 +10,6 @@ import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
-import {SubmittedTopicDraftDetailsComponent} from "./submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component";
 
 const routes: Routes = [
   {
@@ -29,11 +28,6 @@ const routes: Routes = [
   {
     path: 'submitted-topic-drafts',
     component: SubmittedTopicDraftsComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard]
-  },
-  {
-    path: 'submitted-topic-draft-details',
-    component: SubmittedTopicDraftDetailsComponent,
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
   {

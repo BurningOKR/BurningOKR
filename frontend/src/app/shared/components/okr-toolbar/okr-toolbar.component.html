@@ -3,15 +3,10 @@
     <ng-content></ng-content>
     <span class="fill-space hidden-m-down"></span>
     <div class="warningText hidden-m-down" *ngIf="!(hasMailConfigured$ | async)">
-      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">
-        Warnung: Es wurde kein SMTP Server konfiguriert.
-      </span>
+      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
       <br>
-      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">
-        Dies kann die Nutzbarkeit der
-        <br class="hidden-l-up">
-        Anwendung stark einschränken.
-      </a>
+      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">Dies kann die Nutzbarkeit der
+        <br class="hidden-l-up">Anwendung stark einschränken.</a>
     </div>
     <span class="fill-space"></span>
     <div class="user-interactions">
@@ -40,7 +35,7 @@
   <ng-container *ngIf="!(isLocalUserbase$ | async)">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
-      <span i18n="@@component_okrToolbar_adminPanel">Admin Panel</span>
+      <span i18n="@@component_adminView_adminPanel">Admin Panel</span>
     </button>
   </ng-container>
   <button mat-menu-item routerLink="/submitted-topic-drafts">
@@ -49,11 +44,11 @@
   </button>
   <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item (click)="routeToCycleAdminPanel()">
     <mat-icon>history</mat-icon>
-    <span i18n="@@component_okrToolbar_cycleManagement">Zyklusverwaltung</span>
+    <span i18n="@@cycle_administration">Zyklusverwaltung</span>
   </button>
   <button mat-menu-item (click)="openSettings()">
     <mat-icon>settings_applications</mat-icon>
-    <span i18n="@@component_okrToolbar_settings">Einstellungen</span>
+    <span i18n="@@settings">Einstellungen</span>
   </button>
   <button *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)" mat-menu-item routerLink="/auth/users">
     <mat-icon>account_box</mat-icon>
@@ -61,7 +56,7 @@
   </button>
   <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()">
     <mat-icon>vpn_key</mat-icon>
-    <span i18n="@@component_okrToolbar_changePassword">Passwort ändern</span>
+    <span i18n="@@change_password">Passwort ändern</span>
   </button>
   <button mat-menu-item [routerLink]="['/auth', 'logout']">
     <mat-icon>power_settings_new</mat-icon>
