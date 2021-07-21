@@ -10,44 +10,44 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NoteTopicDraftMapper extends NoteAbstractMapper
-        implements DataMapper<NoteTopicDraft, NoteTopicDraftDto> {
+    implements DataMapper<NoteTopicDraft, NoteTopicDraftDto> {
 
-    @Override
-    public NoteTopicDraft mapDtoToEntity(NoteTopicDraftDto input) {
-        NoteTopicDraft noteTopicDraft = new NoteTopicDraft(this.mapNoteDtoToEntity(input));
+  @Override
+  public NoteTopicDraft mapDtoToEntity(NoteTopicDraftDto input) {
+    NoteTopicDraft noteTopicDraft = new NoteTopicDraft(this.mapNoteDtoToEntity(input));
 
-        OkrTopicDraft parentTopicDraft = null;
-        if (input.getParentTopicDraftId() != null) {
-            parentTopicDraft = new OkrTopicDraft();
-            parentTopicDraft.setId(input.getParentTopicDraftId());
-        }
-        noteTopicDraft.setParentTopicDraft(parentTopicDraft);
+    OkrTopicDraft parentTopicDraft = null;
+    if (input.getParentTopicDraftId() != null) {
+      parentTopicDraft = new OkrTopicDraft();
+      parentTopicDraft.setId(input.getParentTopicDraftId());
+    }
+    noteTopicDraft.setParentTopicDraft(parentTopicDraft);
 
-        return noteTopicDraft;
+    return noteTopicDraft;
+  }
+
+  @Override
+  public NoteTopicDraftDto mapEntityToDto(NoteTopicDraft input) {
+    NoteTopicDraftDto noteTopicDraftDto = new NoteTopicDraftDto(this.mapNoteEntityToDto(input));
+
+    if (input.getParentTopicDraft() != null) {
+      noteTopicDraftDto.setParentTopicDraftId(input.getParentTopicDraft().getId());
     }
 
-    @Override
-    public NoteTopicDraftDto mapEntityToDto(NoteTopicDraft input) {
-        NoteTopicDraftDto noteTopicDraftDto = new NoteTopicDraftDto(this.mapNoteEntityToDto(input));
+    return noteTopicDraftDto;
+  }
 
-        if (input.getParentTopicDraft() != null) {
-            noteTopicDraftDto.setParentTopicDraftId(input.getParentTopicDraft().getId());
-        }
+  @Override
+  public Collection<NoteTopicDraft> mapDtosToEntities(Collection<NoteTopicDraftDto> input) {
+    Collection<NoteTopicDraft> noteTopicDrafts = new ArrayList<>();
+    input.forEach(noteTopicDraftDto -> noteTopicDrafts.add(mapDtoToEntity(noteTopicDraftDto)));
+    return noteTopicDrafts;
+  }
 
-        return noteTopicDraftDto;
-    }
-
-    @Override
-    public Collection<NoteTopicDraft> mapDtosToEntities(Collection<NoteTopicDraftDto> input) {
-        Collection<NoteTopicDraft> noteTopicDrafts = new ArrayList<>();
-        input.forEach(noteTopicDraftDto -> noteTopicDrafts.add(mapDtoToEntity(noteTopicDraftDto)));
-        return noteTopicDrafts;
-    }
-
-    @Override
-    public Collection<NoteTopicDraftDto> mapEntitiesToDtos(Collection<NoteTopicDraft> input) {
-        Collection<NoteTopicDraftDto> noteTopicDraftDtos = new ArrayList<>();
-        input.forEach(noteTopicDraft -> noteTopicDraftDtos.add(mapEntityToDto(noteTopicDraft)));
-        return noteTopicDraftDtos;
-    }
+  @Override
+  public Collection<NoteTopicDraftDto> mapEntitiesToDtos(Collection<NoteTopicDraft> input) {
+    Collection<NoteTopicDraftDto> noteTopicDraftDtos = new ArrayList<>();
+    input.forEach(noteTopicDraft -> noteTopicDraftDtos.add(mapEntityToDto(noteTopicDraft)));
+    return noteTopicDraftDtos;
+  }
 }

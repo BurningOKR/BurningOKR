@@ -7,7 +7,6 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.users.User;
@@ -28,7 +27,9 @@ public class OkrTopicDraftService {
   private ActivityService activityService;
 
   public OkrTopicDraftService(
-          OkrTopicDraftRepository okrTopicDraftRepository, NoteTopicDraftRepository noteTopicDraftRepository, ActivityService activityService) {
+      OkrTopicDraftRepository okrTopicDraftRepository,
+      NoteTopicDraftRepository noteTopicDraftRepository,
+      ActivityService activityService) {
     this.okrTopicDraftRepository = okrTopicDraftRepository;
     this.noteTopicDraftRepository = noteTopicDraftRepository;
     this.activityService = activityService;
@@ -43,7 +44,8 @@ public class OkrTopicDraftService {
   }
 
   public Collection<NoteTopicDraft> getAllNotesForTopicDraft(long topicDraftId) {
-    Collection<NoteTopicDraft> noteTopicDrafts = noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
+    Collection<NoteTopicDraft> noteTopicDrafts =
+        noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
     return noteTopicDrafts;
   }
 
@@ -69,14 +71,14 @@ public class OkrTopicDraftService {
 
     noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);
     logger.info(
-            "Added Note with id "
-                    + noteTopicDraft.getId()
-                    + " from User "
-                    + user.getGivenName()
-                    + " "
-                    + user.getSurname()
-                    + " to KeyResult "
-                    + topicDraftId);
+        "Added Note with id "
+            + noteTopicDraft.getId()
+            + " from User "
+            + user.getGivenName()
+            + " "
+            + user.getSurname()
+            + " to KeyResult "
+            + topicDraftId);
     activityService.createActivity(user, noteTopicDraft, Action.CREATED);
 
     return noteTopicDraft;

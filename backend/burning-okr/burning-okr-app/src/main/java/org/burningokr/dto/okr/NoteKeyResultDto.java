@@ -12,6 +12,7 @@ public class NoteKeyResultDto extends NoteDto {
   public NoteKeyResultDto() {
     super();
   }
+
   public NoteKeyResultDto(NoteDto noteDto) {
     super(noteDto);
   }

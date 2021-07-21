@@ -3,12 +3,9 @@ package org.burningokr.controller.okr;
 import java.util.Collection;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.dto.okr.NoteDto;
-import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.dto.okr.NoteTopicDraftDto;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.users.User;
@@ -28,16 +25,18 @@ public class TopicDraftController {
 
   /**
    * Initialize TopicDraftController
-   *  @param okrTopicDraftService a {@link OkrTopicDraftService} object
+   *
+   * @param okrTopicDraftService a {@link OkrTopicDraftService} object
    * @param okrTopicDraftMapper {@link DataMapper} object with {@link OkrTopicDraft} and {@link
    *     OkrTopicDraftDto}
    * @param noteTopicDraftMapper
    */
   @Autowired
   public TopicDraftController(
-          OkrTopicDraftService okrTopicDraftService,
-          DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper,
-          DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper, AuthorizationService authorizationService) {
+      OkrTopicDraftService okrTopicDraftService,
+      DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper,
+      DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper,
+      AuthorizationService authorizationService) {
     this.okrTopicDraftService = okrTopicDraftService;
     this.okrTopicDraftMapper = okrTopicDraftMapper;
     this.noteTopicDraftMapper = noteTopicDraftMapper;
@@ -63,9 +62,9 @@ public class TopicDraftController {
    */
   @GetMapping("/topicDrafts/{topicDraftId}/notes")
   public ResponseEntity<Collection<NoteTopicDraftDto>> getNotesForTopicDraft(
-          @PathVariable long topicDraftId
-  ) {
-    Collection<NoteTopicDraft> noteTopicDrafts = okrTopicDraftService.getAllNotesForTopicDraft(topicDraftId);
+      @PathVariable long topicDraftId) {
+    Collection<NoteTopicDraft> noteTopicDrafts =
+        okrTopicDraftService.getAllNotesForTopicDraft(topicDraftId);
     return ResponseEntity.ok(noteTopicDraftMapper.mapEntitiesToDtos(noteTopicDrafts));
   }
 
@@ -113,9 +112,9 @@ public class TopicDraftController {
    */
   @PostMapping("/topicDrafts/{topicDraftId}/notes")
   public ResponseEntity<NoteTopicDraftDto> addNoteToTopicDraft(
-          @PathVariable long topicDraftId,
-          @Valid @RequestBody NoteTopicDraftDto noteTopicDraftDto,
-          User user) {
+      @PathVariable long topicDraftId,
+      @Valid @RequestBody NoteTopicDraftDto noteTopicDraftDto,
+      User user) {
     noteTopicDraftDto.setParentTopicDraftId(topicDraftId);
     NoteTopicDraft noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
     noteTopicDraft.setId(null);

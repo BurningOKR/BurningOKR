@@ -4,7 +4,6 @@ import java.util.Collection;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
-import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;

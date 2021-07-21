@@ -28,7 +28,5 @@ public class NoteDto {
     this.date = noteDto.getDate();
   }
 
-  public NoteDto() {
-
-  }
+  public NoteDto() {}
 }

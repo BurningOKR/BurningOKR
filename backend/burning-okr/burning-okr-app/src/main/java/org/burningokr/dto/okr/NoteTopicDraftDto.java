@@ -7,13 +7,13 @@ import lombok.Setter;
 @Setter
 public class NoteTopicDraftDto extends NoteDto {
 
-    private Long parentTopicDraftId;
+  private Long parentTopicDraftId;
 
-    public NoteTopicDraftDto() {
-        super();
-    }
+  public NoteTopicDraftDto() {
+    super();
+  }
 
-    public NoteTopicDraftDto(NoteDto noteDto) {
-        super(noteDto);
-    }
+  public NoteTopicDraftDto(NoteDto noteDto) {
+    super(noteDto);
+  }
 }

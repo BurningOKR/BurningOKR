@@ -11,13 +11,13 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 @EqualsAndHashCode(callSuper = false)
 public class NoteTopicDraft extends Note {
 
-    @ManyToOne private OkrTopicDraft parentTopicDraft;
+  @ManyToOne private OkrTopicDraft parentTopicDraft;
 
-    public NoteTopicDraft() {
-        super();
-    }
+  public NoteTopicDraft() {
+    super();
+  }
 
-    public NoteTopicDraft(Note note) {
-        super(note);
-    }
+  public NoteTopicDraft(Note note) {
+    super(note);
+  }
 }
