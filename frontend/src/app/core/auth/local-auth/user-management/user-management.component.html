@@ -49,7 +49,7 @@
           </ng-container>
           <ng-container matColumnDef="givenName">
             <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nNameTableHeader}}</th>
-            <td *matCellDef="let user" mat-cell>{{user.givenName + ' ' + user.surname}}</td>
+            <td *matCellDef="let user" mat-cell class="name-column" matTooltip="{{user.givenName + ' ' + user.surname}}">{{user.givenName + ' ' + user.surname}}</td>
           </ng-container>
           <ng-container matColumnDef="department" class="cell">
             <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nDepartentTableHeader}}</th>
