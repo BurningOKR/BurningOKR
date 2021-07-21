@@ -33,10 +33,11 @@
 
 
     <div class="flex-nowrap">
-      <mat-form-field class="full-width">
+      <mat-form-field class="full-width" hintLabel="{{getHintLabel()}}">
         <textarea i18n-placeholder="@@component_commentViewDialog_writeComment" matInput cdkTextareaAutosize
                   placeholder="Einen neuen Kommentar schreiben"
-                  [disabled]="isPostingComment" [(ngModel)]="newCommentText"></textarea>
+                  [disabled]="isPostingComment" [(ngModel)]="newCommentText" #input maxlength="255"></textarea>
+        <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
       </mat-form-field>
       <button *ngIf="canPostNewComment(); else commentToSmall" mat-mini-fab class="m-24"
               [disabled]="!canPostNewComment()" (click)="postNewComment()"
