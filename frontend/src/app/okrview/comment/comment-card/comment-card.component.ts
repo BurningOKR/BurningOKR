@@ -51,17 +51,19 @@ export class CommentCardComponent implements OnInit {
   }
 
   clickedSaveComment(): void {
-    this.comment.text = this.editedCommentText;
-    this.isSavingEdit = true;
-    this.isEditingComment = true;
+    if (this.editedCommentText.length <= 255 && this.editedCommentText.length >= 3) {
+      this.comment.text = this.editedCommentText;
+      this.isSavingEdit = true;
+      this.isEditingComment = true;
 
-    this.commentMapperService
-      .updateComment$(this.comment)
-      .pipe(take(1))
-      .subscribe(editedComment => {
-        this.comment.text = editedComment.text;
-        this.isSavingEdit = false;
-        this.isEditingComment = false;
-      });
+      this.commentMapperService
+        .updateComment$(this.comment)
+        .pipe(take(1))
+        .subscribe(editedComment => {
+          this.comment.text = editedComment.text;
+          this.isSavingEdit = false;
+          this.isEditingComment = false;
+        });
+    }
   }
 }
