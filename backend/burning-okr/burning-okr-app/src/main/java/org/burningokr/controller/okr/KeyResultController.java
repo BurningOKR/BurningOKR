@@ -88,16 +88,15 @@ public class KeyResultController {
    * @param keyResultId a long value
    * @param noteKeyResultDto a {@link NoteKeyResultDto} object
    * @param user an {@link User} object
-   * @return a {@link ResponseEntity} ok with a Note
+   * @return a {@link ResponseEntity} ok with a NoteKeyResultDto
    */
   @PostMapping("/keyresults/{keyResultId}/notes")
-  public ResponseEntity<NoteDto> addNoteToKeyResult(
+  public ResponseEntity<NoteKeyResultDto> addNoteToKeyResult(
       @PathVariable long keyResultId,
       @Valid @RequestBody NoteKeyResultDto noteKeyResultDto,
       User user) {
     noteKeyResultDto.setParentKeyResultId(keyResultId);
     NoteKeyResult noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    noteKeyResult.setId(null);
     noteKeyResult = this.keyResultService.createNote(keyResultId, noteKeyResult, user);
     return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto(noteKeyResult));
   }

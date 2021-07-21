@@ -2,10 +2,12 @@ package org.burningokr.service.okr;
 
 import com.google.common.collect.Lists;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import javax.transaction.Transactional;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.users.User;
@@ -49,6 +51,35 @@ public class OkrTopicDraftService {
     OkrTopicDraft referencedTopicDraft = okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
     okrTopicDraftRepository.deleteById(topicDraftId);
     activityService.createActivity(user, referencedTopicDraft, Action.DELETED);
+  }
+
+  /**
+   * Creates a Note for a Topic Draft.
+   *
+   * @param topicDraftId a long value
+   * @param noteTopicDraft a {@link NoteTopicDraft} object
+   * @param user an {@link User} object
+   * @return a {@link Note} object
+   */
+  @Transactional
+  public NoteTopicDraft createNote(long topicDraftId, NoteTopicDraft noteTopicDraft, User user) {
+    noteTopicDraft.setId(null);
+    noteTopicDraft.setUserId(user.getId());
+    noteTopicDraft.setDate(LocalDateTime.now());
+
+    noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);
+    logger.info(
+            "Added Note with id "
+                    + noteTopicDraft.getId()
+                    + " from User "
+                    + user.getGivenName()
+                    + " "
+                    + user.getSurname()
+                    + " to KeyResult "
+                    + topicDraftId);
+    activityService.createActivity(user, noteTopicDraft, Action.CREATED);
+
+    return noteTopicDraft;
   }
 
   /**
