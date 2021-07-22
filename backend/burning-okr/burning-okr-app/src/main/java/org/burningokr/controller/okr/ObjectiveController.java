@@ -4,9 +4,12 @@ import java.util.Collection;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
+import org.burningokr.dto.okr.NoteDto;
+import org.burningokr.dto.okr.NoteObjectiveDto;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.ObjectiveService;
@@ -28,6 +31,7 @@ public class ObjectiveController {
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
   private AuthorizationService authorizationService;
+  private DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper;
 
   /**
    * Initialize ObjectiveController.
@@ -44,6 +48,7 @@ public class ObjectiveController {
       ObjectiveService objectiveService,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       DataMapper<KeyResult, KeyResultDto> keyResultMapper,
+      DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper,
       AuthorizationService authorizationService) {
     this.objectiveService = objectiveService;
     this.objectiveMapper = objectiveMapper;
@@ -107,5 +112,26 @@ public class ObjectiveController {
   public ResponseEntity deleteObjectiveById(@PathVariable Long objectiveId, User user) {
     objectiveService.deleteObjectiveById(objectiveId, user);
     return ResponseEntity.ok().build();
+  }
+
+  @PutMapping("/objectives/notes")
+  public ResponseEntity<ObjectiveDto> updateObjectiveKeyResult(@Valid @RequestBody ObjectiveDto objectiveDto) {
+
+    Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
+    // ToDo (C.K. update in db)
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/objectives/{objectiveId}/notes")
+  public ResponseEntity<NoteDto> addNoteToObjective(
+          @PathVariable long objectiveId,
+          @Valid @RequestBody NoteObjectiveDto noteObjectiveDto,
+          User user
+          ) {
+    noteObjectiveDto.setParentObjectiveId(objectiveId);
+    NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
+    noteObjective.setId(null); // ToDo (C.K. check if needed)
+    noteObjective = this.objectiveService.createNote(objectiveId, noteObjective, user);
+    return ResponseEntity.ok(noteObjectiveMapper.mapEntityToDto(noteObjective));
   }
 }
