@@ -30,8 +30,9 @@ public class ObjectiveController {
   private ObjectiveService objectiveService;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
-  private AuthorizationService authorizationService;
   private DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper;
+  private AuthorizationService authorizationService;
+
 
   /**
    * Initialize ObjectiveController.
@@ -41,6 +42,8 @@ public class ObjectiveController {
    *     ObjectiveDto}
    * @param keyResultMapper a {@link DataMapper} object with {@link KeyResult} and {@link
    *     KeyResultDto}
+   * @param noteObjectiveMapper a {@link DataMapper} object with {@link NoteObjective} and
+   *    {@link NoteObjectiveDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
@@ -53,6 +56,7 @@ public class ObjectiveController {
     this.objectiveService = objectiveService;
     this.objectiveMapper = objectiveMapper;
     this.keyResultMapper = keyResultMapper;
+    this.noteObjectiveMapper = noteObjectiveMapper;
     this.authorizationService = authorizationService;
   }
 
