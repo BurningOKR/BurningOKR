@@ -104,7 +104,7 @@ public class KeyResultService {
   }
 
   /**
-   * Creates a Note.
+   * Creates a Note for a Key Result.
    *
    * @param keyResultId a long value
    * @param noteKeyResult a {@link NoteKeyResult} object
@@ -113,7 +113,7 @@ public class KeyResultService {
    */
   @Transactional
   public NoteKeyResult createNote(long keyResultId, NoteKeyResult noteKeyResult, User user) {
-    // TODO JZ
+    noteKeyResult.setId(null);
     noteKeyResult.setUserId(user.getId());
     noteKeyResult.setDate(LocalDateTime.now());
 
