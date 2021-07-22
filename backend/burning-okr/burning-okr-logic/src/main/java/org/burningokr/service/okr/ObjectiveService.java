@@ -315,4 +315,18 @@ public class ObjectiveService {
 
     return noteObjective;
   }
+
+  @Transactional
+  public NoteObjective updateNote(NoteObjective updatedNoteObjective) {
+    NoteObjective referencedNoteObjective = noteObjectiveRepository.findByIdOrThrow(updatedNoteObjective.getId());
+
+    referencedNoteObjective.setUserId(updatedNoteObjective.getUserId());
+    referencedNoteObjective.setText(updatedNoteObjective.getText());
+    referencedNoteObjective.setDate(updatedNoteObjective.getDate());
+    referencedNoteObjective.setParentObjective(updatedNoteObjective.getParentObjective());
+
+    referencedNoteObjective = noteObjectiveRepository.save(referencedNoteObjective);
+
+    return referencedNoteObjective;
+  }
 }

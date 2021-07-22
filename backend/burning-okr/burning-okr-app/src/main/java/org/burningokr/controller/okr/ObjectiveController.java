@@ -115,10 +115,9 @@ public class ObjectiveController {
   }
 
   @PutMapping("/objectives/notes")
-  public ResponseEntity<ObjectiveDto> updateObjectiveKeyResult(@Valid @RequestBody ObjectiveDto objectiveDto) {
-
-    Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    // ToDo (C.K. update in db)
+  public ResponseEntity<ObjectiveDto> updateObjectiveKeyResult(@Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
+    NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
+    this.objectiveService.updateNote(noteObjective);
     return ResponseEntity.ok().build();
   }
 
