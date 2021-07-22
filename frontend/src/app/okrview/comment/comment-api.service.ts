@@ -46,6 +46,8 @@ export class CommentApiService {
         return 'keyresults';
       case ViewCommentParentType.topicDraft:
         return 'topicDrafts';
+      case ViewCommentParentType.objective:
+        return 'objectives';
       default:
         return '';
     }
