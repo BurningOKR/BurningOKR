@@ -21,7 +21,7 @@ public class NoteKeyResultMapper extends NoteAbstractMapper
     noteKeyResult.setText(note.getText());
     noteKeyResult.setDate(note.getDate());
     noteKeyResult.setUserId(note.getUserId());
-    noteKeyResult.setParentKeyResult(null);
+    noteKeyResult.setParentKeyResult(null); // ToDo (C.K. check if stored in db correctly)
 
     return noteKeyResult;
   }
