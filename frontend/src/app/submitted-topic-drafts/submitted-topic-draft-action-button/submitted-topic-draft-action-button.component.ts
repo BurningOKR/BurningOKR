@@ -31,16 +31,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  @Output() clickedEditAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedDeleteAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedCommentsAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedSubmitAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedWithdrawAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedApprove: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedDiscardApprovalAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedRefuse: EventEmitter<void>  = new EventEmitter<void>();
-  @Output() clickedDiscardRefusalAction: EventEmitter<void> = new EventEmitter<void>();
-
   editTooltipStatus: string = this.i18n({
     id: 'statusShouldBeSubmittedOrDraft',
     value: 'Der Status muss auf "Eingereicht" oder "Vorlage" sein'
@@ -200,6 +190,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
     this.topicDraft.currentStatus = newStatus;
     this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
       .subscribe();
+    this.editedTopicDraftEvent.emit(this.topicDraft);
   }
 
   approvingTopicDraft(): void {
