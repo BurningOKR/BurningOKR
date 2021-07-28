@@ -1,4 +1,4 @@
-import { ObjectiveId } from '../id-types';
+import { CommentId, ObjectiveId } from '../id-types';
 
 export interface ObjectiveDto {
   id?: ObjectiveId;
@@ -11,5 +11,6 @@ export interface ObjectiveDto {
   parentUnitId: number;
   contactPersonId?: string;
   subObjectiveIds?: number[];
+  nodeIds: CommentId[];
   review?: string;
 }
