@@ -53,6 +53,10 @@ public class Objective implements Trackable<Long> {
   @OneToMany(mappedBy = "parentObjective", cascade = CascadeType.REMOVE)
   private Collection<KeyResult> keyResults = new ArrayList<>();
 
+  @ToString.Exclude
+  @OneToMany(mappedBy = "parentObjective", cascade = CascadeType.REMOVE)
+  private Collection<NoteObjective> notes = new ArrayList<>();
+
   public boolean hasParentObjective() {
     return parentObjective != null;
   }
