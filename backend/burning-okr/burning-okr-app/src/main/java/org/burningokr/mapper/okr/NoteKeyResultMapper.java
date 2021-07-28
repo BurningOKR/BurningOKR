@@ -15,23 +15,26 @@ public class NoteKeyResultMapper extends NoteAbstractMapper
     implements DataMapper<NoteKeyResult, NoteKeyResultDto> {
 
   private NoteKeyResult noteToNoteKeyResult(Note note) {
+
     NoteKeyResult noteKeyResult = new NoteKeyResult();
 
     noteKeyResult.setId(note.getId());
     noteKeyResult.setText(note.getText());
     noteKeyResult.setDate(note.getDate());
     noteKeyResult.setUserId(note.getUserId());
-    noteKeyResult.setParentKeyResult(null); // ToDo (C.K. check if stored in db correctly)
+    noteKeyResult.setParentKeyResult(null);
 
     return noteKeyResult;
   }
 
   @Override
   public NoteKeyResult mapDtoToEntity(NoteKeyResultDto input) {
-    NoteKeyResult noteKeyResult = this.noteToNoteKeyResult(this.mapNoteDtoToEntity(input));
 
+    NoteKeyResult noteKeyResult = this.noteToNoteKeyResult(this.mapNoteDtoToEntity(input));
     KeyResult parentKeyResult = null;
+
     if (input.getParentKeyResultId() != null) {
+
       parentKeyResult = new KeyResult();
       parentKeyResult.setId(input.getParentKeyResultId());
     }
