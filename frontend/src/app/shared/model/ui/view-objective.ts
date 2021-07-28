@@ -14,11 +14,11 @@ export class ViewObjective implements ViewCommentRequiredAttributes {
   parentUnitId: number;
   subObjectivesCount: number;
   review?: string;
-  commentIdList: CommentId[]; // ToDo (C.K. check usage)
+  commentIdList: CommentId[]; // ToDo(C.K. check usage)
 
   constructor(id: ObjectiveId, name: string, description: string, remark: string, progress: number, keyResultIdList: number[],
               isActive: boolean, parentObjectiveId: number, parentUnitId: number, contactPersonId: string, subObjectivesCount: number,
-              review?: string) {
+              commentIdList: CommentId[], review?: string) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -30,6 +30,7 @@ export class ViewObjective implements ViewCommentRequiredAttributes {
     this.parentUnitId = parentUnitId;
     this.contactPersonId = contactPersonId;
     this.subObjectivesCount = subObjectivesCount;
+    this.commentIdList = commentIdList;
     this.review = review;
   }
 
