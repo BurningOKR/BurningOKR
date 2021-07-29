@@ -52,7 +52,6 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   }
 
   loadCommentList(): void {
-    // TODO P.B. 22.07.2021: Fix Bug -> commentIdList is undefined for an objective and errors are being thrown in browser-console
     if (this.parentObject.commentIdList.length !== 0) {
       this.commentMapperService
         .getCommentsFromParentObject$(this.viewCommentParentType, this.parentObject.id)
