@@ -93,6 +93,14 @@ public class ObjectiveController {
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
+  @GetMapping("/objectives/{objectiveId}/notes")
+  public ResponseEntity<Collection<NoteObjectiveDto>> getNotesOfObjective(
+        @PathVariable long objectiveId
+  ) {
+    Collection<NoteObjective> noteObjectives = objectiveService.findNotesOfObjective(objectiveId);
+    return ResponseEntity.ok(noteObjectiveMapper.mapEntitiesToDtos(noteObjectives));
+  }
+
   /**
    * API Endpoint to add Key Result to an Objective.
    *
