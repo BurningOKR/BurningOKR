@@ -11,6 +11,6 @@ export interface ObjectiveDto {
   parentUnitId: number;
   contactPersonId?: string;
   subObjectiveIds?: number[];
-  nodeIds: CommentId[];
+  noteIds: CommentId[];
   review?: string;
 }

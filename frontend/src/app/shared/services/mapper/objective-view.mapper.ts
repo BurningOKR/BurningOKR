@@ -20,7 +20,7 @@ export class ObjectiveViewMapper {
       isActive: viewObjective.isActive,
       parentUnitId: viewObjective.parentUnitId,
       parentObjectiveId: viewObjective.parentObjectiveId,
-      nodeIds: viewObjective.commentIdList,
+      noteIds: viewObjective.commentIdList,
       contactPersonId: viewObjective.contactPersonId,
     };
   }
@@ -38,7 +38,7 @@ export class ObjectiveViewMapper {
       objective.parentUnitId,
       objective.contactPersonId,
       objective.subObjectiveIds.length,
-      objective.nodeIds,
+      objective.noteIds,
       objective.review,
     );
   }
