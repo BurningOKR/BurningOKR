@@ -86,6 +86,11 @@ public class ObjectiveService {
     return keyResultRepository.findByObjectiveAndOrderBySequence(objective);
   }
 
+  public Collection<NoteObjective> findNotesOfObjective(long objectiveId) {
+    Objective objective = findById(objectiveId);
+    return objective.getNotes();
+  }
+
   /**
    * Updates an Objective.
    *
