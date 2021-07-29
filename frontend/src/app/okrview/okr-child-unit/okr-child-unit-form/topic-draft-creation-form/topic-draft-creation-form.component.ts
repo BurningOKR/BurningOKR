@@ -64,7 +64,7 @@ export class TopicDraftCreationFormComponent implements OnInit {
   }
 
   createTopicDraft(topicDraft: OkrTopicDraft): void {
-    topicDraft.currentStatus = status.submitted; // ToDo (C.K. 27.04.21) test
+    topicDraft.currentStatus = status.submitted;
     if (this.formData.companyId) {
       topicDraft.okrParentUnitId = this.formData.companyId;
       this.dialogRef.close(this.topicDraftMapper
