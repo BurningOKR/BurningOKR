@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -99,6 +100,17 @@ public class ObjectiveMapperTest {
   }
 
   @Test
+  public void mapEntityToDto_expects_notesAreMapped() {
+    Collection<NoteObjective> noteObjectives = new ArrayList<>();
+    NoteObjective noteObjective = new NoteObjective();
+    noteObjective.setId(1L);
+    noteObjectives.add(noteObjective);
+    objective.setNotes(noteObjectives);
+    objectiveDto = objectiveMapper.mapEntityToDto(objective);
+    Assert.assertEquals(noteObjective.getId(), objectiveDto.getNoteIds().toArray()[0]);
+  }
+
+  @Test
   public void mapEntityToDto_expectsContactPersonIsMapped() {
     String expectedId = "1337";
     objective.setContactPersonId(expectedId);
@@ -162,6 +174,12 @@ public class ObjectiveMapperTest {
     objectiveDto.setId(7L);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     Assert.assertEquals(expected, objective.getId());
+  }
+
+  @Test
+  public void mapDtoToEntity_expects_notesAreMapped() {
+    objective = objectiveMapper.mapDtoToEntity(objectiveDto);
+    Assert.assertArrayEquals(new ArrayList<NoteObjective>().toArray(), objective.getNotes().toArray());
   }
 
   @Test
