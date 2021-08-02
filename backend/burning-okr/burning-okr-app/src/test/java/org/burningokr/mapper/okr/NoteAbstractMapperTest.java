@@ -7,14 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
-
-import static org.junit.Assert.*;
 
 public class NoteAbstractMapperTest {
 
-    private class NoteMapper extends NoteAbstractMapper{}
+    private static class NoteMapper extends NoteAbstractMapper{}
 
     private Note note;
     private NoteDto noteDto;
@@ -57,7 +54,33 @@ public class NoteAbstractMapperTest {
         Assert.assertEquals(expected, noteMapper.mapNoteDtoToEntity(noteDto).getDate());
     }
 
-    // Entity to Entity
+    // Entity to Dto
 
+    @Test
+    public void mapEntityToNoteDto_expects_NoteBodyIsMapped() {
+        String expected = "test";
+        note.setText(expected);
+        Assert.assertEquals(expected, noteMapper.mapNoteEntityToDto(note).getNoteBody());
+    }
 
+    @Test
+    public void mapEntityToNoteDto_expects_NoteIdIsMapped() {
+        Long expected = 1L;
+        note.setId(expected);
+        Assert.assertEquals(expected, noteMapper.mapNoteEntityToDto(note).getNoteId());
+    }
+
+    @Test
+    public void mapEntityToNoteDto_expects_UserIdIsMapped() {
+        UUID expected = new UUID(1L, 1L);
+        note.setUserId(expected);
+        Assert.assertEquals(expected, noteMapper.mapNoteEntityToDto(note).getUserId());
+    }
+
+    @Test
+    public void mapEntityToNoteDto_expects_DateIsMapped() {
+        LocalDateTime expected = LocalDateTime.now();
+        note.setDate(expected);
+        Assert.assertEquals(expected, noteMapper.mapNoteEntityToDto(note).getDate());
+    }
 }
