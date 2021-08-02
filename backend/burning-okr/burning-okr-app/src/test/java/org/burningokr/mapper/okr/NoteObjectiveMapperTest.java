@@ -68,7 +68,7 @@ public class NoteObjectiveMapperTest {
     // Entity to Dto
 
     @Test
-    public void mapEntityToDto_expectsNoteIdIsMappes(){
+    public void mapEntityToDto_expectsNoteIdIsMapped() {
         Long expected = 123L;
         noteObjective.setId(expected);
         noteObjectiveDto = noteObjectiveMapper.mapEntityToDto(noteObjective);
@@ -76,7 +76,7 @@ public class NoteObjectiveMapperTest {
     }
 
     @Test
-    public void mapEntityToDto_expectsNoteBodyIsMappes() {
+    public void mapEntityToDto_expectsNoteBodyIsMapped() {
         String expected = "Example Text";
         noteObjective.setText(expected);
         noteObjectiveDto = noteObjectiveMapper.mapEntityToDto(noteObjective);
