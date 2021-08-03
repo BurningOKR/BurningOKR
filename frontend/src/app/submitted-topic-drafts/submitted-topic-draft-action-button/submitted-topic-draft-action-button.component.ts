@@ -188,8 +188,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
 
   changeCurrentStatus(newStatus: status): void {
     this.topicDraft.currentStatus = newStatus;
-    this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-      .subscribe();
+    this.subscriptions.push(this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
+      .subscribe());
     this.editedTopicDraftEvent.emit(this.topicDraft);
   }
 
