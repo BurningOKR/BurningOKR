@@ -10,7 +10,7 @@ CREATE TABLE task_board
 
 CREATE TABLE task_state
 (
-    id bigint NOT NULL,
+    id bigint NOT NULL IDENTITY(1,1),
     title character varying(255) NOT NULL,
     parent_task_board_id bigint NOT NULL,
     CONSTRAINT task_state_pkey PRIMARY KEY (id),
@@ -70,6 +70,6 @@ Insert INTO default_task_board_state(id,title) values
 
 
 
-INSERT INTO task_state (id,title,parent_task_board_id)
-SELECT taskboard.id +defaultstates.id , defaultstates.title ,taskboard.id
+INSERT INTO task_state (title,parent_task_board_id)
+SELECT defaultstates.title ,taskboard.id
 FROM task_board taskboard, default_task_board_state defaultstates;
