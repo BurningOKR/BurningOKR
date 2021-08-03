@@ -5,13 +5,14 @@ import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
 import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
-import { ViewCommentRequiredAttributes } from '../../../shared/model/ui/view-comment-required-attributes';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 export interface CommentViewDialogFormData {
   componentTypeTitle: string;
   componentName: string;
   viewCommentParentType: ViewCommentParentType;
-  parentObject: ViewCommentRequiredAttributes;
+  parentId: number;
+  onUpdateCommentIdList?: number[];
 }
 
 @Component({
@@ -24,7 +25,8 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   componentTypeTitle: string;
   componentName: string;
   viewCommentParentType: ViewCommentParentType;
-  parentObject: ViewCommentRequiredAttributes;
+  parentId: number;
+  onUpdateCommentIdList: number[];
 
   parentKeyResult: ViewKeyResult;
 
@@ -35,12 +37,15 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   constructor(
     public dialogRef: MatDialogRef<CommentViewDialogComponent>,
     public commentMapperService: CommentMapperService,
+    private i18n: I18n,
     @Inject(MAT_DIALOG_DATA) private formData: (CommentViewDialogFormData | any)
   ) {
     this.componentTypeTitle = formData.componentTypeTitle;
     this.componentName = formData.componentName;
     this.viewCommentParentType = formData.viewCommentParentType;
-    this.parentObject = formData.parentObject;
+    this.parentId = formData.parentId;
+    this.commentList = [];
+    this.onUpdateCommentIdList = formData.hasOwnProperty('onUpdateCommentIdList') ? formData.onUpdateCommentIdList : [];
   }
 
   ngOnInit(): void {
@@ -51,13 +56,12 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
     this.dialogRef.close();
   }
 
+  // TODO Subscription überarbeiten
   loadCommentList(): void {
-    if (this.parentObject.commentIdList.length !== 0) {
-      this.commentMapperService
-        .getCommentsFromParentObject$(this.viewCommentParentType, this.parentObject.id)
-        .pipe(take(1))
-        .subscribe(commentList => (this.commentList = commentList));
-    }
+    this.commentMapperService
+      .getCommentsFromParentObject$(this.viewCommentParentType, this.parentId)
+      .pipe(take(1))
+      .subscribe(commentList => (this.commentList = commentList));
   }
 
   canPostNewComment(): boolean {
@@ -70,10 +74,10 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
       const newComment: ViewComment = new ViewComment(1, '', this.newCommentText, new Date());
 
       this.commentMapperService
-        .createComment$(this.viewCommentParentType, this.parentObject.id, newComment)
+        .createComment$(this.viewCommentParentType, this.parentId, newComment)
         .pipe(take(1))
         .subscribe(createdComment => {
-          this.parentObject.commentIdList.push(createdComment.id);
+          this.onUpdateCommentIdList.push(createdComment.id);
           this.isPostingComment = false;
           this.newCommentText = '';
           this.loadCommentList();
@@ -89,9 +93,18 @@ export class CommentViewDialogComponent implements OnInit, CommentViewDialogForm
   }
 
   commentDeleted(deletedComment: ViewComment): void {
-    let indexOfComment: number = this.commentList.indexOf(deletedComment);
+    const indexOfComment: number = this.commentList.indexOf(deletedComment);
     this.commentList.splice(indexOfComment, 1);
-    indexOfComment = this.parentObject.commentIdList.indexOf(deletedComment.id);
-    this.parentObject.commentIdList.splice(indexOfComment, 1);
+    const indexOfCommentId: number = this.onUpdateCommentIdList.indexOf(deletedComment.id);
+    this.onUpdateCommentIdList.splice(indexOfCommentId, 1);
+  }
+
+  getHintLabel(): string {
+    const threeCharactersRequired: string = this.i18n({
+      id: 'three_characters_required',
+      value: 'Min. 3 Zeichen benötigt'
+    });
+
+    return this.newCommentText.length < 3 ? threeCharactersRequired : '';
   }
 }

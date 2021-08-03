@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { status } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
@@ -7,7 +7,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
     templateUrl: './status-dot.component.html',
     styleUrls: ['./status-dot.component.css']
 })
-export class StatusDotComponent implements OnInit {
+export class StatusDotComponent implements OnInit, OnChanges {
 
     statusTooltip: string;
     enumStatus = status;
@@ -18,6 +18,10 @@ export class StatusDotComponent implements OnInit {
 
     ngOnInit(): void {
         this.statusTooltip = this.geti18nTooltip(this.state);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.statusTooltip = this.geti18nTooltip(changes.state.currentValue);
     }
 
     geti18nTooltip(currentStatus: status): string {

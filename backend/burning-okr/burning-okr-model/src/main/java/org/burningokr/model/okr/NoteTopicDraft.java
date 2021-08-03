@@ -4,19 +4,20 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class NoteKeyResult extends Note {
+public class NoteTopicDraft extends Note {
 
-  @ManyToOne private KeyResult parentKeyResult;
+  @ManyToOne private OkrTopicDraft parentTopicDraft;
 
-  public NoteKeyResult() {
+  public NoteTopicDraft() {
     super();
   }
 
-  public NoteKeyResult(Note note) {
+  public NoteTopicDraft(Note note) {
     super(note);
   }
 }
