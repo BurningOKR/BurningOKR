@@ -179,7 +179,8 @@ public class ObjectiveMapperTest {
   @Test
   public void mapDtoToEntity_expects_notesAreMapped() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertArrayEquals(new ArrayList<NoteObjective>().toArray(), objective.getNotes().toArray());
+    Assert.assertArrayEquals(
+        new ArrayList<NoteObjective>().toArray(), objective.getNotes().toArray());
   }
 
   @Test

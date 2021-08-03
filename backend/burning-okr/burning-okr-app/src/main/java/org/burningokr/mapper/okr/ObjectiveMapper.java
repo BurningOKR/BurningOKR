@@ -85,7 +85,7 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     objectiveDto.setKeyResultIds(keyResultIds);
 
     Collection<Long> noteIds = new ArrayList<>();
-    for(Note note : objective.getNotes()) {
+    for (Note note : objective.getNotes()) {
       noteIds.add(note.getId());
     }
     objectiveDto.setNoteIds(noteIds);

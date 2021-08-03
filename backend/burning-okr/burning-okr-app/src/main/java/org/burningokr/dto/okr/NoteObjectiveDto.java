@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class NoteObjectiveDto extends NoteDto {
 
-    private Long parentObjectiveId;
+  private Long parentObjectiveId;
 }

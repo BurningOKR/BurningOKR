@@ -33,7 +33,6 @@ public class ObjectiveController {
   private DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper;
   private AuthorizationService authorizationService;
 
-
   /**
    * Initialize ObjectiveController.
    *
@@ -42,8 +41,8 @@ public class ObjectiveController {
    *     ObjectiveDto}
    * @param keyResultMapper a {@link DataMapper} object with {@link KeyResult} and {@link
    *     KeyResultDto}
-   * @param noteObjectiveMapper a {@link DataMapper} object with {@link NoteObjective} and
-   *    {@link NoteObjectiveDto}
+   * @param noteObjectiveMapper a {@link DataMapper} object with {@link NoteObjective} and {@link
+   *     NoteObjectiveDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
@@ -51,7 +50,8 @@ public class ObjectiveController {
       ObjectiveService objectiveService,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       DataMapper<KeyResult, KeyResultDto> keyResultMapper,
-      DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper,   // IS NEEDED BUT CRASHES ON STARTUP FOR SOME REASON?
+      DataMapper<NoteObjective, NoteObjectiveDto>
+          noteObjectiveMapper, // IS NEEDED BUT CRASHES ON STARTUP FOR SOME REASON?
       // Creates following error: Says to create a Bean out of DataMapper Interface?!
       // TODO P.B. 22.07.2021: FIX ERROR
       AuthorizationService authorizationService) {
@@ -95,8 +95,7 @@ public class ObjectiveController {
 
   @GetMapping("/objectives/{objectiveId}/notes")
   public ResponseEntity<Collection<NoteObjectiveDto>> getNotesOfObjective(
-        @PathVariable long objectiveId
-  ) {
+      @PathVariable long objectiveId) {
     Collection<NoteObjective> noteObjectives = objectiveService.findNotesOfObjective(objectiveId);
     return ResponseEntity.ok(noteObjectiveMapper.mapEntitiesToDtos(noteObjectives));
   }
@@ -129,7 +128,8 @@ public class ObjectiveController {
   }
 
   @PutMapping("/objectives/notes")
-  public ResponseEntity<ObjectiveDto> updateObjectiveKeyResult(@Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
+  public ResponseEntity<ObjectiveDto> updateObjectiveKeyResult(
+      @Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
     this.objectiveService.updateNote(noteObjective);
     return ResponseEntity.ok().build();
@@ -137,10 +137,9 @@ public class ObjectiveController {
 
   @PostMapping("/objectives/{objectiveId}/notes")
   public ResponseEntity<NoteDto> addNoteToObjective(
-          @PathVariable long objectiveId,
-          @Valid @RequestBody NoteObjectiveDto noteObjectiveDto,
-          User user
-          ) {
+      @PathVariable long objectiveId,
+      @Valid @RequestBody NoteObjectiveDto noteObjectiveDto,
+      User user) {
     noteObjectiveDto.setParentObjectiveId(objectiveId);
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
     noteObjective.setId(null); // ToDo (C.K. check if needed)

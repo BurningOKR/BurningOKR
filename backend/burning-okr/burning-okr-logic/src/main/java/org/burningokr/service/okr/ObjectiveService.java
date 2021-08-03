@@ -307,14 +307,14 @@ public class ObjectiveService {
 
     noteObjective = noteObjectiveRepository.save(noteObjective);
     logger.info(
-            "Added Note with id "
-                    + noteObjective.getId()
-                    + " from User "
-                    + user.getGivenName()
-                    + " "
-                    + user.getSurname()
-                    + " to KeyResult "
-                    + objectiveId);
+        "Added Note with id "
+            + noteObjective.getId()
+            + " from User "
+            + user.getGivenName()
+            + " "
+            + user.getSurname()
+            + " to KeyResult "
+            + objectiveId);
 
     activityService.createActivity(user, noteObjective, Action.CREATED);
 
@@ -323,7 +323,8 @@ public class ObjectiveService {
 
   @Transactional
   public NoteObjective updateNote(NoteObjective updatedNoteObjective) {
-    NoteObjective referencedNoteObjective = noteObjectiveRepository.findByIdOrThrow(updatedNoteObjective.getId());
+    NoteObjective referencedNoteObjective =
+        noteObjectiveRepository.findByIdOrThrow(updatedNoteObjective.getId());
 
     referencedNoteObjective.setUserId(updatedNoteObjective.getUserId());
     referencedNoteObjective.setText(updatedNoteObjective.getText());
