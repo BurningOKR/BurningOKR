@@ -20,7 +20,7 @@
       </div>
       <div *ngIf="isEditingComment && isOwnerOfNote$ | async">
         <button mat-icon-button class="icon-spacer" i18n-matTooltip="@@component_commentCard_saveComment" matTooltip="Kommentar speichern" (click)="clickedSaveComment()"
-                [disabled]="isSavingEdit">
+                [disabled]="isSavingEdit || this.editedCommentText.length < 3 || this.editedCommentText.length > 255">
           <mat-icon>save</mat-icon>
         </button>
         <button mat-icon-button class="icon-spacer" i18n-matTooltip="@@component_commentCard_cancel" matTooltip="Bearbeitung abbrechen"

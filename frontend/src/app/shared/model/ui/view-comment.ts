@@ -1,5 +1,4 @@
-import { CommentId } from '../../../okrview/comment/comment';
-import { UserId } from '../id-types';
+import { CommentId, UserId } from '../id-types';
 
 export class ViewComment {
   id: CommentId;

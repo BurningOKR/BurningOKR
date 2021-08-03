@@ -129,6 +129,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
         formData.parentObjectiveId,
         formData.parentUnitId,
         formData.contactPersonId,
+        undefined,
         undefined
       );
       newObjective.parentUnitId = this.formData.unitId;

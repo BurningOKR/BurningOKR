@@ -27,7 +27,7 @@ describe('ObjectiveViewMapper', () => {
   }));
 
   beforeEach(() => {
-    objective = new ViewObjective(1, 'ObjectiveName', 'ObjectiveDesc', 'remark', 100, [], true, 2, 3, 'contactPerson', 0, 'review');
+    objective = new ViewObjective(1, 'ObjectiveName', 'ObjectiveDesc', 'remark', 100, [], true, 2, 3, 'contactPerson', 0, [], 'review');
     objectiveDto = {
       id: 1,
       title: 'ObjectiveName',
@@ -39,6 +39,7 @@ describe('ObjectiveViewMapper', () => {
       parentUnitId: 3,
       contactPersonId: 'contactPerson',
       review: 'review',
+      noteIds: [],
       subObjectiveIds: []
     };
 
@@ -142,6 +143,7 @@ describe('ObjectiveViewMapper', () => {
             description: objective.description,
             remark: objective.remark,
             isActive: objective.isActive,
+            noteIds: objective.commentIdList,
             parentUnitId: objective.parentUnitId,
             parentObjectiveId: objective.parentObjectiveId,
             contactPersonId: objective.contactPersonId
@@ -183,6 +185,7 @@ describe('ObjectiveViewMapper', () => {
             description: objective.description,
             remark: objective.remark,
             isActive: objective.isActive,
+            noteIds: objective.commentIdList,
             parentUnitId: objective.parentUnitId,
             parentObjectiveId: objective.parentObjectiveId,
             contactPersonId: objective.contactPersonId
@@ -224,6 +227,7 @@ describe('ObjectiveViewMapper', () => {
             description: objective.description,
             remark: objective.remark,
             isActive: objective.isActive,
+            noteIds: objective.commentIdList,
             parentUnitId: objective.parentUnitId,
             parentObjectiveId: objective.parentObjectiveId,
             contactPersonId: objective.contactPersonId
