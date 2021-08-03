@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrUnit;
@@ -44,6 +45,8 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     }
     objective.setParentObjective(parentObjective);
 
+    objective.setNotes(new ArrayList<>());
+
     objective.setSubObjectives(new ArrayList<>());
     objective.setKeyResults(new ArrayList<>());
 
@@ -80,6 +83,12 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
       keyResultIds.add(keyResult.getId());
     }
     objectiveDto.setKeyResultIds(keyResultIds);
+
+    Collection<Long> noteIds = new ArrayList<>();
+    for (Note note : objective.getNotes()) {
+      noteIds.add(note.getId());
+    }
+    objectiveDto.setNoteIds(noteIds);
 
     logger.info("Mapped Objective (id:" + objective.getId() + ") successful into ObjectiveDto.");
     return objectiveDto;

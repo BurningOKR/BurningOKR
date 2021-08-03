@@ -14,7 +14,11 @@ import { Subscription } from 'rxjs';
 import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ContextRole } from '../../shared/model/ui/context-role';
-
+import {
+  CommentViewDialogComponent,
+  CommentViewDialogFormData
+} from '../comment/comment-view-dialog/comment-view-dialog.component';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 @Component({
   selector: 'app-objective',
   templateUrl: './objective.component.html',
@@ -67,6 +71,23 @@ export class ObjectiveComponent implements OnDestroy {
 
   hasSubObjectives(): boolean {
     return this.objective.subObjectivesCount > 0;
+  }
+
+  // --
+  // Objective comment logic
+  // --
+
+  clickedCommentObjective(): void {
+
+    const dialogData: CommentViewDialogFormData = {
+      componentTypeTitle: 'Objective',
+      componentName: this.objective.name,
+      viewCommentParentType: ViewCommentParentType.objective,
+      parentId: this.objective.id,
+      onUpdateCommentIdList: this.objective.commentIdList,
+    };
+
+    this.matDialog.open(CommentViewDialogComponent, {autoFocus: true, data: dialogData, width: '50vw'});
   }
 
   // --

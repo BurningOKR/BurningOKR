@@ -13,6 +13,11 @@ import { CurrentUserService } from '../../core/services/current-user.service';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { Observable } from 'rxjs/internal/Observable';
+import {
+  CommentViewDialogComponent,
+  CommentViewDialogFormData
+} from '../../okrview/comment/comment-view-dialog/comment-view-dialog.component';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -25,16 +30,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
 
   subscriptions: Subscription[] = [];
-
-  @Output() clickedEditAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedDeleteAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedCommentsAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedSubmitAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedWithdrawAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedApprove: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedDiscardApprovalAction: EventEmitter<void> = new EventEmitter<void>();
-  @Output() clickedRefuse: EventEmitter<void>  = new EventEmitter<void>();
-  @Output() clickedDiscardRefusalAction: EventEmitter<void> = new EventEmitter<void>();
 
   editTooltipStatus: string = this.i18n({
     id: 'statusShouldBeSubmittedOrDraft',
@@ -193,8 +188,9 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
 
   changeCurrentStatus(newStatus: status): void {
     this.topicDraft.currentStatus = newStatus;
-    this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-      .subscribe();
+    this.subscriptions.push(this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
+      .subscribe());
+    this.editedTopicDraftEvent.emit(this.topicDraft);
   }
 
   approvingTopicDraft(): void {
@@ -248,5 +244,21 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   getRejectionButtonText(): string {
     return this.topicDraft.currentStatus === status.rejected ? this.withDrawRejectionTopicDraftText
       : this.rejectTopicDraftText;
+  }
+
+  clickedOpenComments(): void {
+    const topicDraftHeading: string = this.i18n({
+      id: 'component_departmentMenu_Topic_draft',
+      value: 'Themenentwurf'
+    });
+
+    const dialogData: CommentViewDialogFormData = {
+      componentTypeTitle: topicDraftHeading,
+      componentName: this.topicDraft.name,
+      viewCommentParentType: ViewCommentParentType.topicDraft,
+      parentId: this.topicDraft.id,
+    };
+    const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
+      this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
   }
 }

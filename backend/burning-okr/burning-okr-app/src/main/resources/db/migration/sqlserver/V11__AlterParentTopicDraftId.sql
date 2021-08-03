@@ -1,0 +1,1 @@
+EXEC sp_rename 'note_topic_draft.parent_topic_draft', 'parent_topic_draft_id', 'COLUMN'

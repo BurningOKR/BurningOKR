@@ -3,6 +3,7 @@ package org.burningokr.service.okr;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
@@ -11,11 +12,13 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
+import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
+import org.burningokr.repositories.okr.NoteObjectiveRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
@@ -53,22 +56,33 @@ public class ObjectiveServiceTest {
 
   @Mock ConfigurationService configurationService;
 
+  @Mock private NoteObjectiveRepository noteObjectiveRepository;
+
+  @Mock private NoteObjective noteObjectiveMock;
+
   @InjectMocks private ObjectiveService objectiveService;
 
   private Long objectiveId = 1337L;
   private Objective objective;
   private Objective updateObjective;
   private KeyResult keyResult;
+  private NoteObjective noteObjective;
 
   @Before
   public void reset() {
+
     this.objective = new Objective();
     objective.setId(objectiveId);
+
     updateObjective = new Objective();
     updateObjective.setId(objectiveId);
+
+    this.noteObjective = new NoteObjective();
+
     this.keyResult = new KeyResult();
     when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+
     Configuration maxKeyResultsConfiguration = new Configuration();
     maxKeyResultsConfiguration.setName(ConfigurationName.MAX_KEY_RESULTS.getName());
     maxKeyResultsConfiguration.setValue("7");
@@ -440,6 +454,124 @@ public class ObjectiveServiceTest {
     Assert.assertEquals(2, objective0.getSequence());
     Assert.assertEquals(0, objective1.getSequence());
     Assert.assertEquals(1, objective2.getSequence());
+  }
+
+  // note (comment) tests
+
+  @Test
+  public void createNote_expect_saveIsCalled() {
+
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    objectiveService.createNote(1337L, noteObjective, user);
+    verify(noteObjectiveRepository).save(same(noteObjective));
+  }
+
+  @Test
+  public void createNote_expect_createActivityIsCalled() {
+
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    objectiveService.createNote(1337L, noteObjective, user);
+    verify(activityService).createActivity(same(user), same(noteObjective), any());
+  }
+
+  @Test
+  public void createNote_expect_userIdIsSet() {
+
+    UUID expected = new UUID(1337L, 1337L);
+
+    when(user.getId()).thenReturn(expected);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+
+    objectiveService.createNote(1L, noteObjectiveMock, user);
+    verify(noteObjectiveMock).setUserId(eq(expected));
+  }
+
+  @Test
+  public void createNot_expect_dateIsCalled() {
+
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    objectiveService.createNote(1L, noteObjectiveMock, user);
+    verify(noteObjectiveMock).setDate(any());
+  }
+
+  @Test
+  public void updateNote_expect_userIdIsSet() {
+
+    UUID expected = new UUID(1337L, 1337L);
+
+    NoteObjective updatedNoteObjective = new NoteObjective();
+    updatedNoteObjective.setUserId(expected);
+
+    when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+
+    objectiveService.updateNote(updatedNoteObjective);
+    verify(noteObjectiveMock).setUserId(same(expected));
+  }
+
+  @Test
+  public void updateNote_expect_textIsSet() {
+
+    String expected = "test";
+
+    NoteObjective updatedNoteObjective = new NoteObjective();
+    updatedNoteObjective.setText(expected);
+
+    when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+
+    objectiveService.updateNote(updatedNoteObjective);
+    verify(noteObjectiveMock).setText(same(expected));
+  }
+
+  @Test
+  public void updateNote_expect_dateIsSet() {
+
+    LocalDateTime expected = LocalDateTime.now();
+
+    NoteObjective updatedNoteObjective = new NoteObjective();
+    updatedNoteObjective.setDate(expected);
+
+    when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+
+    objectiveService.updateNote(updatedNoteObjective);
+    verify(noteObjectiveMock).setDate(same(expected));
+  }
+
+  @Test
+  public void updateNote_expect_parentObjectiveIsSet() {
+
+    Objective expected = new Objective();
+
+    NoteObjective updatedNoteObjective = new NoteObjective();
+    updatedNoteObjective.setParentObjective(expected);
+
+    when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+
+    objectiveService.updateNote(updatedNoteObjective);
+    verify(noteObjectiveMock).setParentObjective(same(expected));
+  }
+
+  @Test
+  public void updateNote_expect_saveIsCalled() {
+
+    when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjective);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+
+    objectiveService.updateNote(noteObjective);
+    verify(noteObjectiveRepository).save(any());
+  }
+
+  @Test
+  public void updateNote_expect_findIsCalled() {
+
+    when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjective);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+
+    objectiveService.updateNote(noteObjective);
+    verify(noteObjectiveRepository).findByIdOrThrow(any());
   }
 
   // region Hilfsfunktionen

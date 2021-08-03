@@ -2,11 +2,15 @@ package org.burningokr.service.okr;
 
 import com.google.common.collect.Lists;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import javax.transaction.Transactional;
 import org.burningokr.model.activity.Action;
+import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.slf4j.Logger;
@@ -19,16 +23,30 @@ public class OkrTopicDraftService {
   private final Logger logger = LoggerFactory.getLogger(OkrTopicDraftService.class);
 
   private OkrTopicDraftRepository okrTopicDraftRepository;
+  private NoteTopicDraftRepository noteTopicDraftRepository;
   private ActivityService activityService;
 
   public OkrTopicDraftService(
-      OkrTopicDraftRepository okrTopicDraftRepository, ActivityService activityService) {
+      OkrTopicDraftRepository okrTopicDraftRepository,
+      NoteTopicDraftRepository noteTopicDraftRepository,
+      ActivityService activityService) {
     this.okrTopicDraftRepository = okrTopicDraftRepository;
+    this.noteTopicDraftRepository = noteTopicDraftRepository;
     this.activityService = activityService;
+  }
+
+  public OkrTopicDraft findById(long topicDraftId) {
+    return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
   }
 
   public Collection<OkrTopicDraft> getAllTopicDrafts() {
     return Lists.newArrayList(okrTopicDraftRepository.findAll());
+  }
+
+  public Collection<NoteTopicDraft> getAllNotesForTopicDraft(long topicDraftId) {
+    Collection<NoteTopicDraft> noteTopicDrafts =
+        noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
+    return noteTopicDrafts;
   }
 
   public void deleteTopicDraftById(Long topicDraftId, User user) {
@@ -37,8 +55,33 @@ public class OkrTopicDraftService {
     activityService.createActivity(user, referencedTopicDraft, Action.DELETED);
   }
 
-  public OkrTopicDraft findById(long topicDraftId) {
-    return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
+  /**
+   * Creates a Note for a Topic Draft.
+   *
+   * @param topicDraftId a long value
+   * @param noteTopicDraft a {@link NoteTopicDraft} object
+   * @param user an {@link User} object
+   * @return a {@link Note} object
+   */
+  @Transactional
+  public NoteTopicDraft createNote(long topicDraftId, NoteTopicDraft noteTopicDraft, User user) {
+    noteTopicDraft.setId(null);
+    noteTopicDraft.setUserId(user.getId());
+    noteTopicDraft.setDate(LocalDateTime.now());
+
+    noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);
+    logger.info(
+        "Added Note with id "
+            + noteTopicDraft.getId()
+            + " from User "
+            + user.getGivenName()
+            + " "
+            + user.getSurname()
+            + " to KeyResult "
+            + topicDraftId);
+    activityService.createActivity(user, noteTopicDraft, Action.CREATED);
+
+    return noteTopicDraft;
   }
 
   /**

@@ -1,16 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
-import { MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
+import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+
+export interface CommentViewDialogFormData {
+  componentTypeTitle: string;
+  componentName: string;
+  viewCommentParentType: ViewCommentParentType;
+  parentId: number;
+  onUpdateCommentIdList?: number[];
+}
 
 @Component({
   selector: 'app-comment-view-dialog',
   templateUrl: './comment-view-dialog.component.html',
   styleUrls: ['./comment-view-dialog.component.scss']
 })
-export class CommentViewDialogComponent implements OnInit {
+export class CommentViewDialogComponent implements OnInit, CommentViewDialogFormData {
+
+  componentTypeTitle: string;
+  componentName: string;
+  viewCommentParentType: ViewCommentParentType;
+  parentId: number;
+  onUpdateCommentIdList: number[];
+
   parentKeyResult: ViewKeyResult;
 
   commentList: ViewComment[];
@@ -20,7 +37,16 @@ export class CommentViewDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CommentViewDialogComponent>,
     public commentMapperService: CommentMapperService,
-  ) {}
+    private i18n: I18n,
+    @Inject(MAT_DIALOG_DATA) private formData: (CommentViewDialogFormData | any)
+  ) {
+    this.componentTypeTitle = formData.componentTypeTitle;
+    this.componentName = formData.componentName;
+    this.viewCommentParentType = formData.viewCommentParentType;
+    this.parentId = formData.parentId;
+    this.commentList = [];
+    this.onUpdateCommentIdList = formData.hasOwnProperty('onUpdateCommentIdList') ? formData.onUpdateCommentIdList : [];
+  }
 
   ngOnInit(): void {
     this.loadCommentList();
@@ -30,13 +56,12 @@ export class CommentViewDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  // TODO Subscription überarbeiten
   loadCommentList(): void {
-    if (this.parentKeyResult.commentIdList.length !== 0) {
-      this.commentMapperService
-        .getCommentsFromKeyResult$(this.parentKeyResult.id)
-        .pipe(take(1))
-        .subscribe(commentList => (this.commentList = commentList));
-    }
+    this.commentMapperService
+      .getCommentsFromParentObject$(this.viewCommentParentType, this.parentId)
+      .pipe(take(1))
+      .subscribe(commentList => (this.commentList = commentList));
   }
 
   canPostNewComment(): boolean {
@@ -49,10 +74,10 @@ export class CommentViewDialogComponent implements OnInit {
       const newComment: ViewComment = new ViewComment(1, '', this.newCommentText, new Date());
 
       this.commentMapperService
-        .createComment$(this.parentKeyResult.id, newComment)
+        .createComment$(this.viewCommentParentType, this.parentId, newComment)
         .pipe(take(1))
         .subscribe(createdComment => {
-          this.parentKeyResult.commentIdList.push(createdComment.id);
+          this.onUpdateCommentIdList.push(createdComment.id);
           this.isPostingComment = false;
           this.newCommentText = '';
           this.loadCommentList();
@@ -68,9 +93,18 @@ export class CommentViewDialogComponent implements OnInit {
   }
 
   commentDeleted(deletedComment: ViewComment): void {
-    let indexOfComment: number = this.commentList.indexOf(deletedComment);
+    const indexOfComment: number = this.commentList.indexOf(deletedComment);
     this.commentList.splice(indexOfComment, 1);
-    indexOfComment = this.parentKeyResult.commentIdList.indexOf(deletedComment.id);
-    this.parentKeyResult.commentIdList.splice(indexOfComment, 1);
+    const indexOfCommentId: number = this.onUpdateCommentIdList.indexOf(deletedComment.id);
+    this.onUpdateCommentIdList.splice(indexOfCommentId, 1);
+  }
+
+  getHintLabel(): string {
+    const threeCharactersRequired: string = this.i18n({
+      id: 'three_characters_required',
+      value: 'Min. 3 Zeichen benötigt'
+    });
+
+    return this.newCommentText.length < 3 ? threeCharactersRequired : '';
   }
 }

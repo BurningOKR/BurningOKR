@@ -13,3 +13,4 @@ export type TaskBoardId = number;
 export type TaskId = number;
 export type TaskStateId = number;
 export type TopicDraftId = number;
+export type CommentId = number;

@@ -11,10 +11,14 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { CommentViewDialogComponent } from '../comment/comment-view-dialog/comment-view-dialog.component';
+import {
+  CommentViewDialogComponent,
+  CommentViewDialogFormData
+} from '../comment/comment-view-dialog/comment-view-dialog.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 
 @Component({
   selector: 'app-keyresult',
@@ -97,11 +101,15 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   }
 
   clickedOpenComments(): void {
+    const dialogData: CommentViewDialogFormData = {
+      componentTypeTitle: 'Key Result',
+      componentName: this.keyResult.keyResult,
+      viewCommentParentType: ViewCommentParentType.keyResult,
+      parentId: this.keyResult.id,
+      onUpdateCommentIdList: this.keyResult.commentIdList
+    };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
-      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false});
-    const dialogComponent: any = dialogReference.componentInstance;
-
-    dialogComponent.parentKeyResult = this.keyResult;
+      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
   }
 
   clickedDeleteKeyResult(): void {
