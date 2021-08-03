@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -7,10 +8,12 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
+import org.burningokr.repositories.okr.NoteObjectiveRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
@@ -39,6 +42,7 @@ public class ObjectiveService {
   private final ConfigurationService configurationService;
   private final OkrUnitServiceUsers<OkrChildUnit> unitService;
   private final KeyResultMilestoneService keyResultMilestoneService;
+  private final NoteObjectiveRepository noteObjectiveRepository;
 
   /**
    * Initialize ObjectiveService.
@@ -60,6 +64,7 @@ public class ObjectiveService {
       EntityCrawlerService entityCrawlerService,
       ConfigurationService configurationService,
       KeyResultMilestoneService keyResultMilestoneService,
+      NoteObjectiveRepository noteObjectiveRepository,
       @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
@@ -69,6 +74,7 @@ public class ObjectiveService {
     this.configurationService = configurationService;
     this.unitService = unitService;
     this.keyResultMilestoneService = keyResultMilestoneService;
+    this.noteObjectiveRepository = noteObjectiveRepository;
   }
 
   public Objective findById(Long objectiveId) {
@@ -78,6 +84,11 @@ public class ObjectiveService {
   public Collection<KeyResult> findKeyResultsOfObjective(long objectiveId) {
     Objective objective = findById(objectiveId);
     return keyResultRepository.findByObjectiveAndOrderBySequence(objective);
+  }
+
+  public Collection<NoteObjective> findNotesOfObjective(long objectiveId) {
+    Objective objective = findById(objectiveId);
+    return objective.getNotes();
   }
 
   /**
@@ -279,5 +290,49 @@ public class ObjectiveService {
         == CycleState.CLOSED) {
       throw new ForbiddenException("Cannot modify this resource on a Objective in a closed cycle.");
     }
+  }
+
+  /**
+   * creates a note for an objective.
+   *
+   * @param objectiveId id from objective
+   * @param noteObjective the objective
+   * @param user the user which wants to add the note
+   * @return the created Note
+   */
+  public NoteObjective createNote(long objectiveId, NoteObjective noteObjective, User user) {
+
+    noteObjective.setUserId(user.getId());
+    noteObjective.setDate(LocalDateTime.now());
+
+    noteObjective = noteObjectiveRepository.save(noteObjective);
+    logger.info(
+        "Added Note with id "
+            + noteObjective.getId()
+            + " from User "
+            + user.getGivenName()
+            + " "
+            + user.getSurname()
+            + " to KeyResult "
+            + objectiveId);
+
+    activityService.createActivity(user, noteObjective, Action.CREATED);
+
+    return noteObjective;
+  }
+
+  @Transactional
+  public NoteObjective updateNote(NoteObjective updatedNoteObjective) {
+    NoteObjective referencedNoteObjective =
+        noteObjectiveRepository.findByIdOrThrow(updatedNoteObjective.getId());
+
+    referencedNoteObjective.setUserId(updatedNoteObjective.getUserId());
+    referencedNoteObjective.setText(updatedNoteObjective.getText());
+    referencedNoteObjective.setDate(updatedNoteObjective.getDate());
+    referencedNoteObjective.setParentObjective(updatedNoteObjective.getParentObjective());
+
+    referencedNoteObjective = noteObjectiveRepository.save(referencedNoteObjective);
+
+    return referencedNoteObjective;
   }
 }

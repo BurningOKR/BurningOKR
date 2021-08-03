@@ -44,13 +44,12 @@ export class CommentApiService {
     switch (viewCommentParentType) {
       case ViewCommentParentType.keyResult:
         return 'keyresults';
-        break;
       case ViewCommentParentType.topicDraft:
         return 'topicDrafts';
-        break;
+      case ViewCommentParentType.objective:
+        return 'objectives';
       default:
         return '';
-        break;
     }
   }
 }

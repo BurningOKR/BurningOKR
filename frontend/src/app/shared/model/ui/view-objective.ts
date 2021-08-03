@@ -1,6 +1,7 @@
-import { ObjectiveId } from '../id-types';
+import { CommentId, ObjectiveId } from '../id-types';
+import { ViewCommentRequiredAttributes } from './view-comment-required-attributes';
 
-export class ViewObjective {
+export class ViewObjective implements ViewCommentRequiredAttributes {
   id: ObjectiveId;
   name: string;
   description: string;
@@ -13,10 +14,11 @@ export class ViewObjective {
   parentUnitId: number;
   subObjectivesCount: number;
   review?: string;
+  commentIdList: CommentId[];
 
   constructor(id: ObjectiveId, name: string, description: string, remark: string, progress: number, keyResultIdList: number[],
               isActive: boolean, parentObjectiveId: number, parentUnitId: number, contactPersonId: string, subObjectivesCount: number,
-              review?: string) {
+              commentIdList: CommentId[], review?: string) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -28,6 +30,7 @@ export class ViewObjective {
     this.parentUnitId = parentUnitId;
     this.contactPersonId = contactPersonId;
     this.subObjectivesCount = subObjectivesCount;
+    this.commentIdList = commentIdList;
     this.review = review;
   }
 
