@@ -83,7 +83,8 @@ export class ObjectiveComponent implements OnDestroy {
       componentTypeTitle: 'Objective',
       componentName: this.objective.name,
       viewCommentParentType: ViewCommentParentType.objective,
-      parentObject: this.objective,
+      parentId: this.objective.id,
+      onUpdateCommentIdList: this.objective.commentIdList,
     };
 
     this.matDialog.open(CommentViewDialogComponent, {autoFocus: true, data: dialogData, width: '50vw'});
