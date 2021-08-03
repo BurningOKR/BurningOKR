@@ -1,2 +1,1 @@
-ALTER TABLE note_topic_draft
-    RENAME COLUMN parent_topic_draft TO parent_topic_draft_id;
+EXEC sp_rename 'note_topic_draft.parent_topic_draft', 'parent_topic_draft_id', 'COLUMN'
