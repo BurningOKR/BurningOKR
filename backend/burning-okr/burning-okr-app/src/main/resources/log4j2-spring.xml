@@ -2,7 +2,7 @@
 <Configuration status="WARN">
     <Properties>
         <Property name="LS">${sys:file.separator}</Property>
-        <Property name="LOG_DIR">$${ctx:tempPath}burningokr${LS}</Property>
+        <Property name="LOG_DIR">$${ctx:tempPath}burning-okr${LS}</Property>
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
