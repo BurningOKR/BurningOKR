@@ -59,7 +59,7 @@
         </button>
       </div>
 
-      <button class="icon-spacer"
+      <button class="icon-spacer" *ngIf="!cycle.isCycleClosed()"
               (click)="$event.stopPropagation()" [matMenuTriggerFor]="optionsMenu"
               [matMenuTriggerData]="{ objective: objective }" matTooltip="Mehr Optionen zu diesem Objective"
               mat-icon-button>
@@ -83,7 +83,7 @@
 <!-- Options menu -->
 <mat-menu #optionsMenu="matMenu" xPosition="before">
   <ng-template matMenuContent let-objective="objective">
-    <button mat-menu-item *ngIf="userIsOkrMemberAndCycleNotClosed()" (click)="clickedEditObjective()">
+    <button mat-menu-item *ngIf="userIsOkrMember()" (click)="clickedEditObjective()">
       <mat-icon>edit</mat-icon>
       <span i18n="@@component_objective_editObjective">Objective bearbeiten</span>
     </button>
@@ -91,7 +91,7 @@
       <mat-icon>chat</mat-icon>
       <span i18n="@@component_objective_commentObjective">Objective kommentieren</span>
     </button>
-    <button mat-menu-item *ngIf="userIsOkrMemberAndCycleNotClosed()" (click)="toggleWhetherObjectiveIsActive()">
+    <button mat-menu-item *ngIf="userIsOkrMember()" (click)="toggleWhetherObjectiveIsActive()">
       <div *ngIf="objective.isActive">
         <mat-icon>power_off</mat-icon>
         <span i18n="@@component_objective_disableObjective">Objective auf inaktiv setzen</span>
@@ -101,15 +101,15 @@
         <span i18n="@@component_objective_enableObjective">Objective auf aktiv setzen</span>
       </div>
     </button>
-    <button mat-menu-item *ngIf="!isObjectiveOnTop() && userIsOkrMemberAndCycleNotClosed()" (click)="clickedMoveObjectiveToTop()">
+    <button mat-menu-item *ngIf="!isObjectiveOnTop() && userIsOkrMember()" (click)="clickedMoveObjectiveToTop()">
       <mat-icon>vertical_align_top</mat-icon>
       <span i18n="@@component_objective_moveUpObjective">Objective nach oben verschieben</span>
     </button>
-    <button mat-menu-item *ngIf="!isObjectiveOnBottom() && userIsOkrMemberAndCycleNotClosed()" (click)="clickedMoveObjectiveToBottom()">
+    <button mat-menu-item *ngIf="!isObjectiveOnBottom() && userIsOkrMember()" (click)="clickedMoveObjectiveToBottom()">
       <mat-icon>vertical_align_bottom</mat-icon>
       <span i18n="@@component_objective_moveDownObjective">Objective nach unten verschieben</span>
     </button>
-    <button mat-menu-item *ngIf="currentUserRole.isAtleastOKRManager() && userIsOkrMemberAndCycleNotClosed()" (click)="clickedDeleteObjective()">
+    <button mat-menu-item *ngIf="currentUserRole.isAtleastOKRManager() && userIsOkrMember()" (click)="clickedDeleteObjective()">
       <mat-icon>delete</mat-icon>
       <span i18n="@@component_objective_deleteObjective">Objective löschen</span>
     </button>
