@@ -11,6 +11,13 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.3.5',
+      changes: [
+        'Fix: fixed migration scripts',
+        'Comment objectives: all users can now comment on objectives',
+      ]
+    },
+    {
       version: '1.3.4 (03.08.2021)',
       changes: [
           'Topic-Draft Creation: Initiator is now prefilled with the logged in User on creation.',

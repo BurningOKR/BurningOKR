@@ -73,6 +73,10 @@ export class ObjectiveComponent implements OnDestroy {
     return this.objective.subObjectivesCount > 0;
   }
 
+  userIsOkrMember(): boolean {
+    return this.currentUserRole.isAtleastOKRMember();
+  }
+
   // --
   // Objective comment logic
   // --
