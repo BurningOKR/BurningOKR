@@ -50,10 +50,7 @@ public class ObjectiveController {
       ObjectiveService objectiveService,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       DataMapper<KeyResult, KeyResultDto> keyResultMapper,
-      DataMapper<NoteObjective, NoteObjectiveDto>
-          noteObjectiveMapper, // IS NEEDED BUT CRASHES ON STARTUP FOR SOME REASON?
-      // Creates following error: Says to create a Bean out of DataMapper Interface?!
-      // TODO P.B. 22.07.2021: FIX ERROR
+      DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper,
       AuthorizationService authorizationService) {
     this.objectiveService = objectiveService;
     this.objectiveMapper = objectiveMapper;
