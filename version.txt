@@ -1,4 +1,4 @@
-1.3.5
+1.3.6
 
-- Fix: fixed migration scripts
-- Comment objectives: all users can now comment on objectives
+- Topicdrafts with comments can now be deleted
+- Optimization
