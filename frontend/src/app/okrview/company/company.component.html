@@ -50,10 +50,9 @@
               <div class="icon-spacer f-1">
                 <app-add-child-unit-button [userRole]="currentUserRole$ | async"
                                            [cycleClosed]="companyView.cycle.isCycleClosed()"
-                                           [addTopicDraftID]="snackbar_ok"
                                            (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)"
-                                           (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)">
-                </app-add-child-unit-button>
+                                           (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)"
+                                           (clickedAddTopicDraft)="clickedAddTopicDraft(companyView.company)"></app-add-child-unit-button>
               </div>
             </div>
             <!-- Subdepartments -->
