@@ -63,29 +63,4 @@ export class OkrChildUnitTabComponent implements OnDestroy {
     this.okrBranch.okrChildUnitIds.push(addedChildUnit.id);
     this.currentOkrViewService.refreshCurrentDepartmentView(this.okrBranch.id);
   }
-
-  clickedAddTopicDraft(): void {
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {
-      width: '600px', data: {  unitId: this.okrBranch.id }
-    });
-
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(
-          take(1),
-          filter(v => v),
-          switchMap(n => n)
-        )
-        .subscribe(addedTopicDraft => {
-          const snackBarText: string = this.i18n({
-            id: 'snackbar_addTopicDraft',
-            value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'});
-          const snackBarOk: string = this.i18n({
-            id: 'short_okay',
-            value: 'Ok'});
-          this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
-        })
-    );
-  }
 }

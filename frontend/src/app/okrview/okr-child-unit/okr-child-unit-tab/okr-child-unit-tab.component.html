@@ -8,9 +8,9 @@
       <div class="icon-spacer f-1">
         <app-add-child-unit-button [userRole]="currentUserRole"
                                    [cycleClosed]="cycle.isCycleClosed()"
+                                   [addTopicDraftID]="short_okay"
                                    (clickedAddSubBranch)="clickedAddChildOkrBranch()"
-                                   (clickedAddSubDepartment)="clickedAddChildDepartment()"
-                                   (clickedAddTopicDraft)="clickedAddTopicDraft()">
+                                   (clickedAddSubDepartment)="clickedAddChildDepartment()">
         </app-add-child-unit-button>
       </div>
     </div>
