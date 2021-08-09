@@ -23,8 +23,7 @@ export class OkrChildUnitTabComponent implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private matDialog: MatDialog, private currentOkrViewService: CurrentOkrviewService,
-              private snackBar: MatSnackBar, private i18n: I18n) {}
+  constructor(private matDialog: MatDialog, private currentOkrViewService: CurrentOkrviewService) {}
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
