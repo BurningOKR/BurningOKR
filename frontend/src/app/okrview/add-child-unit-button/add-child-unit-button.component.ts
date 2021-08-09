@@ -15,6 +15,8 @@ export class AddChildUnitButtonComponent {
 
   @Input() cycleClosed: boolean;
   @Input() userRole: ContextRole;
+  @Input() topicDraftConfigIdName: string;
+  @Input() topicDraftConfigId: string;
 
   @Output() clickedAddSubDepartment: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedAddSubBranch: EventEmitter<void> = new EventEmitter<void>();
@@ -25,10 +27,12 @@ export class AddChildUnitButtonComponent {
     private matDialog: MatDialog
   ) { }
 
-  clickedAddTopicDraft(company: CompanyUnit): void {
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {
-      width: '600px', data: { companyId: company.id }
-    });
+  clickedAddTopicDraft(): void {
+    // creates fitting config for either okrbranch id or company id
+    let config = { width: '600px', data: { } };
+    config.data[this.topicDraftConfigIdName] = this.topicDraftConfigId;
+
+    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
 
     dialogReference
       .afterClosed()

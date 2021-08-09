@@ -8,6 +8,8 @@
       <div class="icon-spacer f-1">
         <app-add-child-unit-button [userRole]="currentUserRole"
                                    [cycleClosed]="cycle.isCycleClosed()"
+                                   [topicDraftConfigIdName]="unitId"
+                                   [topicDraftConfigId]="okrBranch.id"
                                    (clickedAddSubBranch)="clickedAddChildOkrBranch()"
                                    (clickedAddSubDepartment)="clickedAddChildDepartment()">
         </app-add-child-unit-button>
