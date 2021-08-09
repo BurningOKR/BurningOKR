@@ -49,19 +49,19 @@ describe('DeleteDialogComponent', () => {
       .toBeTruthy();
   });
 
-  // Todo 20.05.2020 dturnschek; expect is commented out? Really?
   it('should run #confirmDelete()', () => {
     component.dialogRef = component.dialogRef || {};
     component.dialogRef.close = jest.fn();
     component.confirmDelete();
-    // expect(component.dialogRef.close).toHaveBeenCalled();
+    expect(component.dialogRef.close)
+        .toHaveBeenCalled();
   });
 
-  // Todo 20.05.2020 dturnschek; expect is commented out? Really?
   it('should run #closeDialog()', () => {
     component.dialogRef = component.dialogRef || {};
     component.dialogRef.close = jest.fn();
     component.closeDialog();
-    // expect(component.dialogRef.close).toHaveBeenCalled();
+    expect(component.dialogRef.close)
+        .toHaveBeenCalled();
   });
 });
