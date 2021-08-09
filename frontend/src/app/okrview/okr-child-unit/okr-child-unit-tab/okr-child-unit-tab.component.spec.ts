@@ -11,7 +11,6 @@ import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branc
 import { CycleState, CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit-form.component';
 import { of } from 'rxjs';
-import { TopicDraftCreationFormComponent } from '../okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-child-unit-button.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -125,25 +124,6 @@ describe('OkrChildUnitTabComponent', () => {
       expect(component.okrBranch.okrChildUnitIds.includes(1))
         .toBeTruthy();
       expect(currentOkrViewServiceMock.refreshCurrentDepartmentView)
-        .toHaveBeenCalled();
-      done();
-    }, 500);
-  });
-
-  it('clickedAddTopicDraft opens dialog', () => {
-    component.clickedAddTopicDraft();
-
-    expect(dialogMock.open)
-      .toHaveBeenCalledWith(TopicDraftCreationFormComponent, {
-        width: '600px', data: {  unitId: okrBranch.id }
-      });
-  });
-
-  it('clickedAddChildDepartment opens snackBar', done => {
-    component.clickedAddTopicDraft();
-
-    setTimeout(() => {
-      expect(snackBarMock.open)
         .toHaveBeenCalled();
       done();
     }, 500);
