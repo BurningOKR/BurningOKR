@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { take, filter, switchMap } from 'rxjs/operators';
 import { CompanyUnit } from 'src/app/shared/model/ui/OrganizationalUnit/company-unit';
+import { OkrBranch } from 'src/app/shared/model/ui/OrganizationalUnit/okr-branch';
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { TopicDraftCreationFormComponent } from '../okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 
@@ -15,8 +16,7 @@ export class AddChildUnitButtonComponent {
 
   @Input() cycleClosed: boolean;
   @Input() userRole: ContextRole;
-  @Input() topicDraftConfigIdName: string;
-  @Input() topicDraftConfigId: string;
+  @Input() topicSubject: OkrBranch | CompanyUnit;
 
   @Output() clickedAddSubDepartment: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedAddSubBranch: EventEmitter<void> = new EventEmitter<void>();
@@ -30,7 +30,15 @@ export class AddChildUnitButtonComponent {
   clickedAddTopicDraft(): void {
     // creates fitting config for either okrbranch id or company id
     let config = { width: '600px', data: { } };
-    config.data[this.topicDraftConfigIdName] = this.topicDraftConfigId;
+    if (this.topicSubject instanceof OkrBranch) {
+      config.data = { unitId: this.topicSubject.id };
+    } else if (this.topicSubject instanceof CompanyUnit) {
+      config.data = { companyId: this.topicSubject.id };
+    }
+    
+
+    console.log("clickedAddTopicDraft() called")
+    console.log(config)
 
     const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
 
