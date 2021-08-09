@@ -62,6 +62,10 @@ export class SetPasswordComponent implements OnInit {
     }); }, 100);  // setTimeout is needed to navigate in non chromium based browsers /TG 09.03.2020
   }
 
+  private redirectToResetPasswordComponent(): void {
+    return; // TODO: A user should be routed to the reset pasword form, when the identifier is unvalid
+  }
+
   private getPasswordResetData(): PasswordResetData {
     return {
       emailIdentifier: this.emailIdentifier,
