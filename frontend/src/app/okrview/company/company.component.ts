@@ -52,9 +52,7 @@ export class CompanyComponent implements OnInit {
     private companyMapperService: CompanyMapper,
     private matDialog: MatDialog,
     private roleService: OkrChildUnitRoleService,
-    private excelFileService: ExcelMapper,
-    private i18n: I18n,
-    private snackBar: MatSnackBar
+    private excelFileService: ExcelMapper
   ) {
   }
 
@@ -142,29 +140,6 @@ export class CompanyComponent implements OnInit {
   private onSubDepartmentAdded(company: CompanyUnit, addedSubDepartment: OkrChildUnit): void {
     company.okrChildUnitIds.push(addedSubDepartment.id);
     this.currentOkrViewService.refreshCurrentCompanyView(company.id);
-  }
-
-  // TODO: (R.J. 17.02.21) Refactor this and other occurrence in OkrChildUnitTabComponent, to remove duplicate code.
-  clickedAddTopicDraft(company: CompanyUnit): void {
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {
-      width: '600px', data: { companyId: company.id }
-    });
-
-    dialogReference
-      .afterClosed()
-      .pipe(
-        take(1),
-        filter(v => v),
-        switchMap(n => n)
-      )
-      .subscribe(addedTopicDraft => {
-        const snackBarText: string = this.i18n({
-          id: 'snackbar_addTopicDraft',
-          value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'
-        });
-        const snackBarOk: string = this.i18n({ id: 'snackbar_ok', value: 'Ok' });
-        this.snackBar.open(snackBarText, snackBarOk, { verticalPosition: 'top' });
-      });
   }
 
   clickedDownloadExcelFileForCompany(company: CompanyUnit): void {

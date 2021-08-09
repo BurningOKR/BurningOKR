@@ -2,10 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddChildUnitButtonComponent } from './add-child-unit-button.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { MatDialogModule, MatSnackBarModule } from '@angular/material/';
 
 describe('AddChildUnitButtonComponent', () => {
   let component: AddChildUnitButtonComponent;
   let fixture: ComponentFixture<AddChildUnitButtonComponent>;
+  const i18n: any = {};
 
   const contextRoleMock: any = {
     isAtleastAdmin: jest.fn()
@@ -16,18 +19,19 @@ describe('AddChildUnitButtonComponent', () => {
     contextRoleMock.isAtleastAdmin.mockReturnValue(true);
     TestBed.configureTestingModule({
       declarations: [ AddChildUnitButtonComponent ],
-      imports: [ MaterialTestingModule ],
+      imports: [ MaterialTestingModule, MatSnackBarModule, MatDialogModule ],
+      providers: [
+          { provide: I18n, useValue: i18n },
+      ]
     })
     .compileComponents();
   }));
 
-  beforeEach(() => {
+  it('should create', () => {
     fixture = TestBed.createComponent(AddChildUnitButtonComponent);
     component = fixture.componentInstance;
     component.userRole = contextRoleMock;
-  });
 
-  it('should create', () => {
     fixture.detectChanges();
     expect(component)
       .toBeTruthy();

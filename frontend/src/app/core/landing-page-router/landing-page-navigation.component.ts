@@ -9,10 +9,6 @@ import { UserSettings } from '../../shared/model/ui/user-settings';
 import { ConfigurationManagerService } from '../settings/configuration-manager.service';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { RouterParams } from '../../../typings';
-import { InitService } from '../services/init.service';
-import { INIT_STATE_NAME, InitState } from '../../shared/model/api/init-state';
-import { PostAzureAdminUserData } from '../../shared/model/api/post-azure-admin-user-data';
-import { CurrentUserService } from '../services/current-user.service';
 
 @Component({
   selector: 'app-landing-page-navigation',
@@ -24,9 +20,7 @@ export class LandingPageNavigationComponent implements OnInit {
               private userSettingsManagerService: UserSettingsManagerService,
               private configurationManagerService: ConfigurationManagerService,
               private router: Router,
-              private healthcheckService: HealthcheckApiService,
-              private initService: InitService,
-              private currentUserService: CurrentUserService) {
+              private healthcheckService: HealthcheckApiService) {
   }
 
   static userHasDefaultTeam(userSettings: UserSettings): boolean {
@@ -52,20 +46,6 @@ export class LandingPageNavigationComponent implements OnInit {
         this.router.navigate(routerLink);
       }, () => this.router.navigate(['/error']));
   }
-
-  // private setAdminUserIfNoneWasChosenAfterCompletionOf(healthCheck$: Observable<boolean>): void {
-  //   healthCheck$
-  //     .pipe(
-  //       switchMap(() => this.initService.getInitState$())
-  //     )
-  //     .subscribe(
-  //       (initState: InitState) => {
-  //         if (initState.initState === INIT_STATE_NAME.NO_AZURE_ADMIN_USER) {
-  //           this.setCurrentUserAsAzureAdminUser();
-  //         }
-  //       }
-  //   );
-  // }
 
   private getRouterLink$(): Observable<RouterParams> {
     return this.companyMapperService.getActiveCompanies$()
@@ -103,21 +83,4 @@ export class LandingPageNavigationComponent implements OnInit {
         }),
         take(1));
   }
-
-  // private setCurrentUserAsAzureAdminUser(): void {
-  //   let data: PostAzureAdminUserData;
-  //
-  //   this.currentUserService.getCurrentUser$()
-  //     .pipe(
-  //       take(1),
-  //       switchMap(
-  //       currentUser => {
-  //         data = {id: currentUser.id};
-  //
-  //         return this.initService.postAzureAdminUser$(data);
-  //         }))
-  //     .subscribe(
-  //       () => location.reload() // TG 11.05.2020 TODO: Reloading is bad practice. Make the check for the admin status and related components responsive
-  //     );
-  // }
 }
