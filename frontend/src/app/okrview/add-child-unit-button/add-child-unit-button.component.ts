@@ -35,7 +35,7 @@ export class AddChildUnitButtonComponent {
     } else if (this.topicSubject instanceof CompanyUnit) {
       config.data = { companyId: this.topicSubject.id };
     }
-    
+
     const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
 
     dialogReference
