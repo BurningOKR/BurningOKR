@@ -148,10 +148,6 @@ public class TaskService {
     Collection<Task> updatedTasks = new ArrayList<>();
 
     Task newPreviousTask = null;
-    /*
-       TODO In einen Validator Klasse auslagern
-       überprüft, ob eine Aufgabe auf sich selbst referenziert oder sich der neue Vorgänger in einer anderen Spalte/Zustand befindet
-    */
 
     logger.info("updateTaskWithPositioning - Validation");
     TaskValidator taskValidator = new TaskValidator();
