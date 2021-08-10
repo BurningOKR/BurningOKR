@@ -79,12 +79,4 @@ describe('AdminViewComponent', () => {
     expect(component)
       .toBeTruthy();
   });
-
-  // Todo 20.05.2020 dturnschek; Test private functions? Otherwise most of the class won't be tested.
-
-  // it('should fill currentUserId$ and adminUsers$', () => {
-  //       expect(component['currentUserId$'])
-  //         .toBe(currentUserMock.id);
-  //
-  // });
 });

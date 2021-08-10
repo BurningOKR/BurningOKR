@@ -91,7 +91,7 @@ export class ObjectiveComponent implements OnDestroy {
       onUpdateCommentIdList: this.objective.commentIdList,
     };
 
-    this.matDialog.open(CommentViewDialogComponent, {autoFocus: true, data: dialogData, width: '50vw'});
+    this.matDialog.open(CommentViewDialogComponent, {autoFocus: true, data: dialogData, minWidth: '50vw'});
   }
 
   // --
@@ -146,7 +146,7 @@ export class ObjectiveComponent implements OnDestroy {
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-      = this.matDialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+      = this.matDialog.open(ConfirmationDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
 
     this.subscriptions.push(
       dialogReference

@@ -20,7 +20,6 @@ import { ContextRole } from '../../shared/model/ui/context-role';
 import { Component, Input } from '@angular/core';
 import { AddChildUnitButtonComponent } from '../add-child-unit-button/add-child-unit-button.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { TopicDraftCreationFormComponent } from '../okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 
 @Component({
   selector: 'app-okr-child-unit-preview-button',
@@ -266,32 +265,5 @@ describe('CompanyComponent', () => {
 
     expect(excelServiceMock.downloadExcelEmailFileForCompany)
       .toHaveBeenCalledWith(company.id);
-  });
-
-  it('clickedAddTopicDraft opens dialog', () => {
-    fixture = TestBed.createComponent(CompanyComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-
-    component.clickedAddTopicDraft(company);
-
-    expect(matDialogMock.open)
-      .toHaveBeenCalledWith(TopicDraftCreationFormComponent, {
-        width: '600px', data: {  companyId: company.id }
-      });
-  });
-
-  it('clickedAddTopicDraft opens snackBar', done => {
-    fixture = TestBed.createComponent(CompanyComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-
-    component.clickedAddTopicDraft(company);
-
-    setTimeout(() => {
-      expect(snackBarMock.open)
-        .toHaveBeenCalled();
-      done();
-    }, 500);
   });
 });

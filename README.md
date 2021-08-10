@@ -64,6 +64,9 @@ The backend project uses [Project Lombok](https://projectlombok.org). To use Pro
 
 If PostgresSQL has already been successfully installed and configured in the previous step, the Spring Boot application can now be started.
 
+To start the application without IntelliJ, switch to backend/burning-okr and run `./gradlew bootRun --scan --scan -Dspring.profiles.active=local`. On some UNIX systems there might be some issues with gradle regarding finding the JDK.
+If some weird exceptions occur, try running `export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home` (replace the path with the actual path of your JDK). Then, restart your shell or run `source ~/.bash_profile`.
+
 The REST interfaces are listed under `localhost:8080/swagger-ui.html` and can be called there.
 
 ### Build and Test

@@ -2,7 +2,6 @@
   <button mat-icon-button [matMenuTriggerFor]="actionDropdown">
     <mat-icon>more_vert</mat-icon>
   </button>
-  <!-- TODO : Router link angeben - mWegmann 10.05.2021 -->
   <mat-menu #actionDropdown="matMenu">
       <span matTooltip="{{ getEditTooltipText$() | async}}" [matTooltipDisabled]="canEditTopicDraft$() | async">
         <button mat-menu-item [disabled]="!(canEditTopicDraft$() | async)" (click)="editTopicDraft()">

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
@@ -6,105 +6,115 @@ import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
 import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
 import { I18n } from '@ngx-translate/i18n-polyfill';
+import { Subscription } from 'rxjs';
 
 export interface CommentViewDialogFormData {
-  componentTypeTitle: string;
-  componentName: string;
-  viewCommentParentType: ViewCommentParentType;
-  parentId: number;
-  onUpdateCommentIdList?: number[];
+    componentTypeTitle: string;
+    componentName: string;
+    viewCommentParentType: ViewCommentParentType;
+    parentId: number;
+    onUpdateCommentIdList?: number[];
 }
 
 @Component({
-  selector: 'app-comment-view-dialog',
-  templateUrl: './comment-view-dialog.component.html',
-  styleUrls: ['./comment-view-dialog.component.scss']
+    selector: 'app-comment-view-dialog',
+    templateUrl: './comment-view-dialog.component.html',
+    styleUrls: ['./comment-view-dialog.component.scss']
 })
-export class CommentViewDialogComponent implements OnInit, CommentViewDialogFormData {
+export class CommentViewDialogComponent implements OnInit, OnDestroy , CommentViewDialogFormData {
+    componentTypeTitle: string;
+    componentName: string;
+    viewCommentParentType: ViewCommentParentType;
+    parentId: number;
+    onUpdateCommentIdList: number[];
 
-  componentTypeTitle: string;
-  componentName: string;
-  viewCommentParentType: ViewCommentParentType;
-  parentId: number;
-  onUpdateCommentIdList: number[];
+    parentKeyResult: ViewKeyResult;
 
-  parentKeyResult: ViewKeyResult;
+    commentList: ViewComment[];
+    newCommentText: string = '';
+    isPostingComment: boolean = false;
 
-  commentList: ViewComment[];
-  newCommentText: string = '';
-  isPostingComment: boolean = false;
+    subscriptions: Subscription[] = [];
 
-  constructor(
-    public dialogRef: MatDialogRef<CommentViewDialogComponent>,
-    public commentMapperService: CommentMapperService,
-    private i18n: I18n,
-    @Inject(MAT_DIALOG_DATA) private formData: (CommentViewDialogFormData | any)
-  ) {
-    this.componentTypeTitle = formData.componentTypeTitle;
-    this.componentName = formData.componentName;
-    this.viewCommentParentType = formData.viewCommentParentType;
-    this.parentId = formData.parentId;
-    this.commentList = [];
-    this.onUpdateCommentIdList = formData.hasOwnProperty('onUpdateCommentIdList') ? formData.onUpdateCommentIdList : [];
-  }
-
-  ngOnInit(): void {
-    this.loadCommentList();
-  }
-
-  clickedClose(): void {
-    this.dialogRef.close();
-  }
-
-  // TODO Subscription überarbeiten
-  loadCommentList(): void {
-    this.commentMapperService
-      .getCommentsFromParentObject$(this.viewCommentParentType, this.parentId)
-      .pipe(take(1))
-      .subscribe(commentList => (this.commentList = commentList));
-  }
-
-  canPostNewComment(): boolean {
-    return !(this.newCommentText.length < 3 || this.isPostingComment);
-  }
-
-  postNewComment(): void {
-    if (this.canPostNewComment()) {
-      this.isPostingComment = true;
-      const newComment: ViewComment = new ViewComment(1, '', this.newCommentText, new Date());
-
-      this.commentMapperService
-        .createComment$(this.viewCommentParentType, this.parentId, newComment)
-        .pipe(take(1))
-        .subscribe(createdComment => {
-          this.onUpdateCommentIdList.push(createdComment.id);
-          this.isPostingComment = false;
-          this.newCommentText = '';
-          this.loadCommentList();
-        });
+    constructor(
+        public dialogRef: MatDialogRef<CommentViewDialogComponent>,
+        public commentMapperService: CommentMapperService,
+        private i18n: I18n,
+        @Inject(MAT_DIALOG_DATA) private formData: (CommentViewDialogFormData | any)
+    ) {
+        this.componentTypeTitle = formData.componentTypeTitle;
+        this.componentName = formData.componentName;
+        this.viewCommentParentType = formData.viewCommentParentType;
+        this.parentId = formData.parentId;
+        this.commentList = [];
+        this.onUpdateCommentIdList = formData.hasOwnProperty('onUpdateCommentIdList') ? formData.onUpdateCommentIdList : [];
     }
-  }
 
-  queryDeleteComment(commentToDelete: ViewComment): void {
-    this.commentMapperService.deleteComment$(commentToDelete)
-      .pipe(take(1))
-      .subscribe(commentStillExists => { if (!commentStillExists) {
-        this.commentDeleted(commentToDelete); }});
-  }
+    ngOnInit(): void {
+        this.loadCommentList();
+    }
 
-  commentDeleted(deletedComment: ViewComment): void {
-    const indexOfComment: number = this.commentList.indexOf(deletedComment);
-    this.commentList.splice(indexOfComment, 1);
-    const indexOfCommentId: number = this.onUpdateCommentIdList.indexOf(deletedComment.id);
-    this.onUpdateCommentIdList.splice(indexOfCommentId, 1);
-  }
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
 
-  getHintLabel(): string {
-    const threeCharactersRequired: string = this.i18n({
-      id: 'three_characters_required',
-      value: 'Min. 3 Zeichen benötigt'
-    });
+    clickedClose(): void {
+        this.dialogRef.close();
+    }
 
-    return this.newCommentText.length < 3 ? threeCharactersRequired : '';
-  }
+    loadCommentList(): void {
+        this.subscriptions.push(
+            this.commentMapperService
+                .getCommentsFromParentObject$(this.viewCommentParentType, this.parentId)
+                .pipe(take(1))
+                .subscribe(commentList => (this.commentList = commentList))
+        );
+    }
+
+    canPostNewComment(): boolean {
+        return !(this.newCommentText.length < 3 || this.isPostingComment);
+    }
+
+    postNewComment(): void {
+        if (this.canPostNewComment()) {
+            this.isPostingComment = true;
+            const newComment: ViewComment = new ViewComment(1, '', this.newCommentText, new Date());
+
+            this.commentMapperService
+                .createComment$(this.viewCommentParentType, this.parentId, newComment)
+                .pipe(take(1))
+                .subscribe(createdComment => {
+                    this.onUpdateCommentIdList.push(createdComment.id);
+                    this.isPostingComment = false;
+                    this.newCommentText = '';
+                    this.loadCommentList();
+                });
+        }
+    }
+
+    queryDeleteComment(commentToDelete: ViewComment): void {
+        this.commentMapperService.deleteComment$(commentToDelete)
+            .pipe(take(1))
+            .subscribe(commentStillExists => {
+                if (!commentStillExists) {
+                    this.commentDeleted(commentToDelete);
+                }
+            });
+    }
+
+    commentDeleted(deletedComment: ViewComment): void {
+        const indexOfComment: number = this.commentList.indexOf(deletedComment);
+        this.commentList.splice(indexOfComment, 1);
+        const indexOfCommentId: number = this.onUpdateCommentIdList.indexOf(deletedComment.id);
+        this.onUpdateCommentIdList.splice(indexOfCommentId, 1);
+    }
+
+    getHintLabel(): string {
+        const threeCharactersRequired: string = this.i18n({
+            id: 'three_characters_required',
+            value: 'Min. 3 Zeichen benötigt'
+        });
+
+        return this.newCommentText.length < 3 ? threeCharactersRequired : '';
+    }
 }
