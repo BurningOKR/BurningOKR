@@ -1,4 +1,3 @@
--- TODO needs to be tested
 CREATE TABLE note_key_result (
     id bigint NOT NULL,
     parent_key_result_id bigint NOT NULL,
