@@ -16,7 +16,6 @@ import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.okr.TaskValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,7 +146,7 @@ public class TaskService {
       throws Exception {
     Collection<Task> updatedTasks = new ArrayList<>();
 
-    Task newPreviousTask = null;
+    Task newPreviousTask;
 
     logger.info("updateTaskWithPositioning - Validation");
     TaskValidator taskValidator = new TaskValidator();
