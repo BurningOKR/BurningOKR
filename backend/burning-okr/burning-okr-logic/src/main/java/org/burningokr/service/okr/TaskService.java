@@ -16,6 +16,7 @@ import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
+import org.burningokr.service.okr.TaskValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +152,12 @@ public class TaskService {
        TODO In einen Validator Klasse auslagern
        überprüft, ob eine Aufgabe auf sich selbst referenziert oder sich der neue Vorgänger in einer anderen Spalte/Zustand befindet
     */
+
+    logger.info("updateTaskWithPositioning - Validation");
+    TaskValidator taskValidator = new TaskValidator();
+    newPreviousTask = taskValidator.validateTask(newVersion, taskRepository);
+    logTask(newPreviousTask);
+
     logger.info("updateTaskWithPositioning - Validation");
     if (newVersion.hasPreviousTask()) {
       if (!(newVersion.getPreviousTask().getId().equals(newVersion.getId()))) {
