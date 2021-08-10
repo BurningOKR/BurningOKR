@@ -54,42 +54,31 @@ describe('UserService', () => {
   });
 
   it('getAllUsers$ should return User from ApiService', done => {
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2, mockUser3]));
+    const expected: User[] = [mockUser1, mockUser2, mockUser3];
+    userApiServiceMock.getUsers$.mockReturnValueOnce(of(expected));
 
     const actual$: Observable<User[]> = userService.getAllUsers$();
 
-    actual$.subscribe((users: User[]) => {
-      expect(users)
-        .toContain(mockUser1);
-      expect(users)
-        .toContain(mockUser2);
-      expect(users)
-        .toContain(mockUser3);
+    actual$.subscribe((actual: User[]) => {
+      expect(actual)
+        .toEqual(expected);
       done();
     });
   });
   it('getAllUsers$ should return User from cache', done => {
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2, mockUser3]));
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2]));
+    const expected: User[] = [mockUser1, mockUser2, mockUser3];
+    userApiServiceMock.getUsers$.mockReturnValueOnce(of(expected));
 
     const fromApi$: Observable<User[]> = userService.getAllUsers$();
     const fromCache$: Observable<User[]> = userService.getAllUsers$();
-// Todo 26.05.2020 dturnschek; This is not nice. Change TSLint to allow userService['users$'] = something; ?
-    fromApi$.subscribe((users: User[]) => {
-      expect(users)
-        .toContain(mockUser1);
-      expect(users)
-        .toContain(mockUser2);
-      expect(users)
-        .toContain(mockUser3);
+
+    fromApi$.subscribe((actual: User[]) => {
+      expect(actual)
+          .toEqual(expected);
     });
-    fromCache$.subscribe((users: User[]) => {
-      expect(users)
-        .toContain(mockUser1);
-      expect(users)
-        .toContain(mockUser2);
-      expect(users)
-        .toContain(mockUser3);
+    fromCache$.subscribe((actual: User[]) => {
+      expect(actual)
+          .toEqual(expected);
       done();
     });
   });

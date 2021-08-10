@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { TopicDraftCreationFormComponent } from '../okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
@@ -24,8 +23,7 @@ export class OkrChildUnitTabComponent implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private matDialog: MatDialog, private currentOkrViewService: CurrentOkrviewService,
-              private snackBar: MatSnackBar, private i18n: I18n) {}
+  constructor(private matDialog: MatDialog, private currentOkrViewService: CurrentOkrviewService) {}
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -62,30 +60,5 @@ export class OkrChildUnitTabComponent implements OnDestroy {
   private onSubDepartmentAdded(addedChildUnit: OkrChildUnit): void {
     this.okrBranch.okrChildUnitIds.push(addedChildUnit.id);
     this.currentOkrViewService.refreshCurrentDepartmentView(this.okrBranch.id);
-  }
-
-  clickedAddTopicDraft(): void {
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, {
-      width: '600px', data: {  unitId: this.okrBranch.id }
-    });
-
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(
-          take(1),
-          filter(v => v),
-          switchMap(n => n)
-        )
-        .subscribe(addedTopicDraft => {
-          const snackBarText: string = this.i18n({
-            id: 'snackbar_addTopicDraft',
-            value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'});
-          const snackBarOk: string = this.i18n({
-            id: 'short_okay',
-            value: 'Ok'});
-          this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
-        })
-    );
   }
 }
