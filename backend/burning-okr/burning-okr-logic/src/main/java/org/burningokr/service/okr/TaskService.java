@@ -154,21 +154,6 @@ public class TaskService {
     newPreviousTask = taskValidator.validateTask(newVersion, taskRepository);
     logTask(newPreviousTask);
 
-    logger.info("updateTaskWithPositioning - Validation");
-    if (newVersion.hasPreviousTask()) {
-      if (!(newVersion.getPreviousTask().getId().equals(newVersion.getId()))) {
-        newPreviousTask = taskRepository.findByIdOrThrow(newVersion.getPreviousTask().getId());
-        logger.info(
-            "updateTaskWithPositioning - Validation - previous and current task have different ids");
-        logTask(newPreviousTask);
-        if (!(newVersion.getTaskState().getId().equals(newPreviousTask.getTaskState().getId()))) {
-          throw new Exception("Aufgaben sind in unterschiedlichen Spalten/Zuständen");
-        }
-      } else {
-        throw new Exception("Aufgabe ist sein eigener Vorgänger");
-      }
-    }
-
     // neuer Nachfolger: referenziert auf den neuen Vorgänger des verschobenen Tasks
     // gegeben sind nun der neue Vorgänger und der neue Nachfolger
     Task newNextTask;
