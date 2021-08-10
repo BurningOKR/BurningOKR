@@ -292,7 +292,6 @@ public class CompanyService {
     return history;
   }
 
-  // TODO (R.J. 17.02.2021) create this method
   public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
