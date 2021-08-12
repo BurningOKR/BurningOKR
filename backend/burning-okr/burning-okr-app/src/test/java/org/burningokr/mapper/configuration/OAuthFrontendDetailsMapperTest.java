@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-// Todo: 23.04.2020 dturnschek; Add Type to tests once Type gets its own Enum.
 public class OAuthFrontendDetailsMapperTest {
 
   private OAuthFrontendDetailsMapper mapper;

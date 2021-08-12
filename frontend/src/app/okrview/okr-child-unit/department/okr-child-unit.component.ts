@@ -126,7 +126,6 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   // Template actions
-  // TODO: (R.J. 06.10.2020) 404 Error handling for dialogs is also needed...
   clickedEditChildUnit(childUnit: OkrChildUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
       data: { childUnit }

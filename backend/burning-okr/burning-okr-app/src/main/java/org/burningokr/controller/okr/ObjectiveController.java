@@ -139,7 +139,7 @@ public class ObjectiveController {
       User user) {
     noteObjectiveDto.setParentObjectiveId(objectiveId);
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
-    noteObjective.setId(null); // ToDo (C.K. check if needed)
+    noteObjective.setId(null);
     noteObjective = this.objectiveService.createNote(objectiveId, noteObjective, user);
     return ResponseEntity.ok(noteObjectiveMapper.mapEntityToDto(noteObjective));
   }
