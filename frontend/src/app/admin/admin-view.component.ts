@@ -52,7 +52,7 @@ export class AdminViewComponent implements OnInit {
         }),
       );
   }
-  // Todo dturnschek 20.05.2020; Why use subscribe? Pipe([...], ShareReplay() would do the same as a replay subject)
+
   private getAdminUsers$(): void {
     combineLatest([
       this.userService.getUsers$(),
