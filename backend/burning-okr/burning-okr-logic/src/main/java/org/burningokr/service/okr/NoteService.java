@@ -42,7 +42,7 @@ public class NoteService {
     if (noteKeyResult.isPresent()) {
       return noteKeyResult.get();
     }
-    // TODO JZ (19.07.2021) check in Repo for Topic Drafts
+
     return null;
   }
 
