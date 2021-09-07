@@ -59,9 +59,12 @@ public class AadUserListUpdater {
     for (AadUser aadUser : aadUserList) {
       String mail = "";
       if (aadUser.getMail() == null) {
-        logger.info("Problem with updating user. Missing mail:" + aadUser.getGivenName() + ", " + aadUser.getSurname());
-      }
-      else{
+        logger.info(
+            "Problem with updating user. Missing mail:"
+                + aadUser.getGivenName()
+                + ", "
+                + aadUser.getSurname());
+      } else {
         mail = aadUser.getMail();
       }
       aadUser.setMail(mail.toLowerCase());
