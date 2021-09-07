@@ -57,7 +57,14 @@ public class AadUserListUpdater {
     Collection<AadUser> aadUserList = azureUserFetcher.fetchAzureUsers(accessToken);
     logger.info("Updating " + aadUserList.size() + " users...");
     for (AadUser aadUser : aadUserList) {
-      aadUser.setMail(aadUser.getMail().toLowerCase());
+      String mail = "";
+      if (aadUser.getMail() == null) {
+        logger.info("Problem with updating user. Missing mail:" + aadUser.getGivenName() + ", " + aadUser.getSurname());
+      }
+      else{
+        mail = aadUser.getMail();
+      }
+      aadUser.setMail(mail.toLowerCase());
       String photoAsBase64 = azurePhotoFetcher.getPhotoForUserId(accessToken, aadUser.getId());
       aadUser.setPhoto(photoAsBase64);
     }
