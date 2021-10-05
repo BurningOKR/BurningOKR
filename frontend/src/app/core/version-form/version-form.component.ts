@@ -11,7 +11,7 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
-      version: '1.3.9 (05.10.2021',
+      version: '1.3.9 (05.10.2021)',
       changes: [
           'Fixed serious bug with the SQL-Server'
       ]
