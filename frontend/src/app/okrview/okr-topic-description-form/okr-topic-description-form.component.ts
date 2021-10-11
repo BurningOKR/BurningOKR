@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {UserService} from '../../shared/services/helper/user.service';
-import {User} from '../../shared/model/api/user';
-import {Observable} from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UserService } from '../../shared/services/helper/user.service';
+import { User } from '../../shared/model/api/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-okr-topic-description-form',

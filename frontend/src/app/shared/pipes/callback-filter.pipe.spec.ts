@@ -1,4 +1,4 @@
-import {CallbackFilterPipe} from './callback-filter.pipe';
+import { CallbackFilterPipe } from './callback-filter.pipe';
 
 describe('CallbackFilterPipe', () => {
   it('create an instance', () => {
