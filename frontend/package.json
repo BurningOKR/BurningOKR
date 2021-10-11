@@ -65,6 +65,7 @@
     "ngx-avatar": "^3.7.0",
     "ngx-logger": "^4.0.7",
     "ngx-material-file-input": "^1.1.1",
+    "ngx-mat-select-search": "^3.3.0",
     "ngx-papaparse": "^4.0.4",
     "node-sass": "^4.12.0",
     "rxjs": "^6.5.2",

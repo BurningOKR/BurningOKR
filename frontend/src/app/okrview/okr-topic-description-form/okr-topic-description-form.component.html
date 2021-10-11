@@ -43,8 +43,11 @@
 
   <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
     <mat-select formControlName="initiatorId" i18n-placeholder="@@initiator" placeholder="Initiator">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="userFilters[0]"></ngx-mat-select-search>
+      </mat-option>
       <mat-option [value]="null"><span i18n="@@component_descriptionEditForm_initiator">Kein Initiator</span></mat-option>
-      <mat-option *ngFor="let user of users" [value]="user.id">
+      <mat-option *ngFor="let user of users | callbackFilter: userFilters[0].value: filter" [value]="user.id">
         {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
       </mat-option>
     </mat-select>
@@ -53,7 +56,10 @@
   <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
     <mat-select formControlName="startTeam" multiple
                 i18n-placeholder="@@startTeam" placeholder="Start Team">
-      <mat-option *ngFor="let user of users" [value]="user.id">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="userFilters[1]"></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let user of users | callbackFilter: userFilters[1].value: filter" [value]="user.id">
         {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
       </mat-option>
     </mat-select>
@@ -62,7 +68,10 @@
   <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
     <mat-select formControlName="stakeholders" multiple
                 i18n-placeholder="@@stakeholder" placeholder="Stakeholder">
-      <mat-option *ngFor="let user of users" [value]="user.id">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="userFilters[2]"></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let user of users | callbackFilter: userFilters[2].value: filter" [value]="user.id">
         {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
       </mat-option>
     </mat-select>
