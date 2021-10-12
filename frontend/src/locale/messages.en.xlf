@@ -1225,25 +1225,15 @@
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">42</context></context-group></trans-unit><trans-unit id="search" datatype="html">
         <source>Suche</source><target state="new">Search</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">49</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">66</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">82</context></context-group></trans-unit><trans-unit id="noUserFound" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/user-selector-multi/user-selector-multi.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">49</context></context-group></trans-unit><trans-unit id="noUserFound" datatype="html">
         <source>Keine Benutzer gefunden.</source><target state="new">No User found.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">68</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">84</context>
-        </context-group>
-      </trans-unit><trans-unit id="startTeam" datatype="html">
+
+
+      <context-group purpose="location"><context context-type="sourcefile">app/shared/components/user-selector-multi/user-selector-multi.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">51</context></context-group></trans-unit><trans-unit id="startTeam" datatype="html">
         <source>Start Team</source><target state="translated">Start team</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">62</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">97</context></context-group></trans-unit><trans-unit id="zero_team_member_info" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">60</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">97</context></context-group></trans-unit><trans-unit id="zero_team_member_info" datatype="html">
         <source>Keine Teammitglieder vorhanden</source><target state="translated">No team members assigned</target>
 
 
@@ -1279,7 +1269,7 @@
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">79</context></context-group></trans-unit><trans-unit id="stakeholder" datatype="html">
         <source>Stakeholder</source><target state="translated">Stakeholders</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">78</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_topic" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">62</context></context-group></trans-unit><trans-unit id="component_departmentTabDescription_topic" datatype="html">
         <source>Thema:</source><target state="translated">Topic:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">24</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-child-unit/department/department-tab-description/department-tab-description.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="goToOkrUnitOverview" datatype="html">

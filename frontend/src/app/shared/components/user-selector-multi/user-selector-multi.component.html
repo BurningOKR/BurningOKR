@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup">
   <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
-    <mat-select formControlName="{{ controlName }}" multiple>
+    <mat-select formControlName="{{ controlName }}" multiple placeholder="{{ placeholder }}">
       <mat-option>
         <ngx-mat-select-search [formControl]="userFilter"
                                i18n-placeholderLabel="@@search"
