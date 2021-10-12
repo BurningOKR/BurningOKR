@@ -57,35 +57,8 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
-    <mat-select formControlName="startTeam" multiple
-                i18n-placeholder="@@startTeam" placeholder="Start Team">
-      <mat-option>
-        <ngx-mat-select-search [formControl]="userFilters[1]"
-                               i18n-placeholderLabel="@@search"
-                               placeholderLabel="Suche"
-                               i18n-noEntriesFoundLabel="@@noUserFound"
-                               noEntriesFoundLabel="Keine Benutzer gefunden."></ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let user of users | callbackFilter: userFilters[1].value: filter" [value]="user.id">
-        {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <app-user-selector-multi i18n-placeholder="@@startTeam" placeholder="Start Team" [users$]="users$" [formGroup]="descriptionForm" controlName="startTeam"></app-user-selector-multi>
 
-  <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
-    <mat-select formControlName="stakeholders" multiple
-                i18n-placeholder="@@stakeholder" placeholder="Stakeholder">
-      <mat-option>
-        <ngx-mat-select-search [formControl]="userFilters[2]"
-                               i18n-placeholderLabel="@@search"
-                               placeholderLabel="Suche"
-                               i18n-noEntriesFoundLabel="@@noUserFound"
-                               noEntriesFoundLabel="Keine Benutzer gefunden."></ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let user of users | callbackFilter: userFilters[2].value: filter" [value]="user.id">
-        {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <app-user-selector-multi i18n-placeholder="@@stakeholder" placeholder="Stakeholder" [users$]="users$" [formGroup]="descriptionForm" controlName="stakeholders"></app-user-selector-multi>
+
 </form>

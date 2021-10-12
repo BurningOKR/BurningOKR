@@ -31,6 +31,7 @@ import { FormErrorComponent } from './components/form-error/form-error.component
 import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
 import { StatusDotComponent } from './components/status-dot/status-dot.component';
 import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
+import { UserSelectorMultiComponent } from './components/user-selector-multi/user-selector-multi.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
     MilestoneSliderWrapperComponent,
     StatusDotComponent,
     CallbackFilterPipe,
+    UserSelectorMultiComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -73,7 +75,7 @@ import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
     RouterModule,
     NgxMatSelectSearchModule
   ],
-  exports: [
+    exports: [
         UserAutocompleteInputComponent,
         UserMinibuttonComponent,
         LoadingSpinnerComponent,
@@ -87,7 +89,8 @@ import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
         FormErrorComponent,
         MilestoneSliderWrapperComponent,
         StatusDotComponent,
-        CallbackFilterPipe
+        CallbackFilterPipe,
+        UserSelectorMultiComponent
     ],
 })
 export class SharedModule {
