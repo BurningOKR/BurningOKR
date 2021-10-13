@@ -46,32 +46,29 @@
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_handoverPlan" matInput placeholder="Übergabeplan" formControlName="handoverPlan">
+      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_handoverPlan" matInput
+                placeholder="Übergabeplan" formControlName="handoverPlan">
       </textarea>
   </mat-form-field>
 
-  <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
-    <mat-select formControlName="initiatorId" i18n-placeholder="@@initiator" placeholder="Initiator">
-      <mat-option>
-        <ngx-mat-select-search [formControl]="userFilters[0]"
-                               i18n-placeholderLabel="@@search"
-                               placeholderLabel="Suche"
-                               i18n-noEntriesFoundLabel="@@noUserFound"
-                               noEntriesFoundLabel="Keine Benutzer gefunden."></ngx-mat-select-search>
-      </mat-option>
-      <mat-option [value]="null"><span i18n="@@component_descriptionEditForm_initiator">Kein Initiator</span></mat-option>
-      <mat-option *ngFor="let user of users | callbackFilter: userFilters[0].value: filter" [value]="user.id">
-        {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <app-user-selector [resultControl]="descriptionForm.get(['initiatorId'])"
+                     [users$]="users$"
+                     i18n-placeholderText="@@initiator"
+                     placeholderText="Initiator"
+                     i18n-noUser="@@component_descriptionEditForm_initiator"
+                     noUser="Kein Initiator"
+  ></app-user-selector>
 
-  <app-user-selector-multi i18n-placeholderText="@@startTeam" placeholderText="Start Team" [users$]="users$"
-                           [control]="descriptionForm.get(['startTeam'])">
-  </app-user-selector-multi>
+  <app-user-selector-multi [users$]="users$"
+                           [resultControl]="descriptionForm.get(['startTeam'])"
+                           i18n-placeholderText="@@startTeam"
+                           placeholderText="Start Team"
+  ></app-user-selector-multi>
 
-  <app-user-selector-multi i18n-placeholderText="@@stakeholder" placeholderText="Stakeholder" [users$]="users$"
-                           [control]="descriptionForm.get(['stakeholders'])">
-  </app-user-selector-multi>
+  <app-user-selector-multi [users$]="users$"
+                           [resultControl]="descriptionForm.get(['stakeholders'])"
+                           i18n-placeholderText="@@stakeholder"
+                           placeholderText="Stakeholder"
+  ></app-user-selector-multi>
 
 </form>

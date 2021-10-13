@@ -1,18 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { User } from '../../model/api/user';
 import { Observable } from 'rxjs';
+import { User } from '../../model/api/user';
 
 @Component({
-  selector: 'app-user-selector-multi',
-  templateUrl: './user-selector-multi.component.html',
-  styleUrls: ['./user-selector-multi.component.css']
+  selector: 'app-user-selector',
+  templateUrl: './user-selector.component.html',
+  styleUrls: ['./user-selector.component.css']
 })
-export class UserSelectorMultiComponent implements OnInit {
+export class UserSelectorComponent implements OnInit {
 
-  @Input() placeholderText: string = 'No Placeholder Set.';
   @Input() users$: Observable<User[]>;
+  @Input() placeholderText: string = 'Placeholder not set';
   @Input() resultControl: FormControl;
+  @Input() noUser: string = 'No User';
   userFilter: FormControl = new FormControl();
 
   ngOnInit(): void {
@@ -27,5 +28,4 @@ export class UserSelectorMultiComponent implements OnInit {
       user.givenName.toLowerCase()
         .includes(lFilter);
   }
-
 }
