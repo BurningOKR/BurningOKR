@@ -14,7 +14,7 @@ export class OkrTopicDescriptionFormComponent implements OnInit {
   @Input() descriptionForm: FormGroup;
   users$: Observable<User[]>;
   @Input() minBeginn: Date = new Date();
-  userFilters: FormControl[] = [new FormControl(), new FormControl(), new FormControl()];
+  userFilters: FormControl[] = [new FormControl()];
 
   constructor(private userService: UserService) {
   }
