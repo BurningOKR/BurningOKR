@@ -1,38 +1,47 @@
 <form [formGroup]="descriptionForm">
 
   <mat-form-field class="half-width">
-    <input i18n-placeholder="@@topic_table_header" matInput placeholder="Thema" formControlName="name" />
+    <input i18n-placeholder="@@topic_table_header" matInput placeholder="Thema" formControlName="name"/>
   </mat-form-field>
 
   <mat-form-field class="half-width">
-    <input [matDatepicker]="startDatePicker" readonly [min]="minBeginn" i18n-placeholder="@@component_descriptionEditForm_beginning" matInput placeholder="Beginn" formControlName="beginning">
+    <input [matDatepicker]="startDatePicker" readonly [min]="minBeginn"
+           i18n-placeholder="@@component_descriptionEditForm_beginning" matInput placeholder="Beginn"
+           formControlName="beginning">
     <mat-datepicker-toggle [for]="startDatePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #startDatePicker></mat-datepicker>
-    <mat-error><app-form-error [control]="descriptionForm.get('beginning')"></app-form-error></mat-error>
+    <mat-error>
+      <app-form-error [control]="descriptionForm.get('beginning')"></app-form-error>
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_description" matInput placeholder="Beschreibung" formControlName="description">
+      <textarea type="text" i18n-placeholder="@@component_description" matInput placeholder="Beschreibung"
+                formControlName="description">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_contributesTo" matInput placeholder="Zahlt ein auf" formControlName="contributesTo">
+      <textarea type="text" i18n-placeholder="@@component_contributesTo" matInput placeholder="Zahlt ein auf"
+                formControlName="contributesTo">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_delimitation" matInput placeholder="Abgrenzung" formControlName="delimitation">
+      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_delimitation" matInput
+                placeholder="Abgrenzung" formControlName="delimitation">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_dependencies" matInput placeholder="Abhängigkeiten" formControlName="dependencies">
+      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_dependencies" matInput
+                placeholder="Abhängigkeiten" formControlName="dependencies">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_resources" matInput placeholder="Benötigte Ressourcen" formControlName="resources">
+      <textarea type="text" i18n-placeholder="@@component_descriptionEditForm_resources" matInput
+                placeholder="Benötigte Ressourcen" formControlName="resources">
       </textarea>
   </mat-form-field>
 
@@ -57,8 +66,12 @@
     </mat-select>
   </mat-form-field>
 
-    <app-user-selector-multi i18n-placeholder="@@startTeam" placeholder="Start Team" [users$]="users$" [formGroup]="descriptionForm" controlName="startTeam"></app-user-selector-multi>
+  <app-user-selector-multi i18n-placeholderText="@@startTeam" placeholderText="Start Team" [users$]="users$"
+                           [control]="descriptionForm.get(['startTeam'])">
+  </app-user-selector-multi>
 
-    <app-user-selector-multi i18n-placeholder="@@stakeholder" placeholder="Stakeholder" [users$]="users$" [formGroup]="descriptionForm" controlName="stakeholders"></app-user-selector-multi>
+  <app-user-selector-multi i18n-placeholderText="@@stakeholder" placeholderText="Stakeholder" [users$]="users$"
+                           [control]="descriptionForm.get(['stakeholders'])">
+  </app-user-selector-multi>
 
 </form>

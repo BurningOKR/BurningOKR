@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { User } from '../../model/api/user';
 import { Observable } from 'rxjs';
 
@@ -10,10 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class UserSelectorMultiComponent implements OnInit {
 
-  @Input() placeholder: string = 'No Placeholder Set.';
+  @Input() placeholderText: string = 'No Placeholder Set.';
   @Input() users$: Observable<User[]>;
-  @Input() formGroup: FormGroup;
-  @Input() controlName;
+  @Input() control: FormControl;
   userFilter: FormControl = new FormControl();
 
   ngOnInit(): void {
