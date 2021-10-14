@@ -1208,7 +1208,7 @@
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit><trans-unit id="component_descriptionEditForm_beginning" datatype="html">
-        <source>Beginn</source><target state="translated">Beginning</target>
+        <source>Beginn *</source><target state="translated">Beginning *</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">8</context></context-group></trans-unit><trans-unit id="component_descriptionEditForm_delimitation" datatype="html">
         <source>Abgrenzung</source><target state="translated">Delimitation</target>
@@ -1226,7 +1226,7 @@
         <source>Kein Initiator</source><target state="translated">No initiator</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="initiator" datatype="html">
-        <source>Initiator</source><target state="translated">Initiator</target>
+        <source>Initiator *</source><target state="translated">Initiator *</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context><context context-type="linenumber">42</context></context-group></trans-unit><trans-unit id="startTeam" datatype="html">
         <source>Start Team</source><target state="translated">Start team</target>
@@ -2387,7 +2387,7 @@
         </context-group>
         <note priority="1" from="description">Do you want to delete topic draft x</note>
       </trans-unit><trans-unit id="topic_table_header" datatype="html">
-        <source>Thema</source><target state="translated">Topic</target>
+        <source>Thema *</source><target state="translated">Topic *</target>
 
 
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="initiator_table_header" datatype="html">
