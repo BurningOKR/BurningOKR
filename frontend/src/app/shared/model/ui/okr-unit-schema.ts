@@ -12,11 +12,13 @@ export class OkrUnitSchema {
   subDepartments: OkrUnitSchema[];
   userRole: OkrUnitRole;
   isActive: boolean;
+  isTeam: boolean;
 
-  constructor(id: OkrUnitId, name: string, userRole: OkrUnitRole, isActive: boolean) {
+  constructor(id: OkrUnitId, name: string, userRole: OkrUnitRole, isActive: boolean, isTeam: boolean) {
     this.id = id;
     this.name = name;
     this.userRole = userRole;
     this.isActive = isActive;
+    this.isTeam = isTeam;
   }
 }

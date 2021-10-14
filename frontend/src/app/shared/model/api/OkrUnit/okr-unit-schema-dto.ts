@@ -7,4 +7,5 @@ export interface OkrUnitSchemaDto {
   subDepartments: OkrUnitSchemaDto[];
   userRole: OkrUnitRole;
   isActive: boolean;
+  isTeam: boolean;
 }

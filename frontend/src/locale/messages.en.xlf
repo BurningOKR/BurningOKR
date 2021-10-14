@@ -1129,25 +1129,31 @@
       <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">96</context></context-group></trans-unit><trans-unit id="component_commentViewDialog_errorLoadingCompanyButton" datatype="html">
         <source>Zur Strukturübersicht</source><target state="translated">Back to structure overview</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">98</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/company/company.component.html</context><context context-type="linenumber">98</context></context-group></trans-unit><trans-unit id="component_navigationListEntry_isSubstructure" datatype="html">
+        <source>Dies ist eine Unterstruktur</source><target state="translated">This is a substructure</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_navigationListEntry_isTeam" datatype="html">
+        <source>Dies ist ein Team</source><target state="translated">This is a team</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="component_navigationListEntry_youAreManager" datatype="html">
         <source>Sie sind Manager dieser Struktur</source>
         <target state="translated">You are manager of this structure</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
+
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context><context context-type="linenumber">14</context></context-group></trans-unit>
       <trans-unit id="component_navigationListEntry_youAreMember" datatype="html">
         <source>Sie sind Mitglied dieser Struktur</source>
         <target state="translated">You are a member of this structure</target>
 
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
+
+      <context-group purpose="location"><context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit>
       <trans-unit id="component_commentCard_editComment" datatype="html">
         <source>Kommentar bearbeiten</source>
         <target state="translated">Edit comment</target>

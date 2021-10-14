@@ -38,6 +38,7 @@ public class OkrBranchSchemaMapper {
     unitSchemaDto.setName(okrChildUnit.getName());
     unitSchemaDto.setIsActive(okrChildUnit.isActive());
     unitSchemaDto.setUserRole(getRoleForUnit(okrChildUnit, currentUserId));
+    unitSchemaDto.setIsTeam(okrChildUnit instanceof OkrDepartment);
 
     if (okrChildUnit instanceof OkrParentUnit) {
       unitSchemaDto.setSubDepartments(
