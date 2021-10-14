@@ -1,6 +1,6 @@
 <form>
   <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
-    <mat-select [formControl]="resultControl" multiple [placeholder]="placeholderText">
+    <mat-select [formControl]="resultControl" multiple [placeholder]="placeholderText" panelClass="overwrite">
       <mat-option>
         <ngx-mat-select-search [formControl]="userFilter"
                                i18n-placeholderLabel="@@search"
