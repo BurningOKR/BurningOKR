@@ -77,24 +77,24 @@ import { UserSelectorComponent } from './components/user-selector/user-selector.
     RouterModule,
     NgxMatSelectSearchModule
   ],
-    exports: [
-        UserAutocompleteInputComponent,
-        UserMinibuttonComponent,
-        LoadingSpinnerComponent,
-        MatButtonModule,
-        DialogComponent,
-        UserAvatarComponent,
-        OkrToolbarBareComponent,
-        OkrToolbarComponent,
-        CapsLockDirective,
-        NonLoggedInCardComponent,
-        FormErrorComponent,
-        MilestoneSliderWrapperComponent,
-        StatusDotComponent,
-        CallbackFilterPipe,
-        UserSelectorMultiComponent,
-        UserSelectorComponent
-    ],
+  exports: [
+      UserAutocompleteInputComponent,
+      UserMinibuttonComponent,
+      LoadingSpinnerComponent,
+      MatButtonModule,
+      DialogComponent,
+      UserAvatarComponent,
+      OkrToolbarBareComponent,
+      OkrToolbarComponent,
+      CapsLockDirective,
+      NonLoggedInCardComponent,
+      FormErrorComponent,
+      MilestoneSliderWrapperComponent,
+      StatusDotComponent,
+      CallbackFilterPipe,
+      UserSelectorMultiComponent,
+      UserSelectorComponent
+  ],
 })
 export class SharedModule {
 }
