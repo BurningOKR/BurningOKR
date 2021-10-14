@@ -47,9 +47,4 @@ public class OkrUnitSchemaDto {
   public void setIsTeam(Boolean team) {
     isTeam = team;
   }
-
-
-
-
-
 }

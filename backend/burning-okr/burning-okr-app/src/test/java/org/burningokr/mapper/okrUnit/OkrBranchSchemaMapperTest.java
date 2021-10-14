@@ -107,8 +107,8 @@ public class OkrBranchSchemaMapperTest {
     departmentList.add(okrDepartment4);
 
     Collection<OkrUnitSchemaDto> actual =
-            okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-                    departmentList, currentUserId);
+        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+            departmentList, currentUserId);
 
     Assert.assertEquals(1, actual.size());
     for (OkrUnitSchemaDto dto : actual) {
