@@ -108,12 +108,12 @@ describe('CompanyComponent', () => {
     cycle = new CycleUnit(1, 'TestCycle', [10], new Date(), new Date(), CycleState.ACTIVE, true);
 
     unitSchemas = [
-      new OkrUnitSchema(11, 'Unit', OkrUnitRole.MANAGER, true),
-      new OkrUnitSchema(12, 'Name', OkrUnitRole.MEMBER, true),
-      new OkrUnitSchema(13, 'Schema', OkrUnitRole.USER, true)
+      new OkrUnitSchema(11, 'Unit', OkrUnitRole.MANAGER, true, true),
+      new OkrUnitSchema(12, 'Name', OkrUnitRole.MEMBER, true, true),
+      new OkrUnitSchema(13, 'Schema', OkrUnitRole.USER, true, true)
     ];
     unitSchemas[2].subDepartments = [
-      new OkrUnitSchema(14, 'SubUnit', OkrUnitRole.MANAGER, true)
+      new OkrUnitSchema(14, 'SubUnit', OkrUnitRole.MANAGER, true, true)
     ];
 
     company = new CompanyUnit(10, 'TestCompany', [], [], 1, 'label');

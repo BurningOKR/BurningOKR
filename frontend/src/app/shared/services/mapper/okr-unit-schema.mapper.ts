@@ -63,7 +63,7 @@ export class OkrUnitSchemaMapper {
   }
 
   mapOkrUnitSchemaDto(dto: OkrUnitSchemaDto): OkrUnitSchema {
-    const okrUnitSchema: OkrUnitSchema = new OkrUnitSchema(dto.id, dto.name.toString(), dto.userRole, dto.isActive);
+    const okrUnitSchema: OkrUnitSchema = new OkrUnitSchema(dto.id, dto.name.toString(), dto.userRole, dto.isActive, dto.isTeam);
     okrUnitSchema.subDepartments = this.mapOkrUnitSchemaDtoList(dto.subDepartments);
 
     return okrUnitSchema;

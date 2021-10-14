@@ -297,13 +297,13 @@
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit><trans-unit id="topic_table_header" datatype="html">
-        <source>Thema</source>
+        <source>Thema *</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit><trans-unit id="component_descriptionEditForm_beginning" datatype="html">
-        <source>Beginn</source>
+        <source>Beginn *</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
           <context context-type="linenumber">9</context>
@@ -365,7 +365,7 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit><trans-unit id="initiator" datatype="html">
-        <source>Initiator</source>
+        <source>Initiator *</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
           <context context-type="linenumber">57</context>

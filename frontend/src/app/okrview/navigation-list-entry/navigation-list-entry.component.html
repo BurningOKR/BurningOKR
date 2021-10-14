@@ -4,6 +4,10 @@
       [ngClass]="isCurrentDepartment()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' "
       [routerLink]="['./departments/'+schema.id]">
       <div class="flex-nowrap">
+        <mat-icon *ngIf="isUnitSubstructure()" i18n-matTooltip="@@component_navigationListEntry_isSubstructure" matTooltip="Dies ist eine Unterstruktur" class="icon-spacer">
+          account_tree</mat-icon>
+        <mat-icon *ngIf="isUnitTeam()" i18n-matTooltip="@@component_navigationListEntry_isTeam" matTooltip="Dies ist ein Team" class="icon-spacer">
+          supervisor_account</mat-icon>
         <div class="unit-name overflow-ellipsis">{{schema.name}}
         </div>
         <div class="fill-space"></div>
