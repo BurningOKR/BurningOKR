@@ -57,9 +57,9 @@ public class OkrTopicDescriptionMapperTest {
   public void test_mapEntityToDto_expect_acceptanceCriteria_ismapped() {
     String expected = "testAcceptanceCriteria";
 
-    description.setAcceptanceCriteria(expected);
+    description.setDescription(expected);
     OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
-    assertEquals(expected, actual.getAcceptanceCriteria());
+    assertEquals(expected, actual.getDescription());
   }
 
   @Test
@@ -183,9 +183,9 @@ public class OkrTopicDescriptionMapperTest {
   public void test_mapDtoToEntity_expect_acceptanceCriteria_ismapped() {
     String expected = "testAcceptanceCriteria";
 
-    descriptionDto.setAcceptanceCriteria(expected);
+    descriptionDto.setDescription(expected);
     OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
-    assertEquals(expected, actual.getAcceptanceCriteria());
+    assertEquals(expected, actual.getDescription());
   }
 
   @Test

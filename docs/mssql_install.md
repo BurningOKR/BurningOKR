@@ -23,20 +23,28 @@
     2. On the left is the `Object Explorer`. Expand the entries so that it looks like this:
        
        ![SQL_Server_Object_Explorer](./images/ssms_object_explorer.PNG)
-    3. Create a new Login by right clicking `Logins` in the `Object Explorer` and selecting `New Login...`.
+        
+    3. Change the `Server Authentication Mode`.
+        1. Right click on the Root-Node of the `Object Explorer` and select `properties`.
+        2. On the left select `Security`
+        3. Under `Server authentication` select `SQL Server and Windows Authentication mode`. It should look something like this:
+        ![SQL_SERVER_AUTHENTICATION_MODE](./images/ssms_change_server_authentication.png)   
+
+    4. Create a new Login by right clicking `Logins` in the `Object Explorer` and selecting `New Login...`.
         1. Set a meaningful `Login Name`. For Example `BurningOKR_User`.
         2. Select `SQL Server authentication`
         3. Set a secure `Password`.
         4. Remove the ticks from `Enforce password expiration` and `User must change password at next login`.
         5. Click on `Ok`
-    4. Create a new Database by right clickng `Databases` in the `Object Explorer` and selecting `New Database...`
+    5. Create a new Database by right clickng `Databases` in the `Object Explorer` and selecting `New Database...`
         1. Set a meaningful `Database name`. For Example `okr`
         2. Click on `...` next to `Owner`. A new Window opens. Click on `Browse...`. A new Window Opens. Select the Login, that was created earlier.
            
            ![SQL_Server_Create_Database](./images/ssms_create_database.PNG)
         3. Click on `Ok` in every open window.
-    5. You can now close `Microsoft SQL Server Management Studio`.
-7. Open `SQL Server Configuration Manager`
+    6. You can now close `Microsoft SQL Server Management Studio`.
+7. Open `SQL Server Configuration Manager` 
+(Windows-Key + R and enter `compmgmt.msc` -> Expand `Services and Applications` -> Expand `SQL Server Configuration Manager`)
     1. Click on `SQL Server Network Configuration`.
     2. Click on `Protocols for SQLEXPRESS`.
     3. Right Click on `TCP/IP` and select `Properties`.

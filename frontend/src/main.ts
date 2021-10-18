@@ -16,5 +16,5 @@ platformBrowserDynamic()
 
     ]
   })
-  // tslint:disable-next-line:no-console TODO: handle differently than just logging to console
+  // tslint:disable-next-line:no-console
   .catch(err => console.log(err));

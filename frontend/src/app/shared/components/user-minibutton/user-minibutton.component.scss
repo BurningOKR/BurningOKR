@@ -2,10 +2,23 @@
   display: flex;
   align-content: center;
   min-width: 280px;
+  max-width: 100vw;
   min-height: 64px;
   max-height: 96px;
   margin: 12px;
   padding: 4px;
+}
+
+.user-avatar {
+  max-width: 64px;
+}
+
+.user-details {
+  max-width: 100%;
+}
+
+.delete-button {
+  margin-left: auto;
 }
 
 .flex-center {
@@ -27,8 +40,42 @@
 
 .name {
   font-size:large;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .subtitle{
   font-weight: lighter
+}
+
+@media (max-width: 350px) {
+  .user-card {
+    min-width: 200px;
+  }
+}
+
+.user-infos {
+  max-width: 50%;
+  margin-left: 5%;
+}
+
+@media (min-width: 400px) {
+  .user-infos {
+    max-width: 60%;
+    margin-left: 5%;
+  }
+}
+
+@media (min-width: 720px) {
+  .user-infos {
+    max-width: 70%;
+    margin-left: 10%;
+  }
+}
+
+@media (min-width: 1080px) {
+  .user-infos {
+    max-width: 80%;
+    margin-left: 10%;
+  }
 }

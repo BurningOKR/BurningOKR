@@ -14,6 +14,7 @@ import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
+import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.ConfigurationChangedEvent;
@@ -48,12 +49,18 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       UnitRepository<T> unitRepository,
       UnitRepository<OkrUnit> superUnitRepository,
       ObjectiveRepository objectiveRepository,
+      OkrTopicDraftRepository topicDraftRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       OkrTopicDescriptionRepository okrTopicDescriptionRepository,
       TaskBoardService taskBoardService) {
     super(
-        parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
+        parentService,
+        unitRepository,
+        objectiveRepository,
+        topicDraftRepository,
+        activityService,
+        entityCrawlerService);
 
     this.superUnitRepository = superUnitRepository;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;

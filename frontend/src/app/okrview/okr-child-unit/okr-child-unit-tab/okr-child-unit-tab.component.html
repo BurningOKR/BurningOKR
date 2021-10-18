@@ -3,20 +3,24 @@
     <!-- Tab title and add subdepartments buton-->
     <div class="flex-nowrap">
       <div class="f-3">
-        <div class="tab-headline" i18n="@@component_departmentTabSubDepartments_childUnit">Unterstrukturen</div>
+        <div class="tab-headline" i18n="@@capitalized_substructures">Unterstrukturen</div>
       </div>
-      <div class="icon-spacer f-1" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
-        <button mat-mini-fab color="accent" (click)="clickedAddSubDepartment()">
-          <mat-icon i18n-matTooltip="@@component_departmentTabSubDepartments_defineChildUnit" matTooltip="Neue Unterstruktur definieren">add_circle_outline</mat-icon>
-        </button>
+      <div class="icon-spacer f-1">
+        <app-add-child-unit-button [userRole]="currentUserRole"
+                                   [cycleClosed]="cycle.isCycleClosed()"
+                                   [topicSubject]="okrBranch"
+                                   (clickedAddSubBranch)="clickedAddChildOkrBranch()"
+                                   (clickedAddSubDepartment)="clickedAddChildDepartment()">
+        </app-add-child-unit-button>
       </div>
     </div>
     <!-- Subdepartments -->
-    <div *ngIf="okrBranch.okrUnitIds.length == 0" class="tab-subtitle" i18n="@@component_departmentTabSubDepartments_noChildUnit">
+    <div *ngIf="okrBranch.okrChildUnitIds.length == 0" class="tab-subtitle"
+         i18n="@@component_departmentTabSubDepartments_noChildUnit">
       Es gibt noch keine Unterstrukturen für diese Struktur
     </div>
     <div class="flex-wrap-spreadinner">
-      <div *ngFor="let currentdepartmentId of okrBranch.okrUnitIds">
+      <div *ngFor="let currentdepartmentId of okrBranch.okrChildUnitIds">
         <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
       </div>
     </div>

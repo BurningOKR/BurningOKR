@@ -1,0 +1,1 @@
+EXEC sp_rename 'okr_topic_description.acceptance_criteria', 'description', 'COLUMN'

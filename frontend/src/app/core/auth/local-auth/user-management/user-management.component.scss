@@ -20,6 +20,12 @@
   hyphens: auto;
 }
 
+.name-column {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 @media only screen and (max-width: 810px) {
   .hidden-mobile-table {
     display: none !important;

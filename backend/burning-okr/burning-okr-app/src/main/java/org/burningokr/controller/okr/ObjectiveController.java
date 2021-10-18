@@ -4,9 +4,12 @@ import java.util.Collection;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
+import org.burningokr.dto.okr.NoteDto;
+import org.burningokr.dto.okr.NoteObjectiveDto;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.ObjectiveService;
@@ -27,6 +30,7 @@ public class ObjectiveController {
   private ObjectiveService objectiveService;
   private DataMapper<Objective, ObjectiveDto> objectiveMapper;
   private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
+  private DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper;
   private AuthorizationService authorizationService;
 
   /**
@@ -37,6 +41,8 @@ public class ObjectiveController {
    *     ObjectiveDto}
    * @param keyResultMapper a {@link DataMapper} object with {@link KeyResult} and {@link
    *     KeyResultDto}
+   * @param noteObjectiveMapper a {@link DataMapper} object with {@link NoteObjective} and {@link
+   *     NoteObjectiveDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
@@ -44,10 +50,12 @@ public class ObjectiveController {
       ObjectiveService objectiveService,
       DataMapper<Objective, ObjectiveDto> objectiveMapper,
       DataMapper<KeyResult, KeyResultDto> keyResultMapper,
+      DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper,
       AuthorizationService authorizationService) {
     this.objectiveService = objectiveService;
     this.objectiveMapper = objectiveMapper;
     this.keyResultMapper = keyResultMapper;
+    this.noteObjectiveMapper = noteObjectiveMapper;
     this.authorizationService = authorizationService;
   }
 
@@ -82,6 +90,13 @@ public class ObjectiveController {
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
+  @GetMapping("/objectives/{objectiveId}/notes")
+  public ResponseEntity<Collection<NoteObjectiveDto>> getNotesOfObjective(
+      @PathVariable long objectiveId) {
+    Collection<NoteObjective> noteObjectives = objectiveService.findNotesOfObjective(objectiveId);
+    return ResponseEntity.ok(noteObjectiveMapper.mapEntitiesToDtos(noteObjectives));
+  }
+
   /**
    * API Endpoint to add Key Result to an Objective.
    *
@@ -107,5 +122,25 @@ public class ObjectiveController {
   public ResponseEntity deleteObjectiveById(@PathVariable Long objectiveId, User user) {
     objectiveService.deleteObjectiveById(objectiveId, user);
     return ResponseEntity.ok().build();
+  }
+
+  @PutMapping("/objectives/notes")
+  public ResponseEntity<ObjectiveDto> updateObjectiveKeyResult(
+      @Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
+    NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
+    this.objectiveService.updateNote(noteObjective);
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/objectives/{objectiveId}/notes")
+  public ResponseEntity<NoteDto> addNoteToObjective(
+      @PathVariable long objectiveId,
+      @Valid @RequestBody NoteObjectiveDto noteObjectiveDto,
+      User user) {
+    noteObjectiveDto.setParentObjectiveId(objectiveId);
+    NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
+    noteObjective.setId(null);
+    noteObjective = this.objectiveService.createNote(objectiveId, noteObjective, user);
+    return ResponseEntity.ok(noteObjectiveMapper.mapEntityToDto(noteObjective));
   }
 }

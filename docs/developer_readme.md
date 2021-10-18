@@ -1,4 +1,4 @@
-# Coding Guidelines
+# General information about implementations
 
 #Backend
 
@@ -6,8 +6,8 @@
 This project uses [`java.util.logging.Logger`](https://docs.oracle.com/javase/7/docs/api/java/util/logging/Logger.html) for displaying runtime information.
 
 ### Levels
-- `Level.FINE`: Exception Stacktraces, Background Information for Exceptions in Tests
-- `Level.SEVERE`: Parameter Informaton that caused exception, Exception Error Message
+- `Level.FINE` Exception Stacktrace, Background Information for Exceptions in Tests
+- `Level.SEVERE` Parameter Information that caused exception, Exception Error Message
  
 ## Code Documentation
 The project uses [these guidelines](/docs/javadoc_guidelines.md) for *JavaDoc* comments in source files.
@@ -16,7 +16,7 @@ The project uses [these guidelines](/docs/javadoc_guidelines.md) for *JavaDoc* c
 
 Section needs to be fixed.
 
-We use the [format-maven-plugin](https://github.com/coveooss/fmt-maven-plugin) during build which makes use of google-java-format to enforce consisten formatting across the codebase.
+We use the [format-maven-plugin](https://github.com/coveooss/fmt-maven-plugin) during build which makes use of google-java-format to enforce consistent formatting across the codebase.
 
 To trigger autoformat manually run `mvn com.coveo:fmt-maven-plugin:format` in the project root directory.
 
@@ -54,7 +54,7 @@ spring:
         dialect: org.burningokr.dialects.SQLServer2012UUIDFixDialect
 ```
 For every migration you create, you **MUST** create a migration for the MSSQL Server and for the PostgreSQL server.
-Migrations are simple sql scripts and they can be found in `burning-okr-app/src/main/resources/db/migration`.
+Migrations are simple sql scripts, and they can be found in `burning-okr-app/src/main/resources/db/migration`.
 There are two directories, `postgresql` and `sqlserver`. Create a migration script in each directory. The migration scripts
 should generally do the same, but they need to stick to the dialect of the corresponding dbms.
 

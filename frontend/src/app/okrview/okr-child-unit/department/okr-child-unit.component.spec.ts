@@ -28,6 +28,7 @@ import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 import { DepartmentTabDescriptionComponent } from './department-tab-description/department-tab-description.component';
+import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-child-unit-button.component';
 import { DepartmentTabTaskboardComponent } from './department-tab-taskboard/department-tab-taskboard.component';
 import { Component, Input } from '@angular/core';
 
@@ -123,7 +124,8 @@ describe('OkrChildUnitComponent', () => {
         DepartmentTabDescriptionComponent,
         DepartmentTabTaskboardComponent,
         TaskBoardStateColumnViewMock,
-        TaskBoardSwimlaneViewMock
+        TaskBoardSwimlaneViewMock,
+        AddChildUnitButtonComponent
       ],
       imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
@@ -351,7 +353,7 @@ describe('OkrChildUnitComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    okrBranch.okrUnitIds = [];
+    okrBranch.okrChildUnitIds = [];
 
     const canBeRemoved: boolean = component.canChildUnitBeRemoved(okrBranch);
 
@@ -364,7 +366,7 @@ describe('OkrChildUnitComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    okrBranch.okrUnitIds = [1, 2, 3];
+    okrBranch.okrChildUnitIds = [1, 2, 3];
 
     const canBeRemoved: boolean = component.canChildUnitBeRemoved(okrBranch);
 
@@ -377,7 +379,7 @@ describe('OkrChildUnitComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    okrBranch.okrUnitIds = [1];
+    okrBranch.okrChildUnitIds = [1];
 
     const canBeRemoved: boolean = component.canChildUnitBeRemoved(okrBranch);
 

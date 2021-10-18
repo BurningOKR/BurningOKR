@@ -13,6 +13,7 @@ import {
 import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UserId } from '../shared/model/id-types';
+import 'linq4js';
 
 @Component({
   selector: 'app-admin-view',
@@ -51,7 +52,7 @@ export class AdminViewComponent implements OnInit {
         }),
       );
   }
-  // Todo dturnschek 20.05.2020; Why use subscribe? Pipe([...], ShareReplay() would do the same as a replay subject)
+
   private getAdminUsers$(): void {
     combineLatest([
       this.userService.getUsers$(),
@@ -108,7 +109,7 @@ export class AdminViewComponent implements OnInit {
         value: '{{surname}}, {{name}} von den Admins löschen?'
       }, {surname: adminToDelete.surname, name: adminToDelete.givenName});
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });

@@ -31,7 +31,7 @@ export class UserDialogComponent implements OnInit {
   });
 
   private okMsg: string = this.i18n({
-    id: 'resetPasswordSuccesOK',
+    id: 'short_okay',
     description: 'Ok Button on resetPasswordSuccessSnackbar',
     value: 'Ok'
   });

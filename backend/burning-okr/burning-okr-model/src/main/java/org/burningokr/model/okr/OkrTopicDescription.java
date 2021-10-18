@@ -8,6 +8,7 @@ import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public class OkrTopicDescription implements Trackable<Long> {
 
@@ -31,7 +32,7 @@ public class OkrTopicDescription implements Trackable<Long> {
   private Collection<UUID> stakeholders;
 
   @Column(length = 1023)
-  private String acceptanceCriteria;
+  private String description;
 
   @Column(length = 1023)
   private String contributesTo;

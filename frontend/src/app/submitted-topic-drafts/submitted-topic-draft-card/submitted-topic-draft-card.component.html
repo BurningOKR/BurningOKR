@@ -1,0 +1,13 @@
+<mat-card class="submitted-topic-draft-card" (click)="viewTopicDraft()">
+  <div class="card-head-wrapper" >
+    <div class="card-head-info-wrapper" >
+      <span class="card-head-info">{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</span>
+      <span class="card-head-info">{{topicDraft.beginning.toLocaleDateString()}}</span>
+      <span class="card-head-info card-head-info-name" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
+    </div>
+    <div class="card-head-button-wrapper" (click)="$event.stopPropagation();">
+      <app-submitted-topic-draft-action-button (editedTopicDraftEvent)="notifyWrapperOfEditing($event)" (topicDraftDeletedEvent)="notifyWrapperOfDeletion()" [topicDraft]="topicDraft" class= "submitted-topic-draft-option-button"></app-submitted-topic-draft-action-button>
+    </div>
+    <app-status-dot class="right-upper-corner" [state]="topicDraft.currentStatus"></app-status-dot>
+  </div>
+</mat-card>

@@ -4,7 +4,7 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.burningokr.dialects.SQLServer2012UUIDFixDialect
         format_sql: true
         globally_quoted_identifiers: true
   flyway:

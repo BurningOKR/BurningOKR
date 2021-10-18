@@ -30,6 +30,7 @@ import { FormErrorComponent } from './components/form-error/form-error.component
 import { ResetCountdownComponent } from './demo-website/reset-countdown/reset-countdown.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
+import { StatusDotComponent } from './components/status-dot/status-dot.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MilestoneSliderWrapperComponent } from './components/milestone-slider-w
     NonLoggedInCardComponent,
     FormErrorComponent,
     MilestoneSliderWrapperComponent,
-    ResetCountdownComponent
+    ResetCountdownComponent,
+    StatusDotComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -84,7 +86,8 @@ import { MilestoneSliderWrapperComponent } from './components/milestone-slider-w
     NonLoggedInCardComponent,
     FormErrorComponent,
     ResetCountdownComponent,
-    MilestoneSliderWrapperComponent
+    MilestoneSliderWrapperComponent,
+    StatusDotComponent
   ],
 })
 export class SharedModule {

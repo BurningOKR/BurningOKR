@@ -3,11 +3,13 @@ import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { Component, Input, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-okr-child-unit-tab',
@@ -28,11 +30,21 @@ export class OkrChildUnitTabComponent implements OnDestroy {
     this.subscriptions = [];
   }
 
-  clickedAddSubDepartment(): void {
+  clickedAddChildOkrBranch(): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { childUnitId: this.okrBranch.id }
+      data: { childUnitId: this.okrBranch.id, unitType: UnitType.OKR_BRANCH }
     });
+    this.handleChildUnitDialogReference(dialogReference);
+  }
 
+  clickedAddChildDepartment(): void {
+    const dialogReference: MatDialogRef<OkrChildUnitFormComponent> = this.matDialog.open(OkrChildUnitFormComponent, {
+      data: { childUnitId: this.okrBranch.id, unitType: UnitType.DEPARTMENT }
+    });
+    this.handleChildUnitDialogReference(dialogReference);
+  }
+
+  private handleChildUnitDialogReference(dialogReference: MatDialogRef<OkrChildUnitFormComponent>): void {
     this.subscriptions.push(
       dialogReference
         .afterClosed()
@@ -45,8 +57,8 @@ export class OkrChildUnitTabComponent implements OnDestroy {
     );
   }
 
-  onSubDepartmentAdded(addedChildUnit: OkrChildUnit): void {
-    this.okrBranch.okrUnitIds.push(addedChildUnit.id);
+  private onSubDepartmentAdded(addedChildUnit: OkrChildUnit): void {
+    this.okrBranch.okrChildUnitIds.push(addedChildUnit.id);
     this.currentOkrViewService.refreshCurrentDepartmentView(this.okrBranch.id);
   }
 }

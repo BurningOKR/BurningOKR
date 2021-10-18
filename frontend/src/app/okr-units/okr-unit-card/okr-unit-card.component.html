@@ -42,10 +42,10 @@
 <!--      [disabled]=!isCurrentUserAdmin-->
     <button
       [disabled]="true" mat-stroked-button (click)="$event.stopPropagation(); deleteCompany()"
-            [matTooltipDisabled]="!this.isCurrentUserAdmin" i18n-matTooltip="@@component_unitCard_deleteUnit"
+            [matTooltipDisabled]="!this.isCurrentUserAdmin" i18n-matTooltip="@@component_department_deleteUnit"
             matTooltip="Struktur löschen">
       <mat-icon>delete</mat-icon>
-      <span i18n="@@component_unitCard_deleteUnit">Struktur löschen</span>
+      <span i18n="@@component_department_deleteUnit">Struktur löschen</span>
     </button>
   </span>
 

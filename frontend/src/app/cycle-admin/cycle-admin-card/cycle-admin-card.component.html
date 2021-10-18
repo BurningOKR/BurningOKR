@@ -16,7 +16,7 @@
   <mat-card-actions class="item-actions">
     <button mat-stroked-button (click)="$event.stopPropagation(); editCycle()">
       <mat-icon>edit</mat-icon>
-      <span i18n="@@component_cycleAdminCard_editCycle">Zyklus bearbeiten</span>
+      <span i18n="@@editCycle">Zyklus bearbeiten</span>
     </button>
 
     <button mat-stroked-button [disabled]="cycle.cycleState === cycleState.ACTIVE" (click)="$event.stopPropagation(); deleteCycle()">

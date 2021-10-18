@@ -15,9 +15,9 @@
           </div>
           <div class="f-1" *ngIf="isOkrBranch(childUnit)">
             <mat-icon i18n-matTooltip="@@component_departmentPreviewButton_listChildUnit" matTooltip="Unterstrukturen dieser Struktur">low_priority</mat-icon>
-            <!-- IDEs will show an error at okrUnitIds, because it is not a member of OkrChildUnit -->
-            <!-- But it is safe to access okrUnitIds here, because we check that the childUnit is an OkrBranch before. -->
-            {{ childUnit.okrUnitIds.length }}
+            <!-- IDEs will show an error at okrChildUnitIds, because it is not a member of OkrChildUnit -->
+            <!-- But it is safe to access okrChildUnitIds here, because we check that the childUnit is an OkrBranch before. -->
+            {{ childUnit.okrChildUnitIds.length }}
           </div>
         </div>
       </div>

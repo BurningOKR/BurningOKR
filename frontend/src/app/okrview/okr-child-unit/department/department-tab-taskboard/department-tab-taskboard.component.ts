@@ -281,7 +281,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
         value: 'Soll die Aufgabe "{{title}}" wirklich gelöscht werden?'
       }, { title: task.title });
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });

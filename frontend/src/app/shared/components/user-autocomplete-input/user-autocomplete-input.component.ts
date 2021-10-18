@@ -79,7 +79,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   private setupFormControlAutocomplete(): void {
     this.filteredUsers$ = merge(this.inputFormControl.valueChanges, this.focusChanged$)
       .pipe(
-        filter(value => typeof value === 'string'), // Hacky fix for JS ignoring parameter types // TODO: stop hacky fixing!
+        filter(value => typeof value === 'string'), // Hacky fix for JS ignoring parameter types
         debounceTime(this.autoCompleteWaitTime),
         startWith(''),
         switchMap(inputString => this.getFilteredUserList$(inputString))

@@ -77,7 +77,7 @@ describe('OkrUnitService', () => {
     okrBranch.name = 'testName2';
     okrBranch.label = 'testLabel';
     okrBranch.isActive = true;
-    okrBranch.okrUnitIds = [1];
+    okrBranch.okrChildUnitIds = [1];
     okrBranch.parentUnitId = 0;
     okrBranch.objectives = [4, 5, 6];
   });

@@ -14,7 +14,11 @@ import { Subscription } from 'rxjs';
 import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ContextRole } from '../../shared/model/ui/context-role';
-
+import {
+  CommentViewDialogComponent,
+  CommentViewDialogFormData
+} from '../comment/comment-view-dialog/comment-view-dialog.component';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 @Component({
   selector: 'app-objective',
   templateUrl: './objective.component.html',
@@ -69,6 +73,27 @@ export class ObjectiveComponent implements OnDestroy {
     return this.objective.subObjectivesCount > 0;
   }
 
+  userIsOkrMember(): boolean {
+    return this.currentUserRole.isAtleastOKRMember();
+  }
+
+  // --
+  // Objective comment logic
+  // --
+
+  clickedCommentObjective(): void {
+
+    const dialogData: CommentViewDialogFormData = {
+      componentTypeTitle: 'Objective',
+      componentName: this.objective.name,
+      viewCommentParentType: ViewCommentParentType.objective,
+      parentId: this.objective.id,
+      onUpdateCommentIdList: this.objective.commentIdList,
+    };
+
+    this.matDialog.open(CommentViewDialogComponent, {autoFocus: true, data: dialogData, minWidth: '50vw'});
+  }
+
   // --
   // Objective ordering logic
   // --
@@ -109,7 +134,7 @@ export class ObjectiveComponent implements OnDestroy {
       }, {number: this.listNumber, objectiveTitle: this.objective.name});
 
     const confirmButtonText: string = this.i18n({
-      id: 'deleteButtonText',
+      id: 'capitalised_delete',
       description: 'deleteButtonText',
       value: 'Löschen'
     });
@@ -121,7 +146,7 @@ export class ObjectiveComponent implements OnDestroy {
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-      = this.matDialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+      = this.matDialog.open(ConfirmationDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
 
     this.subscriptions.push(
       dialogReference

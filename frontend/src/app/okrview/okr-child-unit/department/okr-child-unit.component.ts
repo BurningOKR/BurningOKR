@@ -126,7 +126,6 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   // Template actions
-  // TODO: (R.J. 06.10.2020) 404 Error handling for dialogs is also needed...
   clickedEditChildUnit(childUnit: OkrChildUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
       data: { childUnit }
@@ -170,7 +169,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
       id: 'deleteDepartmentDialogMessage',
       value: 'Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.'
     });
-    const confirmButtonText: string = this.i18n({ id: 'delete', value: 'Löschen' });
+    const confirmButtonText: string = this.i18n({ id: 'capitalised_delete', value: 'Löschen' });
 
     const data: ConfirmationDialogData = {
       message,
@@ -194,7 +193,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
 
   canChildUnitBeRemoved(okrChildUnit: OkrChildUnit): boolean {
     return this.isDepartmentUnit(okrChildUnit) ||
-      (okrChildUnit instanceof OkrBranch && okrChildUnit.okrUnitIds.length === 0);
+      (okrChildUnit instanceof OkrBranch && okrChildUnit.okrChildUnitIds.length === 0);
   }
 
   isDepartmentUnit(okrChildUnit: OkrChildUnit): boolean {

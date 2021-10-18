@@ -4,8 +4,7 @@ import { CurrentOkrviewService } from '../current-okrview.service';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { Component, OnInit } from '@angular/core';
 import { OkrUnitRole, OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ExcelMapper } from '../excel-file/excel.mapper';
 import { combineLatest, Observable, ObservableInput, of } from 'rxjs';
@@ -15,6 +14,10 @@ import { CurrentOkrUnitSchemaService } from '../current-okr-unit-schema.service'
 import { CurrentCycleService } from '../current-cycle.service';
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
+import { UnitType } from '../../shared/model/api/OkrUnit/unit-type.enum';
+import { OkrChildUnit } from '../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { TopicDraftCreationFormComponent } from '../okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 interface CompanyView {
   company: CompanyUnit;
@@ -107,22 +110,34 @@ export class CompanyComponent implements OnInit {
     return { currentlyMemberDepartmentIds, currentlyManagerDepartmentIds };
   }
 
-  clickedAddSubDepartment(company: CompanyUnit): void {
+  clickedAddSubBranch(company: CompanyUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { companyId: company.id }
+      data: { companyId: company.id, unitType: UnitType.OKR_BRANCH }
     });
 
+    this.handleDialogClosed(dialogReference, company);
+  }
+
+  clickedAddSubDepartment(company: CompanyUnit): void {
+    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
+      data: { companyId: company.id, unitType: UnitType.DEPARTMENT }
+    });
+
+    this.handleDialogClosed(dialogReference, company);
+  }
+
+  private handleDialogClosed(dialogReference: MatDialogRef<OkrChildUnitFormComponent>, company: CompanyUnit): void {
     dialogReference
       .afterClosed()
       .pipe(
         take(1),
-        filter(v => v as any),
+        filter(v => v),
         switchMap((dialogClosed$: ObservableInput<object>) => dialogClosed$)
       )
-      .subscribe(addedSubDepartment => this.onSubDepartmentAdded(company, addedSubDepartment as OkrDepartment));
+      .subscribe(addedSubDepartment => this.onSubDepartmentAdded(company, addedSubDepartment as OkrChildUnit));
   }
 
-  private onSubDepartmentAdded(company: CompanyUnit, addedSubDepartment: OkrDepartment): void {
+  private onSubDepartmentAdded(company: CompanyUnit, addedSubDepartment: OkrChildUnit): void {
     company.okrChildUnitIds.push(addedSubDepartment.id);
     this.currentOkrViewService.refreshCurrentCompanyView(company.id);
   }

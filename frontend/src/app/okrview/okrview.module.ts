@@ -53,6 +53,9 @@ import { TaskboardColumnComponent } from './okr-child-unit/department/department
 import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
 import { myRxStompConfig } from './websockets/rx-stomp-config';
 import { TaskboardSwimlaneViewComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane-view.component';
+import { TopicDraftCreationFormComponent } from './okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form/okr-topic-description-form.component';
+import { AddChildUnitButtonComponent } from './add-child-unit-button/add-child-unit-button.component';
 
 import { TaskboardStateColumnViewComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-state-column-view/taskboard-state-column-view.component';
 import { TaskBoardGeneralHelper } from '../shared/services/helper/task-board/task-board-general-helper';
@@ -61,91 +64,98 @@ import { TaskBoardSwimlaneViewHelper } from '../shared/services/helper/task-boar
 import { TaskboardSwimlaneComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component';
 
 @NgModule({
-  declarations: [
-    KeyresultComponent,
-    ObjectiveFormComponent,
-    OkrChildUnitFormComponent,
-    KeyResultFormComponent,
-    OkrChildUnitComponent,
-    OkrChildUnitOverviewTabComponent,
-    DepartmentTabTeamComponent,
-    OkrChildUnitTabComponent,
-    OkrChildUnitPreviewButtonComponent,
-    ObjectiveContentsComponent,
-    ObjectiveComponent,
-    DepartmentTeamNewUserComponent,
-    KeyresultComponent,
-    MainViewComponent,
-    CompanyComponent,
-    NavigationSidebarComponent,
-    NavigationListEntryComponent,
-    CommentViewDialogComponent,
-    CommentCardComponent,
-    CycleListDropdownComponent,
-    KeyResultMilestoneFormComponent,
-    DepartmentTabDescriptionComponent,
-    DepartmentDescriptionEditFormComponent,
-    DepartmentTabTaskboardComponent,
-    DepartmentTabTaskCardComponent,
-    TaskFormComponent,
-    TaskboardColumnComponent,
-    TaskboardSwimlaneViewComponent,
-    TaskboardSwimlaneComponent,
-    TaskboardStateColumnViewComponent,
-  ],
-  entryComponents: [
-    CommentViewDialogComponent,
-    OkrChildUnitFormComponent,
-    KeyResultFormComponent,
-    ObjectiveFormComponent,
-    DepartmentDescriptionEditFormComponent,
-    TaskFormComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    OkrviewRoutingModule,
-    MatCardModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDividerModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatBadgeModule,
-    MatSliderModule,
-    MatSidenavModule,
-    MatDialogModule,
-    MatInputModule,
-    MatSelectModule,
-    FormsModule,
-    DragDropModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    AvatarModule,
-    MatCheckboxModule,
-    ScrollingModule,
-    AngularResizedEventModule,
-    MatDatepickerModule,
-    MatButtonToggleModule,
-  ],
-  providers: [
-    {
-      provide: InjectableRxStompConfig,
-      useValue: myRxStompConfig
-    },
-    {
-      provide: RxStompService,
-      useFactory: rxStompServiceFactory,
-      deps: [InjectableRxStompConfig]
-    },
-    TaskBoardGeneralHelper,
-    TaskBoardStateColumnViewHelper,
-    TaskBoardSwimlaneViewHelper
-  ]
+    declarations: [
+        KeyresultComponent,
+        ObjectiveFormComponent,
+        OkrChildUnitFormComponent,
+        KeyResultFormComponent,
+        OkrChildUnitComponent,
+        OkrChildUnitOverviewTabComponent,
+        DepartmentTabTeamComponent,
+        OkrChildUnitTabComponent,
+        OkrChildUnitPreviewButtonComponent,
+        ObjectiveContentsComponent,
+        ObjectiveComponent,
+        DepartmentTeamNewUserComponent,
+        KeyresultComponent,
+        MainViewComponent,
+        CompanyComponent,
+        NavigationSidebarComponent,
+        NavigationListEntryComponent,
+        CommentViewDialogComponent,
+        CommentCardComponent,
+        CycleListDropdownComponent,
+        KeyResultMilestoneFormComponent,
+        DepartmentTabDescriptionComponent,
+        DepartmentDescriptionEditFormComponent,
+        DepartmentTabTaskboardComponent,
+        DepartmentTabTaskCardComponent,
+        TaskFormComponent,
+        TaskboardColumnComponent,
+        TaskboardSwimlaneViewComponent,
+        TaskboardSwimlaneComponent,
+        TaskboardStateColumnViewComponent,
+        TopicDraftCreationFormComponent,
+        OkrTopicDescriptionFormComponent,
+        AddChildUnitButtonComponent,
+    ],
+    entryComponents: [
+        CommentViewDialogComponent,
+        OkrChildUnitFormComponent,
+        KeyResultFormComponent,
+        ObjectiveFormComponent,
+        DepartmentDescriptionEditFormComponent,
+        TaskFormComponent,
+        TopicDraftCreationFormComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        OkrviewRoutingModule,
+        MatCardModule,
+        MatTabsModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatDividerModule,
+        MatMenuModule,
+        MatExpansionModule,
+        MatBadgeModule,
+        MatSliderModule,
+        MatSidenavModule,
+        MatDialogModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule,
+        DragDropModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        AvatarModule,
+        MatCheckboxModule,
+        ScrollingModule,
+        AngularResizedEventModule,
+        MatDatepickerModule,
+        MatButtonToggleModule,
+    ],
+    exports: [
+        OkrTopicDescriptionFormComponent
+    ],
+    providers: [
+        {
+            provide: InjectableRxStompConfig,
+            useValue: myRxStompConfig
+        },
+        {
+            provide: RxStompService,
+            useFactory: rxStompServiceFactory,
+            deps: [InjectableRxStompConfig]
+        },
+        TaskBoardGeneralHelper,
+        TaskBoardStateColumnViewHelper,
+        TaskBoardSwimlaneViewHelper
+    ]
 })
 export class OkrviewModule {
 }

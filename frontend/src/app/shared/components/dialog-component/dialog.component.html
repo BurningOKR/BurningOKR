@@ -9,7 +9,7 @@
           (click)="sendOk()"
           [disabled]="isSaveButtonDisabled || formGroup.invalid || formHasToBeEdited && formGroup.pristine">
     {{saveAndCloseLabel}}</button>
-  <button mat-button color="warn" (click)="closeDialog()"><span i18n="@@component_form_cancel">Abbrechen</span></button>
+  <button mat-button color="warn" (click)="closeDialog()"><span i18n="@@cancelButtonText">Abbrechen</span></button>
   <div *ngIf="hasFormGroupError">
     <mat-error class="error-span" *ngIf="formGroup.hasError('startEqualsEnd')">
       <span i18n="@@component_form_startEqualsEnd">Der Startwert darf nicht gleich dem Zielwert sein.</span>

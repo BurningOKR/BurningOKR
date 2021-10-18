@@ -1,11 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { User } from '../../../../../shared/model/api/user';
-import { UserService } from '../../../../../shared/services/helper/user.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { OkrTopicDescription } from '../../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
-import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper.service';
+import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper';
 import { DepartmentId } from '../../../../../shared/model/id-types';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
@@ -22,10 +19,8 @@ interface OkrTopicDescriptionFormData {
 export class DepartmentDescriptionEditFormComponent implements OnInit {
   descriptionForm: FormGroup;
   title: string;
-  users$: Observable<User[]>;
 
-  constructor(private userService: UserService,
-              private okrTopicDescriptionService: TopicDescriptionMapper,
+  constructor(private okrTopicDescriptionService: TopicDescriptionMapper,
               private dialogRef: MatDialogRef<DepartmentDescriptionEditFormComponent>,
               private i18n: I18n,
               @Inject(MAT_DIALOG_DATA) private formData: OkrTopicDescriptionFormData) { }
@@ -33,7 +28,7 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
   ngOnInit(): void {
     this.descriptionForm = new FormGroup({
       name: new FormControl('', Validators.maxLength(255)),
-      acceptanceCriteria: new FormControl('', Validators.maxLength(1024)),
+      description: new FormControl('', Validators.maxLength(1024)),
       contributesTo: new FormControl('', Validators.maxLength(1024)),
       delimitation: new FormControl('', Validators.maxLength(1024)),
       beginning: new FormControl(),
@@ -49,10 +44,8 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
       this.descriptionForm.patchValue(this.formData.okrTopicDescription);
     }
 
-    this.users$ = this.userService.getAllUsers$();
-
     this.title = this.i18n({
-      id: 'component_descriptionEditForm_headline',
+      id: 'component_edit_description',
       description: 'Title of the OkrTopicDescription dialog',
       value: 'Beschreibung bearbeiten'
     });

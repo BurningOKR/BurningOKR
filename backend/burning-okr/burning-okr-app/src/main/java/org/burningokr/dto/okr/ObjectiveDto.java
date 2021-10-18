@@ -57,6 +57,8 @@ public class ObjectiveDto {
 
   private Collection<Long> keyResultIds = new ArrayList<>();
 
+  private Collection<Long> noteIds = new ArrayList<>();
+
   public boolean hasParentObjectiveId() {
     return parentObjectiveId != null;
   }

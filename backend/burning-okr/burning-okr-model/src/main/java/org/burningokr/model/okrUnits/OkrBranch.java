@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.*;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 
 @Entity
 @Data
@@ -35,6 +37,8 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
     this.okrChildUnits = subDepartments;
   }
 
+  @ManyToOne private OkrBranchHistory history;
+
   /**
    * Creates a copy of the OkrBranch without relations.
    *
@@ -51,6 +55,7 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
     copy.setName(this.getName());
     copy.setLabel(this.getLabel());
     copy.setActive(this.isActive);
+    copy.setHistory(this.getHistory());
     return copy;
   }
 }

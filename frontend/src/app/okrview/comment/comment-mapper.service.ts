@@ -5,6 +5,8 @@ import { Comment } from './comment';
 import { ViewComment } from '../../shared/model/ui/view-comment';
 import { CommentApiService } from './comment-api.service';
 import { UserService } from '../../shared/services/helper/user.service';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
+import { CommentId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +15,15 @@ export class CommentMapperService {
   constructor(private commentService: CommentApiService, private userMapperService: UserService) {
   }
 
-  getCommentsFromKeyResult$(keyResultId: number): Observable<ViewComment[]> {
+  getCommentsFromParentObject$(viewCommentParentType: ViewCommentParentType,
+                               parentObjectId: number): Observable<ViewComment[]> {
     return this.commentService
-      .getCommentsForKeyResult$(keyResultId)
+      .getCommentForParentObject$(viewCommentParentType, parentObjectId)
       .pipe(map((commentList: Comment[]) => this.mapCommentListDto(commentList)));
   }
 
-  createComment$(keyResultId: number, newComment: ViewComment): Observable<ViewComment> {
-    return this.commentService.postComment$(keyResultId, this.mapViewComment(newComment))
+  createComment$(viewCommentParentType: ViewCommentParentType, parentObjectId: number, newComment: ViewComment): Observable<ViewComment> {
+    return this.commentService.postCommentForParentObject$(viewCommentParentType, parentObjectId, this.mapViewComment(newComment))
       .pipe(
       filter(val => val !== undefined),
       map((postedComment: Comment) => this.mapCommentDto(postedComment))

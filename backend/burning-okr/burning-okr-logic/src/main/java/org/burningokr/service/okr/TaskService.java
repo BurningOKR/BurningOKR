@@ -146,25 +146,12 @@ public class TaskService {
       throws Exception {
     Collection<Task> updatedTasks = new ArrayList<>();
 
-    Task newPreviousTask = null;
-    /*
-       TODO In einen Validator Klasse auslagern
-       überprüft, ob eine Aufgabe auf sich selbst referenziert oder sich der neue Vorgänger in einer anderen Spalte/Zustand befindet
-    */
+    Task newPreviousTask;
+
     logger.info("updateTaskWithPositioning - Validation");
-    if (newVersion.hasPreviousTask()) {
-      if (!(newVersion.getPreviousTask().getId().equals(newVersion.getId()))) {
-        newPreviousTask = taskRepository.findByIdOrThrow(newVersion.getPreviousTask().getId());
-        logger.info(
-            "updateTaskWithPositioning - Validation - previous and current task have different ids");
-        logTask(newPreviousTask);
-        if (!(newVersion.getTaskState().getId().equals(newPreviousTask.getTaskState().getId()))) {
-          throw new Exception("Aufgaben sind in unterschiedlichen Spalten/Zuständen");
-        }
-      } else {
-        throw new Exception("Aufgabe ist sein eigener Vorgänger");
-      }
-    }
+    TaskValidator taskValidator = new TaskValidator();
+    newPreviousTask = taskValidator.validateTask(newVersion, taskRepository);
+    logTask(newPreviousTask);
 
     // neuer Nachfolger: referenziert auf den neuen Vorgänger des verschobenen Tasks
     // gegeben sind nun der neue Vorgänger und der neue Nachfolger

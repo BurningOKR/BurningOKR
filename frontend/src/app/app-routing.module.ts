@@ -9,6 +9,7 @@ import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-un
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
+import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
 
 const routes: Routes = [
   {path: 'demo', loadChildren: () => import('./demo/demo.module')
@@ -26,6 +27,11 @@ const routes: Routes = [
     path: 'cycle-admin/:companyId',
     component: CycleAdminContainerComponent,
     canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard]
+  },
+  {
+    path: 'submitted-topic-drafts',
+    component: SubmittedTopicDraftsComponent,
+    canActivate: [NotInitiliazedGuard, AuthGuard]
   },
   {
     path: 'auth', loadChildren: () => import('./core/auth/auth.module')
