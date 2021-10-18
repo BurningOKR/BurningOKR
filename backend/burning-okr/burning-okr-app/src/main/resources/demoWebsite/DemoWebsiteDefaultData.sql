@@ -59,6 +59,12 @@ BEGIN
             current_date - INTEGER '7' -- plannedStartDate -> today minus seven days
            );
 
+    -- Insert Unit History
+    INSERT INTO okr_unit_history (id)
+    VALUES (historyId);
+    INSERT INTO okr_unit_history (id)
+    VALUES (history2Id);
+
     -- Insert Company History
     INSERT INTO okr_company_history (id)
     VALUES (historyId);
