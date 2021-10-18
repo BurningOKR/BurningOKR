@@ -16,6 +16,7 @@ describe('CurrentOkrUnitSchemaService', () => {
     {
       id: 5,
       isActive: true,
+      isTeam: true,
       name: 'testUnitSchema',
       subDepartments: [],
       userRole: OkrUnitRole.MEMBER
@@ -40,11 +41,14 @@ describe('CurrentOkrUnitSchemaService', () => {
               isActive: true,
               name: 'testUnitSchema3',
               userRole: OkrUnitRole.USER,
-              subDepartments: []
+              subDepartments: [],
+              isTeam: false
             }
-          ]
+          ],
+          isTeam: false
         }
-      ]
+      ],
+      isTeam: false
     }
   ];
 
@@ -54,21 +58,24 @@ describe('CurrentOkrUnitSchemaService', () => {
       isActive: true,
       name: 'testUnitSchema',
       userRole: OkrUnitRole.MEMBER,
-      subDepartments: []
+      subDepartments: [],
+      isTeam: true
     },
     {
       id: 6,
       isActive: true,
       name: 'testUnitSchema2',
       userRole: OkrUnitRole.MANAGER,
-      subDepartments: []
+      subDepartments: [],
+      isTeam: true
     },
     {
       id: 7,
       isActive: true,
       name: 'testUnitSchema3',
       userRole: OkrUnitRole.USER,
-      subDepartments: []
+      subDepartments: [],
+      isTeam: true
     }
   ];
 
@@ -438,18 +445,21 @@ describe('CurrentOkrUnitSchemaService', () => {
             {
               id: 5,
               isActive: true,
+              isTeam: false,
               name: 'testUnitSchema',
               userRole: OkrUnitRole.MEMBER,
               subDepartments: [
                 {
                   id: 6,
                   isActive: true,
+                  isTeam: false,
                   name: 'testUnitSchema2',
                   userRole: OkrUnitRole.MANAGER,
                   subDepartments: [
                     {
                       id: 7,
                       isActive: true,
+                      isTeam: false,
                       name: 'testUnitSchema3',
                       userRole: OkrUnitRole.MANAGER,
                       subDepartments: []

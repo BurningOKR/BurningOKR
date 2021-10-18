@@ -57,4 +57,12 @@ export class NavigationListEntryComponent implements OnInit, OnDestroy {
   isManagerOfUnit(): boolean {
     return this.schema.userRole === OkrUnitRole.MANAGER;
   }
+
+  isUnitTeam(): boolean {
+    return this.schema.isTeam;
+  }
+
+  isUnitSubstructure(): boolean {
+    return !this.schema.isTeam;
+  }
 }
