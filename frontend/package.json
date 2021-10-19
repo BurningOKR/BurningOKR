@@ -50,7 +50,6 @@
     "@angular/platform-browser-dynamic": "^9.1.13",
     "@angular/platform-server": "^9.1.13",
     "@angular/router": "^9.1.13",
-    "@ngx-i18nsupport/tooling": "^8.0.3",
     "@ngx-translate/i18n-polyfill": "^1.0.0",
     "@saithodev/ts-appversion": "^2.1.3",
     "@stomp/ng2-stompjs": "^8.0.0",
