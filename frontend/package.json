@@ -56,7 +56,7 @@
     "@stomp/rx-stomp": "^1.1.2",
     "@types/file-saver": "^2.0.1",
     "angular-oauth2-oidc": "^8.0.4",
-    "angular-resize-event": "^2.0.0",
+    "angular-resize-event": "^3.0.2",
     "class-transformer": "^0.2.3",
     "core-js": "^3.1.4",
     "file-saver": "^2.0.2",
@@ -64,12 +64,12 @@
     "linq4js": "^2.2.3",
     "ngx-avatar": "^3.7.0",
     "ngx-logger": "^4.0.7",
-    "ngx-material-file-input": "^1.1.1",
     "ngx-mat-select-search": "^3.3.0",
+    "ngx-material-file-input": "^1.1.1",
     "ngx-papaparse": "^4.0.4",
     "node-sass": "^4.12.0",
     "rxjs": "^6.5.2",
-    "tslint-language-service": "^0.9.9",
+    "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

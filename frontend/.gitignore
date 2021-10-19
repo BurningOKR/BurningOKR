@@ -46,6 +46,3 @@ Jenkinsfile
 .angulardoc.json
 /src/environments/environment.local.ts
 /src/_versions.ts
-
-# other
-package-lock.json
