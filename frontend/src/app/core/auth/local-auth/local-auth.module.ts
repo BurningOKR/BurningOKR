@@ -39,9 +39,6 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
     MatCheckboxModule,
     MatIconModule
   ],
-  entryComponents: [
-    ChangePasswordDialogComponent,
-  ],
   exports: [
     PasswordFormComponent
   ]

@@ -39,11 +39,6 @@ import { UserSettingsComponent } from './settings/settings-form/user-settings/us
     VersionFormComponent,
     FeedbackButtonComponent,
   ],
-  entryComponents: [
-    FeedbackFormComponent,
-    VersionFormComponent,
-    SettingsFormComponent
-  ],
   imports: [
     MatInputModule,
     MatIconModule,

@@ -41,9 +41,6 @@ import { OkrUnitFormComponent } from './okr-unit-form/okr-unit-form.component';
     MatMenuModule,
     ReactiveFormsModule,
     MatInputModule,
-  ],
-  entryComponents: [
-    OkrUnitFormComponent,
-    ]
+  ]
 })
 export class OkrUnitModule {}

@@ -47,10 +47,6 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
   exports: [
     UserDialogComponent,
     UserFormComponent
-  ],
-  entryComponents: [
-    ImportCsvDialogComponent,
-    UserDialogComponent
   ]
 })
 export class UserManagementModule {

@@ -54,9 +54,6 @@ import { UserSelectorComponent } from './components/user-selector/user-selector.
     UserSelectorMultiComponent,
     UserSelectorComponent,
   ],
-  entryComponents: [
-    ConfirmationDialogComponent
-  ],
   imports: [
     CommonModule,
     FormsModule,

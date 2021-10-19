@@ -103,15 +103,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         OkrTopicDescriptionFormComponent,
         AddChildUnitButtonComponent,
     ],
-    entryComponents: [
-        CommentViewDialogComponent,
-        OkrChildUnitFormComponent,
-        KeyResultFormComponent,
-        ObjectiveFormComponent,
-        DepartmentDescriptionEditFormComponent,
-        TaskFormComponent,
-        TopicDraftCreationFormComponent,
-    ],
     imports: [
         CommonModule,
         SharedModule,

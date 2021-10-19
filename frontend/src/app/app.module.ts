@@ -30,7 +30,6 @@ import { CoreModule } from './core/core.module';
 import { AdminViewComponent } from './admin/admin-view.component';
 import { AdminUserIdsPipe } from './admin/pipes/admin-user-ids.pipe';
 import { ErrorModule } from './core/error/error.module';
-import { DeleteDialogComponent } from './shared/components/delete-dialog/delete-dialog.component';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-handler/local-auth-type-handler.service';
 import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
@@ -104,11 +103,6 @@ const currentLanguage: string = 'de';
     MatInputModule,
     MatDatepickerModule,
     OkrviewModule
-  ],
-  entryComponents: [
-    DeleteDialogComponent,
-    SubmittedTopicDraftDetailsComponent,
-    SubmittedTopicDraftEditComponent
   ],
   providers: [
     OAuthFrontendDetailsService,

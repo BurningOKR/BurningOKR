@@ -36,12 +36,6 @@ import { SetAzureAdminInitStateFormComponent } from './init-state-view/init-stat
     MatFormFieldModule,
     MatInputModule,
     MatCardModule
-  ],
-  entryComponents: [
-    CompleteInitStateFormComponent,
-    CreateUserInitStateFormComponent,
-    SetOauthClientDetailsFormComponent,
-    SetAzureAdminInitStateFormComponent
   ]
 })
 export class InitModule { }

@@ -27,10 +27,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     CycleAdminContainerComponent,
     CycleAdminCardComponent,
   ],
-  entryComponents: [
-    CycleCreationFormComponent,
-    CycleEditFormComponent
-  ],
   imports: [
     MatInputModule,
     CommonModule,
