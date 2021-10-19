@@ -42,7 +42,7 @@
     "@angular/common": "^12.2.10",
     "@angular/compiler": "^12.2.10",
     "@angular/core": "^12.2.10",
-    "@angular/flex-layout": "^11.0.0-beta.33",
+    "@angular/flex-layout": "^12.0.0-beta.35",
     "@angular/forms": "^12.2.10",
     "@angular/localize": "~12.2.10",
     "@angular/material": "^11.2.13",
