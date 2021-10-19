@@ -43,7 +43,7 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
 
   async afterConfigured(): Promise<any> {
     return new Promise(resolve => {
-      resolve();
+      resolve(undefined); // (C.K. 19.10.2021) ToDo check usage
     });
   }
 

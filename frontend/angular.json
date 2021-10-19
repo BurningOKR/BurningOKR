@@ -214,7 +214,7 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "src/tsconfig.spec.json",
             "styles": [
               "src/styles.scss"

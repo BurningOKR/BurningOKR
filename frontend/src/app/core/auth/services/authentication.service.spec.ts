@@ -55,7 +55,7 @@ describe('AuthenticationService', () => {
     oAuthService.hasValidAccessToken.mockReturnValue(null);
 
     authTypeHandler.afterConfigured.mockReset();
-    authTypeHandler.afterConfigured.mockReturnValue(new Promise(resolve => resolve()));
+    authTypeHandler.afterConfigured.mockReturnValue(new Promise(resolve => resolve(undefined)));
     authTypeHandler.startLoginProcedure.mockReset();
     authTypeHandler.login.mockReset();
   });

@@ -36,7 +36,7 @@ describe('LocalAuthTypeHandlerService', () => {
     oAuthService.getAccessTokenExpiration.mockReset();
     oAuthService.getAccessTokenExpiration.mockReturnValue(0);
     oAuthService.fetchTokenUsingPasswordFlow.mockReset();
-    oAuthService.fetchTokenUsingPasswordFlow.mockReturnValue(new Promise<object>(resolve => resolve()));
+    oAuthService.fetchTokenUsingPasswordFlow.mockReturnValue(new Promise<object>(resolve => resolve(undefined)));
 
     router.navigate.mockReset();
 
@@ -131,7 +131,7 @@ describe('LocalAuthTypeHandlerService', () => {
     (service as any).safeRefreshToken
       .mockReset();
     (service as any).safeRefreshToken
-      .mockReturnValue(new Promise((resolve => resolve())));
+      .mockReturnValue(new Promise((resolve => resolve(undefined))));
 
     service.setupSilentRefresh();
 
