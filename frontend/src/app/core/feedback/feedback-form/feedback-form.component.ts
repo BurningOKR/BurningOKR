@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/components/dialog-component/dialog.component';
 import { User } from '../../../shared/model/api/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

@@ -1,5 +1,5 @@
 import { User } from '../../model/api/user';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators';
 import { UserService } from '../../services/helper/user.service';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';

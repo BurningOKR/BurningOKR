@@ -6,17 +6,15 @@ import { AdminSettingsFormComponent } from './settings/settings-form/admin-setti
 import { VersionFormComponent } from './version-form/version-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  MatCardModule,
-  MatCheckboxModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatTabsModule
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FeedbackButtonComponent } from './feedback/feedback-button/feedback-button.component';
 import { FlexModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';

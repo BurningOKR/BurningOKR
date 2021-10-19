@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { forkJoin, NEVER, Observable, Subject, Subscription } from 'rxjs';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { OkrUnitSchema } from '../../../shared/model/ui/okr-unit-schema';
 import { I18n } from '@ngx-translate/i18n-polyfill';

@@ -4,7 +4,7 @@ import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { TopicDescriptionMapper } from '../../../../shared/services/mapper/topic-description-mapper';
 import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { Observable } from 'rxjs';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DepartmentDescriptionEditFormComponent } from './department-description-edit-form/department-description-edit-form.component';
 import { switchMap, take } from 'rxjs/operators';
 

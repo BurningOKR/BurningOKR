@@ -17,7 +17,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { UserAutocompleteInputComponent } from './components/user-autocomplete-input/user-autocomplete-input.component';
 import { UserMinibuttonComponent } from './components/user-minibutton/user-minibutton.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog-component/dialog.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';

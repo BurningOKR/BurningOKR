@@ -6,7 +6,7 @@ import { MaterialTestingModule } from '../../../../testing/material-testing.modu
 import { CurrentUserService } from '../../../../core/services/current-user.service';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';

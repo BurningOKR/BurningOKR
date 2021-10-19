@@ -1,5 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { combineLatest, forkJoin, NEVER, Observable } from 'rxjs';
 import { CurrentUserService } from '../../services/current-user.service';
 import { SettingsForm } from './settings-form';

@@ -2,14 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CycleAdminContainerComponent } from './cycle-admin-container/cycle-admin-container.component';
 import { CycleAdminCardComponent } from './cycle-admin-card/cycle-admin-card.component';
-import {
-  MatCardModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule,
-  MatIconModule, MatInputModule,
-  MatMenuModule,
-  MatProgressBarModule, MatSelectModule, MatSlideToggleModule, MatStepperModule,
-  MatToolbarModule,
-  MatTooltipModule
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '../shared/shared.module';
 import { CycleCreationFormComponent } from './cycle-creation-form/cycle-creation-form.component';
 import { CycleEditFormComponent } from './cycle-edit-form/cycle-edit-form.component';
