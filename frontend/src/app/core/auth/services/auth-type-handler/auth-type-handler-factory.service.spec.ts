@@ -30,7 +30,7 @@ describe('AuthTypeHandlerFactoryService', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(AuthTypeHandlerFactoryService);
+    service = TestBed.inject(AuthTypeHandlerFactoryService);
 
     oAuthFrontendDetailsServiceMock.getAuthType$.mockReset();
     injectorMock.get.mockReset();

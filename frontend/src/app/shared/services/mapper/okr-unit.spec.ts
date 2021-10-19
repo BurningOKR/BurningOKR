@@ -83,7 +83,7 @@ describe('OkrUnitService', () => {
   });
 
   it('should be created', () => {
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
     expect(service)
       .toBeTruthy();
   });
@@ -91,7 +91,7 @@ describe('OkrUnitService', () => {
   it('getOkrChildUnitById$ returns Departments', done => {
     okrUnitApiService.getOkrChildUnitById$.mockReturnValue(of(departmentDto));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -104,7 +104,7 @@ describe('OkrUnitService', () => {
   it('getOkrChildUnitById$ maps DepartmentDtos to Departments', done => {
     okrUnitApiService.getOkrChildUnitById$.mockReturnValue(of(departmentDto));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -121,7 +121,7 @@ describe('OkrUnitService', () => {
   it('getOkrChildUnitById$ returns OkrBranch', done => {
     okrUnitApiService.getOkrChildUnitById$.mockReturnValue(of(okrBranchDto));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -134,7 +134,7 @@ describe('OkrUnitService', () => {
   it('getOkrChildUnitById$ maps OkrBranchDtos to OkrBranch', done => {
     okrUnitApiService.getOkrChildUnitById$.mockReturnValue(of(okrBranchDto));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -151,7 +151,7 @@ describe('OkrUnitService', () => {
   it('getOkrChildUnitById$ does not map null', done => {
     okrUnitApiService.getOkrChildUnitById$.mockReturnValue(of(null));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -164,7 +164,7 @@ describe('OkrUnitService', () => {
   it('putOkrChildUnit$ maps Departments to dtos', done => {
     okrUnitApiService.putOkrChildUnit$.mockReturnValue(of(departmentDto));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.putOkrChildUnit$(departmentUnit)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -177,7 +177,7 @@ describe('OkrUnitService', () => {
   it('putOkrChildUnit$ maps OkrBranch to dtos', done => {
     okrUnitApiService.putOkrChildUnit$.mockReturnValue(of(okrBranchDto));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.putOkrChildUnit$(okrBranch)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -190,7 +190,7 @@ describe('OkrUnitService', () => {
   it('putOkrChildUnit$ does not map null', done => {
     okrUnitApiService.putOkrChildUnit$.mockReturnValue(of(null));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.putOkrChildUnit$(okrBranch)
       .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -205,7 +205,7 @@ describe('OkrUnitService', () => {
 
     // tslint:disable-next-line:typedef
     const test = () => {
-      const service: OkrUnitService = TestBed.get(OkrUnitService);
+      const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
       service.putOkrChildUnit$(null)
         .subscribe((okrChildUnit: OkrChildUnit) => {
@@ -223,7 +223,7 @@ describe('OkrUnitService', () => {
   it('deleteOkrChildUnit$ deletes Department', done => {
     okrUnitApiService.deleteOkrChildUnit$.mockReturnValue(of(true));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.deleteOkrChildUnit$(departmentUnit)
       .subscribe((deleted: boolean) => {
@@ -236,7 +236,7 @@ describe('OkrUnitService', () => {
   it('deleteOkrChildUnit$ deletes OkrBranch', done => {
     okrUnitApiService.deleteOkrChildUnit$.mockReturnValue(of(true));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.deleteOkrChildUnit$(okrBranch)
       .subscribe((deleted: boolean) => {
@@ -249,7 +249,7 @@ describe('OkrUnitService', () => {
   it('deleteOkrChildUnit$ does not delete null', done => {
     okrUnitApiService.deleteOkrChildUnit$.mockReturnValue(of(true));
 
-    const service: OkrUnitService = TestBed.get(OkrUnitService);
+    const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     // tslint:disable-next-line:typedef
     const test = () => {

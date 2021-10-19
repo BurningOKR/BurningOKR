@@ -19,7 +19,7 @@ describe('LocalUserService', () => {
   }));
 
   it('should be created', () => {
-    const service: LocalUserService = TestBed.get(LocalUserService);
+    const service: LocalUserService = TestBed.inject(LocalUserService);
     expect(service)
       .toBeTruthy();
   });

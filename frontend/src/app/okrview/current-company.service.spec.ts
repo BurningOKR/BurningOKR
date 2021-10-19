@@ -27,7 +27,7 @@ describe('CurrentCompanyService', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(CurrentCompanyService);
+    service = TestBed.inject(CurrentCompanyService);
     companyMapperMock.getCompanyById$.mockReset();
     companyMapperMock.getCompanyById$.mockReturnValue(of(testCompany));
     companyMapperMock.getParentCompanyOfOkrUnits$.mockReturnValue(of(testCompany));

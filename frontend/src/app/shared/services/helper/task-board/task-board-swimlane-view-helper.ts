@@ -1,10 +1,9 @@
-
 import { TaskBoardStateColumnViewHelper } from './task-board-state-column-view-helper';
 import { ViewKeyResult } from '../../../model/ui/view-key-result';
 import { ViewTaskState } from '../../../model/ui/taskboard/view-task-state';
 import { ViewTask } from '../../../model/ui/taskboard/view-task';
 import { KeyResultStateTaskMap } from '../../../model/ui/taskboard/key-result-state-task-map';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper {
