@@ -60,7 +60,6 @@
     "class-transformer": "^0.2.3",
     "core-js": "^3.1.4",
     "file-saver": "^2.0.2",
-    "hammerjs": "^2.0.8",
     "linq4js": "^2.2.3",
     "ngx-avatar": "^4.0.0",
     "ngx-logger": "^4.0.7",
