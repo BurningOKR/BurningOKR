@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';

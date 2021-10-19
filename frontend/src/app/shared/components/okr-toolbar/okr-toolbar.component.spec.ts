@@ -4,7 +4,7 @@ import { OkrToolbarComponent } from './okr-toolbar.component';
 import { CurrentCompanyService } from '../../../okrview/current-company.service';
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
 import { ConfigurationService } from '../../../core/settings/configuration.service';

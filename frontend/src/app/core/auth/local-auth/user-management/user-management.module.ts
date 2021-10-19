@@ -4,17 +4,15 @@ import { CommonModule } from '@angular/common';
 import { UserManagementRoutingModule } from './user-management-routing.module';
 import { UserManagementComponent } from './user-management.component';
 import { SharedModule } from '../../../../shared/shared.module';
-import {
-  MatCardModule,
-  MatCheckboxModule,
-  MatIconModule,
-  MatInputModule,
-  MatMenuModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatTableModule,
-  MatTooltipModule
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarModule } from 'ngx-avatar';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
@@ -49,10 +47,6 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
   exports: [
     UserDialogComponent,
     UserFormComponent
-  ],
-  entryComponents: [
-    ImportCsvDialogComponent,
-    UserDialogComponent
   ]
 })
 export class UserManagementModule {

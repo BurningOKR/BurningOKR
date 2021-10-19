@@ -4,7 +4,7 @@ import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAutocompleteInputComponent } from '../shared/components/user-autocomplete-input/user-autocomplete-input.component';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { map, take } from 'rxjs/operators';
 import {
   ConfirmationDialogComponent,
@@ -21,7 +21,7 @@ import 'linq4js';
   styleUrls: ['./admin-view.component.scss'],
 })
 export class AdminViewComponent implements OnInit {
-  @ViewChild('newAdminForm', {static: false}) newAdminForm: UserAutocompleteInputComponent;
+  @ViewChild('newAdminForm') newAdminForm: UserAutocompleteInputComponent;
 
   adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
   subscriptions: Subscription[] = [];

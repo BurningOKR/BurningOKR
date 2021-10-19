@@ -2,7 +2,7 @@
   <ng-container *ngIf="currentCycle$ | async as currentCycle">
     <mat-form-field class="number-input history-cycle-input navbar-item-dropdown">
 
-      <mat-select [(value)]="currentCycle" (selectionChange)="onSelectCycle($event.value)">
+      <mat-select [value]="currentCycle" (selectionChange)="onSelectCycle($event.value)">
 
         <mat-select-trigger>
           {{ currentCycle.abbreviation }} <br/>

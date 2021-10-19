@@ -5,7 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedModule } from '../../../../shared/shared.module';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { TopicDescriptionMapper } from '../../../../shared/services/mapper/topic-description-mapper';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { of } from 'rxjs';

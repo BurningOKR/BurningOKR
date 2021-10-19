@@ -1,6 +1,8 @@
 import { ViewTask } from '../../../model/ui/taskboard/view-task';
 import { TaskService } from './task.service';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class TaskBoardGeneralHelper extends TaskService {
 
     /**

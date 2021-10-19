@@ -68,14 +68,14 @@ describe('TopicDraftMapper', () => {
     });
 
     it('should be created', () => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         expect(topicDraftMapper)
             .toBeTruthy();
     });
 
     it('postTopicDraftForCompany$ should call service', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.postTopicDraftForCompany$(0, topicDraft)
             .subscribe(() => {
@@ -86,7 +86,7 @@ describe('TopicDraftMapper', () => {
     });
 
     it('postTopicDraftForCompany$ should map', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.postTopicDraftForCompany$(0, topicDraft)
             .subscribe((okrTopicDraft: OkrTopicDraft) => {
@@ -97,7 +97,7 @@ describe('TopicDraftMapper', () => {
     });
 
     it('postTopicDraftForOkrBranch$ should call servuce', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.postTopicDraftForOkrBranch$(0, topicDraft)
             .subscribe(() => {
@@ -108,7 +108,7 @@ describe('TopicDraftMapper', () => {
     });
 
     it('postTopicDraftForOkrBranch$ should map', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.postTopicDraftForOkrBranch$(0, topicDraft)
             .subscribe((okrTopicDraft: OkrTopicDraft) => {
@@ -119,7 +119,7 @@ describe('TopicDraftMapper', () => {
     });
 
     it('getAllTopicDrafts$ should call service', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.getAllTopicDrafts$()
             .subscribe(() => {
@@ -130,7 +130,7 @@ describe('TopicDraftMapper', () => {
     });
 
     it('getAllTopicDrafts$ should map topicDraftDto to topicDraft ', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.getAllTopicDrafts$()
             .subscribe((okrTopicDraft: OkrTopicDraft[]) => {

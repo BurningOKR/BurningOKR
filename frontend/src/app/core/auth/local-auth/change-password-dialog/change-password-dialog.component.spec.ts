@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ChangePasswordDialogComponent } from './change-password-dialog.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 import { FormBuilder } from '@angular/forms';
 import { PasswordService } from '../password-service/password.service';

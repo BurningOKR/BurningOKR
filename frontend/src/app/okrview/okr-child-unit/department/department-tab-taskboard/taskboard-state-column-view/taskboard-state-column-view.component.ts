@@ -9,7 +9,7 @@ import { ViewTask } from '../../../../../shared/model/ui/taskboard/view-task';
 import { ViewTaskState } from '../../../../../shared/model/ui/taskboard/view-task-state';
 import { ViewKeyResult } from '../../../../../shared/model/ui/view-key-result';
 import { TaskBoardStateColumnViewHelper } from '../../../../../shared/services/helper/task-board/task-board-state-column-view-helper';
-import { TaskBoardView } from '../task-board-view-modell';
+import { TaskBoardViewDirective } from '../task-board-view-modell-directive';
 import { TaskBoardDragDropEvent } from '../taskboard-column/taskboard-column.component';
 
 @Component({
@@ -17,7 +17,7 @@ import { TaskBoardDragDropEvent } from '../taskboard-column/taskboard-column.com
   templateUrl: './taskboard-state-column-view.component.html',
   styleUrls: ['./taskboard-state-column-view.component.css']
 })
-export class TaskboardStateColumnViewComponent extends TaskBoardView implements OnInit, OnDestroy {
+export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   statesWithTasks$: Observable<StateTaskMap[]>;
   keyResults: ViewKeyResult[] = [];

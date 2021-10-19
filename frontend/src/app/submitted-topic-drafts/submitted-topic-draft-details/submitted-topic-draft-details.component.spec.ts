@@ -17,7 +17,7 @@ import { AuthenticationService } from '../../core/auth/services/authentication.s
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';

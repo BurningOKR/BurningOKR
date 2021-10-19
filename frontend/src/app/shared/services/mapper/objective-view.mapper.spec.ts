@@ -60,14 +60,14 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('should be created', () => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     expect(service)
       .toBeTruthy();
   });
 
   it('getObjectiveById$ should map', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.getObjectiveById$(1)
       .subscribe((viewObjective: ViewObjective) => {
@@ -78,7 +78,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('getObjectiveById$ should call service', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.getObjectiveById$(1)
       .subscribe(() => {
@@ -89,7 +89,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('getObjectiveForDepartment$ should map', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.getObjectivesForDepartment$(1)
       .subscribe((viewObjective: ViewObjective[]) => {
@@ -100,7 +100,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('getObjectiveForDepartment$ should call service', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.getObjectivesForDepartment$(1)
       .subscribe(() => {
@@ -111,7 +111,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('postObjectiveForDepartment$ should map', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.postObjectiveForDepartment$(1, objective)
       .subscribe((viewObjective: ViewObjective) => {
@@ -122,7 +122,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('postObjectiveForDepartment$ should call service', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.postObjectiveForDepartment$(1, objective)
       .subscribe(() => {
@@ -133,7 +133,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('postObjectiveForDepartment$ should map viewObjective to objectiveDto', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.postObjectiveForDepartment$(1, objective)
       .subscribe(() => {
@@ -153,7 +153,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('postObjectiveForUnit$ should map', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.postObjectiveForUnit$(1, objective)
       .subscribe((viewObjective: ViewObjective) => {
@@ -164,7 +164,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('postObjectiveForUnit$ should call service', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.postObjectiveForUnit$(1, objective)
       .subscribe(() => {
@@ -175,7 +175,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('postObjectiveForUnit$ should map viewObjective to objectiveDto', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.postObjectiveForUnit$(1, objective)
       .subscribe(() => {
@@ -195,7 +195,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('putObjective$ should map', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.putObjective$(objective)
       .subscribe((viewObjective: ViewObjective) => {
@@ -206,7 +206,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('putObjective$ should call service', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.putObjective$(objective)
       .subscribe(() => {
@@ -217,7 +217,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('putObjective$ should map viewObjective to objectiveDto', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.putObjective$(objective)
       .subscribe(() => {
@@ -237,7 +237,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('putObjectiveKeyResultSequence$ should call service', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.putObjectiveKeyResultSequence$(1, [])
       .subscribe(() => {
@@ -248,7 +248,7 @@ describe('ObjectiveViewMapper', () => {
   });
 
   it('deleteObjective$ should call service', done => {
-    service = TestBed.get(ObjectiveViewMapper);
+    service = TestBed.inject(ObjectiveViewMapper);
 
     service.deleteObjective$(1)
       .subscribe(() => {

@@ -8,7 +8,7 @@ import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { CycleWithHistoryCompany } from '../../shared/model/ui/cycle-with-history-company';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../core/services/current-user.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OkrUnitFormComponent } from '../okr-unit-form/okr-unit-form.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CompanyApiService } from '../../shared/services/api/company-api.service';

@@ -19,7 +19,7 @@ describe('AzureAuthTypeHandlerService', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(AzureAuthTypeHandlerService);
+    service = TestBed.inject(AzureAuthTypeHandlerService);
 
     oAuthServiceMock.loadDiscoveryDocumentAndLogin.mockReset();
     oAuthServiceMock.hasValidAccessToken.mockReset();

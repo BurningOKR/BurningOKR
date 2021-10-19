@@ -13,7 +13,7 @@ import { CurrentCompanyService } from '../current-company.service';
   styleUrls: ['./navigation-sidebar.component.scss']
 })
 export class NavigationSidebarComponent implements OnInit, OnDestroy {
-  @ViewChild('sideNav', { static: false }) sideNav: MatSidenav;
+  @ViewChild('sideNav') sideNav: MatSidenav;
 
   mobileQuery: MediaQueryList;
   private readonly _mobileQueryListener: () => void;
@@ -30,7 +30,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
   toggleSideNav(): void {

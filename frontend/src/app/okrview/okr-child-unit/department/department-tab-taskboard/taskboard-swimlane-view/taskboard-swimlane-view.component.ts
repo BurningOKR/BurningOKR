@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, Observable, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { TaskBoardViewEventService } from '../../../../taskboard-services/task-board-view-event.service';
 import { KeyResultStateTaskMap } from '../../../../../shared/model/ui/taskboard/key-result-state-task-map';
@@ -7,7 +7,7 @@ import { ViewTask } from '../../../../../shared/model/ui/taskboard/view-task';
 import { ViewTaskState } from '../../../../../shared/model/ui/taskboard/view-task-state';
 import { ViewKeyResult } from '../../../../../shared/model/ui/view-key-result';
 import { TaskBoardSwimlaneViewHelper } from '../../../../../shared/services/helper/task-board/task-board-swimlane-view-helper';
-import { TaskBoardView } from '../task-board-view-modell';
+import { TaskBoardViewDirective } from '../task-board-view-modell-directive';
 import { TaskBoardSwimlaneDragDropEvent } from './taskboard-swimlane/taskboard-swimlane.component';
 
 export interface TaskBoardSwimlaneViewData {
@@ -21,7 +21,7 @@ export interface TaskBoardSwimlaneViewData {
   templateUrl: './taskboard-swimlane-view.component.html',
   styleUrls: ['./taskboard-swimlane-view.component.css']
 })
-export class TaskboardSwimlaneViewComponent extends TaskBoardView implements OnInit, OnDestroy {
+export class TaskboardSwimlaneViewComponent extends TaskBoardViewDirective implements OnInit, OnDestroy {
   dataEmitter$: Subject<KeyResultStateTaskMap> = new Subject();
   viewData$: Observable<TaskBoardSwimlaneViewData>;
 

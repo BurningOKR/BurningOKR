@@ -8,7 +8,7 @@ import { of, Subscription } from 'rxjs';
 import { ObjectiveContentsComponent } from './objective-contents.component';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
-import { MatDialog, MatDialogModule } from '@angular/material';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfigurationManagerService } from '../../../core/settings/configuration-manager.service';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../shared/model/api/unit.enum';

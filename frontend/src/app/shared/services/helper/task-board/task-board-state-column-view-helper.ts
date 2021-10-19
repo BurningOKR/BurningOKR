@@ -1,9 +1,10 @@
-
 import { TaskService } from './task.service';
 import { ViewTaskState } from '../../../model/ui/taskboard/view-task-state';
 import { ViewTask } from '../../../model/ui/taskboard/view-task';
 import { StateTaskMap } from '../../../model/ui/taskboard/state-task-map';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class TaskBoardStateColumnViewHelper extends TaskService {
     /**
      * Create a List of Tasks for all given states and returned the result list.

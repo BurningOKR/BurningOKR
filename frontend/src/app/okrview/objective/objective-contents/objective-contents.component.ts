@@ -5,7 +5,7 @@ import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
 import { ConfigurationManagerService } from '../../../core/settings/configuration-manager.service';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { KeyResultFormComponent } from '../../keyresult/key-result-form/key-result-form.component';
 import { ObservableInput, Subscription } from 'rxjs';

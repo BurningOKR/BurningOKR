@@ -10,7 +10,7 @@ export class UserFormComponent {
   @Input() userForm: FormGroup;
   @Input() canEditAdminStatus: boolean;
 
-  @ViewChild('canvasElement', {static: false}) canvas;
+  @ViewChild('canvasElement') canvas;
 
   setPhoto($event: any): void {
     const files: FileList = $event.target.files;

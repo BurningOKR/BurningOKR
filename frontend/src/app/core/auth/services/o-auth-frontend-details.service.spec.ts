@@ -43,21 +43,21 @@ describe('OAuthFrontendDetailsService', () => {
   });
 
   it('should be created', () => {
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     expect(service)
       .toBeTruthy();
   });
 
   it('should reloadOAuthFrontendDetails on init', () => {
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     expect(httpClient.get)
       .toHaveBeenCalled();
   });
 
   it('getAuthConfig maps OAuthFrontendDetails to AuthConfig', done => {
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthConfig$()
       .subscribe((authConfig: AuthConfig) => {
@@ -96,7 +96,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getAuthConfig does not emit on falsy (null) value', done => {
     httpClient.get.mockReturnValue(of(null));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthConfig$()
       .subscribe((authConfig: AuthConfig) => {
@@ -113,7 +113,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getAuthConfig does not emit on falsy (undefined) value', done => {
     httpClient.get.mockReturnValue(of(undefined));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthConfig$()
       .subscribe((authConfig: AuthConfig) => {
@@ -128,7 +128,7 @@ describe('OAuthFrontendDetailsService', () => {
   });
 
   it('getOAuthFrontendDetails returns oAuthFrontendDetails', done => {
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getOAuthFrontendDetails$()
       .subscribe((details: OAuthFrontendDetails) => {
@@ -141,7 +141,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getOAuthFrontendDetails does not emit on falsy (null) value', done => {
     httpClient.get.mockReturnValue(of(null));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getOAuthFrontendDetails$()
       .subscribe((details: OAuthFrontendDetails) => {
@@ -158,7 +158,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getOAuthFrontendDetails does not emit on falsy (undefined) value', done => {
     httpClient.get.mockReturnValue(of(undefined));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getOAuthFrontendDetails$()
       .subscribe((details: OAuthFrontendDetails) => {
@@ -175,7 +175,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getAuthType returns azure for azure authType', done => {
     testOAuthFrontendDetails.authType = Consts.AUTHTYPE_AZURE;
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthType$()
       .subscribe((authType: string) => {
@@ -188,7 +188,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getAuthType returns local for local authType', done => {
     testOAuthFrontendDetails.authType = Consts.AUTHTYPE_LOCAL;
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthType$()
       .subscribe((authType: string) => {
@@ -201,7 +201,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getAuthType returns somethingElse for somethingElse authType', done => {
     testOAuthFrontendDetails.authType = 'somethingElse';
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthType$()
       .subscribe((authType: string) => {
@@ -214,7 +214,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getAuthType does not emit on falsy (null) value', done => {
     httpClient.get.mockReturnValue(of(null));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthType$()
       .subscribe(() => {
@@ -231,7 +231,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('getAuthType does not emit on falsy (undefined) value', done => {
     httpClient.get.mockReturnValue(of(undefined));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.getAuthType$()
       .subscribe(() => {
@@ -248,7 +248,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isLocalAuthType returns true for local auth type', done => {
     testOAuthFrontendDetails.authType = Consts.AUTHTYPE_LOCAL;
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isLocalAuthType$()
       .subscribe((isLocal: boolean) => {
@@ -261,7 +261,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isLocalAuthType returns false for azure auth type', done => {
     testOAuthFrontendDetails.authType = Consts.AUTHTYPE_AZURE;
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isLocalAuthType$()
       .subscribe((isLocal: boolean) => {
@@ -274,7 +274,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isLocalAuthType returns false for somethingElse', done => {
     testOAuthFrontendDetails.authType = 'somethingElse';
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isLocalAuthType$()
       .subscribe((isLocal: boolean) => {
@@ -287,7 +287,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isLocalAuthType does not emit on falsy (undefined) value', done => {
     httpClient.get.mockReturnValue(of(undefined));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isLocalAuthType$()
       .subscribe(() => {
@@ -304,7 +304,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isLocalAuthType does not emit on falsy (null) value', done => {
     httpClient.get.mockReturnValue(of(null));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isLocalAuthType$()
       .subscribe(() => {
@@ -321,7 +321,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isAzureAuthType returns false for local auth type', done => {
     testOAuthFrontendDetails.authType = Consts.AUTHTYPE_LOCAL;
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isAzureAuthType$()
       .subscribe((isLocal: boolean) => {
@@ -334,7 +334,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isAzureAuthType returns true for azure auth type', done => {
     testOAuthFrontendDetails.authType = Consts.AUTHTYPE_AZURE;
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isAzureAuthType$()
       .subscribe((isLocal: boolean) => {
@@ -347,7 +347,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isAzureAuthType returns false for somethingElse', done => {
     testOAuthFrontendDetails.authType = 'somethingElse';
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isAzureAuthType$()
       .subscribe((isLocal: boolean) => {
@@ -360,7 +360,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isAzureAuthType does not emit on falsy (undefined) value', done => {
     httpClient.get.mockReturnValue(of(undefined));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isAzureAuthType$()
       .subscribe(() => {
@@ -377,7 +377,7 @@ describe('OAuthFrontendDetailsService', () => {
   it('isAzureAuthType does not emit on falsy (null) value', done => {
     httpClient.get.mockReturnValue(of(null));
 
-    const service: OAuthFrontendDetailsService = TestBed.get(OAuthFrontendDetailsService);
+    const service: OAuthFrontendDetailsService = TestBed.inject(OAuthFrontendDetailsService);
 
     service.isAzureAuthType$()
       .subscribe(() => {

@@ -7,13 +7,13 @@ describe('CsvUserParseService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CsvUserParseService = TestBed.get(CsvUserParseService);
+    const service: CsvUserParseService = TestBed.inject(CsvUserParseService);
     expect(service)
       .toBeTruthy();
   });
 
   it('should parse csv with multiple users to user[]', () => {
-    const service: CsvUserParseService = TestBed.get(CsvUserParseService);
+    const service: CsvUserParseService = TestBed.inject(CsvUserParseService);
     const input: string =
       `Nico;Jeske;email@email.email;job bezeichung;department
 Tim;Fischer ;tim.fischer@fisch.de;Fischer;FischDepartment`;
@@ -30,7 +30,7 @@ Tim;Fischer ;tim.fischer@fisch.de;Fischer;FischDepartment`;
   });
 
   it('should parse csv with multiple users with not all properties set to user[]', () => {
-    const service: CsvUserParseService = TestBed.get(CsvUserParseService);
+    const service: CsvUserParseService = TestBed.inject(CsvUserParseService);
     const input: string =
       `;Jeske;email@email.email;job bezeichung;department
 Tim;;tim.fischer@fisch.de;Fischer;FischDepartment`;
@@ -51,7 +51,7 @@ Tim;;tim.fischer@fisch.de;Fischer;FischDepartment`;
   });
 
   it('should return empty user[] if csv is empty', () => {
-    const service: CsvUserParseService = TestBed.get(CsvUserParseService);
+    const service: CsvUserParseService = TestBed.inject(CsvUserParseService);
     const input: string = '';
 
     const actual: { warnings: { tooManyFields: boolean }; users: User[] } = service.parseCsvStringToUserArray(input);
@@ -62,7 +62,7 @@ Tim;;tim.fischer@fisch.de;Fischer;FischDepartment`;
   });
 
   it('should have warning if csv is invalid', () => {
-    const service: CsvUserParseService = TestBed.get(CsvUserParseService);
+    const service: CsvUserParseService = TestBed.inject(CsvUserParseService);
     const input: string = 'dasdas,eqwe,das.d,.d.sd,asd.d,qw,dasd,,wd,s,asd,qwd,sdqw,,qwdw';
 
     const actual: { warnings: { tooManyFields: boolean }; users: User[] } = service.parseCsvStringToUserArray(input);

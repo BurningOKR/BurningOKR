@@ -44,14 +44,14 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('should be created', () => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     expect(service)
       .toBeTruthy();
   });
 
   it('startLoginProcedure, redirects when there is no refresh token', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     oAuthService.getRefreshToken.mockReturnValue(null);
 
@@ -64,7 +64,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('startLoginProcedure, returns false when there is no refresh token', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     oAuthService.getRefreshToken.mockReturnValue(null);
 
@@ -77,7 +77,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('startLoginProcedure, does not redirect when there is a refresh token', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     oAuthService.getRefreshToken.mockReturnValue('i am a refresh token');
     oAuthService.refreshToken.mockReturnValue('i am a refresh token');
@@ -92,7 +92,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('startLoginProcedure, returns true when there is a refresh token', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     oAuthService.getRefreshToken.mockReturnValue('i am a refresh token');
     oAuthService.refreshToken.mockReturnValue('i am a refresh token');
@@ -106,7 +106,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('setupSilentRefresh refreshes directly when expiration duration is 0', () => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     oAuthService.getAccessTokenExpiration.mockReturnValue(Date.now() - 10);
 
@@ -122,7 +122,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('setupSilentRefresh refreshes after expiration time', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     oAuthService.getAccessTokenExpiration.mockReturnValue(Date.now() + 1000);
 
@@ -143,7 +143,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('login fetches token using password flow', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
     service.login('', '')
       .then(() => {
         expect(oAuthService.fetchTokenUsingPasswordFlow)
@@ -153,7 +153,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('login fetches token using email and password', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     const email: string = 'test@test.com';
     const password: string = '1234567';
@@ -167,7 +167,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('login refetches all fetching Services', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     service.login('', '')
       .then(() => {
@@ -178,7 +178,7 @@ describe('LocalAuthTypeHandlerService', () => {
   });
 
   it('login sets up silent refresh', done => {
-    const service: LocalAuthTypeHandlerService = TestBed.get(LocalAuthTypeHandlerService);
+    const service: LocalAuthTypeHandlerService = TestBed.inject(LocalAuthTypeHandlerService);
 
     service.setupSilentRefresh = jest.fn();
     (service.setupSilentRefresh as any).mockReset();

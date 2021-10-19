@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-draft-action-button.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../core/auth/services/authentication.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';

@@ -39,7 +39,10 @@ import { NavigationListEntryComponent } from './navigation-list-entry/navigation
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
 import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
-import { MatButtonToggleModule, MatCheckboxModule, MatDatepickerModule, MatSlideToggleModule } from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -99,15 +102,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         TopicDraftCreationFormComponent,
         OkrTopicDescriptionFormComponent,
         AddChildUnitButtonComponent,
-    ],
-    entryComponents: [
-        CommentViewDialogComponent,
-        OkrChildUnitFormComponent,
-        KeyResultFormComponent,
-        ObjectiveFormComponent,
-        DepartmentDescriptionEditFormComponent,
-        TaskFormComponent,
-        TopicDraftCreationFormComponent,
     ],
     imports: [
         CommonModule,

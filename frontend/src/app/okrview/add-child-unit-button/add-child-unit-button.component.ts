@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { take, filter, switchMap } from 'rxjs/operators';
 import { OkrBranch } from '../../shared/model/ui/OrganizationalUnit/okr-branch';

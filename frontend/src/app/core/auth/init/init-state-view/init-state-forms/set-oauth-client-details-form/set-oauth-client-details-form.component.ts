@@ -7,7 +7,7 @@ import { OauthClientDetails } from '../../../../../../shared/model/api/oauth-cli
 import { FormGroupTyped } from '../../../../../../../typings';
 import { Consts } from '../../../../../../shared/consts';
 import { OAuthFrontendDetailsService } from '../../../../services/o-auth-frontend-details.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({

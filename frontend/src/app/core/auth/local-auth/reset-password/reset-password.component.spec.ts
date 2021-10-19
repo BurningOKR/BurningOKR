@@ -4,7 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Directive, Input, NO_ERRORS_SCHEMA, Pipe, PipeT
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PasswordService } from '../password-service/password.service';
 import { PasswordServiceMock } from '../../../../shared/mocks/password-service-mock';
 

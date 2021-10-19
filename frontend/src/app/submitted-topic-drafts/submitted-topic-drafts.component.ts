@@ -4,7 +4,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { OkrTopicDraft } from '../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../shared/services/mapper/topic-draft-mapper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-submitted-topic-drafts',

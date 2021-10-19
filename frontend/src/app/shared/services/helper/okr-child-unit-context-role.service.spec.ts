@@ -26,7 +26,7 @@ describe('OkrChildUnitRoleService', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(OkrChildUnitRoleService);
+    service = TestBed.inject(OkrChildUnitRoleService);
 
     currentUserService.isCurrentUserAdmin$.mockReset();
     currentUserService.getCurrentUser$.mockReset();

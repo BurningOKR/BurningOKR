@@ -4,7 +4,7 @@ import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft
 import { User } from '../../shared/model/api/user';
 import { NEVER, of } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { CurrentUserService } from '../../core/services/current-user.service';

@@ -5,7 +5,7 @@ import { CurrentUserService } from '../../../services/current-user.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { i18nMock } from '../../../../shared/mocks/i18n-mock';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
 import { of } from 'rxjs';
 import { Configuration } from '../../../../shared/model/ui/configuration';

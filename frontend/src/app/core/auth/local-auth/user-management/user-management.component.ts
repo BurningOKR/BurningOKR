@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatCheckboxChange, MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/model/api/user';

@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
