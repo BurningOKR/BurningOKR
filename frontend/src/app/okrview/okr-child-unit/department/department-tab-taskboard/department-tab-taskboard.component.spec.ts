@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DepartmentTabTaskboardComponent } from './department-tab-taskboard.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BehaviorSubject, of, Subject } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { of, Subject } from 'rxjs';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
 import { TaskStateMapper } from '../../../../shared/services/mapper/task-state.mapper';
@@ -59,7 +59,7 @@ describe('DepartmentTabTaskboardComponent', () => {
   let component: DepartmentTabTaskboardComponent;
   let fixture: ComponentFixture<DepartmentTabTaskboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MaterialTestingModule, NoopAnimationsModule, MatSnackBarModule, MatDialogModule, ReactiveFormsModule],
       declarations: [

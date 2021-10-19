@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AddChildUnitButtonComponent } from './add-child-unit-button.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
@@ -15,7 +15,7 @@ describe('AddChildUnitButtonComponent', () => {
     isAtleastAdmin: jest.fn()
     };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     contextRoleMock.isAtleastAdmin.mockReset();
     contextRoleMock.isAtleastAdmin.mockReturnValue(true);
     TestBed.configureTestingModule({

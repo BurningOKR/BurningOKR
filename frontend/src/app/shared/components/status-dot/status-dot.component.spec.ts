@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { StatusDotComponent } from './status-dot.component';
 import { I18n } from '@ngx-translate/i18n-polyfill';
@@ -9,7 +9,7 @@ describe('StatusDotComponent', () => {
   let component: StatusDotComponent;
   let fixture: ComponentFixture<StatusDotComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [StatusDotComponent],
       providers: [

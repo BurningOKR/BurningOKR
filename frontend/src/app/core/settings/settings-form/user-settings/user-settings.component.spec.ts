@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UserSettingsComponent } from './user-settings.component';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
@@ -42,7 +42,7 @@ describe('UserSettingsComponent', () => {
   let component: UserSettingsComponent;
   let fixture: ComponentFixture<UserSettingsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [UserSettingsComponent],
       imports: [MaterialTestingModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],

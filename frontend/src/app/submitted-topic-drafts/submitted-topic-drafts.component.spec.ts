@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts.component';
 import { MaterialTestingModule } from '../testing/material-testing.module';
@@ -23,7 +23,7 @@ describe('SubmittedTopicDraftsComponent', () => {
 
   topicDraftMapperMock.getAllTopicDrafts$.mockReturnValue(of(undefined));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubmittedTopicDraftsComponent ],
       imports: [ MaterialTestingModule,

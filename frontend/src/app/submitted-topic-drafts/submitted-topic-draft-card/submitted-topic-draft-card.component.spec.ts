@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubmittedTopicDraftCardComponent } from './submitted-topic-draft-card.component';
 import { Component, Input } from '@angular/core';
@@ -15,7 +15,7 @@ describe('SubmittedTopicDraftCardComponent', () => {
   let component: SubmittedTopicDraftCardComponent;
   let fixture: ComponentFixture<SubmittedTopicDraftCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubmittedTopicDraftCardComponent, SubmittedTopicDraftActionButtonMock, StatusDotComponent ],
       imports: [ MaterialTestingModule ],

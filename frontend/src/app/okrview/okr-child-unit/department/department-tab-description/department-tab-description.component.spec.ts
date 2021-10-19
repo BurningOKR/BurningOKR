@@ -1,7 +1,7 @@
 // tslint:disable:rxjs-finnish
 
 import { DepartmentTabDescriptionComponent } from './department-tab-description.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SharedModule } from '../../../../shared/shared.module';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { TopicDescriptionMapper } from '../../../../shared/services/mapper/topic-description-mapper';
@@ -32,7 +32,7 @@ describe('DepartmentTabDescription', () => {
   let topicDescription: OkrTopicDescription;
   let userRole: ContextRole;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DepartmentTabDescriptionComponent],
       imports: [SharedModule, MaterialTestingModule],

@@ -1,6 +1,6 @@
 // tslint:disable:rxjs-finnish
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OkrChildUnitOverviewTabComponent } from './okr-child-unit-overview-tab.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
@@ -49,7 +49,7 @@ describe('ChildUnitOverviewTabComponent', () => {
   let component: OkrChildUnitOverviewTabComponent;
   let fixture: ComponentFixture<OkrChildUnitOverviewTabComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         OkrChildUnitOverviewTabComponent,

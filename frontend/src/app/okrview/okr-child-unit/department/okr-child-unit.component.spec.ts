@@ -1,6 +1,6 @@
 // tslint:disable:rxjs-finnish
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OkrChildUnitComponent } from './okr-child-unit.component';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { OkrChildUnitRoleService } from '../../../shared/services/helper/okr-child-unit-role.service';
@@ -108,7 +108,7 @@ describe('OkrChildUnitComponent', () => {
     @Input() isInteractive = false;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         OkrChildUnitComponent,

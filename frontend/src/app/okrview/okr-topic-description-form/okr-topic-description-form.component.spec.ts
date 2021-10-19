@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
@@ -21,7 +21,7 @@ describe('OkrTopicDescriptionFormComponent', () => {
   let component: OkrTopicDescriptionFormComponent;
   let fixture: ComponentFixture<OkrTopicDescriptionFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ OkrTopicDescriptionFormComponent ],

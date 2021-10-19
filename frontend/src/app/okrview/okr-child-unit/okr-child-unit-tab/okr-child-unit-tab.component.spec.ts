@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OkrChildUnitTabComponent } from './okr-child-unit-tab.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { OkrChildUnitPreviewButtonComponent } from '../okr-child-unit-preview-button/okr-child-unit-preview-button.component';
@@ -44,7 +44,7 @@ describe('OkrChildUnitTabComponent', () => {
   let component: OkrChildUnitTabComponent;
   let fixture: ComponentFixture<OkrChildUnitTabComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OkrChildUnitTabComponent, OkrChildUnitPreviewButtonComponent, AddChildUnitButtonComponent ],
       imports: [ MaterialTestingModule, RouterTestingModule, MatDialogModule ],

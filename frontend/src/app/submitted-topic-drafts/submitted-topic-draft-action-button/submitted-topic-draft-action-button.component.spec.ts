@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubmittedTopicDraftActionButtonComponent } from './submitted-topic-draft-action-button.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
@@ -41,7 +41,7 @@ describe('SubmittedTopicDraftActionButtonComponent', () => {
   const i18nMock: any = jest.fn();
   const routerMock: any = jest.fn();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubmittedTopicDraftActionButtonComponent ],
       imports: [ MaterialTestingModule ],

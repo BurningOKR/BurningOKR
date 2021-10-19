@@ -1,6 +1,6 @@
 // tslint:disable:rxjs-finnish
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CompanyComponent } from './company.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -83,7 +83,7 @@ describe('CompanyComponent', () => {
   let company: CompanyUnit;
   let contextRole: ContextRole;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         CompanyComponent, OkrChildUnitPreviewButtonMockComponent, AddChildUnitButtonComponent

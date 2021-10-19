@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DepartmentTabTaskCardComponent, TaskCardInformation } from './department-tab-task-card.component';
 import { Component, Input } from '@angular/core';
@@ -10,7 +10,6 @@ import { User } from '../../../../shared/model/api/user';
 import { UserService } from '../../../../shared/services/helper/user.service';
 import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
 import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
-import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
 import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
 import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../../shared/model/api/unit.enum';
@@ -43,7 +42,7 @@ describe('DepartmentTabTaskCardComponent', () => {
     }
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NgxAvatarMockComponent, DepartmentTabTaskCardComponent],
       imports: [MaterialTestingModule, NoopAnimationsModule, SharedModule],

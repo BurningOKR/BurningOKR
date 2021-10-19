@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TaskboardColumnComponent } from './taskboard-column.component';
 import { SharedModule } from '../../../../../shared/shared.module';
@@ -20,7 +20,7 @@ describe('TaskboardColumnComponent', () => {
     @Input() isInteractive: boolean;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TaskboardColumnComponent, TasKCardMockComponent],
       imports: [SharedModule, MaterialTestingModule, DragDropModule],
