@@ -1,0 +1,17 @@
+<form>
+  <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
+    <mat-select [formControl]="resultControl" [placeholder]="placeholderText">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="userFilter"
+                               i18n-placeholderLabel="@@search"
+                               placeholderLabel="Suche"
+                               i18n-noEntriesFoundLabel="@@noUserFound"
+                               noEntriesFoundLabel="Keine Benutzer gefunden."></ngx-mat-select-search>
+      </mat-option>
+      <mat-option [value]="null"><span>{{ noUser }}</span></mat-option>
+      <mat-option *ngFor="let user of users | callbackFilter: userFilter.value: filter" [value]="user.id">
+        {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

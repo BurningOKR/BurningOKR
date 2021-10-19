@@ -1,0 +1,4 @@
+::ng-deep .mat-select-panel.overwrite {
+  min-width: calc(100% + 32px) !important;
+  transform: translateX(24px) !important;
+}

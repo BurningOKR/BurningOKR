@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { UserAutocompleteInputComponent } from './components/user-autocomplete-input/user-autocomplete-input.component';
 import { UserMinibuttonComponent } from './components/user-minibutton/user-minibutton.component';
@@ -29,6 +30,9 @@ import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-lo
 import { FormErrorComponent } from './components/form-error/form-error.component';
 import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
 import { StatusDotComponent } from './components/status-dot/status-dot.component';
+import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
+import { UserSelectorMultiComponent } from './components/user-selector-multi/user-selector-multi.component';
+import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +50,9 @@ import { StatusDotComponent } from './components/status-dot/status-dot.component
     FormErrorComponent,
     MilestoneSliderWrapperComponent,
     StatusDotComponent,
+    CallbackFilterPipe,
+    UserSelectorMultiComponent,
+    UserSelectorComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -67,22 +74,26 @@ import { StatusDotComponent } from './components/status-dot/status-dot.component
     MatToolbarModule,
     MatSnackBarModule,
     AvatarModule,
-    RouterModule
+    RouterModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
-    UserAutocompleteInputComponent,
-    UserMinibuttonComponent,
-    LoadingSpinnerComponent,
-    MatButtonModule,
-    DialogComponent,
-    UserAvatarComponent,
-    OkrToolbarBareComponent,
-    OkrToolbarComponent,
-    CapsLockDirective,
-    NonLoggedInCardComponent,
-    FormErrorComponent,
-    MilestoneSliderWrapperComponent,
-    StatusDotComponent
+      UserAutocompleteInputComponent,
+      UserMinibuttonComponent,
+      LoadingSpinnerComponent,
+      MatButtonModule,
+      DialogComponent,
+      UserAvatarComponent,
+      OkrToolbarBareComponent,
+      OkrToolbarComponent,
+      CapsLockDirective,
+      NonLoggedInCardComponent,
+      FormErrorComponent,
+      MilestoneSliderWrapperComponent,
+      StatusDotComponent,
+      CallbackFilterPipe,
+      UserSelectorMultiComponent,
+      UserSelectorComponent
   ],
 })
 export class SharedModule {

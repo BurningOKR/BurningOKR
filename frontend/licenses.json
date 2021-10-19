@@ -160,5 +160,11 @@
     "repository": "https://github.com/angular/zone.js",
     "licenseUrl": "https://github.com/angular/zone.js/raw/master/LICENSE",
     "parents": "okrfront-end"
+  },
+  "ngx-mat-select-search@3.3.0": {
+    "licenses": "MIT",
+    "repository": "https://github.com/bithost-gmbh/ngx-mat-select-search",
+    "licenseUrl": "https://github.com/bithost-gmbh/ngx-mat-select-search/blob/master/LICENSE",
+    "parents": "okrfront-end"
   }
 }
