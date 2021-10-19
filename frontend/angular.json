@@ -244,21 +244,6 @@
               "src/jestGlobalMocks.ts"
             ]
           }
-        },
-        "xliffmerge": {
-          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
-          "options": {
-            "xliffmergeOptions": {
-              "i18nFormat": "xlf",
-              "srcDir": "src/locale",
-              "genDir": "src/locale",
-              "defaultLanguage": "de",
-              "languages": [
-                "de",
-                "en"
-              ]
-            }
-          }
         }
       }
     },
