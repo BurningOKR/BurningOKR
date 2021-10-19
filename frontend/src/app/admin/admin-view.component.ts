@@ -21,7 +21,7 @@ import 'linq4js';
   styleUrls: ['./admin-view.component.scss'],
 })
 export class AdminViewComponent implements OnInit {
-  @ViewChild('newAdminForm', {static: false}) newAdminForm: UserAutocompleteInputComponent;
+  @ViewChild('newAdminForm') newAdminForm: UserAutocompleteInputComponent;
 
   adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
   subscriptions: Subscription[] = [];

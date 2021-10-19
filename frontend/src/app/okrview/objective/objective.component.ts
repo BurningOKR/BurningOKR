@@ -34,7 +34,7 @@ export class ObjectiveComponent implements OnDestroy {
   @Output() moveObjectiveToTop: EventEmitter<ViewObjective> = new EventEmitter();
   @Output() moveObjectiveToBottom: EventEmitter<ViewObjective> = new EventEmitter();
 
-  @ViewChild('contentsComponent', { static: false }) contentsComponent: ObjectiveContentsComponent;
+  @ViewChild('contentsComponent') contentsComponent: ObjectiveContentsComponent;
 
   isPanelOpen: boolean = false;
 

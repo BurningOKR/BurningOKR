@@ -11,7 +11,7 @@ import { CurrentCycleService } from '../current-cycle.service';
   styleUrls: ['./main-view.component.scss']
 })
 export class MainViewComponent implements OnInit, OnDestroy {
-  @ViewChild('sideBar', { static: false }) sideBar: NavigationSidebarComponent;
+  @ViewChild('sideBar') sideBar: NavigationSidebarComponent;
 
   mobileQuery: MediaQueryList;
   private readonly _mobileQueryListener: () => void;

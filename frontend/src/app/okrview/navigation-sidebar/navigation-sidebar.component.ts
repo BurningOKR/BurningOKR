@@ -13,7 +13,7 @@ import { CurrentCompanyService } from '../current-company.service';
   styleUrls: ['./navigation-sidebar.component.scss']
 })
 export class NavigationSidebarComponent implements OnInit, OnDestroy {
-  @ViewChild('sideNav', { static: false }) sideNav: MatSidenav;
+  @ViewChild('sideNav') sideNav: MatSidenav;
 
   mobileQuery: MediaQueryList;
   private readonly _mobileQueryListener: () => void;

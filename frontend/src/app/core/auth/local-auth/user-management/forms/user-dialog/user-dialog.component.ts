@@ -17,7 +17,7 @@ import { CurrentUserService } from '../../../../../services/current-user.service
   styleUrls: ['./user-dialog.component.css']
 })
 export class UserDialogComponent implements OnInit {
-  @ViewChild('canvasElement', { static: false }) canvas;
+  @ViewChild('canvasElement') canvas;
 
   userForm: FormGroup;
   userEmails: string[] = [];
