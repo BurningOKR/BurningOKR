@@ -4,6 +4,14 @@
   "newProjectRoot": "projects",
   "projects": {
     "OKRFrontEnd": {
+      "i18n": {
+        "locales": {
+          "en": {
+            "translation": "src/locale/messages.en.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,6 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/OKRFrontEnd",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -30,6 +39,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -47,18 +62,24 @@
               "buildOptimizer": true
             },
             "production_en": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+            "localize": [
+              "en"
+            ],
               "optimization": true,
               "outputHashing": "all",
-              "outputPath": "dist/en/",
-              "i18nFile": "src/locale/messages.en.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "en",
+              "outputPath": "dist",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
@@ -68,6 +89,12 @@
               "buildOptimizer": true
             },
             "local": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -76,6 +103,12 @@
               ]
             },
             "docker": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -94,6 +127,12 @@
               "outputPath": "dist/burning-okr-docker"
             },
             "testsystem": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -111,18 +150,24 @@
               "buildOptimizer": true
             },
             "testsystem_en": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.test.ts"
                 }
               ],
+            "localize": [
+              "en"
+            ],
               "optimization": true,
               "outputHashing": "all",
-              "outputPath": "dist/en/",
-              "i18nFile": "src/locale/messages.en.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "en",
+              "outputPath": "dist",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
@@ -133,9 +178,14 @@
             },
             "en": {
               "aot": true,
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "outputPath": "dist/OKRFrontEnd-en",
               "i18nFile": "src/locale/messages.en.xlf",
-              "i18nFormat": "xlf",
               "i18nLocale": "en"
             }
           }
