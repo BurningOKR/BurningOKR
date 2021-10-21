@@ -1,21 +1,19 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
-    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" i18n="@@component_return_to_demo_mainview" routerLink="/">Hauptseite</button>
+    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" i18n="@@component_return_to_demo_mainview" routerLink="/" *ngIf="isPlayground">Hauptseite</button>
     <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="Hauptseite" i18n-matTooltip="@@component_return_to_demo_mainview"><mat-icon>cancel</mat-icon></button>
     <ng-content></ng-content>
     <span class="fill-space"></span>
-    <app-reset-countdown class="hidden-s-down"></app-reset-countdown>
-    <!--<div class="warningText hidden-m-down" *ngIf="!(hasMailConfigured$ | async)">
-      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">
-        Warnung: Es wurde kein SMTP Server konfiguriert.
-      </span>
-      <br>-->
-      <!--<a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">
-        Dies kann die Nutzbarkeit der
-        <br class="hidden-l-up">
-        Anwendung stark einschränken.
-      </a>
-    </div>-->
+
+    <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
+
+    <div class="warningText hidden-m-down" *ngIf="!isPlayground && !(hasMailConfigured$ | async)">
+      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
+      <br>
+      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">Dies kann die Nutzbarkeit der
+        <br class="hidden-l-up">Anwendung stark einschränken.</a>
+    </div>
+
     <span class="fill-space"></span>
     <div class="user-interactions">
       <div class="adminIcon">
