@@ -14,6 +14,7 @@ import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { ConfigurationService } from '../../../core/settings/configuration.service';
 import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 import { SettingsFormComponent } from '../../../core/settings/settings-form/settings-form.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -23,6 +24,7 @@ import { SettingsFormComponent } from '../../../core/settings/settings-form/sett
 export class OkrToolbarComponent implements OnInit {
   @Input() isCycleManagementOptionVisible = false;
   versionString: string = versions.version;
+  isPlayground: boolean = environment.playground;
   currentUser$: Observable<User>;
   isCurrentUserAdmin$: Observable<boolean>;
   isLocalUserbase$: Observable<boolean>;
