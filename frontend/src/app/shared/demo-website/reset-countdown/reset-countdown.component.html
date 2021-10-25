@@ -1,5 +1,2 @@
-<ng-container *ngIf="isPlayground">
-  <span i18n="@@component_resetCountdown_UntilNext" class="hidden-custom">Zurücksetzen der Daten in: </span>
-  <countdown-timer (zeroTrigger)="reload()" [end]="nextReset"></countdown-timer>
-</ng-container>
-
+<span i18n="@@component_resetCountdown_UntilNext" class="hidden-custom">Zurücksetzen der Daten in: </span>
+<countdown-timer (zeroTrigger)="reload()" [end]="nextReset"></countdown-timer>

@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-demo-footer',
@@ -7,7 +6,6 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./demo-footer.component.scss']
 })
 export class DemoFooterComponent {
-  @ViewChild('footer', {static: true}) footer: ElementRef;
 
-  isPlayground: boolean = environment.playground;
+  @ViewChild('footer', {static: true}) footer: ElementRef;
 }
