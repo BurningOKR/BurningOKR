@@ -61,5 +61,10 @@
            type="text">
   </mat-form-field>
   <mat-checkbox [formControl]="userForm.controls.active" [disabled]="canEditAdminStatus" class="small-padding">Aktiviert</mat-checkbox>
-  <mat-checkbox [formControl]="userForm.controls.isAdmin" [disabled]="canEditAdminStatus" class="small-padding">Admin</mat-checkbox>
+  <mat-checkbox [formControl]="userForm.controls.isAdmin"
+                [disabled]="canEditAdminStatus || isPlayground"
+                class="small-padding"
+                [matTooltip]="isPlayground
+                  ? 'Als Admin autorisieren ⚠ Deaktiviert in der Demo Version'
+                  : ''">Admin</mat-checkbox>
 </form>

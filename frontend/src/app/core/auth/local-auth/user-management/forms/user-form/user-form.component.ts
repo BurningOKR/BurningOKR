@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { environment } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-user-form',
@@ -9,6 +10,8 @@ import { FormGroup } from '@angular/forms';
 export class UserFormComponent implements OnInit {
   @Input() userForm: FormGroup;
   @Input() canEditAdminStatus: boolean;
+
+  isPlayground: boolean = environment.playground;
 
   @ViewChild('canvasElement', {static: false}) canvas;
 
