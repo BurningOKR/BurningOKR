@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
   { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage' , pathMatch: 'full' },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: environment.playground ? 'landingpage' : '' }
 ];
 
 @NgModule({
