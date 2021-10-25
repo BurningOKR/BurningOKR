@@ -43,7 +43,7 @@
   </button>
 
   <!-- show menu settings-->
-  <ng-container *ngIf="!(isLocalUserbase$ | async)">
+  <ng-container *ngIf="!(isLocalUserbase$ | async) && !isPlayground">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
       <span i18n="@@component_adminView_adminPanel">Admin Panel</span>
@@ -57,7 +57,7 @@
     <mat-icon>history</mat-icon>
     <span i18n="@@cycle_administration">Zyklusverwaltung</span>
   </button>
-  <button mat-menu-item (click)="openSettings()" [disabled]="true">
+  <button mat-menu-item (click)="openSettings()" [disabled]="isPlayground">
     <mat-icon>settings_applications</mat-icon>
     <span i18n="@@settings">Einstellungen</span>
   </button>
@@ -65,11 +65,11 @@
     <mat-icon>account_box</mat-icon>
     <span i18n="@@component_okrToolbar_userManagement">Nutzerverwaltung</span>
   </button>
-  <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="true">
+  <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="isPlayground">
     <mat-icon>vpn_key</mat-icon>
     <span i18n="@@change_password">Passwort ändern</span>
   </button>
-  <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="true">
+  <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="isPlayground">
     <mat-icon>power_settings_new</mat-icon>
     <span i18n="@@component_okrToolbar_logout">Logout</span>
   </button>
