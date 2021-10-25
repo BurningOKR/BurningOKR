@@ -23,7 +23,7 @@
           <mat-list-item class="list-items" *ngFor="let admin of adminUsers; trackBy: ('id' | trackByProperty)">
             <mat-icon class="list-left">person</mat-icon>
             <span class="list-center">{{ admin.surname }}, {{ admin.givenName }}</span>
-            <div class="list-right" *ngIf="currentUserId$ | async as currentUserId">
+            <ng-container class="list-right" *ngIf="currentUserId$ | async as currentUserId">
               <button [disabled]="admin.id === currentUserId" mat-icon-button
                       (click)="onDeleteAdminButtonClicked(admin)">
                 <mat-icon *ngIf="admin.id !== currentUserId; else deleteSelf"
@@ -36,7 +36,7 @@
                   </mat-icon>
                 </ng-template>
               </button>
-            </div>
+            </ng-container>
             <mat-divider [inset]="true"></mat-divider>
           </mat-list-item>
           <mat-list-item>
@@ -45,9 +45,9 @@
                                          #newAdminForm placeHolderText="Neuen Admin definieren"
                                          [userIdsToExclude]="adminUsers | adminUserIds:excludedIdsShouldUpdate"
                                          (choseUser)="defineNewAdmin($event)"
-                                         [disabled]="true"
+                                         [disabled]="isPlayground"
             ></app-user-autocomplete-input>
-            <span i18n="@@Text_DisabledInDemoVersion">⚠ Deaktiviert in der Demo Version </span>
+            <span i18n="@@Text_DisabledInDemoVersion" *ngIf="isPlayground">⚠ Deaktiviert in der Demo Version </span>
           </mat-list-item>
         </mat-list>
       </p>
