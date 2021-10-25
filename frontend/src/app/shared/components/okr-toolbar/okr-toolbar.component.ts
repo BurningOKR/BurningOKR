@@ -29,6 +29,7 @@ export class OkrToolbarComponent implements OnInit {
   isCurrentUserAdmin$: Observable<boolean>;
   isLocalUserbase$: Observable<boolean>;
   hasMailConfigured$: Observable<boolean>;
+  isPlayground: boolean = environment.playground;
 
   constructor(
     private router: Router,

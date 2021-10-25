@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { FetchingService } from './core/services/fetching.service';
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   userLoggedIn: boolean = this.authService.hasValidAccessToken();
+  isPlayground: boolean = environment.playground;
 
   constructor(private authService: AuthenticationService,
               private fetchingService: FetchingService,
