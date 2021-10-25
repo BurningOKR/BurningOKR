@@ -24,7 +24,6 @@ import { environment } from '../../../../environments/environment';
 export class OkrToolbarComponent implements OnInit {
   @Input() isCycleManagementOptionVisible = false;
   versionString: string = versions.version;
-  isPlayground: boolean = environment.playground;
   currentUser$: Observable<User>;
   isCurrentUserAdmin$: Observable<boolean>;
   isLocalUserbase$: Observable<boolean>;
