@@ -10,7 +10,7 @@
       "<rootDir>/src/environments/environment.*"
     ]
   },
-  "version": "1.0.0",
+  "version": "1.3.10",
   "scripts": {
     "ng": "ng",
     "prestart": "ts-appversion",
