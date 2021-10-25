@@ -10,6 +10,7 @@ import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {path: 'demo', loadChildren: () => import('./demo/demo.module')
@@ -39,7 +40,7 @@ const routes: Routes = [
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
-  { path: '', redirectTo: 'demo', pathMatch: 'full' },
+  { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage' , pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];
 

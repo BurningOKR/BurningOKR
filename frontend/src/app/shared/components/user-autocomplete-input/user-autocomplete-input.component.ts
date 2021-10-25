@@ -34,7 +34,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadUserListFromService();
     this.setupFormControlAutocomplete();
-    if(this.disabled) {
+    if (this.disabled) {
       this.inputFormControl.disable({onlySelf: true});
     }
   }

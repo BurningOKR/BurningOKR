@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-demo-footer',
@@ -6,5 +6,6 @@ import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@
   styleUrls: ['./demo-footer.component.scss']
 })
 export class DemoFooterComponent {
+
   @ViewChild('footer', {static: true}) footer: ElementRef;
 }

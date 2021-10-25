@@ -80,6 +80,14 @@
                 }
               ]
             },
+            "demo": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.demo.ts"
+                }
+              ]
+            },
             "docker": {
               "fileReplacements": [
                 {
@@ -153,6 +161,9 @@
           "configurations": {
             "local": {
               "browserTarget": "OKRFrontEnd:build:local"
+            },
+            "demo": {
+              "browserTarget": "OKRFrontEnd:build:demo"
             },
             "production": {
               "browserTarget": "OKRFrontEnd:build:production"
