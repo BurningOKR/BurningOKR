@@ -65,7 +65,7 @@
     "ngx-logger": "^4.3.3",
     "ngx-mat-select-search": "^3.3.0",
     "ngx-material-file-input": "^2.1.1",
-    "ngx-papaparse": "^4.0.4",
+    "ngx-papaparse": "^5.0.0",
     "raw-loader": "^4.0.2",
     "rxjs": "^6.6.7",
     "sass": "^1.43.3",
