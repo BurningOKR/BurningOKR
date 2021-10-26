@@ -46,7 +46,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { AngularResizedEventModule } from 'angular-resize-event';
+import { AngularResizeEventModule } from 'angular-resize-event';
 import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/department-tab-description/department-tab-description.component';
 import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
 import { DepartmentTabTaskboardComponent } from './okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component';
@@ -130,7 +130,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         AvatarModule,
         MatCheckboxModule,
         ScrollingModule,
-        AngularResizedEventModule,
+        AngularResizeEventModule,
         MatDatepickerModule,
         MatButtonToggleModule,
         NgxMatSelectSearchModule,
