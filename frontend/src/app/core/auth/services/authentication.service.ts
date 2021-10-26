@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AuthConfig, JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
 import { AuthTypeHandlerFactoryService } from './auth-type-handler/auth-type-handler-factory.service';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 
 @Injectable()
 export class AuthenticationService {

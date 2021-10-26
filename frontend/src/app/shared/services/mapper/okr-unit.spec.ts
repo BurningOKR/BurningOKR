@@ -11,6 +11,7 @@ import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
 import any = jasmine.any;
 
+
 const okrUnitApiService: any = {
   getOkrChildUnitById$: jest.fn(),
   putOkrChildUnit$: jest.fn(),

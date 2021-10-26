@@ -5,7 +5,11 @@
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": [
       "<rootDir>/setup-jest.ts"
-    ]
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/src/environments/"
+    ],
+    "testRunner": "jest-jasmine2"
   },
   "scripts": {
     "ng": "ng",
@@ -74,6 +78,7 @@
     "@angular/compiler-cli": "^12.2.11",
     "@angular/language-service": "^12.2.11",
     "@ngx-i18nsupport/ngx-i18nsupport": "^1.1.6",
+    "@types/jasmine": "^3.10.1",
     "@types/jest": "^27.0.2",
     "@types/node": "^8.3.0",
     "codelyzer": "^6.0.0",
