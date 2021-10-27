@@ -44,37 +44,6 @@ export class AdminViewComponent implements OnInit {
     this.getAdminUsers$();
   }
 
-  private getCurrentUserId$(): Observable<UserId> {
-    return this.currentUserService.getCurrentUser$()
-      .pipe(
-        map((user: User) => {
-          return user.id;
-        }),
-      );
-  }
-
-  private getAdminUsers$(): void {
-    combineLatest([
-      this.userService.getUsers$(),
-      this.userService.getAdminIds$()]
-    )
-      .pipe(
-        take(1),
-        map(([users, adminStrings]: [User[], string[]]) => {
-          return this.getAdminUsers(users, adminStrings);
-        }),
-      )
-      .subscribe((users: User[]) => {
-        this.adminUsers$.next(users);
-      });
-  }
-
-  private getAdminUsers(users: User[], adminStrings: string[]): any[] {
-    return users.Where(user => {
-      return adminStrings.Contains(user.id);
-    });
-  }
-
   defineNewAdmin(user: User): void {
     this.newAdminForm.setIsDisabled(true);
     this.userService.addAdmin$(user)
@@ -156,5 +125,36 @@ export class AdminViewComponent implements OnInit {
 
   navigateToCompanies(): void {
     this.router.navigate(['/companies']);
+  }
+
+  private getCurrentUserId$(): Observable<UserId> {
+    return this.currentUserService.getCurrentUser$()
+      .pipe(
+        map((user: User) => {
+          return user.id;
+        }),
+      );
+  }
+
+  private getAdminUsers$(): void {
+    combineLatest([
+      this.userService.getUsers$(),
+      this.userService.getAdminIds$()]
+    )
+      .pipe(
+        take(1),
+        map(([users, adminStrings]: [User[], string[]]) => {
+          return this.getAdminUsers(users, adminStrings);
+        }),
+      )
+      .subscribe((users: User[]) => {
+        this.adminUsers$.next(users);
+      });
+  }
+
+  private getAdminUsers(users: User[], adminStrings: string[]): any[] {
+    return users.Where(user => {
+      return adminStrings.Contains(user.id);
+    });
   }
 }

@@ -179,6 +179,7 @@
         ],
         "prefer-object-spread": "error",
         "prefer-template": "error",
+        "prefer-arrow-callback": "off", // TODO maybe On
         "rxjs/no-async-subscribe": "error",
         "rxjs/no-create": "error",
         "rxjs/no-nested-subscribe": "error",

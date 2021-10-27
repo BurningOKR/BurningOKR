@@ -13,7 +13,7 @@ import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitte
 
 const routes: Routes = [
   {
-    path: 'okr', loadChildren: () => import('./okrview/okrview.module')
+    path: 'okr', loadChildren: async () => import('./okrview/okrview.module')
       .then(mod => mod.OkrviewModule),
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
@@ -31,7 +31,7 @@ const routes: Routes = [
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
   {
-    path: 'auth', loadChildren: () => import('./core/auth/auth.module')
+    path: 'auth', loadChildren: async () => import('./core/auth/auth.module')
       .then(mod => mod.AuthModule)
   },
   { path: 'error', component: ErrorComponent },

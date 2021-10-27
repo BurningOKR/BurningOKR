@@ -6,11 +6,11 @@ import { LocalGuard } from './guards/local.guard';
 const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   {
-    path: 'init', loadChildren: () => import('./init/init.module')
+    path: 'init', loadChildren: async () => import('./init/init.module')
       .then(mod => mod.InitModule)
   },
   {
-    path: '', loadChildren: () => import('./local-auth/local-auth.module')
+    path: '', loadChildren: async () => import('./local-auth/local-auth.module')
       .then(mod => mod.LocalAuthModule),
     canActivate: [LocalGuard]
   },
