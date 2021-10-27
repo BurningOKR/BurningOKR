@@ -1,4 +1,4 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
 import { DepartmentTabDescriptionComponent } from './department-tab-description.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';

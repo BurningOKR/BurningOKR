@@ -1,4 +1,4 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OkrChildUnitComponent } from './okr-child-unit.component';
@@ -63,7 +63,7 @@ describe('OkrChildUnitComponent', () => {
   const paramMapHasSpy: any = jest.fn();
 
   const route: any = {
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     paramMap: of({
       get: paramMapGetSpy,
       getAll: paramMapGetAllSpy,
@@ -89,7 +89,7 @@ describe('OkrChildUnitComponent', () => {
   let okrBranch: OkrBranch;
 
   @Component({
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-state-column-view',
     template: ''
   })
@@ -99,7 +99,7 @@ describe('OkrChildUnitComponent', () => {
   }
 
   @Component({
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-swimlane-view',
     template: ''
   })

@@ -36,7 +36,7 @@ describe('SubmittedTopicDraftCardComponent', () => {
   });
 
   @Component({
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-submitted-topic-draft-action-button',
     template: ''
   })

@@ -1,4 +1,4 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DepartmentTabTeamComponent } from './department-tab-team.component';
@@ -48,7 +48,7 @@ let department: OkrDepartment;
 let currentUserRole: ContextRole;
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-department-team-new-user',
   template: ''
 })
@@ -57,7 +57,7 @@ class DepartmentTeamNewUserMockComponent {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-user-minibutton',
   template: ''
 })
@@ -412,5 +412,5 @@ describe('DepartmentTabTeamComponent', () => {
     expect(component.department.okrMemberIds)
       .toEqual(['testOkrMember', 'newTestOkrMember']);
   });
-// tslint:disable-next-line:max-file-line-count
+// eslint-disable-next-line max-lines
 });

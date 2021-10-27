@@ -76,9 +76,9 @@ interface FormGroupTyped<T> extends FormGroup {
 
   get<P extends keyof T>(path: P): AbstractControlTyped<T[P]>;
 
-  getRawValue(): T & { [disabledProp in string | number]: any };
-
   get<V = unknown>(path: (string | number)[] | string): AbstractControlTyped<V> | null;
+
+  getRawValue(): T & { [disabledProp in string | number]: any };
 
   setValue<V>(value: V extends T ? V : never, options?: { onlySelf?: boolean; emitEvent?: boolean }): void;
 

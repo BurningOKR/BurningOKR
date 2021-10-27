@@ -488,5 +488,5 @@ describe('CurrentOkrUnitSchemaService', () => {
         done();
       });
   });
-// tslint:disable-next-line:max-file-line-count
+// eslint-disable-next-line max-lines
 });

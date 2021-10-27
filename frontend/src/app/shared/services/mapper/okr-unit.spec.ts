@@ -204,7 +204,7 @@ describe('OkrUnitService', () => {
   it('putOkrChildUnit$ does not accept null', done => {
     okrUnitApiService.putOkrChildUnit$.mockReturnValue(of(null));
 
-    // tslint:disable-next-line:typedef
+    // eslint-disable-next-line 
     const test = () => {
       const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
@@ -252,7 +252,7 @@ describe('OkrUnitService', () => {
 
     const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
-    // tslint:disable-next-line:typedef
+    // eslint-disable-next-line
     const test = () => {
       service.deleteOkrChildUnit$(null)
         .subscribe((deleted: boolean) => {

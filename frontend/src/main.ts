@@ -15,5 +15,5 @@ platformBrowserDynamic()
 
     ]
   })
-  // tslint:disable-next-line:no-console
+  // eslint-disable-next-line no-console
   .catch(err => console.log(err));

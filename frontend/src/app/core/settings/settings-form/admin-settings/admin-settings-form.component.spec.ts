@@ -63,10 +63,10 @@ describe('AdminSettingsForm', () => {
     currentUserServiceStub.isCurrentUserAdmin$.mockReturnValue(of(true));
     oAuthFrontendDetailsServiceStub.isAzureAuthType$.mockReturnValue(of('false'));
     oAuthFrontendDetailsServiceStub.getAuthType$.mockReturnValue(of('local'));
-    // tslint:disable:rxjs-finnish
+    /* eslint-disable  */
     dialog.open.mockReturnValue({ afterClosed: jest.fn()
         .mockReturnValue(of(true)) });
-    // tslint:enable:rxjs-finnish
+    /* eslint-enable */
 
     TestBed.configureTestingModule(
       {

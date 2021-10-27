@@ -15,18 +15,13 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SubmittedTopicDraftsComponent implements OnInit {
 
-  topicDrafts$: Observable<OkrTopicDraft[]>;
-
-  columnsToDisplay = ['topic', 'initiator', 'beginning', 'contributesTo', 'status', 'comments', 'actions'];
-  rowData = new MatTableDataSource([] as OkrTopicDraft[]);
-
-  constructor(private router: Router,
-              private topicDraftMapper: TopicDraftMapper,
-              private i18n: I18n
-              ) { }
-
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  topicDrafts$: Observable<OkrTopicDraft[]>;
+  columnsToDisplay = ['topic', 'initiator', 'beginning', 'contributesTo', 'status', 'comments', 'actions'];
+
+  rowData = new MatTableDataSource([] as OkrTopicDraft[]);
   i18nTopicTableHeader: string = this.i18n({
     id: 'topic_table_header',
     description: 'Submitted topic drafts component "Topic" header',
@@ -62,6 +57,11 @@ export class SubmittedTopicDraftsComponent implements OnInit {
     description: 'Submitted topic drafts component "Actions" header',
     value: 'Aktionen'
   });
+
+  constructor(private router: Router,
+              private topicDraftMapper: TopicDraftMapper,
+              private i18n: I18n
+              ) { }
 
   ngOnInit(): void {
     this.loadAllTopicDrafts();

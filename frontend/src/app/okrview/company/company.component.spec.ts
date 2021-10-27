@@ -1,4 +1,4 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CompanyComponent } from './company.component';
