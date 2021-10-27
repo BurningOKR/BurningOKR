@@ -51,9 +51,9 @@ describe('SubmittedTopicDraftDetailsComponent', () => {
     selector: 'app-user-minibutton',
     template: ''
   })
-  class UserMiniButtonMock {
+  class UserMiniButtonMockComponent {
     @Input() userId: string;
-    @Input() canBeRemoved: boolean = false;
+    @Input() canBeRemoved = false;
   }
 
   beforeEach(waitForAsync(() => {
@@ -62,7 +62,7 @@ describe('SubmittedTopicDraftDetailsComponent', () => {
                       StatusDotComponent,
                       AvatarComponent,
                       UserAvatarComponent,
-                      UserMiniButtonMock ],
+                      UserMiniButtonMockComponent ],
       imports: [  MaterialTestingModule,
                   FormsModule,
                   MatDialogModule,

@@ -2,13 +2,11 @@ import { Component, EventEmitter, Inject, OnInit, ViewEncapsulation } from '@ang
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
-import { NEVER, of } from 'rxjs';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { NEVER, Observable, of } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { CurrentUserService } from '../../core/services/current-user.service';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
@@ -57,9 +55,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
     );
     this.canEdit$ = this.currentUserService.getCurrentUser$()
       .pipe(
-        map((currentUser: User) => {
-          return currentUser.id === this.topicDraft.initiatorId;
-        }),
+        map((currentUser: User) => currentUser.id === this.topicDraft.initiatorId),
         switchMap((canEdit: boolean) => {
           if (canEdit) {
             return of(canEdit);

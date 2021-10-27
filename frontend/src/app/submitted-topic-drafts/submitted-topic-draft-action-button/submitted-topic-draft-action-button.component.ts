@@ -156,9 +156,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
       this.topicDraftMapper
           .deleteTopicDraft$(this.topicDraft.id)
           .pipe(take(1))
-          .subscribe(() => {
-                this.topicDraftDeletedEvent.emit();
-              }
+          .subscribe(() => this.topicDraftDeletedEvent.emit()
           ));
   }
 

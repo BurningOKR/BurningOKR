@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts.component';
 import { MaterialTestingModule } from '../testing/material-testing.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';

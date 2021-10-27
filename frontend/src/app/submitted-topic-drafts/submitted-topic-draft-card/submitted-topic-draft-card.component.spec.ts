@@ -17,7 +17,7 @@ describe('SubmittedTopicDraftCardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmittedTopicDraftCardComponent, SubmittedTopicDraftActionButtonMock, StatusDotComponent ],
+      declarations: [ SubmittedTopicDraftCardComponent, SubmittedTopicDraftActionButtonMockComponent, StatusDotComponent ],
       imports: [ MaterialTestingModule ],
       providers: [
         { provide: MatDialog, useValue: {} },
@@ -40,7 +40,7 @@ describe('SubmittedTopicDraftCardComponent', () => {
     selector: 'app-submitted-topic-draft-action-button',
     template: ''
   })
-  class SubmittedTopicDraftActionButtonMock {
+  class SubmittedTopicDraftActionButtonMockComponent {
     @Input() topicDraft: OkrTopicDraft;
   }
 
