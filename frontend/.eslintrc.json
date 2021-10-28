@@ -149,8 +149,13 @@
           "error",
           "1tbs"
         ],
-        "comma-dangle": "off",
-        // TODO Maybe on
+        "comma-dangle": ["error", {
+          "arrays": "only-multiline",
+          "objects": "only-multiline",
+          "imports": "only-multiline",
+          "exports": "only-multiline",
+          "functions": "only-multiline"
+        }],
         "complexity": [
           "error",
           {
