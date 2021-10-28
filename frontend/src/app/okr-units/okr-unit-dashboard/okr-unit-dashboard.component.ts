@@ -28,10 +28,6 @@ export class OkrUnitDashboardComponent implements OnInit {
     this.updateCompanies();
   }
 
-  private updateCompanies(): void {
-    this.companies$ = this.companyMapperService.getActiveCompanies$();
-  }
-
   addCompany(): void {
     const dialogRef: MatDialogRef<OkrUnitFormComponent, any> = this.companyFormDialog.open(OkrUnitFormComponent, {
       data: {}
@@ -45,5 +41,9 @@ export class OkrUnitDashboardComponent implements OnInit {
       .subscribe(() => {
         this.updateCompanies();
       });
+  }
+
+  private updateCompanies(): void {
+    this.companies$ = this.companyMapperService.getActiveCompanies$();
   }
 }

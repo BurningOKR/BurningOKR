@@ -52,10 +52,6 @@ export class CycleAdminContainerComponent implements OnInit {
       .subscribe(() => this.loadCycles());
   }
 
-  private loadCycles(): void {
-    this.cycles$ = this.companyService.getCyclesOfCompanyHistory$(this.company.id);
-  }
-
   navigateToCompanies(): void {
     this.router.navigate(['companies'])
       .catch();
@@ -63,5 +59,9 @@ export class CycleAdminContainerComponent implements OnInit {
 
   routeToCompany(): void {
     this.router.navigate(['okr', 'companies', this.company.id]);
+  }
+
+  private loadCycles(): void {
+    this.cycles$ = this.companyService.getCyclesOfCompanyHistory$(this.company.id);
   }
 }

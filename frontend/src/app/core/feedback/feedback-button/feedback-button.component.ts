@@ -13,13 +13,14 @@ import { ConfigurationService } from '../../settings/configuration.service';
 })
 export class FeedbackButtonComponent implements OnDestroy {
 
+  hasMail$: Observable<boolean>;
+
   private subscriptions: Subscription[] = [];
   private feedbackSuccessfullySubmittedMessage: string = this.i18n({
     id: 'feedbackSuccessfullySubmittedMessage',
     description: 'message to be shown after the user feedback was submitted successfully',
     value: 'Feedback erfolgreich übermittelt 📬'
   });
-  hasMail$: Observable<boolean>;
 
   constructor(
     private dialog: MatDialog,

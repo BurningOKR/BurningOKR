@@ -104,6 +104,14 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
       });
   }
 
+  onSelectCycle($event: { value: number }): void {
+    this.chosenCycleWithHistoryCompany = this.cyclesWithHistoryCompanies.find(value => value.cycle.id === $event.value);
+  }
+
+  hasChildUnit(): boolean {
+    return this.company.okrChildUnitIds.length > 0;
+  }
+
   private getDataForCompanyDeletionDialog(): {data: DeleteDialogData} {
     return {
       data: {
@@ -151,13 +159,5 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
           });
         })
     );
-  }
-
-  onSelectCycle($event: { value: number; }): void {
-    this.chosenCycleWithHistoryCompany = this.cyclesWithHistoryCompanies.find(value => value.cycle.id === $event.value);
-  }
-
-  hasChildUnit(): boolean {
-    return this.company.okrChildUnitIds.length > 0;
   }
 }

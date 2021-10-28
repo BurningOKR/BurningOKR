@@ -202,7 +202,7 @@ describe('OkrUnitService', () => {
   it('putOkrChildUnit$ does not accept null', done => {
     okrUnitApiService.putOkrChildUnit$.mockReturnValue(of(null));
 
-    const test = () => {
+    const test: () => void  = () => {
       const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
       service.putOkrChildUnit$(null)

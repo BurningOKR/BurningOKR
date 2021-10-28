@@ -12,13 +12,13 @@ import { map } from 'rxjs/operators';
 })
 export class SettingsFormComponent implements OnInit {
 
+  @ViewChildren(SettingsForm)
+
+  children?: QueryList<SettingsForm>;
   isCurrentUserAdmin$: Observable<boolean>;
 
   adminSettingsValid: boolean = true;
   userSettingsValid: boolean = true;
-
-  @ViewChildren(SettingsForm)
-  children?: QueryList<SettingsForm>;
 
   constructor(private dialogRef: MatDialogRef<SettingsFormComponent>,
               private currentUserService: CurrentUserService) { }

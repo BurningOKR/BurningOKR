@@ -58,6 +58,10 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
     this.newPasswordForm = createdNewPasswordForm as FormGroupTyped<NewPasswordForm>;
   }
 
+  submitData$(): Observable<InitState> {
+    return this.initService.postLocalAdminUser$(this.getFormData());
+  }
+
   private handleSubmitClick(): void {
     this.form.disable();
     this.submitData$()
@@ -74,10 +78,6 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
       adminUserForm: this.adminUserForm,
       newPasswordForm: this.newPasswordForm
     });
-  }
-
-  submitData$(): Observable<InitState> {
-    return this.initService.postLocalAdminUser$(this.getFormData());
   }
 
   private getFormData(): PostLocalAdminUserData {

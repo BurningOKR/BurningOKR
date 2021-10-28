@@ -28,7 +28,7 @@ export class FeedbackFormComponent implements OnInit {
     this.feedbackForm$ = this.getFeedbackForm$();
   }
 
-  sendFeedback(formRawValue: { feedbackText: string; name: string; }): void {
+  sendFeedback(formRawValue: { feedbackText: string; name: string }): void {
     const feedbackText: string = formRawValue.feedbackText;
     const name: string = formRawValue.name;
 

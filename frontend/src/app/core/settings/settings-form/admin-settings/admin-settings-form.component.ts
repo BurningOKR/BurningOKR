@@ -22,21 +22,21 @@ import { SettingsForm } from '../settings-form';
 })
 export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
 
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   adminSettingsForm: FormGroup;
   isAzure$: Observable<boolean>;
-
-  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private confirmationTitle: string = this.i18n({
     id: '@@deativate_okr_topic_sponsors_title',
     description: 'title of confirmation dialog for deaktivating topic sponsors',
-    value: `OKR Themenpaten deaktivieren`
+    value: 'OKR Themenpaten deaktivieren'
   });
 
   private confirmationText: string = this.i18n({
     id: '@@deativate_okr_topic_sponsors_text',
     description: 'text of confirmation dialog for deaktivating topic sponsors',
-    value: `Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.`
+    value: 'Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.'
   });
 
   private configurationNames: { [key: string]: string } = {

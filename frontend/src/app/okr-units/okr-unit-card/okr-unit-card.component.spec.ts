@@ -18,8 +18,8 @@ describe('OkrUnitCardComponent', () => {
 
   let fixture: any;
   let component: {
-    getDataForCompanyDeletionDialog: () => {data: DeleteDialogData},
-    company: CompanyUnit,
+    getDataForCompanyDeletionDialog: () => {data: DeleteDialogData};
+    company: CompanyUnit;
   };
 
   beforeEach(() => {

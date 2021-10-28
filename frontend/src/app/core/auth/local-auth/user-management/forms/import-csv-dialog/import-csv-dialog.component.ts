@@ -31,12 +31,12 @@ interface ImportCsvWarnings {
 })
 export class ImportCsvDialogComponent implements OnInit {
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   fileForm: FormGroupTyped<ImportCsvDialogForm>;
   rowData = new MatTableDataSource([] as User[]);
   columnsToDisplay = ['givenName', 'email', 'department', 'jobTitle'];
   warnings: ImportCsvWarnings;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private dialogRef: MatDialogRef<ImportCsvDialogComponent>,
@@ -76,10 +76,6 @@ export class ImportCsvDialogComponent implements OnInit {
     }
   }
 
-  private hasDuplicateEmailAdresses(users: User[]): boolean {
-    return users.Any(user => users.Any(anotherUser => user !== anotherUser && user.email === anotherUser.email));
-  }
-
   onSave(): void {
 
     const confirmationTitleI18n: string = this.i18n({
@@ -104,5 +100,9 @@ export class ImportCsvDialogComponent implements OnInit {
         filter(v => v)
       )
       .subscribe(_ => this.dialogRef.close(this.rowData.data));
+  }
+
+  private hasDuplicateEmailAdresses(users: User[]): boolean {
+    return users.Any(user => users.Any(anotherUser => user !== anotherUser && user.email === anotherUser.email));
   }
 }

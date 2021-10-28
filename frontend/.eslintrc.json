@@ -170,7 +170,11 @@
         ],
         "max-lines": [
           "error",
-          400
+          {
+            "max": 500,
+            "skipBlankLines": true,
+            "skipComments": true
+          }
         ],
         "newline-per-chained-call": "error",
         "no-empty": "error",
