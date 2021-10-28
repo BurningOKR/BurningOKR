@@ -12,8 +12,8 @@ import { Observable } from 'rxjs';
 export class OkrTopicDescriptionFormComponent implements OnInit {
 
   @Input() descriptionForm: FormGroup;
-  users$: Observable<User[]>;
   @Input() minBeginn: Date = new Date();
+  users$: Observable<User[]>;
 
   constructor(private userService: UserService) {
   }

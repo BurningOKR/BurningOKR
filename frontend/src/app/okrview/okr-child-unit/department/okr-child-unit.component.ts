@@ -125,7 +125,12 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
       );
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions = [];
+  }
   // Template actions
+
   clickedEditChildUnit(childUnit: OkrChildUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
       data: { childUnit }
@@ -230,8 +235,8 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   downloadDepartmentExcelEmailFile(department: OkrDepartment): void {
     this.excelService.downloadExcelEmailFileForOkrTeam(department.id);
   }
-
   // Template helper functions
+
   moveToParentUnit(okrChildUnit: OkrChildUnit): void {
     if (okrChildUnit.isParentUnitABranch) {
       this.router.navigate([`../${okrChildUnit.parentUnitId}`], { relativeTo: this.route })
@@ -258,10 +263,5 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
 
   private set404State(): void {
     this.error404 = true;
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.subscriptions = [];
   }
 }

@@ -14,9 +14,9 @@ export class MainViewComponent implements OnInit, OnDestroy {
   @ViewChild('sideBar') sideBar: NavigationSidebarComponent;
 
   mobileQuery: MediaQueryList;
-  private readonly _mobileQueryListener: () => void;
-
   currentCycle$: Observable<CycleUnit>;
+
+  private readonly _mobileQueryListener: () => void;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,

@@ -84,7 +84,7 @@ describe('OkrToolbarComponent', () => {
     component.routeToCycleAdminPanel();
 
     expect(router.navigate)
-      .toHaveBeenCalledWith([`cycle-admin/`, currentCompanyMock.id]);
+      .toHaveBeenCalledWith(['cycle-admin/', currentCompanyMock.id]);
   });
 
   it('should open settings and refresh after closing', () => {

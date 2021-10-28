@@ -49,7 +49,8 @@
         ],
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/ban-types": [
-          "off",//TODO maybe on
+          "off",
+          //TODO maybe on
           {
             "types": {
               "object": {
@@ -79,12 +80,20 @@
             }
           }
         ],
+        "id-blacklist": [
+          "off"
+        ],
         "@typescript-eslint/naming-convention": [
-          "off", // TODO maxbe on
+          "off",
+          // TODO maxbe on
           {
             "selector": "memberLike",
-            "modifiers": ["static"],
-            "format": ["PascalCase"]
+            "modifiers": [
+              "static"
+            ],
+            "format": [
+              "PascalCase"
+            ]
           }
         ],
         "@typescript-eslint/consistent-type-definitions": "error",
@@ -118,8 +127,10 @@
         "no-underscore-dangle": [
           "error",
           {
-            "allowAfterThis": true ,
-            "allow":  ["__okrUnitType"]
+            "allowAfterThis": true,
+            "allow": [
+              "__okrUnitType"
+            ]
           }
         ],
         "arrow-parens": [
@@ -127,15 +138,19 @@
           "as-needed"
         ],
         "arrow-body-style": [
-          "off", // TODO maybe turn on
+          "off",
+          // TODO maybe turn on
           "as-needed",
-          { "requireReturnForObjectLiteral": true }
+          {
+            "requireReturnForObjectLiteral": true
+          }
         ],
         "brace-style": [
           "error",
           "1tbs"
         ],
-        "comma-dangle": "off", // TODO Maybe on
+        "comma-dangle": "off",
+        // TODO Maybe on
         "complexity": [
           "error",
           {
@@ -166,7 +181,8 @@
           }
         ],
         "no-param-reassign": "error",
-        "no-redeclare": "off",// TODO maybe on
+        "no-redeclare": "off",
+        // TODO maybe on
         "no-return-await": "error",
         "no-sequences": "error",
         "no-sparse-arrays": "error",
@@ -188,7 +204,8 @@
             "disallowPrototype": true,
             "singleReturnOnly": false,
             "classPropertiesAllowed": false
-          },
+          }
+        ],
         "rxjs/no-async-subscribe": "error",
         "rxjs/no-create": "error",
         "rxjs/no-nested-subscribe": "error",

@@ -16,11 +16,11 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
   @ViewChild('sideNav') sideNav: MatSidenav;
 
   mobileQuery: MediaQueryList;
-  private readonly _mobileQueryListener: () => void;
-
   currentCompany$: Observable<CompanyUnit>;
   currentUnitSchema$: Observable<OkrUnitSchema[]>;
   navigationInformationSubscription: Subscription;
+
+  private readonly _mobileQueryListener: () => void;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,

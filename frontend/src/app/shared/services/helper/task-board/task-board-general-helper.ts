@@ -8,7 +8,8 @@ export class TaskBoardGeneralHelper extends TaskService {
     /**
      * update the current list of tasks for the department, removed the moved task and change the position
      * informations of the successor task.
-     * returns all updated tasks, .
+     * returns all updated tasks.
+     *
      * @param currentCompleteTaskList sorted complete list of tasks for the current department
      * @param movedTask updated item with new position informations (previousTaskId and/or taskStateId)
      */

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -18,13 +18,13 @@ export interface TaskBoardSwimlaneDragDropEvent {
   styleUrls: ['./taskboard-swimlane.component.css']
 })
 export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
-  panelOpenState = true;
-  subscriptions: Subscription[] = [];
-
   @Input() tasksForStates: StateTaskMap[];
   @Input() keyResult: ViewKeyResult;
   @Input() keyResultList: ViewKeyResult[];
   @Input() isInteractive: boolean;
+
+  panelOpenState = true;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private taskBoardEventService: TaskBoardViewEventService

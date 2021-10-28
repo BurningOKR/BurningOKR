@@ -58,9 +58,9 @@ export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective im
   }
 
   onTaskMovedInView(dropEvent: TaskBoardDragDropEvent): void {
-    let result: ViewTask;
 
-    result = this.taskHelper.getMovedTaskWithNewPositionData(dropEvent.$event.previousIndex, dropEvent.$event.previousContainer.data,
+    const result: ViewTask = this.taskHelper
+      .getMovedTaskWithNewPositionData(dropEvent.$event.previousIndex, dropEvent.$event.previousContainer.data,
       dropEvent.$event.currentIndex, dropEvent.$event.container.data, dropEvent.state);
 
     this.taskBoardEventService.taskMovedInView$.next(result);

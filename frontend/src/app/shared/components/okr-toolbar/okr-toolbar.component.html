@@ -2,7 +2,7 @@
   <mat-toolbar-row>
     <ng-content></ng-content>
     <span class="fill-space hidden-m-down"></span>
-    <div class="warningText hidden-m-down" *ngIf="!(hasMailConfigured$ | async)">
+    <div class="warningText hidden-m-down" *ngIf="(hasMailConfigured$ | async) === false">
       <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
       <br>
       <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">Dies kann die Nutzbarkeit der
@@ -32,7 +32,7 @@
 <!-- Interactions menu -->
 <mat-menu #menu="matMenu">
   <!-- show menu settings-->
-  <ng-container *ngIf="!(isLocalUserbase$ | async)">
+  <ng-container *ngIf="(isLocalUserbase$ | async) === false">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
       <span i18n="@@component_adminView_adminPanel">Admin Panel</span>

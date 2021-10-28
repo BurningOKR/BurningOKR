@@ -72,18 +72,6 @@ export class CurrentOkrUnitSchemaService {
     return this.currentUnitSchema$;
   }
 
-  private isDepartmentInUnitSchema(departmentId: number, unitSchemaDtos: OkrUnitSchemaDto[]): boolean {
-    if (unitSchemaDtos) {
-      for (const schemaDto of unitSchemaDtos) {
-        if (schemaDto.id === departmentId || this.isDepartmentInUnitSchema(departmentId, schemaDto.subDepartments)) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-  }
-
   getUnitSchemasToReachUnitWithId$(departmentId: number): Observable<OkrUnitSchema[]> {
     const okrUnitSchemas: OkrUnitSchema[] = [];
 
@@ -113,6 +101,32 @@ export class CurrentOkrUnitSchemaService {
       );
   }
 
+  updateSchemaTeamRole(departmentId: number, newRole: OkrUnitRole): void {
+    this.currentUnitSchema$.pipe(
+      take(1),
+      map((okrUnitSchemas: OkrUnitSchema[]) => {
+        this.updateUnitSchemaTeamRoleRecursive(departmentId, newRole, okrUnitSchemas);
+
+        return okrUnitSchemas;
+      })
+    )
+      .subscribe((okrUnitSchemas: OkrUnitSchema[]) => {
+        this.currentUnitSchema$.next(okrUnitSchemas);
+      });
+  }
+
+  private isDepartmentInUnitSchema(departmentId: number, unitSchemaDtos: OkrUnitSchemaDto[]): boolean {
+    if (unitSchemaDtos) {
+      for (const schemaDto of unitSchemaDtos) {
+        if (schemaDto.id === departmentId || this.isDepartmentInUnitSchema(departmentId, schemaDto.subDepartments)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }
+
   private getUnitSchemasToReachUnitWithIdRecursive(
     departmentId: number,
     okrUnitSchemas: OkrUnitSchema[],
@@ -132,20 +146,6 @@ export class CurrentOkrUnitSchemaService {
     }
 
     return unitSchemas;
-  }
-
-  updateSchemaTeamRole(departmentId: number, newRole: OkrUnitRole): void {
-    this.currentUnitSchema$.pipe(
-      take(1),
-      map((okrUnitSchemas: OkrUnitSchema[]) => {
-        this.updateUnitSchemaTeamRoleRecursive(departmentId, newRole, okrUnitSchemas);
-
-        return okrUnitSchemas;
-      })
-    )
-      .subscribe((okrUnitSchemas: OkrUnitSchema[]) => {
-        this.currentUnitSchema$.next(okrUnitSchemas);
-      });
   }
 
   private updateUnitSchemaTeamRoleRecursive(

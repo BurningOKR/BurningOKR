@@ -101,7 +101,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     this.dialogRef.close(NEVER);
   }
 
-  onSelectUser($event: { value: User; }): void {
+  onSelectUser($event: { value: User }): void {
     this.user = $event.value;
   }
 

@@ -21,7 +21,7 @@
 
     <!-- User -->
     <div class="flex-wrap-spreadinner">
-      <div *ngIf="description.initiatorId != null">
+      <div *ngIf="description.initiatorId !== null">
         <br/>
         <mat-divider></mat-divider>
         <br/>
@@ -30,7 +30,7 @@
         </app-user-minibutton>
       </div>
     </div>
-    <div *ngIf="description.startTeam.length != 0">
+    <div *ngIf="description.startTeam.length !== 0">
       <br/>
       <mat-divider></mat-divider>
       <br/>
@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div *ngIf="description.stakeholders.length != 0">
+    <div *ngIf="description.stakeholders.length !== 0">
       <br/>
       <mat-divider></mat-divider>
       <br/>

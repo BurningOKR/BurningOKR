@@ -43,8 +43,7 @@ export class OkrBranchMapper {
     return dto;
   }
 
-  createForCompany$(companyId: OkrUnitId, okrBranch: OkrBranch)
-    : Observable<OkrBranch> {
+  createForCompany$(companyId: OkrUnitId, okrBranch: OkrBranch): Observable<OkrBranch> {
 
     return this.okrBranchApiService
       .createForCompany$(companyId, OkrBranchMapper.mapToOkrBranchDto(okrBranch))
@@ -53,8 +52,7 @@ export class OkrBranchMapper {
       );
   }
 
-  createForOkrBranch$(okrUnitId: OkrUnitId, okrBranch: OkrBranch)
-    : Observable<OkrBranch> {
+  createForOkrBranch$(okrUnitId: OkrUnitId, okrBranch: OkrBranch): Observable<OkrBranch> {
 
     return this.okrBranchApiService
       .createForOkrBranch$(

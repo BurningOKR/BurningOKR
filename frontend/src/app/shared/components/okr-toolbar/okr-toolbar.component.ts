@@ -61,7 +61,7 @@ export class OkrToolbarComponent implements OnInit {
     this.currentCompanyService.getCurrentCompany$()
       .pipe(take(1))
       .subscribe((currentCompany: CompanyUnit) => {
-        this.router.navigate([`cycle-admin/`, currentCompany.id]);
+        this.router.navigate(['cycle-admin/', currentCompany.id]);
       });
   }
 

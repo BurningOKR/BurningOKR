@@ -41,11 +41,10 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  timeInMsToWaitUntilPushingSliderChanges = 2000;
+  isKeyResultSliderInverted: boolean = false;
   // We dynamically populate this as sliders are used
   private sliderChangeSubject$: Subject<number>;
-  timeInMsToWaitUntilPushingSliderChanges = 2000;
-
-  isKeyResultSliderInverted: boolean = false;
 
   constructor(private matDialog: MatDialog, private keyResultMapperService: KeyResultMapper, private i18n: I18n) {
   }

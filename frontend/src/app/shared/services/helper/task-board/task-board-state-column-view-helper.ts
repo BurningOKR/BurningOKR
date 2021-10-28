@@ -12,6 +12,7 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
      * this parameter and these map is also added to the result map list.
      * When parameter defaultStateTaskMap is null, then all tasks were can not mapped to one the given states are not
      * part of the result map list.
+     *
      * @param states: available task states
      * @param tasks: list of tasks
      * @param defaultStateTaskMap default container for the tasks, which can not map to one of the given states. Recommended

@@ -13,7 +13,7 @@ describe('DeleteDialogComponent', () => {
   let fixture: any;
   let component: {
     ngOnDestroy: () => void;
-    dialogRef: { close?: any; };
+    dialogRef: { close?: any };
     confirmDelete: () => void;
     closeDialog: () => void;
     generateDeleteDialogData: (param1: string, param2: string, param3: string | undefined) => DeleteDialogData;

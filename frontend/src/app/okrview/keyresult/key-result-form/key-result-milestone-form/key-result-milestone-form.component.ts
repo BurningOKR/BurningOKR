@@ -10,12 +10,12 @@ import { ViewKeyResultMilestone } from '../../../../shared/model/ui/view-key-res
 })
 export class KeyResultMilestoneFormComponent implements OnInit, OnChanges {
 
-  isChecked: boolean = false;
-
   @Input() keyResult: ViewKeyResult;
   @Input() formArray: FormArray;
   @Input() start: number;
   @Input() end: number;
+
+  isChecked: boolean = false;
 
   private min: number;
   private max: number;
