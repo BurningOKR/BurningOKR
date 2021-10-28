@@ -17,6 +17,7 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
      * @param defaultStateTaskMap default container for the tasks, which can not map to one of the given states. Recommended
      *                            attribute is title. Id and tasks are not required.
      */
+
     createStateTaskMapList(states: ViewTaskState[], tasks: ViewTask[], defaultStateTaskMap?: StateTaskMap): StateTaskMap[] {
         let copiedTasks: ViewTask[] = this.copyTaskList(tasks);
 

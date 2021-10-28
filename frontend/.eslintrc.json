@@ -117,7 +117,10 @@
         "@typescript-eslint/require-await": "error",
         "no-underscore-dangle": [
           "error",
-          { "allowAfterThis": true }
+          {
+            "allowAfterThis": true ,
+            "allow":  ["__okrUnitType"]
+          }
         ],
         "arrow-parens": [
           "error",
@@ -163,7 +166,7 @@
           }
         ],
         "no-param-reassign": "error",
-        "no-redeclare": "error",
+        "no-redeclare": "off",// TODO maybe on
         "no-return-await": "error",
         "no-sequences": "error",
         "no-sparse-arrays": "error",
@@ -179,7 +182,13 @@
         ],
         "prefer-object-spread": "error",
         "prefer-template": "error",
-        "prefer-arrow-callback": "off", // TODO maybe On
+        "prefer-arrow/prefer-arrow-functions": [
+          "off",
+          {
+            "disallowPrototype": true,
+            "singleReturnOnly": false,
+            "classPropertiesAllowed": false
+          },
         "rxjs/no-async-subscribe": "error",
         "rxjs/no-create": "error",
         "rxjs/no-nested-subscribe": "error",

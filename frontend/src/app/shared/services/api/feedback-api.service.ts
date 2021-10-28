@@ -17,6 +17,6 @@ export class FeedbackApiService {
       name
     };
 
-    return this.api.postData$(`feedback`, feedback);
+    return this.api.postData$('feedback', feedback);
   }
 }

@@ -12,6 +12,7 @@ export class TaskBoardGeneralHelper extends TaskService {
      * @param currentCompleteTaskList sorted complete list of tasks for the current department
      * @param movedTask updated item with new position informations (previousTaskId and/or taskStateId)
      */
+
     updateOldPositionOfMovedTaskInCompleteTaskList(currentSortedCompleteTaskList: ViewTask[], movedTask: ViewTask): ViewTask {
         let result: ViewTask = null;
 
@@ -102,6 +103,22 @@ export class TaskBoardGeneralHelper extends TaskService {
         return result;
     }
 
+  getAllFirstTasksSortedOnTaskState(taskList: ViewTask[]): ViewTask[] {
+    let result: ViewTask[] = taskList.filter(task => task.previousTaskId === null);
+    result = result.sort((firstTask, secondTask) => {
+      let sortResult: number;
+      if (firstTask.taskStateId < secondTask.taskStateId) {
+        sortResult = -1;
+      } else {
+        sortResult = 1;
+      }
+
+      return sortResult;
+    });
+
+    return result;
+  }
+
     private orderManually(taskList: ViewTask[]): ViewTask[] {
         let unsortedTasks: ViewTask[] = this.copyTaskList(taskList);
 
@@ -118,22 +135,6 @@ export class TaskBoardGeneralHelper extends TaskService {
         }
 
         return sortedTasks;
-    }
-
-    getAllFirstTasksSortedOnTaskState(taskList: ViewTask[]): ViewTask[] {
-        let result: ViewTask[] = taskList.filter(task => task.previousTaskId === null);
-        result = result.sort((firstTask, secondTask) => {
-            let sortResult: number;
-            if (firstTask.taskStateId < secondTask.taskStateId) {
-                sortResult = -1;
-            } else {
-                sortResult = 1;
-            }
-
-            return sortResult;
-        });
-
-        return result;
     }
 
     private isOrderValid(taskList: ViewTask[]): boolean {

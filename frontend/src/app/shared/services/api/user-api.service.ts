@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AdminUser } from '../../model/api/admin-user';
 import { User } from '../../model/api/user';
 import { UserId } from '../../model/id-types';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +17,11 @@ export class UserApiService {
   }
 
   getCurrentUser$(): Observable<User> {
-    return this.api.getData$(`users/current`);
+    return this.api.getData$('users/current');
   }
 
   getUsers$(): Observable<User[]> {
-    return this.api.getData$(`users`);
+    return this.api.getData$('users');
   }
 
   createLocalUser$(user: User): Observable<User> {
@@ -42,7 +41,7 @@ export class UserApiService {
   }
 
   addAdmin$(adminToAdd: AdminUser): Observable<User> {
-    return this.api.postData$(`admins`, adminToAdd);
+    return this.api.postData$('admins', adminToAdd);
   }
 
   deleteAdmin$(adminToDeleteId: UserId): Observable<boolean> {

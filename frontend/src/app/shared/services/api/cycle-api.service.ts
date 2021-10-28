@@ -18,11 +18,11 @@ export class CycleApiService {
   }
 
   getAllCycles$(): Observable<CycleDto[]> {
-    return this.api.getData$(`cycles`);
+    return this.api.getData$('cycles');
   }
 
   postCycle$(cycle: CycleDto): Observable<CycleDto> {
-    return this.api.postData$(`cycles/`, cycle);
+    return this.api.postData$('cycles/', cycle);
   }
 
   putCycleById$(cycle: CycleDto): Observable<CycleDto> {

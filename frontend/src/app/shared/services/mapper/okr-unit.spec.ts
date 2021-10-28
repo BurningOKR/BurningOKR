@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { OkrUnitService } from './okr-unit.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { OkrUnitApiService } from '../api/okr-unit-api.service';
@@ -10,7 +9,6 @@ import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
 import any = jasmine.any;
-
 
 const okrUnitApiService: any = {
   getOkrChildUnitById$: jest.fn(),
@@ -204,7 +202,6 @@ describe('OkrUnitService', () => {
   it('putOkrChildUnit$ does not accept null', done => {
     okrUnitApiService.putOkrChildUnit$.mockReturnValue(of(null));
 
-    // eslint-disable-next-line 
     const test = () => {
       const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
