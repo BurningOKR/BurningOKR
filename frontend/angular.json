@@ -10,10 +10,7 @@
     "OKRFrontEnd": {
       "i18n": {
         "locales": {
-          "en": {
-            "translation": "src/locale/messages.en.xlf",
-            "baseHref": ""
-          }
+          "en": "src/locale/messages.en.xlf"
         }
       },
       "root": "",
@@ -179,15 +176,7 @@
               "buildOptimizer": true
             },
             "en": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "outputPath": "dist/OKRFrontEnd-en",
-              "i18nFile": "src/locale/messages.en.xlf",
-              "i18nLocale": "en"
+              "localize": ["en"]
             }
           },
           "defaultConfiguration": ""
