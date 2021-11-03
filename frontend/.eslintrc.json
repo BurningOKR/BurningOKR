@@ -50,7 +50,6 @@
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/ban-types": [
           "off",
-          //TODO maybe on
           {
             "types": {
               "object": {
@@ -85,7 +84,6 @@
         ],
         "@typescript-eslint/naming-convention": [
           "off",
-          // TODO maxbe on
           {
             "selector": "memberLike",
             "modifiers": [
@@ -139,7 +137,6 @@
         ],
         "arrow-body-style": [
           "off",
-          // TODO maybe turn on
           "as-needed",
           {
             "requireReturnForObjectLiteral": true
@@ -167,7 +164,7 @@
         "max-len": [
           "error",
           {
-            "ignorePattern": "^import |^export \\{(.*?)\\}|classcls [a-zA-Z]+ implements ",
+            "ignorePattern": "^import |^export \\{(.*?)\\}|class [a-zA-Z]+ implements ",
             "code": 140,
             "ignoreComments": true,
             "ignoreTrailingComments": true
@@ -191,7 +188,6 @@
         ],
         "no-param-reassign": "error",
         "no-redeclare": "off",
-        // TODO maybe on
         "no-return-await": "error",
         "no-sequences": "error",
         "no-sparse-arrays": "error",
