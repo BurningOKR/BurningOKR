@@ -53,9 +53,8 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
 
   saveDescription(): void {
     const okrTopicDescription: OkrTopicDescription = this.descriptionForm.getRawValue();
-    this.dialogRef.close(
-      this.okrTopicDescriptionService.putTopicDescription$(this.formData.departmentId, okrTopicDescription)
-    );
+    this.okrTopicDescriptionService.putTopicDescription$(this.formData.departmentId, okrTopicDescription)
+      .subscribe(() => this.dialogRef.close());
   }
 
 }

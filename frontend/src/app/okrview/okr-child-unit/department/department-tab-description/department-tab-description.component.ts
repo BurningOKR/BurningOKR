@@ -6,7 +6,6 @@ import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalU
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DepartmentDescriptionEditFormComponent } from './department-description-edit-form/department-description-edit-form.component';
-import { switchMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-department-tab-description',
@@ -43,15 +42,7 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
         }
       });
 
-    dialogReference.afterClosed()
-      .pipe(
-        switchMap(o$ => o$),
-        take(1)
-      )
-      .subscribe(() => {
-        this.updateDescription();
-      });
-
+    dialogReference.afterClosed().subscribe(() => this.updateDescription());
   }
 
   private updateDescription(): void {
