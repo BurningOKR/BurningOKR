@@ -44,7 +44,7 @@ export class LandingPageNavigationComponent implements OnInit {
       switchMap(() => this.getRouterLink$()))
         .subscribe((routerLink: RouterParams) => {
         this.router.navigate(routerLink);
-      }, () => this.router.navigate(['/error']));
+      }, () => this.router.navigate(['/error']));// eslint-disable-line @typescript-eslint/promise-function-async
   }
 
   private getRouterLink$(): Observable<RouterParams> {
@@ -74,9 +74,9 @@ export class LandingPageNavigationComponent implements OnInit {
         filter((userSettings: UserSettings) => !!userSettings),
         map((userSettings: UserSettings) => {
           if (LandingPageNavigationComponent.userHasNoDefaultTeamButADefaultCompany(userSettings)) {
-            return [`/okr/companies/`, userSettings.defaultCompanyId];
+            return ['/okr/companies/', userSettings.defaultCompanyId];
           } else if (LandingPageNavigationComponent.userHasDefaultTeam(userSettings)) {
-            return [`/okr/departments/`, userSettings.defaultTeamId];
+            return ['/okr/departments/', userSettings.defaultTeamId];
           } else {
             return ['/companies'];
           }

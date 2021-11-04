@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 export abstract class AbstractValidator {
@@ -15,12 +15,12 @@ export abstract class AbstractValidator {
     return this._errorMessage;
   }
 
-  protected setErrorMessage(val: string): void {
-    this._errorMessage = val;
-  }
-
   getErrorCode(): string {
     return this._errorCode;
+  }
+
+  protected setErrorMessage(val: string): void {
+    this._errorMessage = val;
   }
 
   protected setErrorCode(val: string): void {
@@ -29,12 +29,13 @@ export abstract class AbstractValidator {
 
 }
 
-interface Constructor<T> {
-  new(...args: any[]): T;
-  readonly prototype: T;
-}
 const validatorsConstructors: Constructor<AbstractValidator>[] = [];
 let validators: AbstractValidator[] = null;
+
+interface Constructor<T> {
+  readonly prototype: T;
+  new(...args: any[]): T;
+}
 
 export function getValidators(i18n: I18n): AbstractValidator[] {
   if (!validators) {

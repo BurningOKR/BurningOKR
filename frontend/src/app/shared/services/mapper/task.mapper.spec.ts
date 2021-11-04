@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TaskMapperService } from './task.mapper';
-import { TaskStateApiService } from '../api/task-state-api.service';
 import { OkrUnitId } from '../../model/id-types';
 import { Observable, of } from 'rxjs';
 import { ViewTaskState } from '../../model/ui/taskboard/view-task-state';
@@ -23,7 +22,7 @@ describe('Task.MapperService', () => {
   );
 
   it('should be created', () => {
-    const service: TaskMapperService = TestBed.get(TaskMapperService);
+    const service: TaskMapperService = TestBed.inject(TaskMapperService);
     expect(service)
       .toBeTruthy();
   });

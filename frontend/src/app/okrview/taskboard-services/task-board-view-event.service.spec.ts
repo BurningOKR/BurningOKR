@@ -6,7 +6,7 @@ describe('TaskBoardViewEventService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TaskBoardViewEventService = TestBed.get(TaskBoardViewEventService);
+    const service: TaskBoardViewEventService = TestBed.inject(TaskBoardViewEventService);
     expect(service)
       .toBeTruthy();
   });

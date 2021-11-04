@@ -1,9 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 // import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MAT_DIALOG_DATA,  MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { NEVER, Observable, of, Subject, Subscription } from 'rxjs';
+import { NEVER, Observable, of, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
 import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
@@ -11,11 +11,7 @@ import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
 import { User } from '../../../../shared/model/api/user';
 import { ViewObjective } from '../../../../shared/model/ui/view-objective';
 import { KeyResultMap } from '../../../../shared/model/ui/key-result-map';
-import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
 import { ObjectiveViewMapper } from '../../../../shared/services/mapper/objective-view.mapper';
-import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
-import { CurrentOkrviewService } from '../../../current-okrview.service';
-import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
 import { UserService } from '../../../../shared/services/helper/user.service';
 
 export interface TaskFormData {
@@ -115,7 +111,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     this.dialogRef.close(NEVER);
   }
 
-  onSelectUser($event: { value: User; }): void {
+  onSelectUser($event: { value: User }): void {
     this.user = $event.value;
   }
 

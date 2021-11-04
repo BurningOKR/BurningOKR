@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "../../../../styles/themes/bag-theme";
 
 .milestone {
@@ -12,5 +13,5 @@
 }
 
 .milestone-reached {
-  background-color: mat-color($md-info, 500);
+  background-color: mat.get-color-from-palette($md-info, 500);
 }

@@ -8,7 +8,7 @@ import { User } from '../../../../shared/model/api/user';
   styleUrls: ['./department-team-new-user.component.scss']
 })
 export class DepartmentTeamNewUserComponent {
-  @ViewChild('inputForm', { static: false }) inputForm: UserAutocompleteInputComponent;
+  @ViewChild('inputForm') inputForm: UserAutocompleteInputComponent;
 
   @Input()
   inputPlaceholderText: string;

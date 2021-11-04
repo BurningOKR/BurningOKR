@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../../../../../../shared/model/api/user';
 import { CsvParseResult, CsvUserParseService } from '../../services/csv-user-parse.service';
 import {
@@ -28,12 +31,12 @@ interface ImportCsvWarnings {
 })
 export class ImportCsvDialogComponent implements OnInit {
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   fileForm: FormGroupTyped<ImportCsvDialogForm>;
   rowData = new MatTableDataSource([] as User[]);
   columnsToDisplay = ['givenName', 'email', 'department', 'jobTitle'];
   warnings: ImportCsvWarnings;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private dialogRef: MatDialogRef<ImportCsvDialogComponent>,
@@ -73,10 +76,6 @@ export class ImportCsvDialogComponent implements OnInit {
     }
   }
 
-  private hasDuplicateEmailAdresses(users: User[]): boolean {
-    return users.Any(user => users.Any(anotherUser => user !== anotherUser && user.email === anotherUser.email));
-  }
-
   onSave(): void {
 
     const confirmationTitleI18n: string = this.i18n({
@@ -101,5 +100,9 @@ export class ImportCsvDialogComponent implements OnInit {
         filter(v => v)
       )
       .subscribe(_ => this.dialogRef.close(this.rowData.data));
+  }
+
+  private hasDuplicateEmailAdresses(users: User[]): boolean {
+    return users.Any(user => users.Any(anotherUser => user !== anotherUser && user.email === anotherUser.email));
   }
 }

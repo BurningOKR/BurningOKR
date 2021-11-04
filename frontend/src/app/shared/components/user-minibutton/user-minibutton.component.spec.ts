@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UserMinibuttonComponent } from './user-minibutton.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { UserAvatarComponent } from '../user-avatar/user-avatar.component';
@@ -14,7 +14,7 @@ describe('UserMinibuttonComponent', () => {
   let component: UserMinibuttonComponent;
   let fixture: ComponentFixture<UserMinibuttonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         UserMinibuttonComponent,

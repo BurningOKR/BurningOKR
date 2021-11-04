@@ -18,11 +18,11 @@ import { DepartmentMapper } from '../../../../shared/services/mapper/department.
 })
 export class UserSettingsComponent extends SettingsForm implements OnInit {
 
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   userSettingsForm: FormGroup;
   companies$: Observable<CompanyUnit[]>;
   departments$: Observable<OkrDepartment[]>;
-
-  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private companyService: CompanyMapper,
               private userSettingsManager: UserSettingsManagerService,

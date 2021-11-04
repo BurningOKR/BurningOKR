@@ -12,10 +12,10 @@ import { IUserService } from './i-user-service';
 })
 export class UserService implements IUserService {
 
+  private users$: BehaviorSubject<User[]>;
+
   constructor(private userApiService: UserApiService) {
   }
-
-  private users$: BehaviorSubject<User[]>;
 
   getUserById$(objectId: string): Observable<User> {
     if (this.users$) {

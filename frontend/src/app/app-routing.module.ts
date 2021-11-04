@@ -13,11 +13,11 @@ import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitte
 import { environment } from '../environments/environment';
 
 const routes: Routes = [
-  {path: 'demo', loadChildren: () => import('./demo/demo.module')
+  {path: 'demo', loadChildren: async () => import('./demo/demo.module')
       .then(mod => mod.DemoModule)
   },
   {
-    path: 'okr', loadChildren: () => import('./okrview/okrview.module')
+    path: 'okr', loadChildren: async () => import('./okrview/okrview.module')
       .then(mod => mod.OkrviewModule),
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
@@ -35,7 +35,7 @@ const routes: Routes = [
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
   {
-    path: 'auth', loadChildren: () => import('./core/auth/auth.module')
+    path: 'auth', loadChildren: async () => import('./core/auth/auth.module')
       .then(mod => mod.AuthModule)
   },
   { path: 'error', component: ErrorComponent },
@@ -45,7 +45,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false, onSameUrlNavigation: 'reload', scrollPositionRestoration: 'enabled' })],
+  imports: [RouterModule.forRoot(routes, { useHash: false, onSameUrlNavigation: 'reload', relativeLinkResolution: 'legacy', scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

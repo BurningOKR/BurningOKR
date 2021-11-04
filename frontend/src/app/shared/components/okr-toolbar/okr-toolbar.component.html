@@ -7,7 +7,7 @@
 
     <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
 
-    <div class="warningText hidden-m-down" *ngIf="!isPlayground && !(hasMailConfigured$ | async)">
+    <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
       <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
       <br>
       <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">Dies kann die Nutzbarkeit der
@@ -43,7 +43,7 @@
   </button>
 
   <!-- show menu settings-->
-  <ng-container *ngIf="!(isLocalUserbase$ | async) && !isPlayground">
+  <ng-container *ngIf="(isLocalUserbase$ | async) === false && isPlayground === false">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
       <span i18n="@@component_adminView_adminPanel">Admin Panel</span>

@@ -7,7 +7,7 @@ import { OauthClientDetails } from '../../../../../../shared/model/api/oauth-cli
 import { FormGroupTyped } from '../../../../../../../typings';
 import { Consts } from '../../../../../../shared/consts';
 import { OAuthFrontendDetailsService } from '../../../../services/o-auth-frontend-details.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
@@ -47,18 +47,6 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     this.generateOauthClientDetailsForm();
   }
 
-  private generateOauthClientDetailsForm(): void {
-    this.form = this.formBuilder.group({
-      accessTokenValidity: [this.oauthClientDetails.accessTokenValidity, [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
-      clientId: [this.oauthClientDetails.clientId, [Validators.required]],
-      clientSecret: [this.oauthClientDetails.clientSecret, [Validators.required]],
-      refreshTokenValidity: [this.oauthClientDetails.refreshTokenValidity,
-                             [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
-      webServerRedirectUri: [this.oauthClientDetails.webServerRedirectUri, [Validators.required]]
-    }) as FormGroupTyped<OauthClientDetails>;
-    this.form.disable();
-  }
-
   handleSubmitClick(): void {
     this.toggleLoadingScreen();
     this.changeOauthClientDetailsBasedOnFormData();
@@ -80,6 +68,18 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
     } else {
       this.form.enable();
     }
+  }
+
+  private generateOauthClientDetailsForm(): void {
+    this.form = this.formBuilder.group({
+      accessTokenValidity: [this.oauthClientDetails.accessTokenValidity, [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
+      clientId: [this.oauthClientDetails.clientId, [Validators.required]],
+      clientSecret: [this.oauthClientDetails.clientSecret, [Validators.required]],
+      refreshTokenValidity: [this.oauthClientDetails.refreshTokenValidity,
+        [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
+      webServerRedirectUri: [this.oauthClientDetails.webServerRedirectUri, [Validators.required]]
+    }) as FormGroupTyped<OauthClientDetails>;
+    this.form.disable();
   }
 
   private changeOauthClientDetailsBasedOnFormData(): void {

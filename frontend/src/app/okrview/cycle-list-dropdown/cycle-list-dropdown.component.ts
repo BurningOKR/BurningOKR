@@ -41,14 +41,14 @@ export class CycleListDropdownComponent implements OnInit {
     this.currentCycle$ = this.currentCycleService.getCurrentCycle$();
   }
 
-  private removeAllInvisibleCyclesFromCycleList(cycleList: CycleUnit[]): CycleUnit[] {
-    return cycleList.filter(cycle => cycle.isVisible);
-  }
-
   onSelectCycle(cycleUnit: CycleUnit): void {
     const chosenCompanyId: number = cycleUnit.companyIds[0];
     this.router.navigate([`../okr/companies/${chosenCompanyId}`], {relativeTo: this.route})
       .catch();
+  }
+
+  private removeAllInvisibleCyclesFromCycleList(cycleList: CycleUnit[]): CycleUnit[] {
+    return cycleList.filter(cycle => cycle.isVisible);
   }
 
 }

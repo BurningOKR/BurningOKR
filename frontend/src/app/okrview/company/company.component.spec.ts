@@ -1,6 +1,6 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CompanyComponent } from './company.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +10,8 @@ import { CurrentCycleService } from '../current-cycle.service';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { ExcelMapper } from '../excel-file/excel.mapper';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { OkrUnitRole, OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
@@ -82,7 +83,7 @@ describe('CompanyComponent', () => {
   let company: CompanyUnit;
   let contextRole: ContextRole;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         CompanyComponent, OkrChildUnitPreviewButtonMockComponent, AddChildUnitButtonComponent

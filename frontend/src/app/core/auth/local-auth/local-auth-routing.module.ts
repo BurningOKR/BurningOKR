@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'resetpassword', component: ResetPasswordComponent, canActivate: [LocalGuard, DemoGuard]},
   {path: 'setpassword/:emailIdentifier', component: SetPasswordComponent, canActivate: [LocalGuard, DemoGuard]},
   {
-    path: 'users', loadChildren: () => import('./user-management/user-management.module')
+    path: 'users', loadChildren: async () => import('./user-management/user-management.module') //TODO testen
       .then(mod => mod.UserManagementModule),
     canActivate: [LocalGuard, AuthGuard, AdminRoleGuard]
   },

@@ -1,12 +1,12 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DepartmentTabTeamComponent } from './department-tab-team.component';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { CurrentUserService } from '../../../../core/services/current-user.service';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
@@ -16,13 +16,6 @@ import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { of } from 'rxjs';
 import { Configuration } from '../../../../shared/model/ui/configuration';
 import { User } from '../../../../shared/model/api/user';
-import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
-import { TaskStateMapper } from '../../../../shared/services/mapper/task-state.mapper';
-import { TaskBoardGeneralHelper } from '../../../../shared/services/helper/task-board/task-board-general-helper';
-import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
-import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
-import { RxStompService } from '@stomp/ng2-stompjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 const currentUserServiceMock: any = {
   getCurrentUser$: jest.fn()
@@ -55,7 +48,7 @@ let department: OkrDepartment;
 let currentUserRole: ContextRole;
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-department-team-new-user',
   template: ''
 })
@@ -64,7 +57,7 @@ class DepartmentTeamNewUserMockComponent {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-user-minibutton',
   template: ''
 })
@@ -78,7 +71,7 @@ describe('DepartmentTabTeamComponent', () => {
   let component: DepartmentTabTeamComponent;
   let fixture: ComponentFixture<DepartmentTabTeamComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DepartmentTabTeamComponent, DepartmentTeamNewUserMockComponent, UserMinibuttonMockComponent],
       imports: [MaterialTestingModule],
@@ -419,5 +412,5 @@ describe('DepartmentTabTeamComponent', () => {
     expect(component.department.okrMemberIds)
       .toEqual(['testOkrMember', 'newTestOkrMember']);
   });
-// tslint:disable-next-line:max-file-line-count
+// eslint-disable-next-line max-lines
 });

@@ -122,7 +122,7 @@
 <mat-dialog-actions>
   <span matTooltip="Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein." [matTooltipDisabled]="(canEdit$ | async) && (topicDraft.currentStatus === enumStatus.submitted || topicDraft.currentStatus === enumStatus.draft)"
      i18n-matTooltip="@@topic_draft_details_edit_no_permission_tooltip">
-    <button [disabled]="!(canEdit$ | async) || topicDraft.currentStatus === enumStatus.approved || topicDraft.currentStatus === enumStatus.rejected" mat-button color="primary" (click)="editDialog()">
+    <button [disabled]="(canEdit$ | async) === false|| topicDraft.currentStatus === enumStatus.approved || topicDraft.currentStatus === enumStatus.rejected" mat-button color="primary" (click)="editDialog()">
      <span i18n="@@edit_button">Bearbeiten</span>
     </button>
   </span>

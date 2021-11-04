@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { KeyResultMilestoneFormComponent } from './key-result-milestone-form.component';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
@@ -20,7 +20,7 @@ describe('KeyResultMilestoneFormComponent', () => {
   let component: KeyResultMilestoneFormComponent;
   let fixture: ComponentFixture<KeyResultMilestoneFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ KeyResultMilestoneFormComponent, FormErrorComponent ],
       imports: [ MaterialTestingModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule ],

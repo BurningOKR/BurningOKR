@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AuthConfig, JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
 import { AuthTypeHandlerFactoryService } from './auth-type-handler/auth-type-handler-factory.service';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,6 +21,7 @@ export class AuthenticationService {
   /**
    * Configures the AuthenticationService with the OAuthDetails from the backend.
    * Should be called at application startup.
+   *
    * @returns the AuthConfig
    */
   async configure(): Promise<AuthConfig> {
@@ -43,6 +45,7 @@ export class AuthenticationService {
   /**
    * Checks wether the user is logged in.
    * The user will be redirected to the login page of the current AuthenticationHandler, when they are not logged in.
+   *
    * @returns true when the user is logged. False otherwise.
    */
   async redirectToLoginProvider(): Promise<boolean> {
@@ -53,6 +56,7 @@ export class AuthenticationService {
 
   /**
    * Logs the user in with the current AuthenticationService.
+   *
    * @param email The email of the user
    * @param password The password of the user
    */
@@ -64,6 +68,7 @@ export class AuthenticationService {
 
   /**
    * Checks wether the user has a valid access token
+   *
    * @returns true when the user has a valid access token. False otherwise.
    */
   hasValidAccessToken(): boolean {

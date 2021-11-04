@@ -3,7 +3,7 @@ import { switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { VersionFormComponent } from '../../../core/version-form/version-form.component';
 import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/change-password-dialog/change-password-dialog.component';
 import { Observable } from 'rxjs';
@@ -61,7 +61,7 @@ export class OkrToolbarComponent implements OnInit {
     this.currentCompanyService.getCurrentCompany$()
       .pipe(take(1))
       .subscribe((currentCompany: CompanyUnit) => {
-        this.router.navigate([`cycle-admin/`, currentCompany.id]);
+        this.router.navigate(['cycle-admin/', currentCompany.id]);
       });
   }
 

@@ -224,6 +224,26 @@
           <context context-type="sourcefile">app/shared/components/okr-toolbar/okr-toolbar.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
+      </trans-unit><trans-unit id="search" datatype="html">
+        <source>Suche</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/user-selector-multi/user-selector-multi.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/user-selector/user-selector.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="noUserFound" datatype="html">
+        <source>Keine Benutzer gefunden.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/user-selector-multi/user-selector-multi.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/components/user-selector/user-selector.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
       </trans-unit><trans-unit id="goToOkrUnitOverview" datatype="html">
         <source>Zur Strukturübersicht</source>
         <context-group purpose="location">
@@ -292,7 +312,7 @@
         <source>Beschreibung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
@@ -318,53 +338,53 @@
         <source>Zahlt ein auf</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit><trans-unit id="component_descriptionEditForm_delimitation" datatype="html">
         <source>Abgrenzung</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit><trans-unit id="component_descriptionEditForm_dependencies" datatype="html">
         <source>Abhängigkeiten</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit><trans-unit id="component_descriptionEditForm_resources" datatype="html">
         <source>Benötigte Ressourcen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit><trans-unit id="component_descriptionEditForm_handoverPlan" datatype="html">
         <source>Übergabeplan</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-      </trans-unit><trans-unit id="component_descriptionEditForm_initiator" datatype="html">
-        <source>Kein Initiator</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit><trans-unit id="initiator" datatype="html">
         <source>Initiator *</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">55</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
+      </trans-unit><trans-unit id="component_descriptionEditForm_initiator" datatype="html">
+        <source>Kein Initiator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
       </trans-unit><trans-unit id="startTeam" datatype="html">
         <source>Start Team</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">63</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component.html</context>
@@ -374,7 +394,7 @@
         <source>Stakeholder</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/okr-topic-description-form/okr-topic-description-form.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit><trans-unit id="component_adminView_Admins" datatype="html">
         <source>Admins</source>
@@ -1360,17 +1380,29 @@
           <context context-type="sourcefile">app/okrview/company/company.component.html</context>
           <context context-type="linenumber">98</context>
         </context-group>
+      </trans-unit><trans-unit id="component_navigationListEntry_isSubstructure" datatype="html">
+        <source>Dies ist eine Unterstruktur</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="component_navigationListEntry_isTeam" datatype="html">
+        <source>Dies ist ein Team</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
       </trans-unit><trans-unit id="component_navigationListEntry_youAreManager" datatype="html">
         <source>Sie sind Manager dieser Struktur</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit><trans-unit id="component_navigationListEntry_youAreMember" datatype="html">
         <source>Sie sind Mitglied dieser Struktur</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/okrview/navigation-list-entry/navigation-list-entry.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit><trans-unit id="component_commentCard_editComment" datatype="html">
         <source>Kommentar bearbeiten</source>

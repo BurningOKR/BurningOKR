@@ -4,7 +4,7 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "downlevelIteration": true,
-    "module": "esnext",
+    "module": "es2020",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,10 +14,7 @@
     "esModuleInterop": true,
     "target": "es2015",
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "plugins": [
-      { "name": "tslint-language-service" }
-    ],
+    "plugins": [],
     "typeRoots": [
       "node_modules/@types"
     ],

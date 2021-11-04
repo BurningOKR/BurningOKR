@@ -4,7 +4,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { OkrTopicDraft } from '../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../shared/services/mapper/topic-draft-mapper';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-submitted-topic-drafts',
@@ -13,18 +15,13 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 export class SubmittedTopicDraftsComponent implements OnInit {
 
-  topicDrafts$: Observable<OkrTopicDraft[]>;
-
-  columnsToDisplay = ['topic', 'initiator', 'beginning', 'contributesTo', 'status', 'comments', 'actions'];
-  rowData = new MatTableDataSource([] as OkrTopicDraft[]);
-
-  constructor(private router: Router,
-              private topicDraftMapper: TopicDraftMapper,
-              private i18n: I18n
-              ) { }
-
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  topicDrafts$: Observable<OkrTopicDraft[]>;
+  columnsToDisplay = ['topic', 'initiator', 'beginning', 'contributesTo', 'status', 'comments', 'actions'];
+
+  rowData = new MatTableDataSource([] as OkrTopicDraft[]);
   i18nTopicTableHeader: string = this.i18n({
     id: 'topic_table_header',
     description: 'Submitted topic drafts component "Topic" header',
@@ -60,6 +57,11 @@ export class SubmittedTopicDraftsComponent implements OnInit {
     description: 'Submitted topic drafts component "Actions" header',
     value: 'Aktionen'
   });
+
+  constructor(private router: Router,
+              private topicDraftMapper: TopicDraftMapper,
+              private i18n: I18n
+              ) { }
 
   ngOnInit(): void {
     this.loadAllTopicDrafts();

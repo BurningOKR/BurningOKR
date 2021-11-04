@@ -1,15 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
-import { MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 
 import { NEVER } from 'rxjs';
 import { CycleDto } from '../../shared/model/api/cycle.dto';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { DateNotInRangeOfAnotherCycleValidator, } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
+import { DateNotInRangeOfAnotherCycleValidator } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CycleDialogData } from '../../shared/model/ui/cycle-dialog-data';
 import { DateFormValidator } from '../../shared/validators/date-format-validator/date-format-validator-function';
 import { DateNotInThePastValidator } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';

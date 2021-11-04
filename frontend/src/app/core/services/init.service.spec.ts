@@ -31,13 +31,13 @@ describe('InitService', () => {
   });
 
   it('should be created', () => {
-    const service: InitService = TestBed.get(InitService);
+    const service: InitService = TestBed.inject(InitService);
     expect(service)
       .toBeTruthy();
   });
 
   it('isInitialized should return true when subject is true', done => {
-    const service: InitService = TestBed.get(InitService);
+    const service: InitService = TestBed.inject(InitService);
 
     (service as any).initialized$.next(true);
 
@@ -50,7 +50,7 @@ describe('InitService', () => {
   });
 
   it('isInitialized should not call an http method when subject is true', done => {
-    const service: InitService = TestBed.get(InitService);
+    const service: InitService = TestBed.inject(InitService);
 
     (service as any).initialized$.next(true);
 
@@ -69,7 +69,7 @@ describe('InitService', () => {
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 
-    const service: InitService = TestBed.get(InitService);
+    const service: InitService = TestBed.inject(InitService);
 
     (service as any).initialized$.next(false);
 
@@ -88,7 +88,7 @@ describe('InitService', () => {
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 
-    const service: InitService = TestBed.get(InitService);
+    const service: InitService = TestBed.inject(InitService);
 
     (service as any).initialized$.next(false);
 
@@ -107,7 +107,7 @@ describe('InitService', () => {
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 
-    const service: InitService = TestBed.get(InitService);
+    const service: InitService = TestBed.inject(InitService);
 
     (service as any).initialized$.next(false);
 
@@ -126,7 +126,7 @@ describe('InitService', () => {
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 
-    const service: InitService = TestBed.get(InitService);
+    const service: InitService = TestBed.inject(InitService);
 
     (service as any).initialized$.next(false);
 

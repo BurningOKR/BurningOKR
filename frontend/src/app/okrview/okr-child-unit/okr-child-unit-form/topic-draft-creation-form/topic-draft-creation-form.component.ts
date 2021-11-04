@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OkrTopicDraft } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../../../../shared/services/mapper/topic-draft-mapper';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NEVER, Subscription } from 'rxjs';
 import { status } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';

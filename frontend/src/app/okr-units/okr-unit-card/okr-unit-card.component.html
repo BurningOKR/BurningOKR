@@ -7,8 +7,8 @@
         <mat-select-trigger>
           {{chosenCycleWithHistoryCompany.cycle.abbreviation}} <br><small>[{{chosenCycleWithHistoryCompany.cycle.startDate | date: 'dd.MM.yyyy'}}
           - {{chosenCycleWithHistoryCompany.cycle.endDate | date:'dd.MM.yyyy'}}]</small>
-          <mat-icon class="padlock-margin" *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState == 'CLOSED'">lock</mat-icon>
-          <mat-icon class="padlock-margin" *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState == 'PREPARATION'">watch_later</mat-icon>
+          <mat-icon class="padlock-margin" *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState === 'CLOSED'">lock</mat-icon>
+          <mat-icon class="padlock-margin" *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState === 'PREPARATION'">watch_later</mat-icon>
         </mat-select-trigger>
         <mat-option class="option"
                     *ngFor="let cycleWithHistoryCompany of cyclesWithHistoryCompanies"
@@ -17,8 +17,8 @@
                     [class.option-inactive-cycle]="cycleWithHistoryCompany.cycle.remainingDaysUntilEnd <= 0">
           {{cycleWithHistoryCompany.cycle.abbreviation}} <br><small>[{{cycleWithHistoryCompany.cycle.startDate | date: 'dd.MM.yyyy'}}
           - {{cycleWithHistoryCompany.cycle.endDate | date:'dd.MM.yyyy'}}]</small>
-          <mat-icon class="padlock-margin" *ngIf="cycleWithHistoryCompany.cycle.cycleState == 'CLOSED'">lock</mat-icon>
-          <mat-icon class="padlock-margin" *ngIf="cycleWithHistoryCompany.cycle.cycleState == 'PREPARATION'">watch_later</mat-icon>
+          <mat-icon class="padlock-margin" *ngIf="cycleWithHistoryCompany.cycle.cycleState === 'CLOSED'">lock</mat-icon>
+          <mat-icon class="padlock-margin" *ngIf="cycleWithHistoryCompany.cycle.cycleState === 'PREPARATION'">watch_later</mat-icon>
         </mat-option>
       </mat-select>
       </mat-form-field>

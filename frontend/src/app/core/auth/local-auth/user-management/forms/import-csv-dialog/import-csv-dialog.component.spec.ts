@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImportCsvDialogComponent } from './import-csv-dialog.component';
-import { MatDialog, MatDialogRef, MatTableModule } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 import { Papa } from 'ngx-papaparse';
 import { CsvUserParseService } from '../../services/csv-user-parse.service';
 import { FormBuilder } from '@angular/forms';

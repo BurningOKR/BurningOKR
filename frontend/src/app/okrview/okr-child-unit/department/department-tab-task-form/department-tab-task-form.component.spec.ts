@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TaskFormComponent, TaskFormData } from './department-tab-task-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
@@ -12,7 +12,6 @@ import { ObjectiveViewMapper } from '../../../../shared/services/mapper/objectiv
 import { UserService } from '../../../../shared/services/helper/user.service';
 import { User } from '../../../../shared/model/api/user';
 import { Observable, of } from 'rxjs';
-import { MatButtonModule } from '@angular/material/button';
 import { Component, Input } from '@angular/core';
 
 describe('DepartmentTabTaskFormComponent', () => {
@@ -50,7 +49,7 @@ describe('DepartmentTabTaskFormComponent', () => {
     isInteractive: true
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TaskFormComponent, DialogComponent, ErrorMockComponent],
       imports: [NoopAnimationsModule, MatDialogModule, ReactiveFormsModule, MaterialTestingModule],

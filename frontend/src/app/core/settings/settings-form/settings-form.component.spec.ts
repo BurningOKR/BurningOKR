@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SettingsFormComponent } from './settings-form.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AdminSettingsFormComponent } from './admin-settings/admin-settings-form.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -56,7 +56,7 @@ describe('SettingsFormComponent', () => {
   let component: SettingsFormComponent;
   let fixture: ComponentFixture<SettingsFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SettingsFormComponent, UserSettingsComponent, AdminSettingsFormComponent ],
       imports: [

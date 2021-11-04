@@ -1,5 +1,5 @@
 import { User } from '../../model/api/user';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { debounceTime, filter, map, startWith, switchMap } from 'rxjs/operators';
 import { UserService } from '../../services/helper/user.service';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
@@ -22,8 +22,8 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
 
   userList$: Observable<User[]>;
   filteredUsers$: Observable<User[]>;
-  private focusChanged$: Subject<string> = new Subject<string>();
   subscriptions: Subscription[] = [];
+  private focusChanged$: Subject<string> = new Subject<string>();
 
   // Time to wait after new input before calculating the suggestions for autocomplete in ms
   private autoCompleteWaitTime: number = 200;
@@ -64,6 +64,15 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
     return selectedUser ? `${selectedUser.surname}, ${selectedUser.givenName}` : selectedUser;
   }
 
+  selectedUser(event: MatAutocompleteSelectedEvent): void {
+    const selectedUser: User = event.option.value;
+    this.choseUser.emit(selectedUser);
+  }
+
+  focusChanged(): void {
+    this.focusChanged$.next(this.inputFormControl.value);
+  }
+
   private loadUserListFromService(): void {
     this.userList$ = this.userService
       .getAllUsers$()
@@ -84,10 +93,6 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
         startWith(''),
         switchMap(inputString => this.getFilteredUserList$(inputString))
       );
-  }
-
-  focusChanged(): void {
-    this.focusChanged$.next(this.inputFormControl.value);
   }
 
   private getFilteredUserList$(inputString: string): Observable<User[]> {
@@ -115,10 +120,5 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
     }
 
     return false;
-  }
-
-  selectedUser(event: MatAutocompleteSelectedEvent): void {
-    const selectedUser: User = event.option.value;
-    this.choseUser.emit(selectedUser);
   }
 }

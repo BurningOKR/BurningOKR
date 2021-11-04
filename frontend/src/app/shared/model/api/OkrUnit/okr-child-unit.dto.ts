@@ -3,7 +3,7 @@ import { UnitType } from './unit-type.enum';
 import { OkrUnitId } from '../../id-types';
 
 export class OkrChildUnitDto extends OkrUnitDto {
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
   __okrUnitType: UnitType;
   parentUnitId: OkrUnitId;
   isActive: boolean;

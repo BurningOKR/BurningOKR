@@ -13,7 +13,7 @@ export class UserFormComponent implements OnInit {
 
   isPlayground: boolean = environment.playground;
 
-  @ViewChild('canvasElement', {static: false}) canvas;
+  @ViewChild('canvasElement') canvas;
 
   ngOnInit(): void {
     if (this.userForm.get('email').value === 'iwant@burningokr') {

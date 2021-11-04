@@ -1,0 +1,234 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/ng-cli-compat",
+        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "plugins": [
+        "eslint-plugin-rxjs",
+        "eslint-plugin-unicorn"
+      ],
+      "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/array-type": [
+          "error",
+          {
+            "default": "array"
+          }
+        ],
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/ban-types": [
+          "off",
+          {
+            "types": {
+              "object": {
+                "message": "Avoid using the `object` type."
+              },
+              "Object": {
+                "message": "Avoid using the `Object` type."
+              },
+              "Function": {
+                "message": "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."
+              },
+              "Boolean": {
+                "message": "Avoid using the `Boolean` type. Did you mean `boolean`?"
+              },
+              "Number": {
+                "message": "Avoid using the `Number` type. Did you mean `number`?"
+              },
+              "String": {
+                "message": "Avoid using the `String` type. Did you mean `string`?"
+              },
+              "Symbol": {
+                "message": "Avoid using the `Symbol` type. Did you mean `symbol`?"
+              },
+              "any": {
+                "message": "Avoid using the `any` type."
+              }
+            }
+          }
+        ],
+        "id-blacklist": [
+          "off"
+        ],
+        "@typescript-eslint/naming-convention": [
+          "off",
+          {
+            "selector": "memberLike",
+            "modifiers": [
+              "static"
+            ],
+            "format": [
+              "PascalCase"
+            ]
+          }
+        ],
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "no-public"
+          }
+        ],
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/typedef": [
+          "error",
+          {
+            "variableDeclaration": true
+          }
+        ],
+        "@typescript-eslint/no-empty-function": "error",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-for-in-array": "error",
+        "@typescript-eslint/no-this-alias": "error",
+        "@typescript-eslint/no-unnecessary-type-assertion": "error",
+        "@typescript-eslint/promise-function-async": "error",
+        "@typescript-eslint/quotes": [
+          "error",
+          "single",
+          {
+            "avoidEscape": true
+          }
+        ],
+        "@typescript-eslint/require-await": "error",
+        "no-underscore-dangle": [
+          "error",
+          {
+            "allowAfterThis": true,
+            "allow": [
+              "__okrUnitType"
+            ]
+          }
+        ],
+        "arrow-parens": [
+          "error",
+          "as-needed"
+        ],
+        "arrow-body-style": [
+          "off",
+          "as-needed",
+          {
+            "requireReturnForObjectLiteral": true
+          }
+        ],
+        "brace-style": [
+          "error",
+          "1tbs"
+        ],
+        "comma-dangle": ["error", {
+          "arrays": "only-multiline",
+          "objects": "only-multiline",
+          "imports": "only-multiline",
+          "exports": "only-multiline",
+          "functions": "only-multiline"
+        }],
+        "complexity": [
+          "error",
+          {
+            "max": 20
+          }
+        ],
+        "default-case": "error",
+        "import/no-extraneous-dependencies": "error",
+        "max-len": [
+          "error",
+          {
+            "ignorePattern": "^import |^export \\{(.*?)\\}|class [a-zA-Z]+ implements ",
+            "code": 140,
+            "ignoreComments": true,
+            "ignoreTrailingComments": true
+          }
+        ],
+        "max-lines": [
+          "error",
+          {
+            "max": 500,
+            "skipBlankLines": true,
+            "skipComments": true
+          }
+        ],
+        "newline-per-chained-call": "error",
+        "no-empty": "error",
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1
+          }
+        ],
+        "no-param-reassign": "error",
+        "no-redeclare": "off",
+        "no-return-await": "error",
+        "no-sequences": "error",
+        "no-sparse-arrays": "error",
+        "no-template-curly-in-string": "error",
+        "no-useless-constructor": "off",
+        "padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+          }
+        ],
+        "prefer-object-spread": "error",
+        "prefer-template": "error",
+        "prefer-arrow/prefer-arrow-functions": [
+          "off",
+          {
+            "disallowPrototype": true,
+            "singleReturnOnly": false,
+            "classPropertiesAllowed": false
+          }
+        ],
+        "rxjs/no-async-subscribe": "error",
+        "rxjs/no-create": "error",
+        "rxjs/no-nested-subscribe": "error",
+        "space-in-parens": [
+          "error",
+          "never"
+        ],
+        "unicorn/filename-case": "error"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
+}

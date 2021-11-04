@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {
   SubmittedTopicDraftDetailsComponent,
@@ -9,15 +9,13 @@ import { UserAvatarComponent } from '../../shared/components/user-avatar/user-av
 import { AvatarComponent } from 'ngx-avatar';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../core/auth/services/authentication.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
@@ -53,18 +51,18 @@ describe('SubmittedTopicDraftDetailsComponent', () => {
     selector: 'app-user-minibutton',
     template: ''
   })
-  class UserMiniButtonMock {
+  class UserMiniButtonMockComponent {
     @Input() userId: string;
-    @Input() canBeRemoved: boolean = false;
+    @Input() canBeRemoved = false;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubmittedTopicDraftDetailsComponent,
                       StatusDotComponent,
                       AvatarComponent,
                       UserAvatarComponent,
-                      UserMiniButtonMock ],
+                      UserMiniButtonMockComponent ],
       imports: [  MaterialTestingModule,
                   FormsModule,
                   MatDialogModule,

@@ -13,6 +13,6 @@ export class HealthcheckApiService {
   }
 
   isAlive$(): Observable<boolean> {
-    return this.api.getData$(`isAlive`);
+    return this.api.getData$('isAlive');
   }
 }

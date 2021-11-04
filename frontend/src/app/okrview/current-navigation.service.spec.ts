@@ -20,7 +20,7 @@ describe('CurrentNavigationService', () => {
   }));
 
   it('should be created', () => {
-    const service: CurrentNavigationService = TestBed.get(CurrentNavigationService);
+    const service: CurrentNavigationService = TestBed.inject(CurrentNavigationService);
     expect(service)
       .toBeTruthy();
   });

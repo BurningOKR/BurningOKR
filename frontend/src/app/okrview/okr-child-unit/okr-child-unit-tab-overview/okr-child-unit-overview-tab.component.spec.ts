@@ -1,6 +1,6 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OkrChildUnitOverviewTabComponent } from './okr-child-unit-overview-tab.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
@@ -49,7 +49,7 @@ describe('ChildUnitOverviewTabComponent', () => {
   let component: OkrChildUnitOverviewTabComponent;
   let fixture: ComponentFixture<OkrChildUnitOverviewTabComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         OkrChildUnitOverviewTabComponent,
@@ -105,7 +105,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('dropObjective moves objective', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.dropObjective({previousIndex: 0, currentIndex: 2} as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
@@ -114,7 +114,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('dropObjective on same index does not move objective', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.dropObjective({previousIndex: 0, currentIndex: 0} as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
@@ -123,7 +123,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('dropObjective on very high index moves to back', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.dropObjective({previousIndex: 0, currentIndex: 1337} as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
@@ -132,7 +132,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('dropObjective on very low index moves to front', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.dropObjective({previousIndex: 2, currentIndex: -1337} as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
@@ -141,7 +141,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('dropObjective on index out of bounds moves last objective', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.dropObjective({previousIndex: 1337, currentIndex: 0} as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
@@ -150,7 +150,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('dropObjective on negative index out of bounds moves last objective', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.dropObjective({previousIndex: -1337, currentIndex: 2} as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
@@ -159,7 +159,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('moveObjectiveToTop moves objective to top', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.moveObjectiveToTop(objectiveList[2] as ViewObjective);
 
     expect(objectiveList)
@@ -168,7 +168,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('moveObjectiveToTop objective already at top, does not change anything', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.moveObjectiveToTop(objectiveList[0] as ViewObjective);
 
     expect(objectiveList)
@@ -177,7 +177,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('moveObjectiveToBottom moves objective to bottom', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.moveObjectiveToBottom(objectiveList[0] as ViewObjective);
 
     expect(objectiveList)
@@ -186,7 +186,7 @@ describe('ChildUnitOverviewTabComponent', () => {
 
   it('moveObjectiveToBottom objective already at bottom, does not change anything', () => {
 
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     component.moveObjectiveToBottom(objectiveList[2] as ViewObjective);
 
     expect(objectiveList)

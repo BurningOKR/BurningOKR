@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
@@ -7,22 +7,28 @@ import { of } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
+import { I18n } from '@ngx-translate/i18n-polyfill';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 const userServiceMock: any = {
   getAllUsers$: jest.fn()
 };
 
+const i18nMock: any = jest.fn();
+
 describe('OkrTopicDescriptionFormComponent', () => {
   let component: OkrTopicDescriptionFormComponent;
   let fixture: ComponentFixture<OkrTopicDescriptionFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ OkrTopicDescriptionFormComponent ],
-      imports: [ MaterialTestingModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule ],
+      imports: [ MaterialTestingModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, SharedModule, NgxMatSelectSearchModule ],
       providers: [
-        { provide: UserService, useValue: userServiceMock }
+        { provide: UserService, useValue: userServiceMock },
+        { provide: I18n, useValue: i18nMock }
       ]
     })
     .compileComponents();

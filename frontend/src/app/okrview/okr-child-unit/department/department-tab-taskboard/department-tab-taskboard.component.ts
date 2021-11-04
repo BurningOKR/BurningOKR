@@ -135,14 +135,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
 
   }
 
-  private isWebsocketConnected(): boolean {
-    return this.stompService.connected();
-  }
-
-  private isTaskBoardInteractive(): boolean {
-    return this.cycle.isCycleActive() || this.cycle.isCycleInPreparation();
-  }
-
   updateEventHandler(): void {
     this.eventSubscriptions.push(
       this.taskBoardEventService.taskAddButtonClick$.subscribe(task => this.onTaskAddButtonClick(task)),
@@ -244,32 +236,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     );
   }
 
-  onTaskAddButtonClick(taskState: ViewTaskState): void {
-    let state: ViewTaskState;
-    if (!taskState) {
-      state = this.viewData.taskStates[0];
-    } else {
-      state = taskState;
-    }
-    const states: ViewTaskState[] = this.viewData.taskStates;
-    const formData: TaskFormData = {
-      unitId: this.childUnit.id,
-      defaultState: state, states,
-      keyResults: this.viewData.keyResults,
-      isInteractive: this.isInteractive
-    };
-
-    const newTask$: Observable<ViewTask> = this.openDialog$(formData);
-    this.eventSubscriptions.push(
-      newTask$.pipe(
-        tap(task => {
-          this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/add`, body: JSON.stringify(task) });
-        }),
-      )
-        .subscribe()
-    );
-  }
-
   onTaskDeleteButtonClick(task: ViewTask): void {
     const title: string = this.i18n({
       id: 'deleteTaskDialog_title',
@@ -309,6 +275,32 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     return copiedTasks;
   }
 
+  onTaskAddButtonClick(taskState: ViewTaskState): void {
+    let state: ViewTaskState;
+    if (!taskState) {
+      state = this.viewData.taskStates[0];
+    } else {
+      state = taskState;
+    }
+    const states: ViewTaskState[] = this.viewData.taskStates;
+    const formData: TaskFormData = {
+      unitId: this.childUnit.id,
+      defaultState: state, states,
+      keyResults: this.viewData.keyResults,
+      isInteractive: this.isInteractive
+    };
+
+    const newTask$: Observable<ViewTask> = this.openDialog$(formData);
+    this.eventSubscriptions.push(
+      newTask$.pipe(
+        tap(task => {
+          this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/add`, body: JSON.stringify(task) });
+        }),
+      )
+        .subscribe()
+    );
+  }
+
   onTaskDragAndDrop(movedAndUpdatedTask: ViewTask): void {
     this.viewData.tasks = this.moveTaskInList(this.viewData.tasks, movedAndUpdatedTask);
 
@@ -320,6 +312,14 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       destination: `/ws/unit/${this.childUnit.id}/tasks/update`,
       body: JSON.stringify(updatedTaskDto)
     });
+  }
+
+  private isWebsocketConnected(): boolean {
+    return this.stompService.connected();
+  }
+
+  private isTaskBoardInteractive(): boolean {
+    return this.cycle.isCycleActive() || this.cycle.isCycleInPreparation();
   }
 
   private openDialog$(formData: TaskFormData): Observable<ViewTask> {

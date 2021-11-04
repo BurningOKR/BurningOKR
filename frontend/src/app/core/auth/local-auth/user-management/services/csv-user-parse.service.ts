@@ -44,7 +44,7 @@ export class CsvUserParseService {
 
   private validateParseResult(parsedData: ParseResult): CsvParseWarnings {
     if (parsedData.data.length === 0) {
-      console.warn('The CSV file is empty');
+      console.warn('The CSV file is empty'); // ToDo (C.K. 25.10.2021 do not print warnings in dev console)
 
       return;
     }

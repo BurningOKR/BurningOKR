@@ -1,9 +1,10 @@
-
 import { TaskService } from './task.service';
 import { ViewTaskState } from '../../../model/ui/taskboard/view-task-state';
 import { ViewTask } from '../../../model/ui/taskboard/view-task';
 import { StateTaskMap } from '../../../model/ui/taskboard/state-task-map';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class TaskBoardStateColumnViewHelper extends TaskService {
     /**
      * Create a List of Tasks for all given states and returned the result list.
@@ -11,11 +12,13 @@ export class TaskBoardStateColumnViewHelper extends TaskService {
      * this parameter and these map is also added to the result map list.
      * When parameter defaultStateTaskMap is null, then all tasks were can not mapped to one the given states are not
      * part of the result map list.
+     *
      * @param states: available task states
      * @param tasks: list of tasks
      * @param defaultStateTaskMap default container for the tasks, which can not map to one of the given states. Recommended
      *                            attribute is title. Id and tasks are not required.
      */
+
     createStateTaskMapList(states: ViewTaskState[], tasks: ViewTask[], defaultStateTaskMap?: StateTaskMap): StateTaskMap[] {
         let copiedTasks: ViewTask[] = this.copyTaskList(tasks);
 

@@ -39,11 +39,14 @@ import { NavigationListEntryComponent } from './navigation-list-entry/navigation
 import { ObjectiveFormComponent } from './objective/objective-form/objective-form.component';
 import { OkrChildUnitFormComponent } from './okr-child-unit/okr-child-unit-form/okr-child-unit-form.component';
 import { KeyResultFormComponent } from './keyresult/key-result-form/key-result-form.component';
-import { MatCheckboxModule, MatDatepickerModule, MatButtonToggleModule, MatSlideToggleModule } from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { AngularResizedEventModule } from 'angular-resize-event';
+import { AngularResizeEventModule } from 'angular-resize-event';
 import { DepartmentTabDescriptionComponent } from './okr-child-unit/department/department-tab-description/department-tab-description.component';
 import { DepartmentDescriptionEditFormComponent } from './okr-child-unit/department/department-tab-description/department-description-edit-form/department-description-edit-form.component';
 import { DepartmentTabTaskboardComponent } from './okr-child-unit/department/department-tab-taskboard/department-tab-taskboard.component';
@@ -62,6 +65,7 @@ import { TaskBoardGeneralHelper } from '../shared/services/helper/task-board/tas
 import { TaskBoardStateColumnViewHelper } from '../shared/services/helper/task-board/task-board-state-column-view-helper';
 import { TaskBoardSwimlaneViewHelper } from '../shared/services/helper/task-board/task-board-swimlane-view-helper';
 import { TaskboardSwimlaneComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
     declarations: [
@@ -99,15 +103,6 @@ import { TaskboardSwimlaneComponent } from './okr-child-unit/department/departme
         OkrTopicDescriptionFormComponent,
         AddChildUnitButtonComponent,
     ],
-    entryComponents: [
-        CommentViewDialogComponent,
-        OkrChildUnitFormComponent,
-        KeyResultFormComponent,
-        ObjectiveFormComponent,
-        DepartmentDescriptionEditFormComponent,
-        TaskFormComponent,
-        TopicDraftCreationFormComponent,
-    ],
     imports: [
         CommonModule,
         SharedModule,
@@ -135,9 +130,10 @@ import { TaskboardSwimlaneComponent } from './okr-child-unit/department/departme
         AvatarModule,
         MatCheckboxModule,
         ScrollingModule,
-        AngularResizedEventModule,
+        AngularResizeEventModule,
         MatDatepickerModule,
         MatButtonToggleModule,
+        NgxMatSelectSearchModule,
     ],
     exports: [
         OkrTopicDescriptionFormComponent

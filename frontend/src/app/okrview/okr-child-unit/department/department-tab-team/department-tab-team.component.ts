@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
@@ -42,11 +42,6 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     private matDialog: MatDialog,
     private i18n: I18n
   ) {}
-
-  private updateRights(): void {
-    this.canEditManagers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastAdmin();
-    this.canEditMembers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastOKRManager();
-  }
 
   ngOnInit(): void {
     this.updateRights();
@@ -103,11 +98,6 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     );
   }
 
-  private deleteOkrMaster(): void {
-    this.department.okrMasterId = undefined;
-    this.updateUserList();
-  }
-
   clickedDefineOKRMaster(user: User): void {
     this.department.okrMasterId = user.id;
     this.updateUserList();
@@ -146,11 +136,6 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
           }
         })
     );
-  }
-
-  private deleteOkrTopicSponsor(): void {
-    this.department.okrTopicSponsorId = undefined;
-    this.updateUserList();
   }
 
   clickedDefineOKRTopicSponsor(user: User): void {
@@ -193,18 +178,33 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     );
   }
 
-  private deleteOkrMember(memberId: string): void {
-    const memberIndex: number = this.department.okrMemberIds.indexOf(memberId);
-    this.department.okrMemberIds.splice(memberIndex, 1);
-    this.updateUserList();
-  }
-
   clickedDefineOKRMember(user: User): void {
     if (this.department.okrMemberIds.includes(user.id)) {
       return;
     }
     this.department.okrMemberIds.push(user.id);
     this.updateUserList();
+  }
+
+  private deleteOkrMaster(): void {
+    this.department.okrMasterId = undefined;
+    this.updateUserList();
+  }
+
+  private deleteOkrTopicSponsor(): void {
+    this.department.okrTopicSponsorId = undefined;
+    this.updateUserList();
+  }
+
+  private deleteOkrMember(memberId: string): void {
+    const memberIndex: number = this.department.okrMemberIds.indexOf(memberId);
+    this.department.okrMemberIds.splice(memberIndex, 1);
+    this.updateUserList();
+  }
+
+  private updateRights(): void {
+    this.canEditManagers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastAdmin();
+    this.canEditMembers = (this.cycle.isCycleActive() || this.cycle.isCycleInPreparation()) && this.currentUserRole.isAtleastOKRManager();
   }
 
   private updateUserList(): void {

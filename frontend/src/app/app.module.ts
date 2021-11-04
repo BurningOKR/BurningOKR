@@ -18,21 +18,18 @@ import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { ErrorInterceptor } from './core/error/error.interceptor';
 import { LoggerModule } from 'ngx-logger';
-import {
-  MatCardModule,
-  MatIconModule,
-  MatListModule,
-  MatMenuModule,
-  MatProgressSpinnerModule,
-  MatTooltipModule
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatButtonModule } from '@angular/material/button';
 import { CoreModule } from './core/core.module';
 import { AdminViewComponent } from './admin/admin-view.component';
 import { AdminUserIdsPipe } from './admin/pipes/admin-user-ids.pipe';
 import { ErrorModule } from './core/error/error.module';
-import { DeleteDialogComponent } from './shared/components/delete-dialog/delete-dialog.component';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-handler/local-auth-type-handler.service';
 import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
@@ -110,11 +107,6 @@ const currentLanguage: string = 'de';
     OkrviewModule,
     NgwWowModule,
     DemoModule
-  ],
-  entryComponents: [
-    DeleteDialogComponent,
-    SubmittedTopicDraftDetailsComponent,
-    SubmittedTopicDraftEditComponent
   ],
   providers: [
     OAuthFrontendDetailsService,

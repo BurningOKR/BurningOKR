@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitService } from '../../../../../services/init.service';
 import { OAuthFrontendDetailsService } from '../../../../services/o-auth-frontend-details.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { InitServiceMock } from '../../../../../../shared/mocks/init-service-mock';
 import { OAuthFrontendDetailsServiceMock } from '../../../../../../shared/mocks/o-auth-frontend-details-service-mock';

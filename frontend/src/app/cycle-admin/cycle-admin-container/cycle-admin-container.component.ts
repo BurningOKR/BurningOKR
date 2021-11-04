@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CycleCreationFormComponent } from '../cycle-creation-form/cycle-creation-form.component';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
@@ -52,10 +52,6 @@ export class CycleAdminContainerComponent implements OnInit {
       .subscribe(() => this.loadCycles());
   }
 
-  private loadCycles(): void {
-    this.cycles$ = this.companyService.getCyclesOfCompanyHistory$(this.company.id);
-  }
-
   navigateToCompanies(): void {
     this.router.navigate(['companies'])
       .catch();
@@ -63,5 +59,9 @@ export class CycleAdminContainerComponent implements OnInit {
 
   routeToCompany(): void {
     this.router.navigate(['okr', 'companies', this.company.id]);
+  }
+
+  private loadCycles(): void {
+    this.cycles$ = this.companyService.getCyclesOfCompanyHistory$(this.company.id);
   }
 }

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TaskboardSwimlaneComponent } from './taskboard-swimlane.component';
 import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
@@ -23,7 +23,7 @@ describe('TaskboardSwimlaneComponent', () => {
     @Input() isInteractive: boolean;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MaterialTestingModule, NoopAnimationsModule],
       declarations: [TaskboardSwimlaneComponent, TaskBoardColumnMockComponent]

@@ -11,12 +11,12 @@ import { CurrentCycleService } from '../current-cycle.service';
   styleUrls: ['./main-view.component.scss']
 })
 export class MainViewComponent implements OnInit, OnDestroy {
-  @ViewChild('sideBar', { static: false }) sideBar: NavigationSidebarComponent;
+  @ViewChild('sideBar') sideBar: NavigationSidebarComponent;
 
   mobileQuery: MediaQueryList;
-  private readonly _mobileQueryListener: () => void;
-
   currentCycle$: Observable<CycleUnit>;
+
+  private readonly _mobileQueryListener: () => void;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -25,7 +25,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
   toggleSideBar(): void {

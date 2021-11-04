@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { KeyResultFormComponent } from './key-result-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogComponent } from '../../../shared/components/dialog-component/dialog.component';
@@ -31,7 +31,7 @@ describe('KeyResultFormComponent', () => {
   let component: KeyResultFormComponent;
   let fixture: ComponentFixture<KeyResultFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         KeyResultFormComponent,

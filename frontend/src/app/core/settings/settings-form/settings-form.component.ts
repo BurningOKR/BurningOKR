@@ -1,5 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { combineLatest, forkJoin, NEVER, Observable } from 'rxjs';
 import { CurrentUserService } from '../../services/current-user.service';
 import { SettingsForm } from './settings-form';
@@ -12,13 +12,13 @@ import { map } from 'rxjs/operators';
 })
 export class SettingsFormComponent implements OnInit {
 
+  @ViewChildren(SettingsForm)
+
+  children?: QueryList<SettingsForm>;
   isCurrentUserAdmin$: Observable<boolean>;
 
   adminSettingsValid: boolean = true;
   userSettingsValid: boolean = true;
-
-  @ViewChildren(SettingsForm)
-  children?: QueryList<SettingsForm>;
 
   constructor(private dialogRef: MatDialogRef<SettingsFormComponent>,
               private currentUserService: CurrentUserService) { }

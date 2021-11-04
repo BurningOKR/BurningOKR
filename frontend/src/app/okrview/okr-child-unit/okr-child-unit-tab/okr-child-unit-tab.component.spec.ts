@@ -1,9 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OkrChildUnitTabComponent } from './okr-child-unit-tab.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { OkrChildUnitPreviewButtonComponent } from '../okr-child-unit-preview-button/okr-child-unit-preview-button.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatDialog, MatDialogModule, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { ContextRole } from '../../../shared/model/ui/context-role';
@@ -43,7 +44,7 @@ describe('OkrChildUnitTabComponent', () => {
   let component: OkrChildUnitTabComponent;
   let fixture: ComponentFixture<OkrChildUnitTabComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OkrChildUnitTabComponent, OkrChildUnitPreviewButtonComponent, AddChildUnitButtonComponent ],
       imports: [ MaterialTestingModule, RouterTestingModule, MatDialogModule ],

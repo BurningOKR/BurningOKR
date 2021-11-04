@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import {
-    ConfirmationDialogComponent,
-    ConfirmationDialogData
+  ConfirmationDialogComponent,
+  ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { switchMap, take } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
@@ -93,7 +93,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   }
 
   printNotImplemented(): string {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line no-console
     console.log('Not Implemented');
 
     return 'Not Implemented';
@@ -156,9 +156,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
       this.topicDraftMapper
           .deleteTopicDraft$(this.topicDraft.id)
           .pipe(take(1))
-          .subscribe(() => {
-                this.topicDraftDeletedEvent.emit();
-              }
+          .subscribe(() => this.topicDraftDeletedEvent.emit()
           ));
   }
 

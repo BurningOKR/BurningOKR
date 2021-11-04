@@ -6,7 +6,7 @@
     <mat-tab i18n-label="@@settings" label="Einstellungen">
       <app-user-settings (valid)="userSettingsValid = $event"></app-user-settings>
     </mat-tab>
-    <mat-tab [disabled]="!(isCurrentUserAdmin$ | async)" i18n-label="@@adminSettings" label="Adminverwaltung">
+    <mat-tab [disabled]="(isCurrentUserAdmin$ | async) === false" i18n-label="@@adminSettings" label="Adminverwaltung">
       <app-admin-settings (valid)="adminSettingsValid = $event"></app-admin-settings>
     </mat-tab>
   </mat-tab-group>
@@ -15,7 +15,7 @@
 
 <mat-dialog-actions>
   <button mat-button color="primary" (click)="onSave()"
-          [disabled]="!userSettingsValid || !(adminSettingsValid && isCurrentUserAdmin$ | async)"><span
+          [disabled]="!userSettingsValid || (adminSettingsValid && isCurrentUserAdmin$ | async) === false"><span
     i18n="@@capitalized_save">Speichern</span></button>
   <button mat-button color="warn" (click)="closeDialog()"><span
     i18n="@@cancelButtonText">Abbrechen</span></button>

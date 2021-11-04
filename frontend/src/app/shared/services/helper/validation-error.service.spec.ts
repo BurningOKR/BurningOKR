@@ -1,8 +1,7 @@
 import { ValidationErrorService } from './validation-error.service';
 import { TestBed } from '@angular/core/testing';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { FormControl, Validators } from '@angular/forms';
-import { dateIsInThePastError } from '../../validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
+import { FormControl } from '@angular/forms';
 import { TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { RequiredValidator } from '../../validators/wrapper/required-validator';
 
@@ -18,7 +17,7 @@ describe('ValidationErrorService', () => {
         I18n,
       ]
     });
-    service = TestBed.get(ValidationErrorService);
+    service = TestBed.inject(ValidationErrorService);
   });
 
   it('should return default error code', () => {

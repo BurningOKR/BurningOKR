@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Observable, ObservableInput, Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FeedbackFormComponent } from '../feedback-form/feedback-form.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ConfigurationService } from '../../settings/configuration.service';
 import { Consts } from '../../../shared/consts';
@@ -14,13 +14,14 @@ import { Consts } from '../../../shared/consts';
 })
 export class FeedbackButtonComponent implements OnDestroy {
 
+  hasMail$: Observable<boolean>;
+
   private subscriptions: Subscription[] = [];
   private feedbackSuccessfullySubmittedMessage: string = this.i18n({
     id: 'feedbackSuccessfullySubmittedMessage',
     description: 'message to be shown after the user feedback was submitted successfully',
     value: 'Feedback erfolgreich übermittelt 📬'
   });
-  hasMail$: Observable<boolean>;
 
   constructor(
     private dialog: MatDialog,

@@ -47,14 +47,14 @@ describe('TopicDescriptionMapper', () => {
   });
 
   it('should be created', () => {
-    service = TestBed.get(TopicDescriptionMapper);
+    service = TestBed.inject(TopicDescriptionMapper);
 
     expect(service)
       .toBeTruthy();
   });
 
   it('getTopicDescriptionById$ should map', done => {
-    service = TestBed.get(TopicDescriptionMapper);
+    service = TestBed.inject(TopicDescriptionMapper);
 
     service.getTopicDescriptionById$(1)
       .subscribe((departmentDescription: OkrTopicDescription) => {
@@ -65,7 +65,7 @@ describe('TopicDescriptionMapper', () => {
   });
 
   it('putTopicDescription$ should map', done => {
-    service = TestBed.get(TopicDescriptionMapper);
+    service = TestBed.inject(TopicDescriptionMapper);
 
     service.putTopicDescription$(1, description)
       .subscribe((departmentDescription: OkrTopicDescription) => {
@@ -76,7 +76,7 @@ describe('TopicDescriptionMapper', () => {
   });
 
   it('putTopicDescription$ should call service', done => {
-    service = TestBed.get(TopicDescriptionMapper);
+    service = TestBed.inject(TopicDescriptionMapper);
 
     service.putTopicDescription$(1, description)
       .subscribe(() => {
@@ -87,7 +87,7 @@ describe('TopicDescriptionMapper', () => {
   });
 
   it('putTopicDescription$ should map description to descriptionDto', done => {
-    service = TestBed.get(TopicDescriptionMapper);
+    service = TestBed.inject(TopicDescriptionMapper);
 
     service.putTopicDescription$(1, description)
       .subscribe(() => {
