@@ -20,8 +20,8 @@ export class OkrTopicDescriptionFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.users$ = this.userService.getAllUsers$();
-    if(this.descriptionForm.get('beginning').value !== undefined &&
-        this.minBeginn.getTime() > this.descriptionForm.get('beginning').value.getTime()){
+    if(this.descriptionForm?.get('beginning')?.value !== undefined  &&
+        this.minBeginn.getTime() > this.descriptionForm?.get('beginning')?.value?.getTime()){
       this.minBeginn = this.descriptionForm.get('beginning').value;
     }
   }
