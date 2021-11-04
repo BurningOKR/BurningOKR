@@ -70,7 +70,7 @@ describe('OkrTopicDescriptionFormComponent', () => {
       .toHaveBeenCalled();
   });
 
-  it( 'should patch minBeginning', () => {
+  it('should patch minBeginning', () => {
     const date: Date = new Date('2000-01-01');
     component.descriptionForm.get('beginning').patchValue(date);
     component.ngOnInit();
