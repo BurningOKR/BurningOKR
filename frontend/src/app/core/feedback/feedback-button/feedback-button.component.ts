@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ConfigurationService } from '../../settings/configuration.service';
 import { Consts } from '../../../shared/consts';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-feedback-button',
@@ -15,6 +16,7 @@ import { Consts } from '../../../shared/consts';
 export class FeedbackButtonComponent implements OnDestroy {
 
   hasMail$: Observable<boolean>;
+  isPlayground: boolean = environment.playground;
 
   private subscriptions: Subscription[] = [];
   private feedbackSuccessfullySubmittedMessage: string = this.i18n({
@@ -45,6 +47,18 @@ export class FeedbackButtonComponent implements OnDestroy {
     const dialogRef: MatDialogRef<FeedbackFormComponent> = this.dialog.open(FeedbackFormComponent, {});
 
     return dialogRef.afterClosed();
+  }
+
+  openFeedbackPopup(): void {
+    this.subscriptions.push(this.postFeedback$()
+      .subscribe((success: boolean) => {
+        if (success) {
+          this.snackBar.open(this.feedbackSuccessfullySubmittedMessage, undefined, {
+            verticalPosition: 'top',
+            duration: 3500
+          });
+        }
+      }));
   }
 
 }
