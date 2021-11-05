@@ -69,4 +69,20 @@ describe('OkrTopicDescriptionFormComponent', () => {
     expect(userServiceMock.getAllUsers$)
       .toHaveBeenCalled();
   });
+
+  it('should patch minBeginning', () => {
+    const date: Date = new Date('2000-01-01');
+    component.descriptionForm.get('beginning').patchValue(date);
+    component.ngOnInit();
+    expect(component.minBeginn.getTime()).toEqual(date.getTime());
+  });
+
+  it('should not patch minBeginning', () => {
+    const date: Date = new Date('2000-02-01');
+    component.descriptionForm.get('beginning').patchValue(date);
+    component.minBeginn = new Date('2000-01-01');
+    component.ngOnInit();
+    expect(component.minBeginn.getTime()).toBeLessThan(date.getTime());
+    expect(component.minBeginn.getTime()).toEqual(new Date('2000-01-01').getTime());
+  });
 });
