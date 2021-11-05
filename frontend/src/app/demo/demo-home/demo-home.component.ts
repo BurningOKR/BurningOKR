@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { DemoWarningComponent } from '../demo-warning/demo-warning.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { NgwWowService } from 'ngx-wow';

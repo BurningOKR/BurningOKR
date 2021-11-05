@@ -29,7 +29,7 @@ import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
 import { ResetCountdownComponent } from './demo-website/reset-countdown/reset-countdown.component';
-import { CountdownTimerModule } from 'ngx-countdown-timer';
+import { CountdownTimerModule } from '@innomobile/countdown-timer';
 import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
 import { StatusDotComponent } from './components/status-dot/status-dot.component';
 import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
@@ -79,7 +79,7 @@ import { UserSelectorComponent } from './components/user-selector/user-selector.
     AvatarModule,
     RouterModule,
     NgxMatSelectSearchModule,
-    CountdownTimerModule.forRoot()
+    CountdownTimerModule
   ],
   exports: [
       UserAutocompleteInputComponent,
