@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DemoHomeComponent } from './demo-home.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 
 const matDialog: any = {

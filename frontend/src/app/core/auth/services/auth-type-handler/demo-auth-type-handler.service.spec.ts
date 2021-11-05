@@ -35,7 +35,7 @@ describe('DemoAuthTypeHandlerService', () => {
     oAuthService.getRefreshToken.mockReturnValue('token');
     oAuthService.refreshToken.mockReset();
     oAuthService.fetchTokenUsingPasswordFlow.mockReset();
-    oAuthService.fetchTokenUsingPasswordFlow.mockReturnValue(new Promise<object>(resolve => resolve()));
+    oAuthService.fetchTokenUsingPasswordFlow.mockReturnValue(new Promise<void>(resolve => resolve()));
     oAuthService.getAccessTokenExpiration.mockReset();
     oAuthService.getAccessTokenExpiration.mockReturnValue(0);
 
