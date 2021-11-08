@@ -123,6 +123,10 @@
                   "with": "src/environments/environment.demo.ts"
                 }
               ],
+              "index": {
+                "input": "src/index-demo.html",
+                "output": "index.html"
+              },
               "scripts": [
                 "src/config.js",
                 "src/klaro.js"
