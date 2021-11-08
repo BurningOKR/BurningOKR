@@ -37,9 +37,7 @@
               "node_modules/animate.css/animate.css"
             ],
             "scripts": [
-              "node_modules/wowjs/dist/wow.js",
-              "src/config.js",
-              "src/klaro.js"
+              "node_modules/wowjs/dist/wow.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -124,6 +122,10 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.demo.ts"
                 }
+              ],
+              "scripts": [
+                "src/config.js",
+                "src/klaro.js"
               ]
             },
             "docker": {
