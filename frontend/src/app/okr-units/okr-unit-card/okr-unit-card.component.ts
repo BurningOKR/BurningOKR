@@ -14,6 +14,7 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CompanyApiService } from '../../shared/services/api/company-api.service';
 import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog.component';
 import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-okr-unit-card',
@@ -29,6 +30,7 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
   chosenCycleWithHistoryCompany: CycleWithHistoryCompany;
   activeCycle: CycleUnit;
   isCurrentUserAdmin = false;
+  isPlayground: boolean = environment.playground;
 
   private subscriptions: Subscription[] = [];
 
