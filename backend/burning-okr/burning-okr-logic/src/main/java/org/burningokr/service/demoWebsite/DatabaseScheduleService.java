@@ -17,7 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 @RequiredArgsConstructor
 public class DatabaseScheduleService {
@@ -35,11 +34,11 @@ public class DatabaseScheduleService {
 
   @Scheduled(fixedRate = RATE_IN_MINUTES * 60 * 1000)
   public void scheduledDeletion() {
-      if(isPlayground){
-        String query = getSQLQueries();
-        executeSQL(query);
-        updateSchedule();
-      }
+    if (isPlayground) {
+      String query = getSQLQueries();
+      executeSQL(query);
+      updateSchedule();
+    }
   }
 
   private void updateSchedule() {
