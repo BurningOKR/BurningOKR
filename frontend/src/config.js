@@ -44,14 +44,12 @@ var klaroConfig = {
         {
             name: 'authentication',
             title: 'Authentifizierung',
-            //purposes: ['security'],
             default: true,
             required: true
         },
         {
             name: 'analytics',
             title: 'Google Analytics',
-            //purposes: ['analytics'],
             cookies: [
                 '/_g(\d|\w|.)*$/'
             ],
