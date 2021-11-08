@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CountdownTimestampApiService } from '../../services/api/countdown-timestamp-api.service';
 import { Router } from '@angular/router';
-import {environment} from "../../../../environments/environment";
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-reset-countdown',
@@ -27,8 +27,9 @@ export class ResetCountdownComponent implements OnInit {
 
   reload(): void {
 
-    if (this.isPlayground)
+    if (this.isPlayground) {
       this.router.navigate(['/landingpage'])
         .then(() => location.reload());
+    }
   }
 }

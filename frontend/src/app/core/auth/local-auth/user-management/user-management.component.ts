@@ -68,11 +68,10 @@ export class UserManagementComponent implements OnInit {
   rowData = new MatTableDataSource([] as User[]);
 
   showDeactivatedUsers: boolean = false;
+  isPlayground: boolean = environment.playground;
 
   private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
   private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
-
-  isPlayground: boolean = environment.playground;
 
   constructor(
     private currentUserService: CurrentUserService,

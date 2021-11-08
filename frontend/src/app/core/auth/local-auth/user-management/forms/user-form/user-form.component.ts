@@ -11,12 +11,12 @@ export class UserFormComponent implements OnInit {
   @Input() userForm: FormGroup;
   @Input() canEditAdminStatus: boolean;
 
-  isPlayground: boolean = environment.playground;
-
   @ViewChild('canvasElement') canvas;
 
+  isPlayground: boolean = environment.playground;
+
   ngOnInit(): void {
-    if (this.userForm.get('email').value === 'iwant@burningokr') {
+    if ((this.userForm.get('email').value === 'iwant@burningokr') && this.isPlayground) {
       this.userForm.get('email')
         .disable();
     }

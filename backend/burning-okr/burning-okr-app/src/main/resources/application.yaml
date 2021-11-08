@@ -24,7 +24,7 @@ spring:
   messages:
     basename: messages
   pid:
-    file: ./shutdown.pi
+    file: ./shutdown.pid
 
 security:
   oauth2:

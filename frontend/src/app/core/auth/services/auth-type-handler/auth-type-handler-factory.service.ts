@@ -6,7 +6,7 @@ import { Consts } from '../../../../shared/consts';
 import { AzureAuthTypeHandlerService } from './azure-auth-type-handler.service';
 import { LocalAuthTypeHandlerService } from './local-auth-type-handler.service';
 import { DemoAuthTypeHandlerService } from './demo-auth-type-handler.service';
-import { environment } from "../../../../../environments/environment";
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

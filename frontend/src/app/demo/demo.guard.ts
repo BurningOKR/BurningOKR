@@ -15,8 +15,10 @@ export class DemoGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if(environment.playground)
+    if(environment.playground) {
+
       return this.router.createUrlTree(['demo']);
+    }
 
     return true;
   }
