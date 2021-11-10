@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.annotation.TurnOff;
 import org.burningokr.dto.users.AdminUserDto;
 import org.burningokr.dto.users.UserDto;
 import org.burningokr.dto.validators.AdminUserValidator;
@@ -60,6 +61,7 @@ public class AdminUserController {
    * @throws InvalidDtoException if admin user is invalid
    */
   @PostMapping("/admins")
+  @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<UserDto> addAdmin(@RequestBody AdminUserDto user)
       throws InvalidDtoException {
@@ -76,6 +78,7 @@ public class AdminUserController {
    * @throws InvalidDtoException if the Admin user is invalid
    */
   @DeleteMapping("/admins/{adminUuid}")
+  @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity removeAdmin(@PathVariable UUID adminUuid) throws InvalidDtoException {
     adminUserValidator.validateAdminUserId(adminUuid);

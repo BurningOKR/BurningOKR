@@ -16,6 +16,7 @@ import { CurrentUserService } from '../../../services/current-user.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import 'linq4js';
+import { environment } from '../../../../../environments/environment';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -67,6 +68,7 @@ export class UserManagementComponent implements OnInit {
   rowData = new MatTableDataSource([] as User[]);
 
   showDeactivatedUsers: boolean = false;
+  isPlayground: boolean = environment.playground;
 
   private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
   private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);

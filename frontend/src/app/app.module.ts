@@ -49,6 +49,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SubmittedTopicDraftEditComponent } from './submitted-topic-drafts/submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 import { OkrviewModule } from './okrview/okrview.module';
+import { NgwWowModule } from 'ngx-wow';
+import { DemoModule } from './demo/demo.module';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -102,7 +104,9 @@ const currentLanguage: string = 'de';
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,
-    OkrviewModule
+    OkrviewModule,
+    NgwWowModule,
+    DemoModule
   ],
   providers: [
     OAuthFrontendDetailsService,

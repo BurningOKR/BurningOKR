@@ -17,6 +17,7 @@
     "prebuild": "ts-appversion",
     "start": "ng serve --proxy-config=proxy.conf.json",
     "start-dev": "npm run start -- --configuration=local",
+    "start-demo": "npm run start -- --configuration=demo",
     "start_no_reload": "ng serve --proxy-config=proxy.conf.json --live-reload false",
     "start_en": "npm run start -- --configuration=en",
     "start-prod": "npm run start -- --configuration production",
@@ -49,6 +50,7 @@
     "@angular/platform-browser-dynamic": "^12.2.11",
     "@angular/platform-server": "^12.2.11",
     "@angular/router": "^12.2.11",
+    "@innomobile/countdown-timer": "^12.0.0",
     "@ngx-translate/i18n-polyfill": "^1.0.0",
     "@saithodev/ts-appversion": "^2.2.0",
     "@stomp/ng2-stompjs": "^8.0.0",
@@ -66,10 +68,12 @@
     "ngx-mat-select-search": "^3.3.0",
     "ngx-material-file-input": "^2.1.1",
     "ngx-papaparse": "^5.0.0",
+    "ngx-wow": "^2.0.1",
     "raw-loader": "^4.0.2",
     "rxjs": "^6.6.7",
     "sass": "^1.43.3",
     "tslib": "^2.0.0",
+    "wowjs": "^1.1.3",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

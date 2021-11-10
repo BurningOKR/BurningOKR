@@ -40,7 +40,7 @@
           Ungültige E-mail
         </mat-error>
         <mat-error *ngIf="userForm.controls.email.errors?.emailAlreadyInUse"
-                   i18n="error message for ab email, wich is already in use @@errorUsedEmail">
+                   i18n="error message for an email, which is already in use @@errorUsedEmail">
           Die Email wird bereits von einem anderen Nutzer verwendet verwendet.
         </mat-error>
       </mat-form-field>
@@ -61,5 +61,10 @@
            type="text">
   </mat-form-field>
   <mat-checkbox [formControl]="userForm.controls.active" [disabled]="canEditAdminStatus" class="small-padding">Aktiviert</mat-checkbox>
-  <mat-checkbox [formControl]="userForm.controls.isAdmin" [disabled]="canEditAdminStatus" class="small-padding">Admin</mat-checkbox>
+  <mat-checkbox [formControl]="userForm.controls.isAdmin"
+                [disabled]="canEditAdminStatus || isPlayground"
+                class="small-padding"
+                [matTooltip]="isPlayground
+                  ? 'Als Admin autorisieren ⚠ Deaktiviert in der Demo Version'
+                  : ''">Admin</mat-checkbox>
 </form>

@@ -11,6 +11,8 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     locations: classpath:db/migration/{vendor}
+  environment:
+    demo: false
   mail:
     properties:
       mail:

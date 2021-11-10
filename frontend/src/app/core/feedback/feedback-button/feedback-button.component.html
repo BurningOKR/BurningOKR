@@ -1,7 +1,19 @@
-<div class="fab-container">
-  <button mat-fab i18n-matTooltip="@@component_feedbackButton_feedback" matTooltip="Feedback" (click)="openFeedbackPopup()" [disabled]="(hasMail$ | async) === false">
-    <mat-icon >
-      contact_mail
-    </mat-icon>
-  </button>
-</div>
+<ng-template [ngIf]="isPlayground" [ngIfElse]="demoOff">
+  <div class="scroll-to-top show-scrollTop">
+    <button mat-fab class="color-white" i18n-matTooltip="@@component_feedbackButton_feedback" matTooltip="Feedback" (click)="navigateToGitHub()">
+      <mat-icon>
+        report_problem
+      </mat-icon>
+    </button>
+  </div>
+</ng-template>
+<ng-template #demoOff>
+  <div class="fab-container">
+    <button mat-fab i18n-matTooltip="@@component_feedbackButton_feedback" matTooltip="Feedback" (click)="openFeedbackPopup()" [disabled]="(hasMail$ | async) === false">
+      <mat-icon >
+        contact_mail
+      </mat-icon>
+    </button>
+  </div>
+</ng-template>
+

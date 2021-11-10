@@ -33,9 +33,9 @@
               "src/silent-refresh.html"
             ],
             "styles": [
-              "src/styles/app.scss"
+              "src/styles/app.scss",
+              "node_modules/animate.css/animate.css"
             ],
-            "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
@@ -105,6 +105,29 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.local.ts"
                 }
+              ]
+            },
+            "demo": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.demo.ts"
+                }
+              ],
+              "index": {
+                "input": "src/index-demo.html",
+                "output": "index.html"
+              },
+              "scripts": [
+                "node_modules/wowjs/dist/wow.js",
+                "src/config.js",
+                "src/klaro.js"
               ]
             },
             "docker": {
@@ -190,6 +213,9 @@
             "local": {
               "browserTarget": "OKRFrontEnd:build:local"
             },
+            "demo": {
+              "browserTarget": "OKRFrontEnd:build:demo"
+            },
             "production": {
               "browserTarget": "OKRFrontEnd:build:production"
             },
@@ -215,7 +241,8 @@
             ],
             "tsConfig": "src/tsconfig.spec.json",
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles/app.scss"
             ],
             "scripts": [],
             "assets": [
@@ -254,5 +281,10 @@
       }
     }
   },
-  "defaultProject": "OKRFrontEnd"
+  "defaultProject": "OKRFrontEnd",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

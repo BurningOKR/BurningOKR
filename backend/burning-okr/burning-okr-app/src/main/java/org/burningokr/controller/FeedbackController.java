@@ -1,6 +1,7 @@
 package org.burningokr.controller;
 
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.annotation.TurnOff;
 import org.burningokr.dto.FeedbackDto;
 import org.burningokr.service.okr.feedback.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class FeedbackController {
   }
 
   @PostMapping("/feedback")
+  @TurnOff
   public ResponseEntity<FeedbackDto> postFeedback(@RequestBody FeedbackDto feedbackDto) {
     feedbackService.sendFeedbackMail(feedbackDto.getName(), feedbackDto.getFeedbackText());
     return ResponseEntity.ok(feedbackDto);

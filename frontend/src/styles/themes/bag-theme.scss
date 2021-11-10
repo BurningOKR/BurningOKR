@@ -201,6 +201,8 @@ $bag-theme-accent: mat.define-palette($md-secondary);
 $bag-theme-warn: mat.define-palette($md-warn);
 $bag-theme-green: mat.define-palette($md-success);
 $bag-theme-blue: mat.define-palette($md-info);
+$bag-theme-black: #575756;
+$bag-theme-white: #f0f0f0;
 
 $bag-theme: mat.define-light-theme($bag-theme-primary, $bag-theme-accent, $bag-theme-warn);
 

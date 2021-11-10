@@ -5,6 +5,8 @@ import { FeedbackFormComponent } from '../feedback-form/feedback-form.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ConfigurationService } from '../../settings/configuration.service';
+import { Consts } from '../../../shared/consts';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-feedback-button',
@@ -14,6 +16,7 @@ import { ConfigurationService } from '../../settings/configuration.service';
 export class FeedbackButtonComponent implements OnDestroy {
 
   hasMail$: Observable<boolean>;
+  isPlayground: boolean = environment.playground;
 
   private subscriptions: Subscription[] = [];
   private feedbackSuccessfullySubmittedMessage: string = this.i18n({
@@ -36,6 +39,16 @@ export class FeedbackButtonComponent implements OnDestroy {
     this.subscriptions = [];
   }
 
+  navigateToGitHub(): void {
+    window.open(Consts.GIT_HUB_ISSUES);
+  }
+
+  postFeedback$(): Observable<any extends ObservableInput<infer T> ? T : never> {
+    const dialogRef: MatDialogRef<FeedbackFormComponent> = this.dialog.open(FeedbackFormComponent, {});
+
+    return dialogRef.afterClosed();
+  }
+
   openFeedbackPopup(): void {
     this.subscriptions.push(this.postFeedback$()
       .subscribe((success: boolean) => {
@@ -46,12 +59,6 @@ export class FeedbackButtonComponent implements OnDestroy {
           });
         }
       }));
-  }
-
-  postFeedback$(): Observable<any extends ObservableInput<infer T> ? T : never> {
-    const dialogRef: MatDialogRef<FeedbackFormComponent> = this.dialog.open(FeedbackFormComponent, {});
-
-    return dialogRef.afterClosed();
   }
 
 }

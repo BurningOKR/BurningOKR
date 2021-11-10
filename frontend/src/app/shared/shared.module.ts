@@ -28,6 +28,8 @@ import { OkrToolbarComponent } from './components/okr-toolbar/okr-toolbar.compon
 import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
+import { ResetCountdownComponent } from './demo-website/reset-countdown/reset-countdown.component';
+import { CountdownTimerModule } from '@innomobile/countdown-timer';
 import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
 import { StatusDotComponent } from './components/status-dot/status-dot.component';
 import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
@@ -49,10 +51,14 @@ import { UserSelectorComponent } from './components/user-selector/user-selector.
     NonLoggedInCardComponent,
     FormErrorComponent,
     MilestoneSliderWrapperComponent,
+    ResetCountdownComponent,
     StatusDotComponent,
     CallbackFilterPipe,
     UserSelectorMultiComponent,
     UserSelectorComponent,
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +78,8 @@ import { UserSelectorComponent } from './components/user-selector/user-selector.
     MatSnackBarModule,
     AvatarModule,
     RouterModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    CountdownTimerModule
   ],
   exports: [
       UserAutocompleteInputComponent,
@@ -86,6 +93,7 @@ import { UserSelectorComponent } from './components/user-selector/user-selector.
       CapsLockDirective,
       NonLoggedInCardComponent,
       FormErrorComponent,
+      ResetCountdownComponent,
       MilestoneSliderWrapperComponent,
       StatusDotComponent,
       CallbackFilterPipe,

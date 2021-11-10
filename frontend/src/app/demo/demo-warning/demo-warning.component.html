@@ -1,0 +1,39 @@
+<h1 i18n="@@component_demoWarning_title">Playground</h1>
+<mat-dialog-content>
+  <p i18n="@@component_demoWarning_explanation">Sie betreten nun den Playground der Burning OKR Demo.</p>
+
+  <div class="info-container">
+    <div class="icon-container">
+      <mat-icon class="icon-fix">emoji_symbols</mat-icon>
+    </div>
+    <div class="icon-description-container">
+      <h4 i18n="@@component_demoWarning_userGeneratedContent_headline">Nutzergenerierte Inhalte</h4>
+      <p i18n="@@component_demoWarning_userGeneratedContent_text">Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine
+        Verantwortung für diese Inhalte.</p>
+    </div>
+  </div>
+
+  <div class="info-container">
+    <div class="icon-container">
+      <mat-icon class="icon-fix">favorite</mat-icon>
+    </div>
+    <div class="icon-description-container">
+      <h4 i18n="@@component_demoWarning_goodVibesOnly_headline">#GoodVibesOnly</h4>
+      <p i18n="@@component_demoWarning_goodVibesOnly_text">Bitte verbreitet keine negativen Inhalte auf dem Demo Playground.</p>
+    </div>
+  </div>
+
+  <div class="info-container">
+    <div class="icon-container">
+      <mat-icon class="icon-fix">access_time</mat-icon>
+    </div>
+    <div class="icon-description-container">
+      <h4 i18n="@@component_demoWarning_databaseDeletion_headline">Datenlöschung</h4>
+      <p i18n="@@component_demoWarning_databaseDeletion_text">Alle 2 Stunden werden alle Daten auf dem Demo Playground gelöscht. Dazu wird ein Countdown angezeigt.</p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="redirectToPlayground()" i18n="@@component_demoWarning_playgroundButton">Zum Playground</button>
+  <button mat-button color="primary" (click)="abort()" i18n="@@component_demoWarning_abortButton">Abbrechen</button>
+</mat-dialog-actions>

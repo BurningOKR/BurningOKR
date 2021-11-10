@@ -14,6 +14,7 @@ import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UserId } from '../shared/model/id-types';
 import 'linq4js';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-admin-view',
@@ -25,6 +26,8 @@ export class AdminViewComponent implements OnInit {
 
   adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
   subscriptions: Subscription[] = [];
+
+  isPlayground: boolean = environment.playground;
 
   currentUserId$: Observable<UserId>;
   excludedIdsShouldUpdate: any;

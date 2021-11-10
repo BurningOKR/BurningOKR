@@ -11,6 +11,7 @@ import { PasswordService } from '../../../password-service/password.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../../../shared/services/helper/local-user.service';
 import { CurrentUserService } from '../../../../../services/current-user.service';
+import { environment } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-user-dialog',
@@ -24,6 +25,7 @@ export class UserDialogComponent implements OnInit {
   userEmails: string[] = [];
   editedUserIsCurrentUser$: Observable<boolean>;
   resetPasswordButtonDisabled: boolean;
+  isPlayground: boolean = environment.playground;
 
   private passwordResetSuccessMsg: string = this.i18n({
     id: 'resetPasswordSuccessSnackbar',
@@ -75,6 +77,7 @@ export class UserDialogComponent implements OnInit {
         if (!!this.formData.user) {
           this.userForm.patchValue(this.formData.user);
         }
+        this.resetPasswordButtonDisabled = this.isPlayground;
       });
   }
 
@@ -84,7 +87,7 @@ export class UserDialogComponent implements OnInit {
 
   resetUserPassword(): void {
     this.resetPasswordButtonDisabled = true;
-    this.passwordService.sendPasswordResetEmail$({ email: this.formData.user.email })
+    this.passwordService.sendPasswordResetEmail$({email: this.formData.user.email})
       .subscribe(() => {
         this.resetPasswordButtonDisabled = false;
         this.snackBar.open(this.passwordResetSuccessMsg, this.okMsg,
