@@ -21,7 +21,6 @@ import org.burningokr.service.userhandling.UserService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -38,7 +37,6 @@ public class InitService {
   private final ApplicationContext applicationContext;
 
   @EventListener(ApplicationReadyEvent.class)
-  @Order(1)
   public void onApplicationEvent() {
     setCurrentInitStateToInitialInitStateIfNoneIsPresent();
   }
@@ -115,10 +113,6 @@ public class InitService {
 
   /**
    * only for InitState NO_AZURE_ADMIN_USER. Sets the given Azure User as an Admin.
-   *
-   * @param adminUser
-   * @return
-   * @throws InvalidInitStateException
    */
   public InitState setAzureAdminUser(AdminUser adminUser) throws InvalidInitStateException {
     isInitStateElseThrow(InitStateName.NO_AZURE_ADMIN_USER);
