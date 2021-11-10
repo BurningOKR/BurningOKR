@@ -10,8 +10,10 @@ import org.burningokr.service.configuration.OAuthClientDetailsService;
 import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.burningokr.service.environment.AuthModes;
 import org.burningokr.service.initialisation.InitService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,27 +24,29 @@ public class ApplicationStartupDemoConfigurer {
   private final OAuthClientDetailsService oauthClientDetailsService;
   private final InitService initService;
 
+  @Value("${spring.environment.demo}")
+  private boolean isDemo;
+
   @EventListener(ApplicationReadyEvent.class)
   @Order(2)
   public void onApplicationEvent(ApplicationReadyEvent event) {
-    oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.AUTH_TYPE, AuthModes.DEMO.getName());
 
-    OAuthClientDetails oAuthClientDetails = new OAuthClientDetails();
-    oAuthClientDetails.setClientId(
-        UUID.randomUUID()
-            .toString()); // R.J. 03.08.20: We are using a random UUID as a random string here.
-    oAuthClientDetails.setClientSecret(
-        UUID.randomUUID()
-            .toString()); // R.J. 03.08.20: We are using a random UUID as a random string here.
+    if (isDemo) {
+      oAuthConfigurationService.setOAuthConfiguration(
+          OAuthConfigurationName.AUTH_TYPE, AuthModes.DEMO.getName());
 
-    oauthClientDetailsService.fillDefaultValues(oAuthClientDetails);
-    oAuthConfigurationService.updateOAuthConfiguration(oAuthClientDetails);
-    oauthClientDetailsService.encodeClientSecret(oAuthClientDetails);
-    oauthClientDetailsService.updateOAuthClientDetails(oAuthClientDetails);
+      OAuthClientDetails oAuthClientDetails = new OAuthClientDetails();
+      oAuthClientDetails.setClientId(UUID.randomUUID().toString());
+      oAuthClientDetails.setClientSecret(UUID.randomUUID().toString());
 
-    InitState initState = initService.getInitState();
-    initState.setInitState(InitStateName.INITIALIZED);
-    initService.saveInitState(initState);
+      oauthClientDetailsService.fillDefaultValues(oAuthClientDetails);
+      oAuthConfigurationService.updateOAuthConfiguration(oAuthClientDetails);
+      oauthClientDetailsService.encodeClientSecret(oAuthClientDetails);
+      oauthClientDetailsService.updateOAuthClientDetails(oAuthClientDetails);
+
+      InitState initState = initService.getInitState();
+      initState.setInitState(InitStateName.INITIALIZED);
+      initService.saveInitState(initState);
+    }
   }
 }
