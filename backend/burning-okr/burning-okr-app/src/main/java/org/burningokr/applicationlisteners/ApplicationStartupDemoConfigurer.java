@@ -23,6 +23,7 @@ public class ApplicationStartupDemoConfigurer {
   private final InitService initService;
 
   @EventListener(ApplicationReadyEvent.class)
+  @Order(2)
   public void onApplicationEvent(ApplicationReadyEvent event) {
     oAuthConfigurationService.setOAuthConfiguration(
         OAuthConfigurationName.AUTH_TYPE, AuthModes.DEMO.getName());
