@@ -12,13 +12,6 @@ export class TopicDraftApiService {
   constructor(private api: ApiHttpService) {
   }
 
-  postTopicDraftForCompany$(companyId: CompanyId, topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
-    return this.api.postData$(`companies/${companyId}/topicdraft`, topicDraftDto);
-  }
-
-  postTopicDraftForOkrBranch$(unitId: OkrUnitId, topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
-    return this.api.postData$(`branch/${unitId}/topicdraft`, topicDraftDto);
-  }
   postTopicDraft$(topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
     return this.api.postData$(`/topicDrafts/create`, topicDraftDto);
   }

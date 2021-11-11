@@ -60,15 +60,6 @@ export class TopicDraftMapper {
         return topicDraftDto;
     }
 
-    postTopicDraftForCompany$(companyId: CompanyId, topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
-        return this.topicDraftApiService.postTopicDraftForCompany$(companyId, TopicDraftMapper.mapTopicDraft(topicDraft))
-            .pipe(map(TopicDraftMapper.mapTopicDraftDto));
-    }
-
-    postTopicDraftForOkrBranch$(branchId: OkrUnitId, topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
-        return this.topicDraftApiService.postTopicDraftForOkrBranch$(branchId, TopicDraftMapper.mapTopicDraft(topicDraft))
-            .pipe(map(TopicDraftMapper.mapTopicDraftDto));
-    }
     postTopicDraft$(topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
       return this.topicDraftApiService.postTopicDraft$(TopicDraftMapper.mapTopicDraft(topicDraft))
         .pipe(map(TopicDraftMapper.mapTopicDraftDto));
