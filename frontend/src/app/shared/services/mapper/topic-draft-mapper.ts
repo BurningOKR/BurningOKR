@@ -69,6 +69,10 @@ export class TopicDraftMapper {
         return this.topicDraftApiService.postTopicDraftForOkrBranch$(branchId, TopicDraftMapper.mapTopicDraft(topicDraft))
             .pipe(map(TopicDraftMapper.mapTopicDraftDto));
     }
+    postTopicDraft$(topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
+      return this.topicDraftApiService.postTopicDraft$(TopicDraftMapper.mapTopicDraft(topicDraft))
+        .pipe(map(TopicDraftMapper.mapTopicDraftDto));
+    }
 
     updateTopicDraft$(topicDraft: OkrTopicDraft): Observable<void> {
       return this.topicDraftApiService.updateTopicDraft$(TopicDraftMapper.mapTopicDraft(topicDraft));

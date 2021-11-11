@@ -61,4 +61,7 @@ public class OkrUnitServiceFactory<T extends OkrChildUnit> {
         return userService;
     }
   }
+  public OkrUnitService<T> getUserService(){
+    return this.userService;
+  }
 }

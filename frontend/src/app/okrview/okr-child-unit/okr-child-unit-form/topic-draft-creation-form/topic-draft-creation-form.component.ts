@@ -83,14 +83,7 @@ export class TopicDraftCreationFormComponent implements OnInit, OnDestroy {
 
   createTopicDraft(topicDraft: OkrTopicDraft): void {
     topicDraft.currentStatus = status.submitted;
-    if (this.formData.companyId) {
-      topicDraft.okrParentUnitId = this.formData.companyId;
-      this.dialogRef.close(this.topicDraftMapper
-        .postTopicDraftForCompany$(this.formData.companyId, topicDraft));
-    } else if (this.formData.unitId) {
-      topicDraft.okrParentUnitId = this.formData.unitId;
-      this.dialogRef.close(this.topicDraftMapper
-        .postTopicDraftForOkrBranch$(this.formData.unitId, topicDraft));
-    }
+    this.dialogRef.close(this.topicDraftMapper
+      .postTopicDraft$(topicDraft));
   }
 }
