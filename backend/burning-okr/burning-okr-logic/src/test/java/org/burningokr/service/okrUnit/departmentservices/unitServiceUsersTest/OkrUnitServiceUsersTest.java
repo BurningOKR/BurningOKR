@@ -1,6 +1,5 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceUsersTest;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -17,7 +16,6 @@ import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.Before;
@@ -91,5 +89,4 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
     verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
   }
-
 }
