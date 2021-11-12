@@ -81,7 +81,7 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
     OkrTopicDraft topicDraft = new OkrTopicDraft();
 
-    okrUnitServiceUsers.createTopicDraft(1L, topicDraft, user);
+    okrUnitServiceUsers.createTopicDraft(topicDraft, user);
   }
 
   @Test
@@ -90,7 +90,7 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    okrUnitServiceUsers.createTopicDraft(1L, topicDraft, user);
+    okrUnitServiceUsers.createTopicDraft(topicDraft, user);
 
     verify(okrTopicDraftRepository).save(any());
   }
@@ -101,7 +101,7 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    okrUnitServiceUsers.createTopicDraft(1L, topicDraft, user);
+    okrUnitServiceUsers.createTopicDraft(topicDraft, user);
 
     verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
   }
@@ -112,7 +112,7 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    OkrTopicDraft actual = okrUnitServiceUsers.createTopicDraft(1L, topicDraft, user);
+    OkrTopicDraft actual = okrUnitServiceUsers.createTopicDraft(topicDraft, user);
 
     assertEquals(actual.getParentUnit(), unit);
   }
