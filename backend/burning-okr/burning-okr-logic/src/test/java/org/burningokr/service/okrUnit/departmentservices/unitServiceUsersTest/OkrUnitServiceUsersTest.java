@@ -48,9 +48,6 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
-    when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(activeCycle);
-
-    when(unitRepository.findByIdOrThrow(any(Long.class))).thenReturn(unit);
   }
 
   @Test(expected = UnauthorizedUserException.class)
@@ -71,17 +68,6 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
   @Test(expected = UnauthorizedUserException.class)
   public void removeUnit_expectedThrow() {
     okrUnitServiceUsers.deleteUnit(100L, user);
-  }
-
-  @Test(expected = ForbiddenException.class)
-  public void createOkrDraft_cycleClosed_expectedThrow() {
-    Cycle closedCycle = new Cycle();
-    closedCycle.setCycleState(CycleState.CLOSED);
-    when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
-
-    OkrTopicDraft topicDraft = new OkrTopicDraft();
-
-    okrUnitServiceUsers.createTopicDraft(topicDraft, user);
   }
 
   @Test
@@ -106,14 +92,4 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
     verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
   }
 
-  @Test
-  public void createOkrDraft_expectSetsParentUnit() {
-    OkrTopicDraft topicDraft = new OkrTopicDraft();
-
-    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
-
-    OkrTopicDraft actual = okrUnitServiceUsers.createTopicDraft(topicDraft, user);
-
-    assertEquals(actual.getParentUnit(), unit);
-  }
 }
