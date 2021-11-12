@@ -7,10 +7,10 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {TopicDraftCreationFormComponent} from "../okrview/okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component";
-import {filter, switchMap, take} from "rxjs/operators";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {TopicDraftCreationFormComponent} from '../okrview/okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import {filter, switchMap, take} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-submitted-topic-drafts',
