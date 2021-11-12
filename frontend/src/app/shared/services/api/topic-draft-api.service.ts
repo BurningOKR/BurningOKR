@@ -12,7 +12,7 @@ export class TopicDraftApiService {
   }
 
   postTopicDraft$(topicDraftDto: OkrTopicDraftDto): Observable<OkrTopicDraftDto> {
-    return this.api.postData$(`/topicDrafts/create`, topicDraftDto);
+    return this.api.postData$('/topicDrafts/create', topicDraftDto);
   }
 
   updateTopicDraft$(topicDraftDto: OkrTopicDraftDto): Observable<void> {
