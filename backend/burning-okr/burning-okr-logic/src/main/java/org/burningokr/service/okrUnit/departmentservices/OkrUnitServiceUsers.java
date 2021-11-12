@@ -99,9 +99,7 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
     topicDraft.setParentUnit(null);
 
     topicDraft = topicDraftRepository.save(topicDraft);
-    logger.info(
-        "Created Topic Draft: "
-            + topicDraft.getName());
+    logger.info("Created Topic Draft: " + topicDraft.getName());
 
     activityService.createActivity(user, topicDraft, Action.CREATED);
 

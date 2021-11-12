@@ -17,8 +17,7 @@ import org.burningokr.model.okrUnits.OkrUnit;
 @EqualsAndHashCode(callSuper = false)
 public class OkrTopicDraft extends OkrTopicDescription {
 
-  @Nullable
-  @ManyToOne private OkrUnit parentUnit;
+  @Nullable @ManyToOne private OkrUnit parentUnit;
 
   @ManyToOne private OkrTopicDraftHistory history;
 
