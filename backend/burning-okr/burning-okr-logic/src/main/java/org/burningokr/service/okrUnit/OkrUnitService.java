@@ -25,5 +25,5 @@ public interface OkrUnitService<T extends OkrUnit> {
 
   Objective createObjective(Long unitId, Objective objective, User user);
 
-  OkrTopicDraft createTopicDraft(Long unitId, OkrTopicDraft topicDraft, User user);
+  OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user);
 }

@@ -94,22 +94,12 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
   }
 
   @Override
-  public OkrTopicDraft createTopicDraft(Long unitId, OkrTopicDraft topicDraft, User user) {
-    T parentUnit = unitRepository.findByIdOrThrow(unitId);
+  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user) {
 
-    throwIfCycleForDepartmentIsClosed(parentUnit);
-
-    topicDraft.setParentUnit(parentUnit);
+    topicDraft.setParentUnit(null);
 
     topicDraft = topicDraftRepository.save(topicDraft);
-    logger.info(
-        "Created Topic Draft: "
-            + topicDraft.getName()
-            + " into department "
-            + parentUnit.getName()
-            + "(id:"
-            + unitId
-            + ")");
+    logger.info("Created Topic Draft: " + topicDraft.getName());
 
     activityService.createActivity(user, topicDraft, Action.CREATED);
 

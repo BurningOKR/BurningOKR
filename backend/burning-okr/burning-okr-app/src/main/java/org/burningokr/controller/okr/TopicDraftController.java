@@ -8,8 +8,11 @@ import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.OkrTopicDraftService;
+import org.burningokr.service.okrUnit.OkrUnitService;
+import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.security.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ public class TopicDraftController {
   private DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
   private DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper;
   private AuthorizationService authorizationService;
+  private final OkrUnitServiceFactory<OkrBranch> okrTopicOkrServiceFactory;
 
   /**
    * Initialize TopicDraftController
@@ -36,11 +40,13 @@ public class TopicDraftController {
       OkrTopicDraftService okrTopicDraftService,
       DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper,
       DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper,
+      OkrUnitServiceFactory<OkrBranch> okrTopicOkrServiceFactory,
       AuthorizationService authorizationService) {
     this.okrTopicDraftService = okrTopicDraftService;
     this.okrTopicDraftMapper = okrTopicDraftMapper;
     this.noteTopicDraftMapper = noteTopicDraftMapper;
     this.authorizationService = authorizationService;
+    this.okrTopicOkrServiceFactory = okrTopicOkrServiceFactory;
   }
 
   /**
@@ -120,6 +126,23 @@ public class TopicDraftController {
     noteTopicDraft.setId(null);
     noteTopicDraft = this.okrTopicDraftService.createNote(topicDraftId, noteTopicDraft, user);
     return ResponseEntity.ok(noteTopicDraftMapper.mapEntityToDto(noteTopicDraft));
+  }
+
+  /**
+   * API Endpoint to add a TopicDraft to an existing Okr Branch
+   *
+   * @param topicDraftDto a {@link OkrTopicDraftDto} object
+   * @param user an {@link User} object
+   * @return a {@link ResponseEntity} ok with the added topicdraft
+   */
+  @PostMapping("/topicDrafts/create")
+  public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraft(
+      @RequestBody OkrTopicDraftDto topicDraftDto, User user) {
+    OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
+    OkrUnitService<OkrBranch> okrUnitService = okrTopicOkrServiceFactory.getUserService();
+    OkrTopicDraft newOkrTopicDraft = okrUnitService.createTopicDraft(topicDraft, user);
+    OkrTopicDraftDto newOkrTopicDraftDto = okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
+    return ResponseEntity.ok(newOkrTopicDraftDto);
   }
 
   /**

@@ -28,31 +28,4 @@ export class AddChildUnitButtonComponent {
     private matDialog: MatDialog
   ) { }
 
-  clickedAddTopicDraft(): void {
-    // creates fitting config for either okrbranch id or company id
-    const config: any = { width: '600px', data: { } };
-    if (this.topicSubject instanceof OkrBranch) {
-      config.data = { unitId: this.topicSubject.id };
-    } else if (this.topicSubject instanceof CompanyUnit) {
-      config.data = { companyId: this.topicSubject.id };
-    }
-
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
-
-    dialogReference
-      .afterClosed()
-      .pipe(
-        take(1),
-        filter(v => v),
-        switchMap(n => n)
-      )
-      .subscribe(() => {
-        const snackBarText: string = this.i18n({
-          id: 'snackbar_addTopicDraft',
-          value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'
-        });
-        const snackBarOk: string = this.i18n({ id: 'snackbar_ok', value: 'Ok' });
-        this.snackBar.open(snackBarText, snackBarOk, { verticalPosition: 'top' });
-      });
-  }
 }
