@@ -43,7 +43,8 @@
             "optimization": false,
             "namedChunks": true,
             "allowedCommonJsDependencies": [
-              "papaparse"
+              "papaparse",
+              "rxjs/internal/operators"
             ]
           },
           "configurations": {
