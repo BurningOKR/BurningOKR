@@ -74,7 +74,7 @@ describe('OkrTopicDescriptionFormComponent', () => {
     const date: Date = new Date('2000-01-01');
     component.descriptionForm.get('beginning').patchValue(date);
     component.ngOnInit();
-    expect(component.minBeginn.getTime()).toEqual(date.getTime());
+    expect(component.minBeginn.getTime).toEqual(date.getTime);
   });
 
   it('should not patch minBeginning', () => {
