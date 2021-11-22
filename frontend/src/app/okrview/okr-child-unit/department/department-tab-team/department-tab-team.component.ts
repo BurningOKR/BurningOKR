@@ -187,12 +187,12 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   private deleteOkrMaster(): void {
-    this.department.okrMasterId = undefined;
+    this.department.okrMasterId = null;
     this.updateUserList();
   }
 
   private deleteOkrTopicSponsor(): void {
-    this.department.okrTopicSponsorId = undefined;
+    this.department.okrTopicSponsorId = null;
     this.updateUserList();
   }
 
