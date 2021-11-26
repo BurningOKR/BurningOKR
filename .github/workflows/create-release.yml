@@ -59,6 +59,13 @@ jobs:
       run: zip -r frontend-en.zip ./frontend/dist
     - name: Clean Frontend Build Directory
       run: rm -r ./frontend/dist
+    - name: Npm Build Demo
+      run: npm run build-demo
+      working-directory: ./frontend
+    - name: Zip Demo Frontend
+      run: zip -r frontend-demo.zip ./frontend/dist
+    - name: Clean Frontend Build Directory
+      run: rm -r ./frontend/dist
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
