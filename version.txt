@@ -2,3 +2,4 @@
 
 - Integrated the Demo-Version and the Production-Version
 - Upgraded to Angular 12
+- Added Build-Script for Demo-Version

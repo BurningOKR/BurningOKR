@@ -29,6 +29,7 @@
     "build-prod-en": "npm run build -- --output-hashing=all --configuration production --base-href=/app/ --configuration=en",
     "build-prod-new": "npm run build -- --output-hashing=all --configuration production",
     "build-prod-en-new": "npm run build -- --output-hashing=all --configuration production --configuration=en",
+    "build-demo": "npm run build -- --output-hashing=all --configuration=demo",
     "build-docker": "npm run build -- --output-hashing=all --configuration production --configuration=docker --base-href=/",
     "lint": "ng lint",
     "e2e": "ng e2e",

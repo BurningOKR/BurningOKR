@@ -14,7 +14,8 @@ export class VersionFormComponent {
       version: '1.3.11 (29.11.2021)',
       changes: [
         'Integrated the Demo-Version and the Production-Version',
-        'Upgraded to Angular 12'
+        'Upgraded to Angular 12',
+        'Added Build-Script for Demo-Version'
       ]
     },
     {
