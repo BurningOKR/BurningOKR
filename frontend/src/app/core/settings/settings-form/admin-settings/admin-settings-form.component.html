@@ -2,7 +2,7 @@
   <ng-container formArrayName="settings">
     <ng-container *ngFor="let setting of settings.controls">
       <mat-form-field class="fullWidth"
-                      *ngIf="setting.controls.type.value == 'text' || setting.controls.type.value == 'number'; else checkbox">
+                      *ngIf="setting.controls.type.value === 'text' || setting.controls.type.value === 'number'; else checkbox">
         <!-- Intellisense will not work on the controls field -->
         <mat-label>{{configurationNames[setting.controls.name.value]}}</mat-label>
         <input

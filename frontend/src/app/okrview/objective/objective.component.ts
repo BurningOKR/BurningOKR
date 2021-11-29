@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@a
 import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { ObjectiveViewMapper } from '../../shared/services/mapper/objective-view.mapper';
 import { ObjectiveContentsComponent } from './objective-contents/objective-contents.component';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ViewObjective } from '../../shared/model/ui/view-objective';
 import {
   ConfirmationDialogComponent,
@@ -34,7 +34,7 @@ export class ObjectiveComponent implements OnDestroy {
   @Output() moveObjectiveToTop: EventEmitter<ViewObjective> = new EventEmitter();
   @Output() moveObjectiveToBottom: EventEmitter<ViewObjective> = new EventEmitter();
 
-  @ViewChild('contentsComponent', { static: false }) contentsComponent: ObjectiveContentsComponent;
+  @ViewChild('contentsComponent') contentsComponent: ObjectiveContentsComponent;
 
   isPanelOpen: boolean = false;
 

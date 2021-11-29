@@ -9,7 +9,7 @@ import { FetchingService } from '../../../services/fetching.service';
 export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
 
   constructor(protected oAuthService: OAuthService,
-              private router: Router,
+              protected router: Router,
               private fetchingService: FetchingService) {
   }
 
@@ -43,7 +43,7 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
 
   async afterConfigured(): Promise<any> {
     return new Promise(resolve => {
-      resolve();
+      resolve(undefined); // (C.K. 19.10.2021) ToDo check usage
     });
   }
 
@@ -59,7 +59,7 @@ export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
       });
   }
 
-  private async getRefreshToken(): Promise<object> {
+  protected async getRefreshToken(): Promise<object> {
     if (!!this.oAuthService.getRefreshToken()) {
       return this.oAuthService.refreshToken();
     } else {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubmittedTopicDraftCardComponent } from './submitted-topic-draft-card.component';
 import { Component, Input } from '@angular/core';
@@ -7,7 +7,7 @@ import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { User } from '../../shared/model/api/user';
 import { StatusDotComponent } from '../../shared/components/status-dot/status-dot.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { i18nMock } from '../../shared/mocks/i18n-mock';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 
@@ -15,9 +15,9 @@ describe('SubmittedTopicDraftCardComponent', () => {
   let component: SubmittedTopicDraftCardComponent;
   let fixture: ComponentFixture<SubmittedTopicDraftCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmittedTopicDraftCardComponent, SubmittedTopicDraftActionButtonMock, StatusDotComponent ],
+      declarations: [ SubmittedTopicDraftCardComponent, SubmittedTopicDraftActionButtonMockComponent, StatusDotComponent ],
       imports: [ MaterialTestingModule ],
       providers: [
         { provide: MatDialog, useValue: {} },
@@ -36,11 +36,11 @@ describe('SubmittedTopicDraftCardComponent', () => {
   });
 
   @Component({
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-submitted-topic-draft-action-button',
     template: ''
   })
-  class SubmittedTopicDraftActionButtonMock {
+  class SubmittedTopicDraftActionButtonMockComponent {
     @Input() topicDraft: OkrTopicDraft;
   }
 

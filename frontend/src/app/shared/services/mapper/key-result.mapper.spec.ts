@@ -51,7 +51,7 @@ describe('KeyResultMapper', () => {
     keyResultApiServiceMock.putKeyResult$.mockReset();
     keyResultApiServiceMock.putKeyResult$.mockReturnValueOnce(of(keyResultDto));
 
-    service = TestBed.get(KeyResultMapper);
+    service = TestBed.inject(KeyResultMapper);
   });
 
   it('should be created', () => {

@@ -20,10 +20,6 @@ export class UserMinibuttonComponent implements OnInit, OnChanges {
     private userService: UserService) {
   }
 
-  private getUser(): void {
-    this.user$ = this.userService.getUserById$(this.userId);
-  }
-
   ngOnInit(): void {
     this.getUser();
   }
@@ -38,5 +34,9 @@ export class UserMinibuttonComponent implements OnInit, OnChanges {
 
   clickedDeleteButton(): void {
     this.userDeleted.emit(this.userId);
+  }
+
+  private getUser(): void {
+    this.user$ = this.userService.getUserById$(this.userId);
   }
 }

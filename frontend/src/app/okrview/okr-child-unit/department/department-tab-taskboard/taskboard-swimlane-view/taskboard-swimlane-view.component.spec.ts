@@ -1,10 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TaskboardSwimlaneViewComponent } from './taskboard-swimlane-view.component';
-import { Component, EventEmitter, Input } from '@angular/core';
-import { ViewObjective } from '../../../../../shared/model/ui/view-objective';
-import { ContextRole } from '../../../../../shared/model/ui/context-role';
-import { CycleUnit } from '../../../../../shared/model/ui/cycle-unit';
+import { Component, Input } from '@angular/core';
 import { StateTaskMap } from '../../../../../shared/model/ui/taskboard/state-task-map';
 import { ViewKeyResult } from '../../../../../shared/model/ui/view-key-result';
 import { SharedModule } from '../../../../../shared/shared.module';
@@ -28,7 +25,7 @@ describe('TaskboardSwimlaneViewComponent', () => {
     @Input() isInteractive: boolean;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, MaterialTestingModule],
       declarations: [ TaskboardSwimlaneViewComponent, TaskBoardSwimlaneMockComponent ],

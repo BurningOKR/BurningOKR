@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.annotation.TurnOff;
 import org.burningokr.dto.users.ChangePasswordDto;
 import org.burningokr.dto.users.ForgotPasswordDto;
 import org.burningokr.dto.users.LocalUserDto;
@@ -55,6 +56,7 @@ public class LocalUserController {
    * @return a {@link ResponseEntity} with status ok and a {@link LocalUserDto} object
    */
   @PostMapping("/local-users")
+  @TurnOff
   public ResponseEntity<LocalUserDto> createLocalUser(
       @Valid @RequestBody LocalUserDto localUserDto) {
     LocalUser localUser =
@@ -70,6 +72,7 @@ public class LocalUserController {
    *     LocalUserDto}
    */
   @PostMapping("/local-users/bulk")
+  @TurnOff
   public ResponseEntity<Collection<LocalUserDto>> bulkCreateLocalUsers(
       @Valid @RequestBody Collection<LocalUserDto> localUserDtos) {
     Collection<User> localUsers =
@@ -85,6 +88,7 @@ public class LocalUserController {
    * @return a {@link ResponseEntity} with status ok and the updated {@link LocalUserDto}
    */
   @PutMapping("/local-users/{userId}")
+  @TurnOff
   public ResponseEntity<LocalUserDto> updateLocalUser(
       @PathVariable UUID userId, @Valid @RequestBody LocalUserDto localUserDto) {
     LocalUser responseUser =
@@ -93,12 +97,14 @@ public class LocalUserController {
   }
 
   @DeleteMapping("/local-users/{userId}")
+  @TurnOff
   public ResponseEntity<LocalUserDto> deleteLocalUserById(@PathVariable UUID userId) {
     localUserService.deleteLocalUserById(userId);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/local-users/password")
+  @TurnOff
   public ResponseEntity<PasswordDto> setPassword(@Valid @RequestBody PasswordDto passwordDto) {
     localUserService.setPassword(passwordDto.getEmailIdentifier(), passwordDto.getPassword());
     return ResponseEntity.ok().build();
@@ -111,6 +117,7 @@ public class LocalUserController {
    * @return a {@link ResponseEntity} with status ok
    */
   @PostMapping("/local-users/change-password")
+  @TurnOff
   public ResponseEntity<ChangePasswordDto> changePassword(
       @Valid @RequestBody ChangePasswordDto changePasswordDto) {
     ChangePasswordData changePasswordData =
@@ -127,6 +134,7 @@ public class LocalUserController {
    * @return a {@link ResponseEntity} with status ok
    */
   @PostMapping("/local-users/forgot-password")
+  @TurnOff
   public ResponseEntity<ForgotPasswordDto> resetPassword(
       @Valid @RequestBody ForgotPasswordDto forgotPasswordDto) {
     ForgotPassword forgotPassword = forgotPasswordMapper.mapDtoToEntity(forgotPasswordDto);

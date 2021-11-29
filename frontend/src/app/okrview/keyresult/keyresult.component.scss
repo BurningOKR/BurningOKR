@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '../../../styles/themes/bag-theme';
 
 .keyresult-slider {
@@ -17,7 +18,7 @@ mat-slider {
 .keyresult-card {
   margin-top: 12px;
   padding: 12px;
-  border: solid mat-color($md-primary, 500) 4px;
+  border: solid mat.get-color-from-palette($md-primary, 500) 4px;
   border-top: 0;
   border-bottom: 0;
 }

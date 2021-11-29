@@ -30,7 +30,7 @@ describe('AuthTypeHandlerFactoryService', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(AuthTypeHandlerFactoryService);
+    service = TestBed.inject(AuthTypeHandlerFactoryService);
 
     oAuthFrontendDetailsServiceMock.getAuthType$.mockReset();
     injectorMock.get.mockReset();
@@ -41,23 +41,21 @@ describe('AuthTypeHandlerFactoryService', () => {
       .toBeTruthy();
   });
 
-  it('should get AzureAuthTypeHandlerService', async done => {
+  it('should get AzureAuthTypeHandlerService', async () => {
     oAuthFrontendDetailsServiceMock.getAuthType$.mockReturnValue(of(Consts.AUTHTYPE_AZURE));
     injectorMock.get.mockReturnValue(azureAuthTypeHandlerServiceMock);
 
     const authTypeHandlerBase: AuthTypeHandlerBase = await service.getAuthTypeHandler();
     expect(authTypeHandlerBase)
       .toEqual(azureAuthTypeHandlerServiceMock);
-    done();
   });
 
-  it('should get LocalAuthTypeHandlerService', async done => {
+  it('should get LocalAuthTypeHandlerService', async () => {
     oAuthFrontendDetailsServiceMock.getAuthType$.mockReturnValue(of(Consts.AUTHTYPE_LOCAL));
     injectorMock.get.mockReturnValue(localAuthTypeHandlerServiceMock);
 
     const authTypeHandlerBase: AuthTypeHandlerBase = await service.getAuthTypeHandler();
     expect(authTypeHandlerBase)
       .toEqual(localAuthTypeHandlerServiceMock);
-    done();
   });
 });

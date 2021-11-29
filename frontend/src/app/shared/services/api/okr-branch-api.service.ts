@@ -16,8 +16,7 @@ export class OkrBranchApiService {
     return this.api.postData$(`companies/${companyId}/branch`, dto);
   }
 
-  createForOkrBranch$(unitId: OkrUnitId, dto: OkrBranchDto)
-    : Observable<OkrBranchDto> {
+  createForOkrBranch$(unitId: OkrUnitId, dto: OkrBranchDto): Observable<OkrBranchDto> {
 
     return this.api.postData$(`branch/${unitId}/branch`, dto);
   }

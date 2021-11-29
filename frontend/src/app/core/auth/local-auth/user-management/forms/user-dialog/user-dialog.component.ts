@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Observable, of } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { User } from '../../../../../../shared/model/api/user';
 import { emailAlreadyInUseValidatorFunction } from '../email-already-in-use-validator-function';
@@ -10,6 +11,7 @@ import { PasswordService } from '../../../password-service/password.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../../../shared/services/helper/local-user.service';
 import { CurrentUserService } from '../../../../../services/current-user.service';
+import { environment } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-user-dialog',
@@ -17,12 +19,13 @@ import { CurrentUserService } from '../../../../../services/current-user.service
   styleUrls: ['./user-dialog.component.css']
 })
 export class UserDialogComponent implements OnInit {
-  @ViewChild('canvasElement', { static: false }) canvas;
+  @ViewChild('canvasElement') canvas;
 
   userForm: FormGroup;
   userEmails: string[] = [];
   editedUserIsCurrentUser$: Observable<boolean>;
   resetPasswordButtonDisabled: boolean;
+  isPlayground: boolean = environment.playground;
 
   private passwordResetSuccessMsg: string = this.i18n({
     id: 'resetPasswordSuccessSnackbar',
@@ -74,6 +77,7 @@ export class UserDialogComponent implements OnInit {
         if (!!this.formData.user) {
           this.userForm.patchValue(this.formData.user);
         }
+        this.resetPasswordButtonDisabled = this.isPlayground;
       });
   }
 
@@ -83,7 +87,7 @@ export class UserDialogComponent implements OnInit {
 
   resetUserPassword(): void {
     this.resetPasswordButtonDisabled = true;
-    this.passwordService.sendPasswordResetEmail$({ email: this.formData.user.email })
+    this.passwordService.sendPasswordResetEmail$({email: this.formData.user.email})
       .subscribe(() => {
         this.resetPasswordButtonDisabled = false;
         this.snackBar.open(this.passwordResetSuccessMsg, this.okMsg,

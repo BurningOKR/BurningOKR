@@ -31,6 +31,10 @@ bootWar {
     enabled = true
 }
 
+war{
+    enabled = true
+}
+
 repositories {
     mavenCentral()
 }

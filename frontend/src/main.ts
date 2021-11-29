@@ -1,6 +1,5 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import 'hammerjs';
 import 'linq4js';
 
 import { AppModule } from './app/app.module';
@@ -16,5 +15,5 @@ platformBrowserDynamic()
 
     ]
   })
-  // tslint:disable-next-line:no-console
+  // eslint-disable-next-line no-console
   .catch(err => console.log(err));

@@ -64,4 +64,3 @@ system:
     auth-mode: "local"
     api-endpoint: "/api"
     token-endpoint-prefix: ""
-

@@ -2,7 +2,8 @@ package org.burningokr.service.environment;
 
 public enum AuthModes {
   AZURE("azure"),
-  LOCAL("local");
+  LOCAL("local"),
+  DEMO("demo");
 
   private String name;
 

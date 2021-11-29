@@ -40,7 +40,7 @@ export class OAuthFrontendDetailsService {
   isLocalAuthType$(): Observable<boolean> {
     return this.getOAuthFrontendDetails$()
       .pipe(
-        map(details => details.authType === Consts.AUTHTYPE_LOCAL)
+        map(details => details.authType === Consts.AUTHTYPE_LOCAL || details.authType === Consts.AUTHTYPE_DEMO)
       );
   }
 

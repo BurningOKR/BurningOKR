@@ -7,15 +7,15 @@ import { AuthGuard } from '../core/auth/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: ``,
+    path: '',
     component: MainViewComponent,
     children: [
       {
-        path: `departments/:departmentId`,
+        path: 'departments/:departmentId',
         component: OkrChildUnitComponent
       },
       {
-        path: `companies/:companyId`,
+        path: 'companies/:companyId',
         component: CompanyComponent
       }
     ],

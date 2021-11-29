@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OkrTopicDraft } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../../../../shared/services/mapper/topic-draft-mapper';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NEVER, Subscription } from 'rxjs';
 import { status } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
@@ -83,14 +83,7 @@ export class TopicDraftCreationFormComponent implements OnInit, OnDestroy {
 
   createTopicDraft(topicDraft: OkrTopicDraft): void {
     topicDraft.currentStatus = status.submitted;
-    if (this.formData.companyId) {
-      topicDraft.okrParentUnitId = this.formData.companyId;
-      this.dialogRef.close(this.topicDraftMapper
-        .postTopicDraftForCompany$(this.formData.companyId, topicDraft));
-    } else if (this.formData.unitId) {
-      topicDraft.okrParentUnitId = this.formData.unitId;
-      this.dialogRef.close(this.topicDraftMapper
-        .postTopicDraftForOkrBranch$(this.formData.unitId, topicDraft));
-    }
+    this.dialogRef.close(this.topicDraftMapper
+      .postTopicDraft$(topicDraft));
   }
 }

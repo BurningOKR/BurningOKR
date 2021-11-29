@@ -1,13 +1,19 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
+    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" i18n="@@component_return_to_demo_mainview" routerLink="/" *ngIf="isPlayground">Hauptseite</button>
+    <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="Hauptseite" i18n-matTooltip="@@component_return_to_demo_mainview"><mat-icon>cancel</mat-icon></button>
     <ng-content></ng-content>
-    <span class="fill-space hidden-m-down"></span>
-    <div class="warningText hidden-m-down" *ngIf="!(hasMailConfigured$ | async)">
+    <span class="fill-space"></span>
+
+    <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
+
+    <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
       <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
       <br>
       <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">Dies kann die Nutzbarkeit der
         <br class="hidden-l-up">Anwendung stark einschränken.</a>
     </div>
+
     <span class="fill-space"></span>
     <div class="user-interactions">
       <div class="adminIcon">
@@ -31,8 +37,13 @@
 
 <!-- Interactions menu -->
 <mat-menu #menu="matMenu">
+  <button mat-menu-item disabled class="hidden-s-up">
+    <mat-icon>timer</mat-icon>
+    <app-reset-countdown></app-reset-countdown>
+  </button>
+
   <!-- show menu settings-->
-  <ng-container *ngIf="!(isLocalUserbase$ | async)">
+  <ng-container *ngIf="(isLocalUserbase$ | async) === false && isPlayground === false">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
       <span i18n="@@component_adminView_adminPanel">Admin Panel</span>
@@ -46,7 +57,7 @@
     <mat-icon>history</mat-icon>
     <span i18n="@@cycle_administration">Zyklusverwaltung</span>
   </button>
-  <button mat-menu-item (click)="openSettings()">
+  <button mat-menu-item (click)="openSettings()" [disabled]="isPlayground">
     <mat-icon>settings_applications</mat-icon>
     <span i18n="@@settings">Einstellungen</span>
   </button>
@@ -54,11 +65,11 @@
     <mat-icon>account_box</mat-icon>
     <span i18n="@@component_okrToolbar_userManagement">Nutzerverwaltung</span>
   </button>
-  <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()">
+  <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="isPlayground">
     <mat-icon>vpn_key</mat-icon>
     <span i18n="@@change_password">Passwort ändern</span>
   </button>
-  <button mat-menu-item [routerLink]="['/auth', 'logout']">
+  <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="isPlayground">
     <mat-icon>power_settings_new</mat-icon>
     <span i18n="@@component_okrToolbar_logout">Logout</span>
   </button>

@@ -3,7 +3,7 @@ import { Controls, FormGroupTyped } from '../../../../../typings';
 import { NewPasswordForm } from '../../../../shared/model/forms/new-password-form';
 import { FormBuilder, Validators } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { PasswordService } from '../password-service/password.service';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { switchMap, take } from 'rxjs/operators';

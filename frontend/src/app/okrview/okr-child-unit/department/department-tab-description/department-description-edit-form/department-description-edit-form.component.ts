@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OkrTopicDescription } from '../../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper';
 import { DepartmentId } from '../../../../../shared/model/id-types';
@@ -53,9 +53,8 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
 
   saveDescription(): void {
     const okrTopicDescription: OkrTopicDescription = this.descriptionForm.getRawValue();
-    this.dialogRef.close(
-      this.okrTopicDescriptionService.putTopicDescription$(this.formData.departmentId, okrTopicDescription)
-    );
+    this.okrTopicDescriptionService.putTopicDescription$(this.formData.departmentId, okrTopicDescription)
+      .subscribe(() => this.dialogRef.close());
   }
 
 }

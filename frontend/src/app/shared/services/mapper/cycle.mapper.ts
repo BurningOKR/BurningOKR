@@ -12,10 +12,10 @@ import { CycleDto } from '../../model/api/cycle.dto';
 })
 export class CycleMapper {
 
+  cycles: { [key: number]: ReplaySubject<CycleUnit> } = {};
+
   constructor(private cycleService: CycleApiService, private companyApiService: CompanyApiService) {
   }
-
-  cycles: { [key: number]: ReplaySubject<CycleUnit> } = {};
 
   getCycleById$(id: CycleId): Observable<CycleUnit> {
     if (!this.cycles[id]) {

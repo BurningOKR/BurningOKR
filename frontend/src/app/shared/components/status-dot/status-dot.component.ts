@@ -9,9 +9,9 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 })
 export class StatusDotComponent implements OnInit, OnChanges {
 
-    statusTooltip: string;
-    enumStatus = status;
-    @Input() state: status = status.draft;
+  @Input() state: status = status.draft;
+  statusTooltip: string;
+  enumStatus = status;
 
     constructor(private i18n: I18n) {
     }

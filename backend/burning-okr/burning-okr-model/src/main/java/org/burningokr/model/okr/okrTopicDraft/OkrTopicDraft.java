@@ -2,6 +2,7 @@ package org.burningokr.model.okr.okrTopicDraft;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +17,7 @@ import org.burningokr.model.okrUnits.OkrUnit;
 @EqualsAndHashCode(callSuper = false)
 public class OkrTopicDraft extends OkrTopicDescription {
 
-  @ManyToOne private OkrUnit parentUnit;
+  @Nullable @ManyToOne private OkrUnit parentUnit;
 
   @ManyToOne private OkrTopicDraftHistory history;
 

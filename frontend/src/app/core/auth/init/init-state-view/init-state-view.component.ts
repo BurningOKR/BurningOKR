@@ -23,9 +23,9 @@ import { SetAzureAdminInitStateFormComponent } from './init-state-forms/set-azur
 })
 export class InitStateViewComponent implements OnInit {
 
+  @ViewChild('currentForm', {read: ViewContainerRef, static: true}) currentForm: ViewContainerRef;
   initState: InitState;
   componentRef: ComponentRef<InitStateFormComponent>;
-  @ViewChild('currentForm', {read: ViewContainerRef, static: true}) currentForm: ViewContainerRef;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,

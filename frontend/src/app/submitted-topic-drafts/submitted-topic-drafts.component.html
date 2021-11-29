@@ -10,5 +10,12 @@
 <div class="content-wrapper">
   <div class="content">
     <app-submitted-topic-draft-cards-wrapper [topicDrafts]="rowData.data"></app-submitted-topic-draft-cards-wrapper>
+    <button mat-icon-button mat-mini-fab color="accent" style="float:right" (click)="clickedAddTopicDraft()">
+      <mat-icon
+        matTooltip="Neuen Themenentwurf hinzufügen">add_circle_outline
+      </mat-icon>
+    </button>
   </div>
 </div>
+
+

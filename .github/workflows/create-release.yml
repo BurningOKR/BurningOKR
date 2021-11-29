@@ -38,7 +38,7 @@ jobs:
     - name: Npm Setup
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '16.x'
     - name: Npm Install
       run: npm install
       working-directory: ./frontend

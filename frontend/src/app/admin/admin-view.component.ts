@@ -4,7 +4,7 @@ import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAutocompleteInputComponent } from '../shared/components/user-autocomplete-input/user-autocomplete-input.component';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { map, take } from 'rxjs/operators';
 import {
   ConfirmationDialogComponent,
@@ -14,6 +14,7 @@ import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UserId } from '../shared/model/id-types';
 import 'linq4js';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-admin-view',
@@ -21,10 +22,12 @@ import 'linq4js';
   styleUrls: ['./admin-view.component.scss'],
 })
 export class AdminViewComponent implements OnInit {
-  @ViewChild('newAdminForm', {static: false}) newAdminForm: UserAutocompleteInputComponent;
+  @ViewChild('newAdminForm') newAdminForm: UserAutocompleteInputComponent;
 
   adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
   subscriptions: Subscription[] = [];
+
+  isPlayground: boolean = environment.playground;
 
   currentUserId$: Observable<UserId>;
   excludedIdsShouldUpdate: any;
@@ -42,37 +45,6 @@ export class AdminViewComponent implements OnInit {
     this.currentUserId$ = this.getCurrentUserId$();
 
     this.getAdminUsers$();
-  }
-
-  private getCurrentUserId$(): Observable<UserId> {
-    return this.currentUserService.getCurrentUser$()
-      .pipe(
-        map((user: User) => {
-          return user.id;
-        }),
-      );
-  }
-
-  private getAdminUsers$(): void {
-    combineLatest([
-      this.userService.getUsers$(),
-      this.userService.getAdminIds$()]
-    )
-      .pipe(
-        take(1),
-        map(([users, adminStrings]: [User[], string[]]) => {
-          return this.getAdminUsers(users, adminStrings);
-        }),
-      )
-      .subscribe((users: User[]) => {
-        this.adminUsers$.next(users);
-      });
-  }
-
-  private getAdminUsers(users: User[], adminStrings: string[]): any[] {
-    return users.Where(user => {
-      return adminStrings.Contains(user.id);
-    });
   }
 
   defineNewAdmin(user: User): void {
@@ -156,5 +128,36 @@ export class AdminViewComponent implements OnInit {
 
   navigateToCompanies(): void {
     this.router.navigate(['/companies']);
+  }
+
+  private getCurrentUserId$(): Observable<UserId> {
+    return this.currentUserService.getCurrentUser$()
+      .pipe(
+        map((user: User) => {
+          return user.id;
+        }),
+      );
+  }
+
+  private getAdminUsers$(): void {
+    combineLatest([
+      this.userService.getUsers$(),
+      this.userService.getAdminIds$()]
+    )
+      .pipe(
+        take(1),
+        map(([users, adminStrings]: [User[], string[]]) => {
+          return this.getAdminUsers(users, adminStrings);
+        }),
+      )
+      .subscribe((users: User[]) => {
+        this.adminUsers$.next(users);
+      });
+  }
+
+  private getAdminUsers(users: User[], adminStrings: string[]): any[] {
+    return users.Where(user => {
+      return adminStrings.Contains(user.id);
+    });
   }
 }

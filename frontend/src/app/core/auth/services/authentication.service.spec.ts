@@ -55,20 +55,20 @@ describe('AuthenticationService', () => {
     oAuthService.hasValidAccessToken.mockReturnValue(null);
 
     authTypeHandler.afterConfigured.mockReset();
-    authTypeHandler.afterConfigured.mockReturnValue(new Promise(resolve => resolve()));
+    authTypeHandler.afterConfigured.mockReturnValue(new Promise(resolve => resolve(undefined)));
     authTypeHandler.startLoginProcedure.mockReset();
     authTypeHandler.login.mockReset();
   });
 
   it('should be created', () => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
 
     expect(service)
       .toBeTruthy();
   });
 
   it('configure should set localStorage', done => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
 
     service.configure()
       .then(() => {
@@ -79,7 +79,7 @@ describe('AuthenticationService', () => {
   });
 
   it('configure configures oAuthService', done => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
 
     service.configure()
       .then(() => {
@@ -90,7 +90,7 @@ describe('AuthenticationService', () => {
   });
 
   it('configure calls afterConfigured() on AuthTypeHandler', done => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
 
     service.configure()
       .then(() => {
@@ -101,7 +101,7 @@ describe('AuthenticationService', () => {
   });
 
   it('redirectToLoginProvider calls startLoginProcedure on AuthTypeHandler', done => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
 
     service.redirectToLoginProvider()
       .then(() => {
@@ -112,7 +112,7 @@ describe('AuthenticationService', () => {
   });
 
   it('login calls login on AuthTypeHandler', done => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
 
     const username: string = 'test@test.com';
     const password: string = '1234567';
@@ -126,7 +126,7 @@ describe('AuthenticationService', () => {
   });
 
   it('hasValidAccessToken, returns true when there is an access token', () => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
     oAuthService.hasValidAccessToken.mockReturnValue(true);
 
     expect(service.hasValidAccessToken())
@@ -134,7 +134,7 @@ describe('AuthenticationService', () => {
   });
 
   it('logout logs out', () => {
-    const service: AuthenticationService = TestBed.get(AuthenticationService);
+    const service: AuthenticationService = TestBed.inject(AuthenticationService);
 
     service.logout();
 

@@ -5,7 +5,7 @@ describe('KeyResultMilestone.MapperService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: KeyResultMilestoneMapper = TestBed.get(KeyResultMilestoneMapper);
+    const service: KeyResultMilestoneMapper = TestBed.inject(KeyResultMilestoneMapper);
     expect(service)
       .toBeTruthy();
   });

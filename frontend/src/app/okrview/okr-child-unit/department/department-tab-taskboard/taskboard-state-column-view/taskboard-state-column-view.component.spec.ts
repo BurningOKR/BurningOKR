@@ -1,7 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TaskboardStateColumnViewComponent } from './taskboard-state-column-view.component';
-import { TaskboardColumnComponent } from '../taskboard-column/taskboard-column.component';
 import { Component, Input } from '@angular/core';
 import { of } from 'rxjs';
 import { ViewKeyResult } from '../../../../../shared/model/ui/view-key-result';
@@ -14,7 +13,7 @@ describe('TaskboardStateColumnViewComponent', () => {
   let fixture: ComponentFixture<TaskboardStateColumnViewComponent>;
 
   @Component({
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-column',
     template: ''
   })
@@ -25,7 +24,7 @@ describe('TaskboardStateColumnViewComponent', () => {
   }
   const i18nMock: any = jest.fn();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TaskboardStateColumnViewComponent, TaskBoardStateColumnMockComponent ],
       providers: [

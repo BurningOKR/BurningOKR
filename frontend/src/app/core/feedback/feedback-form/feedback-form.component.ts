@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../../../shared/components/dialog-component/dialog.component';
 import { User } from '../../../shared/model/api/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -28,7 +28,7 @@ export class FeedbackFormComponent implements OnInit {
     this.feedbackForm$ = this.getFeedbackForm$();
   }
 
-  sendFeedback(formRawValue: { feedbackText: string; name: string; }): void {
+  sendFeedback(formRawValue: { feedbackText: string; name: string }): void {
     const feedbackText: string = formRawValue.feedbackText;
     const name: string = formRawValue.name;
 

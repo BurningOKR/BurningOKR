@@ -4,7 +4,8 @@ import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { Subject, Subscription } from 'rxjs';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ViewKeyResult } from '../../shared/model/ui/view-key-result';
-import { MatDialog, MatDialogRef, MatSliderChange } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSliderChange } from '@angular/material/slider';
 import { ViewObjective } from '../../shared/model/ui/view-objective';
 import { KeyResultFormComponent } from './key-result-form/key-result-form.component';
 import {
@@ -40,11 +41,10 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  timeInMsToWaitUntilPushingSliderChanges = 2000;
+  isKeyResultSliderInverted: boolean = false;
   // We dynamically populate this as sliders are used
   private sliderChangeSubject$: Subject<number>;
-  timeInMsToWaitUntilPushingSliderChanges = 2000;
-
-  isKeyResultSliderInverted: boolean = false;
 
   constructor(private matDialog: MatDialog, private keyResultMapperService: KeyResultMapper, private i18n: I18n) {
   }

@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UserManagementComponent } from './user-management.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -54,7 +54,7 @@ describe('UserManagementComponent', () => {
     active: true
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     localUserServiceMock.getUsers$.mockReset();
     localUserServiceMock.getAdminIds$.mockReset();
     currentUserServiceMock.getCurrentUser$.mockReset();

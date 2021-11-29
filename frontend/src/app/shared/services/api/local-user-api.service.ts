@@ -18,7 +18,7 @@ export class LocalUserApiService {
   }
 
   getUsers$(): Observable<User[]> {
-    return this.api.getData$(`local-users`);
+    return this.api.getData$('local-users');
   }
 
   createUser$(user: User): Observable<User> {

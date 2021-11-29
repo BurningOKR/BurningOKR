@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { Observable } from 'rxjs';

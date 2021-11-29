@@ -1,9 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AddChildUnitButtonComponent } from './add-child-unit-button.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { MatDialogModule, MatSnackBarModule } from '@angular/material/';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('AddChildUnitButtonComponent', () => {
   let component: AddChildUnitButtonComponent;
@@ -14,7 +15,7 @@ describe('AddChildUnitButtonComponent', () => {
     isAtleastAdmin: jest.fn()
     };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     contextRoleMock.isAtleastAdmin.mockReset();
     contextRoleMock.isAtleastAdmin.mockReturnValue(true);
     TestBed.configureTestingModule({

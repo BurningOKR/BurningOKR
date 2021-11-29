@@ -1,0 +1,45 @@
+@import '../../../styles/themes/bag-theme.scss';
+
+
+.footer-container {
+  background-color: map-get($md-primary, 500);
+  overflow-x:hidden;
+  z-index: 10;
+  color: $bag-theme-white;
+  //padding: 5px 0;
+  // todo delete me
+  //position:fixed;
+  bottom:0;
+  width: 100%;
+
+  font-size: small;
+}
+
+.padding-top-bottom {
+  padding: 5px 0;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+.row {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.margin-left-right {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+
+
+a {
+  text-decoration: none;
+}
+
+a, a:visited{
+  color: $bag-theme-white;
+}

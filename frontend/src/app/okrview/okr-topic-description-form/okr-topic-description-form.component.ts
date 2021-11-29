@@ -12,13 +12,17 @@ import { Observable } from 'rxjs';
 export class OkrTopicDescriptionFormComponent implements OnInit {
 
   @Input() descriptionForm: FormGroup;
-  users$: Observable<User[]>;
   @Input() minBeginn: Date = new Date();
+  users$: Observable<User[]>;
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.users$ = this.userService.getAllUsers$();
+    if(this.descriptionForm?.get('beginning')?.value !== undefined  &&
+        this.minBeginn.getTime > this.descriptionForm?.get('beginning')?.value?.getTime){
+      this.minBeginn = this.descriptionForm.get('beginning').value;
+    }
   }
 }

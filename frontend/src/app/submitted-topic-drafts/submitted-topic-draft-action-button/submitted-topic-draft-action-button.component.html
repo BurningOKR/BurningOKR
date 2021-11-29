@@ -4,13 +4,13 @@
   </button>
   <mat-menu #actionDropdown="matMenu">
       <span matTooltip="{{ getEditTooltipText$() | async}}" [matTooltipDisabled]="canEditTopicDraft$() | async">
-        <button mat-menu-item [disabled]="!(canEditTopicDraft$() | async)" (click)="editTopicDraft()">
+        <button mat-menu-item [disabled]="(canEditTopicDraft$() | async) === false" (click)="editTopicDraft()">
           <mat-icon>edit</mat-icon>
           <span>Bearbeiten</span>
         </button>
       </span>
     <span matTooltip="Nur ein Admin oder der Initiator können diesen Themenentwurf löschen" i18n-matTooltip="@@onlyAdminOrInitiatorPermissionToDelete" [matTooltipDisabled]="canDeleteTopicDraft$() | async">
-      <button mat-menu-item [disabled]="!(canDeleteTopicDraft$() | async)" (click)="clickedDeleteTopicDraft()">
+      <button mat-menu-item [disabled]="(canDeleteTopicDraft$() | async) === false" (click)="clickedDeleteTopicDraft()">
         <mat-icon>delete</mat-icon>
         <span>Löschen</span>
       </button>
@@ -30,13 +30,13 @@
         </button>
       </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
-        <button mat-menu-item [disabled]="!(canChangeCurrentStatus$() | async)" (click)="approvingTopicDraft()">
+        <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="approvingTopicDraft()">
           <mat-icon>check_circle</mat-icon>
           <span>{{ getApprovalButtonText() }}</span>
         </button>
       </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
-        <button mat-menu-item [disabled]="!(canChangeCurrentStatus$() | async)" (click)="rejectingTopicDraft()">
+        <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="rejectingTopicDraft()">
           <mat-icon >cancel</mat-icon>
           <span>{{ getRejectionButtonText() }}</span>
         </button>

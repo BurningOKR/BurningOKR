@@ -16,8 +16,7 @@ import { of } from 'rxjs';
 const userMock: User = new User();
 const i18nMock: any = jest.fn();
 const topicDraftApiServiceMock: any = {
-    postTopicDraftForCompany$: jest.fn(),
-    postTopicDraftForOkrBranch$: jest.fn(),
+    postTopicDraft$: jest.fn(),
     getAllTopicDrafts$: jest.fn(),
     deleteTopicDraft$: jest.fn()
 };
@@ -57,10 +56,8 @@ describe('TopicDraftMapper', () => {
             resources: 'Resources',
             handoverPlan: 'Handover plan'
         };
-        topicDraftApiServiceMock.postTopicDraftForCompany$.mockReset();
-        topicDraftApiServiceMock.postTopicDraftForCompany$.mockReturnValue(of(topicDraftDto));
-        topicDraftApiServiceMock.postTopicDraftForOkrBranch$.mockReset();
-        topicDraftApiServiceMock.postTopicDraftForOkrBranch$.mockReturnValue(of(topicDraftDto));
+        topicDraftApiServiceMock.postTopicDraft$.mockReset();
+        topicDraftApiServiceMock.postTopicDraft$.mockReturnValue(of(topicDraftDto));
         topicDraftApiServiceMock.getAllTopicDrafts$.mockReset();
         topicDraftApiServiceMock.getAllTopicDrafts$.mockReturnValue(of([topicDraftDto]));
         topicDraftApiServiceMock.deleteTopicDraft$.mockReset();
@@ -68,49 +65,27 @@ describe('TopicDraftMapper', () => {
     });
 
     it('should be created', () => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         expect(topicDraftMapper)
             .toBeTruthy();
     });
 
-    it('postTopicDraftForCompany$ should call service', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+    it('postTopicDraft$ should call service', done => {
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
-        topicDraftMapper.postTopicDraftForCompany$(0, topicDraft)
+        topicDraftMapper.postTopicDraft$(topicDraft)
             .subscribe(() => {
-                expect(topicDraftApiServiceMock.postTopicDraftForCompany$)
+                expect(topicDraftApiServiceMock.postTopicDraft$)
                     .toHaveBeenCalled();
                 done();
             });
     });
 
-    it('postTopicDraftForCompany$ should map', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+    it('postTopicDraft$ should map', done => {
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
-        topicDraftMapper.postTopicDraftForCompany$(0, topicDraft)
-            .subscribe((okrTopicDraft: OkrTopicDraft) => {
-                expect(okrTopicDraft)
-                    .toEqual(topicDraft);
-                done();
-            });
-    });
-
-    it('postTopicDraftForOkrBranch$ should call servuce', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
-
-        topicDraftMapper.postTopicDraftForOkrBranch$(0, topicDraft)
-            .subscribe(() => {
-                expect(topicDraftApiServiceMock.postTopicDraftForOkrBranch$)
-                    .toHaveBeenCalled();
-                done();
-            });
-    });
-
-    it('postTopicDraftForOkrBranch$ should map', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
-
-        topicDraftMapper.postTopicDraftForOkrBranch$(0, topicDraft)
+        topicDraftMapper.postTopicDraft$(topicDraft)
             .subscribe((okrTopicDraft: OkrTopicDraft) => {
                 expect(okrTopicDraft)
                     .toEqual(topicDraft);
@@ -119,7 +94,7 @@ describe('TopicDraftMapper', () => {
     });
 
     it('getAllTopicDrafts$ should call service', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.getAllTopicDrafts$()
             .subscribe(() => {
@@ -130,7 +105,7 @@ describe('TopicDraftMapper', () => {
     });
 
     it('getAllTopicDrafts$ should map topicDraftDto to topicDraft ', done => {
-        topicDraftMapper = TestBed.get(TopicDraftMapper);
+        topicDraftMapper = TestBed.inject(TopicDraftMapper);
 
         topicDraftMapper.getAllTopicDrafts$()
             .subscribe((okrTopicDraft: OkrTopicDraft[]) => {

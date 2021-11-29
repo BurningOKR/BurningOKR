@@ -1,6 +1,6 @@
-// tslint:disable:rxjs-finnish
+/* eslint-disable */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OkrChildUnitComponent } from './okr-child-unit.component';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { OkrChildUnitRoleService } from '../../../shared/services/helper/okr-child-unit-role.service';
@@ -63,7 +63,7 @@ describe('OkrChildUnitComponent', () => {
   const paramMapHasSpy: any = jest.fn();
 
   const route: any = {
-    // tslint:disable-next-line:no-object-literal-type-assertion
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     paramMap: of({
       get: paramMapGetSpy,
       getAll: paramMapGetAllSpy,
@@ -89,7 +89,7 @@ describe('OkrChildUnitComponent', () => {
   let okrBranch: OkrBranch;
 
   @Component({
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-state-column-view',
     template: ''
   })
@@ -99,7 +99,7 @@ describe('OkrChildUnitComponent', () => {
   }
 
   @Component({
-    // tslint:disable-next-line:component-selector
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-swimlane-view',
     template: ''
   })
@@ -108,7 +108,7 @@ describe('OkrChildUnitComponent', () => {
     @Input() isInteractive = false;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         OkrChildUnitComponent,

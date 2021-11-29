@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatCheckboxChange, MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/model/api/user';
@@ -12,6 +16,7 @@ import { CurrentUserService } from '../../../services/current-user.service';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import 'linq4js';
+import { environment } from '../../../../../environments/environment';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -23,24 +28,6 @@ export interface LocalUserManagementUser extends User {
   styleUrls: ['./user-management.component.scss']
 })
 export class UserManagementComponent implements OnInit {
-
-  private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
-  private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
-  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
-
-  columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
-  rowData = new MatTableDataSource([] as User[]);
-
-  showDeactivatedUsers: boolean = false;
-
-  constructor(
-    private currentUserService: CurrentUserService,
-    private dialog: MatDialog,
-    private router: Router,
-    private userService: LocalUserService,
-    private i18n: I18n
-  ) {
-  }
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -75,12 +62,24 @@ export class UserManagementComponent implements OnInit {
     value: 'Admin'
   });
 
-  private getUserCreationDialogData(): { data: UserDialogData } {
-    return {
-      data: {
-        title: 'Benutzer erstellen',
-      }
-    };
+  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
+
+  rowData = new MatTableDataSource([] as User[]);
+
+  showDeactivatedUsers: boolean = false;
+  isPlayground: boolean = environment.playground;
+
+  private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+  private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
+
+  constructor(
+    private currentUserService: CurrentUserService,
+    private dialog: MatDialog,
+    private router: Router,
+    private userService: LocalUserService,
+    private i18n: I18n
+  ) {
   }
 
   ngOnInit(): void {
@@ -121,58 +120,6 @@ export class UserManagementComponent implements OnInit {
       .subscribe((editedUser: LocalUserManagementUser) => {
         this.editUserInTable(userToEdit, editedUser);
       });
-  }
-
-  private updateUserAndRemoveAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
-    if (adminIds.Contains(editedUser.id)) {
-      return forkJoin([
-        this.userService.updateUser$(editedUser)
-          .pipe(map((user: LocalUserManagementUser) => {
-            user.isAdmin = false;
-
-            return user;
-          })),
-        this.userService.deleteAdmin$(editedUser.id)]
-      )
-        .pipe(map(([user, _]: [LocalUserManagementUser, boolean]) => user));
-    } else {
-      return this.userService.updateUser$(editedUser)
-        .pipe(map((user: LocalUserManagementUser) => {
-          user.isAdmin = adminIds.Contains(user.id);
-
-          return user;
-        }));
-    }
-  }
-
-  private updateUserAndSetToAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
-    if (!adminIds.Contains(editedUser.id)) {
-      return forkJoin([
-        this.userService.updateUser$(editedUser)
-          .pipe(map((user: LocalUserManagementUser) => {
-            user.isAdmin = true;
-
-            return user;
-          })),
-        this.userService.addAdmin$(editedUser)]
-      )
-        .pipe(map(([user, _]: [LocalUserManagementUser, User]) => user));
-    } else {
-      return this.userService.updateUser$(editedUser)
-        .pipe(map((user: LocalUserManagementUser) => {
-          user.isAdmin = adminIds.Contains(user.id);
-
-          return user;
-        }));
-    }
-  }
-
-  private editUserInTable(userToEdit: LocalUserManagementUser, editedUser: LocalUserManagementUser): void {
-    const indexOfUserToEdit: number = this.users$.getValue()
-      .indexOf(userToEdit);
-    const newList: LocalUserManagementUser[] = this.users$.getValue();
-    newList[indexOfUserToEdit] = editedUser;
-    this.users$.next(newList);
   }
 
   applyFilter(filterValue: string): void {
@@ -268,6 +215,93 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
+  navigateToCompanies(): void {
+    this.router.navigate(['/companies'])
+      .catch();
+  }
+
+  onShowDeactivatedUserChange($event: MatCheckboxChange): void {
+    this.showDeactivatedUsers = $event.checked;
+    this.filteredUsers$.next(this.filterUsers(this.users$.getValue()));
+  }
+
+  handleCsvImport(): void {
+    this.dialog.open(ImportCsvDialogComponent)
+      .afterClosed()
+      .pipe(
+        filter(v => v),
+        switchMap(users => {
+          return this.userService.bulkCreateUsers$(users);
+        }),
+      )
+      .subscribe(users => {
+        const localUsers: LocalUserManagementUser[] = users.map(user => {
+          return user as LocalUserManagementUser;
+        });
+        localUsers.forEach(user => this.addUserToTable(user));
+      });
+  }
+
+  private getUserCreationDialogData(): { data: UserDialogData } {
+    return {
+      data: {
+        title: 'Benutzer erstellen',
+      }
+    };
+  }
+
+  private updateUserAndRemoveAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+    if (adminIds.Contains(editedUser.id)) {
+      return forkJoin([
+        this.userService.updateUser$(editedUser)
+          .pipe(map((user: LocalUserManagementUser) => {
+            user.isAdmin = false;
+
+            return user;
+          })),
+        this.userService.deleteAdmin$(editedUser.id)]
+      )
+        .pipe(map(([user, _]: [LocalUserManagementUser, boolean]) => user));
+    } else {
+      return this.userService.updateUser$(editedUser)
+        .pipe(map((user: LocalUserManagementUser) => {
+          user.isAdmin = adminIds.Contains(user.id);
+
+          return user;
+        }));
+    }
+  }
+
+  private updateUserAndSetToAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+    if (!adminIds.Contains(editedUser.id)) {
+      return forkJoin([
+        this.userService.updateUser$(editedUser)
+          .pipe(map((user: LocalUserManagementUser) => {
+            user.isAdmin = true;
+
+            return user;
+          })),
+        this.userService.addAdmin$(editedUser)]
+      )
+        .pipe(map(([user, _]: [LocalUserManagementUser, User]) => user));
+    } else {
+      return this.userService.updateUser$(editedUser)
+        .pipe(map((user: LocalUserManagementUser) => {
+          user.isAdmin = adminIds.Contains(user.id);
+
+          return user;
+        }));
+    }
+  }
+
+  private editUserInTable(userToEdit: LocalUserManagementUser, editedUser: LocalUserManagementUser): void {
+    const indexOfUserToEdit: number = this.users$.getValue()
+      .indexOf(userToEdit);
+    const newList: LocalUserManagementUser[] = this.users$.getValue();
+    newList[indexOfUserToEdit] = editedUser;
+    this.users$.next(newList);
+  }
+
   private initializeUsers(): void {
     combineLatest([this.userService.getUsers$(), this.userService.getAdminIds$()])
       .pipe(
@@ -330,16 +364,6 @@ export class UserManagementComponent implements OnInit {
       );
   }
 
-  navigateToCompanies(): void {
-    this.router.navigate(['/companies'])
-      .catch();
-  }
-
-  onShowDeactivatedUserChange($event: MatCheckboxChange): void {
-    this.showDeactivatedUsers = $event.checked;
-    this.filteredUsers$.next(this.filterUsers(this.users$.getValue()));
-  }
-
   private filterUsers(users: LocalUserManagementUser[]): LocalUserManagementUser[] {
     let filteredUsers: LocalUserManagementUser[] = users;
 
@@ -348,23 +372,6 @@ export class UserManagementComponent implements OnInit {
     }
 
     return filteredUsers;
-  }
-
-  handleCsvImport(): void {
-    this.dialog.open(ImportCsvDialogComponent)
-      .afterClosed()
-      .pipe(
-        filter(v => v),
-        switchMap(users => {
-          return this.userService.bulkCreateUsers$(users);
-        }),
-      )
-      .subscribe(users => {
-        const localUsers: LocalUserManagementUser[] = users.map(user => {
-          return user as LocalUserManagementUser;
-        });
-        localUsers.forEach(user => this.addUserToTable(user));
-      });
   }
 
 }

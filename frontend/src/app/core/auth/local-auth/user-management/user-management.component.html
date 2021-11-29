@@ -7,7 +7,7 @@
   <span i18n="@@userManagementToolbarTitle">Benutzerverwaltung</span>
 </app-okr-toolbar>
 
-<div class="container">
+<div class="container footer-margin">
   <div class="row">
     <mat-card class="col-m-12 col-l-12 col-xl-10 col-s-12 col-centered">
       <mat-card-title>
@@ -21,11 +21,16 @@
           <mat-form-field class="form-whole-line col-11">
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
-          <button (click)="handleCreate()" class="col-1" color="accent" mat-mini-fab>
-            <mat-icon i18n-matTooltip="@@addNewUser" matTooltip="Neuen Benutzer erstellen">add_circle_outline</mat-icon>
+          <button (click)="handleCreate()" class="col-1" color="accent" mat-mini-fab [disabled]="isPlayground">
+            <mat-icon i18n-matTooltip="@@addNewUser"
+                      [matTooltip]="isPlayground
+                        ? 'Neuen Benutzer erstellen ⚠ Deaktiviert in der Demo Version'
+                        : 'Neuen Benutzer erstellen'">add_circle_outline</mat-icon>
           </button>
-          <button (click)="handleCsvImport()" class="col-1" color="accent" mat-mini-fab style="margin-left: 15px">
-            <mat-icon i18n-matTooltip="@@importUsersFromCsv" matTooltip="Benutzer aus CSV importieren">unarchive
+          <button (click)="handleCsvImport()" class="col-1" color="accent" mat-mini-fab style="margin-left: 15px" [disabled]="isPlayground">
+            <mat-icon i18n-matTooltip="@@importUsersFromCsv" [matTooltip]="isPlayground
+                        ? 'Benutzer aus CSV importieren ⚠ Deaktiviert in der Demo Version'
+                        : 'Benutzer aus CSV importieren'">unarchive
             </mat-icon>
           </button>
         </div>
@@ -34,7 +39,7 @@
           <ng-container matColumnDef="photo">
             <th *matHeaderCellDef mat-header-cell></th>
             <td *matCellDef="let user" mat-cell>
-              <app-user-avatar [user]="user" size="50"></app-user-avatar>
+              <app-user-avatar [user]="user" size="38"></app-user-avatar>
             </td>
           </ng-container>
           <ng-container matColumnDef="active">
@@ -74,7 +79,9 @@
               </button>
               <button (click)="handleDeactivate(user)" *ngIf="currentUser$.getValue().id !== user.id && user.active" i18n-matToolTip="@@deactivateUser"
                       mat-icon-button
-                      matTooltip="Benutzer deaktivieren">
+                      [matTooltip]="isPlayground
+                        ? 'Benutzer deaktivieren ⚠ Deaktiviert in der Demo Version'
+                        : 'Benutzer deaktivieren'" [disabled]="isPlayground" >
                 <mat-icon>delete</mat-icon>
               </button>
               <button (click)="handleActivate(user)" *ngIf="currentUser$.getValue().id !== user.id && !user.active" i18n-matToolTip="@@activateUser"

@@ -47,7 +47,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     expect(service)
       .toBeTruthy();
@@ -57,7 +57,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     service.getCurrentCycleList$()
       .subscribe(() => {
@@ -72,7 +72,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     service.getCurrentCycleList$()
       .subscribe((cycleList: CycleUnit[]) => {
@@ -86,7 +86,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(null));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(null));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     service.getCurrentCycleList$()
       .subscribe(() => {
@@ -102,7 +102,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of([]));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     service.getCurrentCycleList$()
       .subscribe((cycleList: CycleUnit[]) => {
@@ -116,7 +116,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(cycleUnitsMock));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     service.getCurrentCycle$()
       .subscribe((cycle: CycleUnit) => {
@@ -130,7 +130,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(null));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of(null));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     service.getCurrentCycle$()
       .subscribe(() => {
@@ -146,7 +146,7 @@ describe('CurrentCycleService', () => {
     currentCompanyServiceMock.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
     cycleMapperMock.getCyclesOfCompany$.mockReturnValue(of([]));
 
-    const service: CurrentCycleService = TestBed.get(CurrentCycleService);
+    const service: CurrentCycleService = TestBed.inject(CurrentCycleService);
 
     service.getCurrentCycle$()
       .subscribe(() => {

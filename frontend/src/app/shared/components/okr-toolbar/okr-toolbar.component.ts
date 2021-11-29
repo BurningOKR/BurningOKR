@@ -3,7 +3,7 @@ import { switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { VersionFormComponent } from '../../../core/version-form/version-form.component';
 import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/change-password-dialog/change-password-dialog.component';
 import { Observable } from 'rxjs';
@@ -14,6 +14,7 @@ import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { ConfigurationService } from '../../../core/settings/configuration.service';
 import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 import { SettingsFormComponent } from '../../../core/settings/settings-form/settings-form.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -27,8 +28,7 @@ export class OkrToolbarComponent implements OnInit {
   isCurrentUserAdmin$: Observable<boolean>;
   isLocalUserbase$: Observable<boolean>;
   hasMailConfigured$: Observable<boolean>;
-
-  changeMenuCheck: boolean = false;
+  isPlayground: boolean = environment.playground;
 
   constructor(
     private router: Router,
@@ -61,7 +61,7 @@ export class OkrToolbarComponent implements OnInit {
     this.currentCompanyService.getCurrentCompany$()
       .pipe(take(1))
       .subscribe((currentCompany: CompanyUnit) => {
-        this.router.navigate([`cycle-admin/`, currentCompany.id]);
+        this.router.navigate(['cycle-admin/', currentCompany.id]);
       });
   }
 
@@ -76,13 +76,5 @@ export class OkrToolbarComponent implements OnInit {
     this.dialog.open(ChangePasswordDialogComponent, {disableClose: true})
       .afterClosed()
       .subscribe();
-  }
-
-  // change menu
-  changeMenuToUser(): void {
-    this.changeMenuCheck = true;
-  }
-  changeMenuToMenu(): void {
-    this.changeMenuCheck = false;
   }
 }

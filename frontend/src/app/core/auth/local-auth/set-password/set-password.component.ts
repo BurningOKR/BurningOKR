@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PasswordResetData, PasswordService } from '../password-service/password.service';
 import { take } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 
@@ -16,12 +16,12 @@ export class SetPasswordComponent implements OnInit {
 
   emailIdentifier: string;
   newPasswordForm: FormGroup;
+  submitted: boolean = false;
   private passwordSuccessfullyChangedMessage: string = this.i18n({
     id: 'passwordChangedSuccessfully',
     description: 'message to be shown after a password was changed successfully',
     value: 'Passwort erfolgreich geändert ✅'
   });
-  submitted: boolean = false;
 
   constructor(
     private passwordService: PasswordService,
@@ -29,7 +29,8 @@ export class SetPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private matSnackBar: MatSnackBar,
     private i18n: I18n
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.emailIdentifier = this.route.snapshot.paramMap.get('emailIdentifier');
@@ -56,10 +57,12 @@ export class SetPasswordComponent implements OnInit {
 
   private displaySuccessSnackBarAndRedirectToLogin(): void {
     this.router.navigate(['/auth/login']);
-    setTimeout(() => {    this.matSnackBar.open(this.passwordSuccessfullyChangedMessage, undefined, {
-      verticalPosition: 'top',
-      duration: 3500
-    }); }, 100);  // setTimeout is needed to navigate in non chromium based browsers /TG 09.03.2020
+    setTimeout(() => {
+      this.matSnackBar.open(this.passwordSuccessfullyChangedMessage, undefined, {
+        verticalPosition: 'top',
+        duration: 3500
+      });
+    }, 100);  // setTimeout is needed to navigate in non chromium based browsers /TG 09.03.2020
   }
 
   private getPasswordResetData(): PasswordResetData {

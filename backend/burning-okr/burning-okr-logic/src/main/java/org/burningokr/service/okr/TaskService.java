@@ -151,7 +151,6 @@ public class TaskService {
     logger.info("updateTaskWithPositioning - Validation");
     TaskValidator taskValidator = new TaskValidator();
     newPreviousTask = taskValidator.validateTask(newVersion, taskRepository);
-    logTask(newPreviousTask);
 
     // neuer Nachfolger: referenziert auf den neuen Vorgänger des verschobenen Tasks
     // gegeben sind nun der neue Vorgänger und der neue Nachfolger

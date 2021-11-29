@@ -3,6 +3,7 @@ package org.burningokr.controller.initialisation;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
+import org.burningokr.annotation.TurnOff;
 import org.burningokr.dto.configuration.OAuthClientDetailsDto;
 import org.burningokr.dto.initialisation.AdminAccountInitialisationDto;
 import org.burningokr.dto.initialisation.InitStateDto;
@@ -59,6 +60,7 @@ public class InitController {
    * @return the new InitState
    */
   @PostMapping("/init/oauth-server")
+  @TurnOff
   public ResponseEntity<InitStateDto> setOauthServerSettings(
       @Valid @RequestBody OAuthClientDetailsDto oauthClientDetailsDto) {
 
@@ -76,6 +78,7 @@ public class InitController {
    * @return the new InitState
    */
   @PostMapping("/init/admin-account")
+  @TurnOff
   public ResponseEntity<InitStateDto> setAdminAccount(
       @Valid @RequestBody AdminAccountInitialisationDto adminAccountInitialisationDto) {
 
@@ -93,6 +96,7 @@ public class InitController {
    * @return the new InitState
    */
   @PostMapping("/init/azure-admin-user")
+  @TurnOff
   public ResponseEntity<InitStateDto> setAdminAzureAdminUser(
       @Valid @RequestBody AdminUser adminUser) {
 

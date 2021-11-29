@@ -1,0 +1,10 @@
+@import '../../../styles/themes/bag-theme.scss';
+
+
+a {
+  text-decoration: none;
+}
+
+a, a:visited{
+  color: $bag-theme-black;
+}
