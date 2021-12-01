@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
@@ -51,6 +51,8 @@ import { SubmittedTopicDraftEditComponent } from './submitted-topic-drafts/submi
 import { OkrviewModule } from './okrview/okrview.module';
 import { NgwWowModule } from 'ngx-wow';
 import { DemoModule } from './demo/demo.module';
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
 // use the require method provided by webpack
 declare const require: any;
@@ -61,6 +63,10 @@ registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEn, 'de', localeEnExtra);
 
 const currentLanguage: string = 'de';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -106,7 +112,15 @@ const currentLanguage: string = 'de';
     MatDatepickerModule,
     OkrviewModule,
     NgwWowModule,
-    DemoModule
+    DemoModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'en'
+    })
   ],
   providers: [
     OAuthFrontendDetailsService,

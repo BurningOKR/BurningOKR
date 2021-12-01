@@ -7,6 +7,20 @@
 
     <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
 
+    <mat-form-field>
+      <mat-select-trigger>
+        <small>Select Language </small> <br>
+      </mat-select-trigger>
+      <mat-select (selectionChange)="languageChanged($event)" [value]="this.translateService.currentLang">
+        <mat-option value="en">
+          English
+        </mat-option>
+        <mat-option value="de">
+          Deutsch
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
       <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
       <br>
@@ -33,6 +47,7 @@
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
+
 <div class="toolbar-spacer"></div>
 
 <!-- Interactions menu -->
@@ -41,6 +56,7 @@
     <mat-icon>timer</mat-icon>
     <app-reset-countdown></app-reset-countdown>
   </button>
+
 
   <!-- show menu settings-->
   <ng-container *ngIf="(isLocalUserbase$ | async) === false && isPlayground === false">

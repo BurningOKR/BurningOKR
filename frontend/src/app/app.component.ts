@@ -3,6 +3,7 @@ import { AuthenticationService } from './core/auth/services/authentication.servi
 import { FetchingService } from './core/services/fetching.service';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -15,13 +16,18 @@ export class AppComponent {
 
   constructor(private authService: AuthenticationService,
               private fetchingService: FetchingService,
-              private router: Router) {
+              private router: Router,
+              translateService: TranslateService) {
 
     this.authService.configure()
       .then(() => {
         this.fetchingService.refetchAll();
       });
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translateService.setDefaultLang('en');
 
+    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    translateService.use('en');
   }
 
   checkIfUserIsLoggedIn(): boolean {
