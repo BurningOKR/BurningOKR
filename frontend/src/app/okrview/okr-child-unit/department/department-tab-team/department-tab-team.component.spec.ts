@@ -273,7 +273,7 @@ describe('DepartmentTabTeamComponent', () => {
       expect(departmentMapperMock.putDepartment$)
         .toHaveBeenCalled();
       expect(component.department.okrMasterId)
-        .toBeUndefined();
+        .toBeNull();
       done();
     }, 200);
   });
@@ -324,7 +324,7 @@ describe('DepartmentTabTeamComponent', () => {
       expect(departmentMapperMock.putDepartment$)
         .toHaveBeenCalled();
       expect(component.department.okrTopicSponsorId)
-        .toBeUndefined();
+        .toBeNull();
       done();
     }, 200);
   });

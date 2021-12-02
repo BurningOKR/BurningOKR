@@ -11,6 +11,14 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.3.11 (29.11.2021)',
+      changes: [
+        'Integrated the Demo-Version and the Production-Version',
+        'Upgraded to Angular 12',
+        'Added Build-Script for Demo-Version'
+      ]
+    },
+    {
       version: '1.3.10 (06.10.2021)',
       changes: [
           'Fixed a bug regarding the task board'

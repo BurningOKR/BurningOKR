@@ -13,11 +13,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Read package version
       run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
-      env: 
+      env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     - name: Read changelog
       run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo ::set-env name=CHANGELOG::$CHANGELOG
-      env: 
+      env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
@@ -38,7 +38,7 @@ jobs:
     - name: Npm Setup
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '16.x'
     - name: Npm Install
       run: npm install
       working-directory: ./frontend
@@ -59,6 +59,13 @@ jobs:
       run: zip -r frontend-en.zip ./frontend/dist
     - name: Clean Frontend Build Directory
       run: rm -r ./frontend/dist
+    - name: Npm Build Demo
+      run: npm run build-demo
+      working-directory: ./frontend
+    - name: Zip Demo Frontend
+      run: zip -r frontend-demo.zip ./frontend/dist
+    - name: Clean Frontend Build Directory
+      run: rm -r ./frontend/dist
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -75,17 +82,17 @@ jobs:
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with: 
+      with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
-        asset_content_type: application/jar 
+        asset_content_type: application/jar
     - name: Upload Release War
       id: upload-release-war
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with: 
+      with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.war
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.war
@@ -95,7 +102,7 @@ jobs:
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with: 
+      with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./frontend-de.zip
         asset_name: frontend-de.zip
@@ -110,4 +117,13 @@ jobs:
         asset_path: ./frontend-en.zip
         asset_name: frontend-en.zip
         asset_content_type: application/zip
-
+    - name: Upload Release Demo Frontend Zip
+      id: upload-release-demo-zip-en
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./frontend-demo.zip
+        asset_name: frontend-demo.zip
+        asset_content_type: application/zip
