@@ -5,5 +5,6 @@
 	"okr-toolbar.language-selector.select-trigger-text": "Sprache wählen",
 	"okr-toolbar.tooltip.menue": "Menü",
 	"okr-toolbar.warning.no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
-	"okr-toolbar.warning.no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert."
+	"okr-toolbar.warning.no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert.",
+	"okr-units.okr-unit-dashboard.unit-overview": "Strukturübersicht"
 }
