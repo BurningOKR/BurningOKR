@@ -1,4 +1,5 @@
 {
+	"main-view.navigation-sidebar.cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
 	"add-child-unit-button.okr-team": "OKR Team",
 	"add-child-unit-button.substructure": "Substructure",
 	"add-child-unit-button.tooltip.add-new-child-unit": "Define new substructure",
@@ -13,8 +14,8 @@
 	"company.tooltip.more-options-for-structure": "More options on this structure",
 	"company.your-teams-as-manager": "Your teams as managers",
 	"company.your-teams-as-member": "Your teams as a member",
-	"main-view.navigation-sidebar.cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
-	"main-view.navigation-sidebar.cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent.",
+  "feedback-button.button-icon.tooltip": "Feedback",
+  "main-view.navigation-sidebar.cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent.",
 	"main-view.tooltip.adjust-cycleperiod": "Adjust the observation period",
 	"main-view.tooltip.go-to-structure-view": "To the structure overview",
 	"main-view.tooltip.toogle-navigvation": "Show / hide navigation menu",

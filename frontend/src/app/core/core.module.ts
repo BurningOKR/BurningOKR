@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FeedbackButtonComponent } from './feedback/feedback-button/feedback-button.component';
 import { FlexModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
@@ -22,6 +23,7 @@ import { LocalAuthModule } from './auth/local-auth/local-auth.module';
 import { LandingPageNavigationComponent } from './landing-page-router/landing-page-navigation.component';
 import { SettingsFormComponent } from './settings/settings-form/settings-form.component';
 import { UserSettingsComponent } from './settings/settings-form/user-settings/user-settings.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { UserSettingsComponent } from './settings/settings-form/user-settings/us
   imports: [
     MatInputModule,
     MatIconModule,
+    MatTooltipModule,
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
@@ -54,7 +57,8 @@ import { UserSettingsComponent } from './settings/settings-form/user-settings/us
     RouterModule,
     MatRippleModule,
     LocalAuthModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    TranslateModule,
   ]
 })
 export class CoreModule {
