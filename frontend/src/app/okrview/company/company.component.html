@@ -6,7 +6,7 @@
       <mat-card class="card-size card-margin">
         <div class="company-title overflow-ellipsis">{{ companyView.company.name }}
           <button mat-icon-button [matMenuTriggerFor]="optionsMenu" class="more-button">
-            <mat-icon i18n-matTooltip="@@component_company_moreOptions" matTooltip="Mehr Optionen zu dieser Struktur">
+            <mat-icon matTooltip="{{'company.tooltip.more-options-for-structure' | translate}}">
               more_vert
             </mat-icon>
           </button>
@@ -18,8 +18,7 @@
 
         <ng-container *ngIf="roleDepartmentIds$ | async; let roleDepartmentIds">
           <div *ngIf="roleDepartmentIds.currentlyManagerDepartmentIds.length > 0">
-            <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsManager">Ihre Teams als Manager
-            </div>
+            <div class="tab-subtitle">{{'company.your-teams-as-manager' | translate}}</div>
             <div class="flex-wrap-spreadinner">
               <div *ngFor="let managerDepartmentId of roleDepartmentIds.currentlyManagerDepartmentIds">
                 <app-okr-child-unit-preview-button [unitId]="managerDepartmentId"></app-okr-child-unit-preview-button>
@@ -30,8 +29,7 @@
           <mat-divider></mat-divider>
 
           <div *ngIf="roleDepartmentIds.currentlyMemberDepartmentIds.length > 0">
-            <div class="tab-subtitle" i18n="@@component_commentViewDialog_yourTeamAsMember">Ihre Teams als Mitglied
-            </div>
+            <div class="tab-subtitle">{{'company.your-teams-as-member' | translate}}</div>
             <div class="flex-wrap-spreadinner">
               <div *ngFor="let memberDepartmentId of roleDepartmentIds.currentlyMemberDepartmentIds">
                 <app-okr-child-unit-preview-button [unitId]="memberDepartmentId"></app-okr-child-unit-preview-button>
@@ -45,7 +43,7 @@
             <!-- Tab title and add subdepartments buton-->
             <div class="flex-nowrap">
               <div class="f-3">
-                <div class="tab-headline" i18n="@@capitalized_substructures">Unterstrukturen</div>
+                <div class="tab-headline">{{'company.substructures' | translate}}</div>
               </div>
               <div class="icon-spacer f-1">
                 <app-add-child-unit-button [userRole]="currentUserRole$ | async"
@@ -57,8 +55,7 @@
               </div>
             </div>
             <!-- Subdepartments -->
-            <div *ngIf="companyView.company.okrChildUnitIds.length === 0" class="tab-subtitle"
-                 i18n="@@component_commentViewDialog_noChildUnit">Es gibt noch keine Unterstrukturen für diese Struktur</div>
+            <div *ngIf="companyView.company.okrChildUnitIds.length === 0" class="tab-subtitle">{{'company.no-child-units' | translate}}</div>
             <div class="flex-wrap-spreadinner">
               <div *ngFor="let currentdepartmentId of companyView.company.okrChildUnitIds">
                 <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
@@ -75,11 +72,11 @@
       <ng-template matMenuContent>
         <button mat-menu-item (click)="clickedDownloadExcelFileForCompany(companyView.company)">
           <mat-icon>save_alt</mat-icon>
-          <span i18n="@@capitalised_export">Exportieren</span>
+          <span>{{'company.menu.export' | translate}}</span>
         </button>
         <button mat-menu-item (click)="clickedDownloadExcelEmailFileForCompany(companyView.company)">
           <mat-icon>save_alt</mat-icon>
-          <span i18n="@@export_contacts">Kontakte exportieren</span>
+          <span i18n=>{{'company.menu.export-contacts' | translate}}</span>
         </button>
       </ng-template>
     </mat-menu>
@@ -87,16 +84,14 @@
 </ng-container>
 
 <ng-template #loading>
-  <h3 i18n="@@component_commentViewDialog_loadingCompany" class="card-margin">Lade Firma...</h3>
+  <h3 class="card-margin">{{'company.loading-company' | translate}}</h3>
 </ng-template>
 
 <ng-template #error>
   <div class="card-margin">
-    <h3 i18n="@@component_commentViewDialog_errorLoadingCompany">Fehler</h3>
-    <p i18n="@@component_commentViewDialog_errorLoadingCompanyText">Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.</p>
-    <button mat-button mat-raised-button color="primary" routerLink="/companies"
-            i18n="@@component_commentViewDialog_errorLoadingCompanyButton">Zur Strukturübersicht
-    </button>
+    <h3>{{'company.error.error' | translate}}</h3>
+    <p>{{'company.error.error-loading-company' | translate}}</p>
+    <button mat-button mat-raised-button color="primary" routerLink="/companies">{{'company.error.navigate-to-structure-view' | translate}}</button>
   </div>
 
 </ng-template>
