@@ -14,5 +14,6 @@
 	"okr-toolbar.return-to-demo-text": "Home",
 	"okr-toolbar.tooltip.menue": "Menu",
 	"okr-toolbar.warning.no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
-	"okr-toolbar.warning.no-smtp-text": "Warning: No SMTP server has been configured."
+	"okr-toolbar.warning.no-smtp-text": "Warning: No SMTP server has been configured.",
+	"okr-units.okr-unit-dashboard.unit-overview": "Structure Overview"
 }
