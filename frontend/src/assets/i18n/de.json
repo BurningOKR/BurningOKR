@@ -1,3 +1,9 @@
 {
-  "HELLO": "Dies ist nun wirklich ein gelungener Test"
+	"okr-toolbar.admin-icon.tooltip.is-admin": "Als Admin autorisiert",
+	"okr-toolbar.language-selector.language.english": "Englisch",
+	"okr-toolbar.language-selector.language.german": "Deutsch",
+	"okr-toolbar.language-selector.select-trigger-text": "Sprache wählen",
+	"okr-toolbar.tooltip.menue": "Menü",
+	"okr-toolbar.warning.no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
+	"okr-toolbar.warning.no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert."
 }
