@@ -15,5 +15,14 @@
 	"okr-toolbar.tooltip.menue": "Menü",
 	"okr-toolbar.warning.no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
 	"okr-toolbar.warning.no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert.",
-	"okr-units.okr-unit-dashboard.unit-overview": "Strukturübersicht"
+	"okr-unit-card.mat-card-actions.delete": "Struktur löschen ",
+	"okr-unit-card.mat-card-actions.edit-name": "Namen bearbeiten",
+	"okr-unit-card.mat-card-actions.tooltip.delete-unit": "Struktur löschen",
+	"okr-unit-card.mat-card-actions.tooltip.edit-unit-name": "Namen der Struktur bearbeiten",
+	"okr-unit-card.mat-card-subtitle.unit-structure": "Firmenstruktur",
+	"okr-unit-dashboard.add-unit": "Struktur hinzufügen",
+	"okr-unit-dashboard.okr-toolbar.unit-overview": "Strukturübersicht",
+	"okr-unit-dashboard.tooltip.add-unit": "Neue Struktur hinzufügen ",
+	"okr-unit-form.placeholder.label": "Bezeichnung *",
+	"okr-unit-form.placeholder.name": "Name *"
 }

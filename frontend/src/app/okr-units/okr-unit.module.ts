@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { OkrUnitFormComponent } from './okr-unit-form/okr-unit-form.component';
 import { DemoModule } from '../demo/demo.module';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -25,25 +26,26 @@ import { DemoModule } from '../demo/demo.module';
     OkrUnitDashboardComponent,
     OkrUnitFormComponent,
   ],
-  imports: [
-    SharedModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    FormsModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatCardModule,
-    MatTooltipModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatAutocompleteModule,
-    MatMenuModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    DemoModule,
-  ],
+    imports: [
+        SharedModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        FormsModule,
+        MatDatepickerModule,
+        MatIconModule,
+        MatCardModule,
+        MatTooltipModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatAutocompleteModule,
+        MatMenuModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        DemoModule,
+        TranslateModule,
+    ],
   entryComponents: [
     OkrUnitFormComponent,
   ]

@@ -15,5 +15,14 @@
 	"okr-toolbar.tooltip.menue": "Menu",
 	"okr-toolbar.warning.no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
 	"okr-toolbar.warning.no-smtp-text": "Warning: No SMTP server has been configured.",
-	"okr-units.okr-unit-dashboard.unit-overview": "Structure Overview"
+	"okr-unit-card.mat-card-actions.delete": "Delete structure",
+	"okr-unit-card.mat-card-actions.edit-name": "Edit Name",
+	"okr-unit-card.mat-card-actions.tooltip.delete-unit": "Delete structure",
+	"okr-unit-card.mat-card-actions.tooltip.edit-unit-name": "Edit the name of the structure",
+	"okr-unit-card.mat-card-subtitle.unit-structure": "Company structure",
+	"okr-unit-dashboard.add-unit": "Add structure",
+	"okr-unit-dashboard.okr-toolbar.unit-overview": "Structure Overview",
+	"okr-unit-dashboard.tooltip.add-unit": "Add new structure",
+	"okr-unit-form.placeholder.label": "label *",
+	"okr-unit-form.placeholder.name": "name *"
 }

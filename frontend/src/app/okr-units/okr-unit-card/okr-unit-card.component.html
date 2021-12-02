@@ -27,24 +27,24 @@
       </ng-template>
     </mat-card-title>
     <mat-card-subtitle>
-      <span i18n="@@component_unitCard_companyUnit">Firmenstruktur - {{company.label}}</span>
+      <span >{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate }} - {{company.label}}</span>
     </mat-card-subtitle>
   </span>
   <mat-card-actions class="item-actions">
     <!-- Die stopProgation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird -->
     <span [matTooltip]="isCurrentUserAdmin ? '':'Admin Autorität erforderlich'">
     <button [disabled]=!isCurrentUserAdmin mat-stroked-button (click)="$event.stopPropagation(); editCompany()"
-            [matTooltipDisabled]="!this.isCurrentUserAdmin" i18n-matTooltip="@@editUnitName"
-            matTooltip="Namen der Struktur bearbeiten">
+            [matTooltipDisabled]="!this.isCurrentUserAdmin"
+            matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.edit-unit-name' | translate }}">
       <mat-icon>edit</mat-icon>
-      <span i18n="@@component_unitCard_editName">Namen bearbeiten</span>
+      <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate }}</span>
     </button>
     <button
       [disabled]="!isCurrentUserAdmin || isPlayground" mat-stroked-button (click)="$event.stopPropagation(); deleteCompany()"
-            [matTooltipDisabled]="!this.isCurrentUserAdmin" i18n-matTooltip="@@component_department_deleteUnit"
-            matTooltip="Struktur löschen">
+            [matTooltipDisabled]="!this.isCurrentUserAdmin"
+            matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.delete-unit' | translate}}">
       <mat-icon>delete</mat-icon>
-      <span i18n="@@component_department_deleteUnit">Struktur löschen</span>
+      <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
     </button>
   </span>
 
