@@ -1,48 +1,104 @@
 {
-	"main-view.navigation-sidebar.cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
-	"add-child-unit-button.okr-team": "OKR Team",
-	"add-child-unit-button.substructure": "Substructure",
-	"add-child-unit-button.tooltip.add-new-child-unit": "Define new substructure",
-	"company.error.error": "Error",
-	"company.error.error-loading-company": "The company could not be loaded. It could have been deleted by another user or the server is not responding.",
-	"company.error.navigate-to-structure-view": "To the structure overview",
-	"company.loading-company": "Loading company ...",
-	"company.menu.export": "Export",
-	"company.menu.export-contacts": "Export contacts",
-	"company.no-child-units": "There are no substructures for this structure yet",
-	"company.substructures": "Substructures",
-	"company.tooltip.more-options-for-structure": "More options on this structure",
-	"company.your-teams-as-manager": "Your teams as managers",
-	"company.your-teams-as-member": "Your teams as a member",
-  "feedback-button.button-icon.tooltip": "Feedback",
-  "main-view.navigation-sidebar.cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent.",
-	"main-view.tooltip.adjust-cycleperiod": "Adjust the observation period",
-	"main-view.tooltip.go-to-structure-view": "To the structure overview",
-	"main-view.tooltip.toogle-navigvation": "Show / hide navigation menu",
-	"okr-toolbar.admin-icon.tooltip.is-admin": "Authorized as admin",
-	"okr-toolbar.language-selector.language.english": "English",
-	"okr-toolbar.language-selector.language.german": "German",
-	"okr-toolbar.language-selector.select-trigger-text": "Select Language",
-	"okr-toolbar.main-page": "Home",
-	"okr-toolbar.menu.admin-panel-text": "Admin panel",
-	"okr-toolbar.menu.change-password-text": "Change password",
-	"okr-toolbar.menu.cycle-administration-text": "Cycle management",
-	"okr-toolbar.menu.logout-text": "Logout",
-	"okr-toolbar.menu.settings-text": "Settings",
-	"okr-toolbar.menu.topic-drafts-text": "Topic drafts",
-	"okr-toolbar.menu.user-managment-text": "User management",
-	"okr-toolbar.return-to-demo-text": "Home",
-	"okr-toolbar.tooltip.menue": "Menu",
-	"okr-toolbar.warning.no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
-	"okr-toolbar.warning.no-smtp-text": "Warning: No SMTP server has been configured.",
-	"okr-unit-card.mat-card-actions.delete": "Delete structure",
-	"okr-unit-card.mat-card-actions.edit-name": "Edit Name",
-	"okr-unit-card.mat-card-actions.tooltip.delete-unit": "Delete structure",
-	"okr-unit-card.mat-card-actions.tooltip.edit-unit-name": "Edit the name of the structure",
-	"okr-unit-card.mat-card-subtitle.unit-structure": "Company structure",
-	"okr-unit-dashboard.add-unit": "Add structure",
-	"okr-unit-dashboard.okr-toolbar.unit-overview": "Structure Overview",
-	"okr-unit-dashboard.tooltip.add-unit": "Add new structure",
-	"okr-unit-form.placeholder.label": "label *",
-	"okr-unit-form.placeholder.name": "name *"
+	"add-child-unit-button": {
+		"okr-team": "OKR Team",
+		"substructure": "Substructure",
+		"tooltip": {
+			"add-new-child-unit": "Define new substructure"
+		}
+	},
+	"company": {
+		"error": {
+			"error": "Error",
+			"error-loading-company": "The company could not be loaded. It could have been deleted by another user or the server is not responding.",
+			"navigate-to-structure-view": "To the structure overview"
+		},
+		"loading-company": "Loading company ...",
+		"menu": {
+			"export": "Export",
+			"export-contacts": "Export contacts"
+		},
+		"no-child-units": "There are no substructures for this structure yet",
+		"substructures": "Substructures",
+		"tooltip": {
+			"more-options-for-structure": "More options on this structure"
+		},
+		"your-teams-as-manager": "Your teams as managers",
+		"your-teams-as-member": "Your teams as a member"
+	},
+	"feedback-button": {
+		"button-icon": {
+			"tooltip": "Feedback"
+		}
+	},
+	"main-view": {
+		"navigation-sidebar": {
+			"cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
+			"cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent."
+		},
+		"tooltip": {
+			"adjust-cycleperiod": "Adjust the observation period",
+			"go-to-structure-view": "To the structure overview",
+			"toogle-navigvation": "Show / hide navigation menu"
+		}
+	},
+	"okr-toolbar": {
+		"admin-icon": {
+			"tooltip": {
+				"is-admin": "Authorized as admin"
+			}
+		},
+		"language-selector": {
+			"language": {
+				"english": "English",
+				"german": "German"
+			},
+			"select-trigger-text": "Select Language"
+		},
+		"main-page": "Home",
+		"menu": {
+			"admin-panel-text": "Admin panel",
+			"change-password-text": "Change password",
+			"cycle-administration-text": "Cycle management",
+			"logout-text": "Logout",
+			"settings-text": "Settings",
+			"topic-drafts-text": "Topic drafts",
+			"user-managment-text": "User management"
+		},
+		"return-to-demo-text": "Home",
+		"tooltip": {
+			"menue": "Menu"
+		},
+		"warning": {
+			"no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
+			"no-smtp-text": "Warning: No SMTP server has been configured."
+		}
+	},
+	"okr-unit-card": {
+		"mat-card-actions": {
+			"delete": "Delete structure",
+			"edit-name": "Edit Name",
+			"tooltip": {
+				"delete-unit": "Delete structure",
+				"edit-unit-name": "Edit the name of the structure"
+			}
+		},
+		"mat-card-subtitle": {
+			"unit-structure": "Company structure"
+		}
+	},
+	"okr-unit-dashboard": {
+		"add-unit": "Add structure",
+		"okr-toolbar": {
+			"unit-overview": "Structure Overview"
+		},
+		"tooltip": {
+			"add-unit": "Add new structure"
+		}
+	},
+	"okr-unit-form": {
+		"placeholder": {
+			"label": "label *",
+			"name": "name *"
+		}
+	}
 }

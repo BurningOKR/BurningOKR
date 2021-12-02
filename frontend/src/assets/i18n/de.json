@@ -1,48 +1,104 @@
 {
-	"add-child-unit-button.okr-team": "OKR Team",
-	"add-child-unit-button.substructure": "Unterstruktur",
-	"add-child-unit-button.tooltip.add-new-child-unit": "Neue Unterstruktur definieren",
-	"company.error.error": "Fehler",
-	"company.error.error-loading-company": "Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.",
-	"company.error.navigate-to-structure-view": "Zur Strukturübersicht",
-	"company.loading-company": "Lade Firma...",
-	"company.menu.export": "Exportieren",
-	"company.menu.export-contacts": "Kontakte exportieren",
-	"company.no-child-units": "Es gibt noch keine Unterstrukturen für diese Struktur",
-	"company.substructures": "Unterstrukturen",
-	"company.tooltip.more-options-for-structure": "Mehr Optionen zu dieser Struktur",
-	"company.your-teams-as-manager": "Ihre Teams als Manager",
-	"company.your-teams-as-member": "Ihre Teams als Mitglied",
-	"main-view.navigation-sidebar.cycle-not-started": "Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung bearbeitet werden.",
-  "feedback-button.button-icon.tooltip": "Feedback",
-	"main-view.navigation-sidebar.cycle-started": "Dieser Zyklus ist bereits abgelaufen und daher geschlossen - Bearbeitung ist nur begrenzt möglich.",
-	"main-view.tooltip.adjust-cycleperiod": "Betrachtungszeitraum anpassen",
-	"main-view.tooltip.go-to-structure-view": "Zur Strukturübersicht",
-	"main-view.tooltip.toogle-navigvation": "Navigationsmenü anzeigen/verbergen",
-	"okr-toolbar.admin-icon.tooltip.is-admin": "Als Admin autorisiert",
-	"okr-toolbar.language-selector.language.english": "Englisch",
-	"okr-toolbar.language-selector.language.german": "Deutsch",
-	"okr-toolbar.language-selector.select-trigger-text": "Sprache wählen",
-	"okr-toolbar.main-page": "Hauptseite",
-	"okr-toolbar.menu.admin-panel-text": "Admin Panel",
-	"okr-toolbar.menu.change-password-text": "Passwort ändern",
-	"okr-toolbar.menu.cycle-administration-text": "Zyklusverwaltung",
-	"okr-toolbar.menu.logout-text": "Logout",
-	"okr-toolbar.menu.settings-text": "Einstellungen",
-	"okr-toolbar.menu.topic-drafts-text": "Themenentwürfe",
-	"okr-toolbar.menu.user-managment-text": "Nutzerverwaltung",
-	"okr-toolbar.return-to-demo-text": "Hauptseite",
-	"okr-toolbar.tooltip.menue": "Menü",
-	"okr-toolbar.warning.no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
-	"okr-toolbar.warning.no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert.",
-	"okr-unit-card.mat-card-actions.delete": "Struktur löschen ",
-	"okr-unit-card.mat-card-actions.edit-name": "Namen bearbeiten",
-	"okr-unit-card.mat-card-actions.tooltip.delete-unit": "Struktur löschen",
-	"okr-unit-card.mat-card-actions.tooltip.edit-unit-name": "Namen der Struktur bearbeiten",
-	"okr-unit-card.mat-card-subtitle.unit-structure": "Firmenstruktur",
-	"okr-unit-dashboard.add-unit": "Struktur hinzufügen",
-	"okr-unit-dashboard.okr-toolbar.unit-overview": "Strukturübersicht",
-	"okr-unit-dashboard.tooltip.add-unit": "Neue Struktur hinzufügen ",
-	"okr-unit-form.placeholder.label": "Bezeichnung *",
-	"okr-unit-form.placeholder.name": "Name *"
+	"add-child-unit-button": {
+		"okr-team": "OKR Team",
+		"substructure": "Unterstruktur",
+		"tooltip": {
+			"add-new-child-unit": "Neue Unterstruktur definieren"
+		}
+	},
+	"company": {
+		"error": {
+			"error": "Fehler",
+			"error-loading-company": "Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.",
+			"navigate-to-structure-view": "Zur Strukturübersicht"
+		},
+		"loading-company": "Lade Firma...",
+		"menu": {
+			"export": "Exportieren",
+			"export-contacts": "Kontakte exportieren"
+		},
+		"no-child-units": "Es gibt noch keine Unterstrukturen für diese Struktur",
+		"substructures": "Unterstrukturen",
+		"tooltip": {
+			"more-options-for-structure": "Mehr Optionen zu dieser Struktur"
+		},
+		"your-teams-as-manager": "Ihre Teams als Manager",
+		"your-teams-as-member": "Ihre Teams als Mitglied"
+	},
+	"feedback-button": {
+		"button-icon": {
+			"tooltip": "Feedback"
+		}
+	},
+	"main-view": {
+		"navigation-sidebar": {
+			"cycle-not-started": "Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung bearbeitet werden.",
+			"cycle-started": "Dieser Zyklus ist bereits abgelaufen und daher geschlossen - Bearbeitung ist nur begrenzt möglich."
+		},
+		"tooltip": {
+			"adjust-cycleperiod": "Betrachtungszeitraum anpassen",
+			"go-to-structure-view": "Zur Strukturübersicht",
+			"toogle-navigvation": "Navigationsmenü anzeigen/verbergen"
+		}
+	},
+	"okr-toolbar": {
+		"admin-icon": {
+			"tooltip": {
+				"is-admin": "Als Admin autorisiert"
+			}
+		},
+		"language-selector": {
+			"language": {
+				"english": "Englisch",
+				"german": "Deutsch"
+			},
+			"select-trigger-text": "Sprache wählen"
+		},
+		"main-page": "Hauptseite",
+		"menu": {
+			"admin-panel-text": "Admin Panel",
+			"change-password-text": "Passwort ändern",
+			"cycle-administration-text": "Zyklusverwaltung",
+			"logout-text": "Logout",
+			"settings-text": "Einstellungen",
+			"topic-drafts-text": "Themenentwürfe",
+			"user-managment-text": "Nutzerverwaltung"
+		},
+		"return-to-demo-text": "Hauptseite",
+		"tooltip": {
+			"menue": "Menü"
+		},
+		"warning": {
+			"no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
+			"no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert."
+		}
+	},
+	"okr-unit-card": {
+		"mat-card-actions": {
+			"delete": "Struktur löschen ",
+			"edit-name": "Namen bearbeiten",
+			"tooltip": {
+				"delete-unit": "Struktur löschen",
+				"edit-unit-name": "Namen der Struktur bearbeiten"
+			}
+		},
+		"mat-card-subtitle": {
+			"unit-structure": "Firmenstruktur"
+		}
+	},
+	"okr-unit-dashboard": {
+		"add-unit": "Struktur hinzufügen",
+		"okr-toolbar": {
+			"unit-overview": "Strukturübersicht"
+		},
+		"tooltip": {
+			"add-unit": "Neue Struktur hinzufügen "
+		}
+	},
+	"okr-unit-form": {
+		"placeholder": {
+			"label": "Bezeichnung *",
+			"name": "Name *"
+		}
+	}
 }
