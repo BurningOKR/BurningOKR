@@ -1,3 +1,9 @@
 {
-  "HELLO": "This stuff actually works!"
+	"okr-toolbar.admin-icon.tooltip.is-admin": "Authorized as admin",
+	"okr-toolbar.language-selector.language.english": "English",
+	"okr-toolbar.language-selector.language.german": "German",
+	"okr-toolbar.language-selector.select-trigger-text": "Select Language",
+	"okr-toolbar.tooltip.menue": "Menu",
+	"okr-toolbar.warning.no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
+	"okr-toolbar.warning.no-smtp-text": "Warning: No SMTP server has been configured."
 }

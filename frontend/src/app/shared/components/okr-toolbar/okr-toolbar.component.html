@@ -1,6 +1,6 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
-    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" i18n="@@component_return_to_demo_mainview" routerLink="/" *ngIf="isPlayground">Hauptseite</button>
+    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" i18n="@@fcomponent_return_to_demo_mainview" routerLink="/" *ngIf="isPlayground">Hauptseite</button>
     <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="Hauptseite" i18n-matTooltip="@@component_return_to_demo_mainview"><mat-icon>cancel</mat-icon></button>
     <ng-content></ng-content>
     <span class="fill-space"></span>
@@ -9,30 +9,28 @@
 
     <mat-form-field>
       <mat-select-trigger>
-        <small>Select Language </small> <br>
+        <small>{{'okr-toolbar.language-selector.select-trigger-text' | translate}}</small> <br>
       </mat-select-trigger>
       <mat-select (selectionChange)="languageChanged($event)" [value]="this.translateService.currentLang">
         <mat-option value="en">
-          English
+          {{'okr-toolbar.language-selector.language.english' | translate}}
         </mat-option>
         <mat-option value="de">
-          Deutsch
+          {{ 'okr-toolbar.language-selector.language.german' | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
-      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
+      <span class="break-word">{{'okr-toolbar.warning.no-smtp-text' | translate}}</span>
       <br>
-      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">Dies kann die Nutzbarkeit der
-        <br class="hidden-l-up">Anwendung stark einschränken.</a>
+      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">{{'okr-toolbar.warning.no-smtp-link' | translate}}</a>
     </div>
 
     <span class="fill-space"></span>
     <div class="user-interactions">
       <div class="adminIcon">
-        <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"
-                  i18n-matTooltip="@@component_okrToolbar_authorizeAsAdmin" matTooltip="Als Admin autorisiert">
+        <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer" matTooltip="{{'okr-toolbar.admin-icon.tooltip.is-admin' | translate}}">
           verified_user
         </mat-icon>
       </div>
@@ -40,7 +38,7 @@
          <app-user-avatar class="icon-spacer-large profileIcon"  [user]="currentUser" size="40"></app-user-avatar>
       </span>
 
-      <button mat-icon-button class="icon-spacer-large menuIcon" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
+      <button mat-icon-button class="icon-spacer-large menuIcon" matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}"
               [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
