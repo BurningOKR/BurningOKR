@@ -1,16 +1,16 @@
 <app-okr-toolbar [isCycleManagementOptionVisible]="true">
 
-  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@component_mainView_toggleNavigation" matTooltip="Navigationsmenü anzeigen/verbergen"
+  <button mat-icon-button class="toolbar-margin-icon" matTooltip="{{'main-view.tooltip.toogle-navigvation' | translate}}"
           (click)="toggleSideBar()">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@goToOkrUnitOverview" matTooltip="Zur Strukturübersicht"
+  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@goToOkrUnitOverview" matTooltip="{{'main-view.tooltip.go-to-structure-view' | translate}}"
           [routerLink]="['../companies']">
     <mat-icon>home</mat-icon>
   </button>
 
-  <app-cycle-list-dropdown *ngIf="!mobileQuery.matches" i18n-matTooltip="@@component_mainView_adjustObservationPeriod" matTooltip="Betrachtungszeitraum anpassen"
+  <app-cycle-list-dropdown *ngIf="!mobileQuery.matches" matTooltip="{{'main-view.tooltip.adjust-cycleperiod' | translate}}"
                            matTooltipPosition="after" class="max-width-230"></app-cycle-list-dropdown>
 
 </app-okr-toolbar>
@@ -22,12 +22,8 @@
               [ngClass]="cycle.isCycleInPreparation()?'cycle-hint-preparation':'cycle-hint-closed'">
       <div class="flex-nowrap">
         <mat-icon class="icon-spacer-large">info</mat-icon>
-        <div *ngIf="cycle.isCycleInPreparation()" i18n="@@component_mainView_cycleNotStartAndCanBeEdited">Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung
-          bearbeitet werden.
-        </div>
-        <div *ngIf="cycle.isCycleClosed()" i18n="@@component_mainView_cycleAlreadyClose">Dieser Zyklus ist bereits abgelaufen und daher geschlossen - Bearbeitung ist
-          nur begrenzt möglich.
-        </div>
+        <div *ngIf="cycle.isCycleInPreparation()">{{'main-view.navigation-sidebar.cycle-not-started' | translate}}</div>
+        <div *ngIf="cycle.isCycleClosed()">{{'main-view.navigation-sidebar.cycle-started' | translate}}</div>
       </div>
     </mat-card>
   </div>

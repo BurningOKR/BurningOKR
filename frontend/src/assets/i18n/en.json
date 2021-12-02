@@ -1,4 +1,8 @@
 {
+	"main-view.navigation-sidebar.cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
+	"main-view.tooltip.adjust-cycleperiod": "Adjust the observation period",
+	"main-view.tooltip.go-to-structure-view": "To the structure overview",
+	"main-view.tooltip.toogle-navigvation": "Show / hide navigation menu",
 	"okr-toolbar.admin-icon.tooltip.is-admin": "Authorized as admin",
 	"okr-toolbar.language-selector.language.english": "English",
 	"okr-toolbar.language-selector.language.german": "German",

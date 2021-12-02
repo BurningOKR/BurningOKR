@@ -1,4 +1,8 @@
 {
+	"main-view.navigation-sidebar.cycle-not-started": "Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung bearbeitet werden.",
+	"main-view.tooltip.adjust-cycleperiod": "Betrachtungszeitraum anpassen",
+	"main-view.tooltip.go-to-structure-view": "Zur Strukturübersicht",
+	"main-view.tooltip.toogle-navigvation": "Navigationsmenü anzeigen/verbergen",
 	"okr-toolbar.admin-icon.tooltip.is-admin": "Als Admin autorisiert",
 	"okr-toolbar.language-selector.language.english": "Englisch",
 	"okr-toolbar.language-selector.language.german": "Deutsch",

@@ -1,7 +1,7 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
     <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" routerLink="/" *ngIf="isPlayground">{{'okr-toolbar.main-page' | translate}}</button>
-    <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="{{'okr-toolbar.return-to-demo-text' | translate}}" i18n-matTooltip="@@component_return_to_demo_mainview"><mat-icon>cancel</mat-icon></button>
+    <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="{{'okr-toolbar.return-to-demo-text' | translate}}"><mat-icon>cancel</mat-icon></button>
     <ng-content></ng-content>
     <span class="fill-space"></span>
 
