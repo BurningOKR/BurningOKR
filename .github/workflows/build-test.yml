@@ -68,29 +68,80 @@ jobs:
       run: ./gradlew -PprojVersion="${{ needs.get-version.outputs.version }}" bootWar
       working-directory: ./backend/burning-okr
 
-  build:
-
+  test-frontend:
     runs-on: ubuntu-latest
 
     steps:
-
-
+    - uses: actions/checkout@v2
     - name: Npm Setup
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '16.x'
     - name: Npm Install
       run: npm install
       working-directory: ./frontend
-    - name: Npm version
-      run: npm version $PACKAGE_VERSION --allow-same-version
+    - name: Test frontend
+      run: npm test
       working-directory: ./frontend
-    - name: Npm Build
-      run: npm run build-prod-new
+
+  lint-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Npm Setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+    - name: Npm Install
+      run: npm install
       working-directory: ./frontend
-    - name: ng lint
+    - name: Test frontend
       run: npm run lint
       working-directory: ./frontend
-    - name: Npm test
+
+  build-frontend:
+    needs: [get-version]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Npm Setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+    - name: Npm Install
+      run: npm install
+      working-directory: ./frontend
+    - name: Test frontend
       run: npm test
+      working-directory: ./frontend
+    - name: Set Frontend Version
+      run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
+      working-directory: ./frontend
+    - name: Build Frontend
+      run: npm run build-prod-new
+      working-directory: ./frontend
+
+  build-demo-frontend:
+    needs: [get-version]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Npm Setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+    - name: Npm Install
+      run: npm install
+      working-directory: ./frontend
+    - name: Test frontend
+      run: npm test
+      working-directory: ./frontend
+    - name: Set Frontend Version
+      run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
+      working-directory: ./frontend
+    - name: Build Frontend
+      run: npm run build-demo
       working-directory: ./frontend
