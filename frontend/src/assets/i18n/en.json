@@ -25,6 +25,10 @@
 		"your-teams-as-manager": "Your teams as managers",
 		"your-teams-as-member": "Your teams as a member"
 	},
+	"delete-dialog": {
+		"delete": "Delete",
+		"general-do-you-want-to-delete": "Do you really want to delete {{value}} ?"
+	},
 	"dialog-component": {
 		"cancel": "Cancel",
 		"date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
@@ -115,9 +119,12 @@
 		}
 	},
 	"okr-unit-form": {
+		"create": " Create {{value}}.",
 		"placeholder": {
 			"label": "label *",
 			"name": "name *"
-		}
+		},
+		"save": " Save {{value}}.",
+		"structure": "Structure"
 	}
 }

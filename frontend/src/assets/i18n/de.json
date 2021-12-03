@@ -25,6 +25,10 @@
 		"your-teams-as-manager": "Ihre Teams als Manager",
 		"your-teams-as-member": "Ihre Teams als Mitglied"
 	},
+	"delete-dialog": {
+		"delete": "Löschen",
+		"general-do-you-want-to-delete": "Wollen Sie {{value}} wirklich löschen?"
+	},
 	"dialog-component": {
 		"cancel": "Abbrechen",
 		"date-range-within-another-date-range": "Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.",
@@ -115,9 +119,12 @@
 		}
 	},
 	"okr-unit-form": {
+		"create": "{{value}} erstellen.",
 		"placeholder": {
 			"label": "Bezeichnung *",
 			"name": "Name *"
-		}
+		},
+		"save": "{{value}} speichern.",
+		"structure": "Struktur"
 	}
 }
