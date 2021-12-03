@@ -28,6 +28,19 @@
 	"feedback-button": {
 		"button-icon": {
 			"tooltip": "Feedback"
+		},
+		"successful-send": {
+			"message": "Feedback erfolgreich übermittelt 📬"
+		}
+	},
+	"feedback-form": {
+		"dialog": {
+			"save-button": "Feedback absenden",
+			"title": "Feedback geben"
+		},
+		"form-field": {
+			"feedback": "Feedback",
+			"name": "Name"
 		}
 	},
 	"main-view": {

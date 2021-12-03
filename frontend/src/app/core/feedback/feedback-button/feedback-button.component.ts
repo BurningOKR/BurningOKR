@@ -3,10 +3,10 @@ import { Observable, ObservableInput, Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FeedbackFormComponent } from '../feedback-form/feedback-form.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ConfigurationService } from '../../settings/configuration.service';
 import { Consts } from '../../../shared/consts';
 import { environment } from '../../../../environments/environment';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-feedback-button',
@@ -19,17 +19,13 @@ export class FeedbackButtonComponent implements OnDestroy {
   isPlayground: boolean = environment.playground;
 
   private subscriptions: Subscription[] = [];
-  private feedbackSuccessfullySubmittedMessage: string = this.i18n({
-    id: 'feedbackSuccessfullySubmittedMessage',
-    description: 'message to be shown after the user feedback was submitted successfully',
-    value: 'Feedback erfolgreich übermittelt 📬'
-  });
+  private feedbackSuccessfullySubmittedMessage: string;
 
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private i18n: I18n,
-    private configService: ConfigurationService
+    private configService: ConfigurationService,
+    private translateService: TranslateService,
   ) {
     this.hasMail$ = configService.getHasMailConfigured$();
   }
@@ -50,6 +46,8 @@ export class FeedbackButtonComponent implements OnDestroy {
   }
 
   openFeedbackPopup(): void {
+    this.feedbackSuccessfullySubmittedMessage = this.translateService
+      .instant('feedback-button.successful-send.message');
     this.subscriptions.push(this.postFeedback$()
       .subscribe((success: boolean) => {
         if (success) {
