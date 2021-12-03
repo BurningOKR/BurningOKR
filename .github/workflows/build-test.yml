@@ -33,6 +33,7 @@ jobs:
       working-directory: ./backend/burning-okr
     - name: Test Backend
       run: ./gradlew test
+      working-directory: ./backend/burning-okr
 
   lint-backend:
     runs-on: ubuntu-latest
@@ -48,6 +49,7 @@ jobs:
       working-directory: ./backend/burning-okr
     - name: Lint Backend
       run: ./gradlew spotlessCheck
+      working-directory: ./backend/burning-okr
 
   build-backend:
     needs: [get-version]
