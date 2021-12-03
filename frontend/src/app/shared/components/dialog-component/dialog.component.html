@@ -9,16 +9,16 @@
           (click)="sendOk()"
           [disabled]="isSaveButtonDisabled || formGroup.invalid || formHasToBeEdited && formGroup.pristine">
     {{saveAndCloseLabel}}</button>
-  <button mat-button color="warn" (click)="closeDialog()"><span i18n="@@cancelButtonText">Abbrechen</span></button>
+  <button mat-button color="warn" (click)="closeDialog()"><span >{{'dialog-component.cancel' | translate}}</span></button>
   <div *ngIf="hasFormGroupError">
     <mat-error class="error-span" *ngIf="formGroup.hasError('startEqualsEnd')">
-      <span i18n="@@component_form_startEqualsEnd">Der Startwert darf nicht gleich dem Zielwert sein.</span>
+      <span>{{'dialog-component.start-equals-end' | translate}}</span>
     </mat-error>
     <mat-error class="error-span" *ngIf="formGroup.hasError('startDateNotBeforeEndDate')">
-      <span i18n="@@component_form_startDateNotBeforeEndDate">Das Startdatum darf nicht vor dem Enddatum liegen.</span>
+      <span>{{'dialog-component.start-date-not-before-end-date' | translate}}</span>
     </mat-error>
     <mat-error class="error-span" *ngIf="formGroup.hasError('dateRangeWithinAnotherDateRange')">
-      <span i18n="@@component_form_dateRangeWithinAnotherDateRange">Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.</span>
+      <span>{{'dialog-component.date-range-within-another-date-range' | translate}}</span>
     </mat-error>
   </div>
 </mat-dialog-actions>
