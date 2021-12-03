@@ -1,8 +1,8 @@
 <app-okr-toolbar>
-    <button (click)="navigateToCompanies()" i18n-matTooltip="@@component_submittedTopicDrafts_navigateToOkrUnitOverview" matTooltip="Zur Strukturübersicht" class="navbar-item" mat-icon-button>
+    <button (click)="navigateToCompanies()" matTooltip="{{'submitted-topic-drafts.home-button.tooltip' | translate}}" class="navbar-item" mat-icon-button>
         <mat-icon>home</mat-icon>
     </button>
-    <span id="submitted-topic-drafts-page-topic" i18n="Eingereichte Themenentwürfe@@component_submittedTopicDrafts_submittedTopicDrafts">Eingereichte Themenentwürfe</span>
+    <span id="submitted-topic-drafts-page-topic">{{'submitted-topic-drafts.navbar.title' | translate}}</span>
     <span class="fill-space"></span>
 </app-okr-toolbar>
 
@@ -12,7 +12,7 @@
     <app-submitted-topic-draft-cards-wrapper [topicDrafts]="rowData.data"></app-submitted-topic-draft-cards-wrapper>
     <button mat-icon-button mat-mini-fab color="accent" style="float:right" (click)="clickedAddTopicDraft()">
       <mat-icon
-        matTooltip="Neuen Themenentwurf hinzufügen">add_circle_outline
+        matTooltip="{{'submitted-topic-drafts.add-topic-draft-button.tooltip' | translate}}">add_circle_outline
       </mat-icon>
     </button>
   </div>

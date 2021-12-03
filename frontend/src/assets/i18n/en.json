@@ -25,10 +25,6 @@
 		"your-teams-as-manager": "Your teams as managers",
 		"your-teams-as-member": "Your teams as a member"
 	},
-	"delete-dialog": {
-		"delete": "Delete",
-		"general-do-you-want-to-delete": "Do you really want to delete {{value}} ?"
-	},
 	"dialog-component": {
 		"cancel": "Cancel",
 		"date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
@@ -119,12 +115,59 @@
 		}
 	},
 	"okr-unit-form": {
-		"create": " Create {{value}}.",
 		"placeholder": {
 			"label": "label *",
 			"name": "name *"
 		},
 		"save": " Save {{value}}.",
 		"structure": "Structure"
+		},
+	"submitted-topic-draft-cards-wrapper": {
+		"column": {
+			"name": "Name",
+			"start": "Start",
+			"submitted": "Submitted By"
+		},
+		"no-new-topic-drafts": "No new topic drafts"
+	},
+	"submitted-topic-draft-details": {
+		"button": {
+			"close": "Close",
+			"edit": "Edit",
+			"tooltip-no-permission": "Only the initiator of the topic draft or an admin can edit it. For this purpose, the topic draft must not have been approved or rejected."
+		},
+		"field": {
+			"begin": "Beginning",
+			"contribution": "Pays in on",
+			"delimitation": "Delimitation",
+			"dependencies": "Dependencies",
+			"description": "Description",
+			"handover": "Handover plan",
+			"initiator": "Initiator",
+			"no-team-members": "No team members available",
+			"resources": "Resources",
+			"stakeholder-team": "Stakeholder team",
+			"start-team": "Starting team",
+			"topic": "Topic"
+		},
+		"status": {
+			"approved": "Approved",
+			"rejected": "Rejected",
+			"submitted": "Submitted",
+			"template": "Template",
+			"title": "Status"
+		},
+		"title": "Submitted topic draft"
+	},
+	"submitted-topic-drafts": {
+		"add-topic-draft-button": {
+			"tooltip": "Add a new topic draft"
+		},
+		"home-button": {
+			"tooltip": "Go to structure overview"
+		},
+		"navbar": {
+			"title": "Submitted topic drafts"
+		}
 	}
 }
