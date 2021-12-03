@@ -25,6 +25,12 @@
 		"your-teams-as-manager": "Ihre Teams als Manager",
 		"your-teams-as-member": "Ihre Teams als Mitglied"
 	},
+	"dialog-component": {
+		"cancel": "Abbrechen",
+		"date-range-within-another-date-range": "Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.",
+		"start-date-not-before-end-date": "Das Startdatum darf nicht vor dem Enddatum liegen.",
+		"start-equals-end": "Der Startwert darf nicht gleich dem Zielwert sein."
+	},
 	"feedback-button": {
 		"button-icon": {
 			"tooltip": "Feedback"
