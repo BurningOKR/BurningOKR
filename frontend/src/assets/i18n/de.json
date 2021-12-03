@@ -113,5 +113,53 @@
 			"label": "Bezeichnung *",
 			"name": "Name *"
 		}
+	},
+	"submitted-topic-draft-cards-wrapper": {
+		"column": {
+			"name": "Name",
+			"start": "Start",
+			"submitted": "Eingereicht von"
+		},
+		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
+	},
+	"submitted-topic-draft-details": {
+		"button": {
+			"close": "Schließen",
+			"edit": "Bearbeiten",
+			"tooltip-no-permission": "Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein."
+		},
+		"field": {
+			"begin": "Beginn",
+			"contribution": "Zahlt ein auf",
+			"delimitation": "Abgrenzung",
+			"dependencies": "Abhängigkeiten",
+			"description": "Beschreibung",
+			"handover": "Übergabeplan",
+			"initiator": "Initiator",
+			"no-team-members": "Keine Teammitglieder vorhanden",
+			"resources": "Ressourcen",
+			"stakeholder-team": "Stakeholder Team",
+			"start-team": "Start Team",
+			"topic": "Thema"
+		},
+		"status": {
+			"approved": "Angenommen",
+			"rejected": "Abgelehnt",
+			"submitted": "Eingereicht",
+			"template": "Vorlage",
+			"title": "Status"
+		},
+		"title": "Eingereichter Themenentwurf"
+	},
+	"submitted-topic-drafts": {
+		"add-topic-draft-button": {
+			"tooltip": "Neuen Themenentwurf hinzufügen"
+		},
+		"home-button": {
+			"tooltip": "Zur Strukturübersicht"
+		},
+		"navbar": {
+			"title": "Eingereichte Themenentwürfe"
+		}
 	}
 }

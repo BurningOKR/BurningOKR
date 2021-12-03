@@ -1,9 +1,9 @@
 <div class="card-wrapper" *ngIf="topicDrafts[0] !== undefined">
   <div class="card-wrapper-head-wrapper">
     <div class="card-wrapper-head">
-      <span class="card-wrapper-head-column-info" i18n="Eingereicht von@@submitted-topic-draft-card-column-initiator">Eingereicht von</span>
-      <span class="card-wrapper-head-column-info" i18n="Start@@submitted-topic-draft-card-column-startDate">Start</span>
-      <span class="card-wrapper-head-column-info card-wrapper-head-column-info-name" i18n="Name@@name">Name</span>
+      <span class="card-wrapper-head-column-info">{{'submitted-topic-draft-cards-wrapper.column.submitted' | translate}}</span>
+      <span class="card-wrapper-head-column-info">{{'submitted-topic-draft-cards-wrapper.column.start' | translate}}</span>
+      <span class="card-wrapper-head-column-info">{{'submitted-topic-draft-cards-wrapper.column.name' | translate}}</span>
     </div>
   </div>
   <div *ngFor="let topicDraft of topicDrafts">
@@ -11,5 +11,5 @@
   </div>
 </div>
 <div *ngIf="topicDrafts[0] === undefined" class="card-wrapper-info-area">
-  <p>Keine neuen Themenentwürfe</p>
+  <p>{{'submitted-topic-draft-cards-wrapper.no-new-topic-drafts' | translate}}</p>
 </div>
