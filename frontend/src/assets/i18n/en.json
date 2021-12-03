@@ -25,6 +25,12 @@
 		"your-teams-as-manager": "Your teams as managers",
 		"your-teams-as-member": "Your teams as a member"
 	},
+	"dialog-component": {
+		"cancel": "Cancel",
+		"date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
+		"start-date-not-before-end-date": "The start date cannot be before the end date.",
+		"start-equals-end": "The start value must not be the same as the target value."
+	},
 	"feedback-button": {
 		"button-icon": {
 			"tooltip": "Feedback"
