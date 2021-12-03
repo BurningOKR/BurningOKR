@@ -1,5 +1,5 @@
 {
-  "name": "okrfront-end",
+  "name": "okr-frontend",
   "version": "1.0.0",
   "jest": {
     "preset": "jest-preset-angular",
@@ -15,6 +15,7 @@
     "ng": "ng",
     "prestart": "ts-appversion",
     "prebuild": "ts-appversion",
+    "pretest": "ts-appversion",
     "start": "ng serve --proxy-config=proxy.conf.json",
     "start-dev": "npm run start -- --configuration=local",
     "start-demo": "npm run start -- --configuration=demo",
