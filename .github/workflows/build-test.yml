@@ -116,9 +116,6 @@ jobs:
     - name: Npm Install
       run: npm install
       working-directory: ./frontend
-    - name: Test frontend
-      run: npm test
-      working-directory: ./frontend
     - name: Set Frontend Version
       run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
       working-directory: ./frontend
@@ -138,9 +135,6 @@ jobs:
         node-version: '16.x'
     - name: Npm Install
       run: npm install
-      working-directory: ./frontend
-    - name: Test frontend
-      run: npm test
       working-directory: ./frontend
     - name: Set Frontend Version
       run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
