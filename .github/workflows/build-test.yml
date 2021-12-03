@@ -7,16 +7,22 @@ on:
     branches: [ development, master ]
 
 jobs:
-  build:
-
+  get-version:
     runs-on: ubuntu-latest
+    outputs:
+      version: {{ steps.read-version.outputs.version }}
 
     steps:
     - uses: actions/checkout@v2
     - name: Read package version
-      run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
-      env: 
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      id: read-version
+      run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo ::set-output name=version::$PACKAGE_VERSION
+
+  test-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -24,15 +30,51 @@ jobs:
     - name: Add execution privileges
       run: chmod +x ./gradlew
       working-directory: ./backend/burning-okr
-    - name: Test
-      run: ./gradlew check
+    - name: Test Backend
+      run: ./gradlew test
+
+  lint-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Add execution privileges
+      run: chmod +x ./gradlew
       working-directory: ./backend/burning-okr
-    - name: Build jar
-      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootJar
+    - name: Lint Backend
+      run: ./gradlew spotlessCheck
+
+  build-backend:
+    needs: [get-version]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Add execution privileges
+      run: chmod +x ./gradlew
       working-directory: ./backend/burning-okr
-    - name: Build war
-      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootWar
+    - name: Build Backend .jar
+      run: ./gradlew -PprojVersion="${{ needs.get-version.outputs.version }}" bootJar
       working-directory: ./backend/burning-okr
+    - name: Build Backend .war
+      run: ./gradlew -PprojVersion="${{ needs.get-version.outputs.version }}" bootWar
+      working-directory: ./backend/burning-okr
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+
     - name: Npm Setup
       uses: actions/setup-node@v1
       with:
@@ -52,4 +94,3 @@ jobs:
     - name: Npm test
       run: npm test
       working-directory: ./frontend
-
