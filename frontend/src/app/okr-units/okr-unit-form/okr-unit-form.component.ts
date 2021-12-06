@@ -28,7 +28,6 @@ export class OkrUnitFormComponent {
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<CompanyFormData>>,
               private companyMapper: CompanyMapper,
-              private i18n: I18n,
               @Inject(MAT_DIALOG_DATA) private formData: CompanyFormData,
               private x: ValidationErrorService,
               private translate: TranslateService) {
@@ -50,18 +49,6 @@ export class OkrUnitFormComponent {
     translate.get('okr-unit-form.structure').subscribe((text: string) => {
       this.structureTranslation = text;
     });
-
-
-
-    /*const saveText: string = this.i18n({
-        id: 'component_companyForm_saveText',
-        value: ' {{label}} speichern.'
-      }, {label: this.getDefaultLabel()}
-    );
-    const createText: string = this.i18n({
-        id: 'component_companyForm_createText',
-        value: '{{label}} erstellen.'
-      }, {label: this.getDefaultLabel()});*/
 
     this.title = this.formData.company ? this.saveTranslation : this.createTranslation;
   }

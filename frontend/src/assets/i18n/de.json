@@ -25,9 +25,14 @@
 		"your-teams-as-manager": "Ihre Teams als Manager",
 		"your-teams-as-member": "Ihre Teams als Mitglied"
 	},
+	"delete-dialog": {
+		"delete": "Löschen ",
+		"general-do-you-want-to-delete": "Wollen Sie {{value}} wirklich löschen?"
+	},
 	"dialog-component": {
 		"cancel": "Abbrechen",
 		"date-range-within-another-date-range": "Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.",
+		"save": "Speichern",
 		"start-date-not-before-end-date": "Das Startdatum darf nicht vor dem Enddatum liegen.",
 		"start-equals-end": "Der Startwert darf nicht gleich dem Zielwert sein."
 	},
@@ -93,6 +98,9 @@
 		}
 	},
 	"okr-unit-card": {
+		"delete-company-has-child-unit-warning": "{{value}} enthält noch Unterstrukturen",
+		"general-delete-dialog-title": "{{value}} löschen?",
+		"label": "die Firma",
 		"mat-card-actions": {
 			"delete": "Struktur löschen ",
 			"edit-name": "Namen bearbeiten",
@@ -122,7 +130,7 @@
 		},
 		"save": "{{value}} speichern.",
 		"structure": "Struktur"
-		},
+	},
 	"submitted-topic-draft-cards-wrapper": {
 		"column": {
 			"name": "Name",
