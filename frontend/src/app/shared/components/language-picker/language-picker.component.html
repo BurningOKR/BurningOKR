@@ -1,0 +1,13 @@
+<mat-form-field>
+  <mat-select-trigger>
+    <small>{{'okr-toolbar.language-selector.select-trigger-text' | translate}}</small> <br>
+  </mat-select-trigger>
+  <mat-select (selectionChange)="languageChanged($event)" [value]="this.translateService.currentLang">
+    <mat-option value="en">
+      {{'okr-toolbar.language-selector.language.english' | translate}}
+    </mat-option>
+    <mat-option value="de">
+      {{ 'okr-toolbar.language-selector.language.german' | translate }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
