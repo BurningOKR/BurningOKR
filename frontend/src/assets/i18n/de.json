@@ -29,6 +29,20 @@
 		"delete": "Löschen ",
 		"general-do-you-want-to-delete": "Wollen Sie {{value}} wirklich löschen?"
 	},
+	"demo-home": {
+		"digitalization": {
+			"content": "Mit Burning OKR bilden Sie alle essenziellen Bestandteile des OKR Frameworks digital ab und schaffen teamübergreifende Transparenz. Die Teams verwalten ihre eigenen Objectives und Key Results mit Burning OKR und machen ihre Fortschritte und Erfolge sichtbar. Darüber hinaus können innerhalb des Tools die Hierarchien Ihres Unternehmens sichtbar gemacht werden.",
+			"title": "Digitalisieren Sie Ihren gesamten OKR-Prozess"
+		},
+		"visions": {
+			"content": "Das agile OKR Framework unterstützt Sie durch einen strukturierten Zielvereinbarungsprozess bei der Erreichung der strategischen Unternehmensziele. Kurze Zyklen und messbare Ziele fördern die regelmäßige Evaluierung der Ergebnisse und bieten Ihnen die Möglichkeit, Ihr Geschäftsmodell anhand von neuen Informationen schnell zu modifizieren. Mit Burning OKR bieten wir Ihnen ein leistungsstarkes und nutzerfreundliches OpenSource Tool zur Unterstützung.",
+			"title": "Visionen mit Hilfe von OKR verwirklichen"
+		},
+		"welcome": {
+			"content": "Burning OKR unterstützt Sie bei der Erreichung strategischer Unternehmensziele und fördert eine agile und transparente Unternehmenskultur. Das OpenSource OKR Tool basiert dabei auf den langjährigen Erfahrungen der BROCKHAUS AG mit dem OKR Framework.",
+			"title": "Willkommen bei Burning OKR!"
+		}
+	},
 	"dialog-component": {
 		"cancel": "Abbrechen",
 		"date-range-within-another-date-range": "Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.",

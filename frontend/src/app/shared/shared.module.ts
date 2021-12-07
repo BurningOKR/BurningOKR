@@ -36,6 +36,7 @@ import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
 import { UserSelectorMultiComponent } from './components/user-selector-multi/user-selector-multi.component';
 import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguagePickerComponent } from './components/language-picker/language-picker.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CallbackFilterPipe,
     UserSelectorMultiComponent,
     UserSelectorComponent,
+    LanguagePickerComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -83,25 +85,26 @@ import { TranslateModule } from '@ngx-translate/core';
         CountdownTimerModule,
         TranslateModule
     ],
-  exports: [
-      UserAutocompleteInputComponent,
-      UserMinibuttonComponent,
-      LoadingSpinnerComponent,
-      MatButtonModule,
-      DialogComponent,
-      UserAvatarComponent,
-      OkrToolbarBareComponent,
-      OkrToolbarComponent,
-      CapsLockDirective,
-      NonLoggedInCardComponent,
-      FormErrorComponent,
-      ResetCountdownComponent,
-      MilestoneSliderWrapperComponent,
-      StatusDotComponent,
-      CallbackFilterPipe,
-      UserSelectorMultiComponent,
-      UserSelectorComponent
-  ],
+    exports: [
+        UserAutocompleteInputComponent,
+        UserMinibuttonComponent,
+        LoadingSpinnerComponent,
+        MatButtonModule,
+        DialogComponent,
+        UserAvatarComponent,
+        OkrToolbarBareComponent,
+        OkrToolbarComponent,
+        CapsLockDirective,
+        NonLoggedInCardComponent,
+        FormErrorComponent,
+        ResetCountdownComponent,
+        MilestoneSliderWrapperComponent,
+        StatusDotComponent,
+        CallbackFilterPipe,
+        UserSelectorMultiComponent,
+        UserSelectorComponent,
+        LanguagePickerComponent
+    ],
 })
 export class SharedModule {
 }

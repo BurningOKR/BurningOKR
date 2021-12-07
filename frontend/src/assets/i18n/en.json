@@ -29,6 +29,20 @@
 		"delete": "Delete",
 		"general-do-you-want-to-delete": "Do you really want to delete {{value}}?"
 	},
+	"demo-home": {
+		"digitalization": {
+			"content": "With Burning OKR, you digitally map all essential components of the OKR framework and create transparency across teams. The teams manage their own objectives and key results with Burning OKR and make their progress and successes visible. Furthermore, the hierarchies of your company can be made visible within the tool.",
+			"title": "Digitize your entire OKR process"
+		},
+		"visions": {
+			"content": "The agile OKR framework supports you in achieving strategic business goals through a structured goal-setting process. Short cycles and measurable goals promote regular evaluation of results and give you the opportunity to quickly modify your business model based on new information. With Burning OKR we offer you a powerful and user-friendly OpenSource tool to support you.",
+			"title": "Realize Visions with the help of OKR"
+		},
+		"welcome": {
+			"content": "Burning OKR supports you in achieving strategic corporate goals and promotes an agile and transparent corporate culture. The open source OKR tool is based on BROCKHAUS AG's many years of experience with the OKR framework.",
+			"title": "Welcome to Burning OKR!"
+		}
+	},
 	"dialog-component": {
 		"cancel": "Cancel",
 		"date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
@@ -76,7 +90,7 @@
 				"english": "English",
 				"german": "German"
 			},
-			"select-trigger-text": "Select Language"
+			"select-trigger-text": "Select language"
 		},
 		"main-page": "Home",
 		"menu": {

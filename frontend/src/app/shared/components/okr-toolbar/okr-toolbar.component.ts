@@ -15,7 +15,6 @@ import { ConfigurationService } from '../../../core/settings/configuration.servi
 import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 import { SettingsFormComponent } from '../../../core/settings/settings-form/settings-form.component';
 import { environment } from '../../../../environments/environment';
-import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -39,7 +38,6 @@ export class OkrToolbarComponent implements OnInit {
     private oAuthDetails: OAuthFrontendDetailsService,
     private configurationService: ConfigurationService,
     private okrUnitService: OkrUnitService,
-    public  translateService: TranslateService
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$()
       .pipe(take(1));
@@ -80,8 +78,4 @@ export class OkrToolbarComponent implements OnInit {
       .subscribe();
   }
 
-  languageChanged(event: any) {
-    console.log(event);
-    this.translateService.use(event.value);
-  }
 }

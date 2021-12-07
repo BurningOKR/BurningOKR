@@ -7,19 +7,7 @@
 
     <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
 
-    <mat-form-field>
-      <mat-select-trigger>
-        <small>{{'okr-toolbar.language-selector.select-trigger-text' | translate}}</small> <br>
-      </mat-select-trigger>
-      <mat-select (selectionChange)="languageChanged($event)" [value]="this.translateService.currentLang">
-        <mat-option value="en">
-          {{'okr-toolbar.language-selector.language.english' | translate}}
-        </mat-option>
-        <mat-option value="de">
-          {{ 'okr-toolbar.language-selector.language.german' | translate }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-language-picker></app-language-picker>
 
     <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
       <span class="break-word">{{'okr-toolbar.warning.no-smtp-text' | translate}}</span>
