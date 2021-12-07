@@ -11,8 +11,7 @@
 
         <mat-form-field class="form-whole-line">
 
-            <mat-label i18n-placeholder="@@component_TaskForm_description">Beschreibung</mat-label>
-            <textarea formControlName="description" matInput i18n-placeholder="@@component_TaskForm_description" [mat-autosize]="true"></textarea>
+            <textarea formControlName="description" matInput i18n-placeholder="@@component_TaskForm_description" placeholder="Beschreibung" [mat-autosize]="true"></textarea>
             <mat-error>
                 <app-form-error [control]="taskForm.get('description')"></app-form-error>
             </mat-error>

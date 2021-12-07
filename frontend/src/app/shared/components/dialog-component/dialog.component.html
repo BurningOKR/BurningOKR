@@ -8,7 +8,8 @@
   <button mat-button color="primary"
           (click)="sendOk()"
           [disabled]="isSaveButtonDisabled || formGroup.invalid || formHasToBeEdited && formGroup.pristine">
-    {{saveAndCloseLabel}}</button>
+          {{saveAndCloseLabel}}
+  </button>
   <button mat-button color="warn" (click)="closeDialog()"><span >{{'dialog-component.cancel' | translate}}</span></button>
   <div *ngIf="hasFormGroupError">
     <mat-error class="error-span" *ngIf="formGroup.hasError('startEqualsEnd')">

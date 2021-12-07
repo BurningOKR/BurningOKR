@@ -10,12 +10,11 @@ import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OkrUnitFormComponent } from '../okr-unit-form/okr-unit-form.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CompanyApiService } from '../../shared/services/api/company-api.service';
 import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog.component';
 import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
 import { environment } from '../../../environments/environment';
-import {TranslateService} from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-okr-unit-card',
