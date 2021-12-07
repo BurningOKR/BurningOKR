@@ -5,9 +5,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyDto } from '../../shared/model/api/OkrUnit/company.dto';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DialogComponent } from '../../shared/components/dialog-component/dialog.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ValidationErrorService } from '../../shared/services/helper/validation-error.service';
-import {TranslateService} from "@ngx-translate/core";
+import { TranslateService } from "@ngx-translate/core";
 
 interface CompanyFormData {
   company?: CompanyUnit;

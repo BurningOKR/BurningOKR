@@ -103,7 +103,7 @@
 		"label": "the company",
 		"mat-card-actions": {
 			"delete": "Delete structure",
-			"edit-name": "Edit Name",
+			"edit-name": "Edit name",
 			"tooltip": {
 				"delete-unit": "Delete structure",
 				"edit-unit-name": "Edit the name of the structure"
