@@ -30,9 +30,37 @@
 		"general-do-you-want-to-delete": "Wollen Sie {{value}} wirklich löschen?"
 	},
 	"demo-home": {
+		"contact": {
+			"content": "Sie haben Fragen, Anregungen, oder Probleme mit dem Burning OKR Tool? Gerne können Sie uns kontaktieren.",
+			"content-with-link": "Bei Bugs oder Verbesserungsvorschlägen hinsichtlich des Tools kontaktieren Sie uns bitte über <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. Wenn die BROCKHAUS AG für Sie eine Individualisierung vornehmen soll, Sie eine Beratung oder eine andere Dienstleistung benötigen, kontaktieren Sie uns bitte über <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
+			"title": "Wie Sie uns erreichen"
+		},
 		"digitalization": {
 			"content": "Mit Burning OKR bilden Sie alle essenziellen Bestandteile des OKR Frameworks digital ab und schaffen teamübergreifende Transparenz. Die Teams verwalten ihre eigenen Objectives und Key Results mit Burning OKR und machen ihre Fortschritte und Erfolge sichtbar. Darüber hinaus können innerhalb des Tools die Hierarchien Ihres Unternehmens sichtbar gemacht werden.",
 			"title": "Digitalisieren Sie Ihren gesamten OKR-Prozess"
+		},
+		"documentation": "Dokumentation",
+		"features": {
+			"content": "Unser OKR Tool ermöglicht es Ihnen, mitsamt aller notwendigen Features, den OKR Prozess und dessen Ergebniskennzahlen ganzheitlich zu digitalisieren. Im Detail bietet Burning OKR… ",
+			"perks-list": "<li>die Authentifizierung über Azure Active Directory oder einer lokale Nutzerverwaltung</li>\n        <li>die Verwaltung von mehreren Firmen (Multitenancy)</li>\n        <li>das Abbilden von Zyklen, Firmenstrukturen, Teams, Objectives und Key Results</li>\n        <li>eine Fortschrittsanzeige für Objectives und Key Results</li>\n        <li>eine flexible Individualisierung, u.a. die Bezeichnung von Teams, die Einschränkung der maximalen Key Result Anzahl etc.</li>\n        <li>einen Datenexport als Excel-Tabelle</li>",
+			"title": "Innovative Features"
+		},
+		"free-and-open-source": {
+			"content": "Die Anwendung ist für Firmen- und Privatkunden komplett kostenlos. Außerdem können Sie den Open Source Code jederzeit auf <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> einsehen und an Ihre Bedürfnisse anpassen. Gerne stehen wir Ihnen dabei unterstützend zur Seite. Machen Sie Ihre Anpassungen als Pull Request für die ganze Welt verfügbar!",
+			"title": "Unser kostenloses Angebot für Sie"
+		},
+		"further-information": {
+			"content": "Weitere Informationen zum OKR Framework finden Sie auf der <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY-Seite der BROCKHAUS AG</a>.",
+			"title": "Mehr über das OKR Framework und OKR-Prozesse erfahren"
+		},
+		"installation": {
+			"content": "Burning OKR lässt sich einfach auf verschiedenen Plattformen installieren. Wir bieten Ihnen Tutorials zur Installation mit...",
+			"list": "<li>Docker</li>\n<li>einem Tomcat Web Server (coming soon)</li>",
+			"title": "Einfache Installation "
+		},
+		"target-management": {
+			"content": "Objectives und Key Results werden in Zyklen bearbeitet. Gestalten Sie Name, Länge und Inhalte der Zyklen nach Ihren Wünschen. Behalten Sie den Überblick über die Produktivität der OKR Teams durch die Fortschrittsanzeige der Objectives und Key Results.",
+			"title": "Verwalten und steuern Sie Ihre Unternehmensziele"
 		},
 		"visions": {
 			"content": "Das agile OKR Framework unterstützt Sie durch einen strukturierten Zielvereinbarungsprozess bei der Erreichung der strategischen Unternehmensziele. Kurze Zyklen und messbare Ziele fördern die regelmäßige Evaluierung der Ergebnisse und bieten Ihnen die Möglichkeit, Ihr Geschäftsmodell anhand von neuen Informationen schnell zu modifizieren. Mit Burning OKR bieten wir Ihnen ein leistungsstarkes und nutzerfreundliches OpenSource Tool zur Unterstützung.",
@@ -68,6 +96,13 @@
 			"name": "Name"
 		}
 	},
+	"language-picker": {
+		"language": {
+			"english": "Englisch",
+			"german": "Deutsch"
+		},
+		"select-trigger-text": "Sprache wählen"
+	},
 	"main-view": {
 		"navigation-sidebar": {
 			"cycle-not-started": "Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung bearbeitet werden.",
@@ -84,13 +119,6 @@
 			"tooltip": {
 				"is-admin": "Als Admin autorisiert"
 			}
-		},
-		"language-selector": {
-			"language": {
-				"english": "Englisch",
-				"german": "Deutsch"
-			},
-			"select-trigger-text": "Sprache wählen"
 		},
 		"main-page": "Hauptseite",
 		"menu": {
@@ -145,28 +173,6 @@
 		"save": "{{value}} speichern.",
 		"structure": "Struktur"
 	},
-	"submitted-topic-draft-action-button": {
-		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
-		"capitalised-approve": "Genehmigen",
-		"capitalized-reject": "Ablehnen",
-		"comments": {
-			"heading": "Themenentwurf"
-		},
-		"delete": {
-			"button-text": "Löschen",
-			"message": "Möchten Sie Themenentwurf {{name}} wirklich löschen?",
-			"title": "Themenentwurf löschen"
-		},
-		"edit-tooltip": {
-			"status": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein",
-			"status-and-user": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein und nur ein Admin oder der Initiator kann bearbeiten",
-			"user": "Nur ein Admin oder der Initiator können bearbeiten"
-		},
-		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
-		"state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
-		"withdraw-approval": "Genehmigung zurücknehmen",
-		"withdraw-rejection": "Ablehnung zurücknehmen"
-	},
 	"submitted-topic-draft-cards-wrapper": {
 		"column": {
 			"name": "Name",
@@ -211,13 +217,8 @@
 		"home-button": {
 			"tooltip": "Zur Strukturübersicht"
 		},
-		"initiator-table-header": "Thema",
 		"navbar": {
 			"title": "Eingereichte Themenentwürfe"
-		},
-		"snackbar": {
-			"ok": "Ok",
-			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
 		}
 	}
 }

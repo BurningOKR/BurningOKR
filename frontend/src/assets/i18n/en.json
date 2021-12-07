@@ -30,9 +30,37 @@
 		"general-do-you-want-to-delete": "Do you really want to delete {{value}}?"
 	},
 	"demo-home": {
+		"contact": {
+			"content": "Do you have questions, suggestions, or problems with the Burning OKR Tool? You are welcome to contact us.",
+			"content-with-link": "In case of bugs or suggestions for improvement regarding the tool, please contact us via <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. If you would like BROCKHAUS AG to perform customization for you, or if you require consulting or any other service, please contact us via <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
+			"title": "How to reach us"
+		},
 		"digitalization": {
 			"content": "With Burning OKR, you digitally map all essential components of the OKR framework and create transparency across teams. The teams manage their own objectives and key results with Burning OKR and make their progress and successes visible. Furthermore, the hierarchies of your company can be made visible within the tool.",
 			"title": "Digitize your entire OKR process"
+		},
+		"documentation": "Documentation",
+		"features": {
+			"content": "Our OKR tool enables you to digitalize the OKR process and its result metrics in a holistic way, including all necessary features. In detail, Burning OKR offers...",
+			"perks-list": "<li>the authentication via Azure Active Directory or a local user management</li>\n        <li>the management of multiple companies (multitenancy)</li>\n        <li>the mapping of cycles, company structures, teams, objectives and key results</li>\n        <li>a progress indicator for Objectives and Key Results</li>\n        <li>a flexible individualization, including the designation of teams, the restriction of the maximum Key Result number, etc.</li>\n        <li>a data export as Excel spreadsheet</li>",
+			"title": "Innovative features"
+		},
+		"free-and-open-source": {
+			"content": "The application is completely free for corporate and private customers. In addition, you can view the open source code at any time on <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> and adapt it to your needs. We are happy to assist you in this process. Make your customizations available as a pull request for the whole world!",
+			"title": "Our free offer for you"
+		},
+		"further-information": {
+			"content": "For more information on the OKR Framework, please visit the <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY page of BROCKHAUS AG</a>.",
+			"title": "Learn more about the OKR Framework and OKR processes"
+		},
+		"installation": {
+			"content": "Burning OKR is easy to install on various platforms. We offer tutorials on how to install with...",
+			"list": "<li>Docker</li>        \n<li>a Tomcat Web Server (coming soon)</li>",
+			"title": "Easy installation"
+		},
+		"target-management": {
+			"content": "Objectives and Key Results are processed in cycles. Design the name, length and content of the cycles according to your wishes. Keep track of the productivity of OKR teams with the Objectives and Key Results progress bar.",
+			"title": "Manage and control your company goals"
 		},
 		"visions": {
 			"content": "The agile OKR framework supports you in achieving strategic business goals through a structured goal-setting process. Short cycles and measurable goals promote regular evaluation of results and give you the opportunity to quickly modify your business model based on new information. With Burning OKR we offer you a powerful and user-friendly OpenSource tool to support you.",
@@ -68,6 +96,13 @@
 			"name": "Name"
 		}
 	},
+	"language-picker": {
+		"language": {
+			"english": "English",
+			"german": "German"
+		},
+		"select-trigger-text": "Select language"
+	},
 	"main-view": {
 		"navigation-sidebar": {
 			"cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
@@ -84,13 +119,6 @@
 			"tooltip": {
 				"is-admin": "Authorized as admin"
 			}
-		},
-		"language-selector": {
-			"language": {
-				"english": "English",
-				"german": "German"
-			},
-			"select-trigger-text": "Select language"
 		},
 		"main-page": "Home",
 		"menu": {
@@ -145,28 +173,6 @@
 		"save": " Save {{value}}.",
 		"structure": "Structure"
 	},
-	"submitted-topic-draft-action-button": {
-		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
-		"capitalised-approve": "Approve",
-		"capitalized-reject": "Reject",
-		"comments": {
-			"heading": "Topic draft"
-		},
-		"delete": {
-			"button-text": "Delete",
-			"message": "Are you sure you want to delete draft topic {{name}}?",
-			"title": "Delete topic draft"
-		},
-		"edit-tooltip": {
-			"status": "The status must be \"Pending\" or \"Draft\"",
-			"status-and-user": "The status must be \"Pending\" or \"Draft\" and only an admin or the initiator can edit",
-			"user": "Only an admin or the initiator can edit"
-		},
-		"no-permission": "Only an admin or an auditor can approve or reject",
-		"state-submitted-tooltip": "The status must be \"Pending\"",
-		"withdraw-approval": "Withdraw Approval",
-		"withdraw-rejection": "Withdraw rejection"
-	},
 	"submitted-topic-draft-cards-wrapper": {
 		"column": {
 			"name": "Name",
@@ -211,13 +217,8 @@
 		"home-button": {
 			"tooltip": "Go to structure overview"
 		},
-		"initiator-table-header": "Topic",
 		"navbar": {
 			"title": "Submitted topic drafts"
-		},
-		"snackbar": {
-			"ok": "Ok",
-			"submit": "Your topic draft has been sent for review."
 		}
 	}
 }

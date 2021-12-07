@@ -9,7 +9,9 @@
 
     <span class="line-break hidden-s-up"></span>
 
-    <button class="main-button button-bag-layout-inverted" mat-stroked-button [matMenuTriggerFor]="documentationMenu" i18n="@@component_demoHome_documentation">Dokumentation</button>
+    <button class="main-button button-bag-layout-inverted" mat-stroked-button [matMenuTriggerFor]="documentationMenu" >
+      {{'demo-home.documentation'| translate}}
+    </button>
 
     <span class="line-break hidden-s-up"></span>
 
@@ -70,9 +72,9 @@
     </div>
 
     <div class="wow animate__fadeIn col-m-7 col-s-12" data-wow-duration="1s">
-      <h2 class="headline">Verwalten und steuern Sie Ihre Unternehmensziele</h2>
+      <h2 class="headline">{{'demo-home.target-management.title' | translate}}</h2>
       <p>
-        Objectives und Key Results werden in Zyklen bearbeitet. Gestalten Sie Name, Länge und Inhalte der Zyklen nach Ihren Wünschen. Behalten Sie den Überblick über die Produktivität der OKR Teams durch die Fortschrittsanzeige der Objectives und Key Results.
+        {{'demo-home.target-management.content' | translate}}
       </p>
     </div>
 
@@ -81,18 +83,11 @@
 
   <div class="main-content col-12">
     <div class="wow animate__fadeIn col-m-7 col-s-12" data-wow-duration="1s">
-      <h2 class="headline">Innovative Features</h2>
+      <h2 class="headline">{{'demo-home.features.title' | translate}}</h2>
       <p>
-        Unser OKR Tool ermöglicht es Ihnen, mitsamt aller notwendigen Features, den OKR Prozess und dessen Ergebniskennzahlen ganzheitlich zu digitalisieren. Im Detail bietet Burning OKR…
+        {{'demo-home.features.content' | translate}}
       </p>
-      <ul>
-        <li>die Authentifizierung über Azure Active Directory oder einer lokale Nutzerverwaltung</li>
-        <li>die Verwaltung von mehreren Firmen (Multitenancy)</li>
-        <li>das Abbilden von Zyklen, Firmenstrukturen, Teams, Objectives und Key Results</li>
-        <li>eine Fortschrittsanzeige für Objectives und Key Results</li>
-        <li>eine flexible Individualisierung, u.a. die Bezeichnung von Teams, die Einschränkung der maximalen Key Result Anzahl etc.</li>
-        <li>einen Datenexport als Excel-Tabelle</li>
-      </ul>
+      <ul innerHTML="{{'demo-home.features.perks-list' | translate}}"></ul>
     </div>
 
     <div class="wow animate__fadeIn content-image-container" data-wow-duration="1s">
@@ -109,24 +104,19 @@
     </div>
 
     <div class="wow animate__fadeIn col-m-7 col-s-12" data-wow-duration="1s">
-      <h2 class="headline">Einfache Installation</h2>
+      <h2 class="headline">{{'demo-home.installation.title' | translate}}</h2>
       <p>
-        Burning OKR lässt sich einfach auf verschiedenen Plattformen installieren. Wir bieten Ihnen Tutorials zur Installation mit...
+        {{'demo-home.installation.content' | translate}}
       </p>
-      <ul>
-        <li>Docker</li>
-        <li>einem Tomcat Web Server (coming soon)</li>
-      </ul>
+      <ul innerHTML="{{'demo-home.installation.list' | translate}}"></ul>
     </div>
   </div>
 
 
   <div class="main-content col-12">
     <div class="wow animate__fadeIn col-m-7 col-s-12" data-wow-duration="1s">
-      <h2 class="headline">Unser kostenloses Angebot für Sie</h2>
-      <p>
-        Die Anwendung ist für Firmen- und Privatkunden komplett kostenlos. Außerdem können Sie den Open Source Code jederzeit auf <a href="https://github.com/BurningOKR/BurningOKR" target="_blank" rel="noopener noreferrer">GitHub</a> einsehen und an Ihre Bedürfnisse anpassen. Gerne stehen wir Ihnen dabei unterstützend zur Seite. Machen Sie Ihre Anpassungen als Pull Request für die ganze Welt verfügbar!
-      </p>
+      <h2 class="headline">{{'demo-home.free-and-open-source.title' | translate}}</h2>
+      <p innerHTML="{{'demo-home.free-and-open-source.content' | translate}}"></p>
     </div>
 
     <div class="wow animate__fadeIn content-image-container" data-wow-duration="1s">
@@ -141,13 +131,11 @@
     </div>
 
     <div class="wow animate__fadeIn col-m-7 col-s-12" data-wow-duration="1s">
-      <h2 class="headline">Wie Sie uns erreichen</h2>
+      <h2 class="headline">{{'demo-home.contact.title' | translate}}</h2>
       <p>
-        Sie haben Fragen, Anregungen, oder Probleme mit dem Burning OKR Tool? Gerne können Sie uns kontaktieren.
+        {{'demo-home.contact.content' | translate}}
       </p>
-      <p>
-        Bei Bugs oder Verbesserungsvorschlägen hinsichtlich des Tools kontaktieren Sie uns bitte über <a href="https://github.com/BurningOKR/BurningOKR/issues/new/choose" target="_blank" rel="noopener noreferrer">GitHub</a>. Wenn die BROCKHAUS AG für Sie eine Individualisierung vornehmen soll, Sie eine Beratung oder eine andere Dienstleistung benötigen, kontaktieren Sie uns bitte über <a href="mailto:info@brockhaus-ag.de">info@brockhaus-ag.de</a>.
-      </p>
+      <p innerHTML="{{'demo-home.contact.content-with-link' | translate}}"></p>
     </div>
 
   </div>
@@ -155,10 +143,8 @@
 
   <div class="main-content col-12">
     <div class="wow animate__fadeIn" data-wow-duration="1s">
-      <h2 class="headline">Mehr über das OKR Framework und OKR-Prozesse erfahren</h2>
-      <p>
-        Weitere Informationen zum OKR Framework finden Sie auf der <a href="https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr" target="_blank" rel="noopener noreferrer">AGILEVERSITY-Seite der BROCKHAUS AG</a>.
-      </p>
+      <h2 class="headline">{{'demo-home.further-information.title' | translate}}</h2>
+      <p innerHTML="{{'demo-home.further-information.content' | translate}}"></p>
     </div>
   </div>
 
@@ -193,7 +179,11 @@
 
 
 <mat-menu #documentationMenu>
-  <a href="https://burning-okr.gitbook.io/burningokr/" mat-menu-item target="_blank" rel="noopener noreferrer" i18n="@@component_demoHome_germanDocumentation">Deutsch</a>
-  <a href="https://burning-okr.gitbook.io/burningokr/v/en/" mat-menu-item target="_blank" rel="noopener noreferrer" i18n="@@component_demoHome_englishDocumentation">Englisch</a>
+  <a href="https://burning-okr.gitbook.io/burningokr/" mat-menu-item target="_blank" rel="noopener noreferrer">
+    {{'language-picker.language.german' | translate}}
+  </a>
+  <a href="https://burning-okr.gitbook.io/burningokr/v/en/" mat-menu-item target="_blank" rel="noopener noreferrer">
+    {{'language-picker.language.english' | translate}}
+  </a>
 </mat-menu>
 
