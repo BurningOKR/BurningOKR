@@ -6,6 +6,11 @@
 			"add-new-child-unit": "Neue Unterstruktur definieren"
 		}
 	},
+	"change-password-dialog": {
+		"form": {
+			"title": "Passwort ändern"
+		}
+	},
 	"company": {
 		"error": {
 			"error": "Fehler",
