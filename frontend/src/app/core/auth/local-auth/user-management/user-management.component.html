@@ -31,62 +31,60 @@
             </mat-icon>
           </button>
         </div>
-
-        <ng-container matColumnDef="photo">
-            </ng-container><ng-container matColumnDef="active">
-            </ng-container><ng-container matColumnDef="email">
-            </ng-container><ng-container matColumnDef="givenName">
-            </ng-container><ng-container matColumnDef="department" class="cell">
-            </ng-container><ng-container matColumnDef="jobTitle">
-            </ng-container><ng-container matColumnDef="isAdmin">
-            </ng-container><ng-container matColumnDef="actions">
-            </ng-container><table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">
-          <tbody><tr><th *matHeaderCellDef mat-header-cell></th>
+        <table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">
+          <ng-container matColumnDef="photo">
+            <th *matHeaderCellDef mat-header-cell></th>
             <td *matCellDef="let user" mat-cell>
               <app-user-avatar [user]="user" size="38"></app-user-avatar>
             </td>
-
-          <th *matHeaderCellDef mat-header-cell mat-sort-header>{{i18nActiveTableHeader}}</th>
+          </ng-container>
+          <ng-container matColumnDef="active">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>{{i18nActiveTableHeader}}</th>
             <td *matCellDef="let user" mat-cell>
               <mat-icon *ngIf="user.active">check</mat-icon>
             </td>
-
-          <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nEmailTableHeader}}</th>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nEmailTableHeader}}</th>
             <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.email}}</td>
-
-          <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nNameTableHeader}}</th>
+          </ng-container>
+          <ng-container matColumnDef="givenName">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nNameTableHeader}}</th>
             <td *matCellDef="let user" mat-cell class="name-column" matTooltip="{{user.givenName + ' ' + user.surname}}">{{user.givenName + ' ' + user.surname}}</td>
-
-          <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nDepartentTableHeader}}</th>
+          </ng-container>
+          <ng-container matColumnDef="department" class="cell">
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nDepartentTableHeader}}</th>
             <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.department}}</td>
-
-          <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nJobTitleTableHeader}}</th>
+          </ng-container>
+          <ng-container matColumnDef="jobTitle">
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nJobTitleTableHeader}}</th>
             <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.jobTitle}}</td>
-
-          <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nAdminTableHeader}}</th>
+          </ng-container>
+          <ng-container matColumnDef="isAdmin">
+            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{i18nAdminTableHeader}}</th>
             <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>
               <mat-icon *ngIf="user.isAdmin">verified_user</mat-icon>
             </td>
-
-          <th *matHeaderCellDef mat-header-cell></th>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell></th>
             <td *matCellDef="let user" mat-cell>
               <button (click)="handleEdit(user)" mat-icon-button matTooltip="{{ 'user-management.tooltip.edit-user' | translate }}">
                 <mat-icon>edit</mat-icon>
               </button>
               <button (click)="handleDeactivate(user)" *ngIf="currentUser$.getValue().id !== user.id && user.active" mat-icon-button [matTooltip]="isPlayground
-                        ? 'Benutzer deaktivieren ⚠ Deaktiviert in der Demo Version'
-                        : 'Benutzer deaktivieren'" [disabled]="isPlayground" matTooltip="{{ 'user-management.tooltip.deactivate-user' | translate }}">
+                          ? 'Benutzer deaktivieren ⚠ Deaktiviert in der Demo Version'
+                          : 'Benutzer deaktivieren'" [disabled]="isPlayground" matTooltip="{{ 'user-management.tooltip.deactivate-user' | translate }}">
                 <mat-icon>delete</mat-icon>
               </button>
               <button (click)="handleActivate(user)" *ngIf="currentUser$.getValue().id !== user.id && !user.active" mat-icon-button matTooltip="{{ 'user-management.tooltip.activate-user' | translate }}">
                 <mat-icon>restore_from_trash</mat-icon>
               </button>
             </td>
-
-
-          </tr><tr *matHeaderRowDef="columnsToDisplay;" mat-header-row></tr>
+          </ng-container>
+          <tr *matHeaderRowDef="columnsToDisplay;" mat-header-row></tr>
           <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>
-        </tbody></table>
+        </table>
 
         <mat-paginator [pageSizeOptions]="[10,20,25,50,100]" pageSize="25"></mat-paginator>
       </mat-card-content>
