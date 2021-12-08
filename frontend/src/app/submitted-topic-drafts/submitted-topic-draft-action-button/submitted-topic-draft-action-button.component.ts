@@ -18,7 +18,7 @@ import {
   CommentViewDialogFormData
 } from '../../okrview/comment/comment-view-dialog/comment-view-dialog.component';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',

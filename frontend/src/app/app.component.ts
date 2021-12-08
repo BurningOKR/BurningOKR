@@ -3,7 +3,7 @@ import { AuthenticationService } from './core/auth/services/authentication.servi
 import { FetchingService } from './core/services/fetching.service';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',

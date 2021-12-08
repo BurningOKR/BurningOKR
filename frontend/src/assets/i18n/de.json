@@ -9,7 +9,6 @@
 	"admin-view": {
 		"admin-panel": "Admin Panel",
 		"admins": "Admins",
-		"disabled-in-demo-version": "⚠ Deaktiviert in der Demo Version",
 		"tooltip": {
 			"cannot-delete-yourself": "Selber löschen nicht möglich",
 			"go-to-okr-unit-overview": "Zur Strukturübersicht"
@@ -205,6 +204,7 @@
 		"start-date-not-before-end-date": "Das Startdatum darf nicht vor dem Enddatum liegen.",
 		"start-equals-end": "Der Startwert darf nicht gleich dem Zielwert sein."
 	},
+	"disabled-in-demo-version": "⚠ Deaktiviert in der Demo Version",
 	"error": {
 		"error-id": "Fehler ID:",
 		"error-list": "Fehlerliste",
@@ -630,12 +630,18 @@
 		"last-name": "Nachname"
 	},
 	"user-management": {
+		"active-table-header": "Aktiv",
+		"admin-table-header": "Admin",
 		"checkbox": "Deaktivierte Benutzer anzeigen",
+		"department-table-header": "Abteilung ",
+		"email": "Email ",
+		"job-title-table-header": "Berufsbezeichnung ",
+		"name": "Name",
 		"tooltip": {
-			"activate-user": "",
+			"activate-user": "Nutzer aktivieren",
 			"add-new-user": "Neuen Benutzer erstellen",
-			"deactivate-user": "",
-			"edit-user": "",
+			"deactivate-user": "Nutzer deaktivieren ",
+			"edit-user": "Nutzer bearbeiten ",
 			"go-to-okr-unit-overview": "Zur Strukturübersicht",
 			"import-users-from-csv": "Benutzer aus CSV importieren"
 		},

@@ -1,4 +1,4 @@
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule} from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InitStateViewComponent } from './init-state-view/init-state-view.component';

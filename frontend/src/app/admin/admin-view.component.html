@@ -37,7 +37,7 @@
           <mat-list-item>
             <mat-icon class="list-left">person_add</mat-icon>
             <app-user-autocomplete-input class="list-center" i18n-placeHolderText="@@component_adminView_defineNewAdmin" #newAdminForm placeHolderText="Neuen Admin definieren" [userIdsToExclude]="adminUsers | adminUserIds:excludedIdsShouldUpdate" (choseUser)="defineNewAdmin($event)" [disabled]="isPlayground"></app-user-autocomplete-input>
-            <span *ngIf="isPlayground">{{ 'admin-view.disabled-in-demo-version' | translate }}</span>
+            <span *ngIf="isPlayground">{{ 'disabled-in-demo-version' | translate }}</span>
           </mat-list-item>
         </mat-list>
       </p>

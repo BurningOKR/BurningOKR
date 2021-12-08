@@ -12,7 +12,7 @@ import { TopicDraftCreationFormComponent } from '../okrview/okr-child-unit/okr-c
 import { filter, switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-submitted-topic-drafts',
@@ -30,7 +30,6 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
   rowData = new MatTableDataSource([] as OkrTopicDraft[]);
 
    topicTableHeader: string;
-
 
   subscriptions: Subscription[] = [];
 

@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigurationService } from '../../settings/configuration.service';
 import { Consts } from '../../../shared/consts';
 import { environment } from '../../../../environments/environment';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-feedback-button',

@@ -39,7 +39,9 @@ export class DialogComponent<T> implements OnInit{
 
   ngOnInit(): void {
     this.translate.get('dialog-component.save').subscribe((text: string) => {
-      if(!this.saveAndCloseLabel)this.saveAndCloseLabel = text;
+      if(!this.saveAndCloseLabel){
+this.saveAndCloseLabel = text;
+}
     });
   }
 }
