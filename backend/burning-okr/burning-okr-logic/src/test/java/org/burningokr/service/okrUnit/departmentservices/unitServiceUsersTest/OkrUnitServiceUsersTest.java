@@ -68,25 +68,5 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
     okrUnitServiceUsers.deleteUnit(100L, user);
   }
 
-  @Test
-  public void createOkrDraft_expectIsSavedToDatabase() {
-    OkrTopicDraft topicDraft = new OkrTopicDraft();
 
-    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
-
-    okrUnitServiceUsers.createTopicDraft(topicDraft, user);
-
-    verify(okrTopicDraftRepository).save(any());
-  }
-
-  @Test
-  public void createOkrDraft_expectCreatesActivity() {
-    OkrTopicDraft topicDraft = new OkrTopicDraft();
-
-    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
-
-    okrUnitServiceUsers.createTopicDraft(topicDraft, user);
-
-    verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
-  }
 }

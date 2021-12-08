@@ -139,8 +139,7 @@ public class TopicDraftController {
   public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraft(
       @RequestBody OkrTopicDraftDto topicDraftDto, User user) {
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
-    OkrUnitService<OkrBranch> okrUnitService = okrTopicOkrServiceFactory.getUserService();
-    OkrTopicDraft newOkrTopicDraft = okrUnitService.createTopicDraft(topicDraft, user);
+    OkrTopicDraft newOkrTopicDraft = okrTopicDraftService.createTopicDraft(topicDraft, user);
     OkrTopicDraftDto newOkrTopicDraftDto = okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
     return ResponseEntity.ok(newOkrTopicDraftDto);
   }

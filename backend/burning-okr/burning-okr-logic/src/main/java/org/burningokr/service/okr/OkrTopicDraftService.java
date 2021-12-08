@@ -55,6 +55,18 @@ public class OkrTopicDraftService {
     activityService.createActivity(user, referencedTopicDraft, Action.DELETED);
   }
 
+  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user) {
+
+    topicDraft.setParentUnit(null);
+
+    topicDraft = okrTopicDraftRepository.save(topicDraft);
+    logger.info("Created Topic Draft: " + topicDraft.getName());
+
+    activityService.createActivity(user, topicDraft, Action.CREATED);
+
+    return topicDraft;
+  }
+
   /**
    * Creates a Note for a Topic Draft.
    *

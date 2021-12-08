@@ -49,7 +49,6 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
       UnitRepository<T> unitRepository,
       UnitRepository<OkrUnit> superUnitRepository,
       ObjectiveRepository objectiveRepository,
-      OkrTopicDraftRepository topicDraftRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService,
       OkrTopicDescriptionRepository okrTopicDescriptionRepository,
@@ -58,7 +57,6 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
         parentService,
         unitRepository,
         objectiveRepository,
-        topicDraftRepository,
         activityService,
         entityCrawlerService);
 

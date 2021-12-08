@@ -23,14 +23,12 @@ public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServi
       ParentService parentService,
       UnitRepository<T> unitRepository,
       ObjectiveRepository objectiveRepository,
-      OkrTopicDraftRepository topicDraftRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
     super(
         parentService,
         unitRepository,
         objectiveRepository,
-        topicDraftRepository,
         activityService,
         entityCrawlerService);
   }

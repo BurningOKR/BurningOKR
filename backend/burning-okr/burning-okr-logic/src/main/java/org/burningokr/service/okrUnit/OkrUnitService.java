@@ -24,6 +24,4 @@ public interface OkrUnitService<T extends OkrUnit> {
   OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit okrChildUnit, User user);
 
   Objective createObjective(Long unitId, Objective objective, User user);
-
-  OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user);
 }
