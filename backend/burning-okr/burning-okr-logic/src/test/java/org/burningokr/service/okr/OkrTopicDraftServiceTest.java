@@ -1,7 +1,6 @@
 package org.burningokr.service.okr;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -120,5 +119,15 @@ public class OkrTopicDraftServiceTest {
     okrTopicDraftService.createTopicDraft(topicDraft, user);
 
     verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
+  }
+
+  @Test
+  public void createOkrDraft_expectParentUnitIsNull() {
+    OkrTopicDraft topicDraft = new OkrTopicDraft();
+
+    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
+
+    okrTopicDraftService.createTopicDraft(topicDraft, user);
+    assertNull(topicDraft.getParentUnit());
   }
 }
