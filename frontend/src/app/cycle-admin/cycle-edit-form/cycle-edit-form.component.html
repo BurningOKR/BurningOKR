@@ -1,14 +1,12 @@
-<app-dialog-component i18n-title="@@editCycle" title="Zyklus bearbeiten" [formGroup]="cycleForm" i18n-[saveAndCloseLabel] saveAndCloseLabel="Speichern"
-                      [hasFormGroupError]="true"
-                      (okEmitter)="saveCycle()">
+<app-dialog-component i18n-title="@@editCycle" title="Zyklus bearbeiten" [formGroup]="cycleForm" i18n-[saveAndCloseLabel] saveAndCloseLabel="Speichern" [hasFormGroupError]="true" (okEmitter)="saveCycle()">
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
-      <input type="text" i18n-placeholder="@@name-*" matInput placeholder="Name *" formControlName="name">
+      <input type="text" matInput placeholder="{{ 'cycle-edit-form.name-*' | translate }}" formControlName="name">
       <mat-error><app-form-error [control]="cycleForm.get('name')"></app-form-error></mat-error>
     </mat-form-field>
 
     <mat-form-field class="halfWidth leftDate">
-      <input matInput [matDatepicker]="cycleEditStartDatePicker" i18n-placeholder="@@capitalised_start_date" placeholder="Startdatum" formControlName="startDate">
+      <input matInput [matDatepicker]="cycleEditStartDatePicker" placeholder="{{ 'cycle-edit-form.date' | translate }}" formControlName="startDate">
       <mat-datepicker-toggle matSuffix [for]="cycleEditStartDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #cycleEditStartDatePicker></mat-datepicker>
       <mat-error><app-form-error [control]="cycleForm.get('startDate')"></app-form-error></mat-error>
@@ -20,7 +18,7 @@
       <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>
     </mat-form-field>
     <mat-slide-toggle formControlName="isVisible">
-      <span i18n="@@visibility">Sichtbarkeit</span>
+      <span>{{ 'cycle-edit-form.visibility' | translate }}</span>
     </mat-slide-toggle>
   </form>
 </app-dialog-component>

@@ -1,24 +1,18 @@
 <app-okr-toolbar *ngIf="userIsLoggedIn; else notLoggedIn">
-  <button (click)="navigateToCompanies()" class="navbar-item"
-          i18n-matTooltip="@@goToOkrUnitOverview" mat-icon-button
-          matTooltip="Zur Strukturübersicht">
+  <button (click)="navigateToCompanies()" class="navbar-item" mat-icon-button matTooltip="{{ 'error.tooltip.go-to-okr-unit-overview' | translate }}">
     <mat-icon>home</mat-icon>
   </button>
-  <button (click)="navigateToPrevious()" class="navbar-item"
-          i18n-matTooltip="@@component_adminView_NavigateToPrevious" mat-icon-button
-          matTooltip="Zur vorherigen Seite zurückkehren">
+  <button (click)="navigateToPrevious()" class="navbar-item" mat-icon-button matTooltip="{{ 'error.tooltip.navigate-to-previous' | translate }}">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <span i18n="@@errorList">Fehlerliste</span>
+  <span>{{ 'error.error-list' | translate }}</span>
 </app-okr-toolbar>
 <ng-template #notLoggedIn>
   <app-okr-toolbar-bare>
-    <button (click)="navigateToPrevious()" class="navbar-item"
-            i18n-matTooltip="@@component_adminView_NavigateToPrevious" mat-icon-button
-            matTooltip="Zur vorherigen Seite zurückkehren">
+    <button (click)="navigateToPrevious()" class="navbar-item" mat-icon-button matTooltip="{{ 'error.tooltip.navigate-to-previous' | translate }}">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <span i18n="@@errorList">Fehlerliste</span>
+    <span>{{ 'error.error-list' | translate }}</span>
   </app-okr-toolbar-bare>
 </ng-template>
 <div class="container">
@@ -30,7 +24,7 @@
           <mat-card-title>{{err.error ? (err.error.errorInformation ? err.error.errorInformation : (err.error.message) ?
             err.error.message : err.error) : err.message}}
           </mat-card-title>
-          <mat-card-subtitle *ngIf="err.error && err.error.errorId"><span><span i18n="@@component_error_errorId">Fehler ID:</span> {{err.error?.errorId}}</span>
+          <mat-card-subtitle *ngIf="err.error && err.error.errorId"><span><span>{{ 'error.error-id' | translate }}</span> {{err.error?.errorId}}</span>
           </mat-card-subtitle>
         </mat-card-header>
       </mat-card>

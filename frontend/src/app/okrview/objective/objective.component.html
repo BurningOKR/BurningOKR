@@ -1,5 +1,4 @@
-<mat-expansion-panel class="margin-expansion-panel" [hideToggle]="true" (opened)="isPanelOpen = true"
-                     (closed)="isPanelOpen = false">
+<mat-expansion-panel class="margin-expansion-panel" [hideToggle]="true" (opened)="isPanelOpen = true" (closed)="isPanelOpen = false">
   <!-- Objective Header -->
   <mat-expansion-panel-header [collapsedHeight]="'100%'" [expandedHeight]="'100%'" class="no-padding">
     <div class="header-padding flex-nowrap objective f-1" [ngClass]="{'objective-inactive': !objective.isActive}">
@@ -19,17 +18,16 @@
           <div *ngIf="isProgressValueSetForObjective(); else progressNotSet" class="flex-nowrap-center progress-bar">
             <div [ngSwitch]="currentObjectiveScore.toString()" class="flex-nowrap-center f-1 hidden-m-down">
               <div *ngSwitchCase="2" class="circle off-track">
-                <mat-icon i18n-matTooltip="@@component_objective_badProgress" matTooltip="Das Objective macht einen schlechten Fortschritt ">trending_down</mat-icon>
+                <mat-icon matTooltip="{{ 'objective.tooltip.bad-progress' | translate }}">trending_down</mat-icon>
               </div>
               <div *ngSwitchCase="1" class="circle in-danger">
-                <mat-icon i18n-matTooltip="@@component_objective_progressCanBeBetter" matTooltip="Das Objective sollte den Fortschritt verbessern">trending_flat</mat-icon>
+                <mat-icon matTooltip="{{ 'objective.tooltip.progress-can-be-better' | translate }}">trending_flat</mat-icon>
               </div>
               <div *ngSwitchDefault class="circle on-track">
-                <mat-icon i18n-matTooltip="@@component_objective_goodProgress" matTooltip="Das Objective macht einen guten Fortschritt">trending_up</mat-icon>
+                <mat-icon matTooltip="{{ 'objective.tooltip.good-progress' | translate }}">trending_up</mat-icon>
               </div>
             </div>
-            <mat-progress-bar class="f-5 h-6 hidden-m-down" mode="determinate" [value]="getProgressValueForObjective()"
-                              color="accent">
+            <mat-progress-bar class="f-5 h-6 hidden-m-down" mode="determinate" [value]="getProgressValueForObjective()" color="accent">
             </mat-progress-bar>
             <div class="text-center f-15">{{getProgressValueForObjective()}} %</div>
           </div>
@@ -47,35 +45,29 @@
         <!-- Flavor text when objective is inactive, displayed instead of progress bar-->
         <div *ngIf="!objective.isActive" class="flex-nowrap-center objective-progressBar">
           <mat-icon>info</mat-icon>
-          <span i18n="@@component_objective_objectiveIsntActive">Dieses Objective ist nicht aktiv</span>
+          <span>{{ 'objective.objective-isnt-active' | translate }}</span>
         </div>
       </div>
 
-      <div class="icon-spacer-large f-05" *ngIf="hasSubObjectives()"
-           matTooltip="Anzahl der untergeordneten Objectives" i18n-matTooltip="@@amount_of_subordinate.">
+      <div class="icon-spacer-large f-05" *ngIf="hasSubObjectives()" matTooltip="{{ 'objective.tooltip.subordinate.' | translate }}">
         <button mat-button class="flex-nowrap">
           {{objective.subObjectivesCount}}
           <mat-icon>assignment</mat-icon>
         </button>
       </div>
 
-      <button class="icon-spacer" *ngIf="!cycle.isCycleClosed()"
-              (click)="$event.stopPropagation()" [matMenuTriggerFor]="optionsMenu"
-              [matMenuTriggerData]="{ objective: objective }" matTooltip="Mehr Optionen zu diesem Objective"
-              mat-icon-button>
+      <button class="icon-spacer" *ngIf="!cycle.isCycleClosed()" (click)="$event.stopPropagation()" [matMenuTriggerFor]="optionsMenu" [matMenuTriggerData]="{ objective: objective }" matTooltip="Mehr Optionen zu diesem Objective" mat-icon-button>
         <mat-icon>more_vert</mat-icon>
       </button>
 
-      <button class="icon-spacer" i18n-matTooltip="@@component_department_expandObjective" mat-icon-button
-              matTooltip="Objective aufklappen">
+      <button class="icon-spacer" mat-icon-button matTooltip="{{ 'objective.tooltip.expand-objective' | translate }}">
         <mat-icon *ngIf="!isPanelOpen">expand_more</mat-icon>
         <mat-icon *ngIf="isPanelOpen">expand_less</mat-icon>
       </button>
     </div>
   </mat-expansion-panel-header>
   <!-- Objective Contents -->
-  <app-objective-contents #contentsComponent [objective]="objective" [currentUserRole]="currentUserRole" [cycle]="cycle"
-                          (objectiveProgressChanged)="updateObjectiveProgress($event)">
+  <app-objective-contents #contentsComponent [objective]="objective" [currentUserRole]="currentUserRole" [cycle]="cycle" (objectiveProgressChanged)="updateObjectiveProgress($event)">
   </app-objective-contents>
 
 </mat-expansion-panel>
@@ -85,33 +77,33 @@
   <ng-template matMenuContent let-objective="objective">
     <button mat-menu-item *ngIf="userIsOkrMember()" (click)="clickedEditObjective()">
       <mat-icon>edit</mat-icon>
-      <span i18n="@@component_objective_editObjective">Objective bearbeiten</span>
+      <span>{{ 'objective.menu.edit-objective' | translate }}</span>
     </button>
     <button mat-menu-item (click)="clickedCommentObjective()">
       <mat-icon>chat</mat-icon>
-      <span i18n="@@component_objective_commentObjective">Objective kommentieren</span>
+      <span>{{ 'objective.menu.comment-objective' | translate }}</span>
     </button>
     <button mat-menu-item *ngIf="userIsOkrMember()" (click)="toggleWhetherObjectiveIsActive()">
       <div *ngIf="objective.isActive">
         <mat-icon>power_off</mat-icon>
-        <span i18n="@@component_objective_disableObjective">Objective auf inaktiv setzen</span>
+        <span>{{ 'objective.menu.disable-objective' | translate }}</span>
       </div>
       <div *ngIf="!objective.isActive">
         <mat-icon>power</mat-icon>
-        <span i18n="@@component_objective_enableObjective">Objective auf aktiv setzen</span>
+        <span>{{ 'objective.menu.enable-objective' | translate }}</span>
       </div>
     </button>
     <button mat-menu-item *ngIf="!isObjectiveOnTop() && userIsOkrMember()" (click)="clickedMoveObjectiveToTop()">
       <mat-icon>vertical_align_top</mat-icon>
-      <span i18n="@@component_objective_moveUpObjective">Objective nach oben verschieben</span>
+      <span>{{ 'objective.menu.move-up-objective' | translate }}</span>
     </button>
     <button mat-menu-item *ngIf="!isObjectiveOnBottom() && userIsOkrMember()" (click)="clickedMoveObjectiveToBottom()">
       <mat-icon>vertical_align_bottom</mat-icon>
-      <span i18n="@@component_objective_moveDownObjective">Objective nach unten verschieben</span>
+      <span>{{ 'objective.menu.move-down-objective' | translate }}</span>
     </button>
     <button mat-menu-item *ngIf="currentUserRole.isAtleastOKRManager() && userIsOkrMember()" (click)="clickedDeleteObjective()">
       <mat-icon>delete</mat-icon>
-      <span i18n="@@component_objective_deleteObjective">Objective löschen</span>
+      <span>{{ 'objective.menu.delete-objective' | translate }}</span>
     </button>
   </ng-template>
 </mat-menu>

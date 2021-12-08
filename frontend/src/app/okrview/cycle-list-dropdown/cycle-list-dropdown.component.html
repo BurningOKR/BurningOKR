@@ -5,7 +5,7 @@
       <mat-select [value]="currentCycle" (selectionChange)="onSelectCycle($event.value)">
 
         <mat-select-trigger>
-          {{ currentCycle.abbreviation }} <br/>
+          {{ currentCycle.abbreviation }} <br>
           <small>[{{ currentCycle.startDate | date: 'dd.MM.yyyy' }} -
             {{ currentCycle.endDate | date: 'dd.MM.yyyy' }}]</small>
           <mat-icon class="padlock-margin" *ngIf="currentCycle.cycleState === 'CLOSED'">lock</mat-icon>
@@ -13,9 +13,8 @@
           </mat-icon>
         </mat-select-trigger>
 
-        <mat-option class="option" *ngFor="let cycleListEntry of currentCycleList"
-                    [value]="cycleListEntry">
-          {{ cycleListEntry.abbreviation }} <br/>
+        <mat-option class="option" *ngFor="let cycleListEntry of currentCycleList" [value]="cycleListEntry">
+          {{ cycleListEntry.abbreviation }} <br>
           <small>[{{ cycleListEntry.startDate | date: 'dd.MM.yyyy' }} -
             {{ cycleListEntry.endDate | date: 'dd.MM.yyyy' }}]</small>
           <mat-icon class="padlock-margin" *ngIf="cycleListEntry.cycleState === 'CLOSED'">lock</mat-icon>

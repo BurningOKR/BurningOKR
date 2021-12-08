@@ -5,12 +5,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button color="primary"
-          (click)="sendOk()"
-          [disabled]="isSaveButtonDisabled || formGroup.invalid || formHasToBeEdited && formGroup.pristine">
+  <button mat-button color="primary" (click)="sendOk()" [disabled]="isSaveButtonDisabled || formGroup.invalid || formHasToBeEdited && formGroup.pristine">
           {{saveAndCloseLabel}}
   </button>
-  <button mat-button color="warn" (click)="closeDialog()"><span >{{'dialog-component.cancel' | translate}}</span></button>
+  <button mat-button color="warn" (click)="closeDialog()"><span>{{'dialog-component.cancel' | translate}}</span></button>
   <div *ngIf="hasFormGroupError">
     <mat-error class="error-span" *ngIf="formGroup.hasError('startEqualsEnd')">
       <span>{{'dialog-component.start-equals-end' | translate}}</span>

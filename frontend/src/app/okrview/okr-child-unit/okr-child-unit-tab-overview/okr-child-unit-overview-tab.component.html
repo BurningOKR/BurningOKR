@@ -4,23 +4,17 @@
   </div>
   <div class="add-objective-button-container" *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()">
     <button mat-mini-fab color="accent" (click)="clickedAddObjective()">
-      <mat-icon i18n-matTooltip="@@component_departmentTabOverview_createNewObjective"
-                matTooltip="Neues Objective erstellen">add_circle_outline
+      <mat-icon matTooltip="{{ 'okr-child-unit-overview-tab.tooltip.create-new-objective' | translate }}">add_circle_outline
       </mat-icon>
     </button>
   </div>
 </div>
 
 <div *ngIf="objectiveList; else loading">
-  <div *ngIf="objectiveList.length === 0" class="centered-hint" i18n="@@component_departmentTabOverview_noObjectives">
-    Es gibt noch keine Objectives für diese Struktur.
-  </div>
-  <div cdkDropList (cdkDropListDropped)="dropObjective($event)"
-       [cdkDropListDisabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())">
+  <div *ngIf="objectiveList.length === 0" class="centered-hint">{{ 'okr-child-unit-overview-tab.no-objectives' | translate }}</div>
+  <div cdkDropList (cdkDropListDropped)="dropObjective($event)" [cdkDropListDisabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())">
     <div *ngFor="let objective of objectiveList; let i = index" cdkDrag>
-      <app-objective [objective]="objective" [objectiveList]="objectiveList" [currentUserRole]="currentUserRole"
-                     [cycle]="cycle" [listNumber]="i+1" (moveObjectiveToBottom)="moveObjectiveToBottom($event)"
-                     (moveObjectiveToTop)="moveObjectiveToTop($event)">
+      <app-objective [objective]="objective" [objectiveList]="objectiveList" [currentUserRole]="currentUserRole" [cycle]="cycle" [listNumber]="i+1" (moveObjectiveToBottom)="moveObjectiveToBottom($event)" (moveObjectiveToTop)="moveObjectiveToTop($event)">
         <div *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()" class="icon-spacer">
           <mat-icon cdkDragHandle>drag_indicator</mat-icon>
         </div>
@@ -32,8 +26,8 @@
 <!-- Placeholder for loading -->
 <ng-template #loading>
   <mat-card *ngFor="let placeholder of okrChildUnit.objectives" class="placeholder-objective">
-    <span i18n="@@component_departmentTabOverview_loadObjective">Lade Objective...</span>
+    <span>{{ 'okr-child-unit-overview-tab.load-objective' | translate }}</span>
     <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
-    <br/>
+    <br>
   </mat-card>
 </ng-template>

@@ -1,12 +1,12 @@
-<h1 mat-dialog-title class="form-header"><span i18n="@@settings">Einstellungen</span></h1>
+<h1 mat-dialog-title class="form-header"><span>{{ 'settings-form.settings' | translate }}</span></h1>
 
 <mat-dialog-content>
 
   <mat-tab-group dynamicHeight>
-    <mat-tab i18n-label="@@settings" label="Einstellungen">
+    <mat-tab label="{{ 'settings-form.settings' | translate }}">
       <app-user-settings (valid)="userSettingsValid = $event"></app-user-settings>
     </mat-tab>
-    <mat-tab [disabled]="(isCurrentUserAdmin$ | async) === false" i18n-label="@@adminSettings" label="Adminverwaltung">
+    <mat-tab [disabled]="(isCurrentUserAdmin$ | async) === false" label="{{ 'settings-form.admin-settings' | translate }}">
       <app-admin-settings (valid)="adminSettingsValid = $event"></app-admin-settings>
     </mat-tab>
   </mat-tab-group>
@@ -14,9 +14,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="onSave()"
-          [disabled]="!userSettingsValid || (adminSettingsValid && isCurrentUserAdmin$ | async) === false"><span
-    i18n="@@capitalized_save">Speichern</span></button>
-  <button mat-button color="warn" (click)="closeDialog()"><span
-    i18n="@@cancelButtonText">Abbrechen</span></button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="!userSettingsValid || (adminSettingsValid && isCurrentUserAdmin$ | async) === false"><span>{{ 'settings-form.save' | translate }}</span></button>
+  <button mat-button color="warn" (click)="closeDialog()"><span>{{ 'settings-form.cancel-button-text' | translate }}</span></button>
 </mat-dialog-actions>

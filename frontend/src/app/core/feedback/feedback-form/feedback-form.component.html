@@ -1,18 +1,14 @@
 <ng-container *ngIf="feedbackForm$ | async as feedbackForm">
   <ng-container *ngIf="noCurrentRequest; else loadingspinner">
-    <app-dialog-component title="{{'feedback-form.dialog.title' | translate}}"
-                          saveAndCloseLabel="{{'feedback-form.dialog.save-button' | translate}}"
-                          (okEmitter)="sendFeedback($event)" [formGroup]="feedbackForm">
+    <app-dialog-component title="{{'feedback-form.dialog.title' | translate}}" saveAndCloseLabel="{{'feedback-form.dialog.save-button' | translate}}" (okEmitter)="sendFeedback($event)" [formGroup]="feedbackForm">
       <form [formGroup]="feedbackForm">
         <div>
           <mat-form-field class="name fullWidth">
-            <input type="text" matInput placeholder="{{'feedback-form.form-field.name' | translate}} *"
-                   formControlName="name">
+            <input type="text" matInput placeholder="{{'feedback-form.form-field.name' | translate}} *" formControlName="name">
             <mat-error><app-form-error [control]="feedbackForm.get('name')"></app-form-error></mat-error>
           </mat-form-field>
           <mat-form-field class="feedbackText fullWidth">
-            <textarea type="text" matInput placeholder="{{'feedback-form.form-field.feedback' | translate}} *"
-                      formControlName="feedbackText"></textarea>
+            <textarea type="text" matInput placeholder="{{'feedback-form.form-field.feedback' | translate}} *" formControlName="feedbackText"></textarea>
             <mat-error><app-form-error [control]="feedbackForm.get('feedbackText')"></app-form-error></mat-error>
           </mat-form-field>
         </div>

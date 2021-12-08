@@ -6,10 +6,38 @@
 			"add-new-child-unit": "Neue Unterstruktur definieren"
 		}
 	},
+	"admin-view": {
+		"admin-panel": "Admin Panel",
+		"admins": "Admins",
+		"disabled-in-demo-version": "⚠ Deaktiviert in der Demo Version",
+		"tooltip": {
+			"cannot-delete-yourself": "Selber löschen nicht möglich",
+			"go-to-okr-unit-overview": "Zur Strukturübersicht"
+		}
+	},
 	"change-password-dialog": {
 		"form": {
 			"title": "Passwort ändern"
 		}
+	},
+	"comment-card": {
+		"edit-comment": "Kommentar bearbeiten",
+		"tooltip": {
+			"cancel": "Bearbeitung abbrechen",
+			"delete-comment": "Kommentar löschen",
+			"edit-comment": "Kommentar bearbeiten",
+			"save-comment": "Kommentar speichern"
+		}
+	},
+	"comment-view-dialog": {
+		"close": "Schließen",
+		"no-comment": "Es gibt noch keine Kommentare für dieses",
+		"title": "Kommentare",
+		"tooltip": {
+			"comment-to-small": "Ihr Kommentar muss länger sein",
+			"write-new-comment": "Neuen Kommentar schreiben"
+		},
+		"write-comment": "Einen neuen Kommentar schreiben"
 	},
 	"company": {
 		"error": {
@@ -30,9 +58,47 @@
 		"your-teams-as-manager": "Ihre Teams als Manager",
 		"your-teams-as-member": "Ihre Teams als Mitglied"
 	},
+	"complete-init-state-form": {
+		"initialisation-completed": "Fertig!",
+		"initialisation-completed-message": "Die Initialisierung wurde erfolgreich abgeschlossen🎉",
+		"lets-go!": "Los geht's!"
+	},
+	"create-user-init-state-form": {
+		"create-your-admin-account": "Administratorenkonto",
+		"next": "Weiter",
+		"subtitle": "Legen Sie ein initiales Administratorenkonto an."
+	},
+	"cycle-admin-card": {
+		"delete-cycle": "Zyklus löschen",
+		"edit-cycle": "Zyklus bearbeiten",
+		"hidden": "Unsichtbar",
+		"visible": "Sichtbar"
+	},
+	"cycle-admin-container": {
+		"administration": "Zyklusverwaltung",
+		"create-new-cycle": "Neuen Zyklus erstellen",
+		"tooltip": {
+			"go-back-to-company": "Zurück zur Struktur",
+			"go-to-okr-unit-overview": "Zur Strukturübersicht"
+		}
+	},
+	"cycle-creation-form": {
+		"date": "Startdatum",
+		"visibility": "Sichtbarkeit"
+	},
+	"cycle-edit-form": {
+		"date": "Startdatum",
+		"name-*": "Name *",
+		"visibility": "Sichtbarkeit"
+	},
 	"delete-dialog": {
 		"delete": "Löschen ",
 		"general-do-you-want-to-delete": "Wollen Sie {{value}} wirklich löschen?"
+	},
+	"demo-footer": {
+		"credits": "Credits",
+		"imprint": "Impressum",
+		"privacy-policy": "Datenschutzerklärung"
 	},
 	"demo-home": {
 		"contact": {
@@ -58,11 +124,13 @@
 			"content": "Weitere Informationen zum OKR Framework finden Sie auf der <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY-Seite der BROCKHAUS AG</a>.",
 			"title": "Mehr über das OKR Framework und OKR-Prozesse erfahren"
 		},
+		"github": "GitHub",
 		"installation": {
 			"content": "Burning OKR lässt sich einfach auf verschiedenen Plattformen installieren. Wir bieten Ihnen Tutorials zur Installation mit...",
 			"list": "<li>Docker</li>\n<li>einem Tomcat Web Server (coming soon)</li>",
 			"title": "Einfache Installation "
 		},
+		"playground": "Playground",
 		"target-management": {
 			"content": "Objectives und Key Results werden in Zyklen bearbeitet. Gestalten Sie Name, Länge und Inhalte der Zyklen nach Ihren Wünschen. Behalten Sie den Überblick über die Produktivität der OKR Teams durch die Fortschrittsanzeige der Objectives und Key Results.",
 			"title": "Verwalten und steuern Sie Ihre Unternehmensziele"
@@ -76,12 +144,74 @@
 			"title": "Willkommen bei Burning OKR!"
 		}
 	},
+	"demo-main-view": {
+		"playground": "Playground"
+	},
+	"demo-warning": {
+		"abort-button": "Abbrechen",
+		"explanation": "Sie betreten nun den Playground der Burning OKR Demo.",
+		"headline": "Nutzergenerierte Inhalte",
+		"playground-button": "Zum Playground",
+		"text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
+		"title": "Playground"
+	},
+	"department-tab-description": {
+		":": "Beschreibung:",
+		"beginning": "Beginn:",
+		"delimitation": "Abgrenzung:",
+		"dependencies": "Abhängigkeiten:",
+		"description": "Beschreibung",
+		"handover-plan": "Übergabeplan:",
+		"initiator": "Initiator:",
+		"resources": "Benötigte Ressourcen:",
+		"stakeholder": "Stakeholder:",
+		"startteam": "Startteam:",
+		"to": "Zahlt ein auf:",
+		"tooltip": {
+			"no-edit-rights": "Nur OKR Master können Beschreibungen bearbeiten"
+		},
+		"topic": "Thema:"
+	},
+	"department-tab-task-card": {
+		"task-board-loading": "loading"
+	},
+	"department-tab-task-form": {
+		"assigned-user-ids": "Bearbeiter",
+		"description": "Beschreibung",
+		"no-parent-key-result": "Kein übergeordnetes Key Result",
+		"select-parent-key-result": "Übergeordnetes Key Result auswählen",
+		"task-state": "Status",
+		"title": "Titel *"
+	},
+	"department-tab-taskboard": {
+		"task-board-headline": "Aufgaben",
+		"tooltip": {
+			"create-new-task": "Neue Aufgabe erstellen"
+		}
+	},
+	"department-tab-team": {
+		"define-o-k-r-master": "Kein OKR Master definiert",
+		"define-topic-sponsor": "Kein OKR Themenpate definiert",
+		"members-of-unit": "Mitglieder dieser Struktur",
+		"no-members-defined": "Keine Teammitglieder definiert",
+		"o-k-r-master": "OKR Master",
+		"o-k-r-topic-sponsor": "OKR Themenpate",
+		"team-member": "Teammitglieder"
+	},
 	"dialog-component": {
 		"cancel": "Abbrechen",
 		"date-range-within-another-date-range": "Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.",
 		"save": "Speichern",
 		"start-date-not-before-end-date": "Das Startdatum darf nicht vor dem Enddatum liegen.",
 		"start-equals-end": "Der Startwert darf nicht gleich dem Zielwert sein."
+	},
+	"error": {
+		"error-id": "Fehler ID:",
+		"error-list": "Fehlerliste",
+		"tooltip": {
+			"go-to-okr-unit-overview": "Zur Strukturübersicht",
+			"navigate-to-previous": "Zur vorherigen Seite zurückkehren"
+		}
 	},
 	"feedback-button": {
 		"button-icon": {
@@ -101,12 +231,64 @@
 			"name": "Name"
 		}
 	},
+	"import-csv-dialog": {
+		"amount-of-entries-loaded": "Es wurden Einträge geladen.",
+		"csv-file": "CSV-Datei",
+		"department": "Abteilung",
+		"description": "Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung",
+		"duplicate-email-adresses-warning": "In diesem Datensatz sind doppelte Email Adressen.",
+		"email": "Email",
+		"job-title": "Jobbezeichnung",
+		"name": "Name",
+		"to-many-entries-warning": "Mindestens ein Eintrag hat zu viele spalten."
+	},
+	"key-result-form": {
+		"current": "Aktuell *",
+		"description": "Beschreibung",
+		"key-result": "Key Result *",
+		"start": "Start *",
+		"target": "Ziel *",
+		"unit": "Einheit *"
+	},
+	"key-result-milestone-form": {
+		"name-*": "Name *",
+		"toggle": "Meilensteine aktiv",
+		"tooltip": {
+			"add-button": "Meilenstein hinzufügen",
+			"delete-button": "Meilenstein löschen"
+		},
+		"value-input": "Ziel-Wert *"
+	},
+	"keyresult": {
+		"menu": {
+			"edit-key-result": "KeyResult bearbeiten",
+			"keyresult": "KeyResult löschen",
+			"move-key-result-down": "KeyResult nach unten verschieben",
+			"move-key-result-up": "KeyResult nach oben verschieben"
+		},
+		"tooltip": {
+			"adjust-progress": "Fortschritt anpassen",
+			"comments-for-this-key-result": "Kommentare zu diesem KeyResult",
+			"more-options": "Mehr Optionen zu diesem KeyResult"
+		}
+	},
 	"language-picker": {
 		"language": {
 			"english": "Englisch",
 			"german": "Deutsch"
 		},
 		"select-trigger-text": "Sprache wählen"
+	},
+	"login": {
+		"button": "Passwort vergessen",
+		"caps-lock-on": "Die Feststelltaste ist aktiv",
+		"email": "Email",
+		"error": "Benutzername nicht gefunden",
+		"password": "Passwort"
+	},
+	"logout": {
+		"logged-out": "Sie wurden erfolgreich ausgelogt.",
+		"redirect": "Sie werden sofort weitergeleitet."
 	},
 	"main-view": {
 		"navigation-sidebar": {
@@ -118,6 +300,120 @@
 			"go-to-structure-view": "Zur Strukturübersicht",
 			"toogle-navigvation": "Navigationsmenü anzeigen/verbergen"
 		}
+	},
+	"navigation-list-entry": {
+		"tooltip": {
+			"is-substructure": "Dies ist eine Unterstruktur",
+			"is-team": "Dies ist ein Team",
+			"you-are-manager": "Sie sind Manager dieser Struktur",
+			"you-are-member": "Sie sind Mitglied dieser Struktur"
+		}
+	},
+	"no-mail-information": {
+		"a-a-d": "Wird ein Azure Active Directory zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
+		"back-to-home": "Zurück zur Startseite",
+		"create-user-mails": "Senden von Mails für die Anlegung von Nutzern",
+		"feedback": "Senden von Feedback",
+		"info": "Dies kann die Benutzbarkeit der Anwendung stark einschränken.",
+		"local": "Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
+		"password-reset-mails": "Senden von Mails um Passwörter zurückzusetzen",
+		"title": "Es wurde keine SMTP Konfiguration gefunden.",
+		"tooltip": {
+			"go-to-okr-unit-overview": "Zur Strukturübersicht"
+		}
+	},
+	"objective": {
+		"menu": {
+			"comment-objective": "Objective kommentieren",
+			"delete-objective": "Objective löschen",
+			"disable-objective": "Objective auf inaktiv setzen",
+			"edit-objective": "Objective bearbeiten",
+			"enable-objective": "Objective auf aktiv setzen",
+			"move-down-objective": "Objective nach unten verschieben",
+			"move-up-objective": "Objective nach oben verschieben"
+		},
+		"objective-isnt-active": "Dieses Objective ist nicht aktiv",
+		"tooltip": {
+			"bad-progress": "Das Objective macht einen schlechten Fortschritt",
+			"expand-objective": "Objective aufklappen",
+			"good-progress": "Das Objective macht einen guten Fortschritt",
+			"progress-can-be-better": "Das Objective sollte den Fortschritt verbessern",
+			"subordinate": {
+				"": "Anzahl der untergeordneten Objectives"
+			}
+		}
+	},
+	"objective-contents": {
+		"key-results": "KeyResults",
+		"load-key-results": "Lade KeyResults...",
+		"no-key-result-found": "Es gibt noch keine KeyResults für dieses Objective.",
+		"parent-objective": "Übergeordnetes Objective",
+		"tooltip": {
+			"define-new-key-result": "Neues KeyResult definieren",
+			"navigate-to-unit": "Zu der Struktur des Objectives"
+		}
+	},
+	"objective-form": {
+		"annotation": "Anmerkungen",
+		"contact-person": "Ansprechpartner",
+		"description": "Beschreibung",
+		"no-contact-person": "Kein Ansprechpartner",
+		"no-parent-objective": "Kein übergeordnetes Objective",
+		"objective-is-active-in-process": "Objective wird im aktuellen Zyklus aktiv bearbeitet",
+		"select-parent-objective": "Übergeordnetes Objective auswählen"
+	},
+	"okr-child-unit": {
+		"description": "Beschreibung",
+		"empty-label": "-",
+		"error-info-label": "Info",
+		"load-department": "Lade Department",
+		"load-department-failed": "Laden Fehlgeschlagen",
+		"load-department-failed-button": "Zur nächsthöheren Struktur",
+		"load-department-failed-info-text": "Die Struktur konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.",
+		"loading": "Lade...",
+		"menu": {
+			"contacts": "Kontakte exportieren",
+			"delete-unit": "Struktur löschen",
+			"disable-unit": "Struktur auf inaktiv setzen",
+			"editchild-unit": "Struktur bearbeiten",
+			"enable-unit": "Struktur auf aktiv setzen",
+			"export": "Exportieren"
+		},
+		"overview": "Übersicht",
+		"please-wait": "Bitte warten",
+		"substructures": "Unterstrukturen",
+		"task-board-headline": "Aufgaben",
+		"team-member": "Teammitglieder",
+		"tooltip": {
+			"cannot-delete-unit": "Kann wegen Unterstrukturen nicht gelöscht werden!",
+			"more-options": "Mehr Optionen zu dieser Struktur"
+		},
+		"unit-not-active": "Diese Struktur ist nicht aktiv"
+	},
+	"okr-child-unit-form": {
+		"description": "Bezeichnung *",
+		"header": "Aktiv",
+		"name-*": "Name *"
+	},
+	"okr-child-unit-overview-tab": {
+		"load-objective": "Lade Objective...",
+		"no-objectives": "Es gibt noch keine Objectives für diese Struktur.",
+		"tooltip": {
+			"create-new-objective": "Neues Objective erstellen"
+		}
+	},
+	"okr-child-unit-preview-button": {
+		"load": "Lade",
+		"tooltip": {
+			"list-child-unit": "Unterstrukturen dieser Struktur",
+			"list-objectives": "Objectives dieses Struktur",
+			"not-active": "Diese Okr Einheit ist nicht aktiv",
+			"show-department": "Struktur anzeigen"
+		}
+	},
+	"okr-child-unit-tab": {
+		"no-child-unit": "Es gibt noch keine Unterstrukturen für diese Struktur",
+		"substructures": "Unterstrukturen"
 	},
 	"okr-toolbar": {
 		"admin-icon": {
@@ -143,6 +439,16 @@
 			"no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
 			"no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert."
 		}
+	},
+	"okr-topic-description-form": {
+		"beginning": "Beginn *",
+		"contributes-to": "Zahlt ein auf",
+		"delimitation": "Abgrenzung",
+		"dependencies": "Abhängigkeiten",
+		"description": "Beschreibung",
+		"handover-plan": "Übergabeplan",
+		"header": "Thema *",
+		"resources": "Benötigte Ressourcen"
 	},
 	"okr-unit-card": {
 		"delete-company-has-child-unit-warning": "{{value}} enthält noch Unterstrukturen",
@@ -178,6 +484,59 @@
 		"save": "{{value}} speichern.",
 		"structure": "Struktur"
 	},
+	"password-form": {
+		"caps-lock-on": "Die Feststelltaste ist aktiv",
+		"error-message-previous-password-required": "Das vorherige Passwort muss angegeben werden.",
+		"error-message-previous-password-wrong": "Das vorherige Password ist falsch angegeben worden.",
+		"new-password": "Neues Passwort",
+		"new-password-invalid": "Das Passwort muss mindestens 7 Zeichen enthalten",
+		"new-password-repetition": "Neues Passwort wiederholen",
+		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
+		"previous-password": "Vorheriges Passwort"
+	},
+	"reset-countdown": {
+		"until-next": "Zurücksetzen der Daten in:"
+	},
+	"reset-password": {
+		"email": "Email",
+		"error-invalid-email": "Ungültige E-mail",
+		"password-reset-email-has-been-send-out": "Eine Email zum zurücksetzen Ihres Passworts wurde an die angegebene Email-Adresse versandt.",
+		"password-reset-title": "Burning OKR - Passwort zurücksetzen",
+		"reset-password": "Passwort zurücksetzen"
+	},
+	"set-azure-admin-init-state-form": {
+		"other-user-notice": "Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto an.",
+		"set-admin-button": "Diesen Nutzer als Administrator festlegen",
+		"set-admin-logout-button": "Logout",
+		"set-azure-admin-subtitle": "Folgender Nutzer wird als initialer Administrator festgelegt.",
+		"set-azure-admin-title": "Administrator festlegen"
+	},
+	"set-oauth-client-details-form": {
+		"access-token-validity": "Lebenszeit des Accesstokens (in Sekunden)",
+		"client-id": "Client-Id",
+		"client-secret": "Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)",
+		"explanation": "Um die Lokale Nutzerdatenbank zu verwenden, müssen die OAuth Einstellungen konfiguriert werden. Wichtig ist dabei, dass die Client-ID und das Client-Secret einzigartig sind. Alle Formularfelder wurden bereits mit sinnvollen Daten befüllt und eine Änderung dieser Daten wird nur fortgeschrittenen Nutzern empfohlen.",
+		"next": "Weiter",
+		"only-do-this-if-you-are-a-nerd-warning": "Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!",
+		"please-hang-on-the-server-is-beeing-configured": "Bitte warten Sie einen Moment, während der Server konfiguriert wird.",
+		"refresh-token-validity": "Lebenszeit des Refreshtokens (in Sekunden)",
+		"title": "Konfiguration der Authentifizierung",
+		"web-server-redirect-uri": "Webserver-Redirect-URI"
+	},
+	"set-password": {
+		"new-password": "Neues Passwort",
+		"new-password-invalid": "Das Passwort muss mindestens 7 Zeichen enthalten",
+		"new-password-repetition": "Neues Passwort wiederholen",
+		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
+		"reset-password": "Passwort zurücksetzen",
+		"set-new-password-instruction": "Legen Sie ein neues Passwort fest"
+	},
+	"settings-form": {
+		"admin-settings": "Adminverwaltung",
+		"cancel-button-text": "Abbrechen",
+		"save": "Speichern",
+		"settings": "Einstellungen"
+	},
 	"submitted-topic-draft-action-button": {
 		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
 		"capitalised-approve": "Genehmigen",
@@ -197,6 +556,11 @@
 		},
 		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
 		"state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
+		"tooltip": {
+			"feature-coming-soon": "Feature kommt demnächst",
+			"header": "Kommentare",
+			"only-admin-or-initiator-permission-to-delete": "Nur ein Admin oder der Initiator können diesen Themenentwurf löschen"
+		},
 		"withdraw-approval": "Genehmigung zurücknehmen",
 		"withdraw-rejection": "Ablehnung zurücknehmen"
 	},
@@ -252,5 +616,45 @@
 			"ok": "Ok",
 			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
 		}
+	},
+	"user-dialog": {
+		"reset-password": "Passwort zurücksetzen"
+	},
+	"user-form": {
+		"department": "Abteilung",
+		"email": "Email",
+		"error-invalid-email": "Ungültige E-mail",
+		"error-used-email": "Die Email wird bereits von einem anderen Nutzer verwendet verwendet.",
+		"first-name": "Vorname",
+		"job-title": "Jobbezeichnung",
+		"last-name": "Nachname"
+	},
+	"user-management": {
+		"checkbox": "Deaktivierte Benutzer anzeigen",
+		"tooltip": {
+			"activate-user": "",
+			"add-new-user": "Neuen Benutzer erstellen",
+			"deactivate-user": "",
+			"edit-user": "",
+			"go-to-okr-unit-overview": "Zur Strukturübersicht",
+			"import-users-from-csv": "Benutzer aus CSV importieren"
+		},
+		"user-management-toolbar-title": "Benutzerverwaltung"
+	},
+	"user-minibutton": {
+		"loading-user": "Lade Benutzer...",
+		"tooltip": {
+			"remove-member": "Benutzer aus Team entfernen"
+		}
+	},
+	"user-settings": {
+		"default-company": "Standard Unternehmen",
+		"default-team": "Standard Team",
+		"no-company": "Kein Unternehmen",
+		"no-team": "Kein Team"
+	},
+	"version-form": {
+		"change-log": "Versionsänderungen",
+		"close": "Schließen"
 	}
 }

@@ -1,65 +1,31 @@
 <div *ngIf="spinnerIsHidden else loading">
-  <mat-card-title i18n="@@setOauthClientDetails_InitStateForm_Title">Konfiguration der Authentifizierung</mat-card-title>
-  <p i18n="@@setOauthClientDetails_InitStateForm_Explanation">
-    Um die Lokale Nutzerdatenbank zu verwenden, müssen die OAuth Einstellungen konfiguriert werden.
-    Wichtig ist dabei, dass die Client-ID und das Client-Secret einzigartig sind.
-    Alle Formularfelder wurden bereits mit sinnvollen Daten befüllt und eine Änderung dieser Daten wird nur
-    fortgeschrittenen Nutzern empfohlen.
-  </p>
-  <mat-checkbox class="small-padding" (change)="toggleForm()" i18n="@@onlyDoThisIfYouAreANerdWarning">
-    Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!
-  </mat-checkbox>
+  <mat-card-title>{{ 'set-oauth-client-details-form.title' | translate }}</mat-card-title>
+  <p>{{ 'set-oauth-client-details-form.explanation' | translate }}</p>
+  <mat-checkbox class="small-padding" (change)="toggleForm()">{{ 'set-oauth-client-details-form.only-do-this-if-you-are-a-nerd-warning' | translate }}</mat-checkbox>
   <div *ngIf="form">
     <form [formGroup]="form" (ngSubmit)="handleSubmitClick()">
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.accessTokenValidity"
-               matInput
-               i18n-placeholder="@@accessTokenValidity"
-               placeholder="Lebenszeit des Accesstokens (in Sekunden)"
-               type="number">
+        <input [formControl]="form.controls.accessTokenValidity" matInput placeholder="{{ 'set-oauth-client-details-form.access-token-validity' | translate }}" type="number">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.clientId"
-               matInput
-               i18n-placeholder="@@clientId"
-               placeholder="Client-Id"
-               type="text">
+        <input [formControl]="form.controls.clientId" matInput placeholder="{{ 'set-oauth-client-details-form.client-id' | translate }}" type="text">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.clientSecret"
-               matInput
-               i18n-placeholder="@@clientSecret"
-               placeholder="Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)"
-               type="text">
+        <input [formControl]="form.controls.clientSecret" matInput placeholder="{{ 'set-oauth-client-details-form.client-secret' | translate }}" type="text">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.refreshTokenValidity"
-               matInput
-               i18n-placeholder="@@refreshTokenValidity"
-               placeholder="Lebenszeit des Refreshtokens (in Sekunden)"
-               type="number">
+        <input [formControl]="form.controls.refreshTokenValidity" matInput placeholder="{{ 'set-oauth-client-details-form.refresh-token-validity' | translate }}" type="number">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.webServerRedirectUri"
-               matInput
-               i18n-placeholder="@@webServerRedirectUri"
-               placeholder="Webserver-Redirect-URI"
-               type="text">
+        <input [formControl]="form.controls.webServerRedirectUri" matInput placeholder="{{ 'set-oauth-client-details-form.web-server-redirect-uri' | translate }}" type="text">
       </mat-form-field>
 
-      <button
-        mat-raised-button
-        class="flex-nowrap-center"
-        color="primary"
-        type="submit"
-        [disabled]="form.invalid"
-        i18n="@@next">Weiter
-      </button>
+      <button mat-raised-button class="flex-nowrap-center" color="primary" type="submit" [disabled]="form.invalid">{{ 'set-oauth-client-details-form.next' | translate }}</button>
     </form>
   </div>
 </div>
 <ng-template #loading>
   <app-loading-spinner></app-loading-spinner>
-  <p i18n="@@pleaseHangOnTheServerIsBeeingConfigured">Bitte warten Sie einen Moment, während der Server konfiguriert wird.</p>
+  <p>{{ 'set-oauth-client-details-form.please-hang-on-the-server-is-beeing-configured' | translate }}</p>
 </ng-template>
 

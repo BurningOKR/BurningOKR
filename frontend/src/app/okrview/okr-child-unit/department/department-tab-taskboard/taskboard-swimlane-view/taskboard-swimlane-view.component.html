@@ -1,8 +1,7 @@
 <div class="swmimlane-taskboard" *ngIf="viewData$ |async as viewdata">
     <div class="taskboard-swimlane-container" cdkDropListGroup>
         <mat-accordion multi>
-            <app-taskboard-swimlane *ngFor="let map of viewdata.maps" [keyResult]="map.keyResult"
-                [tasksForStates]="map.statesWithTasks" [keyResultList]="viewdata.keyResults" [isInteractive]="isInteractive"></app-taskboard-swimlane>
+            <app-taskboard-swimlane *ngFor="let map of viewdata.maps" [keyResult]="map.keyResult" [tasksForStates]="map.statesWithTasks" [keyResultList]="viewdata.keyResults" [isInteractive]="isInteractive"></app-taskboard-swimlane>
         </mat-accordion>
     </div>
 </div>

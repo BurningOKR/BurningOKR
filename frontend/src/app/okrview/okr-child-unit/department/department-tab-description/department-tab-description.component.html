@@ -1,40 +1,40 @@
 <div class="tab-limited-width margin-auto">
-  <div class="tab-headline text-center" i18n="@@component_description">Beschreibung</div>
+  <div class="tab-headline text-center">{{ 'department-tab-description.description' | translate }}</div>
   <div *ngIf="description$ | async as description; else loading">
-    <span class="tab-subtitle description-title" i18n="@@component_departmentTabDescription_topic">Thema:</span>
+    <span class="tab-subtitle description-title">{{ 'department-tab-description.topic' | translate }}</span>
     {{description.name}}
     <br>
-    <span class="tab-subtitle description-title" i18n="@@component_departmentTabDescription_beginning">Beginn:</span>
+    <span class="tab-subtitle description-title">{{ 'department-tab-description.beginning' | translate }}</span>
     {{description.beginning | date}}
-    <div class="tab-subtitle description-title" i18n="@@component_description_:">Beschreibung:</div>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.:' | translate }}</div>
     <pre class="description-text">{{description.description}}</pre>
-    <div class="tab-subtitle description-title" i18n="@@heading_contributes_to">Zahlt ein auf:</div>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.to' | translate }}</div>
     <pre class="description-text">{{description.contributesTo}}</pre>
-    <div class="tab-subtitle description-title" i18n="@@heading_delimitation">Abgrenzung:</div>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.delimitation' | translate }}</div>
     <pre class="description-text">{{description.delimitation}}</pre>
-    <div class="tab-subtitle description-title" i18n="@@heading_dependencies">Abhängigkeiten:</div>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.dependencies' | translate }}</div>
     <pre class="description-text">{{description.dependencies}}</pre>
-    <div class="tab-subtitle description-title" i18n="@@component_departmentTabDescription_resources">Benötigte Ressourcen:</div>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.resources' | translate }}</div>
     <pre class="description-text">{{description.resources}}</pre>
-    <div class="tab-subtitle description-title" i18n="@@component_departmentTabDescription_handoverPlan">Übergabeplan:</div>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.handover-plan' | translate }}</div>
     <pre class="description-text">{{description.handoverPlan}}</pre>
 
     <!-- User -->
     <div class="flex-wrap-spreadinner">
       <div *ngIf="description.initiatorId !== null">
-        <br/>
+        <br>
         <mat-divider></mat-divider>
-        <br/>
-        <div class="tab-subtitle" i18n="@@component_departmentTabDescription_initiator">Initiator:</div>
+        <br>
+        <div class="tab-subtitle">{{ 'department-tab-description.initiator' | translate }}</div>
         <app-user-minibutton [userId]="description.initiatorId" [canBeRemoved]="false">
         </app-user-minibutton>
       </div>
     </div>
     <div *ngIf="description.startTeam.length !== 0">
-      <br/>
+      <br>
       <mat-divider></mat-divider>
-      <br/>
-      <div class="tab-subtitle" i18n="@@component_departmentTabDescription_startteam">Startteam:</div>
+      <br>
+      <div class="tab-subtitle">{{ 'department-tab-description.startteam' | translate }}</div>
       <div class="flex-wrap-spreadinner">
         <div *ngFor="let currentuser of description.startTeam">
           <app-user-minibutton [userId]="currentuser" [canBeRemoved]="false">
@@ -44,10 +44,10 @@
     </div>
 
     <div *ngIf="description.stakeholders.length !== 0">
-      <br/>
+      <br>
       <mat-divider></mat-divider>
-      <br/>
-      <div class="tab-subtitle" i18n="@@component_departmentTabDescription_stakeholder">Stakeholder:</div>
+      <br>
+      <div class="tab-subtitle">{{ 'department-tab-description.stakeholder' | translate }}</div>
       <div class="flex-wrap-spreadinner">
         <div *ngFor="let currentuser of description.stakeholders">
           <app-user-minibutton [userId]="currentuser" [canBeRemoved]="false">
@@ -57,8 +57,7 @@
     </div>
     <br><br>
     <div class="text-center mb-10">
-      <span matTooltip="Nur OKR Master können Beschreibungen bearbeiten" [matTooltipDisabled]="canEdit"
-          i18n-matTooltip="@@component_departmentTabDescription_noEditRights">
+      <span matTooltip="{{ 'department-tab-description.tooltip.no-edit-rights' | translate }}" [matTooltipDisabled]="canEdit">
         <button mat-raised-button color="primary" (click)="openDialog(description)" [disabled]="!canEdit">
         <mat-icon>edit</mat-icon>
         <span i18n="@@component_edit_description">Beschreibung bearbeiten</span>
@@ -70,8 +69,8 @@
 
 <ng-template #loading>
   <div class="loading-content">
-    <br/>
+    <br>
     <mat-spinner></mat-spinner>
-    <br/>
+    <br>
   </div>
 </ng-template>

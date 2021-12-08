@@ -1,8 +1,7 @@
 <form [formGroup]="userSettingsForm" class="settingsForm">
   <mat-form-field class="form-whole-line">
-    <mat-select (selectionChange)="onSelectCompany()" formControlName="defaultCompanyId"
-                i18n-placeholder="@@defaultCompany" placeholder="Standard Unternehmen">
-      <mat-option [value]="null"><span i18n="@@component_settingsForm_NoCompany">Kein Unternehmen</span>
+    <mat-select (selectionChange)="onSelectCompany()" formControlName="defaultCompanyId" placeholder="{{ 'user-settings.default-company' | translate }}">
+      <mat-option [value]="null"><span>{{ 'user-settings.no-company' | translate }}</span>
       </mat-option>
       <mat-option *ngFor="let company of (companies$ | async)" [value]="company.id">
         {{company.name}}
@@ -10,8 +9,8 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="form-whole-line">
-    <mat-select formControlName="defaultTeamId" i18n-placeholder="@@defaultTeam" placeholder="Standard Team">
-      <mat-option [value]="null"><span i18n="@@component_settingsForm_NoTeam">Kein Team</span></mat-option>
+    <mat-select formControlName="defaultTeamId" placeholder="{{ 'user-settings.default-team' | translate }}">
+      <mat-option [value]="null"><span>{{ 'user-settings.no-team' | translate }}</span></mat-option>
       <mat-option *ngFor="let department of (departments$ | async)" [value]="department.id">
         {{department.name}}
       </mat-option>

@@ -1,3 +1,4 @@
+import {TranslateModule} from "@ngx-translate/core";
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyComponent } from './company/company.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [TranslateModule,RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class OkrviewRoutingModule { }
