@@ -5,18 +5,25 @@ on:
     branches: [ development ]
   pull_request:
     branches: [ development, master ]
+  workflow_dispatch:
 
 jobs:
-  build:
-
+  get-version:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.read-version.outputs.version }}
 
     steps:
     - uses: actions/checkout@v2
     - name: Read package version
-      run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
-      env: 
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      id: read-version
+      run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo ::set-output name=version::$PACKAGE_VERSION
+
+  test-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -24,32 +31,114 @@ jobs:
     - name: Add execution privileges
       run: chmod +x ./gradlew
       working-directory: ./backend/burning-okr
-    - name: Test
-      run: ./gradlew check
+    - name: Test Backend
+      run: ./gradlew test
       working-directory: ./backend/burning-okr
-    - name: Build jar
-      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootJar
+
+  lint-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Add execution privileges
+      run: chmod +x ./gradlew
       working-directory: ./backend/burning-okr
-    - name: Build war
-      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootWar
+    - name: Lint Backend
+      run: ./gradlew spotlessCheck
       working-directory: ./backend/burning-okr
+
+  build-backend:
+    needs: [get-version]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Add execution privileges
+      run: chmod +x ./gradlew
+      working-directory: ./backend/burning-okr
+    - name: Build Backend .jar
+      run: ./gradlew -PprojVersion="${{ needs.get-version.outputs.version }}" bootJar
+      working-directory: ./backend/burning-okr
+    - name: Build Backend .war
+      run: ./gradlew -PprojVersion="${{ needs.get-version.outputs.version }}" bootWar
+      working-directory: ./backend/burning-okr
+
+  test-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
     - name: Npm Setup
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '16.x'
     - name: Npm Install
       run: npm install
       working-directory: ./frontend
-    - name: Npm version
-      run: npm version $PACKAGE_VERSION --allow-same-version
-      working-directory: ./frontend
-    - name: Npm Build
-      run: npm run build-prod-new
-      working-directory: ./frontend
-    - name: ng lint
-      run: npm run lint
-      working-directory: ./frontend
-    - name: Npm test
+    - name: Test frontend
       run: npm test
       working-directory: ./frontend
 
+  lint-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Npm Setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+    - name: Npm Install
+      run: npm install
+      working-directory: ./frontend
+    - name: Test frontend
+      run: npm run lint
+      working-directory: ./frontend
+
+  build-frontend:
+    needs: [get-version]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Npm Setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+    - name: Npm Install
+      run: npm install
+      working-directory: ./frontend
+    - name: Set Frontend Version
+      run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
+      working-directory: ./frontend
+    - name: Build Frontend
+      run: npm run build-prod-new
+      working-directory: ./frontend
+
+  build-demo-frontend:
+    needs: [get-version]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Npm Setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+    - name: Npm Install
+      run: npm install
+      working-directory: ./frontend
+    - name: Set Frontend Version
+      run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
+      working-directory: ./frontend
+    - name: Build Frontend
+      run: npm run build-demo
+      working-directory: ./frontend
