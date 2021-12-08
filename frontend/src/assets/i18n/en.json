@@ -178,6 +178,28 @@
 		"save": " Save {{value}}.",
 		"structure": "Structure"
 	},
+	"submitted-topic-draft-action-button": {
+		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
+		"capitalised-approve": "Approve",
+		"capitalized-reject": "Reject",
+		"comments": {
+			"heading": "Topic draft"
+		},
+		"delete": {
+			"button-text": "Delete",
+			"message": "Are you sure you want to delete draft topic {{name}}?",
+			"title": "Delete topic draft"
+		},
+		"edit-tooltip": {
+			"status": "The status must be \"Pending\" or \"Draft\"",
+			"status-and-user": "The status must be \"Pending\" or \"Draft\" and only an admin or the initiator can edit",
+			"user": "Only an admin or the initiator can edit"
+		},
+		"no-permission": "Only an admin or an auditor can approve or reject",
+		"state-submitted-tooltip": "The status must be \"Pending\"",
+		"withdraw-approval": "Withdraw Approval",
+		"withdraw-rejection": "Withdraw rejection"
+	},
 	"submitted-topic-draft-cards-wrapper": {
 		"column": {
 			"name": "Name",
@@ -222,8 +244,13 @@
 		"home-button": {
 			"tooltip": "Go to structure overview"
 		},
+		"initiator-table-header": "Topic",
 		"navbar": {
 			"title": "Submitted topic drafts"
+		},
+		"snackbar": {
+			"ok": "Ok",
+			"submit": "Your topic draft has been sent for review."
 		}
 	}
 }

@@ -178,6 +178,28 @@
 		"save": "{{value}} speichern.",
 		"structure": "Struktur"
 	},
+	"submitted-topic-draft-action-button": {
+		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
+		"capitalised-approve": "Genehmigen",
+		"capitalized-reject": "Ablehnen",
+		"comments": {
+			"heading": "Themenentwurf"
+		},
+		"delete": {
+			"button-text": "Löschen",
+			"message": "Möchten Sie Themenentwurf {{name}} wirklich löschen?",
+			"title": "Themenentwurf löschen"
+		},
+		"edit-tooltip": {
+			"status": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein",
+			"status-and-user": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein und nur ein Admin oder der Initiator kann bearbeiten",
+			"user": "Nur ein Admin oder der Initiator können bearbeiten"
+		},
+		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
+		"state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
+		"withdraw-approval": "Genehmigung zurücknehmen",
+		"withdraw-rejection": "Ablehnung zurücknehmen"
+	},
 	"submitted-topic-draft-cards-wrapper": {
 		"column": {
 			"name": "Name",
@@ -222,8 +244,13 @@
 		"home-button": {
 			"tooltip": "Zur Strukturübersicht"
 		},
+		"initiator-table-header": "Thema",
 		"navbar": {
 			"title": "Eingereichte Themenentwürfe"
+		},
+		"snackbar": {
+			"ok": "Ok",
+			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
 		}
 	}
 }
