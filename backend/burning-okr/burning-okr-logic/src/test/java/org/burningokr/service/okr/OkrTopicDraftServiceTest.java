@@ -11,6 +11,7 @@ import java.util.*;
 
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -129,5 +130,15 @@ public class OkrTopicDraftServiceTest {
 
     okrTopicDraftService.createTopicDraft(topicDraft, user);
     assertNull(topicDraft.getParentUnit());
+  }
+
+  @Test
+  public void createOkrDraft_expectCurrentStatusEqualsTopic() {
+    OkrTopicDraft topicDraft = new OkrTopicDraft();
+
+    when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
+
+    okrTopicDraftService.createTopicDraft(topicDraft, user);
+    assertEquals(OkrTopicDraftStatusEnum.draft, topicDraft.getCurrentStatus());
   }
 }

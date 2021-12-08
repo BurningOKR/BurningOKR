@@ -9,6 +9,7 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
@@ -58,6 +59,7 @@ public class OkrTopicDraftService {
   public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user) {
 
     topicDraft.setParentUnit(null);
+    topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
     logger.info("Created Topic Draft: " + topicDraft.getName());
