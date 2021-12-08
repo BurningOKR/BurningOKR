@@ -5,58 +5,32 @@
     </mat-card-header>
     <mat-card-content>
       <table class="fullWidth">
-        <tr>
+        <tbody><tr>
           <td>
             <mat-form-field class="form-whole-line">
-              <input
-                autocomplete="username"
-                formControlName="email"
-                i18n-placeholder="@@email"
-                matInput
-                placeholder="Email"
-                required
-                type="email">
+              <input autocomplete="username" formControlName="email" matInput placeholder="{{ 'login.email' | translate }}" required type="email">
             </mat-form-field>
           </td>
         </tr>
         <tr>
           <td>
             <mat-form-field class="form-whole-line">
-              <input
-                autocomplete="password"
-                formControlName="password"
-                i18n-placeholder="@@password"
-                matInput
-                placeholder="Passwort"
-                required
-                type="password">
+              <input autocomplete="password" formControlName="password" matInput placeholder="{{ 'login.password' | translate }}" required type="password">
             </mat-form-field>
           </td>
         </tr>
-      </table>
-      <mat-error *ngIf="errorType === authErrors.UNAUTHORIZED" i18n="@@unauthorized_error">
-        Benutzername nicht gefunden
-      </mat-error>
+      </tbody></table>
+      <mat-error *ngIf="errorType === authErrors.UNAUTHORIZED">{{ 'login.error' | translate }}</mat-error>
       <mat-error *ngIf="errorType === authErrors.INVALID_GRANT" i18n="@@invalid_grant_error">
         Passwort oder Benutzername ungültig
       </mat-error>
-      <mat-error class="error-span"
-                 *ngIf="capsLock"
-                 i18n="caps lock is on@@capsLockOn">
-        Die Feststelltaste ist aktiv
-      </mat-error>
+      <mat-error class="error-span" *ngIf="capsLock">{{ 'login.caps-lock-on' | translate }}</mat-error>
     </mat-card-content>
     <mat-card-actions class="row">
-      <button
-        type="submit"
-        [disabled]="loginForm.invalid"
-        class="col-4"
-        color="primary"
-        mat-raised-button
-        mat-ripple>
+      <button type="submit" [disabled]="loginForm.invalid" class="col-4" color="primary" mat-raised-button mat-ripple>
         Login
       </button>
-      <a mat-button routerLink="/auth/resetpassword" routerLinkActive="active" i18n="@@forgot_password_button">Passwort vergessen</a>
+      <a mat-button routerLink="/auth/resetpassword" routerLinkActive="active">{{ 'login.button' | translate }}</a>
     </mat-card-actions>
   </app-non-logged-in-card>
 </form>

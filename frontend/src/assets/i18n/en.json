@@ -1,256 +1,660 @@
 {
-	"add-child-unit-button": {
-		"okr-team": "OKR Team",
-		"substructure": "Substructure",
-		"tooltip": {
-			"add-new-child-unit": "Define new substructure"
-		}
-	},
-	"change-password-dialog": {
-		"form": {
-			"title": "Change password"
-		}
-	},
-	"company": {
-		"error": {
-			"error": "Error",
-			"error-loading-company": "The company could not be loaded. It could have been deleted by another user or the server is not responding.",
-			"navigate-to-structure-view": "To the structure overview"
-		},
-		"loading-company": "Loading company ...",
-		"menu": {
-			"export": "Export",
-			"export-contacts": "Export contacts"
-		},
-		"no-child-units": "There are no substructures for this structure yet",
-		"substructures": "Substructures",
-		"tooltip": {
-			"more-options-for-structure": "More options on this structure"
-		},
-		"your-teams-as-manager": "Your teams as managers",
-		"your-teams-as-member": "Your teams as a member"
-	},
-	"delete-dialog": {
-		"delete": "Delete",
-		"general-do-you-want-to-delete": "Do you really want to delete {{value}}?"
-	},
-	"demo-home": {
-		"contact": {
-			"content": "Do you have questions, suggestions, or problems with the Burning OKR Tool? You are welcome to contact us.",
-			"content-with-link": "In case of bugs or suggestions for improvement regarding the tool, please contact us via <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. If you would like BROCKHAUS AG to perform customization for you, or if you require consulting or any other service, please contact us via <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
-			"title": "How to reach us"
-		},
-		"digitalization": {
-			"content": "With Burning OKR, you digitally map all essential components of the OKR framework and create transparency across teams. The teams manage their own objectives and key results with Burning OKR and make their progress and successes visible. Furthermore, the hierarchies of your company can be made visible within the tool.",
-			"title": "Digitize your entire OKR process"
-		},
-		"documentation": "Documentation",
-		"features": {
-			"content": "Our OKR tool enables you to digitalize the OKR process and its result metrics in a holistic way, including all necessary features. In detail, Burning OKR offers...",
-			"perks-list": "<li>the authentication via Azure Active Directory or a local user management</li>\n        <li>the management of multiple companies (multitenancy)</li>\n        <li>the mapping of cycles, company structures, teams, objectives and key results</li>\n        <li>a progress indicator for Objectives and Key Results</li>\n        <li>a flexible individualization, including the designation of teams, the restriction of the maximum Key Result number, etc.</li>\n        <li>a data export as Excel spreadsheet</li>",
-			"title": "Innovative features"
-		},
-		"free-and-open-source": {
-			"content": "The application is completely free for corporate and private customers. In addition, you can view the open source code at any time on <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> and adapt it to your needs. We are happy to assist you in this process. Make your customizations available as a pull request for the whole world!",
-			"title": "Our free offer for you"
-		},
-		"further-information": {
-			"content": "For more information on the OKR Framework, please visit the <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY page of BROCKHAUS AG</a>.",
-			"title": "Learn more about the OKR Framework and OKR processes"
-		},
-		"installation": {
-			"content": "Burning OKR is easy to install on various platforms. We offer tutorials on how to install with...",
-			"list": "<li>Docker</li>        \n<li>a Tomcat Web Server (coming soon)</li>",
-			"title": "Easy installation"
-		},
-		"target-management": {
-			"content": "Objectives and Key Results are processed in cycles. Design the name, length and content of the cycles according to your wishes. Keep track of the productivity of OKR teams with the Objectives and Key Results progress bar.",
-			"title": "Manage and control your company goals"
-		},
-		"visions": {
-			"content": "The agile OKR framework supports you in achieving strategic business goals through a structured goal-setting process. Short cycles and measurable goals promote regular evaluation of results and give you the opportunity to quickly modify your business model based on new information. With Burning OKR we offer you a powerful and user-friendly OpenSource tool to support you.",
-			"title": "Realize Visions with the help of OKR"
-		},
-		"welcome": {
-			"content": "Burning OKR supports you in achieving strategic corporate goals and promotes an agile and transparent corporate culture. The open source OKR tool is based on BROCKHAUS AG's many years of experience with the OKR framework.",
-			"title": "Welcome to Burning OKR!"
-		}
-	},
-	"dialog-component": {
-		"cancel": "Cancel",
-		"date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
-		"save": "Save",
-		"start-date-not-before-end-date": "The start date cannot be before the end date.",
-		"start-equals-end": "The start value must not be the same as the target value."
-	},
-	"feedback-button": {
-		"button-icon": {
-			"tooltip": "Feedback"
-		},
-		"successful-send": {
-			"message": "Feedback sent successfully 📬"
-		}
-	},
-	"feedback-form": {
-		"dialog": {
-			"save-button": "Submit Feedback",
-			"title": "Give feedback"
-		},
-		"form-field": {
-			"feedback": "Feedback",
-			"name": "Name"
-		}
-	},
-	"language-picker": {
-		"language": {
-			"english": "English",
-			"german": "German"
-		},
-		"select-trigger-text": "Select language"
-	},
-	"main-view": {
-		"navigation-sidebar": {
-			"cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
-			"cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent."
-		},
-		"tooltip": {
-			"adjust-cycleperiod": "Adjust the observation period",
-			"go-to-structure-view": "To the structure overview",
-			"toogle-navigvation": "Show / hide navigation menu"
-		}
-	},
-	"okr-toolbar": {
-		"admin-icon": {
-			"tooltip": {
-				"is-admin": "Authorized as admin"
-			}
-		},
-		"main-page": "Home",
-		"menu": {
-			"admin-panel-text": "Admin panel",
-			"change-password-text": "Change password",
-			"cycle-administration-text": "Cycle management",
-			"logout-text": "Logout",
-			"settings-text": "Settings",
-			"topic-drafts-text": "Topic drafts",
-			"user-managment-text": "User management"
-		},
-		"return-to-demo-text": "Home",
-		"tooltip": {
-			"menue": "Menu"
-		},
-		"warning": {
-			"no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
-			"no-smtp-text": "Warning: No SMTP server has been configured."
-		}
-	},
-	"okr-unit-card": {
-		"delete-company-has-child-unit-warning": "{{value}} still contains substructures",
-		"general-delete-dialog-title": " Delete {{value}}?",
-		"label": "the company",
-		"mat-card-actions": {
-			"delete": "Delete structure",
-			"edit-name": "Edit name",
-			"tooltip": {
-				"delete-unit": "Delete structure",
-				"edit-unit-name": "Edit the name of the structure"
-			}
-		},
-		"mat-card-subtitle": {
-			"unit-structure": "Company structure"
-		}
-	},
-	"okr-unit-dashboard": {
-		"add-unit": "Add structure",
-		"okr-toolbar": {
-			"unit-overview": "Structure Overview"
-		},
-		"tooltip": {
-			"add-unit": "Add new structure"
-		}
-	},
-	"okr-unit-form": {
-		"create": "",
-		"placeholder": {
-			"label": "label *",
-			"name": "name *"
-		},
-		"save": " Save {{value}}.",
-		"structure": "Structure"
-	},
-	"submitted-topic-draft-action-button": {
-		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
-		"capitalised-approve": "Approve",
-		"capitalized-reject": "Reject",
-		"comments": {
-			"heading": "Topic draft"
-		},
-		"delete": {
-			"button-text": "Delete",
-			"message": "Are you sure you want to delete draft topic {{name}}?",
-			"title": "Delete topic draft"
-		},
-		"edit-tooltip": {
-			"status": "The status must be \"Pending\" or \"Draft\"",
-			"status-and-user": "The status must be \"Pending\" or \"Draft\" and only an admin or the initiator can edit",
-			"user": "Only an admin or the initiator can edit"
-		},
-		"no-permission": "Only an admin or an auditor can approve or reject",
-		"state-submitted-tooltip": "The status must be \"Pending\"",
-		"withdraw-approval": "Withdraw Approval",
-		"withdraw-rejection": "Withdraw rejection"
-	},
-	"submitted-topic-draft-cards-wrapper": {
-		"column": {
-			"name": "Name",
-			"start": "Start",
-			"submitted": "Submitted By"
-		},
-		"no-new-topic-drafts": "No new topic drafts"
-	},
-	"submitted-topic-draft-details": {
-		"button": {
-			"close": "Close",
-			"edit": "Edit",
-			"tooltip-no-permission": "Only the initiator of the topic draft or an admin can edit it. For this purpose, the topic draft must not have been approved or rejected."
-		},
-		"field": {
-			"begin": "Beginning",
-			"contribution": "Pays in on",
-			"delimitation": "Delimitation",
-			"dependencies": "Dependencies",
-			"description": "Description",
-			"handover": "Handover plan",
-			"initiator": "Initiator",
-			"no-team-members": "No team members available",
-			"resources": "Resources",
-			"stakeholder-team": "Stakeholder team",
-			"start-team": "Starting team",
-			"topic": "Topic"
-		},
-		"status": {
-			"approved": "Approved",
-			"rejected": "Rejected",
-			"submitted": "Submitted",
-			"template": "Template",
-			"title": "Status"
-		},
-		"title": "Submitted topic draft"
-	},
-	"submitted-topic-drafts": {
-		"add-topic-draft-button": {
-			"tooltip": "Add a new topic draft"
-		},
-		"home-button": {
-			"tooltip": "Go to structure overview"
-		},
-		"initiator-table-header": "Topic",
-		"navbar": {
-			"title": "Submitted topic drafts"
-		},
-		"snackbar": {
-			"ok": "Ok",
-			"submit": "Your topic draft has been sent for review."
-		}
-	}
+    "add-child-unit-button": {
+        "okr-team": "OKR Team",
+        "substructure": "Substructure",
+        "tooltip": {
+            "add-new-child-unit": "Define new substructure"
+        }
+    },
+    "change-password-dialog": {
+        "form": {
+            "title": "Change password"
+        }
+    },
+    "company": {
+        "error": {
+            "error": "Error",
+            "error-loading-company": "The company could not be loaded. It could have been deleted by another user or the server is not responding.",
+            "navigate-to-structure-view": "To the structure overview"
+        },
+        "loading-company": "Loading company ...",
+        "menu": {
+            "export": "Export",
+            "export-contacts": "Export contacts"
+        },
+        "no-child-units": "There are no substructures for this structure yet",
+        "substructures": "Substructures",
+        "tooltip": {
+            "more-options-for-structure": "More options on this structure"
+        },
+        "your-teams-as-manager": "Your teams as managers",
+        "your-teams-as-member": "Your teams as a member"
+    },
+    "delete-dialog": {
+        "delete": "Delete",
+        "general-do-you-want-to-delete": "Do you really want to delete {{value}}?"
+    },
+    "demo-home": {
+        "contact": {
+            "content": "Do you have questions, suggestions, or problems with the Burning OKR Tool? You are welcome to contact us.",
+            "content-with-link": "In case of bugs or suggestions for improvement regarding the tool, please contact us via <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. If you would like BROCKHAUS AG to perform customization for you, or if you require consulting or any other service, please contact us via <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
+            "title": "How to reach us"
+        },
+        "digitalization": {
+            "content": "With Burning OKR, you digitally map all essential components of the OKR framework and create transparency across teams. The teams manage their own objectives and key results with Burning OKR and make their progress and successes visible. Furthermore, the hierarchies of your company can be made visible within the tool.",
+            "title": "Digitize your entire OKR process"
+        },
+        "documentation": "Documentation",
+        "features": {
+            "content": "Our OKR tool enables you to digitalize the OKR process and its result metrics in a holistic way, including all necessary features. In detail, Burning OKR offers...",
+            "perks-list": "<li>the authentication via Azure Active Directory or a local user management</li>\n        <li>the management of multiple companies (multitenancy)</li>\n        <li>the mapping of cycles, company structures, teams, objectives and key results</li>\n        <li>a progress indicator for Objectives and Key Results</li>\n        <li>a flexible individualization, including the designation of teams, the restriction of the maximum Key Result number, etc.</li>\n        <li>a data export as Excel spreadsheet</li>",
+            "title": "Innovative features"
+        },
+        "free-and-open-source": {
+            "content": "The application is completely free for corporate and private customers. In addition, you can view the open source code at any time on <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> and adapt it to your needs. We are happy to assist you in this process. Make your customizations available as a pull request for the whole world!",
+            "title": "Our free offer for you"
+        },
+        "further-information": {
+            "content": "For more information on the OKR Framework, please visit the <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY page of BROCKHAUS AG</a>.",
+            "title": "Learn more about the OKR Framework and OKR processes"
+        },
+        "installation": {
+            "content": "Burning OKR is easy to install on various platforms. We offer tutorials on how to install with...",
+            "list": "<li>Docker</li>        \n<li>a Tomcat Web Server (coming soon)</li>",
+            "title": "Easy installation"
+        },
+        "target-management": {
+            "content": "Objectives and Key Results are processed in cycles. Design the name, length and content of the cycles according to your wishes. Keep track of the productivity of OKR teams with the Objectives and Key Results progress bar.",
+            "title": "Manage and control your company goals"
+        },
+        "visions": {
+            "content": "The agile OKR framework supports you in achieving strategic business goals through a structured goal-setting process. Short cycles and measurable goals promote regular evaluation of results and give you the opportunity to quickly modify your business model based on new information. With Burning OKR we offer you a powerful and user-friendly OpenSource tool to support you.",
+            "title": "Realize Visions with the help of OKR"
+        },
+        "welcome": {
+            "content": "Burning OKR supports you in achieving strategic corporate goals and promotes an agile and transparent corporate culture. The open source OKR tool is based on BROCKHAUS AG's many years of experience with the OKR framework.",
+            "title": "Welcome to Burning OKR!"
+        },
+        "github": "",
+        "playground": ""
+    },
+    "dialog-component": {
+        "cancel": "Cancel",
+        "date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
+        "save": "Save",
+        "start-date-not-before-end-date": "The start date cannot be before the end date.",
+        "start-equals-end": "The start value must not be the same as the target value."
+    },
+    "feedback-button": {
+        "button-icon": {
+            "tooltip": "Feedback"
+        },
+        "successful-send": {
+            "message": "Feedback sent successfully \ud83d\udcec"
+        }
+    },
+    "feedback-form": {
+        "dialog": {
+            "save-button": "Submit Feedback",
+            "title": "Give feedback"
+        },
+        "form-field": {
+            "feedback": "Feedback",
+            "name": "Name"
+        }
+    },
+    "language-picker": {
+        "language": {
+            "english": "English",
+            "german": "German"
+        },
+        "select-trigger-text": "Select language"
+    },
+    "main-view": {
+        "navigation-sidebar": {
+            "cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
+            "cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent."
+        },
+        "tooltip": {
+            "adjust-cycleperiod": "Adjust the observation period",
+            "go-to-structure-view": "To the structure overview",
+            "toogle-navigvation": "Show / hide navigation menu"
+        }
+    },
+    "okr-toolbar": {
+        "admin-icon": {
+            "tooltip": {
+                "is-admin": "Authorized as admin"
+            }
+        },
+        "main-page": "Home",
+        "menu": {
+            "admin-panel-text": "Admin panel",
+            "change-password-text": "Change password",
+            "cycle-administration-text": "Cycle management",
+            "logout-text": "Logout",
+            "settings-text": "Settings",
+            "topic-drafts-text": "Topic drafts",
+            "user-managment-text": "User management"
+        },
+        "return-to-demo-text": "Home",
+        "tooltip": {
+            "menue": "Menu"
+        },
+        "warning": {
+            "no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
+            "no-smtp-text": "Warning: No SMTP server has been configured."
+        }
+    },
+    "okr-unit-card": {
+        "delete-company-has-child-unit-warning": "{{value}} still contains substructures",
+        "general-delete-dialog-title": " Delete {{value}}?",
+        "label": "the company",
+        "mat-card-actions": {
+            "delete": "Delete structure",
+            "edit-name": "Edit name",
+            "tooltip": {
+                "delete-unit": "Delete structure",
+                "edit-unit-name": "Edit the name of the structure"
+            }
+        },
+        "mat-card-subtitle": {
+            "unit-structure": "Company structure"
+        }
+    },
+    "okr-unit-dashboard": {
+        "add-unit": "Add structure",
+        "okr-toolbar": {
+            "unit-overview": "Structure Overview"
+        },
+        "tooltip": {
+            "add-unit": "Add new structure"
+        }
+    },
+    "okr-unit-form": {
+        "create": "",
+        "placeholder": {
+            "label": "label *",
+            "name": "name *"
+        },
+        "save": " Save {{value}}.",
+        "structure": "Structure"
+    },
+    "submitted-topic-draft-action-button": {
+        "approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
+        "capitalised-approve": "Approve",
+        "capitalized-reject": "Reject",
+        "comments": {
+            "heading": "Topic draft"
+        },
+        "delete": {
+            "button-text": "Delete",
+            "message": "Are you sure you want to delete draft topic {{name}}?",
+            "title": "Delete topic draft"
+        },
+        "edit-tooltip": {
+            "status": "The status must be \"Pending\" or \"Draft\"",
+            "status-and-user": "The status must be \"Pending\" or \"Draft\" and only an admin or the initiator can edit",
+            "user": "Only an admin or the initiator can edit"
+        },
+        "no-permission": "Only an admin or an auditor can approve or reject",
+        "state-submitted-tooltip": "The status must be \"Pending\"",
+        "withdraw-approval": "Withdraw Approval",
+        "withdraw-rejection": "Withdraw rejection",
+        "tooltip": {
+            "only-admin-or-initiator-permission-to-delete": "Only the admin or the Initiator are able to delete this topic draft",
+            "header": "Comments",
+            "feature-coming-soon": "Feature is coming soon"
+        }
+    },
+    "submitted-topic-draft-cards-wrapper": {
+        "column": {
+            "name": "Name",
+            "start": "Start",
+            "submitted": "Submitted By"
+        },
+        "no-new-topic-drafts": "No new topic drafts"
+    },
+    "submitted-topic-draft-details": {
+        "button": {
+            "close": "Close",
+            "edit": "Edit",
+            "tooltip-no-permission": "Only the initiator of the topic draft or an admin can edit it. For this purpose, the topic draft must not have been approved or rejected."
+        },
+        "field": {
+            "begin": "Beginning",
+            "contribution": "Pays in on",
+            "delimitation": "Delimitation",
+            "dependencies": "Dependencies",
+            "description": "Description",
+            "handover": "Handover plan",
+            "initiator": "Initiator",
+            "no-team-members": "No team members available",
+            "resources": "Resources",
+            "stakeholder-team": "Stakeholder team",
+            "start-team": "Starting team",
+            "topic": "Topic"
+        },
+        "status": {
+            "approved": "Approved",
+            "rejected": "Rejected",
+            "submitted": "Submitted",
+            "template": "Template",
+            "title": "Status"
+        },
+        "title": "Submitted topic draft"
+    },
+    "submitted-topic-drafts": {
+        "add-topic-draft-button": {
+            "tooltip": "Add a new topic draft"
+        },
+        "home-button": {
+            "tooltip": "Go to structure overview"
+        },
+        "initiator-table-header": "Topic",
+        "navbar": {
+            "title": "Submitted topic drafts"
+        },
+        "snackbar": {
+            "ok": "Ok",
+            "submit": "Your topic draft has been sent for review."
+        }
+    },
+    "admin-view": {
+        "tooltip": {
+            "go-to-okr-unit-overview": "Go to structure overview",
+            "cannot-delete-yourself": "You cannot remove yourself"
+        },
+        "admin-panel": "Admin panel",
+        "admins": "Admins",
+        "disabled-in-demo-version": ""
+    },
+    "complete-init-state-form": {
+        "initialisation-completed": "Done!",
+        "initialisation-completed-message": "The initialization was successfully completed\ud83c\udf89",
+        "lets-go!": "Let's go!"
+    },
+    "create-user-init-state-form": {
+        "create-your-admin-account": "Create your administrator account",
+        "subtitle": "Create an initial administrator account.",
+        "next": "Continue"
+    },
+    "set-azure-admin-init-state-form": {
+        "set-azure-admin-title": "Set an administrator",
+        "set-azure-admin-subtitle": "The following user will become the initial administrator.",
+        "other-user-notice": "If you want to set another user as initial administrator, please log in with their account.",
+        "set-admin-button": "Set this user as administrator",
+        "set-admin-logout-button": "Logout"
+    },
+    "set-oauth-client-details-form": {
+        "title": "Configure Authentication",
+        "explanation": "To use the local user database, you have to configure OAuth. It is important, to keep the Client-ID and the Client-Secret unique to any other application. All form fields have already been filled with meaningful data and a change of this data is only recommended for advanced users.",
+        "only-do-this-if-you-are-a-nerd-warning": "Activate form. \u26a0 Only do this if you know what you are doing \u26a0",
+        "access-token-validity": "Duration of the access token (in seconds)",
+        "client-id": "Client ID",
+        "client-secret": "Client Secret",
+        "refresh-token-validity": "Duration of the refresh token (in seconds)",
+        "web-server-redirect-uri": "Webserver Redirect URI",
+        "next": "Continue",
+        "please-hang-on-the-server-is-beeing-configured": "Please wait a moment while the server is beeing configured."
+    },
+    "login": {
+        "email": "Email",
+        "password": "Password",
+        "error": "Username not found",
+        "caps-lock-on": "The caps lock key is active",
+        "button": "Password forgotten"
+    },
+    "password-form": {
+        "previous-password": "Previous password",
+        "error-message-previous-password-required": "The previous password must be entered.",
+        "error-message-previous-password-wrong": "The previous password has been entered incorrectly.",
+        "new-password": "New password",
+        "new-password-repetition": "Repeat new password",
+        "passwords-do-not-match": "The entries do not match.",
+        "new-password-invalid": "The password must contain at least 7 characters",
+        "caps-lock-on": "The caps lock key is active"
+    },
+    "reset-password": {
+        "password-reset-title": "reset Burning OKR password",
+        "email": "Email",
+        "error-invalid-email": "Invalid e-mail",
+        "reset-password": "Reset password",
+        "password-reset-email-has-been-send-out": "An email to reset your password has been sent to the email address provided."
+    },
+    "set-password": {
+        "set-new-password-instruction": "Set a new password",
+        "new-password": "New password",
+        "new-password-repetition": "Repeat new password",
+        "reset-password": "Reset password",
+        "passwords-do-not-match": "The entries do not match.",
+        "new-password-invalid": "The password must contain at least 7 characters"
+    },
+    "import-csv-dialog": {
+        "description": "This function allows you to import users with a CSV file. The CSV file must provide the user data in the following order: First name, last name, email, job title, department",
+        "amount-of-entries-loaded": "entries were loaded.",
+        "to-many-entries-warning": "At least one entry has too many columns.",
+        "duplicate-email-adresses-warning": "There are duplicate email addresses in this record.",
+        "csv-file": "CSV file",
+        "name": "Name",
+        "email": "Email",
+        "department": "Department",
+        "job-title": "Job title"
+    },
+    "user-dialog": {
+        "reset-password": "Reset password"
+    },
+    "user-form": {
+        "last-name": "Surname",
+        "email": "Email",
+        "error-invalid-email": "Invalid e-mail",
+        "error-used-email": "The email is already in use by another user.",
+        "first-name": "Forename",
+        "department": "Department",
+        "job-title": "Job title"
+    },
+    "user-management": {
+        "tooltip": {
+            "go-to-okr-unit-overview": "Go to structure overview",
+            "add-new-user": "Creating new user",
+            "import-users-from-csv": "Import users from CSV",
+            "edit-user": "",
+            "deactivate-user": "",
+            "activate-user": ""
+        },
+        "user-management-toolbar-title": "User administration",
+        "checkbox": "Show deactivated users"
+    },
+    "logout": {
+        "logged-out": "You have been successfully logged out.",
+        "redirect": "You will be redirected in a moment."
+    },
+    "error": {
+        "tooltip": {
+            "go-to-okr-unit-overview": "Go to structure overview",
+            "navigate-to-previous": "Return to the previous page"
+        },
+        "error-list": "Error list",
+        "error-id": "Error ID:"
+    },
+    "settings-form": {
+        "settings": "Settings",
+        "admin-settings": "Admin settings",
+        "save": "Save",
+        "cancel-button-text": "Cancel"
+    },
+    "user-settings": {
+        "default-company": "Default Company",
+        "no-company": "No company",
+        "default-team": "Default team",
+        "no-team": "No team"
+    },
+    "version-form": {
+        "change-log": "Changelog",
+        "close": "Close"
+    },
+    "cycle-admin-card": {
+        "visible": "Visible",
+        "hidden": "Hidden",
+        "edit-cycle": "Edit cycle",
+        "delete-cycle": "Delete cycle"
+    },
+    "cycle-admin-container": {
+        "tooltip": {
+            "go-back-to-company": "Return to structure",
+            "go-to-okr-unit-overview": "Go to structure overview"
+        },
+        "administration": "Cycle administration",
+        "create-new-cycle": "Create new cycle"
+    },
+    "cycle-creation-form": {
+        "date": "Start date",
+        "visibility": "Visibility"
+    },
+    "cycle-edit-form": {
+        "name-*": "Name *",
+        "date": "Start date",
+        "visibility": "Visibility"
+    },
+    "demo-footer": {
+        "credits": "",
+        "privacy-policy": "",
+        "imprint": ""
+    },
+    "demo-main-view": {
+        "playground": ""
+    },
+    "demo-warning": {
+        "title": "",
+        "explanation": "",
+        "headline": "",
+        "text": "",
+        "playground-button": "",
+        "abort-button": ""
+    },
+    "no-mail-information": {
+        "tooltip": {
+            "go-to-okr-unit-overview": "Go to structure overview"
+        },
+        "title": "No SMTP configuration was found.",
+        "info": "This can restrict the usability of the application.",
+        "a-a-d": "If an Azure Active Directory is used for user management, the following functions are not available:",
+        "feedback": "Sending feedback",
+        "local": "If the local user database of BurningOKR is used for user management, the following functions are not available:",
+        "create-user-mails": "Sending mails when creating a new user",
+        "password-reset-mails": "Sending mails when resetting a password",
+        "back-to-home": "Back to home page"
+    },
+    "comment-card": {
+        "tooltip": {
+            "edit-comment": "Edit comment",
+            "delete-comment": "Delete comment",
+            "save-comment": "Save comment",
+            "cancel": "Cancel editing"
+        },
+        "edit-comment": "Edit comment"
+    },
+    "comment-view-dialog": {
+        "title": "comments",
+        "no-comment": "There are no comments yet for this KeyResult",
+        "write-comment": "Write a new comment",
+        "tooltip": {
+            "write-new-comment": "Post new comment",
+            "comment-to-small": "Your comment must be longer"
+        },
+        "close": "Close"
+    },
+    "key-result-form": {
+        "key-result": "Key Result *",
+        "start": "Start *",
+        "target": "Target *",
+        "current": "Current *",
+        "unit": "Unit *",
+        "description": "Description"
+    },
+    "key-result-milestone-form": {
+        "toggle": "Milestones active",
+        "tooltip": {
+            "add-button": "Add milestone",
+            "delete-button": "Delete milestone"
+        },
+        "name-*": "Name *",
+        "value-input": "Target-Value *"
+    },
+    "keyresult": {
+        "tooltip": {
+            "adjust-progress": "Adjust progress",
+            "more-options": "More options for this KeyResult",
+            "comments-for-this-key-result": "Comments about this KeyResult"
+        },
+        "menu": {
+            "edit-key-result": "Edit KeyResult",
+            "move-key-result-up": "Move KeyResult up",
+            "move-key-result-down": "Move KeyResult down",
+            "keyresult": "Delete key result"
+        }
+    },
+    "navigation-list-entry": {
+        "tooltip": {
+            "is-substructure": "This is a substructure",
+            "is-team": "This is a team",
+            "you-are-manager": "You are manager of this structure",
+            "you-are-member": "You are a member of this structure"
+        }
+    },
+    "objective-contents": {
+        "tooltip": {
+            "navigate-to-unit": "Go to the structure of this objective",
+            "define-new-key-result": "Define new KeyResult"
+        },
+        "parent-objective": "Parent Objective",
+        "no-key-result-found": "There are no KeyResults for this Objective yet.",
+        "key-results": "KeyResults",
+        "load-key-results": "Load KeyResults..."
+    },
+    "objective-form": {
+        "select-parent-objective": "Select parent objective",
+        "no-parent-objective": "No parent objective",
+        "description": "Description",
+        "annotation": "Remarks",
+        "contact-person": "Contact person",
+        "no-contact-person": "No contact person",
+        "objective-is-active-in-process": "Objective is being actively processed in the current cycle."
+    },
+    "objective": {
+        "tooltip": {
+            "bad-progress": "The objective is making bad progress",
+            "progress-can-be-better": "The objective should improve progress",
+            "good-progress": "The Objective makes good progress",
+            "subordinate": {
+                "": "Amount of subordinate objectives"
+            },
+            "expand-objective": "Expand Objective"
+        },
+        "objective-isnt-active": "This objective is not active",
+        "menu": {
+            "edit-objective": "Edit Objective",
+            "comment-objective": "Comment Objective",
+            "disable-objective": "Set Objective to inactive",
+            "enable-objective": "Set Objective to Active",
+            "move-up-objective": "Move Objective up",
+            "move-down-objective": "Move Objective down",
+            "delete-objective": "Delete Objective"
+        }
+    },
+    "department-tab-description": {
+        "description": "Description",
+        "topic": "Topic:",
+        "beginning": "Beginning:",
+        ":": "Description:",
+        "to": "Contributes to:",
+        "delimitation": "Delimitation:",
+        "dependencies": "Dependencies:",
+        "resources": "Required Resources:",
+        "handover-plan": "Handover Plan:",
+        "initiator": "Initiator:",
+        "startteam": "Start Team:",
+        "stakeholder": "Stakeholders:",
+        "tooltip": {
+            "no-edit-rights": "Only OKR Masters are allowed to edit descriptions"
+        }
+    },
+    "department-tab-task-card": {
+        "task-board-loading": "loading"
+    },
+    "department-tab-task-form": {
+        "title": "Title *",
+        "description": "",
+        "select-parent-key-result": "Choose a parent Key Result",
+        "no-parent-key-result": "No parent key result",
+        "assigned-user-ids": "Editor",
+        "task-state": "State"
+    },
+    "department-tab-taskboard": {
+        "task-board-headline": "Tasks",
+        "tooltip": {
+            "create-new-task": "Create new task"
+        }
+    },
+    "department-tab-team": {
+        "members-of-unit": "Structure Members",
+        "define-o-k-r-master": "No OKR Master defined",
+        "o-k-r-master": "OKR Master",
+        "define-topic-sponsor": "No OKR topic sponsor defined",
+        "o-k-r-topic-sponsor": "OKR Topic sponsor",
+        "no-members-defined": "No team members defined",
+        "team-member": "Team members"
+    },
+    "okr-child-unit": {
+        "unit-not-active": "This structure is inactive",
+        "tooltip": {
+            "more-options": "More options for this structure",
+            "cannot-delete-unit": "Cannot be deleted due to existing substructures!"
+        },
+        "overview": "Overview",
+        "team-member": "Team members",
+        "substructures": "Substructures",
+        "description": "Description",
+        "task-board-headline": "Tasks",
+        "menu": {
+            "editchild-unit": "Edit structure",
+            "disable-unit": "Set structure inactive",
+            "enable-unit": "Set structure active",
+            "export": "Export",
+            "contacts": "Export contacts",
+            "delete-unit": "Delete structure"
+        },
+        "load-department": "Loading Department",
+        "please-wait": "Please wait",
+        "loading": "Loading\u2026",
+        "load-department-failed": "Loading Failed",
+        "empty-label": "-",
+        "error-info-label": "Info",
+        "load-department-failed-info-text": "The structure could not be loaded. It could have been deleted by another user, or the server is not responding.",
+        "load-department-failed-button": "Go to next higher structure"
+    },
+    "okr-child-unit-form": {
+        "name-*": "Name *",
+        "description": "Label *",
+        "header": "Active"
+    },
+    "okr-child-unit-preview-button": {
+        "tooltip": {
+            "show-department": "Show structure",
+            "list-objectives": "Objectives of this structure",
+            "list-child-unit": "Substructures of this structure",
+            "not-active": "This structure is not active"
+        },
+        "load": "Load"
+    },
+    "okr-child-unit-tab": {
+        "substructures": "Substructures",
+        "no-child-unit": "There aren\u2019t any substructures for this structure yet"
+    },
+    "okr-child-unit-overview-tab": {
+        "tooltip": {
+            "create-new-objective": "Create a new Objective"
+        },
+        "no-objectives": "There are no objectives for this structure yet.",
+        "load-objective": "Load Objective..."
+    },
+    "okr-topic-description-form": {
+        "header": "Topic *",
+        "beginning": "Beginning *",
+        "description": "Description",
+        "contributes-to": "Contributes to",
+        "delimitation": "Delimitation",
+        "dependencies": "Dependencies",
+        "resources": "Required Resources",
+        "handover-plan": "Handover Plan"
+    },
+    "user-minibutton": {
+        "tooltip": {
+            "remove-member": "Remove user from team"
+        },
+        "loading-user": "Load user..."
+    },
+    "reset-countdown": {
+        "until-next": ""
+    }
 }

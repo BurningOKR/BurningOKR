@@ -1,3 +1,4 @@
+import {TranslateModule} from "@ngx-translate/core";
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -27,7 +28,7 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
     ImportCsvDialogComponent,
     UserFormComponent
   ],
-  imports: [
+  imports: [TranslateModule,
     CommonModule,
     UserManagementRoutingModule,
     SharedModule,

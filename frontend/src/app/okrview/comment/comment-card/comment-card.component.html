@@ -1,7 +1,6 @@
 <div class="comment">
   <div class="flex-nowrap-center">
-    <ngx-avatar [name]="comment.userName"
-                [src]="comment.photo ? 'data:image/jpg;base64,' + comment.photo : ''"></ngx-avatar>
+    <ngx-avatar [name]="comment.userName" [src]="comment.photo ? 'data:image/jpg;base64,' + comment.photo : ''"></ngx-avatar>
   </div>
   <div class="ml-10">
     <div class="flex-nowrap comment-user-name">
@@ -10,21 +9,19 @@
       </div>
 
       <div *ngIf="!isEditingComment && isOwnerOfNote$ | async">
-        <button mat-icon-button class="icon-spacer" i18n-matTooltip="@@component_commentCard_editComment" matTooltip="Kommentar bearbeiten" (click)="clickedEditComment()">
+        <button mat-icon-button class="icon-spacer" matTooltip="{{ 'comment-card.tooltip.edit-comment' | translate }}" (click)="clickedEditComment()">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-icon-button class="icon-spacer" i18n-matTooltip="@@component_commentCard_deleteComment" matTooltip="Kommentar löschen" (click)="clickedDeleteComment()">
+        <button mat-icon-button class="icon-spacer" matTooltip="{{ 'comment-card.tooltip.delete-comment' | translate }}" (click)="clickedDeleteComment()">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
       <div *ngIf="isEditingComment && isOwnerOfNote$ | async">
-        <button mat-icon-button class="icon-spacer" i18n-matTooltip="@@component_commentCard_saveComment" matTooltip="Kommentar speichern" (click)="clickedSaveComment()"
-                [disabled]="isSavingEdit || this.editedCommentText.length < 3 || this.editedCommentText.length > 255">
+        <button mat-icon-button class="icon-spacer" matTooltip="{{ 'comment-card.tooltip.save-comment' | translate }}" (click)="clickedSaveComment()" [disabled]="isSavingEdit || this.editedCommentText.length < 3 || this.editedCommentText.length > 255">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-icon-button class="icon-spacer" i18n-matTooltip="@@component_commentCard_cancel" matTooltip="Bearbeitung abbrechen"
-                (click)="clickedCancelEditComment()" [disabled]="isSavingEdit">
+        <button mat-icon-button class="icon-spacer" matTooltip="{{ 'comment-card.tooltip.cancel' | translate }}" (click)="clickedCancelEditComment()" [disabled]="isSavingEdit">
           <mat-icon>cancel</mat-icon>
         </button>
       </div>
@@ -36,8 +33,7 @@
     <div *ngIf="isEditingComment">
       <div class="flex-nowrap">
         <mat-form-field class="full-width">
-        <textarea matInput cdkTextareaAutosize i18n-placeholder="@@component_commentCard_editComment" placeholder="Kommentar bearbeiten" [disabled]="isSavingEdit"
-                  [(ngModel)]="editedCommentText"></textarea>
+        <textarea matInput cdkTextareaAutosize placeholder="{{ 'comment-card.edit-comment' | translate }}" [disabled]="isSavingEdit" [(ngModel)]="editedCommentText"></textarea>
         </mat-form-field>
       </div>
     </div>

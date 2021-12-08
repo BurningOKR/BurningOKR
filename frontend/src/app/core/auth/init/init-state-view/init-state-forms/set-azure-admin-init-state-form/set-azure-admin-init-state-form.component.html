@@ -1,24 +1,13 @@
 <div *ngIf="currentUser$ | async; let user; else loading">
-  <mat-card-title i18n="@@setAzureAdminTitle">Administrator festlegen</mat-card-title>
-  <p i18n="@@setAzureAdminSubtitle">Folgender Nutzer wird als initialer Administrator festgelegt.</p>
+  <mat-card-title>{{ 'set-azure-admin-init-state-form.set-azure-admin-title' | translate }}</mat-card-title>
+  <p>{{ 'set-azure-admin-init-state-form.set-azure-admin-subtitle' | translate }}</p>
   <div class="flex-wrap-spreadinner-nocenter">
     <app-user-minibutton [userId]="user.id" [canBeRemoved]="false"></app-user-minibutton>
   </div>
-  <p i18n="@@otherUserNotice">Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto an.</p>
+  <p>{{ 'set-azure-admin-init-state-form.other-user-notice' | translate }}</p>
   <div class="text-center">
-    <button mat-raised-button
-            color="primary"
-            (click)="handleSubmitClick(user)"
-            [disabled]="!buttonsEnabled"
-            i18n="@@setAdminButton">Diesen Nutzer als Administrator festlegen
-    </button>
-    <button mat-button
-            color="primary"
-            (click)="handleLogoutClick()"
-            [disabled]="!buttonsEnabled"
-            i18n="@@setAdminLogoutButton">
-      Logout
-    </button>
+    <button mat-raised-button color="primary" (click)="handleSubmitClick(user)" [disabled]="!buttonsEnabled">{{ 'set-azure-admin-init-state-form.set-admin-button' | translate }}</button>
+    <button mat-button color="primary" (click)="handleLogoutClick()" [disabled]="!buttonsEnabled">{{ 'set-azure-admin-init-state-form.set-admin-logout-button' | translate }}</button>
   </div>
 </div>
 <ng-template #loading>

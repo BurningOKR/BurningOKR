@@ -46,11 +46,7 @@
                 <div class="tab-headline">{{'company.substructures' | translate}}</div>
               </div>
               <div class="icon-spacer f-1">
-                <app-add-child-unit-button [userRole]="currentUserRole$ | async"
-                                           [cycleClosed]="companyView.cycle.isCycleClosed()"
-                                           [topicSubject]="companyView.company"
-                                           (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)"
-                                           (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)">
+                <app-add-child-unit-button [userRole]="currentUserRole$ | async" [cycleClosed]="companyView.cycle.isCycleClosed()" [topicSubject]="companyView.company" (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)" (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)">
                 </app-add-child-unit-button>
               </div>
             </div>

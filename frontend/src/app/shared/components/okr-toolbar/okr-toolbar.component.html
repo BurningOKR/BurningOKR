@@ -23,11 +23,10 @@
         </mat-icon>
       </div>
       <span [matTooltip]="currentUser.givenName + ' ' + currentUser.surname" *ngIf="currentUser$ | async as currentUser">
-         <app-user-avatar class="icon-spacer-large profileIcon"  [user]="currentUser" size="40"></app-user-avatar>
+         <app-user-avatar class="icon-spacer-large profileIcon" [user]="currentUser" size="40"></app-user-avatar>
       </span>
 
-      <button mat-icon-button class="icon-spacer-large menuIcon" matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}"
-              [matMenuTriggerFor]="menu">
+      <button mat-icon-button class="icon-spacer-large menuIcon" matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>

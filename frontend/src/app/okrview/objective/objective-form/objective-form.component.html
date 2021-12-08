@@ -7,8 +7,8 @@
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <mat-select i18n-placeholder="@@component_objectiveForm_selectParentObjective" placeholder="Übergeordnetes Objective auswählen" formControlName="parentObjectiveId">
-        <mat-option [value]="null"><span i18n="@@component_objectiveForm_noParentObjective">Kein übergeordnetes Objective</span></mat-option>
+      <mat-select placeholder="{{ 'objective-form.select-parent-objective' | translate }}" formControlName="parentObjectiveId">
+        <mat-option [value]="null"><span>{{ 'objective-form.no-parent-objective' | translate }}</span></mat-option>
         <mat-optgroup *ngFor="let item of parentElements$ | async" [label]="item.department.name">
           <mat-option *ngFor="let objective of item.objectiveList" [value]="objective.id">{{objective.name}}
           </mat-option>
@@ -17,21 +17,20 @@
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <input type="text" i18n-placeholder="@@component_description" matInput placeholder="Beschreibung" formControlName="description">
+      <input type="text" matInput placeholder="{{ 'objective-form.description' | translate }}" formControlName="description">
       <mat-error><app-form-error [control]="objectiveForm.get('description')"></app-form-error></mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <input type="text" i18n-placeholder="@@component_objectiveForm_annotation" matInput placeholder="Anmerkungen" formControlName="remark">
+      <input type="text" matInput placeholder="{{ 'objective-form.annotation' | translate }}" formControlName="remark">
       <mat-error><app-form-error [control]="objectiveForm.get('remark')"></app-form-error></mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
-      <mat-select (selectionChange)="onSelectUser($event)" formControlName="contactPersonId"
-                  i18n-placeholder="@@contactPerson" placeholder="Ansprechpartner">
-        <mat-option [value]="null"><span i18n="@@component_objectiveForm_noContactPerson">Kein Ansprechpartner</span></mat-option>
+      <mat-select (selectionChange)="onSelectUser($event)" formControlName="contactPersonId" placeholder="{{ 'objective-form.contact-person' | translate }}">
+        <mat-option [value]="null"><span>{{ 'objective-form.no-contact-person' | translate }}</span></mat-option>
         <mat-option *ngFor="let user of users" [value]="user.id">
           {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
         </mat-option>
@@ -39,9 +38,7 @@
     </mat-form-field>
 
 
-    <mat-slide-toggle formControlName="isActive" i18n="@@component_objectiveForm_objectiveIsActiveInProcess">
-      Objective wird im aktuellen Zyklus aktiv bearbeitet
-    </mat-slide-toggle>
+    <mat-slide-toggle formControlName="isActive">{{ 'objective-form.objective-is-active-in-process' | translate }}</mat-slide-toggle>
 
   </form>
 

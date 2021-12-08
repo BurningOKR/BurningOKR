@@ -5,7 +5,7 @@
     <br>
     <br>
   </div>
-  <div class="comments-title" i18n="@@component_commentViewDialog_title">Kommentare</div>
+  <div class="comments-title">{{ 'comment-view-dialog.title' | translate }}</div>
   <mat-dialog-content>
 
     <div *ngIf="this.commentList.length !== 0 else noComments">
@@ -19,7 +19,7 @@
 
     <!-- No comments in KeyResult -->
     <ng-template #noComments>
-      <div class="no-comment-placeholder" i18n="@@component_commentViewDialog_noComment">Es gibt noch keine Kommentare für dieses {{componentTypeTitle}}</div>
+      <div class="no-comment-placeholder">{{ 'comment-view-dialog.no-comment' | translate }}</div>
       <mat-divider></mat-divider>
     </ng-template>
     <!-- Loading comment list placeholder -->
@@ -34,21 +34,15 @@
 
     <div class="flex-nowrap">
       <mat-form-field class="full-width" hintLabel="{{getHintLabel()}}">
-        <textarea i18n-placeholder="@@component_commentViewDialog_writeComment" matInput cdkTextareaAutosize
-                  placeholder="Einen neuen Kommentar schreiben"
-                  [disabled]="isPostingComment" [(ngModel)]="newCommentText" #input maxlength="255"></textarea>
+        <textarea matInput cdkTextareaAutosize placeholder="{{ 'comment-view-dialog.write-comment' | translate }}" [disabled]="isPostingComment" [(ngModel)]="newCommentText" #input maxlength="255"></textarea>
         <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
       </mat-form-field>
-      <button *ngIf="canPostNewComment(); else commentToSmall" mat-mini-fab class="m-24"
-              [disabled]="!canPostNewComment()" (click)="postNewComment()"
-              i18n-matTooltip="@@component_commentViewDialog_writeNewComment" matTooltip="Neuen Kommentar schreiben">
+      <button *ngIf="canPostNewComment(); else commentToSmall" mat-mini-fab class="m-24" [disabled]="!canPostNewComment()" (click)="postNewComment()" matTooltip="{{ 'comment-view-dialog.tooltip.write-new-comment' | translate }}">
         <mat-icon class="v-top">send</mat-icon>
       </button>
 
       <ng-template #commentToSmall>
-        <button mat-mini-fab i18n-matTooltip="@@component_commentViewDialog_commentToSmall" class="m-24"
-                [disabled]="!canPostNewComment()" (click)="postNewComment()"
-                matTooltip="Ihr Kommentar muss länger sein">
+        <button mat-mini-fab class="m-24" [disabled]="!canPostNewComment()" (click)="postNewComment()" matTooltip="{{ 'comment-view-dialog.tooltip.comment-to-small' | translate }}">
           <mat-icon class="v-top">send</mat-icon>
         </button>
       </ng-template>
@@ -57,8 +51,6 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-stroked-button (click)="clickedClose()" i18n="@@component_commentViewDialog_close">
-      Schließen
-    </button>
+    <button mat-stroked-button (click)="clickedClose()">{{ 'comment-view-dialog.close' | translate }}</button>
   </mat-dialog-actions>
 </div>
