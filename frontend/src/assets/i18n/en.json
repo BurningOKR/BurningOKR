@@ -143,6 +143,7 @@
 			"title": "Welcome to Burning OKR!"
 		}
 	},
+	"demo-imprint": "<div class=\"container footer-margin\">  <h1>IMPRINT</h1>\n  <h4>Imprint according to § 5 TMG:</h4>\n  <div class=\"content-container\">    <h4>BROCKHAUS AG</h4>    Pierbusch 17<br>    44536 Lunen<br>    Germany<br>  </div>\n  <div class=\"content-container\">    <h4>LOCATION DORTMUND</h4>    Emil-Figge-Strasse 85<br>    44227 Dortmund<br>    Germany<br>  </div>\n  <div class=\"content-container\">    <h4>HAMBURG LOCATION</h4>    Willy-Brandt-Strasse 23-25<br>    20457 Hamburg<br>    Germany<br>  </div>\n\n  <div class=\"content-container\">    <b>Phone:</b> +49 (0) 231 98 75-0<br>    <b>Fax:</b> +49 (0) 231 98 75-540<br>    <b>E-mail:</b> info@brockhaus-ag.de<br>    <b>Website:</b> www.brockhaus-ag.de<br>\n    <br>\n    <b>Authorized representative:</b> Matthias Besenfelder<br>    Chairman of the Supervisory Board: Dr. Adam Spalek<br>\n    <br>\n    <b>Register Court:</b> Dortmund Local Court<br>    <b>Register number:</b> HRB 27027<br>    <b>Sales tax identification number:</b> DE 299350276<br>\n    <br>\n    <b>Responsible for the content according to § 55 RStV:</b> Matthias Besenfelder<br>\n    <br>\n    <b>Disclaimer:</b> Despite careful control of the content, we do not assume any liability for the content of external links. The operators of the linked pages are solely responsible for their content.<br>  </div>\n</div>",
 	"demo-main-view": {
 		"playground": "Playground"
 	},

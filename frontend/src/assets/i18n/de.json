@@ -143,6 +143,7 @@
 			"title": "Willkommen bei Burning OKR!"
 		}
 	},
+	"demo-imprint": "<div class=\"container footer-margin\">\n  <h1>IMPRESSUM</h1>\n\n  <h4>Impressum gemäß § 5 TMG:</h4>\n\n  <div class=\"content-container\">\n    <h4>BROCKHAUS AG</h4>\n    Pierbusch 17<br>\n    44536 Lünen<br>\n    Deutschland<br>\n  </div>\n\n  <div class=\"content-container\">\n    <h4>STANDORT DORTMUND</h4>\n    Emil-Figge-Straße 85<br>\n    44227 Dortmund<br>\n    Deutschland<br>\n  </div>\n\n  <div class=\"content-container\">\n    <h4>STANDORT HAMBURG</h4>\n    Willy-Brandt-Straße 23-25<br>\n    20457 Hamburg<br>\n    Deutschland<br>\n  </div>\n\n\n  <div class=\"content-container\">\n    <b>Telefon:</b> +49 (0) 231 98 75-0<br>\n    <b>Fax:</b> +49 (0) 231 98 75-540<br>\n    <b>E-Mail:</b> info@brockhaus-ag.de<br>\n    <b>Website:</b> www.brockhaus-ag.de<br>\n\n    <br>\n\n    <b>Vertretungsberechtigter Vorstand:</b> Matthias Besenfelder<br>\n    Aufsichtsratsvorsitzender: Dr. Adam Spalek<br>\n\n    <br>\n\n    <b>Registergericht:</b> Amtsgericht Dortmund<br>\n    <b>Registernummer:</b> HRB 27027<br>\n    <b>Umsatzsteuer-Identifikationsnummer:</b> DE 299350276<br>\n\n    <br>\n\n    <b>Verantwortlich für den Inhalt nach § 55 RStV:</b> Matthias Besenfelder<br>\n\n    <br>\n\n    <b>Haftungshinweis:</b> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.<br>\n  </div>\n\n</div>\n",
 	"demo-main-view": {
 		"playground": "Playground"
 	},
