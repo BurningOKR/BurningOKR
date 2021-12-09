@@ -148,7 +148,10 @@
 	},
 	"demo-warning": {
 		"abort-button": "Abbrechen",
+		"database-deletion-text": "Alle 2 Stunden werden alle Daten auf dem Demo Playground gelöscht. Dazu wird ein Countdown angezeigt.",
+		"database-deletion-title": "Datenlöschung",
 		"explanation": "Sie betreten nun den Playground der Burning OKR Demo.",
+		"good-vibes-only-text": "Bitte verbreitet keine negativen Inhalte auf dem Demo Playground.",
 		"headline": "Nutzergenerierte Inhalte",
 		"playground-button": "Zum Playground",
 		"text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
