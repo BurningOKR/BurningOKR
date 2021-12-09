@@ -86,13 +86,6 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
         switchMap(n => n)
       )
       .subscribe(() => {
-        const snackBarText: string = this.i18n({
-          id: 'snackbar_addTopicDraft',
-          value: 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.'
-        });
-        const snackBarOk: string = this.i18n({id: 'snackbar_ok', value: 'Ok'});
-        this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
-
         this.loadAllTopicDrafts();
       });
   }

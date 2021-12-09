@@ -18,6 +18,7 @@ import {
   CommentViewDialogFormData
 } from '../../okrview/comment/comment-view-dialog/comment-view-dialog.component';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -81,10 +82,18 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
     value: 'Ablehnung zurücknehmen'
   });
 
+  submitTopicDraftText: string = 'Einreichen';
+  withDrawSubmitTopicDraftText: string = 'Einreichen zurücknehmen';
+  adminOrInitiatorTooltip: string = 'Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen';
+  statusMustBeSubmitted: string = 'Der Status muss auf "Eingereicht" sein, damit das Einreichen zurückgenommen werden kann';
+  statusMustBeSubmittedAndUser: string = 'Der Status muss auf "Eingereicht" sein und Sie müssen ein Admin oder der Initiator sein, damit das Einreichen zurückgenommen werden kann';
+
+
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
               private i18n: I18n,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) {
     }
 
   ngOnDestroy(): void {
@@ -183,6 +192,16 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
       );
   }
 
+  canChangeCurrentStatusFromDraftOrSubmitted$(): Observable<boolean> {
+    return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && (this.topicDraft.currentStatus === status.draft
+            || this.topicDraft.currentStatus === status.submitted));
+        })
+      );
+  }
+
   changeCurrentStatus(newStatus: status): void {
     this.topicDraft.currentStatus = newStatus;
     this.subscriptions.push(this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
@@ -196,6 +215,17 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
 
   rejectingTopicDraft(): void {
     this.changeCurrentStatus(this.topicDraft.currentStatus !== status.rejected ? status.rejected : status.submitted);
+  }
+
+  submittingTopicDraft(): void {
+    if (this.topicDraft.currentStatus === status.draft) {
+      this.changeCurrentStatus(status.submitted);
+      const snackBarText: string = 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.';
+      const snackBarOk: string = 'Ok';
+      this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
+    } else {
+      this.changeCurrentStatus(status.draft);
+    }
   }
 
   getApproveOrRejectTooltipText$(): Observable<string> {
@@ -213,6 +243,22 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
           return of('');
         }
       ));
+  }
+  getSubmissionTooltipText$(): Observable<string> {
+    return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
+      .pipe(
+        switchMap((isAdminOrCreator: boolean) => {
+            if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) && !isAdminOrCreator) {
+              return of(this.statusMustBeSubmittedAndUser);
+            } else if (!isAdminOrCreator) {
+              return of(this.adminOrInitiatorTooltip);
+            } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
+              return of(this.statusMustBeSubmitted);
+            }
+
+            return of('');
+          }
+        ));
   }
 
   getEditTooltipText$(): Observable<string> {
@@ -241,6 +287,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   getRejectionButtonText(): string {
     return this.topicDraft.currentStatus === status.rejected ? this.withDrawRejectionTopicDraftText
       : this.rejectTopicDraftText;
+  }
+
+  getSubmissionButtonText(): string {
+    return this.topicDraft.currentStatus !== status.draft ? this.withDrawSubmitTopicDraftText
+      : this.submitTopicDraftText;
   }
 
   clickedOpenComments(): void {
