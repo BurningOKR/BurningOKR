@@ -6,25 +6,25 @@
       <span matTooltip="{{ getEditTooltipText$() | async}}" [matTooltipDisabled]="canEditTopicDraft$() | async">
         <button mat-menu-item [disabled]="(canEditTopicDraft$() | async) === false" (click)="editTopicDraft()">
           <mat-icon>edit</mat-icon>
-          <span>Bearbeiten</span>
+          <span>{{ 'submitted-topic-draft-action-button.edit' | translate }}</span>
         </button>
       </span>
     <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.only-admin-or-initiator-permission-to-delete' | translate }}" [matTooltipDisabled]="canDeleteTopicDraft$() | async">
       <button mat-menu-item [disabled]="(canDeleteTopicDraft$() | async) === false" (click)="clickedDeleteTopicDraft()">
         <mat-icon>delete</mat-icon>
-        <span>Löschen</span>
+        <span>{{ 'submitted-topic-draft-action-button.delete-text' | translate }}</span>
       </button>
     </span>
     <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.header' | translate }}">
         <button mat-menu-item (click)="clickedOpenComments()">
           <mat-icon>chat</mat-icon>
-          <span>Kommentare</span>
+          <span>{{ 'submitted-topic-draft-action-button.comments-text' | translate }}</span>
         </button>
       </span>
     <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.feature-coming-soon' | translate }}">
         <button mat-menu-item disabled (click)="printNotImplemented()">
           <mat-icon>exposure</mat-icon>
-          <span>Einreichen/Zurücknehmen</span>
+          <span>{{ 'submitted-topic-draft-action-button.submit-withdraw' | translate }}</span>
         </button>
       </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
