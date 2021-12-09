@@ -552,11 +552,14 @@
 		"comments": {
 			"heading": "Topic draft"
 		},
+		"comments-text": "Comments",
 		"delete": {
 			"button-text": "Delete",
 			"message": "Are you sure you want to delete draft topic {{name}}?",
 			"title": "Delete topic draft"
 		},
+		"delete-text": "Delete",
+		"edit": "Edit",
 		"edit-tooltip": {
 			"status": "The status must be \"Pending\" or \"Draft\"",
 			"status-and-user": "The status must be \"Pending\" or \"Draft\" and only an admin or the initiator can edit",
@@ -564,6 +567,7 @@
 		},
 		"no-permission": "Only an admin or an auditor can approve or reject",
 		"state-submitted-tooltip": "The status must be \"Pending\"",
+		"submit-withdraw": "Submit/ Withdraw",
 		"tooltip": {
 			"feature-coming-soon": "Feature is coming soon",
 			"header": "Comments",

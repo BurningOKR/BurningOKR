@@ -552,11 +552,14 @@
 		"comments": {
 			"heading": "Themenentwurf"
 		},
+		"comments-text": "Kommentare",
 		"delete": {
 			"button-text": "Löschen",
 			"message": "Möchten Sie Themenentwurf {{name}} wirklich löschen?",
 			"title": "Themenentwurf löschen"
 		},
+		"delete-text": "Löschen ",
+		"edit": "Bearbeiten ",
 		"edit-tooltip": {
 			"status": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein",
 			"status-and-user": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein und nur ein Admin oder der Initiator kann bearbeiten",
@@ -564,6 +567,7 @@
 		},
 		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
 		"state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
+		"submit-withdraw": "Einreichen/ Zurücknehmen",
 		"tooltip": {
 			"feature-coming-soon": "Feature kommt demnächst",
 			"header": "Kommentare",
