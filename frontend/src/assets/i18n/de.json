@@ -82,12 +82,14 @@
 		}
 	},
 	"cycle-creation-form": {
-		"date": "Startdatum",
+		"end-date": "Enddatum",
+		"start-date": "Startdatum",
 		"visibility": "Sichtbarkeit"
 	},
 	"cycle-edit-form": {
-		"date": "Startdatum",
-		"name-*": "Name *",
+		"end-date": "Enddatum",
+		"name": "Name *",
+		"start-date": "Startdatum",
 		"visibility": "Sichtbarkeit"
 	},
 	"delete-dialog": {
@@ -152,17 +154,19 @@
 		"database-deletion-title": "Datenlöschung",
 		"explanation": "Sie betreten nun den Playground der Burning OKR Demo.",
 		"good-vibes-only-text": "Bitte verbreitet keine negativen Inhalte auf dem Demo Playground.",
+		"good-vibes-only-title": "#GoodVibesOnly",
 		"headline": "Nutzergenerierte Inhalte",
 		"playground-button": "Zum Playground",
-		"text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
-		"title": "Playground"
+		"title": "Playground",
+		"user-generated-text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
+		"user-generated-title": "Nutzergenerierte Inhalte"
 	},
 	"department-tab-description": {
-		":": "Beschreibung:",
 		"beginning": "Beginn:",
 		"delimitation": "Abgrenzung:",
 		"dependencies": "Abhängigkeiten:",
 		"description": "Beschreibung",
+		"edit-description": "Beschreibung bearbeiten",
 		"handover-plan": "Übergabeplan:",
 		"initiator": "Initiator:",
 		"resources": "Benötigte Ressourcen:",
@@ -286,7 +290,8 @@
 		"button": "Passwort vergessen",
 		"caps-lock-on": "Die Feststelltaste ist aktiv",
 		"email": "Email",
-		"error": "Benutzername nicht gefunden",
+		"error-invalid-grant": "Passwort oder Benutzername ungültig",
+		"error-unauthorized": "Benutzername nicht gefunden",
 		"password": "Passwort"
 	},
 	"logout": {

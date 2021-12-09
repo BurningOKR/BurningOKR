@@ -863,7 +863,24 @@
                 <name>cycle-creation-form</name>
                 <children>
                     <concept_node>
-                        <name>date</name>
+                        <name>end-date</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>start-date</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -902,7 +919,7 @@
                 <name>cycle-edit-form</name>
                 <children>
                     <concept_node>
-                        <name>date</name>
+                        <name>end-date</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -919,7 +936,24 @@
                         </translations>
                     </concept_node>
                     <concept_node>
-                        <name>name-*</name>
+                        <name>name</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>start-date</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -1618,6 +1652,23 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>good-vibes-only-title</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>headline</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -1652,7 +1703,7 @@
                         </translations>
                     </concept_node>
                     <concept_node>
-                        <name>text</name>
+                        <name>title</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -1669,7 +1720,24 @@
                         </translations>
                     </concept_node>
                     <concept_node>
-                        <name>title</name>
+                        <name>user-generated-text</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>user-generated-title</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -1690,23 +1758,6 @@
             <folder_node>
                 <name>department-tab-description</name>
                 <children>
-                    <concept_node>
-                        <name>:</name>
-                        <definition_loaded>false</definition_loaded>
-                        <description/>
-                        <comment/>
-                        <default_text/>
-                        <translations>
-                            <translation>
-                                <language>de-DE</language>
-                                <approved>false</approved>
-                            </translation>
-                            <translation>
-                                <language>en-US</language>
-                                <approved>false</approved>
-                            </translation>
-                        </translations>
-                    </concept_node>
                     <concept_node>
                         <name>beginning</name>
                         <definition_loaded>false</definition_loaded>
@@ -1760,6 +1811,23 @@
                     </concept_node>
                     <concept_node>
                         <name>description</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>edit-description</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -3142,7 +3210,24 @@
                         </translations>
                     </concept_node>
                     <concept_node>
-                        <name>error</name>
+                        <name>error-invalid-grant</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>error-unauthorized</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
