@@ -100,7 +100,8 @@ public class TopicDraftController {
    * @return a {@link ResponseEntity} ok with a Topic Draft
    */
   @PutMapping("/topicDrafts/status/{topicDraftId}")
-  @PreAuthorize("@authorizationService.isAdmin()" + "|| @authorizationService.isAuditor()")
+  @PreAuthorize("@authorizationService.isAdmin()" + "|| @authorizationService.isAuditor()"
+          + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
   public ResponseEntity updateTopicResultStatusById(
       @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {
     OkrTopicDraft okrTopicDraft = okrTopicDraftMapper.mapDtoToEntity(okrTopicDraftDto);
