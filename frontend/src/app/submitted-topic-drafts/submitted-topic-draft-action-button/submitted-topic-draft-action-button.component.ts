@@ -192,12 +192,13 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
       );
   }
 
-  canChangeCurrentStatusFromDraftOrSubmitted$(): Observable<boolean> {
+  canChangeCurrentStatusForSubmission$(): Observable<boolean> {
     return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
       .pipe(
         switchMap((hasAuthorization: boolean) => {
-          return of(hasAuthorization && (this.topicDraft.currentStatus === status.draft
-            || this.topicDraft.currentStatus === status.submitted));
+          return of(hasAuthorization && (
+            this.topicDraft.currentStatus === status.draft ||
+            this.topicDraft.currentStatus === status.submitted));
         })
       );
   }
@@ -254,9 +255,9 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
               return of(this.adminOrInitiatorTooltip);
             } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
               return of(this.statusMustBeSubmitted);
+            } else {
+              return of('');
             }
-
-            return of('');
           }
         ));
   }

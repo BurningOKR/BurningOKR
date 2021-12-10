@@ -21,8 +21,8 @@
         <span>Kommentare</span>
       </button>
     </span>
-    <span matTooltip="{{ getSubmissionTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatusFromDraftOrSubmitted$() | async">
-      <button mat-menu-item [disabled]="(canChangeCurrentStatusFromDraftOrSubmitted$() | async) === false" (click)="submittingTopicDraft()">
+    <span matTooltip="{{ getSubmissionTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatusForSubmission$() | async">
+      <button mat-menu-item [disabled]="(canChangeCurrentStatusForSubmission$() | async) === false" (click)="submittingTopicDraft()">
         <mat-icon>exposure</mat-icon>
         <span>{{ getSubmissionButtonText() }}</span>
       </button>
