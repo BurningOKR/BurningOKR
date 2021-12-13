@@ -47,6 +47,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   adminOrInitiatorTooltip: string;
   statusMustBeSubmitted: string;
   statusMustBeSubmittedAndUser: string;
+  notAdminToolTip: string;
+  notApprovedToolTip: string;
 
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
@@ -121,6 +123,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .subscribe((text: string) => {
       this.statusMustBeSubmittedAndUser = text;
     }));
+    this.translate.stream('submitted-topic-draft-action-button.user-not-admin').subscribe((text: string) => {
+      this.notAdminToolTip = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.not-approved').subscribe((text: string) => {
+      this.notApprovedToolTip = text;
+    });
 
   }
 
@@ -184,6 +192,18 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
             || this.topicDraft.currentStatus === status.submitted));
         })
       );
+  }
+
+  isTopicDraftConvertableToTeam$(): Observable<boolean> {
+    return of(this.userIsAdmin() && this.draftIsApproved())
+  }
+
+  private userIsAdmin() {
+    return this.currentUserService.isCurrentUserAdmin$();
+  }
+
+  private draftIsApproved() {
+    return this.topicDraft.currentStatus === status.approved;
   }
 
   canDeleteTopicDraft$(): Observable<boolean> {
@@ -319,5 +339,24 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
       this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+  }
+
+  getConvertToTeamTooltipText() {
+    if(!this.userIsAdmin() && !this.draftIsApproved()){
+      return this.notApprovedToolTip + ' & ' + this.notAdminToolTip;
+    }
+    else if(!this.draftIsApproved()){
+      return this.notApprovedToolTip;
+    }
+    return this.notAdminToolTip;
+  }
+
+  convertToTeam() {
+    const data: object = {
+      data : {
+        topicDraft:  this.topicDraft
+      }
+    }
+
   }
 }

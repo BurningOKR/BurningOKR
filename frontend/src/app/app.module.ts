@@ -52,6 +52,7 @@ import { NgwWowModule } from 'ngx-wow';
 import { DemoModule } from './demo/demo.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SubmittedTopicDraftsConvertToTeamComponent } from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/submitted-topic-drafts-convert-to-team.component';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -79,6 +80,7 @@ export function createTranslateLoader(http: HttpClient) {
     SubmittedTopicDraftCardsWrapperComponent,
     SubmittedTopicDraftDetailsComponent,
     SubmittedTopicDraftEditComponent,
+    SubmittedTopicDraftsConvertToTeamComponent,
   ],
   imports: [
     AppRoutingModule,

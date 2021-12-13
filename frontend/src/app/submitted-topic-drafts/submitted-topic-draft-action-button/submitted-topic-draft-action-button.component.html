@@ -27,6 +27,12 @@
         <span>{{ getSubmissionButtonText() }}</span>
       </button>
     </span>
+    <span matTooltip="{{getConvertToTeamTooltipText()}}" [matTooltipDisabled]="isTopicDraftConvertableToTeam$() | async">
+        <button mat-menu-item [disabled]="(isTopicDraftConvertableToTeam$() | async) === false" (click)="convertToTeam()">
+          <mat-icon>transform</mat-icon>
+          <span>{{ 'submitted-topic-draft-action-button.create-team' | translate }}</span>
+        </button>
+      </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
       <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="approvingTopicDraft()">
         <mat-icon>check_circle</mat-icon>
