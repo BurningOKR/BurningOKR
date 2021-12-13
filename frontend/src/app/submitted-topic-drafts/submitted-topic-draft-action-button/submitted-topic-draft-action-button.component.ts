@@ -223,7 +223,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
       this.changeCurrentStatus(status.submitted);
       const snackBarText: string = 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.';
       const snackBarOk: string = 'Ok';
-      this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
+      this.snackBar.open(snackBarText, snackBarOk, {
+        verticalPosition: 'top',
+        duration: 3500
+      });
     } else {
       this.changeCurrentStatus(status.draft);
     }
