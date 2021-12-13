@@ -6,7 +6,7 @@
     <br>
     <span class="tab-subtitle description-title">{{ 'department-tab-description.beginning' | translate }}</span>
     {{description.beginning | date}}
-    <div class="tab-subtitle description-title">{{ 'department-tab-description.:' | translate }}</div>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.description' | translate }}:</div>
     <pre class="description-text">{{description.description}}</pre>
     <div class="tab-subtitle description-title">{{ 'department-tab-description.to' | translate }}</div>
     <pre class="description-text">{{description.contributesTo}}</pre>
@@ -60,7 +60,7 @@
       <span matTooltip="{{ 'department-tab-description.tooltip.no-edit-rights' | translate }}" [matTooltipDisabled]="canEdit">
         <button mat-raised-button color="primary" (click)="openDialog(description)" [disabled]="!canEdit">
         <mat-icon>edit</mat-icon>
-        <span i18n="@@component_edit_description">Beschreibung bearbeiten</span>
+        <span>{{ 'department-tab-description.edit-description' | translate }}</span>
       </button>
       </span>
     </div>
