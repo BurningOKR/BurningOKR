@@ -9,7 +9,7 @@
       <div class="subtitle">{{user.department}}</div>
     </div>
     <div *ngIf="canBeRemoved" class="flex-center f-1">
-      <button class="delete-button" (click)="clickedDeleteButton()" mat-icon-button i18n-matTooltip="@@component_userMiniButton_removeMember"  matTooltip="Benutzer aus Team entfernen">
+      <button class="delete-button" (click)="clickedDeleteButton()" mat-icon-button matTooltip="{{ 'user-minibutton.tooltip.remove-member' | translate }}">
         <mat-icon class="icon-centered">delete</mat-icon>
       </button>
     </div>
@@ -22,7 +22,7 @@
       <div mat-card-avatar>
         <mat-icon class="font-32">person</mat-icon>
       </div>
-      <mat-card-title i18n="@@component_userMiniButton_loadingUser">Lade Benutzer...</mat-card-title>
+      <mat-card-title>{{ 'user-minibutton.loading-user' | translate }}</mat-card-title>
     </mat-card-header>
   </mat-card>
 </ng-template>

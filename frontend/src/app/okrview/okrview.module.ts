@@ -66,6 +66,7 @@ import { TaskBoardStateColumnViewHelper } from '../shared/services/helper/task-b
 import { TaskBoardSwimlaneViewHelper } from '../shared/services/helper/task-board/task-board-swimlane-view-helper';
 import { TaskboardSwimlaneComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -134,6 +135,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         MatDatepickerModule,
         MatButtonToggleModule,
         NgxMatSelectSearchModule,
+        TranslateModule,
     ],
     exports: [
         OkrTopicDescriptionFormComponent

@@ -37,7 +37,7 @@ export class OkrToolbarComponent implements OnInit {
     private currentCompanyService: CurrentCompanyService,
     private oAuthDetails: OAuthFrontendDetailsService,
     private configurationService: ConfigurationService,
-    private okrUnitService: OkrUnitService
+    private okrUnitService: OkrUnitService,
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$()
       .pipe(take(1));
@@ -77,4 +77,5 @@ export class OkrToolbarComponent implements OnInit {
       .afterClosed()
       .subscribe();
   }
+
 }

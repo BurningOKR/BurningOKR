@@ -1,3 +1,4 @@
+import {TranslateModule} from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -24,7 +25,7 @@ import { SetAzureAdminInitStateFormComponent } from './init-state-view/init-stat
     SetOauthClientDetailsFormComponent,
     SetAzureAdminInitStateFormComponent,
   ],
-  imports: [
+  imports: [TranslateModule,
     CommonModule,
     InitRoutingModule,
     SharedModule,

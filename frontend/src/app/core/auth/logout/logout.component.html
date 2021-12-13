@@ -1,16 +1,14 @@
 <mat-card class="logout-card">
   <mat-card-content>
     <table class="login-full-width">
-      <tr>
+      <tbody><tr>
         <td>
-          <b i18n="@@component_login_loggedOut">Sie wurden erfolgreich ausgelogt.</b>
+          <b>{{ 'logout.logged-out' | translate }}</b>
         </td>
       </tr>
       <tr>
-        <td i18n="@@component_login_redirect">
-          Sie werden sofort weitergeleitet.
-        </td>
+        <td>{{ 'logout.redirect' | translate }}</td>
       </tr>
-    </table>
+    </tbody></table>
   </mat-card-content>
 </mat-card>

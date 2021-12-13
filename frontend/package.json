@@ -53,6 +53,8 @@
     "@angular/platform-server": "^12.2.11",
     "@angular/router": "^12.2.11",
     "@innomobile/countdown-timer": "^12.0.0",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "@ngx-translate/i18n-polyfill": "^1.0.0",
     "@saithodev/ts-appversion": "^2.2.0",
     "@stomp/ng2-stompjs": "^8.0.0",

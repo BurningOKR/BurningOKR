@@ -9,6 +9,8 @@ import { DeleteDialogData } from '../../model/ui/delete-dialog-data';
 })
 export class DeleteDialogComponent {
 
+  param = {value: this.formData.objectNameWithArticle};
+
   constructor(private dialogRef: MatDialogRef<DeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public formData: DeleteDialogData) {
   }

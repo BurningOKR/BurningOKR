@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import {
   ConfirmationDialogComponent,
@@ -18,6 +18,7 @@ import {
   CommentViewDialogFormData
 } from '../../okrview/comment/comment-view-dialog/comment-view-dialog.component';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
+import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
@@ -25,62 +26,23 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   templateUrl: './submitted-topic-draft-action-button.component.html',
   styleUrls: ['./submitted-topic-draft-action-button.component.css']
 })
-export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
+export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnInit {
   @Input() topicDraft: OkrTopicDraft;
   @Output() topicDraftDeletedEvent = new EventEmitter();
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
 
   subscriptions: Subscription[] = [];
 
-  editTooltipStatus: string = this.i18n({
-    id: 'statusShouldBeSubmittedOrDraft',
-    value: 'Der Status muss auf "Eingereicht" oder "Vorlage" sein'
-  });
-
-  editTooltipUser: string = this.i18n({
-    id: 'onlyAdminOrInitiatorPermission',
-    value: 'Nur ein Admin oder der Initiator können bearbeiten'
-  });
-
-  editTooltipStatusAndUser: string = this.i18n({
-    id: 'StatusSubmittedAndAdminOrIniator',
-    value: 'Der Status muss auf "Eingereicht" oder "Vorlage" sein und nur ein Admin oder der Initiator können bearbeiten'
-  });
-
-  stateMustBeSubmittedTooltip: string = this.i18n({
-    id: 'status-should-be-submitted',
-    value: 'Der Status muss auf "Eingereicht" sein'
-  });
-
-  userRoleToChangeStatus: string = this.i18n({
-    id: 'onlyAdminOrAuditorApprovePermission',
-    value: 'Nur ein Admin oder ein Auditor können annehmen oder ablehnen'
-  });
-
-  changeCurrentStatusByStatusAndUser: string = this.i18n({
-    id: 'approvingStatusAndUser',
-    value: 'Der Status muss auf "Eingereicht" sein und nur ein Admin oder ein Auditor können annehmen oder ablehnen'
-  });
-
-  approveTopicDraftText: string = this.i18n({
-    id: 'capitalised-approve',
-    value: 'Genehmigen'
-  });
-
-  withDrawApprovalTopicDraftText: string = this.i18n({
-    id: 'withdraw-approval',
-    value: 'Genehmigung zurücknehmen'
-  });
-
-  rejectTopicDraftText: string = this.i18n({
-    id: 'capitalised-reject',
-    value: 'Ablehnen'
-  });
-
-  withDrawRejectionTopicDraftText: string = this.i18n({
-    id: 'withdraw-rejection',
-    value: 'Ablehnung zurücknehmen'
-  });
+  editTooltipStatus: string;
+  editTooltipUser: string;
+  editTooltipStatusAndUser: string;
+  stateMustBeSubmittedTooltip: string;
+  userRoleToChangeStatus: string;
+  changeCurrentStatusByStatusAndUser: string;
+  approveTopicDraftText: string;
+  withDrawApprovalTopicDraftText: string;
+  rejectTopicDraftText: string;
+  withDrawRejectionTopicDraftText: string;
 
   submitTopicDraftText: string = 'Einreichen';
   withDrawSubmitTopicDraftText: string = 'Einreichen zurücknehmen';
@@ -91,14 +53,48 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
 
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
-              private i18n: I18n,
+              private translate: TranslateService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) {
-    }
+
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
     this.subscriptions = [];
+  }
+
+  ngOnInit(): void {
+    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status').subscribe((text: string) => {
+      this.editTooltipStatus = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user').subscribe((text: string) => {
+      this.editTooltipUser = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user').subscribe((text: string) => {
+      this.editTooltipStatusAndUser = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user').subscribe((text: string) => {
+      this.stateMustBeSubmittedTooltip = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.no-permission').subscribe((text: string) => {
+      this.userRoleToChangeStatus = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.approving-status-and-user').subscribe((text: string) => {
+      this.changeCurrentStatusByStatusAndUser = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.capitalised-approve').subscribe((text: string) => {
+      this.approveTopicDraftText = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.withdraw-approval').subscribe((text: string) => {
+      this.withDrawApprovalTopicDraftText = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.capitalized-reject').subscribe((text: string) => {
+      this.rejectTopicDraftText = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection').subscribe((text: string) => {
+      this.withDrawRejectionTopicDraftText = text;
+    });
   }
 
   printNotImplemented(): string {
@@ -119,25 +115,9 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   }
 
   clickedDeleteTopicDraft(): void {
-    const title: string =
-      this.i18n({
-        id: 'deleteTopicDraftTitle',
-        description: 'Title of the delete topicdraft dialog',
-        value: 'Themenentwurf löschen'
-      });
-
-    const message: string =
-      this.i18n({
-        id: 'deleteTopicDraftMessage',
-        description: 'Do you want to delete topic draft x',
-        value: 'Themenentwurf "{{name}}" löschen?',
-      }, {name: this.topicDraft.name});
-
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_delete',
-      description: 'deleteButtonText',
-      value: 'Löschen'
-    });
+    const title: string = this.translate.instant('submitted-topic-draft-action-button.delete.title');
+    const message: string = this.translate.instant('submitted-topic-draft-action-button.delete.message', {name: this.topicDraft.name});
+    const confirmButtonText: string = this.translate.instant('submitted-topic-draft-action-button.delete.button-text');
 
     const dialogData: ConfirmationDialogData = {
       title,
@@ -248,6 +228,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
         }
       ));
   }
+
   getSubmissionTooltipText$(): Observable<string> {
     return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
       .pipe(
@@ -299,10 +280,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy {
   }
 
   clickedOpenComments(): void {
-    const topicDraftHeading: string = this.i18n({
-      id: 'component_departmentMenu_Topic_draft',
-      value: 'Themenentwurf'
-    });
+    const topicDraftHeading: string = this.translate.instant('submitted-topic-draft-action-button.comments.heading');
 
     const dialogData: CommentViewDialogFormData = {
       componentTypeTitle: topicDraftHeading,

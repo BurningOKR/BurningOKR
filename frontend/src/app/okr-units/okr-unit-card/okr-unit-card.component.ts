@@ -10,11 +10,11 @@ import { filter, switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OkrUnitFormComponent } from '../okr-unit-form/okr-unit-form.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CompanyApiService } from '../../shared/services/api/company-api.service';
 import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog.component';
 import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
 import { environment } from '../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-okr-unit-card',
@@ -31,6 +31,9 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
   activeCycle: CycleUnit;
   isCurrentUserAdmin = false;
   isPlayground: boolean = environment.playground;
+  label: string;
+  generalDeleteDialogTitle: string;
+  deleteCompanyHasChildUnitWarning: string;
 
   private subscriptions: Subscription[] = [];
 
@@ -41,7 +44,7 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
     private companyApiService: CompanyApiService,
     private router: Router,
     private currentUserService: CurrentUserService,
-    private i18n: I18n
+    private translate: TranslateService
 ) {
   }
 
@@ -59,6 +62,17 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
       this.activeCycle = cycle;
     }));
     this.loadCyclesWithHistoryCompanies$();
+
+    this.translate.get('okr-unit-card.label').subscribe((text: string) => {
+      this.label = text;
+    });
+    this.translate.get('okr-unit-card.general-delete-dialog-title', {value: this.company.name}).subscribe((text: string) => {
+      this.generalDeleteDialogTitle = text;
+    });
+    this.translate.get('okr-unit-card.delete-company-has-child-unit-warning', {value: this.company.name}).subscribe((text: string) => {
+      this.deleteCompanyHasChildUnitWarning = text;
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -117,38 +131,11 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
   private getDataForCompanyDeletionDialog(): {data: DeleteDialogData} {
     return {
       data: {
-        title: this.getTitleForCompanyDeletionDialog(),
-        objectNameWithArticle: this.getContentDescriptionForCompanyDeletionDialog(),
-        dangerContent: this.getChildUnitWarningIfNecessary()
+        title: this.generalDeleteDialogTitle,
+        objectNameWithArticle: this.label,
+        dangerContent: this.deleteCompanyHasChildUnitWarning
       }
     };
-  }
-
-  private getTitleForCompanyDeletionDialog(): string {
-    return this.i18n({
-      id: 'generalDeleteDialogTitle',
-      description: 'General title for deleting of an object',
-      value: '{{objectName}} löschen?'
-    }, {objectName: this.company.name});
-  }
-
-  private getContentDescriptionForCompanyDeletionDialog(): string {
-    return this.i18n({
-      id: 'companyWithArticle',
-      value: 'die Firma'
-    });
-  }
-
-  private getChildUnitWarningIfNecessary(): string {
-    if (this.hasChildUnit()) {
-      return this.i18n({
-        id: 'deleteCompanyHasChildUnitWarning',
-        description: 'Warn the user if the company still has childUnits',
-        value: '{{companyName}} enthält noch Unterstrukturen'
-      }, {companyName: this.company.name});
-    } else {
-      return '';
-    }
   }
 
   private loadCyclesWithHistoryCompanies$(): void {

@@ -1,3 +1,4 @@
+import {TranslateModule} from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
   declarations: [
     LogoutComponent
   ],
-  imports: [
+  imports: [TranslateModule,
     CommonModule,
     AuthRoutingModule,
     MatCardModule

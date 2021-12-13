@@ -1,3 +1,4 @@
+import {TranslateModule} from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -25,7 +26,7 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
     PasswordFormComponent,
     ChangePasswordDialogComponent,
   ],
-  imports: [
+  imports: [TranslateModule,
     CommonModule,
     LocalAuthRoutingModule,
     SharedModule,

@@ -1,9 +1,8 @@
 <div *ngIf="keyResultList; else loading">
   <!-- Parent objective button -->
   <div *ngIf="parentObjective" class="flex-nowrap-center">
-    <button mat-stroked-button i18n-matTooltip="@@component_objective_navigateToUnit" matTooltip="Zu der Struktur des Objectives"
-            [routerLink]="['../', parentObjective.parentUnitId]" class="parent-objective">
-      <span i18n="@@component_objectiveContents_parentObjective">Übergeordnetes Objective </span>
+    <button mat-stroked-button matTooltip="{{ 'objective-contents.tooltip.navigate-to-unit' | translate }}" [routerLink]="['../', parentObjective.parentUnitId]" class="parent-objective">
+      <span>{{ 'objective-contents.parent-objective' | translate }}</span>
       <span class="font-w-400">{{parentObjective.name}}</span>
     </button>
   </div>
@@ -14,31 +13,21 @@
       <div class="tab-subtitle">KeyResults</div>
     </div>
     <div *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()" class="f-1">
-      <button mat-mini-fab color="accent" class="add-keyresult-button" (click)="clickedAddKeyResult()"
-              [disabled]="objective.keyResultIdList.length >= maxKeyResults">
-        <mat-icon i18n-matTooltip="@@component_objectiveContents_defineNewKeyResult" matTooltip="Neues KeyResult definieren">add_circle_outline</mat-icon>
+      <button mat-mini-fab color="accent" class="add-keyresult-button" (click)="clickedAddKeyResult()" [disabled]="objective.keyResultIdList.length >= maxKeyResults">
+        <mat-icon matTooltip="{{ 'objective-contents.tooltip.define-new-key-result' | translate }}">add_circle_outline</mat-icon>
       </button>
     </div>
   </div>
 
   <!-- No KeyResults placeholder-->
   <div *ngIf="keyResultList.length === 0">
-    <mat-card class="no-key-result" i18n="@@component_objectiveContents_noKeyResultFound">
-      Es gibt noch keine KeyResults für dieses Objective.
-    </mat-card>
+    <mat-card class="no-key-result">{{ 'objective-contents.no-key-result-found' | translate }}</mat-card>
   </div>
 
   <!-- List of KeyResults -->
-  <div cdkDropList (cdkDropListDropped)="dropKeyResult($event)"
-       [cdkDropListDisabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())">
+  <div cdkDropList (cdkDropListDropped)="dropKeyResult($event)" [cdkDropListDisabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())">
     <div *ngFor="let keyResult of keyResultList; let i = index" cdkDrag>
-      <app-keyresult (keyResultProgressChanged)="updateVisualKeyResultProgressTotals()"
-                     (moveKeyResultToBottom)="moveKeyResultToBottom($event)"
-                     (moveKeyResultToTop)="moveKeyResultToTop($event)" [currentUserRole]="currentUserRole"
-                     [cycle]="cycle" [keyResultList]="keyResultList"
-                     [keyResult]="keyResult"
-                     [listNumber]="i+1"
-                     [objective]="objective">
+      <app-keyresult (keyResultProgressChanged)="updateVisualKeyResultProgressTotals()" (moveKeyResultToBottom)="moveKeyResultToBottom($event)" (moveKeyResultToTop)="moveKeyResultToTop($event)" [currentUserRole]="currentUserRole" [cycle]="cycle" [keyResultList]="keyResultList" [keyResult]="keyResult" [listNumber]="i+1" [objective]="objective">
         <div *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()" class="icon-spacer">
           <mat-icon cdkDragHandle>drag_indicator</mat-icon>
         </div>
@@ -50,11 +39,11 @@
 <!-- Loading placeholder -->
 <ng-template #loading>
   <div class="text-center">
-    <h3 i18n="@@component_objectiveContents_keyResults">KeyResults</h3>
+    <h3>{{ 'objective-contents.key-results' | translate }}</h3>
   </div>
   <mat-card *ngFor="let placeholder of objective.keyResultIdList">
-    <span i18n="@@component_objectiveContents_loadKeyResults">Lade KeyResults...</span>
+    <span>{{ 'objective-contents.load-key-results' | translate }}</span>
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    <br/>
+    <br>
   </mat-card>
 </ng-template>

@@ -12,6 +12,7 @@ import { TopicDraftCreationFormComponent } from '../okrview/okr-child-unit/okr-c
 import { filter, switchMap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-submitted-topic-drafts',
@@ -27,50 +28,19 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
   columnsToDisplay = ['topic', 'initiator', 'beginning', 'contributesTo', 'status', 'comments', 'actions'];
 
   rowData = new MatTableDataSource([] as OkrTopicDraft[]);
-  i18nTopicTableHeader: string = this.i18n({
-    id: 'topic_table_header',
-    description: 'Submitted topic drafts component "Topic" header',
-    value: 'Thema'
-  });
-  i18nInitiatorTableHeader: string = this.i18n({
-    id: 'initiator_table_header',
-    description: 'Submitted topic drafts component "Initiator" header',
-    value: 'Einreicher'
-  });
-  i18nBeginningTableHeader: string = this.i18n({
-    id: 'beginning_table_header',
-    description: 'Submitted topic drafts component "Beginning" header',
-    value: 'Beginn'
-  });
-  i18nContributesToTableHeader: string = this.i18n({
-    id: 'component_contributesTo',
-    description: 'Submitted topic drafts component "Contributes To" header',
-    value: 'Zählt ein auf'
-  });
-  i18nStatusTableHeader: string = this.i18n({
-    id: 'taskState',
-    description: 'Submitted topic drafts component "Status" header',
-    value: 'Status'
-  });
-  i18nCommentsTableHeader: string = this.i18n({
-    id: 'comments_table_header',
-    description: 'Submitted topic drafts component "Comments" header',
-    value: 'Kommentare'
-  });
-  i18nActionsTableHeader: string = this.i18n({
-    id: 'actions_table_header',
-    description: 'Submitted topic drafts component "Actions" header',
-    value: 'Aktionen'
-  });
+
+   topicTableHeader: string;
 
   subscriptions: Subscription[] = [];
 
   constructor(private router: Router,
               private topicDraftMapper: TopicDraftMapper,
               private i18n: I18n,
+              private translate: TranslateService,
               private snackBar: MatSnackBar,
               private matDialog: MatDialog
-              ) { }
+              ) {
+  }
 
   clickedAddTopicDraft(): void {
     // creates fitting config for either okrbranch id or company id

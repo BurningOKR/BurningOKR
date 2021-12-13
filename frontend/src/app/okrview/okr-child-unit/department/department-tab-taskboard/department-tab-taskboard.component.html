@@ -1,13 +1,12 @@
 <div class="d-flex center middle tab-limited-width">
     <div class="f-3 text-center">
-        <div i18n="Aufgaben@@taskBoardHeadline" class="tab-headline">Aufgaben</div>
+        <div class="tab-headline">{{ 'department-tab-taskboard.task-board-headline' | translate }}</div>
     </div>
 </div>
 <div class="taskboard-button-menu">
     <div class="taskboards-switch-buttons">
         <mat-button-toggle-group #viewgroup="matButtonToggleGroup">
-            <mat-button-toggle [checked]="true" value="states" aria-label="Text align left"
-                data-i18n="columns:columnView">
+            <mat-button-toggle [checked]="true" value="states" aria-label="Text align left" data-i18n="columns:columnView">
                 <mat-icon>view_column</mat-icon>
                 columns
             </mat-button-toggle>
@@ -19,8 +18,7 @@
     </div>
     <div class="text-center add-button" *ngIf="isInteractive">
         <button mat-mini-fab color="accent" (click)="onTaskAddButtonClick()">
-            <mat-icon i18n-matTooltip="@@component_departmentTabTasks_createNewTask"
-                matTooltip="Neue Aufgabe erstellen">add_circle_outline
+            <mat-icon matTooltip="{{ 'department-tab-taskboard.tooltip.create-new-task' | translate }}">add_circle_outline
             </mat-icon>
         </button>
     </div>

@@ -1,12 +1,11 @@
 <app-okr-toolbar>
-  <button mat-icon-button class="toolbar-margin-icon" i18n-matTooltip="@@component_cycleAdminContainer_goBackToCompany" matTooltip="Zurück zur Struktur"
-          (click)="routeToCompany()">
+  <button mat-icon-button class="toolbar-margin-icon" matTooltip="{{ 'cycle-admin-container.tooltip.go-back-to-company' | translate }}" (click)="routeToCompany()">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <button (click)="navigateToCompanies()" i18n-matTooltip="@@goToOkrUnitOverview" matTooltip="Zur Strukturübersicht" class="navbar-item" mat-icon-button>
+  <button (click)="navigateToCompanies()" matTooltip="{{ 'cycle-admin-container.tooltip.go-to-okr-unit-overview' | translate }}" class="navbar-item" mat-icon-button>
     <mat-icon>home</mat-icon>
   </button>
-  <span i18n="@@cycle_administration">Zyklusverwaltung</span>
+  <span>{{ 'cycle-admin-container.administration' | translate }}</span>
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
@@ -14,7 +13,7 @@
 <div class="margin-toolbar item-actions">
   <button (click)="createCycle()" mat-stroked-button>
     <mat-icon>add_circle_outline</mat-icon>
-    <span i18n="@@createNewCycle">Neuen Zyklus erstellen</span>
+    <span>{{ 'cycle-admin-container.create-new-cycle' | translate }}</span>
   </button>
 </div>
 

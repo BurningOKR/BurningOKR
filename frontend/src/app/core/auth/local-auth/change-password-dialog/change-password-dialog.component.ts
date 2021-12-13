@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Controls, FormGroupTyped } from '../../../../../typings';
 import { NewPasswordForm } from '../../../../shared/model/forms/new-password-form';
 import { FormBuilder, Validators } from '@angular/forms';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PasswordService } from '../password-service/password.service';
 import { CurrentUserService } from '../../../services/current-user.service';
@@ -13,6 +12,7 @@ import { wrongPasswordValidatorError } from '../../../../shared/validators/error
 import { HttpErrorResponse } from '@angular/common/http';
 import { Consts } from '../../../../shared/consts';
 import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -22,21 +22,21 @@ import { PasswordsMatchValidator } from '../../../../shared/validators/password-
 export class ChangePasswordDialogComponent implements OnInit {
 
   newPasswordForm: FormGroupTyped<NewPasswordForm>;
-  title: string = this.i18n({
-    id: 'change_password',
-    value: 'Passwort ändern'
-  });
+  title: string;
 
   constructor(private dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
               private formBuilder: FormBuilder,
               private passwordService: PasswordService,
               private currentUserService: CurrentUserService,
               private logger: NGXLogger,
-              private i18n: I18n) {
+              private translate: TranslateService) {
   }
 
   ngOnInit(): void {
     this.generateNewPasswordForm();
+    this.translate.stream('change-password-dialog.form.title').subscribe(text => {
+      this.title = text;
+    });
   }
 
   generateNewPasswordForm(): void {
@@ -71,5 +71,6 @@ export class ChangePasswordDialogComponent implements OnInit {
         }
       });
   }
+
 
 }
