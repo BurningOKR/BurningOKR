@@ -555,6 +555,7 @@
 			"heading": "Themenentwurf"
 		},
 		"comments-text": "Kommentare",
+		"create-team": "Zu Team umwandeln",
 		"delete": {
 			"button-text": "Löschen",
 			"message": "Möchten Sie Themenentwurf {{name}} wirklich löschen?",
@@ -568,6 +569,7 @@
 			"user": "Nur ein Admin oder der Initiator können bearbeiten"
 		},
 		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
+		"not-approved": "Themenentwurf nicht genehmigt",
 		"state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
 		"submit-withdraw": "Einreichen/ Zurücknehmen",
 		"tooltip": {
@@ -575,6 +577,7 @@
 			"header": "Kommentare",
 			"only-admin-or-initiator-permission-to-delete": "Nur ein Admin oder der Initiator können diesen Themenentwurf löschen"
 		},
+		"user-not-admin": "Admin-Rechte benötigt ",
 		"withdraw-approval": "Genehmigung zurücknehmen",
 		"withdraw-rejection": "Ablehnung zurücknehmen"
 	},

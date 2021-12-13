@@ -1,24 +1,23 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {OkrTopicDraft} from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { switchMap, take } from 'rxjs/operators';
-import { of, Subscription } from 'rxjs';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import { CurrentUserService } from '../../core/services/current-user.service';
-import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
-import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import { Observable } from 'rxjs/internal/Observable';
+import {switchMap, take} from 'rxjs/operators';
+import {of, Subscription} from 'rxjs';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {TopicDraftMapper} from '../../shared/services/mapper/topic-draft-mapper';
+import {CurrentUserService} from '../../core/services/current-user.service';
+import {SubmittedTopicDraftEditComponent} from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
+import {status} from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
+import {Observable} from 'rxjs/internal/Observable';
 import {
   CommentViewDialogComponent,
   CommentViewDialogFormData
 } from '../../okrview/comment/comment-view-dialog/comment-view-dialog.component';
-import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
-import { TranslateService } from '@ngx-translate/core';
+import {ViewCommentParentType} from '../../shared/model/ui/view-comment-parent-type';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -42,6 +41,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   withDrawApprovalTopicDraftText: string;
   rejectTopicDraftText: string;
   withDrawRejectionTopicDraftText: string;
+  notAdminToolTip: string;
+  notApprovedToolTip: string;
 
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
@@ -85,6 +86,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     });
     this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection').subscribe((text: string) => {
       this.withDrawRejectionTopicDraftText = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.user-not-admin').subscribe((text: string) => {
+      this.notAdminToolTip = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.not-approved').subscribe((text: string) => {
+      this.notApprovedToolTip = text;
     });
   }
 
@@ -148,6 +155,18 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
             || this.topicDraft.currentStatus === status.submitted));
         })
       );
+  }
+
+  isTopicDraftConvertableToTeam$(): Observable<boolean> {
+    return of(this.userIsAdmin() && this.draftIsApproved())
+  }
+
+  private userIsAdmin() {
+    return this.currentUserService.isCurrentUserAdmin$();
+  }
+
+  private draftIsApproved() {
+    return this.topicDraft.currentStatus === status.approved;
   }
 
   canDeleteTopicDraft$(): Observable<boolean> {
@@ -234,5 +253,24 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
       this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+  }
+
+  getConvertToTeamTooltipText() {
+    if(!this.userIsAdmin() && !this.draftIsApproved()){
+      return this.notApprovedToolTip + ' & ' + this.notAdminToolTip;
+    }
+    else if(!this.draftIsApproved()){
+      return this.notApprovedToolTip;
+    }
+    return this.notAdminToolTip;
+  }
+
+  convertToTeam() {
+    const data: object = {
+      data : {
+        topicDraft:  this.topicDraft
+      }
+    }
+
   }
 }

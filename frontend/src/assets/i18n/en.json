@@ -555,6 +555,7 @@
 			"heading": "Topic draft"
 		},
 		"comments-text": "Comments",
+		"create-team": "Convert to team",
 		"delete": {
 			"button-text": "Delete",
 			"message": "Are you sure you want to delete draft topic {{name}}?",
@@ -568,6 +569,7 @@
 			"user": "Only an admin or the initiator can edit"
 		},
 		"no-permission": "Only an admin or an auditor can approve or reject",
+		"not-approved": "Topic Draft not approved",
 		"state-submitted-tooltip": "The status must be \"Pending\"",
 		"submit-withdraw": "Submit/ Withdraw",
 		"tooltip": {
@@ -575,6 +577,7 @@
 			"header": "Comments",
 			"only-admin-or-initiator-permission-to-delete": "Only the admin or the Initiator are able to delete this topic draft"
 		},
+		"user-not-admin": "Admin rights required",
 		"withdraw-approval": "Withdraw Approval",
 		"withdraw-rejection": "Withdraw rejection"
 	},
