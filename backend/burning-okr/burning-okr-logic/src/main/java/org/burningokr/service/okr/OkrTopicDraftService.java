@@ -1,14 +1,12 @@
 package org.burningokr.service.okr;
 
 import com.google.common.collect.Lists;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.transaction.Transactional;
-
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteTopicDraft;
@@ -27,149 +25,149 @@ import org.springframework.stereotype.Service;
 @Service
 public class OkrTopicDraftService {
 
-    private final Logger logger = LoggerFactory.getLogger(OkrTopicDraftService.class);
+  private final Logger logger = LoggerFactory.getLogger(OkrTopicDraftService.class);
 
-    private OkrTopicDraftRepository okrTopicDraftRepository;
-    private NoteTopicDraftRepository noteTopicDraftRepository;
-    private ActivityService activityService;
-    private UserService userService;
-    private AdminUserService adminUserService;
+  private OkrTopicDraftRepository okrTopicDraftRepository;
+  private NoteTopicDraftRepository noteTopicDraftRepository;
+  private ActivityService activityService;
+  private UserService userService;
+  private AdminUserService adminUserService;
 
-    public OkrTopicDraftService(
-            OkrTopicDraftRepository okrTopicDraftRepository,
-            NoteTopicDraftRepository noteTopicDraftRepository,
-            ActivityService activityService,
-            UserService userService,
-            AdminUserService adminUserService) {
-        this.okrTopicDraftRepository = okrTopicDraftRepository;
-        this.noteTopicDraftRepository = noteTopicDraftRepository;
-        this.activityService = activityService;
-        this.userService = userService;
-        this.adminUserService = adminUserService;
+  public OkrTopicDraftService(
+      OkrTopicDraftRepository okrTopicDraftRepository,
+      NoteTopicDraftRepository noteTopicDraftRepository,
+      ActivityService activityService,
+      UserService userService,
+      AdminUserService adminUserService) {
+    this.okrTopicDraftRepository = okrTopicDraftRepository;
+    this.noteTopicDraftRepository = noteTopicDraftRepository;
+    this.activityService = activityService;
+    this.userService = userService;
+    this.adminUserService = adminUserService;
+  }
+
+  public OkrTopicDraft findById(long topicDraftId) {
+    return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
+  }
+
+  public Collection<OkrTopicDraft> getAllTopicDrafts() {
+    List<OkrTopicDraft> topicDrafts = Lists.newArrayList(okrTopicDraftRepository.findAll());
+    List<OkrTopicDraft> filteredDrafts = new ArrayList<>();
+    for (OkrTopicDraft draft : topicDrafts) {
+      if (shouldUserSeeDraft(draft)) {
+        filteredDrafts.add(draft);
+      }
+    }
+    return filteredDrafts;
+  }
+
+  private boolean shouldUserSeeDraft(OkrTopicDraft draft) {
+    if (!draft.getCurrentStatus().equals(OkrTopicDraftStatusEnum.draft)) {
+      return true;
     }
 
-    public OkrTopicDraft findById(long topicDraftId) {
-        return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
-    }
+    return (draft.getInitiatorId().equals(userService.getCurrentUser().getId())
+        || adminUserService.isCurrentUserAdmin());
+  }
 
-    public Collection<OkrTopicDraft> getAllTopicDrafts() {
-        List<OkrTopicDraft> topicDrafts = Lists.newArrayList(okrTopicDraftRepository.findAll());
-        List<OkrTopicDraft> filteredDrafts = new ArrayList<>();
-        for (OkrTopicDraft draft : topicDrafts) {
-            if (shouldUserSeeDraft(draft)) {
-                filteredDrafts.add(draft);
-            }
-        }
-        return filteredDrafts;
-    }
+  public Collection<NoteTopicDraft> getAllNotesForTopicDraft(long topicDraftId) {
+    Collection<NoteTopicDraft> noteTopicDrafts =
+        noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
+    return noteTopicDrafts;
+  }
 
-    private boolean shouldUserSeeDraft(OkrTopicDraft draft) {
-        if (!draft.getCurrentStatus().equals(OkrTopicDraftStatusEnum.draft)) {
-            return true;
-        }
+  public void deleteTopicDraftById(Long topicDraftId, User user) {
+    OkrTopicDraft referencedTopicDraft = okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
+    okrTopicDraftRepository.deleteById(topicDraftId);
+    activityService.createActivity(user, referencedTopicDraft, Action.DELETED);
+  }
 
-        return (draft.getInitiatorId().equals(userService.getCurrentUser().getId())
-                || adminUserService.isCurrentUserAdmin());
-    }
+  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user) {
 
-    public Collection<NoteTopicDraft> getAllNotesForTopicDraft(long topicDraftId) {
-        Collection<NoteTopicDraft> noteTopicDrafts =
-                noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
-        return noteTopicDrafts;
-    }
+    topicDraft.setParentUnit(null);
+    topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
 
-    public void deleteTopicDraftById(Long topicDraftId, User user) {
-        OkrTopicDraft referencedTopicDraft = okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
-        okrTopicDraftRepository.deleteById(topicDraftId);
-        activityService.createActivity(user, referencedTopicDraft, Action.DELETED);
-    }
+    topicDraft = okrTopicDraftRepository.save(topicDraft);
+    logger.info("Created Topic Draft: " + topicDraft.getName());
 
-    public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user) {
+    activityService.createActivity(user, topicDraft, Action.CREATED);
 
-        topicDraft.setParentUnit(null);
-        topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
+    return topicDraft;
+  }
 
-        topicDraft = okrTopicDraftRepository.save(topicDraft);
-        logger.info("Created Topic Draft: " + topicDraft.getName());
+  /**
+   * Creates a Note for a Topic Draft.
+   *
+   * @param topicDraftId a long value
+   * @param noteTopicDraft a {@link NoteTopicDraft} object
+   * @param user an {@link User} object
+   * @return a {@link Note} object
+   */
+  @Transactional
+  public NoteTopicDraft createNote(long topicDraftId, NoteTopicDraft noteTopicDraft, User user) {
+    noteTopicDraft.setId(null);
+    noteTopicDraft.setUserId(user.getId());
+    noteTopicDraft.setDate(LocalDateTime.now());
 
-        activityService.createActivity(user, topicDraft, Action.CREATED);
+    noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);
+    logger.info(
+        "Added Note with id "
+            + noteTopicDraft.getId()
+            + " from User "
+            + user.getGivenName()
+            + " "
+            + user.getSurname()
+            + " to KeyResult "
+            + topicDraftId);
+    activityService.createActivity(user, noteTopicDraft, Action.CREATED);
 
-        return topicDraft;
-    }
+    return noteTopicDraft;
+  }
 
-    /**
-     * Creates a Note for a Topic Draft.
-     *
-     * @param topicDraftId   a long value
-     * @param noteTopicDraft a {@link NoteTopicDraft} object
-     * @param user           an {@link User} object
-     * @return a {@link Note} object
-     */
-    @Transactional
-    public NoteTopicDraft createNote(long topicDraftId, NoteTopicDraft noteTopicDraft, User user) {
-        noteTopicDraft.setId(null);
-        noteTopicDraft.setUserId(user.getId());
-        noteTopicDraft.setDate(LocalDateTime.now());
+  /**
+   * Updates a Topic Draft.
+   *
+   * @param updatedOkrTopicDraft a {@link OkrTopicDraft} object
+   * @return a {@link OkrTopicDraft} object
+   */
+  @Transactional
+  public OkrTopicDraft updateOkrTopicDraft(long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
+    OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
 
-        noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);
-        logger.info(
-                "Added Note with id "
-                        + noteTopicDraft.getId()
-                        + " from User "
-                        + user.getGivenName()
-                        + " "
-                        + user.getSurname()
-                        + " to KeyResult "
-                        + topicDraftId);
-        activityService.createActivity(user, noteTopicDraft, Action.CREATED);
+    referencedOkrTopicDraft.setDescription(updatedOkrTopicDraft.getDescription());
+    referencedOkrTopicDraft.setBeginning(
+        LocalDate.parse(updatedOkrTopicDraft.getBeginning().toString()));
+    referencedOkrTopicDraft.setContributesTo(updatedOkrTopicDraft.getContributesTo());
+    referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
+    referencedOkrTopicDraft.setDelimitation(updatedOkrTopicDraft.getDelimitation());
+    referencedOkrTopicDraft.setDependencies(updatedOkrTopicDraft.getDependencies());
+    referencedOkrTopicDraft.setHandoverPlan(updatedOkrTopicDraft.getHandoverPlan());
+    referencedOkrTopicDraft.setId(updatedOkrTopicDraft.getId());
+    referencedOkrTopicDraft.setInitiatorId(updatedOkrTopicDraft.getInitiatorId());
+    referencedOkrTopicDraft.setName(updatedOkrTopicDraft.getName());
+    referencedOkrTopicDraft.setParentUnit(updatedOkrTopicDraft.getParentUnit());
+    referencedOkrTopicDraft.setResources(updatedOkrTopicDraft.getResources());
+    referencedOkrTopicDraft.setStakeholders(updatedOkrTopicDraft.getStakeholders());
+    referencedOkrTopicDraft.setStartTeam(updatedOkrTopicDraft.getStartTeam());
 
-        return noteTopicDraft;
-    }
+    referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
 
-    /**
-     * Updates a Topic Draft.
-     *
-     * @param updatedOkrTopicDraft a {@link OkrTopicDraft} object
-     * @return a {@link OkrTopicDraft} object
-     */
-    @Transactional
-    public OkrTopicDraft updateOkrTopicDraft(long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
-        OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
+    return referencedOkrTopicDraft;
+  }
 
-        referencedOkrTopicDraft.setDescription(updatedOkrTopicDraft.getDescription());
-        referencedOkrTopicDraft.setBeginning(
-                LocalDate.parse(updatedOkrTopicDraft.getBeginning().toString()));
-        referencedOkrTopicDraft.setContributesTo(updatedOkrTopicDraft.getContributesTo());
-        referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
-        referencedOkrTopicDraft.setDelimitation(updatedOkrTopicDraft.getDelimitation());
-        referencedOkrTopicDraft.setDependencies(updatedOkrTopicDraft.getDependencies());
-        referencedOkrTopicDraft.setHandoverPlan(updatedOkrTopicDraft.getHandoverPlan());
-        referencedOkrTopicDraft.setId(updatedOkrTopicDraft.getId());
-        referencedOkrTopicDraft.setInitiatorId(updatedOkrTopicDraft.getInitiatorId());
-        referencedOkrTopicDraft.setName(updatedOkrTopicDraft.getName());
-        referencedOkrTopicDraft.setParentUnit(updatedOkrTopicDraft.getParentUnit());
-        referencedOkrTopicDraft.setResources(updatedOkrTopicDraft.getResources());
-        referencedOkrTopicDraft.setStakeholders(updatedOkrTopicDraft.getStakeholders());
-        referencedOkrTopicDraft.setStartTeam(updatedOkrTopicDraft.getStartTeam());
+  /**
+   * Updates the status of a Topic Draft.
+   *
+   * @param updatedOkrTopicDraft a {@link OkrTopicDraft} object
+   * @return a {@link OkrTopicDraft} object
+   */
+  @Transactional
+  public OkrTopicDraft updateOkrTopicDraftStatus(
+      long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
+    OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
+    referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
+    referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
 
-        referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
-
-        return referencedOkrTopicDraft;
-    }
-
-    /**
-     * Updates the status of a Topic Draft.
-     *
-     * @param updatedOkrTopicDraft a {@link OkrTopicDraft} object
-     * @return a {@link OkrTopicDraft} object
-     */
-    @Transactional
-    public OkrTopicDraft updateOkrTopicDraftStatus(
-            long topicDraftId, OkrTopicDraft updatedOkrTopicDraft) {
-        OkrTopicDraft referencedOkrTopicDraft = findById(topicDraftId);
-        referencedOkrTopicDraft.setCurrentStatus(updatedOkrTopicDraft.getCurrentStatus());
-        referencedOkrTopicDraft = okrTopicDraftRepository.save(referencedOkrTopicDraft);
-
-        return referencedOkrTopicDraft;
-    }
+    return referencedOkrTopicDraft;
+  }
 }

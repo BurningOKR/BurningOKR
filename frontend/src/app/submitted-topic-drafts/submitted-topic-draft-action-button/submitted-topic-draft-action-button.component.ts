@@ -18,7 +18,7 @@ import {
 } from '../../okrview/comment/comment-view-dialog/comment-view-dialog.component';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 import { TranslateService } from '@ngx-translate/core';
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -48,13 +48,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   statusMustBeSubmitted: string;
   statusMustBeSubmittedAndUser: string;
 
-
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
               private translate: TranslateService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) {
-
   }
 
   ngOnDestroy(): void {
@@ -246,11 +244,13 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
       .pipe(
         switchMap((isAdminOrCreator: boolean) => {
-            if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) && !isAdminOrCreator) {
+            if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected)
+              && !isAdminOrCreator) {
               return of(this.statusMustBeSubmittedAndUser);
             } else if (!isAdminOrCreator) {
               return of(this.adminOrInitiatorTooltip);
-            } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
+            } else if (this.topicDraft.currentStatus === status.approved
+              || this.topicDraft.currentStatus === status.rejected) {
               return of(this.statusMustBeSubmitted);
             } else {
               return of('');

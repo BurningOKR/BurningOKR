@@ -1,15 +1,8 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceUsersTest;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -67,6 +60,4 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
   public void removeUnit_expectedThrow() {
     okrUnitServiceUsers.deleteUnit(100L, user);
   }
-
-
 }

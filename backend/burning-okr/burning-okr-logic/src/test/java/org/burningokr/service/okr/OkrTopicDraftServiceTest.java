@@ -6,9 +6,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.*;
-
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
@@ -52,7 +50,7 @@ public class OkrTopicDraftServiceTest {
     okrTopicDraft2 = new OkrTopicDraft();
     okrTopicDraft3 = new OkrTopicDraft();
     currentUser = new LocalUser();
-    currentUserId = new UUID(1L,1L);
+    currentUserId = new UUID(1L, 1L);
     okrTopicDraft.setId(okrTopicDraftId);
     okrTopicDraft2.setId(okrTopicDraftId2);
     okrTopicDraft3.setId(okrTopicDraftId3);

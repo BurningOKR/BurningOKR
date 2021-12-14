@@ -11,7 +11,6 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.OkrTopicDraftService;
-import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.security.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +99,9 @@ public class TopicDraftController {
    * @return a {@link ResponseEntity} ok with a Topic Draft
    */
   @PutMapping("/topicDrafts/status/{topicDraftId}")
-  @PreAuthorize("@authorizationService.isAdmin()" + "|| @authorizationService.isAuditor()"
+  @PreAuthorize(
+      "@authorizationService.isAdmin()"
+          + "|| @authorizationService.isAuditor()"
           + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
   public ResponseEntity updateTopicResultStatusById(
       @PathVariable long topicDraftId, @Valid @RequestBody OkrTopicDraftDto okrTopicDraftDto) {

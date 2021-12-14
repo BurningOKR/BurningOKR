@@ -2,16 +2,13 @@ package org.burningokr.service.okrUnit.departmentservices;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
