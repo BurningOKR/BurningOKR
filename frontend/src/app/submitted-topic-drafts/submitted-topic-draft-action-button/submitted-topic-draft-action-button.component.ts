@@ -43,12 +43,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   withDrawApprovalTopicDraftText: string;
   rejectTopicDraftText: string;
   withDrawRejectionTopicDraftText: string;
-
-  submitTopicDraftText: string = 'Einreichen';
-  withDrawSubmitTopicDraftText: string = 'Einreichen zurücknehmen';
-  adminOrInitiatorTooltip: string = 'Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen';
-  statusMustBeSubmitted: string = 'Der Status muss auf "Eingereicht" sein, damit das Einreichen zurückgenommen werden kann';
-  statusMustBeSubmittedAndUser: string = 'Der Status muss auf "Eingereicht" sein und Sie müssen ein Admin oder der Initiator sein, damit das Einreichen zurückgenommen werden kann';
+  submitTopicDraftText: string;
+  withDrawSubmitTopicDraftText: string;
+  adminOrInitiatorTooltip: string;
+  statusMustBeSubmitted: string;
+  statusMustBeSubmittedAndUser: string;
 
 
   constructor(private topicDraftMapper: TopicDraftMapper,
@@ -94,6 +93,21 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     });
     this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection').subscribe((text: string) => {
       this.withDrawRejectionTopicDraftText = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.capitalized-submit').subscribe((text: string) => {
+      this.submitTopicDraftText = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.withdraw-submit').subscribe((text: string) => {
+      this.withDrawSubmitTopicDraftText = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.admin-initator-tooltip').subscribe((text: string) => {
+      this.adminOrInitiatorTooltip = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.status-submitted').subscribe((text: string) => {
+      this.statusMustBeSubmitted = text;
+    });
+    this.translate.stream('submitted-topic-draft-action-button.status-submitted-user').subscribe((text: string) => {
+      this.statusMustBeSubmittedAndUser = text;
     });
   }
 
@@ -201,8 +215,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   submittingTopicDraft(): void {
     if (this.topicDraft.currentStatus === status.draft) {
       this.changeCurrentStatus(status.submitted);
-      const snackBarText: string = 'Ihr Themenentwurf wurde zur Prüfung abgeschickt.';
-      const snackBarOk: string = 'Ok';
+      const snackBarText: string = this.translate.instant('submitted-topic-draft-action-button.snackbar.submit');
+      const snackBarOk: string = this.translate.instant('submitted-topic-draft-action-button.snackbar.ok');
       this.snackBar.open(snackBarText, snackBarOk, {
         verticalPosition: 'top',
         duration: 3500

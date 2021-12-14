@@ -29,8 +29,6 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
 
   rowData = new MatTableDataSource([] as OkrTopicDraft[]);
 
-   topicTableHeader: string;
-
   subscriptions: Subscription[] = [];
 
   constructor(private router: Router,
@@ -43,7 +41,6 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
   }
 
   clickedAddTopicDraft(): void {
-    // creates fitting config for either okrbranch id or company id
     const config: any = {width: '600px', data: {}};
 
     const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);

@@ -546,9 +546,11 @@
 		"settings": "Einstellungen"
 	},
 	"submitted-topic-draft-action-button": {
+		"admin-initator-tooltip": "Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen",
 		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
 		"capitalised-approve": "Genehmigen",
 		"capitalized-reject": "Ablehnen",
+		"capitalized-submit": "Einreichen",
 		"comments": {
 			"heading": "Themenentwurf"
 		},
@@ -566,15 +568,20 @@
 			"user": "Nur ein Admin oder der Initiator können bearbeiten"
 		},
 		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
+		"snackbar": {
+			"ok": "Ok",
+			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
+		},
 		"state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
-		"submit-withdraw": "Einreichen/ Zurücknehmen",
+		"status-submitted": "Der Status muss auf \"Eingereicht\" sein, damit das Einreichen zurückgenommen werden kann",
+		"status-submitted-user": "Der Status muss auf \"Eingereicht\" sein und Sie müssen ein Admin oder der Initiator sein, damit das Einreichen zurückgenommen werden kann",
 		"tooltip": {
-			"feature-coming-soon": "Feature kommt demnächst",
 			"header": "Kommentare",
 			"only-admin-or-initiator-permission-to-delete": "Nur ein Admin oder der Initiator können diesen Themenentwurf löschen"
 		},
 		"withdraw-approval": "Genehmigung zurücknehmen",
-		"withdraw-rejection": "Ablehnung zurücknehmen"
+		"withdraw-rejection": "Ablehnung zurücknehmen",
+		"withdraw-submit": "Einreichen zurücknehmen"
 	},
 	"submitted-topic-draft-cards-wrapper": {
 		"column": {
@@ -622,11 +629,8 @@
 		},
 		"initiator-table-header": "Thema",
 		"navbar": {
-			"title": "Eingereichte Themenentwürfe"
-		},
-		"snackbar": {
-			"ok": "Ok",
-			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
+			"title": "Eingereichte Themenentwürfe",
+			"title-short": "Themenentwurf"
 		}
 	},
 	"user-dialog": {

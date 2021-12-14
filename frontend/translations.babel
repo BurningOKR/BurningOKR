@@ -6170,6 +6170,23 @@
                 <name>submitted-topic-draft-action-button</name>
                 <children>
                     <concept_node>
+                        <name>admin-initator-tooltip</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>approving-status-and-user</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -6205,6 +6222,23 @@
                     </concept_node>
                     <concept_node>
                         <name>capitalized-reject</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>capitalized-submit</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -6422,6 +6456,45 @@
                             </translation>
                         </translations>
                     </concept_node>
+                    <folder_node>
+                        <name>snackbar</name>
+                        <children>
+                            <concept_node>
+                                <name>ok</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
+                                <name>submit</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
                     <concept_node>
                         <name>state-submitted-tooltip</name>
                         <definition_loaded>false</definition_loaded>
@@ -6440,7 +6513,24 @@
                         </translations>
                     </concept_node>
                     <concept_node>
-                        <name>submit-withdraw</name>
+                        <name>status-submitted</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>status-submitted-user</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -6459,23 +6549,6 @@
                     <folder_node>
                         <name>tooltip</name>
                         <children>
-                            <concept_node>
-                                <name>feature-coming-soon</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
                             <concept_node>
                                 <name>header</name>
                                 <definition_loaded>false</definition_loaded>
@@ -6531,6 +6604,23 @@
                     </concept_node>
                     <concept_node>
                         <name>withdraw-rejection</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>withdraw-submit</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -7087,30 +7177,8 @@
                                     </translation>
                                 </translations>
                             </concept_node>
-                        </children>
-                    </folder_node>
-                    <folder_node>
-                        <name>snackbar</name>
-                        <children>
                             <concept_node>
-                                <name>ok</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
-                            <concept_node>
-                                <name>submit</name>
+                                <name>title-short</name>
                                 <definition_loaded>false</definition_loaded>
                                 <description/>
                                 <comment/>
