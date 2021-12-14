@@ -19,6 +19,7 @@ import {
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {SubmittedTopicDraftsConvertToTeamComponent} from "../submitted-topic-drafts-convert-to-team/submitted-topic-drafts-convert-to-team.component";
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -351,12 +352,13 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return this.notAdminToolTip;
   }
 
-  convertToTeam() {
+  clickedConvertToTeam() {
     const data: object = {
       data : {
-        topicDraft:  this.topicDraft
+        topicDraft:  this.topicDraft,
+        topicDraftDeletedEvent: this.topicDraftDeletedEvent
       }
     }
-
+    this.dialog.open(SubmittedTopicDraftsConvertToTeamComponent, data);
   }
 }

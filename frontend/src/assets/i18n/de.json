@@ -758,6 +758,13 @@
 		},
 		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
 	},
+	"submitted-topic-draft-convert-to-team": {
+		"form": {
+			"company-option": "Team in {{value}} erstellen",
+			"select": "Übergeordnete Struktur auswählen *"
+		},
+		"title": "Themenentwurf in ein Team umwandeln "
+	},
 	"submitted-topic-draft-details": {
 		"button": {
 			"close": "Schließen",

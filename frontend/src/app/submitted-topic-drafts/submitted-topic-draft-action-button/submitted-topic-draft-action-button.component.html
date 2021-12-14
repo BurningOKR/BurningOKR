@@ -28,7 +28,7 @@
       </button>
     </span>
     <span matTooltip="{{getConvertToTeamTooltipText()}}" [matTooltipDisabled]="isTopicDraftConvertableToTeam$() | async">
-        <button mat-menu-item [disabled]="(isTopicDraftConvertableToTeam$() | async) === false" (click)="convertToTeam()">
+        <button mat-menu-item [disabled]="(isTopicDraftConvertableToTeam$() | async) === false" (click)="clickedConvertToTeam()">
           <mat-icon>transform</mat-icon>
           <span>{{ 'submitted-topic-draft-action-button.create-team' | translate }}</span>
         </button>
