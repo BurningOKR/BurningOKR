@@ -6,7 +6,6 @@ import {
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { switchMap, take } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
 import { CurrentUserService } from '../../core/services/current-user.service';
