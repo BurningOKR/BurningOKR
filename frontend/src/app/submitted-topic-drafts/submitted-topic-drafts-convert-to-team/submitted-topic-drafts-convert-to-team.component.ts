@@ -4,14 +4,19 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {SubmittedTopicDraftDetailsFormData} from "../submitted-topic-draft-details/submitted-topic-draft-details.component";
 import {TranslateService} from "@ngx-translate/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {OkrBranch} from "../../shared/model/ui/OrganizationalUnit/okr-branch";
-import {CurrentOkrUnitSchemaService} from "../../okrview/current-okr-unit-schema.service";
 import {OkrUnitSchema} from "../../shared/model/ui/okr-unit-schema";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {OkrUnitSchemaMapper} from "../../shared/services/mapper/okr-unit-schema.mapper";
 import {CompanyMapper} from "../../shared/services/mapper/company.mapper";
 import {CompanyUnit} from "../../shared/model/ui/OrganizationalUnit/company-unit";
-import {map} from "rxjs/operators";
+import {TopicDraftMapper} from "../../shared/services/mapper/topic-draft-mapper";
+import {DepartmentMapper} from "../../shared/services/mapper/department.mapper";
+import {OkrDepartment} from "../../shared/model/ui/OrganizationalUnit/okr-department";
+import {OkrChildUnit} from "../../shared/model/ui/OrganizationalUnit/okr-child-unit";
+import {UnitType} from "../../shared/model/api/OkrUnit/unit-type.enum";
+import {OkrBranch} from "../../shared/model/ui/OrganizationalUnit/okr-branch";
+import {concatMap, map, mergeAll, mergeMap, reduce, switchMap, take, tap} from "rxjs/operators";
+import {CompanyUnitStructure} from "../../shared/model/ui/OrganizationalUnit/company-unit-structure";
 
 @Component({
   selector: 'app-submitted-topic-drafts-convert-to-team',
@@ -23,9 +28,9 @@ export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit {
   title: string;
   topicDraft: OkrTopicDraft;
   chooseStructure: FormGroup;
-  okrUnitSchema: OkrUnitSchema[];
+  okrUnitSchema$: Observable<OkrUnitSchema[]>;
   okrCompanySchema$: Observable<CompanyUnit[]>;
-  topicDraftDeletedEvent: EventEmitter<any>
+  okrCompanyStructures: CompanyUnitStructure[];
 
 
   constructor(
@@ -34,12 +39,28 @@ export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit {
     private okrCompanyService : CompanyMapper,
     private okrSchemaService: OkrUnitSchemaMapper,
     private dialogRef: MatDialogRef<SubmittedTopicDraftsConvertToTeamComponent>,
+    private departmentMapper: DepartmentMapper,
   ) { }
 
   ngOnInit(): void {
     this.topicDraft = this.formData.topicDraft;
-    this.topicDraftDeletedEvent = this.formData.topicDraftDeletedEvent;
     this.okrCompanySchema$= this.okrCompanyService.getActiveCompanies$();
+
+    this.getCompanyStructure()
+
+    this.okrUnitSchema$= this.okrCompanyService.getActiveCompanies$().pipe(
+      map ( companies =>
+        concatMap(company =>
+          this.okrSchemaService.getOkrUnitSchemaOfCompany$(company.id)
+        )
+      ),
+    );
+
+    this.okrUnitSchema$.subscribe(stuff => console.log(stuff))
+    this.okrCompanySchema$.subscribe(
+      stuff => this.getOkrUnitsForCompany(stuff)
+    )
+
     this.chooseStructure = new FormGroup({
       parentUnitId: new FormControl(undefined, [Validators.required])
     });
@@ -49,27 +70,49 @@ export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit {
     )
   }
 
+  private appendChildUnitsToCompanies(companyUnits: CompanyUnit[]): CompanyUnitStructure[]{
+    (CompanyUnitStructure)companyUnits
+      .forEach(
+        function (value){
+          this.getOkrUnitsForCompany(value)
+        }
+      )
+  }
+
+  private getOkrUnitsForCompany(companyUnit: CompanyUnit): CompanyUnit {
+    companyUnit.
+  }
+
   clickedConvertToTeam() {
-    console.log('Ok Button')
+    this.createChildUnit()
     this.dialogRef.close(
-
+      true
     );
-    this.topicDraftDeletedEvent.emit();
   }
 
-  private getUnitsfromActiveCompanies() {
-    this.okrCompanyService.getActiveCompanies$()
+  createChildUnit(): void {
+    const okrDepartment: OkrDepartment = {
+      id: undefined,
+      parentUnitId: this.chooseStructure.get('parentUnitId').value,
+      objectives: [],
+      name: this.topicDraft.name,
+      label: this.translate.instant('user-form.department'),
+      isActive: true,
+      isParentUnitABranch: false,
+      okrMasterId: undefined,
+      okrMemberIds: undefined,
+      okrTopicSponsorId: undefined
+    };
+    this.departmentMapper.postDepartmentForOkrBranch$(okrDepartment.parentUnitId, DepartmentMapper.mapDepartmentUnit(okrDepartment))
 
   }
 
-  private getUnitsFrom(companies : CompanyUnit[]) {
-    console.log('Zeug soll geholt werden ')
-    for(let company of companies){
-      console.log(company);
-      this.okrSchemaService.getOkrUnitSchemaOfCompany$(company.id).subscribe(
-        Units => this.okrUnitSchema.concat(Units)
-      );
-    }
-  }
+  private getCompanyStructure() {
+    this.okrCompanyStructures = this.okrCompanyService.getActiveCompanies$().pipe(
+      map(companies =>
+        this.appendChildUnitsToCompanies(companies)
+      )
+    );
 
+  }
 }
