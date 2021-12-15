@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { InitService } from '../../../../../services/init.service';
 import { InitServiceMock } from '../../../../../../shared/mocks/init-service-mock';
-import { MaterialTestingModule } from "../../../../../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
 
 describe('CreateUserInitStateFormComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();

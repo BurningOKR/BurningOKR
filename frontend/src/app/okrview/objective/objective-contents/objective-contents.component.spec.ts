@@ -13,7 +13,7 @@ import { ConfigurationManagerService } from '../../../core/settings/configuratio
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../shared/model/api/unit.enum';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
-import { MaterialTestingModule } from "../../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
 
 describe('ObjectiveContentsComponent', () => {
   const getObjectiveByIdMock: jest.Mock<any, any> = jest.fn();

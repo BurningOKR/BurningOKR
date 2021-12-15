@@ -7,8 +7,8 @@ import { OkrToolbarBareComponent } from '../../../../shared/components/okr-toolb
 import { AuthenticationService } from '../../services/authentication.service';
 import { AuthenticationServiceMock } from '../../../../shared/mocks/authentication-service-mock';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialTestingModule } from "../../../../testing/material-testing.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MaterialTestingModule } from '../../../../testing/material-testing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

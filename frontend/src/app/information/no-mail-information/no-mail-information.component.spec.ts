@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoMailInformationComponent } from './no-mail-information.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MaterialTestingModule } from "../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../testing/material-testing.module';
 
 describe('NoMailInformationComponent', () => {
   let component: NoMailInformationComponent;

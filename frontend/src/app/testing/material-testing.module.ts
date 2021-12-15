@@ -35,8 +35,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
-import { HttpClient } from "@angular/common/http";
-import { createTranslateLoader } from "../app.module";
 
 @NgModule({
   exports: [

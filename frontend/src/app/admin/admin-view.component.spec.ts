@@ -11,7 +11,7 @@ import { of } from 'rxjs';
 import 'linq4js';
 import { TrackByPropertyPipe } from './pipes/track-by-property.pipe';
 import { AdminUserIdsPipe } from './pipes/admin-user-ids.pipe';
-import { MaterialTestingModule } from "../testing/material-testing.module";
+import { MaterialTestingModule } from '../testing/material-testing.module';
 
 describe('AdminViewComponent', () => {
   let component: any;

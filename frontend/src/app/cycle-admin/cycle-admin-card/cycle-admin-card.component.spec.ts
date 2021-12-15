@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
-import { MaterialTestingModule } from "../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../testing/material-testing.module';
 
 describe('CycleAdminCardComponent', () => {
   let fixture: any;

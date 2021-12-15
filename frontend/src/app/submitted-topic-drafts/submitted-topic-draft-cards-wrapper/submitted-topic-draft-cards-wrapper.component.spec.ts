@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubmittedTopicDraftCardsWrapperComponent } from './submitted-topic-draft-cards-wrapper.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MaterialTestingModule } from "../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../testing/material-testing.module';
 
 describe('SubmittedTopicDraftCardsWrapperComponent', () => {
   let component: SubmittedTopicDraftCardsWrapperComponent;

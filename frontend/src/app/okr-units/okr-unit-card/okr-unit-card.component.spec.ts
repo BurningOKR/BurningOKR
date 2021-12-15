@@ -11,9 +11,8 @@ import { CurrentUserService } from '../../core/services/current-user.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
-import { MaterialTestingModule } from "../../testing/material-testing.module";
-import { TranslateService } from "@ngx-translate/core";
-
+import { MaterialTestingModule } from '../../testing/material-testing.module';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('OkrUnitCardComponent', () => {
 
@@ -64,7 +63,7 @@ describe('OkrUnitCardComponent', () => {
 
   it('should return fitting data object #getDataForCompanyDeletionDialog without error warning', () => {
     component.company = new CompanyUnit(7331, '', [], [], 0, '');
-    spyOn(translate, 'instant').and.callFake(function (arg) {
+    spyOn(translate, 'instant').and.callFake(function(arg) {
       if (arg === 'okr-unit-card.label') {
         return 'correctGeneralDeleteDialogTitle';
       } else if (arg === 'okr-unit-card.general-delete-dialog-title') {
@@ -90,7 +89,7 @@ describe('OkrUnitCardComponent', () => {
 
   it('should return fitting data object #getDataForCompanyDeletionDialog with error warning', () => {
     component.company = new CompanyUnit(7331, '', [123, 234, 345, 45], [], 0, '');
-    spyOn(translate, 'instant').and.callFake(function (arg) {
+    spyOn(translate, 'instant').and.callFake(function(arg) {
       if (arg === 'okr-unit-card.label') {
         return 'correctGeneralDeleteDialogTitle';
       } else if (arg === 'okr-unit-card.general-delete-dialog-title') {

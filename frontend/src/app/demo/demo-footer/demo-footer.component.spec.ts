@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DemoFooterComponent } from './demo-footer.component';
-import { MaterialTestingModule } from "../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../testing/material-testing.module';
 
 describe('DemoFooterComponent', () => {
   let component: DemoFooterComponent;

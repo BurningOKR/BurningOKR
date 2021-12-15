@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteDialogComponent } from './delete-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DeleteDialogData } from '../../model/ui/delete-dialog-data';
-import { MaterialTestingModule } from "../../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
 
 @Injectable()
 class MockDeleteDialogData {

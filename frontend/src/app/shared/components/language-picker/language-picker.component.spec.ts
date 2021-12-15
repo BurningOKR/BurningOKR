@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LanguagePickerComponent } from './language-picker.component';
-import { MaterialTestingModule } from "../../../testing/material-testing.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LanguagePickerComponent', () => {
   let component: LanguagePickerComponent;

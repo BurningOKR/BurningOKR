@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CompleteInitStateFormComponent } from './complete-init-state-form.component';
 import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
-import { TranslateModule } from "@ngx-translate/core";
 
 describe('CompleteInitStateFormComponent', () => {
   let component: CompleteInitStateFormComponent;

@@ -8,7 +8,7 @@ import { FormBuilder } from '@angular/forms';
 import { PasswordService } from '../password-service/password.service';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { NGXLogger } from 'ngx-logger';
-import { MaterialTestingModule } from "../../../../testing/material-testing.module";
+import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 
 describe('ChangePasswordDialogComponent', () => {
   let component: any;

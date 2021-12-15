@@ -11,8 +11,8 @@ import { HAMMER_LOADER } from '@angular/platform-browser';
 import { i18nMock } from '../../../../../../shared/mocks/i18n-mock';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import 'linq4js';
-import { MaterialTestingModule } from "../../../../../../testing/material-testing.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ImportCsvDialogComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();

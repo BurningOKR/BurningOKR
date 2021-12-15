@@ -4,8 +4,8 @@ import { UserFormComponent } from './user-form.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { emailAlreadyInUseValidatorFunction } from '../email-already-in-use-validator-function';
-import { MaterialTestingModule } from "../../../../../../testing/material-testing.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UserFormComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();
