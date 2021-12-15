@@ -343,22 +343,38 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   getConvertToTeamTooltipText() {
+
     if(!this.userIsAdmin() && !this.draftIsApproved()){
       return this.notApprovedToolTip + ' & ' + this.notAdminToolTip;
-    }
-    else if(!this.draftIsApproved()){
+    } else
+
+    if(this.userIsAdmin() && !this.draftIsApproved()){
       return this.notApprovedToolTip;
     }
     return this.notAdminToolTip;
   }
 
   clickedConvertToTeam() {
-    const data: object = {
-      data : {
-        topicDraft:  this.topicDraft,
-        topicDraftDeletedEvent: this.topicDraftDeletedEvent
-      }
-    }
-    this.dialog.open(SubmittedTopicDraftsConvertToTeamComponent, data);
+    const topicDraft: OkrTopicDraft =  this.topicDraft;
+
+    const dialogData = {
+      topicDraft
+    };
+
+    const draftToTeamDialogReference: MatDialogRef<SubmittedTopicDraftsConvertToTeamComponent, object>
+      = this.dialog.open(SubmittedTopicDraftsConvertToTeamComponent, {width: '600px', data: dialogData});
+
+    this.subscriptions.push(
+      draftToTeamDialogReference
+        .afterClosed()
+        .pipe(take(1))
+        .subscribe(isConfirmed => {
+          if (isConfirmed) {
+            this.deleteTopicDraft();
+          }
+        })
+    );
+
+
   }
 }
