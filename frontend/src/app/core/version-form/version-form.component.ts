@@ -11,6 +11,12 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.3.12 (13.12.2021)',
+      changes: [
+        'changed log4j to version 2.15'
+      ]
+    },
+    {
       version: '1.3.11 (29.11.2021)',
       changes: [
         'Integrated the Demo-Version and the Production-Version',
