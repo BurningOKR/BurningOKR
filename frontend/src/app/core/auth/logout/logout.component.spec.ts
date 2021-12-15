@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { OAuthFrontendDetailsService } from '../services/o-auth-frontend-details.service';
 import { of } from 'rxjs';
 import { Consts } from '../../../shared/consts';
+import { MaterialTestingModule } from "../../../testing/material-testing.module";
 
 describe('LogoutComponent', () => {
   let component: any;
@@ -29,6 +30,7 @@ describe('LogoutComponent', () => {
     TestBed.configureTestingModule({
       declarations: [LogoutComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      imports: [ MaterialTestingModule ],
       providers: [
         {provide: OAuthService, useValue: oAuthServiceMock},
         {provide: Router, useValue: routerMock},

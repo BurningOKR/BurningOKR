@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 import { PasswordService } from '../password-service/password.service';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { NGXLogger } from 'ngx-logger';
+import { MaterialTestingModule } from "../../../../testing/material-testing.module";
 
 describe('ChangePasswordDialogComponent', () => {
   let component: any;
@@ -19,6 +20,7 @@ describe('ChangePasswordDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ChangePasswordDialogComponent ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      imports: [MaterialTestingModule],
       providers: [
         {provide: MatDialogRef, useValue: {}},
         {provide: FormBuilder, useValue: formBuilder},

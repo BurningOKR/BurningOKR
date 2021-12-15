@@ -12,6 +12,7 @@ import { OAuthFrontendDetailsServiceMock } from '../../../../../../shared/mocks/
 import { i18nMock } from '../../../../../../shared/mocks/i18n-mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialTestingModule } from "../../../../../../testing/material-testing.module";
 
 describe('SetOauthClientDetailsFormComponent', () => {
   let component: any;
@@ -28,6 +29,7 @@ describe('SetOauthClientDetailsFormComponent', () => {
         ReactiveFormsModule,
         FormsModule,
         RouterTestingModule,
+        MaterialTestingModule,
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
       declarations: [ SetOauthClientDetailsFormComponent ],

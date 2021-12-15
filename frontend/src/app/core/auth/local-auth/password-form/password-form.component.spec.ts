@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PasswordFormComponent } from './password-form.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MaterialTestingModule } from "../../../../testing/material-testing.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 describe('PasswordFormComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();
@@ -14,6 +16,7 @@ describe('PasswordFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PasswordFormComponent ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      imports: [ MaterialTestingModule, BrowserAnimationsModule ]
     })
     .compileComponents();
 

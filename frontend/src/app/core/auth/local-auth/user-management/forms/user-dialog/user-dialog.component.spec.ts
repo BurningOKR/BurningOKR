@@ -15,6 +15,7 @@ import { CurrentUserService } from '../../../../../services/current-user.service
 import { of } from 'rxjs';
 import { User } from '../../../../../../shared/model/api/user';
 import 'linq4js';
+import { MaterialTestingModule } from "../../../../../../testing/material-testing.module";
 
 describe('UserDialogComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();
@@ -37,6 +38,7 @@ describe('UserDialogComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ UserDialogComponent ],
+      imports: [ MaterialTestingModule ],
       providers: [
         {provide: MatDialogRef, useValue: {}},
         {provide: FormBuilder, useValue: formBuilder},

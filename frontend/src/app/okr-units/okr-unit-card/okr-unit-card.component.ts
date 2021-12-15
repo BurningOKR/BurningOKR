@@ -131,9 +131,12 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
   private getDataForCompanyDeletionDialog(): {data: DeleteDialogData} {
     return {
       data: {
-        title: this.generalDeleteDialogTitle,
-        objectNameWithArticle: this.label,
-        dangerContent: this.deleteCompanyHasChildUnitWarning
+        title: this.translate.instant('okr-unit-card.label'),
+        objectNameWithArticle: this.translate.instant('okr-unit-card.general-delete-dialog-title'),
+        dangerContent: this.translate.instant('okr-unit-card.delete-company-has-child-unit-warning')
+        //title: this.generalDeleteDialogTitle,
+        //objectNameWithArticle: this.label,
+        //dangerContent: this.deleteCompanyHasChildUnitWarning
       }
     };
   }
