@@ -61,51 +61,67 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   ngOnInit(): void {
-    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status').subscribe((text: string) => {
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status')
+      .subscribe((text: string) => {
       this.editTooltipStatus = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user')
+      .subscribe((text: string) => {
       this.editTooltipUser = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user')
+      .subscribe((text: string) => {
       this.editTooltipStatusAndUser = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user')
+      .subscribe((text: string) => {
       this.stateMustBeSubmittedTooltip = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.no-permission').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.no-permission')
+      .subscribe((text: string) => {
       this.userRoleToChangeStatus = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.approving-status-and-user').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.approving-status-and-user')
+      .subscribe((text: string) => {
       this.changeCurrentStatusByStatusAndUser = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.capitalised-approve').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.capitalised-approve')
+      .subscribe((text: string) => {
       this.approveTopicDraftText = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.withdraw-approval').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.withdraw-approval')
+      .subscribe((text: string) => {
       this.withDrawApprovalTopicDraftText = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.capitalized-reject').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.capitalized-reject')
+      .subscribe((text: string) => {
       this.rejectTopicDraftText = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection')
+      .subscribe((text: string) => {
       this.withDrawRejectionTopicDraftText = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.capitalized-submit').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.capitalized-submit')
+      .subscribe((text: string) => {
       this.submitTopicDraftText = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.withdraw-submit').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.withdraw-submit')
+      .subscribe((text: string) => {
       this.withDrawSubmitTopicDraftText = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.admin-initator-tooltip').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.admin-initator-tooltip')
+      .subscribe((text: string) => {
       this.adminOrInitiatorTooltip = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.status-submitted').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.status-submitted')
+      .subscribe((text: string) => {
       this.statusMustBeSubmitted = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.status-submitted-user').subscribe((text: string) => {
+    }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.status-submitted-user')
+      .subscribe((text: string) => {
       this.statusMustBeSubmittedAndUser = text;
-    });
+    }));
+
   }
 
   printNotImplemented(): string {

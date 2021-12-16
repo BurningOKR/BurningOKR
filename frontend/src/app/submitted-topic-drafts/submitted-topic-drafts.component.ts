@@ -43,7 +43,7 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
 
     const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
 
-    dialogReference
+    this.subscriptions.push(dialogReference
       .afterClosed()
       .pipe(
         take(1),
@@ -52,7 +52,7 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
       )
       .subscribe(() => {
         this.loadAllTopicDrafts();
-      });
+      }));
   }
 
   ngOnInit(): void {

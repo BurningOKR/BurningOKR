@@ -31,9 +31,6 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
   activeCycle: CycleUnit;
   isCurrentUserAdmin = false;
   isPlayground: boolean = environment.playground;
-  label: string;
-  generalDeleteDialogTitle: string;
-  deleteCompanyHasChildUnitWarning: string;
 
   private subscriptions: Subscription[] = [];
 
@@ -62,17 +59,6 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
       this.activeCycle = cycle;
     }));
     this.loadCyclesWithHistoryCompanies$();
-
-    this.translate.get('okr-unit-card.label').subscribe((text: string) => {
-      this.label = text;
-    });
-    this.translate.get('okr-unit-card.general-delete-dialog-title', {value: this.company.name}).subscribe((text: string) => {
-      this.generalDeleteDialogTitle = text;
-    });
-    this.translate.get('okr-unit-card.delete-company-has-child-unit-warning', {value: this.company.name}).subscribe((text: string) => {
-      this.deleteCompanyHasChildUnitWarning = text;
-    });
-
   }
 
   ngOnDestroy(): void {
@@ -134,9 +120,6 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
         title: this.translate.instant('okr-unit-card.label'),
         objectNameWithArticle: this.translate.instant('okr-unit-card.general-delete-dialog-title'),
         dangerContent: this.translate.instant('okr-unit-card.delete-company-has-child-unit-warning')
-        //title: this.generalDeleteDialogTitle,
-        //objectNameWithArticle: this.label,
-        //dangerContent: this.deleteCompanyHasChildUnitWarning
       }
     };
   }
