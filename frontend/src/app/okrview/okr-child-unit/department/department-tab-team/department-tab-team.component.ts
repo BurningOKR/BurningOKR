@@ -18,6 +18,7 @@ import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.se
 import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
 import { Configuration } from '../../../../shared/model/ui/configuration';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-department-tab-team',
@@ -40,7 +41,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     private currentUserService: CurrentUserService,
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private matDialog: MatDialog,
-    private i18n: I18n
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -64,18 +65,9 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   clickedDeleteOKRMaster(): void {
-    const title: string = this.i18n({
-      id: 'deleteOkrMasterDialog_title',
-      value: 'OKR Master entfernen'
-    });
-    const message: string = this.i18n({
-      id: 'deleteOkrMasterDialog_message',
-      value: 'Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.'
-    });
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_remove',
-      value: 'Entfernen'
-    });
+    const title: string = this.translate.instant('department-tab-team.deletion-dialog.title-master');
+    const message: string = this.translate.instant('department-tab-team.deletion-dialog.message');
+    const confirmButtonText: string = this.translate.instant('department-tab-team.deletion-dialog.button-text');
     const data: ConfirmationDialogData = {
       confirmButtonText,
       title,
@@ -104,18 +96,9 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   clickedDeleteOKRTopicSponsor(): void {
-    const title: string = this.i18n({
-      id: 'deleteOkrTopicSponsorDialog_title',
-      value: 'OKR Themenpate entfernen'
-    });
-    const message: string = this.i18n({
-      id: 'deleteOkrMasterDialog_message',
-      value: 'Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.'
-    });
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_remove',
-      value: 'Entfernen'
-    });
+    const title: string = this.translate.instant('department-tab-team.deletion-dialog.title-sponsor');
+    const message: string = this.translate.instant('department-tab-team.deletion-dialog.message');
+    const confirmButtonText: string = this.translate.instant('department-tab-team.deletion-dialog.button-text');
     const data: ConfirmationDialogData = {
       confirmButtonText,
       title,
@@ -144,18 +127,9 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   clickedDeleteOKRMember(memberId: string): void {
-    const title: string = this.i18n({
-      id: 'deleteOkrMemberDialog_title',
-      value: 'Mitglied entfernen'
-    });
-    const message: string = this.i18n({
-      id: 'deleteOkrMemberDialog_message',
-      value: 'Möchten Sie dieses Mitglied von dem Team entfernen? Der Benutzer wird seine Mitgliedsrechte in diesem Team verlieren.'
-    });
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_remove',
-      value: 'Entfernen'
-    });
+    const title: string = this.translate.instant('department-tab-team.deletion-dialog.title-member');
+    const message: string = this.translate.instant('department-tab-team.deletion-dialog.message-member');
+    const confirmButtonText: string = this.translate.instant('department-tab-team.deletion-dialog.button-text')
     const data: ConfirmationDialogData = {
       confirmButtonText,
       title,

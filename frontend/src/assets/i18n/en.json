@@ -204,6 +204,14 @@
 	"department-tab-team": {
 		"define-o-k-r-master": "No OKR Master defined",
 		"define-topic-sponsor": "No OKR topic sponsor defined",
+		"deletion-dialog": {
+			"button-text": "Delete",
+			"message": "Are you sure you want to do this? This user will lose his manager rights for this team.",
+			"message-member": "Do you want to remove this member from the team? The user will lose his membership rights in this team.",
+			"title-master": "Remove OKR topic sponsor",
+			"title-member": "Delete member",
+			"title-sponsor": "Delete OKR Master"
+		},
 		"members-of-unit": "Structure Members",
 		"no-members-defined": "No team members defined",
 		"o-k-r-master": "OKR Master",

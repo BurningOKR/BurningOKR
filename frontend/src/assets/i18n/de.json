@@ -204,6 +204,14 @@
 	"department-tab-team": {
 		"define-o-k-r-master": "Kein OKR Master definiert",
 		"define-topic-sponsor": "Kein OKR Themenpate definiert",
+		"deletion-dialog": {
+			"button-text": "Entfernen",
+			"message": "Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.",
+			"message-member": "Möchten Sie dieses Mitglied von dem Team entfernen? Der Benutzer wird seine Mitgliedsrechte in diesem Team verlieren.",
+			"title-master": "OKR Themenpate entfernen",
+			"title-member": "Mitglied entfernen",
+			"title-sponsor": "OKR Master entfernen"
+		},
 		"members-of-unit": "Mitglieder dieser Struktur",
 		"no-members-defined": "Keine Teammitglieder definiert",
 		"o-k-r-master": "OKR Master",
