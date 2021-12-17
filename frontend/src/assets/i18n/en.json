@@ -546,9 +546,11 @@
 		"settings": "Settings"
 	},
 	"submitted-topic-draft-action-button": {
+		"admin-initator-tooltip": "Only an admin or the initiator can submit or withdraw submission",
 		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
 		"capitalised-approve": "Approve",
 		"capitalized-reject": "Reject",
+		"capitalized-submit": "Submit",
 		"comments": {
 			"heading": "Topic draft"
 		},
@@ -566,15 +568,20 @@
 			"user": "Only an admin or the initiator can edit"
 		},
 		"no-permission": "Only an admin or an auditor can approve or reject",
+		"snackbar": {
+			"ok": "Ok",
+			"submit": "Your topic draft has been sent for review."
+		},
 		"state-submitted-tooltip": "The status must be \"Pending\"",
-		"submit-withdraw": "Submit/ Withdraw",
+		"status-submitted": "The status must be \"Submitted\" so that the submission can be withdrawn",
+		"status-submitted-user": "The status must be \"Submitted\" and you must be an admin or the initiator for the submission to be withdrawn",
 		"tooltip": {
-			"feature-coming-soon": "Feature is coming soon",
 			"header": "Comments",
 			"only-admin-or-initiator-permission-to-delete": "Only the admin or the Initiator are able to delete this topic draft"
 		},
 		"withdraw-approval": "Withdraw Approval",
-		"withdraw-rejection": "Withdraw rejection"
+		"withdraw-rejection": "Withdraw rejection",
+		"withdraw-submit": "Withdraw submission"
 	},
 	"submitted-topic-draft-cards-wrapper": {
 		"column": {
@@ -622,11 +629,8 @@
 		},
 		"initiator-table-header": "Topic",
 		"navbar": {
-			"title": "Submitted topic drafts"
-		},
-		"snackbar": {
-			"ok": "Ok",
-			"submit": "Your topic draft has been sent for review."
+			"title": "Submitted topic drafts",
+			"title-short": "Topic draft"
 		}
 	},
 	"user-dialog": {

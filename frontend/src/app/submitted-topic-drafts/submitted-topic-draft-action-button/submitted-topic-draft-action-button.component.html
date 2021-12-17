@@ -16,28 +16,28 @@
       </button>
     </span>
     <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.header' | translate }}">
-        <button mat-menu-item (click)="clickedOpenComments()">
-          <mat-icon>chat</mat-icon>
-          <span>{{ 'submitted-topic-draft-action-button.comments-text' | translate }}</span>
-        </button>
-      </span>
-    <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.feature-coming-soon' | translate }}">
-        <button mat-menu-item disabled (click)="printNotImplemented()">
-          <mat-icon>exposure</mat-icon>
-          <span>{{ 'submitted-topic-draft-action-button.submit-withdraw' | translate }}</span>
-        </button>
-      </span>
+      <button mat-menu-item (click)="clickedOpenComments()">
+        <mat-icon>chat</mat-icon>
+        <span>{{ 'submitted-topic-draft-action-button.comments-text' | translate }}</span>
+      </button>
+    </span>
+    <span matTooltip="{{ getSubmissionTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatusForSubmission$() | async">
+      <button mat-menu-item [disabled]="(canChangeCurrentStatusForSubmission$() | async) === false" (click)="submittingTopicDraft()">
+        <mat-icon>exposure</mat-icon>
+        <span>{{ getSubmissionButtonText() }}</span>
+      </button>
+    </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
-        <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="approvingTopicDraft()">
-          <mat-icon>check_circle</mat-icon>
-          <span>{{ getApprovalButtonText() }}</span>
-        </button>
-      </span>
+      <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="approvingTopicDraft()">
+        <mat-icon>check_circle</mat-icon>
+        <span>{{ getApprovalButtonText() }}</span>
+      </button>
+    </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
-        <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="rejectingTopicDraft()">
-          <mat-icon>cancel</mat-icon>
-          <span>{{ getRejectionButtonText() }}</span>
-        </button>
-      </span>
+      <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="rejectingTopicDraft()">
+        <mat-icon>cancel</mat-icon>
+        <span>{{ getRejectionButtonText() }}</span>
+      </button>
+    </span>
   </mat-menu>
 </ng-container>

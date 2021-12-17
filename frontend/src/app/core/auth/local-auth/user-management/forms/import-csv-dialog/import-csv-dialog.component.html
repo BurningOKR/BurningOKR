@@ -10,27 +10,27 @@
     <mat-icon matSuffix>folder</mat-icon>
   </mat-form-field>
   <div style="max-height: 600px; overflow-y: auto">
-    <ng-container matColumnDef="givenName">
-        </ng-container><ng-container matColumnDef="email">
-        </ng-container><ng-container matColumnDef="department">
-        </ng-container><ng-container matColumnDef="jobTitle">
-        </ng-container><table [dataSource]="rowData" mat-table matSort>
-      <tbody><tr><th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.name' | translate }}</th>
+    <table [dataSource]="rowData" mat-table matSort>
+      <ng-container matColumnDef="givenName">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.name' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.givenName + ' ' + user.surname}}</td>
-      
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.email' | translate }}</th>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.email' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.email}}</td>
-      
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.department' | translate }}</th>
+      </ng-container>
+      <ng-container matColumnDef="department">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.department' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.department}}</td>
-      
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.job-title' | translate }}</th>
+      </ng-container>
+      <ng-container matColumnDef="jobTitle">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.job-title' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.jobTitle}}</td>
-      
+      </ng-container>
 
-      </tr><tr *matHeaderRowDef="columnsToDisplay;" mat-header-row sticky></tr>
+      <tr *matHeaderRowDef="columnsToDisplay;" mat-header-row sticky></tr>
       <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>
-    </tbody></table>
+    </table>
   </div>
   <mat-paginator [pageSizeOptions]="[10,20,25,50,100]" pageSize="25"></mat-paginator>
 </app-dialog-component>
