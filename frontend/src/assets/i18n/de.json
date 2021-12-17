@@ -63,6 +63,10 @@
 		"initialisation-completed-message": "Die Initialisierung wurde erfolgreich abgeschlossen🎉",
 		"lets-go!": "Los geht's!"
 	},
+	"confirmation-dialog": {
+		"cancel-text": "Abbrechen",
+		"confirm-text": "Bestätigen"
+	},
 	"create-user-init-state-form": {
 		"create-your-admin-account": "Administratorenkonto",
 		"next": "Weiter",
