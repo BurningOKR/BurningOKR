@@ -6,7 +6,6 @@ import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
@@ -23,16 +22,10 @@ public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServi
       ParentService parentService,
       UnitRepository<T> unitRepository,
       ObjectiveRepository objectiveRepository,
-      OkrTopicDraftRepository topicDraftRepository,
       ActivityService activityService,
       EntityCrawlerService entityCrawlerService) {
     super(
-        parentService,
-        unitRepository,
-        objectiveRepository,
-        topicDraftRepository,
-        activityService,
-        entityCrawlerService);
+        parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
   }
 
   @Override

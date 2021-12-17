@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import 'linq4js';
 import { TrackByPropertyPipe } from './pipes/track-by-property.pipe';
 import { AdminUserIdsPipe } from './pipes/admin-user-ids.pipe';
+import { MaterialTestingModule } from '../testing/material-testing.module';
 
 describe('AdminViewComponent', () => {
   let component: any;
@@ -58,6 +59,7 @@ describe('AdminViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AdminViewComponent, TrackByPropertyPipe, AdminUserIdsPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      imports: [ MatDialogModule, MaterialTestingModule ],
       providers: [
         {provide: UserService, useValue: userService},
         {
@@ -67,7 +69,6 @@ describe('AdminViewComponent', () => {
         {provide: Router, useValue: router},
         {provide: I18n, useValue: i18n}
       ],
-      imports: [MatDialogModule]
     })
       .compileComponents();
     fixture = TestBed.createComponent(AdminViewComponent);

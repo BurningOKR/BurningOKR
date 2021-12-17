@@ -82,7 +82,6 @@ export class TopicDraftCreationFormComponent implements OnInit, OnDestroy {
   }
 
   createTopicDraft(topicDraft: OkrTopicDraft): void {
-    topicDraft.currentStatus = status.submitted;
     this.dialogRef.close(this.topicDraftMapper
       .postTopicDraft$(topicDraft));
   }

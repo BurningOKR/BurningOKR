@@ -20,6 +20,8 @@ subprojects {
     apply plugin: 'checkstyle'
     apply plugin: 'com.diffplug.gradle.spotless'
 
+    ext['log4j2.version'] = '2.15.0'
+
     ext {
         springBootVersion = '2.0.4.RELEASE'
     }

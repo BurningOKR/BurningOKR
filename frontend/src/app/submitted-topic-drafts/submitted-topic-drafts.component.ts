@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { OkrTopicDraft } from '../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../shared/services/mapper/topic-draft-mapper';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -29,13 +28,10 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
 
   rowData = new MatTableDataSource([] as OkrTopicDraft[]);
 
-   topicTableHeader: string;
-
   subscriptions: Subscription[] = [];
 
   constructor(private router: Router,
               private topicDraftMapper: TopicDraftMapper,
-              private i18n: I18n,
               private translate: TranslateService,
               private snackBar: MatSnackBar,
               private matDialog: MatDialog
@@ -43,12 +39,11 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
   }
 
   clickedAddTopicDraft(): void {
-    // creates fitting config for either okrbranch id or company id
     const config: any = {width: '600px', data: {}};
 
     const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
 
-    dialogReference
+    this.subscriptions.push(dialogReference
       .afterClosed()
       .pipe(
         take(1),
@@ -56,12 +51,8 @@ export class SubmittedTopicDraftsComponent implements OnInit, OnDestroy {
         switchMap(n => n)
       )
       .subscribe(() => {
-        const snackBarText: string = this.translate.instant('submitted-topic-drafts.snackbar.submit');
-        const snackBarOk: string = this.translate.instant('submitted-topic-drafts.snackbar.ok');
-        this.snackBar.open(snackBarText, snackBarOk, {verticalPosition: 'top'});
-
         this.loadAllTopicDrafts();
-      });
+      }));
   }
 
   ngOnInit(): void {

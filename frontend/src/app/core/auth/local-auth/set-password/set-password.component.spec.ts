@@ -10,6 +10,8 @@ import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 import { I18n } from '@ngx-translate/i18n-polyfill';
 import { PasswordService } from '../password-service/password.service';
 import { PasswordServiceMock } from '../../../../shared/mocks/password-service-mock';
+import { MaterialTestingModule } from '../../../../testing/material-testing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SetPasswordComponent', () => {
   let component: SetPasswordComponent;
@@ -22,6 +24,8 @@ describe('SetPasswordComponent', () => {
         MatCardModule,
         HttpClientTestingModule,
         RouterTestingModule,
+        MaterialTestingModule,
+        BrowserAnimationsModule
       ],
       providers: [
         {provide: I18n, useValue: i18nMock},
