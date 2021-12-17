@@ -281,6 +281,11 @@
 		"value-input": "Target-Value *"
 	},
 	"keyresult": {
+		"deletion-dialog": {
+			"button-text": "Delete KeyResult",
+			"message": "Delete KeyResult {{number}}. {{keyResultTitle}} from the Objective?",
+			"title": "Clear"
+		},
 		"menu": {
 			"edit-key-result": "Edit KeyResult",
 			"keyresult": "Delete key result",

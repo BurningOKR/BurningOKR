@@ -281,6 +281,11 @@
 		"value-input": "Ziel-Wert *"
 	},
 	"keyresult": {
+		"deletion-dialog": {
+			"button-text": "KeyResult löschen",
+			"message": "KeyResult {{number}}. {{keyResultTitle}} von dem Objective löschen?",
+			"title": "Löschen"
+		},
 		"menu": {
 			"edit-key-result": "KeyResult bearbeiten",
 			"keyresult": "KeyResult löschen",
