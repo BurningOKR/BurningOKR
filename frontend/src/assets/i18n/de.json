@@ -7,6 +7,26 @@
 			"add-new-child-unit": "Neue Unterstruktur definieren"
 		}
 	},
+	"admin-settings-form": {
+		"config-names": {
+			"email-feedabck-receiver": "Email Adressen der Feedback Empfänger. (Durch Komma getrennt)",
+			"email-sender": "Email Adresse des OKR Tools",
+			"frontend-base-url": "Frontend Base URL",
+			"max-key-results": "Maximale Anzahl von Key Results",
+			"subject": {
+				"feedback": "Email Betreff für Feedback",
+				"new-user": "Email Betreff für neue Benutzer",
+				"reset-password": "Email Betreff für die Passwort-Zurücksetzen Email"
+			},
+			"threshold": {
+				"green-yellow": "Objective Prognose Schwellenwert (Grün/Gelb)",
+				"yellow-red": "Objective Prognose Schwellenwert (Gelb/Rot)"
+			},
+			"topic-sponsors-activated": "Themenpaten aktiviert"
+		},
+		"confirmation-text": "Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.",
+		"confirmation-title": "OKR Themenpaten deaktivieren"
+	},
 	"admin-view": {
 		"admin-panel": "Admin Panel",
 		"admins": "Admins",

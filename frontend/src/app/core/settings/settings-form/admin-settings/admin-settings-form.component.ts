@@ -1,18 +1,18 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CurrentUserService } from '../../../services/current-user.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigurationManagerService } from '../../configuration-manager.service';
 import { Configuration } from '../../../../shared/model/ui/configuration';
 import { map, switchMap, take } from 'rxjs/operators';
 import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { SettingsForm } from '../settings-form';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-settings',
@@ -20,82 +20,34 @@ import { SettingsForm } from '../settings-form';
   styleUrls: ['./admin-settings-form.component.scss'],
   providers: [{provide: SettingsForm, useExisting: AdminSettingsFormComponent}]
 })
-export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
+export class AdminSettingsFormComponent extends SettingsForm implements OnInit, OnDestroy {
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  subscriptions: Subscription[] = [];
   adminSettingsForm: FormGroup;
   isAzure$: Observable<boolean>;
 
-  private confirmationTitle: string = this.i18n({
-    id: '@@deativate_okr_topic_sponsors_title',
-    description: 'title of confirmation dialog for deaktivating topic sponsors',
-    value: 'OKR Themenpaten deaktivieren'
-  });
-
-  private confirmationText: string = this.i18n({
-    id: '@@deativate_okr_topic_sponsors_text',
-    description: 'text of confirmation dialog for deaktivating topic sponsors',
-    value: 'Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.'
-  });
-
-  private configurationNames: { [key: string]: string } = {
-    'max-key-results': this.i18n({
-      id: '@@settings_form_max_key_results_per_objective',
-      description: 'Placeholder for maximal amount of keyresults per objective',
-      value: 'Maximale Anzahl von Key Results'
-    }),
-    'topic-sponsors-activated': this.i18n({
-      id: '@@settings_topic_sponsors',
-      description: 'Placeholder for the setting, which de-/activates topic sponsors through out the application',
-      value: 'Themenpaten aktiviert'
-    }),
-    'objective-progress-green-yellow-threshold': this.i18n({
-      id: '@@settings_form_objective_bar_treshold_green_yellow',
-      description: 'Treshold for objective progress bar (Green/Yellow)',
-      value: 'Objective Prognose Schwellenwert (Grün/Gelb)'
-    }),
-    'objective-progress-yellow-red-threshold': this.i18n({
-      id: '@@settings_form_objective_bar_treshold_yellow_red',
-      description: 'Treshold for objective progress bar (Yellow/Red)',
-      value: 'Objective Prognose Schwellenwert (Gelb/Rot)'
-    }),
-    'general_frontend-base-url': this.i18n({
-      id: '@@settings_form_general_frontend_base_url',
-      description: 'the domain of this angular application',
-      value: 'Frontend-Base-Url'
-    }),
-    email_from: this.i18n({
-      id: '@@settings_form_email_sender',
-      description: 'The address, from which emails are sent',
-      value: 'Email Adresse des OKR Tools'
-    }),
-    'email_subject_new-user': this.i18n({
-      id: '@@settings_form_email_subject_forgot_new_user',
-      description: 'the subject of the email, which is sent to new users',
-      value: 'Email Betreff für neue Benutzer'
-    }),
-    'email_subject_forgot-password': this.i18n({
-      id: '@@settings_form_email_subject_forgot_password',
-      description: 'the subject of the email, which is sent to users who forgot their password',
-      value: 'Email Betreff für die Passwort-Zurücksetzen Email'
-    }),
-    email_subject_feedback: this.i18n({
-      id: '@@settings_form_email_subject_feedback',
-      description: 'the subject of the feedback email',
-      value: 'Email Betreff für Feedback'
-    }),
-    feedback_receivers: this.i18n({
-      id: '@@settings_form_feedback_receivers',
-      description: 'the email adresses of the people who receive feedback',
-      value: 'Email Adressen der Feedback Empfänger. (Durch Komma getrennt)'
-    })
-  };
+  private confirmationTitle: string;
+  private confirmationText: string;
+  private configurationNames: { [key: string]: string };
+  private configurationNamesTranslationKeys: string[] = [
+    'admin-settings-form.config-names.max-key-results',
+    'admin-settings-form.config-names.topic-sponsors-activated',
+    'admin-settings-form.config-names.threshold.green-yellow',
+    'admin-settings-form.config-names.threshold.yellow-red',
+    'admin-settings-form.config-names.frontend-base-url',
+    'admin-settings-form.config-names.email-sender',
+    'admin-settings-form.config-names.subject.new-user',
+    'admin-settings-form.config-names.subject.reset-password',
+    'admin-settings-form.config-names.subject.feedback',
+    'admin-settings-form.config-names.email-feedabck-receiver',
+  ];
 
   constructor(private configurationManagerService: ConfigurationManagerService,
               private currentUserService: CurrentUserService,
               private dialog: MatDialog,
-              private i18n: I18n,
+              private translate: TranslateService,
               private oAuthDetails: OAuthFrontendDetailsService,
   ) {
     super();
@@ -107,9 +59,33 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
 
   ngOnInit(): void {
     this.initAdminSettingsForm();
-    this.adminSettingsForm.statusChanges.subscribe(() => {
+    this.subscriptions.push(this.adminSettingsForm.statusChanges.subscribe(() => {
       this.valid.emit(this.adminSettingsForm.valid);
-    });
+    }));
+    this.subscriptions.push(this.translate.stream('admin-settings-form.confirmation-title').subscribe(text => {
+      this.confirmationTitle = text;
+    }));
+    this.subscriptions.push(this.translate.stream('admin-settings-form.confirmation-text').subscribe(text => {
+      this.confirmationText = text;
+    }));
+    this.subscriptions.push(this.translate.stream(this.configurationNamesTranslationKeys).subscribe((translations: {[key: string]: string}) => {
+      this.configurationNames = {
+        'max-key-results': translations[this.configurationNamesTranslationKeys[0]],
+        'topic-sponsors-activated': translations[this.configurationNamesTranslationKeys[1]],
+        'objective-progress-green-yellow-threshold': translations[this.configurationNamesTranslationKeys[2]],
+        'objective-progress-yellow-red-threshold': translations[this.configurationNamesTranslationKeys[3]],
+        'general_frontend-base-url': translations[this.configurationNamesTranslationKeys[4]],
+        'email_from': translations[this.configurationNamesTranslationKeys[5]],
+        'email_subject_new-user': translations[this.configurationNamesTranslationKeys[6]],
+        'email_subject_forgot-password': translations[this.configurationNamesTranslationKeys[7]],
+        'email_subject_feedback': translations[this.configurationNamesTranslationKeys[8]],
+        'feedback_receivers': translations[this.configurationNamesTranslationKeys[9]]
+      };
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   createUpdate$(): Observable<any> {
@@ -135,7 +111,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
   }
 
   private initAdminSettingsForm(): void {
-    this.configurationManagerService.getAllConfigurations$()
+    this.subscriptions.push(this.configurationManagerService.getAllConfigurations$()
       .pipe(
         map((configurations: Configuration[]) => {
           return configurations
@@ -154,7 +130,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
         this.adminSettingsForm = new FormGroup({
           settings: new FormArray(formGroups)
         });
-      });
+      }));
 
     this.isAzure$ = this.oAuthDetails.isAzureAuthType$()
       .pipe(take(1));
@@ -190,7 +166,6 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit {
         return control;
       }
     }
-
     return null;
   }
 }

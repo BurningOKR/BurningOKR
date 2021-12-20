@@ -7,6 +7,26 @@
 			"add-new-child-unit": "Define new substructure"
 		}
 	},
+	"admin-settings-form": {
+		"config-names": {
+			"email-feedabck-receiver": "Email addresses of the feedback recipients. (Separated by a comma)",
+			"email-sender": "Email address of the OKR tool",
+			"frontend-base-url": "Frontend Base URL",
+			"max-key-results": "Maximum number of Key results",
+			"subject": {
+				"feedback": "Email subject for feedback",
+				"new-user": "Email subject for new users",
+				"reset-password": "Email Subject for the password reset email"
+			},
+			"threshold": {
+				"green-yellow": "Objective forecast threshold (green/yellow)",
+				"yellow-red": "Objective prognosis threshold (yellow/red)"
+			},
+			"topic-sponsors-activated": "Topic sponsors activated"
+		},
+		"confirmation-text": "By deactivating all OKR topic sponsors, they become team members in their respective team.",
+		"confirmation-title": "Deactivate OKR topic sponsors"
+	},
 	"admin-view": {
 		"admin-panel": "Admin panel",
 		"admins": "Admins",
