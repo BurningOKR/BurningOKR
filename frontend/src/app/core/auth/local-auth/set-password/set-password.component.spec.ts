@@ -6,8 +6,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { i18nMock } from '../../../../shared/mocks/i18n-mock';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { PasswordService } from '../password-service/password.service';
 import { PasswordServiceMock } from '../../../../shared/mocks/password-service-mock';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
@@ -28,7 +26,6 @@ describe('SetPasswordComponent', () => {
         BrowserAnimationsModule
       ],
       providers: [
-        {provide: I18n, useValue: i18nMock},
         {provide: PasswordService, useValue: PasswordServiceMock},
         {provide: MatSnackBar, useValue: {}}
       ],

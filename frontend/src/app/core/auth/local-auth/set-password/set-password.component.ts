@@ -1,40 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PasswordResetData, PasswordService } from '../password-service/password.service';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-set-password',
   templateUrl: './set-password.component.html',
   styleUrls: ['./set-password.component.css']
 })
-export class SetPasswordComponent implements OnInit {
+export class SetPasswordComponent implements OnInit, OnDestroy {
 
+  subscriptions: Subscription[] = [];
   emailIdentifier: string;
   newPasswordForm: FormGroup;
   submitted: boolean = false;
-  private passwordSuccessfullyChangedMessage: string = this.i18n({
-    id: 'passwordChangedSuccessfully',
-    description: 'message to be shown after a password was changed successfully',
-    value: 'Passwort erfolgreich geändert ✅'
-  });
+  private passwordSuccessfullyChangedMessage: string;
 
   constructor(
     private passwordService: PasswordService,
     private router: Router,
     private route: ActivatedRoute,
     private matSnackBar: MatSnackBar,
-    private i18n: I18n
+    private translate: TranslateService
   ) {
   }
 
   ngOnInit(): void {
     this.emailIdentifier = this.route.snapshot.paramMap.get('emailIdentifier');
     this.newPasswordForm = this.generateNewPasswordForm();
+    this.subscriptions.push(this.translate.stream('set-password.password-changed-message').subscribe(text => {
+      this.passwordSuccessfullyChangedMessage = text;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   setPassword(): void {

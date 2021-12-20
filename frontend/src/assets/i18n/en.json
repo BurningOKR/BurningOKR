@@ -574,6 +574,7 @@
 		"new-password": "New password",
 		"new-password-invalid": "The password must contain at least 7 characters",
 		"new-password-repetition": "Repeat new password",
+		"password-changed-message": "Password changed successfully ✅",
 		"passwords-do-not-match": "The entries do not match.",
 		"reset-password": "Reset password",
 		"set-new-password-instruction": "Set a new password"
