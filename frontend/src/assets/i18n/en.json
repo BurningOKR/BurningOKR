@@ -704,7 +704,11 @@
 		}
 	},
 	"user-dialog": {
-		"reset-password": "Reset password"
+		"reset-password": "Reset password",
+		"snackbar": {
+			"message": "The password was successfully reset.",
+			"ok": "Ok"
+		}
 	},
 	"user-form": {
 		"department": "Department",

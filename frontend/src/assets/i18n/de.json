@@ -704,7 +704,11 @@
 		}
 	},
 	"user-dialog": {
-		"reset-password": "Passwort zurücksetzen"
+		"reset-password": "Passwort zurücksetzen",
+		"snackbar": {
+			"message": "Das Passwort wurde erfolgreich zurückgesetzt.",
+			"ok": "Ok"
+		}
 	},
 	"user-form": {
 		"department": "Abteilung",
