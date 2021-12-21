@@ -611,6 +611,10 @@
 		"only-do-this-if-you-are-a-nerd-warning": "Activate form. ⚠ Only do this if you know what you are doing ⚠",
 		"please-hang-on-the-server-is-beeing-configured": "Please wait a moment while the server is beeing configured.",
 		"refresh-token-validity": "Duration of the refresh token (in seconds)",
+		"timeout": {
+			"error-message": "The server took too long for the configuration. Please check the server and reload the page.",
+			"error-message-action": "Ok"
+		},
 		"title": "Configure Authentication",
 		"web-server-redirect-uri": "Webserver Redirect URI"
 	},

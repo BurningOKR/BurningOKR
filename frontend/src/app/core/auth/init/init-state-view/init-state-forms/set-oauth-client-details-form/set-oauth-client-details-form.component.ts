@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { InitStateFormComponent } from '../init-state-form/init-state-form.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { InitState } from '../../../../../../shared/model/api/init-state';
@@ -8,49 +8,53 @@ import { FormGroupTyped } from '../../../../../../../typings';
 import { Consts } from '../../../../../../shared/consts';
 import { OAuthFrontendDetailsService } from '../../../../services/o-auth-frontend-details.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-set-oauth-client-details-form',
   templateUrl: './set-oauth-client-details-form.component.html',
   styleUrls: ['./set-oauth-client-details-form.component.css']
 })
-export class SetOauthClientDetailsFormComponent extends InitStateFormComponent implements OnInit {
+export class SetOauthClientDetailsFormComponent extends InitStateFormComponent implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
   form: FormGroupTyped<OauthClientDetails>;
   eventEmitter: EventEmitter<InitState> = new EventEmitter<InitState>();
   oauthClientDetails: OauthClientDetails = new OauthClientDetails();
   spinnerIsHidden: boolean = true;
 
-  private timeoutErrorMessage: string = this.i18n({
-    id: 'initOauthClientDetailsUpdateTimeoutMessage',
-    description: 'error text when the timeout is reached for updating the oauthclientdetails',
-    value: 'Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.'
-  });
-
-  private timeoutErrorMessageAction: string = this.i18n({
-    id: 'short_okay',
-    description: 'action button for the snackbar',
-    value: 'Ok'
-  });
+  private timeoutErrorMessage: string;
+  private timeoutErrorMessageAction: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private initService: InitService,
     private oAuthFrontendDetails: OAuthFrontendDetailsService,
     private snackBar: MatSnackBar,
-    private i18n: I18n
+    private translate: TranslateService
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.generateOauthClientDetailsForm();
+    this.subscriptions.push(this.translate.stream('set-oauth-client-details-form.timeout.error-message').subscribe(text => {
+      this.timeoutErrorMessage = text;
+    }));
+    this.subscriptions.push(this.translate.stream('set-oauth-client-details-form.timeout.error-message-action').subscribe(text => {
+      this.timeoutErrorMessageAction = text;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   handleSubmitClick(): void {
     this.toggleLoadingScreen();
     this.changeOauthClientDetailsBasedOnFormData();
-    this.initService.postOauthClientDetails$(this.oauthClientDetails)
+    this.subscriptions.push(this.initService.postOauthClientDetails$(this.oauthClientDetails)
       .subscribe(initState => {
         this.oAuthFrontendDetails.reloadOAuthFrontendDetails();
         this.eventEmitter.emit(initState);
@@ -59,7 +63,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
         this.toggleLoadingScreen();
         this.snackBar.open(this.timeoutErrorMessage, this.timeoutErrorMessageAction,
           {panelClass: 'api-error-snackbar', verticalPosition: 'top'});
-      });
+      }));
   }
 
   toggleForm(): void {

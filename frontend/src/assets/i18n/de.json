@@ -611,6 +611,10 @@
 		"only-do-this-if-you-are-a-nerd-warning": "Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!",
 		"please-hang-on-the-server-is-beeing-configured": "Bitte warten Sie einen Moment, während der Server konfiguriert wird.",
 		"refresh-token-validity": "Lebenszeit des Refreshtokens (in Sekunden)",
+		"timeout": {
+			"error-message": "Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.",
+			"error-message-action": "Ok"
+		},
 		"title": "Konfiguration der Authentifizierung",
 		"web-server-redirect-uri": "Webserver-Redirect-URI"
 	},
