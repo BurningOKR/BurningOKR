@@ -211,6 +211,9 @@
 		"user-generated-text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
 		"user-generated-title": "Nutzergenerierte Inhalte"
 	},
+	"department-description-edit-form": {
+		"edit-description": "Beschreibung bearbeiten"
+	},
 	"department-tab-description": {
 		"beginning": "Beginn:",
 		"delimitation": "Abgrenzung:",
