@@ -110,6 +110,10 @@
 	},
 	"cycle-admin-card": {
 		"delete-cycle": "Zyklus löschen",
+		"deletion-dialog": {
+			"content": "den Zyklus vom {{cycleStart}} bis zum {{cycleEnd}}",
+			"title": "Den Zyklus löschen?"
+		},
 		"edit-cycle": "Zyklus bearbeiten",
 		"hidden": "Unsichtbar",
 		"visible": "Sichtbar"

@@ -110,6 +110,10 @@
 	},
 	"cycle-admin-card": {
 		"delete-cycle": "Delete cycle",
+		"deletion-dialog": {
+			"content": "the cycle from {{cycleStart}} to {{cycleEnd}}",
+			"title": "Delete the cycle?"
+		},
 		"edit-cycle": "Edit cycle",
 		"hidden": "Hidden",
 		"visible": "Visible"
