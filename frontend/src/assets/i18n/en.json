@@ -294,6 +294,10 @@
 	},
 	"import-csv-dialog": {
 		"amount-of-entries-loaded": "entries were loaded.",
+		"confirmation": {
+			"text": "This operation will add all {{list_length}} users.",
+			"title": " Create {{list_length}} users."
+		},
 		"csv-file": "CSV file",
 		"department": "Department",
 		"description": "This function allows you to import users with a CSV file. The CSV file must provide the user data in the following order: First name, last name, email, job title, department",

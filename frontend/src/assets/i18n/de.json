@@ -294,6 +294,10 @@
 	},
 	"import-csv-dialog": {
 		"amount-of-entries-loaded": "Es wurden Einträge geladen.",
+		"confirmation": {
+			"text": "Diese Operation wird alle {{list_length}} Nutzer hinzufügen.",
+			"title": "{{list_length}} Benutzer erstellen."
+		},
 		"csv-file": "CSV-Datei",
 		"department": "Abteilung",
 		"description": "Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung",
