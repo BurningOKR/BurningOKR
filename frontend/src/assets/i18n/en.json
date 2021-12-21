@@ -390,6 +390,11 @@
 		}
 	},
 	"objective": {
+		"deletion-dialog": {
+			"button-text": "Delete",
+			"message": "Delete Objective {{number}}. {{objectiveTitle}}?",
+			"title": "Delete Objective"
+		},
 		"menu": {
 			"comment-objective": "Comment Objective",
 			"delete-objective": "Delete Objective",

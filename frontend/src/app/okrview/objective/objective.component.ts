@@ -12,13 +12,13 @@ import {
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Subscription } from 'rxjs';
 import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ContextRole } from '../../shared/model/ui/context-role';
 import {
   CommentViewDialogComponent,
   CommentViewDialogFormData
 } from '../comment/comment-view-dialog/comment-view-dialog.component';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-objective',
   templateUrl: './objective.component.html',
@@ -46,7 +46,7 @@ export class ObjectiveComponent implements OnDestroy {
     private objectiveMapper: ObjectiveViewMapper,
     private matDialog: MatDialog,
     private objectiveScoringService: ObjectiveScoringService,
-    private i18n: I18n
+    private translate: TranslateService
   ) {
   }
 
@@ -119,25 +119,10 @@ export class ObjectiveComponent implements OnDestroy {
   // --
 
   clickedDeleteObjective(): void {
-    const title: string =
-      this.i18n({
-        id: 'deleteObjectiveDialogTitle',
-        description: 'Title of the delete objective dialog',
-        value: 'Objective löschen'
-      });
-
-    const message: string =
-      this.i18n({
-        id: 'deleteObjectiveDialogMessage',
-        description: 'Do you want to delete objective x',
-        value: 'Objective {{number}}. {{objectiveTitle}} löschen?',
-      }, {number: this.listNumber, objectiveTitle: this.objective.name});
-
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_delete',
-      description: 'deleteButtonText',
-      value: 'Löschen'
-    });
+    const title: string = this.translate.instant('objective.deletion-dialog.title');
+    const message: string = this.translate.instant('objective.deletion-dialog.message',
+      {number: this.listNumber, objectiveTitle: this.objective.name});
+    const confirmButtonText: string = this.translate.instant('objective.deletion-dialog.button-text');
 
     const dialogData: ConfirmationDialogData = {
       title,
