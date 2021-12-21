@@ -35,6 +35,16 @@
 			"go-to-okr-unit-overview": "Go to structure overview"
 		}
 	},
+	"api-http-error-handling": {
+		"error-counting": "{{errorCount}} failed request{{pluralAppendix}}",
+		"error-message": {
+			"appendix": "s",
+			"more-detail": "More Details",
+			"one-or-more-errors": "Error executing one or more requests.",
+			"retry": "Try again",
+			"single-error": "Error executing the request."
+		}
+	},
 	"change-password-dialog": {
 		"form": {
 			"title": "Change password"

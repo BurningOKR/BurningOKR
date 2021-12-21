@@ -35,6 +35,16 @@
 			"go-to-okr-unit-overview": "Zur Strukturübersicht"
 		}
 	},
+	"api-http-error-handling": {
+		"error-counting": "{{errorCount}} fehlgeschlagene Anfrage{{pluralAppendix}}",
+		"error-message": {
+			"appendix": "n",
+			"more-detail": "Mehr Details",
+			"one-or-more-errors": "Fehler beim Ausführen einer oder mehrerer Anfragen.",
+			"retry": "Erneut versuchen",
+			"single-error": "Fehler beim Ausführen der Anfrage."
+		}
+	},
 	"change-password-dialog": {
 		"form": {
 			"title": "Passwort ändern"
