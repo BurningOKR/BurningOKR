@@ -51,6 +51,7 @@
 	},
 	"comment-view-dialog": {
 		"close": "Schließen",
+		"min-char-message": "Min. 3 Zeichen benötigt",
 		"no-comment": "Es gibt noch keine Kommentare für dieses",
 		"title": "Kommentare",
 		"tooltip": {

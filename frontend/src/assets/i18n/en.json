@@ -51,6 +51,7 @@
 	},
 	"comment-view-dialog": {
 		"close": "Close",
+		"min-char-message": "At least 3 characters are required",
 		"no-comment": "There are no comments yet for this KeyResult",
 		"title": "comments",
 		"tooltip": {
