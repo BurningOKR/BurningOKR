@@ -585,6 +585,12 @@
 		"save": "Save",
 		"settings": "Settings"
 	},
+	"status-dot": {
+		"approved": "Approved",
+		"draft": "Draft",
+		"rejected": "Rejected",
+		"submitted": "Submitted"
+	},
 	"submitted-topic-draft-action-button": {
 		"admin-initator-tooltip": "Only an admin or the initiator can submit or withdraw submission",
 		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { status } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-status-dot',
@@ -13,7 +13,7 @@ export class StatusDotComponent implements OnInit, OnChanges {
   statusTooltip: string;
   enumStatus = status;
 
-    constructor(private i18n: I18n) {
+    constructor(private translate: TranslateService) {
     }
 
     ngOnInit(): void {
@@ -27,29 +27,13 @@ export class StatusDotComponent implements OnInit, OnChanges {
     geti18nTooltip(currentStatus: status): string {
         switch (currentStatus) {
             case status.submitted:
-                return this.i18n({
-                    id: 'statusTooltipSubmitted',
-                    description: 'statusTooltipSubmittedText',
-                    value: 'Eingereicht'
-                });
+                return this.translate.instant('status-dot.submitted');
             case status.approved:
-                return this.i18n({
-                    id: 'statusTooltipApproved',
-                    description: 'statusTooltipApprovedText',
-                    value: 'Genehmigt'
-                });
+                return this.translate.instant('status-dot.approved');
             case status.rejected:
-                return this.i18n({
-                    id: 'statusTooltipRejected',
-                    description: 'statusTooltipRejectedText',
-                    value: 'Abgelehnt'
-                });
+                return this.translate.instant('status-dot.rejected');
             default:
-                return this.i18n({
-                    id: 'statusTooltipDraft',
-                    description: 'statusTooltipDraftText',
-                    value: 'Entwurf'
-                });
+                return this.translate.instant('status-dot.draft');
         }
 
     }
