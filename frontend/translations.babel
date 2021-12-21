@@ -8107,6 +8107,28 @@
                 </children>
             </folder_node>
             <folder_node>
+                <name>topic-draft-creation-form</name>
+                <children>
+                    <concept_node>
+                        <name>dialog-title</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                </children>
+            </folder_node>
+            <folder_node>
                 <name>user-dialog</name>
                 <children>
                     <concept_node>

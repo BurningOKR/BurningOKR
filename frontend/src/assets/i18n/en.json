@@ -712,6 +712,9 @@
 			"title-short": "Topic draft"
 		}
 	},
+	"topic-draft-creation-form": {
+		"dialog-title": "Create topic draft"
+	},
 	"user-dialog": {
 		"reset-password": "Reset password",
 		"snackbar": {

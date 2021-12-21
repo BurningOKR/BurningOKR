@@ -3,11 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OkrTopicDraft } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../../../../shared/services/mapper/topic-draft-mapper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NEVER, Subscription } from 'rxjs';
-import { status } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { CurrentUserService } from '../../../../core/services/current-user.service';
 import { UserId } from '../../../../shared/model/id-types';
+import { TranslateService } from '@ngx-translate/core';
 
 interface TopicDraftCreationFormData {
   topicDraft?: OkrTopicDraft;
@@ -27,7 +26,7 @@ export class TopicDraftCreationFormComponent implements OnInit, OnDestroy {
 
   constructor(private topicDraftMapper: TopicDraftMapper,
               private dialogRef: MatDialogRef<TopicDraftCreationFormComponent>,
-              private i18n: I18n,
+              private translate: TranslateService,
               private currentUserService: CurrentUserService,
               @Inject(MAT_DIALOG_DATA) private formData: TopicDraftCreationFormData
   ) { }
@@ -51,11 +50,9 @@ export class TopicDraftCreationFormComponent implements OnInit, OnDestroy {
       this.topicDraftForm.patchValue(this.formData.topicDraft);
     }
 
-    this.title = this.i18n({
-      id: 'component_topicDraftCreationForm_headline',
-      description: 'Title of the OkrTopicDraftCreation dialog',
-      value: 'Themenentwurf erstellen'
-    });
+    this.subscriptions.push(this.translate.stream('topic-draft-creation-form.dialog-title').subscribe(text => {
+      this.title = text;
+    }));
   }
 
   ngOnDestroy(): void {

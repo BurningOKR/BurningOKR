@@ -712,6 +712,9 @@
 			"title-short": "Themenentwurf"
 		}
 	},
+	"topic-draft-creation-form": {
+		"dialog-title": "Themenentwurf erstellen"
+	},
 	"user-dialog": {
 		"reset-password": "Passwort zurücksetzen",
 		"snackbar": {
