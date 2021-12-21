@@ -524,6 +524,14 @@
 	},
 	"okr-unit-form": {
 		"create": "Create {{value}}.",
+		"default-label": {
+			"structure": "Substructure",
+			"team": "OKR team"
+		},
+		"dialog": {
+			"create": " Create {{label}}.",
+			"edit": " Edit {{label}}."
+		},
 		"placeholder": {
 			"label": "label *",
 			"name": "name *"

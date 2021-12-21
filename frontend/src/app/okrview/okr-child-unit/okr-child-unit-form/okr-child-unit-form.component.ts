@@ -4,12 +4,12 @@ import { DepartmentMapper } from '../../../shared/services/mapper/department.map
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NEVER } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -33,7 +33,7 @@ export class OkrChildUnitFormComponent {
               private okrUnitService: OkrUnitService,
               private departmentMapper: DepartmentMapper,
               private okrBranchMapper: OkrBranchMapper,
-              private i18n: I18n,
+              private translate: TranslateService,
               @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData) {
     this.childUnitForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -47,15 +47,8 @@ export class OkrChildUnitFormComponent {
       this.childUnitForm.patchValue(this.formData.childUnit);
     }
 
-    const saveText: string = this.i18n({
-        id: 'component_companyForm_editText',
-        value: '{{label}} bearbeiten.'
-      }, {label: this.getDefaultLabel()}
-    );
-    const createText: string = this.i18n({
-      id: 'component_companyForm_createText',
-      value: '{{label}} erstellen.'
-    }, {label: this.getDefaultLabel()});
+    const saveText: string = this.translate.instant('okr-unit-form.dialog.edit', {label: this.getDefaultLabel()});
+    const createText: string = this.translate.instant('okr-unit-form.dialog.create', {label: this.getDefaultLabel()});
 
     this.title = this.formData.childUnit ? saveText : createText;
   }
@@ -136,9 +129,9 @@ export class OkrChildUnitFormComponent {
       return this.formData.childUnit.label;
     } else {
       if (this.formData.unitType === UnitType.DEPARTMENT) {
-        return this.i18n({id: 'Department', value: 'Okr Team'});
+        return this.translate.instant('okr-unit-form.default-label.team');
       } else {
-        return this.i18n({id: 'OkrBranch', value: 'Unterstruktur'});
+        return this.translate.instant('okr-unit-form.default-label.structure');
       }
 
     }
