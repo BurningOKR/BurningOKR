@@ -451,6 +451,11 @@
 		"select-parent-objective": "Übergeordnetes Objective auswählen"
 	},
 	"okr-child-unit": {
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.",
+			"title": "{{name}} löschen?"
+		},
 		"description": "Beschreibung",
 		"empty-label": "-",
 		"error-info-label": "Info",

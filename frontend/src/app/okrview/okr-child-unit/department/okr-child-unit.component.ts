@@ -13,7 +13,6 @@ import {
 } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { ExcelMapper } from '../../excel-file/excel.mapper';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentCycleService } from '../../current-cycle.service';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
@@ -21,6 +20,7 @@ import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface DepartmentView {
   cycle: CycleUnit;
@@ -60,7 +60,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     private currentCycleService: CurrentCycleService,
     private currentUnitSchemaService: CurrentOkrUnitSchemaService,
     private excelService: ExcelMapper,
-    private i18n: I18n
+    private translate: TranslateService
   ) {
   }
 
@@ -166,15 +166,9 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   clickedRemoveChildUnit(okrChildUnit: OkrChildUnit): void {
-    const title: string = this.i18n({
-      id: 'deleteDepartmentDialogTitle',
-      value: '{{name}} löschen?'
-    }, { name: okrChildUnit.name });
-    const message: string = this.i18n({
-      id: 'deleteDepartmentDialogMessage',
-      value: 'Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.'
-    });
-    const confirmButtonText: string = this.i18n({ id: 'capitalised_delete', value: 'Löschen' });
+    const title: string = this.translate.instant('okr-child-unit.deletion-dialog.title', { name: okrChildUnit.name });
+    const message: string = this.translate.instant('okr-child-unit.deletion-dialog.message');
+    const confirmButtonText: string = this.translate.instant('okr-child-unit.deletion-dialog.button-text');
 
     const data: ConfirmationDialogData = {
       message,

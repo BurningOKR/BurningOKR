@@ -451,6 +451,11 @@
 		"select-parent-objective": "Select parent objective"
 	},
 	"okr-child-unit": {
+		"deletion-dialog": {
+			"button-text": "Delete",
+			"message": "All subordinate objectives, key results and comments are also going to be deleted.",
+			"title": " Delete {{name}}?"
+		},
 		"description": "Description",
 		"empty-label": "-",
 		"error-info-label": "Info",
