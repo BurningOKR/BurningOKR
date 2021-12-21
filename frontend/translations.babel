@@ -3490,6 +3490,23 @@
                 <name>key-result-form</name>
                 <children>
                     <concept_node>
+                        <name>amount-units</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>current</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -3523,6 +3540,45 @@
                             </translation>
                         </translations>
                     </concept_node>
+                    <folder_node>
+                        <name>dialog</name>
+                        <children>
+                            <concept_node>
+                                <name>create</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
+                                <name>edit</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
                     <concept_node>
                         <name>key-result</name>
                         <definition_loaded>false</definition_loaded>

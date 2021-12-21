@@ -315,8 +315,13 @@
 		"to-many-entries-warning": "At least one entry has too many columns."
 	},
 	"key-result-form": {
+		"amount-units": "Amount",
 		"current": "Current *",
 		"description": "Description",
+		"dialog": {
+			"create": "creation",
+			"edit": "editing"
+		},
 		"key-result": "Key Result *",
 		"start": "Start *",
 		"target": "Target *",

@@ -315,8 +315,13 @@
 		"to-many-entries-warning": "Mindestens ein Eintrag hat zu viele spalten."
 	},
 	"key-result-form": {
+		"amount-units": "Anzahl",
 		"current": "Aktuell *",
 		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten"
+		},
 		"key-result": "Key Result *",
 		"start": "Start *",
 		"target": "Ziel *",
