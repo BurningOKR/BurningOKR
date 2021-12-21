@@ -30,6 +30,11 @@
 	"admin-view": {
 		"admin-panel": "Admin panel",
 		"admins": "Admins",
+		"delete-dialog": {
+			"button-text": "Delete",
+			"message": " Delete {{surname}}, {{name}} from the admins?",
+			"title": "Delete admin"
+		},
 		"tooltip": {
 			"cannot-delete-yourself": "You cannot remove yourself",
 			"go-to-okr-unit-overview": "Go to structure overview"

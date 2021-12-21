@@ -11,10 +11,10 @@ import {
   ConfirmationDialogData
 } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UserId } from '../shared/model/id-types';
 import 'linq4js';
 import { environment } from '../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-view',
@@ -37,7 +37,7 @@ export class AdminViewComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private matDialog: MatDialog,
     private router: Router,
-    private i18n: I18n
+    private translate: TranslateService
   ) {
   }
 
@@ -71,20 +71,10 @@ export class AdminViewComponent implements OnInit {
   }
 
   onDeleteAdminButtonClicked(adminToDelete: User): void {
-    const title: string = this.i18n({
-      id: 'deleteAdminDialog_title',
-      value: 'Admin löschen'
-    });
-    const message: string =
-      this.i18n({
-        id: 'deleteAdminDialog_message',
-        value: '{{surname}}, {{name}} von den Admins löschen?'
-      }, {surname: adminToDelete.surname, name: adminToDelete.givenName});
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_delete',
-      description: 'deleteButtonText',
-      value: 'Löschen'
-    });
+    const title: string = this.translate.instant('admin-view.delete-dialog.title');
+    const message: string = this.translate.instant('admin-view.delete-dialog.message',
+      {surname: adminToDelete.surname, name: adminToDelete.givenName});
+    const confirmButtonText: string = this.translate.instant('admin-view.delete-dialog.button-text');
     const data: ConfirmationDialogData = {
       title,
       message,
