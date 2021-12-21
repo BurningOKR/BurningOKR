@@ -127,6 +127,10 @@
 		}
 	},
 	"cycle-creation-form": {
+		"creation-dialog": {
+			"save": "Define cycle",
+			"title": "Create a new cycle"
+		},
 		"end-date": "End date",
 		"start-date": "Start date",
 		"visibility": "Visibility"

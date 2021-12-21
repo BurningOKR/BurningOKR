@@ -127,6 +127,10 @@
 		}
 	},
 	"cycle-creation-form": {
+		"creation-dialog": {
+			"save": "Zyklus definieren",
+			"title": "Neuen Zyklus erstellen"
+		},
 		"end-date": "Enddatum",
 		"start-date": "Startdatum",
 		"visibility": "Sichtbarkeit"
