@@ -236,6 +236,7 @@
 		"topic": "Thema:"
 	},
 	"department-tab-task-card": {
+		"delete": "Löschen",
 		"task-board-loading": "loading"
 	},
 	"department-tab-task-form": {
@@ -815,6 +816,10 @@
 		"tooltip": {
 			"remove-member": "Benutzer aus Team entfernen"
 		}
+	},
+	"user-selector": {
+		"no-entries": "Keine Benutzer gefunden.",
+		"placeholder": "Suche"
 	},
 	"user-selector-multi": {
 		"no-entires": "Keine Benutzer gefunden.",
