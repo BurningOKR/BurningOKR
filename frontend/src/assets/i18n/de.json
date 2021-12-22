@@ -237,6 +237,11 @@
 	"department-tab-task-form": {
 		"assigned-user-ids": "Bearbeiter",
 		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten",
+			"title": "Aufgabe {{editOrCreateText}}"
+		},
 		"no-parent-key-result": "Kein übergeordnetes Key Result",
 		"select-parent-key-result": "Übergeordnetes Key Result auswählen",
 		"task-state": "Status",

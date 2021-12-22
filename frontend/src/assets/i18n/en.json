@@ -237,6 +237,11 @@
 	"department-tab-task-form": {
 		"assigned-user-ids": "Editor",
 		"description": "Description",
+		"dialog": {
+			"create": "create",
+			"edit": "edit",
+			"title": "{{editOrCreateText}} task"
+		},
 		"no-parent-key-result": "No parent key result",
 		"select-parent-key-result": "Choose a parent Key Result",
 		"task-state": "State",
