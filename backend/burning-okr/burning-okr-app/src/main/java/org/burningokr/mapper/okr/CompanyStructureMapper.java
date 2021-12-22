@@ -1,16 +1,24 @@
 package org.burningokr.mapper.okr;
 
-import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
+import lombok.RequiredArgsConstructor;
+import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
+import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.dto.okr.CompanyStructureDto;
 import org.burningokr.model.okrUnits.OkrCompany;
 
-import java.util.Collection;
-import java.util.Collections;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+@RequiredArgsConstructor
 @Service
 public class CompanyStructureMapper implements DataMapper< OkrCompany, CompanyStructureDto > {
+
+    private final UserService userService;
+    private final OkrBranchSchemaMapper branchSchemaMapper;
+
 
     @Override
     public OkrCompany mapDtoToEntity(CompanyStructureDto input) {
@@ -19,11 +27,15 @@ public class CompanyStructureMapper implements DataMapper< OkrCompany, CompanySt
 
     @Override
     public CompanyStructureDto mapEntityToDto(OkrCompany input) {
-        CompanyStructureDto output = new CompanyStructureDto();
-        output.setId(input.getId());
-        output.setName(input.getName());
-        output.setChildUnits(BranchHelper.collectChildUnits(input));
-        return output;
+        CompanyStructureDto companyStructureDto = new CompanyStructureDto();
+        companyStructureDto.setOkrUnitId(input.getId());
+        companyStructureDto.setUnitName(input.getName());
+        companyStructureDto.setUnitSchema(
+                branchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+                        input.getOkrChildUnits(),
+                        userService.getCurrentUser().getId())
+        );
+        return companyStructureDto;
     }
 
     @Override
@@ -33,10 +45,8 @@ public class CompanyStructureMapper implements DataMapper< OkrCompany, CompanySt
 
     @Override
     public Collection<CompanyStructureDto> mapEntitiesToDtos(Collection<OkrCompany> input) {
-        Collection<CompanyStructureDto> companyStructureDtos = Collections.emptyList();
-        for (OkrCompany okrCompany : input) {
-            companyStructureDtos.add(mapEntityToDto(okrCompany));
-        }
-        return null;
+        Collection<CompanyStructureDto> companyStructureDtos = new ArrayList<>();
+        input.forEach(okrCompany -> companyStructureDtos.add(mapEntityToDto(okrCompany)));
+        return companyStructureDtos;
     }
 }

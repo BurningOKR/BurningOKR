@@ -758,6 +758,9 @@
 		"no-new-topic-drafts": "No new topic drafts"
 	},
 	"submitted-topic-draft-convert-to-team": {
+		"dialog": {
+			"save-and-close-label": "Convert "
+		},
 		"form": {
 			"company-option": "Create team in {{value}} ",
 			"select": "Choose parent structure *"

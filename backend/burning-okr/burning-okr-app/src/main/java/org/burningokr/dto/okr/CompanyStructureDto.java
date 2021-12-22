@@ -2,17 +2,16 @@ package org.burningokr.dto.okr;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.burningokr.dto.okrUnit.OkrChildUnitDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
-import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
+
 import java.util.Collection;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class CompanyStructureDto {
+public class CompanyStructureDto extends OkrCompanyDto {
 
-    private Collection<OkrChildUnit> ChildUnits;
-
-    private String name;
-
-    private long id;
+    private Collection<OkrUnitSchemaDto> unitSchema;
 
 }

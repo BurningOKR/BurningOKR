@@ -759,6 +759,9 @@
 		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
 	},
 	"submitted-topic-draft-convert-to-team": {
+		"dialog": {
+			"save-and-close-label": "Umwandeln"
+		},
 		"form": {
 			"company-option": "Team in {{value}} erstellen",
 			"select": "Übergeordnete Struktur auswählen *"
