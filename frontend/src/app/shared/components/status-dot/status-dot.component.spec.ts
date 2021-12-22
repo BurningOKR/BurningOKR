@@ -33,7 +33,7 @@ describe('StatusDotComponent', () => {
     const expected: string = 'correctStatusTooltipSubmitted';
     spyOn(translate, 'instant').and.returnValue('correctStatusTooltipSubmitted')
 
-    const actual: string = component.geti18nTooltip(status.submitted);
+    const actual: string = component.getTranslateTooltip(status.submitted);
 
     expect(actual)
         .toEqual(expected);
@@ -43,7 +43,7 @@ describe('StatusDotComponent', () => {
     const expected: string = 'correctStatusTooltipApproved';
     spyOn(translate, 'instant').and.returnValue('correctStatusTooltipApproved')
 
-    const actual: string = component.geti18nTooltip(status.approved);
+    const actual: string = component.getTranslateTooltip(status.approved);
 
     expect(actual)
         .toEqual(expected);
@@ -53,7 +53,7 @@ describe('StatusDotComponent', () => {
     const expected: string = 'correctStatusTooltipRejected';
     spyOn(translate, 'instant').and.returnValue('correctStatusTooltipRejected')
 
-    const actual: string = component.geti18nTooltip(status.rejected);
+    const actual: string = component.getTranslateTooltip(status.rejected);
 
     expect(actual)
         .toEqual(expected);
@@ -63,7 +63,7 @@ describe('StatusDotComponent', () => {
     const expected: string = 'correctStatusTooltipDraft';
     spyOn(translate, 'instant').and.returnValue('correctStatusTooltipDraft')
 
-    const actual: string = component.geti18nTooltip(status.draft);
+    const actual: string = component.getTranslateTooltip(status.draft);
 
     expect(actual)
         .toEqual(expected);

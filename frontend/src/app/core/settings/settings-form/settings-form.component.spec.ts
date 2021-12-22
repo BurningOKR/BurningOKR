@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { SettingsFormComponent } from './settings-form.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AdminSettingsFormComponent } from './admin-settings/admin-settings-form.component';
@@ -7,9 +6,7 @@ import { MaterialTestingModule } from '../../../testing/material-testing.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { RouterTestingModule } from '@angular/router/testing';
-import { i18nMock } from '../../../shared/mocks/i18n-mock';
 import { CompanyMapper } from '../../../shared/services/mapper/company.mapper';
 import { UserSettingsManagerService } from '../../services/user-settings-manager.service';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
@@ -67,7 +64,6 @@ describe('SettingsFormComponent', () => {
         BrowserAnimationsModule
       ],
       providers: [
-        { provide: I18n, useValue: i18nMock },
         { provide: CompanyMapper, useValue: companyService },
         { provide: UserSettingsManagerService, useValue: userSettingsManager },
         { provide: DepartmentMapper, useValue: departmentService },

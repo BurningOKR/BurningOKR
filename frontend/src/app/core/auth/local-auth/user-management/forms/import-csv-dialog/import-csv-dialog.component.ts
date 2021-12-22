@@ -78,14 +78,14 @@ export class ImportCsvDialogComponent implements OnInit {
 
   onSave(): void {
 
-    const confirmationTitleI18n: string = this.translate.instant('import-csv-dialog.confirmation.title',
+    const confirmationTitle: string = this.translate.instant('import-csv-dialog.confirmation.title',
       { list_length: this.rowData.data.length });
-    const confirmationTextI18n: string = this.translate.instant('import-csv-dialog.confirmation.text',
+    const confirmationText: string = this.translate.instant('import-csv-dialog.confirmation.text',
       { list_length: this.rowData.data.length });
 
     const data: ConfirmationDialogData = {
-      title: confirmationTitleI18n,
-      message: confirmationTextI18n,
+      title: confirmationTitle,
+      message: confirmationText,
     };
     this.dialog.open(ConfirmationDialogComponent, { data })
       .afterClosed()

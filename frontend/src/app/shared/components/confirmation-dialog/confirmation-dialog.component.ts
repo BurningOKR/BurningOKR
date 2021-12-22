@@ -1,6 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from "rxjs";
 

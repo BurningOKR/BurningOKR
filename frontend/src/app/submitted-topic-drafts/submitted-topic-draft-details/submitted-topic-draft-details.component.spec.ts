@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import {
   SubmittedTopicDraftDetailsComponent,
   SubmittedTopicDraftDetailsFormData
@@ -13,7 +12,6 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angu
 import { OAuthService } from 'angular-oauth2-oidc';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../core/auth/services/authentication.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
@@ -75,7 +73,6 @@ describe('SubmittedTopicDraftDetailsComponent', () => {
         {provide: OAuthService, useValue: {}},
         {provide: HttpClient, useValue: {}},
         {provide: AuthenticationService, useValue: {}},
-        {provide: I18n, useValue: i18nMock},
         {provide: NGXLogger, useValue: {}},
         {provide: Router, useValue: {}}
       ]

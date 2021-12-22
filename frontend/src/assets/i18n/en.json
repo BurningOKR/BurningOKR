@@ -35,6 +35,8 @@
 			"message": " Delete {{surname}}, {{name}} from the admins?",
 			"title": "Delete admin"
 		},
+		"icon-tooltip": " Delete {{adminName}} from the admins",
+		"placeholder": "Define new admin",
 		"tooltip": {
 			"cannot-delete-yourself": "You cannot remove yourself",
 			"go-to-okr-unit-overview": "Go to structure overview"
@@ -138,7 +140,9 @@
 	"cycle-edit-form": {
 		"end-date": "End date",
 		"name": "Name *",
+		"save": "Save",
 		"start-date": "Start date",
+		"title": "Edit cycle",
 		"visibility": "Visibility"
 	},
 	"delete-dialog": {
@@ -274,6 +278,11 @@
 		"no-members-defined": "No team members defined",
 		"o-k-r-master": "OKR Master",
 		"o-k-r-topic-sponsor": "OKR Topic sponsor",
+		"placeholder": {
+			"member": "Define new member",
+			"okr-master": "Define OKR master",
+			"topic-sponsor": "Define topic sponsor"
+		},
 		"team-member": "Team members"
 	},
 	"dialog-component": {
@@ -557,7 +566,11 @@
 		"description": "Description",
 		"handover-plan": "Handover Plan",
 		"header": "Topic *",
-		"resources": "Required Resources"
+		"initiator": "Initiator *",
+		"no-initiator": "No initiator",
+		"resources": "Required Resources",
+		"stakeholder": "Stakeholder",
+		"start-team": "Start team"
 	},
 	"okr-unit-card": {
 		"delete-company-has-child-unit-warning": "{{value}} still contains substructures",
@@ -618,7 +631,7 @@
 		"email": "Email",
 		"error-invalid-email": "Invalid e-mail",
 		"password-reset-email-has-been-send-out": "An email to reset your password has been sent to the email address provided.",
-		"password-reset-title": "reset Burning OKR password",
+		"password-reset-title": "Burning OKR - reset password",
 		"reset-password": "Reset password"
 	},
 	"set-azure-admin-init-state-form": {
@@ -651,7 +664,8 @@
 		"password-changed-message": "Password changed successfully ✅",
 		"passwords-do-not-match": "The entries do not match.",
 		"reset-password": "Reset password",
-		"set-new-password-instruction": "Set a new password"
+		"set-new-password-instruction": "Set a new password",
+		"toolbar-title": "Burning OKR -Change password"
 	},
 	"settings-form": {
 		"admin-settings": "Admin settings",
@@ -758,6 +772,9 @@
 	},
 	"topic-draft-creation-form": {
 		"dialog-title": "Create topic draft"
+	},
+	"user-autocomplete-input": {
+		"label": "User input"
 	},
 	"user-dialog": {
 		"reset-password": "Reset password",

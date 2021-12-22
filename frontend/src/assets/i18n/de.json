@@ -35,6 +35,8 @@
 			"message": "{{surname}}, {{name}} aus den Admins löschen?",
 			"title": "Admin löschen"
 		},
+		"icon-tooltip": "{{adminName}} von den Admins löschen",
+		"placeholder": "Neuen Admin definieren",
 		"tooltip": {
 			"cannot-delete-yourself": "Selber löschen nicht möglich",
 			"go-to-okr-unit-overview": "Zur Strukturübersicht"
@@ -138,7 +140,9 @@
 	"cycle-edit-form": {
 		"end-date": "Enddatum",
 		"name": "Name *",
+		"save": "Speichern",
 		"start-date": "Startdatum",
+		"title": "Zyklus bearbeiten",
 		"visibility": "Sichtbarkeit"
 	},
 	"delete-dialog": {
@@ -274,6 +278,11 @@
 		"no-members-defined": "Keine Teammitglieder definiert",
 		"o-k-r-master": "OKR Master",
 		"o-k-r-topic-sponsor": "OKR Themenpate",
+		"placeholder": {
+			"member": "Neues Mitglied definieren",
+			"okr-master": "OKR Master definieren",
+			"topic-sponsor": "Themenpaten definieren"
+		},
 		"team-member": "Teammitglieder"
 	},
 	"dialog-component": {
@@ -557,7 +566,11 @@
 		"description": "Beschreibung",
 		"handover-plan": "Übergabeplan",
 		"header": "Thema *",
-		"resources": "Benötigte Ressourcen"
+		"initiator": "Initiator *",
+		"no-initiator": "Kein Initiator",
+		"resources": "Benötigte Ressourcen",
+		"stakeholder": "Stakeholder",
+		"start-team": "Start Team"
 	},
 	"okr-unit-card": {
 		"delete-company-has-child-unit-warning": "{{value}} enthält noch Unterstrukturen",
@@ -651,7 +664,8 @@
 		"password-changed-message": "Passwort erfolgreich geändert ✅",
 		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
 		"reset-password": "Passwort zurücksetzen",
-		"set-new-password-instruction": "Legen Sie ein neues Passwort fest"
+		"set-new-password-instruction": "Legen Sie ein neues Passwort fest",
+		"toolbar-title": "Burning OKR - Passwort ändern"
 	},
 	"settings-form": {
 		"admin-settings": "Adminverwaltung",
@@ -758,6 +772,9 @@
 	},
 	"topic-draft-creation-form": {
 		"dialog-title": "Themenentwurf erstellen"
+	},
+	"user-autocomplete-input": {
+		"label": "Benutzer Eingabe"
 	},
 	"user-dialog": {
 		"reset-password": "Passwort zurücksetzen",

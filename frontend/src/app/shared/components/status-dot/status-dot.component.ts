@@ -17,14 +17,14 @@ export class StatusDotComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        this.statusTooltip = this.geti18nTooltip(this.state);
+        this.statusTooltip = this.getTranslateTooltip(this.state);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.statusTooltip = this.geti18nTooltip(changes.state.currentValue);
+        this.statusTooltip = this.getTranslateTooltip(changes.state.currentValue);
     }
 
-    geti18nTooltip(currentStatus: status): string {
+    getTranslateTooltip(currentStatus: status): string {
         switch (currentStatus) {
             case status.submitted:
                 return this.translate.instant('status-dot.submitted');

@@ -24,7 +24,6 @@ describe('AdminViewComponent', () => {
     getCurrentUser$: jest.fn()
   };
   const router: any = {};
-  const i18n: any = {};
 
   const currentUserMock: User = {
     id: 'testId',
