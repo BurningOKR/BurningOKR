@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/model/api/user';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of, Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
 import { UserDialogData } from './forms/user-dialog-data';
@@ -27,11 +27,12 @@ export interface LocalUserManagementUser extends User {
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.scss']
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
+  subscriptions: Subscription[] = [];
   currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
 
@@ -74,19 +75,22 @@ export class UserManagementComponent implements OnInit {
       this.rowData.data = users;
     });
 
-    this.translate.stream('disabled-in-demo-version').subscribe(text => {
+    this.subscriptions.push(this.translate.stream('disabled-in-demo-version').subscribe(text => {
       this.disabledInPlaygroundTranslation= text;
-    });
-    this.translate.stream('user-management.tooltip.add-new-user').subscribe(text => {
+    }));
+    this.subscriptions.push(this.translate.stream('user-management.tooltip.add-new-user').subscribe(text => {
       this.addUserTranslation= this.appendDemoWarning(text);
-    });
-    this.translate.stream('user-management.tooltip.import-users-from-csv').subscribe(text => {
+    }));
+    this.subscriptions.push(this.translate.stream('user-management.tooltip.import-users-from-csv').subscribe(text => {
       this.importUsersFromCSVTranslation= this.appendDemoWarning(text);
-    });
-    this.translate.stream('user-management.tooltip.deactivate-user').subscribe(text => {
+    }));
+    this.subscriptions.push(this.translate.stream('user-management.tooltip.deactivate-user').subscribe(text => {
       this.deactivateUserTranslation= this.appendDemoWarning(text);
-    });
+    }));
+  }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   handleEdit(userToEdit: LocalUserManagementUser): void {
