@@ -1,20 +1,29 @@
 import { AbstractControl, FormControl } from '@angular/forms';
 import { I18n } from '@ngx-translate/i18n-polyfill';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { AbstractValidator, getValidators } from '../../validators/abstract-validator';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ValidationErrorService {
+export class ValidationErrorService implements OnInit, OnDestroy{
 
-  private defaultErrorMessage = this.i18n({
-    id: 'defaultErrorMessage',
-    description: 'is shown when no other error gets caught but there still is an error.',
-    value: 'kein gültiger Wert.'
-  });
+  subscriptions: Subscription[] = [];
+  private defaultErrorMessage: string;
 
-  constructor(private i18n: I18n) {
+  constructor(private i18n: I18n, private translate: TranslateService) {
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(this.translate.stream('validation-error.default-error-message').subscribe(text => {
+      this.defaultErrorMessage = text;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   getErrorMessage(control: AbstractControl): string {

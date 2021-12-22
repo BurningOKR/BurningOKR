@@ -9137,6 +9137,28 @@
                 </children>
             </folder_node>
             <folder_node>
+                <name>validation-error</name>
+                <children>
+                    <concept_node>
+                        <name>default-error-message</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                </children>
+            </folder_node>
+            <folder_node>
                 <name>version-form</name>
                 <children>
                     <concept_node>

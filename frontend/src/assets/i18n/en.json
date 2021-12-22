@@ -805,6 +805,9 @@
 		"no-company": "No company",
 		"no-team": "No team"
 	},
+	"validation-error": {
+		"default-error-message": "Not a valid value."
+	},
 	"version-form": {
 		"change-log": "Changelog",
 		"close": "Close"
