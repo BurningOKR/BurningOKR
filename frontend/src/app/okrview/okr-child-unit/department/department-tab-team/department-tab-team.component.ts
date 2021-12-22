@@ -13,12 +13,11 @@ import { DepartmentMapper } from '../../../../shared/services/mapper/department.
 import { CurrentUserService } from '../../../../core/services/current-user.service';
 import { OkrUnitRole } from '../../../../shared/model/ui/okr-unit-schema';
 import { User } from '../../../../shared/model/api/user';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
 import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
 import { Configuration } from '../../../../shared/model/ui/configuration';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-tab-team',
@@ -129,7 +128,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
   clickedDeleteOKRMember(memberId: string): void {
     const title: string = this.translate.instant('department-tab-team.deletion-dialog.title-member');
     const message: string = this.translate.instant('department-tab-team.deletion-dialog.message-member');
-    const confirmButtonText: string = this.translate.instant('department-tab-team.deletion-dialog.button-text')
+    const confirmButtonText: string = this.translate.instant('department-tab-team.deletion-dialog.button-text');
     const data: ConfirmationDialogData = {
       confirmButtonText,
       title,

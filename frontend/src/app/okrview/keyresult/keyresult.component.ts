@@ -19,7 +19,7 @@ import {
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-keyresult',

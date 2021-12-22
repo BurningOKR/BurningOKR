@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 describe('CycleAdminCardComponent', () => {
   let fixture: any;
   let component: any;
-  let translate: TranslateService
+  let translate: TranslateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -72,7 +72,7 @@ describe('CycleAdminCardComponent', () => {
   });
   it('should return correct string with getCycleTranslation', () => {
     const expected: string = 'correctCycleDeletionTitle';
-    spyOn(translate, 'instant').and.returnValue('correctCycleDeletionTitle')
+    spyOn(translate, 'instant').and.returnValue('correctCycleDeletionTitle');
 
     const actual: string = component.getCycleTranslation();
 
@@ -82,7 +82,7 @@ describe('CycleAdminCardComponent', () => {
 
   it('should return correct string with getGeneralDeleteDialogContentTranslation', () => {
     const expected: string = 'correctCycleDeletionContent';
-    spyOn(translate, 'instant').and.returnValue('correctCycleDeletionContent')
+    spyOn(translate, 'instant').and.returnValue('correctCycleDeletionContent');
 
     const actual: string = component.getGeneralDeleteDialogContentTranslation();
 

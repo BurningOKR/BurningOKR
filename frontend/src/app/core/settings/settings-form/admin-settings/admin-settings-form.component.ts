@@ -68,18 +68,19 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
     this.subscriptions.push(this.translate.stream('admin-settings-form.confirmation-text').subscribe(text => {
       this.confirmationText = text;
     }));
-    this.subscriptions.push(this.translate.stream(this.configurationNamesTranslationKeys).subscribe((translations: {[key: string]: string}) => {
+    this.subscriptions.push(this.translate.stream(this.configurationNamesTranslationKeys)
+      .subscribe((translations: {[key: string]: string}) => {
       this.configurationNames = {
         'max-key-results': translations[this.configurationNamesTranslationKeys[0]],
         'topic-sponsors-activated': translations[this.configurationNamesTranslationKeys[1]],
         'objective-progress-green-yellow-threshold': translations[this.configurationNamesTranslationKeys[2]],
         'objective-progress-yellow-red-threshold': translations[this.configurationNamesTranslationKeys[3]],
         'general_frontend-base-url': translations[this.configurationNamesTranslationKeys[4]],
-        'email_from': translations[this.configurationNamesTranslationKeys[5]],
+        email_from: translations[this.configurationNamesTranslationKeys[5]],
         'email_subject_new-user': translations[this.configurationNamesTranslationKeys[6]],
         'email_subject_forgot-password': translations[this.configurationNamesTranslationKeys[7]],
-        'email_subject_feedback': translations[this.configurationNamesTranslationKeys[8]],
-        'feedback_receivers': translations[this.configurationNamesTranslationKeys[9]]
+        email_subject_feedback: translations[this.configurationNamesTranslationKeys[8]],
+        feedback_receivers: translations[this.configurationNamesTranslationKeys[9]]
       };
     }));
   }
@@ -166,6 +167,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
         return control;
       }
     }
+
     return null;
   }
 }

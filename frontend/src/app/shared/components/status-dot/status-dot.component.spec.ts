@@ -31,7 +31,7 @@ describe('StatusDotComponent', () => {
 
   it('should return correct string for tooltip submitted', () => {
     const expected: string = 'correctStatusTooltipSubmitted';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipSubmitted')
+    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipSubmitted');
 
     const actual: string = component.getTranslateTooltip(status.submitted);
 
@@ -41,7 +41,7 @@ describe('StatusDotComponent', () => {
 
   it('should return correct string for tooltip approved', () => {
     const expected: string = 'correctStatusTooltipApproved';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipApproved')
+    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipApproved');
 
     const actual: string = component.getTranslateTooltip(status.approved);
 
@@ -51,7 +51,7 @@ describe('StatusDotComponent', () => {
 
   it('should return correct string for tooltip rejected', () => {
     const expected: string = 'correctStatusTooltipRejected';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipRejected')
+    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipRejected');
 
     const actual: string = component.getTranslateTooltip(status.rejected);
 
@@ -61,7 +61,7 @@ describe('StatusDotComponent', () => {
 
   it('should return correct string for tooltip draft', () => {
     const expected: string = 'correctStatusTooltipDraft';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipDraft')
+    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipDraft');
 
     const actual: string = component.getTranslateTooltip(status.draft);
 
