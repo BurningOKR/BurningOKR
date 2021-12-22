@@ -248,10 +248,16 @@
 		"title": "Title *"
 	},
 	"department-tab-taskboard": {
+		"deletion-dialog": {
+			"button-text": "Delete",
+			"message": "Do you really want to delete task \"{{title}}\"?",
+			"title": "Delete task"
+		},
 		"task-board-headline": "Tasks",
 		"tooltip": {
 			"create-new-task": "Create new task"
-		}
+		},
+		"websocket-not-connected": "Websocket connection could not be established. Changes are currently not adopted."
 	},
 	"department-tab-team": {
 		"define-o-k-r-master": "No OKR Master defined",

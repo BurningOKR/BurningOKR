@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DepartmentTabTaskboardComponent } from './department-tab-taskboard.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Component, Input } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
@@ -68,7 +67,6 @@ describe('DepartmentTabTaskboardComponent', () => {
         TaskBoardStateColumnViewMockComponent,
       ],
       providers: [
-        {provide: I18n, useValue: i18nMock},
         {provide: MatDialog, useValue: matDialogMock},
         {provide: MatSnackBar, useValue: matSnackBarMock},
         {provide: TaskMapperService, useValue: taskMapperServiceMock},

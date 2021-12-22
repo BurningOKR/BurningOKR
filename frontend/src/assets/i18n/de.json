@@ -248,10 +248,16 @@
 		"title": "Titel *"
 	},
 	"department-tab-taskboard": {
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Soll die Aufgabe \"{{title}}\" wirklich gelöscht werden?",
+			"title": "Aufgabe löschen"
+		},
 		"task-board-headline": "Aufgaben",
 		"tooltip": {
 			"create-new-task": "Neue Aufgabe erstellen"
-		}
+		},
+		"websocket-not-connected": "Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen."
 	},
 	"department-tab-team": {
 		"define-o-k-r-master": "Kein OKR Master definiert",
