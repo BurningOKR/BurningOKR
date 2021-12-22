@@ -450,6 +450,11 @@
 		"annotation": "Remarks",
 		"contact-person": "Contact person",
 		"description": "Description",
+		"dialog": {
+			"create": "Create",
+			"edit": "Edit",
+			"title": "{{editOrCreateText}} Objective"
+		},
 		"no-contact-person": "No contact person",
 		"no-parent-objective": "No parent objective",
 		"objective-is-active-in-process": "Objective is being actively processed in the current cycle.",

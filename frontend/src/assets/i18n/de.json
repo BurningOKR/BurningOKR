@@ -450,6 +450,11 @@
 		"annotation": "Anmerkungen",
 		"contact-person": "Ansprechpartner",
 		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten",
+			"title": "Objective {{editOrCreateText}}"
+		},
 		"no-contact-person": "Kein Ansprechpartner",
 		"no-parent-objective": "Kein übergeordnetes Objective",
 		"objective-is-active-in-process": "Objective wird im aktuellen Zyklus aktiv bearbeitet",
