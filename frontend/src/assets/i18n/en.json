@@ -816,6 +816,10 @@
 			"remove-member": "Remove user from team"
 		}
 	},
+	"user-selector-multi": {
+		"no-entires": "No users found.",
+		"placeholder": "Search"
+	},
 	"user-settings": {
 		"default-company": "Default Company",
 		"default-team": "Default team",

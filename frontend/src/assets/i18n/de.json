@@ -816,6 +816,10 @@
 			"remove-member": "Benutzer aus Team entfernen"
 		}
 	},
+	"user-selector-multi": {
+		"no-entires": "Keine Benutzer gefunden.",
+		"placeholder": "Suche"
+	},
 	"user-settings": {
 		"default-company": "Standard Unternehmen",
 		"default-team": "Standard Team",
