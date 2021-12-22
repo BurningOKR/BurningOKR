@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-
 import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { TaskBoardViewEventService } from '../../../../taskboard-services/task-board-view-event.service';
@@ -11,6 +9,7 @@ import { ViewKeyResult } from '../../../../../shared/model/ui/view-key-result';
 import { TaskBoardStateColumnViewHelper } from '../../../../../shared/services/helper/task-board/task-board-state-column-view-helper';
 import { TaskBoardViewDirective } from '../task-board-view-modell-directive';
 import { TaskBoardDragDropEvent } from '../taskboard-column/taskboard-column.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-taskboard-state-column-view',
@@ -25,7 +24,7 @@ export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective im
   constructor(
     private taskHelper: TaskBoardStateColumnViewHelper,
     private taskBoardEventService: TaskBoardViewEventService,
-    private i18n: I18n
+    private translate: TranslateService
   ) {
     super();
   }
@@ -39,12 +38,7 @@ export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective im
       filter(value => !!value),
       map(viewdata => {
         this.keyResults = viewdata.keyResults;
-        const defaultStateText: string =  this.i18n({
-          id: 'taskBoardDefaultStateText',
-          description: 'Text for the default state column in task boards',
-          value: 'not assigned'
-        });
-
+        const defaultStateText: string = this.translate.instant('taskboard-state-column-view.default-state-text');
         const defaultMap: StateTaskMap = { state: new ViewTaskState(null, 'defaultStateText'), tasks: null };
 
         return this.taskHelper.createStateTaskMapList(viewdata.taskStates, viewdata.tasks, defaultMap);

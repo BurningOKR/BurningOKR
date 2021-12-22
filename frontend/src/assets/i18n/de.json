@@ -742,6 +742,9 @@
 			"title-short": "Themenentwurf"
 		}
 	},
+	"taskboard-state-column-view": {
+		"default-state-text": "Nicht zugewiesen"
+	},
 	"topic-draft-creation-form": {
 		"dialog-title": "Themenentwurf erstellen"
 	},

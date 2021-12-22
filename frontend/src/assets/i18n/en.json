@@ -742,6 +742,9 @@
 			"title-short": "Topic draft"
 		}
 	},
+	"taskboard-state-column-view": {
+		"default-state-text": "Not assigned"
+	},
 	"topic-draft-creation-form": {
 		"dialog-title": "Create topic draft"
 	},
