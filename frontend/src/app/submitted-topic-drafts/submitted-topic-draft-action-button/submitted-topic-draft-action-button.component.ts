@@ -259,13 +259,16 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   getConvertToTeamTooltipText() {
 
     if(!this.userIsAdmin() && !this.draftIsApproved()){
-      return this.notApprovedToolTip + ' & ' + this.notAdminToolTip;
-    } else
-
+      return this.notApprovedToolTip;
+    }
     if(this.userIsAdmin() && !this.draftIsApproved()){
       return this.notApprovedToolTip;
     }
-    return this.notAdminToolTip;
+    if(!this.userIsAdmin() && this.draftIsApproved()){
+      return this.notAdminToolTip;
+    }
+
+    return null;
   }
 
   clickedConvertToTeam() {

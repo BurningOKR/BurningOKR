@@ -1,8 +1,5 @@
-import { Collection } from "typescript";
-import {CompanyDto} from "./company.dto";
-import {OkrUnitSchema} from "../../ui/okr-unit-schema";
+import {OkrUnitDto} from "./okr-unit.dto";
 
-export interface StructureDto extends CompanyDto {
-
-  unitSchema: OkrUnitSchema[];
+export interface StructureDto extends OkrUnitDto {
+  substructure: StructureDto[];
 }

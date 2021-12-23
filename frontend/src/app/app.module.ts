@@ -54,6 +54,7 @@ import { DemoModule } from './demo/demo.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SubmittedTopicDraftsConvertToTeamComponent } from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/submitted-topic-drafts-convert-to-team.component';
+import {MatTreeModule} from "@angular/material/tree";
 
 // use the require method provided by webpack
 declare const require: any;
@@ -83,47 +84,48 @@ export function createTranslateLoader(http: HttpClient) {
     SubmittedTopicDraftEditComponent,
     SubmittedTopicDraftsConvertToTeamComponent,
   ],
-  imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    CoreModule,
-    CycleAdminModule,
-    FormsModule,
-    HttpClientModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    OAuthModule.forRoot(),
-    ReactiveFormsModule,
-    SharedModule,
-    OkrUnitModule,
-    ErrorModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatTableModule,
-    MatMenuModule,
-    MatGridListModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    OkrviewModule,
-    NgwWowModule,
-    DemoModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      },
-      defaultLanguage: 'de'
-    })
-  ],
+    imports: [
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        CoreModule,
+        CycleAdminModule,
+        FormsModule,
+        HttpClientModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        OAuthModule.forRoot(),
+        ReactiveFormsModule,
+        SharedModule,
+        OkrUnitModule,
+        ErrorModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatTableModule,
+        MatMenuModule,
+        MatGridListModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        OkrviewModule,
+        NgwWowModule,
+        DemoModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            },
+            defaultLanguage: 'de'
+        }),
+        MatTreeModule
+    ],
   providers: [
     OAuthFrontendDetailsService,
 

@@ -597,7 +597,10 @@
 			"company-option": "Team in {{value}} erstellen",
 			"select": "Übergeordnete Struktur auswählen *"
 		},
-		"title": "Themenentwurf in ein Team umwandeln "
+		"title": "Themenentwurf in ein Team umwandeln ",
+		"tooltip": {
+			"only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
+		}
 	},
 	"submitted-topic-draft-details": {
 		"button": {

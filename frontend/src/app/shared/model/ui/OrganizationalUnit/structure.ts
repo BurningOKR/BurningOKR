@@ -3,20 +3,18 @@ import { ObjectiveId } from '../../id-types';
 import {CompanyUnit} from "./company-unit";
 import {OkrUnitSchema} from "../okr-unit-schema";
 
-export class Structure extends CompanyUnit {
+export class Structure extends OkrUnit {
 
-  okrUnitSchemas: OkrUnitSchema[];
+  substructure: Structure[];
 
   constructor(
     id: number,
     name: string,
-    childUnitIds: number[],
-    objectives: ObjectiveId[],
-    cycleId: number,
     label: string,
-    unitSchmas: OkrUnitSchema[])
+    objectives: ObjectiveId[],
+    substructure: Structure[])
   {
-    super(id, name, objectives, childUnitIds, cycleId, label);
-    this.okrUnitSchemas = unitSchmas;
+    super(id, name, label, objectives);
+    this.substructure = substructure;
   }
 }

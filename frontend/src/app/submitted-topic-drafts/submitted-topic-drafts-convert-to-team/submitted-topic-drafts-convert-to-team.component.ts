@@ -20,12 +20,12 @@ import {map, switchMap, tap} from "rxjs/operators";
 })
 export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit, OnDestroy {
 
-  title: string;
-  saveAndCloseLabel: string;
-  topicDraft: OkrTopicDraft;
-  chooseStructure: FormGroup;
-  companyStructures$: Observable<Structure[]>;
-  subscriptions: Subscription[] = [];
+  public title: string;
+  public saveAndCloseLabel: string;
+  public companyStructures$: Observable<Structure[]>;
+  public chooseStructure: FormGroup;
+  private topicDraft: OkrTopicDraft;
+  private subscriptions: Subscription[] = [];
   private department : OkrDepartment;
 
   constructor(
