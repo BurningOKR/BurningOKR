@@ -83,6 +83,7 @@ public class KeyResultService {
    */
   @Transactional
   public void deleteKeyResult(Long keyResultId, User user) throws Exception {
+
     KeyResult referencedKeyResult = keyResultRepository.findByIdOrThrow(keyResultId);
     throwIfCycleOfKeyResultIsClosed(referencedKeyResult);
 
