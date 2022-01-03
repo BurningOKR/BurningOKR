@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubmittedTopicDraftsConvertToTeamComponent } from './submitted-topic-drafts-convert-to-team.component';
+import { ConvertSubmittedTopicDraftToTeam } from './convert-submitted-topic-draft-to-team.component';
 
 describe('SubmittedTopicDraftsConvertToTeamComponent', () => {
-  let component: SubmittedTopicDraftsConvertToTeamComponent;
-  let fixture: ComponentFixture<SubmittedTopicDraftsConvertToTeamComponent>;
+  let component: ConvertSubmittedTopicDraftToTeam;
+  let fixture: ComponentFixture<ConvertSubmittedTopicDraftToTeam>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SubmittedTopicDraftsConvertToTeamComponent ]
+      declarations: [ ConvertSubmittedTopicDraftToTeam ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubmittedTopicDraftsConvertToTeamComponent);
+    fixture = TestBed.createComponent(ConvertSubmittedTopicDraftToTeam);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
