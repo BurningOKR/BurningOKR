@@ -19,7 +19,7 @@ import {
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {SubmittedTopicDraftsConvertToTeamComponent} from "../submitted-topic-drafts-convert-to-team/submitted-topic-drafts-convert-to-team.component";
+import {ConvertSubmittedTopicDraftToTeam} from "../submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component";
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -338,8 +338,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       viewCommentParentType: ViewCommentParentType.topicDraft,
       parentId: this.topicDraft.id,
     };
-    const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
-      this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+    this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
   }
 
   getConvertToTeamTooltipText() {
@@ -358,22 +357,21 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   clickedConvertToTeam() {
+
     const topicDraft: OkrTopicDraft =  this.topicDraft;
+    const dialogData = { topicDraft };
 
-    const dialogData = {
-      topicDraft
-    };
-
-    const draftToTeamDialogReference: MatDialogRef<SubmittedTopicDraftsConvertToTeamComponent, object>
-      = this.dialog.open(SubmittedTopicDraftsConvertToTeamComponent, {width: '600px', data: dialogData});
+    const convertSubmittedTopicDraftToTeamReference: MatDialogRef<ConvertSubmittedTopicDraftToTeam, object>
+      = this.dialog.open(ConvertSubmittedTopicDraftToTeam, {width: '600px', data: dialogData});
 
     this.subscriptions.push(
-      draftToTeamDialogReference
+      convertSubmittedTopicDraftToTeamReference
         .afterClosed()
         .pipe(take(1))
         .subscribe(isConfirmed => {
           if (isConfirmed) {
             this.deleteTopicDraft();
+
           }
         })
     );
