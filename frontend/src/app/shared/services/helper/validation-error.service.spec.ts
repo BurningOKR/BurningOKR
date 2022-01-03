@@ -4,13 +4,14 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
 import { FormControl } from '@angular/forms';
 import { TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { RequiredValidator } from '../../validators/wrapper/required-validator';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
 
 describe('ValidationErrorService', () => {
 
   let service: ValidationErrorService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [ MaterialTestingModule ],
       providers: [
         {provide: TRANSLATIONS, useValue: 'xlf'},
         {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},

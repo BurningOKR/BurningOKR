@@ -54,6 +54,7 @@ let currentUserRole: ContextRole;
 })
 class DepartmentTeamNewUserMockComponent {
   @Output() choseUser = new EventEmitter();
+  @Input() inputPlaceholderText: string;
 }
 
 @Component({
