@@ -5,8 +5,8 @@
     <mat-form-field class="form-whole-line">
       <mat-select placeholder="{{ 'submitted-topic-draft-convert-to-team.form.select' | translate }}" formControlName="parentUnitId">
         <mat-optgroup *ngFor="let company of companyStructures$ | async" [label]="company.name">
-          <ng-container *ngFor="let childUnit of company.okrUnitSchemas">
-            <mat-option [disabled]="childUnit.isTeam" [value]="childUnit.id">{{childUnit.name}}</mat-option>
+          <ng-container *ngFor="let childUnit of company.substructure">
+            <mat-option [value]="childUnit.id">{{childUnit.name}}</mat-option>
           </ng-container>
         </mat-optgroup>
       </mat-select>

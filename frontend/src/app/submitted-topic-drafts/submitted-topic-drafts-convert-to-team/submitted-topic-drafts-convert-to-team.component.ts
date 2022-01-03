@@ -83,7 +83,7 @@ export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit, OnDes
     this.subscriptions.push(
       this.createChildUnit$().pipe(
         switchMap(department => this.getTopicDescriptionForDepartment(department)),
-        switchMap( description => this.putUpdatedTopicDescription(description))
+        switchMap( description => this.putUpdatedTopicDescription(description)),
       ).subscribe()
     )
   }
