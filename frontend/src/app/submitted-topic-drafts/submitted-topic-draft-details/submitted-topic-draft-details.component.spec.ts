@@ -23,7 +23,6 @@ import { Component, Input } from '@angular/core';
 describe('SubmittedTopicDraftDetailsComponent', () => {
   let component: SubmittedTopicDraftDetailsComponent;
   let fixture: ComponentFixture<SubmittedTopicDraftDetailsComponent>;
-  const i18nMock: any = jest.fn();
   const topicDraftMock: OkrTopicDraft = new OkrTopicDraft(
     0,
     status.approved,

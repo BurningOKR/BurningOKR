@@ -14,7 +14,6 @@ import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit
 import { of } from 'rxjs';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-child-unit-button.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 
 const currentOkrViewServiceMock: any = {
   refreshCurrentDepartmentView: jest.fn()
@@ -34,8 +33,6 @@ const snackBarMock: any = {
   open: jest.fn()
 };
 
-const i18nMock: any = jest.fn();
-
 let currentUserRole: ContextRole;
 let okrBranch: OkrBranch;
 let cycle: CycleUnit;
@@ -53,7 +50,6 @@ describe('OkrChildUnitTabComponent', () => {
         { provide: OkrUnitService, useValue: okrUnitServiceMock },
         { provide: MatDialog, useValue: dialogMock },
         { provide: MatSnackBar, useValue: snackBarMock },
-        { provide: I18n, useValue: i18nMock }
       ]
     })
     .compileComponents();

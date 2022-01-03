@@ -52,7 +52,6 @@ const matSnackBarMock: any = {
   }
 };
 
-const i18nMock: any = jest.fn();
 
 describe('DepartmentTabTaskboardComponent', () => {
   let component: DepartmentTabTaskboardComponent;

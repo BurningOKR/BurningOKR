@@ -37,8 +37,6 @@ describe('DepartmentTabTaskFormComponent', () => {
     }
   }
 
-  const i18nMock: any = jest.fn();
-
   const matDialogDataMock: TaskFormData = {
     task: null,
     unitId: 1,
