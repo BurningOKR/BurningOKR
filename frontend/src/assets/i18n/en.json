@@ -768,6 +768,9 @@
 			"title-short": "Topic draft"
 		}
 	},
+	"task-board-swimlane-view-helper": {
+		"no-keyresult-title": "No KeyResult"
+	},
 	"taskboard-state-column-view": {
 		"default-state-text": "Not assigned"
 	},

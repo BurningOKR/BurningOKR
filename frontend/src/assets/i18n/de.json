@@ -768,6 +768,9 @@
 			"title-short": "Themenentwurf"
 		}
 	},
+	"task-board-swimlane-view-helper": {
+		"no-keyresult-title": "Kein KeyResult"
+	},
 	"taskboard-state-column-view": {
 		"default-state-text": "Nicht zugewiesen"
 	},
