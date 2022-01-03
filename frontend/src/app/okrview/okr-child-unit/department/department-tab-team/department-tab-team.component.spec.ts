@@ -7,7 +7,6 @@ import { CurrentUserService } from '../../../../core/services/current-user.servi
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
 import { MatDialog } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
 import { CycleState, CycleUnit } from '../../../../shared/model/ui/cycle-unit';
@@ -36,8 +35,6 @@ const matDialogMock: any = {
 const matDialogReferenceMock: any = {
   afterClosed: jest.fn()
 };
-
-const i18nMock: any = jest.fn();
 
 const currentOkrUnitSchemaServiceMock: any = {
   updateSchemaTeamRole: jest.fn()
@@ -82,7 +79,6 @@ describe('DepartmentTabTeamComponent', () => {
         { provide: ConfigurationManagerService, useValue: configurationManagerServiceMock },
         { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaServiceMock },
         { provide: MatDialog, useValue: matDialogMock },
-        { provide: I18n, useValue: i18nMock },
       ]
     })
       .compileComponents();
