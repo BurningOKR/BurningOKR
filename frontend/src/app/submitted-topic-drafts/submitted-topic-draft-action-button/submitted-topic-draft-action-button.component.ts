@@ -20,6 +20,7 @@ import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {ConvertSubmittedTopicDraftToTeam} from "../submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -55,7 +56,8 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
               private currentUserService: CurrentUserService,
               private translate: TranslateService,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   ngOnDestroy(): void {
@@ -364,18 +366,17 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     const convertSubmittedTopicDraftToTeamReference: MatDialogRef<ConvertSubmittedTopicDraftToTeam, object>
       = this.dialog.open(ConvertSubmittedTopicDraftToTeam, {width: '600px', data: dialogData});
 
-    this.subscriptions.push(
-      convertSubmittedTopicDraftToTeamReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.deleteTopicDraft();
-
-          }
-        })
-    );
-
-
+    convertSubmittedTopicDraftToTeamReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(departmentId => {
+        if (departmentId) {
+          let url : string = "/okr/departments/" + departmentId
+          console.log(url);
+          this.router.navigateByUrl(url).then(
+            () => this.deleteTopicDraft()
+          )
+        }}
+      );
   }
 }
