@@ -64,10 +64,8 @@ export class ConvertSubmittedTopicDraftToTeam implements OnInit, OnDestroy {
       this.convertTopicDraftToTeamAndDescription()
         .subscribe(
         () =>
-          this.dialogRef.close(
-          true
+          this.dialogRef.close(this.department.id)
         )
-      )
     );
   }
   //Noch Abfrage ob Struktur ein Unternehmen ist noch benötigt!
