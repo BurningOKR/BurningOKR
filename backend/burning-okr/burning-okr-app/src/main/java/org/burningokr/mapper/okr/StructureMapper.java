@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
-import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.dto.okr.StructureDto;
 import org.burningokr.model.okrUnits.OkrCompany;
 

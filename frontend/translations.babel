@@ -4895,6 +4895,23 @@
                                 </translations>
                             </concept_node>
                             <concept_node>
+                                <name>language-picker</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
                                 <name>logout-text</name>
                                 <definition_loaded>false</definition_loaded>
                                 <description/>

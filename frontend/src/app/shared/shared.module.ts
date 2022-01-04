@@ -36,7 +36,6 @@ import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
 import { UserSelectorMultiComponent } from './components/user-selector-multi/user-selector-multi.component';
 import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguagePickerComponent } from './components/language-picker/language-picker.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +57,6 @@ import { LanguagePickerComponent } from './components/language-picker/language-p
     CallbackFilterPipe,
     UserSelectorMultiComponent,
     UserSelectorComponent,
-    LanguagePickerComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -102,8 +100,7 @@ import { LanguagePickerComponent } from './components/language-picker/language-p
         StatusDotComponent,
         CallbackFilterPipe,
         UserSelectorMultiComponent,
-        UserSelectorComponent,
-        LanguagePickerComponent
+        UserSelectorComponent
     ],
 })
 export class SharedModule {

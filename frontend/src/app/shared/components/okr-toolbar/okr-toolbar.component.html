@@ -7,8 +7,6 @@
 
     <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
 
-    <app-language-picker></app-language-picker>
-
     <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
       <span class="break-word">{{'okr-toolbar.warning.no-smtp-text' | translate}}</span>
       <br>
@@ -73,6 +71,10 @@
   <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="isPlayground">
     <mat-icon>power_settings_new</mat-icon>
     <span>{{'okr-toolbar.menu.logout-text' | translate}}</span>
+  </button>
+  <button mat-menu-item (click)="pickLanguageClicked()">
+    <mat-icon>language</mat-icon>
+    <span>{{'okr-toolbar.menu.language-picker' | translate}}</span>
   </button>
   <button mat-menu-item (click)="openVersionChangelog()">
     <mat-icon>info</mat-icon>
