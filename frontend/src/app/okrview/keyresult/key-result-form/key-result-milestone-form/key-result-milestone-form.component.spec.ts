@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { KeyResultMilestoneFormComponent } from './key-result-milestone-form.component';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { FormErrorComponent } from '../../../../shared/components/form-error/form-error.component';
@@ -7,14 +6,11 @@ import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Va
 import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../../shared/model/api/unit.enum';
 import { ViewKeyResultMilestone } from '../../../../shared/model/ui/view-key-result-milestone';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 let keyResult: ViewKeyResult;
 let milestone1: ViewKeyResultMilestone;
 let milestone2: ViewKeyResultMilestone;
-
-const i18nMock: any = jest.fn();
 
 describe('KeyResultMilestoneFormComponent', () => {
   let component: KeyResultMilestoneFormComponent;
@@ -24,7 +20,6 @@ describe('KeyResultMilestoneFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ KeyResultMilestoneFormComponent, FormErrorComponent ],
       imports: [ MaterialTestingModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule ],
-      providers: [ { provide: I18n, useValue: i18nMock } ]
     })
     .compileComponents();
   }));

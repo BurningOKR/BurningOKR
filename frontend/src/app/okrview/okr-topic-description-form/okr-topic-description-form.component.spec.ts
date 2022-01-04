@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { OkrTopicDescriptionFormComponent } from './okr-topic-description-form.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { UserService } from '../../shared/services/helper/user.service';
@@ -8,14 +7,11 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 const userServiceMock: any = {
   getAllUsers$: jest.fn()
 };
-
-const i18nMock: any = jest.fn();
 
 describe('OkrTopicDescriptionFormComponent', () => {
   let component: OkrTopicDescriptionFormComponent;
@@ -28,7 +24,6 @@ describe('OkrTopicDescriptionFormComponent', () => {
       imports: [ MaterialTestingModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, SharedModule, NgxMatSelectSearchModule ],
       providers: [
         { provide: UserService, useValue: userServiceMock },
-        { provide: I18n, useValue: i18nMock }
       ]
     })
     .compileComponents();

@@ -6,14 +6,11 @@ import { FormErrorComponent } from '../../../shared/components/form-error/form-e
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { KeyResultMilestoneFormComponent } from './key-result-milestone-form/key-result-milestone-form.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../shared/model/api/unit.enum';
 import { TranslateService } from '@ngx-translate/core';
-
-const i18nMock: any = jest.fn();
 
 const matDialogRefMock: any = {
   close: jest.fn()
@@ -27,7 +24,6 @@ const keyResultMapperMock: any = {
 const matDialogDataMock: any = {};
 
 let keyResult: ViewKeyResult;
-
 
 describe('KeyResultFormComponent', () => {
   let component: KeyResultFormComponent;
@@ -44,7 +40,6 @@ describe('KeyResultFormComponent', () => {
       ],
       imports: [ FormsModule, ReactiveFormsModule, MaterialTestingModule, NoopAnimationsModule ],
       providers: [
-        { provide: I18n, useValue: i18nMock },
         { provide: MatDialogRef, useValue: matDialogRefMock },
         { provide: KeyResultMapper, useValue: keyResultMapperMock },
         { provide: MAT_DIALOG_DATA, useValue: matDialogDataMock }
@@ -66,9 +61,6 @@ describe('KeyResultFormComponent', () => {
       [],
       []
     );
-
-    i18nMock.mockReset();
-    i18nMock.mockReturnValue('translated string');
 
     matDialogRefMock.close.mockReset();
     keyResultMapperMock.postKeyResult$.mockReset();
