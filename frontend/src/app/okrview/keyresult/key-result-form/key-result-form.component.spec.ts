@@ -11,6 +11,7 @@ import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapp
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../shared/model/api/unit.enum';
+import { TranslateService } from '@ngx-translate/core';
 
 const i18nMock: any = jest.fn();
 
@@ -27,9 +28,11 @@ const matDialogDataMock: any = {};
 
 let keyResult: ViewKeyResult;
 
+
 describe('KeyResultFormComponent', () => {
   let component: KeyResultFormComponent;
   let fixture: ComponentFixture<KeyResultFormComponent>;
+  let translate: TranslateService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -181,6 +184,8 @@ describe('KeyResultFormComponent', () => {
   it('getViewUnit returns i18n for NUMBER', () => {
     fixture = TestBed.createComponent(KeyResultFormComponent);
     component = fixture.componentInstance;
+    translate = TestBed.inject(TranslateService);
+    spyOn(translate, 'instant').and.returnValue('translated string')
     fixture.detectChanges();
 
     expect(component.getViewUnit('NUMBER'))
