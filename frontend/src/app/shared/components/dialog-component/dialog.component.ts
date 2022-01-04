@@ -17,6 +17,7 @@ export class DialogComponent<T> implements OnInit{
   @Input() hasFormGroupError = false;
   @Input() isSaveButtonDisabled = false;
   @Input() formHasToBeEdited = false;
+  @Input() needsCancelButton: boolean = true;
   @Output() okEmitter = new EventEmitter<T>();
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<T>>,
@@ -40,8 +41,8 @@ export class DialogComponent<T> implements OnInit{
   ngOnInit(): void {
     this.translate.get('dialog-component.save').subscribe((text: string) => {
       if(!this.saveAndCloseLabel){
-this.saveAndCloseLabel = text;
-}
+        this.saveAndCloseLabel = text;
+      }
     });
   }
 }
