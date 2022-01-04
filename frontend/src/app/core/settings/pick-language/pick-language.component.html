@@ -1,0 +1,22 @@
+<app-dialog-component
+  [title]="title"
+  [needsCancelButton]="false"
+  (okEmitter)="clickedDone()"
+  [saveAndCloseLabel]="saveAndCloseLabel"
+>
+  <mat-form-field>
+    <mat-select-trigger>
+      <small>{{'language-picker.select-trigger-text' | translate}}</small> <br>
+    </mat-select-trigger>
+    <mat-select (selectionChange)="languageChanged($event)" [value]="this.translateService.currentLang">
+      <mat-option value="en">
+        {{'language-picker.language.english' | translate}}
+      </mat-option>
+      <mat-option value="de">
+        {{ 'language-picker.language.german' | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</app-dialog-component>
+
+
