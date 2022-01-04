@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CycleUnit } from '../../model/ui/cycle-unit';
 import { dateRangeInRangewithinAnotherDatesError } from './date-range-in-range-within-another-dates-error';
 import { AbstractValidator, register } from '../abstract-validator';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 export const dateInRangeOfAnotherCycleError: ValidationErrors = {
   dateInRangeOfAnotherCycleError: true
@@ -11,12 +11,10 @@ export const dateInRangeOfAnotherCycleError: ValidationErrors = {
 @register
 export class DateNotInRangeOfAnotherCycleValidator extends AbstractValidator {
 
-  constructor(private i18n: I18n) {
-    super(i18n({
-      id: 'dateInRangeOfAnotherCycleError',
-      description: 'Date is in the date-range of another cycle',
-      value: 'Das Datum liegt innerhalb der Zeitspanne eines anderen Zyklus.'
-    }), dateInRangeOfAnotherCycleError);
+  constructor(private translate: TranslateService) {
+    super(
+      translate.instant('date-range-in-range-within-another-dates-validator-function.message'),
+      dateInRangeOfAnotherCycleError);
   }
 
   static Validate(cycles: CycleUnit[]): ValidatorFn {

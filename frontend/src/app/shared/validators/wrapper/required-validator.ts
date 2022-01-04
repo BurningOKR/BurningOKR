@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 export const requiredError: ValidationErrors = {
   required: true
@@ -9,12 +9,10 @@ export const requiredError: ValidationErrors = {
 @register
 export class RequiredValidator extends AbstractValidator {
 
-  constructor(private i18n: I18n) {
-    super(i18n({
-      id: 'requiredError',
-      description: 'Required Field',
-      value: 'Pflichtfeld'
-    }), requiredError);
+  constructor(private translate: TranslateService) {
+    super(
+      translate.instant('required-validator.message'),
+      requiredError);
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

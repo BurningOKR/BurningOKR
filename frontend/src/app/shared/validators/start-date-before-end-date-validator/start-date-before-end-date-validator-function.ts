@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 export const startDateNotBeforeEndDate: ValidationErrors = {
   startDateNotBeforeEndDate: true
@@ -9,12 +9,10 @@ export const startDateNotBeforeEndDate: ValidationErrors = {
 @register
 export class StartDateBeforeEndDateValidator extends AbstractValidator {
 
-  constructor(private i18n: I18n) {
-    super(i18n({
-      id: 'startDateNotBeforeEndDate',
-      description: 'The startdate ist after the enddate',
-      value: 'Das Anfangsdatum ist nach dem Enddatum'
-    }), startDateNotBeforeEndDate);
+  constructor(private translate: TranslateService) {
+    super(
+      translate.instant('start-date-before-end-date-validator-function.message'),
+      startDateNotBeforeEndDate);
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

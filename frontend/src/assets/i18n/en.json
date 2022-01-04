@@ -110,6 +110,9 @@
 		"next": "Continue",
 		"subtitle": "Create an initial administrator account."
 	},
+	"current-higher-than-end-validator-function": {
+		"message": "The \"current\" value is higher than the maximum value."
+	},
 	"cycle-admin-card": {
 		"delete-cycle": "Delete cycle",
 		"deletion-dialog": {
@@ -144,6 +147,15 @@
 		"start-date": "Start date",
 		"title": "Edit cycle",
 		"visibility": "Visibility"
+	},
+	"date-format-validator-function": {
+		"message": "The entered value is not a valid date in the form DD.MM.YYYY"
+	},
+	"date-not-in-the-past-validator-function": {
+		"message": "The entered date is in the past"
+	},
+	"date-range-in-range-within-another-dates-validator-function": {
+		"message": "The date is within the time span of another cycle."
 	},
 	"delete-dialog": {
 		"delete": "Delete",
@@ -405,6 +417,9 @@
 			"toogle-navigvation": "Show / hide navigation menu"
 		}
 	},
+	"max-length-validator": {
+		"message": "Maximum number of characters exceeded"
+	},
 	"navigation-list-entry": {
 		"tooltip": {
 			"is-substructure": "This is a substructure",
@@ -625,6 +640,12 @@
 		"passwords-do-not-match": "The entries do not match.",
 		"previous-password": "Previous password"
 	},
+	"passwords-match-validator-function": {
+		"message": "The passwords do not match."
+	},
+	"required-validator": {
+		"message": "Required field"
+	},
 	"reset-countdown": {
 		"until-next": "Reset the data in:"
 	},
@@ -673,6 +694,12 @@
 		"cancel-button-text": "Cancel",
 		"save": "Save",
 		"settings": "Settings"
+	},
+	"start-date-before-end-date-validator-function": {
+		"message": "The start date is after the end date"
+	},
+	"start-not-equal-end-validator-function": {
+		"message": "The start date is after the end date"
 	},
 	"status-dot": {
 		"approved": "Approved",

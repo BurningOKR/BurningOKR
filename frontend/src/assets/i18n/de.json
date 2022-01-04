@@ -110,6 +110,9 @@
 		"next": "Weiter",
 		"subtitle": "Legen Sie ein initiales Administratorenkonto an."
 	},
+	"current-higher-than-end-validator-function": {
+		"message": "Der \"Aktuelle\" Wert ist Höher als der Maximalwert."
+	},
 	"cycle-admin-card": {
 		"delete-cycle": "Zyklus löschen",
 		"deletion-dialog": {
@@ -144,6 +147,15 @@
 		"start-date": "Startdatum",
 		"title": "Zyklus bearbeiten",
 		"visibility": "Sichtbarkeit"
+	},
+	"date-format-validator-function": {
+		"message": "Der eingegebene Wert ist kein gültiges Datum in der Form TT.MM.JJJJ"
+	},
+	"date-not-in-the-past-validator-function": {
+		"message": "Das eingegebene Datum liegt in der Vergangenheit"
+	},
+	"date-range-in-range-within-another-dates-validator-function": {
+		"message": "Das Datum liegt innerhalb der Zeitspanne eines anderen Zyklus."
 	},
 	"delete-dialog": {
 		"delete": "Löschen ",
@@ -405,6 +417,9 @@
 			"toogle-navigvation": "Navigationsmenü anzeigen/verbergen"
 		}
 	},
+	"max-length-validator": {
+		"message": "Maximale Zeichenzahl überschritten"
+	},
 	"navigation-list-entry": {
 		"tooltip": {
 			"is-substructure": "Dies ist eine Unterstruktur",
@@ -625,6 +640,12 @@
 		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
 		"previous-password": "Vorheriges Passwort"
 	},
+	"passwords-match-validator-function": {
+		"message": "Die Passwörter stimmen nicht überein."
+	},
+	"required-validator": {
+		"message": "Pflichtfeld"
+	},
 	"reset-countdown": {
 		"until-next": "Zurücksetzen der Daten in:"
 	},
@@ -673,6 +694,12 @@
 		"cancel-button-text": "Abbrechen",
 		"save": "Speichern",
 		"settings": "Einstellungen"
+	},
+	"start-date-before-end-date-validator-function": {
+		"message": "Das Anfangsdatum ist nach dem Enddatum"
+	},
+	"start-not-equal-end-validator-function": {
+		"message": "Das Anfangsdatum ist nach dem Enddatum"
 	},
 	"status-dot": {
 		"approved": "Genehmigt",
