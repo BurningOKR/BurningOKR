@@ -1,5 +1,5 @@
 import { ValidationErrors } from '@angular/forms';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 export abstract class AbstractValidator {
 
@@ -37,10 +37,10 @@ interface Constructor<T> {
   new(...args: any[]): T;
 }
 
-export function getValidators(i18n: I18n): AbstractValidator[] {
+export function getValidators(translate: TranslateService): AbstractValidator[] {
   if (!validators) {
     validators = [];
-    validatorsConstructors.forEach(ctor => validators.push(new ctor(i18n)));
+    validatorsConstructors.forEach(ctor => validators.push(new ctor(translate)));
   }
 
   return validators;
