@@ -21,7 +21,7 @@ describe('ValidationErrorService', () => {
 
   it('should return default error code', () => {
     const control: FormControl = new FormControl();
-    spyOn(service, 'getDefaultErrorMessage').and.returnValue('kein gültiger Wert.');
+    spyOn(translate, 'instant').and.returnValue('kein gültiger Wert.');
 
     const actual: string = service.getErrorMessage(control);
 
