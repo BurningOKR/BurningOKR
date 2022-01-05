@@ -1,7 +1,6 @@
 import { ValidationErrorService } from './validation-error.service';
 import { TestBed } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
-import { TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { RequiredValidator } from '../../validators/wrapper/required-validator';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { AbstractValidator, getValidators } from '../../validators/abstract-validator';
@@ -15,10 +14,6 @@ describe('ValidationErrorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ MaterialTestingModule ],
-      providers: [
-        {provide: TRANSLATIONS, useValue: 'xlf'},
-        {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-      ]
     });
     service = TestBed.inject(ValidationErrorService);
     translate = TestBed.inject(TranslateService);
