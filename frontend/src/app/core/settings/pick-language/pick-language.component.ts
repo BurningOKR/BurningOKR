@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
-import {Subscription} from "rxjs";
-import {MatDialogRef} from "@angular/material/dialog";
+import {TranslateService} from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pick-language',
@@ -16,7 +16,7 @@ export class PickLanguageComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    public translateService : TranslateService,
+    public translateService: TranslateService,
     private dialogRef: MatDialogRef<PickLanguageComponent>,
   ) { }
 
