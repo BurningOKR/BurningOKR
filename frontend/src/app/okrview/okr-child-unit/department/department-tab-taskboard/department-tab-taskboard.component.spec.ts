@@ -52,7 +52,6 @@ const matSnackBarMock: any = {
   }
 };
 
-
 describe('DepartmentTabTaskboardComponent', () => {
   let component: DepartmentTabTaskboardComponent;
   let fixture: ComponentFixture<DepartmentTabTaskboardComponent>;

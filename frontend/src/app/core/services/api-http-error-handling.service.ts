@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, ObservableInput, Subject, Subscription, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export type RetryFunction<T> = () => Observable<T>;
 @Injectable({
   providedIn: 'root'
 })
-export class ApiHttpErrorHandlingService implements OnInit, OnDestroy{
+export class ApiHttpErrorHandlingService implements OnDestroy{
 
   private subscriptions: Subscription[] = [];
   private errorSubjects: Subject<boolean>[] = [];
@@ -33,9 +33,6 @@ export class ApiHttpErrorHandlingService implements OnInit, OnDestroy{
               private snackbar: MatSnackBar,
               private logger: NGXLogger,
               private router: Router) {
-  }
-
-  ngOnInit(): void {
     this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.single-error').subscribe(text => {
       this.singleErrorMsg = text;
     }));

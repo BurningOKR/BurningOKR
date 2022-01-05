@@ -177,7 +177,7 @@ describe('KeyResultFormComponent', () => {
     fixture = TestBed.createComponent(KeyResultFormComponent);
     component = fixture.componentInstance;
     translate = TestBed.inject(TranslateService);
-    spyOn(translate, 'instant').and.returnValue('translated string')
+    spyOn(translate, 'instant').and.returnValue('translated string');
     fixture.detectChanges();
 
     expect(component.getViewUnit('NUMBER'))

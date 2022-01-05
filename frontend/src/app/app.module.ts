@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
@@ -132,17 +132,9 @@ export function createTranslateLoader(http: HttpClient) {
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
     {
-      provide: TRANSLATIONS,
-      useFactory: locale => {
-        return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
-      },
-      deps: [LOCALE_ID]
-    },
-    {
       provide: LOCALE_ID,
       useValue: currentLanguage
     },
-    {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
   ],
   bootstrap: [AppComponent]
 })

@@ -12,7 +12,6 @@
     "testRunner": "jest-jasmine2"
   },
   "scripts": {
-    "ng": "ng",
     "prestart": "ts-appversion",
     "prebuild": "ts-appversion",
     "pretest": "ts-appversion",
@@ -20,7 +19,6 @@
     "start-dev": "npm run start -- --configuration=local",
     "start-demo": "npm run start -- --configuration=demo",
     "start_no_reload": "ng serve --proxy-config=proxy.conf.json --live-reload false",
-    "start_en": "npm run start -- --configuration=en",
     "start-prod": "npm run start -- --configuration production",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -34,8 +32,7 @@
     "build-docker": "npm run build -- --output-hashing=all --configuration production --configuration=docker --base-href=/",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stats": "webpack-bundle-analyzer dist/stats.json",
-    "extract-i18n": "ng xi18n OKRFrontEnd --i18n-format xlf --output-path locale --i18n-locale de && ngx-extractor -i src/**/*.ts -f xlf -o src/locale/messages.xlf  && ng run OKRFrontEnd:xliffmerge"
+    "stats": "webpack-bundle-analyzer dist/stats.json"
   },
   "private": true,
   "dependencies": {

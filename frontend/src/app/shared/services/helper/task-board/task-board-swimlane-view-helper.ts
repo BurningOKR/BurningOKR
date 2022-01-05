@@ -24,7 +24,7 @@ export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper 
     }
 
     createKeyResultStateTaskMapList(keyResults: ViewKeyResult[], states: ViewTaskState[], tasks: ViewTask[]): KeyResultStateTaskMap[] {
-        let emptyKeyResult: ViewKeyResult = new ViewKeyResult(null, null, null, null, null,
+        const emptyKeyResult: ViewKeyResult = new ViewKeyResult(null, null, null, null, null,
           this.noKeyResultTitle, null, null, null, null);
 
         //ToDo (C.K. 3.1.2022 fix updating doesnt change if rendered once)

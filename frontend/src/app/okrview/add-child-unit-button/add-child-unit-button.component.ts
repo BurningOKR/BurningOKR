@@ -16,8 +16,4 @@ export class AddChildUnitButtonComponent {
 
   @Output() clickedAddSubDepartment: EventEmitter<void> = new EventEmitter<void>();
   @Output() clickedAddSubBranch: EventEmitter<void> = new EventEmitter<void>();
-
-  constructor(
-  ) { }
-
 }
