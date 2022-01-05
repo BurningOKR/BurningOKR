@@ -8,10 +8,7 @@ import java.util.*;
 import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.okr.KeyResult;
-import org.burningokr.model.okr.KeyResultMilestone;
-import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okr.Unit;
+import org.burningokr.model.okr.*;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -40,6 +37,8 @@ public class KeyResultServiceTest {
 
   @Mock private User user;
 
+  @Mock private TaskService taskService;
+
   @InjectMocks private KeyResultService keyResultService;
 
   private final Long keyResultId = 1337L;
@@ -60,14 +59,14 @@ public class KeyResultServiceTest {
   }
 
   @Test(expected = EntityNotFoundException.class)
-  public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() {
+  public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() throws Exception {
     when(keyResultRepository.findByIdOrThrow(any(Long.class)))
         .thenThrow(new EntityNotFoundException());
     keyResultService.deleteKeyResult(keyResultId, user);
   }
 
   @Test(expected = ForbiddenException.class)
-  public void deleteKeyResult_cycleOfKeyResultIsClosed_expectedForbiddenThrow() {
+  public void deleteKeyResult_cycleOfKeyResultIsClosed_expectedForbiddenThrow() throws Exception {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(closedCycle);
@@ -76,7 +75,7 @@ public class KeyResultServiceTest {
   }
 
   @Test
-  public void deleteKeyResult_expectedOtherKeyResultsSequenceAdjusted() {
+  public void deleteKeyResult_expectedOtherKeyResultsSequenceAdjusted() throws Exception {
     Objective parentObjective = new Objective();
     KeyResult keyResultBelowInSequence = new KeyResult();
     KeyResult keyResultToDelete = new KeyResult();
@@ -91,7 +90,7 @@ public class KeyResultServiceTest {
     keyResultToDelete.setParentObjective(parentObjective);
 
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenReturn(keyResultToDelete);
-
+    when(taskService.findTasksForKeyResult(any(KeyResult.class))).thenReturn(new ArrayList<Task>());
     keyResultService.deleteKeyResult(10L, user);
 
     Assert.assertEquals(5, keyResultBelowInSequence.getSequence());

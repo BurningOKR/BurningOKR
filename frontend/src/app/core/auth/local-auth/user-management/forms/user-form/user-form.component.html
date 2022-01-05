@@ -1,17 +1,10 @@
 <form [formGroup]="userForm">
 
-  <mat-form-field class="form-whole-line">
-        <input [formControl]="userForm.controls.surname" matInput placeholder="{{ 'user-form.last-name' | translate }}" required type="text">
-      </mat-form-field><mat-form-field class="form-whole-line">
-        <input [formControl]="userForm.controls.email" email matInput placeholder="{{ 'user-form.email' | translate }}" required type="email">
-        <mat-error *ngIf="userForm.controls.email.errors?.email">{{ 'user-form.error-invalid-email' | translate }}</mat-error>
-        <mat-error *ngIf="userForm.controls.email.errors?.emailAlreadyInUse">{{ 'user-form.error-used-email' | translate }}</mat-error>
-      </mat-form-field><table class="form-whole-line">
-    <tbody><tr>
+  <table class="form-whole-line">
+    <tr>
       <td rowspan="3">
         <app-user-avatar (clickOnAvatar)="uploader.click()" [size]="150" [user]="userForm.value" [clickable]="true" bgColor="#575756"></app-user-avatar>
         <input #uploader (change)="setPhoto($event)" accept=".jpg, .png" hidden type="file">
-
         <canvas #canvasElement height="250" hidden width="250">Hier text</canvas>
       </td>
       <td class="fullWidth">
@@ -21,14 +14,19 @@
       </td>
     </tr>
     <tr class="fullWidth">
-      
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="userForm.controls.surname" matInput placeholder="{{ 'user-form.last-name' | translate }}" required type="text">
+      </mat-form-field>
     </tr>
     <tr class="fullWidth">
-      
+      <mat-form-field class="form-whole-line">
+        <input [formControl]="userForm.controls.email" email matInput placeholder="{{ 'user-form.email' | translate }}" required type="email">
+        <mat-error *ngIf="userForm.controls.email.errors?.email">{{ 'user-form.error-invalid-email' | translate }}</mat-error>
+        <mat-error *ngIf="userForm.controls.email.errors?.emailAlreadyInUse">{{ 'user-form.error-used-email' | translate }}</mat-error>
+      </mat-form-field>
     </tr>
 
-
-  </tbody></table>
+  </table>
   <mat-form-field class="form-whole-line">
     <input [formControl]="userForm.controls.department" matInput placeholder="{{ 'user-form.department' | translate }}" type="text">
   </mat-form-field>

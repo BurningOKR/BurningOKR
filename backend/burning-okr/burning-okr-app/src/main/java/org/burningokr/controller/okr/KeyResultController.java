@@ -110,7 +110,8 @@ public class KeyResultController {
 
   @DeleteMapping("keyresults/{keyResultId}")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForKeyResult(#keyResultId)")
-  public ResponseEntity deleteKeyResult(@PathVariable Long keyResultId, User user) {
+  public ResponseEntity deleteKeyResult(@PathVariable Long keyResultId, User user)
+      throws Exception {
     keyResultService.deleteKeyResult(keyResultId, user);
     return ResponseEntity.ok().build();
   }
