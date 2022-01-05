@@ -13,11 +13,10 @@ import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-d
 import { UserDialogData } from './forms/user-dialog-data';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { CurrentUserService } from '../../../services/current-user.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import 'linq4js';
 import { environment } from '../../../../../environments/environment';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -365,7 +364,7 @@ export class UserManagementComponent implements OnInit {
     return filteredUsers;
   }
   private appendDemoWarning(initialText: string): string{
-    return this.isPlayground ? (initialText + ' ' + this.disabledInPlaygroundTranslation) : initialText;
+    return this.isPlayground ? (`${initialText  } ${  this.disabledInPlaygroundTranslation}`) : initialText;
   }
 
 }

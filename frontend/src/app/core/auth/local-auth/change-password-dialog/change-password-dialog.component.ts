@@ -72,5 +72,4 @@ export class ChangePasswordDialogComponent implements OnInit {
       });
   }
 
-
 }
