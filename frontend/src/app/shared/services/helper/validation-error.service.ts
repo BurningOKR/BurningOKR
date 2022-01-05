@@ -31,7 +31,11 @@ export class ValidationErrorService implements OnInit, OnDestroy{
     if (validator) {
       return validator.getErrorMessage();
     } else {
-      return this.defaultErrorMessage;
+      return this.getDefaultErrorMessage()
     }
+  }
+
+  getDefaultErrorMessage(): string {
+    return this.defaultErrorMessage;
   }
 }
