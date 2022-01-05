@@ -7,6 +7,7 @@ import { NEVER, Subscription } from 'rxjs';
 import { CurrentUserService } from '../../../../core/services/current-user.service';
 import { UserId } from '../../../../shared/model/id-types';
 import { TranslateService } from '@ngx-translate/core';
+import {status} from "../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum";
 
 interface TopicDraftCreationFormData {
   topicDraft?: OkrTopicDraft;
