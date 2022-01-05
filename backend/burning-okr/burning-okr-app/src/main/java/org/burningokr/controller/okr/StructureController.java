@@ -1,5 +1,6 @@
 package org.burningokr.controller.okr;
 
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.StructureDto;
@@ -12,30 +13,27 @@ import org.burningokr.service.userhandling.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Collection;
-
 @RequiredArgsConstructor
 @RestApiController
 public class StructureController {
 
-    private final StructureMapper structureMapper;
-    private final UnitMapperFactory mapperPicker;
-    private final CompanyService companyService;
-    private final UserService userService;
-    private final OkrBranchSchemaMapper branchSchemaMapper;
+  private final StructureMapper structureMapper;
+  private final UnitMapperFactory mapperPicker;
+  private final CompanyService companyService;
+  private final UserService userService;
+  private final OkrBranchSchemaMapper branchSchemaMapper;
 
+  /**
+   * API Endpoint to get a Tree of all active Structures with ChildUnits.
+   *
+   * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
+   */
+  @GetMapping("/structure")
+  public ResponseEntity<Collection<StructureDto>> getAllCompanyStructures() {
 
-
-    /**
-     * API Endpoint to get a Tree of all active Structures with ChildUnits.
-     *
-     * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
-     */
-    @GetMapping("/structure")
-    public ResponseEntity<Collection<StructureDto>> getAllCompanyStructures(){
-
-        Collection<OkrCompany> okrCompanies = this.companyService.getAllCompanies();
-        Collection<StructureDto> structureDtos = structureMapper.mapCompaniesToStructureDtos(okrCompanies);
-        return ResponseEntity.ok(structureDtos);
-    }
+    Collection<OkrCompany> okrCompanies = this.companyService.getAllCompanies();
+    Collection<StructureDto> structureDtos =
+        structureMapper.mapCompaniesToStructureDtos(okrCompanies);
+    return ResponseEntity.ok(structureDtos);
+  }
 }
