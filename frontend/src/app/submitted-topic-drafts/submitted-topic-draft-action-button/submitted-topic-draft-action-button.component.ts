@@ -264,9 +264,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   clickedConvertToTeam() {
-
+    const topicDraft: OkrTopicDraft= this.topicDraft;
+    //TODO hier wieder dialog data
     const convertSubmittedTopicDraftToTeamReference: MatDialogRef<ConvertSubmittedTopicDraftToTeamComponent, object>
-      = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, {width: '600px', data: this.topicDraft});
+      = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, {width: '600px', data: {topicDraft}});
 
     convertSubmittedTopicDraftToTeamReference
       .afterClosed()
