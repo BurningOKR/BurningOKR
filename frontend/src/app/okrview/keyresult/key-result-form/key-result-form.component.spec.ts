@@ -173,7 +173,7 @@ describe('KeyResultFormComponent', () => {
       .toBe('%');
   });
 
-  it('getViewUnit returns i18n for NUMBER', () => {
+  it('getViewUnit returns translation for NUMBER', () => {
     fixture = TestBed.createComponent(KeyResultFormComponent);
     component = fixture.componentInstance;
     translate = TestBed.inject(TranslateService);

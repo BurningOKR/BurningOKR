@@ -435,6 +435,7 @@
 		"feedback": "Senden von Feedback",
 		"info": "Dies kann die Benutzbarkeit der Anwendung stark einschränken.",
 		"local": "Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
+		"no-smtp": "Kein SMTP konfiguriert",
 		"password-reset-mails": "Senden von Mails um Passwörter zurückzusetzen",
 		"title": "Es wurde keine SMTP Konfiguration gefunden.",
 		"tooltip": {

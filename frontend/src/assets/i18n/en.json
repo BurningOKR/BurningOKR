@@ -435,6 +435,7 @@
 		"feedback": "Sending feedback",
 		"info": "This can restrict the usability of the application.",
 		"local": "If the local user database of BurningOKR is used for user management, the following functions are not available:",
+		"no-smtp": "No SMTP configured",
 		"password-reset-mails": "Sending mails when resetting a password",
 		"title": "No SMTP configuration was found.",
 		"tooltip": {

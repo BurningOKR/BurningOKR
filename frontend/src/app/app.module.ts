@@ -24,7 +24,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatButtonModule } from '@angular/material/button';
 import { CoreModule } from './core/core.module';
 import { AdminViewComponent } from './admin/admin-view.component';
@@ -144,7 +143,6 @@ export function createTranslateLoader(http: HttpClient) {
       useValue: currentLanguage
     },
     {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-    I18n,
   ],
   bootstrap: [AppComponent]
 })
