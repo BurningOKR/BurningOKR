@@ -46,17 +46,10 @@ jobs:
       run: npm version $PACKAGE_VERSION --allow-same-version
       working-directory: ./frontend
     - name: Npm Build German
-      run: npm run build-prod-new
+      run: npm run build-prod
       working-directory: ./frontend
-    - name: Zip German Frontend
-      run: zip -r frontend-de.zip ./frontend/dist
-    - name: Clean Frontend Build Directory
-      run: rm -r ./frontend/dist
-    - name: Npm Build English
-      run: npm run build-prod-en-new
-      working-directory: ./frontend
-    - name: Zip English Frontend
-      run: zip -r frontend-en.zip ./frontend/dist
+    - name: Zip Frontend
+      run: zip -r frontend.zip ./frontend/dist
     - name: Clean Frontend Build Directory
       run: rm -r ./frontend/dist
     - name: Npm Build Demo
@@ -97,25 +90,15 @@ jobs:
         asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.war
         asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.war
         asset_content_type: application/war
-    - name: Upload Release German Frontend Zip
-      id: upload-release-frontend-zip-de
+    - name: Upload Release Frontend Zip
+      id: upload-release-frontend-zip
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./frontend-de.zip
-        asset_name: frontend-de.zip
-        asset_content_type: application/zip
-    - name: Upload Release English Frontend Zip
-      id: upload-release-frontend-zip-en
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./frontend-en.zip
-        asset_name: frontend-en.zip
+        asset_path: ./frontend.zip
+        asset_name: frontend.zip
         asset_content_type: application/zip
     - name: Upload Release Demo Frontend Zip
       id: upload-release-demo-zip-en

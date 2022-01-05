@@ -120,7 +120,7 @@ jobs:
       run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
       working-directory: ./frontend
     - name: Build Frontend
-      run: npm run build-prod-new
+      run: npm run build-prod
       working-directory: ./frontend
 
   build-demo-frontend:
@@ -139,6 +139,6 @@ jobs:
     - name: Set Frontend Version
       run: npm version ${{ needs.get-version.outputs.version }} --allow-same-version
       working-directory: ./frontend
-    - name: Build Frontend
+    - name: Build Demo Frontend
       run: npm run build-demo
       working-directory: ./frontend
