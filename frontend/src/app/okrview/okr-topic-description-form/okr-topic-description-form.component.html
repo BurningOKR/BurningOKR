@@ -43,10 +43,10 @@
       </textarea>
   </mat-form-field>
 
-  <app-user-selector [resultControl]="descriptionForm.get(['initiatorId'])" [users$]="users$" i18n-placeholderText="@@initiator" placeholderText="Initiator *" i18n-noUser="@@component_descriptionEditForm_initiator" noUser="Kein Initiator"></app-user-selector>
+  <app-user-selector [resultControl]="descriptionForm.get(['initiatorId'])" [users$]="users$" placeholderText="{{'okr-topic-description-form.initiator' | translate}}" noUser="{{'okr-topic-description-form.no-initiator' | translate}}"></app-user-selector>
 
-  <app-user-selector-multi [users$]="users$" [resultControl]="descriptionForm.get(['startTeam'])" i18n-placeholderText="@@startTeam" placeholderText="Start Team"></app-user-selector-multi>
+  <app-user-selector-multi [users$]="users$" [resultControl]="descriptionForm.get(['startTeam'])" placeholderText="{{'okr-topic-description-form.start-team' | translate}}"></app-user-selector-multi>
 
-  <app-user-selector-multi [users$]="users$" [resultControl]="descriptionForm.get(['stakeholders'])" i18n-placeholderText="@@stakeholder" placeholderText="Stakeholder"></app-user-selector-multi>
+  <app-user-selector-multi [users$]="users$" [resultControl]="descriptionForm.get(['stakeholders'])" placeholderText="{{'okr-topic-description-form.stakeholder' | translate}}"></app-user-selector-multi>
 
 </form>

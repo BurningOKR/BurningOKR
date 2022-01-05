@@ -1,4 +1,4 @@
-<app-dialog-component i18n-title="@@editCycle" title="Zyklus bearbeiten" [formGroup]="cycleForm" i18n-[saveAndCloseLabel] saveAndCloseLabel="Speichern" [hasFormGroupError]="true" (okEmitter)="saveCycle()">
+<app-dialog-component title="{{'cycle-edit-form.title' | translate}}" [formGroup]="cycleForm" saveAndCloseLabel="{{'cycle-edit-form.save' | translate}}" [hasFormGroupError]="true" (okEmitter)="saveCycle()">
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
       <input type="text" matInput placeholder="{{ 'cycle-edit-form.name' | translate }}" formControlName="name">

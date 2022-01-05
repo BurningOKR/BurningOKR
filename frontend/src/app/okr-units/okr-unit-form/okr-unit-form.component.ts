@@ -39,13 +39,9 @@ export class OkrUnitFormComponent {
       this.companyForm.patchValue(this.formData.company);
     }
 
-    translate.get('okr-unit-form.save', {value: this.getDefaultLabel()}).subscribe((text: string) => {
-      this.saveTranslation = text;
-    });
-    translate.get('okr-unit-form.create', {value: this.getDefaultLabel()}).subscribe((text: string) => {
-      this.createTranslation = text;
-    });
-    translate.get('okr-unit-form.structure').subscribe((text: string) => {
+    this.saveTranslation = translate.instant('okr-unit-form.save', {value: this.getDefaultLabel()});
+    this.createTranslation = translate.instant('okr-unit-form.create', {value: this.getDefaultLabel()});
+    translate.stream('okr-unit-form.structure').subscribe((text: string) => {
       this.structureTranslation = text;
     });
 

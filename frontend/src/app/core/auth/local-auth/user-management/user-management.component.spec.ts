@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { UserManagementComponent } from './user-management.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,8 +11,6 @@ import { CurrentUserService } from '../../../services/current-user.service';
 import { User } from '../../../../shared/model/api/user';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import 'linq4js';
 
@@ -76,7 +73,6 @@ describe('UserManagementComponent', () => {
         {provide: LocalUserService, useValue: localUserServiceMock},
         {provide: OAuthService, useValue: oAuthServiceMock},
         {provide: CurrentUserService, useValue: currentUserServiceMock},
-        {provide: I18n, useValue: i18nMock}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })

@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 export const currentHigherThanEndError: ValidationErrors = {
   currentHigherThanEndError: true
@@ -9,12 +9,10 @@ export const currentHigherThanEndError: ValidationErrors = {
 @register
 export class CurrentHigherThanEndValidator extends AbstractValidator {
 
-  constructor(private i18n: I18n) {
-    super(i18n({
-      id: 'currentHigherThanEndError',
-      description: 'The "Current" value is higher than the "Max" Value',
-      value: 'Der "Aktuelle" Wert ist Höher als der Maximalwert.'
-    }), currentHigherThanEndError);
+  constructor(private translate: TranslateService) {
+    super(
+      translate.instant('current-higher-than-end-validator-function.message'),
+      currentHigherThanEndError);
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

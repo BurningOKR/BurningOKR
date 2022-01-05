@@ -16,10 +16,10 @@ import {
   CommentViewDialogComponent,
   CommentViewDialogFormData
 } from '../comment/comment-view-dialog/comment-view-dialog.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-keyresult',
@@ -46,7 +46,10 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   // We dynamically populate this as sliders are used
   private sliderChangeSubject$: Subject<number>;
 
-  constructor(private matDialog: MatDialog, private keyResultMapperService: KeyResultMapper, private i18n: I18n) {
+  constructor(
+    private matDialog: MatDialog,
+    private keyResultMapperService: KeyResultMapper,
+    private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -213,23 +216,10 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   }
 
   private getDataForDeletionDialog(): ConfirmationDialogData {
-    const title: string =
-      this.i18n({
-        id: 'delete_keyresult',
-        description: 'Title of the delete keyresult dialog',
-        value: 'KeyResult löschen'
-      });
-    const message: string =
-      this.i18n({
-        id: 'deleteKeyResultDialogMessage',
-        description: 'Do you want to delete key result x',
-        value: 'KeyResult {{number}}. {{keyResultTitle}} von dem Objective löschen?',
-      }, {number: this.listNumber, keyResultTitle: this.keyResult.keyResult});
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_delete',
-      description: 'deleteButtonText',
-      value: 'Löschen'
-    });
+    const title: string = this.translate.instant('keyresult.deletion-dialog.title');
+    const message: string = this.translate.instant('keyresult.deletion-dialog.message',
+      {number: this.listNumber, keyResultTitle: this.keyResult.keyResult});
+    const confirmButtonText: string = this.translate.instant('keyresult.deletion-dialog.button-text');
 
     return {
       title,

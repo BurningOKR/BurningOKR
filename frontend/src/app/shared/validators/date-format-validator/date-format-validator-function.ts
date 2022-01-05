@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { AbstractValidator, register } from '../abstract-validator';
+import { TranslateService } from '@ngx-translate/core';
 
 export const dateFormatError: ValidationErrors = {
   dateFormatError: true
@@ -9,12 +9,10 @@ export const dateFormatError: ValidationErrors = {
 @register
 export class DateFormValidator extends AbstractValidator {
 
-  constructor(private i18n: I18n) {
-    super(i18n({
-      id: 'dateFormatError',
-      description: 'Date is in invalid format from DD.MM.YYYY',
-      value: 'Der eingegebene Wert ist kein gültiges Datum in der Form TT.MM.JJJJ'
-    }), dateFormatError);
+  constructor(private translate: TranslateService) {
+    super(
+      translate.instant('date-format-validator-function.message'),
+      dateFormatError);
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

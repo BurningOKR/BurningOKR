@@ -1,12 +1,12 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { Unit } from '../../../shared/model/api/unit.enum';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CurrentHigherThanEndValidator } from '../../../shared/validators/current-higher-than-end-validator/current-higher-than-end-validator-function';
 import { StartDateNotEqualEndDateValidator } from '../../../shared/validators/start-not-equal-end-validator/start-not-equal-end-validator-function';
+import { TranslateService } from '@ngx-translate/core';
 
 interface KeyResultFormData {
   keyResult?: ViewKeyResult;
@@ -18,7 +18,7 @@ interface KeyResultFormData {
   templateUrl: './key-result-form.component.html',
   styleUrls: ['./key-result-form.component.scss'],
 })
-export class KeyResultFormComponent {
+export class KeyResultFormComponent implements OnInit{
 
   keyResult: ViewKeyResult;
   keyResultForm: FormGroup;
@@ -26,9 +26,12 @@ export class KeyResultFormComponent {
   title: string;
 
   constructor(private dialogRef: MatDialogRef<KeyResultFormComponent>,
-              private i18n: I18n,
+              private translate: TranslateService,
               private keyResultMapper: KeyResultMapper,
               @Inject(MAT_DIALOG_DATA) private formData: KeyResultFormData) {
+  }
+
+  ngOnInit(): void {
     this.keyResultForm = new FormGroup({
       keyResult: new FormControl('', [Validators.required, Validators.maxLength(255)]),
       current: new FormControl(0, [Validators.required, Validators.min(0)]),
@@ -44,15 +47,8 @@ export class KeyResultFormComponent {
       this.keyResultForm.patchValue(this.formData.keyResult);
     }
 
-    const editText: string = this.i18n({
-      id: 'small_edit',
-      value: 'bearbeiten'
-    });
-
-    const createText: string = this.i18n({
-      id: 'small_create',
-      value: 'erstellen'
-    });
+    const editText: string = this.translate.instant('key-result-form.dialog.edit');
+    const createText: string = this.translate.instant('key-result-form.dialog.create');
 
     this.title = `Key Result ${this.keyResult ? editText : createText}`;
   }
@@ -63,10 +59,7 @@ export class KeyResultFormComponent {
 
   getViewUnit(unit: string): string {
     if (this.unitEnum[unit] === '#') {
-      return this.i18n({
-        id: 'amount',
-        value: 'Anzahl'
-      });
+      return this.translate.instant('key-result-form.amount-units');
     } else {
       return this.unitEnum[unit];
     }

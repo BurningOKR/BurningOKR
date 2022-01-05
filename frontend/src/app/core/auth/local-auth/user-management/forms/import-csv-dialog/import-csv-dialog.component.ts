@@ -13,7 +13,7 @@ import { filter } from 'rxjs/operators';
 import { FormBuilder } from '@angular/forms';
 import { FileInput } from 'ngx-material-file-input';
 import { FormGroupTyped } from '../../../../../../../typings';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 interface ImportCsvDialogForm {
   csvFile: FileInput;
@@ -43,7 +43,7 @@ export class ImportCsvDialogComponent implements OnInit {
     private csvService: CsvUserParseService,
     private dialog: MatDialog,
     private formbuilder: FormBuilder,
-    private i18n: I18n
+    private translate: TranslateService
   ) {
     this.fileForm = this.formbuilder.group({
       csvFile: []
@@ -78,21 +78,14 @@ export class ImportCsvDialogComponent implements OnInit {
 
   onSave(): void {
 
-    const confirmationTitleI18n: string = this.i18n({
-      id: '@@confirm_user_import_via_csv_title',
-      description: 'title of confirmation dialog for importing users via csv',
-      value: '{{list_length}} Benutzer erstellen.'
-    }, { list_length: this.rowData.data.length });
-
-    const confirmationTextI18n: string = this.i18n({
-      id: '@@confirm_user_import_via_csv_text',
-      description: 'text of confirmation dialog for importing users via csv',
-      value: 'Diese Operation wird alle {{list_length}} Nutzer hinzufügen.'
-    }, { list_length: this.rowData.data.length });
+    const confirmationTitle: string = this.translate.instant('import-csv-dialog.confirmation.title',
+      { list_length: this.rowData.data.length });
+    const confirmationText: string = this.translate.instant('import-csv-dialog.confirmation.text',
+      { list_length: this.rowData.data.length });
 
     const data: ConfirmationDialogData = {
-      title: confirmationTitleI18n,
-      message: confirmationTextI18n,
+      title: confirmationTitle,
+      message: confirmationText,
     };
     this.dialog.open(ConfirmationDialogComponent, { data })
       .afterClosed()

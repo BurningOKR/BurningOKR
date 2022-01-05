@@ -3,7 +3,6 @@ import { TopicDraftApiService } from '../api/topic-draft-api.service';
 import { TopicDraftMapper } from './topic-draft-mapper';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthenticationService } from '../../../core/auth/services/authentication.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -14,7 +13,6 @@ import { User } from '../../model/api/user';
 import { of } from 'rxjs';
 
 const userMock: User = new User();
-const i18nMock: any = jest.fn();
 const topicDraftApiServiceMock: any = {
     postTopicDraft$: jest.fn(),
     getAllTopicDrafts$: jest.fn(),
@@ -31,7 +29,6 @@ describe('TopicDraftMapper', () => {
         providers: [
             {provide: TopicDraftApiService, useValue: topicDraftApiServiceMock},
             {provide: AuthenticationService, useValue: {}},
-            {provide: I18n, useValue: i18nMock}
         ]
     }));
 

@@ -7,12 +7,49 @@
 			"add-new-child-unit": "Neue Unterstruktur definieren"
 		}
 	},
+	"admin-settings-form": {
+		"config-names": {
+			"email-feedabck-receiver": "Email Adressen der Feedback Empfänger. (Durch Komma getrennt)",
+			"email-sender": "Email Adresse des OKR Tools",
+			"frontend-base-url": "Frontend Base URL",
+			"max-key-results": "Maximale Anzahl von Key Results",
+			"subject": {
+				"feedback": "Email Betreff für Feedback",
+				"new-user": "Email Betreff für neue Benutzer",
+				"reset-password": "Email Betreff für die Passwort-Zurücksetzen Email"
+			},
+			"threshold": {
+				"green-yellow": "Objective Prognose Schwellenwert (Grün/Gelb)",
+				"yellow-red": "Objective Prognose Schwellenwert (Gelb/Rot)"
+			},
+			"topic-sponsors-activated": "Themenpaten aktiviert"
+		},
+		"confirmation-text": "Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.",
+		"confirmation-title": "OKR Themenpaten deaktivieren"
+	},
 	"admin-view": {
 		"admin-panel": "Admin Panel",
 		"admins": "Admins",
+		"delete-dialog": {
+			"button-text": "Löschen",
+			"message": "{{surname}}, {{name}} aus den Admins löschen?",
+			"title": "Admin löschen"
+		},
+		"icon-tooltip": "{{adminName}} von den Admins löschen",
+		"placeholder": "Neuen Admin definieren",
 		"tooltip": {
 			"cannot-delete-yourself": "Selber löschen nicht möglich",
 			"go-to-okr-unit-overview": "Zur Strukturübersicht"
+		}
+	},
+	"api-http-error-handling": {
+		"error-counting": "{{errorCount}} fehlgeschlagene Anfrage{{pluralAppendix}}",
+		"error-message": {
+			"appendix": "n",
+			"more-detail": "Mehr Details",
+			"one-or-more-errors": "Fehler beim Ausführen einer oder mehrerer Anfragen.",
+			"retry": "Erneut versuchen",
+			"single-error": "Fehler beim Ausführen der Anfrage."
 		}
 	},
 	"change-password-dialog": {
@@ -31,6 +68,7 @@
 	},
 	"comment-view-dialog": {
 		"close": "Schließen",
+		"min-char-message": "Min. 3 Zeichen benötigt",
 		"no-comment": "Es gibt noch keine Kommentare für dieses",
 		"title": "Kommentare",
 		"tooltip": {
@@ -63,13 +101,24 @@
 		"initialisation-completed-message": "Die Initialisierung wurde erfolgreich abgeschlossen🎉",
 		"lets-go!": "Los geht's!"
 	},
+	"confirmation-dialog": {
+		"cancel-text": "Abbrechen",
+		"confirm-text": "Bestätigen"
+	},
 	"create-user-init-state-form": {
 		"create-your-admin-account": "Administratorenkonto",
 		"next": "Weiter",
 		"subtitle": "Legen Sie ein initiales Administratorenkonto an."
 	},
+	"current-higher-than-end-validator-function": {
+		"message": "Der \"Aktuelle\" Wert ist Höher als der Maximalwert."
+	},
 	"cycle-admin-card": {
 		"delete-cycle": "Zyklus löschen",
+		"deletion-dialog": {
+			"content": "den Zyklus vom {{cycleStart}} bis zum {{cycleEnd}}",
+			"title": "Den Zyklus löschen?"
+		},
 		"edit-cycle": "Zyklus bearbeiten",
 		"hidden": "Unsichtbar",
 		"visible": "Sichtbar"
@@ -83,6 +132,10 @@
 		}
 	},
 	"cycle-creation-form": {
+		"creation-dialog": {
+			"save": "Zyklus definieren",
+			"title": "Neuen Zyklus erstellen"
+		},
 		"end-date": "Enddatum",
 		"start-date": "Startdatum",
 		"visibility": "Sichtbarkeit"
@@ -90,8 +143,19 @@
 	"cycle-edit-form": {
 		"end-date": "Enddatum",
 		"name": "Name *",
+		"save": "Speichern",
 		"start-date": "Startdatum",
+		"title": "Zyklus bearbeiten",
 		"visibility": "Sichtbarkeit"
+	},
+	"date-format-validator-function": {
+		"message": "Der eingegebene Wert ist kein gültiges Datum in der Form TT.MM.JJJJ"
+	},
+	"date-not-in-the-past-validator-function": {
+		"message": "Das eingegebene Datum liegt in der Vergangenheit"
+	},
+	"date-range-in-range-within-another-dates-validator-function": {
+		"message": "Das Datum liegt innerhalb der Zeitspanne eines anderen Zyklus."
 	},
 	"delete-dialog": {
 		"delete": "Löschen ",
@@ -163,6 +227,9 @@
 		"user-generated-text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
 		"user-generated-title": "Nutzergenerierte Inhalte"
 	},
+	"department-description-edit-form": {
+		"edit-description": "Beschreibung bearbeiten"
+	},
 	"department-tab-description": {
 		"beginning": "Beginn:",
 		"delimitation": "Abgrenzung:",
@@ -181,29 +248,54 @@
 		"topic": "Thema:"
 	},
 	"department-tab-task-card": {
+		"delete": "Löschen",
 		"task-board-loading": "loading"
 	},
 	"department-tab-task-form": {
 		"assigned-user-ids": "Bearbeiter",
 		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten",
+			"title": "Aufgabe {{editOrCreateText}}"
+		},
 		"no-parent-key-result": "Kein übergeordnetes Key Result",
 		"select-parent-key-result": "Übergeordnetes Key Result auswählen",
 		"task-state": "Status",
 		"title": "Titel *"
 	},
 	"department-tab-taskboard": {
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Soll die Aufgabe \"{{title}}\" wirklich gelöscht werden?",
+			"title": "Aufgabe löschen"
+		},
 		"task-board-headline": "Aufgaben",
 		"tooltip": {
 			"create-new-task": "Neue Aufgabe erstellen"
-		}
+		},
+		"websocket-not-connected": "Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen."
 	},
 	"department-tab-team": {
 		"define-o-k-r-master": "Kein OKR Master definiert",
 		"define-topic-sponsor": "Kein OKR Themenpate definiert",
+		"deletion-dialog": {
+			"button-text": "Entfernen",
+			"message": "Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.",
+			"message-member": "Möchten Sie dieses Mitglied von dem Team entfernen? Der Benutzer wird seine Mitgliedsrechte in diesem Team verlieren.",
+			"title-master": "OKR Themenpate entfernen",
+			"title-member": "Mitglied entfernen",
+			"title-sponsor": "OKR Master entfernen"
+		},
 		"members-of-unit": "Mitglieder dieser Struktur",
 		"no-members-defined": "Keine Teammitglieder definiert",
 		"o-k-r-master": "OKR Master",
 		"o-k-r-topic-sponsor": "OKR Themenpate",
+		"placeholder": {
+			"member": "Neues Mitglied definieren",
+			"okr-master": "OKR Master definieren",
+			"topic-sponsor": "Themenpaten definieren"
+		},
 		"team-member": "Teammitglieder"
 	},
 	"dialog-component": {
@@ -242,6 +334,10 @@
 	},
 	"import-csv-dialog": {
 		"amount-of-entries-loaded": "Es wurden Einträge geladen.",
+		"confirmation": {
+			"text": "Diese Operation wird alle {{list_length}} Nutzer hinzufügen.",
+			"title": "{{list_length}} Benutzer erstellen."
+		},
 		"csv-file": "CSV-Datei",
 		"department": "Abteilung",
 		"description": "Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung",
@@ -252,8 +348,13 @@
 		"to-many-entries-warning": "Mindestens ein Eintrag hat zu viele spalten."
 	},
 	"key-result-form": {
+		"amount-units": "Anzahl",
 		"current": "Aktuell *",
 		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten"
+		},
 		"key-result": "Key Result *",
 		"start": "Start *",
 		"target": "Ziel *",
@@ -269,6 +370,11 @@
 		"value-input": "Ziel-Wert *"
 	},
 	"keyresult": {
+		"deletion-dialog": {
+			"button-text": "KeyResult löschen",
+			"message": "KeyResult {{number}}. {{keyResultTitle}} von dem Objective löschen?",
+			"title": "Löschen"
+		},
 		"menu": {
 			"edit-key-result": "KeyResult bearbeiten",
 			"keyresult": "KeyResult löschen",
@@ -311,6 +417,9 @@
 			"toogle-navigvation": "Navigationsmenü anzeigen/verbergen"
 		}
 	},
+	"max-length-validator": {
+		"message": "Maximale Zeichenzahl überschritten"
+	},
 	"navigation-list-entry": {
 		"tooltip": {
 			"is-substructure": "Dies ist eine Unterstruktur",
@@ -326,6 +435,7 @@
 		"feedback": "Senden von Feedback",
 		"info": "Dies kann die Benutzbarkeit der Anwendung stark einschränken.",
 		"local": "Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
+		"no-smtp": "Kein SMTP konfiguriert",
 		"password-reset-mails": "Senden von Mails um Passwörter zurückzusetzen",
 		"title": "Es wurde keine SMTP Konfiguration gefunden.",
 		"tooltip": {
@@ -333,6 +443,11 @@
 		}
 	},
 	"objective": {
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Objective {{number}}. {{objectiveTitle}} löschen?",
+			"title": "Objective löschen"
+		},
 		"menu": {
 			"comment-objective": "Objective kommentieren",
 			"delete-objective": "Objective löschen",
@@ -367,12 +482,22 @@
 		"annotation": "Anmerkungen",
 		"contact-person": "Ansprechpartner",
 		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten",
+			"title": "Objective {{editOrCreateText}}"
+		},
 		"no-contact-person": "Kein Ansprechpartner",
 		"no-parent-objective": "Kein übergeordnetes Objective",
 		"objective-is-active-in-process": "Objective wird im aktuellen Zyklus aktiv bearbeitet",
 		"select-parent-objective": "Übergeordnetes Objective auswählen"
 	},
 	"okr-child-unit": {
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.",
+			"title": "{{name}} löschen?"
+		},
 		"description": "Beschreibung",
 		"empty-label": "-",
 		"error-info-label": "Info",
@@ -459,7 +584,11 @@
 		"description": "Beschreibung",
 		"handover-plan": "Übergabeplan",
 		"header": "Thema *",
-		"resources": "Benötigte Ressourcen"
+		"initiator": "Initiator *",
+		"no-initiator": "Kein Initiator",
+		"resources": "Benötigte Ressourcen",
+		"stakeholder": "Stakeholder",
+		"start-team": "Start Team"
 	},
 	"okr-unit-card": {
 		"delete-company-has-child-unit-warning": "{{value}} enthält noch Unterstrukturen",
@@ -488,6 +617,14 @@
 	},
 	"okr-unit-form": {
 		"create": "{{value}} erstellen.",
+		"default-label": {
+			"structure": "Unterstruktur",
+			"team": "OKR Team"
+		},
+		"dialog": {
+			"create": "{{label}} erstellen.",
+			"edit": "{{label}} bearbeiten."
+		},
 		"placeholder": {
 			"label": "Bezeichnung *",
 			"name": "Name *"
@@ -504,6 +641,12 @@
 		"new-password-repetition": "Neues Passwort wiederholen",
 		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
 		"previous-password": "Vorheriges Passwort"
+	},
+	"passwords-match-validator-function": {
+		"message": "Die Passwörter stimmen nicht überein."
+	},
+	"required-validator": {
+		"message": "Pflichtfeld"
 	},
 	"reset-countdown": {
 		"until-next": "Zurücksetzen der Daten in:"
@@ -531,6 +674,10 @@
 		"only-do-this-if-you-are-a-nerd-warning": "Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!",
 		"please-hang-on-the-server-is-beeing-configured": "Bitte warten Sie einen Moment, während der Server konfiguriert wird.",
 		"refresh-token-validity": "Lebenszeit des Refreshtokens (in Sekunden)",
+		"timeout": {
+			"error-message": "Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.",
+			"error-message-action": "Ok"
+		},
 		"title": "Konfiguration der Authentifizierung",
 		"web-server-redirect-uri": "Webserver-Redirect-URI"
 	},
@@ -538,15 +685,29 @@
 		"new-password": "Neues Passwort",
 		"new-password-invalid": "Das Passwort muss mindestens 7 Zeichen enthalten",
 		"new-password-repetition": "Neues Passwort wiederholen",
+		"password-changed-message": "Passwort erfolgreich geändert ✅",
 		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
 		"reset-password": "Passwort zurücksetzen",
-		"set-new-password-instruction": "Legen Sie ein neues Passwort fest"
+		"set-new-password-instruction": "Legen Sie ein neues Passwort fest",
+		"toolbar-title": "Burning OKR - Passwort ändern"
 	},
 	"settings-form": {
 		"admin-settings": "Adminverwaltung",
 		"cancel-button-text": "Abbrechen",
 		"save": "Speichern",
 		"settings": "Einstellungen"
+	},
+	"start-date-before-end-date-validator-function": {
+		"message": "Das Anfangsdatum ist nach dem Enddatum"
+	},
+	"start-not-equal-end-validator-function": {
+		"message": "Das Anfangsdatum ist nach dem Enddatum"
+	},
+	"status-dot": {
+		"approved": "Genehmigt",
+		"draft": "Entwurf",
+		"rejected": "Abgelehnt",
+		"submitted": "Eingereicht"
 	},
 	"submitted-topic-draft-action-button": {
 		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
@@ -648,8 +809,24 @@
 			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
 		}
 	},
+	"task-board-swimlane-view-helper": {
+		"no-keyresult-title": "Kein KeyResult"
+	},
+	"taskboard-state-column-view": {
+		"default-state-text": "Nicht zugewiesen"
+	},
+	"topic-draft-creation-form": {
+		"dialog-title": "Themenentwurf erstellen"
+	},
+	"user-autocomplete-input": {
+		"label": "Benutzer Eingabe"
+	},
 	"user-dialog": {
-		"reset-password": "Passwort zurücksetzen"
+		"reset-password": "Passwort zurücksetzen",
+		"snackbar": {
+			"message": "Das Passwort wurde erfolgreich zurückgesetzt.",
+			"ok": "Ok"
+		}
 	},
 	"user-form": {
 		"department": "Abteilung",
@@ -684,11 +861,22 @@
 			"remove-member": "Benutzer aus Team entfernen"
 		}
 	},
+	"user-selector": {
+		"no-entries": "Keine Benutzer gefunden.",
+		"placeholder": "Suche"
+	},
+	"user-selector-multi": {
+		"no-entires": "Keine Benutzer gefunden.",
+		"placeholder": "Suche"
+	},
 	"user-settings": {
 		"default-company": "Standard Unternehmen",
 		"default-team": "Standard Team",
 		"no-company": "Kein Unternehmen",
 		"no-team": "Kein Team"
+	},
+	"validation-error": {
+		"default-error-message": "Kein gültiger Wert."
 	},
 	"version-form": {
 		"change-log": "Versionsänderungen",

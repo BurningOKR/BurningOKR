@@ -1,4 +1,4 @@
-<app-dialog-component *ngIf="cycleForm" i18n-title="@@component_cycleCreationForm_createCycle" title="{{title}}" [formGroup]="cycleForm" i18n-[saveAndCloseLabel] saveAndCloseLabel="Speichern" [hasFormGroupError]="true" (okEmitter)="createCycle()">
+<app-dialog-component *ngIf="cycleForm" title="{{title}}" [formGroup]="cycleForm" saveAndCloseLabel="{{saveAndCloseLabel}}" [hasFormGroupError]="true" (okEmitter)="createCycle()">
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
       <input formControlName="name" matInput placeholder="Name *" type="text">
@@ -14,7 +14,7 @@
 
     </mat-form-field>
     <mat-form-field class="halfWidth rightDate">
-      <input [matDatepicker]="endDatePicker" formControlName="endDate" placeholder="{{ 'cycle-creation-form.end-date' | translate }}" matInput>
+      <input [matDatepicker]="endDatePicker" formControlName="endDate" matInput placeholder="{{ 'cycle-creation-form.end-date' | translate }}">
       <mat-datepicker-toggle [for]="endDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
       <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>

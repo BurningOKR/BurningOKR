@@ -10,7 +10,7 @@
         <div class="taskcard-footer">
             <div *ngIf="isInteractive">
                 <mat-card-actions>
-                    <button mat-button (click)="onDelete($event,taskInformations.task)" i18n-[matTooltip]="@@taskBoardDeleteTooltip" [matTooltip]="'löschen'">
+                    <button mat-button (click)="onDelete($event,taskInformations.task)" matTooltip="{{'department-tab-task-card.delete' | translate}}">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-card-actions>

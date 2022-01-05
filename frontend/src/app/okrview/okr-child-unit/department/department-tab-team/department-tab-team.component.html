@@ -6,7 +6,7 @@
     <div class="flex-wrap-spreadinner-nocenter">
       <div *ngIf="department.okrMasterId === null">
         <div class="tab-subtitle">{{ 'department-tab-team.define-o-k-r-master' | translate }}</div>
-        <app-department-team-new-user *ngIf="canEditManagers" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineOkrMaster" inputPlaceholderText="OKR Master definieren" (choseUser)="clickedDefineOKRMaster($event)">
+        <app-department-team-new-user *ngIf="canEditManagers" inputPlaceholderText="{{'department-tab-team.placeholder.okr-master' | translate}}" (choseUser)="clickedDefineOKRMaster($event)">
         </app-department-team-new-user>
       </div>
       <div *ngIf="department.okrMasterId !== null">
@@ -17,7 +17,7 @@
       <div *ngIf="topicSponsorsActivated$ | async">
         <div *ngIf="department.okrTopicSponsorId === null">
           <div class="tab-subtitle">{{ 'department-tab-team.define-topic-sponsor' | translate }}</div>
-          <app-department-team-new-user *ngIf="canEditManagers" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineTopicSponsor" inputPlaceholderText="Themenpaten definieren" (choseUser)="clickedDefineOKRTopicSponsor($event)">
+          <app-department-team-new-user *ngIf="canEditManagers" inputPlaceholderText="{{'department-tab-team.placeholder.topic-sponsor' | translate}}" (choseUser)="clickedDefineOKRTopicSponsor($event)">
           </app-department-team-new-user>
         </div>
         <div *ngIf="department.okrTopicSponsorId !== null">
@@ -38,7 +38,7 @@
         <app-user-minibutton [userId]="currentuser" [canBeRemoved]="canEditMembers" (userDeleted)="clickedDeleteOKRMember($event)">
         </app-user-minibutton>
       </div>
-      <app-department-team-new-user *ngIf="canEditMembers" i18n-inputPlaceholderText="@@component_departmentTabTeam_defineNewMember" inputPlaceholderText="Neues Mitglied definieren" (choseUser)="clickedDefineOKRMember($event)">
+      <app-department-team-new-user *ngIf="canEditMembers" inputPlaceholderText="{{'department-tab-team.placeholder.member' | translate}}" (choseUser)="clickedDefineOKRMember($event)">
       </app-department-team-new-user>
     </div>
   </div>

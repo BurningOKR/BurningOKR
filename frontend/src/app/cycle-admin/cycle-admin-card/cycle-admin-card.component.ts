@@ -2,12 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog.component';
 import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatDialog } from '@angular/material/dialog';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { CycleEditFormComponent, CycleEditFormData } from '../cycle-edit-form/cycle-edit-form.component';
 import { Observable } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cycle-admin-card',
@@ -23,7 +23,7 @@ export class CycleAdminCardComponent {
   cycleState = CycleState;
 
   constructor(
-    private i18n: I18n,
+    private translate: TranslateService,
     private dialog: MatDialog,
     private cycleMapper: CycleMapper,
   ) {
@@ -54,19 +54,11 @@ export class CycleAdminCardComponent {
   }
 
   getCycleTranslation(): string {
-    return this.i18n({
-      id: 'cycleDeletionTitle',
-      description: 'Deletion dialog content while deleting cycles',
-      value: 'Den Zyklus löschen?'
-    });
+    return this.translate.instant('cycle-admin-card.deletion-dialog.title');
   }
 
   getGeneralDeleteDialogContentTranslation(): string {
-    return this.i18n({
-      id: 'cycleDeletionContent',
-      description: 'Deletion dialog content while deleting cycles',
-      value: 'den Zyklus von {{cycleStart}} bis {{cycleEnd}}'
-    }, {
+    return this.translate.instant('cycle-admin-card.deletion-dialog.content', {
       cycleStart: this.cycle.startDate.toLocaleDateString(),
       cycleEnd: this.cycle.endDate.toLocaleDateString(),
     });

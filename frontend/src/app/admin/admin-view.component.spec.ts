@@ -5,7 +5,6 @@ import { AdminViewComponent } from './admin-view.component';
 import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { User } from '../shared/model/api/user';
 import { of } from 'rxjs';
 import 'linq4js';
@@ -24,7 +23,6 @@ describe('AdminViewComponent', () => {
     getCurrentUser$: jest.fn()
   };
   const router: any = {};
-  const i18n: any = {};
 
   const currentUserMock: User = {
     id: 'testId',
@@ -65,7 +63,6 @@ describe('AdminViewComponent', () => {
           useValue: currentUserService
         },
         {provide: Router, useValue: router},
-        {provide: I18n, useValue: i18n}
       ],
       imports: [MatDialogModule]
     })

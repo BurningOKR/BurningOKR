@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { SetAzureAdminInitStateFormComponent } from './set-azure-admin-init-state-form.component';
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { CurrentUserService } from '../../../../../services/current-user.service';
@@ -9,8 +8,6 @@ import { FetchingService } from '../../../../../services/fetching.service';
 import { of } from 'rxjs';
 import { User } from '../../../../../../shared/model/api/user';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-import { i18nMock } from '../../../../../../shared/mocks/i18n-mock';
 import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
 import { NGXLogger } from 'ngx-logger';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -57,7 +54,6 @@ describe('SetAzureAdminInitStateFormComponent', () => {
         { provide: AuthenticationService, useValue: authenticationService },
         { provide: InitService, useValue: initService },
         { provide: FetchingService, useValue: fetchingService },
-        { provide: I18n, useValue: i18nMock },
         { provide: NGXLogger, useValue: ngxLogger }
       ]
     })

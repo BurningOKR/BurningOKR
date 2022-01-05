@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DemoPrivacyPolicyComponent } from './demo-privacy-policy.component';
+import { MaterialTestingModule } from '../../testing/material-testing.module';
 
 describe('DemoPrivacyPolicyComponent', () => {
   let component: DemoPrivacyPolicyComponent;
@@ -8,7 +8,8 @@ describe('DemoPrivacyPolicyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DemoPrivacyPolicyComponent ]
+      declarations: [ DemoPrivacyPolicyComponent ],
+      imports: [ MaterialTestingModule ]
     })
     .compileComponents();
   }));

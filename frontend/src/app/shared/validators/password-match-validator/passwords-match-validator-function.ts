@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 export const passwortMismatch: ValidationErrors = {
   passwortMismatch: true
@@ -9,12 +9,10 @@ export const passwortMismatch: ValidationErrors = {
 @register
 export class PasswordsMatchValidator extends AbstractValidator {
 
-  constructor(private i18n: I18n) {
-    super(i18n({
-      id: 'PasswordsMatchValidator',
-      description: 'The passwords do not match',
-      value: 'Die Passwörter stimmen nicht überein.'
-    }), passwortMismatch);
+  constructor(private translate: TranslateService) {
+    super(
+      translate.instant('passwords-match-validator-function.message'),
+      passwortMismatch);
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

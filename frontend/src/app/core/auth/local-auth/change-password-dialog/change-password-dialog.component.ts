@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Controls, FormGroupTyped } from '../../../../../typings';
 import { NewPasswordForm } from '../../../../shared/model/forms/new-password-form';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -13,14 +13,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Consts } from '../../../../shared/consts';
 import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-change-password-dialog',
   templateUrl: './change-password-dialog.component.html',
   styleUrls: ['./change-password-dialog.component.css']
 })
-export class ChangePasswordDialogComponent implements OnInit {
+export class ChangePasswordDialogComponent implements OnInit, OnDestroy {
 
+  subscriptions: Subscription[] = [];
   newPasswordForm: FormGroupTyped<NewPasswordForm>;
   title: string;
 
@@ -34,9 +36,13 @@ export class ChangePasswordDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateNewPasswordForm();
-    this.translate.stream('change-password-dialog.form.title').subscribe(text => {
+    this.subscriptions.push(this.translate.stream('change-password-dialog.form.title').subscribe(text => {
       this.title = text;
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   generateNewPasswordForm(): void {

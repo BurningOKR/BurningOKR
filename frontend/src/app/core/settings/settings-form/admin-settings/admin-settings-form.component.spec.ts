@@ -3,13 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfigurationManagerService } from '../../configuration-manager.service';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { I18n } from '@ngx-translate/i18n-polyfill';
-import { i18nMock } from '../../../../shared/mocks/i18n-mock';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
 import { of } from 'rxjs';
 import { Configuration } from '../../../../shared/model/ui/configuration';
 import { AbstractControl } from '@angular/forms';
+import { MaterialTestingModule } from '../../../../testing/material-testing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const configurationManagerServiceStub: any = {
   getAllConfigurations$: jest.fn(),
@@ -71,10 +71,10 @@ describe('AdminSettingsForm', () => {
     TestBed.configureTestingModule(
       {
         declarations: [AdminSettingsFormComponent],
+        imports: [MaterialTestingModule, BrowserAnimationsModule],
         providers: [
           {provide: ConfigurationManagerService, useValue: configurationManagerServiceStub},
           {provide: CurrentUserService, useValue: currentUserServiceStub},
-          {provide: I18n, useValue: i18nMock},
           {provide: MatDialogRef, useValue: {}},
           {provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceStub},
           {provide: MatDialog, useValue: dialog},
