@@ -765,7 +765,10 @@
 			"company-option": "Create team in {{value}} ",
 			"select": "Choose parent structure *"
 		},
-		"title": "Convert Topic Draft to a Team"
+		"title": "Convert Topic Draft to a Team",
+		"tooltip": {
+			"only-substructures-allowed": "A team can be created only in structures"
+		}
 	},
 	"submitted-topic-draft-details": {
 		"button": {

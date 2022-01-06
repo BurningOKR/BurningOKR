@@ -18,27 +18,28 @@ export class StructureMapper {
   getSchemaOfAllExistingStructures$(): Observable<Structure[]>{
     return this.structureApiService
       .getSchemaOfAllExistingStructures$().pipe(
-        map(companies => this.mapDtosToCompanyUnitStructureList(companies))
+        map(companies => this.mapDtosToStructureArray(companies))
       )
   }
 
   private mapDtoToCompanyUnitStructure(structureDto :StructureDto) {
-    console.log(structureDto)
-    const companyUnitStructure: Structure = new Structure(
+    if(structureDto.substructure == []){
+      return;
+    }
+    const structure: Structure = new Structure(
       structureDto.okrUnitId,
       structureDto.unitName,
-      structureDto.okrChildUnitIds,
-      structureDto.objectiveIds,
-      structureDto.cycleId,
       structureDto.label,
-      structureDto.unitSchema
+      structureDto.objectiveIds,
+      this.mapDtosToStructureArray(structureDto.substructure)
     )
+    console.log(structureDto)
 
-    console.log(companyUnitStructure)
-    return companyUnitStructure;
+    console.log(structure)
+    return structure;
   }
 
-  private mapDtosToCompanyUnitStructureList(structureDtos: StructureDto[]): Structure[]
+  private mapDtosToStructureArray(structureDtos: StructureDto[]): Structure[]
   {
     const companyUnitStructures: Structure[] = [];
     if (structureDtos) {
