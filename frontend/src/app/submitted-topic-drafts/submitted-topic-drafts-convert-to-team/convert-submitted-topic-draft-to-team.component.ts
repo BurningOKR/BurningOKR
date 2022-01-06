@@ -15,10 +15,10 @@ import {map, switchMap, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-submitted-topic-drafts-convert-to-team',
-  templateUrl: './submitted-topic-drafts-convert-to-team.component.html',
-  styleUrls: ['./submitted-topic-drafts-convert-to-team.component.scss']
+  templateUrl: './convert-submitted-topic-draft-to-team.component.html',
+  styleUrls: ['./convert-submitted-topic-draft-to-team.component.scss']
 })
-export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit, OnDestroy {
+export class ConvertSubmittedTopicDraftToTeam implements OnInit, OnDestroy {
 
   public title: string;
   public saveAndCloseLabel: string;
@@ -31,7 +31,7 @@ export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit, OnDes
   constructor(
     @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any),
     private translate : TranslateService,
-    private dialogRef: MatDialogRef<SubmittedTopicDraftsConvertToTeamComponent>,
+    private dialogRef: MatDialogRef<ConvertSubmittedTopicDraftToTeam>,
     private departmentMapper: DepartmentMapper,
     private structureMapper: StructureMapper,
     private topicDescriptionMapper: TopicDescriptionMapper
@@ -60,9 +60,14 @@ export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit, OnDes
   }
 
   clickedConvertToTeam() {
-    this.convertTopicDraftToTeamAndDescription()
-    this.dialogRef.close(
-      true
+    this.subscriptions.push(
+      this.convertTopicDraftToTeamAndDescription()
+        .subscribe(
+        () =>
+          this.dialogRef.close(
+          true
+        )
+      )
     );
   }
   //Noch Abfrage ob Struktur ein Unternehmen ist noch benötigt!
@@ -79,13 +84,11 @@ export class SubmittedTopicDraftsConvertToTeamComponent implements OnInit, OnDes
     )
   }
 
-  convertTopicDraftToTeamAndDescription(): void{
-    this.subscriptions.push(
-      this.createChildUnit$().pipe(
+  convertTopicDraftToTeamAndDescription(): Observable<OkrTopicDescription>{
+      return this.createChildUnit$().pipe(
         switchMap(department => this.getTopicDescriptionForDepartment(department)),
         switchMap( description => this.putUpdatedTopicDescription(description)),
-      ).subscribe()
-    )
+      )
   }
 
   addDraftDataToDepartment(): void{
