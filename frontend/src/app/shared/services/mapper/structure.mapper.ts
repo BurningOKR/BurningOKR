@@ -25,6 +25,7 @@ export class StructureMapper {
     if(structureDto.substructure === []){
       return;
     }
+
     return new Structure(
       structureDto.okrUnitId,
       structureDto.unitName,
