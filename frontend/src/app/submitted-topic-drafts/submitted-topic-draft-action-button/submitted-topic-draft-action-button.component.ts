@@ -126,12 +126,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .subscribe((text: string) => {
       this.statusMustBeSubmittedAndUser = text;
     }));
-    this.translate.stream('submitted-topic-draft-action-button.user-not-admin').subscribe((text: string) => {
-      this.notAdminToolTip = text;
-    });
-    this.translate.stream('submitted-topic-draft-action-button.not-approved').subscribe((text: string) => {
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.user-not-admin').subscribe((text: string) => {
+        this.notAdminToolTip = text;
+      }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.not-approved').subscribe((text: string) => {
       this.notApprovedToolTip = text;
-    });
+    }));
 
   }
 

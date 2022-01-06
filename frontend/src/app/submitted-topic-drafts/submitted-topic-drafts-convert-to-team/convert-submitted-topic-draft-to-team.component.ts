@@ -68,8 +68,6 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
         )
     );
   }
-  //Noch Abfrage ob Struktur ein Unternehmen ist noch benötigt!
-  // -> Company hat keine Parent-Id
 
   createChildUnit$(): Observable<OkrDepartment> {
     this.addDraftDataToDepartment();
@@ -124,8 +122,6 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
   }
 
   putUpdatedTopicDescription(topicDescription: OkrTopicDescription): Observable<OkrTopicDescription>{
-    console.log(topicDescription);
-
-    return this.topicDescriptionMapper.putTopicDescription$(this.department.id, topicDescription);
+   return this.topicDescriptionMapper.putTopicDescription$(this.department.id, topicDescription);
   }
 }

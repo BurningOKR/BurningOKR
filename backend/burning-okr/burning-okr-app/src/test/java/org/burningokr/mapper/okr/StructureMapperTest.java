@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 import org.burningokr.dto.okr.StructureDto;
@@ -46,8 +45,8 @@ public class StructureMapperTest {
     assertEquals("Company1", actual.getUnitName());
   }
 
-
-  //Can not be tested yet, as JUnit 3.x does not support mocking of static methods (used by Branchhelper)
+  // Can not be tested yet, as JUnit 3.x does not support mocking of static methods (used by
+  // Branchhelper)
   /*@Test
   public void test_mapCompanyToDto_inputChildUnit_expectedSubstructureAsStrutureDTos() {
     childUnits = new ArrayList<>();

@@ -78,5 +78,4 @@ export class ChangePasswordDialogComponent implements OnInit, OnDestroy {
       });
   }
 
-
 }

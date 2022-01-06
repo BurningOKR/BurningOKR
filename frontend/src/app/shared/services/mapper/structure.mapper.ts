@@ -25,18 +25,13 @@ export class StructureMapper {
     if(structureDto.substructure === []){
       return;
     }
-    const structure: Structure = new Structure(
+    return new Structure(
       structureDto.okrUnitId,
       structureDto.unitName,
       structureDto.label,
       structureDto.objectiveIds,
       this.mapDtosToStructureArray(structureDto.substructure)
     );
-    console.log(structureDto);
-
-    console.log(structure);
-
-    return structure;
   }
 
   private mapDtosToStructureArray(structureDtos: StructureDto[]): Structure[] {
