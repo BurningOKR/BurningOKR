@@ -62,6 +62,7 @@ public class BranchHelper {
 
     return okrChildUnitCollection;
   }
+
   public static Collection<OkrChildUnit> collectChildUnitsWithoutSelf(OkrChildUnit okrChildUnit) {
     Collection<OkrChildUnit> okrChildUnitCollection = new ArrayList<>();
 
