@@ -88,18 +88,18 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
   }
 
   addDraftDataToDepartment(): void{
-    this.department = {
-      id: undefined,
-      parentUnitId: this.chooseStructure.get('parentUnitId').value,
-      objectives: [],
-      name: this.topicDraft.name,
-      label: this.translate.instant('user-form.department'),
-      isActive: true,
-      isParentUnitABranch: true,
-      okrMasterId: this.topicDraft.initiatorId,
-      okrMemberIds: this.topicDraft.startTeam,
-      okrTopicSponsorId: undefined
-    };
+    this.department = new OkrDepartment(
+      undefined,
+      this.topicDraft.name,
+      [],
+      this.chooseStructure.get('parentUnitId').value,
+      this.translate.instant('user-form.department'),
+      this.topicDraft.initiatorId,
+      undefined,
+      this.topicDraft.startTeam,
+      true,
+      true
+    )
   }
 
   addDraftDataToDescription(topicDescription: OkrTopicDescription): OkrTopicDescription{
@@ -110,7 +110,6 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
     topicDescription.handoverPlan = this.topicDraft.handoverPlan;
     topicDescription.contributesTo = this.topicDraft.contributesTo;
     topicDescription.description = this.topicDraft.description;
-    console.log(topicDescription);
 
     return topicDescription;
   }

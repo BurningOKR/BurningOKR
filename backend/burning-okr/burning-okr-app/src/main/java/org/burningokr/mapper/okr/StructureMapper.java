@@ -19,7 +19,7 @@ public class StructureMapper {
   private final UserService userService;
   private final OkrBranchSchemaMapper branchSchemaMapper;
 
-  public StructureDto mapCompnayToStructureDto(OkrCompany input) {
+  public StructureDto mapCompanayToStructureDto(OkrCompany input) {
     StructureDto structureDto = new StructureDto();
     structureDto.setOkrUnitId(input.getId());
     structureDto.setUnitName(input.getName());
@@ -30,7 +30,7 @@ public class StructureMapper {
 
   public Collection<StructureDto> mapCompaniesToStructureDtos(Collection<OkrCompany> input) {
     Collection<StructureDto> structureDtos = new ArrayList<>();
-    input.forEach(okrCompany -> structureDtos.add(mapCompnayToStructureDto(okrCompany)));
+    input.forEach(okrCompany -> structureDtos.add(mapCompanayToStructureDto(okrCompany)));
     return structureDtos;
   }
 

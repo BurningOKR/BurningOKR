@@ -40,7 +40,7 @@ public class StructureMapperTest {
   public void test_mapCompanyToDto_expected_name_Company1() {
     company1.setName("Company1");
 
-    StructureDto actual = mapper.mapCompnayToStructureDto(company1);
+    StructureDto actual = mapper.mapCompanayToStructureDto(company1);
 
     assertEquals("Company1", actual.getUnitName());
   }

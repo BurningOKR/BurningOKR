@@ -30,7 +30,6 @@ export class PickLanguageComponent implements OnInit, OnDestroy {
   }
 
   languageChanged(event: any) {
-    console.log(event);
     this.translateService.use(event.value);
   }
 
