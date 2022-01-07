@@ -99,7 +99,7 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
       this.topicDraft.startTeam,
       true,
       true
-    )
+    );
   }
 
   addDraftDataToDescription(topicDescription: OkrTopicDescription): OkrTopicDescription{
