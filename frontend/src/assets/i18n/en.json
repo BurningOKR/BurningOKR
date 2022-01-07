@@ -561,6 +561,7 @@
 			"admin-panel-text": "Admin panel",
 			"change-password-text": "Change password",
 			"cycle-administration-text": "Cycle management",
+			"language-picker": "Pick language",
 			"logout-text": "Logout",
 			"settings-text": "Settings",
 			"topic-drafts-text": "Topic drafts",
@@ -718,6 +719,7 @@
 			"heading": "Topic draft"
 		},
 		"comments-text": "Comments",
+		"create-team": "Convert to team",
 		"delete": {
 			"button-text": "Delete",
 			"message": "Are you sure you want to delete draft topic {{name}}?",
@@ -731,6 +733,7 @@
 			"user": "Only an admin or the initiator can edit"
 		},
 		"no-permission": "Only an admin or an auditor can approve or reject",
+		"not-approved": "Topic Draft not approved",
 		"snackbar": {
 			"ok": "Ok",
 			"submit": "Your topic draft has been sent for review."
@@ -742,6 +745,7 @@
 			"header": "Comments",
 			"only-admin-or-initiator-permission-to-delete": "Only the admin or the Initiator are able to delete this topic draft"
 		},
+		"user-not-admin": "Admin rights required",
 		"withdraw-approval": "Withdraw Approval",
 		"withdraw-rejection": "Withdraw rejection",
 		"withdraw-submit": "Withdraw submission"
@@ -753,6 +757,19 @@
 			"submitted": "Submitted By"
 		},
 		"no-new-topic-drafts": "No new topic drafts"
+	},
+	"submitted-topic-draft-convert-to-team": {
+		"dialog": {
+			"save-and-close-label": "Convert "
+		},
+		"form": {
+			"company-option": "Create team in {{value}} ",
+			"select": "Choose parent structure *"
+		},
+		"title": "Convert Topic Draft to a Team",
+		"tooltip": {
+			"only-substructures-allowed": "A team can be created only in structures"
+		}
 	},
 	"submitted-topic-draft-details": {
 		"button": {

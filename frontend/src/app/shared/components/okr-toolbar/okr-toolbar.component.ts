@@ -15,6 +15,7 @@ import { ConfigurationService } from '../../../core/settings/configuration.servi
 import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 import { SettingsFormComponent } from '../../../core/settings/settings-form/settings-form.component';
 import { environment } from '../../../../environments/environment';
+import { PickLanguageComponent } from '../../../core/settings/pick-language/pick-language.component';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -78,4 +79,9 @@ export class OkrToolbarComponent implements OnInit {
       .subscribe();
   }
 
+  pickLanguageClicked() {
+    this.dialog.open(PickLanguageComponent)
+      .afterClosed()
+      .subscribe();
+  }
 }

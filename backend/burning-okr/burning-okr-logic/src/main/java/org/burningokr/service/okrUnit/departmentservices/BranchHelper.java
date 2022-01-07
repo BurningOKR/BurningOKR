@@ -50,9 +50,21 @@ public class BranchHelper {
         .collect(Collectors.toList());
   }
 
-  private static Collection<OkrChildUnit> collectChildUnits(OkrChildUnit okrChildUnit) {
+  public static Collection<OkrChildUnit> collectChildUnits(OkrChildUnit okrChildUnit) {
     Collection<OkrChildUnit> okrChildUnitCollection =
         new ArrayList<>(Collections.singletonList(okrChildUnit));
+
+    if (okrChildUnit instanceof OkrParentUnit) {
+      for (OkrChildUnit okrChildUnit1 : ((OkrParentUnit) okrChildUnit).getOkrChildUnits()) {
+        okrChildUnitCollection.addAll(collectChildUnits(okrChildUnit1));
+      }
+    }
+
+    return okrChildUnitCollection;
+  }
+
+  public static Collection<OkrChildUnit> collectChildUnitsWithoutSelf(OkrChildUnit okrChildUnit) {
+    Collection<OkrChildUnit> okrChildUnitCollection = new ArrayList<>();
 
     if (okrChildUnit instanceof OkrParentUnit) {
       for (OkrChildUnit okrChildUnit1 : ((OkrParentUnit) okrChildUnit).getOkrChildUnits()) {

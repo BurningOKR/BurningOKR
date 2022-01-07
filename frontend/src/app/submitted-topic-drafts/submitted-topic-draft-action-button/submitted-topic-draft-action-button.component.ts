@@ -19,6 +19,8 @@ import {
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConvertSubmittedTopicDraftToTeamComponent } from '../submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -47,12 +49,15 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   adminOrInitiatorTooltip: string;
   statusMustBeSubmitted: string;
   statusMustBeSubmittedAndUser: string;
+  notAdminToolTip: string;
+  notApprovedToolTip: string;
 
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
               private translate: TranslateService,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   ngOnDestroy(): void {
@@ -121,6 +126,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .subscribe((text: string) => {
       this.statusMustBeSubmittedAndUser = text;
     }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.user-not-admin').subscribe((text: string) => {
+        this.notAdminToolTip = text;
+      }));
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.not-approved').subscribe((text: string) => {
+      this.notApprovedToolTip = text;
+    }));
 
   }
 
@@ -184,6 +195,10 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
             || this.topicDraft.currentStatus === status.submitted));
         })
       );
+  }
+
+  isTopicDraftConvertableToTeam$(): Observable<boolean> {
+    return of(this.userIsAdmin() && this.draftIsApproved());
   }
 
   canDeleteTopicDraft$(): Observable<boolean> {
@@ -279,18 +294,18 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return this.currentUserService.isCurrentUserAdminOrCreator$(this.topicDraft.initiatorId)
       .pipe(
         switchMap((isAdminOrCreator: boolean) => {
-          if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
-            !isAdminOrCreator) {
-            return of(this.editTooltipStatusAndUser);
-          } else if (!isAdminOrCreator) {
-            return of(this.editTooltipUser);
-          } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
-            return of(this.editTooltipStatus);
-          }
+            if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
+              !isAdminOrCreator) {
+              return of(this.editTooltipStatusAndUser);
+            } else if (!isAdminOrCreator) {
+              return of(this.editTooltipUser);
+            } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
+              return of(this.editTooltipStatus);
+            }
 
-          return of('');
-        }
-      ));
+            return of('');
+          }
+        ));
   }
 
   getApprovalButtonText(): string {
@@ -317,7 +332,50 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       viewCommentParentType: ViewCommentParentType.topicDraft,
       parentId: this.topicDraft.id,
     };
-    const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
-      this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+    this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+  }
+
+  getConvertToTeamTooltipText() {
+
+    if(!this.userIsAdmin() && !this.draftIsApproved()){
+      return this.notApprovedToolTip;
+    }
+    if(this.userIsAdmin() && !this.draftIsApproved()){
+      return this.notApprovedToolTip;
+    }
+    if(!this.userIsAdmin() && this.draftIsApproved()){
+      return this.notAdminToolTip;
+    }
+
+    return null;
+  }
+
+  clickedConvertToTeam() {
+    const topicDraft: OkrTopicDraft = this.topicDraft;
+
+    const convertSubmittedTopicDraftToTeamReference: MatDialogRef<ConvertSubmittedTopicDraftToTeamComponent, object>
+      = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, {width: '600px', data: {topicDraft}});
+
+    convertSubmittedTopicDraftToTeamReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(departmentId => {
+          if (departmentId) {
+            const url: string = `/okr/departments/${departmentId}`;
+            console.log(url);
+            this.router.navigateByUrl(url).then(
+              () => this.deleteTopicDraft()
+            );
+          }
+        }
+      );
+  }
+
+  private userIsAdmin() {
+    return this.currentUserService.isCurrentUserAdmin$();
+  }
+
+  private draftIsApproved() {
+    return this.topicDraft.currentStatus === status.approved;
   }
 }

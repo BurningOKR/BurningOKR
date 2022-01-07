@@ -561,6 +561,7 @@
 			"admin-panel-text": "Admin Panel",
 			"change-password-text": "Passwort ändern",
 			"cycle-administration-text": "Zyklusverwaltung",
+			"language-picker": "Sprache wählen",
 			"logout-text": "Logout",
 			"settings-text": "Einstellungen",
 			"topic-drafts-text": "Themenentwürfe",
@@ -718,6 +719,7 @@
 			"heading": "Themenentwurf"
 		},
 		"comments-text": "Kommentare",
+		"create-team": "Zu Team umwandeln",
 		"delete": {
 			"button-text": "Löschen",
 			"message": "Möchten Sie Themenentwurf {{name}} wirklich löschen?",
@@ -731,6 +733,7 @@
 			"user": "Nur ein Admin oder der Initiator können bearbeiten"
 		},
 		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
+		"not-approved": "Themenentwurf nicht genehmigt",
 		"snackbar": {
 			"ok": "Ok",
 			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
@@ -739,9 +742,11 @@
 		"status-submitted": "Der Status muss auf \"Eingereicht\" sein, damit das Einreichen zurückgenommen werden kann",
 		"status-submitted-user": "Der Status muss auf \"Eingereicht\" sein und Sie müssen ein Admin oder der Initiator sein, damit das Einreichen zurückgenommen werden kann",
 		"tooltip": {
+			"feature-coming-soon": "Feature kommt demnächst",
 			"header": "Kommentare",
 			"only-admin-or-initiator-permission-to-delete": "Nur ein Admin oder der Initiator können diesen Themenentwurf löschen"
 		},
+		"user-not-admin": "Admin-Rechte benötigt ",
 		"withdraw-approval": "Genehmigung zurücknehmen",
 		"withdraw-rejection": "Ablehnung zurücknehmen",
 		"withdraw-submit": "Einreichen zurücknehmen"
@@ -753,6 +758,19 @@
 			"submitted": "Eingereicht von"
 		},
 		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
+	},
+	"submitted-topic-draft-convert-to-team": {
+		"dialog": {
+			"save-and-close-label": "Umwandeln"
+		},
+		"form": {
+			"company-option": "Team in {{value}} erstellen",
+			"select": "Übergeordnete Struktur auswählen *"
+		},
+		"title": "Themenentwurf in ein Team umwandeln ",
+		"tooltip": {
+			"only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
+		}
 	},
 	"submitted-topic-draft-details": {
 		"button": {

@@ -24,6 +24,7 @@ import { LandingPageNavigationComponent } from './landing-page-router/landing-pa
 import { SettingsFormComponent } from './settings/settings-form/settings-form.component';
 import { UserSettingsComponent } from './settings/settings-form/user-settings/user-settings.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { PickLanguageComponent } from './settings/pick-language/pick-language.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
     LandingPageNavigationComponent,
     SettingsFormComponent,
     UserSettingsComponent,
+    PickLanguageComponent,
   ],
   exports: [
     TrackByPropertyPipe,

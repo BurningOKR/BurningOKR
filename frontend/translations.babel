@@ -6266,6 +6266,23 @@
                                 </translations>
                             </concept_node>
                             <concept_node>
+                                <name>language-picker</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
                                 <name>logout-text</name>
                                 <definition_loaded>false</definition_loaded>
                                 <description/>
@@ -7017,6 +7034,28 @@
                             </translation>
                         </translations>
                     </concept_node>
+                    <folder_node>
+                        <name>tooltip</name>
+                        <children>
+                            <concept_node>
+                                <name>only-substructures-allowed</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
                 </children>
             </folder_node>
             <folder_node>
@@ -8078,6 +8117,23 @@
                             </translation>
                         </translations>
                     </concept_node>
+                    <concept_node>
+                        <name>create-team</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                     <folder_node>
                         <name>delete</name>
                         <children>
@@ -8281,6 +8337,23 @@
                         </children>
                     </folder_node>
                     <concept_node>
+                        <name>not-approved</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>state-submitted-tooltip</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -8370,6 +8443,23 @@
                             </concept_node>
                         </children>
                     </folder_node>
+                    <concept_node>
+                        <name>user-not-admin</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                     <concept_node>
                         <name>withdraw-approval</name>
                         <definition_loaded>false</definition_loaded>
@@ -8484,6 +8574,89 @@
                     </folder_node>
                     <concept_node>
                         <name>no-new-topic-drafts</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                </children>
+            </folder_node>
+            <folder_node>
+                <name>submitted-topic-draft-convert-to-team</name>
+                <children>
+                    <folder_node>
+                        <name>dialog</name>
+                        <children>
+                            <concept_node>
+                                <name>save-and-close-label</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
+                    <folder_node>
+                        <name>form</name>
+                        <children>
+                            <concept_node>
+                                <name>company-option</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
+                                <name>select</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
+                    <concept_node>
+                        <name>title</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
