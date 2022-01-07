@@ -527,6 +527,10 @@
 	},
 	"okr-child-unit-form": {
 		"description": "Bezeichnung *",
+		"dialog": {
+			"create": "{{label}} erstellen",
+			"edit": "{{label}} bearbeiten"
+		},
 		"header": "Aktiv",
 		"name-*": "Name *"
 	},
@@ -593,7 +597,7 @@
 	"okr-unit-card": {
 		"delete-company-has-child-unit-warning": "{{value}} enthält noch Unterstrukturen",
 		"general-delete-dialog-title": "{{value}} löschen?",
-		"label": "die Firma",
+		"label": "Die Firma löschen",
 		"mat-card-actions": {
 			"delete": "Struktur löschen ",
 			"edit-name": "Namen bearbeiten",
@@ -616,20 +620,16 @@
 		}
 	},
 	"okr-unit-form": {
-		"create": "{{value}} erstellen.",
+		"create": "{{value}} erstellen",
 		"default-label": {
 			"structure": "Unterstruktur",
 			"team": "OKR Team"
-		},
-		"dialog": {
-			"create": "{{label}} erstellen.",
-			"edit": "{{label}} bearbeiten."
 		},
 		"placeholder": {
 			"label": "Bezeichnung *",
 			"name": "Name *"
 		},
-		"save": "{{value}} speichern.",
+		"save": "{{value}} speichern",
 		"structure": "Struktur"
 	},
 	"password-form": {

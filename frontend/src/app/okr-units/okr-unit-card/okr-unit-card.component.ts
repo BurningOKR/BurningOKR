@@ -118,8 +118,9 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
     return {
       data: {
         title: this.translate.instant('okr-unit-card.label'),
-        objectNameWithArticle: this.translate.instant('okr-unit-card.general-delete-dialog-title'),
-        dangerContent: this.translate.instant('okr-unit-card.delete-company-has-child-unit-warning')
+        objectNameWithArticle: this.company.name,
+        //objectNameWithArticle: this.translate.instant('okr-unit-card.general-delete-dialog-title', {value: this.company.name}),
+        dangerContent: this.translate.instant('okr-unit-card.delete-company-has-child-unit-warning', {value: this.company.name})
       }
     };
   }

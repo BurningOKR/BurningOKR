@@ -21,8 +21,6 @@ interface CompanyFormData {
 export class OkrUnitFormComponent {
   companyForm: FormGroup;
   title: string;
-  saveTranslation: string;
-  createTranslation: string;
   structureTranslation: string;
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<CompanyFormData>>,
@@ -39,13 +37,14 @@ export class OkrUnitFormComponent {
       this.companyForm.patchValue(this.formData.company);
     }
 
-    this.saveTranslation = translate.instant('okr-unit-form.save', {value: this.getDefaultLabel()});
-    this.createTranslation = translate.instant('okr-unit-form.create', {value: this.getDefaultLabel()});
     translate.stream('okr-unit-form.structure').subscribe((text: string) => {
       this.structureTranslation = text;
     });
 
-    this.title = this.formData.company ? this.saveTranslation : this.createTranslation;
+    const saveTranslation = translate.instant('okr-unit-form.save', {value: this.getDefaultLabel()});
+    const createTranslation = translate.instant('okr-unit-form.create', {value: this.getDefaultLabel()});
+
+    this.title = this.formData.company ? saveTranslation : createTranslation;
   }
 
   saveCompany(): void {

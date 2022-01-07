@@ -527,6 +527,10 @@
 	},
 	"okr-child-unit-form": {
 		"description": "Label *",
+		"dialog": {
+			"create": " Create {{label}}",
+			"edit": " Edit {{label}}"
+		},
 		"header": "Active",
 		"name-*": "Name *"
 	},
@@ -593,7 +597,7 @@
 	"okr-unit-card": {
 		"delete-company-has-child-unit-warning": "{{value}} still contains substructures",
 		"general-delete-dialog-title": " Delete {{value}}?",
-		"label": "the company",
+		"label": "Delete the company",
 		"mat-card-actions": {
 			"delete": "Delete structure",
 			"edit-name": "Edit name",
@@ -616,21 +620,17 @@
 		}
 	},
 	"okr-unit-form": {
-		"create": "Create {{value}}.",
+		"create": "Create {{value}}",
 		"default-label": {
 			"structure": "Substructure",
 			"team": "OKR team"
-		},
-		"dialog": {
-			"create": " Create {{label}}.",
-			"edit": " Edit {{label}}."
 		},
 		"placeholder": {
 			"label": "label *",
 			"name": "name *"
 		},
-		"save": " Save {{value}}.",
-		"structure": "Structure"
+		"save": " Save {{value}}",
+		"structure": "structure"
 	},
 	"password-form": {
 		"caps-lock-on": "The caps lock key is active",
@@ -742,6 +742,7 @@
 		"status-submitted": "The status must be \"Submitted\" so that the submission can be withdrawn",
 		"status-submitted-user": "The status must be \"Submitted\" and you must be an admin or the initiator for the submission to be withdrawn",
 		"tooltip": {
+			"feature-coming-soon": "",
 			"header": "Comments",
 			"only-admin-or-initiator-permission-to-delete": "Only the admin or the Initiator are able to delete this topic draft"
 		},

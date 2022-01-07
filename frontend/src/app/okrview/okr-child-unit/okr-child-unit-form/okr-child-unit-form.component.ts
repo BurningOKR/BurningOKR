@@ -47,8 +47,8 @@ export class OkrChildUnitFormComponent {
       this.childUnitForm.patchValue(this.formData.childUnit);
     }
 
-    const saveText: string = this.translate.instant('okr-unit-form.dialog.edit', {label: this.getDefaultLabel()});
-    const createText: string = this.translate.instant('okr-unit-form.dialog.create', {label: this.getDefaultLabel()});
+    const saveText: string = this.translate.instant('okr-child-unit-form.dialog.edit', {label: this.getDefaultLabel()});
+    const createText: string = this.translate.instant('okr-child-unit-form.dialog.create', {label: this.getDefaultLabel()});
 
     this.title = this.formData.childUnit ? saveText : createText;
   }
