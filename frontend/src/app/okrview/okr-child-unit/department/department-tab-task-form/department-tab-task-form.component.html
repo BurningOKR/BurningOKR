@@ -8,8 +8,8 @@
         </mat-form-field>
 
         <mat-form-field class="form-whole-line">
-
-            <textarea formControlName="description" matInput placeholder="{{ 'department-tab-task-form.description' | translate }}" [mat-autosize]="true"></textarea>
+            <mat-label>{{ 'department-tab-task-form.description' | translate }}</mat-label>
+            <textarea formControlName="description" matInput [mat-autosize]="true"></textarea>
             <mat-error>
                 <app-form-error [control]="taskForm.get('description')"></app-form-error>
             </mat-error>

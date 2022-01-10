@@ -11,6 +11,12 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.4.1 (10.01.2022)',
+      changes: [
+        'fixed button for nested structures not shown correct'
+      ]
+    },
+    {
       version: '1.4.0 (10.01.2022)',
       changes: [
         'changed translation to ngx-translate',
