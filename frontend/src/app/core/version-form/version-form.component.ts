@@ -11,6 +11,14 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.4.0 (10.01.2022)',
+      changes: [
+        'changed translation to ngx-translate',
+        'the translation can now be changed during runtime',
+        'topic drafts are now be created as draft and can be submitted when ready'
+      ]
+    },
+    {
       version: '1.3.14 (20.12.2021)',
       changes: [
         'changed log4j to version 2.17'
