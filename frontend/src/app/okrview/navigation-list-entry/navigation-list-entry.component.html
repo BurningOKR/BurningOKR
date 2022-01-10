@@ -1,7 +1,7 @@
 <div class="list-entry" [ngClass]="isSecondUnit? 'secondary-color':'first-color'">
   <div class="flex-nowrap"
        [ngClass]="isCurrentDepartment()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' ">
-    <button mat-button class="entry-title" [ngClass]="!schema.isActive? 'font-italic' : '' " [routerLink]="['./departments/'+schema.id] ">
+    <button mat-button class="entry-title flex-nowrap" [ngClass]="!schema.isActive? 'font-italic' : '' " [routerLink]="['./departments/'+schema.id] ">
       <div class="flex-nowrap">
         <mat-icon *ngIf="isUnitSubstructure()"
                   matTooltip="{{ 'navigation-list-entry.tooltip.is-substructure' | translate }}" class="icon-spacer">
@@ -22,19 +22,16 @@
                   class="icon-spacer">
           people_outline
         </mat-icon>
+        <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
+          <mat-icon *ngIf="isOpen">expand_less</mat-icon>
+          <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
+        </button>
       </div>
     </button>
-    <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
-      <mat-icon *ngIf="isOpen">expand_less</mat-icon>
-      <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
-    </button>
   </div>
-
+  <div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
+    <app-navigation-list-entry *ngFor="let departmentSchema of schema.subDepartments" [schema]="departmentSchema"
+                               [isSecondUnit]="!isSecondUnit" [startsOpen]="schema.subDepartments.length === 1">
+    </app-navigation-list-entry>
+  </div>
 </div>
-
-<div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
-  <app-navigation-list-entry *ngFor="let departmentSchema of schema.subDepartments" [schema]="departmentSchema"
-                             [isSecondUnit]="!isSecondUnit" [startsOpen]="schema.subDepartments.length === 1">
-  </app-navigation-list-entry>
-</div>
-
