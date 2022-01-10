@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
@@ -24,7 +24,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MatButtonModule } from '@angular/material/button';
 import { CoreModule } from './core/core.module';
 import { AdminViewComponent } from './admin/admin-view.component';
@@ -51,6 +50,10 @@ import { SubmittedTopicDraftEditComponent } from './submitted-topic-drafts/submi
 import { OkrviewModule } from './okrview/okrview.module';
 import { NgwWowModule } from 'ngx-wow';
 import { DemoModule } from './demo/demo.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ConvertSubmittedTopicDraftToTeamComponent } from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
+import {MatTreeModule} from '@angular/material/tree';
 
 // use the require method provided by webpack
 declare const require: any;
@@ -61,6 +64,10 @@ registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEn, 'de', localeEnExtra);
 
 const currentLanguage: string = 'de';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -74,40 +81,50 @@ const currentLanguage: string = 'de';
     SubmittedTopicDraftCardsWrapperComponent,
     SubmittedTopicDraftDetailsComponent,
     SubmittedTopicDraftEditComponent,
+    ConvertSubmittedTopicDraftToTeamComponent,
   ],
-  imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    CoreModule,
-    CycleAdminModule,
-    FormsModule,
-    HttpClientModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    OAuthModule.forRoot(),
-    ReactiveFormsModule,
-    SharedModule,
-    OkrUnitModule,
-    ErrorModule,
-    LoggerModule.forRoot(loggerConfig),
-    MatTableModule,
-    MatMenuModule,
-    MatGridListModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    OkrviewModule,
-    NgwWowModule,
-    DemoModule
-  ],
+    imports: [
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        CoreModule,
+        CycleAdminModule,
+        FormsModule,
+        HttpClientModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule,
+        OAuthModule.forRoot(),
+        ReactiveFormsModule,
+        SharedModule,
+        OkrUnitModule,
+        ErrorModule,
+        LoggerModule.forRoot(loggerConfig),
+        MatTableModule,
+        MatMenuModule,
+        MatGridListModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        OkrviewModule,
+        NgwWowModule,
+        DemoModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            },
+            defaultLanguage: 'de'
+        }),
+        MatTreeModule
+    ],
   providers: [
     OAuthFrontendDetailsService,
 
@@ -119,18 +136,9 @@ const currentLanguage: string = 'de';
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
     {
-      provide: TRANSLATIONS,
-      useFactory: locale => {
-        return require(`raw-loader!../locale/messages.${locale}.xlf`).default;
-      },
-      deps: [LOCALE_ID]
-    },
-    {
       provide: LOCALE_ID,
       useValue: currentLanguage
     },
-    {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-    I18n,
   ],
   bootstrap: [AppComponent]
 })

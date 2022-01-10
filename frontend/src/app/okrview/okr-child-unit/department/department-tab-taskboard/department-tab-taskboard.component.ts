@@ -1,11 +1,9 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
-
 import { TaskFormComponent, TaskFormData } from '../department-tab-task-form/department-tab-task-form.component';
 import { OkrChildUnit } from '../../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { ContextRole } from '../../../../shared/model/ui/context-role';
@@ -25,6 +23,7 @@ import {
   ConfirmationDialogData
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { RxStompState } from '@stomp/rx-stomp';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-tab-taskboard',
@@ -47,11 +46,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   tryingToReconnect: boolean = false;
 
   private snackbarDuration: number = 2000;
-  private websocketNotConnectedMessage: string = this.i18n({
-    id: 'websocketNotConnectedMessage',
-    description: 'Websocket connection not established',
-    value: 'Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen.'
-  });
+  private websocketNotConnectedMessage: string;
 
   constructor(
     private taskMapperService: TaskMapperService,
@@ -62,7 +57,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     private keyResultMapper: KeyResultMapper,
     private stompService: RxStompService,
     private snackBar: MatSnackBar,
-    private i18n: I18n) { }
+    private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.eventSubscriptions.push(
@@ -85,6 +80,9 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
         }
       }),
     );
+    this.eventSubscriptions.push(this.translate.stream('department-tab-taskboard.websocket-not-connected').subscribe(text => {
+      this.websocketNotConnectedMessage = text;
+    }));
   }
 
   ngOnDestroy(): void {
@@ -237,20 +235,10 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   }
 
   onTaskDeleteButtonClick(task: ViewTask): void {
-    const title: string = this.i18n({
-      id: 'deleteTaskDialog_title',
-      value: 'Aufgabe löschen'
-    });
-    const message: string =
-      this.i18n({
-        id: 'deleteTaskDialog_message',
-        value: 'Soll die Aufgabe "{{title}}" wirklich gelöscht werden?'
-      }, { title: task.title });
-    const confirmButtonText: string = this.i18n({
-      id: 'capitalised_delete',
-      description: 'deleteButtonText',
-      value: 'Löschen'
-    });
+    const title: string = this.translate.instant('department-tab-taskboard.deletion-dialog.title');
+    const message: string = this.translate.instant('department-tab-taskboard.deletion-dialog.message',
+      { title: task.title });
+    const confirmButtonText: string = this.translate.instant('department-tab-taskboard.deletion-dialog.button-text');
 
     const formData: ConfirmationDialogData = {
       title, message, confirmButtonText

@@ -5,12 +5,12 @@ import { AdminViewComponent } from './admin-view.component';
 import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { User } from '../shared/model/api/user';
 import { of } from 'rxjs';
 import 'linq4js';
 import { TrackByPropertyPipe } from './pipes/track-by-property.pipe';
 import { AdminUserIdsPipe } from './pipes/admin-user-ids.pipe';
+import { MaterialTestingModule } from '../testing/material-testing.module';
 
 describe('AdminViewComponent', () => {
   let component: any;
@@ -24,7 +24,6 @@ describe('AdminViewComponent', () => {
     getCurrentUser$: jest.fn()
   };
   const router: any = {};
-  const i18n: any = {};
 
   const currentUserMock: User = {
     id: 'testId',
@@ -58,6 +57,7 @@ describe('AdminViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AdminViewComponent, TrackByPropertyPipe, AdminUserIdsPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      imports: [ MatDialogModule, MaterialTestingModule ],
       providers: [
         {provide: UserService, useValue: userService},
         {
@@ -65,9 +65,7 @@ describe('AdminViewComponent', () => {
           useValue: currentUserService
         },
         {provide: Router, useValue: router},
-        {provide: I18n, useValue: i18n}
       ],
-      imports: [MatDialogModule]
     })
       .compileComponents();
     fixture = TestBed.createComponent(AdminViewComponent);

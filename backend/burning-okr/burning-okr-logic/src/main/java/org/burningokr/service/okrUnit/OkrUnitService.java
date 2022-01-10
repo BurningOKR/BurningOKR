@@ -3,7 +3,6 @@ package org.burningokr.service.okrUnit;
 import java.util.Collection;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
@@ -24,6 +23,4 @@ public interface OkrUnitService<T extends OkrUnit> {
   OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit okrChildUnit, User user);
 
   Objective createObjective(Long unitId, Objective objective, User user);
-
-  OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user);
 }

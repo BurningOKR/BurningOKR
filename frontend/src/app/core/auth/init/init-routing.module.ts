@@ -1,3 +1,4 @@
+import {TranslateModule} from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InitStateViewComponent } from './init-state-view/init-state-view.component';
@@ -8,7 +9,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [TranslateModule,RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class InitRoutingModule { }

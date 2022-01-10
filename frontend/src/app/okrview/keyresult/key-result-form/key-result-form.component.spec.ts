@@ -6,13 +6,11 @@ import { FormErrorComponent } from '../../../shared/components/form-error/form-e
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { KeyResultMilestoneFormComponent } from './key-result-milestone-form/key-result-milestone-form.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../shared/model/api/unit.enum';
-
-const i18nMock: any = jest.fn();
+import { TranslateService } from '@ngx-translate/core';
 
 const matDialogRefMock: any = {
   close: jest.fn()
@@ -30,6 +28,7 @@ let keyResult: ViewKeyResult;
 describe('KeyResultFormComponent', () => {
   let component: KeyResultFormComponent;
   let fixture: ComponentFixture<KeyResultFormComponent>;
+  let translate: TranslateService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -41,7 +40,6 @@ describe('KeyResultFormComponent', () => {
       ],
       imports: [ FormsModule, ReactiveFormsModule, MaterialTestingModule, NoopAnimationsModule ],
       providers: [
-        { provide: I18n, useValue: i18nMock },
         { provide: MatDialogRef, useValue: matDialogRefMock },
         { provide: KeyResultMapper, useValue: keyResultMapperMock },
         { provide: MAT_DIALOG_DATA, useValue: matDialogDataMock }
@@ -63,9 +61,6 @@ describe('KeyResultFormComponent', () => {
       [],
       []
     );
-
-    i18nMock.mockReset();
-    i18nMock.mockReturnValue('translated string');
 
     matDialogRefMock.close.mockReset();
     keyResultMapperMock.postKeyResult$.mockReset();
@@ -178,9 +173,11 @@ describe('KeyResultFormComponent', () => {
       .toBe('%');
   });
 
-  it('getViewUnit returns i18n for NUMBER', () => {
+  it('getViewUnit returns translation for NUMBER', () => {
     fixture = TestBed.createComponent(KeyResultFormComponent);
     component = fixture.componentInstance;
+    translate = TestBed.inject(TranslateService);
+    spyOn(translate, 'instant').and.returnValue('translated string');
     fixture.detectChanges();
 
     expect(component.getViewUnit('NUMBER'))

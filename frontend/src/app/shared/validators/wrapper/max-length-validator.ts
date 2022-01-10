@@ -1,6 +1,6 @@
 import { ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 export const maxLengthError: ValidationErrors = {
   maxLengthError: true
@@ -9,12 +9,10 @@ export const maxLengthError: ValidationErrors = {
 @register
 export class MaxLengthValidator extends AbstractValidator {
 
-  constructor(private i18n: I18n) {
-    super(i18n({
-      id: 'maxLengthError',
-      description: 'Max Length',
-      value: 'Maximale Zeichenzahl überschritten'
-    }), maxLengthError);
+  constructor(private translate: TranslateService) {
+    super(
+      translate.instant('max-length-validator.message'),
+      maxLengthError);
   }
 
   static Validate(max: number): ValidatorFn {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,16 +7,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../../../../shared/model/api/user';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of, Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
 import { UserDialogData } from './forms/user-dialog-data';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { CurrentUserService } from '../../../services/current-user.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import 'linq4js';
 import { environment } from '../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -27,41 +27,12 @@ export interface LocalUserManagementUser extends User {
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.scss']
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  i18nActiveTableHeader: string = this.i18n({
-    id: 'active_table_header',
-    description: 'User management component "Active" header',
-    value: 'Aktiv'
-  });
-  i18nEmailTableHeader: string = this.i18n({
-    id: 'email',
-    description: 'User management component "Email" header',
-    value: 'Email'
-  });
-  i18nNameTableHeader: string = this.i18n({
-    id: 'name',
-    description: 'User management component "Name" header',
-    value: 'Name'
-  });
-  i18nDepartentTableHeader: string = this.i18n({
-    id: 'department_table_header',
-    description: 'User management component "Department" header',
-    value: 'Abteilung'
-  });
-  i18nJobTitleTableHeader: string = this.i18n({
-    id: 'job_title_table_header',
-    description: 'User management component "Job title" header',
-    value: 'Berufsbezeichnung'
-  });
-  i18nAdminTableHeader: string = this.i18n({
-    id: 'admin_table_header',
-    description: 'User management component "Admin" header',
-    value: 'Admin'
-  });
 
+  subscriptions: Subscription[] = [];
   currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
 
@@ -69,6 +40,11 @@ export class UserManagementComponent implements OnInit {
 
   showDeactivatedUsers: boolean = false;
   isPlayground: boolean = environment.playground;
+
+  disabledInPlaygroundTranslation: string;
+  addUserTranslation: string;
+  importUsersFromCSVTranslation: string;
+  deactivateUserTranslation: string;
 
   private users$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
   private filteredUsers$: BehaviorSubject<LocalUserManagementUser[]> = new BehaviorSubject<LocalUserManagementUser[]>([]);
@@ -78,7 +54,8 @@ export class UserManagementComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private userService: LocalUserService,
-    private i18n: I18n
+    private translate: TranslateService,
+
   ) {
   }
 
@@ -97,6 +74,23 @@ export class UserManagementComponent implements OnInit {
     this.filteredUsers$.subscribe(users => {
       this.rowData.data = users;
     });
+
+    this.subscriptions.push(this.translate.stream('disabled-in-demo-version').subscribe(text => {
+      this.disabledInPlaygroundTranslation= text;
+    }));
+    this.subscriptions.push(this.translate.stream('user-management.tooltip.add-new-user').subscribe(text => {
+      this.addUserTranslation= this.appendDemoWarning(text);
+    }));
+    this.subscriptions.push(this.translate.stream('user-management.tooltip.import-users-from-csv').subscribe(text => {
+      this.importUsersFromCSVTranslation= this.appendDemoWarning(text);
+    }));
+    this.subscriptions.push(this.translate.stream('user-management.tooltip.deactivate-user').subscribe(text => {
+      this.deactivateUserTranslation= this.appendDemoWarning(text);
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   handleEdit(userToEdit: LocalUserManagementUser): void {
@@ -372,6 +366,9 @@ export class UserManagementComponent implements OnInit {
     }
 
     return filteredUsers;
+  }
+  private appendDemoWarning(initialText: string): string{
+    return this.isPlayground ? (`${initialText  } ${  this.disabledInPlaygroundTranslation}`) : initialText;
   }
 
 }

@@ -1,22 +1,7 @@
 <form class="input-form">
   <mat-form-field class="input-full-width">
-    <input
-      #inputField
-      type="text"
-      matInput
-      placeholder="{{ placeHolderText }}"
-      i18n-aria-label="@@component_userAutoCompleteInput_userInput"
-      aria-label="Benutzer Eingabe"
-      [matAutocomplete]="auto"
-      [formControl]="inputFormControl"
-      (focus)="focusChanged()"
-    />
-    <mat-autocomplete
-      autoActiveFirstOption
-      #auto="matAutocomplete"
-      [displayWith]="getDisplayName"
-      (optionSelected)="selectedUser($event)"
-    >
+    <input #inputField type="text" matInput placeholder="{{ placeHolderText }}" attr.aria-label="{{'user-autocomplete-input.label' | translate}}" [matAutocomplete]="auto" [formControl]="inputFormControl" (focus)="focusChanged()">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="getDisplayName" (optionSelected)="selectedUser($event)">
       <mat-option *ngFor="let user of filteredUsers$ | async" [value]="user">
         <mat-icon>person</mat-icon>
         <span>{{ user.surname }}, {{ user.givenName }}</span>

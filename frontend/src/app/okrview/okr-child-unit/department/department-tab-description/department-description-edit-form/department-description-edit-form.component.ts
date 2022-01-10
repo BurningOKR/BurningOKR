@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OkrTopicDescription } from '../../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper';
 import { DepartmentId } from '../../../../../shared/model/id-types';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 interface OkrTopicDescriptionFormData {
   departmentId: DepartmentId;
@@ -16,13 +17,15 @@ interface OkrTopicDescriptionFormData {
   templateUrl: './department-description-edit-form.component.html',
   styleUrls: ['./department-description-edit-form.component.css']
 })
-export class DepartmentDescriptionEditFormComponent implements OnInit {
+export class DepartmentDescriptionEditFormComponent implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
   descriptionForm: FormGroup;
   title: string;
 
   constructor(private okrTopicDescriptionService: TopicDescriptionMapper,
               private dialogRef: MatDialogRef<DepartmentDescriptionEditFormComponent>,
-              private i18n: I18n,
+              private translate: TranslateService,
               @Inject(MAT_DIALOG_DATA) private formData: OkrTopicDescriptionFormData) { }
 
   ngOnInit(): void {
@@ -44,11 +47,13 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
       this.descriptionForm.patchValue(this.formData.okrTopicDescription);
     }
 
-    this.title = this.i18n({
-      id: 'component_edit_description',
-      description: 'Title of the OkrTopicDescription dialog',
-      value: 'Beschreibung bearbeiten'
-    });
+    this.subscriptions.push(this.translate.stream('department-description-edit-form.edit-description').subscribe(text => {
+      this.title = text;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   saveDescription(): void {
@@ -56,5 +61,4 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
     this.okrTopicDescriptionService.putTopicDescription$(this.formData.departmentId, okrTopicDescription)
       .subscribe(() => this.dialogRef.close());
   }
-
 }

@@ -1,8 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-// import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { NEVER, Observable, of, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
@@ -13,6 +11,7 @@ import { ViewObjective } from '../../../../shared/model/ui/view-objective';
 import { KeyResultMap } from '../../../../shared/model/ui/key-result-map';
 import { ObjectiveViewMapper } from '../../../../shared/services/mapper/objective-view.mapper';
 import { UserService } from '../../../../shared/services/helper/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface TaskFormData {
   task?: ViewTask;
@@ -44,7 +43,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     private objectiveMapper: ObjectiveViewMapper,
     private dialogRef: MatDialogRef<TaskFormComponent>,
     private userService: UserService,
-    private i18n: I18n,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) private formData: (TaskFormData | any)
   ) { }
 
@@ -86,20 +85,10 @@ export class TaskFormComponent implements OnInit, OnDestroy {
           return of(keyResultMap);
         })
       );
-    const editText: string = this.i18n({
-      id: 'small_edit',
-      value: 'bearbeiten'
-    });
-
-    const createText: string = this.i18n({
-      id: 'small_create',
-      value: 'erstellen'
-    });
-
-    this.title = this.i18n({
-      id: 'task_form_title',
-      value: 'Aufgabe {{editOrCreateText}}'
-    }, {editOrCreateText: this.formData.task ? editText : createText});
+    const editText: string = this.translate.instant('department-tab-task-form.dialog.edit');
+    const createText: string = this.translate.instant('department-tab-task-form.dialog.create');
+    this.title = this.translate.instant('department-tab-task-form.dialog.title',
+      {editOrCreateText: this.formData.task ? editText : createText});
   }
 
   ngOnDestroy(): void {

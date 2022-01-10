@@ -15,6 +15,7 @@ import { ConfigurationService } from '../../../core/settings/configuration.servi
 import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 import { SettingsFormComponent } from '../../../core/settings/settings-form/settings-form.component';
 import { environment } from '../../../../environments/environment';
+import { PickLanguageComponent } from '../../../core/settings/pick-language/pick-language.component';
 
 @Component({
   selector: 'app-okr-toolbar',
@@ -37,7 +38,7 @@ export class OkrToolbarComponent implements OnInit {
     private currentCompanyService: CurrentCompanyService,
     private oAuthDetails: OAuthFrontendDetailsService,
     private configurationService: ConfigurationService,
-    private okrUnitService: OkrUnitService
+    private okrUnitService: OkrUnitService,
   ) {
     this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$()
       .pipe(take(1));
@@ -74,6 +75,12 @@ export class OkrToolbarComponent implements OnInit {
 
   openPasswordChangeForm(): void {
     this.dialog.open(ChangePasswordDialogComponent, {disableClose: true})
+      .afterClosed()
+      .subscribe();
+  }
+
+  pickLanguageClicked() {
+    this.dialog.open(PickLanguageComponent)
       .afterClosed()
       .subscribe();
   }

@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import {PickLanguageComponent} from '../../../core/settings/pick-language/pick-language.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-okr-toolbar-bare',
@@ -8,4 +10,15 @@ import { Component, Input } from '@angular/core';
 export class OkrToolbarBareComponent {
 
   @Input() fixedPosition: boolean = false;
+
+  constructor(
+    private dialog: MatDialog,
+  ) {
+  }
+
+  pickLanguageClicked() {
+    this.dialog.open(PickLanguageComponent)
+      .afterClosed()
+      .subscribe();
+  }
 }

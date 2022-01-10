@@ -1,3 +1,5 @@
-1.3.14
+1.4.0
 
-- changed log4j to version 2.17
+- changed translation to ngx-translate
+- the translation can now be changed during runtime
+- topic drafts are now be created as draft and can be submitted when ready

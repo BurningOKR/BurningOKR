@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="form-header" i18n="@@component_teamForm_changeLog">Versionsänderungen</h1>
+<h1 mat-dialog-title class="form-header">{{ 'version-form.change-log' | translate }}</h1>
 
 <mat-dialog-content>
   <div *ngFor="let change of versionChanges">
@@ -10,5 +10,5 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button color="warn" (click)="closeDialog()" i18n="@@component_teamForm_close">Schließen</button>
+  <button mat-button color="warn" (click)="closeDialog()">{{ 'version-form.close' | translate }}</button>
 </mat-dialog-actions>

@@ -1,13 +1,13 @@
 <div class="app-container footer-margin">
   <app-okr-toolbar>
-    <span i18n="@@component_okrUnitDashboard_unitOverview">Strukturübersicht</span>
+    <span>{{'okr-unit-dashboard.okr-toolbar.unit-overview' | translate}}</span>
   </app-okr-toolbar>
 
   <!-- General Buttons -->
   <div class="margin-toolbar item-actions">
-    <button mat-stroked-button (click)="addCompany()" i18n-matTooltip="@@component_unitDashboard_defineNewUnit"  matTooltip="Neue Struktur hinzufügen" [disabled]="(isCurrentUserAdmin$ | async) === false">
+    <button mat-stroked-button (click)="addCompany()" matTooltip="{{'okr-unit-dashboard.tooltip.add-unit' | translate }}" [disabled]="(isCurrentUserAdmin$ | async) === false">
       <mat-icon>add_circle_outline</mat-icon>
-      <span i18n="@@component_unitDashboard_addUnit">Struktur hinzufügen</span>
+      <span>{{'okr-unit-dashboard.add-unit'| translate}}</span>
     </button>
   </div>
 

@@ -3,16 +3,21 @@ package org.burningokr.service.okr;
 import com.google.common.collect.Lists;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.transaction.Transactional;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.burningokr.service.userhandling.AdminUserService;
+import org.burningokr.service.userhandling.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,14 +30,20 @@ public class OkrTopicDraftService {
   private OkrTopicDraftRepository okrTopicDraftRepository;
   private NoteTopicDraftRepository noteTopicDraftRepository;
   private ActivityService activityService;
+  private UserService userService;
+  private AdminUserService adminUserService;
 
   public OkrTopicDraftService(
       OkrTopicDraftRepository okrTopicDraftRepository,
       NoteTopicDraftRepository noteTopicDraftRepository,
-      ActivityService activityService) {
+      ActivityService activityService,
+      UserService userService,
+      AdminUserService adminUserService) {
     this.okrTopicDraftRepository = okrTopicDraftRepository;
     this.noteTopicDraftRepository = noteTopicDraftRepository;
     this.activityService = activityService;
+    this.userService = userService;
+    this.adminUserService = adminUserService;
   }
 
   public OkrTopicDraft findById(long topicDraftId) {
@@ -40,7 +51,23 @@ public class OkrTopicDraftService {
   }
 
   public Collection<OkrTopicDraft> getAllTopicDrafts() {
-    return Lists.newArrayList(okrTopicDraftRepository.findAll());
+    List<OkrTopicDraft> topicDrafts = Lists.newArrayList(okrTopicDraftRepository.findAll());
+    List<OkrTopicDraft> filteredDrafts = new ArrayList<>();
+    for (OkrTopicDraft draft : topicDrafts) {
+      if (shouldUserSeeDraft(draft)) {
+        filteredDrafts.add(draft);
+      }
+    }
+    return filteredDrafts;
+  }
+
+  private boolean shouldUserSeeDraft(OkrTopicDraft draft) {
+    if (!draft.getCurrentStatus().equals(OkrTopicDraftStatusEnum.draft)) {
+      return true;
+    }
+
+    return (draft.getInitiatorId().equals(userService.getCurrentUser().getId())
+        || adminUserService.isCurrentUserAdmin());
   }
 
   public Collection<NoteTopicDraft> getAllNotesForTopicDraft(long topicDraftId) {
@@ -53,6 +80,19 @@ public class OkrTopicDraftService {
     OkrTopicDraft referencedTopicDraft = okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
     okrTopicDraftRepository.deleteById(topicDraftId);
     activityService.createActivity(user, referencedTopicDraft, Action.DELETED);
+  }
+
+  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user) {
+
+    topicDraft.setParentUnit(null);
+    topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
+
+    topicDraft = okrTopicDraftRepository.save(topicDraft);
+    logger.info("Created Topic Draft: " + topicDraft.getName());
+
+    activityService.createActivity(user, topicDraft, Action.CREATED);
+
+    return topicDraft;
   }
 
   /**

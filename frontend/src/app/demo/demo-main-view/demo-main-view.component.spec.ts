@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { DemoFooterComponent } from '../demo-footer/demo-footer.component';
 import { ScrollTopComponent } from '../scroll-top/scroll-top.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const matDialog: any = {
   open: jest.fn()
@@ -18,7 +19,7 @@ describe('DemoMainViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule, RouterTestingModule ],
+      imports: [ MaterialTestingModule, RouterTestingModule, BrowserAnimationsModule, MaterialTestingModule ],
       providers: [ { provide: MatDialog, useValue: matDialog } ],
       declarations: [ DemoMainViewComponent, OkrToolbarBareComponent, DemoFooterComponent, ScrollTopComponent ]
     })

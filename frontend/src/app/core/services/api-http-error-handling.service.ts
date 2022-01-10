@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ObservableInput, Subject, throwError } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, ObservableInput, Subject, Subscription, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '../auth/services/authentication.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Consts } from '../../shared/consts';
 import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 export type ErrorObservable<T> = Observable<Observable<T> extends ObservableInput<infer D> ? T : never>;
 export type ErrorHandlingFunction<T> = (error: HttpErrorResponse) => ErrorObservable<T>;
@@ -16,40 +16,42 @@ export type RetryFunction<T> = () => Observable<T>;
 @Injectable({
   providedIn: 'root'
 })
-export class ApiHttpErrorHandlingService {
+export class ApiHttpErrorHandlingService implements OnDestroy{
 
+  private subscriptions: Subscription[] = [];
   private errorSubjects: Subject<boolean>[] = [];
   private errors$ = new BehaviorSubject<HttpErrorResponse[]>([]);
 
-  private singleErrorMsg: string = this.i18n({
-    id: 'apiSingleErrorMsg',
-    description: 'error text when a single api call fails',
-    value: 'Fehler beim Ausführen der Anfrage.'
-  });
-  private oneOrMoreErrorMsg: string = this.i18n({
-    id: 'apiOneOrMoreErrorMsg',
-    description: 'error text when a single or more api call fails',
-    value: 'Fehler beim Ausführen einer oder mehrerer Anfragen.'
-  });
-  private moreDetailsMsg: string = this.i18n({
-    id: 'apiMoreDetailsMsg',
-    value: 'Mehr Details'
-  });
-  private retryMsg: string = this.i18n({
-    id: 'apiRetryMsg',
-    value: 'Erneut versuchen'
-  });
-  private requestAppendix: string = this.i18n({
-    id: 'apiRequestAppendix',
-    description: 'Appendix for pluralization of the word request if there are multiple failed requests.',
-    value: 'n'
-  });
+  private singleErrorMsg: string;
+  private oneOrMoreErrorMsg: string;
+  private moreDetailsMsg: string;
+  private retryMsg: string;
+  private requestAppendix: string;
 
   constructor(private authenticationService: AuthenticationService,
-              private i18n: I18n,
+              private translate: TranslateService,
               private snackbar: MatSnackBar,
               private logger: NGXLogger,
               private router: Router) {
+    this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.single-error').subscribe(text => {
+      this.singleErrorMsg = text;
+    }));
+    this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.one-or-more-errors').subscribe(text => {
+      this.oneOrMoreErrorMsg = text;
+    }));
+    this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.more-detail').subscribe(text => {
+      this.moreDetailsMsg = text;
+    }));
+    this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.retry').subscribe(text => {
+      this.retryMsg = text;
+    }));
+    this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.appendix').subscribe(text => {
+      this.requestAppendix = text;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   getErrors$(): Observable<HttpErrorResponse[]> {
@@ -112,10 +114,7 @@ export class ApiHttpErrorHandlingService {
   }
 
   private showRetryErrorSnackbar(): void {
-    const errorCountMsg: string = this.i18n({
-      id: 'apiErrorCountMsg',
-      value: '{{errorCount}} fehlgeschlagene Anfrage{{pluralAppendix}}'
-    }, {
+    const errorCountMsg: string = this.translate.instant('api-http-error-handling.error-counting', {
       errorCount: this.errorSubjects.length,
       pluralAppendix: this.errorSubjects.length > 1 ? this.requestAppendix : ''
     });

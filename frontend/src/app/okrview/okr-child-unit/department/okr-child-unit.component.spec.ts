@@ -8,7 +8,6 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { ExcelMapper } from '../../excel-file/excel.mapper';
 import { CurrentCycleService } from '../../current-cycle.service';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { SharedModule } from '../../../shared/shared.module';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { OkrChildUnitTabComponent } from '../okr-child-unit-tab/okr-child-unit-tab.component';
@@ -83,7 +82,6 @@ describe('OkrChildUnitComponent', () => {
   };
 
   const excelService: any = {};
-  const i18n: any = {};
 
   let department: OkrDepartment;
   let okrBranch: OkrBranch;
@@ -138,7 +136,6 @@ describe('OkrChildUnitComponent', () => {
         { provide: CurrentCycleService, useValue: currentCycleService },
         { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaService },
         { provide: ExcelMapper, useValue: excelService },
-        { provide: I18n, useValue: i18n },
       ]
     })
       .compileComponents();

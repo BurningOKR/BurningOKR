@@ -1,5 +1,4 @@
-<mat-card class="taskcard" [class.mat-elevation-z8]="isActive" (mouseenter)="setIsActive(true)"
-    (mouseleave)="setIsActive(false)" *ngIf="taskInformations.task" (click)="updateOrViewTask()">
+<mat-card class="taskcard" [class.mat-elevation-z8]="isActive" (mouseenter)="setIsActive(true)" (mouseleave)="setIsActive(false)" *ngIf="taskInformations.task" (click)="updateOrViewTask()">
     <div *ngIf="taskInformations.keyResult" class="task-card-key-result">
         <div>{{taskInformations.keyResult.keyResult}}</div>
     </div>
@@ -11,18 +10,14 @@
         <div class="taskcard-footer">
             <div *ngIf="isInteractive">
                 <mat-card-actions>
-                    <button mat-button (click)="onDelete($event,taskInformations.task)" i18n-[matTooltip]="@@taskBoardDeleteTooltip"
-                    [matTooltip]="'löschen'">
+                    <button mat-button (click)="onDelete($event,taskInformations.task)" matTooltip="{{'department-tab-task-card.delete' | translate}}">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-card-actions>
             </div>
             <mat-card-footer class="taskcard-user-pictures">
                 <div *ngFor="let user$ of users">
-                    <ngx-avatar *ngIf="user$ | async as user" [value]="'📁'"
-                        [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null"
-                        [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''" [size]="30"
-                        [matTooltip]="user.givenName +' ' + user.surname">
+                    <ngx-avatar *ngIf="user$ | async as user" [value]="'📁'" [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null" [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''" [size]="30" [matTooltip]="user.givenName +' ' + user.surname">
                     </ngx-avatar>
                 </div>
             </mat-card-footer>
@@ -31,6 +26,6 @@
 </mat-card>
 <ng-template #taskCardLoading>
     <div class="task-card-key-result">
-        <div i18n="@@taskBoardLoading">loading</div>
+        <div>{{ 'department-tab-task-card.task-board-loading' | translate }}</div>
     </div>
 </ng-template>

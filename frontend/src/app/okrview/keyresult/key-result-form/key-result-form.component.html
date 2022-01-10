@@ -1,32 +1,31 @@
-<app-dialog-component [title]="title" [formGroup]="keyResultForm" [hasFormGroupError]="true"
-                      (okEmitter)="saveKeyResult()">
+<app-dialog-component [title]="title" [formGroup]="keyResultForm" [hasFormGroupError]="true" (okEmitter)="saveKeyResult()">
   <form [formGroup]="keyResultForm">
     <mat-form-field class="keyresult">
-      <textarea i18n-placeholder="@@component_keyResultForm_keyResult" matInput placeholder="Key Result *" cdkTextareaAutosize formControlName="keyResult"></textarea>
+      <textarea matInput placeholder="{{ 'key-result-form.key-result' | translate }}" cdkTextareaAutosize formControlName="keyResult"></textarea>
       <mat-error><app-form-error [control]="keyResultForm.get('keyResult')"></app-form-error></mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="number-input">
-      <input i18n-placeholder="@@component_keyResultForm_start" matInput placeholder="Start *" type="number" formControlName="start" min="0">
+      <input matInput placeholder="{{ 'key-result-form.start' | translate }}" type="number" formControlName="start" min="0">
       <mat-error><app-form-error [control]="keyResultForm.get('start')"></app-form-error></mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="number-input">
-      <input i18n-placeholder="@@component_keyResultForm_target" matInput placeholder="Ziel *" type="number" formControlName="end" min="0">
+      <input matInput placeholder="{{ 'key-result-form.target' | translate }}" type="number" formControlName="end" min="0">
       <mat-error><app-form-error [control]="keyResultForm.get('end')"></app-form-error></mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="number-input">
-      <input i18n-placeholder="@@component_keyResultForm_current" matInput placeholder="Aktuell *" type="number" formControlName="current" min="0">
+      <input matInput placeholder="{{ 'key-result-form.current' | translate }}" type="number" formControlName="current" min="0">
       <mat-error><app-form-error [control]="keyResultForm.get('current')"></app-form-error></mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="number-input">
-      <mat-select i18n-placeholder="@@component_keyResultForm_unit" placeholder="Einheit *" [formControlName]="'unit'">
+      <mat-select placeholder="{{ 'key-result-form.unit' | translate }}" [formControlName]="'unit'">
         <mat-option *ngFor="let unitKey of getViewUnitKeys()" [value]="unitEnum[unitKey]">
           {{getViewUnit(unitKey)}}
         </mat-option>
@@ -35,14 +34,11 @@
 
     </mat-form-field>
 
-    <app-key-result-milestone-form [keyResult]="keyResult"
-                                   [formArray]="keyResultForm.get('viewKeyResultMilestones')"
-                                   [start]="keyResultForm.get('start').value"
-                                   [end]="keyResultForm.get('end').value">
+    <app-key-result-milestone-form [keyResult]="keyResult" [formArray]="keyResultForm.get('viewKeyResultMilestones')" [start]="keyResultForm.get('start').value" [end]="keyResultForm.get('end').value">
     </app-key-result-milestone-form>
 
     <mat-form-field class="fullWidth">
-      <textarea matInput matTextareaAutosize i18n-placeholder="@@component_description" placeholder="Beschreibung" formControlName="description"></textarea>
+      <textarea matInput matTextareaAutosize placeholder="{{ 'key-result-form.description' | translate }}" formControlName="description"></textarea>
       <mat-error><app-form-error [control]="keyResultForm.get('description')"></app-form-error></mat-error>
 
     </mat-form-field>

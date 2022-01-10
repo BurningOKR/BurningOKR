@@ -20,7 +20,6 @@ import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-un
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { Component, Input } from '@angular/core';
 import { AddChildUnitButtonComponent } from '../add-child-unit-button/add-child-unit-button.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'app-okr-child-unit-preview-button',
@@ -76,7 +75,6 @@ describe('CompanyComponent', () => {
     open: jest.fn()
   };
 
-  const i18nMock: any = jest.fn();
 
   let cycle: CycleUnit;
   let unitSchemas: OkrUnitSchema[];
@@ -98,7 +96,6 @@ describe('CompanyComponent', () => {
         { provide: ExcelMapper, useValue: excelServiceMock },
         { provide: MatDialog, useValue: matDialogMock },
         { provide: ActivatedRoute, useValue: route },
-        { provide: I18n, useValue: i18nMock },
         { provide: MatSnackBar, useValue: snackBarMock }
       ]
     })

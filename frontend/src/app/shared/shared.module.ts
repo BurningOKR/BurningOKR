@@ -35,6 +35,7 @@ import { StatusDotComponent } from './components/status-dot/status-dot.component
 import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
 import { UserSelectorMultiComponent } from './components/user-selector-multi/user-selector-multi.component';
 import { UserSelectorComponent } from './components/user-selector/user-selector.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -60,46 +61,47 @@ import { UserSelectorComponent } from './components/user-selector/user-selector.
   entryComponents: [
     ConfirmationDialogComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatIconModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatSnackBarModule,
-    AvatarModule,
-    RouterModule,
-    NgxMatSelectSearchModule,
-    CountdownTimerModule
-  ],
-  exports: [
-      UserAutocompleteInputComponent,
-      UserMinibuttonComponent,
-      LoadingSpinnerComponent,
-      MatButtonModule,
-      DialogComponent,
-      UserAvatarComponent,
-      OkrToolbarBareComponent,
-      OkrToolbarComponent,
-      CapsLockDirective,
-      NonLoggedInCardComponent,
-      FormErrorComponent,
-      ResetCountdownComponent,
-      MilestoneSliderWrapperComponent,
-      StatusDotComponent,
-      CallbackFilterPipe,
-      UserSelectorMultiComponent,
-      UserSelectorComponent
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatIconModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatSnackBarModule,
+        AvatarModule,
+        RouterModule,
+        NgxMatSelectSearchModule,
+        CountdownTimerModule,
+        TranslateModule
+    ],
+    exports: [
+        UserAutocompleteInputComponent,
+        UserMinibuttonComponent,
+        LoadingSpinnerComponent,
+        MatButtonModule,
+        DialogComponent,
+        UserAvatarComponent,
+        OkrToolbarBareComponent,
+        OkrToolbarComponent,
+        CapsLockDirective,
+        NonLoggedInCardComponent,
+        FormErrorComponent,
+        ResetCountdownComponent,
+        MilestoneSliderWrapperComponent,
+        StatusDotComponent,
+        CallbackFilterPipe,
+        UserSelectorMultiComponent,
+        UserSelectorComponent
+    ],
 })
 export class SharedModule {
 }

@@ -3,6 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, Directive, Input, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OkrToolbarBareComponent } from './okr-toolbar-bare.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {DialogComponent} from "../dialog-component/dialog.component";
+import {MaterialTestingModule} from "../../../testing/material-testing.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @Directive({selector: '[oneviewPermitted]'})
 class OneviewPermittedDirective {
@@ -36,14 +40,21 @@ describe('OkrToolbarBareComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialTestingModule,
+        BrowserAnimationsModule],
       declarations: [
         OkrToolbarBareComponent,
         TranslatePipe, PhoneNumberPipe, SafeHtmlPipe,
-        OneviewPermittedDirective
+        OneviewPermittedDirective, DialogComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      providers: []
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} }
+      ]
     }).overrideComponent(OkrToolbarBareComponent, {}).compileComponents();
     fixture = TestBed.createComponent(OkrToolbarBareComponent);
     component = fixture.debugElement.componentInstance;

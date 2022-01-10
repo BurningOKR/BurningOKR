@@ -2,7 +2,7 @@
   <form [formGroup]="submittedTopicDraftDetailsForm">
     <div class="submitted-topic-draft-details">
 
-      <div class="information-row"><h1 i18n="@@handed_in_topic_draft">Eingereichter Themenentwurf</h1></div>
+      <div class="information-row"><h1>{{'submitted-topic-draft-details.title' | translate}}</h1></div>
 
       <div class="information-row">
         <div class="information-row-item status-display">
@@ -10,10 +10,10 @@
           <mat-form-field>
             <mat-label>Status</mat-label>
             <mat-select formControlName="currentStatus" disabled>
-              <mat-option [value]="enumStatus.draft"><div i18n="@@status_draft">Vorlage</div></mat-option>
-              <mat-option [value]="enumStatus.submitted"><div i18n="@@status_submitted">Eingereicht</div></mat-option>
-              <mat-option [value]="enumStatus.approved"><div i18n="@@status_approved">Angenommen</div></mat-option>
-              <mat-option [value]="enumStatus.rejected"><div i18n="@@status_rejected">Abgelehnt</div></mat-option>
+              <mat-option [value]="enumStatus.draft"><div>{{'submitted-topic-draft-details.status.template' | translate}}</div></mat-option>
+              <mat-option [value]="enumStatus.submitted"><div>{{'submitted-topic-draft-details.status.submitted' | translate}}</div></mat-option>
+              <mat-option [value]="enumStatus.approved"><div>{{'submitted-topic-draft-details.status.approved' | translate}}</div></mat-option>
+              <mat-option [value]="enumStatus.rejected"><div>{{'submitted-topic-draft-details.status.rejected' | translate}}</div></mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -21,7 +21,7 @@
         <div class="information-row">
           <div class="information-row-item fullWidth">
             <mat-form-field class="fullWidth">
-              <mat-label i18n="@@component_departmentTabDescription_topic">Thema:</mat-label>
+              <mat-label>{{'submitted-topic-draft-details.field.topic' | translate}}:</mat-label>
               <input matInput formControlName="name" readonly>
             </mat-form-field>
           </div>
@@ -31,7 +31,7 @@
       <div class="information-row">
         <div class="information-row-item">
           <mat-form-field>
-            <mat-label i18n="@@beginning_table_header">Beginn</mat-label>
+            <mat-label>{{'submitted-topic-draft-details.field.begin' | translate}}</mat-label>
             <input matInput readonly formControlName="beginning">
             <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>-->
@@ -39,54 +39,54 @@
         </div>
       </div>
 
-      <div class="topic-details-subheading information-row" i18n="@@initiator">Initiator:</div>
+      <div class="topic-details-subheading information-row">{{'submitted-topic-draft-details.field.initiator' | translate}}:</div>
       <app-user-minibutton [userId]="topicDraft.initiator.id" [canBeRemoved]="false" class="no-margin-user-button"></app-user-minibutton>
 
       <div class="fullWidth mt-30">
         <mat-form-field class="fullWidth">
-          <span i18n="@@heading_contributes_to" class="topic-details-subheading">Zahlt ein auf:</span>
+          <span class="topic-details-subheading">{{'submitted-topic-draft-details.field.contribution' | translate}}:</span>
           <div class="multiline-text-wrapper mt-10">
-            <textarea class="multiline-text" readonly matInput formControlName='contributesTo' rows="2"></textarea>
+            <textarea class="multiline-text" readonly matInput formControlName="contributesTo" rows="2"></textarea>
           </div>
         </mat-form-field>
       </div>
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
-          <span i18n="@@component_departmentTabDescription_handoverPlan" class="topic-details-subheading">Übergabeplan:</span>
+          <span class="topic-details-subheading">{{'submitted-topic-draft-details.field.handover' | translate}}:</span>
           <div class="multiline-text-wrapper mt-10">
-            <textarea class="multiline-text" readonly matInput formControlName='handoverPlan' rows="2"></textarea>
+            <textarea class="multiline-text" readonly matInput formControlName="handoverPlan" rows="2"></textarea>
           </div>
         </mat-form-field>
       </div>
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
-          <span i18n="@@heading_dependencies" class="topic-details-subheading">Abhängigkeiten:</span>
+          <span class="topic-details-subheading">{{'submitted-topic-draft-details.field.dependencies' | translate}}:</span>
           <div class="multiline-text-wrapper mt-10">
-            <textarea class="multiline-text" readonly matInput formControlName='dependencies' rows="2"></textarea>
+            <textarea class="multiline-text" readonly matInput formControlName="dependencies" rows="2"></textarea>
           </div>
         </mat-form-field>
       </div>
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
-          <span i18n="@@heading_delimitation" class="topic-details-subheading">Abgrenzung:</span>
+          <span class="topic-details-subheading">{{'submitted-topic-draft-details.field.delimitation' | translate}}:</span>
           <div class="multiline-text-wrapper mt-10">
-            <textarea class="multiline-text" readonly matInput formControlName='delimitation' rows="2"></textarea>
+            <textarea class="multiline-text" readonly matInput formControlName="delimitation" rows="2"></textarea>
           </div>
         </mat-form-field>
       </div>
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
-          <span i18n="@@heading_resources" class="topic-details-subheading">Ressourcen:</span>
+          <span class="topic-details-subheading">{{'submitted-topic-draft-details.field.resources' | translate}}:</span>
           <div class="multiline-text-wrapper mt-10">
-            <textarea class="multiline-text" readonly matInput formControlName='resources' rows="2"></textarea>
+            <textarea class="multiline-text" readonly matInput formControlName="resources" rows="2"></textarea>
           </div>
         </mat-form-field>
       </div>
       <div class="fullWidth">
         <mat-form-field class="fullWidth">
-          <span i18n="@@component_description" class="topic-details-subheading">Beschreibung</span>
+          <span class="topic-details-subheading">{{'submitted-topic-draft-details.field.description' | translate}}:</span>
           <div class="multiline-text-wrapper mt-10">
-            <textarea class="multiline-text" readonly matInput formControlName='description' rows="2"></textarea>
+            <textarea class="multiline-text" readonly matInput formControlName="description" rows="2"></textarea>
           </div>
         </mat-form-field>
       </div>
@@ -94,25 +94,25 @@
       <mat-expansion-panel class="mb-20 mt-10 padding-user-list">
         <mat-expansion-panel-header class="pt-10 pb-10">
           <mat-panel-title>
-            <div class="topic-details-subheading" i18n="@@startTeam">Start Team</div>
+            <div class="topic-details-subheading">{{'submitted-topic-draft-details.field.start-team' | translate}}</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let user of topicDraft.startTeam">
           <app-user-minibutton [userId]="user" [canBeRemoved]="false" class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
-        <span class="zero-team-member-information" *ngIf="topicDraft.startTeam.length === 0" i18n="@@zero_team_member_info">Keine Teammitglieder vorhanden</span>
+        <span class="zero-team-member-information" *ngIf="topicDraft.startTeam.length === 0">{{'submitted-topic-draft-details.field.no-team-members' | translate}}</span>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="mb-10 mt-10 padding-user-list">
         <mat-expansion-panel-header class="pt-10 pb-10">
           <mat-panel-title>
-            <div class="topic-details-subheading" i18n="@@stakeholder_team">Stakeholder Team</div>
+            <div class="topic-details-subheading">{{'submitted-topic-draft-details.field.stakeholder-team' | translate}}</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let user of topicDraft.stakeholders">
           <app-user-minibutton [userId]="user" [canBeRemoved]="false" class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
-        <span class="zero-team-member-information" *ngIf="topicDraft.stakeholders.length === 0" i18n="@@zero_team_member_info">Keine Teammitglieder vorhanden</span>
+        <span class="zero-team-member-information" *ngIf="topicDraft.stakeholders.length === 0">{{'submitted-topic-draft-details.field.no-team-members' | translate}}</span>
       </mat-expansion-panel>
 
     </div>
@@ -120,11 +120,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <span matTooltip="Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein." [matTooltipDisabled]="(canEdit$ | async) && (topicDraft.currentStatus === enumStatus.submitted || topicDraft.currentStatus === enumStatus.draft)"
-     i18n-matTooltip="@@topic_draft_details_edit_no_permission_tooltip">
+  <span matTooltip="{{'submitted-topic-draft-details.button.tooltip-no-permission' | translate}}" [matTooltipDisabled]="(canEdit$ | async) && (topicDraft.currentStatus === enumStatus.submitted || topicDraft.currentStatus === enumStatus.draft)">
     <button [disabled]="(canEdit$ | async) === false|| topicDraft.currentStatus === enumStatus.approved || topicDraft.currentStatus === enumStatus.rejected" mat-button color="primary" (click)="editDialog()">
-     <span i18n="@@edit_button">Bearbeiten</span>
+     <span>{{'submitted-topic-draft-details.button.edit' | translate}}</span>
     </button>
   </span>
-  <button mat-button color="warn" (click)="closeDialog()" i18n="@@component_teamForm_close">Schließen</button>
+  <button mat-button color="warn" (click)="closeDialog()">{{'submitted-topic-draft-details.button.close' | translate}}</button>
 </mat-dialog-actions>

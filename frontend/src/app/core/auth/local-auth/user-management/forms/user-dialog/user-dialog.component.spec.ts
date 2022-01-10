@@ -7,14 +7,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PasswordService } from '../../../password-service/password.service';
 import { PasswordServiceMock } from '../../../../../../shared/mocks/password-service-mock';
-import { i18nMock } from '../../../../../../shared/mocks/i18n-mock';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { UserDialogData } from '../user-dialog-data';
 import { LocalUserService } from '../../../../../../shared/services/helper/local-user.service';
 import { CurrentUserService } from '../../../../../services/current-user.service';
 import { of } from 'rxjs';
 import { User } from '../../../../../../shared/model/api/user';
 import 'linq4js';
+import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
 
 describe('UserDialogComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();
@@ -37,6 +36,7 @@ describe('UserDialogComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ UserDialogComponent ],
+      imports: [ MaterialTestingModule ],
       providers: [
         {provide: MatDialogRef, useValue: {}},
         {provide: FormBuilder, useValue: formBuilder},
@@ -45,7 +45,6 @@ describe('UserDialogComponent', () => {
         {provide: CurrentUserService, useValue: currentUserServiceMock},
         {provide: PasswordService, useValue: PasswordServiceMock},
         {provide: MatSnackBar, useValue: {}},
-        {provide: I18n, useValue: i18nMock},
       ],
       schemas: [
         NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA,

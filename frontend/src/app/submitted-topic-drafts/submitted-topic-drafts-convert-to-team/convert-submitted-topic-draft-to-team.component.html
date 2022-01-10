@@ -1,0 +1,16 @@
+<app-dialog-component [title]="title" (okEmitter)="clickedConvertToTeam()"
+                      [formGroup]="chooseStructure"
+                      [saveAndCloseLabel]= "saveAndCloseLabel">
+  <form [formGroup]="chooseStructure">
+    <mat-form-field class="form-whole-line">
+      <mat-select placeholder="{{ 'submitted-topic-draft-convert-to-team.form.select' | translate }}" formControlName="parentUnitId">
+        <mat-optgroup *ngFor="let company of companyStructures$ | async" [label]="company.name">
+          <ng-container *ngFor="let childUnit of company.substructures">
+            <mat-option [value]="childUnit.id">{{childUnit.name}}</mat-option>
+          </ng-container>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</app-dialog-component>
+

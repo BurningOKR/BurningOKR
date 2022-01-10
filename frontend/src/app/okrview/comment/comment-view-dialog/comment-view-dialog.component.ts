@@ -5,8 +5,8 @@ import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
 import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface CommentViewDialogFormData {
     componentTypeTitle: string;
@@ -39,7 +39,7 @@ export class CommentViewDialogComponent implements OnInit, OnDestroy , CommentVi
     constructor(
         public dialogRef: MatDialogRef<CommentViewDialogComponent>,
         public commentMapperService: CommentMapperService,
-        private i18n: I18n,
+        private translate: TranslateService,
         @Inject(MAT_DIALOG_DATA) private formData: (CommentViewDialogFormData | any)
     ) {
         this.componentTypeTitle = formData.componentTypeTitle;
@@ -110,10 +110,7 @@ export class CommentViewDialogComponent implements OnInit, OnDestroy , CommentVi
     }
 
     getHintLabel(): string {
-        const threeCharactersRequired: string = this.i18n({
-            id: 'three_characters_required',
-            value: 'Min. 3 Zeichen benötigt'
-        });
+        const threeCharactersRequired: string = this.translate.instant('comment-view-dialog.min-char-message');
 
         return this.newCommentText.length < 3 ? threeCharactersRequired : '';
     }

@@ -5,8 +5,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyDto } from '../../shared/model/api/OkrUnit/company.dto';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { DialogComponent } from '../../shared/components/dialog-component/dialog.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { ValidationErrorService } from '../../shared/services/helper/validation-error.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface CompanyFormData {
   company?: CompanyUnit;
@@ -21,12 +21,13 @@ interface CompanyFormData {
 export class OkrUnitFormComponent {
   companyForm: FormGroup;
   title: string;
+  structureTranslation: string;
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<CompanyFormData>>,
               private companyMapper: CompanyMapper,
-              private i18n: I18n,
               @Inject(MAT_DIALOG_DATA) private formData: CompanyFormData,
-              private x: ValidationErrorService) {
+              private x: ValidationErrorService,
+              private translate: TranslateService) {
     this.companyForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
       label: new FormControl(this.getDefaultLabel(), [Validators.required, Validators.minLength(1), Validators.maxLength(255)])
@@ -36,17 +37,14 @@ export class OkrUnitFormComponent {
       this.companyForm.patchValue(this.formData.company);
     }
 
-    const saveText: string = this.i18n({
-        id: 'component_companyForm_saveText',
-        value: ' {{label}} speichern.'
-      }, {label: this.getDefaultLabel()}
-    );
-    const createText: string = this.i18n({
-        id: 'component_companyForm_createText',
-        value: '{{label}} erstellen.'
-      }, {label: this.getDefaultLabel()});
+    translate.stream('okr-unit-form.structure').subscribe((text: string) => {
+      this.structureTranslation = text;
+    });
 
-    this.title = this.formData.company ? saveText : createText;
+    const saveTranslation: string = translate.instant('okr-unit-form.save', {value: this.getDefaultLabel()});
+    const createTranslation: string = translate.instant('okr-unit-form.create', {value: this.getDefaultLabel()});
+
+    this.title = this.formData.company ? saveTranslation : createTranslation;
   }
 
   saveCompany(): void {
@@ -67,7 +65,7 @@ export class OkrUnitFormComponent {
     if (this.formData.company) {
       return this.formData.company.label;
     } else {
-      return this.i18n({id: 'schema', value: 'Struktur'});
+      return this.structureTranslation;
     }
   }
 }

@@ -3,7 +3,6 @@ import { TaskFormComponent, TaskFormData } from './department-tab-task-form.comp
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ViewObjective } from '../../../../shared/model/ui/view-objective';
 import { DialogComponent } from '../../../../shared/components/dialog-component/dialog.component';
@@ -38,8 +37,6 @@ describe('DepartmentTabTaskFormComponent', () => {
     }
   }
 
-  const i18nMock: any = jest.fn();
-
   const matDialogDataMock: TaskFormData = {
     task: null,
     unitId: 1,
@@ -54,7 +51,6 @@ describe('DepartmentTabTaskFormComponent', () => {
       declarations: [TaskFormComponent, DialogComponent, ErrorMockComponent],
       imports: [NoopAnimationsModule, MatDialogModule, ReactiveFormsModule, MaterialTestingModule],
       providers: [
-        {provide: I18n, useValue: i18nMock},
         {provide: MAT_DIALOG_DATA, useValue: matDialogDataMock},
         {provide: MatDialogRef, useValue: {}},
         {provide: ObjectiveViewMapper, useValue: new ObjectiveViewMapperMock()},

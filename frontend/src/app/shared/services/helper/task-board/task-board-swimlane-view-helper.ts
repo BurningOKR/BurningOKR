@@ -3,12 +3,34 @@ import { ViewKeyResult } from '../../../model/ui/view-key-result';
 import { ViewTaskState } from '../../../model/ui/taskboard/view-task-state';
 import { ViewTask } from '../../../model/ui/taskboard/view-task';
 import { KeyResultStateTaskMap } from '../../../model/ui/taskboard/key-result-state-task-map';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Injectable()
-export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper {
+export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper implements OnDestroy{
+
+    noKeyResultTitle = '';
+    subscriptions: Subscription[] = [];
+    translate: TranslateService;
+
+    constructor(translate: TranslateService) {
+      super();
+      this.translate = translate;
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
+
     createKeyResultStateTaskMapList(keyResults: ViewKeyResult[], states: ViewTaskState[], tasks: ViewTask[]): KeyResultStateTaskMap[] {
-        const emptyKeyResult: ViewKeyResult = new ViewKeyResult(null, null, null, null, null, 'Kein Key Result', null, null, null, null);
+        const emptyKeyResult: ViewKeyResult = new ViewKeyResult(null, null, null, null, null,
+          this.noKeyResultTitle, null, null, null, null);
+
+        //ToDo (C.K. 3.1.2022 fix updating doesnt change if rendered once)
+        this.subscriptions.push(this.translate.stream('task-board-swimlane-view-helper.no-keyresult-title').subscribe((res: string) => {
+          emptyKeyResult.keyResult = res;
+        }));
 
         const copiedTasks: ViewTask[] = [];
         for (const task of tasks) {

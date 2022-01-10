@@ -6,12 +6,11 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitService } from '../../../../../services/init.service';
 import { OAuthFrontendDetailsService } from '../../../../services/o-auth-frontend-details.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { InitServiceMock } from '../../../../../../shared/mocks/init-service-mock';
 import { OAuthFrontendDetailsServiceMock } from '../../../../../../shared/mocks/o-auth-frontend-details-service-mock';
-import { i18nMock } from '../../../../../../shared/mocks/i18n-mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
 
 describe('SetOauthClientDetailsFormComponent', () => {
   let component: any;
@@ -28,6 +27,7 @@ describe('SetOauthClientDetailsFormComponent', () => {
         ReactiveFormsModule,
         FormsModule,
         RouterTestingModule,
+        MaterialTestingModule,
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
       declarations: [ SetOauthClientDetailsFormComponent ],
@@ -36,7 +36,6 @@ describe('SetOauthClientDetailsFormComponent', () => {
         {provide: InitService, useValue: initServiceMock},
         {provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceMock},
         {provide: MatSnackBar, useValue: {}},
-        {provide: I18n, useValue: i18nMock}
       ]
     })
     .compileComponents();

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Inject, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dialog-component',
@@ -10,22 +10,19 @@ import { I18n } from '@ngx-translate/i18n-polyfill';
   styleUrls: ['./dialog.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DialogComponent<T> {
+export class DialogComponent<T> implements OnInit{
   @Input() title: string;
-  @Input() saveAndCloseLabel = this.i18n({
-    id: 'capitalized_save',
-    description: 'Button label to close a dialog, while saving the input',
-    value: 'Speichern'
-  });
+  @Input() saveAndCloseLabel;
   @Input() formGroup: FormGroup = new FormGroup({});
   @Input() hasFormGroupError = false;
   @Input() isSaveButtonDisabled = false;
   @Input() formHasToBeEdited = false;
+  @Input() needsCancelButton: boolean = true;
   @Output() okEmitter = new EventEmitter<T>();
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<T>>,
               @Inject(MAT_DIALOG_DATA) private formData: any,
-              private i18n: I18n
+              private translate: TranslateService,
   ) {
   }
 
@@ -39,5 +36,13 @@ export class DialogComponent<T> {
 
   sendOk(): void {
     this.okEmitter.emit(this.formGroup.getRawValue());
+  }
+
+  ngOnInit(): void {
+    this.translate.get('dialog-component.save').subscribe((text: string) => {
+      if(!this.saveAndCloseLabel){
+        this.saveAndCloseLabel = text;
+      }
+    });
   }
 }

@@ -6,40 +6,44 @@
       <span matTooltip="{{ getEditTooltipText$() | async}}" [matTooltipDisabled]="canEditTopicDraft$() | async">
         <button mat-menu-item [disabled]="(canEditTopicDraft$() | async) === false" (click)="editTopicDraft()">
           <mat-icon>edit</mat-icon>
-          <span>Bearbeiten</span>
+          <span>{{ 'submitted-topic-draft-action-button.edit' | translate }}</span>
         </button>
       </span>
-    <span matTooltip="Nur ein Admin oder der Initiator können diesen Themenentwurf löschen" i18n-matTooltip="@@onlyAdminOrInitiatorPermissionToDelete" [matTooltipDisabled]="canDeleteTopicDraft$() | async">
+    <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.only-admin-or-initiator-permission-to-delete' | translate }}" [matTooltipDisabled]="canDeleteTopicDraft$() | async">
       <button mat-menu-item [disabled]="(canDeleteTopicDraft$() | async) === false" (click)="clickedDeleteTopicDraft()">
         <mat-icon>delete</mat-icon>
-        <span>Löschen</span>
+        <span>{{ 'submitted-topic-draft-action-button.delete-text' | translate }}</span>
       </button>
     </span>
-    <span matTooltip="Kommentare"
-          i18n-matTooltip="@@comments_table_header">
-        <button mat-menu-item (click)="clickedOpenComments()">
-          <mat-icon>chat</mat-icon>
-          <span>Kommentare</span>
-        </button>
-      </span>
-    <span matTooltip="Feature kommt demnächst"
-          i18n-matTooltip="@@feature-coming-soon">
-        <button mat-menu-item disabled (click)="printNotImplemented()">
-          <mat-icon>exposure</mat-icon>
-          <span>Einreichen/Zurücknehmen</span>
+    <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.header' | translate }}">
+      <button mat-menu-item (click)="clickedOpenComments()">
+        <mat-icon>chat</mat-icon>
+        <span>{{ 'submitted-topic-draft-action-button.comments-text' | translate }}</span>
+      </button>
+    </span>
+    <span matTooltip="{{ getSubmissionTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatusForSubmission$() | async">
+      <button mat-menu-item [disabled]="(canChangeCurrentStatusForSubmission$() | async) === false" (click)="submittingTopicDraft()">
+        <mat-icon>exposure</mat-icon>
+        <span>{{ getSubmissionButtonText() }}</span>
+      </button>
+    </span>
+    <span matTooltip="{{getConvertToTeamTooltipText()}}" [matTooltipDisabled]="isTopicDraftConvertableToTeam$() | async">
+        <button mat-menu-item [disabled]="(isTopicDraftConvertableToTeam$() | async) === false" (click)="clickedConvertToTeam()">
+          <mat-icon>transform</mat-icon>
+          <span>{{ 'submitted-topic-draft-action-button.create-team' | translate }}</span>
         </button>
       </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
-        <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="approvingTopicDraft()">
-          <mat-icon>check_circle</mat-icon>
-          <span>{{ getApprovalButtonText() }}</span>
-        </button>
-      </span>
+      <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="approvingTopicDraft()">
+        <mat-icon>check_circle</mat-icon>
+        <span>{{ getApprovalButtonText() }}</span>
+      </button>
+    </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
-        <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="rejectingTopicDraft()">
-          <mat-icon >cancel</mat-icon>
-          <span>{{ getRejectionButtonText() }}</span>
-        </button>
-      </span>
+      <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="rejectingTopicDraft()">
+        <mat-icon>cancel</mat-icon>
+        <span>{{ getRejectionButtonText() }}</span>
+      </button>
+    </span>
   </mat-menu>
 </ng-container>

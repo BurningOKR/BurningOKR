@@ -1,26 +1,26 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
-
-import { NEVER } from 'rxjs';
+import { NEVER, Subscription } from 'rxjs';
 import { CycleDto } from '../../shared/model/api/cycle.dto';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { DateNotInRangeOfAnotherCycleValidator } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { CycleDialogData } from '../../shared/model/ui/cycle-dialog-data';
 import { DateFormValidator } from '../../shared/validators/date-format-validator/date-format-validator-function';
 import { DateNotInThePastValidator } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
 import { StartDateBeforeEndDateValidator } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cycle-creation-form',
   templateUrl: './cycle-creation-form.component.html',
   styleUrls: ['./cycle-creation-form.component.scss']
 })
-export class CycleCreationFormComponent {
+export class CycleCreationFormComponent implements OnInit, OnDestroy {
 
+  subscriptions: Subscription[] = [];
   cycleForm: FormGroup;
   cycles: CycleUnit[];
   title: string;
@@ -29,9 +29,12 @@ export class CycleCreationFormComponent {
   constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
               private cycleMapper: CycleMapper,
               private companyService: CompanyMapper,
-              private i18n: I18n,
+              private translate: TranslateService,
               @Inject(MAT_DIALOG_DATA) public formData: CycleDialogData) {
-    this.formData.cycles$
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(this.formData.cycles$
       .subscribe((cycles: CycleUnit[]) => {
         this.cycles = cycles;
         this.cycleForm = new FormGroup({
@@ -40,18 +43,20 @@ export class CycleCreationFormComponent {
           endDate: new FormControl('', [DateFormValidator.Validate]),
           isVisible: new FormControl(true)
         }, [StartDateBeforeEndDateValidator.Validate,
-            DateNotInRangeOfAnotherCycleValidator.Validate(this.cycles)
+          DateNotInRangeOfAnotherCycleValidator.Validate(this.cycles)
         ]);
-      });
+      }));
 
-    this.title = this.i18n({
-      id: 'createNewCycle',
-      value: 'Neuen Zyklus erstellen'
-    });
-    this.saveAndCloseLabel = this.i18n({
-      id: 'defineCycle',
-      value: 'Zyklus definieren'
-    });
+    this.subscriptions.push(this.translate.stream('cycle-creation-form.creation-dialog.title').subscribe(text => {
+      this.title = text;
+    }));
+    this.subscriptions.push(this.translate.stream('cycle-creation-form.creation-dialog.save').subscribe(text => {
+      this.saveAndCloseLabel = text;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   closeDialog(): void {

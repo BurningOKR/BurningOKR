@@ -7,11 +7,11 @@ import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-v
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { OkrUnitSchema } from '../../../shared/model/ui/okr-unit-schema';
-import { I18n } from '@ngx-translate/i18n-polyfill';
 import { OkrUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-unit';
 import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 import { map, switchMap } from 'rxjs/operators';
 import { UserService } from '../../../shared/services/helper/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface ObjectiveFormData {
   objective?: ViewObjective;
@@ -51,7 +51,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     private currentOkrViewService: CurrentOkrviewService,
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private userService: UserService,
-    private i18n: I18n,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) private formData: ObjectiveFormData
   ) {
   }
@@ -76,20 +76,10 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
     this.users$ = this.userService.getAllUsers$();
 
-    const editText: string = this.i18n({
-      id: 'small_edit',
-      value: 'bearbeiten'
-    });
-
-    const createText: string = this.i18n({
-      id: 'small_create',
-      value: 'erstellen'
-    });
-
-    this.title = this.i18n({
-      id: 'objective_form_title',
-      value: 'Objective {{editOrCreateText}}'
-    }, {editOrCreateText: this.objective ? editText : createText});
+    const editText: string = this.translate.instant('objective-form.dialog.edit');
+    const createText: string = this.translate.instant('objective-form.dialog.create');
+    this.title = this.translate.instant('objective-form.dialog.title',
+      {editOrCreateText: this.objective ? editText : createText});
   }
 
   ngOnDestroy(): void {

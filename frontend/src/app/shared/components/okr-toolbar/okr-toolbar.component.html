@@ -1,38 +1,36 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
-    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" i18n="@@component_return_to_demo_mainview" routerLink="/" *ngIf="isPlayground">Hauptseite</button>
-    <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="Hauptseite" i18n-matTooltip="@@component_return_to_demo_mainview"><mat-icon>cancel</mat-icon></button>
+    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" routerLink="/" *ngIf="isPlayground">{{'okr-toolbar.main-page' | translate}}</button>
+    <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="{{'okr-toolbar.return-to-demo-text' | translate}}"><mat-icon>cancel</mat-icon></button>
     <ng-content></ng-content>
     <span class="fill-space"></span>
 
     <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
 
     <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
-      <span i18n="@@component_okrToolbar_noSMTPWarningText" class="break-word">Warnung: Es wurde kein SMTP Server konfiguriert.</span>
+      <span class="break-word">{{'okr-toolbar.warning.no-smtp-text' | translate}}</span>
       <br>
-      <a [routerLink]="['/noMailInformation']" class="warningText break-word" i18n="@@component_okrToolbar_noSMTPWarningLink">Dies kann die Nutzbarkeit der
-        <br class="hidden-l-up">Anwendung stark einschränken.</a>
+      <a [routerLink]="['/noMailInformation']" class="warningText break-word">{{'okr-toolbar.warning.no-smtp-link' | translate}}</a>
     </div>
 
     <span class="fill-space"></span>
     <div class="user-interactions">
       <div class="adminIcon">
-        <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"
-                  i18n-matTooltip="@@component_okrToolbar_authorizeAsAdmin" matTooltip="Als Admin autorisiert">
+        <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer" matTooltip="{{'okr-toolbar.admin-icon.tooltip.is-admin' | translate}}">
           verified_user
         </mat-icon>
       </div>
       <span [matTooltip]="currentUser.givenName + ' ' + currentUser.surname" *ngIf="currentUser$ | async as currentUser">
-         <app-user-avatar class="icon-spacer-large profileIcon"  [user]="currentUser" size="40"></app-user-avatar>
+         <app-user-avatar class="icon-spacer-large profileIcon" [user]="currentUser" size="40"></app-user-avatar>
       </span>
 
-      <button mat-icon-button class="icon-spacer-large menuIcon" i18n-matTooltip="@@component_okrToolbar_menu" matTooltip="Menü"
-              [matMenuTriggerFor]="menu">
+      <button mat-icon-button class="icon-spacer-large menuIcon" matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
+
 <div class="toolbar-spacer"></div>
 
 <!-- Interactions menu -->
@@ -42,39 +40,44 @@
     <app-reset-countdown></app-reset-countdown>
   </button>
 
+
   <!-- show menu settings-->
   <ng-container *ngIf="(isLocalUserbase$ | async) === false && isPlayground === false">
     <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
-      <span i18n="@@component_adminView_adminPanel">Admin Panel</span>
+      <span>{{'okr-toolbar.menu.admin-panel-text' | translate}}</span>
     </button>
   </ng-container>
   <button mat-menu-item routerLink="/submitted-topic-drafts">
     <mat-icon>assignment</mat-icon>
-    <span i18n="@@component_okrToolbar_topicDrafts">Themenentwürfe</span>
+    <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
   <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item (click)="routeToCycleAdminPanel()">
     <mat-icon>history</mat-icon>
-    <span i18n="@@cycle_administration">Zyklusverwaltung</span>
+    <span>{{'okr-toolbar.menu.cycle-administration-text' | translate}}</span>
   </button>
   <button mat-menu-item (click)="openSettings()" [disabled]="isPlayground">
     <mat-icon>settings_applications</mat-icon>
-    <span i18n="@@settings">Einstellungen</span>
+    <span>{{'okr-toolbar.menu.settings-text' | translate}}</span>
   </button>
   <button *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)" mat-menu-item routerLink="/auth/users">
     <mat-icon>account_box</mat-icon>
-    <span i18n="@@component_okrToolbar_userManagement">Nutzerverwaltung</span>
+    <span>{{'okr-toolbar.menu.user-managment-text' | translate}}</span>
   </button>
   <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="isPlayground">
     <mat-icon>vpn_key</mat-icon>
-    <span i18n="@@change_password">Passwort ändern</span>
+    <span>{{'okr-toolbar.menu.change-password-text'| translate}}</span>
   </button>
   <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="isPlayground">
     <mat-icon>power_settings_new</mat-icon>
-    <span i18n="@@component_okrToolbar_logout">Logout</span>
+    <span>{{'okr-toolbar.menu.logout-text' | translate}}</span>
+  </button>
+  <button mat-menu-item (click)="pickLanguageClicked()">
+    <mat-icon>language</mat-icon>
+    <span>{{'okr-toolbar.menu.language-picker' | translate}}</span>
   </button>
   <button mat-menu-item (click)="openVersionChangelog()">
     <mat-icon>info</mat-icon>
-    <span><span i18n="@@component_okrToolbar_version">v</span> {{ versionString }}</span>
+    <span>v{{ versionString }}</span>
   </button>
 </mat-menu>

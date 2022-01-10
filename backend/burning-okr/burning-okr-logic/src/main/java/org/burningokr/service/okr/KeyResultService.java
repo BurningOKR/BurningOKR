@@ -6,10 +6,7 @@ import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.okr.KeyResult;
-import org.burningokr.model.okr.Note;
-import org.burningokr.model.okr.NoteKeyResult;
-import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.*;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteKeyResultRepository;
@@ -35,6 +32,7 @@ public class KeyResultService {
   private final EntityCrawlerService entityCrawlerService;
   private final ObjectiveService objectiveService;
   private final KeyResultMilestoneService keyResultMilestoneService;
+  private final TaskService taskService;
 
   public KeyResult findById(long keyResultId) {
     return keyResultRepository.findByIdOrThrow(keyResultId);
@@ -84,7 +82,8 @@ public class KeyResultService {
    * @param user an {@link User} object
    */
   @Transactional
-  public void deleteKeyResult(Long keyResultId, User user) {
+  public void deleteKeyResult(Long keyResultId, User user) throws Exception {
+
     KeyResult referencedKeyResult = keyResultRepository.findByIdOrThrow(keyResultId);
     throwIfCycleOfKeyResultIsClosed(referencedKeyResult);
 
@@ -97,6 +96,13 @@ public class KeyResultService {
           keyResultRepository.save(keyResult);
         }
       }
+    }
+
+    // remove references to this kr from tasks
+    Collection<Task> tasksForKeyResult = taskService.findTasksForKeyResult(referencedKeyResult);
+    for (Task task : tasksForKeyResult) {
+      task.setAssignedKeyResult(null);
+      taskService.updateTask(task, user);
     }
 
     keyResultRepository.deleteById(keyResultId);

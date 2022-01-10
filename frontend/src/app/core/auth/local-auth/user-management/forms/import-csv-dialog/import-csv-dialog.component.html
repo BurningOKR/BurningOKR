@@ -1,32 +1,30 @@
 <app-dialog-component (okEmitter)="onSave()" [isSaveButtonDisabled]="rowData.data.length === 0 || warnings.duplicateEmailAdresses">
-  <p i18n="@@importCsvDialog_description"> Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei
-    in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung </p>
-  <p *ngIf="rowData.data.length > 0" i18n="@@importCsvDialog_amountOfEntriesLoaded">Es wurden {{rowData.data.length}} Einträge geladen.</p>
+  <p>{{ 'import-csv-dialog.description' | translate }}</p>
+  <p *ngIf="rowData.data.length > 0">{{ 'import-csv-dialog.amount-of-entries-loaded' | translate }}</p>
   <p *ngIf="warnings">
-    <mat-error *ngIf="warnings.tooManyFields" i18n="@@importCsvDialog_toManyEntriesWarning">Mindestens ein Eintrag hat zu viele spalten.</mat-error>
-    <mat-error *ngIf="warnings.duplicateEmailAdresses" i18n="@@importCsvDialog_duplicateEmailAdressesWarning">In diesem Datensatz sind doppelte Email Adressen.</mat-error>
+    <mat-error *ngIf="warnings.tooManyFields">{{ 'import-csv-dialog.to-many-entries-warning' | translate }}</mat-error>
+    <mat-error *ngIf="warnings.duplicateEmailAdresses">{{ 'import-csv-dialog.duplicate-email-adresses-warning' | translate }}</mat-error>
   </p>
   <mat-form-field [formGroup]="fileForm">
-    <ngx-mat-file-input [formControl]="fileForm.controls.csvFile" accept=".csv, .txt"
-                        placeholder="CSV-Datei" i18n-placeholder="@@importCsvDialog_csv-file"></ngx-mat-file-input>
+    <ngx-mat-file-input [formControl]="fileForm.controls.csvFile" accept=".csv, .txt" placeholder="{{ 'import-csv-dialog.csv-file' | translate }}"></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
   </mat-form-field>
   <div style="max-height: 600px; overflow-y: auto">
     <table [dataSource]="rowData" mat-table matSort>
       <ng-container matColumnDef="givenName">
-        <th i18n="@@name" *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.name' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.givenName + ' ' + user.surname}}</td>
       </ng-container>
       <ng-container matColumnDef="email">
-        <th i18n="@@email" *matHeaderCellDef mat-header-cell mat-sort-header>Email</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.email' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.email}}</td>
       </ng-container>
       <ng-container matColumnDef="department">
-        <th i18n="@@abteilung_department" *matHeaderCellDef mat-header-cell mat-sort-header>Abteilung</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.department' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.department}}</td>
       </ng-container>
       <ng-container matColumnDef="jobTitle">
-        <th i18n="@@jobTitle" *matHeaderCellDef mat-header-cell mat-sort-header>Jobbezeichnung</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>{{ 'import-csv-dialog.job-title' | translate }}</th>
         <td *matCellDef="let user" mat-cell>{{user.jobTitle}}</td>
       </ng-container>
 
