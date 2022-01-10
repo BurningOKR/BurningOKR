@@ -28,7 +28,7 @@ export class TaskBoardSwimlaneViewHelper extends TaskBoardStateColumnViewHelper 
           this.noKeyResultTitle, null, null, null, null);
 
         //ToDo (C.K. 3.1.2022 fix updating doesnt change if rendered once)
-        this.subscriptions.push(this.translate.get('task-board-swimlane-view-helper.no-keyresult-title').subscribe((res: string) => {
+        this.subscriptions.push(this.translate.stream('task-board-swimlane-view-helper.no-keyresult-title').subscribe((res: string) => {
           emptyKeyResult.keyResult = res;
         }));
 

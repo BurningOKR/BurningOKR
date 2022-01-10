@@ -1,28 +1,40 @@
 <div class="list-entry" [ngClass]="isSecondUnit? 'secondary-color':'first-color'">
-  <div class="flex-nowrap">
-    <button mat-button class="entry-title" [ngClass]="isCurrentDepartment()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' " [routerLink]="['./departments/'+schema.id]">
+  <div class="flex-nowrap"
+       [ngClass]="isCurrentDepartment()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' ">
+    <button mat-button class="entry-title" [ngClass]="!schema.isActive? 'font-italic' : '' " [routerLink]="['./departments/'+schema.id] ">
       <div class="flex-nowrap">
-        <mat-icon *ngIf="isUnitSubstructure()" matTooltip="{{ 'navigation-list-entry.tooltip.is-substructure' | translate }}" class="icon-spacer">
-          account_tree</mat-icon>
-        <mat-icon *ngIf="isUnitTeam()" matTooltip="{{ 'navigation-list-entry.tooltip.is-team' | translate }}" class="icon-spacer">
-          supervisor_account</mat-icon>
+        <mat-icon *ngIf="isUnitSubstructure()"
+                  matTooltip="{{ 'navigation-list-entry.tooltip.is-substructure' | translate }}" class="icon-spacer">
+          account_tree
+        </mat-icon>
+        <mat-icon *ngIf="isUnitTeam()" matTooltip="{{ 'navigation-list-entry.tooltip.is-team' | translate }}"
+                  class="icon-spacer">
+          supervisor_account
+        </mat-icon>
         <div class="unit-name overflow-ellipsis">{{schema.name}}
         </div>
         <div class="fill-space"></div>
-        <mat-icon *ngIf="isManagerOfUnit()" matTooltip="{{ 'navigation-list-entry.tooltip.you-are-manager' | translate }}" class="icon-spacer">
-          person_outline</mat-icon>
-        <mat-icon *ngIf="isMemberOfUnit()" matTooltip="{{ 'navigation-list-entry.tooltip.you-are-member' | translate }}" class="icon-spacer">
-          people_outline</mat-icon>
-        </div></button><button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
-          <mat-icon *ngIf="isOpen">expand_less</mat-icon>
-          <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
-        </button>
+        <mat-icon *ngIf="isManagerOfUnit()"
+                  matTooltip="{{ 'navigation-list-entry.tooltip.you-are-manager' | translate }}" class="icon-spacer">
+          person_outline
+        </mat-icon>
+        <mat-icon *ngIf="isMemberOfUnit()" matTooltip="{{ 'navigation-list-entry.tooltip.you-are-member' | translate }}"
+                  class="icon-spacer">
+          people_outline
+        </mat-icon>
       </div>
-    
+    </button>
+    <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
+      <mat-icon *ngIf="isOpen">expand_less</mat-icon>
+      <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
+    </button>
   </div>
 
-  <div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
-    <app-navigation-list-entry *ngFor="let departmentSchema of schema.subDepartments" [schema]="departmentSchema" [isSecondUnit]="!isSecondUnit" [startsOpen]="schema.subDepartments.length === 1">
-    </app-navigation-list-entry>
-  </div>
+</div>
+
+<div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
+  <app-navigation-list-entry *ngFor="let departmentSchema of schema.subDepartments" [schema]="departmentSchema"
+                             [isSecondUnit]="!isSecondUnit" [startsOpen]="schema.subDepartments.length === 1">
+  </app-navigation-list-entry>
+</div>
 

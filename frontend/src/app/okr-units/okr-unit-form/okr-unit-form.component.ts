@@ -41,8 +41,8 @@ export class OkrUnitFormComponent {
       this.structureTranslation = text;
     });
 
-    const saveTranslation = translate.instant('okr-unit-form.save', {value: this.getDefaultLabel()});
-    const createTranslation = translate.instant('okr-unit-form.create', {value: this.getDefaultLabel()});
+    const saveTranslation: string = translate.instant('okr-unit-form.save', {value: this.getDefaultLabel()});
+    const createTranslation: string = translate.instant('okr-unit-form.create', {value: this.getDefaultLabel()});
 
     this.title = this.formData.company ? saveTranslation : createTranslation;
   }
