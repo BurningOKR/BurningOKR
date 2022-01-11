@@ -368,7 +368,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     return filteredUsers;
   }
   private appendDemoWarning(initialText: string): string{
-    return this.isPlayground ? (`${initialText  } ${  this.disabledInPlaygroundTranslation}`) : initialText;
+    return this.isPlayground ? (`${initialText} ${this.disabledInPlaygroundTranslation}`) : initialText;
   }
 
 }

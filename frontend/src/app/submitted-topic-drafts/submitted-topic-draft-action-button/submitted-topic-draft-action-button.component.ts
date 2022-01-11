@@ -362,7 +362,6 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .subscribe(departmentId => {
           if (departmentId) {
             const url: string = `/okr/departments/${departmentId}`;
-            console.log(url);
             this.router.navigateByUrl(url).then(
               () => this.deleteTopicDraft()
             );
