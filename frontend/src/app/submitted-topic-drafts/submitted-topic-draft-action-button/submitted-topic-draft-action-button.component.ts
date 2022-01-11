@@ -74,11 +74,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .subscribe((text: string) => {
       this.editTooltipUser = text;
     }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user')
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status-and-user')
       .subscribe((text: string) => {
       this.editTooltipStatusAndUser = text;
     }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user')
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.state-submitted-tooltip')
       .subscribe((text: string) => {
       this.stateMustBeSubmittedTooltip = text;
     }));
@@ -114,7 +114,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .subscribe((text: string) => {
       this.withDrawSubmitTopicDraftText = text;
     }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.admin-initator-tooltip')
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.admin-initiator-tooltip')
       .subscribe((text: string) => {
       this.adminOrInitiatorTooltip = text;
     }));
@@ -126,10 +126,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .subscribe((text: string) => {
       this.statusMustBeSubmittedAndUser = text;
     }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.user-not-admin').subscribe((text: string) => {
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.user-not-admin')
+      .subscribe((text: string) => {
         this.notAdminToolTip = text;
       }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.not-approved').subscribe((text: string) => {
+    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.not-approved')
+      .subscribe((text: string) => {
       this.notApprovedToolTip = text;
     }));
 

@@ -7972,7 +7972,7 @@
                 <name>submitted-topic-draft-action-button</name>
                 <children>
                     <concept_node>
-                        <name>admin-initator-tooltip</name>
+                        <name>admin-initiator-tooltip</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
