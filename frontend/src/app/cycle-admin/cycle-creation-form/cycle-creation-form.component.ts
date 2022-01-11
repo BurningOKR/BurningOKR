@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
@@ -23,7 +24,7 @@ export class CycleCreationFormComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   cycleForm: FormGroup;
   cycles: CycleUnit[];
-  title: string;
+  title$: Observable<string>;
   saveAndCloseLabel: string;
 
   constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
@@ -47,9 +48,7 @@ export class CycleCreationFormComponent implements OnInit, OnDestroy {
         ]);
       }));
 
-    this.subscriptions.push(this.translate.stream('cycle-creation-form.creation-dialog.title').subscribe(text => {
-      this.title = text;
-    }));
+    this.title$ = this.translate.stream('cycle-creation-form.creation-dialog.title');
     this.subscriptions.push(this.translate.stream('cycle-creation-form.creation-dialog.save').subscribe(text => {
       this.saveAndCloseLabel = text;
     }));
