@@ -45,7 +45,7 @@ jobs:
     - name: Npm version
       run: npm version $PACKAGE_VERSION --allow-same-version
       working-directory: ./frontend
-    - name: Npm Build German
+    - name: Npm Build
       run: npm run build-prod
       working-directory: ./frontend
     - name: Zip Frontend

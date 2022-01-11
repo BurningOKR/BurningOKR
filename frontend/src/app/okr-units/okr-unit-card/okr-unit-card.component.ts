@@ -119,8 +119,7 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
       data: {
         title: this.translate.instant('okr-unit-card.label'),
         objectNameWithArticle: this.company.name,
-        //objectNameWithArticle: this.translate.instant('okr-unit-card.general-delete-dialog-title', {value: this.company.name}),
-        dangerContent: this.translate.instant('okr-unit-card.delete-company-has-child-unit-warning', {value: this.company.name})
+        dangerContent: this.getChildUnitWarningIfNecessary()
       }
     };
   }
@@ -135,5 +134,14 @@ export class OkrUnitCardComponent implements OnInit, OnDestroy {
           });
         })
     );
+  }
+
+  private getChildUnitWarningIfNecessary(): string {
+    if (this.hasChildUnit()) {
+      return this.translate.instant('okr-unit-card.delete-company-has-child-unit-warning',
+        {value: this.company.name});
+    } else {
+      return '';
+    }
   }
 }
