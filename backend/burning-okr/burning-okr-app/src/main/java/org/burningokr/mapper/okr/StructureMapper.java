@@ -1,53 +1,47 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.StructureDto;
-import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class StructureMapper {
 
-    public StructureDto mapCompanyToStructureDto(OkrCompany input) {
-        StructureDto structureDto = new StructureDto();
-        structureDto.setOkrUnitId(input.getId());
-        structureDto.setUnitName(input.getName());
-        structureDto.setSubstructure(
-                mapChildUnitsToStructureDtos(BranchHelper.collectChildUnits(input)));
-        return structureDto;
-    }
+  public StructureDto mapCompanyToStructureDto(OkrCompany input) {
+    StructureDto structureDto = new StructureDto();
+    structureDto.setOkrUnitId(input.getId());
+    structureDto.setUnitName(input.getName());
+    structureDto.setSubstructure(
+        mapChildUnitsToStructureDtos(BranchHelper.collectChildUnits(input)));
+    return structureDto;
+  }
 
-    public Collection<StructureDto> mapCompaniesToStructureDtos(Collection<OkrCompany> input) {
-        return input.stream()
-                .map(this::mapCompanyToStructureDto)
-                .collect(Collectors.toList());
-    }
+  public Collection<StructureDto> mapCompaniesToStructureDtos(Collection<OkrCompany> input) {
+    return input.stream().map(this::mapCompanyToStructureDto).collect(Collectors.toList());
+  }
 
-    private Collection<StructureDto> mapChildUnitsToStructureDtos(Collection<OkrChildUnit> input) {
-        return input.stream()
-                .filter(OkrBranch.class::isInstance)
-                .map(this::mapChildUnitToStructureDto)
-                .collect(Collectors.toList());
-    }
+  private Collection<StructureDto> mapChildUnitsToStructureDtos(Collection<OkrChildUnit> input) {
+    return input.stream()
+        .filter(OkrBranch.class::isInstance)
+        .map(this::mapChildUnitToStructureDto)
+        .collect(Collectors.toList());
+  }
 
-    private StructureDto mapChildUnitToStructureDto(OkrChildUnit input) {
-        StructureDto structureDto = new StructureDto();
-        structureDto.setOkrUnitId(input.getId());
-        structureDto.setUnitName(input.getName());
-        Collection<OkrChildUnit> childUnits = BranchHelper.collectChildUnitsWithoutSelf(input);
-        if (!childUnits.isEmpty()) {
-            structureDto.setSubstructure(mapChildUnitsToStructureDtos(childUnits));
-        }
-        return structureDto;
+  private StructureDto mapChildUnitToStructureDto(OkrChildUnit input) {
+    StructureDto structureDto = new StructureDto();
+    structureDto.setOkrUnitId(input.getId());
+    structureDto.setUnitName(input.getName());
+    Collection<OkrChildUnit> childUnits = BranchHelper.collectChildUnitsWithoutSelf(input);
+    if (!childUnits.isEmpty()) {
+      structureDto.setSubstructure(mapChildUnitsToStructureDtos(childUnits));
     }
+    return structureDto;
+  }
 }

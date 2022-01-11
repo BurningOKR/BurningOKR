@@ -1,6 +1,7 @@
 package org.burningokr.mapper.okr;
 
 import static org.junit.Assert.assertEquals;
+
 import org.burningokr.dto.okr.StructureDto;
 import org.burningokr.model.okrUnits.*;
 import org.junit.Before;
@@ -25,5 +26,4 @@ public class StructureMapperTest {
 
     assertEquals("Company1", actual.getUnitName());
   }
-
 }
