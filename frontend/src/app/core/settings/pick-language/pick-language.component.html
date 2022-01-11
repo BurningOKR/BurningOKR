@@ -1,7 +1,7 @@
 <app-dialog-component
-  [title]="title"
+  [title]="title$ | async"
   (okEmitter)="clickedDone()"
-  [saveAndCloseLabel]="saveAndCloseLabel"
+  [saveAndCloseLabel]="saveAndCloseLabel$ | async"
 >
   <mat-form-field>
     <mat-select-trigger>
