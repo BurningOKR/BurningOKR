@@ -1,7 +1,7 @@
 <app-dialog-component
-  [title]="title"
+  [title]="title$ | async"
   (okEmitter)="clickedDone()"
-  [saveAndCloseLabel]="saveAndCloseLabel"
+  [saveAndCloseLabel]="saveAndCloseLabel$ | async"
 >
   <mat-form-field>
     <mat-select-trigger>
@@ -12,7 +12,7 @@
         {{'language-picker.language.english' | translate}}
       </mat-option>
       <mat-option value="de">
-        {{ 'language-picker.language.german' | translate }}
+        {{'language-picker.language.german' | translate }}
       </mat-option>
     </mat-select>
   </mat-form-field>

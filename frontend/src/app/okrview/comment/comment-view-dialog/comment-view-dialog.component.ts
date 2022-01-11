@@ -1,11 +1,12 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 import { ViewComment } from '../../../shared/model/ui/view-comment';
 import { CommentMapperService } from '../comment-mapper.service';
 import { ViewCommentParentType } from '../../../shared/model/ui/view-comment-parent-type';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface CommentViewDialogFormData {
@@ -109,9 +110,9 @@ export class CommentViewDialogComponent implements OnInit, OnDestroy , CommentVi
         this.onUpdateCommentIdList.splice(indexOfCommentId, 1);
     }
 
-    getHintLabel(): string {
-        const threeCharactersRequired: string = this.translate.instant('comment-view-dialog.min-char-message');
+    getHintLabel$(): Observable<string> {
+        const threeCharactersRequired: Observable<string> = this.translate.stream('comment-view-dialog.min-char-message');
 
-        return this.newCommentText.length < 3 ? threeCharactersRequired : '';
+        return this.newCommentText.length < 3 ? threeCharactersRequired : of('');
     }
 }

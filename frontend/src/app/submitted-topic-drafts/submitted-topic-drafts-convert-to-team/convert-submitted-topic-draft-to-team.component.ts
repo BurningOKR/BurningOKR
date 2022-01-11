@@ -20,8 +20,8 @@ import {map, switchMap, tap} from 'rxjs/operators';
 })
 export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDestroy {
 
-  title: string;
-  saveAndCloseLabel: string;
+  title$: Observable<string>;
+  saveAndCloseLabel$: Observable<string>;
   companyStructures$: Observable<Structure[]>;
   chooseStructure: FormGroup;
   private topicDraft: OkrTopicDraft;
@@ -47,12 +47,8 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
       }
     );
 
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-convert-to-team.title').subscribe(text =>
-      this.title = text
-    ));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-convert-to-team.dialog.save-and-close-label').subscribe(text =>
-      this.saveAndCloseLabel = text
-    ));
+    this.title$ = this.translate.stream('submitted-topic-draft-convert-to-team.title');
+    this.saveAndCloseLabel$ = this.translate.stream('submitted-topic-draft-convert-to-team.dialog.save-and-close-label');
   }
 
   ngOnDestroy(): void {

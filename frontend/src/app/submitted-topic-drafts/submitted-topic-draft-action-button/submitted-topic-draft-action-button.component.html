@@ -24,10 +24,10 @@
     <span matTooltip="{{ getSubmissionTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatusForSubmission$() | async">
       <button mat-menu-item [disabled]="(canChangeCurrentStatusForSubmission$() | async) === false" (click)="submittingTopicDraft()">
         <mat-icon>exposure</mat-icon>
-        <span>{{ getSubmissionButtonText() }}</span>
+        <span>{{ getSubmissionButtonText$() | async }}</span>
       </button>
     </span>
-    <span matTooltip="{{getConvertToTeamTooltipText()}}" [matTooltipDisabled]="isTopicDraftConvertableToTeam$() | async">
+    <span matTooltip="{{getConvertToTeamTooltipText$() | async}}" [matTooltipDisabled]="isTopicDraftConvertableToTeam$() | async">
         <button mat-menu-item [disabled]="(isTopicDraftConvertableToTeam$() | async) === false" (click)="clickedConvertToTeam()">
           <mat-icon>transform</mat-icon>
           <span>{{ 'submitted-topic-draft-action-button.create-team' | translate }}</span>
@@ -36,13 +36,13 @@
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
       <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="approvingTopicDraft()">
         <mat-icon>check_circle</mat-icon>
-        <span>{{ getApprovalButtonText() }}</span>
+        <span>{{ getApprovalButtonText$() | async }}</span>
       </button>
     </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="canChangeCurrentStatus$() | async">
       <button mat-menu-item [disabled]="(canChangeCurrentStatus$() | async) === false" (click)="rejectingTopicDraft()">
         <mat-icon>cancel</mat-icon>
-        <span>{{ getRejectionButtonText() }}</span>
+        <span>{{ getRejectionButtonText$() | async }}</span>
       </button>
     </span>
   </mat-menu>
