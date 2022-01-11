@@ -1,6 +1,5 @@
 <app-dialog-component
   [title]="title"
-  [needsCancelButton]="false"
   (okEmitter)="clickedDone()"
   [saveAndCloseLabel]="saveAndCloseLabel"
 >
@@ -8,7 +7,7 @@
     <mat-select-trigger>
       <small>{{'language-picker.select-trigger-text' | translate}}</small> <br>
     </mat-select-trigger>
-    <mat-select (selectionChange)="languageChanged($event)" [value]="this.translateService.currentLang">
+    <mat-select (selectionChange)="languageChanged($event)" [value]="this.translate.currentLang">
       <mat-option value="en">
         {{'language-picker.language.english' | translate}}
       </mat-option>

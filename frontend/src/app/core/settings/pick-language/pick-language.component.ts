@@ -12,25 +12,27 @@ export class PickLanguageComponent implements OnInit, OnDestroy {
 
   title: string;
   saveAndCloseLabel: string;
+  language: string;
 
   private subscriptions: Subscription[] = [];
 
   constructor(
-    public translateService: TranslateService,
+    public translate: TranslateService,
     private dialogRef: MatDialogRef<PickLanguageComponent>,
   ) { }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.translateService.stream('okr-toolbar.menu.language-picker').subscribe(text =>
+    this.subscriptions.push(this.translate.stream('okr-toolbar.menu.language-picker').subscribe(text =>
       this.title = text
     ));
-    this.subscriptions.push(this.translateService.stream('dialog-component.save').subscribe(text =>
+    this.subscriptions.push(this.translate.stream('dialog-component.save').subscribe(text =>
       this.saveAndCloseLabel = text
     ));
+    this.language = this.translate.currentLang;
   }
 
   languageChanged(event: any) {
-    this.translateService.use(event.value);
+    this.language = event.value;
   }
 
   ngOnDestroy(): void {
@@ -38,6 +40,7 @@ export class PickLanguageComponent implements OnInit, OnDestroy {
   }
 
   clickedDone(): void {
+    this.translate.use(this.language);
     this.dialogRef.close();
   }
 }
