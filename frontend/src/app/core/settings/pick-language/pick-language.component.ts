@@ -1,42 +1,33 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {Subscription} from 'rxjs';
-import {MatDialogRef} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-pick-language',
   templateUrl: './pick-language.component.html',
-  styleUrls: ['./pick-language.component.scss']
+  styleUrls: ['./pick-language.component.scss'],
 })
-export class PickLanguageComponent implements OnInit, OnDestroy {
+export class PickLanguageComponent implements OnInit{
+  title$: Observable<string>;
+  saveAndCloseLabel$: Observable<string>;
 
-  title: string;
-  saveAndCloseLabel: string;
   language: string;
-
-  private subscriptions: Subscription[] = [];
 
   constructor(
     public translate: TranslateService,
     private dialogRef: MatDialogRef<PickLanguageComponent>,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.translate.stream('okr-toolbar.menu.language-picker').subscribe(text =>
-      this.title = text
-    ));
-    this.subscriptions.push(this.translate.stream('dialog-component.save').subscribe(text =>
-      this.saveAndCloseLabel = text
-    ));
+    this.title$ = this.translate.stream('okr-toolbar.menu.language-picker');
+    this.saveAndCloseLabel$ = this.translate.stream('okr-toolbar.menu.language-picker');
     this.language = this.translate.currentLang;
   }
 
   languageChanged(event: any) {
     this.language = event.value;
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   clickedDone(): void {

@@ -34,23 +34,23 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
 
   subscriptions: Subscription[] = [];
 
-  editTooltipStatus: string;
-  editTooltipUser: string;
-  editTooltipStatusAndUser: string;
-  stateMustBeSubmittedTooltip: string;
-  userRoleToChangeStatus: string;
-  changeCurrentStatusByStatusAndUser: string;
-  approveTopicDraftText: string;
-  withDrawApprovalTopicDraftText: string;
-  rejectTopicDraftText: string;
-  withDrawRejectionTopicDraftText: string;
-  submitTopicDraftText: string;
-  withDrawSubmitTopicDraftText: string;
-  adminOrInitiatorTooltip: string;
-  statusMustBeSubmitted: string;
-  statusMustBeSubmittedAndUser: string;
-  notAdminToolTip: string;
-  notApprovedToolTip: string;
+  editTooltipStatus$: Observable<string>;
+  editTooltipUser$: Observable<string>;
+  editTooltipStatusAndUser$: Observable<string>;
+  stateMustBeSubmittedTooltip$: Observable<string>;
+  userRoleToChangeStatus$: Observable<string>;
+  changeCurrentStatusByStatusAndUser$: Observable<string>;
+  approveTopicDraftText$: Observable<string>;
+  withDrawApprovalTopicDraftText$: Observable<string>;
+  rejectTopicDraftText$: Observable<string>;
+  withDrawRejectionTopicDraftText$: Observable<string>;
+  submitTopicDraftText$: Observable<string>;
+  withDrawSubmitTopicDraftText$: Observable<string>;
+  adminOrInitiatorTooltip$: Observable<string>;
+  statusMustBeSubmitted$: Observable<string>;
+  statusMustBeSubmittedAndUser$: Observable<string>;
+  notAdminToolTip$: Observable<string>;
+  notApprovedToolTip$: Observable<string>;
 
   constructor(private topicDraftMapper: TopicDraftMapper,
               private currentUserService: CurrentUserService,
@@ -66,75 +66,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status')
-      .subscribe((text: string) => {
-      this.editTooltipStatus = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user')
-      .subscribe((text: string) => {
-      this.editTooltipUser = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status-and-user')
-      .subscribe((text: string) => {
-      this.editTooltipStatusAndUser = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.state-submitted-tooltip')
-      .subscribe((text: string) => {
-      this.stateMustBeSubmittedTooltip = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.no-permission')
-      .subscribe((text: string) => {
-      this.userRoleToChangeStatus = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.approving-status-and-user')
-      .subscribe((text: string) => {
-      this.changeCurrentStatusByStatusAndUser = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.capitalised-approve')
-      .subscribe((text: string) => {
-      this.approveTopicDraftText = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.withdraw-approval')
-      .subscribe((text: string) => {
-      this.withDrawApprovalTopicDraftText = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.capitalized-reject')
-      .subscribe((text: string) => {
-      this.rejectTopicDraftText = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection')
-      .subscribe((text: string) => {
-      this.withDrawRejectionTopicDraftText = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.capitalized-submit')
-      .subscribe((text: string) => {
-      this.submitTopicDraftText = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.withdraw-submit')
-      .subscribe((text: string) => {
-      this.withDrawSubmitTopicDraftText = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.admin-initiator-tooltip')
-      .subscribe((text: string) => {
-      this.adminOrInitiatorTooltip = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.status-submitted')
-      .subscribe((text: string) => {
-      this.statusMustBeSubmitted = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.status-submitted-user')
-      .subscribe((text: string) => {
-      this.statusMustBeSubmittedAndUser = text;
-    }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.user-not-admin')
-      .subscribe((text: string) => {
-        this.notAdminToolTip = text;
-      }));
-    this.subscriptions.push(this.translate.stream('submitted-topic-draft-action-button.not-approved')
-      .subscribe((text: string) => {
-      this.notApprovedToolTip = text;
-    }));
-
+    this.loadTranslations();
   }
 
   printNotImplemented(): string {
@@ -261,11 +193,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .pipe(
         switchMap((isAdminOrAuditor: boolean) => {
           if (this.topicDraft.currentStatus === status.draft && !isAdminOrAuditor) {
-            return of(this.changeCurrentStatusByStatusAndUser);
+            return this.changeCurrentStatusByStatusAndUser$;
           } else if (!isAdminOrAuditor) {
-            return of(this.userRoleToChangeStatus);
+            return this.userRoleToChangeStatus$;
           } else if (this.topicDraft.currentStatus === status.draft) {
-            return of(this.stateMustBeSubmittedTooltip);
+            return this.stateMustBeSubmittedTooltip$;
           }
 
           return of('');
@@ -279,12 +211,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
         switchMap((isAdminOrCreator: boolean) => {
             if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected)
               && !isAdminOrCreator) {
-              return of(this.statusMustBeSubmittedAndUser);
+              return this.statusMustBeSubmittedAndUser$;
             } else if (!isAdminOrCreator) {
-              return of(this.adminOrInitiatorTooltip);
+              return this.adminOrInitiatorTooltip$;
             } else if (this.topicDraft.currentStatus === status.approved
               || this.topicDraft.currentStatus === status.rejected) {
-              return of(this.statusMustBeSubmitted);
+              return this.statusMustBeSubmitted$;
             } else {
               return of('');
             }
@@ -298,11 +230,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
         switchMap((isAdminOrCreator: boolean) => {
             if ((this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) &&
               !isAdminOrCreator) {
-              return of(this.editTooltipStatusAndUser);
+              return this.editTooltipStatusAndUser$;
             } else if (!isAdminOrCreator) {
-              return of(this.editTooltipUser);
+              return this.editTooltipUser$;
             } else if (this.topicDraft.currentStatus === status.approved || this.topicDraft.currentStatus === status.rejected) {
-              return of(this.editTooltipStatus);
+              return this.editTooltipStatus$;
             }
 
             return of('');
@@ -310,19 +242,19 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
         ));
   }
 
-  getApprovalButtonText(): string {
-    return this.topicDraft.currentStatus === status.approved ? this.withDrawApprovalTopicDraftText
-      : this.approveTopicDraftText;
+  getApprovalButtonText$(): Observable<string> {
+    return this.topicDraft.currentStatus === status.approved ? this.withDrawApprovalTopicDraftText$
+      : this.approveTopicDraftText$;
   }
 
-  getRejectionButtonText(): string {
-    return this.topicDraft.currentStatus === status.rejected ? this.withDrawRejectionTopicDraftText
-      : this.rejectTopicDraftText;
+  getRejectionButtonText$(): Observable<string> {
+    return this.topicDraft.currentStatus === status.rejected ? this.withDrawRejectionTopicDraftText$
+      : this.rejectTopicDraftText$;
   }
 
-  getSubmissionButtonText(): string {
-    return this.topicDraft.currentStatus !== status.draft ? this.withDrawSubmitTopicDraftText
-      : this.submitTopicDraftText;
+  getSubmissionButtonText$(): Observable<string> {
+    return this.topicDraft.currentStatus !== status.draft ? this.withDrawSubmitTopicDraftText$
+      : this.submitTopicDraftText$;
   }
 
   clickedOpenComments(): void {
@@ -337,16 +269,16 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
   }
 
-  getConvertToTeamTooltipText() {
+  getConvertToTeamTooltipText$(): Observable<string> {
 
     if(!this.userIsAdmin() && !this.draftIsApproved()){
-      return this.notApprovedToolTip;
+      return this.notApprovedToolTip$;
     }
     if(this.userIsAdmin() && !this.draftIsApproved()){
-      return this.notApprovedToolTip;
+      return this.notApprovedToolTip$;
     }
     if(!this.userIsAdmin() && this.draftIsApproved()){
-      return this.notAdminToolTip;
+      return this.notAdminToolTip$;
     }
 
     return null;
@@ -378,5 +310,25 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
 
   private draftIsApproved() {
     return this.topicDraft.currentStatus === status.approved;
+  }
+
+  private loadTranslations(): void {
+    this.editTooltipStatus$ = this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status');
+    this.editTooltipUser$ = this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user');
+    this.editTooltipStatusAndUser$ = this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status-and-user');
+    this.stateMustBeSubmittedTooltip$ = this.translate.stream('submitted-topic-draft-action-button.state-submitted-tooltip');
+    this.userRoleToChangeStatus$ = this.translate.stream('submitted-topic-draft-action-button.no-permission');
+    this.changeCurrentStatusByStatusAndUser$ = this.translate.stream('submitted-topic-draft-action-button.approving-status-and-user');
+    this.approveTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.capitalised-approve');
+    this.withDrawApprovalTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.withdraw-approval');
+    this.rejectTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.capitalized-reject');
+    this.withDrawRejectionTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection');
+    this.submitTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.capitalized-submit');
+    this.withDrawSubmitTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.withdraw-submit');
+    this.adminOrInitiatorTooltip$ = this.translate.stream('submitted-topic-draft-action-button.admin-initiator-tooltip');
+    this.statusMustBeSubmitted$ = this.translate.stream('submitted-topic-draft-action-button.status-submitted');
+    this.statusMustBeSubmittedAndUser$ = this.translate.stream('submitted-topic-draft-action-button.status-submitted-user');
+    this.notAdminToolTip$ = this.translate.stream('submitted-topic-draft-action-button.user-not-admin');
+    this.notApprovedToolTip$ = this.translate.stream('submitted-topic-draft-action-button.not-approved');
   }
 }

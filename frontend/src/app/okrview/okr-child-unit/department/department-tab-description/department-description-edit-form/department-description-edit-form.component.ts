@@ -1,10 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs/internal/Observable';
 import { OkrTopicDescription } from '../../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { TopicDescriptionMapper } from '../../../../../shared/services/mapper/topic-description-mapper';
 import { DepartmentId } from '../../../../../shared/model/id-types';
-import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 interface OkrTopicDescriptionFormData {
@@ -17,11 +17,9 @@ interface OkrTopicDescriptionFormData {
   templateUrl: './department-description-edit-form.component.html',
   styleUrls: ['./department-description-edit-form.component.css']
 })
-export class DepartmentDescriptionEditFormComponent implements OnInit, OnDestroy {
-
-  subscriptions: Subscription[] = [];
+export class DepartmentDescriptionEditFormComponent implements OnInit {
   descriptionForm: FormGroup;
-  title: string;
+  title$: Observable<string>;
 
   constructor(private okrTopicDescriptionService: TopicDescriptionMapper,
               private dialogRef: MatDialogRef<DepartmentDescriptionEditFormComponent>,
@@ -47,13 +45,7 @@ export class DepartmentDescriptionEditFormComponent implements OnInit, OnDestroy
       this.descriptionForm.patchValue(this.formData.okrTopicDescription);
     }
 
-    this.subscriptions.push(this.translate.stream('department-description-edit-form.edit-description').subscribe(text => {
-      this.title = text;
-    }));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.title$ = this.translate.stream('department-description-edit-form.edit-description');
   }
 
   saveDescription(): void {

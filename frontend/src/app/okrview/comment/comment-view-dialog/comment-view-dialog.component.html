@@ -33,7 +33,7 @@
 
 
     <div class="flex-nowrap">
-      <mat-form-field class="full-width" hintLabel="{{getHintLabel()}}">
+      <mat-form-field class="full-width" hintLabel="{{getHintLabel$() | async}}">
         <textarea matInput cdkTextareaAutosize placeholder="{{ 'comment-view-dialog.write-comment' | translate }}" [disabled]="isPostingComment" [(ngModel)]="newCommentText" #input maxlength="255"></textarea>
         <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
       </mat-form-field>
