@@ -1,4 +1,4 @@
-<app-dialog-component [title]="title" (okEmitter)="saveObjective()" [formGroup]="objectiveForm">
+<app-dialog-component [title]="title" (okEmitter)="saveObjective()" (keyup.enter)="saveObjective()" [formGroup]="objectiveForm">
   <form [formGroup]="objectiveForm">
     <mat-form-field class="form-whole-line">
       <input type="text" matInput placeholder="Name *" formControlName="name">
