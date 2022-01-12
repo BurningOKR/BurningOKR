@@ -1,33 +1,33 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import {
-  ConfirmationDialogComponent,
-  ConfirmationDialogData
-} from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { switchMap, take } from 'rxjs/operators';
-import { of, Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import { CurrentUserService } from '../../core/services/current-user.service';
-import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
-import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { of, Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
+import { first, switchMap } from 'rxjs/operators';
+import { CurrentUserService } from '../../core/services/current-user.service';
 import {
   CommentViewDialogComponent,
-  CommentViewDialogFormData
+  CommentViewDialogFormData,
 } from '../../okrview/comment/comment-view-dialog/comment-view-dialog.component';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogData,
+} from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
-import { TranslateService } from '@ngx-translate/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
+import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
 import { ConvertSubmittedTopicDraftToTeamComponent } from '../submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
   templateUrl: './submitted-topic-draft-action-button.component.html',
-  styleUrls: ['./submitted-topic-draft-action-button.component.css']
+  styleUrls: ['./submitted-topic-draft-action-button.component.css'],
 })
-export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnInit {
+export class SubmittedTopicDraftActionButtonComponent implements OnInit {
   @Input() topicDraft: OkrTopicDraft;
   @Output() topicDraftDeletedEvent = new EventEmitter();
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
@@ -60,65 +60,50 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
               private router: Router) {
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.subscriptions = [];
-  }
-
   ngOnInit(): void {
     this.loadTranslations();
-  }
-
-  printNotImplemented(): string {
-    // eslint-disable-next-line no-console
-    console.log('Not Implemented');
-
-    return 'Not Implemented';
   }
 
   editTopicDraft(): void {
     const data: object = {
       data: {
         topicDraft: this.topicDraft,
-        editedTopicDraftEvent: this.editedTopicDraftEvent
-      }
+        editedTopicDraftEvent: this.editedTopicDraftEvent,
+      },
     };
     this.dialog.open(SubmittedTopicDraftEditComponent, data);
   }
 
   clickedDeleteTopicDraft(): void {
     const title: string = this.translate.instant('submitted-topic-draft-action-button.delete.title');
-    const message: string = this.translate.instant('submitted-topic-draft-action-button.delete.message', {name: this.topicDraft.name});
+    const message: string = this.translate.instant('submitted-topic-draft-action-button.delete.message', { name: this.topicDraft.name });
     const confirmButtonText: string = this.translate.instant('submitted-topic-draft-action-button.delete.button-text');
 
     const dialogData: ConfirmationDialogData = {
       title,
       message,
-      confirmButtonText
+      confirmButtonText,
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-      = this.dialog.open(ConfirmationDialogComponent, {width: '600px', data: dialogData});
+      = this.dialog.open(ConfirmationDialogComponent, { width: '600px', data: dialogData });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.deleteTopicDraft();
-          }
-        })
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(first())
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.deleteTopicDraft();
+        }
+      });
   }
 
   deleteTopicDraft(): void {
-  this.subscriptions.push(
-      this.topicDraftMapper
-          .deleteTopicDraft$(this.topicDraft.id)
-          .pipe(take(1))
-          .subscribe(() => this.topicDraftDeletedEvent.emit()
-          ));
+    this.topicDraftMapper
+      .deleteTopicDraft$(this.topicDraft.id)
+      .pipe(first())
+      .subscribe(() => this.topicDraftDeletedEvent.emit(),
+      );
   }
 
   canEditTopicDraft$(): Observable<boolean> {
@@ -127,7 +112,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
         switchMap((hasAuthorization: boolean) => {
           return of(hasAuthorization && (this.topicDraft.currentStatus === status.draft
             || this.topicDraft.currentStatus === status.submitted));
-        })
+        }),
       );
   }
 
@@ -144,7 +129,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       .pipe(
         switchMap((hasAuthorization: boolean) => {
           return of(hasAuthorization && this.topicDraft.currentStatus !== status.draft);
-        })
+        }),
       );
   }
 
@@ -155,19 +140,19 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
           return of(hasAuthorization && (
             this.topicDraft.currentStatus === status.draft ||
             this.topicDraft.currentStatus === status.submitted));
-        })
+        }),
       );
   }
 
   changeCurrentStatus(newStatus: status): void {
     this.topicDraft.currentStatus = newStatus;
-    this.subscriptions.push(this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft)
-      .subscribe());
+    this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft).pipe(first())
+      .subscribe();
     this.editedTopicDraftEvent.emit(this.topicDraft);
   }
 
   approvingTopicDraft(): void {
-     this.changeCurrentStatus(this.topicDraft.currentStatus !== status.approved ? status.approved : status.submitted);
+    this.changeCurrentStatus(this.topicDraft.currentStatus !== status.approved ? status.approved : status.submitted);
   }
 
   rejectingTopicDraft(): void {
@@ -181,7 +166,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       const snackBarOk: string = this.translate.instant('submitted-topic-draft-action-button.snackbar.ok');
       this.snackBar.open(snackBarText, snackBarOk, {
         verticalPosition: 'top',
-        duration: 3500
+        duration: 3500,
       });
     } else {
       this.changeCurrentStatus(status.draft);
@@ -192,17 +177,17 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     return this.currentUserService.isCurrentUserAdminOrAuditor$()
       .pipe(
         switchMap((isAdminOrAuditor: boolean) => {
-          if (this.topicDraft.currentStatus === status.draft && !isAdminOrAuditor) {
-            return this.changeCurrentStatusByStatusAndUser$;
-          } else if (!isAdminOrAuditor) {
-            return this.userRoleToChangeStatus$;
-          } else if (this.topicDraft.currentStatus === status.draft) {
-            return this.stateMustBeSubmittedTooltip$;
-          }
+            if (this.topicDraft.currentStatus === status.draft && !isAdminOrAuditor) {
+              return this.changeCurrentStatusByStatusAndUser$;
+            } else if (!isAdminOrAuditor) {
+              return this.userRoleToChangeStatus$;
+            } else if (this.topicDraft.currentStatus === status.draft) {
+              return this.stateMustBeSubmittedTooltip$;
+            }
 
-          return of('');
-        }
-      ));
+            return of('');
+          },
+        ));
   }
 
   getSubmissionTooltipText$(): Observable<string> {
@@ -220,7 +205,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
             } else {
               return of('');
             }
-          }
+          },
         ));
   }
 
@@ -238,7 +223,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
             }
 
             return of('');
-          }
+          },
         ));
   }
 
@@ -266,18 +251,17 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
       viewCommentParentType: ViewCommentParentType.topicDraft,
       parentId: this.topicDraft.id,
     };
-    this.dialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+    this.dialog.open(CommentViewDialogComponent, { autoFocus: false, data: dialogData, minWidth: '50vw' });
   }
 
   getConvertToTeamTooltipText$(): Observable<string> {
-
-    if(!this.userIsAdmin() && !this.draftIsApproved()){
+    if (!this.userIsAdmin() && !this.draftIsApproved()) {
       return this.notApprovedToolTip$;
     }
-    if(this.userIsAdmin() && !this.draftIsApproved()){
+    if (this.userIsAdmin() && !this.draftIsApproved()) {
       return this.notApprovedToolTip$;
     }
-    if(!this.userIsAdmin() && this.draftIsApproved()){
+    if (!this.userIsAdmin() && this.draftIsApproved()) {
       return this.notAdminToolTip$;
     }
 
@@ -288,19 +272,19 @@ export class SubmittedTopicDraftActionButtonComponent implements OnDestroy, OnIn
     const topicDraft: OkrTopicDraft = this.topicDraft;
 
     const convertSubmittedTopicDraftToTeamReference: MatDialogRef<ConvertSubmittedTopicDraftToTeamComponent, object>
-      = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, {width: '600px', data: {topicDraft}});
+      = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, { width: '600px', data: { topicDraft } });
 
     convertSubmittedTopicDraftToTeamReference
       .afterClosed()
-      .pipe(take(1))
+      .pipe(first())
       .subscribe(departmentId => {
           if (departmentId) {
             const url: string = `/okr/departments/${departmentId}`;
             this.router.navigateByUrl(url).then(
-              () => this.deleteTopicDraft()
+              () => this.deleteTopicDraft(),
             );
           }
-        }
+        },
       );
   }
 
