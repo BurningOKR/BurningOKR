@@ -48,18 +48,16 @@ export class OkrUnitFormComponent {
   }
 
   saveCompany(): void {
-    if (this.companyForm.valid) {
-      const company: CompanyUnit = this.formData.company;
+    const company: CompanyUnit = this.formData.company;
 
-      if (company) {
-        company.name = this.companyForm.get('name').value;
-        company.label = this.companyForm.get('label').value;
-        this.dialogRef.close(this.companyMapper.putCompany$(company));
-      } else {
-        const formData: CompanyUnit = this.companyForm.getRawValue();
-        const newCompany: CompanyDto = {unitName: formData.name, cycleId: formData.cycleId, label: formData.label};
-        this.dialogRef.close(this.companyMapper.postCompany$(newCompany));
-      }
+    if (company) {
+      company.name = this.companyForm.get('name').value;
+      company.label = this.companyForm.get('label').value;
+      this.dialogRef.close(this.companyMapper.putCompany$(company));
+    } else {
+      const formData: CompanyUnit = this.companyForm.getRawValue();
+      const newCompany: CompanyDto = {unitName: formData.name, cycleId: formData.cycleId, label: formData.label};
+      this.dialogRef.close(this.companyMapper.postCompany$(newCompany));
     }
   }
 

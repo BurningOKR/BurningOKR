@@ -96,36 +96,34 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
   }
 
   saveObjective(): void {
-    if (this.objectiveForm.valid) {
-      const objective: ViewObjective = this.formData.objective;
+    const objective: ViewObjective = this.formData.objective;
 
-      if (objective) {
-        objective.name = this.objectiveForm.get('name').value;
-        objective.parentObjectiveId = this.objectiveForm.get('parentObjectiveId').value;
-        objective.description = this.objectiveForm.get('description').value;
-        objective.remark = this.objectiveForm.get('remark').value;
-        objective.contactPersonId = this.objectiveForm.get('contactPersonId').value;
-        objective.isActive = this.objectiveForm.get('isActive').value;
-        this.dialogRef.close(this.objectiveMapper.putObjective$(objective));
-      } else {
-        const formData: ViewObjective = this.objectiveForm.getRawValue();
-        const newObjective: ViewObjective = new ViewObjective(
-          undefined,
-          formData.name,
-          formData.description,
-          formData.remark,
-          undefined,
-          undefined,
-          formData.isActive,
-          formData.parentObjectiveId,
-          formData.parentUnitId,
-          formData.contactPersonId,
-          undefined,
-          undefined
-        );
-        newObjective.parentUnitId = this.formData.unitId;
-        this.dialogRef.close(this.objectiveMapper.postObjectiveForUnit$(this.formData.unitId, newObjective));
-      }
+    if (objective) {
+      objective.name = this.objectiveForm.get('name').value;
+      objective.parentObjectiveId = this.objectiveForm.get('parentObjectiveId').value;
+      objective.description = this.objectiveForm.get('description').value;
+      objective.remark = this.objectiveForm.get('remark').value;
+      objective.contactPersonId = this.objectiveForm.get('contactPersonId').value;
+      objective.isActive = this.objectiveForm.get('isActive').value;
+      this.dialogRef.close(this.objectiveMapper.putObjective$(objective));
+    } else {
+      const formData: ViewObjective = this.objectiveForm.getRawValue();
+      const newObjective: ViewObjective = new ViewObjective(
+        undefined,
+        formData.name,
+        formData.description,
+        formData.remark,
+        undefined,
+        undefined,
+        formData.isActive,
+        formData.parentObjectiveId,
+        formData.parentUnitId,
+        formData.contactPersonId,
+        undefined,
+        undefined
+      );
+      newObjective.parentUnitId = this.formData.unitId;
+      this.dialogRef.close(this.objectiveMapper.postObjectiveForUnit$(this.formData.unitId, newObjective));
     }
   }
 
