@@ -1,25 +1,27 @@
-<h1 mat-dialog-title class="form-header">{{title}}</h1>
+<form [formGroup]="formGroup" (keydown.enter)="handleEnter($event)">
+  <h1 mat-dialog-title class="form-header">{{title}}</h1>
 
-<mat-dialog-content>
-  <ng-content></ng-content>
-</mat-dialog-content>
+  <mat-dialog-content>
+    <ng-content></ng-content>
+  </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button mat-button color="primary" (click)="sendOk()" [disabled]="isSaveButtonDisabled || formGroup.invalid || formHasToBeEdited && formGroup.pristine">
-          {{saveAndCloseLabel}}
-  </button>
-  <button *ngIf="needsCancelButton" mat-button color="warn" (click)="closeDialog()">
-    <span>{{'dialog-component.cancel' | translate}}</span>
-  </button>
-  <div *ngIf="hasFormGroupError">
-    <mat-error class="error-span" *ngIf="formGroup.hasError('startEqualsEnd')">
-      <span>{{'dialog-component.start-equals-end' | translate}}</span>
-    </mat-error>
-    <mat-error class="error-span" *ngIf="formGroup.hasError('startDateNotBeforeEndDate')">
-      <span>{{'dialog-component.start-date-not-before-end-date' | translate}}</span>
-    </mat-error>
-    <mat-error class="error-span" *ngIf="formGroup.hasError('dateRangeWithinAnotherDateRange')">
-      <span>{{'dialog-component.date-range-within-another-date-range' | translate}}</span>
-    </mat-error>
-  </div>
-</mat-dialog-actions>
+  <mat-dialog-actions>
+    <button type="submit" mat-button color="primary" (click)="sendOk()" [disabled]="saveDisabled()">
+      {{saveAndCloseLabel}}
+    </button>
+    <button type="button" *ngIf="needsCancelButton" mat-button color="warn" (click)="closeDialog()">
+      <span>{{'dialog-component.cancel' | translate}}</span>
+    </button>
+    <div *ngIf="hasFormGroupError">
+      <mat-error class="error-span" *ngIf="formGroup.hasError('startEqualsEnd')">
+        <span>{{'dialog-component.start-equals-end' | translate}}</span>
+      </mat-error>
+      <mat-error class="error-span" *ngIf="formGroup.hasError('startDateNotBeforeEndDate')">
+        <span>{{'dialog-component.start-date-not-before-end-date' | translate}}</span>
+      </mat-error>
+      <mat-error class="error-span" *ngIf="formGroup.hasError('dateRangeWithinAnotherDateRange')">
+        <span>{{'dialog-component.date-range-within-another-date-range' | translate}}</span>
+      </mat-error>
+    </div>
+  </mat-dialog-actions>
+</form>
