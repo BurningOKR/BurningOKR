@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { first } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
 import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
@@ -56,7 +56,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
     const formTopicDraft: OkrTopicDraft = this.topicDraftForm.getRawValue();
     const updatedTopicDraft: OkrTopicDraft = { ...oldTopicDraft, ...formTopicDraft };
     this.dialogRef.close(
-      this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft).pipe(first())
+      this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft).pipe(take(1))
         .subscribe(),
     );
     this.editedTopicDraftEvent.emit(updatedTopicDraft);

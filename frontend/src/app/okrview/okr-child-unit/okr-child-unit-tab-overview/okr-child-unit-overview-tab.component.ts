@@ -3,18 +3,18 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
+import { ContextRole } from '../../../shared/model/ui/context-role';
+import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
+import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
-import { ObjectiveFormComponent } from '../../objective/objective-form/objective-form.component';
-import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
-import { ContextRole } from '../../../shared/model/ui/context-role';
-import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
+import { ObjectiveFormComponent } from '../../objective/objective-form/objective-form.component';
 
 @Component({
   selector: 'app-okr-child-unit-overview-tab',
   templateUrl: './okr-child-unit-overview-tab.component.html',
-  styleUrls: ['./okr-child-unit-overview-tab.component.scss']
+  styleUrls: ['./okr-child-unit-overview-tab.component.scss'],
 })
 export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnChanges {
   @Input() okrChildUnit: OkrChildUnit;
@@ -28,14 +28,15 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
   constructor(
     private objectiveMapper: ObjectiveViewMapper,
     private okrUnitService: OkrUnitService,
-    private matDialog: MatDialog
-  ) {}
+    private matDialog: MatDialog,
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscriptions.push(
       this.objectiveMapper
-        .getObjectivesForUnit$(this.okrChildUnit.id)
-        .subscribe(newObjectiveList => (this.objectiveList = newObjectiveList))
+        .getObjectivesForUnit$(this.okrChildUnit.id).pipe(take(1))
+        .subscribe(newObjectiveList => (this.objectiveList = newObjectiveList)),
     );
   }
 
@@ -48,10 +49,11 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
     if (changes.okrChildUnit) {
       this.objectiveList = undefined;
       this.objectiveMapper
-        .getObjectivesForUnit$(this.okrChildUnit.id)
+        .getObjectivesForUnit$(this.okrChildUnit.id).pipe(take(1))
         .subscribe(newObjectiveList => (this.objectiveList = newObjectiveList));
     }
   }
+
   // --
   // Objective ordering logic
   // --
@@ -93,7 +95,7 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
 
   clickedAddObjective(): void {
     const dialogReference: MatDialogRef<ObjectiveFormComponent> = this.matDialog.open(ObjectiveFormComponent, {
-      data: { unitId: this.okrChildUnit.id }
+      data: { unitId: this.okrChildUnit.id },
     });
 
     this.subscriptions.push(
@@ -102,9 +104,9 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
         .pipe(
           take(1),
           filter(v => v),
-          switchMap(n => n)
+          switchMap(n => n),
         )
-        .subscribe(newObjective => this.onObjectiveAdded(newObjective as ViewObjective))
+        .subscribe(newObjective => this.onObjectiveAdded(newObjective as ViewObjective)),
     );
   }
 

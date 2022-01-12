@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
 import { OkrTopicDescription } from '../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
@@ -52,7 +52,7 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit {
   }
 
   clickedConvertToTeam() {
-    this.convertTopicDraftToTeamAndDescription().pipe(first())
+    this.convertTopicDraftToTeamAndDescription().pipe(take(1))
       .subscribe(
         () =>
           this.dialogRef.close(this.department.id),

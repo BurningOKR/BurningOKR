@@ -1,25 +1,25 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import { Router } from '@angular/router';
-import { OkrTopicDraft } from '../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { TopicDraftMapper } from '../shared/services/mapper/topic-draft-mapper';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { TopicDraftCreationFormComponent } from '../okrview/okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
-import { filter, first, switchMap, take } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { filter, switchMap, take } from 'rxjs/operators';
+import { TopicDraftCreationFormComponent } from '../okrview/okr-child-unit/okr-child-unit-form/topic-draft-creation-form/topic-draft-creation-form.component';
+import { OkrTopicDraft } from '../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { TopicDraftMapper } from '../shared/services/mapper/topic-draft-mapper';
 
 @Component({
   selector: 'app-submitted-topic-drafts',
   templateUrl: './submitted-topic-drafts.component.html',
-  styleUrls: ['./submitted-topic-drafts.component.css']
+  styleUrls: ['./submitted-topic-drafts.component.css'],
 })
 export class SubmittedTopicDraftsComponent implements OnInit {
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   columnsToDisplay = ['topic', 'initiator', 'beginning', 'contributesTo', 'status', 'comments', 'actions'];
 
@@ -29,12 +29,12 @@ export class SubmittedTopicDraftsComponent implements OnInit {
               private topicDraftMapper: TopicDraftMapper,
               private translate: TranslateService,
               private snackBar: MatSnackBar,
-              private matDialog: MatDialog
-              ) {
+              private matDialog: MatDialog,
+  ) {
   }
 
   clickedAddTopicDraft(): void {
-    const config: any = {width: '600px', data: {}};
+    const config: any = { width: '600px', data: {} };
 
     const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
 
@@ -43,7 +43,7 @@ export class SubmittedTopicDraftsComponent implements OnInit {
       .pipe(
         take(1),
         filter(v => v),
-        switchMap(n => n)
+        switchMap(n => n),
       )
       .subscribe(() => {
         this.loadAllTopicDrafts();
@@ -58,14 +58,14 @@ export class SubmittedTopicDraftsComponent implements OnInit {
 
   loadAllTopicDrafts(): void {
     this.topicDraftMapper.getAllTopicDrafts$()
-      .pipe(first())
+      .pipe(take(1))
       .subscribe(topicDrafts => {
-      this.rowData.data = topicDrafts;
-    });
+        this.rowData.data = topicDrafts;
+      });
   }
 
   navigateToCompanies(): void {
     this.router.navigate(['companies'])
-        .catch();
+      .catch();
   }
 }

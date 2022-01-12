@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of, Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { first, switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import {
   CommentViewDialogComponent,
@@ -90,7 +90,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
 
     dialogReference
       .afterClosed()
-      .pipe(first())
+      .pipe(take(1))
       .subscribe(isConfirmed => {
         if (isConfirmed) {
           this.deleteTopicDraft();
@@ -101,7 +101,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
   deleteTopicDraft(): void {
     this.topicDraftMapper
       .deleteTopicDraft$(this.topicDraft.id)
-      .pipe(first())
+      .pipe(take(1))
       .subscribe(() => this.topicDraftDeletedEvent.emit(),
       );
   }
@@ -146,7 +146,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
 
   changeCurrentStatus(newStatus: status): void {
     this.topicDraft.currentStatus = newStatus;
-    this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft).pipe(first())
+    this.topicDraftMapper.updateTopicDraftStatus$(this.topicDraft).pipe(take(1))
       .subscribe();
     this.editedTopicDraftEvent.emit(this.topicDraft);
   }
@@ -276,7 +276,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
 
     convertSubmittedTopicDraftToTeamReference
       .afterClosed()
-      .pipe(first())
+      .pipe(take(1))
       .subscribe(departmentId => {
           if (departmentId) {
             const url: string = `/okr/departments/${departmentId}`;
