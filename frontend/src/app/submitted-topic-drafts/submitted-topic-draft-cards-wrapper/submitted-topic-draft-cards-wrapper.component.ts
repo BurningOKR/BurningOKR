@@ -1,19 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 
 @Component({
   selector: 'app-submitted-topic-draft-cards-wrapper',
   templateUrl: './submitted-topic-draft-cards-wrapper.component.html',
-  styleUrls: ['./submitted-topic-draft-cards-wrapper.component.css']
+  styleUrls: ['./submitted-topic-draft-cards-wrapper.component.css'],
 })
-export class SubmittedTopicDraftCardsWrapperComponent implements OnInit {
-
-  @Input()
-  topicDrafts: OkrTopicDraft[];
-
-  ngOnInit(): void {
-    // to implement
-  }
+export class SubmittedTopicDraftCardsWrapperComponent {
+  @Input() topicDrafts: OkrTopicDraft[];
 
   updateEditedTopicDraft(topicDraft: OkrTopicDraft): void {
     const position: number = this.topicDrafts.findIndex((topicDraftsElement: OkrTopicDraft) => topicDraftsElement.id === topicDraft.id);
@@ -24,5 +18,4 @@ export class SubmittedTopicDraftCardsWrapperComponent implements OnInit {
     const position: number = this.topicDrafts.indexOf(topicDraft);
     this.topicDrafts.splice(position, 1);
   }
-
 }
