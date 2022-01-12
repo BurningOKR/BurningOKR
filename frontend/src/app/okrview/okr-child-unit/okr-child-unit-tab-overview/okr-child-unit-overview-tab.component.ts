@@ -1,7 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { ContextRole } from '../../../shared/model/ui/context-role';
 import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
@@ -16,13 +15,10 @@ import { ObjectiveFormComponent } from '../../objective/objective-form/objective
   templateUrl: './okr-child-unit-overview-tab.component.html',
   styleUrls: ['./okr-child-unit-overview-tab.component.scss'],
 })
-export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnChanges {
+export class OkrChildUnitOverviewTabComponent implements OnInit, OnChanges {
   @Input() okrChildUnit: OkrChildUnit;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
-
-  subscriptions: Subscription[] = [];
-
   objectiveList: ViewObjective[];
 
   constructor(
@@ -33,16 +29,9 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(
-      this.objectiveMapper
-        .getObjectivesForUnit$(this.okrChildUnit.id).pipe(take(1))
-        .subscribe(newObjectiveList => (this.objectiveList = newObjectiveList)),
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.subscriptions = [];
+    this.objectiveMapper
+      .getObjectivesForUnit$(this.okrChildUnit.id).pipe(take(1))
+      .subscribe(newObjectiveList => (this.objectiveList = newObjectiveList));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -98,16 +87,14 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnDestroy, OnCh
       data: { unitId: this.okrChildUnit.id },
     });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(
-          take(1),
-          filter(v => v),
-          switchMap(n => n),
-        )
-        .subscribe(newObjective => this.onObjectiveAdded(newObjective as ViewObjective)),
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter(v => v),
+        switchMap(n => n),
+      )
+      .subscribe(newObjective => this.onObjectiveAdded(newObjective as ViewObjective));
   }
 
   onObjectiveAdded(newObjective: ViewObjective): void {
