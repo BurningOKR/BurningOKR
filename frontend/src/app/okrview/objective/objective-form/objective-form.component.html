@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <input type="text" matInput placeholder="{{ 'objective-form.description' | translate }}" formControlName="description">
+      <textarea type="text" matInput placeholder="{{ 'objective-form.description' | translate }}" matTextareaAutosize formControlName="description"></textarea>
       <mat-error><app-form-error [control]="objectiveForm.get('description')"></app-form-error></mat-error>
 
     </mat-form-field>
