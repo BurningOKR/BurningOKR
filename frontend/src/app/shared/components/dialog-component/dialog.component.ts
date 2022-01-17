@@ -42,7 +42,6 @@ export class DialogComponent<T> implements OnInit{
 
   handleEnter(event): void {
     if (!this.NO_ENTER_TAGS.includes(event.target.tagName)
-        && event.target.type !== 'checkbox'
         && !this.saveDisabled()) {
       this.sendOk();
     }
