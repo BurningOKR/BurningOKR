@@ -5,8 +5,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Observable,  timer} from "rxjs";
-import { map, switchMap} from "rxjs/operators";
+import { Observable,  timer} from 'rxjs';
+import { map, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-countdown-timer',
@@ -23,18 +23,19 @@ export class CountdownTimerComponent implements OnInit {
   ngOnInit() {
 
     this.remainingTimeString$ = this.endTime$.pipe(
-      switchMap((endTime) => {
+      switchMap(endTime => {
         return timer(0, 1000)
           .pipe(
             map(() => this.getRemainingTimeString(endTime))
-          )
+          );
       })
     );
   }
 
   getRemainingTimeString(endTime: Date): String {
     // Shaving off one Hour because of TimeZone differences
-    let remainingTime: Date = new Date(endTime?.getTime() - new Date().getTime() - 1000*60*60);
+    const remainingTime: Date = new Date(endTime?.getTime() - new Date().getTime() - 1000*60*60);
+
     return remainingTime.toLocaleTimeString();
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CountdownTimestampApiService } from '../../services/api/countdown-timestamp-api.service';
 import { Router } from '@angular/router';
 import {environment} from '../../../../environments/environment';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-reset-countdown',
@@ -20,7 +20,7 @@ export class ResetCountdownComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dateForNextReset$ = this.countdownService.getDateForNextReset$()
+    this.dateForNextReset$ = this.countdownService.getDateForNextReset$();
   }
 
   reload(): void {
