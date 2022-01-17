@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Observable,  timer} from "rxjs";
+import { map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-countdown-timer',
@@ -7,9 +15,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CountdownTimerComponent implements OnInit {
 
-  constructor() { }
+  @Input() endTime$: Observable<Date>;
+  @Output() zeroTrigger: EventEmitter<void> = new EventEmitter<void>();
 
-  ngOnInit(): void {
+  remainingTimeString$: Observable<String>;
+
+  ngOnInit() {
+
+    this.remainingTimeString$ = this.endTime$.pipe(
+      switchMap((endTime) => {
+        return timer(0, 1000)
+          .pipe(
+            map(() => this.getRemainingTimeString(endTime))
+          )
+      })
+    );
   }
 
+  getRemainingTimeString(endTime: Date): String {
+    // Shaving off one Hour because of TimeZone differences
+    let remainingTime: Date = new Date(endTime?.getTime() - new Date().getTime() - 1000*60*60);
+    return remainingTime.toLocaleTimeString();
+  }
 }
