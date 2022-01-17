@@ -1,7 +1,7 @@
 <app-dialog-component [title]="title" [formGroup]="keyResultForm" [hasFormGroupError]="true" (okEmitter)="saveKeyResult()">
   <form [formGroup]="keyResultForm">
     <mat-form-field class="keyresult">
-      <textarea matInput placeholder="{{ 'key-result-form.key-result' | translate }}" cdkTextareaAutosize formControlName="keyResult"></textarea>
+      <input matInput placeholder="{{ 'key-result-form.key-result' | translate }}" formControlName="keyResult">
       <mat-error><app-form-error [control]="keyResultForm.get('keyResult')"></app-form-error></mat-error>
     </mat-form-field>
 
