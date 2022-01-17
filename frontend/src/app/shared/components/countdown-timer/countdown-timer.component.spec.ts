@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CountdownTimerComponent } from './countdown-timer.component';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject} from 'rxjs';
 
 describe('CountdownTimerComponent', () => {
   let component: CountdownTimerComponent;
