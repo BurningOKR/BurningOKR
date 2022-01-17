@@ -20,7 +20,7 @@ export class DialogComponent<T> implements OnInit{
   @Input() needsCancelButton: boolean = true;
   @Output() okEmitter = new EventEmitter<T>();
 
-  NO_ENTER_TAGS: string[] = ["TEXTAREA", "MAT-SELECT", "BUTTON"];
+  NO_ENTER_TAGS: string[] = ['TEXTAREA', 'MAT-SELECT', 'BUTTON'];
 
   constructor(private dialogRef: MatDialogRef<DialogComponent<T>>,
               @Inject(MAT_DIALOG_DATA) private formData: any,
@@ -42,9 +42,9 @@ export class DialogComponent<T> implements OnInit{
 
   handleEnter(event): void {
     if (!this.NO_ENTER_TAGS.includes(event.target.tagName)
-        && event.target.type !== "checkbox"
+        && event.target.type !== 'checkbox'
         && !this.saveDisabled()) {
-      this.sendOk()
+      this.sendOk();
     }
   }
 
