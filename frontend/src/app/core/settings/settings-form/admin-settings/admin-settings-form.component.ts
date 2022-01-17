@@ -1,24 +1,24 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { CurrentUserService } from '../../../services/current-user.service';
-import { Observable, of, Subscription } from 'rxjs';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConfigurationManagerService } from '../../configuration-manager.service';
-import { Configuration } from '../../../../shared/model/ui/configuration';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable, of, Subscription } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { Configuration } from '../../../../shared/model/ui/configuration';
+import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
+import { CurrentUserService } from '../../../services/current-user.service';
+import { ConfigurationManagerService } from '../../configuration-manager.service';
 import { SettingsForm } from '../settings-form';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-settings',
   templateUrl: './admin-settings-form.component.html',
   styleUrls: ['./admin-settings-form.component.scss'],
-  providers: [{provide: SettingsForm, useExisting: AdminSettingsFormComponent}]
+  providers: [{ provide: SettingsForm, useExisting: AdminSettingsFormComponent }],
 })
 export class AdminSettingsFormComponent extends SettingsForm implements OnInit, OnDestroy {
 
@@ -62,27 +62,29 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
     this.subscriptions.push(this.adminSettingsForm.statusChanges.subscribe(() => {
       this.valid.emit(this.adminSettingsForm.valid);
     }));
-    this.subscriptions.push(this.translate.stream('admin-settings-form.confirmation-title').subscribe(text => {
-      this.confirmationTitle = text;
-    }));
-    this.subscriptions.push(this.translate.stream('admin-settings-form.confirmation-text').subscribe(text => {
-      this.confirmationText = text;
-    }));
-    this.subscriptions.push(this.translate.stream(this.configurationNamesTranslationKeys)
-      .subscribe((translations: {[key: string]: string}) => {
-      this.configurationNames = {
-        'max-key-results': translations[this.configurationNamesTranslationKeys[0]],
-        'topic-sponsors-activated': translations[this.configurationNamesTranslationKeys[1]],
-        'objective-progress-green-yellow-threshold': translations[this.configurationNamesTranslationKeys[2]],
-        'objective-progress-yellow-red-threshold': translations[this.configurationNamesTranslationKeys[3]],
-        'general_frontend-base-url': translations[this.configurationNamesTranslationKeys[4]],
-        email_from: translations[this.configurationNamesTranslationKeys[5]],
-        'email_subject_new-user': translations[this.configurationNamesTranslationKeys[6]],
-        'email_subject_forgot-password': translations[this.configurationNamesTranslationKeys[7]],
-        email_subject_feedback: translations[this.configurationNamesTranslationKeys[8]],
-        feedback_receivers: translations[this.configurationNamesTranslationKeys[9]]
-      };
-    }));
+    this.translate.stream('admin-settings-form.confirmation-title').pipe(take(1))
+      .subscribe(text => {
+        this.confirmationTitle = text;
+      });
+    this.translate.stream('admin-settings-form.confirmation-text').pipe(take(1))
+      .subscribe(text => {
+        this.confirmationText = text;
+      });
+    this.translate.stream(this.configurationNamesTranslationKeys).pipe(take(1))
+      .subscribe((translations: { [key: string]: string }) => {
+        this.configurationNames = {
+          'max-key-results': translations[this.configurationNamesTranslationKeys[0]],
+          'topic-sponsors-activated': translations[this.configurationNamesTranslationKeys[1]],
+          'objective-progress-green-yellow-threshold': translations[this.configurationNamesTranslationKeys[2]],
+          'objective-progress-yellow-red-threshold': translations[this.configurationNamesTranslationKeys[3]],
+          'general_frontend-base-url': translations[this.configurationNamesTranslationKeys[4]],
+          email_from: translations[this.configurationNamesTranslationKeys[5]],
+          'email_subject_new-user': translations[this.configurationNamesTranslationKeys[6]],
+          'email_subject_forgot-password': translations[this.configurationNamesTranslationKeys[7]],
+          email_subject_feedback: translations[this.configurationNamesTranslationKeys[8]],
+          feedback_receivers: translations[this.configurationNamesTranslationKeys[9]],
+        };
+      });
   }
 
   ngOnDestroy(): void {
@@ -99,7 +101,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
           } else {
             return of(null);
           }
-        })
+        }),
       );
   }
 
@@ -121,15 +123,15 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
                 id: new FormControl(configuration.id),
                 name: new FormControl(configuration.name),
                 value: new FormControl(this.mapConfigurationValueToBooleanIfTypeIsCheckbox(configuration), [Validators.required]),
-                type: new FormControl(configuration.type)
+                type: new FormControl(configuration.type),
               });
             })
             .sort((a: FormGroup, b: FormGroup) => +a.controls.id.value - +b.controls.id.value);
-        })
+        }),
       )
       .subscribe((formGroups: FormGroup[]) => {
         this.adminSettingsForm = new FormGroup({
-          settings: new FormArray(formGroups)
+          settings: new FormArray(formGroups),
         });
       }));
 
@@ -151,7 +153,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
       message: this.confirmationText,
     };
 
-    return this.dialog.open(ConfirmationDialogComponent, {data})
+    return this.dialog.open(ConfirmationDialogComponent, { data })
       .afterClosed();
   }
 

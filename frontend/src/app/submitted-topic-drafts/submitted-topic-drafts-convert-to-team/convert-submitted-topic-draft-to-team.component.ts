@@ -1,31 +1,30 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {OkrTopicDraft} from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {SubmittedTopicDraftDetailsFormData} from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
-import {TranslateService} from '@ngx-translate/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs';
-import {DepartmentMapper} from '../../shared/services/mapper/department.mapper';
-import {OkrDepartment} from '../../shared/model/ui/OrganizationalUnit/okr-department';
-import {Structure} from '../../shared/model/ui/OrganizationalUnit/structure';
-import {StructureMapper} from '../../shared/services/mapper/structure.mapper';
-import {OkrTopicDescription} from '../../shared/model/ui/OrganizationalUnit/okr-topic-description';
-import {TopicDescriptionMapper} from '../../shared/services/mapper/topic-description-mapper';
-import {map, switchMap, tap} from 'rxjs/operators';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
+import { OkrTopicDescription } from '../../shared/model/ui/OrganizationalUnit/okr-topic-description';
+import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { Structure } from '../../shared/model/ui/OrganizationalUnit/structure';
+import { DepartmentMapper } from '../../shared/services/mapper/department.mapper';
+import { StructureMapper } from '../../shared/services/mapper/structure.mapper';
+import { TopicDescriptionMapper } from '../../shared/services/mapper/topic-description-mapper';
+import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 
 @Component({
   selector: 'app-submitted-topic-drafts-convert-to-team',
   templateUrl: './convert-submitted-topic-draft-to-team.component.html',
-  styleUrls: ['./convert-submitted-topic-draft-to-team.component.scss']
+  styleUrls: ['./convert-submitted-topic-draft-to-team.component.scss'],
 })
-export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDestroy {
+export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit {
 
   title$: Observable<string>;
   saveAndCloseLabel$: Observable<string>;
   companyStructures$: Observable<Structure[]>;
   chooseStructure: FormGroup;
   private topicDraft: OkrTopicDraft;
-  private subscriptions: Subscription[] = [];
   private department: OkrDepartment;
 
   constructor(
@@ -34,8 +33,9 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
     private dialogRef: MatDialogRef<ConvertSubmittedTopicDraftToTeamComponent>,
     private departmentMapper: DepartmentMapper,
     private structureMapper: StructureMapper,
-    private topicDescriptionMapper: TopicDescriptionMapper
-  ) { }
+    private topicDescriptionMapper: TopicDescriptionMapper,
+  ) {
+  }
 
   ngOnInit(): void {
     this.companyStructures$ = this.structureMapper.getSchemaOfAllExistingStructures$();
@@ -43,47 +43,41 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
     this.topicDraft = this.formData.topicDraft;
     this.chooseStructure = new FormGroup(
       {
-        parentUnitId: new FormControl(undefined, [Validators.required])
-      }
+        parentUnitId: new FormControl(undefined, [Validators.required]),
+      },
     );
 
     this.title$ = this.translate.stream('submitted-topic-draft-convert-to-team.title');
     this.saveAndCloseLabel$ = this.translate.stream('submitted-topic-draft-convert-to-team.dialog.save-and-close-label');
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
   clickedConvertToTeam() {
-    this.subscriptions.push(
-      this.convertTopicDraftToTeamAndDescription()
-        .subscribe(
+    this.convertTopicDraftToTeamAndDescription().pipe(take(1))
+      .subscribe(
         () =>
-          this.dialogRef.close(this.department.id)
-        )
-    );
+          this.dialogRef.close(this.department.id),
+      );
   }
 
   createChildUnit$(): Observable<OkrDepartment> {
     this.addDraftDataToDepartment();
 
     return this.departmentMapper.postDepartmentForOkrBranch$(
-      this.department.parentUnitId, DepartmentMapper.mapDepartmentUnit(this.department)
-    )
-    .pipe(
-      tap(department => this.department = department)
-    );
-  }
-
-  convertTopicDraftToTeamAndDescription(): Observable<OkrTopicDescription>{
-      return this.createChildUnit$().pipe(
-        switchMap(department => this.getTopicDescriptionForDepartment(department)),
-        switchMap(description => this.putUpdatedTopicDescription(description)),
+        this.department.parentUnitId, DepartmentMapper.mapDepartmentUnit(this.department),
+      )
+      .pipe(
+        tap(department => this.department = department),
       );
   }
 
-  addDraftDataToDepartment(): void{
+  convertTopicDraftToTeamAndDescription(): Observable<OkrTopicDescription> {
+    return this.createChildUnit$().pipe(
+      switchMap(department => this.getTopicDescriptionForDepartment(department)),
+      switchMap(description => this.putUpdatedTopicDescription(description)),
+    );
+  }
+
+  addDraftDataToDepartment(): void {
     this.department = new OkrDepartment(
       undefined,
       this.topicDraft.name,
@@ -94,11 +88,11 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
       undefined,
       this.topicDraft.startTeam,
       true,
-      true
+      true,
     );
   }
 
-  addDraftDataToDescription(topicDescription: OkrTopicDescription): OkrTopicDescription{
+  addDraftDataToDescription(topicDescription: OkrTopicDescription): OkrTopicDescription {
     topicDescription.beginning = this.topicDraft.beginning;
     topicDescription.delimitation = this.topicDraft.delimitation;
     topicDescription.resources = this.topicDraft.resources;
@@ -112,11 +106,11 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit, OnDest
 
   getTopicDescriptionForDepartment(department: OkrDepartment): Observable<OkrTopicDescription> {
     return this.topicDescriptionMapper.getTopicDescriptionById$(department.id).pipe(
-      map(description => this.addDraftDataToDescription(description))
+      map(description => this.addDraftDataToDescription(description)),
     );
   }
 
-  putUpdatedTopicDescription(topicDescription: OkrTopicDescription): Observable<OkrTopicDescription>{
-   return this.topicDescriptionMapper.putTopicDescription$(this.department.id, topicDescription);
+  putUpdatedTopicDescription(topicDescription: OkrTopicDescription): Observable<OkrTopicDescription> {
+    return this.topicDescriptionMapper.putTopicDescription$(this.department.id, topicDescription);
   }
 }

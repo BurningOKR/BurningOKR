@@ -1,12 +1,13 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { OkrTopicDraft } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { TopicDraftMapper } from '../../../../shared/services/mapper/topic-draft-mapper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NEVER, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { NEVER } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../../core/services/current-user.service';
 import { UserId } from '../../../../shared/model/id-types';
-import { TranslateService } from '@ngx-translate/core';
+import { OkrTopicDraft } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { TopicDraftMapper } from '../../../../shared/services/mapper/topic-draft-mapper';
 
 interface TopicDraftCreationFormData {
   topicDraft?: OkrTopicDraft;
@@ -17,19 +18,19 @@ interface TopicDraftCreationFormData {
 @Component({
   selector: 'app-topic-draft-creation-form',
   templateUrl: './topic-draft-creation-form.component.html',
-  styleUrls: ['./topic-draft-creation-form.component.css']
+  styleUrls: ['./topic-draft-creation-form.component.css'],
 })
-export class TopicDraftCreationFormComponent implements OnInit, OnDestroy {
+export class TopicDraftCreationFormComponent implements OnInit {
   topicDraftForm: FormGroup;
   title: string;
-  subscriptions: Subscription[] = [];
 
   constructor(private topicDraftMapper: TopicDraftMapper,
               private dialogRef: MatDialogRef<TopicDraftCreationFormComponent>,
               private translate: TranslateService,
               private currentUserService: CurrentUserService,
-              @Inject(MAT_DIALOG_DATA) private formData: TopicDraftCreationFormData
-  ) { }
+              @Inject(MAT_DIALOG_DATA) private formData: TopicDraftCreationFormData,
+  ) {
+  }
 
   ngOnInit(): void {
     this.topicDraftForm = new FormGroup({
@@ -43,28 +44,24 @@ export class TopicDraftCreationFormComponent implements OnInit, OnDestroy {
       handoverPlan: new FormControl('', Validators.maxLength(1024)),
       initiatorId: new FormControl(this.getCurrentUserId(), [Validators.required]),
       startTeam: new FormControl([]),
-      stakeholders: new FormControl([])
+      stakeholders: new FormControl([]),
     });
 
     if (this.formData.topicDraft) {
       this.topicDraftForm.patchValue(this.formData.topicDraft);
     }
 
-    this.subscriptions.push(this.translate.stream('topic-draft-creation-form.dialog-title').subscribe(text => {
-      this.title = text;
-    }));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.subscriptions = [];
+    this.translate.stream('topic-draft-creation-form.dialog-title').pipe(take(1))
+      .subscribe(text => {
+        this.title = text;
+      });
   }
 
   getCurrentUserId(): UserId {
     let currentUserId: UserId;
-    this.subscriptions.push(this.currentUserService
-        .getCurrentUserId$()
-        .subscribe((userId: UserId) => currentUserId = userId));
+    this.currentUserService
+      .getCurrentUserId$().pipe(take(1))
+      .subscribe((userId: UserId) => currentUserId = userId);
 
     return currentUserId;
   }
