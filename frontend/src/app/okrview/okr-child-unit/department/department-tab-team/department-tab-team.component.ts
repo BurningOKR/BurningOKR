@@ -1,37 +1,36 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { CurrentUserService } from '../../../../core/services/current-user.service';
+import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
 
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
-import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
-import { CurrentUserService } from '../../../../core/services/current-user.service';
-import { OkrUnitRole } from '../../../../shared/model/ui/okr-unit-schema';
 import { User } from '../../../../shared/model/api/user';
-import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
-import { ContextRole } from '../../../../shared/model/ui/context-role';
-import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
 import { Configuration } from '../../../../shared/model/ui/configuration';
-import { TranslateService } from '@ngx-translate/core';
+import { ContextRole } from '../../../../shared/model/ui/context-role';
+import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
+import { OkrUnitRole } from '../../../../shared/model/ui/okr-unit-schema';
+import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
+import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
 
 @Component({
   selector: 'app-department-tab-team',
   templateUrl: './department-tab-team.component.html',
-  styleUrls: ['./department-tab-team.component.scss']
+  styleUrls: ['./department-tab-team.component.scss'],
 })
-export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges {
+export class DepartmentTabTeamComponent implements OnInit, OnChanges {
   @Input() department: OkrDepartment;
   @Input() currentUserRole: ContextRole;
   @Input() cycle: CycleUnit;
 
   canEditManagers = false;
   canEditMembers = false;
-  subscriptions: Subscription[] = [];
   topicSponsorsActivated$: Observable<boolean>;
 
   constructor(
@@ -40,8 +39,9 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     private currentUserService: CurrentUserService,
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private matDialog: MatDialog,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.updateRights();
@@ -50,17 +50,12 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
       .pipe(
         map((configuration: Configuration) => {
           return configuration.value === 'true' || configuration.value === true;
-        })
+        }),
       );
   }
 
   ngOnChanges(): void {
     this.updateRights();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(x => x.unsubscribe());
-    this.subscriptions = [];
   }
 
   clickedDeleteOKRMaster(): void {
@@ -70,23 +65,21 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     const data: ConfirmationDialogData = {
       confirmButtonText,
       title,
-      message
+      message,
     };
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(ConfirmationDialogComponent, {
       width: '600px',
-      data
+      data,
     });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.deleteOkrMaster();
-          }
-        })
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.deleteOkrMaster();
+        }
+      });
   }
 
   clickedDefineOKRMaster(user: User): void {
@@ -101,23 +94,21 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     const data: ConfirmationDialogData = {
       confirmButtonText,
       title,
-      message
+      message,
     };
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(ConfirmationDialogComponent, {
       width: '600px',
-      data
+      data,
     });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.deleteOkrTopicSponsor();
-          }
-        })
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.deleteOkrTopicSponsor();
+        }
+      });
   }
 
   clickedDefineOKRTopicSponsor(user: User): void {
@@ -132,23 +123,21 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     const data: ConfirmationDialogData = {
       confirmButtonText,
       title,
-      message
+      message,
     };
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(ConfirmationDialogComponent, {
       width: '600px',
-      data
+      data,
     });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.deleteOkrMember(memberId);
-          }
-        })
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.deleteOkrMember(memberId);
+        }
+      });
   }
 
   clickedDefineOKRMember(user: User): void {
@@ -209,7 +198,7 @@ export class DepartmentTabTeamComponent implements OnInit, OnDestroy, OnChanges 
     return this.currentUserService.getCurrentUser$()
       .pipe(
         map(currentUser => currentUser.id),
-        take(1)
+        take(1),
       );
   }
 }

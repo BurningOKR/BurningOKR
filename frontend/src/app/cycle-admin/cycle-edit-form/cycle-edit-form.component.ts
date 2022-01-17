@@ -1,14 +1,20 @@
 import { Component, Inject } from '@angular/core';
-import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
-import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
+import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
+import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { DateFormValidator } from '../../shared/validators/date-format-validator/date-format-validator-function';
-import { DateNotInThePastValidator } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
-import { DateNotInRangeOfAnotherCycleValidator } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
-import { StartDateBeforeEndDateValidator } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
+import {
+  DateNotInThePastValidator,
+} from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
+import { DateNotInRangeOfAnotherCycleValidator } from
+'../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
+import {
+  StartDateBeforeEndDateValidator,
+} from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
 
 export interface CycleEditFormData {
   cycle: CycleUnit;
@@ -18,7 +24,7 @@ export interface CycleEditFormData {
 @Component({
   selector: 'app-cycle-edit-form',
   templateUrl: './cycle-edit-form.component.html',
-  styleUrls: ['./cycle-edit-form.component.scss']
+  styleUrls: ['./cycle-edit-form.component.scss'],
 })
 export class CycleEditFormComponent {
   cycleStateEnum = CycleState;
@@ -61,18 +67,19 @@ export class CycleEditFormComponent {
     const isEndDateDisabled: boolean = this.isCycleClosed();
     const isVisibilityOptionDisabled: boolean = this.isCycleActive();
     this.cycleForm = new FormGroup({
-      name: new FormControl(cycle.name, [Validators.required,  Validators.maxLength(255)]),
-      startDate: new FormControl({value: cycle.startDate, disabled: isStartDateDisabled},
-        [DateFormValidator.Validate, DateNotInThePastValidator.Validate]), // ADD CUSTOM DATE VALIDATOR https://stackoverflow.com/questions/51633047/angular-material-date-validator-get-invalid-value
-      endDate: new FormControl({value: cycle.endDate, disabled: isEndDateDisabled},
+      name: new FormControl(cycle.name, [Validators.required, Validators.maxLength(255)]),
+      startDate: new FormControl({ value: cycle.startDate, disabled: isStartDateDisabled },
+        [DateFormValidator.Validate, DateNotInThePastValidator.Validate]), // ADD CUSTOM DATE VALIDATOR
+                                                                           // https://stackoverflow.com/questions/51633047/angular-material-date-validator-get-invalid-value
+      endDate: new FormControl({ value: cycle.endDate, disabled: isEndDateDisabled },
         [DateFormValidator.Validate]),
-      isVisible: new FormControl({value: cycle.isVisible, disabled: isVisibilityOptionDisabled})
+      isVisible: new FormControl({ value: cycle.isVisible, disabled: isVisibilityOptionDisabled }),
     }, [StartDateBeforeEndDateValidator.Validate,
-        DateNotInRangeOfAnotherCycleValidator.Validate(cycles)]);
+      DateNotInRangeOfAnotherCycleValidator.Validate(cycles)]);
   }
 
   private loadCyclesWithHistoryCompanyInForm(): void {
-    this.formData.allCyclesOfCompany$
+    this.formData.allCyclesOfCompany$.pipe(take(1))
       .subscribe((cycles: CycleUnit[]) => {
         this.generateCycleForm(this.removeCurrentCycleOutOfList(cycles, this.formData.cycle.id));
       });

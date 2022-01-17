@@ -710,7 +710,7 @@
 		"submitted": "Submitted"
 	},
 	"submitted-topic-draft-action-button": {
-		"admin-initator-tooltip": "Only an admin or the initiator can submit or withdraw submission",
+		"admin-initiator-tooltip": "Only an admin or the initiator can submit or withdraw submission",
 		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
 		"capitalised-approve": "Approve",
 		"capitalized-reject": "Reject",
@@ -728,8 +728,8 @@
 		"delete-text": "Delete",
 		"edit": "Edit",
 		"edit-tooltip": {
-			"status": "The status must be \"Pending\" or \"Draft\"",
-			"status-and-user": "The status must be \"Pending\" or \"Draft\" and only an admin or the initiator can edit",
+			"status": "The status must be \"Submitted\" or \"Draft\"",
+			"status-and-user": "The status must be \"Submitted\" or \"Draft\" and only an admin or the initiator can edit",
 			"user": "Only an admin or the initiator can edit"
 		},
 		"no-permission": "Only an admin or an auditor can approve or reject",
@@ -738,7 +738,7 @@
 			"ok": "Ok",
 			"submit": "Your topic draft has been sent for review."
 		},
-		"state-submitted-tooltip": "The status must be \"Pending\"",
+		"state-submitted-tooltip": "The status must be \"Submitted\"",
 		"status-submitted": "The status must be \"Submitted\" so that the submission can be withdrawn",
 		"status-submitted-user": "The status must be \"Submitted\" and you must be an admin or the initiator for the submission to be withdrawn",
 		"tooltip": {

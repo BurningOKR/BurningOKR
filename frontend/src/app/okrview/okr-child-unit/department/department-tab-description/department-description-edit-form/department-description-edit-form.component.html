@@ -1,3 +1,3 @@
-<app-dialog-component [title]="title" (okEmitter)="saveDescription()" [formGroup]="descriptionForm">
+<app-dialog-component [title]="title$ | async" (okEmitter)="saveDescription()" [formGroup]="descriptionForm">
   <app-okr-topic-description-form [descriptionForm]="descriptionForm"></app-okr-topic-description-form>
 </app-dialog-component>

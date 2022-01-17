@@ -710,7 +710,7 @@
 		"submitted": "Eingereicht"
 	},
 	"submitted-topic-draft-action-button": {
-		"admin-initator-tooltip": "Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen",
+		"admin-initiator-tooltip": "Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen",
 		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
 		"capitalised-approve": "Genehmigen",
 		"capitalized-reject": "Ablehnen",

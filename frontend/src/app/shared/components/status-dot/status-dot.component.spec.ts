@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { StatusDotComponent } from './status-dot.component';
-import { status } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { TranslateService } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
+import { status } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
+import { StatusDotComponent } from './status-dot.component';
 
 describe('StatusDotComponent', () => {
   let component: StatusDotComponent;
@@ -11,9 +13,9 @@ describe('StatusDotComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [StatusDotComponent],
-      imports: [MaterialTestingModule]
-    })
+        declarations: [StatusDotComponent],
+        imports: [MaterialTestingModule],
+      })
       .compileComponents();
   }));
 
@@ -29,43 +31,51 @@ describe('StatusDotComponent', () => {
       .toBeTruthy();
   });
 
-  it('should return correct string for tooltip submitted', () => {
+  it('should return correct string for tooltip submitted', done => {
     const expected: string = 'correctStatusTooltipSubmitted';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipSubmitted');
+    spyOn(translate, 'stream').and.returnValue(of('correctStatusTooltipSubmitted'));
 
-    const actual: string = component.getTranslateTooltip(status.submitted);
-
-    expect(actual)
-        .toEqual(expected);
+    component.getTranslateTooltip$(status.submitted).pipe(take(1))
+      .subscribe(actual => {
+        expect(actual)
+          .toEqual(expected);
+        done();
+      });
   });
 
-  it('should return correct string for tooltip approved', () => {
+  it('should return correct string for tooltip approved', done => {
     const expected: string = 'correctStatusTooltipApproved';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipApproved');
+    spyOn(translate, 'stream').and.returnValue(of('correctStatusTooltipApproved'));
 
-    const actual: string = component.getTranslateTooltip(status.approved);
-
-    expect(actual)
-        .toEqual(expected);
+    component.getTranslateTooltip$(status.approved).pipe(take(1))
+      .subscribe(actual => {
+        expect(actual)
+          .toEqual(expected);
+        done();
+      });
   });
 
-  it('should return correct string for tooltip rejected', () => {
+  it('should return correct string for tooltip rejected', done => {
     const expected: string = 'correctStatusTooltipRejected';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipRejected');
+    spyOn(translate, 'stream').and.returnValue(of('correctStatusTooltipRejected'));
 
-    const actual: string = component.getTranslateTooltip(status.rejected);
-
-    expect(actual)
-        .toEqual(expected);
+    component.getTranslateTooltip$(status.rejected).pipe(take(1))
+      .subscribe(actual => {
+        expect(actual)
+          .toEqual(expected);
+        done();
+      });
   });
 
-  it('should return correct string for tooltip draft', () => {
+  it('should return correct string for tooltip draft', done => {
     const expected: string = 'correctStatusTooltipDraft';
-    spyOn(translate, 'instant').and.returnValue('correctStatusTooltipDraft');
+    spyOn(translate, 'stream').and.returnValue(of('correctStatusTooltipDraft'));
 
-    const actual: string = component.getTranslateTooltip(status.draft);
-
-    expect(actual)
-        .toEqual(expected);
+    component.getTranslateTooltip$(status.draft).pipe(take(1))
+      .subscribe(actual => {
+        expect(actual)
+          .toEqual(expected);
+        done();
+      });
   });
 });

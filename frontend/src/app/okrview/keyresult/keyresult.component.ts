@@ -1,30 +1,30 @@
-import { KeyResultMapper } from '../../shared/services/mapper/key-result.mapper';
-import { debounceTime, distinctUntilChanged, filter, switchMap, take } from 'rxjs/operators';
-import { CycleUnit } from '../../shared/model/ui/cycle-unit';
-import { Subject, Subscription } from 'rxjs';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ViewKeyResult } from '../../shared/model/ui/view-key-result';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
-import { ViewObjective } from '../../shared/model/ui/view-objective';
-import { KeyResultFormComponent } from './key-result-form/key-result-form.component';
+import { TranslateService } from '@ngx-translate/core';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap, take } from 'rxjs/operators';
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import {
-  CommentViewDialogComponent,
-  CommentViewDialogFormData
-} from '../comment/comment-view-dialog/comment-view-dialog.component';
 import { Unit } from '../../shared/model/api/unit.enum';
 import { ContextRole } from '../../shared/model/ui/context-role';
+import { CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
-import { TranslateService } from '@ngx-translate/core';
+import { ViewKeyResult } from '../../shared/model/ui/view-key-result';
+import { ViewObjective } from '../../shared/model/ui/view-objective';
+import { KeyResultMapper } from '../../shared/services/mapper/key-result.mapper';
+import {
+  CommentViewDialogComponent,
+  CommentViewDialogFormData,
+} from '../comment/comment-view-dialog/comment-view-dialog.component';
+import { KeyResultFormComponent } from './key-result-form/key-result-form.component';
 
 @Component({
   selector: 'app-keyresult',
   templateUrl: './keyresult.component.html',
-  styleUrls: ['./keyresult.component.scss']
+  styleUrls: ['./keyresult.component.scss'],
 })
 
 export class KeyresultComponent implements OnInit, OnDestroy {
@@ -109,39 +109,35 @@ export class KeyresultComponent implements OnInit, OnDestroy {
       componentName: this.keyResult.keyResult,
       viewCommentParentType: ViewCommentParentType.keyResult,
       parentId: this.keyResult.id,
-      onUpdateCommentIdList: this.keyResult.commentIdList
+      onUpdateCommentIdList: this.keyResult.commentIdList,
     };
     const dialogReference: MatDialogRef<CommentViewDialogComponent, object> =
-      this.matDialog.open(CommentViewDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+      this.matDialog.open(CommentViewDialogComponent, { autoFocus: false, data: dialogData, minWidth: '50vw' });
   }
 
   clickedDeleteKeyResult(): void {
     const data: ConfirmationDialogData = this.getDataForDeletionDialog();
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, ConfirmationDialogData> =
-      this.matDialog.open(ConfirmationDialogComponent, {width: '600px', data});
+      this.matDialog.open(ConfirmationDialogComponent, { width: '600px', data });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.queryDeleteKeyResult(this.keyResult);
-          }
-        })
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.queryDeleteKeyResult(this.keyResult);
+        }
+      });
   }
 
   queryDeleteKeyResult(keyResultToDelete: ViewKeyResult): void {
-    this.subscriptions.push(
-      this.keyResultMapperService
-        .deleteKeyResult$(keyResultToDelete.id)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.onKeyResultDeleted(keyResultToDelete);
-        })
-    );
+    this.keyResultMapperService
+      .deleteKeyResult$(keyResultToDelete.id)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.onKeyResultDeleted(keyResultToDelete);
+      });
   }
 
   onKeyResultDeleted(deletedKeyResult: ViewKeyResult): void {
@@ -154,20 +150,17 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   clickedEditKeyResult(): void {
     const dialogReference: MatDialogRef<KeyResultFormComponent, any> = this.matDialog.open(KeyResultFormComponent, {
-      data: { keyResult: this.keyResult }, width: '75%'
+      data: { keyResult: this.keyResult }, width: '75%',
     });
-
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(
-          take(1),
-          filter(v => v),
-          switchMap(n => n),
-          take(1),
-        )
-        .subscribe(editedKeyResult => this.onKeyResultEdited(editedKeyResult as ViewKeyResult))
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter(v => v),
+        switchMap(n => n),
+        take(1),
+      )
+      .subscribe(editedKeyResult => this.onKeyResultEdited(editedKeyResult as ViewKeyResult));
   }
 
   onKeyResultEdited(editedKeyResult: ViewKeyResult): void {
@@ -181,7 +174,8 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   /**
    * We want the Frontend to wait a bit for the user to refine their slider input before sending a POST request.
    * Therefore we create a subject for each changed KeyResult (or use an existing one).
-   * We subscribe to the subject with the pipe conditions to filter out the same value and add a delay from the last change.
+   * We subscribe to the subject with the pipe conditions to filter out the same value and add a delay from the last
+   * change.
    */
   onKeyResultSliderDropped(sliderChange: MatSliderChange): void {
     if (this.sliderChangeSubject$) {
@@ -192,9 +186,9 @@ export class KeyresultComponent implements OnInit, OnDestroy {
         this.sliderChangeSubject$
           .pipe(
             debounceTime(this.timeInMsToWaitUntilPushingSliderChanges),
-            distinctUntilChanged()
+            distinctUntilChanged(),
           )
-          .subscribe(newValue => this.onKeyResultSliderChangeApplied(newValue))
+          .subscribe(newValue => this.onKeyResultSliderChangeApplied(newValue)),
       );
       this.sliderChangeSubject$.next(sliderChange.value);
     }
@@ -204,11 +198,10 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   onKeyResultSliderChangeApplied(newCurrentValue: number): void {
     this.keyResult.current = newCurrentValue;
-    this.subscriptions.push(
-      this.keyResultMapperService
-        .putKeyResult$(this.keyResult)
-        .subscribe(editedKeyResult => this.onKeyResultEdited(editedKeyResult))
-    );
+
+    this.keyResultMapperService
+      .putKeyResult$(this.keyResult).pipe(take(1))
+      .subscribe(editedKeyResult => this.onKeyResultEdited(editedKeyResult));
   }
 
   private updateIsKeyResultSliderInverted(): void {
@@ -218,13 +211,13 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   private getDataForDeletionDialog(): ConfirmationDialogData {
     const title: string = this.translate.instant('keyresult.deletion-dialog.title');
     const message: string = this.translate.instant('keyresult.deletion-dialog.message',
-      {number: this.listNumber, keyResultTitle: this.keyResult.keyResult});
+      { number: this.listNumber, keyResultTitle: this.keyResult.keyResult });
     const confirmButtonText: string = this.translate.instant('keyresult.deletion-dialog.button-text');
 
     return {
       title,
       message,
-      confirmButtonText
+      confirmButtonText,
     };
   }
 }
