@@ -36,6 +36,7 @@ import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
 import { UserSelectorMultiComponent } from './components/user-selector-multi/user-selector-multi.component';
 import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CallbackFilterPipe,
     UserSelectorMultiComponent,
     UserSelectorComponent,
+    CountdownTimerComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
