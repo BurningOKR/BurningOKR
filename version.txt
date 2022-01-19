@@ -1,3 +1,4 @@
-1.4.1
+1.4.2
 
-- fixed button for nested structures not shown correct
+- Fixed the countdown-timer in the demo-mode
+- Usability Improvement: Use enter to submit dialogues
