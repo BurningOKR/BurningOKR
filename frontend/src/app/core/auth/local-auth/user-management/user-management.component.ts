@@ -1,22 +1,24 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import 'linq4js';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
+import {
+  ConfirmationDialogComponent,
+} from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { User } from '../../../../shared/model/api/user';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of, Subscription } from 'rxjs';
-import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
+import { CurrentUserService } from '../../../services/current-user.service';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
 import { UserDialogData } from './forms/user-dialog-data';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
-import { CurrentUserService } from '../../../services/current-user.service';
-import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
-import 'linq4js';
-import { environment } from '../../../../../environments/environment';
-import { TranslateService } from '@ngx-translate/core';
 
 export interface LocalUserManagementUser extends User {
   isAdmin: boolean;
@@ -25,14 +27,13 @@ export interface LocalUserManagementUser extends User {
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.scss']
+  styleUrls: ['./user-management.component.scss'],
 })
-export class UserManagementComponent implements OnInit, OnDestroy {
+export class UserManagementComponent implements OnInit {
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  subscriptions: Subscription[] = [];
   currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   columnsToDisplay = ['photo', 'active', 'email', 'givenName', 'department', 'jobTitle', 'isAdmin', 'actions'];
 
@@ -55,7 +56,6 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: LocalUserService,
     private translate: TranslateService,
-
   ) {
   }
 
@@ -75,22 +75,22 @@ export class UserManagementComponent implements OnInit, OnDestroy {
       this.rowData.data = users;
     });
 
-    this.subscriptions.push(this.translate.stream('disabled-in-demo-version').subscribe(text => {
-      this.disabledInPlaygroundTranslation= text;
-    }));
-    this.subscriptions.push(this.translate.stream('user-management.tooltip.add-new-user').subscribe(text => {
-      this.addUserTranslation= this.appendDemoWarning(text);
-    }));
-    this.subscriptions.push(this.translate.stream('user-management.tooltip.import-users-from-csv').subscribe(text => {
-      this.importUsersFromCSVTranslation= this.appendDemoWarning(text);
-    }));
-    this.subscriptions.push(this.translate.stream('user-management.tooltip.deactivate-user').subscribe(text => {
-      this.deactivateUserTranslation= this.appendDemoWarning(text);
-    }));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.translate.stream('disabled-in-demo-version').pipe(take(1))
+      .subscribe(text => {
+        this.disabledInPlaygroundTranslation = text;
+      });
+    this.translate.stream('user-management.tooltip.add-new-user').pipe(take(1))
+      .subscribe(text => {
+        this.addUserTranslation = this.appendDemoWarning(text);
+      });
+    this.translate.stream('user-management.tooltip.import-users-from-csv').pipe(take(1))
+      .subscribe(text => {
+        this.importUsersFromCSVTranslation = this.appendDemoWarning(text);
+      });
+    this.translate.stream('user-management.tooltip.deactivate-user').pipe(take(1))
+      .subscribe(text => {
+        this.deactivateUserTranslation = this.appendDemoWarning(text);
+      });
   }
 
   handleEdit(userToEdit: LocalUserManagementUser): void {
@@ -109,7 +109,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
           } else {
             return this.updateUserAndRemoveAdminIfChanged$(adminIds, editedUser);
           }
-        })
+        }),
       )
       .subscribe((editedUser: LocalUserManagementUser) => {
         this.editUserInTable(userToEdit, editedUser);
@@ -129,7 +129,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
         filter(v => v),
         switchMap(() => {
           return this.userService.deactivateUser$(userToDeactivate.id);
-        })
+        }),
       )
       .subscribe(() => {
         const deactivatedUser: LocalUserManagementUser = userToDeactivate;
@@ -149,7 +149,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
           userWithActiveFlagSet.active = true;
 
           return this.userService.updateUser$(userWithActiveFlagSet);
-        })
+        }),
       )
       .subscribe((activatedUser: LocalUserManagementUser) => {
         activatedUser.isAdmin = userToBeActivated.isAdmin;
@@ -161,7 +161,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.dialog.open(UserDialogComponent, this.getUserCreationDialogData())
       .afterClosed()
       .pipe(
-        filter(v => v)
+        filter(v => v),
       )
       .subscribe((user: LocalUserManagementUser) => {
         this.createNewUser(user);
@@ -176,7 +176,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
         message: `Möchten Sie ${user.givenName} ${user.surname} wirklich deaktivieren?
          Der Benutzer kann die Anwendung danach nicht mehr verwenden
           und wird beim nächsten Zykluswechsel automatisch aus allen Teams entfernt.`,
-      }
+      },
     };
   }
 
@@ -187,7 +187,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
         title: 'Benutzer reaktivieren',
         message: `Möchten Sie ${user.givenName} ${user.surname} reaktivieren?
          Der Benutzer kann die Anwendung danach wieder in vollem Umfang verwenden.`,
-      }
+      },
     };
   }
 
@@ -195,8 +195,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     return {
       data: {
         title: 'Benutzer bearbeiten',
-        user
-      }
+        user,
+      },
     };
   }
 
@@ -204,8 +204,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     return {
       data: {
         title: 'Passwort zurücksetzen',
-        user
-      }
+        user,
+      },
     };
   }
 
@@ -240,7 +240,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     return {
       data: {
         title: 'Benutzer erstellen',
-      }
+      },
     };
   }
 
@@ -253,7 +253,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
             return user;
           })),
-        this.userService.deleteAdmin$(editedUser.id)]
+        this.userService.deleteAdmin$(editedUser.id)],
       )
         .pipe(map(([user, _]: [LocalUserManagementUser, boolean]) => user));
     } else {
@@ -275,7 +275,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
             return user;
           })),
-        this.userService.addAdmin$(editedUser)]
+        this.userService.addAdmin$(editedUser)],
       )
         .pipe(map(([user, _]: [LocalUserManagementUser, User]) => user));
     } else {
@@ -308,7 +308,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
             return user;
           });
-        })
+        }),
       )
       .subscribe(users => {
         this.users$.next(users);
@@ -327,7 +327,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.createNewUserOnServer$(user)
       .subscribe((newUser: LocalUserManagementUser) => {
           this.addUserToTable(newUser);
-        }
+        },
       );
   }
 
@@ -354,7 +354,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
           newViewUser.isAdmin = user.isAdmin;
 
           return newViewUser;
-        })
+        }),
       );
   }
 
@@ -367,8 +367,9 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
     return filteredUsers;
   }
-  private appendDemoWarning(initialText: string): string{
-    return this.isPlayground ? (`${initialText  } ${  this.disabledInPlaygroundTranslation}`) : initialText;
+
+  private appendDemoWarning(initialText: string): string {
+    return this.isPlayground ? (`${initialText} ${this.disabledInPlaygroundTranslation}`) : initialText;
   }
 
 }

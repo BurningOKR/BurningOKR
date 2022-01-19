@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -20,6 +20,8 @@ export class DialogComponent<T> implements OnInit{
   @Input() needsCancelButton: boolean = true;
   @Output() okEmitter = new EventEmitter<T>();
 
+  NO_ENTER_TAGS: string[] = ['TEXTAREA', 'MAT-SELECT', 'BUTTON'];
+
   constructor(private dialogRef: MatDialogRef<DialogComponent<T>>,
               @Inject(MAT_DIALOG_DATA) private formData: any,
               private translate: TranslateService,
@@ -36,6 +38,17 @@ export class DialogComponent<T> implements OnInit{
 
   sendOk(): void {
     this.okEmitter.emit(this.formGroup.getRawValue());
+  }
+
+  handleEnter(event): void {
+    if (!this.NO_ENTER_TAGS.includes(event.target.tagName)
+        && !this.saveDisabled()) {
+      this.sendOk();
+    }
+  }
+
+  saveDisabled(): boolean {
+    return (this.isSaveButtonDisabled || this.formGroup.invalid || this.formHasToBeEdited && this.formGroup.pristine);
   }
 
   ngOnInit(): void {

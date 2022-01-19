@@ -1,30 +1,31 @@
-import { ObjectiveFormComponent } from './objective-form/objective-form.component';
-import { filter, switchMap, take } from 'rxjs/operators';
-import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
-import { CycleUnit } from '../../shared/model/ui/cycle-unit';
-import { ObjectiveViewMapper } from '../../shared/services/mapper/objective-view.mapper';
-import { ObjectiveContentsComponent } from './objective-contents/objective-contents.component';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ViewObjective } from '../../shared/model/ui/view-objective';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { filter, switchMap, take } from 'rxjs/operators';
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { Subscription } from 'rxjs';
-import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
 import { ContextRole } from '../../shared/model/ui/context-role';
+import { CycleUnit } from '../../shared/model/ui/cycle-unit';
+import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
+import { ViewObjective } from '../../shared/model/ui/view-objective';
+import { ObjectiveViewMapper } from '../../shared/services/mapper/objective-view.mapper';
 import {
   CommentViewDialogComponent,
-  CommentViewDialogFormData
+  CommentViewDialogFormData,
 } from '../comment/comment-view-dialog/comment-view-dialog.component';
-import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
-import { TranslateService } from '@ngx-translate/core';
+import { ObjectiveScore, ObjectiveScoringService } from '../objective-scoring.service';
+import { ObjectiveContentsComponent } from './objective-contents/objective-contents.component';
+import { ObjectiveFormComponent } from './objective-form/objective-form.component';
+
 @Component({
   selector: 'app-objective',
   templateUrl: './objective.component.html',
-  styleUrls: ['./objective.component.scss']
+  styleUrls: ['./objective.component.scss'],
 })
-export class ObjectiveComponent implements OnDestroy {
+export class ObjectiveComponent {
   @Input() objective: ViewObjective;
   @Input() objectiveList: ViewObjective[];
   @Input() listNumber: number;
@@ -46,13 +47,8 @@ export class ObjectiveComponent implements OnDestroy {
     private objectiveMapper: ObjectiveViewMapper,
     private matDialog: MatDialog,
     private objectiveScoringService: ObjectiveScoringService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.subscriptions = [];
   }
 
   isProgressValueSetForObjective(): boolean {
@@ -91,7 +87,7 @@ export class ObjectiveComponent implements OnDestroy {
       onUpdateCommentIdList: this.objective.commentIdList,
     };
 
-    this.matDialog.open(CommentViewDialogComponent, {autoFocus: true, data: dialogData, minWidth: '50vw'});
+    this.matDialog.open(CommentViewDialogComponent, { autoFocus: true, data: dialogData, minWidth: '50vw' });
   }
 
   // --
@@ -121,39 +117,35 @@ export class ObjectiveComponent implements OnDestroy {
   clickedDeleteObjective(): void {
     const title: string = this.translate.instant('objective.deletion-dialog.title');
     const message: string = this.translate.instant('objective.deletion-dialog.message',
-      {number: this.listNumber, objectiveTitle: this.objective.name});
+      { number: this.listNumber, objectiveTitle: this.objective.name });
     const confirmButtonText: string = this.translate.instant('objective.deletion-dialog.button-text');
 
     const dialogData: ConfirmationDialogData = {
       title,
       message,
-      confirmButtonText
+      confirmButtonText,
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
-      = this.matDialog.open(ConfirmationDialogComponent, {autoFocus: false, data: dialogData, minWidth: '50vw'});
+      = this.matDialog.open(ConfirmationDialogComponent, { autoFocus: false, data: dialogData, minWidth: '50vw' });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.queryDeleteObjective();
-          }
-        })
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.queryDeleteObjective();
+        }
+      });
   }
 
   queryDeleteObjective(): void {
-    this.subscriptions.push(
-      this.objectiveMapper
-        .deleteObjective$(this.objective.id)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.onObjectiveDeleted();
-        })
-    );
+    this.objectiveMapper
+      .deleteObjective$(this.objective.id)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.onObjectiveDeleted();
+      });
   }
 
   onObjectiveDeleted(): void {
@@ -167,20 +159,18 @@ export class ObjectiveComponent implements OnDestroy {
 
   clickedEditObjective(): void {
     const dialogReference: MatDialogRef<ObjectiveFormComponent, any> = this.matDialog.open(ObjectiveFormComponent, {
-      data: { objective: this.objective }
+      data: { objective: this.objective },
     });
 
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(
-          take(1),
-          filter(v => v),
-          switchMap(n => n),
-          take(1)
-        )
-        .subscribe(editedObjective => this.onObjectiveEdited(editedObjective as ViewObjective))
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter(v => v),
+        switchMap(n => n),
+        take(1),
+      )
+      .subscribe(editedObjective => this.onObjectiveEdited(editedObjective as ViewObjective));
   }
 
   onObjectiveEdited(editedObjective: ViewObjective): void {
@@ -192,11 +182,9 @@ export class ObjectiveComponent implements OnDestroy {
   toggleWhetherObjectiveIsActive(): void {
     this.objective.isActive = !this.objective.isActive;
 
-    this.subscriptions.push(
-      this.objectiveMapper
-        .putObjective$(this.objective)
-        .pipe(take(1))
-        .subscribe(editedObjective => this.onObjectiveEdited(editedObjective))
-    );
+    this.objectiveMapper
+      .putObjective$(this.objective)
+      .pipe(take(1))
+      .subscribe(editedObjective => this.onObjectiveEdited(editedObjective));
   }
 }

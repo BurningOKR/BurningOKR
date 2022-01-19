@@ -1,6 +1,6 @@
-<app-dialog-component [title]="title" (okEmitter)="clickedConvertToTeam()"
+<app-dialog-component [title]="title$ | async" (okEmitter)="clickedConvertToTeam()"
                       [formGroup]="chooseStructure"
-                      [saveAndCloseLabel]= "saveAndCloseLabel">
+                      [saveAndCloseLabel]= "saveAndCloseLabel$ | async">
   <form [formGroup]="chooseStructure">
     <mat-form-field class="form-whole-line">
       <mat-select placeholder="{{ 'submitted-topic-draft-convert-to-team.form.select' | translate }}" formControlName="parentUnitId">

@@ -1,26 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Controls, FormGroupTyped } from '../../../../../typings';
-import { NewPasswordForm } from '../../../../shared/model/forms/new-password-form';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PasswordService } from '../password-service/password.service';
-import { CurrentUserService } from '../../../services/current-user.service';
-import { switchMap, take } from 'rxjs/operators';
-import { User } from '../../../../shared/model/api/user';
-import { NGXLogger } from 'ngx-logger';
-import { wrongPasswordValidatorError } from '../../../../shared/validators/errors/wrong-password-validator-error';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Consts } from '../../../../shared/consts';
-import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 import { TranslateService } from '@ngx-translate/core';
+import { NGXLogger } from 'ngx-logger';
 import { Subscription } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { Controls, FormGroupTyped } from '../../../../../typings';
+import { Consts } from '../../../../shared/consts';
+import { User } from '../../../../shared/model/api/user';
+import { NewPasswordForm } from '../../../../shared/model/forms/new-password-form';
+import { wrongPasswordValidatorError } from '../../../../shared/validators/errors/wrong-password-validator-error';
+import {
+  PasswordsMatchValidator,
+} from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { CurrentUserService } from '../../../services/current-user.service';
+import { PasswordService } from '../password-service/password.service';
 
 @Component({
   selector: 'app-change-password-dialog',
   templateUrl: './change-password-dialog.component.html',
-  styleUrls: ['./change-password-dialog.component.css']
+  styleUrls: ['./change-password-dialog.component.css'],
 })
-export class ChangePasswordDialogComponent implements OnInit, OnDestroy {
+export class ChangePasswordDialogComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
   newPasswordForm: FormGroupTyped<NewPasswordForm>;
@@ -36,20 +38,17 @@ export class ChangePasswordDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.generateNewPasswordForm();
-    this.subscriptions.push(this.translate.stream('change-password-dialog.form.title').subscribe(text => {
-      this.title = text;
-    }));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.translate.stream('change-password-dialog.form.title').pipe(take(1))
+      .subscribe(text => {
+        this.title = text;
+      });
   }
 
   generateNewPasswordForm(): void {
     const newPasswordForm: FormGroupTyped<NewPasswordForm> = this.formBuilder.group({
       previousPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(7)]],
-      newPasswordRepetition: ['', [Validators.required]]
+      newPasswordRepetition: ['', [Validators.required]],
     }) as FormGroupTyped<NewPasswordForm>;
     newPasswordForm.setValidators([PasswordsMatchValidator.Validate]);
 
@@ -64,10 +63,10 @@ export class ChangePasswordDialogComponent implements OnInit, OnDestroy {
           return this.passwordService.setPasswordWhileUserIsLoggedin$({
             newPassword: controls.newPassword.value,
             oldPassword: controls.previousPassword.value,
-            email: user.email
+            email: user.email,
           });
         }),
-        take(1)
+        take(1),
       )
       .subscribe(() => {
         this.dialogRef.close();

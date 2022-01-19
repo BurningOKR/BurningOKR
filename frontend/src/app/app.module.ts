@@ -55,11 +55,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ConvertSubmittedTopicDraftToTeamComponent } from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
 import {MatTreeModule} from '@angular/material/tree';
 
-// use the require method provided by webpack
-declare const require: any;
-// we use the webpack raw-loader to return the content as a string
-// export const translations: any = require('raw-loader!../locale/messages.en.xlf');
-
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeEn, 'de', localeEnExtra);
 

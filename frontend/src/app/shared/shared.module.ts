@@ -29,13 +29,13 @@ import { CapsLockDirective } from './directives/caps-lock.directive';
 import { NonLoggedInCardComponent } from './components/non-logged-in-card/non-logged-in-card.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
 import { ResetCountdownComponent } from './demo-website/reset-countdown/reset-countdown.component';
-import { CountdownTimerModule } from '@innomobile/countdown-timer';
 import { MilestoneSliderWrapperComponent } from './components/milestone-slider-wrapper/milestone-slider-wrapper.component';
 import { StatusDotComponent } from './components/status-dot/status-dot.component';
 import { CallbackFilterPipe } from './pipes/callback-filter.pipe';
 import { UserSelectorMultiComponent } from './components/user-selector-multi/user-selector-multi.component';
 import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CallbackFilterPipe,
     UserSelectorMultiComponent,
     UserSelectorComponent,
+    CountdownTimerComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -80,7 +81,6 @@ import { TranslateModule } from '@ngx-translate/core';
         AvatarModule,
         RouterModule,
         NgxMatSelectSearchModule,
-        CountdownTimerModule,
         TranslateModule
     ],
     exports: [

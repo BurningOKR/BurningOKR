@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { take } from 'rxjs/operators';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import { MatDialogRef } from '@angular/material/dialog';
+import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
 
 @Component({
   selector: 'app-submitted-topic-draft-edit',
   templateUrl: './submitted-topic-draft-edit.component.html',
-  styleUrls: ['./submitted-topic-draft-edit.component.css']
+  styleUrls: ['./submitted-topic-draft-edit.component.css'],
 })
 export class SubmittedTopicDraftEditComponent implements OnInit {
 
@@ -22,8 +22,9 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<SubmittedTopicDraftEditComponent>,
     private topicDraftMapper: TopicDraftMapper,
-    @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)
-  ) { }
+    @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any),
+  ) {
+  }
 
   ngOnInit(): void {
     this.topicDraft = this.formData.topicDraft;
@@ -40,7 +41,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
       handoverPlan: new FormControl(this.topicDraft.handoverPlan, Validators.maxLength(1024)),
       initiatorId: new FormControl(this.topicDraft.initiatorId, [Validators.required]),
       startTeam: new FormControl(this.topicDraft.startTeam),
-      stakeholders: new FormControl(this.topicDraft.stakeholders)
+      stakeholders: new FormControl(this.topicDraft.stakeholders),
     });
 
     if (this.formData.topicDraft) {
@@ -53,10 +54,10 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   saveTopicDraft(): void {
     const oldTopicDraft: OkrTopicDraft = this.topicDraft;
     const formTopicDraft: OkrTopicDraft = this.topicDraftForm.getRawValue();
-    const updatedTopicDraft: OkrTopicDraft = {...oldTopicDraft, ...formTopicDraft};
+    const updatedTopicDraft: OkrTopicDraft = { ...oldTopicDraft, ...formTopicDraft };
     this.dialogRef.close(
-      this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft)
-        .subscribe()
+      this.topicDraftMapper.updateTopicDraft$(updatedTopicDraft).pipe(take(1))
+        .subscribe(),
     );
     this.editedTopicDraftEvent.emit(updatedTopicDraft);
   }

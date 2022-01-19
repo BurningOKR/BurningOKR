@@ -1,20 +1,22 @@
-import { User } from '../shared/model/api/user';
-import { UserService } from '../shared/services/helper/user.service';
-import { CurrentUserService } from '../core/services/current-user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserAutocompleteInputComponent } from '../shared/components/user-autocomplete-input/user-autocomplete-input.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import 'linq4js';
+import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { CurrentUserService } from '../core/services/current-user.service';
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { combineLatest, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
+import {
+  UserAutocompleteInputComponent,
+} from '../shared/components/user-autocomplete-input/user-autocomplete-input.component';
+import { User } from '../shared/model/api/user';
 import { UserId } from '../shared/model/id-types';
-import 'linq4js';
-import { environment } from '../../environments/environment';
-import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '../shared/services/helper/user.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -25,7 +27,6 @@ export class AdminViewComponent implements OnInit {
   @ViewChild('newAdminForm') newAdminForm: UserAutocompleteInputComponent;
 
   adminUsers$: Subject<User[]> = new ReplaySubject<User[]>(1);
-  subscriptions: Subscription[] = [];
 
   isPlayground: boolean = environment.playground;
 
@@ -37,7 +38,7 @@ export class AdminViewComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private matDialog: MatDialog,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
   }
 
@@ -53,7 +54,7 @@ export class AdminViewComponent implements OnInit {
       .pipe(take(1))
       .subscribe((_: User) => {
           this.onNewAdminDefined(user);
-        }
+        },
       );
   }
 
@@ -61,8 +62,8 @@ export class AdminViewComponent implements OnInit {
     this.newAdminForm.setIsDisabled(false);
     this.newAdminForm.setFormText('');
     this.adminUsers$.pipe(
-      take(1),
-    )
+        take(1),
+      )
       .subscribe(users => {
         users.push(newAdmin);
         this.adminUsers$.next(users);
@@ -73,27 +74,25 @@ export class AdminViewComponent implements OnInit {
   onDeleteAdminButtonClicked(adminToDelete: User): void {
     const title: string = this.translate.instant('admin-view.delete-dialog.title');
     const message: string = this.translate.instant('admin-view.delete-dialog.message',
-      {surname: adminToDelete.surname, name: adminToDelete.givenName});
+      { surname: adminToDelete.surname, name: adminToDelete.givenName });
     const confirmButtonText: string = this.translate.instant('admin-view.delete-dialog.button-text');
     const data: ConfirmationDialogData = {
       title,
       message,
-      confirmButtonText
+      confirmButtonText,
     };
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object> = this.matDialog.open(ConfirmationDialogComponent, {
       width: '600px',
-      data
+      data,
     });
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.queryAdminDeletion(adminToDelete);
-          }
-        })
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.queryAdminDeletion(adminToDelete);
+        }
+      });
   }
 
   queryAdminDeletion(adminToDelete: User): void {
@@ -107,8 +106,8 @@ export class AdminViewComponent implements OnInit {
 
   onAdminDeleted(deletedAdmin: User): void {
     this.adminUsers$.pipe(
-      take(1),
-    )
+        take(1),
+      )
       .subscribe(users => {
         const usersWithoutDeleted: User[] = users.Where(user => user.id !== deletedAdmin.id);
         this.adminUsers$.next(usersWithoutDeleted);
@@ -132,7 +131,7 @@ export class AdminViewComponent implements OnInit {
   private getAdminUsers$(): void {
     combineLatest([
       this.userService.getUsers$(),
-      this.userService.getAdminIds$()]
+      this.userService.getAdminIds$()],
     )
       .pipe(
         take(1),

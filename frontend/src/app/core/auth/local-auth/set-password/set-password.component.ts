@@ -1,21 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PasswordResetData, PasswordService } from '../password-service/password.service';
-import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import {
+  PasswordsMatchValidator,
+} from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { PasswordResetData, PasswordService } from '../password-service/password.service';
 
 @Component({
   selector: 'app-set-password',
   templateUrl: './set-password.component.html',
-  styleUrls: ['./set-password.component.css']
+  styleUrls: ['./set-password.component.css'],
 })
-export class SetPasswordComponent implements OnInit, OnDestroy {
+export class SetPasswordComponent implements OnInit {
 
-  subscriptions: Subscription[] = [];
   emailIdentifier: string;
   newPasswordForm: FormGroup;
   submitted: boolean = false;
@@ -26,20 +26,17 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private matSnackBar: MatSnackBar,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
   }
 
   ngOnInit(): void {
     this.emailIdentifier = this.route.snapshot.paramMap.get('emailIdentifier');
     this.newPasswordForm = this.generateNewPasswordForm();
-    this.subscriptions.push(this.translate.stream('set-password.password-changed-message').subscribe(text => {
-      this.passwordSuccessfullyChangedMessage = text;
-    }));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.translate.stream('set-password.password-changed-message').pipe(take(1))
+      .subscribe(text => {
+        this.passwordSuccessfullyChangedMessage = text;
+      });
   }
 
   setPassword(): void {
@@ -56,7 +53,7 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
   generateNewPasswordForm(): FormGroup {
     return new FormGroup({
       newPassword: new FormControl('', [Validators.required, Validators.minLength(7)]),
-      newPasswordRepetition: new FormControl('', [Validators.required])
+      newPasswordRepetition: new FormControl('', [Validators.required]),
     }, [PasswordsMatchValidator.Validate]);
   }
 
@@ -65,7 +62,7 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.matSnackBar.open(this.passwordSuccessfullyChangedMessage, undefined, {
         verticalPosition: 'top',
-        duration: 3500
+        duration: 3500,
       });
     }, 100);  // setTimeout is needed to navigate in non chromium based browsers /TG 09.03.2020
   }
@@ -73,7 +70,7 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
   private getPasswordResetData(): PasswordResetData {
     return {
       emailIdentifier: this.emailIdentifier,
-      password: this.newPasswordForm.get('newPassword').value
+      password: this.newPasswordForm.get('newPassword').value,
     };
   }
 

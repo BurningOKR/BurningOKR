@@ -1,26 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { combineLatest, Observable, of } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
-import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
-import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { OkrChildUnitRoleService } from '../../../shared/services/helper/okr-child-unit-role.service';
-import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit-form.component';
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ContextRole } from '../../../shared/model/ui/context-role';
+import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
+import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { OkrChildUnitRoleService } from '../../../shared/services/helper/okr-child-unit-role.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
+import { CurrentCycleService } from '../../current-cycle.service';
+import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { ExcelMapper } from '../../excel-file/excel.mapper';
-import { CurrentCycleService } from '../../current-cycle.service';
-import { ContextRole } from '../../../shared/model/ui/context-role';
-import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
-import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
-import { HttpErrorResponse } from '@angular/common/http';
-import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
-import { TranslateService } from '@ngx-translate/core';
+import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit-form.component';
 
 interface DepartmentView {
   cycle: CycleUnit;
@@ -37,9 +37,9 @@ interface ActiveTabs {
 @Component({
   selector: 'app-okr-child-unit',
   templateUrl: './okr-child-unit.component.html',
-  styleUrls: ['./okr-child-unit.component.scss']
+  styleUrls: ['./okr-child-unit.component.scss'],
 })
-export class OkrChildUnitComponent implements OnInit, OnDestroy {
+export class OkrChildUnitComponent implements OnInit {
   currentUserRole$: Observable<ContextRole>;
   cycle$: Observable<CycleUnit>;
   departmentView$: Observable<DepartmentView>;
@@ -47,8 +47,6 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   activeTabs$: Observable<ActiveTabs>;
 
   error404: boolean = false;
-
-  subscriptions: Subscription[] = [];
 
   constructor(
     private okrUnitService: OkrUnitService,
@@ -60,7 +58,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     private currentCycleService: CurrentCycleService,
     private currentUnitSchemaService: CurrentOkrUnitSchemaService,
     private excelService: ExcelMapper,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
   }
 
@@ -84,14 +82,14 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
             this.currentOkrViewService.browseDepartment(unit.id);
           }
         }),
-        shareReplay(1)
+        shareReplay(1),
       );
 
     this.currentUserRole$ = this.okrChildUnit$
       .pipe(
         switchMap(childUnit => {
           return this.departmentContextRoleService.getContextRoleForOkrChildUnit$(childUnit);
-        })
+        }),
       );
 
     this.cycle$ = this.currentCycleService.getCurrentCycle$();
@@ -99,14 +97,14 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     this.departmentView$ = combineLatest([
       this.okrChildUnit$,
       this.cycle$,
-      this.currentUserRole$
+      this.currentUserRole$,
     ])
       .pipe(
         map((([childUnit, cycle, userRole]: [OkrChildUnit, CycleUnit, ContextRole]) => {
           const info: DepartmentView = {
             currentUserRole: userRole,
             cycle,
-            okrChildUnit: childUnit
+            okrChildUnit: childUnit,
           };
 
           return info;
@@ -119,46 +117,37 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
           return {
             childUnitTab: childUnit instanceof OkrBranch,
             teamsTab: childUnit instanceof OkrDepartment,
-            descriptionTab: childUnit instanceof OkrDepartment
+            descriptionTab: childUnit instanceof OkrDepartment,
           };
-        })
+        }),
       );
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-    this.subscriptions = [];
-  }
   // Template actions
 
   clickedEditChildUnit(childUnit: OkrChildUnit): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { childUnit }
+      data: { childUnit },
     });
-
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(
-          take(1),
-          filter(v => v as any),
-          switchMap(n => n as any),
-        )
-        .subscribe(editedChildUnit => this.onChildUnitEdited(editedChildUnit as OkrChildUnit))
-    );
+    dialogReference
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter(v => v as any),
+        switchMap(n => n as any),
+      )
+      .subscribe(editedChildUnit => this.onChildUnitEdited(editedChildUnit as OkrChildUnit));
   }
 
   toggleChildActive(okrChildUnit: OkrChildUnit): void {
     okrChildUnit.isActive = !okrChildUnit.isActive;
 
-    this.subscriptions.push(
-      this.okrUnitService
-        .putOkrChildUnit$(okrChildUnit, false)
-        .pipe(take(1))
-        .subscribe(
-          returnedChildUnit => this.onChildUnitEdited(returnedChildUnit),
-          () => this.set404State())
-    );
+    this.okrUnitService
+      .putOkrChildUnit$(okrChildUnit, false)
+      .pipe(take(1))
+      .subscribe(
+        returnedChildUnit => this.onChildUnitEdited(returnedChildUnit),
+        () => this.set404State());
   }
 
   onChildUnitEdited(okrChildUnit: OkrChildUnit): void {
@@ -173,21 +162,20 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
     const data: ConfirmationDialogData = {
       message,
       title,
-      confirmButtonText
+      confirmButtonText,
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object> =
       this.matDialog.open(ConfirmationDialogComponent, { width: '600px', data });
-    this.subscriptions.push(
-      dialogReference
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe(isConfirmed => {
-          if (isConfirmed) {
-            this.queryRemoveChildUnit(okrChildUnit);
-          }
-        })
-    );
+
+    dialogReference
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(isConfirmed => {
+        if (isConfirmed) {
+          this.queryRemoveChildUnit(okrChildUnit);
+        }
+      });
   }
 
   canChildUnitBeRemoved(okrChildUnit: OkrChildUnit): boolean {
@@ -200,15 +188,13 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   }
 
   queryRemoveChildUnit(okrChildUnit: OkrChildUnit): void {
-    this.subscriptions.push(
-      this.okrUnitService
-        .deleteOkrChildUnit$(okrChildUnit, false)
-        .pipe(take(1))
-        .subscribe(() => {
+    this.okrUnitService
+      .deleteOkrChildUnit$(okrChildUnit, false)
+      .pipe(take(1))
+      .subscribe(() => {
           this.onChildUnitDeleted(okrChildUnit);
         },
-          () => this.onChildUnitDeleted(okrChildUnit))
-    );
+        () => this.onChildUnitDeleted(okrChildUnit));
   }
 
   onChildUnitDeleted(okrChildUnit: OkrChildUnit): void {
@@ -229,6 +215,7 @@ export class OkrChildUnitComponent implements OnInit, OnDestroy {
   downloadDepartmentExcelEmailFile(department: OkrDepartment): void {
     this.excelService.downloadExcelEmailFileForOkrTeam(department.id);
   }
+
   // Template helper functions
 
   moveToParentUnit(okrChildUnit: OkrChildUnit): void {
