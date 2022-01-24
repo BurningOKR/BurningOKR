@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Observable,  timer} from 'rxjs';
 import { map} from 'rxjs/operators';
+import {CountdownTimerService} from "../countdown-timer.service";
 
 @Component({
   selector: 'app-countdown-timer',
@@ -19,33 +20,24 @@ export class CountdownTimerComponent implements OnChanges {
 
   remainingTimeString$: Observable<String>;
 
+  constructor(private timerService: CountdownTimerService) { }
+
   ngOnChanges(): void {
 
     this.remainingTimeString$ = timer(0, 1000)
       .pipe(
         map(() => {
 
-          const remainingTime: Date = this.getRemainingTime(this.endTime);
+          const remainingTime: Date = this.timerService.getRemainingTimeUntil(this.endTime);
 
           if(remainingTime.getTime() <= 0) {
 
             this.zeroTrigger.emit();
           }
 
-          return this.getRemainingTimeString(remainingTime);
+          return this.timerService.getLocalTimeString(remainingTime);
         })
       );
   }
 
-  getRemainingTimeString(remainingTime: Date): String {
-
-    const temporaryDate: Date = new Date(remainingTime.getTime() + 1000 * 60 * remainingTime.getTimezoneOffset());
-
-    return temporaryDate.toLocaleTimeString();
-  }
-
-  getRemainingTime(endTime: Date): Date {
-
-    return new Date(endTime?.getTime() - new Date().getTime());
-  }
 }
