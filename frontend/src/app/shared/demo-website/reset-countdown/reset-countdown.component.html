@@ -1,2 +1,2 @@
 <span class="hidden-custom">{{ 'reset-countdown.until-next' | translate }} </span>
-<app-countdown-timer (zeroTrigger)="reload()" [endTime$]="dateForNextReset$"></app-countdown-timer>
+<app-countdown-timer (zeroTrigger)="reload()" [endTime]="dateForNextReset$ | async"></app-countdown-timer>

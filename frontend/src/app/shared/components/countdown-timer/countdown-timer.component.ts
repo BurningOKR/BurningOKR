@@ -1,41 +1,51 @@
 import {
   Component,
   EventEmitter,
-  Input,
-  OnInit,
+  Input, OnChanges,
   Output,
 } from '@angular/core';
 import { Observable,  timer} from 'rxjs';
-import { map, switchMap} from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-countdown-timer',
   templateUrl: './countdown-timer.component.html',
   styleUrls: ['./countdown-timer.component.scss']
 })
-export class CountdownTimerComponent implements OnInit {
+export class CountdownTimerComponent implements OnChanges {
 
-  @Input() endTime$: Observable<Date>;
+  @Input() endTime: Date;
   @Output() zeroTrigger: EventEmitter<void> = new EventEmitter<void>();
 
   remainingTimeString$: Observable<String>;
 
-  ngOnInit() {
+  ngOnChanges(): void {
 
-    this.remainingTimeString$ = this.endTime$.pipe(
-      switchMap(endTime => {
-        return timer(0, 1000)
-          .pipe(
-            map(() => this.getRemainingTimeString(endTime))
-          );
-      })
-    );
+    this.remainingTimeString$ = timer(0, 1000)
+      .pipe(
+        map(() => {
+
+          const remainingTime: Date = this.getRemainingTime(this.endTime);
+
+          if(remainingTime.getTime() <= 0) {
+
+            this.zeroTrigger.emit();
+          }
+
+          return this.getRemainingTimeString(remainingTime);
+        })
+      );
   }
 
-  getRemainingTimeString(endTime: Date): String {
-    // Shaving off one Hour because of TimeZone differences
-    const remainingTime: Date = new Date(endTime?.getTime() - new Date().getTime() - 1000*60*60);
+  getRemainingTimeString(remainingTime: Date): String {
 
-    return remainingTime.toLocaleTimeString();
+    const temporaryDate: Date = new Date(remainingTime.getTime() + 1000 * 60 * remainingTime.getTimezoneOffset());
+
+    return temporaryDate.toLocaleTimeString();
+  }
+
+  getRemainingTime(endTime: Date): Date {
+
+    return new Date(endTime?.getTime() - new Date().getTime());
   }
 }
