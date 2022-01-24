@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Observable,  timer} from 'rxjs';
 import { map} from 'rxjs/operators';
-import {CountdownTimerService} from "../countdown-timer.service";
+import {CountdownTimerService} from '../countdown-timer.service';
 
 @Component({
   selector: 'app-countdown-timer',

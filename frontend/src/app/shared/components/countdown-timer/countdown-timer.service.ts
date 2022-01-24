@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class CountdownTimerService {
 
-  constructor() { }
-
   getLocalTimeString(remainingTime: Date): String {
 
     const temporaryDate: Date = new Date(remainingTime.getTime() + 1000 * 60 * remainingTime.getTimezoneOffset());

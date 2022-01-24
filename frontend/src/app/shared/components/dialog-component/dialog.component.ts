@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -42,12 +42,12 @@ export class DialogComponent<T> implements OnInit{
 
   handleEnter(event): void {
     if (!this.NO_ENTER_TAGS.includes(event.target.tagName)
-        && !this.saveDisabled()) {
+        && !this.isSaveDisabled()) {
       this.sendOk();
     }
   }
 
-  saveDisabled(): boolean {
+  isSaveDisabled(): boolean {
     return (this.isSaveButtonDisabled || this.formGroup.invalid || this.formHasToBeEdited && this.formGroup.pristine);
   }
 
