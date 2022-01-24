@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs/operators';
 import { DialogComponent } from '../../shared/components/dialog-component/dialog.component';
 import { CompanyDto } from '../../shared/model/api/OkrUnit/company.dto';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
@@ -38,10 +37,7 @@ export class OkrUnitFormComponent {
       this.companyForm.patchValue(this.formData.company);
     }
 
-    translate.stream('okr-unit-form.structure').pipe(take(1))
-      .subscribe((text: string) => {
-        this.structureTranslation = text;
-      });
+    this.structureTranslation = this.translate.instant('okr-unit-form.structure');
 
     const saveTranslation: string = translate.instant('okr-unit-form.save', { value: this.getDefaultLabel() });
     const createTranslation: string = translate.instant('okr-unit-form.create', { value: this.getDefaultLabel() });
