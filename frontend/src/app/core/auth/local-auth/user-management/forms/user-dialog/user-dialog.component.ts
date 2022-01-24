@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
-import { shareReplay, switchMap, take } from 'rxjs/operators';
+import {shareReplay, switchMap, take} from 'rxjs/operators';
 import { environment } from '../../../../../../../environments/environment';
 import { User } from '../../../../../../shared/model/api/user';
 import { LocalUserService } from '../../../../../../shared/services/helper/local-user.service';
@@ -42,14 +42,9 @@ export class UserDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.translate.stream('user-dialog.snackbar.message').pipe(take(1))
-      .subscribe(text => {
-        this.passwordResetSuccessMsg = text;
-      });
-    this.translate.stream('user-dialog.snackbar.ok').pipe(take(1))
-      .subscribe(text => {
-        this.okMsg = text;
-      });
+    this.passwordResetSuccessMsg = this.translate.instant('user-dialog.snackbar.message');
+    this.okMsg = this.translate.instant('user-dialog.snackbar.ok');
+
     // Disable Admin Checkbox when the user edits himself and is admin.
     this.editedUserIsCurrentUser$ = this.currentUserService.getCurrentUser$()
       .pipe(
@@ -67,7 +62,7 @@ export class UserDialogComponent implements OnInit, OnDestroy {
 
     const users$: Observable<User[]> = this.userService.getUsers$();
     this.subscriptions.push(combineLatest([users$, this.editedUserIsCurrentUser$])
-      .subscribe(([users, adminCheckBox]: [User[], boolean]) => {
+      .subscribe(([users]) => {
         for (const user of users) {
           if (!this.formData.user || (user.email !== this.formData.user.email)) {
             this.userEmails.Add(user.email);

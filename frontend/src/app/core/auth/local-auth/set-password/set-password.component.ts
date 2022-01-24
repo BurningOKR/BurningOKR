@@ -33,10 +33,7 @@ export class SetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.emailIdentifier = this.route.snapshot.paramMap.get('emailIdentifier');
     this.newPasswordForm = this.generateNewPasswordForm();
-    this.translate.stream('set-password.password-changed-message').pipe(take(1))
-      .subscribe(text => {
-        this.passwordSuccessfullyChangedMessage = text;
-      });
+    this.passwordSuccessfullyChangedMessage = this.translate.instant('set-password.password-changed-message');
   }
 
   setPassword(): void {
@@ -45,7 +42,7 @@ export class SetPasswordComponent implements OnInit {
 
     this.passwordService.setPasswordWithEmailIdentifier$(formData)
       .pipe(take(1))
-      .subscribe(response => {
+      .subscribe(() => {
         this.displaySuccessSnackBarAndRedirectToLogin();
       }, () => this.enableForm());
   }

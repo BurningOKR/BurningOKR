@@ -75,22 +75,10 @@ export class UserManagementComponent implements OnInit {
       this.rowData.data = users;
     });
 
-    this.translate.stream('disabled-in-demo-version').pipe(take(1))
-      .subscribe(text => {
-        this.disabledInPlaygroundTranslation = text;
-      });
-    this.translate.stream('user-management.tooltip.add-new-user').pipe(take(1))
-      .subscribe(text => {
-        this.addUserTranslation = this.appendDemoWarning(text);
-      });
-    this.translate.stream('user-management.tooltip.import-users-from-csv').pipe(take(1))
-      .subscribe(text => {
-        this.importUsersFromCSVTranslation = this.appendDemoWarning(text);
-      });
-    this.translate.stream('user-management.tooltip.deactivate-user').pipe(take(1))
-      .subscribe(text => {
-        this.deactivateUserTranslation = this.appendDemoWarning(text);
-      });
+    this.disabledInPlaygroundTranslation = this.translate.instant('disabled-in-demo-version');
+    this.addUserTranslation = this.translate.instant('user-management.tooltip.add-new-user');
+    this.importUsersFromCSVTranslation = this.translate.instant('user-management.tooltip.import-users-from-csv');
+    this.deactivateUserTranslation = this.translate.instant('user-management.tooltip.deactivate-user');
   }
 
   handleEdit(userToEdit: LocalUserManagementUser): void {
@@ -367,9 +355,4 @@ export class UserManagementComponent implements OnInit {
 
     return filteredUsers;
   }
-
-  private appendDemoWarning(initialText: string): string {
-    return this.isPlayground ? (`${initialText} ${this.disabledInPlaygroundTranslation}`) : initialText;
-  }
-
 }

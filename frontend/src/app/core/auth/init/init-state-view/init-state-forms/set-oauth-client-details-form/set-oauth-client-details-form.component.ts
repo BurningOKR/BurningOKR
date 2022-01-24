@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { FormGroupTyped } from '../../../../../../../typings';
 import { Consts } from '../../../../../../shared/consts';
 import { InitState } from '../../../../../../shared/model/api/init-state';
@@ -40,14 +39,8 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
 
   ngOnInit(): void {
     this.generateOauthClientDetailsForm();
-    this.translate.stream('set-oauth-client-details-form.timeout.error-message').pipe(take(1))
-      .subscribe(text => {
-        this.timeoutErrorMessage = text;
-      });
-    this.translate.stream('set-oauth-client-details-form.timeout.error-message-action').pipe(take(1))
-      .subscribe(text => {
-        this.timeoutErrorMessageAction = text;
-      });
+    this.timeoutErrorMessage = this.translate.instant('set-oauth-client-details-form.timeout.error-message');
+    this.timeoutErrorMessageAction = this.translate.instant('set-oauth-client-details-form.timeout.error-message-action');
   }
 
   ngOnDestroy(): void {

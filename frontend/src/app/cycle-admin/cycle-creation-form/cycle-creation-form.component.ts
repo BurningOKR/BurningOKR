@@ -55,10 +55,7 @@ export class CycleCreationFormComponent implements OnInit {
       });
 
     this.title$ = this.translate.stream('cycle-creation-form.creation-dialog.title');
-    this.translate.stream('cycle-creation-form.creation-dialog.save').pipe(take(1))
-      .subscribe(text => {
-        this.saveAndCloseLabel = text;
-      });
+    this.saveAndCloseLabel = this.translate.instant('cycle-creation-form.creation-dialog.save');
   }
 
   closeDialog(): void {

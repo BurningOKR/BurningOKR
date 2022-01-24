@@ -27,10 +27,10 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
   subscriptions: Subscription[] = [];
   adminSettingsForm: FormGroup;
   isAzure$: Observable<boolean>;
+  configurationNames: { [key: string]: string };
 
   private confirmationTitle: string;
   private confirmationText: string;
-  private configurationNames: { [key: string]: string };
   private configurationNamesTranslationKeys: string[] = [
     'admin-settings-form.config-names.max-key-results',
     'admin-settings-form.config-names.topic-sponsors-activated',
@@ -62,14 +62,10 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
     this.subscriptions.push(this.adminSettingsForm.statusChanges.subscribe(() => {
       this.valid.emit(this.adminSettingsForm.valid);
     }));
-    this.translate.stream('admin-settings-form.confirmation-title').pipe(take(1))
-      .subscribe(text => {
-        this.confirmationTitle = text;
-      });
-    this.translate.stream('admin-settings-form.confirmation-text').pipe(take(1))
-      .subscribe(text => {
-        this.confirmationText = text;
-      });
+
+    this.confirmationTitle = this.translate.instant('admin-settings-form.confirmation-title');
+    this.confirmationText =this.translate.instant('admin-settings-form.confirmation-text');
+
     this.translate.stream(this.configurationNamesTranslationKeys).pipe(take(1))
       .subscribe((translations: { [key: string]: string }) => {
         this.configurationNames = {
