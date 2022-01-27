@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../environments/environment';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { FetchingService } from './core/services/fetching.service';
-import { Router } from '@angular/router';
-import { environment } from '../environments/environment';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   userLoggedIn: boolean = this.authService.hasValidAccessToken();
@@ -17,8 +18,8 @@ export class AppComponent {
   constructor(private authService: AuthenticationService,
               private fetchingService: FetchingService,
               private router: Router,
-              translateService: TranslateService) {
-
+              translateService: TranslateService,
+              private dateAdapter: DateAdapter<Date>) {
     this.authService.configure()
       .then(() => {
         this.fetchingService.refetchAll();
@@ -28,6 +29,7 @@ export class AppComponent {
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translateService.use('en');
+    dateAdapter.setLocale(translateService.currentLang);
   }
 
   checkIfUserIsLoggedIn(): boolean {

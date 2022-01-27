@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
   templateUrl: './pick-language.component.html',
   styleUrls: ['./pick-language.component.scss'],
 })
-export class PickLanguageComponent implements OnInit{
+export class PickLanguageComponent implements OnInit {
   title$: Observable<string>;
   saveAndCloseLabel$: Observable<string>;
 
@@ -17,6 +18,7 @@ export class PickLanguageComponent implements OnInit{
   constructor(
     public translate: TranslateService,
     private dialogRef: MatDialogRef<PickLanguageComponent>,
+    private dateAdapter: DateAdapter<Date>,
   ) {
   }
 
@@ -32,6 +34,7 @@ export class PickLanguageComponent implements OnInit{
 
   clickedDone(): void {
     this.translate.use(this.language);
+    this.dateAdapter.setLocale(this.language);
     this.dialogRef.close();
   }
 }
