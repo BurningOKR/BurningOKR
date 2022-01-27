@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog.component';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
@@ -28,7 +28,7 @@ export class CycleAdminCardComponent {
     private dialog: MatDialog,
     private cycleMapper: CycleMapper,
   ) {
-    this.currentLang$ = translate.onLangChange.pipe(map(lang => lang.lang));
+    this.currentLang$ = translate.onLangChange.pipe(map(lang => lang.lang), startWith(translate.currentLang));
   }
 
   deleteCycle(): void {

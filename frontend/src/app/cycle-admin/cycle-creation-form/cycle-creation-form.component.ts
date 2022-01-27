@@ -10,6 +10,7 @@ import { CycleDialogData } from '../../shared/model/ui/cycle-dialog-data';
 import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
+import { DateMapper } from '../../shared/services/mapper/date.mapper';
 import { DateFormValidator } from '../../shared/validators/date-format-validator/date-format-validator-function';
 import {
   DateNotInThePastValidator,
@@ -36,6 +37,7 @@ export class CycleCreationFormComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
               private cycleMapper: CycleMapper,
               private companyService: CompanyMapper,
+              private dateMapper: DateMapper,
               private translate: TranslateService,
               @Inject(MAT_DIALOG_DATA) public formData: CycleDialogData) {
   }
@@ -71,14 +73,14 @@ export class CycleCreationFormComponent implements OnInit {
   }
 
   isInPreparation(): boolean {
-    const date: Date = this.cycleForm.get('startDate').value;
+    const date: Date = this.dateMapper.mapToDate(this.cycleForm.get('startDate').value);
 
     return date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
   }
 
   createCycle(): void {
-    const startDate: Date = this.cycleForm.get('startDate').value;
-    const endDate: Date = this.cycleForm.get('endDate').value;
+    const startDate: Date = this.dateMapper.mapToDate(this.cycleForm.get('startDate').value);
+    const endDate: Date = this.dateMapper.mapToDate(this.cycleForm.get('endDate').value);
     const isVisible: boolean = this.cycleForm.get('isVisible').value;
     const cycle: CycleDto = {
       name: this.cycleForm.get('name').value,

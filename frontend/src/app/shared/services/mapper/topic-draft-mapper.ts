@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 import { TopicDraftApiService } from '../api/topic-draft-api.service';
 import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
 import { OkrTopicDraft } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { CompanyId, OkrUnitId } from '../../model/id-types';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators';
+import { DateMapper } from './date.mapper';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TopicDraftMapper {
-    constructor(private topicDraftApiService: TopicDraftApiService) {
+    constructor(private topicDraftApiService: TopicDraftApiService,
+                private dateMapper: DateMapper
+    ) {
     }
 
-    static mapTopicDraftDto(topicDraft: OkrTopicDraftDto): OkrTopicDraft {
+    mapTopicDraftDto(topicDraft: OkrTopicDraftDto): OkrTopicDraft {
         return new OkrTopicDraft(
             topicDraft.okrParentUnitId,
             topicDraft.currentStatus,
@@ -35,8 +37,9 @@ export class TopicDraftMapper {
         );
     }
 
-    static mapTopicDraft(topicDraft: OkrTopicDraft): OkrTopicDraftDto {
+    mapTopicDraft(topicDraft: OkrTopicDraft): OkrTopicDraftDto {
         const topicDraftDto: OkrTopicDraftDto = new OkrTopicDraftDto();
+        const beginning: Date = this.dateMapper.mapToDate(topicDraft.beginning);
 
         topicDraftDto.id = topicDraft.id;
         topicDraftDto.okrParentUnitId = topicDraft.okrParentUnitId;
@@ -48,10 +51,10 @@ export class TopicDraftMapper {
         topicDraftDto.description = topicDraft.description;
         topicDraftDto.contributesTo = topicDraft.contributesTo;
         topicDraftDto.delimitation = topicDraft.delimitation;
-        topicDraftDto.beginning = topicDraft.beginning ? [
-            Number(topicDraft.beginning.getFullYear()),
-            Number(topicDraft.beginning.getMonth()) + 1,
-            Number(topicDraft.beginning.getDate())
+        topicDraftDto.beginning = beginning ? [
+            Number(beginning.getFullYear()),
+            Number(beginning.getMonth()) + 1,
+            Number(beginning.getDate())
         ] : null;
         topicDraftDto.dependencies = topicDraft.dependencies;
         topicDraftDto.resources = topicDraft.resources;
@@ -61,23 +64,23 @@ export class TopicDraftMapper {
     }
 
     postTopicDraft$(topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
-      return this.topicDraftApiService.postTopicDraft$(TopicDraftMapper.mapTopicDraft(topicDraft))
-        .pipe(map(TopicDraftMapper.mapTopicDraftDto));
+      return this.topicDraftApiService.postTopicDraft$(this.mapTopicDraft(topicDraft))
+        .pipe(map(this.mapTopicDraftDto));
     }
 
     updateTopicDraft$(topicDraft: OkrTopicDraft): Observable<void> {
-      return this.topicDraftApiService.updateTopicDraft$(TopicDraftMapper.mapTopicDraft(topicDraft));
+      return this.topicDraftApiService.updateTopicDraft$(this.mapTopicDraft(topicDraft));
     }
 
     updateTopicDraftStatus$(topicDraft: OkrTopicDraft): Observable<void> {
-      return this.topicDraftApiService.updateTopicDraftStatus$(TopicDraftMapper.mapTopicDraft(topicDraft));
+      return this.topicDraftApiService.updateTopicDraftStatus$(this.mapTopicDraft(topicDraft));
     }
 
     getAllTopicDrafts$(): Observable<OkrTopicDraft[]> {
         return this.topicDraftApiService.getAllTopicDrafts$()
             .pipe(
                 map((topicDraftDtos: OkrTopicDraftDto[]) => {
-                    return topicDraftDtos.map(TopicDraftMapper.mapTopicDraftDto);
+                    return topicDraftDtos.map(this.mapTopicDraftDto);
                 })
             );
     }
