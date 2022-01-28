@@ -1,30 +1,38 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
-    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" routerLink="/" *ngIf="isPlayground">{{'okr-toolbar.main-page' | translate}}</button>
-    <button mat-icon-button class="hidden-s-up" routerLink="/" matTooltip="{{'okr-toolbar.return-to-demo-text' | translate}}"><mat-icon>cancel</mat-icon></button>
+    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" routerLink="/"
+            *ngIf="isPlayground">{{'okr-toolbar.main-page' | translate}}</button>
+    <button mat-icon-button class="hidden-s-up" routerLink="/"
+            matTooltip="{{'okr-toolbar.return-to-demo-text' | translate}}">
+      <mat-icon>cancel</mat-icon>
+    </button>
     <ng-content></ng-content>
     <span class="fill-space"></span>
 
-    <app-reset-countdown class="hidden-s-down" *ngIf="isPlayground"></app-reset-countdown>
+    <app-reset-countdown class="hidden-s-down center-countdown" *ngIf="isPlayground"></app-reset-countdown>
 
     <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
       <span class="break-word">{{'okr-toolbar.warning.no-smtp-text' | translate}}</span>
       <br>
-      <a [routerLink]="['/noMailInformation']" class="warningText break-word">{{'okr-toolbar.warning.no-smtp-link' | translate}}</a>
+      <a [routerLink]="['/noMailInformation']"
+         class="warningText break-word">{{'okr-toolbar.warning.no-smtp-link' | translate}}</a>
     </div>
 
     <span class="fill-space"></span>
     <div class="user-interactions">
       <div class="adminIcon">
-        <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer" matTooltip="{{'okr-toolbar.admin-icon.tooltip.is-admin' | translate}}">
+        <mat-icon *ngIf="isCurrentUserAdmin$ | async" class="icon-spacer"
+                  matTooltip="{{'okr-toolbar.admin-icon.tooltip.is-admin' | translate}}">
           verified_user
         </mat-icon>
       </div>
-      <span [matTooltip]="currentUser.givenName + ' ' + currentUser.surname" *ngIf="currentUser$ | async as currentUser">
+      <span [matTooltip]="currentUser.givenName + ' ' + currentUser.surname"
+            *ngIf="currentUser$ | async as currentUser">
          <app-user-avatar class="icon-spacer-large profileIcon" [user]="currentUser" size="40"></app-user-avatar>
       </span>
 
-      <button mat-icon-button class="icon-spacer-large menuIcon" matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}" [matMenuTriggerFor]="menu">
+      <button mat-icon-button class="icon-spacer-large menuIcon"
+              matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>
@@ -52,7 +60,8 @@
     <mat-icon>assignment</mat-icon>
     <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
-  <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item (click)="routeToCycleAdminPanel()">
+  <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item
+          (click)="routeToCycleAdminPanel()">
     <mat-icon>history</mat-icon>
     <span>{{'okr-toolbar.menu.cycle-administration-text' | translate}}</span>
   </button>
