@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateAdapter} from '@angular/material/core';
+import {CookieHelperService} from './cookie-helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import {DateAdapter} from '@angular/material/core';
 export class OkrTranslationHelperService {
 
   constructor(private translateService: TranslateService,
-              private dateAdapter: DateAdapter<Date>
+              private dateAdapter: DateAdapter<Date>,
+              private cookieHelper: CookieHelperService
   ) { }
 
   initializeTranslationOnStartup(): void {
@@ -17,7 +19,7 @@ export class OkrTranslationHelperService {
     this.translateService.setDefaultLang('en');
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    this.changeToLanguage('en');
+    this.changeToLanguage(this.getInitialLanguage());
   }
 
   changeCurrentLanguageTo(language: string): boolean {
@@ -36,5 +38,17 @@ export class OkrTranslationHelperService {
 
     this.translateService.use(language);
     this.dateAdapter.setLocale(language);
+    this.cookieHelper.setCookieValue('language', language, 30);
+  }
+
+  private getInitialLanguage(): string {
+
+    if (this.cookieHelper.isCookieSet('language')) {
+
+      return this.cookieHelper.getCookieValue('language');
+    } else {
+
+      return 'en';
+    }
   }
 }
