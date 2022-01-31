@@ -16,7 +16,7 @@ export class CookieHelperService {
     return this.cookieMap.has(cookieName);
   }
 
-  getCookieNames(): string[] {
+  getAllCookieNames(): string[] {
 
     const cookieNames: string[] = [];
 
@@ -46,14 +46,14 @@ export class CookieHelperService {
     this.cookieMap.set(cookieName, cookieValue);
   }
 
-  clearAllCookies (): void {
+  clearAllCookies(): void {
 
-    this.cookieMap.forEach( (value, key) => {
+    this.cookieMap.forEach((value, key) => {
       this.deleteCookie(key);
-    })
+    });
   }
 
-  deleteCookie (cookieName: string): void {
+  deleteCookie(cookieName: string): void {
 
     document.cookie=`${cookieName}="";max-age=0; SameSite=Strict`;
     this.cookieMap.delete(cookieName);
