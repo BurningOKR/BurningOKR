@@ -69,7 +69,7 @@ describe('CookieHelperService', () => {
     service.setCookieValue('test2', 'test5678');
     service.setCookieValue('test3', 'test3333', 2);
     expect(service.getAllCookieNames().toString()).toBe('test,test2,test3');
-    expect(document.cookie).toBe('test2=test5678; test3=test3333; test=new test value');
+    expect(document.cookie).toBe('test2=test5678; test3=test3333; test=test1234');
 
     service.clearAllCookies();
     expect(service.getAllCookieNames().toString()).toBe('');
