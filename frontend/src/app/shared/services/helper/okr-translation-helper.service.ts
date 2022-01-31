@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DateAdapter} from '@angular/material/core';
 import {CookieHelperService} from './cookie-helper.service';
+import {getLocaleId} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OkrTranslationHelperService {
 
-  constructor(private translateService: TranslateService,
+  constructor(@Inject(LOCALE_ID) private locale: string,
+              private translateService: TranslateService,
               private dateAdapter: DateAdapter<Date>,
-              private cookieHelper: CookieHelperService
+              private cookieHelper: CookieHelperService,
   ) { }
 
   initializeTranslationOnStartup(): void {
@@ -29,6 +31,9 @@ export class OkrTranslationHelperService {
     if (isLanguageAvailable) {
 
       this.changeToLanguage(language);
+    } else {
+
+      this.changeToLanguage('en');
     }
 
     return isLanguageAvailable;
@@ -46,6 +51,9 @@ export class OkrTranslationHelperService {
     if (this.cookieHelper.isCookieSet('language')) {
 
       return this.cookieHelper.getCookieValue('language');
+    } else if (this.locale !== undefined) {
+
+      return getLocaleId(this.locale);
     } else {
 
       return 'en';
