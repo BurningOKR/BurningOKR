@@ -73,6 +73,7 @@ import {
   ConvertSubmittedTopicDraftToTeamComponent,
 } from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
 import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
+import { ConvertTopicDraftTreeComponent } from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/convert-topic-draft-tree/convert-topic-draft-tree.component';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeDe, 'de', localeDeExtra);
@@ -96,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
     SubmittedTopicDraftDetailsComponent,
     SubmittedTopicDraftEditComponent,
     ConvertSubmittedTopicDraftToTeamComponent,
+    ConvertTopicDraftTreeComponent,
   ],
   imports: [
     AppRoutingModule,

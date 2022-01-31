@@ -29,6 +29,17 @@ public class BranchHelper {
   }
 
   /**
+   * Gets ChildUnits directly under a OkrCompany
+   *
+   * @param okrCompany a {@link OkrCompany} object
+   * @return a {@link Collection} of {@link OkrChildUnit}
+   */
+
+  public static Collection<OkrChildUnit> collectDirectChildUnits(OkrCompany okrCompany) {
+    return okrCompany.getOkrChildUnits();
+  }
+
+  /**
    * Gets all Departments of a OkrCompany.
    *
    * @param okrCompany a {@link OkrCompany} object
