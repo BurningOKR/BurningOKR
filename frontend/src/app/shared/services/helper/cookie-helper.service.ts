@@ -43,6 +43,20 @@ export class CookieHelperService {
     const expireDate: string = expiresInDays ? `expires=${expiresOn.toUTCString()}` : '';
     const cookiePath: string = path ? `; path=${path}` : '';
     document.cookie=`${cookieName}=${cookieValue}; ${expireDate}${cookiePath}; SameSite=Strict`;
+    this.cookieMap.set(cookieName, cookieValue);
+  }
+
+  clearAllCookies (): void {
+
+    this.cookieMap.forEach( (value, key) => {
+      this.deleteCookie(key);
+    })
+  }
+
+  deleteCookie (cookieName: string): void {
+
+    document.cookie=`${cookieName}="";max-age=0; SameSite=Strict`;
+    this.cookieMap.delete(cookieName);
   }
 
   private getCookieMap(): Map<string, string> {

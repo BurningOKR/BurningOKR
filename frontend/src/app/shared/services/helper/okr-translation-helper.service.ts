@@ -24,29 +24,18 @@ export class OkrTranslationHelperService {
     this.changeToLanguage(this.getInitialLanguage());
   }
 
-  changeCurrentLanguageTo(language: string): boolean {
+  changeCurrentLanguageTo(language: string): void {
 
-    const isLanguageAvailable: boolean = this.translateService.getLangs().includes(language);
-
-    if (isLanguageAvailable) {
+    if (this.translateService.getLangs().includes(language)) {
 
       this.changeToLanguage(language);
     } else {
 
       this.changeToLanguage('en');
     }
-
-    return isLanguageAvailable;
   }
 
-  private changeToLanguage(language: string): void {
-
-    this.translateService.use(language);
-    this.dateAdapter.setLocale(language);
-    this.cookieHelper.setCookieValue('language', language, 30);
-  }
-
-  private getInitialLanguage(): string {
+  getInitialLanguage(): string {
 
     if (this.cookieHelper.isCookieSet('language')) {
 
@@ -58,5 +47,12 @@ export class OkrTranslationHelperService {
 
       return 'en';
     }
+  }
+
+  private changeToLanguage(language: string): void {
+
+    this.translateService.use(language);
+    this.dateAdapter.setLocale(language);
+    this.cookieHelper.setCookieValue('language', language, 30);
   }
 }
