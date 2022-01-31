@@ -16,7 +16,7 @@ export class CookieHelperService {
     return this.cookieMap.has(cookieName);
   }
 
-  getCookieNames(): string[] {
+  getAllCookieNames(): string[] {
 
     const cookieNames: string[] = [];
 
