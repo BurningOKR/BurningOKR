@@ -1,10 +1,12 @@
 <div class="flex-nowrap">
-  <div class="unit-name overflow-ellipsis">{{childUnit.name}}
+  <div class="unit-name-entry">
+    <div class="unit-name">{{childUnit.name}}
+    </div>
+    <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
+      <mat-icon *ngIf="isOpen">expand_less</mat-icon>
+      <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
+    </button>
   </div>
-  <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
-    <mat-icon *ngIf="isOpen">expand_less</mat-icon>
-    <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
-  </button>
   <div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
     <app-convert-topic-draft-tree *ngFor="let deeperChildunit of childUnit.substructures" [childUnit]="deeperChildunit">
     </app-convert-topic-draft-tree>
