@@ -17,4 +17,9 @@ export class ConvertTopicDraftTreeComponent {
   toggleOpen(): void {
     this.isOpen = !this.isOpen;
   }
+
+  test(): void {
+    console.log("clicked");
+    console.log(this.childUnit);
+  }
 }

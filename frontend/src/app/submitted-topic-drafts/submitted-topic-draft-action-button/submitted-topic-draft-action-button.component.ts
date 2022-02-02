@@ -20,7 +20,9 @@ import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
 import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
-import { ConvertSubmittedTopicDraftToTeamComponent } from '../submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
+import {
+  ConvertSubmittedTopicDraftToTeamComponent,
+} from '../submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
 
 @Component({
   selector: 'app-submitted-topic-draft-action-button',
@@ -272,7 +274,11 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
     const topicDraft: OkrTopicDraft = this.topicDraft;
 
     const convertSubmittedTopicDraftToTeamReference: MatDialogRef<ConvertSubmittedTopicDraftToTeamComponent, object>
-      = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, { width: '600px', data: { topicDraft } });
+      = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, {
+      minWidth: '600px',
+      width: "auto",
+      data: { topicDraft },
+    });
 
     convertSubmittedTopicDraftToTeamReference
       .afterClosed()
