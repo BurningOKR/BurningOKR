@@ -7,8 +7,8 @@
     <div class="company-header">
       {{company.name}}
     </div>
-    <app-convert-topic-draft-tree *ngFor="let childUnit of company.substructures"
-                                  [childUnit]="childUnit"></app-convert-topic-draft-tree>
+    <app-convert-topic-draft-tree *ngFor="let substructure of company.substructures"
+                                  [substructure]="substructure"></app-convert-topic-draft-tree>
   </div>
   <!--
   <form [formGroup]="chooseStructure">

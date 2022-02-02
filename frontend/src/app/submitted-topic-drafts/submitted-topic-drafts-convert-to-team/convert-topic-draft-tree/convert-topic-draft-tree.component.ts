@@ -7,11 +7,11 @@ import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure
   styleUrls: ['./convert-topic-draft-tree.component.scss'],
 })
 export class ConvertTopicDraftTreeComponent {
-  @Input() childUnit: Structure
+  @Input() substructure: Structure;
   isOpen = false;
 
   hasChildUnits(): boolean {
-    return this.childUnit.substructures.length > 0;
+    return this.substructure.substructures.length > 0;
   }
 
   toggleOpen(): void {
@@ -19,7 +19,7 @@ export class ConvertTopicDraftTreeComponent {
   }
 
   test(): void {
-    console.log("clicked");
-    console.log(this.childUnit);
+    console.log('clicked');
+    console.log(this.substructure);
   }
 }

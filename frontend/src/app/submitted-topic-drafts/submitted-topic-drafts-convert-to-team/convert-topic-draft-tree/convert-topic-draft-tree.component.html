@@ -1,7 +1,7 @@
 <div class="flex-nowrap">
   <div class="unit-name-entry">
     <button mat-button class="unit-name" (click)="test()">
-      {{childUnit.name}}
+      {{substructure.name}}
     </button>
     <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
       <mat-icon *ngIf="isOpen">expand_less</mat-icon>
@@ -9,7 +9,8 @@
     </button>
   </div>
   <div *ngIf="isOpen && hasChildUnits()">
-    <app-convert-topic-draft-tree *ngFor="let deeperChildunit of childUnit.substructures" [childUnit]="deeperChildunit">
+    <app-convert-topic-draft-tree *ngFor="let deeperSubstructure of substructure.substructures"
+                                  [substructure]="deeperSubstructure">
     </app-convert-topic-draft-tree>
   </div>
 </div>

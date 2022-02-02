@@ -276,7 +276,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
     const convertSubmittedTopicDraftToTeamReference: MatDialogRef<ConvertSubmittedTopicDraftToTeamComponent, object>
       = this.dialog.open(ConvertSubmittedTopicDraftToTeamComponent, {
       minWidth: '600px',
-      width: "auto",
+      width: 'auto',
       data: { topicDraft },
     });
 
