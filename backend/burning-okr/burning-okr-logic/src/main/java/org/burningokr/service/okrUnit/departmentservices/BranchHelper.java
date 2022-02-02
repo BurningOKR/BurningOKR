@@ -78,9 +78,7 @@ public class BranchHelper {
     Collection<OkrChildUnit> okrChildUnitCollection = new ArrayList<>();
 
     if (okrChildUnit instanceof OkrParentUnit) {
-      for (OkrChildUnit okrChildUnit1 : ((OkrParentUnit) okrChildUnit).getOkrChildUnits()) {
-        okrChildUnitCollection.addAll(collectChildUnits(okrChildUnit1));
-      }
+      okrChildUnitCollection.addAll(((OkrParentUnit) okrChildUnit).getOkrChildUnits());
     }
 
     return okrChildUnitCollection;
