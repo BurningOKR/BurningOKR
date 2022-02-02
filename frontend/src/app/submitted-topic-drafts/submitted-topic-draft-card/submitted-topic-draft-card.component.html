@@ -2,7 +2,7 @@
   <div class="card-head-wrapper">
     <div class="card-head-info-wrapper">
       <span class="card-head-info">{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</span>
-      <span class="card-head-info">{{topicDraft.beginning.toLocaleDateString()}}</span>
+      <span class="card-head-info">{{mapDateToLocaleString(topicDraft.beginning)}}</span>
       <span class="card-head-info card-head-info-name" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
     </div>
     <div class="card-head-button-wrapper" (click)="$event.stopPropagation();">

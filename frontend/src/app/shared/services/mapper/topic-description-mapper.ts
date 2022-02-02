@@ -5,16 +5,20 @@ import { DepartmentId } from '../../model/id-types';
 import { Observable } from '../../../../typings';
 import { TopicDescriptionApiService } from '../api/topic-description-api.service';
 import { map } from 'rxjs/internal/operators';
+import { DateMapper } from './date.mapper';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class TopicDescriptionMapper {
-  constructor(private topicDescriptionApiService: TopicDescriptionApiService) {
+  constructor(
+    private topicDescriptionApiService: TopicDescriptionApiService,
+    private dateMapper: DateMapper,
+  ) {
   }
 
-  static mapTopicDescriptionDto(description: OkrTopicDescriptionDto): OkrTopicDescription {
+  mapTopicDescriptionDto(description: OkrTopicDescriptionDto): OkrTopicDescription {
     return new OkrTopicDescription(
       description.id,
       description.name,
@@ -33,8 +37,9 @@ export class TopicDescriptionMapper {
     );
   }
 
-  static mapTopicDescription(description: OkrTopicDescription): OkrTopicDescriptionDto {
+  mapTopicDescription(description: OkrTopicDescription): OkrTopicDescriptionDto {
     const descriptionDto: OkrTopicDescriptionDto = new OkrTopicDescriptionDto();
+    const beginning: Date = this.dateMapper.mapToDate(description.beginning);
     descriptionDto.id = description.id;
     descriptionDto.name = description.name;
     descriptionDto.initiatorId = description.initiatorId;
@@ -43,10 +48,10 @@ export class TopicDescriptionMapper {
     descriptionDto.description = description.description;
     descriptionDto.contributesTo = description.contributesTo;
     descriptionDto.delimitation = description.delimitation;
-    descriptionDto.beginning = description.beginning ? [
-      Number(description.beginning.getFullYear()),
-      Number(description.beginning.getMonth()) + 1,
-      Number(description.beginning.getDate())
+    descriptionDto.beginning = beginning ? [
+      Number(beginning.getFullYear()),
+      Number(beginning.getMonth()) + 1,
+      Number(beginning.getDate())
     ] : null;
     descriptionDto.dependencies = description.dependencies;
     descriptionDto.resources = description.resources;
@@ -58,12 +63,12 @@ export class TopicDescriptionMapper {
   getTopicDescriptionById$(departmentId: DepartmentId): Observable<OkrTopicDescription> {
     return this.topicDescriptionApiService
       .getTopicDescriptionById$(departmentId)
-      .pipe(map(descriptionDto => TopicDescriptionMapper.mapTopicDescriptionDto(descriptionDto)));
+      .pipe(map(descriptionDto => this.mapTopicDescriptionDto(descriptionDto)));
   }
 
   putTopicDescription$(departmentId: DepartmentId, description: OkrTopicDescription): Observable<OkrTopicDescription> {
     return this.topicDescriptionApiService
-      .putTopicDescription$(departmentId, TopicDescriptionMapper.mapTopicDescription(description))
-      .pipe(map(descriptionDto => TopicDescriptionMapper.mapTopicDescriptionDto(descriptionDto)));
+      .putTopicDescription$(departmentId, this.mapTopicDescription(description))
+      .pipe(map(descriptionDto => this.mapTopicDescriptionDto(descriptionDto)));
   }
 }

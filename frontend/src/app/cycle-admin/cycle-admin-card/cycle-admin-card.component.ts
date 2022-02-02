@@ -1,18 +1,18 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
-import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog.component';
-import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
 import { MatDialog } from '@angular/material/dialog';
-import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
-import { filter, switchMap, take } from 'rxjs/operators';
-import { CycleEditFormComponent, CycleEditFormData } from '../cycle-edit-form/cycle-edit-form.component';
-import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import { DeleteDialogComponent } from '../../shared/components/delete-dialog/delete-dialog.component';
+import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
+import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
+import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
+import { CycleEditFormComponent, CycleEditFormData } from '../cycle-edit-form/cycle-edit-form.component';
 
 @Component({
   selector: 'app-cycle-admin-card',
   templateUrl: './cycle-admin-card.component.html',
-  styleUrls: ['./cycle-admin-card.component.scss']
+  styleUrls: ['./cycle-admin-card.component.scss'],
 })
 export class CycleAdminCardComponent {
 
@@ -21,35 +21,37 @@ export class CycleAdminCardComponent {
   @Output() cycleChanged: EventEmitter<CycleUnit> = new EventEmitter<CycleUnit>();
 
   cycleState = CycleState;
+  currentLang$: Observable<string>;
 
   constructor(
     private translate: TranslateService,
     private dialog: MatDialog,
     private cycleMapper: CycleMapper,
   ) {
+    this.currentLang$ = translate.onLangChange.pipe(map(lang => lang.lang), startWith(translate.currentLang));
   }
 
   deleteCycle(): void {
-    const data: {data: DeleteDialogData} = this.getDataForCycleDeletionDialog();
+    const data: { data: DeleteDialogData } = this.getDataForCycleDeletionDialog();
 
     this.dialog.open(DeleteDialogComponent, data)
       .afterClosed()
       .pipe(
-      filter(v => v),
-      switchMap(() => {
-        return  this.cycleMapper.deleteCycleById$(this.cycle.id);
-      }))
+        filter(v => v),
+        switchMap(() => {
+          return this.cycleMapper.deleteCycleById$(this.cycle.id);
+        }))
       .subscribe(() => {
         this.cycleChanged.emit(this.cycle);
       });
   }
 
-  getDataForCycleDeletionDialog(): {data: DeleteDialogData} {
+  getDataForCycleDeletionDialog(): { data: DeleteDialogData } {
     return {
       data: {
         title: this.getCycleTranslation(),
         objectNameWithArticle: this.getGeneralDeleteDialogContentTranslation(),
-      }
+      },
     };
   }
 
@@ -67,15 +69,15 @@ export class CycleAdminCardComponent {
   editCycle(): void {
     const data: CycleEditFormData = {
       cycle: this.cycle,
-      allCyclesOfCompany$: this.allCyclesOfCompany$
+      allCyclesOfCompany$: this.allCyclesOfCompany$,
     };
 
-    this.dialog.open(CycleEditFormComponent, {data})
+    this.dialog.open(CycleEditFormComponent, { data })
       .afterClosed()
       .pipe(
         take(1),
         filter(x => x),
-        switchMap(x => x)
+        switchMap(x => x),
       )
       .subscribe((cycle: CycleUnit) => {
         this.cycle = cycle;

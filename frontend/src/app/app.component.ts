@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from './core/auth/services/authentication.service';
-import { FetchingService } from './core/services/fetching.service';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
-import {TranslateService} from '@ngx-translate/core';
+import { AuthenticationService } from './core/auth/services/authentication.service';
+import { FetchingService } from './core/services/fetching.service';
+import {OkrTranslationHelperService} from './shared/services/helper/okr-translation-helper.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   userLoggedIn: boolean = this.authService.hasValidAccessToken();
@@ -17,17 +17,12 @@ export class AppComponent {
   constructor(private authService: AuthenticationService,
               private fetchingService: FetchingService,
               private router: Router,
-              translateService: TranslateService) {
-
+              private OkrTranslationHelper: OkrTranslationHelperService) {
     this.authService.configure()
       .then(() => {
         this.fetchingService.refetchAll();
       });
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translateService.setDefaultLang('en');
-
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translateService.use('en');
+    this.OkrTranslationHelper.initializeTranslationOnStartup();
   }
 
   checkIfUserIsLoggedIn(): boolean {

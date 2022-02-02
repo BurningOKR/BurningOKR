@@ -38,10 +38,7 @@ export class ChangePasswordDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateNewPasswordForm();
-    this.translate.stream('change-password-dialog.form.title').pipe(take(1))
-      .subscribe(text => {
-        this.title = text;
-      });
+    this.title = this.translate.instant('change-password-dialog.form.title');
   }
 
   generateNewPasswordForm(): void {

@@ -51,10 +51,7 @@ export class TopicDraftCreationFormComponent implements OnInit {
       this.topicDraftForm.patchValue(this.formData.topicDraft);
     }
 
-    this.translate.stream('topic-draft-creation-form.dialog-title').pipe(take(1))
-      .subscribe(text => {
-        this.title = text;
-      });
+    this.title = this.translate.instant('topic-draft-creation-form.dialog-title');
   }
 
   getCurrentUserId(): UserId {

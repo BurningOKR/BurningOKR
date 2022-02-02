@@ -1,7 +1,8 @@
 <mat-card class="cycle-card">
   <mat-card-title>{{cycle.name}}</mat-card-title>
   <mat-card-content>
-    {{cycle.startDate | date: 'dd.MM.yyyy' }} - {{cycle.endDate | date: 'dd.MM.yyyy'}}
+    {{cycle.startDate | date: undefined: undefined: (currentLang$ | async)}}
+    - {{cycle.endDate | date: undefined: undefined: (currentLang$ | async)}}
   </mat-card-content>
   <mat-card-content>
     <i *ngIf="cycle.isVisible; else invisible">
@@ -19,7 +20,8 @@
       <span>{{ 'cycle-admin-card.edit-cycle' | translate }}</span>
     </button>
 
-    <button mat-stroked-button [disabled]="cycle.cycleState === cycleState.ACTIVE" (click)="$event.stopPropagation(); deleteCycle()">
+    <button mat-stroked-button [disabled]="cycle.cycleState === cycleState.ACTIVE"
+            (click)="$event.stopPropagation(); deleteCycle()">
       <mat-icon>delete</mat-icon>
       <span>{{ 'cycle-admin-card.delete-cycle' | translate }}</span>
     </button>

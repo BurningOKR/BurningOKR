@@ -26,16 +26,17 @@ We are already working on a faster and easier installation process, so stay tune
 1. Install [PostgreSQL](/docs/postgres_install.md) or [MSSQL](/docs/mssql_install.md)
 2. Install JDK 8. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
 3. Install the (!) LTS Version of node & npm [here](https://nodejs.org/en/download/)
-4. Clone the Repository with `git clone https://github.com/BurningOKR/BurningOKR`. The whole repository (including frontend and backend) is cloned.
-5. Import the project into your favorable IDE (IntelliJ recommended, VS Code should also do the trick ). We recommend opening a separate window for the backend and frontend.
-6. Run `npm install @angular/cli -g`
-7. Run `npm install in the frontend folder`
-8. [Configure](/docs/configure.md) the backend.
+4. Download the following [Batch-Script](/docs/scripts/SetupBurningOKR_windows.bat) and put it in the folder, where you want the project to be. Execute the script. The following three tasks will be done by the script:
+   1. Clone the Repository with `git clone https://github.com/BurningOKR/BurningOKR`. The whole repository (including frontend and backend) is cloned.
+   2. Run `npm install @angular/cli -g`
+   3. Run `npm install` in the frontend folder
+5. Open the frontend-folder and the backend-folder in seperate windows in your IDE. (We recommend IntelliJ, VS Code should also do the trick)
+6. [Configure](/docs/configure.md) the backend.
+7. Start the frontend with `npm start`
+8. Start the backend with the gradle `Start backend` configuration. 
+   1. Alternatively create the configuration like \
+   ![intelliJ-Run-Configuration](./docs/images/boot-run-config.png)
 
-9. Start the frontend with `npm start`
-10. Start the backend with the gradle `burning-okr-backend[boot-run]` configuration.
-
-10.1 Alternatively create the configuration like ![intelliJ-Run-Configuration](./docs/images/boot-run-config.png)
 ### Source Code
 
 The source code of the project consists of two parts. A Frontend SPA with the framework **Angular** and a **Spring Boot** project for the backend.
