@@ -34,7 +34,6 @@ public class BranchHelper {
    * @param okrCompany a {@link OkrCompany} object
    * @return a {@link Collection} of {@link OkrChildUnit}
    */
-
   public static Collection<OkrChildUnit> collectDirectChildUnits(OkrCompany okrCompany) {
     return okrCompany.getOkrChildUnits();
   }
