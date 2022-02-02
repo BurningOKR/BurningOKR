@@ -11,6 +11,15 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.4.3 (02.02.2022)',
+      changes: [
+        'Fixed the countdown-timer in the demo-mode',
+        'Usability Improvement: Pick language in the login screen',
+        'Usability Improvement: Selected Language is now saved in a cookie',
+        'Usability Improvement: The standard Language is now the Local language'
+      ]
+    },
+    {
       version: '1.4.2 (19.01.2022)',
       changes: [
         'Fixed the countdown-timer in the demo-mode',
