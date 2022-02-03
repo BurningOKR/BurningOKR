@@ -38,6 +38,7 @@ describe('OkrTranslationService', () => {
 
   it('should return english after setting an incorrect Language', () => {
 
+    service.initializeTranslationOnStartup();
     service.changeCurrentLanguageTo('es');
     expect(translateService.currentLang).toBe('en');
   });
