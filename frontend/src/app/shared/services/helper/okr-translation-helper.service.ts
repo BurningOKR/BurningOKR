@@ -16,41 +16,29 @@ export class OkrTranslationHelperService {
   ) { }
 
   initializeTranslationOnStartup(): void {
-
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translateService.setDefaultLang('en');
-
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.changeToLanguage(this.getInitialLanguage());
   }
 
   changeCurrentLanguageTo(language: string): void {
-
     if (this.translateService.getLangs().includes(language)) {
-
       this.changeToLanguage(language);
-    } else {
-
-      this.changeToLanguage('en');
     }
   }
 
   getInitialLanguage(): string {
-
     if (this.cookieHelper.isCookieSet('language')) {
-
       return this.cookieHelper.getCookieValue('language');
     } else if (this.locale !== undefined) {
-
       return getLocaleId(this.locale);
     } else {
-
       return 'en';
     }
   }
 
   private changeToLanguage(language: string): void {
-
     this.translateService.use(language);
     this.dateAdapter.setLocale(language);
     this.cookieHelper.setCookieValue('language', language, 30);
