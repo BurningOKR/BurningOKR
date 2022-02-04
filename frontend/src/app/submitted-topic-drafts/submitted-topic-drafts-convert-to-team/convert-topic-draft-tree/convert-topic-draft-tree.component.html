@@ -1,6 +1,6 @@
-<div class="flex-nowrap">
+<div class="flex-nowrap horizontal-line">
   <div class="unit-name-entry">
-    <button mat-button class="unit-name" (click)="test()">
+    <button mat-flat-button (click)="selectStructure()">
       {{substructure.name}}
     </button>
     <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">

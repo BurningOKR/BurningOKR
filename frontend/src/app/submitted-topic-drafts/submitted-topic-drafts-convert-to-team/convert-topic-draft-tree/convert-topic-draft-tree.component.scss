@@ -2,9 +2,8 @@
   align-self: flex-start;
 }
 
-.unit-name {
-  width: auto;
-  display: contents;
-
+.horizontal-line {
+  border: 0 solid #a81732;
+  border-bottom-width: 1px;
+  border-radius: 5px;
 }
-
