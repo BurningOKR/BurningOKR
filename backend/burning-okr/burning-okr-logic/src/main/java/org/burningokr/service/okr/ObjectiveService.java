@@ -182,10 +182,8 @@ public class ObjectiveService {
     throwIfKeyResultLimitIsHit(referencedObjective);
     throwIfCycleForObjectiveIsClosed(referencedObjective);
 
-    for (KeyResult otherKeyResult : referencedObjective.getKeyResults()) {
-      otherKeyResult.setSequence(otherKeyResult.getSequence() + 1);
-      keyResultRepository.save(otherKeyResult);
-    }
+    keyResult.setSequence(referencedObjective.getKeyResults().size());
+
     keyResult.setParentObjective(referencedObjective);
 
     keyResult = keyResultRepository.save(keyResult);
