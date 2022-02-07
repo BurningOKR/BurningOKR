@@ -3,23 +3,28 @@ import {TranslateService} from '@ngx-translate/core';
 import {DateAdapter} from '@angular/material/core';
 import {CookieHelperService} from './cookie-helper.service';
 import {getLocaleId} from '@angular/common';
+import {Observable} from "rxjs";
+import {map, startWith} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OkrTranslationHelperService {
 
+  private currentLanguage$: Observable<string>;
+
   constructor(@Inject(LOCALE_ID) private locale: string,
               private translateService: TranslateService,
               private dateAdapter: DateAdapter<Date>,
               private cookieHelper: CookieHelperService,
-  ) { }
+  ) {}
 
   initializeTranslationOnStartup(): void {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translateService.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.changeToLanguage(this.getInitialLanguage());
+    this.currentLanguage$ = this.translateService.onLangChange.pipe(map(lang => lang.lang), startWith(this.translateService.currentLang));
   }
 
   changeCurrentLanguageTo(language: string): void {
@@ -36,6 +41,10 @@ export class OkrTranslationHelperService {
     } else {
       return 'en';
     }
+  }
+
+  getCurrentLanguage$ (): Observable<string> {
+    return this.currentLanguage$;
   }
 
   private changeToLanguage(language: string): void {
