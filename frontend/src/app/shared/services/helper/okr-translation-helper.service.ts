@@ -41,6 +41,6 @@ export class OkrTranslationHelperService {
   private changeToLanguage(language: string): void {
     this.translateService.use(language);
     this.dateAdapter.setLocale(language);
-    this.cookieHelper.setCookieValue('language', language, 30);
+    this.cookieHelper.setCookieValue('language', language, 30, '/');
   }
 }
