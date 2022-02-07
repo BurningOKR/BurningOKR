@@ -129,8 +129,8 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
   }
 
   onKeyResultAdded(newKeyResult: ViewKeyResult): void {
-    this.keyResultList.unshift(newKeyResult);
-    this.objective.keyResultIdList.unshift(newKeyResult.id);
+    this.keyResultList.push(newKeyResult);
+    this.objective.keyResultIdList.push(newKeyResult.id);
     this.updateVisualKeyResultProgressTotals();
   }
 
