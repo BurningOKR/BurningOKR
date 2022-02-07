@@ -5,7 +5,7 @@
   <div class="ml-10">
     <div class="flex-nowrap comment-user-name">
       <div class="fill-space"><b>
-        {{comment.userName}}</b> <small class="ml-10">{{comment.date | date: 'dd.MM.yyyy HH:mm' }}</small>
+        {{comment.userName}}</b> <small class="ml-10">{{comment.date | dateFormat | async }}</small>
       </div>
 
       <div *ngIf="!isEditingComment && isOwnerOfNote$ | async">

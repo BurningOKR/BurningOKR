@@ -1,8 +1,8 @@
 <mat-card class="cycle-card">
   <mat-card-title>{{cycle.name}}</mat-card-title>
   <mat-card-content>
-    {{cycle.startDate | date: undefined: undefined: (currentLang$ | async)}}
-    - {{cycle.endDate | date: undefined: undefined: (currentLang$ | async)}}
+    {{cycle.startDate | dateFormat: true | async }}
+    - {{cycle.endDate | dateFormat: true | async }}
   </mat-card-content>
   <mat-card-content>
     <i *ngIf="cycle.isVisible; else invisible">
