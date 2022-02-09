@@ -11,11 +11,11 @@ import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalU
 import { of } from 'rxjs';
 import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { DepartmentDescriptionEditFormComponent } from './department-description-edit-form/department-description-edit-form.component';
+import {OkrTranslationHelperService} from "../../../../shared/services/helper/okr-translation-helper.service";
 
 describe('DepartmentTabDescription', () => {
   let component: DepartmentTabDescriptionComponent;
   let fixture: ComponentFixture<DepartmentTabDescriptionComponent>;
-
   const topicDescriptionMapperService: any = {
     getTopicDescriptionById$: jest.fn()
   };
@@ -28,6 +28,14 @@ describe('DepartmentTabDescription', () => {
     afterClosed: jest.fn()
   };
 
+  const okrTranslationHelperService: any = {
+    getCurrentLanguage$: jest.fn(
+      () => {
+        return of('de');
+      }
+    )
+  }
+
   let department: OkrDepartment;
   let topicDescription: OkrTopicDescription;
   let userRole: ContextRole;
@@ -38,7 +46,8 @@ describe('DepartmentTabDescription', () => {
       imports: [SharedModule, MaterialTestingModule],
       providers: [
         { provide: TopicDescriptionMapper, useValue: topicDescriptionMapperService },
-        { provide: MatDialog, useValue: matDialog }
+        { provide: MatDialog, useValue: matDialog },
+        { provide: OkrTranslationHelperService, useValue: okrTranslationHelperService },
       ]
     })
       .compileComponents();
