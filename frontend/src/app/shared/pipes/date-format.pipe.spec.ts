@@ -8,7 +8,10 @@ describe('DateFormatPipe', () => {
   const testDate: Date = new Date('11.22.2021');
 
   beforeAll (() => {
-    dateFormatPipe = new DateFormatPipe(new OkrTranslationHelperService(undefined, undefined, undefined, undefined));
+    const okrTranslationHelper: OkrTranslationHelperService = new OkrTranslationHelperService(undefined, undefined, undefined, undefined);
+    (okrTranslationHelper as any).currentLanguage$ = of('');
+    (okrTranslationHelper as any).translateService = {currentLang: 'test-language'};
+    dateFormatPipe = new DateFormatPipe(okrTranslationHelper);
   });
 
   it('should create an instance', () => {

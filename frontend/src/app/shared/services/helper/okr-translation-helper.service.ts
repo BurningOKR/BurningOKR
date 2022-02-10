@@ -11,6 +11,8 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class OkrTranslationHelperService {
 
+  private currentLanguage$: Observable<string>;
+
   constructor(@Inject(LOCALE_ID) private locale: string,
               private translateService: TranslateService,
               private dateAdapter: DateAdapter<Date>,
@@ -22,6 +24,7 @@ export class OkrTranslationHelperService {
     this.translateService.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.changeToLanguage(this.getInitialLanguage());
+    this.currentLanguage$ = this.translateService.onLangChange.pipe(map(lang => lang.lang));
   }
 
   changeCurrentLanguageTo(language: string): void {
@@ -41,7 +44,7 @@ export class OkrTranslationHelperService {
   }
 
   getCurrentLanguage$(): Observable<string> {
-    return this.translateService.onLangChange.pipe(map(lang => lang.lang), startWith(this.translateService.currentLang));
+    return this.currentLanguage$.pipe(startWith(this.translateService.currentLang));
   }
 
   private changeToLanguage(language: string): void {
