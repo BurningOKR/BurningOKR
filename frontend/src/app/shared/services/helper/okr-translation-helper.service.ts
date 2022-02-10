@@ -1,10 +1,10 @@
-import {Inject, Injectable, LOCALE_ID} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {DateAdapter} from '@angular/material/core';
-import {CookieHelperService} from './cookie-helper.service';
-import {getLocaleId} from '@angular/common';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { DateAdapter } from '@angular/material/core';
+import { CookieHelperService } from './cookie-helper.service';
+import { getLocaleId } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

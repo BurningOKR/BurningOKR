@@ -13,7 +13,7 @@ import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-un
 import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { TranslateService } from '@ngx-translate/core';
-import {DateFormatPipe} from '../../shared/pipes/date-format.pipe';
+import { DateFormatPipe } from '../../shared/pipes/date-format.pipe';
 
 describe('OkrUnitCardComponent', () => {
 

@@ -1,22 +1,19 @@
 <ng-container *ngIf="currentCycleList$ | async as currentCycleList">
   <ng-container *ngIf="currentCycle$ | async as currentCycle">
     <mat-form-field class="number-input history-cycle-input navbar-item-dropdown">
-
       <mat-select [value]="currentCycle" (selectionChange)="onSelectCycle($event.value)">
 
         <mat-select-trigger>
-          {{ currentCycle.abbreviation }} <br>
-          <small>[{{ currentCycle.startDate | dateFormat | async }} -
-            {{ currentCycle.endDate | dateFormat | async }}]</small>
+          {{currentCycle.abbreviation}} <br>
+          <small>[{{currentCycle.startDate | dateFormat | async}} - {{currentCycle.endDate | dateFormat | async}}]</small>
           <mat-icon class="padlock-margin" *ngIf="currentCycle.cycleState === 'CLOSED'">lock</mat-icon>
           <mat-icon class="padlock-margin" *ngIf="currentCycle.cycleState === 'PREPARATION'">watch_later
           </mat-icon>
         </mat-select-trigger>
 
         <mat-option class="option" *ngFor="let cycleListEntry of currentCycleList" [value]="cycleListEntry">
-          {{ cycleListEntry.abbreviation }} <br>
-          <small>[{{ cycleListEntry.startDate | dateFormat | async }} -
-            {{ cycleListEntry.endDate | dateFormat | async }}]</small>
+          {{cycleListEntry.abbreviation}} <br>
+          <small>[{{cycleListEntry.startDate | dateFormat | async}} - {{cycleListEntry.endDate | dateFormat | async}}]</small>
           <mat-icon class="padlock-margin" *ngIf="cycleListEntry.cycleState === 'CLOSED'">lock</mat-icon>
           <mat-icon class="padlock-margin" *ngIf="cycleListEntry.cycleState === 'PREPARATION'">watch_later
           </mat-icon>

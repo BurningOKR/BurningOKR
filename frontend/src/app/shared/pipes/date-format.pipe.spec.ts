@@ -1,6 +1,6 @@
 import { DateFormatPipe } from './date-format.pipe';
-import {OkrTranslationHelperService} from '../services/helper/okr-translation-helper.service';
-import {of} from 'rxjs';
+import { OkrTranslationHelperService } from '../services/helper/okr-translation-helper.service';
+import { of } from 'rxjs';
 
 describe('DateFormatPipe', () => {
 
