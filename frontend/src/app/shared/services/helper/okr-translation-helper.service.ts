@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DateAdapter } from '@angular/material/core';
 import { CookieHelperService } from './cookie-helper.service';
 import { getLocaleId } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class OkrTranslationHelperService {
 
-  private currentLanguage$: Observable<string>;
+  private currentLanguage$: Observable<string> = of('');
 
   constructor(@Inject(LOCALE_ID) private locale: string,
               private translateService: TranslateService,

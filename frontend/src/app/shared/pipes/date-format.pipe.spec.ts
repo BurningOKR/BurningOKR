@@ -9,7 +9,6 @@ describe('DateFormatPipe', () => {
 
   beforeAll (() => {
     const okrTranslationHelper: OkrTranslationHelperService = new OkrTranslationHelperService(undefined, undefined, undefined, undefined);
-    (okrTranslationHelper as any).currentLanguage$ = of('');
     (okrTranslationHelper as any).translateService = {currentLang: 'test-language'};
     dateFormatPipe = new DateFormatPipe(okrTranslationHelper);
   });
