@@ -33,8 +33,6 @@
           <mat-form-field>
             <mat-label>{{'submitted-topic-draft-details.field.begin' | translate}}</mat-label>
             <input matInput readonly formControlName="beginning">
-            <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>-->
           </mat-form-field>
         </div>
       </div>
@@ -120,8 +118,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <span matTooltip="{{'submitted-topic-draft-details.button.tooltip-no-permission' | translate}}" [matTooltipDisabled]="(canEdit$ | async) && (topicDraft.currentStatus === enumStatus.submitted || topicDraft.currentStatus === enumStatus.draft)">
-    <button [disabled]="(canEdit$ | async) === false|| topicDraft.currentStatus === enumStatus.approved || topicDraft.currentStatus === enumStatus.rejected" mat-button color="primary" (click)="editDialog()">
+  <span matTooltip="{{'submitted-topic-draft-details.button.tooltip-no-permission' | translate}}" [matTooltipDisabled]="canEdit && (topicDraft.currentStatus === enumStatus.submitted || topicDraft.currentStatus === enumStatus.draft)">
+    <button [disabled]="!canEdit || topicDraft.currentStatus === enumStatus.approved || topicDraft.currentStatus === enumStatus.rejected" mat-button color="primary" (click)="editDialog()">
      <span>{{'submitted-topic-draft-details.button.edit' | translate}}</span>
     </button>
   </span>
