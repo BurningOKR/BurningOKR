@@ -2,15 +2,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { DateMapper } from '../../shared/services/mapper/date.mapper';
-import { SubmittedTopicDraftDetailsComponent } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
+import {
+  TopicDraftDetailsDialogueComponent
+} from '../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-submitted-topic-draft-card',
-  templateUrl: './submitted-topic-draft-card.component.html',
-  styleUrls: ['./submitted-topic-draft-card.component.css']
+  selector: 'app-topic-draft-card',
+  templateUrl: './topic-draft-card.component.html',
+  styleUrls: ['./topic-draft-card.component.css']
 })
-export class SubmittedTopicDraftCardComponent {
+export class TopicDraftCardComponent {
   @Input() topicDraft: OkrTopicDraft;
   @Output() topicDraftDeletedEvent = new EventEmitter<OkrTopicDraft>();
   @Output() editedTopicDraftEvent: EventEmitter<OkrTopicDraft> = new EventEmitter<OkrTopicDraft>();
@@ -30,7 +32,7 @@ export class SubmittedTopicDraftCardComponent {
       },
       width: '80vw'
     };
-    this.dialog.open(SubmittedTopicDraftDetailsComponent, config);
+    this.dialog.open(TopicDraftDetailsDialogueComponent, config);
   }
 
   notifyWrapperOfEditing(topicDraft: OkrTopicDraft): void {
@@ -41,6 +43,7 @@ export class SubmittedTopicDraftCardComponent {
     this.topicDraftDeletedEvent.emit(this.topicDraft);
   }
 
+  // TODO auf dateFormat Pipe umstellen
   mapDateToLocaleString(date: Date): string{
     return this.dateMapper.mapToDate(date).toLocaleDateString();
   }

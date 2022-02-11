@@ -4,14 +4,16 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
+import {
+  SubmittedTopicDraftDetailsFormData
+} from '../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
 
 @Component({
-  selector: 'app-submitted-topic-draft-edit',
-  templateUrl: './submitted-topic-draft-edit.component.html',
-  styleUrls: ['./submitted-topic-draft-edit.component.css'],
+  selector: 'app-topic-draft-edit-dialogue',
+  templateUrl: './topic-draft-edit-dialogue.component.html',
+  styleUrls: ['./topic-draft-edit-dialogue.component.css'],
 })
-export class SubmittedTopicDraftEditComponent implements OnInit {
+export class TopicDraftEditDialogueComponent implements OnInit {
 
   topicDraft: OkrTopicDraft;
   topicDraftForm: FormGroup;
@@ -20,7 +22,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
   editedTopicDraftEvent: EventEmitter<OkrTopicDraft>;
 
   constructor(
-    private dialogRef: MatDialogRef<SubmittedTopicDraftEditComponent>,
+    private dialogRef: MatDialogRef<TopicDraftEditDialogueComponent>,
     private topicDraftMapper: TopicDraftMapper,
     @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any),
   ) {
@@ -48,6 +50,7 @@ export class SubmittedTopicDraftEditComponent implements OnInit {
       this.topicDraftForm.patchValue(this.formData.topicDraft);
     }
 
+    // TODO Übersetzung prüfen
     this.title = 'Themenentwurf bearbeiten';
   }
 
