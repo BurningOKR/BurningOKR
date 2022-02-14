@@ -95,6 +95,7 @@ describe('ChildUnitOverviewTabComponent', () => {
     component = fixture.componentInstance;
     component.okrChildUnit = department;
     component.currentUserRole = currentUserRole;
+    component.objectiveList = [new ViewObjective(1, 'testName', 'testDescription', '', 0, [], true, null, 123, '321', 0, [])];
     fixture.detectChanges();
   });
 
@@ -217,5 +218,27 @@ describe('ChildUnitOverviewTabComponent', () => {
     const list: number[] = component.calculateDepartmentOrderedIdList();
     expect(list)
       .toEqual([]);
+  });
+
+  it('should add new objective to bottom of objectivelist', () => {
+    const newObjective: ViewObjective = new ViewObjective(
+      2,
+      'TestObjectiveAdd 2',
+      'TestObjective for addingFeature',
+      '',
+      1,
+      [],
+      true,
+      null,
+      23,
+      '321',
+      0,
+      []
+    );
+
+    component.onObjectiveAdded(newObjective);
+
+    expect(component.objectiveList.pop()).toEqual(newObjective);
+    expect(component.okrChildUnit.objectives.pop()).toEqual(newObjective.id);
   });
 });

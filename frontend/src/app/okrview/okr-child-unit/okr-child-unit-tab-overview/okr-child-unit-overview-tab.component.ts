@@ -98,7 +98,7 @@ export class OkrChildUnitOverviewTabComponent implements OnInit, OnChanges {
   }
 
   onObjectiveAdded(newObjective: ViewObjective): void {
-    this.objectiveList.unshift(newObjective);
-    this.okrChildUnit.objectives.unshift(newObjective.id);
+    this.objectiveList.push(newObjective);
+    this.okrChildUnit.objectives.push(newObjective.id);
   }
 }
