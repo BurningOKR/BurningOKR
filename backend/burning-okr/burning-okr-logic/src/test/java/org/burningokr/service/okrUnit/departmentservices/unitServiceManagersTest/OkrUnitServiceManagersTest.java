@@ -95,9 +95,9 @@ public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
 
     okrUnitServiceManagers.createObjective(departmentId, objective, user);
 
-    Assert.assertEquals(6, otherObjective0.getSequence());
-    Assert.assertEquals(7, otherObjective1.getSequence());
-    Assert.assertEquals(11, otherObjective2.getSequence());
+    Assert.assertEquals(5, otherObjective0.getSequence());
+    Assert.assertEquals(6, otherObjective1.getSequence());
+    Assert.assertEquals(10, otherObjective2.getSequence());
   }
 
   @Test(expected = ForbiddenException.class)
