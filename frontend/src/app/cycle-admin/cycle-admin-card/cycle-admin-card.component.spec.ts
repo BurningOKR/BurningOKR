@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { TranslateService } from '@ngx-translate/core';
+import { DateFormatPipe } from '../../shared/pipes/date-format.pipe';
 
 describe('CycleAdminCardComponent', () => {
   let fixture: any;
@@ -25,7 +26,10 @@ describe('CycleAdminCardComponent', () => {
         RouterTestingModule,
         MaterialTestingModule,
       ],
-      declarations: [CycleAdminCardComponent],
+      declarations: [
+        CycleAdminCardComponent,
+        DateFormatPipe,
+      ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
       providers: [
         { provide: MatDialog, useValue: {}},
