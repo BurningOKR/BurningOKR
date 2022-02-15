@@ -86,7 +86,9 @@ dependencies {
     compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
 }
 
-
+springBoot{
+    buildInfo()
+}
 
 configurations {
     providedRuntime
