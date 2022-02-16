@@ -15,9 +15,6 @@ import {
 import {
   ConvertTopicDraftToTeamDialogueComponent
 } from './convert-topic-draft-to-team/convert-topic-draft-to-team-dialogue-component/convert-topic-draft-to-team-dialogue.component';
-import {
-  ConvertTopicDraftTreeComponent
-} from './convert-topic-draft-to-team/convert-topic-draft-tree/convert-topic-draft-tree.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
@@ -43,7 +40,6 @@ import { MatInputModule } from '@angular/material/input';
     TopicDraftDetailsDialogueComponent,
     TopicDraftEditDialogueComponent,
     ConvertTopicDraftToTeamDialogueComponent,
-    ConvertTopicDraftTreeComponent,
   ],
   imports: [
     CommonModule,
