@@ -18,7 +18,7 @@
 @media (max-width: 768px) {
   .short-text { display: inline-block; }
   .full-text { display: none; }
-  #submitted-topic-drafts-page-topic {
+  #topic-drafts-page-topic {
     font-size: medium;
   }
 }

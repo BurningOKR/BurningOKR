@@ -1,20 +1,20 @@
-.submitted-topic-draft-card {
+.topic-draft-card {
   max-width: 1600px;
   margin-bottom: 0.9rem;
   cursor: pointer;
 }
 
-.submitted-topic-draft-option-button {
+.topic-draft-option-button {
   margin: 5px;
 }
 
-#submitted-topic-draft-option-button {
+#topic-draft-option-button {
   margin: 5px;
   position: absolute;
   right: 0;
 }
 
-.submitted-topic-draft-card:hover {
+.topic-draft-card:hover {
   background-color: #f0f0f0;
 }
 
@@ -53,7 +53,7 @@
 }
 
 @media (max-width: 768px) {
-  .submitted-topic-draft-card {
+  .topic-draft-card {
     min-height: 150px;
   }
 

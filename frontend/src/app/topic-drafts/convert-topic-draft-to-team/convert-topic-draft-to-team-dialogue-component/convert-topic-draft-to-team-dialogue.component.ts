@@ -49,8 +49,8 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
       },
     );
 
-    this.title$ = this.translate.stream('submitted-topic-draft-convert-to-team.title');
-    this.saveAndCloseLabel$ = this.translate.stream('submitted-topic-draft-convert-to-team.dialog.save-and-close-label');
+    this.title$ = this.translate.stream('convert-topic-draft-to-team.title');
+    this.saveAndCloseLabel$ = this.translate.stream('convert-topic-draft-to-team.dialog.save-and-close-label');
   }
 
   clickedConvertToTeam() {

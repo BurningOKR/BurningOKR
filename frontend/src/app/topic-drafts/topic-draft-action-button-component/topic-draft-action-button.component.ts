@@ -96,9 +96,9 @@ export class TopicDraftActionButtonComponent implements OnInit {
 
   clickedDeleteTopicDraft(): void {
     const dialogData: ConfirmationDialogData = {
-      title: this.translate.instant('submitted-topic-draft-action-button.delete.title'),
-      message: this.translate.instant('submitted-topic-draft-action-button.delete.message', {name: this.topicDraft.name}),
-      confirmButtonText: this.translate.instant('submitted-topic-draft-action-button.delete.button-text'),
+      title: this.translate.instant('topic-draft-action-button.delete.title'),
+      message: this.translate.instant('topic-draft-action-button.delete.message', {name: this.topicDraft.name}),
+      confirmButtonText: this.translate.instant('topic-draft-action-button.delete.button-text'),
     };
 
     const dialogReference: MatDialogRef<ConfirmationDialogComponent, object>
@@ -137,8 +137,8 @@ export class TopicDraftActionButtonComponent implements OnInit {
   submittingTopicDraft(): void {
     if (this.topicDraft.currentStatus === status.draft) {
       this.changeCurrentStatus(status.submitted);
-      const snackBarText: string = this.translate.instant('submitted-topic-draft-action-button.snackbar.submit');
-      const snackBarOk: string = this.translate.instant('submitted-topic-draft-action-button.snackbar.ok');
+      const snackBarText: string = this.translate.instant('topic-draft-action-button.snackbar.submit');
+      const snackBarOk: string = this.translate.instant('topic-draft-action-button.snackbar.ok');
       this.snackBar.open(snackBarText, snackBarOk, {
         verticalPosition: 'top',
         duration: 3500,
@@ -191,7 +191,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   }
 
   clickedOpenComments(): void {
-    const topicDraftHeading: string = this.translate.instant('submitted-topic-draft-action-button.comments.heading');
+    const topicDraftHeading: string = this.translate.instant('topic-draft-action-button.comments.heading');
 
     const dialogData: CommentViewDialogFormData = {
       componentTypeTitle: topicDraftHeading,
@@ -260,22 +260,22 @@ export class TopicDraftActionButtonComponent implements OnInit {
   }
 
   private loadTranslations(): void {
-    this.editTooltipStatus$ = this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status');
-    this.editTooltipUser$ = this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.user');
-    this.editTooltipStatusAndUser$ = this.translate.stream('submitted-topic-draft-action-button.edit-tooltip.status-and-user');
-    this.stateMustBeSubmittedTooltip$ = this.translate.stream('submitted-topic-draft-action-button.state-submitted-tooltip');
-    this.userRoleToChangeStatus$ = this.translate.stream('submitted-topic-draft-action-button.no-permission');
-    this.changeCurrentStatusByStatusAndUser$ = this.translate.stream('submitted-topic-draft-action-button.approving-status-and-user');
-    this.approveTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.capitalised-approve');
-    this.withDrawApprovalTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.withdraw-approval');
-    this.rejectTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.capitalized-reject');
-    this.withDrawRejectionTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.withdraw-rejection');
-    this.submitTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.capitalized-submit');
-    this.withDrawSubmitTopicDraftText$ = this.translate.stream('submitted-topic-draft-action-button.withdraw-submit');
-    this.adminOrInitiatorTooltip$ = this.translate.stream('submitted-topic-draft-action-button.admin-initiator-tooltip');
-    this.statusMustBeSubmitted$ = this.translate.stream('submitted-topic-draft-action-button.status-submitted');
-    this.statusMustBeSubmittedAndUser$ = this.translate.stream('submitted-topic-draft-action-button.status-submitted-user');
-    this.notAdminToolTip$ = this.translate.stream('submitted-topic-draft-action-button.user-not-admin');
-    this.notApprovedToolTip$ = this.translate.stream('submitted-topic-draft-action-button.not-approved');
+    this.editTooltipStatus$ = this.translate.stream('topic-draft-action-button.edit-tooltip.status');
+    this.editTooltipUser$ = this.translate.stream('topic-draft-action-button.edit-tooltip.user');
+    this.editTooltipStatusAndUser$ = this.translate.stream('topic-draft-action-button.edit-tooltip.status-and-user');
+    this.stateMustBeSubmittedTooltip$ = this.translate.stream('topic-draft-action-button.state-submitted-tooltip');
+    this.userRoleToChangeStatus$ = this.translate.stream('topic-draft-action-button.no-permission');
+    this.changeCurrentStatusByStatusAndUser$ = this.translate.stream('topic-draft-action-button.approving-status-and-user');
+    this.approveTopicDraftText$ = this.translate.stream('topic-draft-action-button.capitalised-approve');
+    this.withDrawApprovalTopicDraftText$ = this.translate.stream('topic-draft-action-button.withdraw-approval');
+    this.rejectTopicDraftText$ = this.translate.stream('topic-draft-action-button.capitalized-reject');
+    this.withDrawRejectionTopicDraftText$ = this.translate.stream('topic-draft-action-button.withdraw-rejection');
+    this.submitTopicDraftText$ = this.translate.stream('topic-draft-action-button.capitalized-submit');
+    this.withDrawSubmitTopicDraftText$ = this.translate.stream('topic-draft-action-button.withdraw-submit');
+    this.adminOrInitiatorTooltip$ = this.translate.stream('topic-draft-action-button.admin-initiator-tooltip');
+    this.statusMustBeSubmitted$ = this.translate.stream('topic-draft-action-button.status-submitted');
+    this.statusMustBeSubmittedAndUser$ = this.translate.stream('topic-draft-action-button.status-submitted-user');
+    this.notAdminToolTip$ = this.translate.stream('topic-draft-action-button.user-not-admin');
+    this.notApprovedToolTip$ = this.translate.stream('topic-draft-action-button.not-approved');
   }
 }

@@ -1,9 +1,9 @@
 <app-okr-toolbar>
-  <button [routerLink]="['/companies']" matTooltip="{{'submitted-topic-drafts.home-button.tooltip' | translate}}" class="navbar-item" mat-icon-button>
+  <button [routerLink]="['/companies']" matTooltip="{{'topic-drafts.home-button.tooltip' | translate}}" class="navbar-item" mat-icon-button>
     <mat-icon>home</mat-icon>
   </button>
-  <span class="full-text" id="submitted-topic-drafts-page-topic">{{'submitted-topic-drafts.navbar.title' | translate}}</span>
-  <span class="short-text">{{'submitted-topic-drafts.navbar.title-short' | translate}}</span>
+  <span class="full-text" id="topic-drafts-page-topic">{{'topic-drafts.navbar.title' | translate}}</span>
+  <span class="short-text">{{'topic-drafts.navbar.title-short' | translate}}</span>
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
@@ -12,7 +12,7 @@
   <div class="content">
     <app-topic-draft-list [topicDrafts]="rowData.data"></app-topic-draft-list>
     <button mat-icon-button mat-mini-fab color="accent" class="new-topic-draft" (click)="clickedAddTopicDraft()">
-      <mat-icon matTooltip="{{'submitted-topic-drafts.add-topic-draft-button.tooltip' | translate}}">add_circle_outline
+      <mat-icon matTooltip="{{'topic-drafts.add-topic-draft-button.tooltip' | translate}}">add_circle_outline
       </mat-icon>
     </button>
   </div>

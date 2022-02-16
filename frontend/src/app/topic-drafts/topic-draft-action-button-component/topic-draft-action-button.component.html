@@ -6,19 +6,19 @@
       <span matTooltip="{{ getEditTooltipText$() | async}}" [matTooltipDisabled]="canEditTopicDraft()">
         <button mat-menu-item [disabled]="!canEditTopicDraft()" (click)="editTopicDraft()">
           <mat-icon>edit</mat-icon>
-          <span>{{ 'submitted-topic-draft-action-button.edit' | translate }}</span>
+          <span>{{ 'topic-draft-action-button.edit' | translate }}</span>
         </button>
       </span>
-    <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.only-admin-or-initiator-permission-to-delete' | translate }}" [matTooltipDisabled]="canDeleteTopicDraft()">
+    <span matTooltip="{{ 'topic-draft-action-button.tooltip.only-admin-or-initiator-permission-to-delete' | translate }}" [matTooltipDisabled]="canDeleteTopicDraft()">
       <button mat-menu-item [disabled]="!canDeleteTopicDraft()" (click)="clickedDeleteTopicDraft()">
         <mat-icon>delete</mat-icon>
-        <span>{{ 'submitted-topic-draft-action-button.delete-text' | translate }}</span>
+        <span>{{ 'topic-draft-action-button.delete-text' | translate }}</span>
       </button>
     </span>
-    <span matTooltip="{{ 'submitted-topic-draft-action-button.tooltip.header' | translate }}">
+    <span matTooltip="{{ 'topic-draft-action-button.tooltip.header' | translate }}">
       <button mat-menu-item (click)="clickedOpenComments()">
         <mat-icon>chat</mat-icon>
-        <span>{{ 'submitted-topic-draft-action-button.comments-text' | translate }}</span>
+        <span>{{ 'topic-draft-action-button.comments-text' | translate }}</span>
       </button>
     </span>
     <span matTooltip="{{ getSubmissionTooltipText$() | async}}" [matTooltipDisabled]="isTopicDraftInSubmissionStage()">
@@ -30,7 +30,7 @@
     <span matTooltip="{{getConvertToTeamTooltipText$() | async}}" [matTooltipDisabled]="isTopicDraftConvertableToTeam()">
         <button mat-menu-item [disabled]="!isTopicDraftConvertableToTeam()" (click)="clickedConvertToTeam()">
           <mat-icon>transform</mat-icon>
-          <span>{{ 'submitted-topic-draft-action-button.create-team' | translate }}</span>
+          <span>{{ 'topic-draft-action-button.create-team' | translate }}</span>
         </button>
       </span>
     <span matTooltip="{{ getApproveOrRejectTooltipText$() | async}}" [matTooltipDisabled]="isTopicDraftInApprovingStage()">

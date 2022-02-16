@@ -105,6 +105,19 @@
 		"cancel-text": "Abbrechen",
 		"confirm-text": "Bestätigen"
 	},
+	"convert-topic-draft-to-team": {
+		"dialog": {
+			"save-and-close-label": "Umwandeln"
+		},
+		"form": {
+			"company-option": "Team in {{value}} erstellen",
+			"select": "Übergeordnete Struktur auswählen *"
+		},
+		"title": "Themenentwurf in ein Team umwandeln ",
+		"tooltip": {
+			"only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
+		}
+	},
 	"create-user-init-state-form": {
 		"create-your-admin-account": "Administratorenkonto",
 		"next": "Weiter",
@@ -709,7 +722,13 @@
 		"rejected": "Abgelehnt",
 		"submitted": "Eingereicht"
 	},
-	"submitted-topic-draft-action-button": {
+	"task-board-swimlane-view-helper": {
+		"no-keyresult-title": "Kein KeyResult"
+	},
+	"taskboard-state-column-view": {
+		"default-state-text": "Nicht zugewiesen"
+	},
+	"topic-draft-action-button": {
 		"admin-initiator-tooltip": "Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen",
 		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
 		"capitalised-approve": "Genehmigen",
@@ -751,28 +770,10 @@
 		"withdraw-rejection": "Ablehnung zurücknehmen",
 		"withdraw-submit": "Einreichen zurücknehmen"
 	},
-	"submitted-topic-draft-cards-wrapper": {
-		"column": {
-			"name": "Name",
-			"start": "Start",
-			"submitted": "Eingereicht von"
-		},
-		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
+	"topic-draft-creation-form": {
+		"dialog-title": "Themenentwurf erstellen"
 	},
-	"submitted-topic-draft-convert-to-team": {
-		"dialog": {
-			"save-and-close-label": "Umwandeln"
-		},
-		"form": {
-			"company-option": "Team in {{value}} erstellen",
-			"select": "Übergeordnete Struktur auswählen *"
-		},
-		"title": "Themenentwurf in ein Team umwandeln ",
-		"tooltip": {
-			"only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
-		}
-	},
-	"submitted-topic-draft-details": {
+	"topic-draft-details-dialogue": {
 		"button": {
 			"close": "Schließen",
 			"edit": "Bearbeiten",
@@ -801,7 +802,18 @@
 		},
 		"title": "Eingereichter Themenentwurf"
 	},
-	"submitted-topic-drafts": {
+	"topic-draft-edit-dialogue": {
+		"title": "Themenentwurf bearbeiten"
+	},
+	"topic-draft-list": {
+		"column": {
+			"name": "Name",
+			"start": "Start",
+			"submitted": "Eingereicht von"
+		},
+		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
+	},
+	"topic-drafts": {
 		"add-topic-draft-button": {
 			"tooltip": "Neuen Themenentwurf hinzufügen"
 		},
@@ -813,15 +825,6 @@
 			"title": "Eingereichte Themenentwürfe",
 			"title-short": "Themenentwurf"
 		}
-	},
-	"task-board-swimlane-view-helper": {
-		"no-keyresult-title": "Kein KeyResult"
-	},
-	"taskboard-state-column-view": {
-		"default-state-text": "Nicht zugewiesen"
-	},
-	"topic-draft-creation-form": {
-		"dialog-title": "Themenentwurf erstellen"
 	},
 	"user-autocomplete-input": {
 		"label": "Benutzer Eingabe"

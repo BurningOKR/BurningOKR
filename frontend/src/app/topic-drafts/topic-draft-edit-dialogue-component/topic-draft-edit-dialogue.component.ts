@@ -17,7 +17,6 @@ export class TopicDraftEditDialogueComponent implements OnInit {
 
   topicDraft: OkrTopicDraft;
   topicDraftForm: FormGroup;
-  title: string;
   minBegin: Date;
   editedTopicDraftEvent: EventEmitter<OkrTopicDraft>;
 
@@ -49,9 +48,6 @@ export class TopicDraftEditDialogueComponent implements OnInit {
     if (this.formData.topicDraft) {
       this.topicDraftForm.patchValue(this.formData.topicDraft);
     }
-
-    // TODO Übersetzung prüfen
-    this.title = 'Themenentwurf bearbeiten';
   }
 
   saveTopicDraft(): void {
