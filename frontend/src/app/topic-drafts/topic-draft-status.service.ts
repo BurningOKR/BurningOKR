@@ -28,7 +28,9 @@ export class TopicDraftStatusService {
   }
 
   changeTopicDraftStatusTo(topicDraft: OkrTopicDraft, newStatus: status) {
-    topicDraft.currentStatus = newStatus;
+    if (newStatus) {
+      topicDraft.currentStatus = newStatus;
+    }
     this.topicDraftMapper.updateTopicDraftStatus$(topicDraft).pipe(take(1))
       .subscribe();
   }
