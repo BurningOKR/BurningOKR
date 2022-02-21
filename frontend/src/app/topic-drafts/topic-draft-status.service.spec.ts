@@ -1,16 +1,13 @@
-import { TestBed } from '@angular/core/testing';
-
 import { TopicDraftStatusService } from './topic-draft-status.service';
 
 describe('TopicDraftStatusService', () => {
-  let service: TopicDraftStatusService;
+  let topicDraftStatusService: TopicDraftStatusService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(TopicDraftStatusService);
+    topicDraftStatusService = new TopicDraftStatusService(undefined);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(topicDraftStatusService).toBeTruthy();
   });
 });
