@@ -16,17 +16,19 @@ public class StartupLoggerService {
   @EventListener(ApplicationStartedEvent.class)
   public void logReadyUp() {
     String burning_okr_message =
-        "\n"
-            + "\n"
-            + "  ____                   _                ____  _  _______  \n"
-            + " |  _ \\                 (_)              / __ \\| |/ /  __ \\ \n"
-            + " | |_) |_   _ _ __ _ __  _ _ __   __ _  | |  | | ' /| |__) |\n"
-            + " |  _ <| | | | '__| '_ \\| | '_ \\ / _` | | |  | |  < |  _  / \n"
-            + " | |_) | |_| | |  | | | | | | | | (_| | | |__| | . \\| | \\ \\ \n"
-            + " |____/ \\__,_|_|  |_| |_|_|_| |_|\\__, |  \\____/|_|\\_\\_|  \\_\\\n"
-            + "                                  __/ |                     \n"
-            + "                                 |___/                      \n"
-            + "Version: v{}";
+        new StringBuilder()
+            .append("\n")
+            .append("\n")
+            .append("  ____                   _                ____  _  _______  \n")
+            .append(" |  _ \\                 (_)              / __ \\| |/ /  __ \\ \n")
+            .append(" | |_) |_   _ _ __ _ __  _ _ __   __ _  | |  | | ' /| |__) |\n")
+            .append(" |  _ <| | | | '__| '_ \\| | '_ \\ / _` | | |  | |  < |  _  / \n")
+            .append(" | |_) | |_| | |  | | | | | | | | (_| | | |__| | . \\| | \\ \\ \n")
+            .append(" |____/ \\__,_|_|  |_| |_|_|_| |_|\\__, |  \\____/|_|\\_\\_|  \\_\\\n")
+            .append("                                  __/ |                     \n")
+            .append("                                 |___/                      \n")
+            .append("Version: v{}")
+            .toString();
     logger.info(burning_okr_message, buildProperties.getVersion());
   }
 }
