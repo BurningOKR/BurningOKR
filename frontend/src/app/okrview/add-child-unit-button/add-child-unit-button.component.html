@@ -1,14 +1,14 @@
-<ng-container *ngIf="!cycleClosed">
+<ng-container *ngIf="!cycleClosed && userRole.isAtleastAdmin()">
   <button mat-icon-button mat-mini-fab [matMenuTriggerFor]="unitTypeDropdown" color="accent">
     <mat-icon matTooltip="{{'add-child-unit-button.tooltip.add-new-child-unit' | translate}}">add_circle_outline
     </mat-icon>
   </button>
   <mat-menu #unitTypeDropdown="matMenu">
-    <button mat-menu-item (click)="clickedAddSubDepartment.emit()" *ngIf="userRole.isAtleastAdmin()">
+    <button mat-menu-item (click)="clickedAddSubDepartment.emit()">
       <mat-icon>group_add</mat-icon>
       <span>{{'add-child-unit-button.okr-team' | translate}}</span>
     </button>
-    <button mat-menu-item (click)="clickedAddSubBranch.emit()" *ngIf="userRole.isAtleastAdmin()">
+    <button mat-menu-item (click)="clickedAddSubBranch.emit()">
       <mat-icon>add</mat-icon>
       <span>{{'add-child-unit-button.substructure' | translate}}</span>
     </button>
