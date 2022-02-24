@@ -117,7 +117,12 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
   }
 
   isTopicDraftConvertableToTeam$(): Observable<boolean> {
-    return of(this.userIsAdmin() && this.draftIsApproved());
+    return this.currentUserService.isCurrentUserAdmin$()
+      .pipe(
+        switchMap((hasAuthorization: boolean) => {
+          return of(hasAuthorization && this.draftIsApproved())
+        })
+      )
   }
 
   canDeleteTopicDraft$(): Observable<boolean> {
@@ -255,17 +260,21 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
   }
 
   getConvertToTeamTooltipText$(): Observable<string> {
-    if (!this.userIsAdmin() && !this.draftIsApproved()) {
-      return this.notApprovedToolTip$;
-    }
-    if (this.userIsAdmin() && !this.draftIsApproved()) {
-      return this.notApprovedToolTip$;
-    }
-    if (!this.userIsAdmin() && this.draftIsApproved()) {
-      return this.notAdminToolTip$;
-    }
-
-    return null;
+    return this.currentUserService.isCurrentUserAdmin$()
+      .pipe(
+        take(1),
+        switchMap((isAdmin: boolean) => {
+          if (!isAdmin && !this.draftIsApproved()) {
+            return this.notApprovedToolTip$;
+          }
+          if (isAdmin && !this.draftIsApproved()) {
+            return this.notApprovedToolTip$;
+          }
+          if (!isAdmin && this.draftIsApproved()) {
+            return this.notAdminToolTip$;
+          }
+        })
+     )
   }
 
   clickedConvertToTeam() {
@@ -288,11 +297,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
       );
   }
 
-  private userIsAdmin() {
-    return this.currentUserService.isCurrentUserAdmin$();
-  }
-
-  private draftIsApproved() {
+  private draftIsApproved():boolean {
     return this.topicDraft.currentStatus === status.approved;
   }
 
