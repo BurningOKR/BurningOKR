@@ -120,9 +120,9 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
     return this.currentUserService.isCurrentUserAdmin$()
       .pipe(
         switchMap((hasAuthorization: boolean) => {
-          return of(hasAuthorization && this.draftIsApproved())
+          return of(hasAuthorization && this.draftIsApproved());
         })
-      )
+      );
   }
 
   canDeleteTopicDraft$(): Observable<boolean> {
@@ -274,7 +274,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
             return this.notAdminToolTip$;
           }
         })
-     )
+     );
   }
 
   clickedConvertToTeam() {
@@ -297,7 +297,7 @@ export class SubmittedTopicDraftActionButtonComponent implements OnInit {
       );
   }
 
-  private draftIsApproved():boolean {
+  private draftIsApproved(): boolean {
     return this.topicDraft.currentStatus === status.approved;
   }
 
