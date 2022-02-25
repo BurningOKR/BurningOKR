@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import { DateMapper } from '../../shared/services/mapper/date.mapper';
 import {
   TopicDraftDetailsDialogueComponent
 } from '../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
@@ -19,10 +18,7 @@ export class TopicDraftCardComponent {
 
   enumStatus = status;
 
-  constructor(
-    private dialog: MatDialog,
-    private dateMapper: DateMapper,
-  ) { }
+  constructor(private dialog: MatDialog) { }
 
   viewTopicDraft(): void {
     const config: object = {
@@ -41,10 +37,5 @@ export class TopicDraftCardComponent {
 
   notifyWrapperOfDeletion(): void {
     this.topicDraftDeletedEvent.emit(this.topicDraft);
-  }
-
-  // TODO auf dateFormat Pipe umstellen
-  mapDateToLocaleString(date: Date): string{
-    return this.dateMapper.mapToDate(date).toLocaleDateString();
   }
 }
