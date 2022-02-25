@@ -44,7 +44,6 @@ export class TopicDraftsComponent implements OnInit {
       .afterClosed()
       .pipe(
         take(1),
-        // TODO remove filter and switchMap
         filter(v => v),
         switchMap(n => n),
       )
