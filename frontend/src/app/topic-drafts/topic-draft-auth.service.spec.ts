@@ -27,30 +27,34 @@ describe('TopicDraftAuthServiceService', () => {
   });
 
   it('should get the correct Creator Status', () => {
-    expect((topicDraftAuthService as any).isCurrentUserCreator('mockUserId')).toBeTruthy();
-    expect((topicDraftAuthService as any).isCurrentUserCreator('notMockUserId')).toBeFalsy();
+    expect((topicDraftAuthService as any).isCurrentUserCreator('mockUserId')).toBe(true);
+    expect((topicDraftAuthService as any).isCurrentUserCreator('notMockUserId')).toBe(false);
   });
 
-  it('should get the correct permissions upon creation', () => {
+  it('should get the normal user permissions', () => {
     currentUserServiceMock.getCurrentUser$ = jest.fn().mockReturnValue(of(mockUser));
     topicDraftAuthService = new TopicDraftAuthService(currentUserServiceMock);
     expect(topicDraftAuthService).toBeTruthy();
-    expect((topicDraftAuthService as any).isAdmin).toBeFalsy();
-    expect((topicDraftAuthService as any).isAuditor).toBeFalsy();
+    expect((topicDraftAuthService as any).isAdmin).toBe(false);
+    expect((topicDraftAuthService as any).isAuditor).toBe(false);
     expect((topicDraftAuthService as any).currentUser).toEqual(mockUser);
+  });
 
-    currentUserServiceMock.getCurrentUser$ = jest.fn().mockReturnValue(of(mockAuditor));
-    topicDraftAuthService = new TopicDraftAuthService(currentUserServiceMock);
-    expect(topicDraftAuthService).toBeTruthy();
-    expect((topicDraftAuthService as any).isAdmin).toBeFalsy();
-    expect((topicDraftAuthService as any).isAuditor).toBeTruthy();
-    expect((topicDraftAuthService as any).currentUser).toEqual(mockAuditor);
-
+  it('should get the admin user permissions', () => {
     currentUserServiceMock.getCurrentUser$ = jest.fn().mockReturnValue(of(mockAdmin));
     topicDraftAuthService = new TopicDraftAuthService(currentUserServiceMock);
     expect(topicDraftAuthService).toBeTruthy();
-    expect((topicDraftAuthService as any).isAdmin).toBeTruthy();
-    expect((topicDraftAuthService as any).isAuditor).toBeFalsy();
+    expect((topicDraftAuthService as any).isAdmin).toBe(true);
+    expect((topicDraftAuthService as any).isAuditor).toBe(false);
     expect((topicDraftAuthService as any).currentUser).toEqual(mockAdmin);
+  });
+
+  it('should get the auditor user permissions', () => {
+    currentUserServiceMock.getCurrentUser$ = jest.fn().mockReturnValue(of(mockAuditor));
+    topicDraftAuthService = new TopicDraftAuthService(currentUserServiceMock);
+    expect(topicDraftAuthService).toBeTruthy();
+    expect((topicDraftAuthService as any).isAdmin).toBe(false);
+    expect((topicDraftAuthService as any).isAuditor).toBe(true);
+    expect((topicDraftAuthService as any).currentUser).toEqual(mockAuditor);
   });
 });
