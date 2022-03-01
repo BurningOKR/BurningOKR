@@ -37,7 +37,7 @@ export class TopicDraftAuthService {
     return this.isCurrentUserCreator(topicDraft.initiatorId);
   }
 
-  hasCurrentUserPermissionsToConvertToTeam(): boolean {
+  hasCurrentUserConvertToTeamPermissions(): boolean {
     return this.isAdmin;
   }
 

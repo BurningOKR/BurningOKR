@@ -206,7 +206,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
     if (!TopicDraftStatusService.isTopicDraftConvertableToTeam(this.topicDraft)) {
       return this.notApprovedToolTip$;
     }
-    if (this.topicDraftAuthService.hasCurrentUserPermissionsToConvertToTeam()) {
+    if (this.topicDraftAuthService.hasCurrentUserConvertToTeamPermissions()) {
       return this.notAdminToolTip$;
     }
   }
@@ -245,7 +245,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   }
 
   isTopicDraftConvertableToTeam(): boolean {
-    return this.topicDraftAuthService.hasCurrentUserPermissionsToConvertToTeam()
+    return this.topicDraftAuthService.hasCurrentUserConvertToTeamPermissions()
       && TopicDraftStatusService.isTopicDraftConvertableToTeam(this.topicDraft);
   }
 
