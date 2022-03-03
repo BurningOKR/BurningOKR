@@ -23,8 +23,10 @@ subprojects {
     ext['log4j2.version'] = '2.17.0'
 
     ext {
-        springBootVersion = '2.0.4.RELEASE'
-        lombokVersion = '1.18.22'
+      springFrameworkVersion = '5.1.0.RELEASE'
+      springBootVersion = '2.1.0.RELEASE'
+      springSecurityVersion = '5.1.0.RELEASE'
+      lombokVersion = '1.18.22'
     }
 
     repositories {
@@ -32,14 +34,14 @@ subprojects {
     }
 
     dependencies {
-        implementation('org.springframework:spring-context:5.0.7.RELEASE')
+        implementation("org.springframework:spring-context:${springFrameworkVersion}")
         implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springBootVersion}"
-        implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.0.7.RELEASE'
+        implementation group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
         implementation group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.2.6'
         implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
         implementation group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.11'
-        implementation group: 'org.springframework.security', name: 'spring-security-acl', version: '5.0.8.RELEASE'
-        implementation group: 'org.springframework', name: 'spring-context-support', version: '5.0.9.RELEASE'
+        implementation group: 'org.springframework.security', name: 'spring-security-acl', version: "${springSecurityVersion}"
+        implementation group: 'org.springframework', name: 'spring-context-support', version: "${springFrameworkVersion}"
         implementation group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
 
         implementation("com.auth0:java-jwt:3.4.0")
@@ -52,7 +54,7 @@ subprojects {
         implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: "${springBootVersion}"
         implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
         implementation("org.springframework:spring-messaging")
-        implementation ('org.springframework.security:spring-security-messaging:5.0.4.RELEASE')
+        implementation ("org.springframework.security:spring-security-messaging:${springSecurityVersion}")
 
 
         implementation("org.webjars:sockjs-client:1.1.2")
