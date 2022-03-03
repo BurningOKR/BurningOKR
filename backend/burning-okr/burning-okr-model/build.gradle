@@ -1,5 +1,8 @@
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:"${springBootVersion}"
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+  //compileOnly("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
 
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+  implementation group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+  implementation 'org.jetbrains:annotations:20.1.0'
+  annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 }

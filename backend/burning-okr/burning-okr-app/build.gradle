@@ -1,7 +1,6 @@
 buildscript {
     ext {
         swaggerVersion = '2.9.2'
-        lombokVersion = '1.18.4'
     }
     repositories {
         mavenCentral()
@@ -25,7 +24,7 @@ if (project.hasProperty('projVersion')) {
     version = '1.0.0'
 }
 
-bootRun.systemProperties = System.properties
+bootRun.systemProperties = System.properties as Map<String, ?>
 
 bootWar {
     enabled = true
@@ -52,9 +51,8 @@ dependencies {
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     implementation project(':burning-okr-logic')
-    runtime project(':burning-okr-data')
+    runtimeOnly project(':burning-okr-data')
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
 
@@ -62,10 +60,9 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.0.RELEASE'
+    implementation ("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.0.RELEASE'
     implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth', version: '2.4.0.RELEASE'
     implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.0.RELEASE'
@@ -74,16 +71,19 @@ dependencies {
 
     implementation group: 'org.flywaydb', name: 'flyway-core'
 
-    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
 
+    implementation group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.0'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation 'org.apache.poi:poi:3.9'
+
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
-    compile "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
-    compile "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
+    implementation "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
+    implementation "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
 
-    compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
+    implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
 }
 
 springBoot{

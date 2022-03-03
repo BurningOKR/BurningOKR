@@ -3,12 +3,19 @@ repositories {
 }
 
 dependencies {
-    compile project(':burning-okr-model')
-    compile project(':burning-okr-data')
+    implementation project(':burning-okr-model')
+    implementation project(':burning-okr-data')
+    implementation("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 
-    testCompile project(':burning-okr-data')
+    implementation 'com.google.code.gson:gson:2.8.5'
 
-    compile 'org.apache.poi:poi-ooxml:3.9'
-    compile 'org.apache.poi:poi:3.9'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.1.0.RELEASE'
+    testImplementation project(':burning-okr-data')
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springBootVersion}")
+    implementation "com.google.guava:guava:16+"
+    implementation 'org.apache.poi:poi-ooxml:3.9'
+    implementation 'org.apache.poi:poi:3.9'
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
+    implementation('org.codehaus.jackson:jackson-mapper-asl:1.9.13')
 }
