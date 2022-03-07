@@ -26,11 +26,11 @@ export class TopicDraftPermissionService {
   }
 
   hasCurrentUserDeletePermissions(topicDraft: OkrTopicDraft): boolean {
-    return this.isCurrentUserAdminOrCreator(topicDraft.initiatorId);
+    return this.isAdmin || this.isCurrentUserCreator(topicDraft.initiatorId);
   }
 
   hasCurrentUserApprovingPermissions(): boolean {
-    return this.isCurrentUserAdminOrAuditor();
+    return this.isAdmin || this.isAuditor;
   }
 
   hasCurrentUserSubmissionPermissions(topicDraft: OkrTopicDraft): boolean {
@@ -42,15 +42,7 @@ export class TopicDraftPermissionService {
   }
 
   hasCurrentUserEditingPermissions(topicDraft: OkrTopicDraft): boolean {
-    return this.isCurrentUserAdminOrCreator(topicDraft.initiatorId);
-  }
-
-  private isCurrentUserAdminOrCreator(initiatorId: string): boolean {
-    return this.isAdmin || this.isCurrentUserCreator(initiatorId);
-  }
-
-  private isCurrentUserAdminOrAuditor(): boolean {
-    return this.isAdmin || this.isAuditor;
+    return this.isAdmin || this.isCurrentUserCreator(topicDraft.initiatorId);
   }
 
   private isCurrentUserCreator(initiatorId: string): boolean {
