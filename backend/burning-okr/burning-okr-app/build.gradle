@@ -45,6 +45,7 @@ targetCompatibility = 1.8
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
   implementation 'junit:junit:4.13.2'
+  implementation 'org.hamcrest:hamcrest:2.2'
   compileOnly("org.projectlombok:lombok:1.18.22")
     testCompileOnly("org.projectlombok:lombok:1.18.22")
     annotationProcessor("org.projectlombok:lombok:1.18.22")

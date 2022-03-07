@@ -1,5 +1,6 @@
 package org.burningokr.mapper.users;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -75,7 +76,7 @@ public class UserMapperTest {
   public void test_mapDtoToEntity_aadUser_ShouldMapCorrectly() {
     when(appEnvironment.getAuthMode()).thenReturn(AuthModes.AZURE);
     User user = userMapper.mapDtoToEntity(userDto1);
-    Assert.assertThat(user, instanceOf(AadUser.class));
+    assertThat(user, instanceOf(AadUser.class));
     assertDtoWithUser(userDto1, user);
   }
 
@@ -83,7 +84,7 @@ public class UserMapperTest {
   public void test_mapDtoToEntity_localUser_ShouldMapCorrectly() {
     when(appEnvironment.getAuthMode()).thenReturn(AuthModes.LOCAL);
     User user = userMapper.mapDtoToEntity(userDto1);
-    Assert.assertThat(user, instanceOf(LocalUser.class));
+    assertThat(user, instanceOf(LocalUser.class));
     assertDtoWithUser(userDto1, user);
   }
 

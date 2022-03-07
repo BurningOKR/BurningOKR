@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.OAuthBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -70,7 +69,7 @@ public class SwaggerAzureConfig extends SwaggerConfig {
     return SecurityContext.builder()
         .securityReferences(
             Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
-        .forPaths(PathSelectors.any())
+        .operationSelector(operationContext -> true)
         .build();
   }
 }

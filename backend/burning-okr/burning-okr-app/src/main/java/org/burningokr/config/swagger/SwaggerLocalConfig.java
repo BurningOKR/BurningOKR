@@ -62,7 +62,7 @@ public class SwaggerLocalConfig extends SwaggerConfig {
     return SecurityContext.builder()
         .securityReferences(
             Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
-        .forPaths(PathSelectors.any())
+        .operationSelector(operationContext -> true)
         .build();
   }
 }

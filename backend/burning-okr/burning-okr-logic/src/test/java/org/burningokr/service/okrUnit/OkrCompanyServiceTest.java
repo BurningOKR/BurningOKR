@@ -1,6 +1,8 @@
 package org.burningokr.service.okrUnit;
 
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -102,7 +104,7 @@ public class OkrCompanyServiceTest {
 
     companyService.createDepartment(companyId, okrDepartment, user);
 
-    Assert.assertEquals(okrCompany.getId(), okrDepartment.getParentOkrUnit().getId());
+    assertEquals(okrCompany.getId(), okrDepartment.getParentOkrUnit().getId());
 
     verify(companyRepository).findByIdOrThrow(any(Long.class));
     verify(unitRepository).save(any(OkrDepartment.class));
@@ -151,12 +153,12 @@ public class OkrCompanyServiceTest {
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setName("test");
     TaskBoard taskBoard = new TaskBoard();
-    Collection<TaskState> availableStates = new ArrayList();
+    Collection<TaskState> availableStates = new ArrayList<>();
 
     TaskState state1 = new TaskState();
     state1.setParentTaskBoard(taskBoard);
     state1.setTitle("state1");
-    state1.setId(1l);
+    state1.setId(1L);
 
     availableStates.add(state1);
     taskBoard.setAvailableStates(availableStates);
@@ -187,7 +189,7 @@ public class OkrCompanyServiceTest {
     User user = mock(User.class);
     okrCompany = companyService.updateCompany(updateOkrCompany, user);
 
-    Assert.assertEquals(updatedCompanyName, okrCompany.getName());
+    assertEquals(updatedCompanyName, okrCompany.getName());
 
     verify(companyRepository).findByIdOrThrow(anyLong());
     verify(companyRepository).save(any(OkrCompany.class));

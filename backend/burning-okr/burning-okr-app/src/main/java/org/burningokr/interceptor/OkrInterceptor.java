@@ -5,12 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
 @Component
-public class OkrInterceptor extends HandlerInterceptorAdapter {
+public class OkrInterceptor implements HandlerInterceptor {
 
   private final Logger logger = LoggerFactory.getLogger(OkrInterceptor.class);
 

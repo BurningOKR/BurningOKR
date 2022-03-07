@@ -1,7 +1,7 @@
 package org.burningokr.service;
 
 import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doCallRealMethod;
@@ -9,6 +9,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Collections;
+
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -181,7 +183,7 @@ public class ParentServiceTest {
     treeObjectiveD2.setParentOkrUnit(treeDepartment2);
 
     treeDepartment22 = new OkrBranch();
-    treeDepartment2.setOkrChildUnits(Arrays.asList(treeDepartment22));
+    treeDepartment2.setOkrChildUnits(Collections.singletonList(treeDepartment22));
     treeDepartment22.setParentOkrUnit(treeDepartment2);
 
     treeObjectiveD22 = new Objective();
@@ -189,7 +191,7 @@ public class ParentServiceTest {
     treeObjectiveD22.setParentOkrUnit(treeDepartment22);
 
     treeOkrDepartment221 = new OkrDepartment();
-    treeDepartment22.setOkrChildUnits(Arrays.asList(treeOkrDepartment221));
+    treeDepartment22.setOkrChildUnits(Collections.singletonList(treeOkrDepartment221));
     treeOkrDepartment221.setParentOkrUnit(treeDepartment22);
 
     treeObjectiveD221 = new Objective();

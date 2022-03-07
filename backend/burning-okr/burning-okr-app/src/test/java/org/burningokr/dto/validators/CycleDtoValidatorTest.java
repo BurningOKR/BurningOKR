@@ -1,7 +1,7 @@
 package org.burningokr.dto.validators;
 
 import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -85,8 +85,7 @@ public class CycleDtoValidatorTest {
   }
 
   @Test
-  public void validateCycleDto_DtoNameEmpty_expectedInvalidDtoException()
-      throws InvalidDtoException {
+  public void validateCycleDto_DtoNameEmpty_expectedInvalidDtoException() {
     CycleDto cycleDto = getValidCycleDto();
     cycleDto.setName("");
 
@@ -203,8 +202,7 @@ public class CycleDtoValidatorTest {
   }
 
   @Test
-  public void validateCycleDto_DtoDateOverlapsWithOtherCycle_expectedInvalidDtoException()
-      throws InvalidDtoException {
+  public void validateCycleDto_DtoDateOverlapsWithOtherCycle_expectedInvalidDtoException() {
     CycleDto cycleDto = getValidCycleDto();
     Cycle envelopedCycle = new Cycle();
     envelopedCycle.setId(cycleDtoId + 100L);

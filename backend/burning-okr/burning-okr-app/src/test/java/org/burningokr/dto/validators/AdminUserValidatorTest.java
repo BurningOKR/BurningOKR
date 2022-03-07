@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -72,7 +72,7 @@ public class AdminUserValidatorTest {
   }
 
   @Test
-  public void validateAdminUserOnAdd_existingAdmin_expectedThrow() throws InvalidDtoException {
+  public void validateAdminUserOnAdd_existingAdmin_expectedThrow() {
     when(userToInsert.getId()).thenReturn(existingAdminId);
     adminUser.setId(userToInsert.getId());
 
