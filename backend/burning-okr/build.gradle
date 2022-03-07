@@ -24,9 +24,9 @@ subprojects {
 
   ext {
     springFrameworkVersion = '5.3.16'
-    springBootVersion = '2.6.4'
+    springBootVersion = '2.5.8'
     springSecurityVersion = '5.6.2'
-    springSecurityOauthVersion = '2.6.3'
+    springSecurityOauthVersion = '2.5.8'
     lombokVersion = '1.18.22'
   }
 
