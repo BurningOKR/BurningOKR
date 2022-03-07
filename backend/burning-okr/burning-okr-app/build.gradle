@@ -76,7 +76,7 @@ dependencies {
     implementation group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.0'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-    implementation 'org.apache.poi:poi:3.9'
+    implementation 'org.apache.poi:poi:5.0.0'
 
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 

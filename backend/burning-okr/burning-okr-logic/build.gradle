@@ -1,21 +1,21 @@
 repositories {
-    jcenter()
+  mavenCentral()
 }
 
 dependencies {
-    implementation project(':burning-okr-model')
-    implementation project(':burning-okr-data')
-    implementation("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+  implementation project(':burning-okr-model')
+  implementation project(':burning-okr-data')
+  implementation("org.projectlombok:lombok:${lombokVersion}")
+  annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 
-    implementation 'com.google.code.gson:gson:2.8.5'
+  implementation 'com.google.code.gson:gson:2.8.5'
 
-    testImplementation project(':burning-okr-data')
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
-    implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springBootVersion}")
-    implementation "com.google.guava:guava:16+"
-    implementation 'org.apache.poi:poi-ooxml:3.9'
-    implementation 'org.apache.poi:poi:3.9'
-    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
-    implementation('org.codehaus.jackson:jackson-mapper-asl:1.9.13')
+  testImplementation project(':burning-okr-data')
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+  implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOauthVersion}")
+  implementation 'com.google.guava:guava:31.0.1-jre'
+  implementation 'org.apache.poi:poi-ooxml:5.0.0'
+  implementation 'org.apache.poi:poi:5.0.0'
+  implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
+  implementation('org.codehaus.jackson:jackson-mapper-asl:1.9.13')
 }

@@ -1,95 +1,95 @@
 buildscript {
-    ext {
-        //junitPlatfromGradlePluginVersion = '1.1.0'
+  ext {
+    //junitPlatfromGradlePluginVersion = '1.1.0'
+  }
+  repositories {
+    mavenCentral()
+    maven {
+      url 'https://plugins.gradle.org/m2/'
     }
-    repositories {
-        mavenCentral()
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-    }
-    dependencies {
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
-        //classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatfromGradlePluginVersion}"
-    }
+  }
+  dependencies {
+    classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
+    //classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatfromGradlePluginVersion}"
+  }
 }
 
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'checkstyle'
-    apply plugin: 'com.diffplug.gradle.spotless'
+  apply plugin: 'java'
+  apply plugin: 'checkstyle'
+  apply plugin: 'com.diffplug.gradle.spotless'
 
-    ext['log4j2.version'] = '2.17.0'
+  ext['log4j2.version'] = '2.17.0'
 
-    ext {
-      springFrameworkVersion = '5.1.0.RELEASE'
-      springBootVersion = '2.1.0.RELEASE'
-      springSecurityVersion = '5.1.0.RELEASE'
-      lombokVersion = '1.18.22'
+  ext {
+    springFrameworkVersion = '5.3.16'
+    springBootVersion = '2.6.4'
+    springSecurityVersion = '5.6.2'
+    springSecurityOauthVersion = '2.6.3'
+    lombokVersion = '1.18.22'
+  }
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    implementation("org.springframework:spring-context:${springFrameworkVersion}")
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springBootVersion}"
+    implementation group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
+    implementation group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.2.6'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
+    implementation group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.11'
+    implementation group: 'org.springframework.security', name: 'spring-security-acl', version: "${springSecurityVersion}"
+    implementation group: 'org.springframework', name: 'spring-context-support', version: "${springFrameworkVersion}"
+    implementation group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
+    implementation("com.auth0:java-jwt:3.4.0")
+
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+    implementation('javax.xml.bind:jaxb-api:2.3.0')
+    implementation('javax.validation:validation-api:2.0.1.Final')
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: "${springBootVersion}"
+    implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
+    implementation("org.springframework:spring-messaging")
+    implementation("org.springframework.security:spring-security-messaging:${springSecurityVersion}")
+
+
+    implementation("org.webjars:sockjs-client:1.1.2")
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${springBootVersion}"
+
+    implementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+  }
+
+  test {
+    //useJUnitPlatform()
+  }
+
+  checkstyle {
+    toolVersion '8.29'
+  }
+
+  spotless {
+    format 'misc', {
+      target '**/*.gradle', '**/.*.md', '**/.gitignore'
+
+      trimTrailingWhitespace()
+      indentWithSpaces()
+      endWithNewline()
     }
-
-    repositories {
-        mavenCentral()
+    java {
+      googleJavaFormat()
     }
-
-    dependencies {
-        implementation("org.springframework:spring-context:${springFrameworkVersion}")
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springBootVersion}"
-        implementation group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
-        implementation group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.2.6'
-        implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
-        implementation group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.11'
-        implementation group: 'org.springframework.security', name: 'spring-security-acl', version: "${springSecurityVersion}"
-        implementation group: 'org.springframework', name: 'spring-context-support', version: "${springFrameworkVersion}"
-        implementation group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
-
-        implementation("com.auth0:java-jwt:3.4.0")
-
-        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-
-        implementation('javax.xml.bind:jaxb-api:2.3.0')
-        implementation('javax.validation:validation-api:2.0.1.Final')
-        implementation("org.springframework.boot:spring-boot-starter-web")
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: "${springBootVersion}"
-        implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
-        implementation("org.springframework:spring-messaging")
-        implementation ("org.springframework.security:spring-security-messaging:${springSecurityVersion}")
-
-
-        implementation("org.webjars:sockjs-client:1.1.2")
-
-        implementation 'com.google.code.gson:gson:2.8.5'
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${springBootVersion}"
-
-        testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
-        implementation 'com.google.code.findbugs:jsr305:3.0.2'
-
-    }
-
-    test {
-        //useJUnitPlatform()
-    }
-
-    checkstyle {
-        toolVersion '8.29'
-    }
-
-    spotless {
-        format 'misc', {
-            target '**/*.gradle','**/.*.md','**/.gitignore'
-
-            trimTrailingWhitespace()
-            indentWithSpaces()
-            endWithNewline()
-        }
-        java {
-            googleJavaFormat()
-        }
-    }
+  }
 }
 
 task testReport(type: TestReport) {
-    destinationDir = file("$buildDir/reports/allTests")
-    reportOn subprojects*.test
+  destinationDir = file("$buildDir/reports/allTests")
+  reportOn subprojects*.test
 }

@@ -11,18 +11,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 public class LocaleConfig {
 
   /**
-   * Create and Configure a {@link LocaleResolver}.
-   *
-   * @return a {@link LocaleResolver} object
-   */
-  @Bean
-  public LocaleResolver localeResolver() {
-    SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-    sessionLocaleResolver.setDefaultLocale(Locale.GERMAN);
-    return sessionLocaleResolver;
-  }
-
-  /**
    * Create and configure a {@link LocaleChangeInterceptor}.
    *
    * @return a {@link LocaleChangeInterceptor} object
