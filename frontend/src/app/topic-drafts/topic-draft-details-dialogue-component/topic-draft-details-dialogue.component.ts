@@ -9,7 +9,7 @@ import { CurrentUserService } from '../../core/services/current-user.service';
 import {
   TopicDraftEditDialogueComponent
 } from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
-import { TopicDraftAuthService } from '../topic-draft-auth.service';
+import { TopicDraftPermissionService } from '../topic-draft-permission.service';
 import { TopicDraftStatusService } from '../topic-draft-status.service';
 
 export interface SubmittedTopicDraftDetailsFormData {
@@ -35,7 +35,7 @@ export class TopicDraftDetailsDialogueComponent implements OnInit {
               private okrChildUnitRoleService: OkrChildUnitRoleService,
               private currentUserService: CurrentUserService,
               private dialog: MatDialog,
-              private topicDraftAuthService: TopicDraftAuthService,
+              private topicDraftPermissionService: TopicDraftPermissionService,
               @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)) {
   }
 
@@ -55,7 +55,7 @@ export class TopicDraftDetailsDialogueComponent implements OnInit {
         description: new FormControl(this.topicDraft.description)
       }
     );
-    this.canEdit = this.topicDraftAuthService.hasCurrentUserEditingPermissions(this.topicDraft)
+    this.canEdit = this.topicDraftPermissionService.hasCurrentUserEditingPermissions(this.topicDraft)
       && TopicDraftStatusService.isTopicDraftInSubmissionStage(this.topicDraft);
   }
 

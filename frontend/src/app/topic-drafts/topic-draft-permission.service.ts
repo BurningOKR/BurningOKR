@@ -7,7 +7,7 @@ import { take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class TopicDraftAuthService {
+export class TopicDraftPermissionService {
 
   private isAdmin: boolean;
   private isAuditor: boolean;

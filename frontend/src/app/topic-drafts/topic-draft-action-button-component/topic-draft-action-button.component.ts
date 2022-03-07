@@ -24,7 +24,7 @@ import {
 import {
   ConvertTopicDraftToTeamDialogueComponent,
 } from '../convert-topic-draft-to-team/convert-topic-draft-to-team-dialogue-component/convert-topic-draft-to-team-dialogue.component';
-import { TopicDraftAuthService } from '../topic-draft-auth.service';
+import { TopicDraftPermissionService } from '../topic-draft-permission.service';
 import { TopicDraftStatusService } from '../topic-draft-status.service';
 
 @Component({
@@ -58,7 +58,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   notApprovedToolTip$: Observable<string>;
 
   constructor(private topicDraftMapper: TopicDraftMapper,
-              private topicDraftAuthService: TopicDraftAuthService,
+              private topicDraftPermissionService: TopicDraftPermissionService,
               private translate: TranslateService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar,
@@ -81,7 +81,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   }
 
   getEditTooltipText$(): Observable<string> {
-    const hasEditingPermissions: boolean = this.topicDraftAuthService.hasCurrentUserEditingPermissions(this.topicDraft);
+    const hasEditingPermissions: boolean = this.topicDraftPermissionService.hasCurrentUserEditingPermissions(this.topicDraft);
     const isTopicDraftApprovedOrRejected: boolean = TopicDraftStatusService.isTopicDraftApprovedOrRejected(this.topicDraft);
     if (isTopicDraftApprovedOrRejected && !hasEditingPermissions) {
       return this.editTooltipStatusAndUser$;
@@ -149,7 +149,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   }
 
   getApproveOrRejectTooltipText$(): Observable<string> {
-    const hasApprovingPrivileges: boolean = this.topicDraftAuthService.hasCurrentUserApprovingPermissions();
+    const hasApprovingPrivileges: boolean = this.topicDraftPermissionService.hasCurrentUserApprovingPermissions();
     if (this.topicDraft.currentStatus === status.draft && !hasApprovingPrivileges) {
       return this.changeCurrentStatusByStatusAndUser$;
     } else if (!hasApprovingPrivileges) {
@@ -162,7 +162,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   }
 
   getSubmissionTooltipText$(): Observable<string> {
-    const hasEditingPermissions: boolean = this.topicDraftAuthService.hasCurrentUserEditingPermissions(this.topicDraft);
+    const hasEditingPermissions: boolean = this.topicDraftPermissionService.hasCurrentUserEditingPermissions(this.topicDraft);
     const isApprovedOrRejected: boolean = TopicDraftStatusService.isTopicDraftApprovedOrRejected(this.topicDraft);
     if (isApprovedOrRejected && hasEditingPermissions) {
       return this.statusMustBeSubmittedAndUser$;
@@ -206,7 +206,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
     if (!TopicDraftStatusService.isTopicDraftConvertableToTeam(this.topicDraft)) {
       return this.notApprovedToolTip$;
     }
-    if (this.topicDraftAuthService.hasCurrentUserConvertToTeamPermissions()) {
+    if (this.topicDraftPermissionService.hasCurrentUserConvertToTeamPermissions()) {
       return this.notAdminToolTip$;
     }
   }
@@ -236,26 +236,26 @@ export class TopicDraftActionButtonComponent implements OnInit {
   }
 
   canEditTopicDraft(): boolean {
-    return this.topicDraftAuthService.hasCurrentUserEditingPermissions(this.topicDraft)
+    return this.topicDraftPermissionService.hasCurrentUserEditingPermissions(this.topicDraft)
       && TopicDraftStatusService.isTopicDraftInSubmissionStage(this.topicDraft);
   }
 
   canDeleteTopicDraft(): boolean {
-    return this.topicDraftAuthService.hasCurrentUserDeletePermissions(this.topicDraft);
+    return this.topicDraftPermissionService.hasCurrentUserDeletePermissions(this.topicDraft);
   }
 
   isTopicDraftConvertableToTeam(): boolean {
-    return this.topicDraftAuthService.hasCurrentUserConvertToTeamPermissions()
+    return this.topicDraftPermissionService.hasCurrentUserConvertToTeamPermissions()
       && TopicDraftStatusService.isTopicDraftConvertableToTeam(this.topicDraft);
   }
 
   isTopicDraftInSubmissionStage(): boolean {
-    return this.topicDraftAuthService.hasCurrentUserSubmissionPermissions(this.topicDraft)
+    return this.topicDraftPermissionService.hasCurrentUserSubmissionPermissions(this.topicDraft)
       && TopicDraftStatusService.isTopicDraftInSubmissionStage(this.topicDraft);
   }
 
   isTopicDraftInApprovingStage(): boolean {
-    return this.topicDraftAuthService.hasCurrentUserApprovingPermissions()
+    return this.topicDraftPermissionService.hasCurrentUserApprovingPermissions()
       && TopicDraftStatusService.isTopicDraftInApprovingStage(this.topicDraft);
   }
 
