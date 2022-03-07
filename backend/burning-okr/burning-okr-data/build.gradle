@@ -1,7 +1,8 @@
 dependencies {
   implementation project(':burning-okr-model')
+  implementation 'junit:junit:4.13.2'
   testImplementation project(':burning-okr-model')
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.4")
 
-  implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOauthVersion}")
+  implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.6.3")
 }

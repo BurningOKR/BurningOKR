@@ -1,6 +1,7 @@
 buildscript {
     ext {
-        swaggerVersion = '2.9.2'
+        swaggerVersion = '3.0.0'
+        springdocVersion = '1.6.6'
     }
     repositories {
         mavenCentral()
@@ -43,10 +44,11 @@ targetCompatibility = 1.8
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
-    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+  implementation 'junit:junit:4.13.2'
+  compileOnly("org.projectlombok:lombok:1.18.22")
+    testCompileOnly("org.projectlombok:lombok:1.18.22")
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
 
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
@@ -55,35 +57,42 @@ dependencies {
 
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
+    //implementation("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
 
-    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-web:2.6.4')
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    implementation ("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-    implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.0.RELEASE'
-    implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth', version: '2.4.0.RELEASE'
-    implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.0.RELEASE'
+    implementation ("org.springframework.boot:spring-boot-starter-security:2.6.4")
+    implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.6.3'
+    implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth', version: '2.5.1.RELEASE'
+    implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.1.RELEASE'
 
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.4'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
 
-    implementation group: 'org.flywaydb', name: 'flyway-core'
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.5.1'
+    implementation 'com.google.guava:guava:31.0.1-jre'
+    implementation('org.codehaus.jackson:jackson-mapper-asl:1.9.13')
 
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.4")
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:2.6.4'
 
-    implementation group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.0'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.5'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     implementation 'org.apache.poi:poi:5.0.0'
 
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:2.6.4')
 
     implementation "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
     implementation "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
 
     implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
+
+    implementation('org.junit.jupiter:junit-jupiter:5.8.2')
 }
 
 springBoot{
