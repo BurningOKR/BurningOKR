@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 
 @Component({
-  selector: 'app-submitted-topic-draft-cards-wrapper',
-  templateUrl: './submitted-topic-draft-cards-wrapper.component.html',
-  styleUrls: ['./submitted-topic-draft-cards-wrapper.component.css'],
+  selector: 'app-topic-draft-list',
+  templateUrl: './topic-drafts-list.component.html',
+  styleUrls: ['./topic-drafts-list.component.css'],
 })
-export class SubmittedTopicDraftCardsWrapperComponent {
+export class TopicDraftsListComponent {
   @Input() topicDrafts: OkrTopicDraft[];
 
   updateEditedTopicDraft(topicDraft: OkrTopicDraft): void {

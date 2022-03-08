@@ -4,21 +4,23 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
-import { OkrTopicDescription } from '../../shared/model/ui/OrganizationalUnit/okr-topic-description';
-import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
-import { Structure } from '../../shared/model/ui/OrganizationalUnit/structure';
-import { DepartmentMapper } from '../../shared/services/mapper/department.mapper';
-import { StructureMapper } from '../../shared/services/mapper/structure.mapper';
-import { TopicDescriptionMapper } from '../../shared/services/mapper/topic-description-mapper';
-import { SubmittedTopicDraftDetailsFormData } from '../submitted-topic-draft-details/submitted-topic-draft-details.component';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { OkrTopicDescription } from '../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
+import { OkrTopicDraft } from '../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
+import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure';
+import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
+import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
+import { TopicDescriptionMapper } from '../../../shared/services/mapper/topic-description-mapper';
+import {
+  SubmittedTopicDraftDetailsFormData
+} from '../../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
 
 @Component({
-  selector: 'app-submitted-topic-drafts-convert-to-team',
-  templateUrl: './convert-submitted-topic-draft-to-team.component.html',
-  styleUrls: ['./convert-submitted-topic-draft-to-team.component.scss'],
+  selector: 'app-convert-topic-draft-to-team-dialogue',
+  templateUrl: './convert-topic-draft-to-team-dialogue.component.html',
+  styleUrls: ['./convert-topic-draft-to-team-dialogue.component.scss'],
 })
-export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit {
+export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
 
   title$: Observable<string>;
   saveAndCloseLabel$: Observable<string>;
@@ -30,7 +32,7 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any),
     private translate: TranslateService,
-    private dialogRef: MatDialogRef<ConvertSubmittedTopicDraftToTeamComponent>,
+    private dialogRef: MatDialogRef<ConvertTopicDraftToTeamDialogueComponent>,
     private departmentMapper: DepartmentMapper,
     private structureMapper: StructureMapper,
     private topicDescriptionMapper: TopicDescriptionMapper,
@@ -47,8 +49,8 @@ export class ConvertSubmittedTopicDraftToTeamComponent implements OnInit {
       },
     );
 
-    this.title$ = this.translate.stream('submitted-topic-draft-convert-to-team.title');
-    this.saveAndCloseLabel$ = this.translate.stream('submitted-topic-draft-convert-to-team.dialog.save-and-close-label');
+    this.title$ = this.translate.stream('convert-topic-draft-to-team.title');
+    this.saveAndCloseLabel$ = this.translate.stream('convert-topic-draft-to-team.dialog.save-and-close-label');
   }
 
   clickedConvertToTeam() {
