@@ -105,6 +105,19 @@
 		"cancel-text": "Cancel",
 		"confirm-text": "Confirm"
 	},
+	"convert-topic-draft-to-team": {
+		"dialog": {
+			"save-and-close-label": "Convert "
+		},
+		"form": {
+			"company-option": "Create team in {{value}} ",
+			"select": "Choose parent structure *"
+		},
+		"title": "Convert Topic Draft to a Team",
+		"tooltip": {
+			"only-substructures-allowed": "A team can be created only in structures"
+		}
+	},
 	"create-user-init-state-form": {
 		"create-your-admin-account": "Create your administrator account",
 		"next": "Continue",
@@ -709,7 +722,13 @@
 		"rejected": "Rejected",
 		"submitted": "Submitted"
 	},
-	"submitted-topic-draft-action-button": {
+	"task-board-swimlane-view-helper": {
+		"no-keyresult-title": "No KeyResult"
+	},
+	"taskboard-state-column-view": {
+		"default-state-text": "Not assigned"
+	},
+	"topic-draft-action-button": {
 		"admin-initiator-tooltip": "Only an admin or the initiator can submit or withdraw submission",
 		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
 		"capitalised-approve": "Approve",
@@ -751,28 +770,10 @@
 		"withdraw-rejection": "Withdraw rejection",
 		"withdraw-submit": "Withdraw submission"
 	},
-	"submitted-topic-draft-cards-wrapper": {
-		"column": {
-			"name": "Name",
-			"start": "Start",
-			"submitted": "Submitted By"
-		},
-		"no-new-topic-drafts": "No new topic drafts"
+	"topic-draft-creation-form": {
+		"dialog-title": "Create topic draft"
 	},
-	"submitted-topic-draft-convert-to-team": {
-		"dialog": {
-			"save-and-close-label": "Convert "
-		},
-		"form": {
-			"company-option": "Create team in {{value}} ",
-			"select": "Choose parent structure *"
-		},
-		"title": "Convert Topic Draft to a Team",
-		"tooltip": {
-			"only-substructures-allowed": "A team can be created only in structures"
-		}
-	},
-	"submitted-topic-draft-details": {
+	"topic-draft-details-dialogue": {
 		"button": {
 			"close": "Close",
 			"edit": "Edit",
@@ -801,7 +802,18 @@
 		},
 		"title": "Submitted topic draft"
 	},
-	"submitted-topic-drafts": {
+	"topic-draft-edit-dialogue": {
+		"title": "Edit topic draft"
+	},
+	"topic-draft-list": {
+		"column": {
+			"name": "Name",
+			"start": "Start",
+			"submitted": "Submitted By"
+		},
+		"no-new-topic-drafts": "No new topic drafts"
+	},
+	"topic-drafts": {
 		"add-topic-draft-button": {
 			"tooltip": "Add a new topic draft"
 		},
@@ -813,15 +825,6 @@
 			"title": "Submitted topic drafts",
 			"title-short": "Topic draft"
 		}
-	},
-	"task-board-swimlane-view-helper": {
-		"no-keyresult-title": "No KeyResult"
-	},
-	"taskboard-state-column-view": {
-		"default-state-text": "Not assigned"
-	},
-	"topic-draft-creation-form": {
-		"dialog-title": "Create topic draft"
 	},
 	"user-autocomplete-input": {
 		"label": "User input"

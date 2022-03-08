@@ -1,39 +1,41 @@
 import { Component, EventEmitter, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import { User } from '../../shared/model/api/user';
-import { NEVER, Observable, of } from 'rxjs';
+import { NEVER } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { CurrentUserService } from '../../core/services/current-user.service';
-import { map } from 'rxjs/internal/operators';
-import { shareReplay, switchMap } from 'rxjs/operators';
-import { SubmittedTopicDraftEditComponent } from '../submitted-topic-draft-edit/submitted-topic-draft-edit.component';
+import {
+  TopicDraftEditDialogueComponent
+} from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
+import { TopicDraftPermissionService } from '../topic-draft-permission.service';
+import { TopicDraftStatusService } from '../topic-draft-status.service';
 
 export interface SubmittedTopicDraftDetailsFormData {
   topicDraft: OkrTopicDraft;
 }
 
 @Component({
-  selector: 'app-submitted-topic-draft-details',
-  templateUrl: './submitted-topic-draft-details.component.html',
-  styleUrls: ['./submitted-topic-draft-details.component.css'],
+  selector: 'app-topic-draft-details-dialogue',
+  templateUrl: './topic-draft-details-dialogue.component.html',
+  styleUrls: ['./topic-draft-details-dialogue.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 
-export class SubmittedTopicDraftDetailsComponent implements OnInit {
+export class TopicDraftDetailsDialogueComponent implements OnInit {
 
   editedTopicDraftEvent: EventEmitter<OkrTopicDraft>;
   enumStatus = status;
   topicDraft: OkrTopicDraft;
   submittedTopicDraftDetailsForm: FormGroup;
-  canEdit$: Observable<boolean>;
+  canEdit: boolean;
 
-  constructor(private dialogRef: MatDialogRef<SubmittedTopicDraftDetailsComponent>,
+  constructor(private dialogRef: MatDialogRef<TopicDraftDetailsDialogueComponent>,
               private okrChildUnitRoleService: OkrChildUnitRoleService,
               private currentUserService: CurrentUserService,
               private dialog: MatDialog,
+              private topicDraftPermissionService: TopicDraftPermissionService,
               @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)) {
   }
 
@@ -53,18 +55,8 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
         description: new FormControl(this.topicDraft.description)
       }
     );
-    this.canEdit$ = this.currentUserService.getCurrentUser$()
-      .pipe(
-        map((currentUser: User) => currentUser.id === this.topicDraft.initiatorId),
-        switchMap((canEdit: boolean) => {
-          if (canEdit) {
-            return of(canEdit);
-          } else {
-            return this.currentUserService.isCurrentUserAdmin$();
-          }
-        }),
-        shareReplay()
-    );
+    this.canEdit = this.topicDraftPermissionService.hasCurrentUserEditingPermissions(this.topicDraft)
+      && TopicDraftStatusService.isTopicDraftInSubmissionStage(this.topicDraft);
   }
 
   editDialog(): void {
@@ -75,7 +67,7 @@ export class SubmittedTopicDraftDetailsComponent implements OnInit {
         editedTopicDraftEvent: this.editedTopicDraftEvent
       }
     };
-    this.dialog.open(SubmittedTopicDraftEditComponent, data);
+    this.dialog.open(TopicDraftEditDialogueComponent, data);
   }
 
   closeDialog(): void {

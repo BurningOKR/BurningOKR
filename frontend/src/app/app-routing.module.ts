@@ -1,4 +1,4 @@
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminViewComponent } from './admin/admin-view.component';
@@ -10,7 +10,7 @@ import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-un
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
-import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
+import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topic-drafts.component';
 import { environment } from '../environments/environment';
 
 const routes: Routes = [
@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'submitted-topic-drafts',
-    component: SubmittedTopicDraftsComponent,
+    component: TopicDraftsComponent,
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
   {
