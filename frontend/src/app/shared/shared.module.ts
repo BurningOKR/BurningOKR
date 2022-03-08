@@ -36,6 +36,8 @@ import { UserSelectorMultiComponent } from './components/user-selector-multi/use
 import { UserSelectorComponent } from './components/user-selector/user-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer-component/countdown-timer.component';
+import { DateFormatPipe } from './pipes/date-format.pipe';
+import { LogPipe } from './pipes/log.pipe';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
     UserSelectorMultiComponent,
     UserSelectorComponent,
     CountdownTimerComponent,
+    DateFormatPipe,
+    LogPipe,
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -100,7 +104,9 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
         StatusDotComponent,
         CallbackFilterPipe,
         UserSelectorMultiComponent,
-        UserSelectorComponent
+        UserSelectorComponent,
+        DateFormatPipe,
+        LogPipe
     ],
 })
 export class SharedModule {

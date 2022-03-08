@@ -11,6 +11,17 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.4.4 (08.03.2022)',
+      changes: [
+        'Usability: Objectives and keyresults are now added at the bottom',
+        'Usability: Dateformat is now dependent on the language',
+        'Usability: Logmessage added when the server has started',
+        'Bugfix: Choosing correct company for cycle management',
+        'Usability development: Configuration cleanup',
+        'Usability development: refactored topic draft'
+      ]
+    },
+    {
       version: '1.4.3 (02.02.2022)',
       changes: [
         'Fixed the countdown-timer in the demo-mode',

@@ -29,13 +29,8 @@ spring:
 security:
   oauth2:
     client:
-      clientAuthenticationScheme: form
       scope: openid
-      grant-type: client_credentials
-      auto-approve-scopes: '.*'
       token-name: access_token
-    resource:
-      preferTokenInfo: false
 
 system:
   configuration:

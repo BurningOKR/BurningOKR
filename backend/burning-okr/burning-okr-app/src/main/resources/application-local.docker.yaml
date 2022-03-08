@@ -50,14 +50,8 @@ spring:
 #      clientSecret: <OAuth client secret>
 #      accessTokenUri: <OAuth access token url>
 #      userAuthorizationUri: <OAuth use authorization token url>
-#      clientAuthenticationScheme: form
 #      scope: openid
-#      grant-type: client_credentials
-#      auto-approve-scopes: '.*'
 #      token-name: access_token
-#    resource:
-#      userInfoUri: https://graph.microsoft.com/v1.0/me/
-#      preferTokenInfo: false
 
 system:
   configuration:
