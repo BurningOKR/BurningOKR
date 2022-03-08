@@ -5,7 +5,7 @@
     {{description.name}}
     <br>
     <span class="tab-subtitle description-title">{{ 'department-tab-description.beginning' | translate }}</span>
-    {{description.beginning | date}}
+    {{description.beginning | dateFormat | async}}
     <div class="tab-subtitle description-title">{{ 'department-tab-description.description' | translate }}:</div>
     <pre class="description-text">{{description.description}}</pre>
     <div class="tab-subtitle description-title">{{ 'department-tab-description.to' | translate }}</div>

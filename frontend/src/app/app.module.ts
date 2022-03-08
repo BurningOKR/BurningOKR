@@ -54,26 +54,7 @@ import { NoMailInformationComponent } from './information/no-mail-information/no
 import { OkrUnitModule } from './okr-units/okr-unit.module';
 import { OkrviewModule } from './okrview/okrview.module';
 import { SharedModule } from './shared/shared.module';
-import {
-  SubmittedTopicDraftActionButtonComponent,
-} from './submitted-topic-drafts/submitted-topic-draft-action-button/submitted-topic-draft-action-button.component';
-import {
-  SubmittedTopicDraftCardComponent,
-} from './submitted-topic-drafts/submitted-topic-draft-card/submitted-topic-draft-card.component';
-import {
-  SubmittedTopicDraftCardsWrapperComponent,
-} from './submitted-topic-drafts/submitted-topic-draft-cards-wrapper/submitted-topic-draft-cards-wrapper.component';
-import {
-  SubmittedTopicDraftDetailsComponent,
-} from './submitted-topic-drafts/submitted-topic-draft-details/submitted-topic-draft-details.component';
-import {
-  SubmittedTopicDraftEditComponent,
-} from './submitted-topic-drafts/submitted-topic-draft-edit/submitted-topic-draft-edit.component';
-import {
-  ConvertSubmittedTopicDraftToTeamComponent,
-} from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/convert-submitted-topic-draft-to-team.component';
-import { SubmittedTopicDraftsComponent } from './submitted-topic-drafts/submitted-topic-drafts.component';
-import { ConvertTopicDraftTreeComponent } from './submitted-topic-drafts/submitted-topic-drafts-convert-to-team/convert-topic-draft-tree/convert-topic-draft-tree.component';
+import { TopicDraftsModule } from './topic-drafts/topic-drafts.module';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeDe, 'de', localeDeExtra);
@@ -90,14 +71,6 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
-    SubmittedTopicDraftsComponent,
-    SubmittedTopicDraftCardComponent,
-    SubmittedTopicDraftActionButtonComponent,
-    SubmittedTopicDraftCardsWrapperComponent,
-    SubmittedTopicDraftDetailsComponent,
-    SubmittedTopicDraftEditComponent,
-    ConvertSubmittedTopicDraftToTeamComponent,
-    ConvertTopicDraftTreeComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -131,6 +104,7 @@ export function createTranslateLoader(http: HttpClient) {
     OkrviewModule,
     NgwWowModule,
     DemoModule,
+    TopicDraftsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -9,7 +9,7 @@ import { CompanyMapper } from '../shared/services/mapper/company.mapper';
 })
 export class CurrentCompanyService {
 
-  private currentCompany$: ReplaySubject<CompanyUnit> = new ReplaySubject<CompanyUnit>();
+  private currentCompany$: ReplaySubject<CompanyUnit> = new ReplaySubject<CompanyUnit>(1);
 
   constructor(private companyMapperService: CompanyMapper) {
   }

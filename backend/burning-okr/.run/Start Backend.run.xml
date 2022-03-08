@@ -2,14 +2,16 @@
   <configuration default="false" name="Start Backend" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
-      <option name="externalProjectPath" value="$PROJECT_DIR$/burning-okr" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="bootRun --scan" />
+      <option name="scriptParameters" value="--scan" />
       <option name="taskDescriptions">
         <list />
       </option>
       <option name="taskNames">
-        <list />
+        <list>
+          <option value="bootRun" />
+        </list>
       </option>
       <option name="vmOptions" value="-Dspring.profiles.active=local" />
     </ExternalSystemSettings>

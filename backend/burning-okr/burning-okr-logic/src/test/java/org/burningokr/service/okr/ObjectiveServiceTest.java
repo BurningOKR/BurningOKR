@@ -143,9 +143,9 @@ public class ObjectiveServiceTest {
 
     objectiveService.createKeyResult(expected, keyResult, user);
 
-    Assert.assertEquals(6, otherKeyResult1.getSequence());
-    Assert.assertEquals(7, otherKeyResult2.getSequence());
-    Assert.assertEquals(11, otherKeyResult3.getSequence());
+    Assert.assertEquals(5, otherKeyResult1.getSequence());
+    Assert.assertEquals(6, otherKeyResult2.getSequence());
+    Assert.assertEquals(10, otherKeyResult3.getSequence());
   }
 
   @Test(expected = ForbiddenException.class)

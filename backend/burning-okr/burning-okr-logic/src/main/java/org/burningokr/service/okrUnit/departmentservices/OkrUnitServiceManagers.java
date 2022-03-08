@@ -59,10 +59,7 @@ public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServi
 
     throwIfCycleForDepartmentIsClosed(department);
 
-    for (Objective otherObjective : department.getObjectives()) {
-      otherObjective.setSequence(otherObjective.getSequence() + 1);
-      objectiveRepository.save(otherObjective);
-    }
+    objective.setSequence(department.getObjectives().size());
 
     objective.setParentOkrUnit(department);
 

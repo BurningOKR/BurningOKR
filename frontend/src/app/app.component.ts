@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { FetchingService } from './core/services/fetching.service';
+import {OkrTranslationHelperService} from './shared/services/helper/okr-translation-helper.service';
 
 @Component({
   selector: 'app-root',
@@ -18,18 +17,12 @@ export class AppComponent {
   constructor(private authService: AuthenticationService,
               private fetchingService: FetchingService,
               private router: Router,
-              translateService: TranslateService,
-              private dateAdapter: DateAdapter<Date>) {
+              private OkrTranslationHelper: OkrTranslationHelperService) {
     this.authService.configure()
       .then(() => {
         this.fetchingService.refetchAll();
       });
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translateService.setDefaultLang('en');
-
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translateService.use('en');
-    dateAdapter.setLocale(translateService.currentLang);
+    this.OkrTranslationHelper.initializeTranslationOnStartup();
   }
 
   checkIfUserIsLoggedIn(): boolean {

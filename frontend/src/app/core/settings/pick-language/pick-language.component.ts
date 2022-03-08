@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
+import {OkrTranslationHelperService} from '../../../shared/services/helper/okr-translation-helper.service';
 
 @Component({
   selector: 'app-pick-language',
@@ -17,8 +17,8 @@ export class PickLanguageComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
+    private okrTranslationHelper: OkrTranslationHelperService,
     private dialogRef: MatDialogRef<PickLanguageComponent>,
-    private dateAdapter: DateAdapter<Date>,
   ) {
   }
 
@@ -33,8 +33,7 @@ export class PickLanguageComponent implements OnInit {
   }
 
   clickedDone(): void {
-    this.translate.use(this.language);
-    this.dateAdapter.setLocale(this.language);
+    this.okrTranslationHelper.changeCurrentLanguageTo(this.language);
     this.dialogRef.close();
   }
 }
