@@ -1,6 +1,8 @@
-1.4.3
+1.4.4
 
-- Fixed the countdown-timer in the demo-mode
-- Usability Improvement: Pick language in the login screen
-- Usability Improvement: Selected Language is now saved in a cookie
-- Usability Improvement: The standard Language is now the Local language
+- Usability: Objectives and keyresults are now added at the bottom
+- Usability: Dateformat is now dependent on the language
+- Usability: Logmessage added when the server has started
+- Bugfix: Choosing correct company for cycle management
+- Usability development: Configuration cleanup
+- Usability development: refactored topic draft
