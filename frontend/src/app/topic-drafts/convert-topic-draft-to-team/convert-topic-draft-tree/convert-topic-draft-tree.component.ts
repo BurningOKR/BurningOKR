@@ -9,6 +9,7 @@ import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure
 export class ConvertTopicDraftTreeComponent {
   @Input() substructure: Structure;
   isOpen = false;
+  isSelected = false;
 
   hasChildUnits(): boolean {
     return this.substructure.substructures.length > 0;
@@ -21,6 +22,7 @@ export class ConvertTopicDraftTreeComponent {
   selectStructure(): void {
     console.log('clicked');
     console.log(this.substructure);
+    this.isSelected = !this.isSelected;
     /*
     TODO: P.B. 04.02.2022
         - One way to implement is that this needs to be emitted up to the convert-submitted-topic-draft-to-team component as the selected structure where it will be created.
