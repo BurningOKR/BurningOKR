@@ -29,8 +29,6 @@ export class ConvertTopicDraftTreeComponent {
         - I am also not sure if a tree-structure is what we want here. It becomes overcrowded when there are too many substructures (or structures have long names).
           Ok for BAG, probably not OK for bigger companies.
         !IMPORTANT: Mobile View doesnt work right now. The dialog is out of screen on iphone SE for example.
-
-
     */
   }
 }
