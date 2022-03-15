@@ -1,15 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure';
+import { Observable } from 'rxjs';
+import { ConvertTopicDraftToTeamService } from '../convert-topic-draft-to-team.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-convert-topic-draft-tree',
   templateUrl: './convert-topic-draft-tree.component.html',
   styleUrls: ['./convert-topic-draft-tree.component.scss'],
 })
-export class ConvertTopicDraftTreeComponent {
+export class ConvertTopicDraftTreeComponent implements OnInit {
   @Input() substructure: Structure;
+  isSelected: Observable<boolean>;
   isOpen = false;
-  isSelected = false;
+
+  constructor(private convertTopicDraftToTeamService: ConvertTopicDraftToTeamService) { }
+
+  ngOnInit(): void {
+    this.isSelected = this.convertTopicDraftToTeamService.getSelectedUnit$()
+      .pipe(map(currentSubstructure => currentSubstructure === this.substructure));
+  }
 
   hasChildUnits(): boolean {
     return this.substructure.substructures.length > 0;
@@ -20,9 +30,10 @@ export class ConvertTopicDraftTreeComponent {
   }
 
   selectStructure(): void {
-    console.log('clicked');
-    console.log(this.substructure);
-    this.isSelected = !this.isSelected;
+/*    console.log('clicked');
+    console.log(this.substructure);*/
+
+    this.convertTopicDraftToTeamService.setSelectedUnit(this.substructure);
     /*
     TODO: P.B. 04.02.2022
         - One way to implement is that this needs to be emitted up to the convert-submitted-topic-draft-to-team component as the selected structure where it will be created.

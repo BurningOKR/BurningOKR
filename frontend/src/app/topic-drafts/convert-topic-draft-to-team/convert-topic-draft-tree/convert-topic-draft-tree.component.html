@@ -1,5 +1,5 @@
-<div class="horizontal-line" [ngClass]="isSelected ? 'selected-unit' : ''">
-  <button mat-flat-button (click)="selectStructure()" class="unit-name-entry" [ngClass]="isSelected ? 'selected-unit' : ''">
+<div class="horizontal-line" [ngClass]="(isSelected | async) ? 'selected-unit' : ''">
+  <button mat-flat-button (click)="selectStructure()" class="unit-name-entry" [ngClass]="(isSelected | async) ? 'selected-unit' : ''">
     {{substructure.name}}
   </button>
   <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">

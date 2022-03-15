@@ -1,12 +1,8 @@
 <app-dialog-component [title]="title$ | async" (okEmitter)="clickedConvertToTeam()"
                       [formGroup]="chooseStructure"
                       [saveAndCloseLabel]="saveAndCloseLabel$ | async">
-
-
-  <div *ngFor="let company of companyStructures$ | async">
-    <app-convert-topic-draft-tree [substructure]="company">
-
-    </app-convert-topic-draft-tree>
-  </div>
+  <app-convert-topic-draft-tree *ngFor="let company of companyStructures$ | async"
+                                [substructure]="company">
+  </app-convert-topic-draft-tree>
 </app-dialog-component>
 
