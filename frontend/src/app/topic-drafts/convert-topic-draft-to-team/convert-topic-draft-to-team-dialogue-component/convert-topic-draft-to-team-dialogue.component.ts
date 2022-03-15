@@ -14,6 +14,7 @@ import { TopicDescriptionMapper } from '../../../shared/services/mapper/topic-de
 import {
   SubmittedTopicDraftDetailsFormData
 } from '../../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
+import { ConvertTopicDraftToTeamService } from '../convert-topic-draft-to-team.service';
 
 @Component({
   selector: 'app-convert-topic-draft-to-team-dialogue',
@@ -36,8 +37,7 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
     private departmentMapper: DepartmentMapper,
     private structureMapper: StructureMapper,
     private topicDescriptionMapper: TopicDescriptionMapper,
-  ) {
-  }
+    private convertTopicDraftToTeamService: ConvertTopicDraftToTeamService) { }
 
   ngOnInit(): void {
     this.companyStructures$ = this.structureMapper.getSchemaOfAllExistingStructures$();
@@ -51,6 +51,9 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
 
     this.title$ = this.translate.stream('convert-topic-draft-to-team.title');
     this.saveAndCloseLabel$ = this.translate.stream('convert-topic-draft-to-team.dialog.save-and-close-label');
+
+    this.convertTopicDraftToTeamService.getSelectedUnit$()
+      .subscribe(substructure => this.chooseStructure.controls.parentUnitId.setValue(substructure.id));
   }
 
   clickedConvertToTeam() {
