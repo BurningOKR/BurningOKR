@@ -1,16 +1,14 @@
-<div class="flex-nowrap horizontal-line">
-  <div class="unit-name-entry">
-    <button mat-flat-button (click)="selectStructure()">
-      {{substructure.name}}
-    </button>
-    <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
-      <mat-icon *ngIf="isOpen">expand_less</mat-icon>
-      <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
-    </button>
-  </div>
-  <div *ngIf="isOpen && hasChildUnits()">
-    <app-convert-topic-draft-tree *ngFor="let deeperSubstructure of substructure.substructures"
-                                  [substructure]="deeperSubstructure">
-    </app-convert-topic-draft-tree>
-  </div>
+<div class="horizontal-line">
+  <button mat-flat-button (click)="selectStructure()" class="unit-name-entry">
+    {{substructure.name}}
+  </button>
+  <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
+    <mat-icon *ngIf="isOpen">expand_less</mat-icon>
+    <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
+  </button>
+</div>
+<div *ngIf="isOpen && hasChildUnits()" class="substructures">
+  <app-convert-topic-draft-tree *ngFor="let deeperSubstructure of substructure.substructures"
+                                [substructure]="deeperSubstructure">
+  </app-convert-topic-draft-tree>
 </div>

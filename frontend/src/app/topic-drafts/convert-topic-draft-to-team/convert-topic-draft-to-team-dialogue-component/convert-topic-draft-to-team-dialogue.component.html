@@ -4,11 +4,9 @@
 
 
   <div *ngFor="let company of companyStructures$ | async">
-    <div class="company-header">
-      {{company.name}}
-    </div>
-    <app-convert-topic-draft-tree *ngFor="let substructure of company.substructures"
-                                  [substructure]="substructure"></app-convert-topic-draft-tree>
+    <app-convert-topic-draft-tree [substructure]="company">
+
+    </app-convert-topic-draft-tree>
   </div>
 </app-dialog-component>
 

@@ -1,9 +1,14 @@
 .unit-name-entry {
-  align-self: flex-start;
+  width: calc(100% - 45px);
+  text-align: left;
+}
+
+.substructures {
+  margin-left: 2%;
 }
 
 .horizontal-line {
   border: 0 solid #a81732;
   border-bottom-width: 1px;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
