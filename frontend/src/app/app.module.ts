@@ -32,7 +32,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { LoggerModule } from 'ngx-logger';
 import { NgwWowModule } from 'ngx-wow';
 import { AdminViewComponent } from './admin/admin-view.component';
@@ -50,6 +49,7 @@ import { CoreModule } from './core/core.module';
 import { ErrorInterceptor } from './core/error/error.interceptor';
 import { ErrorModule } from './core/error/error.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { DemoModule } from './demo/demo.module';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { OkrUnitModule } from './okr-units/okr-unit.module';
@@ -115,7 +115,7 @@ export function createTranslateLoader(http: HttpClient) {
       defaultLanguage: 'de',
     }),
     MatTreeModule,
-    NgApexchartsModule,
+    DashboardModule,
   ],
   providers: [
     OAuthFrontendDetailsService,
