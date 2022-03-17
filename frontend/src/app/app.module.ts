@@ -32,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { LoggerModule } from 'ngx-logger';
 import { NgwWowModule } from 'ngx-wow';
 import { AdminViewComponent } from './admin/admin-view.component';
@@ -114,6 +115,7 @@ export function createTranslateLoader(http: HttpClient) {
       defaultLanguage: 'de',
     }),
     MatTreeModule,
+    NgApexchartsModule,
   ],
   providers: [
     OAuthFrontendDetailsService,
