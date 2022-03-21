@@ -4,6 +4,7 @@ import {
   LineChartOptions,
   LineChartTitle,
 } from '../../shared/model/ui/dashboard/line-chart-options';
+import { PieChartOptions } from '../../shared/model/ui/dashboard/pie-chart-options';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,30 @@ export class ChartOptionsBuilderService {
       xaxis: {
         categories: xAxisCategories,
       },
+    };
+  }
+
+  buildPieChartOptions(pieChartValues: number[], pieChartvalueLabels: string[]): PieChartOptions {
+    return {
+      series: pieChartValues,
+      chart: {
+        width: 380,
+        type: 'pie',
+      },
+      labels: pieChartvalueLabels,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: 'left',
+            },
+          },
+        },
+      ],
     };
   }
 }
