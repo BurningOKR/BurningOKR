@@ -4,6 +4,7 @@ import {
   LineChartOptions,
   LineChartTitle,
 } from '../../shared/model/ui/dashboard/line-chart-options';
+import { PieChartOptions } from '../../shared/model/ui/dashboard/pie-chart-options';
 import { ChartOptionsBuilderService } from '../services/chart-options-builder.service';
 
 @Component({
@@ -30,7 +31,10 @@ export class DashboardComponent {
   chartXAxis = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
 
   lineChartOptions: LineChartOptions;
+  pieChartOptions: PieChartOptions;
+
   constructor(private chartOptionsBuilder: ChartOptionsBuilderService) {
     this.lineChartOptions = chartOptionsBuilder.buildLineChartOptions(this.chartTitle, this.chartLines, this.chartXAxis, true);
+    this.pieChartOptions = chartOptionsBuilder.buildPieChartOptions([2,4,4,10], ['Zwei', 'VierEins', 'VierZwei', 'Zehn']);
   }
 }

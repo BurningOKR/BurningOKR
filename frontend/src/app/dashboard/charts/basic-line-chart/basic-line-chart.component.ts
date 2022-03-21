@@ -8,5 +8,4 @@ import { LineChartOptions } from '../../../shared/model/ui/dashboard/line-chart-
 })
 export class BasicLineChartComponent{
   @Input() lineChartOptions!: LineChartOptions;
-
 }
