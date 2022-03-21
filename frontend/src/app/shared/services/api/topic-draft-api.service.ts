@@ -24,7 +24,7 @@ export class TopicDraftApiService {
   }
 
   getAllTopicDrafts$(): Observable<OkrTopicDraftDto[]> {
-    return this.api.getData$('topicDrafts/all');
+    return this.api.getData$('topicDrafts');
   }
 
   deleteTopicDraft$(topicDraftId: number): Observable<boolean> {

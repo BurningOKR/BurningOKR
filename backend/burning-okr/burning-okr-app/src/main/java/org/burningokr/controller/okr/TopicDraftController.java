@@ -53,7 +53,7 @@ public class TopicDraftController {
    *
    * @return a {@link ResponseEntity} ok with a {@link Collection} of TopicDrafts
    */
-  @GetMapping("/topicDrafts/all")
+  @GetMapping("/topicDrafts")
   public ResponseEntity<Collection<OkrTopicDraftDto>> getAllCompanies() {
     Collection<OkrTopicDraft> topicDrafts = okrTopicDraftService.getAllTopicDrafts();
     return ResponseEntity.ok(okrTopicDraftMapper.mapEntitiesToDtos(topicDrafts));
