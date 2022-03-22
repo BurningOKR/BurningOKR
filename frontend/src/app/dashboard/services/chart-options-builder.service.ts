@@ -15,7 +15,7 @@ export class ChartOptionsBuilderService {
                         xAxisCategories: string[], showDataLabels?: boolean): LineChartOptions {
 
     return {
-      lines: lineChartValues,
+      series: lineChartValues,
       chart: {
         height: 350,
         type: 'line',

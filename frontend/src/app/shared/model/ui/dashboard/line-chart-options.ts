@@ -1,16 +1,13 @@
 import {
-  ApexAxisChartSeries,
-  ApexChart,
   ApexDataLabels,
   ApexGrid,
   ApexStroke,
   ApexTitleSubtitle,
   ApexXAxis,
 } from 'ng-apexcharts';
+import { BaseChartOptions } from './base-chart-options';
 
-export interface LineChartOptions {
-  lines: ApexAxisChartSeries;
-  chart: ApexChart;
+export interface LineChartOptions extends BaseChartOptions{
   xaxis: ApexXAxis;
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
