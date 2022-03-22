@@ -2,7 +2,6 @@ import {
   ApexDataLabels,
   ApexGrid,
   ApexStroke,
-  ApexTitleSubtitle,
   ApexXAxis,
 } from 'ng-apexcharts';
 import { BaseChartOptions } from './base-chart-options';
@@ -12,7 +11,6 @@ export class LineChartOptions extends BaseChartOptions{
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
   stroke: ApexStroke;
-  title: ApexTitleSubtitle;
 }
 
 export interface LineChartLineKeyValues {
@@ -20,7 +18,7 @@ export interface LineChartLineKeyValues {
   data: number[];
 }
 
-export interface LineChartTitle {
+export interface ChartTitle {
   text: string;
   align: 'left' | 'right' | 'center';
 }

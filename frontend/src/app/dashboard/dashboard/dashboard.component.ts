@@ -3,7 +3,7 @@ import { BaseChartOptions } from '../../shared/model/ui/dashboard/base-chart-opt
 import {
   LineChartLineKeyValues,
   LineChartOptions,
-  LineChartTitle,
+  ChartTitle,
 } from '../../shared/model/ui/dashboard/line-chart-options';
 import { PieChartOptions } from '../../shared/model/ui/dashboard/pie-chart-options';
 import { ChartOptionsBuilderService } from '../services/chart-options-builder.service';
@@ -24,7 +24,7 @@ export class DashboardComponent {
       data: [5, 34, 36, 36, 50],
     },
   ];
-  chartTitle: LineChartTitle = {
+  chartTitle: ChartTitle = {
     text: 'Fortschritt der Objectives',
     align: 'left',
   };
@@ -32,12 +32,11 @@ export class DashboardComponent {
 
   lineChartOptions: LineChartOptions;
   pieChartOptions: PieChartOptions;
-
   chartOptions: BaseChartOptions[] = [];
 
   constructor(private chartOptionsBuilder: ChartOptionsBuilderService) {
     this.lineChartOptions = chartOptionsBuilder.buildLineChartOptions(this.chartTitle, this.chartLines, this.chartXAxis, true);
-    this.pieChartOptions = chartOptionsBuilder.buildPieChartOptions([2,4,4,10], ['Zwei', 'VierEins', 'VierZwei', 'Zehn']);
+    this.pieChartOptions = chartOptionsBuilder.buildPieChartOptions(this.chartTitle,[2,4,4,10], ['Zwei', 'VierEins', 'VierZwei', 'Zehn']);
     this.chartOptions.push(this.lineChartOptions);
     this.chartOptions.push(this.pieChartOptions);
   }
