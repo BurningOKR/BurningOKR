@@ -24,7 +24,6 @@ export class DashboardComponent {
       data: [5, 34, 36, 36, 50],
     },
   ];
-
   chartTitle: LineChartTitle = {
     text: 'Fortschritt der Objectives',
     align: 'left',

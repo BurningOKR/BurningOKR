@@ -13,56 +13,60 @@ export class ChartOptionsBuilderService {
 
   buildLineChartOptions(lineChartTitle: LineChartTitle, lineChartValues: LineChartLineKeyValues[],
                         xAxisCategories: string[], showDataLabels?: boolean): LineChartOptions {
+    const lineChartOptions: LineChartOptions = new LineChartOptions();
 
-    return {
-      series: lineChartValues,
-      chart: {
-        height: 350,
-        type: 'line',
-        zoom: {
-          enabled: false,
-        },
-      },
-      dataLabels: {
-        enabled: showDataLabels,
-      },
-      stroke: {
-        curve: 'straight',
-      },
-      title: lineChartTitle,
-      grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-          opacity: 0.5,
-        },
-      },
-      xaxis: {
-        categories: xAxisCategories,
+    lineChartOptions.series = lineChartValues;
+    lineChartOptions.chart = {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false,
       },
     };
+    lineChartOptions.dataLabels = {
+      enabled: showDataLabels,
+    };
+    lineChartOptions.stroke = {
+      curve: 'straight',
+    };
+    lineChartOptions.title = lineChartTitle;
+    lineChartOptions.grid = {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5,
+      },
+    };
+    lineChartOptions.xaxis = {
+      categories: xAxisCategories,
+    };
+
+    return lineChartOptions;
   }
 
-  buildPieChartOptions(pieChartValues: number[], pieChartvalueLabels: string[]): PieChartOptions {
-    return {
-      series: pieChartValues,
-      chart: {
-        width: 380,
-        type: 'pie',
-      },
-      labels: pieChartvalueLabels,
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: 'left',
-            },
+  buildPieChartOptions(pieChartValues: number[], pieChartValueLabels: string[]):
+    PieChartOptions {
+    const pieChartOptions: PieChartOptions = new PieChartOptions();
+
+    pieChartOptions.series = pieChartValues;
+    pieChartOptions.chart = {
+      width: 380,
+      type: 'pie',
+    };
+    pieChartOptions.labels = pieChartValueLabels;
+    pieChartOptions.responsive = [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: 'left',
           },
         },
-      ],
-    };
+      },
+    ];
+
+    return pieChartOptions;
   }
 }
