@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   LineChartLineKeyValues,
   LineChartOptions,
-  LineChartTitle,
+  ChartTitle,
 } from '../../shared/model/ui/dashboard/line-chart-options';
 import { PieChartOptions } from '../../shared/model/ui/dashboard/pie-chart-options';
 
@@ -11,7 +11,7 @@ import { PieChartOptions } from '../../shared/model/ui/dashboard/pie-chart-optio
 })
 export class ChartOptionsBuilderService {
 
-  buildLineChartOptions(lineChartTitle: LineChartTitle, lineChartValues: LineChartLineKeyValues[],
+  buildLineChartOptions(lineChartTitle: ChartTitle, lineChartValues: LineChartLineKeyValues[],
                         xAxisCategories: string[], showDataLabels?: boolean): LineChartOptions {
     const lineChartOptions: LineChartOptions = new LineChartOptions();
 
@@ -43,10 +43,11 @@ export class ChartOptionsBuilderService {
     return lineChartOptions;
   }
 
-  buildPieChartOptions(pieChartValues: number[], pieChartValueLabels: string[]):
+  buildPieChartOptions(pieChartTitle: ChartTitle, pieChartValues: number[], pieChartValueLabels: string[]):
     PieChartOptions {
     const pieChartOptions: PieChartOptions = new PieChartOptions();
 
+    pieChartOptions.title = pieChartTitle;
     pieChartOptions.series = pieChartValues;
     pieChartOptions.chart = {
       width: 380,
