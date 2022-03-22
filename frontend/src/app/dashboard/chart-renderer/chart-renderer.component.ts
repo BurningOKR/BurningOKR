@@ -1,13 +1,22 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { BaseChartOptions } from '../../shared/model/ui/dashboard/base-chart-options';
 import { BaseChartComponent } from '../charts/base-chart/base-chart.component';
 import { chartComponentMappings } from '../decorator/chart-component.decorator';
+import { ConstructorType } from '../decorator/constructor.type';
 import { ChartHostDirective } from './chart-host.directive';
 
 @Component({
   selector: 'app-chart-renderer',
   templateUrl: './chart-renderer.component.html',
-  styleUrls: ['./chart-renderer.component.scss']
+  styleUrls: ['./chart-renderer.component.scss'],
 })
 export class ChartRendererComponent implements OnInit {
   @Input() chartOptions!: BaseChartOptions;
@@ -17,10 +26,9 @@ export class ChartRendererComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // eslint-disable-next-line @typescript-eslint/typedef
-    const componentType = chartComponentMappings.find(
+    const componentType: ConstructorType<BaseChartOptions> = chartComponentMappings.find(
       mapping => mapping.chartOptionsType === this.chartOptions.constructor,
-    )?.componentType;
+  )?.componentType;
 
     if (!componentType) {
       throw new Error(
@@ -29,11 +37,9 @@ export class ChartRendererComponent implements OnInit {
       );
     }
 
-    // eslint-disable-next-line @typescript-eslint/typedef
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+    const componentFactory: ComponentFactory<any> = this.componentFactoryResolver.resolveComponentFactory(componentType);
 
-    // eslint-disable-next-line @typescript-eslint/typedef
-    const componentRef =
+    const componentRef: ComponentRef<BaseChartComponent<BaseChartOptions>> =
       this.chartHost.viewContainerRef.createComponent<BaseChartComponent<BaseChartOptions>>(
         componentFactory,
       );
