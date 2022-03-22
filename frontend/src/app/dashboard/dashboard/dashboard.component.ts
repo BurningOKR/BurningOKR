@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BaseChartOptions } from '../../shared/model/ui/dashboard/base-chart-options';
 import {
   LineChartLineKeyValues,
   LineChartOptions,
@@ -33,8 +34,12 @@ export class DashboardComponent {
   lineChartOptions: LineChartOptions;
   pieChartOptions: PieChartOptions;
 
+  chartOptions: BaseChartOptions[] = [];
+
   constructor(private chartOptionsBuilder: ChartOptionsBuilderService) {
     this.lineChartOptions = chartOptionsBuilder.buildLineChartOptions(this.chartTitle, this.chartLines, this.chartXAxis, true);
     this.pieChartOptions = chartOptionsBuilder.buildPieChartOptions([2,4,4,10], ['Zwei', 'VierEins', 'VierZwei', 'Zehn']);
+    this.chartOptions.push(this.lineChartOptions);
+    this.chartOptions.push(this.pieChartOptions);
   }
 }
