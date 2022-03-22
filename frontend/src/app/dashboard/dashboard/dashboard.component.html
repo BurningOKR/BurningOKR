@@ -1,8 +1,5 @@
-<app-basic-line-chart
-[lineChartOptions]="lineChartOptions"
-></app-basic-line-chart>
-
-
-<app-pie-chart
-[pieChartOptions]="pieChartOptions">
-</app-pie-chart>
+<div *ngIf="chartOptions.length > 0">
+  <div *ngFor="let chartOption of chartOptions">
+    <app-chart-renderer [chartOptions]="chartOption"></app-chart-renderer>
+  </div>
+</div>

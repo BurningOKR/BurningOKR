@@ -5,13 +5,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BasicLineChartComponent } from './charts/basic-line-chart/basic-line-chart.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { ChartRendererComponent } from './chart-renderer/chart-renderer.component';
+import { ChartHostDirective } from './chart-renderer/chart-host.directive';
+import { BaseChartComponent } from './charts/base-chart/base-chart.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     BasicLineChartComponent,
     PieChartComponent,
-    ChartRendererComponent
+    ChartRendererComponent,
+    ChartHostDirective,
+    BaseChartComponent
   ],
   imports: [
     CommonModule,
