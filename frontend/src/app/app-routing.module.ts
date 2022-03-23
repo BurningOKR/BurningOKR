@@ -7,7 +7,9 @@ import { LandingPageNavigationComponent } from './core/landing-page-router/landi
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
-import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { CreateDashboardComponent } from './dashboard/sites/create-dashboard/create-dashboard.component';
+import { DashboardOverviewComponent } from './dashboard/sites/dashboard-overview/dashboard-overview.component';
+import { DashboardComponent } from './dashboard/sites/dashboard/dashboard.component';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
@@ -42,7 +44,9 @@ const routes: Routes = [
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'companies/:companyId/dashboard-overview', component: DashboardOverviewComponent },
+  { path: 'companies/:companyId/dashboard', component: DashboardComponent },
+  { path: 'companies/:companyId/create-dashboard', component: CreateDashboardComponent },
   { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
   { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },
 ];

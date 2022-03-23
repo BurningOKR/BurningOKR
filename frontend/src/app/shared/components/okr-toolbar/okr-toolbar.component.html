@@ -60,6 +60,10 @@
     <mat-icon>assignment</mat-icon>
     <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
+  <button mat-menu-item *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
+    <mat-icon>dashboard</mat-icon>
+    <span>Dashboard ÜBERSETUNG TODO</span>
+  </button>
   <button (click)="routeToCycleAdminPanel()" *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)"
           mat-menu-item>
     <mat-icon>history</mat-icon>
