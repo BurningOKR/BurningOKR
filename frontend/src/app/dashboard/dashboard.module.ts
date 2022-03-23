@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AppRoutingModule } from '../app-routing.module';
+import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './sites/dashboard/dashboard.component';
 import { BasicLineChartComponent } from './charts/basic-line-chart/basic-line-chart.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
@@ -26,6 +27,7 @@ import { CreateDashboardComponent } from './sites/create-dashboard/create-dashbo
     CommonModule,
     NgApexchartsModule,
     AppRoutingModule,
+    SharedModule,
   ],
 })
 export class DashboardModule {
