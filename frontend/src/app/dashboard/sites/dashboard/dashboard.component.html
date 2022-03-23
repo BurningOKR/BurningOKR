@@ -1,5 +1,5 @@
-<div *ngIf="chartOptions.length > 0">
-  <div *ngFor="let chartOption of chartOptions">
-    <app-chart-renderer [chartOptions]="chartOption"></app-chart-renderer>
+<div *ngIf="dashboard$ | async; let dashboard">
+  <div *ngFor="let chart of dashboard.charts">
+    <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>
   </div>
 </div>
