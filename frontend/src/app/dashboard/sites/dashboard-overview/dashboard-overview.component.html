@@ -1,5 +1,9 @@
-Dashboard-Overview
-
+<app-okr-toolbar></app-okr-toolbar>
 <button *ngFor="let dashboard of (currentCompanyDashboards$| async)" routerLink="/dashboard/{{dashboard.id}}">
-  {{dashboard.title}}
+  <div class="dashboard-thumbnail">
+    <img src="assets/dashboard-thumbnail.png">
+    <div class="dashboard-thumbnail-name">
+      {{dashboard.title}}
+    </div>
+  </div>
 </button>

@@ -76,22 +76,28 @@ export class ChartOptionsBuilderService {
     const chartLines: LineChartLineKeyValues[] = [
       {
         name: 'Objective 1',
-        data: [1, 5, 10, 20, 45],
+        data: [0, 3, 19, 24, 25, 30, 41, 52, 60, 68, 81, 100],
       },
       {
         name: 'Objective 2',
-        data: [5, 34, 36, 36, 50],
+        data: [0, 10, 14, 20, 28, 33, 41, 55, 65, 73, 78, 90],
       },
     ];
-    const chartTitle: ChartTitle = {
-      text: 'Fortschritt der Objectives',
+    const lineChartTitle: ChartTitle = {
+      text: 'Objective-Progress in %',
       align: 'left',
     };
-    const chartXAxis: string[] = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
+
+    const pieChartTitle: ChartTitle = {
+      text: 'TopicDraft states',
+      align: 'left',
+    };
+    const chartXAxis: string[] = ['January', 'February', 'March', 'April', 'Mai', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
 
     const  chartOptions: BaseChartOptions[] = [];
-    const lineChartOptions: LineChartOptions = this.buildLineChartOptions(chartTitle,chartLines, chartXAxis, true);
-    const pieChartOptions: PieChartOptions = this.buildPieChartOptions(chartTitle, [2, 4,10], ['Zwei', 'Vier', 'Zehn']);
+    const lineChartOptions: LineChartOptions = this.buildLineChartOptions(lineChartTitle,chartLines, chartXAxis, false);
+    const pieChartOptions: PieChartOptions = this.buildPieChartOptions(pieChartTitle, [10,5, 3 ,4], ['ToDo', 'Doing', 'Blocked', 'Done']);
 
     chartOptions.push(lineChartOptions);
     chartOptions.push(pieChartOptions);
