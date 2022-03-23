@@ -1,1 +1,5 @@
-<p>dashboard-overview works!</p>
+Dashboard-Overview
+
+<button *ngFor="let dashboard of (currentCompanyDashboards$| async)" routerLink="/dashboard/{{dashboard.id}}">
+  {{dashboard.title}}
+</button>

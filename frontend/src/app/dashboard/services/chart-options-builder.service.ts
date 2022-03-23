@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BaseChartOptions } from '../../shared/model/ui/dashboard/base-chart-options';
 import {
   LineChartLineKeyValues,
   LineChartOptions,
@@ -69,5 +70,32 @@ export class ChartOptionsBuilderService {
     ];
 
     return pieChartOptions;
+  }
+
+  buildTestCharts(): BaseChartOptions[] {
+    const chartLines: LineChartLineKeyValues[] = [
+      {
+        name: 'Objective 1',
+        data: [1, 5, 10, 20, 45],
+      },
+      {
+        name: 'Objective 2',
+        data: [5, 34, 36, 36, 50],
+      },
+    ];
+    const chartTitle: ChartTitle = {
+      text: 'Fortschritt der Objectives',
+      align: 'left',
+    };
+    const chartXAxis: string[] = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
+
+    const  chartOptions: BaseChartOptions[] = [];
+    const lineChartOptions: LineChartOptions = this.buildLineChartOptions(chartTitle,chartLines, chartXAxis, true);
+    const pieChartOptions: PieChartOptions = this.buildPieChartOptions(chartTitle, [2, 4,10], ['Zwei', 'Vier', 'Zehn']);
+
+    chartOptions.push(lineChartOptions);
+    chartOptions.push(pieChartOptions);
+
+    return chartOptions;
   }
 }

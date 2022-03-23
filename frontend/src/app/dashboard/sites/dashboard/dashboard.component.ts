@@ -1,43 +1,25 @@
-import { Component } from '@angular/core';
-import { BaseChartOptions } from '../../../shared/model/ui/dashboard/base-chart-options';
-import {
-  LineChartLineKeyValues,
-  LineChartOptions,
-  ChartTitle,
-} from '../../../shared/model/ui/dashboard/line-chart-options';
-import { PieChartOptions } from '../../../shared/model/ui/dashboard/pie-chart-options';
-import { ChartOptionsBuilderService } from '../../services/chart-options-builder.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+import { map, switchMap } from 'rxjs/operators';
+import { Dashboard } from '../../model/ui/dashboard';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
-  chartLines: LineChartLineKeyValues[] = [
-    {
-      name: 'Objective 1',
-      data: [1, 5, 10, 20, 45],
-    },
-    {
-      name: 'Objective 2',
-      data: [5, 34, 36, 36, 50],
-    },
-  ];
-  chartTitle: ChartTitle = {
-    text: 'Fortschritt der Objectives',
-    align: 'left',
-  };
-  chartXAxis = ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5'];
+export class DashboardComponent implements OnInit {
+  dashboard$: Observable<Dashboard>;
 
-  lineChartOptions: LineChartOptions;
-  pieChartOptions: PieChartOptions;
-  chartOptions: BaseChartOptions[] = [];
+  constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly dashboardService: DashboardService) {
+  }
 
-  constructor(private chartOptionsBuilder: ChartOptionsBuilderService) {
-    this.lineChartOptions = chartOptionsBuilder.buildLineChartOptions(this.chartTitle, this.chartLines, this.chartXAxis, true);
-    this.pieChartOptions = chartOptionsBuilder.buildPieChartOptions(this.chartTitle,[2,4,4,10], ['Zwei', 'VierEins', 'VierZwei', 'Zehn']);
-    this.chartOptions.push(this.lineChartOptions);
-    this.chartOptions.push(this.pieChartOptions);
+  ngOnInit(): void {
+    this.dashboard$ = this.activatedRoute.paramMap.pipe(
+      map(params => +params.get('dashboardId')),
+      switchMap((dashboardId: number) => this.dashboardService.getDashboardById$(dashboardId)));
   }
 }
