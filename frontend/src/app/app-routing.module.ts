@@ -6,7 +6,9 @@ import { LandingPageNavigationComponent } from './core/landing-page-router/landi
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
-import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { CreateDashboardComponent } from './dashboard/sites/create-dashboard/create-dashboard.component';
+import { DashboardOverviewComponent } from './dashboard/sites/dashboard-overview/dashboard-overview.component';
+import { DashboardComponent } from './dashboard/sites/dashboard/dashboard.component';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
@@ -15,13 +17,14 @@ import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topi
 import { environment } from '../environments/environment';
 
 const routes: Routes = [
-  {path: 'demo', loadChildren: async () => import('./demo/demo.module')
-      .then(mod => mod.DemoModule)
+  {
+    path: 'demo', loadChildren: async () => import('./demo/demo.module')
+      .then(mod => mod.DemoModule),
   },
   {
     path: 'okr', loadChildren: async () => import('./okrview/okrview.module')
       .then(mod => mod.OkrviewModule),
-    canActivate: [NotInitiliazedGuard, AuthGuard]
+    canActivate: [NotInitiliazedGuard, AuthGuard],
   },
   { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
   { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
@@ -29,28 +32,32 @@ const routes: Routes = [
   {
     path: 'cycle-admin/:companyId',
     component: CycleAdminContainerComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard]
+    canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard],
   },
   {
     path: 'submitted-topic-drafts',
     component: TopicDraftsComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard]
+    canActivate: [NotInitiliazedGuard, AuthGuard],
   },
   {
     path: 'auth', loadChildren: async () => import('./core/auth/auth.module')
-      .then(mod => mod.AuthModule)
+      .then(mod => mod.AuthModule),
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage' , pathMatch: 'full' },
-  { path: '**', redirectTo: environment.playground ? 'landingpage' : '' }
+  { path: 'companies/:companyId/dashboard-overview', component: DashboardOverviewComponent },
+  { path: 'companies/:companyId/dashboard', component: DashboardComponent },
+  { path: 'companies/:companyId/create-dashboard', component: CreateDashboardComponent },
+  { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
+  { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forRoot(routes, { useHash: false, onSameUrlNavigation: 'reload',
-    relativeLinkResolution: 'legacy', scrollPositionRestoration: 'enabled' })],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forRoot(routes, {
+    useHash: false, onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy', scrollPositionRestoration: 'enabled',
+  })],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 }

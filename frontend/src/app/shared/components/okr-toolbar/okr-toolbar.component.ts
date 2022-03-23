@@ -1,5 +1,5 @@
 import { User } from '../../model/api/user';
-import { switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
@@ -83,5 +83,9 @@ export class OkrToolbarComponent implements OnInit {
     this.dialog.open(PickLanguageComponent)
       .afterClosed()
       .subscribe();
+  }
+
+  getCurrentCompanyId$(): Observable<number> {
+    return this.currentCompanyService.getCurrentCompany$().pipe(map(company => company.id));
   }
 }

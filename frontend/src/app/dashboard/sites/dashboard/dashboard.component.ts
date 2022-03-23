@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BaseChartOptions } from '../../shared/model/ui/dashboard/base-chart-options';
+import { BaseChartOptions } from '../../../shared/model/ui/dashboard/base-chart-options';
 import {
   LineChartLineKeyValues,
   LineChartOptions,
   ChartTitle,
-} from '../../shared/model/ui/dashboard/line-chart-options';
-import { PieChartOptions } from '../../shared/model/ui/dashboard/pie-chart-options';
-import { ChartOptionsBuilderService } from '../services/chart-options-builder.service';
+} from '../../../shared/model/ui/dashboard/line-chart-options';
+import { PieChartOptions } from '../../../shared/model/ui/dashboard/pie-chart-options';
+import { ChartOptionsBuilderService } from '../../services/chart-options-builder.service';
 
 @Component({
   selector: 'app-dashboard',
