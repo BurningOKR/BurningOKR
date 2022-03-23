@@ -45,8 +45,8 @@ const routes: Routes = [
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
   { path: 'companies/:companyId/dashboard-overview', component: DashboardOverviewComponent, canActivate: [AuthGuard] },
-  { path: 'companies/:companyId/dashboard/:dashboardId', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'companies/:companyId/create-dashboard', component: CreateDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard/:dashboardId', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
   { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },
 ];
