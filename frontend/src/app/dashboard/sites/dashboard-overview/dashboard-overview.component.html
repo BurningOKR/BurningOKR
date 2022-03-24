@@ -6,12 +6,14 @@
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
+<div class="create-dashboard-button">
+  <button *ngIf="currentCompanyId" mat-icon-button mat-mini-fab color="accent" routerLink="/companies/{{currentCompanyId}}/create-dashboard">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
 <div class="dashboard-overview-cards d-flex">
   <div *ngFor="let dashboard of (currentCompanyDashboards$| async)">
     <app-dashboard-card [dashboard]="dashboard"></app-dashboard-card>
   </div>
 </div>
-
-<button *ngIf="currentCompanyId" mat-flat-button routerLink="/companies/{{currentCompanyId}}/create-dashboard">
-  <mat-icon>add</mat-icon>
-</button>
