@@ -8,10 +8,11 @@ import { DashboardService } from '../../services/dashboard.service';
 @Component({
   selector: 'app-dashboard-overview',
   templateUrl: './dashboard-overview.component.html',
-  styleUrls: ['./dashboard-overview.component.scss']
+  styleUrls: ['./dashboard-overview.component.scss'],
 })
-export class DashboardOverviewComponent implements OnInit{
+export class DashboardOverviewComponent implements OnInit {
   currentCompanyDashboards$: Observable<Dashboard[]>;
+  currentCompanyId: number;
 
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly dashboardService: DashboardService) {
@@ -20,6 +21,11 @@ export class DashboardOverviewComponent implements OnInit{
   ngOnInit(): void {
     this.currentCompanyDashboards$ = this.activatedRoute.paramMap.pipe(
       map(params => +params.get('companyId')),
-      switchMap((companyId: number) => this.dashboardService.getDashboardsByCompanyId$(companyId)));
+      switchMap((companyId: number) => {
+        this.currentCompanyId = companyId;
+
+        return this.dashboardService.getDashboardsByCompanyId$(companyId);
+      }),
+      );
   }
 }
