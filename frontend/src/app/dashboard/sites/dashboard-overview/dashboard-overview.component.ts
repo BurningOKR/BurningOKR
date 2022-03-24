@@ -12,20 +12,17 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 export class DashboardOverviewComponent implements OnInit {
   currentCompanyDashboards$: Observable<Dashboard[]>;
-  currentCompanyId: number;
+  companyId$: Observable<number>;
 
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly dashboardService: DashboardService) {
   }
 
   ngOnInit(): void {
-    this.currentCompanyDashboards$ = this.activatedRoute.paramMap.pipe(
-      map(params => +params.get('companyId')),
-      switchMap((companyId: number) => {
-        this.currentCompanyId = companyId;
+    this.companyId$ = this.activatedRoute.paramMap.pipe(
+      map(params => +params.get('companyId')));
 
-        return this.dashboardService.getDashboardsByCompanyId$(companyId);
-      }),
-      );
+    this.currentCompanyDashboards$ = this.companyId$.pipe(
+      switchMap(companyId => this.dashboardService.getDashboardsByCompanyId$(companyId)));
   }
 }

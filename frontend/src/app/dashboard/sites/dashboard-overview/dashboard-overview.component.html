@@ -6,8 +6,8 @@
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
-<div class="create-dashboard-button">
-  <button *ngIf="currentCompanyId" mat-icon-button mat-mini-fab color="accent" routerLink="/companies/{{currentCompanyId}}/create-dashboard">
+<div *ngIf="companyId$ | async; let companyId" class="create-dashboard-button">
+  <button mat-icon-button mat-mini-fab color="accent" routerLink="/companies/{{companyId}}/create-dashboard">
     <mat-icon>add</mat-icon>
   </button>
 </div>
