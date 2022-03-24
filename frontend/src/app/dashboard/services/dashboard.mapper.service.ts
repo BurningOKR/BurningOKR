@@ -10,6 +10,7 @@ export class DashboardMapperService {
     return {
       id: dashboardDto.id,
       title: dashboardDto.title,
+      creator: dashboardDto.creator,
       charts: dashboardDto.chartDtos
     };
   }
@@ -18,6 +19,7 @@ export class DashboardMapperService {
     return {
       id: dashboard.id,
       title: dashboard.title,
+      creator: dashboard.creator,
       chartDtos: dashboard.charts
     };
   }
