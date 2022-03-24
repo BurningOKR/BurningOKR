@@ -1,0 +1,13 @@
+<button mat-raised-button class="dashboard-card"
+        routerLink="/dashboard/{{dashboard.id}}" matTooltip="{{dashboard.title}}">
+    <div class="f-1">
+      <mat-icon class="font-32">dashboard</mat-icon>
+    </div>
+    <div class="overflow-ellipsis f-5">
+      {{dashboard.title}}
+      <br><br>
+      <span class="dashboard-card-created-by">
+        Erstellt von: {{dashboard.creator.surname}} , {{dashboard.creator.givenName}}
+      </span> <!--TODO: p.b. Translate -->
+    </div>
+</button>

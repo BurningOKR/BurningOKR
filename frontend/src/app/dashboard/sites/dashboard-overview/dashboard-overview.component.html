@@ -1,16 +1,7 @@
 <app-okr-toolbar></app-okr-toolbar>
-<button mat-raised-button class="dashboard-card" *ngFor="let dashboard of (currentCompanyDashboards$| async)"
-        routerLink="/dashboard/{{dashboard.id}}" matTooltip="{{dashboard.title}}">
-  <div class="d-flex center ">
-    <div class="f-1">
-      <mat-icon class="font-32">dashboard</mat-icon>
-    </div>
-    <div class="overflow-ellipsis f-5">
-      {{dashboard.title}}
-      <br><br>
-      <span class="dashboard-card-created-by">
-        Erstellt von: {{dashboard.creator.surname}} , {{dashboard.creator.givenName}}
-      </span> <!--TODO: p.b. Translate -->
-    </div>
+
+<div class="dashboard-overview-cards d-flex">
+  <div *ngFor="let dashboard of (currentCompanyDashboards$| async)">
+    <app-dashboard-card [dashboard]="dashboard"></app-dashboard-card>
   </div>
-</button>
+</div>
