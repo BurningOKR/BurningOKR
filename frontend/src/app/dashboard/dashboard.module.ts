@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -34,6 +35,7 @@ import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-car
     SharedModule,
     MatIconModule,
     MatTooltipModule,
+    TranslateModule,
   ],
 })
 export class DashboardModule {
