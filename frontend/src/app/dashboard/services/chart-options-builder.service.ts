@@ -51,7 +51,7 @@ export class ChartOptionsBuilderService {
     pieChartOptions.title = pieChartTitle;
     pieChartOptions.series = pieChartValues;
     pieChartOptions.chart = {
-      width: 380,
+      width: 400,
       type: 'pie',
     };
     pieChartOptions.labels = pieChartValueLabels;
@@ -60,7 +60,7 @@ export class ChartOptionsBuilderService {
         breakpoint: 480,
         options: {
           chart: {
-            width: 200,
+            width: 300,
           },
           legend: {
             position: 'left',
