@@ -42,6 +42,61 @@ export class DashboardService {
        title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
        creator: this.currentUser,
        charts: this.chartBuilder.buildTestCharts(),
-     }]);
+     },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+       {
+         id: 1,
+         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
+         creator: this.currentUser,
+         charts: this.chartBuilder.buildTestCharts(),
+       },
+     ]);
   }
 }
