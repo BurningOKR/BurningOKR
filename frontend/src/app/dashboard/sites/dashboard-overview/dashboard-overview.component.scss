@@ -1,6 +1,19 @@
-button {
-  border: 8px solid #b81f40;
-  margin-top: 40px;
-  margin-left: auto;
-  padding: 0;
+.dashboard-card {
+    height: 112px;
+    width: 386px;
+    margin: 8px;
+    text-align: center;
+    padding: 2px;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+@media only screen and (max-width: 420px) {
+  .dashboard-card {
+    width: 240px;
+  }
+}
+
+.dashboard-card-created-by {
+  font-weight: lighter;
 }
