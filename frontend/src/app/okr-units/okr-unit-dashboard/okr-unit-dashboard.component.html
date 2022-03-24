@@ -5,9 +5,9 @@
 
   <!-- General Buttons -->
   <div class="margin-toolbar item-actions">
-    <button mat-stroked-button (click)="addCompany()" matTooltip="{{'okr-unit-dashboard.tooltip.add-unit' | translate }}" [disabled]="(isCurrentUserAdmin$ | async) === false">
+    <button class="add-button" mat-stroked-button (click)="addCompany()" [disabled]="(isCurrentUserAdmin$ | async) === false">
       <mat-icon>add_circle_outline</mat-icon>
-      <span>{{'okr-unit-dashboard.add-unit'| translate}}</span>
+      {{'okr-unit-dashboard.tooltip.add-unit' | translate }}
     </button>
   </div>
 

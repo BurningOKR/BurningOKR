@@ -15,6 +15,10 @@
   float:right;
 }
 
+.add-button {
+  float:right;
+}
+
 @media (max-width: 768px) {
   .short-text { display: inline-block; }
   .full-text { display: none; }

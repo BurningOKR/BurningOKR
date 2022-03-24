@@ -16,10 +16,10 @@
             </mat-button-toggle>
         </mat-button-toggle-group>
     </div>
-    <div class="text-center add-button" *ngIf="isInteractive">
-        <button mat-mini-fab color="accent" (click)="onTaskAddButtonClick()">
-            <mat-icon matTooltip="{{ 'department-tab-taskboard.tooltip.create-new-task' | translate }}">add_circle_outline
-            </mat-icon>
+    <div class="text-center" *ngIf="isInteractive">
+        <button class="add-button" mat-stroked-button (click)="onTaskAddButtonClick()">
+            <mat-icon>add_circle_outline</mat-icon>
+          {{ 'department-tab-taskboard.tooltip.create-new-task' | translate }}
         </button>
     </div>
 </div>

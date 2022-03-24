@@ -19,12 +19,14 @@
           <mat-form-field class="form-whole-line col-11">
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
-          <button (click)="handleCreate()" class="col-1" color="accent" mat-mini-fab [disabled]="isPlayground">
-            <mat-icon [matTooltip]="this.addUserTranslation">add_circle_outline</mat-icon>
+          <p></p>
+          <button (click)="handleCreate()" class="add-button" mat-stroked-button [disabled]="isPlayground">
+            <mat-icon>add_circle_outline</mat-icon>
+            {{'user-management.tooltip.add-new-user' | translate}}
           </button>
-          <button (click)="handleCsvImport()" class="col-1" color="accent" mat-mini-fab style="margin-left: 15px" [disabled]="isPlayground">
-            <mat-icon [matTooltip]="this.importUsersFromCSVTranslation">unarchive
-            </mat-icon>
+          <button (click)="handleCsvImport()" class="add-button" mat-stroked-button matTooltip="{{'user-management.tooltip.import-users-from-csv' | translate}}" [disabled]="isPlayground">
+            <mat-icon>unarchive</mat-icon>
+            {{'user-management.tooltip.import-users' | translate}}
           </button>
         </div>
         <table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">

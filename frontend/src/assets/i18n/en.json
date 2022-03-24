@@ -4,7 +4,7 @@
 		"okr-team": "OKR Team",
 		"substructure": "Substructure",
 		"tooltip": {
-			"add-new-child-unit": "Define new substructure"
+			"add-new-child-unit": "Define substructure"
 		}
 	},
 	"admin-settings-form": {
@@ -285,7 +285,7 @@
 		},
 		"task-board-headline": "Tasks",
 		"tooltip": {
-			"create-new-task": "Create new task"
+			"create-new-task": "Create task"
 		},
 		"websocket-not-connected": "Websocket connection could not be established. Changes are currently not adopted."
 	},
@@ -487,7 +487,7 @@
 		"no-key-result-found": "There are no KeyResults for this Objective yet.",
 		"parent-objective": "Parent Objective",
 		"tooltip": {
-			"define-new-key-result": "Define new KeyResult",
+			"define-new-key-result": "Define KeyResult",
 			"navigate-to-unit": "Go to the structure of this objective"
 		}
 	},
@@ -551,7 +551,7 @@
 		"load-objective": "Load Objective...",
 		"no-objectives": "There are no objectives for this structure yet.",
 		"tooltip": {
-			"create-new-objective": "Create a new Objective"
+			"create-new-objective": "Create Objective"
 		}
 	},
 	"okr-child-unit-preview-button": {
@@ -629,7 +629,7 @@
 			"unit-overview": "Structure Overview"
 		},
 		"tooltip": {
-			"add-unit": "Add new structure"
+			"add-unit": "Add structure"
 		}
 	},
 	"okr-unit-form": {
@@ -815,7 +815,7 @@
 	},
 	"topic-drafts": {
 		"add-topic-draft-button": {
-			"tooltip": "Add a new topic draft"
+			"tooltip": "Add a topic draft"
 		},
 		"home-button": {
 			"tooltip": "Go to structure overview"
@@ -855,11 +855,12 @@
 		"name": "Name",
 		"tooltip": {
 			"activate-user": "Activate user",
-			"add-new-user": "Create new user",
+			"add-new-user": "Create user",
 			"deactivate-user": "Disable user",
 			"edit-user": "Edit User",
 			"go-to-okr-unit-overview": "Go to structure overview",
-			"import-users-from-csv": "Import users from CSV"
+			"import-users-from-csv": "Import users from CSV",
+      "import-users": "Import users"
 		},
 		"user-management-toolbar-title": "User administration"
 	},

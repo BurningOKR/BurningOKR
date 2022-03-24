@@ -4,7 +4,7 @@
 		"okr-team": "OKR Team",
 		"substructure": "Unterstruktur",
 		"tooltip": {
-			"add-new-child-unit": "Neue Unterstruktur definieren"
+			"add-new-child-unit": "Unterstruktur definieren"
 		}
 	},
 	"admin-settings-form": {
@@ -285,7 +285,7 @@
 		},
 		"task-board-headline": "Aufgaben",
 		"tooltip": {
-			"create-new-task": "Neue Aufgabe erstellen"
+			"create-new-task": "Aufgabe erstellen"
 		},
 		"websocket-not-connected": "Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen."
 	},
@@ -487,7 +487,7 @@
 		"no-key-result-found": "Es gibt noch keine KeyResults für dieses Objective.",
 		"parent-objective": "Übergeordnetes Objective",
 		"tooltip": {
-			"define-new-key-result": "Neues KeyResult definieren",
+			"define-new-key-result": "KeyResult definieren",
 			"navigate-to-unit": "Zu der Struktur des Objectives"
 		}
 	},
@@ -551,7 +551,7 @@
 		"load-objective": "Lade Objective...",
 		"no-objectives": "Es gibt noch keine Objectives für diese Struktur.",
 		"tooltip": {
-			"create-new-objective": "Neues Objective erstellen"
+			"create-new-objective": "Objective erstellen"
 		}
 	},
 	"okr-child-unit-preview-button": {
@@ -629,7 +629,7 @@
 			"unit-overview": "Strukturübersicht"
 		},
 		"tooltip": {
-			"add-unit": "Neue Struktur hinzufügen "
+			"add-unit": "Struktur hinzufügen "
 		}
 	},
 	"okr-unit-form": {
@@ -815,7 +815,7 @@
 	},
 	"topic-drafts": {
 		"add-topic-draft-button": {
-			"tooltip": "Neuen Themenentwurf hinzufügen"
+			"tooltip": "Themenentwurf hinzufügen"
 		},
 		"home-button": {
 			"tooltip": "Zur Strukturübersicht"
@@ -855,12 +855,13 @@
 		"name": "Name",
 		"tooltip": {
 			"activate-user": "Nutzer aktivieren",
-			"add-new-user": "Neuen Benutzer erstellen",
+			"add-new-user": "Benutzer erstellen",
 			"deactivate-user": "Nutzer deaktivieren ",
 			"edit-user": "Nutzer bearbeiten ",
 			"go-to-okr-unit-overview": "Zur Strukturübersicht",
-			"import-users-from-csv": "Benutzer aus CSV importieren"
-		},
+			"import-users-from-csv": "Benutzer aus CSV importieren",
+      "import-users": "Benutzer importieren"
+    },
 		"user-management-toolbar-title": "Benutzerverwaltung"
 	},
 	"user-minibutton": {
