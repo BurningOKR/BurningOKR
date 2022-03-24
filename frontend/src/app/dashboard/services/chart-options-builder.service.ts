@@ -101,6 +101,10 @@ export class ChartOptionsBuilderService {
 
     chartOptions.push(lineChartOptions);
     chartOptions.push(pieChartOptions);
+    chartOptions.push(lineChartOptions);
+    chartOptions.push(lineChartOptions);
+    chartOptions.push(pieChartOptions);
+    chartOptions.push(pieChartOptions);
 
     return chartOptions;
   }
