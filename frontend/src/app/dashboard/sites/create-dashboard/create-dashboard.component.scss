@@ -11,9 +11,21 @@
 }
 
 .chart-creation-options {
-
+  display: flex;
+  flex-direction: column;
+  height: 30VH;
+  width: 300px;
 }
 
 .chart-creation-add-button {
-  margin-top: 10VH;
+  margin: auto;
+}
+
+.chart-title {
+  font-weight: bolder;
+  font-size: large;
+}
+
+.button-create-dashboard {
+  text-align: center;
 }

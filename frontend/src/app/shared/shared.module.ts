@@ -106,7 +106,7 @@ import { LogPipe } from './pipes/log.pipe';
         UserSelectorMultiComponent,
         UserSelectorComponent,
         DateFormatPipe,
-        LogPipe
+        LogPipe,
     ],
 })
 export class SharedModule {

@@ -13,10 +13,11 @@ import { ChartCreationOptionsDto, ChartTypeEnum } from '../../model/dto/chart-cr
   styleUrls: ['./create-dashboard.component.scss'],
 })
 export class CreateDashboardComponent implements OnInit {
+  teams$: Observable<OkrDepartment[]>;
+
+  chartTypes = Object.values(ChartTypeEnum);
   charts: ChartCreationOptionsDto[] = [];
   newChart: ChartCreationOptionsDto;
-
-  teams$: Observable<OkrDepartment[]>;
 
   constructor(private readonly companyService: CompanyMapper,
               private readonly departmentService: DepartmentMapper,
@@ -33,13 +34,30 @@ export class CreateDashboardComponent implements OnInit {
 
   addDashboard(): void {
     this.charts.Add(this.newChart);
+    this.resetNewChart();
   }
 
-  resetNewChart(): void {
+  deleteChart(chartToDelete: ChartCreationOptionsDto): void {
+    this.charts = this.charts.filter(chart => chart !== chartToDelete);
+  }
+
+  createDashboard(): void {
+    // TODO
+  }
+
+  newChartIsLineChart(): boolean {
+    return this.newChart.chartType === ChartTypeEnum.line;
+  }
+
+  newChartValid(): boolean {
+    return !!(this.newChart.title && this.newChart.chartType);
+  }
+
+  private resetNewChart(): void {
     this.newChart = {
       title: '',
       chartType: ChartTypeEnum.line,
-      okrUnitId: undefined,
+      teamId: undefined,
     };
   }
 }
