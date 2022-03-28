@@ -8,14 +8,43 @@
 
 <div class="chart-creation">
   <div class="chart-creation-options" *ngFor="let chart of charts">
-    <input matInput placeholder="Titel" [(ngModel)]="chart.title">
+    <p class="chart-title">Titel: {{chart.title}}</p>
+    <p>Art: {{chart.chartType}}</p>
+    <p *ngIf="chart.teamId">Team: {{chart.teamId}}</p>
+
+    <button mat-icon-button mat-mini-fab color="primary" (click)="deleteChart(chart)">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
 
-  <div class="chart-creation-new-chart">
-    <input matInput placeholder="Titel" [(ngModel)]="newChart.title">
+  <div class="chart-creation-options">
+    <mat-form-field>
+      <input class="chart-creation-single-option" matInput placeholder="Titel" [(ngModel)]="newChart.title">
+    </mat-form-field>
 
-    <button class="chart-creation-add-button" mat-icon-button mat-mini-fab color="accent" (click)="addDashboard()">
+    <mat-form-field>
+      <mat-select placeholder="Chart-Art auswählen" class="chart-creation-single-option" [(value)]="newChart.chartType">
+        <mat-option *ngFor="let chartType of chartTypes"
+                    value="{{chartType}}">{{chartType}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="newChartIsLineChart()">
+      <mat-select placeholder="Team auswählen" class="chart-creation-single-option" [(value)]="newChart.teamId">
+        <mat-option *ngFor="let team of teams$ | async" value="{{team.id}}">{{team.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button [disabled]="!newChartValid()" class="chart-creation-add-button" mat-icon-button mat-mini-fab color="accent"
+            (click)="addDashboard()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
+</div>
+
+<div class="button-create-dashboard">
+  <button [disabled]="charts.length < 1" mat-stroked-button (click)="createDashboard()">
+    <mat-icon>add_circle_outline</mat-icon>
+    Erstellen
+  </button>
 </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -40,6 +41,7 @@ import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-car
     TranslateModule,
     MatInputModule,
     FormsModule,
+    MatSelectModule,
   ],
 })
 export class DashboardModule {

@@ -1,12 +1,10 @@
-import { OkrUnitId } from '../../../shared/model/id-types';
-
 export interface ChartCreationOptionsDto {
   title: string;
   chartType: ChartTypeEnum;
-  okrUnitId: OkrUnitId;
+  teamId: number;
 }
 
 export enum ChartTypeEnum {
-  pie,
-  line,
+  pie = 'Übersicht Themenentwürfe',
+  line = 'Fortschritt',
 }
