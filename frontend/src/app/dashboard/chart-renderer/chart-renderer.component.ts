@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { BaseChartOptions } from '../../shared/model/ui/dashboard/base-chart-options';
+import { BaseChartOptions } from '../model/ui/base-chart-options';
 import { BaseChartComponent } from '../charts/base-chart/base-chart.component';
 import { chartComponentMappings } from '../decorator/chart-component.decorator';
 import { ConstructorType } from '../decorator/constructor.type';

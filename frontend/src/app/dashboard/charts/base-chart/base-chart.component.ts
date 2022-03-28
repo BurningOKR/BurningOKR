@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { BaseChartOptions } from '../../../shared/model/ui/dashboard/base-chart-options';
+import { BaseChartOptions } from '../../model/ui/base-chart-options';
 
 @Component({
   selector: 'app-base-chart',

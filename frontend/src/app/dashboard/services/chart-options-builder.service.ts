@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BaseChartOptions } from '../../shared/model/ui/dashboard/base-chart-options';
+import { BaseChartOptions } from '../model/ui/base-chart-options';
 import {
   LineChartLineKeyValues,
   LineChartOptions,
   ChartTitle,
-} from '../../shared/model/ui/dashboard/line-chart-options';
-import { PieChartOptions } from '../../shared/model/ui/dashboard/pie-chart-options';
+} from '../model/ui/line-chart-options';
+import { PieChartOptions } from '../model/ui/pie-chart-options';
 
 @Injectable({
   providedIn: 'root',

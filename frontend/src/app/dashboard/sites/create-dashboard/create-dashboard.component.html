@@ -1,1 +1,21 @@
-<p>create-dashboard works!</p>
+<app-okr-toolbar>
+  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>Dashboard anlegen</span> <!-- TODO P.B. 28-03-2022 TRANSLATE!-->
+  <span class="fill-space"></span>
+</app-okr-toolbar>
+
+<div class="chart-creation">
+  <div class="chart-creation-options" *ngFor="let chart of charts">
+    <input matInput placeholder="Titel" [(ngModel)]="chart.title">
+  </div>
+
+  <div class="chart-creation-new-chart">
+    <input matInput placeholder="Titel" [(ngModel)]="newChart.title">
+
+    <button class="chart-creation-add-button" mat-icon-button mat-mini-fab color="accent" (click)="addDashboard()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
