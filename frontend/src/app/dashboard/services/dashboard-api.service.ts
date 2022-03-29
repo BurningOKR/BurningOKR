@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { ApiHttpService } from '../../core/services/api-http.service';
+import { DashboardCreationDto } from '../model/dto/dashboard-creation.dto';
 import { DashboardDto } from '../model/dto/dashboard.dto';
 
 @Injectable({
@@ -16,5 +17,9 @@ export class DashboardApiService {
 
   getDashboardById$(dashboardId: number): Observable<DashboardDto> {
     return this.api.getData$<DashboardDto>(`dashboards/${dashboardId}`);
+  }
+
+  postDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
+    return this.api.postData$<DashboardCreationDto>('dashboards', dashboard);
   }
 }
