@@ -1,4 +1,4 @@
-package org.burningokr.service.okr;
+package org.burningokr.service.topicDraft;
 
 import com.google.common.collect.Lists;
 import java.time.LocalDate;
