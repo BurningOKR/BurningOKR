@@ -14,8 +14,9 @@ import { ChartCreationOptionsDto, ChartTypeEnum } from '../../model/dto/chart-cr
 })
 export class CreateDashboardComponent implements OnInit {
   teams$: Observable<OkrDepartment[]>;
-
   chartTypes = Object.values(ChartTypeEnum);
+
+  dashboardTitle: string = '';
   charts: ChartCreationOptionsDto[] = [];
   newChart: ChartCreationOptionsDto;
 

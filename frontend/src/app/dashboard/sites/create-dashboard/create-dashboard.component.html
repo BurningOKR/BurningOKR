@@ -6,6 +6,13 @@
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
+
+<div class="dashboard-creation-title">
+  <mat-form-field>
+    <input matInput placeholder="Dashboard-Titel" [(ngModel)]="dashboardTitle">
+  </mat-form-field>
+</div>
+
 <div class="chart-creation">
   <div class="chart-creation-options" *ngFor="let chart of charts">
     <p class="chart-title">Titel: {{chart.title}}</p>
@@ -23,18 +30,18 @@
   <div class="chart-creation-options">
     <p>Neues Diagramm zum Dashboard hinzufügen</p>
     <mat-form-field>
-      <input class="chart-creation-single-option" matInput placeholder="Titel" [(ngModel)]="newChart.title">
+      <input matInput placeholder="Titel" [(ngModel)]="newChart.title">
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Art der Information" class="chart-creation-single-option" [(value)]="newChart.chartType">
+      <mat-select placeholder="Art der Information" [(value)]="newChart.chartType">
         <mat-option *ngFor="let chartType of chartTypes"
                     value="{{chartType}}">{{chartType}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field *ngIf="newChartIsLineChart()">
-      <mat-select multiple placeholder="Team auswählen" class="chart-creation-single-option" [(value)]="newChart.teams">
+      <mat-select multiple placeholder="Team auswählen" [(value)]="newChart.teams">
         <mat-option *ngFor="let team of teams$ | async" [value]="team">{{team.name}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -47,7 +54,7 @@
 </div>
 
 <div class="button-create-dashboard">
-  <button [disabled]="charts.length < 1" mat-stroked-button (click)="createDashboard()">
+  <button [disabled]="charts.length < 1 && dashboardTitle.trim().length > 1" mat-stroked-button (click)="createDashboard()">
     <mat-icon>add_circle_outline</mat-icon>
     Dashboard anlegen
   </button>
