@@ -1,6 +1,7 @@
 package org.burningokr.controller.okr;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.NoteTopicDraftDto;
@@ -10,7 +11,7 @@ import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.users.User;
-import org.burningokr.service.okr.OkrTopicDraftService;
+import org.burningokr.service.topicDraft.OkrTopicDraftService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.security.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,6 +160,18 @@ public class TopicDraftController {
           + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)")
   public ResponseEntity deleteTopicDraftById(@PathVariable Long topicDraftId, User user) {
     okrTopicDraftService.deleteTopicDraftById(topicDraftId, user);
+    return ResponseEntity.ok().build();
+  }
+
+  /**
+   * Endpoint to create a OkrUnit from a TopicDraft
+   * @param okrUnitId The Identifier for the OkrUnit underneath which the new Unit should be created
+   * @return The Identifier of the newly created Team
+   */
+  @GetMapping("/topicDraft/convertToTeam")
+  @PreAuthorize("@authorizationService.isAdmin()")
+  public ResponseEntity<String> convertTopicDraftToTeam(@RequestParam(name = "topicDraftId") long topicDraftId, @RequestParam(name = "okrUnitId") long okrUnitId) {
+    Logger.getLogger("TopicDraftController").info("TD: " + topicDraftId + " Unit: " + okrUnitId);
     return ResponseEntity.ok().build();
   }
 }
