@@ -1,8 +1,5 @@
 <ng-container *ngIf="!cycleClosed && userRole.isAtleastAdmin()">
-  <button class="add-button" mat-stroked-button [matMenuTriggerFor]="unitTypeDropdown">
-    <mat-icon>add_circle_outline</mat-icon>
-    {{'add-child-unit-button.tooltip.add-new-child-unit' | translate}}
-  </button>
+  <app-add-button text="add-child-unit-button.add-new-child-unit" [matMenuTriggerFor]="unitTypeDropdown"></app-add-button>
   <mat-menu #unitTypeDropdown="matMenu">
     <button mat-menu-item (click)="clickedAddSubDepartment.emit()">
       <mat-icon>group_add</mat-icon>

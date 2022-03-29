@@ -17,10 +17,7 @@
         </mat-button-toggle-group>
     </div>
     <div class="text-center" *ngIf="isInteractive">
-        <button class="add-button" mat-stroked-button (click)="onTaskAddButtonClick()">
-            <mat-icon>add_circle_outline</mat-icon>
-          {{ 'department-tab-taskboard.tooltip.create-new-task' | translate }}
-        </button>
+      <app-add-button class="add-button" text="department-tab-taskboard.create-new-task" (buttonClicked)="onTaskAddButtonClick()"></app-add-button>
     </div>
 </div>
 <div *ngIf="viewgroup.value === 'states'">

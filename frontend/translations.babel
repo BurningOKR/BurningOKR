@@ -20,6 +20,23 @@
                 <name>add-child-unit-button</name>
                 <children>
                     <concept_node>
+                        <name>add-new-child-unit</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>demo-privacy-policy</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -70,28 +87,6 @@
                             </translation>
                         </translations>
                     </concept_node>
-                    <folder_node>
-                        <name>tooltip</name>
-                        <children>
-                            <concept_node>
-                                <name>add-new-child-unit</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
-                        </children>
-                    </folder_node>
                 </children>
             </folder_node>
             <folder_node>
@@ -3034,6 +3029,23 @@
             <folder_node>
                 <name>department-tab-taskboard</name>
                 <children>
+                    <concept_node>
+                        <name>create-new-task</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                     <folder_node>
                         <name>deletion-dialog</name>
                         <children>
@@ -3107,28 +3119,6 @@
                             </translation>
                         </translations>
                     </concept_node>
-                    <folder_node>
-                        <name>tooltip</name>
-                        <children>
-                            <concept_node>
-                                <name>create-new-task</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
-                        </children>
-                    </folder_node>
                     <concept_node>
                         <name>websocket-not-connected</name>
                         <definition_loaded>false</definition_loaded>
@@ -4116,6 +4106,23 @@
                 <name>key-result-milestone-form</name>
                 <children>
                     <concept_node>
+                        <name>add-button</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>name-*</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -4152,23 +4159,6 @@
                     <folder_node>
                         <name>tooltip</name>
                         <children>
-                            <concept_node>
-                                <name>add-button</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
                             <concept_node>
                                 <name>delete-button</name>
                                 <definition_loaded>false</definition_loaded>
@@ -5285,6 +5275,23 @@
                 <name>objective-contents</name>
                 <children>
                     <concept_node>
+                        <name>define-new-key-result</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>key-results</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -5355,23 +5362,6 @@
                     <folder_node>
                         <name>tooltip</name>
                         <children>
-                            <concept_node>
-                                <name>define-new-key-result</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
                             <concept_node>
                                 <name>navigate-to-unit</name>
                                 <definition_loaded>false</definition_loaded>
@@ -6117,6 +6107,23 @@
                 <name>okr-child-unit-overview-tab</name>
                 <children>
                     <concept_node>
+                        <name>create-new-objective</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>load-objective</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -6150,28 +6157,6 @@
                             </translation>
                         </translations>
                     </concept_node>
-                    <folder_node>
-                        <name>tooltip</name>
-                        <children>
-                            <concept_node>
-                                <name>create-new-objective</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
-                        </children>
-                    </folder_node>
                 </children>
             </folder_node>
             <folder_node>
@@ -6966,28 +6951,6 @@
                         <children>
                             <concept_node>
                                 <name>unit-overview</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
-                        </children>
-                    </folder_node>
-                    <folder_node>
-                        <name>tooltip</name>
-                        <children>
-                            <concept_node>
-                                <name>add-unit</name>
                                 <definition_loaded>false</definition_loaded>
                                 <description/>
                                 <comment/>
@@ -9159,28 +9122,23 @@
             <folder_node>
                 <name>topic-drafts</name>
                 <children>
-                    <folder_node>
+                    <concept_node>
                         <name>add-topic-draft-button</name>
-                        <children>
-                            <concept_node>
-                                <name>tooltip</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
-                        </children>
-                    </folder_node>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>true</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                     <folder_node>
                         <name>home-button</name>
                         <children>
@@ -9489,6 +9447,23 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>add-new-user</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>admin-table-header</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -9557,6 +9532,23 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>import-users</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>job-title-table-header</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -9595,23 +9587,6 @@
                         <children>
                             <concept_node>
                                 <name>activate-user</name>
-                                <definition_loaded>false</definition_loaded>
-                                <description/>
-                                <comment/>
-                                <default_text/>
-                                <translations>
-                                    <translation>
-                                        <language>de-DE</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                    <translation>
-                                        <language>en-US</language>
-                                        <approved>false</approved>
-                                    </translation>
-                                </translations>
-                            </concept_node>
-                            <concept_node>
-                                <name>add-new-user</name>
                                 <definition_loaded>false</definition_loaded>
                                 <description/>
                                 <comment/>

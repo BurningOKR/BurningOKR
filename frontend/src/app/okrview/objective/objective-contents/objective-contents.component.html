@@ -30,10 +30,7 @@
     </div>
   </div>
   <div *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()" class="f-1">
-    <button mat-stroked-button class="add-button" (click)="clickedAddKeyResult()" [disabled]="objective.keyResultIdList.length >= maxKeyResults">
-      <mat-icon>add_circle_outline</mat-icon>
-      {{ 'objective-contents.tooltip.define-new-key-result' | translate }}
-    </button>
+    <app-add-button class="add-button" text="objective-contents.define-new-key-result" (buttonClicked)="clickedAddKeyResult()" [isDisabled]="objective.keyResultIdList.length >= maxKeyResults"></app-add-button>
   </div>
 </div>
 

@@ -5,10 +5,7 @@
 
   <!-- General Buttons -->
   <div class="margin-toolbar item-actions">
-    <button class="add-button" mat-stroked-button (click)="addCompany()" [disabled]="(isCurrentUserAdmin$ | async) === false">
-      <mat-icon>add_circle_outline</mat-icon>
-      {{'okr-unit-dashboard.tooltip.add-unit' | translate }}
-    </button>
+    <app-add-button text='okr-unit-dashboard.add-unit' (buttonClicked)="addCompany()" [isDisabled]="(isCurrentUserAdmin$ | async) === false"></app-add-button>
   </div>
 
   <!-- A card for each company -->

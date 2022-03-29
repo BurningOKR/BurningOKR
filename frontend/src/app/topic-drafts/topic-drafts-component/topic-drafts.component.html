@@ -11,10 +11,7 @@
 <div class="content-wrapper">
   <div class="content">
     <app-topic-draft-list [topicDrafts]="rowData.data"></app-topic-draft-list>
-    <button class="add-button" mat-stroked-button (click)="clickedAddTopicDraft()">
-      <mat-icon>add_circle_outline</mat-icon>
-      {{'topic-drafts.add-topic-draft-button.tooltip' | translate}}
-    </button>
+    <app-add-button class="add-button" text="topic-drafts.add-topic-draft-button" (buttonClicked)="clickedAddTopicDraft()"></app-add-button>
   </div>
 </div>
 

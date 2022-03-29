@@ -3,13 +3,13 @@
 <div *ngIf="isChecked" class="keyresult-milestone-form-wrapper">
   <div class="inputs" *ngFor="let formGroup of formArray.controls">
     <mat-form-field class="text-input">
-      <input type="text" matInput placeholder="{{ 'key-result-milestone-form.name-*' | translate }}" [formControl]="formGroup.get('name')">
+      <input type="text" matInput placeholder="{{ 'key-result-milestone-form.name-*' | translate }}" [formControl]="$any(formGroup.get('name'))">
       <mat-error><app-form-error [control]="formGroup.get('name')"></app-form-error></mat-error>
     </mat-form-field>
 
 
     <mat-form-field class="number-input">
-      <input type="number" matInput placeholder="{{ 'key-result-milestone-form.value-input' | translate }}" [formControl]="formGroup.get('value')">
+      <input type="number" matInput placeholder="{{ 'key-result-milestone-form.value-input' | translate }}" [formControl]="$any(formGroup.get('value'))">
       <mat-error><app-form-error [control]="formGroup.get('value')"></app-form-error></mat-error>
     </mat-form-field>
 
@@ -21,10 +21,4 @@
     </button>
   </div>
 </div>
-
-<button class="add-button" mat-stroked-button (click)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked">
-  <mat-icon>
-    add_circle_outline
-  </mat-icon>
-  {{ 'key-result-milestone-form.tooltip.add-button' | translate }}
-</button>
+<app-add-button class="add-button" text="key-result-milestone-form.add-button" (buttonClicked)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked"> </app-add-button>

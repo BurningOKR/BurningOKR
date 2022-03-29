@@ -18,10 +18,7 @@
 </div>
 
 <div class="add-objective-button-container" *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()">
-  <button mat-stroked-button class="add-button" (click)="clickedAddObjective()">
-    <mat-icon>add_circle_outline</mat-icon>
-    {{ 'okr-child-unit-overview-tab.tooltip.create-new-objective' | translate }}
-  </button>
+  <app-add-button text="okr-child-unit-overview-tab.create-new-objective" (buttonClicked)="clickedAddObjective()"></app-add-button>
 </div>
 
 <!-- Placeholder for loading -->

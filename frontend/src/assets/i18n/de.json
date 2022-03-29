@@ -1,11 +1,9 @@
 {
 	"add-child-unit-button": {
+		"add-new-child-unit": "Unterstruktur definieren",
 		"demo-privacy-policy": "<div class=\"container footer-margin\">\n\n  <div class=\"content-container\">\n    <h1>DATENSCHUTZ</h1>\n\n    <div class=\"content-container\">\n      Mit dieser Erklärung informieren wir Sie über datenschutzrelevanten Aspekte sowie über die eingesetzten Maßnahmen, um Ihre Rechte zu wahren. Die Brockhaus AG hält sich an die Anforderungen des Bundesdatenschutzgesetzes (BDSG) und der EU-Datenschutzgrundverordnung (EU-DSGVO).\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>1. ERFASSUNG UND NUTZUNG PERSONENBEZOGENER DATEN</h3>\n\n    <div class=\"content-container\">\n      <h4>1.1. Grundsätzliches</h4>\n      Ihre Daten dienen allein dazu, Ihnen ein größtmögliches benutzerfreundliches, praktisches und sicheres Internetangebot anbieten zu können. Zu den personenbezogenen Daten gehören alle Informationen über persönliche oder sachliche Verhältnisse einer bestimmten oder bestimmbaren natürlichen Person, z.B. Name, Adresse, Kontaktdaten, IP-Adressen, übertragene Datenmengen usw.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.2. Rechtsgrundlagen</h4>\n      a) Die Bereitstellung dieser Webseite mit Produkten und Leistungen: Vertragsanbahnung bzw. Vertragserfüllung<br>\n      b) Anfragen per Post, eMail oder Fax an uns: Vertragsanbahnung bzw. Vertragserfüllung<br>\n      c) Links zu anderen Angeboten oder Auswertung der Zugriffe: berechtigtes Interesse\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.3. Automatische Verarbeitung durch Webseiten-Betrieb</h4>\n      Die Webseiten werden bei einem Provider in West Europa (Frankfurt, Deutschland) betrieben, der seinerseits für den Betrieb des Webangebotes die Zugriffe auf das System in sogenannten Serverlogs speichert. Hierbei werden in der Regel folgende Daten erhoben: IP-Adressen, Zeitstempel der Zugriffe, Namen der Webseiten, Übertragene Datenmengen, Abmeldungen bzw. Abbrüche, Browsertypen, Infos vom Betriebssystem, Referrer URLs. Diese Daten werden von uns nicht gespeichert oder ausgewertet. Im Falle eines berechtigten Verdachts auf Missbrauch anhand von konkreten Informationen, können diese Logfiles nachträglich geprüft werden.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.4. Dateneingaben durch den Webseiten-Nutzer</h4>\n      Sie können darüber hinaus, unsere Webseiten ohne die Eingabe persönlicher Daten uneingeschränkt nutzen. Sofern wir personenbezogene Daten erheben (Kontaktformular) werden wir jeweils über den Zweck, Umfang, Rechtmäßigkeit, und mögliche Weitergaben informieren und dies nur für diese Zwecke nutzen. Die Eingabe dieser Daten durch Sie erfolgt freiwillig.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>2. VERWENDUNG DER DATEN</h3>\n\n    <div class=\"content-container\">\n      <h4>2.1. Nutzung zur Leistungserbringung</h4>\n      Wir verwenden die erhobenen und verarbeiteten personenbezogenen Daten ausschließlich zu Zwecken der Erbringung unserer Leistungen aus der mit Ihnen geschlossenen Nutzungsvereinbarung sowie zur Abwicklungen von Zahlungen. Dabei beachten wir selbstverständlich alle anwendbaren Datenschutzgesetze, insbesondere das Bundesdatenschutzgesetz/EU-DSGVO sowie das Telemediengesetz (TMG).\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.2. Weitergabe an Dritte</h4>\n      Wir geben Ihre personenbezogenen Daten nicht an Dritte für Marketing- oder ähnliche Zwecke weiter. Eine Weitergabe von Daten erfolgt nur, wenn und soweit dies zur Durchführung der Nutzungsvereinbarung notwendig ist, die Brockhaus AG gesetzlich dazu verpflichtet wird oder es zur Durchsetzung der allgemeinen Nutzungsbedingungen oder anderer mit Ihnen geschlossenen Vereinbarungen sowie unserer Rechte und Forderungen erforderlich sein sollte.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.3. Kundeninformationen per eMail</h4>\n      Im Rahmen der Kundenbindung, versenden wir aktuelle Informationen an unsere Kunden, um Sie über Neuigkeiten und Änderungen innerhalb unseres Angebots zu informieren. Diese Informationen sind nicht zu verwechseln mit den allgemeinen Newslettern. Sofern es unsere Angebote betrifft und z.B. sicherheitsrelevante Punkte enthält oder wichtige Informationen aus unserem Hause, so können wir dies nur per eMail abwickeln. Bitte haben Sie Verständnis dafür.\n    </div>\n  </div>\n\n\n  <div class=\"content-container\">\n    <h3>3. COOKIES</h3>\n\n    <div class=\"content-container\">\n      Unsere Webseite verwendet Cookies, um Ihnen einen effektiven Umgang und ein benutzerfreundliches Handling zu bieten. Dies macht den Einsatz von Cookies erforderlich und begründet unser berechtigtes Interesse, diese Technik zu nutzen. Die meisten Browser bieten Ihnen die Funktionalität, sich die verwendeten Cookies anzeigen zu lassen.\n    </div>\n\n    <div class=\"content-container\">\n      Falls Sie die Verwendung von Cookies jedoch generell unterbinden möchten, besteht dazu bei Ihrem Browser die Möglichkeit, die Annahme und Speicherung neuer Cookies zu verhindern. Um herauszufinden, wie dies bei Ihrem Browser funktioniert, benutzen Sie bitte die Hilfe-Funktion des jeweiligen Browsers. Wir empfehlen Ihnen jedoch, die Cookies-Funktionen eingeschaltet zu lassen, da Ihnen nur dann das hohe Niveau des Benutzungskomforts, welches wir für Sie eingerichtet haben, in vollem Umfang zu Gute kommt. Wir erstellen keine Nutzerprofile aus diesen durch Cookies erfassten Nutzerdaten.\n    </div>\n\n    <div class=\"content-container\">\n      Zur Bearbeitung Ihrer Cookie-Einstellungen klicken sie bitte <a id=\"open-cookie-settings-link\" href=\"javascript:klaro.show();\">hier</a>.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>4. WEBSEITEN-AUSWERTUNGEN BZW. TOOLS</h3>\n    <div class=\"content-container\">Wir setzen folgendes Analyse-Tool für die Auswertung unserer Webseiten ein und beschreiben Ihnen dieses wie folgt:</div>\n    <div class=\"content-container\">\n      Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. („Google“). Google Analytics verwendet sog. „Cookies“, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Webseite durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung der Webseite werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Die im Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt. Wir haben zudem auf dieser Webseite Google Analytics um den Code „anonymizeIP“ erweitert. Dies garantiert die Maskierung Ihrer IP-Adresse, sodass alle Daten anonym erhoben werden. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt.\n    </div>\n    <div class=\"content-container\">\n      Im Auftrag des Betreibers dieser Website wird Google diese Information benutzen, um Ihre Nutzung der Webseite auszuwerten, um Reports über die Webseiten-Aktivitäten zusammenzustellen und um weitere mit der Webseiten-Nutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Webseitenbetreiber zu erbringen. Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall möglicherweise nicht sämtliche Funktionen dieser Webseite vollumfänglich werden nutzen können.\n    </div>\n    <div class=\"content-container\">\n      Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Webseite bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und installieren: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n    <div class=\"content-container\">\n      Alternativ zum Browser-Add-On, insbesondere bei Browsern auf mobilen Endgeräten, können Sie die Erfassung durch Google Analytics zudem verhindern, indem Sie auf diesen Link klicken. Es wird ein Opt-Out-Cookie gesetzt, das die zukünftige Erfassung Ihrer Daten beim Besuch dieser Website verhindert. Der Opt-Out-Cookie gilt nur in diesem Browser und nur für unsere Website und wird auf Ihrem Gerät abgelegt. Löschen Sie die Cookies in diesem Browser, müssen Sie das Opt-Out-Cookie erneut setze\n    </div>\n    <div class=\"content-container\">\n      Wir nutzen Google Analytics weiterhin dazu, Daten aus Double-Click-Cookies und auch AdWords zu statistischen Zwecken auszuwerten. Sollten Sie dies nicht wünschen, können Sie dies über den Anzeigenvorgaben-Manager (<a href=\"https://www.google.com/settings/ads/onweb/?hl=de\">https://www.google.com/settings/ads/onweb/?hl=de</a>) deaktivieren.\n    </div>\n    <div class=\"content-container\">\n      Sollten Sie der Erhebung widersprechen wollen, so können Sie über folgenden Link ein PlugIn nutzen und dieses installieren: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>5. SICHERHEIT</h3>\n\n\n    <div class=\"content-container\">\n      Die Brockhaus AG setzt technische und organisatorische Sicherheitsmaßnahmen ein, um zu gewährleisten, dass Ihre personenbezogenen Daten vor Verlust, unrichtigen Veränderungen oder unberechtigten Zugriffen Dritter geschützt sind. In jedem Fall haben nur berechtigte Personen Zutritt zu den persönlichen Daten, und dies auch nur insoweit, als es im Rahmen der oben genannten Zwecke erforderlich ist. Die Sicherheitsmaßnahmen werden ständig den verbesserten technischen Möglichkeiten angepasst.\n    </div>\n  </div>\n\n\n\n  <div class=\"content-container\">\n    <h3>6. WEITERE INFORMATIONSPFLICHTEN</h3>\n\n    <div class=\"content-container\">\n      <h4>6.1. Verantwortliche Stelle</h4>\n      BROCKHAUS AG, Lünen. Vollständige Kontaktdaten siehe Impressum.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.2. Datenschutzbeauftragter</h4>\n      P2 Consult<br>\n      Jürgen Golda<br>\n      Wilhelm-Bläser-Str. 3c, D-59174 Kamen<br>\n      Telefon: +49 (0) 2307 28 74 488<br>\n      Mail: datenschutz@brockhaus-ag.de<br>\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.3. Speicherdauer</h4>\n      Wir speichern Ihre Daten solange der Zweck der Speicherung erhalten bleibt (Anfragen, Projekte, Verträge, etc.) Sollte der Zweck entfallen oder Sie die Einwilligung zurückziehen, werden Ihre Daten durch den regelmäßigen Löschlauf gelöscht, sofern keine gesetzlichen Aufbewahrungsfristen eingehalten werden müssen.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.4. Kinder</h4>\n      Wir werden Daten von Kindern wissentlich nicht sammeln und verarbeiten. Sofern Schüler Anfragen stellen, werden wir die Daten nur dann speichern, wenn die ausdrückliche Zustimmung der Erziehungsberechtigten haben. Sofern Daten von Kindern dann gespeichert werden dürfen, werden wir diese nur im Rahmen der gesetzlichen Vorgaben weitergeben. Unter den Begriff \"Kinder\" fallen die Definitionen aus dem nationalen Recht und den bei uns geltenden gesetzlichen Bestimmungen.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.5. Profiling</h4>\n      Profiling Ihrer Daten findet nicht statt.\n      Eine automatische Entscheidungsfindung und/oder ein Profiling mit Ihren Daten findet bei uns nicht statt.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.6. Ihre Rechte</h4>\n      Sie können uns jederzeit ansprechen, wenn Sie eine Auskunft, eine Löschung, eine Einschränkung oder ein Widerspruch geltend machen wollen. Nutzen Sie dazu die vorhandenen Kontaktdaten. Anfragen müssen schriftlich gestellt werden, damit wir den Anfrager eindeutig identifizieren können.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.7. Beschwerderecht</h4>\n      Sofern Sie berechtigte Zweifel an unserem Umgang mit ihren Daten haben, informieren Sie uns oder wenden sie sich an die entsprechende Aufsichtsbehörde.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.8. Änderungen</h4>\n      Wir behalten uns das Recht vor, diese Datenschutzerklärung von Zeit zu Zeit anzupassen. Deshalb empfehlen wir Ihnen eine regelmäßige Durchsicht dieser Erklärung.\n    </div>\n  </div>\n\n</div>\n",
 		"okr-team": "OKR Team",
-		"substructure": "Unterstruktur",
-		"tooltip": {
-			"add-new-child-unit": "Unterstruktur definieren"
-		}
+		"substructure": "Unterstruktur"
 	},
 	"admin-settings-form": {
 		"config-names": {
@@ -278,15 +276,13 @@
 		"title": "Titel *"
 	},
 	"department-tab-taskboard": {
+		"create-new-task": "Aufgabe erstellen",
 		"deletion-dialog": {
 			"button-text": "Löschen",
 			"message": "Soll die Aufgabe \"{{title}}\" wirklich gelöscht werden?",
 			"title": "Aufgabe löschen"
 		},
 		"task-board-headline": "Aufgaben",
-		"tooltip": {
-			"create-new-task": "Aufgabe erstellen"
-		},
 		"websocket-not-connected": "Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen."
 	},
 	"department-tab-team": {
@@ -374,10 +370,10 @@
 		"unit": "Einheit *"
 	},
 	"key-result-milestone-form": {
+		"add-button": "Meilenstein hinzufügen",
 		"name-*": "Name *",
 		"toggle": "Meilensteine aktiv",
 		"tooltip": {
-			"add-button": "Meilenstein hinzufügen",
 			"delete-button": "Meilenstein löschen"
 		},
 		"value-input": "Ziel-Wert *"
@@ -482,12 +478,12 @@
 		}
 	},
 	"objective-contents": {
+		"define-new-key-result": "KeyResult definieren",
 		"key-results": "KeyResults",
 		"load-key-results": "Lade KeyResults...",
 		"no-key-result-found": "Es gibt noch keine KeyResults für dieses Objective.",
 		"parent-objective": "Übergeordnetes Objective",
 		"tooltip": {
-			"define-new-key-result": "KeyResult definieren",
 			"navigate-to-unit": "Zu der Struktur des Objectives"
 		}
 	},
@@ -548,11 +544,9 @@
 		"name-*": "Name *"
 	},
 	"okr-child-unit-overview-tab": {
+		"create-new-objective": "Objective erstellen",
 		"load-objective": "Lade Objective...",
-		"no-objectives": "Es gibt noch keine Objectives für diese Struktur.",
-		"tooltip": {
-			"create-new-objective": "Objective erstellen"
-		}
+		"no-objectives": "Es gibt noch keine Objectives für diese Struktur."
 	},
 	"okr-child-unit-preview-button": {
 		"load": "Lade",
@@ -627,9 +621,6 @@
 		"add-unit": "Struktur hinzufügen",
 		"okr-toolbar": {
 			"unit-overview": "Strukturübersicht"
-		},
-		"tooltip": {
-			"add-unit": "Struktur hinzufügen "
 		}
 	},
 	"okr-unit-form": {
@@ -814,9 +805,7 @@
 		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
 	},
 	"topic-drafts": {
-		"add-topic-draft-button": {
-			"tooltip": "Themenentwurf hinzufügen"
-		},
+		"add-topic-draft-button": "Themenentwurf hinzufügen",
 		"home-button": {
 			"tooltip": "Zur Strukturübersicht"
 		},
@@ -847,21 +836,21 @@
 	},
 	"user-management": {
 		"active-table-header": "Aktiv",
+		"add-new-user": "Benutzer erstellen",
 		"admin-table-header": "Admin",
 		"checkbox": "Deaktivierte Benutzer anzeigen",
 		"department-table-header": "Abteilung ",
 		"email": "Email ",
+		"import-users": "Benutzer importieren",
 		"job-title-table-header": "Berufsbezeichnung ",
 		"name": "Name",
 		"tooltip": {
 			"activate-user": "Nutzer aktivieren",
-			"add-new-user": "Benutzer erstellen",
 			"deactivate-user": "Nutzer deaktivieren ",
 			"edit-user": "Nutzer bearbeiten ",
 			"go-to-okr-unit-overview": "Zur Strukturübersicht",
-			"import-users-from-csv": "Benutzer aus CSV importieren",
-      "import-users": "Benutzer importieren"
-    },
+			"import-users-from-csv": "Benutzer aus CSV importieren"
+		},
 		"user-management-toolbar-title": "Benutzerverwaltung"
 	},
 	"user-minibutton": {
