@@ -24,6 +24,11 @@ export class CreateDashboardComponent implements OnInit {
               private readonly activatedRoute: ActivatedRoute) {
   }
 
+  /* TODO: p.b. 29-03-2022
+      I will rework (IF I HAVE TIME) this entire component to use a dynamic generated formgroup depending on the selection the user has made.
+      Should this comment be here after the 31-05-2022 then I didnt have enough time to do it and i recommend either creating a ticket for this or just leave it as is.
+  */
+
   ngOnInit(): void {
     this.resetNewChart();
     this.teams$ = this.activatedRoute.paramMap
