@@ -8,6 +8,6 @@ export interface ChartCreationOptionsDto {
 }
 
 export enum ChartTypeEnum {
-  pie = 'Übersicht Themenentwürfe',
-  line = 'Fortschritt',
+  PIE = 'Übersicht Themenentwürfe',
+  LINE = 'Fortschritt',
 }

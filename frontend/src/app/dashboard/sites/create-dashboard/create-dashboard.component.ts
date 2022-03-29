@@ -66,7 +66,7 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   newChartIsLineChart(): boolean {
-    return this.newChart.chartType === ChartTypeEnum.line;
+    return this.newChart.chartType === ChartTypeEnum.LINE;
   }
 
   newChartValid(): boolean {
@@ -76,7 +76,7 @@ export class CreateDashboardComponent implements OnInit {
   private resetNewChart(): void {
     this.newChart = {
       title: '',
-      chartType: ChartTypeEnum.line,
+      chartType: ChartTypeEnum.LINE,
       teams: undefined,
     };
   }
