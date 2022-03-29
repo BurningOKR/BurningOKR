@@ -1,7 +1,9 @@
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+
 export interface ChartCreationOptionsDto {
   title: string;
   chartType: ChartTypeEnum;
-  teamId: number;
+  teams?: OkrDepartment[];
 }
 
 export enum ChartTypeEnum {

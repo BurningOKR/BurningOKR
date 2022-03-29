@@ -10,7 +10,10 @@
   <div class="chart-creation-options" *ngFor="let chart of charts">
     <p class="chart-title">Titel: {{chart.title}}</p>
     <p>Art: {{chart.chartType}}</p>
-    <p *ngIf="chart.teamId">Team: {{chart.teamId}}</p>
+    <div> Teams:
+      <p class="chart-team-list" *ngFor="let team of chart.teams"> {{team.name}}</p>
+      <p class="chart-team-list" *ngIf="!chart.teams">Gesamte Firma</p>
+    </div>
 
     <button mat-icon-button mat-mini-fab color="primary" (click)="deleteChart(chart)">
       <mat-icon>delete</mat-icon>
@@ -18,20 +21,21 @@
   </div>
 
   <div class="chart-creation-options">
+    <p>Neues Diagramm zum Dashboard hinzufügen</p>
     <mat-form-field>
       <input class="chart-creation-single-option" matInput placeholder="Titel" [(ngModel)]="newChart.title">
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Chart-Art auswählen" class="chart-creation-single-option" [(value)]="newChart.chartType">
+      <mat-select placeholder="Art der Information" class="chart-creation-single-option" [(value)]="newChart.chartType">
         <mat-option *ngFor="let chartType of chartTypes"
                     value="{{chartType}}">{{chartType}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field *ngIf="newChartIsLineChart()">
-      <mat-select placeholder="Team auswählen" class="chart-creation-single-option" [(value)]="newChart.teamId">
-        <mat-option *ngFor="let team of teams$ | async" value="{{team.id}}">{{team.name}}</mat-option>
+      <mat-select multiple placeholder="Team auswählen" class="chart-creation-single-option" [(value)]="newChart.teams">
+        <mat-option *ngFor="let team of teams$ | async" [value]="team">{{team.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -45,6 +49,6 @@
 <div class="button-create-dashboard">
   <button [disabled]="charts.length < 1" mat-stroked-button (click)="createDashboard()">
     <mat-icon>add_circle_outline</mat-icon>
-    Erstellen
+    Dashboard anlegen
   </button>
 </div>
