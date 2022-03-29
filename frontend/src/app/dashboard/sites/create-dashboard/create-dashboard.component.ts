@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { CompanyMapper } from '../../../shared/services/mapper/company.mapper';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { ChartCreationOptionsDto, ChartTypeEnum } from '../../model/dto/chart-creation-options.dto';
+import { DashboardCreationDto } from '../../model/dto/dashboard-creation.dto';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-create-dashboard',
@@ -20,9 +21,10 @@ export class CreateDashboardComponent implements OnInit {
   charts: ChartCreationOptionsDto[] = [];
   newChart: ChartCreationOptionsDto;
 
-  constructor(private readonly companyService: CompanyMapper,
-              private readonly departmentService: DepartmentMapper,
-              private readonly activatedRoute: ActivatedRoute) {
+  constructor(private readonly departmentService: DepartmentMapper,
+              private readonly activatedRoute: ActivatedRoute,
+              private readonly router: Router,
+              private readonly dashboardService: DashboardService) {
   }
 
   /* TODO: p.b. 29-03-2022
@@ -38,7 +40,7 @@ export class CreateDashboardComponent implements OnInit {
         switchMap(companyId => this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId)));
   }
 
-  addDashboard(): void {
+  addChart(): void {
     this.charts.Add(this.newChart);
     this.resetNewChart();
   }
@@ -47,9 +49,20 @@ export class CreateDashboardComponent implements OnInit {
     this.charts = this.charts.filter(chart => chart !== chartToDelete);
   }
 
-  createDashboard(): void {
-    console.log('Dashboard created:');
-    this.charts.forEach(chart => console.log(chart));
+  createDashboardAndRouteToDashboard$(): void {
+    const dashboard: DashboardCreationDto = {
+      title: this.dashboardTitle,
+      charts: this.charts,
+    };
+    dashboard.title = this.dashboardTitle;
+    dashboard.charts = this.charts;
+
+    this.dashboardService.postDashboard$(dashboard)
+      .pipe(take(1),
+        map(createdDashboard => createdDashboard.dashboardCreationId))
+      .subscribe(dashboardId => {
+        this.navigateToCreatedDashboard(dashboardId);
+      });
   }
 
   newChartIsLineChart(): boolean {
@@ -66,5 +79,9 @@ export class CreateDashboardComponent implements OnInit {
       chartType: ChartTypeEnum.line,
       teams: undefined,
     };
+  }
+
+  private navigateToCreatedDashboard(dashboardId: number): void {
+    this.router.navigateByUrl(`${location.origin}/${dashboardId}`);
   }
 }

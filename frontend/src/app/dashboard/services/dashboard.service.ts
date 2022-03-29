@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { take } from 'rxjs/operators';
 import { CurrentUserService } from '../../core/services/current-user.service';
 import { User } from '../../shared/model/api/user';
+import { DashboardCreationDto } from '../model/dto/dashboard-creation.dto';
 import { Dashboard } from '../model/ui/dashboard';
 import { ChartOptionsBuilderService } from './chart-options-builder.service';
 import { DashboardApiService } from './dashboard-api.service';
@@ -98,5 +99,9 @@ export class DashboardService {
          charts: this.chartBuilder.buildTestCharts(),
        },
      ]);
+  }
+
+  postDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
+    return this.dashboardApiService.postDashboard$(dashboard);
   }
 }

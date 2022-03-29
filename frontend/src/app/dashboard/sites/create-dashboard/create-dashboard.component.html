@@ -47,14 +47,14 @@
     </mat-form-field>
 
     <button [disabled]="!newChartValid()" class="chart-creation-add-button" mat-icon-button mat-mini-fab color="accent"
-            (click)="addDashboard()">
+            (click)="addChart()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
 </div>
 
 <div class="button-create-dashboard">
-  <button [disabled]="charts.length < 1 && dashboardTitle.trim().length > 1" mat-stroked-button (click)="createDashboard()">
+  <button [disabled]="charts.length < 1 && dashboardTitle.trim().length < 1" mat-stroked-button (click)="createDashboardAndRouteToDashboard$()">
     <mat-icon>add_circle_outline</mat-icon>
     Dashboard anlegen
   </button>
