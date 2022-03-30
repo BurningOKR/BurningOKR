@@ -57,7 +57,7 @@ export class CreateDashboardComponent implements OnInit {
     dashboard.title = this.dashboardTitle;
     dashboard.charts = this.charts;
 
-    this.dashboardService.postDashboard$(dashboard)
+    this.dashboardService.createDashboard$(dashboard)
       .pipe(take(1),
         map(createdDashboard => createdDashboard.dashboardCreationId))
       .subscribe(dashboardId => {

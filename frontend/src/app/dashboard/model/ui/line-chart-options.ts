@@ -1,9 +1,4 @@
-import {
-  ApexDataLabels,
-  ApexGrid,
-  ApexStroke,
-  ApexXAxis,
-} from 'ng-apexcharts';
+import { ApexDataLabels, ApexGrid, ApexStroke, ApexXAxis } from 'ng-apexcharts';
 import { BaseChartOptions } from './base-chart-options';
 
 export class LineChartOptions extends BaseChartOptions{
@@ -13,12 +8,3 @@ export class LineChartOptions extends BaseChartOptions{
   stroke: ApexStroke;
 }
 
-export interface LineChartLineKeyValues {
-  name: string;
-  data: number[];
-}
-
-export interface ChartTitle {
-  text: string;
-  align: 'left' | 'right' | 'center';
-}

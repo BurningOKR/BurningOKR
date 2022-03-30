@@ -3,7 +3,7 @@ import { DashboardDto } from '../model/dto/dashboard.dto';
 import { Dashboard } from '../model/ui/dashboard';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardMapperService {
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
@@ -11,7 +11,8 @@ export class DashboardMapperService {
       id: dashboardDto.id,
       title: dashboardDto.title,
       creator: dashboardDto.creator,
-      charts: dashboardDto.chartDtos
+      charts: dashboardDto.chartDtos,
+      creationDate: dashboardDto.creationDate,
     };
   }
 
@@ -20,7 +21,8 @@ export class DashboardMapperService {
       id: dashboard.id,
       title: dashboard.title,
       creator: dashboard.creator,
-      chartDtos: dashboard.charts
+      chartDtos: dashboard.charts,
+      creationDate: dashboard.creationDate,
     };
   }
 }

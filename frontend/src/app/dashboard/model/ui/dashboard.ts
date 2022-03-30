@@ -6,4 +6,5 @@ export interface Dashboard {
   title: string;
   creator: User;
   charts: BaseChartOptions [];
+  creationDate: Date;
 }

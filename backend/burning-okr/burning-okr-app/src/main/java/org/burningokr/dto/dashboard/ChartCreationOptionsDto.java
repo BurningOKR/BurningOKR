@@ -5,8 +5,8 @@ import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 
 @Data
 public class ChartCreationOptionsDto {
-  private Long chartCreationOptionsId:;
+  private Long chartCreationOptionsId;
   private String title;
   private ChartType chartType;
-  private OkrDepartmentDto[] teams;
+  private OkrDepartmentDto[] teams; //Auslagern in Line-Chart Optionen!
 }
