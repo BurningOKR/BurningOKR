@@ -14,7 +14,7 @@ import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit
 import { of } from 'rxjs';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-child-unit-button.component';
-import {SharedModule} from "../../../shared/shared.module";
+import {SharedModule} from '../../../shared/shared.module';
 
 const currentOkrViewServiceMock: any = {
   refreshCurrentDepartmentView: jest.fn()

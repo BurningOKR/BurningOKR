@@ -4,7 +4,7 @@ import { AddChildUnitButtonComponent } from './add-child-unit-button.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-import {SharedModule} from "../../shared/shared.module";
+import { SharedModule } from '../../shared/shared.module';
 
 describe('AddChildUnitButtonComponent', () => {
   let component: AddChildUnitButtonComponent;

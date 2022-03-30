@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../shared/model/api/unit.enum';
 import { TranslateService } from '@ngx-translate/core';
-import { SharedModule } from "../../../shared/shared.module";
+import { SharedModule } from '../../../shared/shared.module';
 
 const matDialogRefMock: any = {
   close: jest.fn()
