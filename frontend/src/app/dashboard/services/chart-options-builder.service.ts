@@ -12,7 +12,6 @@ import { PieChartOptions } from '../model/ui/pie-chart-options';
   providedIn: 'root',
 })
 export class ChartOptionsBuilderService {
-
   buildLineChartOptions(lineChartTitle: ChartTitle, lineChartValues: LineChartLineKeyValues[],
                         xAxisCategories: string[]): LineChartOptions {
     const lineChartOptions: LineChartOptions = new LineChartOptions();
@@ -96,9 +95,9 @@ export class ChartOptionsBuilderService {
     const chartXAxis: string[] = ['January', 'February', 'March', 'April', 'Mai', 'June', 'July',
       'August', 'September', 'October', 'November', 'December'];
 
-    const  chartOptions: BaseChartOptions[] = [];
-    const lineChartOptions: LineChartOptions = this.buildLineChartOptions(lineChartTitle,chartLines, chartXAxis);
-    const pieChartOptions: PieChartOptions = this.buildPieChartOptions(pieChartTitle, [10,5, 3 ,4], ['ToDo', 'Doing', 'Blocked', 'Done']);
+    const chartOptions: BaseChartOptions[] = [];
+    const lineChartOptions: LineChartOptions = this.buildLineChartOptions(lineChartTitle, chartLines, chartXAxis);
+    const pieChartOptions: PieChartOptions = this.buildPieChartOptions(pieChartTitle, [10, 5, 3, 4], ['ToDo', 'Doing', 'Blocked', 'Done']);
 
     chartOptions.push(lineChartOptions);
     chartOptions.push(pieChartOptions);
