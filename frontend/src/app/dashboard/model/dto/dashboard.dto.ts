@@ -6,4 +6,5 @@ export interface DashboardDto {
   title: string;
   creator: User;
   chartDtos: BaseChartOptions[]; //TODO - P.B. 23-03-2022 Create Dto for BaseChartOptions
+  creationDate: Date;
 }

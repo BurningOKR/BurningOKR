@@ -11,26 +11,28 @@ import { DashboardApiService } from './dashboard-api.service';
 import { DashboardMapperService } from './dashboard.mapper.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardService {
   currentUser: User;
+
   constructor(private readonly dashboardApiService: DashboardApiService,
               private readonly dashboardMapper: DashboardMapperService,
               private readonly chartBuilder: ChartOptionsBuilderService,
-              private readonly currentUserService: CurrentUserService)  {
+              private readonly currentUserService: CurrentUserService) {
     currentUserService.getCurrentUser$().pipe(take(1))
       .subscribe(user => this.currentUser = user);
   } //TODO p.b. remove currentuser stuff, needed this for testing
 
   getDashboardById$(dashboardId: number): Observable<Dashboard> {
-    // return this.dashboardApiService.getDashboardById$(dashboardId).pipe(map(dashboardDto => this.dashboardMapper.mapDtoToUi(dashboardDto)));
-    // Für Testzwecke momentan:
+    // return this.dashboardApiService.getDashboardById$(dashboardId).pipe(map(dashboardDto =>
+    // this.dashboardMapper.mapDtoToUi(dashboardDto))); Für Testzwecke momentan:
     return of({
       id: 1,
       title: 'Erste Diagramm mit einem super langen Namen zum Testen der Namenslänge',
       creator: this.currentUser,
       charts: this.chartBuilder.buildTestCharts(),
+      creationDate: new Date(),
     });
   }
 
@@ -38,70 +40,39 @@ export class DashboardService {
     /* return this.dashboardApiService.getDashboardsByCompanyId$(companyId).pipe(
       map(dashboardDto => dashboardDto.map(this.dashboardMapper.mapDtoToUi)));
      ZU TESTZWECKEN AUSKOMMENTIERT!  */
-     return of([{
-       id: 1,
-       title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-       creator: this.currentUser,
-       charts: this.chartBuilder.buildTestCharts(),
-     },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-       {
-         id: 1,
-         title: 'Zweite Diagramm mit einem super langen Namen zum Testen der Namenslänge',
-         creator: this.currentUser,
-         charts: this.chartBuilder.buildTestCharts(),
-       },
-     ]);
+    return of([
+      {
+        id: 1,
+        title: 'Erste Dashboard mit einem super langen Namen zum Testen der Namenslänge',
+        creator: this.currentUser,
+        charts: this.chartBuilder.buildTestCharts(),
+        creationDate: new Date(),
+      },
+      {
+        id: 2,
+        title: 'Zweite Dashboard mit einem super langen Namen zum Testen der Namenslänge',
+        creator: this.currentUser,
+        charts: this.chartBuilder.buildTestCharts(),
+        creationDate: new Date(),
+      },
+      {
+        id: 3,
+        title: 'Dritte Dashboard mit einem super langen Namen zum Testen der Namenslänge',
+        creator: this.currentUser,
+        charts: this.chartBuilder.buildTestCharts(),
+        creationDate: new Date(),
+      },
+      {
+        id: 4,
+        title: 'Vierte Dashboard mit einem super langen Namen zum Testen der Namenslänge',
+        creator: this.currentUser,
+        charts: this.chartBuilder.buildTestCharts(),
+        creationDate: new Date(),
+      },
+    ]);
   }
 
-  postDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
+  createDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
     return this.dashboardApiService.postDashboard$(dashboard);
   }
 }

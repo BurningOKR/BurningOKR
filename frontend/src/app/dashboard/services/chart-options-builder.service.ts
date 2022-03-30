@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { ChartTitle } from '../model/dto/chart-options/base-chart-options.dto';
+import { LineChartLineKeyValues } from '../model/dto/chart-options/line-chart-options.dto';
 import { BaseChartOptions } from '../model/ui/base-chart-options';
 import {
-  LineChartLineKeyValues,
   LineChartOptions,
-  ChartTitle,
+
 } from '../model/ui/line-chart-options';
 import { PieChartOptions } from '../model/ui/pie-chart-options';
 
@@ -13,7 +14,7 @@ import { PieChartOptions } from '../model/ui/pie-chart-options';
 export class ChartOptionsBuilderService {
 
   buildLineChartOptions(lineChartTitle: ChartTitle, lineChartValues: LineChartLineKeyValues[],
-                        xAxisCategories: string[], showDataLabels?: boolean): LineChartOptions {
+                        xAxisCategories: string[]): LineChartOptions {
     const lineChartOptions: LineChartOptions = new LineChartOptions();
 
     lineChartOptions.series = lineChartValues;
@@ -25,7 +26,7 @@ export class ChartOptionsBuilderService {
       },
     };
     lineChartOptions.dataLabels = {
-      enabled: showDataLabels,
+      enabled: false,
     };
     lineChartOptions.stroke = {
       curve: 'straight',
@@ -96,7 +97,7 @@ export class ChartOptionsBuilderService {
       'August', 'September', 'October', 'November', 'December'];
 
     const  chartOptions: BaseChartOptions[] = [];
-    const lineChartOptions: LineChartOptions = this.buildLineChartOptions(lineChartTitle,chartLines, chartXAxis, false);
+    const lineChartOptions: LineChartOptions = this.buildLineChartOptions(lineChartTitle,chartLines, chartXAxis);
     const pieChartOptions: PieChartOptions = this.buildPieChartOptions(pieChartTitle, [10,5, 3 ,4], ['ToDo', 'Doing', 'Blocked', 'Done']);
 
     chartOptions.push(lineChartOptions);
