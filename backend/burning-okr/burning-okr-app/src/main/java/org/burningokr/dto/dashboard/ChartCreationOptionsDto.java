@@ -8,5 +8,5 @@ public class ChartCreationOptionsDto {
   private Long chartCreationOptionsId;
   private String title;
   private ChartType chartType;
-  private OkrDepartmentDto[] teams; //Auslagern in Line-Chart Optionen!
+  private OkrDepartmentDto[] teams;
 }

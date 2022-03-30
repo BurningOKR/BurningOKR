@@ -11,18 +11,8 @@ export class DashboardMapperService {
       id: dashboardDto.id,
       title: dashboardDto.title,
       creator: dashboardDto.creator,
-      charts: dashboardDto.chartDtos,
+      charts: dashboardDto.chartDtos.map(chartDto => chartDto.buildChartOptions()),
       creationDate: dashboardDto.creationDate,
-    };
-  }
-
-  mapUiToDto(dashboard: Dashboard): DashboardDto {
-    return {
-      id: dashboard.id,
-      title: dashboard.title,
-      creator: dashboard.creator,
-      chartDtos: dashboard.charts,
-      creationDate: dashboard.creationDate,
     };
   }
 }

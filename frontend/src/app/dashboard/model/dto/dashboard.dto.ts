@@ -1,10 +1,10 @@
 import { User } from '../../../shared/model/api/user';
-import { BaseChartOptions } from '../ui/base-chart-options';
+import { BaseChartOptionsDto } from './chart-options/base-chart-options.dto';
 
-export interface DashboardDto {
+export abstract class DashboardDto {
   id: number;
   title: string;
   creator: User;
-  chartDtos: BaseChartOptions[]; //TODO - P.B. 23-03-2022 Create Dto for BaseChartOptions
+  chartDtos: BaseChartOptionsDto[];
   creationDate: Date;
 }
