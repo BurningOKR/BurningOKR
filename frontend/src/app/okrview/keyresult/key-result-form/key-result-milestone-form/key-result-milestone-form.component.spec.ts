@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { KeyResultMilestoneFormComponent } from './key-result-milestone-form.component';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
-import { FormErrorComponent } from '../../../../shared/components/form-error/form-error.component';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../../shared/model/api/unit.enum';
 import { ViewKeyResultMilestone } from '../../../../shared/model/ui/view-key-result-milestone';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {SharedModule} from "../../../../shared/shared.module";
 
 let keyResult: ViewKeyResult;
 let milestone1: ViewKeyResultMilestone;
@@ -18,8 +18,8 @@ describe('KeyResultMilestoneFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ KeyResultMilestoneFormComponent, FormErrorComponent ],
-      imports: [ MaterialTestingModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule ],
+      declarations: [ KeyResultMilestoneFormComponent ],
+      imports: [ MaterialTestingModule, ReactiveFormsModule, FormsModule, NoopAnimationsModule, SharedModule ],
     })
     .compileComponents();
   }));

@@ -20,8 +20,8 @@
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
           <div>
-            <app-add-button text="user-management.import-users" (buttonClicked)="handleCsvImport()" [isDisabled]="isPlayground" matTooltip="{{'user-management.tooltip.import-users-from-csv' | translate}}" matIcon="unarchive"> </app-add-button>
-            <app-add-button text="user-management.add-new-user" (buttonClicked)="handleCreate()" [isDisabled]="isPlayground"> </app-add-button>
+            <app-add-button text="{{'user-management.import-users' | translate }}" (buttonClicked)="handleCsvImport()" [isDisabled]="isPlayground" matTooltip="{{'user-management.tooltip.import-users-from-csv' | translate}}" matIcon="unarchive"> </app-add-button>
+            <app-add-button text="{{'user-management.add-new-user' | translate }}" (buttonClicked)="handleCreate()" [isDisabled]="isPlayground"> </app-add-button>
           </div>
         </div>
         <table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">
@@ -32,7 +32,7 @@
             </td>
           </ng-container>
           <ng-container matColumnDef="active">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'user-management.active-table-header' | translate}}</th>
             <td *matCellDef="let user" mat-cell>
               <mat-icon *ngIf="user.active">check</mat-icon>
             </td>

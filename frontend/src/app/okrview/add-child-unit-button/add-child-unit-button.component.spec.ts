@@ -4,6 +4,7 @@ import { AddChildUnitButtonComponent } from './add-child-unit-button.component';
 import { MaterialTestingModule } from '../../testing/material-testing.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import {SharedModule} from "../../shared/shared.module";
 
 describe('AddChildUnitButtonComponent', () => {
   let component: AddChildUnitButtonComponent;
@@ -18,7 +19,7 @@ describe('AddChildUnitButtonComponent', () => {
     contextRoleMock.isAtleastAdmin.mockReturnValue(true);
     TestBed.configureTestingModule({
       declarations: [ AddChildUnitButtonComponent ],
-      imports: [ MaterialTestingModule, MatSnackBarModule, MatDialogModule ],
+      imports: [ MaterialTestingModule, MatSnackBarModule, MatDialogModule, SharedModule ],
     })
     .compileComponents();
   }));
