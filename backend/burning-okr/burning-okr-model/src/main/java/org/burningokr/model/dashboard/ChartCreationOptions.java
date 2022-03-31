@@ -1,10 +1,6 @@
 package org.burningokr.model.dashboard;
 
 import lombok.Data;
-import lombok.ToString;
-import org.burningokr.model.okrUnits.OkrDepartment;
-
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
