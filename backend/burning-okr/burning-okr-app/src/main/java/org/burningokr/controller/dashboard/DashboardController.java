@@ -2,7 +2,6 @@ package org.burningokr.controller.dashboard;
 
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.dashboard.DashboardCreationDto;
-import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.model.users.User;
 import org.burningokr.service.dashboard.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
