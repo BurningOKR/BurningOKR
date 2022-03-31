@@ -7,6 +7,6 @@ import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 public class ChartCreationOptionsDto {
   private Long chartCreationOptionsId;
   private String title;
-  private ChartType chartType;
+  private int chartType;
   private OkrDepartmentDto[] teams;
 }
