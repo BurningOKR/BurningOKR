@@ -2,10 +2,21 @@ export interface ChartCreationOptionsDto {
   chartCreationOptionsId?: number;
   title: string;
   chartType: ChartTypeEnum;
-  teams?: number[];
+  informationType: InformationTypeEnum;
+  teamIds?: number[];
 }
 
 export enum ChartTypeEnum {
-  PIE = 'Übersicht Themenentwürfe',
-  LINE = 'Fortschritt',
+  LINE,
+  PIE,
 }
+
+export enum InformationTypeEnum {
+  PROGRESS,
+  TOPICDRAFTOVERVIEW,
+}
+
+export const ChartTypeEnumMapping: Record<ChartTypeEnum, string> = {
+  [ChartTypeEnum.LINE]: 'Fortschritt',
+  [ChartTypeEnum.PIE]: 'Übersicht Themenentwürfe',
+};

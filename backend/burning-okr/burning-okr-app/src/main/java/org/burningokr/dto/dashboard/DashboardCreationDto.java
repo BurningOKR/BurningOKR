@@ -7,8 +7,8 @@ import java.util.UUID;
 
 @Data
 public class DashboardCreationDto {
-  private Long dashboardCreationId;
+  private Long id;
   private String title;
   private UUID creatorId;
-  private Collection<ChartCreationOptionsDto[]> chartCreationOptions;
+  private Collection<ChartCreationOptionsDto> chartCreationOptions;
 }

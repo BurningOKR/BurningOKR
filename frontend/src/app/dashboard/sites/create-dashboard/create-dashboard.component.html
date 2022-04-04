@@ -19,9 +19,9 @@
     <p class="chart-title">Titel: {{chart.title}}</p>
     <p>Art: {{chart.chartType}}</p>
     <div> Teams:
-      <p class="chart-team-list" *ngFor="let team of chart.teams">
+      <p class="chart-team-list" *ngFor="let team of chart.teamIds">
         {{team}}</p>
-      <p class="chart-team-list" *ngIf="!chart.teams.length">Gesamte Firma</p>
+      <p class="chart-team-list" *ngIf="!chart.teamIds.length">Gesamte Firma</p>
     </div>
 
     <button mat-icon-button mat-mini-fab color="primary" (click)="deleteChart(chart)">
@@ -38,12 +38,12 @@
     <mat-form-field>
       <mat-select placeholder="Art der Information" [(value)]="newChart.chartType">
         <mat-option *ngFor="let chartType of chartTypes"
-                    value="{{chartType}}">{{chartType}}</mat-option>
+                    value="{{chartType}}">{{chartTypeEnumMapping[chartType]}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field *ngIf="newChartIsLineChart()">
-      <mat-select multiple placeholder="Team auswählen" [(value)]="newChart.teams">
+      <mat-select multiple placeholder="Team auswählen" [(value)]="newChart.teamIds">
         <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>
       </mat-select>
     </mat-form-field>
