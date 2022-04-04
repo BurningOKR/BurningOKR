@@ -4,7 +4,12 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap, take } from 'rxjs/operators';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import { ChartCreationOptionsDto, ChartTypeEnum } from '../../model/dto/chart-creation-options.dto';
+import {
+  ChartCreationOptionsDto,
+  ChartTypeEnum,
+  ChartTypeEnumMapping,
+  InformationTypeEnum,
+} from '../../model/dto/chart-creation-options.dto';
 import { DashboardCreationDto } from '../../model/dto/dashboard-creation.dto';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -15,7 +20,8 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 export class CreateDashboardComponent implements OnInit {
   teams$: Observable<OkrDepartment[]>;
-  chartTypes = Object.values(ChartTypeEnum);
+  chartTypes = Object.values(ChartTypeEnum).slice(Object.values(ChartTypeEnum).length / 2); // Enum fun. We only need the first half. The last half is useless.
+  chartTypeEnumMapping = ChartTypeEnumMapping;
 
   dashboardTitle: string = '';
   charts: ChartCreationOptionsDto[] = [];
@@ -41,6 +47,12 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   addChart(): void {
+    // This is very ugly but is sufficient for now/testing
+    // As the very early version only has Progression in a line-chart and topicdraft-overview in a pie-chart
+    // I decided to simply glue them together in this ugly mess. As seen in the comment above, this entire component needs refactoring
+    // Information type is needed to select different types of infos you want to see since a line-chart can show more than just progression
+    // or a pie-chart more than the current state of topic-drafts
+    this.newChart.informationType = this.newChart.chartType.valueOf();
     this.charts.Add(this.newChart);
     console.log(this.newChart);
     this.resetNewChart();
@@ -53,10 +65,10 @@ export class CreateDashboardComponent implements OnInit {
   createDashboardAndRouteToDashboard$(): void {
     const dashboard: DashboardCreationDto = {
       title: this.dashboardTitle,
-      charts: this.charts,
+      chartCreationOptions: this.charts,
     };
     dashboard.title = this.dashboardTitle;
-    dashboard.charts = this.charts;
+    dashboard.chartCreationOptions = this.charts;
 
     this.dashboardService.createDashboard$(dashboard)
       .pipe(take(1),
@@ -82,7 +94,8 @@ export class CreateDashboardComponent implements OnInit {
     this.newChart = {
       title: '',
       chartType: ChartTypeEnum.LINE,
-      teams: [],
+      informationType: InformationTypeEnum.PROGRESS,
+      teamIds: [],
     };
   }
 

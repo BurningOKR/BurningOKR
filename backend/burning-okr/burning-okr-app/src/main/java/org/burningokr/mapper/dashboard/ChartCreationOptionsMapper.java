@@ -8,10 +8,12 @@ import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.model.dashboard.InformationTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Service
 public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptions, ChartCreationOptionsDto> {
 
   private final Logger logger = LoggerFactory.getLogger(ChartCreationOptionsMapper.class);
@@ -24,16 +26,9 @@ public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptio
     entity.setTitle(dto.getTitle());
     entity.setChartType(ChartTypeEnum.values()[dto.getChartType()]);
     entity.setInformationType(InformationTypeEnum.values()[dto.getInformationType()]);
-
-    DashboardCreation dashboardCreation = null;
-    if(dto.getDashboardCreationId() != null){
-      dashboardCreation = new DashboardCreation();
-      dashboardCreation.setId(dto.getDashboardCreationId());
-    }
-    entity.setDashboardCreation(dashboardCreation);
     entity.setTeamIds(dto.getTeamIds());
 
-    logger.info("Mapped ChartCreationOptionsDto (id:" + dto.getId() + ") successful into ChartCreationOptio.");
+    logger.info("Mapped ChartCreationOptionsDto (id:" + dto.getId() + ") successful into ChartCreationOption.");
 
     return entity;
   }
@@ -46,7 +41,6 @@ public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptio
     dto.setTitle(entity.getTitle());
     dto.setChartType(entity.getChartType().ordinal());
     dto.setInformationType(entity.getInformationType().ordinal());
-    dto.setDashboardCreationId(entity.getDashboardCreation().getId());
     dto.setTeamIds(entity.getTeamIds());
 
     logger.info("Mapped ChartCreationOptions (id:" + entity.getId() + ") successful into ChartCreationOptionsDto.");

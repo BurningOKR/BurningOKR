@@ -10,6 +10,5 @@ public class ChartCreationOptionsDto {
   private String title;
   private int chartType;
   private int informationType;
-  private Long dashboardCreationId;
   private Collection<Long> teamIds;
 }
