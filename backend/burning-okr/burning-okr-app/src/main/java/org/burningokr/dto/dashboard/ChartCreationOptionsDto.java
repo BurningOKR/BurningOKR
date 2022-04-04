@@ -1,12 +1,15 @@
 package org.burningokr.dto.dashboard;
 
 import lombok.Data;
-import org.burningokr.dto.okrUnit.OkrDepartmentDto;
+
+import java.util.Collection;
 
 @Data
 public class ChartCreationOptionsDto {
-  private Long chartCreationOptionsId;
+  private Long id;
   private String title;
   private int chartType;
-  private OkrDepartmentDto[] teams;
+  private int informationType;
+  private Long dashboardCreationId;
+  private Collection<Long> teamIds;
 }

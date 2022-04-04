@@ -4,7 +4,6 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -15,12 +14,14 @@ public class ChartCreationOptions {
 
   private String title;
 
-  private ChartType chartType;
+  private ChartTypeEnum chartType;
+
+  private InformationTypeEnum informationType;
 
   @ManyToOne private DashboardCreation dashboardCreation;
 
   @ElementCollection
   @CollectionTable(name = "chart_creation_teams")
   @Column(name = "chart_creation_teams")
-  private Collection<UUID> okrMemberIds = new ArrayList<>();
+  private Collection<Long> teamIds = new ArrayList<>();
 }
