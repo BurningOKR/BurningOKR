@@ -1,6 +1,6 @@
 package org.burningokr.model.dashboard;
 
-public enum ChartType {
+public enum ChartTypeEnum {
   LINE,
   PIE,
 }
