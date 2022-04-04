@@ -14,12 +14,14 @@
 </div>
 
 <div class="chart-creation">
+
   <div class="chart-creation-options" *ngFor="let chart of charts">
     <p class="chart-title">Titel: {{chart.title}}</p>
     <p>Art: {{chart.chartType}}</p>
     <div> Teams:
-      <p class="chart-team-list" *ngFor="let team of chart.teams"> {{team.name}}</p>
-      <p class="chart-team-list" *ngIf="!chart.teams">Gesamte Firma</p>
+      <p class="chart-team-list" *ngFor="let team of chart.teams">
+        {{team}}</p>
+      <p class="chart-team-list" *ngIf="!chart.teams.length">Gesamte Firma</p>
     </div>
 
     <button mat-icon-button mat-mini-fab color="primary" (click)="deleteChart(chart)">
@@ -42,7 +44,7 @@
 
     <mat-form-field *ngIf="newChartIsLineChart()">
       <mat-select multiple placeholder="Team auswählen" [(value)]="newChart.teams">
-        <mat-option *ngFor="let team of teams$ | async" [value]="team">{{team.name}}</mat-option>
+        <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -54,7 +56,8 @@
 </div>
 
 <div class="button-create-dashboard">
-  <button [disabled]="charts.length < 1 && dashboardTitle.trim().length < 1" mat-stroked-button (click)="createDashboardAndRouteToDashboard$()">
+  <button [disabled]="!dashboardValid()" mat-stroked-button
+          (click)="createDashboardAndRouteToDashboard$()">
     <mat-icon>add_circle_outline</mat-icon>
     Dashboard anlegen
   </button>

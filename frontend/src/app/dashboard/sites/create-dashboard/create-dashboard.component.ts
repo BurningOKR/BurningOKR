@@ -29,7 +29,7 @@ export class CreateDashboardComponent implements OnInit {
 
   /* TODO: p.b. 29-03-2022
       I will rework (IF I HAVE TIME) this entire component to use a dynamic generated formgroup depending on the selection the user has made.
-      Should this comment be here after the 31-05-2022 then I didnt have enough time to do it and i recommend either creating a U.S. for this.
+      Should this comment be here after the 31-05-2022 then I didnt have enough time to do it and i recommend creating a U.S. for this.
   */
 
   ngOnInit(): void {
@@ -42,6 +42,7 @@ export class CreateDashboardComponent implements OnInit {
 
   addChart(): void {
     this.charts.Add(this.newChart);
+    console.log(this.newChart);
     this.resetNewChart();
   }
 
@@ -73,11 +74,15 @@ export class CreateDashboardComponent implements OnInit {
     return !!(this.newChart.title && this.newChart.chartType);
   }
 
+  dashboardValid(): boolean {
+    return this.dashboardTitle.trim() && !!this.charts.length;
+  }
+
   private resetNewChart(): void {
     this.newChart = {
       title: '',
       chartType: ChartTypeEnum.LINE,
-      teams: undefined,
+      teams: [],
     };
   }
 
