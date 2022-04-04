@@ -122,8 +122,8 @@ export function createTranslateLoader(http: HttpClient) {
     LocalAuthTypeHandlerService,
     AzureAuthTypeHandlerService,
 
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true },
     {
       provide: LOCALE_ID,
       useValue: currentLanguage,
@@ -133,7 +133,7 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
 
   ],
   bootstrap: [AppComponent],

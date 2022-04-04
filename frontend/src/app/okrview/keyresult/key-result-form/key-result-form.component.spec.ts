@@ -35,7 +35,7 @@ describe('KeyResultFormComponent', () => {
         KeyResultFormComponent,
         KeyResultMilestoneFormComponent
       ],
-      imports: [ FormsModule, ReactiveFormsModule, MaterialTestingModule, NoopAnimationsModule, SharedModule],
+      imports: [ FormsModule, ReactiveFormsModule, MaterialTestingModule, NoopAnimationsModule, SharedModule ],
       providers: [
         { provide: MatDialogRef, useValue: matDialogRefMock },
         { provide: KeyResultMapper, useValue: keyResultMapperMock },

@@ -10,7 +10,7 @@
 </app-okr-toolbar>
 <!-- Generell Buttons -->
 <div class="margin-toolbar item-actions">
-  <app-add-button text="{{'cycle-admin-container.create-new-cycle' | translate }}" (buttonClicked)="createCycle()"> </app-add-button>
+  <app-add-button text="{{ 'cycle-admin-container.create-new-cycle' | translate }}" (buttonClicked)="createCycle()"></app-add-button>
 </div>
 <div *ngFor="let cycle of (cycles$ | async)">
   <app-cycle-admin-card (cycleChanged)="loadCycles()" [cycle]="cycle" [allCyclesOfCompany$]="cycles$"></app-cycle-admin-card>
