@@ -17,7 +17,7 @@
 
   <div class="chart-creation-options" *ngFor="let chart of charts">
     <p class="chart-title">Titel: {{chart.title}}</p>
-    <p>Art: {{chart.chartType}}</p>
+    <p>Art: {{chartTypeRecord[chart.chartType]}}</p>
     <div> Teams:
       <p class="chart-team-list" *ngFor="let team of chart.teamIds">
         {{team}}</p>
@@ -36,13 +36,15 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Art der Information" [(value)]="newChart.chartType">
-        <mat-option *ngFor="let chartType of chartTypes | keyvalue"
-                    value="{{chartType.value}}">{{chartType.value}}</mat-option>
+      <mat-select (selectionChange)="chartSelected($event)" placeholder="Art der Information">
+        <mat-option *ngFor="let chartType of chartTypes" value="{{chartType}}"
+                    matTooltip="{{chartTypeRecord[chartType]}}">
+          {{chartTypeRecord[chartType]}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field *ngIf="newChartIsLineChart()">
+    <mat-form-field *ngIf="teamIsSelectable">
       <mat-select multiple placeholder="Team auswählen" [(value)]="newChart.teamIds">
         <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>
       </mat-select>
