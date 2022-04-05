@@ -1,6 +1,6 @@
 package org.burningokr.model.dashboard;
 
 public enum ChartTypeEnum {
-  LINE,
-  PIE,
+  LINE_PROGRESS,
+  PIE_TOPICDRAFTOVERVIEW,
 }

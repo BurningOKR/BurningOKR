@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import { ChartCreationOptionsDto, ChartTypeEnum } from '../../model/dto/chart-creation-options.dto';
+import {
+  ChartCreationOptionsDto,
+  ChartTypeEnum,
+  ChartTypeEnumRecord,
+} from '../../model/dto/chart-creation-options.dto';
 import { DashboardCreationDto } from '../../model/dto/dashboard-creation.dto';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -15,11 +20,14 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 export class CreateDashboardComponent implements OnInit {
   teams$: Observable<OkrDepartment[]>;
-  chartTypes = ChartTypeEnum;
+  chartTypes = Object.keys(ChartTypeEnum).slice(0, Object.keys(ChartTypeEnum).length/2);
+  chartTypeRecord = ChartTypeEnumRecord;
 
   dashboardCreationDto: DashboardCreationDto = {} as DashboardCreationDto; // This sets default values to prevent 'property of undefined' error on title
   charts: ChartCreationOptionsDto[] = [];
   newChart: ChartCreationOptionsDto;
+
+  teamIsSelectable = false;
 
   constructor(private readonly departmentService: DepartmentMapper,
               private readonly activatedRoute: ActivatedRoute,
@@ -74,6 +82,11 @@ export class CreateDashboardComponent implements OnInit {
     return this.dashboardCreationDto.title.trim() && !!this.charts.length;
   }
 
+  chartSelected(change: MatSelectChange): void {
+    this.newChart.chartType = change.value;
+    this.teamIsSelectable = this.newChart.chartType.toString() === ChartTypeEnum.LINE_PROGRESS.toString(); // Always returns false without toString()
+  }
+
   private resetNewChart(): void {
     this.newChart = {
       title: '',
@@ -83,6 +96,6 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   private navigateToCreatedDashboard(dashboardId: number): void {
-    this.router.navigateByUrl(`${location.origin}/${dashboardId}`);
+    this.router.navigateByUrl(`/${location.origin}/${dashboardId}`);
   }
 }

@@ -29,6 +29,7 @@ public class DashboardCreationMapper implements DataMapper<DashboardCreation, Da
     entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
     entity.setCreatorId(dto.getCreatorId());
+    entity.setCompanyId(dto.getCompanyId());
     entity.setChartCreationOptions(chartCreationMapper.mapDtosToEntities(dto.getChartCreationOptions()));
 
     logger.info("Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
@@ -42,6 +43,7 @@ public class DashboardCreationMapper implements DataMapper<DashboardCreation, Da
     dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
     dto.setCreatorId(entity.getCreatorId());
+    dto.setCompanyId(entity.getCompanyId());
     dto.setChartCreationOptions(chartCreationMapper.mapEntitiesToDtos(entity.getChartCreationOptions()));
 
     logger.info("Mapped DashboardCreation (id:" + entity.getId() + ") successful into DashboardCreationDto.");

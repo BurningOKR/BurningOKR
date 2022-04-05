@@ -20,17 +20,17 @@ import { CreateDashboardComponent } from './sites/create-dashboard/create-dashbo
 import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-card/dashboard-card.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    BasicLineChartComponent,
-    PieChartComponent,
-    ChartRendererComponent,
-    ChartHostDirective,
-    BaseChartComponent,
-    DashboardOverviewComponent,
-    CreateDashboardComponent,
-    DashboardCardComponent,
-  ],
+    declarations: [
+        DashboardComponent,
+        BasicLineChartComponent,
+        PieChartComponent,
+        ChartRendererComponent,
+        ChartHostDirective,
+        BaseChartComponent,
+        DashboardOverviewComponent,
+        CreateDashboardComponent,
+        DashboardCardComponent,
+    ],
   imports: [
     CommonModule,
     NgApexchartsModule,

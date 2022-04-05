@@ -4,8 +4,6 @@ import org.burningokr.dto.dashboard.ChartCreationOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartTypeEnum;
-import org.burningokr.model.dashboard.DashboardCreation;
-import org.burningokr.model.dashboard.InformationTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
