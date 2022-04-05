@@ -23,6 +23,9 @@ public class DashboardCreation implements Trackable<Long> {
   @NotNull
   private UUID creatorId;
 
+  @NotNull
+  private Long companyId;
+
   @ToString.Exclude
   @OneToMany(mappedBy = "dashboardCreation", cascade = CascadeType.REMOVE)
   private Collection<ChartCreationOptions> chartCreationOptions = new ArrayList<>();

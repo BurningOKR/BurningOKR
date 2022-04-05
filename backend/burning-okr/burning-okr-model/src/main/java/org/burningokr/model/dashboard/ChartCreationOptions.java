@@ -16,8 +16,6 @@ public class ChartCreationOptions {
 
   private ChartTypeEnum chartType;
 
-  private InformationTypeEnum informationType;
-
   @ManyToOne private DashboardCreation dashboardCreation;
 
   @ElementCollection

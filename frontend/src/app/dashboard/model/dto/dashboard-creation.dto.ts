@@ -4,5 +4,6 @@ export interface DashboardCreationDto {
   dashboardCreationId?: number;
   title: string;
   creatorId?: number;
+  companyId: number;
   chartCreationOptions: ChartCreationOptionsDto[];
 }

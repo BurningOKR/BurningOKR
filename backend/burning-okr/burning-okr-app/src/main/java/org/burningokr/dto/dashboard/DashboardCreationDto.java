@@ -10,5 +10,6 @@ public class DashboardCreationDto {
   private Long id;
   private String title;
   private UUID creatorId;
+  private Long companyId;
   private Collection<ChartCreationOptionsDto> chartCreationOptions;
 }

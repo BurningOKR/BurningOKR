@@ -1,6 +1,6 @@
 package org.burningokr.model.dashboard;
 
 public enum InformationTypeEnum {
-  PROGRESS,
-  TOPICDRAFTOVERVIEW,
+  LINE_PROGRESS,
+  PIE_TOPICDRAFTOVERVIEW,
 }
