@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import {
@@ -45,13 +45,15 @@ export class CreateDashboardComponent implements OnInit {
     this.teams$ = this.activatedRoute.paramMap
       .pipe(
         map(params => +params.get('companyId')),
-        tap(companyId => this.dashboardCreationDto.companyId = companyId),
-        switchMap(companyId => this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId)));
+        switchMap(companyId => {
+          this.dashboardCreationDto.companyId = companyId;
+
+          return this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
+        }));
   }
 
   addChart(): void {
     this.charts.Add(this.newChart);
-    console.log(this.newChart);
     this.resetNewChart();
   }
 
@@ -61,10 +63,13 @@ export class CreateDashboardComponent implements OnInit {
 
   createDashboardAndRouteToDashboard$(): void {
     this.dashboardCreationDto.chartCreationOptions = this.charts;
-
     this.dashboardService.createDashboard$(this.dashboardCreationDto)
       .pipe(take(1),
-        map(createdDashboard => createdDashboard.dashboardCreationId))
+        map(createdDashboard => {
+          console.log(createdDashboard);
+
+          return createdDashboard.id;
+        }))
       .subscribe(dashboardId => {
         this.navigateToCreatedDashboard(dashboardId);
       });
@@ -96,6 +101,7 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   private navigateToCreatedDashboard(dashboardId: number): void {
-    this.router.navigateByUrl(`/${location.origin}/${dashboardId}`);
+    console.log(`${location.origin}/dashboard/${dashboardId}`);
+    this.router.navigateByUrl(`${location.origin}/dashboard/${dashboardId}`);
   }
 }
