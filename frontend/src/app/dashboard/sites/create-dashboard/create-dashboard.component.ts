@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import {
-  ChartCreationOptionsDto,
-  ChartTypeEnum,
-  ChartTypeEnumMapping,
-  InformationTypeEnum,
-} from '../../model/dto/chart-creation-options.dto';
+import { ChartCreationOptionsDto, ChartTypeEnum } from '../../model/dto/chart-creation-options.dto';
 import { DashboardCreationDto } from '../../model/dto/dashboard-creation.dto';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -20,10 +15,9 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 export class CreateDashboardComponent implements OnInit {
   teams$: Observable<OkrDepartment[]>;
-  chartTypes = Object.values(ChartTypeEnum).slice(Object.values(ChartTypeEnum).length / 2); // Enum fun. We only need the first half. The last half is useless.
-  chartTypeEnumMapping = ChartTypeEnumMapping;
+  chartTypes = ChartTypeEnum;
 
-  dashboardTitle: string = '';
+  dashboardCreationDto: DashboardCreationDto = {} as DashboardCreationDto; // This sets default values to prevent 'property of undefined' error on title
   charts: ChartCreationOptionsDto[] = [];
   newChart: ChartCreationOptionsDto;
 
@@ -37,22 +31,17 @@ export class CreateDashboardComponent implements OnInit {
       I will rework (IF I HAVE TIME) this entire component to use a dynamic generated formgroup depending on the selection the user has made.
       Should this comment be here after the 31-05-2022 then I didnt have enough time to do it and i recommend creating a U.S. for this.
   */
-
   ngOnInit(): void {
+    this.dashboardCreationDto.title = '';
     this.resetNewChart();
     this.teams$ = this.activatedRoute.paramMap
       .pipe(
         map(params => +params.get('companyId')),
+        tap(companyId => this.dashboardCreationDto.companyId = companyId),
         switchMap(companyId => this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId)));
   }
 
   addChart(): void {
-    // This is very ugly but is sufficient for now/testing
-    // As the very early version only has Progression in a line-chart and topicdraft-overview in a pie-chart
-    // I decided to simply glue them together in this ugly mess. As seen in the comment above, this entire component needs refactoring
-    // Information type is needed to select different types of infos you want to see since a line-chart can show more than just progression
-    // or a pie-chart more than the current state of topic-drafts
-    this.newChart.informationType = this.newChart.chartType.valueOf();
     this.charts.Add(this.newChart);
     console.log(this.newChart);
     this.resetNewChart();
@@ -63,14 +52,9 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   createDashboardAndRouteToDashboard$(): void {
-    const dashboard: DashboardCreationDto = {
-      title: this.dashboardTitle,
-      chartCreationOptions: this.charts,
-    };
-    dashboard.title = this.dashboardTitle;
-    dashboard.chartCreationOptions = this.charts;
+    this.dashboardCreationDto.chartCreationOptions = this.charts;
 
-    this.dashboardService.createDashboard$(dashboard)
+    this.dashboardService.createDashboard$(this.dashboardCreationDto)
       .pipe(take(1),
         map(createdDashboard => createdDashboard.dashboardCreationId))
       .subscribe(dashboardId => {
@@ -79,7 +63,7 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   newChartIsLineChart(): boolean {
-    return this.newChart.chartType === ChartTypeEnum.LINE;
+    return this.newChart.chartType === ChartTypeEnum.LINE_PROGRESS;
   }
 
   newChartValid(): boolean {
@@ -87,14 +71,13 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   dashboardValid(): boolean {
-    return this.dashboardTitle.trim() && !!this.charts.length;
+    return this.dashboardCreationDto.title.trim() && !!this.charts.length;
   }
 
   private resetNewChart(): void {
     this.newChart = {
       title: '',
-      chartType: ChartTypeEnum.LINE,
-      informationType: InformationTypeEnum.PROGRESS,
+      chartType: ChartTypeEnum.LINE_PROGRESS,
       teamIds: [],
     };
   }

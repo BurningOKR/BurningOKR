@@ -25,7 +25,6 @@ public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptio
     entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
     entity.setChartType(ChartTypeEnum.values()[dto.getChartType()]);
-    entity.setInformationType(InformationTypeEnum.values()[dto.getInformationType()]);
     entity.setTeamIds(dto.getTeamIds());
 
     logger.info("Mapped ChartCreationOptionsDto (id:" + dto.getId() + ") successful into ChartCreationOption.");
@@ -40,7 +39,6 @@ public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptio
     dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
     dto.setChartType(entity.getChartType().ordinal());
-    dto.setInformationType(entity.getInformationType().ordinal());
     dto.setTeamIds(entity.getTeamIds());
 
     logger.info("Mapped ChartCreationOptions (id:" + entity.getId() + ") successful into ChartCreationOptionsDto.");

@@ -9,7 +9,7 @@
 
 <div class="dashboard-creation-title">
   <mat-form-field>
-    <input matInput placeholder="Dashboard-Titel" [(ngModel)]="dashboardTitle">
+    <input matInput placeholder="Dashboard-Titel" [(ngModel)]="dashboardCreationDto.title">
   </mat-form-field>
 </div>
 
@@ -37,8 +37,8 @@
 
     <mat-form-field>
       <mat-select placeholder="Art der Information" [(value)]="newChart.chartType">
-        <mat-option *ngFor="let chartType of chartTypes"
-                    value="{{chartType}}">{{chartTypeEnumMapping[chartType]}}</mat-option>
+        <mat-option *ngFor="let chartType of chartTypes | keyvalue"
+                    value="{{chartType.value}}">{{chartType.value}}</mat-option>
       </mat-select>
     </mat-form-field>
 

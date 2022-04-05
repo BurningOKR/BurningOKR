@@ -9,6 +9,5 @@ public class ChartCreationOptionsDto {
   private Long id;
   private String title;
   private int chartType;
-  private int informationType;
   private Collection<Long> teamIds;
 }
