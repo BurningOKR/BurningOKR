@@ -1,82 +1,79 @@
 @ECHO OFF
+
 CLS
-
 ECHO #### Cloning project ####
-echo.
-git clone https://github.comBurningOKR/BurningOKR
-echo.
+git clone https://github.com/BurningOKR/BurningOKR
+GOTO :nodejs_question
 
-set p c=Is Node.js LTS already installed [yN]
-if i %c% == Y GOTO :install_angular
-if i %c% == N GOTO :install_nodejs
+:nodejs_question
+CLS
+SET /p isInstalled=Is Node.js LTS already installed [y/N]
+if i %isInstalled% == Y GOTO :install_angular
+if i %isInstalled% == N GOTO :install_nodejs
 GOTO :install_nodejs
 
 :install_nodejs
+CLS
 ECHO #### Installing Node.js LTS v16.14.2 64bit ####
-powershell -Command (New-Object Net.WebClient).DownloadFile('https://nodejs.org/dist/v16.14.2/node-v16.14.2-x64.msi', 'node-v16.14.2-x64.msi')
+powershell -Command (New-Object Net.WebClient).DownloadFile('https://nodejs.org/dist/v16.14.2/node-v16.14.2-x64.msi', 'nodejs.msi')
 ECHO Follow the installer.
-msiexec i node-v16.14.2-x64.msi
-ECHO Deleting the installer.
-DEL node-v16.14.2-x64.msi
+msiexec /i nodejs.msi
+DEL nodejs.msi
 GOTO :install_angular
 
 :install_angular
-ECHO #### Installing AngularCLI ####
-echo.
-call npm install @angularcli -g
-cd BurningOKR\frontend
-echo.
+CLS
+ECHO #### Installing Angular CLI ####
+CALL npm install @angular/cli -g
+CD BurningOKR\frontend
 GOTO :install_npm_dependencies
 
 :install_npm_dependencies
-ECHO #### Installing dependencies ####
-echo.
-call npm install
-echo.
+CLS
+ECHO #### Installing npm dependencies ####
+CALL npm install
+GOTO :with_docker_question
 
-set p c=Do you want to use PostgreSQL inside a Docker container? [Y/n]
-if i %c% == Y GOTO :postgres_with_docker
-if i %c% == N GOTO :postgres_without_docker
+:with_docker_question
+CLS
+SET /p choice=Do you want to use PostgreSQL inside a Docker container? [Y/n]
+if i %choice% == Y GOTO :postgres_with_docker
+if i %choice% == N GOTO :postgres_without_docker
 GOTO :postgres_with_docker
 
-:install_docker
-ECHO #### Installing Docker Desktop 64bit ####
-ECHO Download-URL http://swww.docker.com/get-started
-set p c=Done [Enter]
-GOTO :docker_setup
-
 :postgres_with_docker
-set p c=Is Docker-Desktop already installed? [y/N]
-if i %c% == Y GOTO :docker_setup
-if i %c% == N GOTO :install_docker
+CLS
+SET /p isDockerInstalled=Is Docker already installed? [y/N]
+if i %isDockerInstalled% == Y GOTO :docker_setup
+if i %isDockerInstalled% == N GOTO :install_docker
 GOTO :install_docker
 
-:docker_setup
-ECHO #### Starting PostgreSQL Docker Container ####
-set p c=Do you want to use the default password? [Y/n]
-if i %c% == Y GOTO :default_postgres_config
-if i %c% == N GOTO :custom_postgres_config
-GOTO :default_postgres_config
+:install_docker
+CLS
+ECHO #### Installing Docker Desktop 64bit ####
+SET /p wait=Press enter to open the docker website.
+START https://www.docker.com/get-started
+SET /p wait=Press enter to continue.
+GOTO :docker_setup
 
-:default_postgres_config
+:docker_setup
+CLS
+ECHO #### Starting PostgreSQL Docker Container ####
+docker pull postgres
 docker run -p 5434:5432 --name okr-postgres -e POSTGRES_PASSWORD=4c0K8sJGcxIercJDlmhs -e POSTGRES_DB=okr -d postgres
 GOTO :finished
 
-:custom_postgres_config
-set p pwd=Which POSTGRES_PASSWORD do you want?
-docker run -p 5434:5432 --name okr-postgres -e POSTGRES_PASSWORD=%pwd% -e POSTGRES_DB=okr -d postgres
-GOTO :finished
-
 :postgres_without_docker
-ECHO You decided to install PostgreSQL manually.
+ECHO #### Manual installation of PostgreSQL ####
+ECHO You need PostgreSQL version 9.5 or higher.
 ECHO You can find more information here:
 ECHO https://github.com/BurningOKR/BurningOKR/blob/masterdocspostgres_install.md#Windows
-ECHO Install PostgreSQL (Version 9.5 or higher)
-ECHO https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+SET /p c=Press enter to open the download link.
+START https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+SET /p c=Press enter if you want to continue.
 GOTO :finished
 
 :finished
 ECHO #### Installation completed ####
-echo.
 ECHO You can close this window now.
-pause nul
+PAUSE >nul
