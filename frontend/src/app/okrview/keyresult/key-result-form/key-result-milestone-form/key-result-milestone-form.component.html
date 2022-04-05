@@ -21,4 +21,4 @@
     </button>
   </div>
 </div>
-<app-add-button class="add-button-position" text="{{'key-result-milestone-form.add-button' | translate}}" (buttonClicked)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked"> </app-add-button>
+<app-add-button id="milestone-button" text="{{ 'key-result-milestone-form.add-button' | translate }}" (buttonClicked)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked"> </app-add-button>

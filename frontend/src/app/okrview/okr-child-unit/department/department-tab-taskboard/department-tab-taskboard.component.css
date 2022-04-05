@@ -9,11 +9,4 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
-
-}
-
-.add-button-position {
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-top: 6px;
 }

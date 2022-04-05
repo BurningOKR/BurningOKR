@@ -17,7 +17,7 @@
         </mat-button-toggle-group>
     </div>
     <div class="text-center" *ngIf="isInteractive">
-      <app-add-button class="add-button-position" text="{{'department-tab-taskboard.create-new-task' | translate}}" (buttonClicked)="onTaskAddButtonClick()"></app-add-button>
+      <app-add-button text="{{ 'department-tab-taskboard.create-new-task' | translate }}" (buttonClicked)="onTaskAddButtonClick()"></app-add-button>
     </div>
 </div>
 <div *ngIf="viewgroup.value === 'states'">
