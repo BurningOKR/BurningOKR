@@ -3,7 +3,7 @@
   <div *ngIf="parentObjective" class="flex-nowrap-center">
     <button mat-stroked-button matTooltip="{{ 'objective-contents.tooltip.navigate-to-unit' | translate }}" [routerLink]="['../', parentObjective.parentUnitId]" class="parent-objective">
       <span>{{ 'objective-contents.parent-objective' | translate }}</span>
-      <span class="font-w-400">{{parentObjective.name}}</span>
+      <span class="font-w-400"> {{parentObjective.name}}</span>
     </button>
   </div>
 
