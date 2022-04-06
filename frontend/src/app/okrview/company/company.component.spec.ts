@@ -20,7 +20,7 @@ import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-un
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { Component, Input } from '@angular/core';
 import { AddChildUnitButtonComponent } from '../add-child-unit-button/add-child-unit-button.component';
-import {SharedModule} from "../../shared/shared.module";
+import { SharedModule } from "../../shared/shared.module";
 
 @Component({
   selector: 'app-okr-child-unit-preview-button',
