@@ -13,7 +13,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import {SharedModule} from '../../../../shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector

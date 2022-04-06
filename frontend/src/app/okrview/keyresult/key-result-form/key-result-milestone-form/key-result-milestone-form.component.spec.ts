@@ -6,7 +6,7 @@ import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
 import { Unit } from '../../../../shared/model/api/unit.enum';
 import { ViewKeyResultMilestone } from '../../../../shared/model/ui/view-key-result-milestone';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {SharedModule} from '../../../../shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 
 let keyResult: ViewKeyResult;
 let milestone1: ViewKeyResultMilestone;
