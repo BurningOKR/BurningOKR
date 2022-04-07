@@ -27,7 +27,8 @@ We are already working on a faster and easier installation process, so stay tune
 2. Install JDK 8. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
 3. Install the (!) LTS Version of node & npm [here](https://nodejs.org/en/download/)
 4. Download the following [Batch-Script](/docs/scripts/SetupBurningOKR_windows.bat) and put it in the folder, where you want the project to be. Execute the script.  
-Or execute the following command ```curl https://raw.githubusercontent.com/BurningOKR/BurningOKR/master/docs/scripts/SetupBurningOKR_windows.bat > temp.bat && temp.bat && DEL temp.bat```.  
+Or execute the following command:  
+```curl https://raw.githubusercontent.com/BurningOKR/BurningOKR/master/docs/scripts/SetupBurningOKR_windows.bat > temp.bat && temp.bat && DEL temp.bat```   
 The following three tasks will be done by the script:
    1. Clone the Repository. (The whole repository, including frontend and backend)
    2. Install NodeJS (optional)
