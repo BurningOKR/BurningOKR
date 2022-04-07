@@ -23,12 +23,13 @@ GOTO :install_angular
 :install_angular
 ECHO #### Installing Angular CLI ####
 CALL npm install @angular/cli -g
-CD BurningOKR\frontend
 GOTO :install_npm_dependencies
 
 :install_npm_dependencies
 ECHO #### Installing npm dependencies ####
+CD BurningOKR\frontend
 CALL npm install
+CD ..
 GOTO :with_docker_question
 
 :with_docker_question
