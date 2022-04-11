@@ -32,11 +32,11 @@ Or execute the following command:
 curl https://raw.githubusercontent.com/BurningOKR/BurningOKR/master/docs/scripts/SetupBurningOKR_windows.bat > temp.bat && temp.bat && DEL temp.bat
 ```   
 The following tasks will be done by the script:
-   1. Clone the Repository. (`git clone https://github.com/BurningOKR/BurningOKR`)
+   1. Clone the Repository with `git clone https://github.com/BurningOKR/BurningOKR`. (The whole repository, including frontend and backend)
    2. Install NodeJS (optional)
    3. Install Docker (optional)
-   4. Install Angular (`npm install @angular/cli -g`)
-   5. Install Dependencies (`npm install`)
+   4. Install Angular `npm install @angular/cli -g`
+   5. Install Dependencies (in the frontend folder) `npm install`
    6. Install Postgres (optional via Docker) 
 
 5. Open the frontend-folder and the backend-folder in seperate windows in your IDE. (We recommend IntelliJ, VS Code should also do the trick)
