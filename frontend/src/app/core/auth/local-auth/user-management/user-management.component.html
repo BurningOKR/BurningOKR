@@ -21,7 +21,7 @@
           </mat-form-field>
           <div>
             <app-add-button text="{{'user-management.import-users' | translate }}" (buttonClicked)="handleCsvImport()" [isDisabled]="isPlayground" matTooltip="{{'user-management.tooltip.import-users-from-csv' | translate}}" matIcon="unarchive"> </app-add-button>
-            <app-add-button text="{{'user-management.add-new-user' | translate }}" (buttonClicked)="handleCreate()" [isDisabled]="isPlayground"> </app-add-button>
+            <app-add-button class="ml-10" text="{{'user-management.add-new-user' | translate }}" (buttonClicked)="handleCreate()" [isDisabled]="isPlayground"> </app-add-button>
           </div>
         </div>
         <table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">
