@@ -16,9 +16,7 @@
             </mat-button-toggle>
         </mat-button-toggle-group>
     </div>
-    <div class="text-center" *ngIf="isInteractive">
-      <app-add-button text="{{ 'department-tab-taskboard.create-new-task' | translate }}" (buttonClicked)="onTaskAddButtonClick()"></app-add-button>
-    </div>
+      <app-add-button class="ml-10" text="{{ 'department-tab-taskboard.create-new-task' | translate }}" (buttonClicked)="onTaskAddButtonClick()" *ngIf="isInteractive"></app-add-button>
 </div>
 <div *ngIf="viewgroup.value === 'states'">
     <app-taskboard-state-column-view [data$]="viewDataEmitter$" [isInteractive]="isInteractive">
