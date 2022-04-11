@@ -19,9 +19,7 @@ describe('UserManagementComponent', () => {
   let component: UserManagementComponent;
   let fixture: ComponentFixture<UserManagementComponent>;
 
-  const oAuthServiceMock: any = {
-
-  };
+  const oAuthServiceMock: any = {};
 
   const localUserServiceMock: any = {
     getUsers$: jest.fn(),
@@ -69,7 +67,6 @@ describe('UserManagementComponent', () => {
         HttpClientTestingModule,
         LoggerTestingModule,
         BrowserAnimationsModule,
-        // SharedModule
       ],
       providers: [
         {provide: MatDialog, useValue: {}},

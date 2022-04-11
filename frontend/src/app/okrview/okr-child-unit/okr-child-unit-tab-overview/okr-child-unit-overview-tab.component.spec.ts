@@ -14,7 +14,7 @@ import { ContextRole } from '../../../shared/model/ui/context-role';
 import { CycleState, CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { Component, Input } from '@angular/core';
-import { SharedModule } from "../../../shared/shared.module";
+import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-objective',
