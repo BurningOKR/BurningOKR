@@ -6,7 +6,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button type="submit" mat-button color="primary" (click)="sendOk()" [disabled]="isSaveDisabled()">
+    <button type="submit" mat-button color="primary" (click)="sendOk()" [disabled]="isSaveDisabled()" id="submit-button">
       {{saveAndCloseLabel}}
     </button>
     <button type="button" *ngIf="needsCancelButton" mat-button color="warn" (click)="closeDialog()">
