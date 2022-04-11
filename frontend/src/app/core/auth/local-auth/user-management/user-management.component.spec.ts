@@ -66,7 +66,7 @@ describe('UserManagementComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         LoggerTestingModule,
-        BrowserAnimationsModule,
+        BrowserAnimationsModule
       ],
       providers: [
         {provide: MatDialog, useValue: {}},
