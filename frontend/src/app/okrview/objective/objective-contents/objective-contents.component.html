@@ -30,7 +30,7 @@
     </div>
   </div>
   <div *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()" class="f-1">
-    <app-add-button id="key-result-button" text="{{ 'objective-contents.define-new-key-result' | translate }}" (buttonClicked)="clickedAddKeyResult()" [isDisabled]="objective.keyResultIdList.length >= maxKeyResults"></app-add-button>
+    <app-add-button id="key-result-button" text="{{ 'objective-contents.define-new-key-result' | translate }}" (buttonClicked)="clickedAddKeyResult()" [isDisabled]="maximumKeyResultsReached()"></app-add-button>
   </div>
 </div>
 
