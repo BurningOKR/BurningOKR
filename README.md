@@ -31,17 +31,18 @@ Or execute the following command:
 ```
 curl https://raw.githubusercontent.com/BurningOKR/BurningOKR/master/docs/scripts/SetupBurningOKR_windows.bat > temp.bat && temp.bat && DEL temp.bat
 ```   
-The following three tasks will be done by the script:
-   1. Clone the Repository. (The whole repository, including frontend and backend)
+The following tasks will be done by the script:
+   1. Clone the Repository. (`git clone https://github.com/BurningOKR/BurningOKR`)
    2. Install NodeJS (optional)
    3. Install Docker (optional)
-   4. Install Angular
-   5. Install Dependencies (in the frontend folder)
-   6. Install Postgres (optional via Docker)
-6. Open the frontend-folder and the backend-folder in seperate windows in your IDE. (We recommend IntelliJ, VS Code should also do the trick)
-7. [Configure](/docs/configure.md) the backend.
-8. Start the frontend with `npm start`
-9. Start the backend with the gradle `Start backend` configuration. 
+   4. Install Angular (`npm install @angular/cli -g`)
+   5. Install Dependencies (`npm install`)
+   6. Install Postgres (optional via Docker) 
+
+5. Open the frontend-folder and the backend-folder in seperate windows in your IDE. (We recommend IntelliJ, VS Code should also do the trick)
+6. [Configure](/docs/configure.md) the backend.
+7. Start the frontend with `npm start`
+8. Start the backend with the gradle `Start backend` configuration. 
    1. Alternatively create the configuration like \
    ![intelliJ-Run-Configuration](./docs/images/boot-run-config.png)
 
