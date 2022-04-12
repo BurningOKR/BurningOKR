@@ -276,7 +276,10 @@
 		"title": "Titel *"
 	},
 	"department-tab-taskboard": {
-		"create-new-task": "Aufgabe erstellen",
+		"add-button": {
+			"create-new-task": "Aufgabe erstellen",
+			"tooltip": "Keine WebSocket-Verbindung möglich"
+		},
 		"deletion-dialog": {
 			"button-text": "Löschen",
 			"message": "Soll die Aufgabe \"{{title}}\" wirklich gelöscht werden?",

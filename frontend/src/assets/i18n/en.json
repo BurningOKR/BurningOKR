@@ -276,7 +276,10 @@
 		"title": "Title *"
 	},
 	"department-tab-taskboard": {
-		"create-new-task": "Create task",
+		"add-button": {
+			"create-new-task": "Create task",
+			"tooltip": "WebSocket-Connection is broken"
+		},
 		"deletion-dialog": {
 			"button-text": "Delete",
 			"message": "Do you really want to delete task \"{{title}}\"?",
