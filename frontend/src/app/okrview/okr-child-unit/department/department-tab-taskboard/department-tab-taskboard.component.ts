@@ -263,7 +263,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     return copiedTasks;
   }
 
-  onTaskAddButtonClick(taskState: ViewTaskState): void {
+  onTaskAddButtonClick(taskState?: ViewTaskState): void {
     let state: ViewTaskState;
     if (!taskState) {
       state = this.viewData.taskStates[0];
