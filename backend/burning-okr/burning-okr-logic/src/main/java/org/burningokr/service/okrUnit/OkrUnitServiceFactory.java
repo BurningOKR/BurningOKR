@@ -57,6 +57,8 @@ public class OkrUnitServiceFactory<T extends OkrChildUnit> {
         return managerService;
       case ADMIN:
         return adminService;
+      case OKRMEMBER:
+        return adminService;
       default:
         return userService;
     }
