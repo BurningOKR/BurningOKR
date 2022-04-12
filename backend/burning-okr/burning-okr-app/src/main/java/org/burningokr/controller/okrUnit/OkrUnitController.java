@@ -139,7 +139,6 @@ public class OkrUnitController {
    * @return a {@link ResponseEntity} ok with the added objective
    */
   @PostMapping("/units/{unitId}/objectives")
-  @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#unitId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
       @PathVariable long unitId, @Valid @RequestBody ObjectiveDto objectiveDto, User user) {
     OkrUnitService<OkrChildUnit> okrUnitService =
