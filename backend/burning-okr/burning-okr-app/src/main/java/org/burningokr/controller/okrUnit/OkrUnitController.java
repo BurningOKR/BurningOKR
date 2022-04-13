@@ -26,6 +26,7 @@ import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestApiController
@@ -138,6 +139,7 @@ public class OkrUnitController {
    * @return a {@link ResponseEntity} ok with the added objective
    */
   @PostMapping("/units/{unitId}/objectives")
+  @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#unitId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
       @PathVariable long unitId, @Valid @RequestBody ObjectiveDto objectiveDto, User user) {
     OkrUnitService<OkrChildUnit> okrUnitService =
