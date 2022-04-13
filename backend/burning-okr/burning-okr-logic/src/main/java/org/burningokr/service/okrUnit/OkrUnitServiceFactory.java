@@ -4,6 +4,7 @@ import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceManagers;
+import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceMembers;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.security.UserContextRole;
 import org.burningokr.service.security.UserRoleFromContextService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class OkrUnitServiceFactory<T extends OkrChildUnit> {
 
   private OkrUnitServiceUsers<T> userService;
+  private OkrUnitServiceMembers<T> memberService;
   private OkrUnitServiceManagers<T> managerService;
   private OkrUnitServiceAdmins<T> adminService;
   private UserRoleFromContextService userRoleFromContextService;
@@ -31,11 +33,13 @@ public class OkrUnitServiceFactory<T extends OkrChildUnit> {
   @Autowired
   public OkrUnitServiceFactory(
       @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<T> departmentServiceUsers,
+      @Qualifier("okrUnitServiceMembers") OkrUnitServiceMembers<T> departmentServiceMembers,
       @Qualifier("okrUnitServiceManagers") OkrUnitServiceManagers<T> departmentServiceManagers,
       @Qualifier("okrUnitServiceAdmins") OkrUnitServiceAdmins<T> departmentServiceAdmins,
       UserRoleFromContextService userRoleFromContextService,
       UnitRepository<T> unitRepository) {
     this.userService = departmentServiceUsers;
+    this.memberService = departmentServiceMembers;
     this.managerService = departmentServiceManagers;
     this.adminService = departmentServiceAdmins;
     this.userRoleFromContextService = userRoleFromContextService;
@@ -58,7 +62,7 @@ public class OkrUnitServiceFactory<T extends OkrChildUnit> {
       case ADMIN:
         return adminService;
       case OKRMEMBER:
-        return managerService;
+        return memberService;
       default:
         return userService;
     }

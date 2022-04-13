@@ -1,7 +1,6 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
 import org.burningokr.model.activity.Action;
-import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
@@ -15,8 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("okrUnitServiceManagers")
-public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServiceUsers<T> {
-
+  public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServiceMembers<T> {
   @Autowired
   OkrUnitServiceManagers(
       ParentService parentService,
@@ -50,37 +48,5 @@ public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServi
     }
 
     return referencedUnit;
-  }
-
-  @Override
-  @Transactional
-  public Objective createObjective(Long unitId, Objective objective, User user) {
-    T department = unitRepository.findByIdOrThrow(unitId);
-
-    throwIfCycleForDepartmentIsClosed(department);
-
-    objective.setSequence(department.getObjectives().size());
-
-    objective.setParentOkrUnit(department);
-
-    Objective parentObjective = null;
-    if (objective.hasParentObjective()) {
-      parentObjective = objectiveRepository.findByIdOrThrow(objective.getParentObjective().getId());
-      parentService.validateParentObjective(objective, parentObjective);
-    }
-    objective.setParentObjective(parentObjective);
-
-    objective = objectiveRepository.save(objective);
-    logger.info(
-        "Created Objective: "
-            + objective.getName()
-            + " into department "
-            + department.getName()
-            + "(id:"
-            + unitId
-            + ")");
-    activityService.createActivity(user, objective, Action.CREATED);
-
-    return objective;
   }
 }
