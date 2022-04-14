@@ -13,13 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service("okrUnitServiceMembers")
-public class OkrUnitServiceMembers <T extends OkrChildUnit> extends OkrUnitServiceUsers<T> {
+public class OkrUnitServiceMembers<T extends OkrChildUnit> extends OkrUnitServiceUsers<T> {
 
   @Autowired
-  OkrUnitServiceMembers(ParentService parentService, UnitRepository<T> unitRepository, ObjectiveRepository objectiveRepository, ActivityService activityService, EntityCrawlerService entityCrawlerService) {
-    super(parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
+  OkrUnitServiceMembers(
+      ParentService parentService,
+      UnitRepository<T> unitRepository,
+      ObjectiveRepository objectiveRepository,
+      ActivityService activityService,
+      EntityCrawlerService entityCrawlerService) {
+    super(
+        parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
   }
 
   @Override
@@ -42,13 +47,13 @@ public class OkrUnitServiceMembers <T extends OkrChildUnit> extends OkrUnitServi
 
     objective = objectiveRepository.save(objective);
     logger.info(
-      "Created Objective: "
-        + objective.getName()
-        + " into department "
-        + department.getName()
-        + "(id:"
-        + unitId
-        + ")");
+        "Created Objective: "
+            + objective.getName()
+            + " into department "
+            + department.getName()
+            + "(id:"
+            + unitId
+            + ")");
     activityService.createActivity(user, objective, Action.CREATED);
 
     return objective;

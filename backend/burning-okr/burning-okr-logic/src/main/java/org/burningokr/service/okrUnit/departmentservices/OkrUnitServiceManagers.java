@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("okrUnitServiceManagers")
-  public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServiceMembers<T> {
+public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServiceMembers<T> {
   @Autowired
   OkrUnitServiceManagers(
       ParentService parentService,
