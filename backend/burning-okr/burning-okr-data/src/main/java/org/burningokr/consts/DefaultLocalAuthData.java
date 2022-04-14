@@ -7,5 +7,5 @@ public class DefaultLocalAuthData {
   public static final String authorities = "";
   public static final String additionalInformation = "{}";
   public static final String autoApprove = "";
-  public static final String tokenEndpoint = "/oauth/token";
+  public static final String tokenEndpoint = "/oauth2/token";
 }

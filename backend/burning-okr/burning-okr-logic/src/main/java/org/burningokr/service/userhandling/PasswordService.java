@@ -17,9 +17,9 @@ import org.burningokr.repositories.users.LocalUserRepository;
 import org.burningokr.repositories.users.PasswordTokenRepository;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.exceptions.SendingMailFailedException;
+import org.burningokr.service.exceptions.UnauthorizedClientException;
 import org.burningokr.service.mail.MailService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.exceptions.UnauthorizedClientException;
 import org.springframework.stereotype.Service;
 
 @Service

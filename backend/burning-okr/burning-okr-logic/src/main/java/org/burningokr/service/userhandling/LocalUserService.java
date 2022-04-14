@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Id;
+
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.users.ChangePasswordData;
@@ -24,9 +26,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
 @RequiredArgsConstructor
 public class LocalUserService implements UserService {
@@ -41,15 +42,22 @@ public class LocalUserService implements UserService {
     return Lists.newArrayList(localUserRepository.findAll());
   }
 
+  /**
+   * Loads the Current User from OAuth2Authentication.
+   *
+   * @return an {@link User} object
+   */
   @Override
   public LocalUser getCurrentUser() {
-    OAuth2Authentication auth =
-        (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
-    Object decodedDetails = ((OAuth2AuthenticationDetails) auth.getDetails()).getDecodedDetails();
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     Gson g = new Gson();
-    String userString = g.toJson(decodedDetails);
+    String userString = g.toJson(auth.getDetails());
+    logger.warn(auth.getName());
+    logger.warn(userString);
     LocalUser user = parseUserString(userString);
-    Optional<LocalUser> userFromDb = localUserRepository.findById(user.getId());
+//    Optional<LocalUser> userFromDb = localUserRepository.findById(user.getId());
+//    Optional<LocalUser> userFromDb = localUserRepository.findById();
+    Optional<LocalUser> userFromDb = localUserRepository.findByMail("timok@brockhaus-ag.de");
     if (userFromDb.isPresent()) {
       return userFromDb.get();
     } else {

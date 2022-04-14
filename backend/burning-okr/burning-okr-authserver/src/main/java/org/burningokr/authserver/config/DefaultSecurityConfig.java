@@ -11,29 +11,35 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @EnableWebSecurity
 public class DefaultSecurityConfig {
 
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+    http.cors().disable();
     http.authorizeRequests().anyRequest().authenticated().and().formLogin(Customizer.withDefaults());
     return http.build();
   }
 
+
   @Bean
   UserDetailsService users() {
-    UserDetails user = User
-      .withUsername("user1@aol.com")
-      .passwordEncoder(passwordEncoder()::encode)
+    UserDetails user = User.withDefaultPasswordEncoder()
+      .username("user1@aol.com")
+//      .passwordEncoder(passwordEncoder()::encode)
       .password("password")
       .roles("USER")
       .build();
-    UserDetails user2 = User
-      .withUsername("Timok@brockhaus-ag.de")
-      .passwordEncoder(passwordEncoder()::encode)
+    UserDetails user2 = User.withDefaultPasswordEncoder()
+      .username("Timok@brockhaus-ag.de")
+//      .passwordEncoder(passwordEncoder()::encode)
       .password("123456789")
       .roles("USER")
       .build();
@@ -44,9 +50,9 @@ public class DefaultSecurityConfig {
     return new InMemoryUserDetailsManager(userList);
   }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+//  @Bean
+//  public PasswordEncoder passwordEncoder() {
+//    return new BCryptPasswordEncoder();
+//  }
 
 }

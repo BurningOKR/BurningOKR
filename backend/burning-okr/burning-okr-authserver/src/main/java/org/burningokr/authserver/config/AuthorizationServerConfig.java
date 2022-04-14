@@ -13,11 +13,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.security.Key;
 import java.security.KeyPair;
@@ -34,6 +38,8 @@ public class AuthorizationServerConfig {
   @Order(Ordered.HIGHEST_PRECEDENCE)
   public SecurityFilterChain authServerSecurityFilterChain(HttpSecurity http) throws Exception {
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+//    http.cors().configurationSource(corsConfigurationSource());
+    http.cors().disable();
     return http.formLogin(Customizer.withDefaults()).build();
   }
 
@@ -43,9 +49,11 @@ public class AuthorizationServerConfig {
       .clientId("m2rvidwwqwua6tso9s0n7fvdqqtk033swydb99d7b64f6742v3zxebm7clxy7emh")
       .clientSecret("{noop}2bxjuon6mjw0p2z94mbianjxlyijm8dfe9k92yhima9h4us29qbs0gv8up6hozh4")
       .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+      .authorizationGrantType(AuthorizationGrantType.PASSWORD)
       .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
       .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
       .redirectUri("http://localhost:4200/landingpage")
+      .scope(OidcScopes.OPENID)
       .scope("USER")
       .build();
     return new InMemoryRegisteredClientRepository(registeredClient);
@@ -57,6 +65,20 @@ public class AuthorizationServerConfig {
       .issuer("http://localhost:9000")
       .build();
   }
+
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.addAllowedOrigin("*");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("GET");
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+
+    return source;
+  }
+
 
   @Bean
   public JWKSource<SecurityContext> jwkSource() throws NoSuchAlgorithmException {

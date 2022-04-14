@@ -67,9 +67,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     implementation ("org.springframework.boot:spring-boot-starter-security:2.6.5")
-   // implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.5.7'
     implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.1.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:2.6.5'
+    implementation 'org.springframework.security:spring-security-oauth2-authorization-server:0.2.3'
 
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'

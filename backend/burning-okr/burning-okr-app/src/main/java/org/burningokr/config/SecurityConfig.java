@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtBearerTokenAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
@@ -30,10 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .and()
       .authorizeRequests()
       .anyRequest()
-      .authenticated()
+//      .hasAuthority("USER")
+//      .authenticated()
+      .permitAll()
 //      .and()
 //      .oauth2ResourceServer()
 //      .jwt()
+//      .decoder(jwtDecoder())
 //      .jwtAuthenticationConverter(new JwtBearerTokenAuthenticationConverter())
       ;
   }
@@ -55,10 +59,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
   }
 
-  @Bean
-  public JwtDecoder jwtDecoder(){
-    return NimbusJwtDecoder
-      .withSecretKey(new SecretKeySpec("SomeSecretWeDontCheckItAnywayToS".getBytes(), "HmacSHA256"))
-      .build();
-  }
+//  @Bean
+//  public JwtDecoder jwtDecoder(){
+//    return NimbusJwtDecoder
+//      .withSecretKey(new SecretKeySpec("SomeSecretWeDontCheckItAnywayToS".getBytes(), "HmacSHA256"))
+//      .build();
+//  }
+
+//  @Bean
+//  public JwtDecoder jwtDecoder(){
+//    return NimbusJwtDecoder
+//      .withSecretKey(new SecretKeySpec("SomeSecretWeDontCheckItAnywayToS".getBytes(), "HmacSha256"))
+//      .build();
+//  }
 }

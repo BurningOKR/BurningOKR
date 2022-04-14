@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
+
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AadUserRepository;
@@ -16,27 +18,20 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
+@RequiredArgsConstructor
 public class AadUserService implements UserService {
+  private final Logger logger = LoggerFactory.getLogger(AadUserListUpdater.class);
+  private final String everyHalfHourCronExpr = "0 0/30 * * * ?";
 
   private final AadUserRepository aadUserRepository;
   private final AadUserListUpdater aadUserListUpdater;
-  private final String everyHalfHourCronExpr = "0 0/30 * * * ?";
-  private final Logger logger = LoggerFactory.getLogger(AadUserListUpdater.class);
-
-  @Autowired
-  public AadUserService(
-      AadUserRepository aadUserRepository, AadUserListUpdater aadUserListUpdater) {
-    this.aadUserRepository = aadUserRepository;
-    this.aadUserListUpdater = aadUserListUpdater;
-  }
 
   @Override
   public Collection<User> findAll() {
@@ -50,10 +45,9 @@ public class AadUserService implements UserService {
    */
   @Override
   public User getCurrentUser() {
-    OAuth2Authentication auth =
-        (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     Gson g = new Gson();
-    String userString = g.toJson(auth.getUserAuthentication().getDetails());
+    String userString = g.toJson(auth.getDetails());
     return parseUserString(userString);
   }
 

@@ -7,77 +7,34 @@ import { FetchingService } from '../../../services/fetching.service';
 
 @Injectable()
 export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
+  private silentRefreshActivated: boolean = false;
 
-  constructor(protected oAuthService: OAuthService,
-              protected router: Router,
-              private fetchingService: FetchingService) {
+  constructor(protected oAuthService: OAuthService) {
   }
 
   async startLoginProcedure(): Promise<boolean> {
-    return this.getRefreshToken()
-      .then(() => {
-        return true;
-      })
-      .catch(() => {
-        this.router.navigate(['auth', 'login']);
+    const loginResult: Promise<boolean> = this.login();
 
-        return false;
+    await loginResult
+      .then(_ => {
+        if (this.oAuthService.hasValidAccessToken() && !this.silentRefreshActivated) {
+          this.setupSilentRefresh();
+          this.silentRefreshActivated = true;
+        }
       });
+
+    return loginResult;
   }
 
   setupSilentRefresh(): void {
-    const expirationTime: number = this.oAuthService.getAccessTokenExpiration();
-    const now: number = Date.now();
-    const duration: number = (expirationTime - now) * Consts.SILENT_REFRESH_MULTIPLIER;
-    if (duration < 0) {
-      this.safeRefreshToken();
-    } else {
-      setTimeout(() => {
-        this.safeRefreshToken()
-          .then(() => {
-            this.setupSilentRefresh();
-          });
-      }, duration);
-    }
+    this.oAuthService.setupAutomaticSilentRefresh();
   }
 
   async afterConfigured(): Promise<any> {
-    return new Promise(resolve => {
-      resolve(undefined); // (C.K. 19.10.2021) ToDo check usage
-    });
+    return this.startLoginProcedure();
   }
 
-  async login(email: string, password: string): Promise<object> {
-
-    return this.oAuthService.fetchTokenUsingPasswordFlow(email, password)
-      .then(object => {
-        this.setupSilentRefresh();
-
-        this.fetchingService.refetchAll();
-
-        return object;
-      });
-  }
-
-  protected async getRefreshToken(): Promise<object> {
-    if (!!this.oAuthService.getRefreshToken()) {
-      return this.oAuthService.refreshToken();
-    } else {
-      return new Promise<object>((resolve, reject) => {
-        reject();
-      });
-    }
-  }
-
-  private async safeRefreshToken(): Promise<boolean> {
-    return this.getRefreshToken()
-      .then(() => {
-        return true;
-      })
-      .catch(() => {
-        this.router.navigate(['auth', 'login']);
-
-        return false;
-      });
+  async login(): Promise<boolean> {
+    return this.oAuthService.loadDiscoveryDocumentAndLogin();
   }
 }

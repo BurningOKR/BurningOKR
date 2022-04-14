@@ -30,6 +30,7 @@ export class AuthenticationService {
     return new Promise(resolve => {
       this.oAuthDetails.getAuthConfig$()
         .subscribe((authConfig: AuthConfig) => {
+          // this.oAuthService.initCodeFlow();
           this.oAuthService.configure(authConfig);
           this.oAuthService.setStorage(localStorage);
           this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
