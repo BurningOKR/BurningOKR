@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="add-objective-button-container" *ngIf="currentUserRole.isAtleastOKRManager() && !cycle.isCycleClosed()">
+<div class="add-objective-button-container" *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()">
   <app-add-button text="{{'okr-child-unit-overview-tab.create-new-objective' | translate}}" (buttonClicked)="clickedAddObjective()"></app-add-button>
 </div>
 
