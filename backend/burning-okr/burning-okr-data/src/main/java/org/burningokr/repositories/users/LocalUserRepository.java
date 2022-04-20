@@ -7,4 +7,5 @@ import org.burningokr.repositories.ExtendedRepository;
 
 public interface LocalUserRepository extends ExtendedRepository<LocalUser, UUID> {
   Optional<LocalUser> findByMail(String mail);
+  Iterable<LocalUser> findByActive(Boolean active);
 }

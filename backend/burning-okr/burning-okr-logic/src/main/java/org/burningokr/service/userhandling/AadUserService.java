@@ -43,6 +43,11 @@ public class AadUserService implements UserService {
     return Lists.newArrayList(this.aadUserRepository.findAll());
   }
 
+  @Override
+  public Collection<User> findAllActive() {
+    return findAll();
+  }
+
   /**
    * Loads the Current User from OAuth2Authentication.
    *

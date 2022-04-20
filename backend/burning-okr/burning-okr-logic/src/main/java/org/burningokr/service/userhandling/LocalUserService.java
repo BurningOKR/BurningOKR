@@ -42,6 +42,11 @@ public class LocalUserService implements UserService {
   }
 
   @Override
+  public Collection<User> findAllActive() {
+    return Lists.newArrayList(localUserRepository.findByActive(true));
+  }
+
+  @Override
   public LocalUser getCurrentUser() {
     OAuth2Authentication auth =
         (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
