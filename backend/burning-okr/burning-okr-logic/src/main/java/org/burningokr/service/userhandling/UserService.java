@@ -11,6 +11,8 @@ public interface UserService {
 
   Collection<User> findAllActive();
 
+  Collection<User> findAllInactive();
+
   User getCurrentUser();
 
   User findById(UUID userId);

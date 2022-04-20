@@ -3,6 +3,7 @@ package org.burningokr.service.userhandling;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,6 +47,11 @@ public class AadUserService implements UserService {
   @Override
   public Collection<User> findAllActive() {
     return findAll();
+  }
+
+  @Override
+  public Collection<User> findAllInactive() {
+    return new ArrayList<>();
   }
 
   /**

@@ -39,7 +39,7 @@ public class UserController {
     } else if (activeUsers){
       userList = userService.findAllActive();
     } else {
-      userList = null;
+      userList = userService.findAllInactive();
     }
 
     return ResponseEntity.ok(userMapper.mapEntitiesToDtos(userList));
