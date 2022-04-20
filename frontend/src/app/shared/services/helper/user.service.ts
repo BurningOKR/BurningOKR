@@ -46,6 +46,10 @@ export class UserService implements IUserService {
     }
   }
 
+  getAllActiveUsers$(): Observable<User[]> {
+    return this.userApiService.getActiveUsers$();
+  }
+
   updateUserCache(): void {
     if (!this.users$) {
       this.users$ = new BehaviorSubject<User[]>([]);
