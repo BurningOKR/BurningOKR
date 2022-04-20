@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 public interface UserService {
   Collection<User> findAll();
 
+  Collection<User> findAllActive();
+
   User getCurrentUser();
 
   User findById(UUID userId);

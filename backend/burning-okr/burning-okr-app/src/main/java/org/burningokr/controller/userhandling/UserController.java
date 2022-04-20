@@ -37,7 +37,7 @@ public class UserController {
     if(activeUsers == null){
       userList = userService.findAll();
     } else if (activeUsers){
-      userList = null;
+      userList = userService.findAllActive();
     } else {
       userList = null;
     }
