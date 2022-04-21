@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { UserApiService } from '../api/user-api.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../../model/api/user';
-import { map, take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import { AdminUser } from '../../model/api/admin-user';
 import { IUserService } from './i-user-service';
 
@@ -47,17 +47,21 @@ export class UserService implements IUserService {
   }
 
   getAllActiveUsers$(): Observable<User[]> {
-    return this.userApiService.getActiveUsers$();
+    return this.getAllUsers$().pipe(map( users => users.filter(user => user.active)));
   }
+
 
   updateUserCache(): void {
     if (!this.users$) {
       this.users$ = new BehaviorSubject<User[]>([]);
     }
-
-    this.userApiService
-      .getUsers$()
-      .pipe(take(1))
+    forkJoin({
+      activeUsers: this.userApiService.getActiveUsers$(),
+      users: this.userApiService.getUsers$()
+    }).pipe(map (({ activeUsers, users}) => {
+        users.forEach(user => user.active = !!activeUsers.find(activeUser => activeUser.id === user.id))
+        return users;
+    }))
       .subscribe(u => this.users$.next(u));
   }
 
