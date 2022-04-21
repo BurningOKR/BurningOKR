@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestApiController
@@ -32,11 +31,12 @@ public class UserController {
   }
 
   @GetMapping("/users")
-  public ResponseEntity<Collection<UserDto>> getAllUsers(@RequestParam(value = "activeUsers", required = false) Boolean activeUsers) {
+  public ResponseEntity<Collection<UserDto>> getAllUsers(
+      @RequestParam(value = "activeUsers", required = false) Boolean activeUsers) {
     Collection<User> userList;
-    if(activeUsers == null){
+    if (activeUsers == null) {
       userList = userService.findAll();
-    } else if (activeUsers){
+    } else if (activeUsers) {
       userList = userService.findAllActive();
     } else {
       userList = userService.findAllInactive();
