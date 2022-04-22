@@ -16,12 +16,7 @@
             </mat-button-toggle>
         </mat-button-toggle-group>
     </div>
-    <div class="text-center add-button" *ngIf="isInteractive">
-        <button mat-mini-fab color="accent" (click)="onTaskAddButtonClick()">
-            <mat-icon matTooltip="{{ 'department-tab-taskboard.tooltip.create-new-task' | translate }}">add_circle_outline
-            </mat-icon>
-        </button>
-    </div>
+      <app-add-button class="ml-10" text="{{ 'department-tab-taskboard.add-button.create-new-task' | translate }}" (buttonClicked)="onTaskAddButtonClick()" [isDisabled]="!isInteractive" matTooltip="{{ 'department-tab-taskboard.add-button.tooltip' | translate }}" [matTooltipDisabled]="isInteractive"></app-add-button>
 </div>
 <div *ngIf="viewgroup.value === 'states'">
     <app-taskboard-state-column-view [data$]="viewDataEmitter$" [isInteractive]="isInteractive">
