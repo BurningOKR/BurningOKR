@@ -32,6 +32,8 @@ describe('TopicDraftStatusService', () => {
     expect(testTopicDraft.currentStatus).toBe(status.approved);
     topicDraftStatusService.changeTopicDraftStatusTo(testTopicDraft, status.rejected);
     expect(testTopicDraft.currentStatus).toBe(status.rejected);
+    topicDraftStatusService.changeTopicDraftStatusTo(testTopicDraft, status.draft);
+    expect(testTopicDraft.currentStatus).toBe(status.draft);
   });
 
   it('should not change TopicDraft Status when new status is null or undefined', () => {

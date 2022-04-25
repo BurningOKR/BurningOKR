@@ -7,14 +7,10 @@
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
-
 <div class="content-wrapper">
   <div class="content">
     <app-topic-draft-list [topicDrafts]="rowData.data"></app-topic-draft-list>
-    <button mat-icon-button mat-mini-fab color="accent" class="new-topic-draft" (click)="clickedAddTopicDraft()">
-      <mat-icon matTooltip="{{'topic-drafts.add-topic-draft-button.tooltip' | translate}}">add_circle_outline
-      </mat-icon>
-    </button>
+    <app-add-button class="right" text="{{'topic-drafts.add-topic-draft-button' | translate}}" (buttonClicked)="clickedAddTopicDraft()"></app-add-button>
   </div>
 </div>
 

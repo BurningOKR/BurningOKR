@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { HealthcheckApiService } from '../../shared/services/api/healthcheck-api.service';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { UserSettingsManagerService } from '../services/user-settings-manager.service';
 import { UserSettings } from '../../shared/model/ui/user-settings';
@@ -19,8 +18,7 @@ export class LandingPageNavigationComponent implements OnInit {
   constructor(private companyMapperService: CompanyMapper,
               private userSettingsManagerService: UserSettingsManagerService,
               private configurationManagerService: ConfigurationManagerService,
-              private router: Router,
-              private healthcheckService: HealthcheckApiService) {
+              private router: Router) {
   }
 
   static userHasDefaultTeam(userSettings: UserSettings): boolean {
@@ -32,19 +30,16 @@ export class LandingPageNavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const healthCheck$: Observable<boolean> = this.performHealthCheck$();
-
-    this.navigateToUsersDefaultTeamAfterCompletionOf(healthCheck$);
-    // this.setAdminUserIfNoneWasChosenAfterCompletionOf(healthCheck$);
+    this.navigateToUsersDefaultTeam();
   }
 
-  private navigateToUsersDefaultTeamAfterCompletionOf(healthCheck$: Observable<boolean>): void {
-      healthCheck$
-        .pipe(
-      switchMap(() => this.getRouterLink$()))
-        .subscribe((routerLink: RouterParams) => {
-        this.router.navigate(routerLink);
-      }, () => this.router.navigate(['/error']));// eslint-disable-line @typescript-eslint/promise-function-async
+  private navigateToUsersDefaultTeam(): void {
+    this.getRouterLink$()
+      .pipe(take(1))
+      .subscribe(
+        (routerLink: RouterParams) => {
+          this.router.navigate(routerLink);
+        }, () => this.router.navigate(['/error']));// eslint-disable-line @typescript-eslint/promise-function-async
   }
 
   private getRouterLink$(): Observable<RouterParams> {
@@ -61,11 +56,6 @@ export class LandingPageNavigationComponent implements OnInit {
       .pipe(
         take(1)
       );
-  }
-
-  private performHealthCheck$(): Observable<boolean> {
-    return this.healthcheckService.isAlive$()
-      .pipe(take(1));
   }
 
   private getDefaultCompanyAndTeam$(): Observable<RouterParams> {

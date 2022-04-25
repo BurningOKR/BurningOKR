@@ -27,11 +27,11 @@ export class TopicDraftStatusService {
     return topicDraft.currentStatus === status.approved || topicDraft.currentStatus === status.rejected;
   }
 
-  changeTopicDraftStatusTo(topicDraft: OkrTopicDraft, newStatus: status) {
-    if (newStatus) {
+  changeTopicDraftStatusTo(topicDraft: OkrTopicDraft, newStatus: status): void {
+    if (newStatus !== null && newStatus !== undefined) {
       topicDraft.currentStatus = newStatus;
+      this.topicDraftMapper.updateTopicDraftStatus$(topicDraft).pipe(take(1))
+        .subscribe();
     }
-    this.topicDraftMapper.updateTopicDraftStatus$(topicDraft).pipe(take(1))
-      .subscribe();
   }
 }

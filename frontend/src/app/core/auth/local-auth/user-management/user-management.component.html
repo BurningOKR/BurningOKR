@@ -19,13 +19,10 @@
           <mat-form-field class="form-whole-line col-11">
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
-          <button (click)="handleCreate()" class="col-1" color="accent" mat-mini-fab [disabled]="isPlayground">
-            <mat-icon [matTooltip]="this.addUserTranslation">add_circle_outline</mat-icon>
-          </button>
-          <button (click)="handleCsvImport()" class="col-1" color="accent" mat-mini-fab style="margin-left: 15px" [disabled]="isPlayground">
-            <mat-icon [matTooltip]="this.importUsersFromCSVTranslation">unarchive
-            </mat-icon>
-          </button>
+          <div>
+            <app-add-button text="{{'user-management.import-users' | translate }}" (buttonClicked)="handleCsvImport()" [isDisabled]="isPlayground" matTooltip="{{'user-management.tooltip.import-users-from-csv' | translate}}" matIcon="unarchive"> </app-add-button>
+            <app-add-button class="ml-10" text="{{'user-management.add-new-user' | translate }}" (buttonClicked)="handleCreate()" [isDisabled]="isPlayground"> </app-add-button>
+          </div>
         </div>
         <table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">
           <ng-container matColumnDef="photo">
