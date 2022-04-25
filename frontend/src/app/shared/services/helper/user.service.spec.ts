@@ -43,7 +43,7 @@ describe('UserService', () => {
     email: 'test@tester.test3',
     jobTitle: 'testTitle3',
     photo: 'photoString3',
-    active: true
+    active: false
   };
 
   beforeEach(() => {
@@ -53,11 +53,13 @@ describe('UserService', () => {
     userApiServiceMock.deleteAdmin$.mockReset();
     userApiServiceMock.getActiveUsers$.mockReset();
     userService = new UserService(userApiServiceMock);
+
+    userApiServiceMock.getUsers$.mockReturnValue(of([copyUser(mockUser1), copyUser(mockUser2), copyUser(mockUser3)]));
+    userApiServiceMock.getActiveUsers$.mockReturnValue(of([copyUser(mockUser1), copyUser(mockUser2)]))
   });
 
   it('getAllUsers$ should return User from ApiService', done => {
     const expected: User[] = [mockUser1, mockUser2, mockUser3];
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of(expected));
 
     const actual$: Observable<User[]> = userService.getAllUsers$();
 
@@ -69,7 +71,6 @@ describe('UserService', () => {
   });
   it('getAllUsers$ should return User from cache', done => {
     const expected: User[] = [mockUser1, mockUser2, mockUser3];
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of(expected));
 
     const fromApi$: Observable<User[]> = userService.getAllUsers$();
     const fromCache$: Observable<User[]> = userService.getAllUsers$();
@@ -98,8 +99,6 @@ describe('UserService', () => {
   });
 
   it('getUserById$ should return a user from cache', done => {
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2, mockUser3]));
-
     userService.getAllUsers$();
 
     const  actual$: Observable<User> = userService.getUserById$(mockUser1.id);
