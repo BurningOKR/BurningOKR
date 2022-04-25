@@ -162,4 +162,10 @@ describe('UserService', () => {
       done();
     });
   });
+
+
+  function copyUser(user: User): User {
+    return new User(user.id, user.givenName, user.surname, user.email, user.jobTitle, user.department, user.photo, user.active);
+  }
+
 });
