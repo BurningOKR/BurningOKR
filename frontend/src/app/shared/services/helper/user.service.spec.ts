@@ -10,7 +10,8 @@ describe('UserService', () => {
     getUserById$: jest.fn(),
     getUsers$: jest.fn(),
     addAdmin$: jest.fn(),
-    deleteAdmin$: jest.fn()
+    deleteAdmin$: jest.fn(),
+    getActiveUsers$: jest.fn()
   };
 
   const mockUser1: User = {
@@ -50,6 +51,7 @@ describe('UserService', () => {
     userApiServiceMock.getUsers$.mockReset();
     userApiServiceMock.addAdmin$.mockReset();
     userApiServiceMock.deleteAdmin$.mockReset();
+    userApiServiceMock.getActiveUsers$.mockReset();
     userService = new UserService(userApiServiceMock);
   });
 
