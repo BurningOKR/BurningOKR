@@ -87,7 +87,7 @@ describe('UserService', () => {
   });
 
   it('getUserById$ should return a user from ApiService', done => {
-    userApiServiceMock.getUserById$.mockReturnValueOnce(of(mockUser1));
+    userApiServiceMock.getUserById$.mockReturnValueOnce(of(copyUser(mockUser1)));
 
     const actual$: Observable<User> = userService.getUserById$(mockUser1.id);
 
@@ -125,7 +125,7 @@ describe('UserService', () => {
   });
 
   it('addAdmin$ should call userApiService.addAdmin$', done => {
-    userApiServiceMock.addAdmin$.mockReturnValueOnce(of(mockUser1));
+    userApiServiceMock.addAdmin$.mockReturnValueOnce(of(copyUser(mockUser1)));
 
     const actual$: Observable<AdminUser> = userService.addAdmin$(mockUser1);
 
