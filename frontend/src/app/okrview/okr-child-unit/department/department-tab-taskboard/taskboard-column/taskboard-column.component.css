@@ -7,10 +7,6 @@ mat-card:hover {
     background-color: blue;
 }
 
-.add-button {
-    margin: 10px;
-}
-
 .card-list {
     min-height: 300px;
 }
