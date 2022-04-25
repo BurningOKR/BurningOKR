@@ -162,6 +162,16 @@ describe('UserService', () => {
     });
   });
 
+  it('getAllActiveUsers$ should only return active users', done => {
+    const expected: User[] = [mockUser1, mockUser2];
+    const actual$: Observable<User[]> = userService.getAllActiveUsers$();
+
+    actual$.subscribe((actual: User[]) => {
+      expect(actual)
+        .toEqual(expected);
+      done();
+    });
+  })
 
   function copyUser(user: User): User {
     return new User(user.id, user.givenName, user.surname, user.email, user.jobTitle, user.department, user.photo, user.active);
