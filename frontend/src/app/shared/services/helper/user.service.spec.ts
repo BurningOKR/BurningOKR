@@ -55,7 +55,7 @@ describe('UserService', () => {
     userService = new UserService(userApiServiceMock);
 
     userApiServiceMock.getUsers$.mockReturnValue(of([copyUser(mockUser1), copyUser(mockUser2), copyUser(mockUser3)]));
-    userApiServiceMock.getActiveUsers$.mockReturnValue(of([copyUser(mockUser1), copyUser(mockUser2)]))
+    userApiServiceMock.getActiveUsers$.mockReturnValue(of([copyUser(mockUser1), copyUser(mockUser2)]));
   });
 
   it('getAllUsers$ should return User from ApiService', done => {
@@ -171,7 +171,7 @@ describe('UserService', () => {
         .toEqual(expected);
       done();
     });
-  })
+  });
 
   function copyUser(user: User): User {
     return new User(user.id, user.givenName, user.surname, user.email, user.jobTitle, user.department, user.photo, user.active);
