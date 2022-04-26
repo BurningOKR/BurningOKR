@@ -3,12 +3,11 @@ package org.burningokr.service.topicDraft;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
-import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.CompanyService;
@@ -29,7 +28,7 @@ public class ConvertTopicDraftToTeamService {
     OkrTopicDraft topicDraft = this.okrTopicDraftService.findById(topicDraftId);
 
     OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), user);
-    okrDepartment = copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
+    copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
     okrDepartment = writeOkrDepartmentToDatabase(okrDepartment, user);
 
     deleteTopicDraft(topicDraft, user);
@@ -37,8 +36,45 @@ public class ConvertTopicDraftToTeamService {
     return okrDepartment;
   }
 
-  public OkrDepartment copyValuesFromOkrTopicDraftToOkrDepartment(
-      OkrTopicDraft topicDraft, OkrDepartment okrDepartment) {
+  private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, User user) {
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setName(name);
+    okrDepartment.setLabel("Team");
+
+    return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId, user);
+  }
+
+  private OkrDepartment createOkrDepartmentInDatabase(
+      OkrDepartment okrDepartment, long parentOkrUnitId, User user) {
+    Collection<OkrCompany> okrCompanyCollection = companyService.getAllCompanies();
+    if (okrCompanyCollection.stream().anyMatch(company -> company.getId() == parentOkrUnitId)) {
+      return createOkrDepartmentUnderneathCompany(okrDepartment, parentOkrUnitId, user);
+    } else {
+      return createOkrDepartmentUnderneathBranch(okrDepartment, parentOkrUnitId, user);
+    }
+  }
+
+  private OkrDepartment createOkrDepartmentUnderneathCompany(
+      OkrDepartment okrDepartment, long parentOkrUnitId, User user) {
+    return companyService.createDepartment(parentOkrUnitId, okrDepartment, user);
+  }
+
+  private OkrDepartment createOkrDepartmentUnderneathBranch(
+      OkrDepartment okrDepartment, long parentOkrUnitId, User user) {
+    OkrUnitService<OkrDepartment> okrDepartmentService =
+        okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(parentOkrUnitId);
+    return (OkrDepartment)
+        okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, user);
+  }
+
+  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, User user) {
+    OkrUnitService<OkrDepartment> okrDepartmentService =
+        okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(okrDepartment.getId());
+    return okrDepartmentService.updateUnit(okrDepartment, user);
+  }
+
+  private void copyValuesFromOkrTopicDraftToOkrDepartment(
+    OkrTopicDraft topicDraft, OkrDepartment okrDepartment) {
     okrDepartment.setName(topicDraft.getName());
     okrDepartment.setOkrMemberIds(copyUserList(topicDraft.getStartTeam()));
     okrDepartment.setOkrMasterId(topicDraft.getInitiatorId());
@@ -52,42 +88,6 @@ public class ConvertTopicDraftToTeamService {
     topicDescription.setDependencies(topicDraft.getDependencies());
     topicDescription.setResources(topicDraft.getResources());
     topicDescription.setHandoverPlan(topicDraft.getHandoverPlan());
-
-    return okrDepartment;
-  }
-
-  private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, User user) {
-    OkrDepartment okrDepartment = new OkrDepartment();
-    okrDepartment.setName(name);
-    okrDepartment.setLabel("Team");
-
-    return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId, user);
-  }
-
-  private OkrDepartment createOkrDepartmentInDatabase(OkrDepartment okrDepartment, long parentOkrUnitId, User user) {
-    OkrDepartment newOkrDepartment = null;
-
-    try {
-      newOkrDepartment = companyService.createDepartment(parentOkrUnitId, okrDepartment, user);
-    } catch (EntityNotFoundException ignored) { }
-
-    try {
-      OkrUnitService<OkrDepartment> okrDepartmentService =
-        okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(parentOkrUnitId);
-      newOkrDepartment = (OkrDepartment) okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, user);
-    } catch (ClassCastException ignored) { }
-
-    if (newOkrDepartment == null) {
-      throw new RuntimeException("No valid OkrUnit found for the provided Id");
-    }
-    return newOkrDepartment;
-  }
-
-  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, User user) {
-    OkrUnitService<OkrDepartment> okrDepartmentService =
-        okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(
-            okrDepartment.getId());
-    return okrDepartmentService.updateUnit(okrDepartment, user);
   }
 
   private Collection<UUID> copyUserList(Collection<UUID> userList) {
