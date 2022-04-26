@@ -1,12 +1,12 @@
 package org.burningokr.service.topicDraft;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
-import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
@@ -25,23 +25,21 @@ public class ConvertTopicDraftToTeamService {
   @Transactional
   public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId, User user) {
     OkrTopicDraft topicDraft = this.okrTopicDraftService.findById(topicDraftId);
-    OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, user);
+    OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), user);
 
-    return okrDepartment;
+    okrDepartment = copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
+
+    deleteTopicDraft(topicDraft);
+
+    return writeOkrDepartmentToDatabase(okrDepartment, user);
   }
 
-  public OkrTopicDescription convertTopicDraftToOkrTopicDescription(OkrTopicDraft topicDraft) {
-    // TODO Copy-Constructor?
-    OkrTopicDescription topicDescription = new OkrTopicDescription();
-    topicDescription.setDescription(topicDraft.getDescription());
-    topicDescription.setBeginning(topicDraft.getBeginning());
-    topicDescription.setDelimitation(topicDraft.getDelimitation());
-    topicDescription.setDependencies(topicDraft.getDependencies());
-    topicDescription.setContributesTo(topicDraft.getContributesTo());
-    topicDescription.setHandoverPlan(topicDraft.getHandoverPlan());
-    topicDescription.setResources(topicDraft.getResources());
+  public OkrDepartment copyValuesFromOkrTopicDraftToOkrDepartment(OkrTopicDraft topicDraft, OkrDepartment okrDepartment) {
+    okrDepartment.setName(topicDraft.getName());
+    okrDepartment.setOkrMemberIds(copyUserList(topicDraft.getStartTeam()));
+    okrDepartment.setActive(true);
 
-    return topicDescription;
+    return okrDepartment;
   }
 
   private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, User user) {
