@@ -54,4 +54,17 @@ public class ConvertTopicDraftToTeamService {
     OkrUnitService<OkrDepartment> okrDepartmentService = okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(parentOkrUnitId);
     return (OkrDepartment) okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, user);
   }
+
+  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, User user) {
+    OkrUnitService<OkrDepartment> okrDepartmentService = okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(okrDepartment.getParentOkrUnit().getId());
+    return okrDepartmentService.updateUnit(okrDepartment, user);
+  }
+
+  private Collection<UUID> copyUserList(Collection<UUID> userList) {
+    return new ArrayList<>(userList);
+  }
+
+  private void deleteTopicDraft(OkrTopicDraft topicDraft) {
+
+  }
 }
