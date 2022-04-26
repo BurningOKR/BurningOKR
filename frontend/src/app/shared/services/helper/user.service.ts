@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserApiService } from '../api/user-api.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../../model/api/user';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { AdminUser } from '../../model/api/admin-user';
 import { IUserService } from './i-user-service';
@@ -61,7 +61,7 @@ export class UserService implements IUserService {
         users.forEach(user => user.active = !!activeUsers.find(activeUser => activeUser.id === user.id));
 
         return users;
-    }))
+    }),take(1))
       .subscribe(u => this.users$.next(u));
   }
 
