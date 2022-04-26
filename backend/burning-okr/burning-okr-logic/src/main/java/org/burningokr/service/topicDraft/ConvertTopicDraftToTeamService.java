@@ -44,13 +44,14 @@ public class ConvertTopicDraftToTeamService {
     return topicDescription;
   }
 
-  private OkrDepartment createOkrDepartment(long parentOkrUnitId, User user) {
+  private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, User user) {
     OkrDepartment okrDepartment = new OkrDepartment();
-    okrDepartment.setName("Test");
-    return writeOkrDepartmentToDatabase(okrDepartment, parentOkrUnitId, user);
+    okrDepartment.setName(name);
+    okrDepartment.setLabel("Team");
+    return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId, user);
   }
 
-  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, long parentOkrUnitId, User user) {
+  private OkrDepartment createOkrDepartmentInDatabase(OkrDepartment okrDepartment, long parentOkrUnitId, User user) {
     OkrUnitService<OkrDepartment> okrDepartmentService = okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(parentOkrUnitId);
     return (OkrDepartment) okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, user);
   }
