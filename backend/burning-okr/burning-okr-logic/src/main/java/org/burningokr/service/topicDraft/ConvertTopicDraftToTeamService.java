@@ -74,7 +74,7 @@ public class ConvertTopicDraftToTeamService {
   }
 
   private void copyValuesFromOkrTopicDraftToOkrDepartment(
-    OkrTopicDraft topicDraft, OkrDepartment okrDepartment) {
+      OkrTopicDraft topicDraft, OkrDepartment okrDepartment) {
     okrDepartment.setName(topicDraft.getName());
     okrDepartment.setOkrMemberIds(copyUserList(topicDraft.getStartTeam()));
     okrDepartment.setOkrMasterId(topicDraft.getInitiatorId());
