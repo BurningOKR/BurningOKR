@@ -10,7 +10,8 @@ describe('UserService', () => {
     getUserById$: jest.fn(),
     getUsers$: jest.fn(),
     addAdmin$: jest.fn(),
-    deleteAdmin$: jest.fn()
+    deleteAdmin$: jest.fn(),
+    getActiveUsers$: jest.fn()
   };
 
   const mockUser1: User = {
@@ -42,7 +43,7 @@ describe('UserService', () => {
     email: 'test@tester.test3',
     jobTitle: 'testTitle3',
     photo: 'photoString3',
-    active: true
+    active: false
   };
 
   beforeEach(() => {
@@ -50,12 +51,15 @@ describe('UserService', () => {
     userApiServiceMock.getUsers$.mockReset();
     userApiServiceMock.addAdmin$.mockReset();
     userApiServiceMock.deleteAdmin$.mockReset();
+    userApiServiceMock.getActiveUsers$.mockReset();
     userService = new UserService(userApiServiceMock);
+
+    userApiServiceMock.getUsers$.mockReturnValue(of([copyUser(mockUser1), copyUser(mockUser2), copyUser(mockUser3)]));
+    userApiServiceMock.getActiveUsers$.mockReturnValue(of([copyUser(mockUser1), copyUser(mockUser2)]));
   });
 
   it('getAllUsers$ should return User from ApiService', done => {
     const expected: User[] = [mockUser1, mockUser2, mockUser3];
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of(expected));
 
     const actual$: Observable<User[]> = userService.getAllUsers$();
 
@@ -67,7 +71,6 @@ describe('UserService', () => {
   });
   it('getAllUsers$ should return User from cache', done => {
     const expected: User[] = [mockUser1, mockUser2, mockUser3];
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of(expected));
 
     const fromApi$: Observable<User[]> = userService.getAllUsers$();
     const fromCache$: Observable<User[]> = userService.getAllUsers$();
@@ -84,7 +87,7 @@ describe('UserService', () => {
   });
 
   it('getUserById$ should return a user from ApiService', done => {
-    userApiServiceMock.getUserById$.mockReturnValueOnce(of(mockUser1));
+    userApiServiceMock.getUserById$.mockReturnValueOnce(of(copyUser(mockUser1)));
 
     const actual$: Observable<User> = userService.getUserById$(mockUser1.id);
 
@@ -96,8 +99,6 @@ describe('UserService', () => {
   });
 
   it('getUserById$ should return a user from cache', done => {
-    userApiServiceMock.getUsers$.mockReturnValueOnce(of([mockUser1, mockUser2, mockUser3]));
-
     userService.getAllUsers$();
 
     const  actual$: Observable<User> = userService.getUserById$(mockUser1.id);
@@ -124,7 +125,7 @@ describe('UserService', () => {
   });
 
   it('addAdmin$ should call userApiService.addAdmin$', done => {
-    userApiServiceMock.addAdmin$.mockReturnValueOnce(of(mockUser1));
+    userApiServiceMock.addAdmin$.mockReturnValueOnce(of(copyUser(mockUser1)));
 
     const actual$: Observable<AdminUser> = userService.addAdmin$(mockUser1);
 
@@ -160,4 +161,20 @@ describe('UserService', () => {
       done();
     });
   });
+
+  it('getAllActiveUsers$ should only return active users', done => {
+    const expected: User[] = [mockUser1, mockUser2];
+    const actual$: Observable<User[]> = userService.getAllActiveUsers$();
+
+    actual$.subscribe((actual: User[]) => {
+      expect(actual)
+        .toEqual(expected);
+      done();
+    });
+  });
+
+  function copyUser(user: User): User {
+    return new User(user.id, user.givenName, user.surname, user.email, user.jobTitle, user.department, user.photo, user.active);
+  }
+
 });
