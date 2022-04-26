@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -37,7 +38,17 @@ public class ConvertTopicDraftToTeamService {
   public OkrDepartment copyValuesFromOkrTopicDraftToOkrDepartment(OkrTopicDraft topicDraft, OkrDepartment okrDepartment) {
     okrDepartment.setName(topicDraft.getName());
     okrDepartment.setOkrMemberIds(copyUserList(topicDraft.getStartTeam()));
+    okrDepartment.setOkrMasterId(topicDraft.getInitiatorId());
     okrDepartment.setActive(true);
+
+    OkrTopicDescription topicDescription = okrDepartment.getOkrTopicDescription();
+    topicDescription.setBeginning(topicDraft.getBeginning());
+    topicDescription.setDescription(topicDraft.getDescription());
+    topicDescription.setContributesTo(topicDraft.getContributesTo());
+    topicDescription.setDelimitation(topicDraft.getDelimitation());
+    topicDescription.setDependencies(topicDraft.getDependencies());
+    topicDescription.setResources(topicDraft.getResources());
+    topicDescription.setHandoverPlan(topicDraft.getHandoverPlan());
 
     return okrDepartment;
   }
