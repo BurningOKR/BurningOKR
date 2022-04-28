@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { OkrTopicDraft } from '../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure';
@@ -17,13 +17,14 @@ import { ConvertTopicDraftToTeamService } from '../convert-topic-draft-to-team.s
   templateUrl: './convert-topic-draft-to-team-dialogue.component.html',
   styleUrls: ['./convert-topic-draft-to-team-dialogue.component.scss'],
 })
-export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
+export class ConvertTopicDraftToTeamDialogueComponent implements OnInit, OnDestroy {
 
   title$: Observable<string>;
   saveAndCloseLabel$: Observable<string>;
   companyStructures$: Observable<Structure[]>;
   chooseStructure: FormGroup;
   private topicDraft: OkrTopicDraft;
+  private selectedUnitSubscription: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any),
@@ -45,7 +46,7 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
     this.title$ = this.translate.stream('convert-topic-draft-to-team.title');
     this.saveAndCloseLabel$ = this.translate.stream('convert-topic-draft-to-team.dialog.save-and-close-label');
 
-    this.convertTopicDraftToTeamService.getSelectedUnit$()
+    this.selectedUnitSubscription = this.convertTopicDraftToTeamService.getSelectedUnit$()
       .subscribe(substructure => this.chooseStructure.controls.parentUnitId.setValue(substructure.id));
   }
 
@@ -53,5 +54,9 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
     this.convertTopicDraftToTeamService.convertTopicDraftToTeam$(this.topicDraft.id)
       .pipe(take(1))
       .subscribe(okrDepartment => this.dialogRef.close(okrDepartment.id));
+  }
+
+  ngOnDestroy(): void {
+    this.selectedUnitSubscription.unsubscribe();
   }
 }
