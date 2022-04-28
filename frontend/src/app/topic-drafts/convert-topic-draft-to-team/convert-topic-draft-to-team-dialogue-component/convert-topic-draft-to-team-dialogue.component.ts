@@ -50,8 +50,8 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit {
   }
 
   clickedConvertToTeam() {
-    this.convertTopicDraftToTeamService.convertTopicDraftToTeam$(this.topicDraft.id).pipe(take(1))
-      /*.subscribe(okrDepartment => this.dialogRef.close(okrDepartment.id));*/
-      .subscribe(console.log);
+    this.convertTopicDraftToTeamService.convertTopicDraftToTeam$(this.topicDraft.id)
+      .pipe(take(1))
+      .subscribe(okrDepartment => this.dialogRef.close(okrDepartment.id));
   }
 }

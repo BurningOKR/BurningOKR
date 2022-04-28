@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
 import { Injectable } from '@angular/core';
 import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
+import { map } from 'rxjs/operators';
+import { DepartmentMapper } from '../mapper/department.mapper';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,7 @@ export class TopicDraftApiService {
   }
 
   convertTopicDraftToTeam$(topicDraftId: number, okrUnitId: number): Observable<OkrDepartment> {
-    return this.api.getData$(`topicDraft/convertToTeam?topicDraftId=${topicDraftId}&okrUnitId=${okrUnitId}`);
+    return this.api.getData$(`topicDraft/convertToTeam?topicDraftId=${topicDraftId}&okrUnitId=${okrUnitId}`)
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 }
