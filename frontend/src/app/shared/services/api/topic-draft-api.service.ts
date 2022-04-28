@@ -33,6 +33,6 @@ export class TopicDraftApiService {
   }
 
   convertTopicDraftToTeam$(topicDraftId: number, okrUnitId: number): Observable<OkrDepartment> {
-    return this.api.getData$(`topicDrafts?topicDraftId=${topicDraftId}&okrUnitId=${okrUnitId}`);
+    return this.api.getData$(`topicDraft/convertToTeam?topicDraftId=${topicDraftId}&okrUnitId=${okrUnitId}`);
   }
 }
