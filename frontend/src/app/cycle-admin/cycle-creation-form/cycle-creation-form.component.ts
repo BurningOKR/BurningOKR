@@ -101,7 +101,8 @@ export class CycleCreationFormComponent implements OnInit {
   }
 
   dateChangeHandler(event) {
-    this.firstAvailableDate = event.value.toDate();
-    this.firstAvailableDate.setDate(this.firstAvailableDate.getDate() + this.cycleMinDuration);
+    const date: Date = event.value.toDate();
+    date.setDate(date.getDate() + this.cycleMinDuration);
+    this.firstAvailableDate = date;
   }
 }
