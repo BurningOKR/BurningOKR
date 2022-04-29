@@ -1,9 +1,9 @@
 export class DepartmentNavigationInformation {
   departmentId: number;
-  departmentsToOpen: number[];
+  departmentsToClose: number[];
 
-  constructor(id: number, departmentsToOpen: number[]) {
+  constructor(id: number) {
     this.departmentId = id;
-    this.departmentsToOpen = departmentsToOpen;
+    this.departmentsToClose = [];
   }
 }
