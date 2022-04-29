@@ -31,7 +31,7 @@
   </div>
   <div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
     <app-navigation-list-entry *ngFor="let departmentSchema of schema.subDepartments" [schema]="departmentSchema"
-                               [isSecondUnit]="!isSecondUnit" [startsOpen]="schema.subDepartments.length === 1">
+                               [isSecondUnit]="!isSecondUnit">
     </app-navigation-list-entry>
   </div>
 </div>
