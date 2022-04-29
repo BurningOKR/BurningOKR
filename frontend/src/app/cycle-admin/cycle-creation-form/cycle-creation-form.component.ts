@@ -34,7 +34,7 @@ export class CycleCreationFormComponent implements OnInit {
   title$: Observable<string>;
   saveAndCloseLabel: string;
 
-  minDate: Date;
+  firstAvailableDate: Date;
   cycleMinDuration: number = 3;
 
   constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
