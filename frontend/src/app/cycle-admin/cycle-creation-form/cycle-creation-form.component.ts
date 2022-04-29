@@ -61,7 +61,7 @@ export class CycleCreationFormComponent implements OnInit {
 
     this.title$ = this.translate.stream('cycle-creation-form.creation-dialog.title');
     this.saveAndCloseLabel = this.translate.instant('cycle-creation-form.creation-dialog.save');
-    this.minDate = new Date();
+    this.firstAvailableDate = new Date();
   }
 
   closeDialog(): void {
@@ -101,7 +101,7 @@ export class CycleCreationFormComponent implements OnInit {
   }
 
   dateChangeHandler(event) {
-    this.minDate = event.value.toDate();
-    this.minDate.setDate(this.minDate.getDate() + this.cycleMinDuration);
+    this.firstAvailableDate = event.value.toDate();
+    this.firstAvailableDate.setDate(this.firstAvailableDate.getDate() + this.cycleMinDuration);
   }
 }
