@@ -35,7 +35,7 @@ export class CycleCreationFormComponent implements OnInit {
   saveAndCloseLabel: string;
 
   firstAvailableDate: Date;
-  cycleMinDuration: number = 3;
+  minimumCycleDuration: number = 3;
 
   constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
               private cycleMapper: CycleMapper,
