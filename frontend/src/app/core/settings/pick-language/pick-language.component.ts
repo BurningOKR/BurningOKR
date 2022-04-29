@@ -36,8 +36,4 @@ export class PickLanguageComponent implements OnInit {
     this.okrTranslationHelper.changeCurrentLanguageTo(this.language);
     this.dialogRef.close();
   }
-
-  focusSubmitButton(): void {
-    document.getElementById('submit-button').focus();
-  }
 }
