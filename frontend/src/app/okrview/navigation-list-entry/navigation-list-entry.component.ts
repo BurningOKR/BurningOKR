@@ -1,5 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { OkrUnitSchema, OkrUnitRole } from '../../shared/model/ui/okr-unit-schema';
 import { CurrentNavigationService } from '../current-navigation.service';
 import { DepartmentNavigationInformation } from '../../shared/model/ui/department-navigation-information';
@@ -9,36 +8,27 @@ import { DepartmentNavigationInformation } from '../../shared/model/ui/departmen
   templateUrl: './navigation-list-entry.component.html',
   styleUrls: ['./navigation-list-entry.component.scss']
 })
-export class NavigationListEntryComponent implements OnInit, OnDestroy {
+export class NavigationListEntryComponent implements OnInit {
   @Input() schema: OkrUnitSchema;
   @Input() isSecondUnit: boolean = true;
-  @Input() startsOpen: boolean = false;
 
-  currentNavigationInformation = new DepartmentNavigationInformation(-1, []);
-  navigationInformationSubscription: Subscription;
-  isOpen = false;
+  currentNavigationInformation = new DepartmentNavigationInformation(-1);
+  isOpen = true;
 
   constructor(private currentNavigationService: CurrentNavigationService) {}
 
   ngOnInit(): void {
-    if (this.startsOpen) {
-      this.isOpen = true;
+    if(this.currentNavigationService.getClosedStructures().departmentsToClose.includes(this.schema.id)){
+      this.isOpen = false;
     }
-    this.navigationInformationSubscription = this.currentNavigationService
-      .getCurrentDepartmentNavigationInformation$()
-      .subscribe(x => {
-        this.currentNavigationInformation = x;
-        if (!(this.currentNavigationInformation.departmentsToOpen.indexOf(this.schema.id) !== -1)) {
-          this.isOpen = true;
-        }
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.navigationInformationSubscription.unsubscribe();
   }
 
   toggleOpen(): void {
+    if(this.isOpen){
+      this.currentNavigationService.markStructureAsClosed(this.schema);
+    } else {
+      this.currentNavigationService.markStructureAsOpen(this.schema.id);
+    }
     this.isOpen = !this.isOpen;
   }
 
