@@ -47,7 +47,7 @@ public class KeyResultService {
   }
 
   /**
-   * Updates a Key Result.
+   * Updates a Key Result and updates or creates a KeyResultHistory.
    *
    * @param updatedKeyResult a {@link KeyResult} object
    * @param user             an {@link User} object

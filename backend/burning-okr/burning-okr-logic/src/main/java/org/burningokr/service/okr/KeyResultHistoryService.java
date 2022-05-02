@@ -18,6 +18,14 @@ public class KeyResultHistoryService {
   private final ActivityService activityService;
 
 
+  /**
+   * Updates KeyResultHistory if a KeyResultHistory already exists at the same day,
+   * otherwise it creates a new one for that day.
+   *
+   * @param keyResult a {@link KeyResult} object
+   * @param user      a {@link User} object
+   *
+   */
   @Transactional
   public void updateKeyResultHistory(User user, KeyResult keyResult) {
     KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedDesc(keyResult).get(0);
@@ -34,6 +42,13 @@ public class KeyResultHistoryService {
     }
   }
 
+  /**
+   * Creates a new KeyResultHistory for a newly created KeyResult
+   *
+   * @param keyResult a {@link KeyResult} object
+   * @param user      a {@link User} object
+   *
+   */
   public void createKeyResultHistory(User user, KeyResult keyResult) {
     KeyResultHistory newKeyResultHistory = new KeyResultHistory();
     newKeyResultHistory.setKeyResult(keyResult);
