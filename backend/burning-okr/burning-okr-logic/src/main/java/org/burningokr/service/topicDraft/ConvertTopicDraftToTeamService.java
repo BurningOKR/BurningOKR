@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
+import org.burningokr.service.exceptions.NotApprovedException;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
@@ -26,6 +28,10 @@ public class ConvertTopicDraftToTeamService {
   @Transactional
   public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId, User user) {
     OkrTopicDraft topicDraft = this.okrTopicDraftService.findById(topicDraftId);
+
+    if (topicDraft.getCurrentStatus() != OkrTopicDraftStatusEnum.approved) {
+      throw new NotApprovedException("TopicDraft has to be Approved before it can be converted to a Team");
+    }
 
     OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), user);
     copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
