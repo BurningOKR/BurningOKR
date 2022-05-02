@@ -20,6 +20,7 @@ import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-un
 import { ContextRole } from '../../shared/model/ui/context-role';
 import { Component, Input } from '@angular/core';
 import { AddChildUnitButtonComponent } from '../add-child-unit-button/add-child-unit-button.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-okr-child-unit-preview-button',
@@ -86,7 +87,7 @@ describe('CompanyComponent', () => {
       declarations: [
         CompanyComponent, OkrChildUnitPreviewButtonMockComponent, AddChildUnitButtonComponent
       ],
-      imports: [MaterialTestingModule, RouterTestingModule],
+      imports: [MaterialTestingModule, RouterTestingModule, SharedModule],
       providers: [
         { provide: CurrentOkrviewService, useValue: currentOkrViewServiceMock },
         { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaServiceMock },

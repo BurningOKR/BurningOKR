@@ -3,7 +3,7 @@ import { UserApiService } from '../api/user-api.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../../model/api/user';
 import { map, take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import { AdminUser } from '../../model/api/admin-user';
 import { IUserService } from './i-user-service';
 
@@ -46,14 +46,22 @@ export class UserService implements IUserService {
     }
   }
 
+  getAllActiveUsers$(): Observable<User[]> {
+    return this.getAllUsers$().pipe(map(users => users.filter(user => user.active)));
+  }
+
   updateUserCache(): void {
     if (!this.users$) {
       this.users$ = new BehaviorSubject<User[]>([]);
     }
+    forkJoin({
+      activeUsers: this.userApiService.getActiveUsers$(),
+      users: this.userApiService.getUsers$()
+    }).pipe(map (({ activeUsers, users}) => {
+        users.forEach(user => user.active = !!activeUsers.find(activeUser => activeUser.id === user.id));
 
-    this.userApiService
-      .getUsers$()
-      .pipe(take(1))
+        return users;
+    }),take(1))
       .subscribe(u => this.users$.next(u));
   }
 

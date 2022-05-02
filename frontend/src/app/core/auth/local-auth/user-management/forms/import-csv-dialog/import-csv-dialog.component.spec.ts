@@ -20,15 +20,15 @@ describe('ImportCsvDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ImportCsvDialogComponent],
       providers: [
-        {provide: FormBuilder, useValue: formBuilder},
-        {provide: MatDialog, useValue: {}},
-        {provide: CsvUserParseService, useValue: {}},
-        {provide: Papa, useValue: {}},
-        {provide: MatDialogRef, useValue: {}},
-        {provide: HAMMER_LOADER, useValue: {}},
+        { provide: FormBuilder, useValue: formBuilder },
+        { provide: MatDialog, useValue: {} },
+        { provide: CsvUserParseService, useValue: {} },
+        { provide: Papa, useValue: {} },
+        { provide: MatDialogRef, useValue: {} },
+        { provide: HAMMER_LOADER, useValue: {} },
       ],
       imports: [MatTableModule, MaterialTestingModule, BrowserAnimationsModule],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
       .compileComponents();
     fixture = TestBed.createComponent(ImportCsvDialogComponent);

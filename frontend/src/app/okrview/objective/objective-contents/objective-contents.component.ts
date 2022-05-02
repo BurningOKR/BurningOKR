@@ -144,4 +144,7 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
       this.parentObjective = null;
     }
   }
+  maximumKeyResultsReached(): boolean {
+    return this.objective.keyResultIdList.length >= this.maxKeyResults;
+  }
 }
