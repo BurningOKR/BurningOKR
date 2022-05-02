@@ -9,6 +9,7 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 export class AuthenticationService {
 
   authTypeHandler: Promise<AuthTypeHandlerBase>;
+  path;
 
   constructor(protected oAuthService: OAuthService,
               private oAuthDetails: OAuthFrontendDetailsService,
@@ -34,7 +35,7 @@ export class AuthenticationService {
           this.oAuthService.setStorage(localStorage);
           this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
           this.oAuthService.redirectUri = `${window.location.origin}`;
-
+          this.path = location.pathname;
           authTypeHandlerBase.afterConfigured()
             .then(() => resolve(authConfig));
 
@@ -80,5 +81,9 @@ export class AuthenticationService {
    */
   logout(): void {
     this.oAuthService.logOut();
+  }
+
+  public getPath(){
+    return this.path;
   }
 }
