@@ -75,12 +75,16 @@ export class ChartOptionsBuilderService {
   buildTestCharts(): BaseChartOptions[] {
     const chartLines: LineChartLineKeyValues[] = [
       {
-        name: 'Objective 1',
-        data: [0, 3, 19, 24, 25, 30, 41, 52, 60, 68, 81, 100],
+        name: 'Kunden auflisten',
+        data: [0, 30, 30, 30, 65, 65, 65, 65, 100, 100, 100, 100],
       },
       {
-        name: 'Objective 2',
-        data: [0, 10, 14, 20, 28, 33, 41, 55, 65, 73, 78, 90],
+        name: 'Kunden anschreiben',
+        data: [0, 0, 30, 30, 30, 30, 65, 65, 65, 65, 100, 100],
+      },
+      {
+        name: 'Für Kunden arbeiten',
+        data: [0, 0, 0, 0, 0, 30, 30, 30, 30, 65, 65, 65],
       },
     ];
     const lineChartTitle: ChartTitle = {
@@ -97,14 +101,12 @@ export class ChartOptionsBuilderService {
 
     const chartOptions: BaseChartOptions[] = [];
     const lineChartOptions: LineChartOptions = this.buildLineChartOptions(lineChartTitle, chartLines, chartXAxis);
-    const pieChartOptions: PieChartOptions = this.buildPieChartOptions(pieChartTitle, [10, 5, 3, 4], ['ToDo', 'Doing', 'Blocked', 'Done']);
+    const pieChartOptions: PieChartOptions = this.buildPieChartOptions(pieChartTitle,
+      [20, 17, 13, 9], ['ToDo', 'Doing', 'Blocked', 'Done']);
 
     chartOptions.push(lineChartOptions);
     chartOptions.push(pieChartOptions);
     chartOptions.push(lineChartOptions);
-    chartOptions.push(lineChartOptions);
-    chartOptions.push(pieChartOptions);
-    chartOptions.push(pieChartOptions);
 
     return chartOptions;
   }

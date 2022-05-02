@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.*;
+import org.burningokr.model.okr.histories.KeyResultHistory;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.okr.KeyResultHistoryRepository;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteKeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +30,7 @@ public class KeyResultService {
   private final Logger logger = LoggerFactory.getLogger(KeyResultService.class);
 
   private final KeyResultRepository keyResultRepository;
+  private final KeyResultHistoryRepository keyResultHistoryRepository;
   private final NoteRepository noteRepository;
   private final NoteKeyResultRepository noteKeyResultRepository;
   private final ActivityService activityService;
@@ -56,6 +60,8 @@ public class KeyResultService {
     KeyResult referencedKeyResult = findById(updatedKeyResult.getId());
     throwIfCycleOfKeyResultIsClosed(referencedKeyResult);
 
+    boolean keyResultProgressChanged = progessChanged(referencedKeyResult, updatedKeyResult);
+
     referencedKeyResult.setName(updatedKeyResult.getName());
     referencedKeyResult.setDescription(updatedKeyResult.getDescription());
     referencedKeyResult.setStartValue(updatedKeyResult.getStartValue());
@@ -66,6 +72,9 @@ public class KeyResultService {
     referencedKeyResult = keyResultMilestoneService.updateMilestones(updatedKeyResult, user);
 
     referencedKeyResult = keyResultRepository.save(referencedKeyResult);
+    if (keyResultProgressChanged) {
+      updateKeyResultHistory(user, referencedKeyResult);
+    }
     logger.info(
       "Updated Key Result "
         + referencedKeyResult.getName()
@@ -209,6 +218,32 @@ public class KeyResultService {
     if (entityCrawlerService.getCycleOfKeyResult(keyResultToCheck).getCycleState()
       == CycleState.CLOSED) {
       throw new ForbiddenException("Cannot modify this resource on a KeyResult in a closed cycle.");
+    }
+  }
+
+  private boolean progessChanged(KeyResult oldKeyResult, KeyResult updatedKeyResult) {
+    return oldKeyResult.getCurrentValue() != updatedKeyResult.getCurrentValue() && oldKeyResult.getStartValue() != updatedKeyResult.getStartValue() && oldKeyResult.getTargetValue() != updatedKeyResult.getTargetValue();
+  }
+
+  private void updateKeyResultHistory(User user, KeyResult updatedKeyResult) {
+    KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedDesc(
+      updatedKeyResult).get(0);
+
+    if (keyResultHistory.getDateChanged().equals(LocalDate.now())) {
+      keyResultHistory.setStartValue(updatedKeyResult.getStartValue());
+      keyResultHistory.setCurrentValue(updatedKeyResult.getCurrentValue());
+      keyResultHistory.setTargetValue(updatedKeyResult.getTargetValue());
+      KeyResultHistory updatedHistory = keyResultHistoryRepository.save(keyResultHistory);
+      activityService.createActivity(user, updatedHistory, Action.EDITED);
+    } else {
+      KeyResultHistory newKeyResultHistory = new KeyResultHistory();
+      newKeyResultHistory.setKeyResult(updatedKeyResult);
+      newKeyResultHistory.setDateChanged(LocalDate.now());
+      newKeyResultHistory.setStartValue(updatedKeyResult.getStartValue());
+      newKeyResultHistory.setCurrentValue(updatedKeyResult.getCurrentValue());
+      newKeyResultHistory.setTargetValue(updatedKeyResult.getTargetValue());
+      KeyResultHistory createdHistory = keyResultHistoryRepository.save(newKeyResultHistory);
+      activityService.createActivity(user, createdHistory, Action.CREATED);
     }
   }
 }

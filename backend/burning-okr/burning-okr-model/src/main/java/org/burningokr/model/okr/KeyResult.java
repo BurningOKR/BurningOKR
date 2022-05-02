@@ -3,6 +3,7 @@ package org.burningokr.model.okr;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
+import org.burningokr.model.okr.histories.KeyResultHistory;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
@@ -46,4 +47,8 @@ public class KeyResult implements Trackable<Long> {
   @ToString.Exclude
   @OneToMany(mappedBy = "parentKeyResult", cascade = CascadeType.REMOVE)
   private Collection<KeyResultMilestone> milestones = new ArrayList<>();
+
+  @ToString.Exclude
+  @OneToMany(mappedBy = "keyResult", cascade = CascadeType.REMOVE)
+  private Collection<KeyResultHistory> keyResultHistory = new ArrayList<>();
 }
