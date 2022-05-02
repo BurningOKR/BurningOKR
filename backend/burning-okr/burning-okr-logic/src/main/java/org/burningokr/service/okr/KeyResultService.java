@@ -1,6 +1,5 @@
 package org.burningokr.service.okr;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.*;
-import org.burningokr.model.okr.histories.KeyResultHistory;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultHistoryRepository;
 import org.burningokr.repositories.okr.KeyResultRepository;
@@ -30,13 +28,13 @@ public class KeyResultService {
   private final Logger logger = LoggerFactory.getLogger(KeyResultService.class);
 
   private final KeyResultRepository keyResultRepository;
-  private final KeyResultHistoryRepository keyResultHistoryRepository;
   private final NoteRepository noteRepository;
   private final NoteKeyResultRepository noteKeyResultRepository;
   private final ActivityService activityService;
   private final EntityCrawlerService entityCrawlerService;
   private final ObjectiveService objectiveService;
   private final KeyResultMilestoneService keyResultMilestoneService;
+  private final KeyResultHistoryService keyResultHistoryService;
   private final TaskService taskService;
 
   public KeyResult findById(long keyResultId) {
@@ -60,7 +58,7 @@ public class KeyResultService {
     KeyResult referencedKeyResult = findById(updatedKeyResult.getId());
     throwIfCycleOfKeyResultIsClosed(referencedKeyResult);
 
-    boolean keyResultProgressChanged = progessChanged(referencedKeyResult, updatedKeyResult);
+    boolean keyResultProgressChanged = createdOrProgressChanged(referencedKeyResult, updatedKeyResult);
 
     referencedKeyResult.setName(updatedKeyResult.getName());
     referencedKeyResult.setDescription(updatedKeyResult.getDescription());
@@ -73,7 +71,7 @@ public class KeyResultService {
 
     referencedKeyResult = keyResultRepository.save(referencedKeyResult);
     if (keyResultProgressChanged)
-      updateKeyResultHistory(user, referencedKeyResult);
+      keyResultHistoryService.updateKeyResultHistory(user, referencedKeyResult);
     logger.info(
       "Updated Key Result "
         + referencedKeyResult.getName()
@@ -220,29 +218,9 @@ public class KeyResultService {
     }
   }
 
-  private boolean progessChanged(KeyResult oldKeyResult, KeyResult updatedKeyResult) {
-    return oldKeyResult.getCurrentValue() != updatedKeyResult.getCurrentValue() || oldKeyResult.getStartValue() != updatedKeyResult.getStartValue() || oldKeyResult.getTargetValue() != updatedKeyResult.getTargetValue();
-  }
-
-  private void updateKeyResultHistory(User user, KeyResult updatedKeyResult) {
-    KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedDesc(updatedKeyResult).get(0);
-
-    if (keyResultHistory.getDateChanged().equals(LocalDate.now())) {
-      keyResultHistory.setStartValue(updatedKeyResult.getStartValue());
-      keyResultHistory.setCurrentValue(updatedKeyResult.getCurrentValue());
-      keyResultHistory.setTargetValue(updatedKeyResult.getTargetValue());
-      KeyResultHistory updatedHistory = keyResultHistoryRepository.save(keyResultHistory);
-      activityService.createActivity(user, updatedHistory, Action.EDITED);
-    }
-    else {
-      KeyResultHistory newKeyResultHistory = new KeyResultHistory();
-      newKeyResultHistory.setKeyResult(updatedKeyResult);
-      newKeyResultHistory.setDateChanged(LocalDate.now());
-      newKeyResultHistory.setStartValue(updatedKeyResult.getStartValue());
-      newKeyResultHistory.setCurrentValue(updatedKeyResult.getCurrentValue());
-      newKeyResultHistory.setTargetValue(updatedKeyResult.getTargetValue());
-      KeyResultHistory createdHistory = keyResultHistoryRepository.save(newKeyResultHistory);
-      activityService.createActivity(user, createdHistory, Action.CREATED);
-    }
+  private boolean createdOrProgressChanged(KeyResult oldKeyResult, KeyResult updatedKeyResult) {
+    return oldKeyResult == null || oldKeyResult.getCurrentValue() != updatedKeyResult.getCurrentValue() ||
+      oldKeyResult.getStartValue() != updatedKeyResult.getStartValue() ||
+      oldKeyResult.getTargetValue() != updatedKeyResult.getTargetValue();
   }
 }

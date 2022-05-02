@@ -114,6 +114,7 @@ public class ObjectiveController {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult.setId(null);
     keyResult = objectiveService.createKeyResult(objectiveId, keyResult, user);
+
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
   }
 

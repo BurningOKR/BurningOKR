@@ -37,6 +37,7 @@ public class ObjectiveService {
   private final ParentService parentService;
   private final ObjectiveRepository objectiveRepository;
   private final KeyResultRepository keyResultRepository;
+  private final KeyResultHistoryService keyResultHistoryService;
   private final ActivityService activityService;
   private final EntityCrawlerService entityCrawlerService;
   private final ConfigurationService configurationService;
@@ -46,10 +47,10 @@ public class ObjectiveService {
 
   /**
    * Initialize ObjectiveService.
-   *
-   * @param parentService a {@link ParentService} object
+   *  @param parentService a {@link ParentService} object
    * @param objectiveRepository an {@link ObjectiveRepository} object
    * @param keyResultRepository a {@link KeyResultRepository} object
+   * @param keyResultHistoryService a {@link KeyResultHistoryService} object
    * @param activityService an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
    * @param configurationService a {@link ConfigurationService} object
@@ -57,18 +58,19 @@ public class ObjectiveService {
    */
   @Autowired
   public ObjectiveService(
-      ParentService parentService,
-      ObjectiveRepository objectiveRepository,
-      KeyResultRepository keyResultRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService,
-      ConfigurationService configurationService,
-      KeyResultMilestoneService keyResultMilestoneService,
-      NoteObjectiveRepository noteObjectiveRepository,
-      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService) {
+    ParentService parentService,
+    ObjectiveRepository objectiveRepository,
+    KeyResultRepository keyResultRepository,
+    KeyResultHistoryService keyResultHistoryService, ActivityService activityService,
+    EntityCrawlerService entityCrawlerService,
+    ConfigurationService configurationService,
+    KeyResultMilestoneService keyResultMilestoneService,
+    NoteObjectiveRepository noteObjectiveRepository,
+    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;
+    this.keyResultHistoryService = keyResultHistoryService;
     this.activityService = activityService;
     this.entityCrawlerService = entityCrawlerService;
     this.configurationService = configurationService;
@@ -205,6 +207,7 @@ public class ObjectiveService {
             + objectiveId
             + ").");
     activityService.createActivity(user, keyResult, Action.CREATED);
+    keyResultHistoryService.createKeyResultHistory(user, keyResult);
     return keyResult;
   }
 
