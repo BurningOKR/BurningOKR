@@ -14,7 +14,7 @@
 
     </mat-form-field>
     <mat-form-field class="halfWidth rightDate">
-      <input matInput [matDatepicker]="$any(endDatePicker)" formControlName="endDate" placeholder="{{ 'cycle-creation-form.end-date' | translate }}">
+      <input matInput [matDatepicker]="$any(endDatePicker)" [min]="firstAvailableDate" formControlName="endDate" placeholder="{{ 'cycle-creation-form.end-date' | translate }}">
       <mat-datepicker-toggle [for]="endDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
       <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>
