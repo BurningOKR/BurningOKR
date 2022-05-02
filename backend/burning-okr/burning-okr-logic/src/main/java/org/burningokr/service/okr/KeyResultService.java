@@ -221,7 +221,7 @@ public class KeyResultService {
   }
 
   private boolean progessChanged(KeyResult oldKeyResult, KeyResult updatedKeyResult) {
-    return oldKeyResult.getCurrentValue() != updatedKeyResult.getCurrentValue() && oldKeyResult.getStartValue() != updatedKeyResult.getStartValue() && oldKeyResult.getTargetValue() != updatedKeyResult.getTargetValue();
+    return oldKeyResult.getCurrentValue() != updatedKeyResult.getCurrentValue() || oldKeyResult.getStartValue() != updatedKeyResult.getStartValue() || oldKeyResult.getTargetValue() != updatedKeyResult.getTargetValue();
   }
 
   private void updateKeyResultHistory(User user, KeyResult updatedKeyResult) {
