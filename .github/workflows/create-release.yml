@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  release-app:
 
     runs-on: ubuntu-latest
 
