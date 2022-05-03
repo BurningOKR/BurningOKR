@@ -9,7 +9,7 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 export class AuthenticationService {
 
   authTypeHandler: Promise<AuthTypeHandlerBase>;
-  path;
+  path: string;
 
   constructor(protected oAuthService: OAuthService,
               private oAuthDetails: OAuthFrontendDetailsService,
@@ -41,6 +41,10 @@ export class AuthenticationService {
 
         });
     });
+  }
+
+  getPath(): string {
+    return this.path;
   }
 
   /**
@@ -83,7 +87,4 @@ export class AuthenticationService {
     this.oAuthService.logOut();
   }
 
-  public getPath(){
-    return this.path;
-  }
 }
