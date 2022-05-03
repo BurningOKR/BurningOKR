@@ -3,7 +3,6 @@ export class DepartmentNavigationInformation {
   selectedStructure: number;
 
   constructor() {
-    // this.departmentId = id;
     this.departmentsToClose = [];
   }
 }
