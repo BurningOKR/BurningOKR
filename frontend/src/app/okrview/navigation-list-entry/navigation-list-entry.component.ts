@@ -16,9 +16,7 @@ export class NavigationListEntryComponent implements OnInit {
   constructor(private currentNavigationService: CurrentNavigationService) {}
 
   ngOnInit(): void {
-    if(this.currentNavigationService.getClosedStructures().departmentsToClose.includes(this.schema.id)){
-      this.isOpen = false;
-    }
+    this.isOpen = !this.currentNavigationService.isStructureMarkedAsClosed(this.schema.id)
   }
 
   toggleOpen(): void {
