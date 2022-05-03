@@ -8,14 +8,14 @@ describe('ConvertTopicDraftToTeamService', () => {
   let selectedUnit$: ReplaySubject<Structure>;
 
   const topicDraftApiServiceMock: any = {
-    convertTopicDraftToTeam$: jest.fn()
+    convertTopicDraftToTeam$: convertTopicDraftToDepartmentMock$
   };
 
   const mockStructure1: Structure = getMockStructure(1, 'MockStructure1', 'MockLabel1');
 
   beforeEach(() => {
-    topicDraftApiServiceMock.convertTopicDraftToTeam$.mockReset();
-    topicDraftApiServiceMock.convertTopicDraftToTeam$.mockReturnValue(convertTopicDraftToDepartmentMock$);
+/*    topicDraftApiServiceMock.convertTopicDraftToTeam$.mockReset();
+    topicDraftApiServiceMock.convertTopicDraftToTeam$.mockReturnValue(convertTopicDraftToDepartmentMock$);*/
     convertTopicDraftToTeamService = new ConvertTopicDraftToTeamService(topicDraftApiServiceMock);
     selectedUnit$ = (convertTopicDraftToTeamService as any).selectedUnit$;
   });
@@ -38,13 +38,11 @@ describe('ConvertTopicDraftToTeamService', () => {
 
   it('should call the convertToTeam-Endpoint correctly', done => {
     selectedUnit$.next(mockStructure1);
-    const actual$: Observable<OkrDepartment> = convertTopicDraftToTeamService.convertTopicDraftToTeam$(2);
-    actual$.subscribe(actual => {
-      console.log(actual);
+    convertTopicDraftToTeamService.convertTopicDraftToTeam$(3)
+      .subscribe(actual => {
       expect(actual.id).toBe(1);
       expect(actual.parentUnitId).toBe(1);
       expect(actual.name).toBe('Department of 3');
-      expect(false).toBeTruthy();
       done();
     });
   });
