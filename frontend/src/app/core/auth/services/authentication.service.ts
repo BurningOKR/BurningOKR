@@ -86,5 +86,4 @@ export class AuthenticationService {
   logout(): void {
     this.oAuthService.logOut();
   }
-
 }
