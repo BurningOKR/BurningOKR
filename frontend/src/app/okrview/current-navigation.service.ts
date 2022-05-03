@@ -9,8 +9,8 @@ export class CurrentNavigationService {
 
   currentNavigationInformation = new DepartmentNavigationInformation();
 
-  getClosedStructures(): DepartmentNavigationInformation{
-    return this.currentNavigationInformation;
+  getClosedStructures(): number[] {
+    return this.currentNavigationInformation.departmentsToClose;
   }
 
   isStructureMarkedAsClosed(id: number): boolean {
@@ -18,10 +18,11 @@ export class CurrentNavigationService {
   }
 
   markStructureAsClosed(schema: OkrUnitSchema): void {
-    this.currentNavigationInformation.departmentsToClose.push(schema.id);
+    if(!this.isStructureMarkedAsClosed(schema.id)){
+      this.currentNavigationInformation.departmentsToClose.push(schema.id);
+      schema.subDepartments.forEach(subDepartment => this.markStructureAsClosed(subDepartment));
+    }
 
-    schema.subDepartments.filter(subDepartment => !this.getClosedStructures().departmentsToClose.includes(subDepartment.id))
-      .forEach(subDepartment => this.markStructureAsClosed(subDepartment));
   }
 
   markStructureAsOpen(id: number): void {
