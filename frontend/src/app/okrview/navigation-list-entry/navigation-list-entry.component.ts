@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OkrUnitSchema, OkrUnitRole } from '../../shared/model/ui/okr-unit-schema';
 import { CurrentNavigationService } from '../current-navigation.service';
-import { DepartmentNavigationInformation } from '../../shared/model/ui/department-navigation-information';
 
 @Component({
   selector: 'app-navigation-list-entry',
@@ -12,7 +11,6 @@ export class NavigationListEntryComponent implements OnInit {
   @Input() schema: OkrUnitSchema;
   @Input() isSecondUnit: boolean = true;
 
-  currentNavigationInformation = new DepartmentNavigationInformation(-1);
   isOpen = true;
 
   constructor(private currentNavigationService: CurrentNavigationService) {}
@@ -32,12 +30,16 @@ export class NavigationListEntryComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
+  selectStructure(): void {
+    this.currentNavigationService.markStructureAsSelected(this.schema.id);
+  }
+
   hasChildUnits(): boolean {
     return this.schema.subDepartments.length > 0;
   }
 
-  isCurrentDepartment(): boolean {
-    return this.currentNavigationInformation.departmentId === this.schema.id;
+  isSelectedStructure(): boolean {
+    return this.currentNavigationService.isStructureSelected(this.schema.id);
   }
 
   isMemberOfUnit(): boolean {
