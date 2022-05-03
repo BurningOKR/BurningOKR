@@ -1,5 +1,4 @@
 export class DepartmentNavigationInformation {
-  // departmentId: number;
   departmentsToClose: number[];
   selectedStructure: number;
 
