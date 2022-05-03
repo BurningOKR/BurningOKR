@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     const password: string = this.loginForm.get('password').value;
     this.authenticationService.login(email, password)
       .then(() => {
-        this.router.navigate(['/']);
+        this.router.navigate([this.authenticationService.getPath()]);
       })
       .catch((error: HttpErrorResponse) => {
         this.errorType = error.error.error;
