@@ -16,7 +16,7 @@ export class NavigationListEntryComponent implements OnInit {
   constructor(private currentNavigationService: CurrentNavigationService) {}
 
   ngOnInit(): void {
-    if(this.currentNavigationService.getClosedStructures().departmentsToClose.includes(this.schema.id)){
+    if(this.currentNavigationService.isStructureMarkedAsClosed(this.schema.id)){
       this.isOpen = false;
     }
   }
@@ -57,4 +57,5 @@ export class NavigationListEntryComponent implements OnInit {
   isUnitSubstructure(): boolean {
     return !this.schema.isTeam;
   }
+
 }
