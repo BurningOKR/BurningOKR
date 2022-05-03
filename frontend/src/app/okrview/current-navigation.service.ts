@@ -22,7 +22,6 @@ export class CurrentNavigationService {
       this.currentNavigationInformation.departmentsToClose.push(schema.id);
       schema.subDepartments.forEach(subDepartment => this.markStructureAsClosed(subDepartment));
     }
-
   }
 
   markStructureAsOpen(id: number): void {
