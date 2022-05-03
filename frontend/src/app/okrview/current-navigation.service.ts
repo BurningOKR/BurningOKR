@@ -13,10 +13,6 @@ export class CurrentNavigationService {
     return this.currentNavigationInformation;
   }
 
-  isStructureMarkedAsClosed(id: number): boolean {
-    return this.currentNavigationInformation.departmentsToClose.includes(id);
-  }
-
   markStructureAsClosed(schema: OkrUnitSchema): void {
     this.currentNavigationInformation.departmentsToClose.push(schema.id);
 
