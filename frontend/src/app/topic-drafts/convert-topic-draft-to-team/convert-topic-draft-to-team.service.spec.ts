@@ -1,5 +1,4 @@
 import { ConvertTopicDraftToTeamService } from './convert-topic-draft-to-team.service';
-import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
 import { Structure } from '../../shared/model/ui/OrganizationalUnit/structure';
@@ -21,14 +20,37 @@ describe('ConvertTopicDraftToTeamService', () => {
     selectedUnit$ = (convertTopicDraftToTeamService as any).selectedUnit$;
   });
 
-  it('should set the Structure correctly', () => {
-    selectedUnit$.asObservable().subscribe(structure => expect(structure).toBe(undefined));
+  it('should set the Structure correctly', done => {
+    selectedUnit$.asObservable().subscribe(structure => {
+      expect(structure).toBe(mockStructure1);
+      done();
+    });
     convertTopicDraftToTeamService.setSelectedUnit(mockStructure1);
-    selectedUnit$.asObservable().subscribe(structure => expect(structure).toBe(mockStructure1));
   });
 
-  function convertTopicDraftToDepartmentMock$(topicDraft: OkrTopicDraft): Observable<OkrDepartment> {
-    return of(new OkrDepartment(1, `Department of ${topicDraft.name}`, [], -1, 'Team', topicDraft.initiatorId, '', [], true,  true));
+  it('should get the selected Structure correctly', done => {
+    convertTopicDraftToTeamService.getSelectedUnit$().subscribe(structure => {
+      expect(structure).toBe(mockStructure1);
+      done();
+    });
+    selectedUnit$.next(mockStructure1);
+  });
+
+  it('should call the convertToTeam-Endpoint correctly', done => {
+    selectedUnit$.next(mockStructure1);
+    const actual$: Observable<OkrDepartment> = convertTopicDraftToTeamService.convertTopicDraftToTeam$(2);
+    actual$.subscribe(actual => {
+      console.log(actual);
+      expect(actual.id).toBe(1);
+      expect(actual.parentUnitId).toBe(1);
+      expect(actual.name).toBe('Department of 3');
+      expect(false).toBeTruthy();
+      done();
+    });
+  });
+
+  function convertTopicDraftToDepartmentMock$(topicDraftId: number, okrUnitId: number): Observable<OkrDepartment> {
+    return of(new OkrDepartment(1, `Department of ${topicDraftId}`, [], okrUnitId, 'Team', '', '', [], true,  true));
   }
 
   function getMockStructure(id: number, name: string, label: string): Structure {
