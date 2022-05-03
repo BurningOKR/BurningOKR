@@ -7,7 +7,7 @@ import { OkrUnitSchema } from '../shared/model/ui/okr-unit-schema';
 })
 export class CurrentNavigationService {
 
-  currentNavigationInformation = new DepartmentNavigationInformation(-1);
+  currentNavigationInformation = new DepartmentNavigationInformation();
 
   getClosedStructures(): DepartmentNavigationInformation{
     return this.currentNavigationInformation;
