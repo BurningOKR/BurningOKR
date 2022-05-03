@@ -39,5 +39,4 @@ export class CurrentNavigationService {
   markStructureAsSelected(id: number): void {
     this.currentNavigationInformation.selectedStructure = id;
   }
-
 }

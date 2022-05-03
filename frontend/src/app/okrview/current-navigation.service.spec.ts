@@ -94,7 +94,7 @@ describe('CurrentNavigationService', () => {
     expect(expected).toEqual(actual);
   });
 
-  it('getClosedStructures should return less closed Structures when we mark them as open', () => {
+  it('getClosedStructures should return fewer closed Structures when we mark them as open', () => {
     const expected: number[] = [1];
     currentNavigationService.markStructureAsClosed(mockSchema1);
     currentNavigationService.markStructureAsClosed(mockSchema6);
