@@ -18,11 +18,13 @@ export class CurrentNavigationService {
   }
 
   markStructureAsClosed(schema: OkrUnitSchema): void {
+    if((schema === null) || (schema === undefined)){
+      return;
+    }
     if(!this.isStructureMarkedAsClosed(schema.id)){
       this.currentNavigationInformation.departmentsToClose.push(schema.id);
       schema.subDepartments.forEach(subDepartment => this.markStructureAsClosed(subDepartment));
     }
-
   }
 
   markStructureAsOpen(id: number): void {

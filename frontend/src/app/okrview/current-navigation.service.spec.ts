@@ -134,5 +134,28 @@ describe('CurrentNavigationService', () => {
     expect(expected).toEqual(actual);
   });
 
-});
+  it('markStructureAsClosed with undefined or null as parameter throws no error', () => {
+    const expected: number[] = [];
+    currentNavigationService.markStructureAsClosed(undefined);
+    const actual: number[] = currentNavigationService.getClosedStructures();
 
+    expect(expected).toEqual(actual);
+  });
+
+  it('markStructureAsOpen with undefined or null as parameter throws no error', () => {
+    const expected: number[] = [];
+    currentNavigationService.markStructureAsOpen(null);
+    const actual: number[] = currentNavigationService.getClosedStructures();
+
+    expect(expected).toEqual(actual);
+  });
+
+  it('markStructureAsOpen when the structur is already open does nothing', () => {
+    const expected: number[] = [];
+    currentNavigationService.markStructureAsOpen(1);
+    const actual: number[] = currentNavigationService.getClosedStructures();
+
+    expect(expected).toEqual(actual);
+  });
+
+});
