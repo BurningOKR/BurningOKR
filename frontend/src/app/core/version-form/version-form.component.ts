@@ -19,7 +19,8 @@ export class VersionFormComponent {
         'Bugfix: TopicDrafts are now convertable to drafts again',
         'Bugfix: User Input Filds will only show active Users',
         'Bugfix: Language Picker dialogue can be submitted with ENTER',
-        'Bugfix: After login the original deeplink is loaded'
+        'Bugfix: After login the original deeplink is loaded',
+        'Bugfix: Structures no longer collapse when clicking on them'
       ]
     },
     {
