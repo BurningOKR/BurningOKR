@@ -19,3 +19,10 @@ CREATE TABLE chart_creation_options
 
 ALTER TABLE chart_creation_options
   ADD CONSTRAINT FK_CHARTCREATIONOPTIONS_ON_DASHBOARDCREATION FOREIGN KEY (dashboard_creation_id) REFERENCES dashboard_creation (id);
+
+CREATE TABLE chart_creation_team
+(
+  chart_creation_options_id BIGINT,
+  chart_creation_team_id BIGINT,
+  CONSTRAINT pk_chartcreationteam PRIMARY KEY(chart_creation_options_id, chart_creation_team_id)
+)

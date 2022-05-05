@@ -1,7 +1,7 @@
 import { LineChartOptions } from '../../ui/line-chart-options';
 import { BaseChartOptionsDto } from './base-chart-options.dto';
 
-export abstract class LineChartOptionsDto extends BaseChartOptionsDto {
+export class LineChartOptionsDto extends BaseChartOptionsDto {
   series: LineChartLineKeyValues[];
   xAxisCategories: string[];
 
@@ -22,7 +22,10 @@ export abstract class LineChartOptionsDto extends BaseChartOptionsDto {
     lineChartOptions.stroke = {
       curve: 'straight',
     };
-    lineChartOptions.title = this.title;
+    lineChartOptions.title = {
+      text: this.title,
+      align: 'left',
+    };
     lineChartOptions.grid = {
       row: {
         colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns

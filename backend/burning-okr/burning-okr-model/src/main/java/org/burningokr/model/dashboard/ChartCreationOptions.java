@@ -14,12 +14,12 @@ public class ChartCreationOptions {
 
   private String title;
 
-  private ChartTypeEnum chartType;
+  private ChartInformationTypeEnum chartType;
 
   @ManyToOne private DashboardCreation dashboardCreation;
 
   @ElementCollection
-  @CollectionTable(name = "chart_creation_teams")
-  @Column(name = "chart_creation_teams")
+  @CollectionTable(name = "chart_creation_team")
+  @Column(name = "chart_creation_team_id")
   private Collection<Long> teamIds = new ArrayList<>();
 }

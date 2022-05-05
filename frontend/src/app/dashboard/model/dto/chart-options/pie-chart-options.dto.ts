@@ -8,7 +8,10 @@ export abstract class PieChartOptionsDto extends BaseChartOptionsDto {
   buildChartOptions() {
     const pieChartOptions: PieChartOptions = new PieChartOptions();
 
-    pieChartOptions.title = this.title;
+    pieChartOptions.title = {
+      text: this.title,
+      align: 'left',
+    };
     pieChartOptions.series = this.series;
     pieChartOptions.chart = {
       width: 400,

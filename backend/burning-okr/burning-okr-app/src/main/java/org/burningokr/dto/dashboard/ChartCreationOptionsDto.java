@@ -1,6 +1,7 @@
 package org.burningokr.dto.dashboard;
 
 import lombok.Data;
+import org.burningokr.model.dashboard.ChartInformationTypeEnum;
 
 import java.util.Collection;
 
@@ -8,6 +9,6 @@ import java.util.Collection;
 public class ChartCreationOptionsDto {
   private Long id;
   private String title;
-  private int chartType;
+  private ChartInformationTypeEnum chartType;
   private Collection<Long> teamIds;
 }

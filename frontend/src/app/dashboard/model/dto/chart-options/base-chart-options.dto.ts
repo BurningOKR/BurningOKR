@@ -1,14 +1,12 @@
-import { LineChartLineKeyValues } from './line-chart-options.dto';
+import { ChartInformationTypeEnum } from '../chart-creation-options.dto';
 
 export abstract class BaseChartOptionsDto {
-  series: LineChartLineKeyValues[] | number[];
-  title: ChartTitle;
-  chart: 'pie' | 'line';
+  title: string;
 
   abstract buildChartOptions();
 }
 
 export interface ChartTitle {
   text: string;
-  align: 'left' | 'right' | 'center';
+  align: 'left';
 }
