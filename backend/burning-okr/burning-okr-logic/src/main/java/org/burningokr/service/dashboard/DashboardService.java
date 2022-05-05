@@ -1,8 +1,10 @@
 package org.burningokr.service.dashboard;
 
 import org.burningokr.model.activity.Action;
+import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.dashboard.ChartCreationOptionsRepository;
 import org.burningokr.repositories.dashboard.DashboardCreationRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.slf4j.Logger;
@@ -13,13 +15,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardService {
   private final DashboardCreationRepository dashboardCreationRepository;
+  private final ChartCreationOptionsRepository chartCreationOptionsRepository;
   private final ActivityService activityService;
   private final Logger logger = LoggerFactory.getLogger(DashboardService.class);
 
   @Autowired
   public DashboardService(DashboardCreationRepository dashboardCreationRepository,
+                          ChartCreationOptionsRepository chartCreationOptionsRepository,
                           ActivityService activityService) {
     this.dashboardCreationRepository = dashboardCreationRepository;
+    this.chartCreationOptionsRepository = chartCreationOptionsRepository;
     this.activityService = activityService;
   }
 
@@ -27,10 +32,18 @@ public class DashboardService {
     dashboardCreation.setCreatorId(user.getId());
 
     dashboardCreation = this.dashboardCreationRepository.save(dashboardCreation);
-
     logger.info("Created Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.CREATED);
+    createChartOptions(dashboardCreation, user);
 
     return dashboardCreation;
+  }
+
+  private void createChartOptions(DashboardCreation dashboardCreation, User user) {
+    for (ChartCreationOptions chartCreationOption: dashboardCreation.getChartCreationOptions()) {
+      chartCreationOption.setDashboardCreation(dashboardCreation);
+      chartCreationOptionsRepository.save(chartCreationOption);
+      logger.info("Created ChartCreationOption: " + chartCreationOption.getTitle());
+    }
   }
 }

@@ -7,8 +7,8 @@ import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-d
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import {
   ChartCreationOptionsDto,
-  ChartTypeEnum,
-  ChartTypeEnumRecord,
+  ChartInformationTypeEnum,
+  ChartTypeEnumDropDownRecord,
 } from '../../model/dto/chart-creation-options.dto';
 import { DashboardCreationDto } from '../../model/dto/dashboard-creation.dto';
 import { DashboardService } from '../../services/dashboard.service';
@@ -20,8 +20,8 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 export class CreateDashboardComponent implements OnInit {
   teams$: Observable<OkrDepartment[]>;
-  chartTypes = Object.keys(ChartTypeEnum).slice(0, Object.keys(ChartTypeEnum).length/2);
-  chartTypeRecord = ChartTypeEnumRecord;
+  chartTypes = Object.keys(ChartInformationTypeEnum).slice(0, Object.keys(ChartInformationTypeEnum).length/2);
+  chartTypeRecord = ChartTypeEnumDropDownRecord;
 
   dashboardCreationDto: DashboardCreationDto = {} as DashboardCreationDto; // This sets default values to prevent 'property of undefined' error on title
   charts: ChartCreationOptionsDto[] = [];
@@ -76,7 +76,7 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   newChartIsLineChart(): boolean {
-    return this.newChart.chartType === ChartTypeEnum.LINE_PROGRESS;
+    return this.newChart.chartType === ChartInformationTypeEnum.LINE_PROGRESS;
   }
 
   newChartValid(): boolean {
@@ -89,13 +89,13 @@ export class CreateDashboardComponent implements OnInit {
 
   chartSelected(change: MatSelectChange): void {
     this.newChart.chartType = change.value;
-    this.teamIsSelectable = this.newChart.chartType.toString() === ChartTypeEnum.LINE_PROGRESS.toString(); // Always returns false without toString()
+    this.teamIsSelectable = this.newChart.chartType.toString() === ChartInformationTypeEnum.LINE_PROGRESS.toString(); // Always returns false without toString()
   }
 
   private resetNewChart(): void {
     this.newChart = {
       title: '',
-      chartType: ChartTypeEnum.LINE_PROGRESS,
+      chartType: ChartInformationTypeEnum.LINE_PROGRESS,
       teamIds: [],
     };
   }

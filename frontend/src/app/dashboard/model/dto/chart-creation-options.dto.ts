@@ -1,16 +1,21 @@
 export interface ChartCreationOptionsDto {
   chartCreationOptionsId?: number;
   title: string;
-  chartType: ChartTypeEnum;
+  chartType: ChartInformationTypeEnum;
   teamIds?: number[];
 }
 
-export enum ChartTypeEnum {
+export enum ChartInformationTypeEnum {
   LINE_PROGRESS,
   PIE_TOPICDRAFTOVERVIEW,
 }
 
-export const ChartTypeEnumRecord: Record<ChartTypeEnum, string> = {
-  [ChartTypeEnum.LINE_PROGRESS]: 'Fortschritt - Liniendiagramm',
-  [ChartTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'Übersicht Themenentwürfe - Kuchendiagramm',
+export const ChartTypeEnumDropDownRecord: Record<ChartInformationTypeEnum, string> = {
+  [ChartInformationTypeEnum.LINE_PROGRESS]: 'Fortschritt - Liniendiagramm',
+  [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'Übersicht Themenentwürfe - Kuchendiagramm',
 };
+
+export const ChartTypeOptionStringRecord: Record<ChartInformationTypeEnum, string> = {
+  [ChartInformationTypeEnum.LINE_PROGRESS]: 'line',
+  [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'pie',
+}
