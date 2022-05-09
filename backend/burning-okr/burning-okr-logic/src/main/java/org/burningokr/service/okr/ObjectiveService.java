@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -89,6 +90,10 @@ public class ObjectiveService {
   public Collection<NoteObjective> findNotesOfObjective(long objectiveId) {
     Objective objective = findById(objectiveId);
     return objective.getNotes();
+  }
+
+  public Collection<Objective> findChildObjectivesOfObjective(long objectiveId) {
+    return Lists.newArrayList(objectiveRepository.findByParentObjectiveId(objectiveId));
   }
 
   /**

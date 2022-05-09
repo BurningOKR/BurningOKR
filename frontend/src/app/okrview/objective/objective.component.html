@@ -50,7 +50,7 @@
       </div>
 
       <div class="icon-spacer-large f-05" *ngIf="hasSubObjectives()" matTooltip="{{ 'objective.tooltip.subordinate.' | translate }}">
-        <button mat-button class="flex-nowrap">
+        <button (click)="$event.stopPropagation();showChildObjectives()" mat-button class="flex-nowrap">
           {{objective.subObjectivesCount}}
           <mat-icon>assignment</mat-icon>
         </button>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -25,7 +25,7 @@ import { ObjectiveFormComponent } from './objective-form/objective-form.componen
   templateUrl: './objective.component.html',
   styleUrls: ['./objective.component.scss'],
 })
-export class ObjectiveComponent {
+export class ObjectiveComponent implements OnInit{
   @Input() objective: ViewObjective;
   @Input() objectiveList: ViewObjective[];
   @Input() listNumber: number;
@@ -42,6 +42,7 @@ export class ObjectiveComponent {
   currentObjectiveScore: ObjectiveScore;
   progressValue: number;
   subscriptions: Subscription[] = [];
+  childObjectives: ViewObjective[];
 
   constructor(
     private objectiveMapper: ObjectiveViewMapper,
@@ -49,6 +50,16 @@ export class ObjectiveComponent {
     private objectiveScoringService: ObjectiveScoringService,
     private translate: TranslateService,
   ) {
+  }
+
+  ngOnInit(){
+    this.objectiveMapper
+      .getChildObjectivesOfObjectiveById$(this.objective.id)
+      .subscribe(childObjective => (this.childObjectives = childObjective));
+  }
+
+  showChildObjectives(): void {
+    this.childObjectives.forEach(element => console.log(element));
   }
 
   isProgressValueSetForObjective(): boolean {
