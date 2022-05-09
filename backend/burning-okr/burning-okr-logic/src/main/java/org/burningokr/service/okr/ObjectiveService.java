@@ -93,7 +93,7 @@ public class ObjectiveService {
   }
 
   public Collection<Objective> findChildObjectivesOfObjective(long objectiveId) {
-    return Lists.newArrayList(objectiveRepository.findByParentObjectiveId(objectiveId));
+    return objectiveRepository.findByParentObjectiveId(objectiveId);
   }
 
   /**
