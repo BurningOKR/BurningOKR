@@ -1,6 +1,5 @@
 package org.burningokr.service.okr;
 
-import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
