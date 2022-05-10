@@ -50,7 +50,7 @@
       </div>
 
       <div class="icon-spacer-large f-05" *ngIf="hasSubObjectives()" matTooltip="{{ 'objective.tooltip.subordinate.' | translate }}">
-        <button (click)="$event.stopPropagation();showChildObjectives()" mat-button class="flex-nowrap">
+        <button class="icon-spacer" (click)="$event.stopPropagation()" [matMenuTriggerFor]="childMenu" [matMenuTriggerData]="{ objective: objective }" mat-icon-button>
           {{objective.subObjectivesCount}}
           <mat-icon>assignment</mat-icon>
         </button>
@@ -106,4 +106,9 @@
       <span>{{ 'objective.menu.delete-objective' | translate }}</span>
     </button>
   </ng-template>
+</mat-menu>
+
+<!-- Child Menu -->
+<mat-menu #childMenu="matMenu" xPosition="before">
+  <div mat-menu-item *ngFor="let child of childObjectives" [routerLink]="['/okr/departments/'+child.parentUnitId]">{{child.name}}</div>
 </mat-menu>
