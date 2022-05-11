@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Collection;
+
 @RestApiController
 public class DashboardController {
   private DashboardService dashboardService;
@@ -53,6 +55,12 @@ public class DashboardController {
   public ResponseEntity<DashboardDto> getDashboardById(@PathVariable long dashboardId) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
+  }
+
+  @GetMapping("/dashboards/company/{companyId}")
+  public ResponseEntity<Collection<DashboardDto>> getDashboardsOfCompany(@PathVariable long companyId) {
+    Collection<DashboardCreation> dashboardCreations = dashboardService.findDashboardsOfCompany(companyId);
+    return ResponseEntity.ok(dashboardMapper.mapEntitiesToDtos(dashboardCreations));
   }
 }
 

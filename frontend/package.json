@@ -70,6 +70,7 @@
     "ngx-papaparse": "^5.0.0",
     "ngx-wow": "^2.0.1",
     "raw-loader": "^4.0.2",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.7",
     "sass": "^1.43.3",
     "tslib": "^2.0.0",

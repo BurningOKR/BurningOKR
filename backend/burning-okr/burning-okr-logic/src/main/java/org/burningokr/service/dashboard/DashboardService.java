@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 public class DashboardService {
   private final DashboardCreationRepository dashboardCreationRepository;
@@ -35,12 +37,16 @@ public class DashboardService {
   public DashboardCreation createDashboard(DashboardCreation dashboardCreation, User user) {
     dashboardCreation.setCreatorId(user.getId());
 
-    dashboardCreation = this.dashboardCreationRepository.save(dashboardCreation);
+    dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
     logger.info("Created Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.CREATED);
     createChartOptions(dashboardCreation, user);
 
     return dashboardCreation;
+  }
+
+  public Collection<DashboardCreation> findDashboardsOfCompany(long companyId) {
+    return dashboardCreationRepository.findDashboardCreationsByCompanyId(companyId);
   }
 
   private void createChartOptions(DashboardCreation dashboardCreation, User user) {

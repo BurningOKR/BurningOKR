@@ -42,7 +42,7 @@ public class ChartBuilderService {
 
     PieChartOptionsDto pieChartOptionsDto = new PieChartOptionsDto();
     pieChartOptionsDto.setTitle(chartCreationOptions.getTitle());
-    pieChartOptionsDto.setChart(chartCreationOptions.getChartType());
+    pieChartOptionsDto.setChart(chartCreationOptions.getChartType().ordinal());
     pieChartOptionsDto.setValueLabels(possibleStates);
 
     pieChartOptionsDto.setValueLabels(possibleStates);

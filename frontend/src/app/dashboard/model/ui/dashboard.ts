@@ -5,6 +5,6 @@ export interface Dashboard {
   id: number;
   title: string;
   creator: User;
-  charts: BaseChartOptions [];
+  charts: BaseChartOptions[];
   creationDate: Date;
 }
