@@ -1,6 +1,6 @@
 package org.burningokr.mapper.dashboard;
 
-import org.burningokr.dto.dashboard.ChartCreationOptionsDto;
+import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.slf4j.Logger;
