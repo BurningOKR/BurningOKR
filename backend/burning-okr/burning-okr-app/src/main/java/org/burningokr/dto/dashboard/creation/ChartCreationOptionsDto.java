@@ -1,4 +1,4 @@
-package org.burningokr.dto.dashboard;
+package org.burningokr.dto.dashboard.creation;
 
 import lombok.Data;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;

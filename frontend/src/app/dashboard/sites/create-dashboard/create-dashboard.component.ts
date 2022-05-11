@@ -20,10 +20,12 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 export class CreateDashboardComponent implements OnInit {
   teams$: Observable<OkrDepartment[]>;
-  chartTypes = Object.keys(ChartInformationTypeEnum).slice(0, Object.keys(ChartInformationTypeEnum).length/2);
+  companyId$: Observable<number>;
+  chartTypes = Object.keys(ChartInformationTypeEnum).slice(0, Object.keys(ChartInformationTypeEnum).length / 2);
   chartTypeRecord = ChartTypeEnumDropDownRecord;
 
-  dashboardCreationDto: DashboardCreationDto = {} as DashboardCreationDto; // This sets default values to prevent 'property of undefined' error on title
+  dashboardCreationDto: DashboardCreationDto = {} as DashboardCreationDto; // This sets default values to prevent
+                                                                           // 'property of undefined' error on title
   charts: ChartCreationOptionsDto[] = [];
   newChart: ChartCreationOptionsDto;
 
@@ -41,15 +43,17 @@ export class CreateDashboardComponent implements OnInit {
   */
   ngOnInit(): void {
     this.dashboardCreationDto.title = '';
-    this.resetNewChart();
-    this.teams$ = this.activatedRoute.paramMap
-      .pipe(
-        map(params => +params.get('companyId')),
-        switchMap(companyId => {
-          this.dashboardCreationDto.companyId = companyId;
+    this.companyId$ = this.activatedRoute.paramMap.pipe(
+      map(params => {
+        this.dashboardCreationDto.companyId = +params.get('companyId');
 
-          return this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId);
-        }));
+        return this.dashboardCreationDto.companyId;
+      })
+    );
+    this.resetNewChart();
+    this.teams$ = this.companyId$.pipe(
+      switchMap(companyId => this.departmentService.getAllDepartmentsForCompanyFlatted$(companyId)),
+    );
   }
 
   addChart(): void {
@@ -65,11 +69,9 @@ export class CreateDashboardComponent implements OnInit {
     this.dashboardCreationDto.chartCreationOptions = this.charts;
     this.dashboardService.createDashboard$(this.dashboardCreationDto)
       .pipe(take(1),
-        map(createdDashboard => {
-          console.log(createdDashboard);
-
-          return createdDashboard.id;
-        }))
+        map(createdDashboard =>
+          createdDashboard.id,
+        ))
       .subscribe(dashboardId => {
         this.navigateToCreatedDashboard(dashboardId);
       });
@@ -89,7 +91,7 @@ export class CreateDashboardComponent implements OnInit {
 
   chartSelected(change: MatSelectChange): void {
     this.newChart.chartType = change.value;
-    this.teamIsSelectable = this.newChart.chartType.toString() === ChartInformationTypeEnum.LINE_PROGRESS.toString(); // Always returns false without toString()
+    this.teamIsSelectable = this.newChart.chartType.toString() === ChartInformationTypeEnum.LINE_PROGRESS.toString(); // Always  returns  false without toString()
   }
 
   private resetNewChart(): void {

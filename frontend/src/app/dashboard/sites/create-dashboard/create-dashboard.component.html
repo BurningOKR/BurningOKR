@@ -6,13 +6,13 @@
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
-
 <div class="dashboard-creation-title">
   <mat-form-field>
     <input matInput placeholder="Dashboard-Titel" [(ngModel)]="dashboardCreationDto.title">
   </mat-form-field>
 </div>
 
+<div *ngIf="companyId$ | async">
 <div class="chart-creation">
 
   <div class="chart-creation-options" *ngFor="let chart of charts">
@@ -50,7 +50,8 @@
       </mat-select>
     </mat-form-field>
 
-    <button [disabled]="!newChartValid()" class="chart-creation-add-button" mat-icon-button mat-mini-fab color="accent"
+    <button [disabled]="!newChartValid()" class="chart-creation-add-button" mat-icon-button mat-mini-fab
+            color="accent"
             (click)="addChart()">
       <mat-icon>add</mat-icon>
     </button>
@@ -63,4 +64,5 @@
     <mat-icon>add_circle_outline</mat-icon>
     Dashboard anlegen
   </button>
+</div>
 </div>

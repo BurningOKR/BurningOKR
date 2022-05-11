@@ -1,7 +1,7 @@
 package org.burningokr.mapper.dashboard;
 
-import org.burningokr.dto.dashboard.ChartCreationOptionsDto;
-import org.burningokr.dto.dashboard.DashboardCreationDto;
+import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
+import org.burningokr.dto.dashboard.creation.DashboardCreationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;

@@ -28,6 +28,10 @@ public class DashboardService {
     this.activityService = activityService;
   }
 
+  public DashboardCreation findDashboardCreationById(long dashboardId) {
+    return dashboardCreationRepository.findByIdOrThrow(dashboardId);
+  }
+
   public DashboardCreation createDashboard(DashboardCreation dashboardCreation, User user) {
     dashboardCreation.setCreatorId(user.getId());
 
