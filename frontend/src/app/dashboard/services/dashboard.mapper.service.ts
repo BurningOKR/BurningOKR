@@ -14,7 +14,6 @@ export class DashboardMapperService {
 
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
     const new_dashboardDto: DashboardDto = plainToClass(DashboardDto, dashboardDto);
-    console.log(dashboardDto.creator);
 
     return {
       id: new_dashboardDto.id,
