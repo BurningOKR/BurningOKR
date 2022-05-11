@@ -1,7 +1,7 @@
 import { PieChartOptions } from '../../ui/pie-chart-options';
 import { BaseChartOptionsDto } from './base-chart-options.dto';
 
-export abstract class PieChartOptionsDto extends BaseChartOptionsDto {
+export class PieChartOptionsDto extends BaseChartOptionsDto {
   series: number[];
   valueLabels: string[];
 

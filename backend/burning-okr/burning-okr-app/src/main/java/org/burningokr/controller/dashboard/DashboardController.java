@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Collection;
+
 @RestApiController
 public class DashboardController {
   private DashboardService dashboardService;
@@ -21,9 +23,10 @@ public class DashboardController {
   private DataMapper<DashboardCreation, DashboardDto> dashboardMapper;
 
   @Autowired
-  public DashboardController(DashboardService dashboardService,
-                             DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper,
-                             DataMapper<DashboardCreation, DashboardDto> dashboardMapper
+  public DashboardController(
+    DashboardService dashboardService,
+    DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper,
+    DataMapper<DashboardCreation, DashboardDto> dashboardMapper
   ) {
     this.dashboardService = dashboardService;
     this.dashboardCreationMapper = dashboardCreationMapper;
@@ -47,12 +50,21 @@ public class DashboardController {
 
   /**
    * API Endpoint to get a DashboardDto by id.
-   *
    */
   @GetMapping("/dashboards/{dashboardId}")
-  public ResponseEntity<DashboardDto> getDashboardById(@PathVariable long dashboardId) {
+  public ResponseEntity<DashboardDto> getDashboardById(
+    @PathVariable long dashboardId
+  ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
+  }
+
+  @GetMapping("/dashboards/company/{companyId}")
+  public ResponseEntity<Collection<DashboardDto>> getDashboardsOfCompany(
+    @PathVariable long companyId
+  ) {
+    Collection<DashboardCreation> dashboardCreations = dashboardService.findDashboardsOfCompany(companyId);
+    return ResponseEntity.ok(dashboardMapper.mapEntitiesToDtos(dashboardCreations));
   }
 }
 

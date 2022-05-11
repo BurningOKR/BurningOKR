@@ -15,7 +15,3 @@ export const ChartTypeEnumDropDownRecord: Record<ChartInformationTypeEnum, strin
   [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'Übersicht Themenentwürfe - Kuchendiagramm',
 };
 
-export const ChartTypeOptionStringRecord: Record<ChartInformationTypeEnum, string> = {
-  [ChartInformationTypeEnum.LINE_PROGRESS]: 'line',
-  [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'pie',
-}

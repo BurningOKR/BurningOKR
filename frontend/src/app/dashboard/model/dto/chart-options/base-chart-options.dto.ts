@@ -2,8 +2,9 @@ import { ChartInformationTypeEnum } from '../chart-creation-options.dto';
 
 export abstract class BaseChartOptionsDto {
   title: string;
+  chart: ChartInformationTypeEnum;
 
-  abstract buildChartOptions();
+  public abstract buildChartOptions();
 }
 
 export interface ChartTitle {

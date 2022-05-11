@@ -6,18 +6,20 @@ import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.ChartBuilderService;
+import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DashboardMapper implements DataMapper<DashboardCreation, DashboardDto> {
   private final ChartBuilderService chartBuilderService;
+  private final UserService userService;
 
   @Override
-  public DashboardCreation mapDtoToEntity(DashboardDto input) {
+  public DashboardCreation mapDtoToEntity(DashboardDto dtos) {
     return null;
   }
 
@@ -26,7 +28,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
     DashboardDto dto = new DashboardDto();
     dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
-    dto.setCreatorId(entity.getCreatorId());
+    dto.setCreator(userService.findById(entity.getCreatorId()));
 
     BaseChartOptionsDto[] chartOptionsDtos = entity.getChartCreationOptions().stream().map(chartBuilderService::buildChart).toArray(BaseChartOptionsDto[]::new);
     dto.setChartDtos(chartOptionsDtos);
@@ -35,12 +37,16 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
   }
 
   @Override
-  public Collection<DashboardCreation> mapDtosToEntities(Collection<DashboardDto> input) {
+  public Collection<DashboardCreation> mapDtosToEntities(Collection<DashboardDto> dtos) {
     return null;
   }
 
   @Override
-  public Collection<DashboardDto> mapEntitiesToDtos(Collection<DashboardCreation> input) {
-    return null;
+  public Collection<DashboardDto> mapEntitiesToDtos(Collection<DashboardCreation> entities) {
+    Collection<DashboardDto> dtos = new ArrayList<>();
+    for (DashboardCreation entity : entities) {
+      dtos.add(mapEntityToDto(entity));
+    }
+    return dtos;
   }
 }
