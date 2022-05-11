@@ -103,7 +103,6 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   private navigateToCreatedDashboard(dashboardId: number): void {
-    console.log(`${location.origin}/dashboard/${dashboardId}`);
-    this.router.navigateByUrl(`${location.origin}/dashboard/${dashboardId}`);
+    this.router.navigate([`/dashboard/${dashboardId}`]);
   }
 }
