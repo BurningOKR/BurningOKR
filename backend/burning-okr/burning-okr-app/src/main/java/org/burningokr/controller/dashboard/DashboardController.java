@@ -42,7 +42,8 @@ public class DashboardController {
    */
   @PostMapping("/dashboards")
   public ResponseEntity<DashboardCreationDto> createDashboard(
-    @RequestBody DashboardCreationDto dashboardCreationDto, User user) {
+    @RequestBody DashboardCreationDto dashboardCreationDto, User user
+  ) {
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
     dashboardCreation = dashboardService.createDashboard(dashboardCreation, user);
     return ResponseEntity.ok(dashboardCreationMapper.mapEntityToDto(dashboardCreation));

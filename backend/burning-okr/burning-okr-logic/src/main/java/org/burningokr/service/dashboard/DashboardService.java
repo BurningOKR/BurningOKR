@@ -24,8 +24,9 @@ public class DashboardService {
   @Autowired
   public DashboardService(
     DashboardCreationRepository dashboardCreationRepository,
-                          ChartCreationOptionsRepository chartCreationOptionsRepository,
-                          ActivityService activityService) {
+    ChartCreationOptionsRepository chartCreationOptionsRepository,
+    ActivityService activityService
+  ) {
     this.dashboardCreationRepository = dashboardCreationRepository;
     this.chartCreationOptionsRepository = chartCreationOptionsRepository;
     this.activityService = activityService;

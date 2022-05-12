@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -59,5 +60,13 @@ public class KeyResultHistoryService {
     newKeyResultHistory.setTargetValue(keyResult.getTargetValue());
     KeyResultHistory createdHistory = keyResultHistoryRepository.save(newKeyResultHistory);
     activityService.createActivity(user, createdHistory, Action.CREATED);
+  }
+
+  public KeyResultHistory findOldestKeyResultHistoryForKeyResultList(Collection<KeyResult> keyResults) {
+    return keyResultHistoryRepository.findFirstByKeyResultInOrderByDateChangedDateChangedAsc(keyResults);
+  }
+
+  public KeyResultHistory findNewestKeyResultHistoryForKeyResultList(Collection<KeyResult> keyResults) {
+    return keyResultHistoryRepository.findFirstByKeyResultInOrderByDateChangedDateChangedDesc(keyResults);
   }
 }
