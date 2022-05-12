@@ -5,7 +5,7 @@ import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
-import org.burningokr.service.ChartBuilderService;
+import org.burningokr.service.dashboard.ChartBuilderService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 

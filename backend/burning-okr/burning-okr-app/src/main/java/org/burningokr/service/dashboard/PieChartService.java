@@ -1,8 +1,6 @@
-package org.burningokr.service;
+package org.burningokr.service.dashboard;
 
 import lombok.RequiredArgsConstructor;
-import org.burningokr.dto.dashboard.BaseChartOptionsDto;
-import org.burningokr.dto.dashboard.LineChartOptionsDto;
 import org.burningokr.dto.dashboard.PieChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
@@ -12,26 +10,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-
 @Service
 @RequiredArgsConstructor
-public class ChartBuilderService {
+public class PieChartService {
   private final OkrTopicDraftService topicDraftService;
 
-  public BaseChartOptionsDto buildChart(ChartCreationOptions chartCreationOptions) {
-    BaseChartOptionsDto chartOptionsDto;
-    switch(chartCreationOptions.getChartType()) {
-      case LINE_PROGRESS: chartOptionsDto = buildLineProgressChart(chartCreationOptions);
-        break;
-      case PIE_TOPICDRAFTOVERVIEW:
-         chartOptionsDto = buildPieTopicDraftOverviewChart(chartCreationOptions);
-      break;
-      default: ;chartOptionsDto = buildPieTopicDraftOverviewChart(chartCreationOptions);
-    }
-    return chartOptionsDto;
-  }
-
-  private PieChartOptionsDto buildPieTopicDraftOverviewChart(ChartCreationOptions chartCreationOptions) {
+  public PieChartOptionsDto buildTopicDraftOverviewChart(ChartCreationOptions chartCreationOptions) {
     String[] possibleStates = {"Draft", "Submitted", "Approved", "Rejected"};
     Double[] stateCount = new Double[4];
     Collection<OkrTopicDraft> topicDrafts = topicDraftService.getAllTopicDrafts();
@@ -49,9 +33,5 @@ public class ChartBuilderService {
     pieChartOptionsDto.setSeries(stateCount);
 
     return pieChartOptionsDto;
-  }
-
-  private LineChartOptionsDto buildLineProgressChart(ChartCreationOptions chartCreationOptions) {
-    return null;
   }
 }
