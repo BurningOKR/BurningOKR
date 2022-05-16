@@ -7,5 +7,5 @@ import java.util.Collection;
 @Data
 public class LineChartLineKeyValues {
   String name;
-  Collection<Double> number;
+  Collection<Double> data;
 }

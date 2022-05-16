@@ -2,10 +2,11 @@ import { LineChartOptions } from '../../ui/line-chart-options';
 import { BaseChartOptionsDto } from './base-chart-options.dto';
 
 export class LineChartOptionsDto extends BaseChartOptionsDto {
+  xaxisCategories: string[];
   series: LineChartLineKeyValues[];
-  xAxisCategories: string[];
 
   buildChartOptions(): LineChartOptions {
+    console.log(this.xaxisCategories);
     const lineChartOptions: LineChartOptions = new LineChartOptions();
 
     lineChartOptions.series = this.series;
@@ -33,7 +34,7 @@ export class LineChartOptionsDto extends BaseChartOptionsDto {
       },
     };
     lineChartOptions.xaxis = {
-      categories: this.xAxisCategories,
+      categories: this.xaxisCategories,
     };
 
     return lineChartOptions;

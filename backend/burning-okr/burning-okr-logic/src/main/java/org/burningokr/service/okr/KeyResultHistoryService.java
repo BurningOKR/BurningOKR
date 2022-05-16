@@ -29,7 +29,7 @@ public class KeyResultHistoryService {
    */
   @Transactional
   public void updateKeyResultHistory(User user, KeyResult keyResult) {
-    KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedDesc(keyResult)
+    KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult)
       .get(0);
 
     if (keyResultHistory.getDateChanged().equals(LocalDate.now())) {
@@ -61,10 +61,6 @@ public class KeyResultHistoryService {
   }
 
   public KeyResultHistory findOldestKeyResultHistoryForKeyResultList(Collection<KeyResult> keyResults) {
-    return keyResultHistoryRepository.findFirstByKeyResultInOrderByDateChangedDateChangedAsc(keyResults);
-  }
-
-  public KeyResultHistory findNewestKeyResultHistoryForKeyResultList(Collection<KeyResult> keyResults) {
-    return keyResultHistoryRepository.findFirstByKeyResultInOrderByDateChangedDateChangedDesc(keyResults);
+    return keyResultHistoryRepository.findTopByKeyResultInOrderByDateChangedAsc(keyResults);
   }
 }

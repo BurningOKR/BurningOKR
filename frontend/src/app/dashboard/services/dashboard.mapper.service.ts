@@ -24,6 +24,7 @@ export class DashboardMapperService {
           [ChartInformationTypeEnum.LINE_PROGRESS]: plainToClass(LineChartOptionsDto, chartDto),
           [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: plainToClass(PieChartOptionsDto, chartDto),
         };
+        console.log(chartDto);
 
         return ChartTypeOptionStringRecord[chartDto.chart].buildChartOptions();
       }),

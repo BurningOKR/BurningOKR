@@ -59,7 +59,7 @@ public class LineChartService {
     LocalDate startDate = keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(keyResults)
       .getDateChanged();
     LocalDate today = LocalDate.now();
-    long numberOfDays = ChronoUnit.DAYS.between(startDate, today);
+    long numberOfDays = ChronoUnit.DAYS.between(startDate, today) + 1; // +1 because we also include the startDate
 
     if (chartCreationOptions.getTeamIds().size() > 0) {
       for (long teamId : chartCreationOptions.getTeamIds()) {
@@ -73,7 +73,7 @@ public class LineChartService {
 
         LineChartLineKeyValues lineChartLineKeyValues = new LineChartLineKeyValues();
         lineChartLineKeyValues.setName(team.getName());
-        lineChartLineKeyValues.setNumber(getProgressForTeam(team, startDate, numberOfDays));
+        lineChartLineKeyValues.setData(getProgressForTeam(team, startDate, numberOfDays));
         lineChartLineKeyValuesList.add(lineChartLineKeyValues);
       }
     }
@@ -170,11 +170,11 @@ public class LineChartService {
       }
       if (keyResultHistory != null) {
         double target = keyResultHistory.getTargetValue() - keyResultHistory.getStartValue();
-        double start = keyResultHistory.getCurrentValue() - keyResultHistory.getStartValue();
-        if (start == 0) {
+        double currentValue = keyResultHistory.getCurrentValue() - keyResultHistory.getStartValue();
+        if (currentValue == 0) {
           keyResultProgress.add(0.0);
         } else {
-          keyResultProgress.add(target / start * 100);
+          keyResultProgress.add(100 / target * currentValue);
         }
       } else {
         int size = keyResultProgress.size();
@@ -204,7 +204,7 @@ public class LineChartService {
 
     LineChartLineKeyValues lineChartLineKeyValuesNoValues = new LineChartLineKeyValues();
     lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
-    lineChartLineKeyValuesNoValues.setNumber(Stream.of(50.0).collect(Collectors.toList()));
+    lineChartLineKeyValuesNoValues.setData(Stream.of(50.0).collect(Collectors.toList()));
 
     lineChartKeyValuesList.add(lineChartLineKeyValuesNoValues);
 
