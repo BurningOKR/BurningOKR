@@ -1,47 +1,42 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { CurrentOkrUnitSchemaService } from './current-okr-unit-schema.service';
-import { map, switchMap } from 'rxjs/operators';
 import { DepartmentNavigationInformation } from '../shared/model/ui/department-navigation-information';
+import { OkrUnitSchema } from '../shared/model/ui/okr-unit-schema';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrentNavigationService {
 
-  private currentDepartmentNavigationInformation$ = new BehaviorSubject<DepartmentNavigationInformation>(
-    new DepartmentNavigationInformation(-1, [])
-  );
+  currentNavigationInformation = new DepartmentNavigationInformation();
 
-  constructor(private okrUnitSchemaService: CurrentOkrUnitSchemaService) {
+  getClosedStructures(): number[] {
+    return this.currentNavigationInformation.departmentsToClose;
   }
 
-  getCurrentDepartmentNavigationInformation$(): Observable<DepartmentNavigationInformation> {
-    return this.currentDepartmentNavigationInformation$.asObservable();
+  isStructureMarkedAsClosed(id: number): boolean {
+    return this.currentNavigationInformation.departmentsToClose.includes(id);
   }
 
-  refreshDepartmentNavigationInformation(): void {
-    this.okrUnitSchemaService.getCurrentUnitId$()
-      .pipe(
-        switchMap((unitSchemaId: number) => {
-            return this.okrUnitSchemaService.getUnitIdsToReachUnitWithId$(unitSchemaId)
-              .pipe(
-                map((departmentIdList: number[]) => {
-                    return new DepartmentNavigationInformation(unitSchemaId, departmentIdList);
-                  }
-                )
-              );
-          }
-        )
-      )
-      .subscribe((departmentNavigationInformation: DepartmentNavigationInformation) => {
-          this.currentDepartmentNavigationInformation$.next(departmentNavigationInformation);
-        }
-      );
+  markStructureAsClosed(schema: OkrUnitSchema): void {
+    if((schema === null) || (schema === undefined)){
+      return;
+    }
+    if(!this.isStructureMarkedAsClosed(schema.id)){
+      this.currentNavigationInformation.departmentsToClose.push(schema.id);
+      schema.subDepartments.forEach(subDepartment => this.markStructureAsClosed(subDepartment));
+    }
   }
 
-  clearDepartmentNavigationInformation(): void {
-    this.currentDepartmentNavigationInformation$.next(new DepartmentNavigationInformation(-1, []));
+  markStructureAsOpen(id: number): void {
+    const index: number = this.currentNavigationInformation.departmentsToClose.indexOf(id);
+    this.currentNavigationInformation.departmentsToClose.splice(index, 1);
   }
 
+  isStructureSelected(id: number): boolean {
+    return this.currentNavigationInformation.selectedStructure === id;
+  }
+
+  markStructureAsSelected(id: number): void {
+    this.currentNavigationInformation.selectedStructure = id;
+  }
 }

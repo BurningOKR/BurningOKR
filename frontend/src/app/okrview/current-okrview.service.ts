@@ -23,12 +23,10 @@ export class CurrentOkrviewService {
   }
 
   browseCompany(companyId: CompanyId): void {
-    this.currentNavigationService.clearDepartmentNavigationInformation();
     this.fetchNewValuesForCompanyId(companyId);
   }
 
   browseDepartment(departmentId: DepartmentId): void {
-    this.currentNavigationService.clearDepartmentNavigationInformation();
     this.fetchNewValuesForDepartmentId(departmentId);
   }
 
@@ -41,7 +39,6 @@ export class CurrentOkrviewService {
   }
 
   private fetchNewValuesForCompanyId(companyId: CompanyId): void {
-    this.currentNavigationService.clearDepartmentNavigationInformation();
     this.currentCompanyService.setCurrentCompanyByCompanyId(companyId);
     this.currentOkrUnitSchemaService.setCurrentUnitSchemaByCompanyId(companyId);
   }
@@ -49,7 +46,5 @@ export class CurrentOkrviewService {
   private fetchNewValuesForDepartmentId(departmentId: DepartmentId): void {
     this.currentCompanyService.setCurrentCompanyByChildDepartmentId(departmentId);
     this.currentOkrUnitSchemaService.setCurrentUnitSchemaByDepartmentId(departmentId);
-    this.currentNavigationService.refreshDepartmentNavigationInformation();
-
   }
 }
