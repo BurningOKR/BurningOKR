@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.dashboard.LineChartLineKeyValues;
 import org.burningokr.dto.dashboard.LineChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
+import org.burningokr.model.dashboard.ChartInformationTypeEnum;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.histories.KeyResultHistory;
@@ -19,6 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -35,6 +37,7 @@ public class LineChartService {
     ArrayList<OkrDepartment> allTeamsOfCompany = new ArrayList<OkrDepartment>(BranchHelper.collectDepartments(company));
     ArrayList<OkrDepartment> teams = new ArrayList<>();
 
+    ArrayList<LineChartLineKeyValues> lineChartLineKeyValuesList = new ArrayList<>();
     ArrayList<Objective> objectives = new ArrayList<>();
     ArrayList<KeyResult> keyResults = new ArrayList<>();
 
@@ -49,18 +52,13 @@ public class LineChartService {
       keyResults.addAll(objective.getKeyResults());
     }
 
-
-    // company.getOkrChildUnits().forEach(department -> department.getObjectives().forEach(objective -> keyResults.addAll(objective.getKeyResults())));
-
     if (keyResults.size() == 0) {
       return getNoValuesFoundLineChartOptionsDto(chartCreationOptions);
     }
 
     LocalDate startDate = keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(keyResults).getDateChanged();
-    LocalDate lastDate = keyResultHistoryService.findNewestKeyResultHistoryForKeyResultList(keyResults).getDateChanged();
-    long numberOfDays = ChronoUnit.DAYS.between(startDate, lastDate);
-
-    ArrayList<LineChartLineKeyValues> lineChartLineKeyValuesList = new ArrayList<>();
+    LocalDate today = LocalDate.now();
+    long numberOfDays = ChronoUnit.DAYS.between(startDate, today);
 
     if (chartCreationOptions.getTeamIds().size() > 0) {
       for (long teamId : chartCreationOptions.getTeamIds()) {
@@ -77,16 +75,17 @@ public class LineChartService {
     }
 
     LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
+    lineChartOptionsDto.setTitle(chartCreationOptions.getTitle());
     lineChartOptionsDto.setSeries(lineChartLineKeyValuesList);
     lineChartOptionsDto.setXAxisCategories(getProgressXAxis(startDate, numberOfDays));
-    return new LineChartOptionsDto();
+    lineChartOptionsDto.setChart(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
+    return lineChartOptionsDto;
   }
 
   private ArrayList<Double> getProgressForTeam(OkrChildUnit okrDepartment, LocalDate startDate, long numberOfDays) {
     ArrayList<Double> teamProgress = new ArrayList<>();
     ArrayList<ArrayList<Double>> objectiveProgressLists = new ArrayList<>();
     ArrayList<Objective> objectives = new ArrayList<Objective>(okrDepartment.getObjectives());
-    ArrayList<String> xAxis = new ArrayList<>();
 
     for (Objective objective : objectives) {
       objectiveProgressLists.add(getProgressForObjective(objective, startDate, numberOfDays));
@@ -162,15 +161,19 @@ public class LineChartService {
         }
       }
       if (keyResultHistory != null) {
-        keyResultProgress.add(
-          (double) keyResultHistory.getTargetValue() - keyResultHistory.getStartValue() /
-            keyResultHistory.getCurrentValue() - keyResultHistory.getStartValue() * 100);
+        double target = keyResultHistory.getTargetValue() - keyResultHistory.getStartValue();
+        double start = keyResultHistory.getCurrentValue() - keyResultHistory.getStartValue();
+        if(start == 0)
+          keyResultProgress.add(0.0);
+        else {
+          keyResultProgress.add(target / start * 100);
+        }
       } else {
         int size = keyResultProgress.size();
         if (size > 0) {
           keyResultProgress.add(keyResultProgress.get(size - 1));
         } else {
-          keyResultProgress.add(null); // Adding null to filter out days without any key-result progress in later calculations
+          keyResultProgress.add(null); // Adding null to filter out days without any key-result progress for keyResult in later calculations
         }
       }
       currentDate = currentDate.plusDays(1);
@@ -178,14 +181,13 @@ public class LineChartService {
     return keyResultProgress;
   }
 
-  private ArrayList<String> getProgressXAxis(LocalDate startDate, long numberOfDays) {
-    ArrayList<String> xAxis = new ArrayList<>();
+  private Collection<String> getProgressXAxis(LocalDate startDate, long numberOfDays) {
+    Collection<String> xAxis = new ArrayList<>();
     LocalDate currentDate = startDate;
     for (int i = 0; i < numberOfDays; i++) {
       xAxis.add(currentDate.toString());
       currentDate = currentDate.plusDays(1);
     }
-
     return xAxis;
   }
 

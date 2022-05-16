@@ -18,8 +18,12 @@ public class ChartBuilderService {
       case PIE_TOPICDRAFTOVERVIEW:
          chartOptionsDto = pieChartService.buildTopicDraftOverviewChart(chartCreationOptions);
       break;
-      default: chartOptionsDto = lineChartService.buildProgressChart(chartCreationOptions);
+      default:
+        chartOptionsDto = lineChartService.buildProgressChart(chartCreationOptions);
+      break;
     }
+
+    chartOptionsDto.setTitle(chartCreationOptions.getTitle());
     return chartOptionsDto;
   }
 }
