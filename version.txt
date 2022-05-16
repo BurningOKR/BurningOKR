@@ -8,3 +8,4 @@
 - Bugfix: Language Picker dialogue can be submitted with ENTER
 - Bugfix: After login the original deeplink is loaded
 - Bugfix: Structures no longer collapse when clicking on them
+- Usability: Cycle administration now shows current structure

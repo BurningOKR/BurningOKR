@@ -31,7 +31,8 @@ export class VersionFormComponent {
         'Usability: Logmessage added when the server has started',
         'Bugfix: Choosing correct company for cycle management',
         'Usability development: Configuration cleanup',
-        'Usability development: refactored topic draft'
+        'Usability development: refactored topic draft',
+        'Usability: Cycle administration now shows current structure'
       ]
     },
     {
