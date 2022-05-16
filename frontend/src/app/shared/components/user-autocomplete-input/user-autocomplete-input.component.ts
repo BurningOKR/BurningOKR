@@ -75,7 +75,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
 
   private loadUserListFromService(): void {
     this.userList$ = this.userService
-      .getAllUsers$()
+      .getAllActiveUsers$()
       .pipe(
         map((users: User[]) =>
           users.sort((a, b) => {

@@ -1,15 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async data-src="https://www.googletagmanager.com/gtag/js?id=G-V55XCZ1WCB" type="text/plain" data-type="application/javascript" data-name="analytics"></script>
+  <!-- Matomo -->
   <script data-type="application/javascript" data-name="analytics" type="text/plain">
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-V55XCZ1WCB');
-	</script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//www.brockhaus-ag.de/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '165']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
   <meta charset="utf-8">
   <title>Burning OKR</title>
   <base href="/">

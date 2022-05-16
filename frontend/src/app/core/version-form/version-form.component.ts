@@ -11,6 +11,20 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.4.5 (16.05.2022)',
+      changes: [
+        'Feature: Buttons to add new Items will now look the same',
+        'Feature: Added SpringBoot Actuators',
+        'Feature: Teammembers can now create Objectives and KeyResults',
+        'Feature: Objectives now show childobjectives',
+        'Bugfix: TopicDrafts are now convertable to drafts again',
+        'Bugfix: User Input Filds will only show active Users',
+        'Bugfix: Language Picker dialogue can be submitted with ENTER',
+        'Bugfix: After login the original deeplink is loaded',
+        'Bugfix: Structures no longer collapse when clicking on them'
+      ]
+    },
+    {
       version: '1.4.4 (08.03.2022)',
       changes: [
         'Usability: Objectives and keyresults are now added at the bottom',
@@ -19,7 +33,7 @@ export class VersionFormComponent {
         'Bugfix: Choosing correct company for cycle management',
         'Usability development: Configuration cleanup',
         'Usability development: refactored topic draft',
-        'Usability: Objectives now show childobjectives'
+        'Usability: Cycle administration now shows current structure'
       ]
     },
     {

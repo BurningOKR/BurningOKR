@@ -24,6 +24,10 @@ export class UserApiService {
     return this.api.getData$('users');
   }
 
+  getActiveUsers$(): Observable<User[]> {
+    return this.api.getData$('users?activeUsers=true');
+  }
+
   createLocalUser$(user: User): Observable<User> {
     return this.api.postData$('users', user);
   }
