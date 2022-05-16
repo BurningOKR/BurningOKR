@@ -48,6 +48,15 @@ export class ObjectiveViewMapper {
       .pipe(map(ObjectiveViewMapper.mapToViewObjective));
   }
 
+  getChildObjectivesOfObjectiveById$(id: number): Observable<ViewObjective[]> {
+    return this.objectiveApiService.getChildObjectivesOfObjectiveById$(id)
+      .pipe(
+        map((objectiveList: ObjectiveDto[]) => {
+          return objectiveList.map(ObjectiveViewMapper.mapToViewObjective);
+        })
+      );
+  }
+
   getObjectivesForDepartment$(departmentId: number): Observable<ViewObjective[]> {
     return this.objectiveApiService.getObjectivesForDepartment$(departmentId)
       .pipe(
