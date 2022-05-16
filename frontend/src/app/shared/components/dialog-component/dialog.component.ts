@@ -41,7 +41,7 @@ export class DialogComponent<T> implements OnInit{
   }
 
   handleEnter(event): void {
-    if (!this.NO_ENTER_TAGS.includes(event.target.tagName)
+    if ((event.target.id === 'language-select' || !this.NO_ENTER_TAGS.includes(event.target.tagName))
         && !this.isSaveDisabled()) {
       this.sendOk();
     }

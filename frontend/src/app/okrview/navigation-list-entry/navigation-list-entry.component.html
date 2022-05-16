@@ -1,7 +1,7 @@
 <div class="list-entry" [ngClass]="isSecondUnit? 'secondary-color':'first-color'">
   <div class="flex-nowrap"
-       [ngClass]="isCurrentDepartment()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' ">
-    <button mat-button class="entry-title flex-nowrap" [ngClass]="!schema.isActive? 'font-italic' : '' " [routerLink]="['./departments/'+schema.id] ">
+       [ngClass]="isSelectedStructure()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' ">
+    <button mat-button class="entry-title flex-nowrap" [ngClass]="!schema.isActive? 'font-italic' : '' " [routerLink]="['./departments/'+schema.id] " (click)="selectStructure()">
       <div class="flex-nowrap">
         <mat-icon *ngIf="isUnitSubstructure()"
                   matTooltip="{{ 'navigation-list-entry.tooltip.is-substructure' | translate }}" class="icon-spacer">
@@ -31,7 +31,7 @@
   </div>
   <div *ngIf="isOpen && hasChildUnits()" class="list-subentries">
     <app-navigation-list-entry *ngFor="let departmentSchema of schema.subDepartments" [schema]="departmentSchema"
-                               [isSecondUnit]="!isSecondUnit" [startsOpen]="schema.subDepartments.length === 1">
+                               [isSecondUnit]="!isSecondUnit">
     </app-navigation-list-entry>
   </div>
 </div>

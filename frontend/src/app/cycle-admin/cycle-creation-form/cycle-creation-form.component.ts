@@ -34,6 +34,9 @@ export class CycleCreationFormComponent implements OnInit {
   title$: Observable<string>;
   saveAndCloseLabel: string;
 
+  firstAvailableDate: Date;
+  minimumCycleDuration: number = 3;
+
   constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
               private cycleMapper: CycleMapper,
               private companyService: CompanyMapper,
@@ -58,6 +61,7 @@ export class CycleCreationFormComponent implements OnInit {
 
     this.title$ = this.translate.stream('cycle-creation-form.creation-dialog.title');
     this.saveAndCloseLabel = this.translate.instant('cycle-creation-form.creation-dialog.save');
+    this.firstAvailableDate = new Date();
   }
 
   closeDialog(): void {
@@ -94,5 +98,11 @@ export class CycleCreationFormComponent implements OnInit {
     this.dialogRef.close(
       this.cycleMapper.cloneCycleFromCycleId$(
         this.formData.company.cycleId, this.cycleMapper.mapCycleToCycleUnit(cycle)));
+  }
+
+  dateChangeHandler(event) {
+    const date: Date = event.value.toDate();
+    date.setDate(date.getDate() + this.minimumCycleDuration);
+    this.firstAvailableDate = date;
   }
 }

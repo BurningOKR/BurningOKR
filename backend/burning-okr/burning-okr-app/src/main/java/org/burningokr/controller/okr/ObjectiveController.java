@@ -97,6 +97,14 @@ public class ObjectiveController {
     return ResponseEntity.ok(noteObjectiveMapper.mapEntitiesToDtos(noteObjectives));
   }
 
+  @GetMapping("/objectives/{objectiveId}/childobjectives")
+  public ResponseEntity<Collection<ObjectiveDto>> getChildsOfObjective(
+      @PathVariable long objectiveId) {
+    Collection<Objective> childObjectives =
+        objectiveService.findChildObjectivesOfObjective(objectiveId);
+    return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(childObjectives));
+  }
+
   /**
    * API Endpoint to add Key Result to an Objective.
    *
@@ -107,7 +115,7 @@ public class ObjectiveController {
    * @throws Exception if max Key Results reached or cycle is closed
    */
   @PostMapping("objectives/{objectiveId}/keyresults")
-  @PreAuthorize("@authorizationService.hasManagerPrivilegeForObjective(#objectiveId)")
+  @PreAuthorize("@authorizationService.hasMemberPrivilegeForObjective(#objectiveId)")
   public ResponseEntity<KeyResultDto> addKeyResultToObjective(
       @PathVariable long objectiveId, @Valid @RequestBody KeyResultDto keyResultDto, User user)
       throws Exception {

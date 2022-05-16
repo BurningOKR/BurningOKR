@@ -26,10 +26,19 @@ We are already working on a faster and easier installation process, so stay tune
 1. Install [PostgreSQL](/docs/postgres_install.md) or [MSSQL](/docs/mssql_install.md)
 2. Install JDK 8. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
 3. Install the (!) LTS Version of node & npm [here](https://nodejs.org/en/download/)
-4. Download the following [Batch-Script](/docs/scripts/SetupBurningOKR_windows.bat) and put it in the folder, where you want the project to be. Execute the script. The following three tasks will be done by the script:
-   1. Clone the Repository with `git clone https://github.com/BurningOKR/BurningOKR`. The whole repository (including frontend and backend) is cloned.
-   2. Run `npm install @angular/cli -g`
-   3. Run `npm install` in the frontend folder
+4. Download the following [Batch-Script](/docs/scripts/SetupBurningOKR_windows.bat) and put it in the folder, where you want the project to be. Execute the script.  
+Or execute the following command:  
+```
+curl https://raw.githubusercontent.com/BurningOKR/BurningOKR/master/docs/scripts/SetupBurningOKR_windows.bat > temp.bat && temp.bat && DEL temp.bat
+```   
+The following tasks will be done by the script:
+   1. Clone the Repository with `git clone https://github.com/BurningOKR/BurningOKR`. (The whole repository, including frontend and backend)
+   2. Install NodeJS (optional)
+   3. Install Docker (optional)
+   4. Install Angular `npm install @angular/cli -g`
+   5. Install Dependencies (in the frontend folder) `npm install`
+   6. Install Postgres (optional via Docker) 
+
 5. Open the frontend-folder and the backend-folder in seperate windows in your IDE. (We recommend IntelliJ, VS Code should also do the trick)
 6. [Configure](/docs/configure.md) the backend.
 7. Start the frontend with `npm start`

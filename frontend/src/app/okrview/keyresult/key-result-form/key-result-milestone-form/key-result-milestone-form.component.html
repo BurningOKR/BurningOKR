@@ -1,11 +1,5 @@
 <mat-slide-toggle class="toggleMilestone" [checked]="isChecked" [disabled]="formArray?.length > 0" (change)="isChecked=$event.checked">{{ 'key-result-milestone-form.toggle' | translate }}</mat-slide-toggle>
 
-<button class="addMilestone-button" mat-mini-fab matTooltip="{{ 'key-result-milestone-form.tooltip.add-button' | translate }}" (click)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked">
-  <mat-icon>
-    add_circle_outline
-  </mat-icon>
-</button>
-
 <div *ngIf="isChecked" class="keyresult-milestone-form-wrapper">
   <div class="inputs" *ngFor="let formGroup of formArray.controls">
     <mat-form-field class="text-input">
@@ -27,3 +21,4 @@
     </button>
   </div>
 </div>
+<app-add-button text="{{ 'key-result-milestone-form.add-button' | translate }}" (buttonClicked)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked"> </app-add-button>

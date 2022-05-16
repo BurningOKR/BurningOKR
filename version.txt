@@ -1,8 +1,13 @@
-1.4.4
+1.4.5
 
-- Usability: Objectives and keyresults are now added at the bottom
-- Usability: Dateformat is now dependent on the language
-- Usability: Logmessage added when the server has started
-- Bugfix: Choosing correct company for cycle management
-- Usability development: Configuration cleanup
-- Usability development: refactored topic draft
+- Feature: Buttons to add new Items will now look the same
+- Feature: Added SpringBoot Actuators
+- Feature: Teammembers can now create Objectives and KeyResults
+- Feature: End date in cycle creation now can't be less than start date
+- Bugfix: TopicDrafts are now convertable to drafts again
+- Bugfix: User Input Filds will only show active Users
+- Bugfix: Language Picker dialogue can be submitted with ENTER
+- Bugfix: After login the original deeplink is loaded
+- Bugfix: Structures no longer collapse when clicking on them
+- Usability: Cycle administration now shows current structure
+- Usability: Objectives now show childobjectives
