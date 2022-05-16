@@ -20,7 +20,10 @@ public class ChartBuilderService {
         break;
       default:
         chartOptionsDto = lineChartService.buildProgressChart(chartCreationOptions);
+        break;
     }
+
+    chartOptionsDto.setTitle(chartCreationOptions.getTitle());
     return chartOptionsDto;
   }
 }

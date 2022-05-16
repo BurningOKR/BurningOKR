@@ -57,7 +57,8 @@ public class DashboardController {
     @PathVariable long dashboardId
   ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
-    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
+    DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
+    return ResponseEntity.ok(dashboardDto);
   }
 
   @GetMapping("/dashboards/company/{companyId}")

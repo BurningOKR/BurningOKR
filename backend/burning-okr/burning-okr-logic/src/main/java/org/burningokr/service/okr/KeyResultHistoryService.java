@@ -26,7 +26,6 @@ public class KeyResultHistoryService {
    *
    * @param keyResult a {@link KeyResult} object
    * @param user      a {@link User} object
-   *
    */
   @Transactional
   public void updateKeyResultHistory(User user, KeyResult keyResult) {
@@ -49,7 +48,6 @@ public class KeyResultHistoryService {
    *
    * @param keyResult a {@link KeyResult} object
    * @param user      a {@link User} object
-   *
    */
   public void createKeyResultHistory(User user, KeyResult keyResult) {
     KeyResultHistory newKeyResultHistory = new KeyResultHistory();
