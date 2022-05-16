@@ -8,8 +8,8 @@
   <span>{{ 'cycle-admin-container.administration' | translate }}</span>
   <span class="fill-space"></span>
 </app-okr-toolbar>
-<!-- Generell Buttons -->
 <div class="margin-toolbar item-actions">
+  <h1> {{ company.name }}</h1>
   <app-add-button text="{{ 'cycle-admin-container.create-new-cycle' | translate }}" (buttonClicked)="createCycle()"></app-add-button>
 </div>
 <div *ngFor="let cycle of (cycles$ | async)">

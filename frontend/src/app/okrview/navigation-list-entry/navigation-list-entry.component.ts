@@ -1,53 +1,43 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { OkrUnitSchema, OkrUnitRole } from '../../shared/model/ui/okr-unit-schema';
 import { CurrentNavigationService } from '../current-navigation.service';
-import { DepartmentNavigationInformation } from '../../shared/model/ui/department-navigation-information';
 
 @Component({
   selector: 'app-navigation-list-entry',
   templateUrl: './navigation-list-entry.component.html',
   styleUrls: ['./navigation-list-entry.component.scss']
 })
-export class NavigationListEntryComponent implements OnInit, OnDestroy {
+export class NavigationListEntryComponent implements OnInit {
   @Input() schema: OkrUnitSchema;
   @Input() isSecondUnit: boolean = true;
-  @Input() startsOpen: boolean = false;
 
-  currentNavigationInformation = new DepartmentNavigationInformation(-1, []);
-  navigationInformationSubscription: Subscription;
-  isOpen = false;
+  isOpen = true;
 
   constructor(private currentNavigationService: CurrentNavigationService) {}
 
   ngOnInit(): void {
-    if (this.startsOpen) {
-      this.isOpen = true;
-    }
-    this.navigationInformationSubscription = this.currentNavigationService
-      .getCurrentDepartmentNavigationInformation$()
-      .subscribe(x => {
-        this.currentNavigationInformation = x;
-        if (!(this.currentNavigationInformation.departmentsToOpen.indexOf(this.schema.id) !== -1)) {
-          this.isOpen = true;
-        }
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.navigationInformationSubscription.unsubscribe();
+    this.isOpen = !this.currentNavigationService.isStructureMarkedAsClosed(this.schema.id);
   }
 
   toggleOpen(): void {
+    if(this.isOpen){
+      this.currentNavigationService.markStructureAsClosed(this.schema);
+    } else {
+      this.currentNavigationService.markStructureAsOpen(this.schema.id);
+    }
     this.isOpen = !this.isOpen;
+  }
+
+  selectStructure(): void {
+    this.currentNavigationService.markStructureAsSelected(this.schema.id);
   }
 
   hasChildUnits(): boolean {
     return this.schema.subDepartments.length > 0;
   }
 
-  isCurrentDepartment(): boolean {
-    return this.currentNavigationInformation.departmentId === this.schema.id;
+  isSelectedStructure(): boolean {
+    return this.currentNavigationService.isStructureSelected(this.schema.id);
   }
 
   isMemberOfUnit(): boolean {
