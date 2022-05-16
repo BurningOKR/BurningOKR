@@ -6,3 +6,4 @@
 - Bugfix: Choosing correct company for cycle management
 - Usability development: Configuration cleanup
 - Usability development: refactored topic draft
+- Usability: Cycle administration now shows current structure
