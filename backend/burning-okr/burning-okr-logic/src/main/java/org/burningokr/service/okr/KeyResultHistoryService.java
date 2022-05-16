@@ -10,7 +10,6 @@ import org.burningokr.service.activity.ActivityService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
@@ -30,7 +29,7 @@ public class KeyResultHistoryService {
    */
   @Transactional
   public void updateKeyResultHistory(User user, KeyResult keyResult) {
-    KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedDesc(keyResult).get(0);
+    KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult).get(0);
 
     if (keyResultHistory.getDateChanged().equals(LocalDate.now())) {
       keyResultHistory.setStartValue(keyResult.getStartValue());
@@ -63,10 +62,6 @@ public class KeyResultHistoryService {
   }
 
   public KeyResultHistory findOldestKeyResultHistoryForKeyResultList(Collection<KeyResult> keyResults) {
-    return keyResultHistoryRepository.findFirstByKeyResultInOrderByDateChangedDateChangedAsc(keyResults);
-  }
-
-  public KeyResultHistory findNewestKeyResultHistoryForKeyResultList(Collection<KeyResult> keyResults) {
-    return keyResultHistoryRepository.findFirstByKeyResultInOrderByDateChangedDateChangedDesc(keyResults);
+    return keyResultHistoryRepository.findTopByKeyResultInOrderByDateChangedAsc(keyResults);
   }
 }
