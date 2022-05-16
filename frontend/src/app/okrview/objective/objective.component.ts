@@ -55,11 +55,8 @@ export class ObjectiveComponent implements OnInit{
   ngOnInit(){
     this.objectiveMapper
       .getChildObjectivesOfObjectiveById$(this.objective.id)
+      .pipe(take(1))
       .subscribe(childObjective => (this.childObjectives = childObjective));
-  }
-
-  showChildObjectives(): void {
-    this.childObjectives.forEach(element => console.log(element));
   }
 
   isProgressValueSetForObjective(): boolean {
