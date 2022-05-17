@@ -1,3 +1,5 @@
+@import '../../../../styles/themes/bag-theme';
+
 .unit-name-entry {
   width: calc(100% - 45px);
   text-align: left;
@@ -8,7 +10,7 @@
 }
 
 .selected-unit {
-  background-color: #ededed;
+  background-color: $bag-theme-white;
 }
 
 .horizontal-line {
