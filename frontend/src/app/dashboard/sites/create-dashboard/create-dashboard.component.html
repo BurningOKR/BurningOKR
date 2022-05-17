@@ -16,17 +16,7 @@
 <div class="chart-creation">
 
   <div class="chart-creation-options" *ngFor="let chart of charts">
-    <p class="chart-title">Titel: {{chart.title}}</p>
-    <p>Art: {{chartTypeRecord[chart.chartType]}}</p>
-    <div> Teams:
-      <p class="chart-team-list" *ngFor="let team of chart.teamIds">
-        {{team}}</p>
-      <p class="chart-team-list" *ngIf="!chart.teamIds.length">Gesamte Firma</p>
-    </div>
-
-    <button mat-icon-button mat-mini-fab color="primary" (click)="deleteChart(chart)">
-      <mat-icon>delete</mat-icon>
-    </button>
+    <app-chart-options-card [chart]="chart" (clickedDelete)="deleteChart($event)" [allTeams$]="teams$"></app-chart-options-card>
   </div>
 
   <div class="chart-creation-options">
