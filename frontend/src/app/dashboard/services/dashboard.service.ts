@@ -28,4 +28,8 @@ export class DashboardService {
   createDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
     return this.dashboardApiService.postDashboard$(dashboard);
   }
+
+  deleteDashboardById$(dashboardId: number): Observable<boolean> {
+    return this.dashboardApiService.deleteDashboardById$(dashboardId);
+  }
 }

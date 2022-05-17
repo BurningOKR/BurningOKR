@@ -14,6 +14,6 @@
 
 <div class="dashboard-overview-cards d-flex">
   <div *ngFor="let dashboard of (currentCompanyDashboards$| async)">
-    <app-dashboard-card [dashboard]="dashboard"></app-dashboard-card>
+    <app-dashboard-card [dashboard]="dashboard" (deleteDashboard)="deleteDashboard($event)"></app-dashboard-card>
   </div>
 </div>

@@ -56,4 +56,11 @@ public class DashboardService {
       logger.info("Created ChartCreationOption: " + chartCreationOption.getTitle());
     }
   }
+
+  public void deleteDashboard(long dashboardId, User user) {
+    DashboardCreation dashboardCreationToDelete = dashboardCreationRepository.findByIdOrThrow(dashboardId);
+
+    dashboardCreationRepository.delete(dashboardCreationToDelete);
+    activityService.createActivity(user, dashboardCreationToDelete, Action.DELETED);
+  }
 }

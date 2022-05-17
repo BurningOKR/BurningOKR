@@ -2,10 +2,10 @@ package org.burningokr.dto.dashboard;
 
 import lombok.Data;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 @Data
 public class LineChartLineKeyValues {
   String name;
-  Collection<Double> data;
+  ArrayList<Double> data;
 }

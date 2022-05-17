@@ -9,10 +9,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.service.dashboard.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -36,7 +33,7 @@ public class DashboardController {
    * API Endpoint to create a DashboardCreation
    *
    * @param dashboardCreationDto a {@link DashboardCreationDto} object
-   * @param user                 an {@link User} object
+   * @param user                 a {@link User} object
    * @return a {@link ResponseEntity} ok with the created DashboardCreation
    */
   @PostMapping("/dashboards")
@@ -50,6 +47,8 @@ public class DashboardController {
   /**
    * API Endpoint to get a DashboardDto by id.
    *
+   * @param dashboardId a {@link Long} object
+   * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
    */
   @GetMapping("/dashboards/{dashboardId}")
   public ResponseEntity<DashboardDto> getDashboardById(@PathVariable long dashboardId) {
@@ -58,10 +57,29 @@ public class DashboardController {
     return ResponseEntity.ok(dashboardDto);
   }
 
+  /**
+   * API Endpoint to get all dashboards of a company
+   *
+   * @param companyId a {@link Long} object
+   * @return a {@link ResponseEntity} ok with a {@link Collection} of Dashboards
+   */
   @GetMapping("/dashboards/company/{companyId}")
   public ResponseEntity<Collection<DashboardDto>> getDashboardsOfCompany(@PathVariable long companyId) {
     Collection<DashboardCreation> dashboardCreations = dashboardService.findDashboardsOfCompany(companyId);
     return ResponseEntity.ok(dashboardMapper.mapEntitiesToDtos(dashboardCreations));
+  }
+
+  /**
+   * API Endpoint to delete a DashboardCreation
+   *
+   * @param dashboardId a {@link Long} object
+   * @param user        a {@link User} object
+   * @return a {@link ResponseEntity} ok
+   */
+  @DeleteMapping("dashboards/{dashboardId}")
+  public ResponseEntity deleteDashboard(@PathVariable long dashboardId, User user) {
+    dashboardService.deleteDashboard(dashboardId, user);
+    return ResponseEntity.ok().build();
   }
 }
 

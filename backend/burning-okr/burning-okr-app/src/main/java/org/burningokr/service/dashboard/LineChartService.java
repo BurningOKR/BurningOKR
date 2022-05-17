@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,19 +30,16 @@ public class LineChartService {
   private final KeyResultHistoryService keyResultHistoryService;
 
   public LineChartOptionsDto buildProgressChart(ChartCreationOptions chartCreationOptions) {
-    OkrCompany company = companyService.findById(chartCreationOptions.getDashboardCreation().getCompanyId());
-    ArrayList<OkrDepartment> allTeamsOfCompany = new ArrayList<OkrDepartment>(BranchHelper.collectDepartments(company));
-    ArrayList<OkrDepartment> teams = new ArrayList<>();
+    LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
+    Collection<LineChartLineKeyValues> lineChartLineKeyValuesList = new ArrayList<>();
+    Collection<Objective> objectives = new ArrayList<>();
+    Collection<KeyResult> keyResults = new ArrayList<>();
+    Collection<OkrDepartment> teams;
 
-    ArrayList<LineChartLineKeyValues> lineChartLineKeyValuesList = new ArrayList<>();
-    ArrayList<Objective> objectives = new ArrayList<>();
-    ArrayList<KeyResult> keyResults = new ArrayList<>();
+    teams = getTeamsForChart(chartCreationOptions.getDashboardCreation().getCompanyId(), chartCreationOptions.getTeamIds());
 
-    for (OkrDepartment team : allTeamsOfCompany) {
-      if (allTeamsOfCompany.stream().anyMatch(companyTeam -> Objects.equals(companyTeam.getId(), team.getId()))) {
-        teams.add(team);
-        objectives.addAll(team.getObjectives());
-      }
+    for (OkrDepartment team : teams) {
+      objectives.addAll(team.getObjectives());
     }
 
     for (Objective objective : objectives) {
@@ -60,27 +54,70 @@ public class LineChartService {
     LocalDate today = LocalDate.now();
     long numberOfDays = ChronoUnit.DAYS.between(startDate, today) + 1; // +1 because we also include the startDate
 
-    if (chartCreationOptions.getTeamIds().size() > 0) {
-      for (long teamId : chartCreationOptions.getTeamIds()) {
-        OkrDepartment team = teams.stream().filter(okrDepartment -> okrDepartment.getId() == teamId).findFirst().orElseThrow(
-          () ->
-            new EntityNotFoundException(
-              "Entity mit id " + teamId + " konnte nicht gefunden werden"));
 
-        LineChartLineKeyValues lineChartLineKeyValues = new LineChartLineKeyValues();
-        lineChartLineKeyValues.setName(team.getName());
-        lineChartLineKeyValues.setData(getProgressForTeam(team, startDate, numberOfDays));
-        lineChartLineKeyValuesList.add(lineChartLineKeyValues);
-      }
+    for (OkrDepartment team : teams) {
+      LineChartLineKeyValues lineChartLineKeyValues = new LineChartLineKeyValues();
+      lineChartLineKeyValues.setName(team.getName());
+      lineChartLineKeyValues.setData(getProgressForTeam(team, startDate, numberOfDays));
+      lineChartLineKeyValuesList.add(lineChartLineKeyValues);
     }
 
-    LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
+    if (chartCreationOptions.getTeamIds().size() == 0) {
+      lineChartOptionsDto.setSeries(Collections.singletonList(getProgressForCompany(lineChartLineKeyValuesList, numberOfDays)));
+    } else {
+      lineChartOptionsDto.setSeries(lineChartLineKeyValuesList);
+    }
     lineChartOptionsDto.setTitle(chartCreationOptions.getTitle());
-    lineChartOptionsDto.setSeries(lineChartLineKeyValuesList);
     lineChartOptionsDto.setXAxisCategories(getProgressXAxis(startDate, numberOfDays));
     lineChartOptionsDto.setChart(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
     return lineChartOptionsDto;
   }
+
+  private Collection<OkrDepartment> getTeamsForChart(Long companyId, Collection<Long> teamIds) {
+    ArrayList<OkrDepartment> allTeamsOfCompany;
+
+    OkrCompany company = companyService.findById(companyId);
+    allTeamsOfCompany = new ArrayList<OkrDepartment>(BranchHelper.collectDepartments(company));
+
+    if (teamIds.size() == 0)
+      return allTeamsOfCompany;
+    else {
+      Collection<OkrDepartment> teams = new ArrayList<>();
+      for (OkrDepartment team : allTeamsOfCompany) {
+        if (teamIds.stream().anyMatch(teamId -> team.getId().equals(teamId))) {
+          teams.add(team);
+        }
+      }
+      return teams;
+    }
+  }
+
+  private LineChartLineKeyValues getProgressForCompany(Collection<LineChartLineKeyValues> teamProgressLineChartValueList, long numberOfDays) {
+    LineChartLineKeyValues avgCompanyProgressLineChartKeyValues = new LineChartLineKeyValues();
+    ArrayList<Double> companyProgress = new ArrayList<>();
+
+    for (int i = 0; i < numberOfDays; i++) {
+      double sumDay = 0;
+      int numberOfTeamsThatDay = 0;
+      for (LineChartLineKeyValues teamProgress : teamProgressLineChartValueList) {
+        if (teamProgress.getData().get(i) != null) {
+          sumDay += teamProgress.getData().get(i);
+          numberOfTeamsThatDay++;
+        }
+      }
+      if (numberOfTeamsThatDay > 0) {
+        companyProgress.add(sumDay / numberOfTeamsThatDay);
+      } else {
+        companyProgress.add(null);
+      }
+    }
+
+    avgCompanyProgressLineChartKeyValues.setName("Durchschnitt der Firma");
+    avgCompanyProgressLineChartKeyValues.setData(companyProgress);
+
+    return avgCompanyProgressLineChartKeyValues;
+  }
+
 
   private ArrayList<Double> getProgressForTeam(OkrChildUnit okrDepartment, LocalDate startDate, long numberOfDays) {
     ArrayList<Double> teamProgress = new ArrayList<>();
@@ -163,7 +200,7 @@ public class LineChartService {
       if (keyResultHistory != null) {
         double target = keyResultHistory.getTargetValue() - keyResultHistory.getStartValue();
         double currentValue = keyResultHistory.getCurrentValue() - keyResultHistory.getStartValue();
-        if(currentValue == 0)
+        if (currentValue == 0)
           keyResultProgress.add(0.0);
         else {
           keyResultProgress.add(100 / target * currentValue);
@@ -196,7 +233,7 @@ public class LineChartService {
 
     LineChartLineKeyValues lineChartLineKeyValuesNoValues = new LineChartLineKeyValues();
     lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
-    lineChartLineKeyValuesNoValues.setData(Stream.of(50.0).collect(Collectors.toList()));
+    lineChartLineKeyValuesNoValues.setData(new ArrayList<>(Collections.singletonList(50.0)));
 
     lineChartKeyValuesList.add(lineChartLineKeyValuesNoValues);
 

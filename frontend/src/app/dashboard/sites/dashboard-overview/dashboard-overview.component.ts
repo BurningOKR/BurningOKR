@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Dashboard } from '../../model/ui/dashboard';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -24,5 +24,11 @@ export class DashboardOverviewComponent implements OnInit {
 
     this.currentCompanyDashboards$ = this.companyId$.pipe(
       switchMap(companyId => this.dashboardService.getDashboardsByCompanyId$(companyId)));
+  }
+
+  deleteDashboard(dashboard: Dashboard) {
+    this.dashboardService.deleteDashboardById$(dashboard.id)
+      .pipe(take(1))
+      .subscribe(val => console.log(val));
   }
 }
