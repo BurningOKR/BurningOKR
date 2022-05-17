@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { merge, Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Dashboard } from '../../model/ui/dashboard';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -13,6 +14,7 @@ import { DashboardService } from '../../services/dashboard.service';
 export class DashboardOverviewComponent implements OnInit {
   currentCompanyDashboards$: Observable<Dashboard[]>;
   companyId$: Observable<number>;
+  deleteTrigger$: Subject<Dashboard> = new Subject<Dashboard>();
 
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly dashboardService: DashboardService) {
@@ -22,13 +24,18 @@ export class DashboardOverviewComponent implements OnInit {
     this.companyId$ = this.activatedRoute.paramMap.pipe(
       map(params => +params.get('companyId')));
 
-    this.currentCompanyDashboards$ = this.companyId$.pipe(
+    const loadDashboard$: Observable<Dashboard[]> =  this.companyId$.pipe(
       switchMap(companyId => this.dashboardService.getDashboardsByCompanyId$(companyId)));
+
+    const dashboardReloadOnDelete$: Observable<Dashboard[]> = this.deleteTrigger$.pipe(
+      switchMap(dashboard => this.dashboardService.deleteDashboardById$(dashboard.id)),
+        switchMap(() => this.companyId$),
+        switchMap(companyId => this.dashboardService.getDashboardsByCompanyId$(companyId)));
+
+    this.currentCompanyDashboards$ = merge(loadDashboard$, dashboardReloadOnDelete$);
   }
 
   deleteDashboard(dashboard: Dashboard) {
-    this.dashboardService.deleteDashboardById$(dashboard.id)
-      .pipe(take(1))
-      .subscribe(val => console.log(val));
+    this.deleteTrigger$.next(dashboard);
   }
 }
