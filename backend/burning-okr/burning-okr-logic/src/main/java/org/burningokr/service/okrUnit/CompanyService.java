@@ -3,6 +3,8 @@ package org.burningokr.service.okrUnit;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
@@ -29,60 +31,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class CompanyService {
 
   private final Logger logger = LoggerFactory.getLogger(CompanyService.class);
 
-  private CycleRepository cycleRepository;
-  private CompanyHistoryRepository companyHistoryRepository;
-  private BranchHistoryRepository branchHistoryRepository;
-  private DepartmentHistoryRepository departmentHistoryRepository;
-  private CompanyRepository companyRepository;
-  private UnitRepository<OkrChildUnit> unitRepository;
-  private ActivityService activityService;
-  private EntityCrawlerService entityCrawlerService;
-  private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
-  private TaskBoardService taskBoardService;
-  private OkrTopicDraftRepository okrTopicDraftRepository;
-  private TopicDraftHistoryRepository topicDraftHistoryRepository;
-
-  /**
-   * Initialize CompanyService.
-   *
-   * @param cycleRepository a {@link CycleRepository} object
-   * @param companyHistoryRepository a {@link CompanyHistoryRepository} object
-   * @param companyRepository a {@link CompanyRepository} object
-   * @param unitRepository a {@link UnitRepository} object
-   * @param activityService an {@link ActivityService} object
-   * @param entityCrawlerService an {@link EntityCrawlerService} object
-   * @param okrTopicDescriptionRepository an {@link OkrTopicDescriptionRepository} object
-   */
-  public CompanyService(
-      CycleRepository cycleRepository,
-      CompanyHistoryRepository companyHistoryRepository,
-      BranchHistoryRepository branchHistoryRepository,
-      DepartmentHistoryRepository departmentHistoryRepository,
-      CompanyRepository companyRepository,
-      UnitRepository<OkrChildUnit> unitRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService,
-      OkrTopicDescriptionRepository okrTopicDescriptionRepository,
-      OkrTopicDraftRepository okrTopicDraftRepository,
-      TopicDraftHistoryRepository topicDraftHistoryRepository,
-      TaskBoardService taskBoardService) {
-    this.cycleRepository = cycleRepository;
-    this.companyHistoryRepository = companyHistoryRepository;
-    this.branchHistoryRepository = branchHistoryRepository;
-    this.departmentHistoryRepository = departmentHistoryRepository;
-    this.companyRepository = companyRepository;
-    this.unitRepository = unitRepository;
-    this.activityService = activityService;
-    this.entityCrawlerService = entityCrawlerService;
-    this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
-    this.taskBoardService = taskBoardService;
-    this.okrTopicDraftRepository = okrTopicDraftRepository;
-    this.topicDraftHistoryRepository = topicDraftHistoryRepository;
-  }
+  private final CycleRepository cycleRepository;
+  private final CompanyHistoryRepository companyHistoryRepository;
+  private final BranchHistoryRepository branchHistoryRepository;
+  private final DepartmentHistoryRepository departmentHistoryRepository;
+  private final CompanyRepository companyRepository;
+  private final UnitRepository<OkrChildUnit> unitRepository;
+  private final ActivityService activityService;
+  private final EntityCrawlerService entityCrawlerService;
+  private final OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  private final TaskBoardService taskBoardService;
+  private final OkrTopicDraftRepository okrTopicDraftRepository;
+  private final TopicDraftHistoryRepository topicDraftHistoryRepository;
 
   public OkrCompany findById(long companyId) {
     return this.companyRepository.findByIdOrThrow(companyId);
@@ -90,6 +55,32 @@ public class CompanyService {
 
   public Collection<OkrCompany> getAllCompanies() {
     return Lists.newArrayList(companyRepository.findAll());
+  }
+
+  public Collection<OkrCompany> getCompaniesByActiveStatus(boolean active) {
+    Collection<OkrCompany> okrCompanies;
+    if (active) {
+      okrCompanies =
+          getAllCompanies().stream()
+              .filter(okrCompany -> okrCompany.getCycle().getCycleState() != CycleState.CLOSED)
+              .collect(Collectors.toList());
+    } else {
+      okrCompanies =
+          getAllCompanies().stream()
+              .filter(okrCompany -> okrCompany.getCycle().getCycleState() == CycleState.CLOSED)
+              .collect(Collectors.toList());
+    }
+
+    return okrCompanies;
+  }
+
+  public Collection<OkrCompany> attachCycleNameToCompanyName(Collection<OkrCompany> okrCompanies) {
+    return okrCompanies.stream()
+        .peek(
+            okrCompany ->
+                okrCompany.setName(
+                    okrCompany.getName() + " (" + okrCompany.getCycle().getName() + ")"))
+        .collect(Collectors.toList());
   }
 
   public Collection<OkrCompany> findCompanyHistoryByCompanyId(long companyId) {

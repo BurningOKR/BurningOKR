@@ -1,12 +1,10 @@
 package org.burningokr.controller.okr;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.StructureDto;
 import org.burningokr.mapper.okr.StructureMapper;
-import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.springframework.http.ResponseEntity;
@@ -26,18 +24,21 @@ public class StructureController {
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
    */
   @GetMapping("/structure")
-  public ResponseEntity<Collection<StructureDto>> getAllCompanyStructures(@RequestParam(name = "active", required = false) Boolean activeFilter) {
+  public ResponseEntity<Collection<StructureDto>> getAllCompanyStructures(
+      @RequestParam(name = "active", required = false) Boolean activeFilter,
+      @RequestParam(name = "attachCycleName", defaultValue = "false") boolean attachCycleName) {
+    Collection<OkrCompany> okrCompanies;
 
-    Collection<OkrCompany> okrCompanies = this.companyService.getAllCompanies();
-    Collection<StructureDto> structureDtos;
-
-    if (activeFilter != null && activeFilter) {
-      okrCompanies = okrCompanies.stream().filter(okrCompany -> okrCompany.getCycle().getCycleState() != CycleState.CLOSED).collect(Collectors.toList());
-    } else if (activeFilter != null){
-      okrCompanies = okrCompanies.stream().filter(okrCompany -> okrCompany.getCycle().getCycleState() == CycleState.CLOSED).collect(Collectors.toList());
+    if (activeFilter != null) {
+      okrCompanies = this.companyService.getCompaniesByActiveStatus(activeFilter);
+    } else {
+      okrCompanies = this.companyService.getAllCompanies();
     }
 
-    structureDtos = structureMapper.mapCompaniesToStructureDtos(okrCompanies);
-    return ResponseEntity.ok(structureDtos);
+    if (attachCycleName) {
+      okrCompanies = companyService.attachCycleNameToCompanyName(okrCompanies);
+    }
+
+    return ResponseEntity.ok(structureMapper.mapCompaniesToStructureDtos(okrCompanies));
   }
 }
