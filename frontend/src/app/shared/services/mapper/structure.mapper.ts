@@ -21,9 +21,9 @@ export class StructureMapper {
       );
   }
 
-  getSchemaOfAllActiveStructures$(): Observable<Structure[]>{
+  getSchemaOfAllActiveStructuresWithCycleName$(): Observable<Structure[]>{
     return this.structureApiService
-      .getSchemaOfAllActiveStructures$().pipe(
+      .getSchemaOfAllActiveStructuresWithCycleName$().pipe(
         map(companies => this.mapDtosToStructureArray(companies))
       );
   }

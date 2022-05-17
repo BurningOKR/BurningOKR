@@ -34,7 +34,7 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit, OnDestr
     private convertTopicDraftToTeamService: ConvertTopicDraftToTeamService) { }
 
   ngOnInit(): void {
-    this.companyStructures$ = this.structureMapper.getSchemaOfAllActiveStructures$();
+    this.companyStructures$ = this.structureMapper.getSchemaOfAllActiveStructuresWithCycleName$();
 
     this.topicDraft = this.formData.topicDraft;
     this.chooseStructure = new FormGroup(

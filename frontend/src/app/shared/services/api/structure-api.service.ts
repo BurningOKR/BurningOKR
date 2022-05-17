@@ -16,7 +16,7 @@ export class StructureApiService {
     return this.api.getData$('structure');
   }
 
-  getSchemaOfAllActiveStructures$(): Observable<StructureDto[]> {
-    return this.api.getData$('structure?active=true');
+  getSchemaOfAllActiveStructuresWithCycleName$(): Observable<StructureDto[]> {
+    return this.api.getData$('structure?active=true&attachCycleName=true');
   }
 }
