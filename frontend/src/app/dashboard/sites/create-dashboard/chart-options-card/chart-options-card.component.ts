@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { ChartCreationOptionsDto, ChartTypeEnumDropDownRecord } from '../../../model/dto/chart-creation-options.dto';
 
