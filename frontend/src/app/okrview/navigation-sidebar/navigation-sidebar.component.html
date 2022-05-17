@@ -16,7 +16,7 @@
     </div>
 
     <div *ngFor="let unitSchema of (currentUnitSchema$ | async)">
-      <app-navigation-list-entry [schema]="unitSchema" [startsOpen]="true" (click)="closeSideNavMobileOnly()">
+      <app-navigation-list-entry [schema]="unitSchema" (click)="closeSideNavMobileOnly()">
       </app-navigation-list-entry>
     </div>
 

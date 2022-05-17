@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ObjectiveRepository extends ExtendedRepository<Objective, Long> {
   @Query("SELECT o FROM Objective o WHERE o.parentOkrUnit = ?1 ORDER BY sequence")
   List<Objective> findByUnitAndOrderBySequence(OkrChildUnit department);
+
+  List<Objective> findByParentObjectiveId(long id);
 }
