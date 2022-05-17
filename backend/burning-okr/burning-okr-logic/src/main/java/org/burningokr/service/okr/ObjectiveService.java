@@ -93,6 +93,10 @@ public class ObjectiveService {
     return objective.getNotes();
   }
 
+  public Collection<Objective> findChildObjectivesOfObjective(long objectiveId) {
+    return objectiveRepository.findByParentObjectiveId(objectiveId);
+  }
+
   /**
    * Updates an Objective.
    *

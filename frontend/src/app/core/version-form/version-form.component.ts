@@ -11,11 +11,13 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
-      version: '1.4.5 (03.05.2022)',
+      version: '1.4.5 (16.05.2022)',
       changes: [
         'Feature: Buttons to add new Items will now look the same',
         'Feature: Added SpringBoot Actuators',
         'Feature: Teammembers can now create Objectives and KeyResults',
+        'Feature: End date in cycle creation now can\'t be less than start date',
+        'Feature: Objectives now show childobjectives',
         'Bugfix: TopicDrafts are now convertable to drafts again',
         'Bugfix: User Input Filds will only show active Users',
         'Bugfix: Language Picker dialogue can be submitted with ENTER',
@@ -31,7 +33,8 @@ export class VersionFormComponent {
         'Usability: Logmessage added when the server has started',
         'Bugfix: Choosing correct company for cycle management',
         'Usability development: Configuration cleanup',
-        'Usability development: refactored topic draft'
+        'Usability development: refactored topic draft',
+        'Usability: Cycle administration now shows current structure'
       ]
     },
     {

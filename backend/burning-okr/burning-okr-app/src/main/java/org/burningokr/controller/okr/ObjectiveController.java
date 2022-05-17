@@ -97,6 +97,14 @@ public class ObjectiveController {
     return ResponseEntity.ok(noteObjectiveMapper.mapEntitiesToDtos(noteObjectives));
   }
 
+  @GetMapping("/objectives/{objectiveId}/childobjectives")
+  public ResponseEntity<Collection<ObjectiveDto>> getChildsOfObjective(
+      @PathVariable long objectiveId) {
+    Collection<Objective> childObjectives =
+        objectiveService.findChildObjectivesOfObjective(objectiveId);
+    return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(childObjectives));
+  }
+
   /**
    * API Endpoint to add Key Result to an Objective.
    *
