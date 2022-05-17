@@ -20,6 +20,7 @@ import { BaseChartComponent } from './charts/base-chart/base-chart.component';
 import { DashboardOverviewComponent } from './sites/dashboard-overview/dashboard-overview.component';
 import { CreateDashboardComponent } from './sites/create-dashboard/create-dashboard.component';
 import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-card/dashboard-card.component';
+import { ChartOptionsCardComponent } from './sites/create-dashboard/chart-options-card/chart-options-card.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-car
         DashboardOverviewComponent,
         CreateDashboardComponent,
         DashboardCardComponent,
+        ChartOptionsCardComponent,
     ],
   imports: [
     CommonModule,

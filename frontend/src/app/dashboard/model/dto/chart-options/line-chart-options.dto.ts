@@ -6,7 +6,6 @@ export class LineChartOptionsDto extends BaseChartOptionsDto {
   series: LineChartLineKeyValues[];
 
   buildChartOptions(): LineChartOptions {
-    console.log(this.xaxisCategories);
     const lineChartOptions: LineChartOptions = new LineChartOptions();
 
     lineChartOptions.series = this.series;

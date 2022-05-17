@@ -1,0 +1,12 @@
+<p class="chart-title">Titel: {{chart.title}}</p>
+<p>Art: {{chartTypeRecord[chart.chartType]}}</p>
+
+<div *ngIf="allTeams$ | async; let teams"> Teams:
+  <p class="chart-team-list" *ngFor="let team of getTeamsOfChart(teams)">
+    {{team.name}}</p>
+  <p class="chart-team-list" *ngIf="!chart.teamIds.length">Durchschnitt der Firma</p>
+</div>
+
+<button mat-icon-button mat-mini-fab color="primary" (click)="clickedDelete.next(chart)">
+  <mat-icon>delete</mat-icon>
+</button>

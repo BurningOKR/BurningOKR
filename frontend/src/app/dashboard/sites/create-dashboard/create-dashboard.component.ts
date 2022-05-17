@@ -37,10 +37,6 @@ export class CreateDashboardComponent implements OnInit {
               private readonly dashboardService: DashboardService) {
   }
 
-  /* TODO: p.b. 29-03-2022
-      I will rework (IF I HAVE TIME) this entire component to use a dynamic generated formgroup depending on the selection the user has made.
-      Should this comment be here after the 31-05-2022 then I didnt have enough time to do it and i recommend creating a U.S. for this.
-  */
   ngOnInit(): void {
     this.dashboardCreationDto.title = '';
     this.companyId$ = this.activatedRoute.paramMap.pipe(
@@ -92,6 +88,10 @@ export class CreateDashboardComponent implements OnInit {
   chartSelected(change: MatSelectChange): void {
     this.newChart.chartType = change.value;
     this.teamIsSelectable = this.newChart.chartType.toString() === ChartInformationTypeEnum.LINE_PROGRESS.toString(); // Always  returns  false without toString()
+  }
+
+  getTeamNameById(teams: OkrDepartment[], teamId: number): string {
+    return teams.find(team => team.id === teamId).name;
   }
 
   private resetNewChart(): void {
