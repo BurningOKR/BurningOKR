@@ -30,7 +30,8 @@ public class ConvertTopicDraftToTeamService {
     OkrTopicDraft topicDraft = this.okrTopicDraftService.findById(topicDraftId);
 
     if (topicDraft.getCurrentStatus() != OkrTopicDraftStatusEnum.approved) {
-      throw new NotApprovedException("TopicDraft has to be Approved before it can be converted to a Team");
+      throw new NotApprovedException(
+          "TopicDraft has to be Approved before it can be converted to a Team");
     }
 
     OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), user);
