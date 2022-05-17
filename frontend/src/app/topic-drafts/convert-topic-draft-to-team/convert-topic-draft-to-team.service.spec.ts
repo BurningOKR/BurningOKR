@@ -14,8 +14,6 @@ describe('ConvertTopicDraftToTeamService', () => {
   const mockStructure1: Structure = getMockStructure(1, 'MockStructure1', 'MockLabel1');
 
   beforeEach(() => {
-/*    topicDraftApiServiceMock.convertTopicDraftToTeam$.mockReset();
-    topicDraftApiServiceMock.convertTopicDraftToTeam$.mockReturnValue(convertTopicDraftToDepartmentMock$);*/
     convertTopicDraftToTeamService = new ConvertTopicDraftToTeamService(topicDraftApiServiceMock);
     selectedUnit$ = (convertTopicDraftToTeamService as any).selectedUnit$;
   });
