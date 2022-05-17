@@ -22,4 +22,8 @@ export class DashboardApiService {
   postDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
     return this.api.postData$<DashboardCreationDto>('dashboards', dashboard);
   }
+
+  deleteDashboardById$(dashboardId: number) {
+    return this.api.deleteData$(`dashboards/${dashboardId}`);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Dashboard } from '../../../model/ui/dashboard';
 
 @Component({
@@ -8,4 +8,5 @@ import { Dashboard } from '../../../model/ui/dashboard';
 })
 export class DashboardCardComponent{
   @Input() dashboard!: Dashboard;
+  @Output() deleteDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
 }
