@@ -1,4 +1,4 @@
-import { ApexDataLabels, ApexGrid, ApexStroke, ApexXAxis } from 'ng-apexcharts';
+import { ApexDataLabels, ApexGrid, ApexOptions, ApexStroke, ApexXAxis } from 'ng-apexcharts';
 import { BaseChartOptions } from './base-chart-options';
 
 export class LineChartOptions extends BaseChartOptions{
@@ -6,5 +6,6 @@ export class LineChartOptions extends BaseChartOptions{
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
   stroke: ApexStroke;
+  options: ApexOptions;
 }
 
