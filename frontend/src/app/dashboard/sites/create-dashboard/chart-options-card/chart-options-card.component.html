@@ -1,10 +1,13 @@
 <p class="chart-title">Titel: {{chart.title}}</p>
 <p>Art: {{chartTypeRecord[chart.chartType]}}</p>
 
-<div *ngIf="allTeams$ | async; let teams"> Teams:
+<div *ngIf="allTeams$ | async; let teams">
+  {{'chart-options-card.teams' | translate}}
   <p class="chart-team-list" *ngFor="let team of getTeamsOfChart(teams)">
     {{team.name}}</p>
-  <p class="chart-team-list" *ngIf="!chart.teamIds.length">Durchschnitt der Firma</p>
+  <p class="chart-team-list" *ngIf="!chart.teamIds.length">
+    {{'chart-options-card.company-average' | translate}}
+  </p>
 </div>
 
 <button mat-icon-button mat-mini-fab color="primary" (click)="clickedDelete.next(chart)">

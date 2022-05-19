@@ -1,886 +1,916 @@
 {
-  "add-child-unit-button": {
-    "add-new-child-unit": "Unterstruktur erstellen",
-    "demo-privacy-policy": "<div class=\"container footer-margin\">\n\n  <div class=\"content-container\">\n    <h1>DATENSCHUTZ</h1>\n\n    <div class=\"content-container\">\n      Mit dieser Erklärung informieren wir Sie über datenschutzrelevanten Aspekte sowie über die eingesetzten Maßnahmen, um Ihre Rechte zu wahren. Die Brockhaus AG hält sich an die Anforderungen des Bundesdatenschutzgesetzes (BDSG) und der EU-Datenschutzgrundverordnung (EU-DSGVO).\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>1. ERFASSUNG UND NUTZUNG PERSONENBEZOGENER DATEN</h3>\n\n    <div class=\"content-container\">\n      <h4>1.1. Grundsätzliches</h4>\n      Ihre Daten dienen allein dazu, Ihnen ein größtmögliches benutzerfreundliches, praktisches und sicheres Internetangebot anbieten zu können. Zu den personenbezogenen Daten gehören alle Informationen über persönliche oder sachliche Verhältnisse einer bestimmten oder bestimmbaren natürlichen Person, z.B. Name, Adresse, Kontaktdaten, IP-Adressen, übertragene Datenmengen usw.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.2. Rechtsgrundlagen</h4>\n      a) Die Bereitstellung dieser Webseite mit Produkten und Leistungen: Vertragsanbahnung bzw. Vertragserfüllung<br>\n      b) Anfragen per Post, eMail oder Fax an uns: Vertragsanbahnung bzw. Vertragserfüllung<br>\n      c) Links zu anderen Angeboten oder Auswertung der Zugriffe: berechtigtes Interesse\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.3. Automatische Verarbeitung durch Webseiten-Betrieb</h4>\n      Die Webseiten werden bei einem Provider in West Europa (Frankfurt, Deutschland) betrieben, der seinerseits für den Betrieb des Webangebotes die Zugriffe auf das System in sogenannten Serverlogs speichert. Hierbei werden in der Regel folgende Daten erhoben: IP-Adressen, Zeitstempel der Zugriffe, Namen der Webseiten, Übertragene Datenmengen, Abmeldungen bzw. Abbrüche, Browsertypen, Infos vom Betriebssystem, Referrer URLs. Diese Daten werden von uns nicht gespeichert oder ausgewertet. Im Falle eines berechtigten Verdachts auf Missbrauch anhand von konkreten Informationen, können diese Logfiles nachträglich geprüft werden.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.4. Dateneingaben durch den Webseiten-Nutzer</h4>\n      Sie können darüber hinaus, unsere Webseiten ohne die Eingabe persönlicher Daten uneingeschränkt nutzen. Sofern wir personenbezogene Daten erheben (Kontaktformular) werden wir jeweils über den Zweck, Umfang, Rechtmäßigkeit, und mögliche Weitergaben informieren und dies nur für diese Zwecke nutzen. Die Eingabe dieser Daten durch Sie erfolgt freiwillig.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>2. VERWENDUNG DER DATEN</h3>\n\n    <div class=\"content-container\">\n      <h4>2.1. Nutzung zur Leistungserbringung</h4>\n      Wir verwenden die erhobenen und verarbeiteten personenbezogenen Daten ausschließlich zu Zwecken der Erbringung unserer Leistungen aus der mit Ihnen geschlossenen Nutzungsvereinbarung sowie zur Abwicklungen von Zahlungen. Dabei beachten wir selbstverständlich alle anwendbaren Datenschutzgesetze, insbesondere das Bundesdatenschutzgesetz/EU-DSGVO sowie das Telemediengesetz (TMG).\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.2. Weitergabe an Dritte</h4>\n      Wir geben Ihre personenbezogenen Daten nicht an Dritte für Marketing- oder ähnliche Zwecke weiter. Eine Weitergabe von Daten erfolgt nur, wenn und soweit dies zur Durchführung der Nutzungsvereinbarung notwendig ist, die Brockhaus AG gesetzlich dazu verpflichtet wird oder es zur Durchsetzung der allgemeinen Nutzungsbedingungen oder anderer mit Ihnen geschlossenen Vereinbarungen sowie unserer Rechte und Forderungen erforderlich sein sollte.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.3. Kundeninformationen per eMail</h4>\n      Im Rahmen der Kundenbindung, versenden wir aktuelle Informationen an unsere Kunden, um Sie über Neuigkeiten und Änderungen innerhalb unseres Angebots zu informieren. Diese Informationen sind nicht zu verwechseln mit den allgemeinen Newslettern. Sofern es unsere Angebote betrifft und z.B. sicherheitsrelevante Punkte enthält oder wichtige Informationen aus unserem Hause, so können wir dies nur per eMail abwickeln. Bitte haben Sie Verständnis dafür.\n    </div>\n  </div>\n\n\n  <div class=\"content-container\">\n    <h3>3. COOKIES</h3>\n\n    <div class=\"content-container\">\n      Unsere Webseite verwendet Cookies, um Ihnen einen effektiven Umgang und ein benutzerfreundliches Handling zu bieten. Dies macht den Einsatz von Cookies erforderlich und begründet unser berechtigtes Interesse, diese Technik zu nutzen. Die meisten Browser bieten Ihnen die Funktionalität, sich die verwendeten Cookies anzeigen zu lassen.\n    </div>\n\n    <div class=\"content-container\">\n      Falls Sie die Verwendung von Cookies jedoch generell unterbinden möchten, besteht dazu bei Ihrem Browser die Möglichkeit, die Annahme und Speicherung neuer Cookies zu verhindern. Um herauszufinden, wie dies bei Ihrem Browser funktioniert, benutzen Sie bitte die Hilfe-Funktion des jeweiligen Browsers. Wir empfehlen Ihnen jedoch, die Cookies-Funktionen eingeschaltet zu lassen, da Ihnen nur dann das hohe Niveau des Benutzungskomforts, welches wir für Sie eingerichtet haben, in vollem Umfang zu Gute kommt. Wir erstellen keine Nutzerprofile aus diesen durch Cookies erfassten Nutzerdaten.\n    </div>\n\n    <div class=\"content-container\">\n      Zur Bearbeitung Ihrer Cookie-Einstellungen klicken sie bitte <a id=\"open-cookie-settings-link\" href=\"javascript:klaro.show();\">hier</a>.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>4. WEBSEITEN-AUSWERTUNGEN BZW. TOOLS</h3>\n    <div class=\"content-container\">Wir setzen folgendes Analyse-Tool für die Auswertung unserer Webseiten ein und beschreiben Ihnen dieses wie folgt:</div>\n    <div class=\"content-container\">\n      Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. („Google“). Google Analytics verwendet sog. „Cookies“, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Webseite durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung der Webseite werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Die im Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt. Wir haben zudem auf dieser Webseite Google Analytics um den Code „anonymizeIP“ erweitert. Dies garantiert die Maskierung Ihrer IP-Adresse, sodass alle Daten anonym erhoben werden. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt.\n    </div>\n    <div class=\"content-container\">\n      Im Auftrag des Betreibers dieser Website wird Google diese Information benutzen, um Ihre Nutzung der Webseite auszuwerten, um Reports über die Webseiten-Aktivitäten zusammenzustellen und um weitere mit der Webseiten-Nutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Webseitenbetreiber zu erbringen. Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall möglicherweise nicht sämtliche Funktionen dieser Webseite vollumfänglich werden nutzen können.\n    </div>\n    <div class=\"content-container\">\n      Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Webseite bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und installieren: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n    <div class=\"content-container\">\n      Alternativ zum Browser-Add-On, insbesondere bei Browsern auf mobilen Endgeräten, können Sie die Erfassung durch Google Analytics zudem verhindern, indem Sie auf diesen Link klicken. Es wird ein Opt-Out-Cookie gesetzt, das die zukünftige Erfassung Ihrer Daten beim Besuch dieser Website verhindert. Der Opt-Out-Cookie gilt nur in diesem Browser und nur für unsere Website und wird auf Ihrem Gerät abgelegt. Löschen Sie die Cookies in diesem Browser, müssen Sie das Opt-Out-Cookie erneut setze\n    </div>\n    <div class=\"content-container\">\n      Wir nutzen Google Analytics weiterhin dazu, Daten aus Double-Click-Cookies und auch AdWords zu statistischen Zwecken auszuwerten. Sollten Sie dies nicht wünschen, können Sie dies über den Anzeigenvorgaben-Manager (<a href=\"https://www.google.com/settings/ads/onweb/?hl=de\">https://www.google.com/settings/ads/onweb/?hl=de</a>) deaktivieren.\n    </div>\n    <div class=\"content-container\">\n      Sollten Sie der Erhebung widersprechen wollen, so können Sie über folgenden Link ein PlugIn nutzen und dieses installieren: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>5. SICHERHEIT</h3>\n\n\n    <div class=\"content-container\">\n      Die Brockhaus AG setzt technische und organisatorische Sicherheitsmaßnahmen ein, um zu gewährleisten, dass Ihre personenbezogenen Daten vor Verlust, unrichtigen Veränderungen oder unberechtigten Zugriffen Dritter geschützt sind. In jedem Fall haben nur berechtigte Personen Zutritt zu den persönlichen Daten, und dies auch nur insoweit, als es im Rahmen der oben genannten Zwecke erforderlich ist. Die Sicherheitsmaßnahmen werden ständig den verbesserten technischen Möglichkeiten angepasst.\n    </div>\n  </div>\n\n\n\n  <div class=\"content-container\">\n    <h3>6. WEITERE INFORMATIONSPFLICHTEN</h3>\n\n    <div class=\"content-container\">\n      <h4>6.1. Verantwortliche Stelle</h4>\n      BROCKHAUS AG, Lünen. Vollständige Kontaktdaten siehe Impressum.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.2. Datenschutzbeauftragter</h4>\n      P2 Consult<br>\n      Jürgen Golda<br>\n      Wilhelm-Bläser-Str. 3c, D-59174 Kamen<br>\n      Telefon: +49 (0) 2307 28 74 488<br>\n      Mail: datenschutz@brockhaus-ag.de<br>\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.3. Speicherdauer</h4>\n      Wir speichern Ihre Daten solange der Zweck der Speicherung erhalten bleibt (Anfragen, Projekte, Verträge, etc.) Sollte der Zweck entfallen oder Sie die Einwilligung zurückziehen, werden Ihre Daten durch den regelmäßigen Löschlauf gelöscht, sofern keine gesetzlichen Aufbewahrungsfristen eingehalten werden müssen.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.4. Kinder</h4>\n      Wir werden Daten von Kindern wissentlich nicht sammeln und verarbeiten. Sofern Schüler Anfragen stellen, werden wir die Daten nur dann speichern, wenn die ausdrückliche Zustimmung der Erziehungsberechtigten haben. Sofern Daten von Kindern dann gespeichert werden dürfen, werden wir diese nur im Rahmen der gesetzlichen Vorgaben weitergeben. Unter den Begriff \"Kinder\" fallen die Definitionen aus dem nationalen Recht und den bei uns geltenden gesetzlichen Bestimmungen.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.5. Profiling</h4>\n      Profiling Ihrer Daten findet nicht statt.\n      Eine automatische Entscheidungsfindung und/oder ein Profiling mit Ihren Daten findet bei uns nicht statt.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.6. Ihre Rechte</h4>\n      Sie können uns jederzeit ansprechen, wenn Sie eine Auskunft, eine Löschung, eine Einschränkung oder ein Widerspruch geltend machen wollen. Nutzen Sie dazu die vorhandenen Kontaktdaten. Anfragen müssen schriftlich gestellt werden, damit wir den Anfrager eindeutig identifizieren können.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.7. Beschwerderecht</h4>\n      Sofern Sie berechtigte Zweifel an unserem Umgang mit ihren Daten haben, informieren Sie uns oder wenden sie sich an die entsprechende Aufsichtsbehörde.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.8. Änderungen</h4>\n      Wir behalten uns das Recht vor, diese Datenschutzerklärung von Zeit zu Zeit anzupassen. Deshalb empfehlen wir Ihnen eine regelmäßige Durchsicht dieser Erklärung.\n    </div>\n  </div>\n\n</div>\n",
-    "okr-team": "OKR Team",
-    "substructure": "Unterstruktur"
-  },
-  "admin-settings-form": {
-    "config-names": {
-      "email-feedabck-receiver": "Email Adressen der Feedback Empfänger. (Durch Komma getrennt)",
-      "email-sender": "Email Adresse des OKR Tools",
-      "frontend-base-url": "Frontend Base URL",
-      "max-key-results": "Maximale Anzahl von Key Results",
-      "subject": {
-        "feedback": "Email Betreff für Feedback",
-        "new-user": "Email Betreff für neue Benutzer",
-        "reset-password": "Email Betreff für die Passwort-Zurücksetzen Email"
-      },
-      "threshold": {
-        "green-yellow": "Objective Prognose Schwellenwert (Grün/Gelb)",
-        "yellow-red": "Objective Prognose Schwellenwert (Gelb/Rot)"
-      },
-      "topic-sponsors-activated": "Themenpaten aktiviert"
-    },
-    "confirmation-text": "Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.",
-    "confirmation-title": "OKR Themenpaten deaktivieren"
-  },
-  "admin-view": {
-    "admin-panel": "Admin Panel",
-    "admins": "Admins",
-    "delete-dialog": {
-      "button-text": "Löschen",
-      "message": "{{surname}}, {{name}} aus den Admins löschen?",
-      "title": "Admin löschen"
-    },
-    "icon-tooltip": "{{adminName}} von den Admins löschen",
-    "placeholder": "Neuen Admin definieren",
-    "tooltip": {
-      "cannot-delete-yourself": "Selber löschen nicht möglich",
-      "go-to-okr-unit-overview": "Zur Strukturübersicht"
-    }
-  },
-  "api-http-error-handling": {
-    "error-counting": "{{errorCount}} fehlgeschlagene Anfrage{{pluralAppendix}}",
-    "error-message": {
-      "appendix": "n",
-      "more-detail": "Mehr Details",
-      "one-or-more-errors": "Fehler beim Ausführen einer oder mehrerer Anfragen.",
-      "retry": "Erneut versuchen",
-      "single-error": "Fehler beim Ausführen der Anfrage."
-    }
-  },
-  "change-password-dialog": {
-    "form": {
-      "title": "Passwort ändern"
-    }
-  },
-  "comment-card": {
-    "edit-comment": "Kommentar bearbeiten",
-    "tooltip": {
-      "cancel": "Bearbeitung abbrechen",
-      "delete-comment": "Kommentar löschen",
-      "edit-comment": "Kommentar bearbeiten",
-      "save-comment": "Kommentar speichern"
-    }
-  },
-  "comment-view-dialog": {
-    "close": "Schließen",
-    "min-char-message": "Min. 3 Zeichen benötigt",
-    "no-comment": "Es gibt noch keine Kommentare für dieses",
-    "title": "Kommentare",
-    "tooltip": {
-      "comment-to-small": "Ihr Kommentar muss länger sein",
-      "write-new-comment": "Neuen Kommentar schreiben"
-    },
-    "write-comment": "Einen neuen Kommentar schreiben"
-  },
-  "company": {
-    "error": {
-      "error": "Fehler",
-      "error-loading-company": "Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.",
-      "navigate-to-structure-view": "Zur Strukturübersicht"
-    },
-    "loading-company": "Lade Firma...",
-    "menu": {
-      "export": "Exportieren",
-      "export-contacts": "Kontakte exportieren"
-    },
-    "no-child-units": "Es gibt noch keine Unterstrukturen für diese Struktur",
-    "substructures": "Unterstrukturen",
-    "tooltip": {
-      "more-options-for-structure": "Mehr Optionen zu dieser Struktur"
-    },
-    "your-teams-as-manager": "Ihre Teams als Manager",
-    "your-teams-as-member": "Ihre Teams als Mitglied"
-  },
-  "complete-init-state-form": {
-    "initialisation-completed": "Fertig!",
-    "initialisation-completed-message": "Die Initialisierung wurde erfolgreich abgeschlossen🎉",
-    "lets-go!": "Los geht's!"
-  },
-  "confirmation-dialog": {
-    "cancel-text": "Abbrechen",
-    "confirm-text": "Bestätigen"
-  },
-  "convert-topic-draft-to-team": {
-    "dialog": {
-      "save-and-close-label": "Umwandeln"
-    },
-    "form": {
-      "company-option": "Team in {{value}} erstellen",
-      "select": "Übergeordnete Struktur auswählen *"
-    },
-    "title": "Themenentwurf in ein Team umwandeln ",
-    "tooltip": {
-      "only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
-    }
-  },
-  "create-user-init-state-form": {
-    "create-your-admin-account": "Administratorenkonto",
-    "next": "Weiter",
-    "subtitle": "Legen Sie ein initiales Administratorenkonto an."
-  },
-  "current-higher-than-end-validator-function": {
-    "message": "Der \"Aktuelle\" Wert ist Höher als der Maximalwert."
-  },
-  "cycle-admin-card": {
-    "delete-cycle": "Zyklus löschen",
-    "deletion-dialog": {
-      "content": "den Zyklus vom {{cycleStart}} bis zum {{cycleEnd}}",
-      "title": "Den Zyklus löschen?"
-    },
-    "edit-cycle": "Zyklus bearbeiten",
-    "hidden": "Unsichtbar",
-    "visible": "Sichtbar"
-  },
-  "cycle-admin-container": {
-    "administration": "Zyklusverwaltung",
-    "create-new-cycle": "Neuen Zyklus erstellen",
-    "tooltip": {
-      "go-back-to-company": "Zurück zur Struktur",
-      "go-to-okr-unit-overview": "Zur Strukturübersicht"
-    }
-  },
-  "cycle-creation-form": {
-    "creation-dialog": {
-      "save": "Zyklus erstellen",
-      "title": "Neuen Zyklus erstellen"
-    },
-    "end-date": "Enddatum",
-    "start-date": "Startdatum",
-    "visibility": "Sichtbarkeit"
-  },
-  "cycle-edit-form": {
-    "end-date": "Enddatum",
-    "name": "Name *",
-    "save": "Speichern",
-    "start-date": "Startdatum",
-    "title": "Zyklus bearbeiten",
-    "visibility": "Sichtbarkeit"
-  },
-  "date-format-validator-function": {
-    "message": "Der eingegebene Wert ist kein gültiges Datum in der Form TT.MM.JJJJ"
-  },
-  "date-not-in-the-past-validator-function": {
-    "message": "Das eingegebene Datum liegt in der Vergangenheit"
-  },
-  "date-range-in-range-within-another-dates-validator-function": {
-    "message": "Das Datum liegt innerhalb der Zeitspanne eines anderen Zyklus."
-  },
-  "delete-dialog": {
-    "delete": "Löschen ",
-    "general-do-you-want-to-delete": "Wollen Sie {{value}} wirklich löschen?"
-  },
-  "demo-footer": {
-    "credits": "Credits",
-    "imprint": "Impressum",
-    "privacy-policy": "Datenschutzerklärung"
-  },
-  "demo-home": {
-    "contact": {
-      "content": "Sie haben Fragen, Anregungen, oder Probleme mit dem Burning OKR Tool? Gerne können Sie uns kontaktieren.",
-      "content-with-link": "Bei Bugs oder Verbesserungsvorschlägen hinsichtlich des Tools kontaktieren Sie uns bitte über <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. Wenn die BROCKHAUS AG für Sie eine Individualisierung vornehmen soll, Sie eine Beratung oder eine andere Dienstleistung benötigen, kontaktieren Sie uns bitte über <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
-      "title": "Wie Sie uns erreichen"
-    },
-    "digitalization": {
-      "content": "Mit Burning OKR bilden Sie alle essenziellen Bestandteile des OKR Frameworks digital ab und schaffen teamübergreifende Transparenz. Die Teams verwalten ihre eigenen Objectives und Key Results mit Burning OKR und machen ihre Fortschritte und Erfolge sichtbar. Darüber hinaus können innerhalb des Tools die Hierarchien Ihres Unternehmens sichtbar gemacht werden.",
-      "title": "Digitalisieren Sie Ihren gesamten OKR-Prozess"
-    },
-    "documentation": "Dokumentation",
-    "features": {
-      "content": "Unser OKR Tool ermöglicht es Ihnen, mitsamt aller notwendigen Features, den OKR Prozess und dessen Ergebniskennzahlen ganzheitlich zu digitalisieren. Im Detail bietet Burning OKR… ",
-      "perks-list": "<li>die Authentifizierung über Azure Active Directory oder einer lokale Nutzerverwaltung</li>\n        <li>die Verwaltung von mehreren Firmen (Multitenancy)</li>\n        <li>das Abbilden von Zyklen, Firmenstrukturen, Teams, Objectives und Key Results</li>\n        <li>eine Fortschrittsanzeige für Objectives und Key Results</li>\n        <li>eine flexible Individualisierung, u.a. die Bezeichnung von Teams, die Einschränkung der maximalen Key Result Anzahl etc.</li>\n        <li>einen Datenexport als Excel-Tabelle</li>",
-      "title": "Innovative Features"
-    },
-    "free-and-open-source": {
-      "content": "Die Anwendung ist für Firmen- und Privatkunden komplett kostenlos. Außerdem können Sie den Open Source Code jederzeit auf <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> einsehen und an Ihre Bedürfnisse anpassen. Gerne stehen wir Ihnen dabei unterstützend zur Seite. Machen Sie Ihre Anpassungen als Pull Request für die ganze Welt verfügbar!",
-      "title": "Unser kostenloses Angebot für Sie"
-    },
-    "further-information": {
-      "content": "Weitere Informationen zum OKR Framework finden Sie auf der <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY-Seite der BROCKHAUS AG</a>.",
-      "title": "Mehr über das OKR Framework und OKR-Prozesse erfahren"
-    },
-    "github": "GitHub",
-    "installation": {
-      "content": "Burning OKR lässt sich einfach auf verschiedenen Plattformen installieren. Wir bieten Ihnen Tutorials zur Installation mit...",
-      "list": "<li>Docker</li>\n<li>einem Tomcat Web Server (coming soon)</li>",
-      "title": "Einfache Installation "
-    },
-    "playground": "Playground",
-    "target-management": {
-      "content": "Objectives und Key Results werden in Zyklen bearbeitet. Gestalten Sie Name, Länge und Inhalte der Zyklen nach Ihren Wünschen. Behalten Sie den Überblick über die Produktivität der OKR Teams durch die Fortschrittsanzeige der Objectives und Key Results.",
-      "title": "Verwalten und steuern Sie Ihre Unternehmensziele"
-    },
-    "visions": {
-      "content": "Das agile OKR Framework unterstützt Sie durch einen strukturierten Zielvereinbarungsprozess bei der Erreichung der strategischen Unternehmensziele. Kurze Zyklen und messbare Ziele fördern die regelmäßige Evaluierung der Ergebnisse und bieten Ihnen die Möglichkeit, Ihr Geschäftsmodell anhand von neuen Informationen schnell zu modifizieren. Mit Burning OKR bieten wir Ihnen ein leistungsstarkes und nutzerfreundliches OpenSource Tool zur Unterstützung.",
-      "title": "Visionen mit Hilfe von OKR verwirklichen"
-    },
-    "welcome": {
-      "content": "Burning OKR unterstützt Sie bei der Erreichung strategischer Unternehmensziele und fördert eine agile und transparente Unternehmenskultur. Das OpenSource OKR Tool basiert dabei auf den langjährigen Erfahrungen der BROCKHAUS AG mit dem OKR Framework.",
-      "title": "Willkommen bei Burning OKR!"
-    }
-  },
-  "demo-imprint": "<div class=\"container footer-margin\">\n  <h1>IMPRESSUM</h1>\n\n  <h4>Impressum gemäß § 5 TMG:</h4>\n\n  <div class=\"content-container\">\n    <h4>BROCKHAUS AG</h4>\n    Pierbusch 17<br>\n    44536 Lünen<br>\n    Deutschland<br>\n  </div>\n\n  <div class=\"content-container\">\n    <h4>STANDORT DORTMUND</h4>\n    Emil-Figge-Straße 85<br>\n    44227 Dortmund<br>\n    Deutschland<br>\n  </div>\n\n  <div class=\"content-container\">\n    <h4>STANDORT HAMBURG</h4>\n    Willy-Brandt-Straße 23-25<br>\n    20457 Hamburg<br>\n    Deutschland<br>\n  </div>\n\n\n  <div class=\"content-container\">\n    <b>Telefon:</b> +49 (0) 231 98 75-0<br>\n    <b>Fax:</b> +49 (0) 231 98 75-540<br>\n    <b>E-Mail:</b> info@brockhaus-ag.de<br>\n    <b>Website:</b> www.brockhaus-ag.de<br>\n\n    <br>\n\n    <b>Vertretungsberechtigter Vorstand:</b> Matthias Besenfelder<br>\n    Aufsichtsratsvorsitzender: Dr. Adam Spalek<br>\n\n    <br>\n\n    <b>Registergericht:</b> Amtsgericht Dortmund<br>\n    <b>Registernummer:</b> HRB 27027<br>\n    <b>Umsatzsteuer-Identifikationsnummer:</b> DE 299350276<br>\n\n    <br>\n\n    <b>Verantwortlich für den Inhalt nach § 55 RStV:</b> Matthias Besenfelder<br>\n\n    <br>\n\n    <b>Haftungshinweis:</b> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.<br>\n  </div>\n\n</div>\n",
-  "demo-main-view": {
-    "playground": "Playground"
-  },
-  "demo-warning": {
-    "abort-button": "Abbrechen",
-    "database-deletion-text": "Alle 2 Stunden werden alle Daten auf dem Demo Playground gelöscht. Dazu wird ein Countdown angezeigt.",
-    "database-deletion-title": "Datenlöschung",
-    "explanation": "Sie betreten nun den Playground der Burning OKR Demo.",
-    "good-vibes-only-text": "Bitte verbreitet keine negativen Inhalte auf dem Demo Playground.",
-    "good-vibes-only-title": "#GoodVibesOnly",
-    "headline": "Nutzergenerierte Inhalte",
-    "playground-button": "Zum Playground",
-    "title": "Playground",
-    "user-generated-text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
-    "user-generated-title": "Nutzergenerierte Inhalte"
-  },
-  "department-description-edit-form": {
-    "edit-description": "Beschreibung bearbeiten"
-  },
-  "department-tab-description": {
-    "beginning": "Beginn:",
-    "delimitation": "Abgrenzung:",
-    "dependencies": "Abhängigkeiten:",
-    "description": "Beschreibung",
-    "edit-description": "Beschreibung bearbeiten",
-    "handover-plan": "Übergabeplan:",
-    "initiator": "Initiator:",
-    "resources": "Benötigte Ressourcen:",
-    "stakeholder": "Stakeholder:",
-    "startteam": "Startteam:",
-    "to": "Zahlt ein auf:",
-    "tooltip": {
-      "no-edit-rights": "Nur OKR Master können Beschreibungen bearbeiten"
-    },
-    "topic": "Thema:"
-  },
-  "department-tab-task-card": {
-    "delete": "Löschen",
-    "task-board-loading": "loading"
-  },
-  "department-tab-task-form": {
-    "assigned-user-ids": "Bearbeiter",
-    "description": "Beschreibung",
-    "dialog": {
-      "create": "erstellen",
-      "edit": "bearbeiten",
-      "title": "Aufgabe {{editOrCreateText}}"
-    },
-    "no-parent-key-result": "Kein übergeordnetes Key Result",
-    "select-parent-key-result": "Übergeordnetes Key Result auswählen",
-    "task-state": "Status",
-    "title": "Titel *"
-  },
-  "department-tab-taskboard": {
-    "add-button": {
-      "create-new-task": "Aufgabe erstellen",
-      "tooltip": "Keine WebSocket-Verbindung möglich"
-    },
-    "deletion-dialog": {
-      "button-text": "Löschen",
-      "message": "Soll die Aufgabe \"{{title}}\" wirklich gelöscht werden?",
-      "title": "Aufgabe löschen"
-    },
-    "task-board-headline": "Aufgaben",
-    "websocket-not-connected": "Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen."
-  },
-  "department-tab-team": {
-    "define-o-k-r-master": "Kein OKR Master definiert",
-    "define-topic-sponsor": "Kein OKR Themenpate definiert",
-    "deletion-dialog": {
-      "button-text": "Entfernen",
-      "message": "Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.",
-      "message-member": "Möchten Sie dieses Mitglied von dem Team entfernen? Der Benutzer wird seine Mitgliedsrechte in diesem Team verlieren.",
-      "title-master": "OKR Themenpate entfernen",
-      "title-member": "Mitglied entfernen",
-      "title-sponsor": "OKR Master entfernen"
-    },
-    "members-of-unit": "Mitglieder dieser Struktur",
-    "no-members-defined": "Keine Teammitglieder definiert",
-    "o-k-r-master": "OKR Master",
-    "o-k-r-topic-sponsor": "OKR Themenpate",
-    "placeholder": {
-      "member": "Neues Mitglied hinzufügen",
-      "okr-master": "OKR Master hinzufügen",
-      "topic-sponsor": "Themenpaten hinzufügen"
-    },
-    "team-member": "Teammitglieder"
-  },
-  "dialog-component": {
-    "cancel": "Abbrechen",
-    "date-range-within-another-date-range": "Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.",
-    "save": "Speichern",
-    "start-date-not-before-end-date": "Das Startdatum darf nicht vor dem Enddatum liegen.",
-    "start-equals-end": "Der Startwert darf nicht gleich dem Zielwert sein."
-  },
-  "disabled-in-demo-version": "⚠ Deaktiviert in der Demo Version",
-  "error": {
-    "error-id": "Fehler ID:",
-    "error-list": "Fehlerliste",
-    "tooltip": {
-      "go-to-okr-unit-overview": "Zur Strukturübersicht",
-      "navigate-to-previous": "Zur vorherigen Seite zurückkehren"
-    }
-  },
-  "feedback-button": {
-    "button-icon": {
-      "tooltip": "Feedback"
-    },
-    "successful-send": {
-      "message": "Feedback erfolgreich übermittelt 📬"
-    }
-  },
-  "feedback-form": {
-    "dialog": {
-      "save-button": "Feedback absenden",
-      "title": "Feedback geben"
-    },
-    "form-field": {
-      "feedback": "Feedback",
-      "name": "Name"
-    }
-  },
-  "import-csv-dialog": {
-    "amount-of-entries-loaded": "Es wurden Einträge geladen.",
-    "confirmation": {
-      "text": "Diese Operation wird alle {{list_length}} Nutzer hinzufügen.",
-      "title": "{{list_length}} Benutzer erstellen."
-    },
-    "csv-file": "CSV-Datei",
-    "department": "Abteilung",
-    "description": "Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung",
-    "duplicate-email-adresses-warning": "In diesem Datensatz sind doppelte Email Adressen.",
-    "email": "Email",
-    "job-title": "Jobbezeichnung",
-    "name": "Name",
-    "to-many-entries-warning": "Mindestens ein Eintrag hat zu viele spalten."
-  },
-  "key-result-form": {
-    "amount-units": "Anzahl",
-    "current": "Aktuell *",
-    "description": "Beschreibung",
-    "dialog": {
-      "create": "erstellen",
-      "edit": "bearbeiten"
-    },
-    "key-result": "Key Result *",
-    "start": "Start *",
-    "target": "Ziel *",
-    "unit": "Einheit *"
-  },
-  "key-result-milestone-form": {
-    "add-button": "Meilenstein hinzufügen",
-    "name-*": "Name *",
-    "toggle": "Meilensteine aktiv",
-    "tooltip": {
-      "delete-button": "Meilenstein löschen"
-    },
-    "value-input": "Ziel-Wert *"
-  },
-  "keyresult": {
-    "deletion-dialog": {
-      "button-text": "KeyResult löschen",
-      "message": "KeyResult {{number}}. {{keyResultTitle}} von dem Objective löschen?",
-      "title": "Löschen"
-    },
-    "menu": {
-      "edit-key-result": "KeyResult bearbeiten",
-      "keyresult": "KeyResult löschen",
-      "move-key-result-down": "KeyResult nach unten verschieben",
-      "move-key-result-up": "KeyResult nach oben verschieben"
-    },
-    "tooltip": {
-      "adjust-progress": "Fortschritt anpassen",
-      "comments-for-this-key-result": "Kommentare zu diesem KeyResult",
-      "more-options": "Mehr Optionen zu diesem KeyResult"
-    }
-  },
-  "language-picker": {
-    "language": {
-      "english": "Englisch",
-      "german": "Deutsch"
-    },
-    "select-trigger-text": "Sprache wählen"
-  },
-  "login": {
-    "button": "Passwort vergessen",
-    "caps-lock-on": "Die Feststelltaste ist aktiv",
-    "email": "Email",
-    "error-invalid-grant": "Passwort oder Benutzername ungültig",
-    "error-unauthorized": "Benutzername nicht gefunden",
-    "password": "Passwort"
-  },
-  "logout": {
-    "logged-out": "Sie wurden erfolgreich ausgelogt.",
-    "redirect": "Sie werden sofort weitergeleitet."
-  },
-  "main-view": {
-    "navigation-sidebar": {
-      "cycle-not-started": "Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung bearbeitet werden.",
-      "cycle-started": "Dieser Zyklus ist bereits abgelaufen und daher geschlossen - Bearbeitung ist nur begrenzt möglich."
-    },
-    "tooltip": {
-      "adjust-cycleperiod": "Betrachtungszeitraum anpassen",
-      "go-to-structure-view": "Zur Strukturübersicht",
-      "toogle-navigvation": "Navigationsmenü anzeigen/verbergen"
-    }
-  },
-  "max-length-validator": {
-    "message": "Maximale Zeichenzahl überschritten"
-  },
-  "navigation-list-entry": {
-    "tooltip": {
-      "is-substructure": "Dies ist eine Unterstruktur",
-      "is-team": "Dies ist ein Team",
-      "you-are-manager": "Sie sind Manager dieser Struktur",
-      "you-are-member": "Sie sind Mitglied dieser Struktur"
-    }
-  },
-  "no-mail-information": {
-    "a-a-d": "Wird ein Azure Active Directory zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
-    "back-to-home": "Zurück zur Startseite",
-    "create-user-mails": "Senden von Mails für die Anlegung von Nutzern",
-    "feedback": "Senden von Feedback",
-    "info": "Dies kann die Benutzbarkeit der Anwendung stark einschränken.",
-    "local": "Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
-    "no-smtp": "Kein SMTP konfiguriert",
-    "password-reset-mails": "Senden von Mails um Passwörter zurückzusetzen",
-    "title": "Es wurde keine SMTP Konfiguration gefunden.",
-    "tooltip": {
-      "go-to-okr-unit-overview": "Zur Strukturübersicht"
-    }
-  },
-  "objective": {
-    "deletion-dialog": {
-      "button-text": "Löschen",
-      "message": "Objective {{number}}. {{objectiveTitle}} löschen?",
-      "title": "Objective löschen"
-    },
-    "menu": {
-      "comment-objective": "Objective kommentieren",
-      "delete-objective": "Objective löschen",
-      "disable-objective": "Objective auf inaktiv setzen",
-      "edit-objective": "Objective bearbeiten",
-      "enable-objective": "Objective auf aktiv setzen",
-      "move-down-objective": "Objective nach unten verschieben",
-      "move-up-objective": "Objective nach oben verschieben"
-    },
-    "objective-isnt-active": "Dieses Objective ist nicht aktiv",
-    "tooltip": {
-      "bad-progress": "Das Objective macht einen schlechten Fortschritt",
-      "expand-objective": "Objective aufklappen",
-      "good-progress": "Das Objective macht einen guten Fortschritt",
-      "progress-can-be-better": "Das Objective sollte den Fortschritt verbessern",
-      "subordinate": {
-        "": "Anzahl der untergeordneten Objectives"
-      }
-    }
-  },
-  "objective-contents": {
-    "define-new-key-result": "KeyResult erstellen",
-    "key-results": "KeyResults",
-    "load-key-results": "Lade KeyResults...",
-    "no-key-result-found": "Es gibt noch keine KeyResults für dieses Objective.",
-    "parent-objective": "Übergeordnetes Objective",
-    "tooltip": {
-      "navigate-to-unit": "Zu der Struktur des Objectives"
-    }
-  },
-  "objective-form": {
-    "annotation": "Anmerkungen",
-    "contact-person": "Ansprechpartner",
-    "description": "Beschreibung",
-    "dialog": {
-      "create": "erstellen",
-      "edit": "bearbeiten",
-      "title": "Objective {{editOrCreateText}}"
-    },
-    "no-contact-person": "Kein Ansprechpartner",
-    "no-parent-objective": "Kein übergeordnetes Objective",
-    "objective-is-active-in-process": "Objective wird im aktuellen Zyklus aktiv bearbeitet",
-    "select-parent-objective": "Übergeordnetes Objective auswählen"
-  },
-  "okr-child-unit": {
-    "deletion-dialog": {
-      "button-text": "Löschen",
-      "message": "Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.",
-      "title": "{{name}} löschen?"
-    },
-    "description": "Beschreibung",
-    "empty-label": "-",
-    "error-info-label": "Info",
-    "load-department": "Lade Department",
-    "load-department-failed": "Laden Fehlgeschlagen",
-    "load-department-failed-button": "Zur nächsthöheren Struktur",
-    "load-department-failed-info-text": "Die Struktur konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.",
-    "loading": "Lade...",
-    "menu": {
-      "contacts": "Kontakte exportieren",
-      "delete-unit": "Struktur löschen",
-      "disable-unit": "Struktur auf inaktiv setzen",
-      "editchild-unit": "Struktur bearbeiten",
-      "enable-unit": "Struktur auf aktiv setzen",
-      "export": "Exportieren"
-    },
-    "overview": "Übersicht",
-    "please-wait": "Bitte warten",
-    "substructures": "Unterstrukturen",
-    "task-board-headline": "Aufgaben",
-    "team-member": "Teammitglieder",
-    "tooltip": {
-      "cannot-delete-unit": "Kann wegen Unterstrukturen nicht gelöscht werden!",
-      "more-options": "Mehr Optionen zu dieser Struktur"
-    },
-    "unit-not-active": "Diese Struktur ist nicht aktiv"
-  },
-  "okr-child-unit-form": {
-    "description": "Bezeichnung *",
-    "dialog": {
-      "create": "{{label}} erstellen",
-      "edit": "{{label}} bearbeiten"
-    },
-    "header": "Aktiv",
-    "name-*": "Name *"
-  },
-  "okr-child-unit-overview-tab": {
-    "create-new-objective": "Objective erstellen",
-    "load-objective": "Lade Objective...",
-    "no-objectives": "Es gibt noch keine Objectives für diese Struktur."
-  },
-  "okr-child-unit-preview-button": {
-    "load": "Lade",
-    "tooltip": {
-      "list-child-unit": "Unterstrukturen dieser Struktur",
-      "list-objectives": "Objectives dieses Struktur",
-      "not-active": "Diese Okr Einheit ist nicht aktiv",
-      "show-department": "Struktur anzeigen"
-    }
-  },
-  "okr-child-unit-tab": {
-    "no-child-unit": "Es gibt noch keine Unterstrukturen für diese Struktur",
-    "substructures": "Unterstrukturen"
-  },
-  "okr-toolbar": {
-    "admin-icon": {
-      "tooltip": {
-        "is-admin": "Als Admin autorisiert"
-      }
-    },
-    "main-page": "Hauptseite",
-    "menu": {
-      "admin-panel-text": "Admin Panel",
-      "change-password-text": "Passwort ändern",
-      "cycle-administration-text": "Zyklusverwaltung",
-      "language-picker": "Sprache wählen",
-      "logout-text": "Logout",
-      "settings-text": "Einstellungen",
-      "topic-drafts-text": "Themenentwürfe",
-      "user-managment-text": "Nutzerverwaltung"
-    },
-    "return-to-demo-text": "Hauptseite",
-    "tooltip": {
-      "menue": "Menü"
-    },
-    "warning": {
-      "no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
-      "no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert."
-    }
-  },
-  "okr-topic-description-form": {
-    "beginning": "Beginn *",
-    "contributes-to": "Zahlt ein auf",
-    "delimitation": "Abgrenzung",
-    "dependencies": "Abhängigkeiten",
-    "description": "Beschreibung",
-    "handover-plan": "Übergabeplan",
-    "header": "Thema *",
-    "initiator": "Initiator *",
-    "no-initiator": "Kein Initiator",
-    "resources": "Benötigte Ressourcen",
-    "stakeholder": "Stakeholder",
-    "start-team": "Start Team"
-  },
-  "okr-unit-card": {
-    "delete-company-has-child-unit-warning": "{{value}} enthält noch Unterstrukturen",
-    "general-delete-dialog-title": "{{value}} löschen?",
-    "label": "Die Firma löschen",
-    "mat-card-actions": {
-      "delete": "Struktur löschen ",
-      "edit-name": "Namen bearbeiten",
-      "tooltip": {
-        "delete-unit": "Struktur löschen",
-        "edit-unit-name": "Namen der Struktur bearbeiten"
-      }
-    },
-    "mat-card-subtitle": {
-      "unit-structure": "Firmenstruktur"
-    }
-  },
-  "okr-unit-dashboard": {
-    "add-unit": "Struktur hinzufügen",
-    "okr-toolbar": {
-      "unit-overview": "Strukturübersicht"
-    }
-  },
-  "okr-unit-form": {
-    "create": "{{value}} erstellen",
-    "default-label": {
-      "structure": "Unterstruktur",
-      "team": "OKR Team"
-    },
-    "placeholder": {
-      "label": "Bezeichnung *",
-      "name": "Name *"
-    },
-    "save": "{{value}} speichern",
-    "structure": "Struktur"
-  },
-  "password-form": {
-    "caps-lock-on": "Die Feststelltaste ist aktiv",
-    "error-message-previous-password-required": "Das vorherige Passwort muss angegeben werden.",
-    "error-message-previous-password-wrong": "Das vorherige Password ist falsch angegeben worden.",
-    "new-password": "Neues Passwort",
-    "new-password-invalid": "Das Passwort muss mindestens 7 Zeichen enthalten",
-    "new-password-repetition": "Neues Passwort wiederholen",
-    "passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
-    "previous-password": "Vorheriges Passwort"
-  },
-  "passwords-match-validator-function": {
-    "message": "Die Passwörter stimmen nicht überein."
-  },
-  "required-validator": {
-    "message": "Pflichtfeld"
-  },
-  "reset-countdown": {
-    "until-next": "Zurücksetzen der Daten in:"
-  },
-  "reset-password": {
-    "email": "Email",
-    "error-invalid-email": "Ungültige E-mail",
-    "password-reset-email-has-been-send-out": "Eine Email zum zurücksetzen Ihres Passworts wurde an die angegebene Email-Adresse versandt.",
-    "password-reset-title": "Burning OKR - Passwort zurücksetzen",
-    "reset-password": "Passwort zurücksetzen"
-  },
-  "set-azure-admin-init-state-form": {
-    "other-user-notice": "Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto an.",
-    "set-admin-button": "Diesen Nutzer als Administrator festlegen",
-    "set-admin-logout-button": "Logout",
-    "set-azure-admin-subtitle": "Folgender Nutzer wird als initialer Administrator festgelegt.",
-    "set-azure-admin-title": "Administrator festlegen"
-  },
-  "set-oauth-client-details-form": {
-    "access-token-validity": "Lebenszeit des Accesstokens (in Sekunden)",
-    "client-id": "Client-Id",
-    "client-secret": "Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)",
-    "explanation": "Um die Lokale Nutzerdatenbank zu verwenden, müssen die OAuth Einstellungen konfiguriert werden. Wichtig ist dabei, dass die Client-ID und das Client-Secret einzigartig sind. Alle Formularfelder wurden bereits mit sinnvollen Daten befüllt und eine Änderung dieser Daten wird nur fortgeschrittenen Nutzern empfohlen.",
-    "next": "Weiter",
-    "only-do-this-if-you-are-a-nerd-warning": "Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!",
-    "please-hang-on-the-server-is-beeing-configured": "Bitte warten Sie einen Moment, während der Server konfiguriert wird.",
-    "refresh-token-validity": "Lebenszeit des Refreshtokens (in Sekunden)",
-    "timeout": {
-      "error-message": "Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.",
-      "error-message-action": "Ok"
-    },
-    "title": "Konfiguration der Authentifizierung",
-    "web-server-redirect-uri": "Webserver-Redirect-URI"
-  },
-  "set-password": {
-    "new-password": "Neues Passwort",
-    "new-password-invalid": "Das Passwort muss mindestens 7 Zeichen enthalten",
-    "new-password-repetition": "Neues Passwort wiederholen",
-    "password-changed-message": "Passwort erfolgreich geändert ✅",
-    "passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
-    "reset-password": "Passwort zurücksetzen",
-    "set-new-password-instruction": "Legen Sie ein neues Passwort fest",
-    "toolbar-title": "Burning OKR - Passwort ändern"
-  },
-  "settings-form": {
-    "admin-settings": "Adminverwaltung",
-    "cancel-button-text": "Abbrechen",
-    "save": "Speichern",
-    "settings": "Einstellungen"
-  },
-  "start-date-before-end-date-validator-function": {
-    "message": "Das Anfangsdatum ist nach dem Enddatum"
-  },
-  "start-not-equal-end-validator-function": {
-    "message": "Das Anfangsdatum ist nach dem Enddatum"
-  },
-  "status-dot": {
-    "approved": "Genehmigt",
-    "draft": "Entwurf",
-    "rejected": "Abgelehnt",
-    "submitted": "Eingereicht"
-  },
-  "task-board-swimlane-view-helper": {
-    "no-keyresult-title": "Kein KeyResult"
-  },
-  "taskboard-state-column-view": {
-    "default-state-text": "Nicht zugewiesen"
-  },
-  "topic-draft-action-button": {
-    "admin-initiator-tooltip": "Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen",
-    "approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
-    "capitalised-approve": "Genehmigen",
-    "capitalized-reject": "Ablehnen",
-    "capitalized-submit": "Einreichen",
-    "comments": {
-      "heading": "Themenentwurf"
-    },
-    "comments-text": "Kommentare",
-    "create-team": "Zu Team umwandeln",
-    "delete": {
-      "button-text": "Löschen",
-      "message": "Möchten Sie Themenentwurf {{name}} wirklich löschen?",
-      "title": "Themenentwurf löschen"
-    },
-    "delete-text": "Löschen ",
-    "edit": "Bearbeiten ",
-    "edit-tooltip": {
-      "status": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein",
-      "status-and-user": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein und nur ein Admin oder der Initiator kann bearbeiten",
-      "user": "Nur ein Admin oder der Initiator können bearbeiten"
-    },
-    "no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
-    "not-approved": "Themenentwurf nicht genehmigt",
-    "snackbar": {
-      "ok": "Ok",
-      "submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
-    },
-    "state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
-    "status-submitted": "Der Status muss auf \"Eingereicht\" sein, damit das Einreichen zurückgenommen werden kann",
-    "status-submitted-user": "Der Status muss auf \"Eingereicht\" sein und Sie müssen ein Admin oder der Initiator sein, damit das Einreichen zurückgenommen werden kann",
-    "tooltip": {
-      "feature-coming-soon": "Feature kommt demnächst",
-      "header": "Kommentare",
-      "only-admin-or-initiator-permission-to-delete": "Nur ein Admin oder der Initiator können diesen Themenentwurf löschen"
-    },
-    "user-not-admin": "Admin-Rechte benötigt ",
-    "withdraw-approval": "Genehmigung zurücknehmen",
-    "withdraw-rejection": "Ablehnung zurücknehmen",
-    "withdraw-submit": "Einreichen zurücknehmen"
-  },
-  "topic-draft-creation-form": {
-    "dialog-title": "Themenentwurf erstellen"
-  },
-  "topic-draft-details-dialogue": {
-    "button": {
-      "close": "Schließen",
-      "edit": "Bearbeiten",
-      "tooltip-no-permission": "Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein."
-    },
-    "field": {
-      "begin": "Beginn",
-      "contribution": "Zahlt ein auf",
-      "delimitation": "Abgrenzung",
-      "dependencies": "Abhängigkeiten",
-      "description": "Beschreibung",
-      "handover": "Übergabeplan",
-      "initiator": "Initiator",
-      "no-team-members": "Keine Teammitglieder vorhanden",
-      "resources": "Ressourcen",
-      "stakeholder-team": "Stakeholder Team",
-      "start-team": "Start Team",
-      "topic": "Thema"
-    },
-    "status": {
-      "approved": "Angenommen",
-      "rejected": "Abgelehnt",
-      "submitted": "Eingereicht",
-      "template": "Vorlage",
-      "title": "Status"
-    },
-    "title": "Eingereichter Themenentwurf"
-  },
-  "topic-draft-edit-dialogue": {
-    "title": "Themenentwurf bearbeiten"
-  },
-  "topic-draft-list": {
-    "column": {
-      "name": "Name",
-      "start": "Start",
-      "submitted": "Eingereicht von"
-    },
-    "no-new-topic-drafts": "Keine neuen Themenentwürfe"
-  },
-  "topic-drafts": {
-    "add-topic-draft-button": "Themenentwurf erstellen",
-    "home-button": {
-      "tooltip": "Zur Strukturübersicht"
-    },
-    "initiator-table-header": "Thema",
-    "navbar": {
-      "title": "Eingereichte Themenentwürfe",
-      "title-short": "Themenentwurf"
-    }
-  },
-  "user-autocomplete-input": {
-    "label": "Benutzer Eingabe"
-  },
-  "user-dialog": {
-    "reset-password": "Passwort zurücksetzen",
-    "snackbar": {
-      "message": "Das Passwort wurde erfolgreich zurückgesetzt.",
-      "ok": "Ok"
-    }
-  },
-  "user-form": {
-    "department": "Abteilung",
-    "email": "Email",
-    "error-invalid-email": "Ungültige E-mail",
-    "error-used-email": "Die Email wird bereits von einem anderen Nutzer verwendet verwendet.",
-    "first-name": "Vorname",
-    "job-title": "Jobbezeichnung",
-    "last-name": "Nachname"
-  },
-  "user-management": {
-    "active-table-header": "Aktiv",
-    "add-new-user": "Benutzer erstellen",
-    "admin-table-header": "Admin",
-    "checkbox": "Deaktivierte Benutzer anzeigen",
-    "department-table-header": "Abteilung ",
-    "email": "Email ",
-    "import-users": "Benutzer importieren",
-    "job-title-table-header": "Berufsbezeichnung ",
-    "name": "Name",
-    "tooltip": {
-      "activate-user": "Nutzer aktivieren",
-      "deactivate-user": "Nutzer deaktivieren ",
-      "edit-user": "Nutzer bearbeiten ",
-      "go-to-okr-unit-overview": "Zur Strukturübersicht",
-      "import-users-from-csv": "Benutzer aus CSV importieren"
-    },
-    "user-management-toolbar-title": "Benutzerverwaltung"
-  },
-  "user-minibutton": {
-    "loading-user": "Lade Benutzer...",
-    "tooltip": {
-      "remove-member": "Benutzer aus Team entfernen"
-    }
-  },
-  "user-selector": {
-    "no-entries": "Keine Benutzer gefunden.",
-    "placeholder": "Suche"
-  },
-  "user-selector-multi": {
-    "no-entires": "Keine Benutzer gefunden.",
-    "placeholder": "Suche"
-  },
-  "user-settings": {
-    "default-company": "Standard Unternehmen",
-    "default-team": "Standard Team",
-    "no-company": "Kein Unternehmen",
-    "no-team": "Kein Team"
-  },
-  "validation-error": {
-    "default-error-message": "Kein gültiger Wert."
-  },
-  "version-form": {
-    "change-log": "Versionsänderungen",
-    "close": "Schließen"
-  }
+	"add-child-unit-button": {
+		"add-new-child-unit": "Unterstruktur erstellen",
+		"demo-privacy-policy": "<div class=\"container footer-margin\">\n\n  <div class=\"content-container\">\n    <h1>DATENSCHUTZ</h1>\n\n    <div class=\"content-container\">\n      Mit dieser Erklärung informieren wir Sie über datenschutzrelevanten Aspekte sowie über die eingesetzten Maßnahmen, um Ihre Rechte zu wahren. Die Brockhaus AG hält sich an die Anforderungen des Bundesdatenschutzgesetzes (BDSG) und der EU-Datenschutzgrundverordnung (EU-DSGVO).\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>1. ERFASSUNG UND NUTZUNG PERSONENBEZOGENER DATEN</h3>\n\n    <div class=\"content-container\">\n      <h4>1.1. Grundsätzliches</h4>\n      Ihre Daten dienen allein dazu, Ihnen ein größtmögliches benutzerfreundliches, praktisches und sicheres Internetangebot anbieten zu können. Zu den personenbezogenen Daten gehören alle Informationen über persönliche oder sachliche Verhältnisse einer bestimmten oder bestimmbaren natürlichen Person, z.B. Name, Adresse, Kontaktdaten, IP-Adressen, übertragene Datenmengen usw.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.2. Rechtsgrundlagen</h4>\n      a) Die Bereitstellung dieser Webseite mit Produkten und Leistungen: Vertragsanbahnung bzw. Vertragserfüllung<br>\n      b) Anfragen per Post, eMail oder Fax an uns: Vertragsanbahnung bzw. Vertragserfüllung<br>\n      c) Links zu anderen Angeboten oder Auswertung der Zugriffe: berechtigtes Interesse\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.3. Automatische Verarbeitung durch Webseiten-Betrieb</h4>\n      Die Webseiten werden bei einem Provider in West Europa (Frankfurt, Deutschland) betrieben, der seinerseits für den Betrieb des Webangebotes die Zugriffe auf das System in sogenannten Serverlogs speichert. Hierbei werden in der Regel folgende Daten erhoben: IP-Adressen, Zeitstempel der Zugriffe, Namen der Webseiten, Übertragene Datenmengen, Abmeldungen bzw. Abbrüche, Browsertypen, Infos vom Betriebssystem, Referrer URLs. Diese Daten werden von uns nicht gespeichert oder ausgewertet. Im Falle eines berechtigten Verdachts auf Missbrauch anhand von konkreten Informationen, können diese Logfiles nachträglich geprüft werden.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.4. Dateneingaben durch den Webseiten-Nutzer</h4>\n      Sie können darüber hinaus, unsere Webseiten ohne die Eingabe persönlicher Daten uneingeschränkt nutzen. Sofern wir personenbezogene Daten erheben (Kontaktformular) werden wir jeweils über den Zweck, Umfang, Rechtmäßigkeit, und mögliche Weitergaben informieren und dies nur für diese Zwecke nutzen. Die Eingabe dieser Daten durch Sie erfolgt freiwillig.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>2. VERWENDUNG DER DATEN</h3>\n\n    <div class=\"content-container\">\n      <h4>2.1. Nutzung zur Leistungserbringung</h4>\n      Wir verwenden die erhobenen und verarbeiteten personenbezogenen Daten ausschließlich zu Zwecken der Erbringung unserer Leistungen aus der mit Ihnen geschlossenen Nutzungsvereinbarung sowie zur Abwicklungen von Zahlungen. Dabei beachten wir selbstverständlich alle anwendbaren Datenschutzgesetze, insbesondere das Bundesdatenschutzgesetz/EU-DSGVO sowie das Telemediengesetz (TMG).\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.2. Weitergabe an Dritte</h4>\n      Wir geben Ihre personenbezogenen Daten nicht an Dritte für Marketing- oder ähnliche Zwecke weiter. Eine Weitergabe von Daten erfolgt nur, wenn und soweit dies zur Durchführung der Nutzungsvereinbarung notwendig ist, die Brockhaus AG gesetzlich dazu verpflichtet wird oder es zur Durchsetzung der allgemeinen Nutzungsbedingungen oder anderer mit Ihnen geschlossenen Vereinbarungen sowie unserer Rechte und Forderungen erforderlich sein sollte.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.3. Kundeninformationen per eMail</h4>\n      Im Rahmen der Kundenbindung, versenden wir aktuelle Informationen an unsere Kunden, um Sie über Neuigkeiten und Änderungen innerhalb unseres Angebots zu informieren. Diese Informationen sind nicht zu verwechseln mit den allgemeinen Newslettern. Sofern es unsere Angebote betrifft und z.B. sicherheitsrelevante Punkte enthält oder wichtige Informationen aus unserem Hause, so können wir dies nur per eMail abwickeln. Bitte haben Sie Verständnis dafür.\n    </div>\n  </div>\n\n\n  <div class=\"content-container\">\n    <h3>3. COOKIES</h3>\n\n    <div class=\"content-container\">\n      Unsere Webseite verwendet Cookies, um Ihnen einen effektiven Umgang und ein benutzerfreundliches Handling zu bieten. Dies macht den Einsatz von Cookies erforderlich und begründet unser berechtigtes Interesse, diese Technik zu nutzen. Die meisten Browser bieten Ihnen die Funktionalität, sich die verwendeten Cookies anzeigen zu lassen.\n    </div>\n\n    <div class=\"content-container\">\n      Falls Sie die Verwendung von Cookies jedoch generell unterbinden möchten, besteht dazu bei Ihrem Browser die Möglichkeit, die Annahme und Speicherung neuer Cookies zu verhindern. Um herauszufinden, wie dies bei Ihrem Browser funktioniert, benutzen Sie bitte die Hilfe-Funktion des jeweiligen Browsers. Wir empfehlen Ihnen jedoch, die Cookies-Funktionen eingeschaltet zu lassen, da Ihnen nur dann das hohe Niveau des Benutzungskomforts, welches wir für Sie eingerichtet haben, in vollem Umfang zu Gute kommt. Wir erstellen keine Nutzerprofile aus diesen durch Cookies erfassten Nutzerdaten.\n    </div>\n\n    <div class=\"content-container\">\n      Zur Bearbeitung Ihrer Cookie-Einstellungen klicken sie bitte <a id=\"open-cookie-settings-link\" href=\"javascript:klaro.show();\">hier</a>.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>4. WEBSEITEN-AUSWERTUNGEN BZW. TOOLS</h3>\n    <div class=\"content-container\">Wir setzen folgendes Analyse-Tool für die Auswertung unserer Webseiten ein und beschreiben Ihnen dieses wie folgt:</div>\n    <div class=\"content-container\">\n      Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. („Google“). Google Analytics verwendet sog. „Cookies“, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Webseite durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung der Webseite werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Die im Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt. Wir haben zudem auf dieser Webseite Google Analytics um den Code „anonymizeIP“ erweitert. Dies garantiert die Maskierung Ihrer IP-Adresse, sodass alle Daten anonym erhoben werden. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt.\n    </div>\n    <div class=\"content-container\">\n      Im Auftrag des Betreibers dieser Website wird Google diese Information benutzen, um Ihre Nutzung der Webseite auszuwerten, um Reports über die Webseiten-Aktivitäten zusammenzustellen und um weitere mit der Webseiten-Nutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Webseitenbetreiber zu erbringen. Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall möglicherweise nicht sämtliche Funktionen dieser Webseite vollumfänglich werden nutzen können.\n    </div>\n    <div class=\"content-container\">\n      Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Webseite bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und installieren: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n    <div class=\"content-container\">\n      Alternativ zum Browser-Add-On, insbesondere bei Browsern auf mobilen Endgeräten, können Sie die Erfassung durch Google Analytics zudem verhindern, indem Sie auf diesen Link klicken. Es wird ein Opt-Out-Cookie gesetzt, das die zukünftige Erfassung Ihrer Daten beim Besuch dieser Website verhindert. Der Opt-Out-Cookie gilt nur in diesem Browser und nur für unsere Website und wird auf Ihrem Gerät abgelegt. Löschen Sie die Cookies in diesem Browser, müssen Sie das Opt-Out-Cookie erneut setze\n    </div>\n    <div class=\"content-container\">\n      Wir nutzen Google Analytics weiterhin dazu, Daten aus Double-Click-Cookies und auch AdWords zu statistischen Zwecken auszuwerten. Sollten Sie dies nicht wünschen, können Sie dies über den Anzeigenvorgaben-Manager (<a href=\"https://www.google.com/settings/ads/onweb/?hl=de\">https://www.google.com/settings/ads/onweb/?hl=de</a>) deaktivieren.\n    </div>\n    <div class=\"content-container\">\n      Sollten Sie der Erhebung widersprechen wollen, so können Sie über folgenden Link ein PlugIn nutzen und dieses installieren: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>5. SICHERHEIT</h3>\n\n\n    <div class=\"content-container\">\n      Die Brockhaus AG setzt technische und organisatorische Sicherheitsmaßnahmen ein, um zu gewährleisten, dass Ihre personenbezogenen Daten vor Verlust, unrichtigen Veränderungen oder unberechtigten Zugriffen Dritter geschützt sind. In jedem Fall haben nur berechtigte Personen Zutritt zu den persönlichen Daten, und dies auch nur insoweit, als es im Rahmen der oben genannten Zwecke erforderlich ist. Die Sicherheitsmaßnahmen werden ständig den verbesserten technischen Möglichkeiten angepasst.\n    </div>\n  </div>\n\n\n\n  <div class=\"content-container\">\n    <h3>6. WEITERE INFORMATIONSPFLICHTEN</h3>\n\n    <div class=\"content-container\">\n      <h4>6.1. Verantwortliche Stelle</h4>\n      BROCKHAUS AG, Lünen. Vollständige Kontaktdaten siehe Impressum.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.2. Datenschutzbeauftragter</h4>\n      P2 Consult<br>\n      Jürgen Golda<br>\n      Wilhelm-Bläser-Str. 3c, D-59174 Kamen<br>\n      Telefon: +49 (0) 2307 28 74 488<br>\n      Mail: datenschutz@brockhaus-ag.de<br>\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.3. Speicherdauer</h4>\n      Wir speichern Ihre Daten solange der Zweck der Speicherung erhalten bleibt (Anfragen, Projekte, Verträge, etc.) Sollte der Zweck entfallen oder Sie die Einwilligung zurückziehen, werden Ihre Daten durch den regelmäßigen Löschlauf gelöscht, sofern keine gesetzlichen Aufbewahrungsfristen eingehalten werden müssen.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.4. Kinder</h4>\n      Wir werden Daten von Kindern wissentlich nicht sammeln und verarbeiten. Sofern Schüler Anfragen stellen, werden wir die Daten nur dann speichern, wenn die ausdrückliche Zustimmung der Erziehungsberechtigten haben. Sofern Daten von Kindern dann gespeichert werden dürfen, werden wir diese nur im Rahmen der gesetzlichen Vorgaben weitergeben. Unter den Begriff \"Kinder\" fallen die Definitionen aus dem nationalen Recht und den bei uns geltenden gesetzlichen Bestimmungen.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.5. Profiling</h4>\n      Profiling Ihrer Daten findet nicht statt.\n      Eine automatische Entscheidungsfindung und/oder ein Profiling mit Ihren Daten findet bei uns nicht statt.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.6. Ihre Rechte</h4>\n      Sie können uns jederzeit ansprechen, wenn Sie eine Auskunft, eine Löschung, eine Einschränkung oder ein Widerspruch geltend machen wollen. Nutzen Sie dazu die vorhandenen Kontaktdaten. Anfragen müssen schriftlich gestellt werden, damit wir den Anfrager eindeutig identifizieren können.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.7. Beschwerderecht</h4>\n      Sofern Sie berechtigte Zweifel an unserem Umgang mit ihren Daten haben, informieren Sie uns oder wenden sie sich an die entsprechende Aufsichtsbehörde.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.8. Änderungen</h4>\n      Wir behalten uns das Recht vor, diese Datenschutzerklärung von Zeit zu Zeit anzupassen. Deshalb empfehlen wir Ihnen eine regelmäßige Durchsicht dieser Erklärung.\n    </div>\n  </div>\n\n</div>\n",
+		"okr-team": "OKR Team",
+		"substructure": "Unterstruktur"
+	},
+	"admin-settings-form": {
+		"config-names": {
+			"email-feedabck-receiver": "Email Adressen der Feedback Empfänger. (Durch Komma getrennt)",
+			"email-sender": "Email Adresse des OKR Tools",
+			"frontend-base-url": "Frontend Base URL",
+			"max-key-results": "Maximale Anzahl von Key Results",
+			"subject": {
+				"feedback": "Email Betreff für Feedback",
+				"new-user": "Email Betreff für neue Benutzer",
+				"reset-password": "Email Betreff für die Passwort-Zurücksetzen Email"
+			},
+			"threshold": {
+				"green-yellow": "Objective Prognose Schwellenwert (Grün/Gelb)",
+				"yellow-red": "Objective Prognose Schwellenwert (Gelb/Rot)"
+			},
+			"topic-sponsors-activated": "Themenpaten aktiviert"
+		},
+		"confirmation-text": "Durch das deaktivieren aller OKR-Themenpaten, werden diese zu Teammitgliedern in ihrem jeweiligen Team.",
+		"confirmation-title": "OKR Themenpaten deaktivieren"
+	},
+	"admin-view": {
+		"admin-panel": "Admin Panel",
+		"admins": "Admins",
+		"delete-dialog": {
+			"button-text": "Löschen",
+			"message": "{{surname}}, {{name}} aus den Admins löschen?",
+			"title": "Admin löschen"
+		},
+		"icon-tooltip": "{{adminName}} von den Admins löschen",
+		"placeholder": "Neuen Admin definieren",
+		"tooltip": {
+			"cannot-delete-yourself": "Selber löschen nicht möglich",
+			"go-to-okr-unit-overview": "Zur Strukturübersicht"
+		}
+	},
+	"api-http-error-handling": {
+		"error-counting": "{{errorCount}} fehlgeschlagene Anfrage{{pluralAppendix}}",
+		"error-message": {
+			"appendix": "n",
+			"more-detail": "Mehr Details",
+			"one-or-more-errors": "Fehler beim Ausführen einer oder mehrerer Anfragen.",
+			"retry": "Erneut versuchen",
+			"single-error": "Fehler beim Ausführen der Anfrage."
+		}
+	},
+	"change-password-dialog": {
+		"form": {
+			"title": "Passwort ändern"
+		}
+	},
+	"chart-options-card": {
+		"company-average": "Durchschnitt der Firma",
+		"teams": "Teams"
+	},
+	"comment-card": {
+		"edit-comment": "Kommentar bearbeiten",
+		"tooltip": {
+			"cancel": "Bearbeitung abbrechen",
+			"delete-comment": "Kommentar löschen",
+			"edit-comment": "Kommentar bearbeiten",
+			"save-comment": "Kommentar speichern"
+		}
+	},
+	"comment-view-dialog": {
+		"close": "Schließen",
+		"min-char-message": "Min. 3 Zeichen benötigt",
+		"no-comment": "Es gibt noch keine Kommentare für dieses",
+		"title": "Kommentare",
+		"tooltip": {
+			"comment-to-small": "Ihr Kommentar muss länger sein",
+			"write-new-comment": "Neuen Kommentar schreiben"
+		},
+		"write-comment": "Einen neuen Kommentar schreiben"
+	},
+	"company": {
+		"error": {
+			"error": "Fehler",
+			"error-loading-company": "Die Firma konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.",
+			"navigate-to-structure-view": "Zur Strukturübersicht"
+		},
+		"loading-company": "Lade Firma...",
+		"menu": {
+			"export": "Exportieren",
+			"export-contacts": "Kontakte exportieren"
+		},
+		"no-child-units": "Es gibt noch keine Unterstrukturen für diese Struktur",
+		"substructures": "Unterstrukturen",
+		"tooltip": {
+			"more-options-for-structure": "Mehr Optionen zu dieser Struktur"
+		},
+		"your-teams-as-manager": "Ihre Teams als Manager",
+		"your-teams-as-member": "Ihre Teams als Mitglied"
+	},
+	"complete-init-state-form": {
+		"initialisation-completed": "Fertig!",
+		"initialisation-completed-message": "Die Initialisierung wurde erfolgreich abgeschlossen🎉",
+		"lets-go!": "Los geht's!"
+	},
+	"confirmation-dialog": {
+		"cancel-text": "Abbrechen",
+		"confirm-text": "Bestätigen"
+	},
+	"convert-topic-draft-to-team": {
+		"dialog": {
+			"save-and-close-label": "Umwandeln"
+		},
+		"form": {
+			"company-option": "Team in {{value}} erstellen",
+			"select": "Übergeordnete Struktur auswählen *"
+		},
+		"title": "Themenentwurf in ein Team umwandeln ",
+		"tooltip": {
+			"only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
+		}
+	},
+	"create-dashboard": {
+		"add-new-chart-to-dashboard": "Diagramm hinzufügen",
+		"chart-title-placeholder": "Diagramm Titel",
+		"create-dashboard-button": "Dashboard erstellen",
+		"dashboard-title-placeholder": "Dashboard Titel",
+		"okr-toolbar": {
+			"create-dashboard": "Dashboard anlegen"
+		},
+		"select-teams-placeholder": "Teams auswählen",
+		"type-of-chart-placeholder": "Art des Diagramms"
+	},
+	"create-user-init-state-form": {
+		"create-your-admin-account": "Administratorenkonto",
+		"next": "Weiter",
+		"subtitle": "Legen Sie ein initiales Administratorenkonto an."
+	},
+	"current-higher-than-end-validator-function": {
+		"message": "Der \"Aktuelle\" Wert ist Höher als der Maximalwert."
+	},
+	"cycle-admin-card": {
+		"delete-cycle": "Zyklus löschen",
+		"deletion-dialog": {
+			"content": "den Zyklus vom {{cycleStart}} bis zum {{cycleEnd}}",
+			"title": "Den Zyklus löschen?"
+		},
+		"edit-cycle": "Zyklus bearbeiten",
+		"hidden": "Unsichtbar",
+		"visible": "Sichtbar"
+	},
+	"cycle-admin-container": {
+		"administration": "Zyklusverwaltung",
+		"create-new-cycle": "Neuen Zyklus erstellen",
+		"tooltip": {
+			"go-back-to-company": "Zurück zur Struktur",
+			"go-to-okr-unit-overview": "Zur Strukturübersicht"
+		}
+	},
+	"cycle-creation-form": {
+		"creation-dialog": {
+			"save": "Zyklus erstellen",
+			"title": "Neuen Zyklus erstellen"
+		},
+		"end-date": "Enddatum",
+		"start-date": "Startdatum",
+		"visibility": "Sichtbarkeit"
+	},
+	"cycle-edit-form": {
+		"end-date": "Enddatum",
+		"name": "Name *",
+		"save": "Speichern",
+		"start-date": "Startdatum",
+		"title": "Zyklus bearbeiten",
+		"visibility": "Sichtbarkeit"
+	},
+	"dashboard": {
+		"okr-toolbar": {
+			"dashboard": "Dashboard"
+		}
+	},
+	"dashboard-card": {
+		"created-by": "Erstellt von: ",
+		"delete-dashboard": "Löschen"
+	},
+	"dashboard-overview": {
+		"okr-toolbar": {
+			"dashboard-overview": "Dashboardübersicht"
+		}
+	},
+	"date-format-validator-function": {
+		"message": "Der eingegebene Wert ist kein gültiges Datum in der Form TT.MM.JJJJ"
+	},
+	"date-not-in-the-past-validator-function": {
+		"message": "Das eingegebene Datum liegt in der Vergangenheit"
+	},
+	"date-range-in-range-within-another-dates-validator-function": {
+		"message": "Das Datum liegt innerhalb der Zeitspanne eines anderen Zyklus."
+	},
+	"delete-dialog": {
+		"delete": "Löschen ",
+		"general-do-you-want-to-delete": "Wollen Sie {{value}} wirklich löschen?"
+	},
+	"demo-footer": {
+		"credits": "Credits",
+		"imprint": "Impressum",
+		"privacy-policy": "Datenschutzerklärung"
+	},
+	"demo-home": {
+		"contact": {
+			"content": "Sie haben Fragen, Anregungen, oder Probleme mit dem Burning OKR Tool? Gerne können Sie uns kontaktieren.",
+			"content-with-link": "Bei Bugs oder Verbesserungsvorschlägen hinsichtlich des Tools kontaktieren Sie uns bitte über <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. Wenn die BROCKHAUS AG für Sie eine Individualisierung vornehmen soll, Sie eine Beratung oder eine andere Dienstleistung benötigen, kontaktieren Sie uns bitte über <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
+			"title": "Wie Sie uns erreichen"
+		},
+		"digitalization": {
+			"content": "Mit Burning OKR bilden Sie alle essenziellen Bestandteile des OKR Frameworks digital ab und schaffen teamübergreifende Transparenz. Die Teams verwalten ihre eigenen Objectives und Key Results mit Burning OKR und machen ihre Fortschritte und Erfolge sichtbar. Darüber hinaus können innerhalb des Tools die Hierarchien Ihres Unternehmens sichtbar gemacht werden.",
+			"title": "Digitalisieren Sie Ihren gesamten OKR-Prozess"
+		},
+		"documentation": "Dokumentation",
+		"features": {
+			"content": "Unser OKR Tool ermöglicht es Ihnen, mitsamt aller notwendigen Features, den OKR Prozess und dessen Ergebniskennzahlen ganzheitlich zu digitalisieren. Im Detail bietet Burning OKR… ",
+			"perks-list": "<li>die Authentifizierung über Azure Active Directory oder einer lokale Nutzerverwaltung</li>\n        <li>die Verwaltung von mehreren Firmen (Multitenancy)</li>\n        <li>das Abbilden von Zyklen, Firmenstrukturen, Teams, Objectives und Key Results</li>\n        <li>eine Fortschrittsanzeige für Objectives und Key Results</li>\n        <li>eine flexible Individualisierung, u.a. die Bezeichnung von Teams, die Einschränkung der maximalen Key Result Anzahl etc.</li>\n        <li>einen Datenexport als Excel-Tabelle</li>",
+			"title": "Innovative Features"
+		},
+		"free-and-open-source": {
+			"content": "Die Anwendung ist für Firmen- und Privatkunden komplett kostenlos. Außerdem können Sie den Open Source Code jederzeit auf <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> einsehen und an Ihre Bedürfnisse anpassen. Gerne stehen wir Ihnen dabei unterstützend zur Seite. Machen Sie Ihre Anpassungen als Pull Request für die ganze Welt verfügbar!",
+			"title": "Unser kostenloses Angebot für Sie"
+		},
+		"further-information": {
+			"content": "Weitere Informationen zum OKR Framework finden Sie auf der <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY-Seite der BROCKHAUS AG</a>.",
+			"title": "Mehr über das OKR Framework und OKR-Prozesse erfahren"
+		},
+		"github": "GitHub",
+		"installation": {
+			"content": "Burning OKR lässt sich einfach auf verschiedenen Plattformen installieren. Wir bieten Ihnen Tutorials zur Installation mit...",
+			"list": "<li>Docker</li>\n<li>einem Tomcat Web Server (coming soon)</li>",
+			"title": "Einfache Installation "
+		},
+		"playground": "Playground",
+		"target-management": {
+			"content": "Objectives und Key Results werden in Zyklen bearbeitet. Gestalten Sie Name, Länge und Inhalte der Zyklen nach Ihren Wünschen. Behalten Sie den Überblick über die Produktivität der OKR Teams durch die Fortschrittsanzeige der Objectives und Key Results.",
+			"title": "Verwalten und steuern Sie Ihre Unternehmensziele"
+		},
+		"visions": {
+			"content": "Das agile OKR Framework unterstützt Sie durch einen strukturierten Zielvereinbarungsprozess bei der Erreichung der strategischen Unternehmensziele. Kurze Zyklen und messbare Ziele fördern die regelmäßige Evaluierung der Ergebnisse und bieten Ihnen die Möglichkeit, Ihr Geschäftsmodell anhand von neuen Informationen schnell zu modifizieren. Mit Burning OKR bieten wir Ihnen ein leistungsstarkes und nutzerfreundliches OpenSource Tool zur Unterstützung.",
+			"title": "Visionen mit Hilfe von OKR verwirklichen"
+		},
+		"welcome": {
+			"content": "Burning OKR unterstützt Sie bei der Erreichung strategischer Unternehmensziele und fördert eine agile und transparente Unternehmenskultur. Das OpenSource OKR Tool basiert dabei auf den langjährigen Erfahrungen der BROCKHAUS AG mit dem OKR Framework.",
+			"title": "Willkommen bei Burning OKR!"
+		}
+	},
+	"demo-imprint": "<div class=\"container footer-margin\">\n  <h1>IMPRESSUM</h1>\n\n  <h4>Impressum gemäß § 5 TMG:</h4>\n\n  <div class=\"content-container\">\n    <h4>BROCKHAUS AG</h4>\n    Pierbusch 17<br>\n    44536 Lünen<br>\n    Deutschland<br>\n  </div>\n\n  <div class=\"content-container\">\n    <h4>STANDORT DORTMUND</h4>\n    Emil-Figge-Straße 85<br>\n    44227 Dortmund<br>\n    Deutschland<br>\n  </div>\n\n  <div class=\"content-container\">\n    <h4>STANDORT HAMBURG</h4>\n    Willy-Brandt-Straße 23-25<br>\n    20457 Hamburg<br>\n    Deutschland<br>\n  </div>\n\n\n  <div class=\"content-container\">\n    <b>Telefon:</b> +49 (0) 231 98 75-0<br>\n    <b>Fax:</b> +49 (0) 231 98 75-540<br>\n    <b>E-Mail:</b> info@brockhaus-ag.de<br>\n    <b>Website:</b> www.brockhaus-ag.de<br>\n\n    <br>\n\n    <b>Vertretungsberechtigter Vorstand:</b> Matthias Besenfelder<br>\n    Aufsichtsratsvorsitzender: Dr. Adam Spalek<br>\n\n    <br>\n\n    <b>Registergericht:</b> Amtsgericht Dortmund<br>\n    <b>Registernummer:</b> HRB 27027<br>\n    <b>Umsatzsteuer-Identifikationsnummer:</b> DE 299350276<br>\n\n    <br>\n\n    <b>Verantwortlich für den Inhalt nach § 55 RStV:</b> Matthias Besenfelder<br>\n\n    <br>\n\n    <b>Haftungshinweis:</b> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.<br>\n  </div>\n\n</div>\n",
+	"demo-main-view": {
+		"playground": "Playground"
+	},
+	"demo-warning": {
+		"abort-button": "Abbrechen",
+		"database-deletion-text": "Alle 2 Stunden werden alle Daten auf dem Demo Playground gelöscht. Dazu wird ein Countdown angezeigt.",
+		"database-deletion-title": "Datenlöschung",
+		"explanation": "Sie betreten nun den Playground der Burning OKR Demo.",
+		"good-vibes-only-text": "Bitte verbreitet keine negativen Inhalte auf dem Demo Playground.",
+		"good-vibes-only-title": "#GoodVibesOnly",
+		"headline": "Nutzergenerierte Inhalte",
+		"playground-button": "Zum Playground",
+		"title": "Playground",
+		"user-generated-text": "Alle Inhalte auf dem Demo Playground sind durch Nutzer generiert. Wir übernehmen keine Verantwortung für diese Inhalte.",
+		"user-generated-title": "Nutzergenerierte Inhalte"
+	},
+	"department-description-edit-form": {
+		"edit-description": "Beschreibung bearbeiten"
+	},
+	"department-tab-description": {
+		"beginning": "Beginn:",
+		"delimitation": "Abgrenzung:",
+		"dependencies": "Abhängigkeiten:",
+		"description": "Beschreibung",
+		"edit-description": "Beschreibung bearbeiten",
+		"handover-plan": "Übergabeplan:",
+		"initiator": "Initiator:",
+		"resources": "Benötigte Ressourcen:",
+		"stakeholder": "Stakeholder:",
+		"startteam": "Startteam:",
+		"to": "Zahlt ein auf:",
+		"tooltip": {
+			"no-edit-rights": "Nur OKR Master können Beschreibungen bearbeiten"
+		},
+		"topic": "Thema:"
+	},
+	"department-tab-task-card": {
+		"delete": "Löschen",
+		"task-board-loading": "loading"
+	},
+	"department-tab-task-form": {
+		"assigned-user-ids": "Bearbeiter",
+		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten",
+			"title": "Aufgabe {{editOrCreateText}}"
+		},
+		"no-parent-key-result": "Kein übergeordnetes Key Result",
+		"select-parent-key-result": "Übergeordnetes Key Result auswählen",
+		"task-state": "Status",
+		"title": "Titel *"
+	},
+	"department-tab-taskboard": {
+		"add-button": {
+			"create-new-task": "Aufgabe erstellen",
+			"tooltip": "Keine WebSocket-Verbindung möglich"
+		},
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Soll die Aufgabe \"{{title}}\" wirklich gelöscht werden?",
+			"title": "Aufgabe löschen"
+		},
+		"task-board-headline": "Aufgaben",
+		"websocket-not-connected": "Websocketverbindung konnte nicht erstellt werden. Änderungen werden momentan nicht übernommen."
+	},
+	"department-tab-team": {
+		"define-o-k-r-master": "Kein OKR Master definiert",
+		"define-topic-sponsor": "Kein OKR Themenpate definiert",
+		"deletion-dialog": {
+			"button-text": "Entfernen",
+			"message": "Möchten Sie dies tun? Dieser Benutzer wird seine Managerrechte für dieses Team verlieren.",
+			"message-member": "Möchten Sie dieses Mitglied von dem Team entfernen? Der Benutzer wird seine Mitgliedsrechte in diesem Team verlieren.",
+			"title-master": "OKR Themenpate entfernen",
+			"title-member": "Mitglied entfernen",
+			"title-sponsor": "OKR Master entfernen"
+		},
+		"members-of-unit": "Mitglieder dieser Struktur",
+		"no-members-defined": "Keine Teammitglieder definiert",
+		"o-k-r-master": "OKR Master",
+		"o-k-r-topic-sponsor": "OKR Themenpate",
+		"placeholder": {
+			"member": "Neues Mitglied hinzufügen",
+			"okr-master": "OKR Master hinzufügen",
+			"topic-sponsor": "Themenpaten hinzufügen"
+		},
+		"team-member": "Teammitglieder"
+	},
+	"dialog-component": {
+		"cancel": "Abbrechen",
+		"date-range-within-another-date-range": "Start- und Enddatum darf sich nicht mit einem anderen Zyklusbereich überschneiden.",
+		"save": "Speichern",
+		"start-date-not-before-end-date": "Das Startdatum darf nicht vor dem Enddatum liegen.",
+		"start-equals-end": "Der Startwert darf nicht gleich dem Zielwert sein."
+	},
+	"disabled-in-demo-version": "⚠ Deaktiviert in der Demo Version",
+	"error": {
+		"error-id": "Fehler ID:",
+		"error-list": "Fehlerliste",
+		"tooltip": {
+			"go-to-okr-unit-overview": "Zur Strukturübersicht",
+			"navigate-to-previous": "Zur vorherigen Seite zurückkehren"
+		}
+	},
+	"feedback-button": {
+		"button-icon": {
+			"tooltip": "Feedback"
+		},
+		"successful-send": {
+			"message": "Feedback erfolgreich übermittelt 📬"
+		}
+	},
+	"feedback-form": {
+		"dialog": {
+			"save-button": "Feedback absenden",
+			"title": "Feedback geben"
+		},
+		"form-field": {
+			"feedback": "Feedback",
+			"name": "Name"
+		}
+	},
+	"import-csv-dialog": {
+		"amount-of-entries-loaded": "Es wurden Einträge geladen.",
+		"confirmation": {
+			"text": "Diese Operation wird alle {{list_length}} Nutzer hinzufügen.",
+			"title": "{{list_length}} Benutzer erstellen."
+		},
+		"csv-file": "CSV-Datei",
+		"department": "Abteilung",
+		"description": "Diese Funktion ermöglicht es Benutzer mit einer CSV Datei zu importieren. Die CSV Datei muss die Userdaten dabei in folgender Reihenfolge bereit stellen: Vorname, Nachname, Email, Jobbezeichung, Abteilung",
+		"duplicate-email-adresses-warning": "In diesem Datensatz sind doppelte Email Adressen.",
+		"email": "Email",
+		"job-title": "Jobbezeichnung",
+		"name": "Name",
+		"to-many-entries-warning": "Mindestens ein Eintrag hat zu viele spalten."
+	},
+	"key-result-form": {
+		"amount-units": "Anzahl",
+		"current": "Aktuell *",
+		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten"
+		},
+		"key-result": "Key Result *",
+		"start": "Start *",
+		"target": "Ziel *",
+		"unit": "Einheit *"
+	},
+	"key-result-milestone-form": {
+		"add-button": "Meilenstein hinzufügen",
+		"name-*": "Name *",
+		"toggle": "Meilensteine aktiv",
+		"tooltip": {
+			"delete-button": "Meilenstein löschen"
+		},
+		"value-input": "Ziel-Wert *"
+	},
+	"keyresult": {
+		"deletion-dialog": {
+			"button-text": "KeyResult löschen",
+			"message": "KeyResult {{number}}. {{keyResultTitle}} von dem Objective löschen?",
+			"title": "Löschen"
+		},
+		"menu": {
+			"edit-key-result": "KeyResult bearbeiten",
+			"keyresult": "KeyResult löschen",
+			"move-key-result-down": "KeyResult nach unten verschieben",
+			"move-key-result-up": "KeyResult nach oben verschieben"
+		},
+		"tooltip": {
+			"adjust-progress": "Fortschritt anpassen",
+			"comments-for-this-key-result": "Kommentare zu diesem KeyResult",
+			"more-options": "Mehr Optionen zu diesem KeyResult"
+		}
+	},
+	"language-picker": {
+		"language": {
+			"english": "Englisch",
+			"german": "Deutsch"
+		},
+		"select-trigger-text": "Sprache wählen"
+	},
+	"login": {
+		"button": "Passwort vergessen",
+		"caps-lock-on": "Die Feststelltaste ist aktiv",
+		"email": "Email",
+		"error-invalid-grant": "Passwort oder Benutzername ungültig",
+		"error-unauthorized": "Benutzername nicht gefunden",
+		"password": "Passwort"
+	},
+	"logout": {
+		"logged-out": "Sie wurden erfolgreich ausgelogt.",
+		"redirect": "Sie werden sofort weitergeleitet."
+	},
+	"main-view": {
+		"navigation-sidebar": {
+			"cycle-not-started": "Dieser Zyklus hat noch nicht angefangen und kann in Vorbereitung bearbeitet werden.",
+			"cycle-started": "Dieser Zyklus ist bereits abgelaufen und daher geschlossen - Bearbeitung ist nur begrenzt möglich."
+		},
+		"tooltip": {
+			"adjust-cycleperiod": "Betrachtungszeitraum anpassen",
+			"go-to-structure-view": "Zur Strukturübersicht",
+			"toogle-navigvation": "Navigationsmenü anzeigen/verbergen"
+		}
+	},
+	"max-length-validator": {
+		"message": "Maximale Zeichenzahl überschritten"
+	},
+	"navigation-list-entry": {
+		"tooltip": {
+			"is-substructure": "Dies ist eine Unterstruktur",
+			"is-team": "Dies ist ein Team",
+			"you-are-manager": "Sie sind Manager dieser Struktur",
+			"you-are-member": "Sie sind Mitglied dieser Struktur"
+		}
+	},
+	"no-mail-information": {
+		"a-a-d": "Wird ein Azure Active Directory zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
+		"back-to-home": "Zurück zur Startseite",
+		"create-user-mails": "Senden von Mails für die Anlegung von Nutzern",
+		"feedback": "Senden von Feedback",
+		"info": "Dies kann die Benutzbarkeit der Anwendung stark einschränken.",
+		"local": "Wird die lokale Nutzerdatenbank von BurningOKR zur Nutzerverwaltung verwendet, sind folgende Funktionen nicht verfügbar:",
+		"no-smtp": "Kein SMTP konfiguriert",
+		"password-reset-mails": "Senden von Mails um Passwörter zurückzusetzen",
+		"title": "Es wurde keine SMTP Konfiguration gefunden.",
+		"tooltip": {
+			"go-to-okr-unit-overview": "Zur Strukturübersicht"
+		}
+	},
+	"objective": {
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Objective {{number}}. {{objectiveTitle}} löschen?",
+			"title": "Objective löschen"
+		},
+		"menu": {
+			"comment-objective": "Objective kommentieren",
+			"delete-objective": "Objective löschen",
+			"disable-objective": "Objective auf inaktiv setzen",
+			"edit-objective": "Objective bearbeiten",
+			"enable-objective": "Objective auf aktiv setzen",
+			"move-down-objective": "Objective nach unten verschieben",
+			"move-up-objective": "Objective nach oben verschieben"
+		},
+		"objective-isnt-active": "Dieses Objective ist nicht aktiv",
+		"tooltip": {
+			"bad-progress": "Das Objective macht einen schlechten Fortschritt",
+			"expand-objective": "Objective aufklappen",
+			"good-progress": "Das Objective macht einen guten Fortschritt",
+			"progress-can-be-better": "Das Objective sollte den Fortschritt verbessern",
+			"subordinate": {
+				"": "Anzahl der untergeordneten Objectives"
+			}
+		}
+	},
+	"objective-contents": {
+		"define-new-key-result": "KeyResult erstellen",
+		"key-results": "KeyResults",
+		"load-key-results": "Lade KeyResults...",
+		"no-key-result-found": "Es gibt noch keine KeyResults für dieses Objective.",
+		"parent-objective": "Übergeordnetes Objective",
+		"tooltip": {
+			"navigate-to-unit": "Zu der Struktur des Objectives"
+		}
+	},
+	"objective-form": {
+		"annotation": "Anmerkungen",
+		"contact-person": "Ansprechpartner",
+		"description": "Beschreibung",
+		"dialog": {
+			"create": "erstellen",
+			"edit": "bearbeiten",
+			"title": "Objective {{editOrCreateText}}"
+		},
+		"no-contact-person": "Kein Ansprechpartner",
+		"no-parent-objective": "Kein übergeordnetes Objective",
+		"objective-is-active-in-process": "Objective wird im aktuellen Zyklus aktiv bearbeitet",
+		"select-parent-objective": "Übergeordnetes Objective auswählen"
+	},
+	"okr-child-unit": {
+		"deletion-dialog": {
+			"button-text": "Löschen",
+			"message": "Es werden auch alle untergeordneten Objectives, KeyResults und Kommentare gelöscht.",
+			"title": "{{name}} löschen?"
+		},
+		"description": "Beschreibung",
+		"empty-label": "-",
+		"error-info-label": "Info",
+		"load-department": "Lade Department",
+		"load-department-failed": "Laden Fehlgeschlagen",
+		"load-department-failed-button": "Zur nächsthöheren Struktur",
+		"load-department-failed-info-text": "Die Struktur konnte nicht geladen werden. Sie könnte von einem anderen Nutzer gelöscht worden sein, oder der Server antwortet nicht.",
+		"loading": "Lade...",
+		"menu": {
+			"contacts": "Kontakte exportieren",
+			"delete-unit": "Struktur löschen",
+			"disable-unit": "Struktur auf inaktiv setzen",
+			"editchild-unit": "Struktur bearbeiten",
+			"enable-unit": "Struktur auf aktiv setzen",
+			"export": "Exportieren"
+		},
+		"overview": "Übersicht",
+		"please-wait": "Bitte warten",
+		"substructures": "Unterstrukturen",
+		"task-board-headline": "Aufgaben",
+		"team-member": "Teammitglieder",
+		"tooltip": {
+			"cannot-delete-unit": "Kann wegen Unterstrukturen nicht gelöscht werden!",
+			"more-options": "Mehr Optionen zu dieser Struktur"
+		},
+		"unit-not-active": "Diese Struktur ist nicht aktiv"
+	},
+	"okr-child-unit-form": {
+		"description": "Bezeichnung *",
+		"dialog": {
+			"create": "{{label}} erstellen",
+			"edit": "{{label}} bearbeiten"
+		},
+		"header": "Aktiv",
+		"name-*": "Name *"
+	},
+	"okr-child-unit-overview-tab": {
+		"create-new-objective": "Objective erstellen",
+		"load-objective": "Lade Objective...",
+		"no-objectives": "Es gibt noch keine Objectives für diese Struktur."
+	},
+	"okr-child-unit-preview-button": {
+		"load": "Lade",
+		"tooltip": {
+			"list-child-unit": "Unterstrukturen dieser Struktur",
+			"list-objectives": "Objectives dieses Struktur",
+			"not-active": "Diese Okr Einheit ist nicht aktiv",
+			"show-department": "Struktur anzeigen"
+		}
+	},
+	"okr-child-unit-tab": {
+		"no-child-unit": "Es gibt noch keine Unterstrukturen für diese Struktur",
+		"substructures": "Unterstrukturen"
+	},
+	"okr-toolbar": {
+		"admin-icon": {
+			"tooltip": {
+				"is-admin": "Als Admin autorisiert"
+			}
+		},
+		"main-page": "Hauptseite",
+		"menu": {
+			"admin-panel-text": "Admin Panel",
+			"change-password-text": "Passwort ändern",
+			"cycle-administration-text": "Zyklusverwaltung",
+			"dashboard-overview": "Dashboardübersicht",
+			"language-picker": "Sprache wählen",
+			"logout-text": "Logout",
+			"settings-text": "Einstellungen",
+			"topic-drafts-text": "Themenentwürfe",
+			"user-managment-text": "Nutzerverwaltung"
+		},
+		"return-to-demo-text": "Hauptseite",
+		"tooltip": {
+			"menue": "Menü"
+		},
+		"warning": {
+			"no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
+			"no-smtp-text": "Warnung: Es wurde kein SMTP Server konfiguriert."
+		}
+	},
+	"okr-topic-description-form": {
+		"beginning": "Beginn *",
+		"contributes-to": "Zahlt ein auf",
+		"delimitation": "Abgrenzung",
+		"dependencies": "Abhängigkeiten",
+		"description": "Beschreibung",
+		"handover-plan": "Übergabeplan",
+		"header": "Thema *",
+		"initiator": "Initiator *",
+		"no-initiator": "Kein Initiator",
+		"resources": "Benötigte Ressourcen",
+		"stakeholder": "Stakeholder",
+		"start-team": "Start Team"
+	},
+	"okr-unit-card": {
+		"delete-company-has-child-unit-warning": "{{value}} enthält noch Unterstrukturen",
+		"general-delete-dialog-title": "{{value}} löschen?",
+		"label": "Die Firma löschen",
+		"mat-card-actions": {
+			"delete": "Struktur löschen ",
+			"edit-name": "Namen bearbeiten",
+			"tooltip": {
+				"delete-unit": "Struktur löschen",
+				"edit-unit-name": "Namen der Struktur bearbeiten"
+			}
+		},
+		"mat-card-subtitle": {
+			"unit-structure": "Firmenstruktur"
+		}
+	},
+	"okr-unit-dashboard": {
+		"add-unit": "Struktur hinzufügen",
+		"okr-toolbar": {
+			"unit-overview": "Strukturübersicht"
+		}
+	},
+	"okr-unit-form": {
+		"create": "{{value}} erstellen",
+		"default-label": {
+			"structure": "Unterstruktur",
+			"team": "OKR Team"
+		},
+		"placeholder": {
+			"label": "Bezeichnung *",
+			"name": "Name *"
+		},
+		"save": "{{value}} speichern",
+		"structure": "Struktur"
+	},
+	"password-form": {
+		"caps-lock-on": "Die Feststelltaste ist aktiv",
+		"error-message-previous-password-required": "Das vorherige Passwort muss angegeben werden.",
+		"error-message-previous-password-wrong": "Das vorherige Password ist falsch angegeben worden.",
+		"new-password": "Neues Passwort",
+		"new-password-invalid": "Das Passwort muss mindestens 7 Zeichen enthalten",
+		"new-password-repetition": "Neues Passwort wiederholen",
+		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
+		"previous-password": "Vorheriges Passwort"
+	},
+	"passwords-match-validator-function": {
+		"message": "Die Passwörter stimmen nicht überein."
+	},
+	"required-validator": {
+		"message": "Pflichtfeld"
+	},
+	"reset-countdown": {
+		"until-next": "Zurücksetzen der Daten in:"
+	},
+	"reset-password": {
+		"email": "Email",
+		"error-invalid-email": "Ungültige E-mail",
+		"password-reset-email-has-been-send-out": "Eine Email zum zurücksetzen Ihres Passworts wurde an die angegebene Email-Adresse versandt.",
+		"password-reset-title": "Burning OKR - Passwort zurücksetzen",
+		"reset-password": "Passwort zurücksetzen"
+	},
+	"set-azure-admin-init-state-form": {
+		"other-user-notice": "Falls Sie einen anderen Nutzer als initialen Administrator festlegen möchten, melden Sie sich bitte mit dessen Konto an.",
+		"set-admin-button": "Diesen Nutzer als Administrator festlegen",
+		"set-admin-logout-button": "Logout",
+		"set-azure-admin-subtitle": "Folgender Nutzer wird als initialer Administrator festgelegt.",
+		"set-azure-admin-title": "Administrator festlegen"
+	},
+	"set-oauth-client-details-form": {
+		"access-token-validity": "Lebenszeit des Accesstokens (in Sekunden)",
+		"client-id": "Client-Id",
+		"client-secret": "Client-Secret (Empfohlen wird eine Mindestlänge von 32 Zeichen)",
+		"explanation": "Um die Lokale Nutzerdatenbank zu verwenden, müssen die OAuth Einstellungen konfiguriert werden. Wichtig ist dabei, dass die Client-ID und das Client-Secret einzigartig sind. Alle Formularfelder wurden bereits mit sinnvollen Daten befüllt und eine Änderung dieser Daten wird nur fortgeschrittenen Nutzern empfohlen.",
+		"next": "Weiter",
+		"only-do-this-if-you-are-a-nerd-warning": "Formular aktivieren. Nur für fortgeschrittene Nutzer empfohlen!",
+		"please-hang-on-the-server-is-beeing-configured": "Bitte warten Sie einen Moment, während der Server konfiguriert wird.",
+		"refresh-token-validity": "Lebenszeit des Refreshtokens (in Sekunden)",
+		"timeout": {
+			"error-message": "Der Server hat zu lange für die Konfiguration gebraucht. Bitte überprüfen Sie den Server und laden die Seite neu.",
+			"error-message-action": "Ok"
+		},
+		"title": "Konfiguration der Authentifizierung",
+		"web-server-redirect-uri": "Webserver-Redirect-URI"
+	},
+	"set-password": {
+		"new-password": "Neues Passwort",
+		"new-password-invalid": "Das Passwort muss mindestens 7 Zeichen enthalten",
+		"new-password-repetition": "Neues Passwort wiederholen",
+		"password-changed-message": "Passwort erfolgreich geändert ✅",
+		"passwords-do-not-match": "Die Eingaben stimmen nicht überein.",
+		"reset-password": "Passwort zurücksetzen",
+		"set-new-password-instruction": "Legen Sie ein neues Passwort fest",
+		"toolbar-title": "Burning OKR - Passwort ändern"
+	},
+	"settings-form": {
+		"admin-settings": "Adminverwaltung",
+		"cancel-button-text": "Abbrechen",
+		"save": "Speichern",
+		"settings": "Einstellungen"
+	},
+	"start-date-before-end-date-validator-function": {
+		"message": "Das Anfangsdatum ist nach dem Enddatum"
+	},
+	"start-not-equal-end-validator-function": {
+		"message": "Das Anfangsdatum ist nach dem Enddatum"
+	},
+	"status-dot": {
+		"approved": "Genehmigt",
+		"draft": "Entwurf",
+		"rejected": "Abgelehnt",
+		"submitted": "Eingereicht"
+	},
+	"task-board-swimlane-view-helper": {
+		"no-keyresult-title": "Kein KeyResult"
+	},
+	"taskboard-state-column-view": {
+		"default-state-text": "Nicht zugewiesen"
+	},
+	"topic-draft-action-button": {
+		"admin-initiator-tooltip": "Nur ein Admin oder der Initiator können Einreichen oder Einreichen zurücknehmen",
+		"approving-status-and-user": "Der Status muss auf \"Eingereicht\" sein und nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
+		"capitalised-approve": "Genehmigen",
+		"capitalized-reject": "Ablehnen",
+		"capitalized-submit": "Einreichen",
+		"comments": {
+			"heading": "Themenentwurf"
+		},
+		"comments-text": "Kommentare",
+		"create-team": "Zu Team umwandeln",
+		"delete": {
+			"button-text": "Löschen",
+			"message": "Möchten Sie Themenentwurf {{name}} wirklich löschen?",
+			"title": "Themenentwurf löschen"
+		},
+		"delete-text": "Löschen ",
+		"edit": "Bearbeiten ",
+		"edit-tooltip": {
+			"status": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein",
+			"status-and-user": "Der Status muss auf \"Eingereicht\" oder \"Vorlage\" sein und nur ein Admin oder der Initiator kann bearbeiten",
+			"user": "Nur ein Admin oder der Initiator können bearbeiten"
+		},
+		"no-permission": "Nur ein Admin oder ein Auditor kann annehmen oder ablehnen",
+		"not-approved": "Themenentwurf nicht genehmigt",
+		"snackbar": {
+			"ok": "Ok",
+			"submit": "Ihr Themenentwurf wurde zur Prüfung abgeschickt."
+		},
+		"state-submitted-tooltip": "Der Status muss auf \"Eingereicht\" sein",
+		"status-submitted": "Der Status muss auf \"Eingereicht\" sein, damit das Einreichen zurückgenommen werden kann",
+		"status-submitted-user": "Der Status muss auf \"Eingereicht\" sein und Sie müssen ein Admin oder der Initiator sein, damit das Einreichen zurückgenommen werden kann",
+		"tooltip": {
+			"feature-coming-soon": "Feature kommt demnächst",
+			"header": "Kommentare",
+			"only-admin-or-initiator-permission-to-delete": "Nur ein Admin oder der Initiator können diesen Themenentwurf löschen"
+		},
+		"user-not-admin": "Admin-Rechte benötigt ",
+		"withdraw-approval": "Genehmigung zurücknehmen",
+		"withdraw-rejection": "Ablehnung zurücknehmen",
+		"withdraw-submit": "Einreichen zurücknehmen"
+	},
+	"topic-draft-creation-form": {
+		"dialog-title": "Themenentwurf erstellen"
+	},
+	"topic-draft-details-dialogue": {
+		"button": {
+			"close": "Schließen",
+			"edit": "Bearbeiten",
+			"tooltip-no-permission": "Nur der Initiator des Themenentwurfes oder ein Admin können diesen bearbeiten. Dazu darf der Themenentwurf nicht angenommen oder abgelehnt worden sein."
+		},
+		"field": {
+			"begin": "Beginn",
+			"contribution": "Zahlt ein auf",
+			"delimitation": "Abgrenzung",
+			"dependencies": "Abhängigkeiten",
+			"description": "Beschreibung",
+			"handover": "Übergabeplan",
+			"initiator": "Initiator",
+			"no-team-members": "Keine Teammitglieder vorhanden",
+			"resources": "Ressourcen",
+			"stakeholder-team": "Stakeholder Team",
+			"start-team": "Start Team",
+			"topic": "Thema"
+		},
+		"status": {
+			"approved": "Angenommen",
+			"rejected": "Abgelehnt",
+			"submitted": "Eingereicht",
+			"template": "Vorlage",
+			"title": "Status"
+		},
+		"title": "Eingereichter Themenentwurf"
+	},
+	"topic-draft-edit-dialogue": {
+		"title": "Themenentwurf bearbeiten"
+	},
+	"topic-draft-list": {
+		"column": {
+			"name": "Name",
+			"start": "Start",
+			"submitted": "Eingereicht von"
+		},
+		"no-new-topic-drafts": "Keine neuen Themenentwürfe"
+	},
+	"topic-drafts": {
+		"add-topic-draft-button": "Themenentwurf erstellen",
+		"home-button": {
+			"tooltip": "Zur Strukturübersicht"
+		},
+		"initiator-table-header": "Thema",
+		"navbar": {
+			"title": "Eingereichte Themenentwürfe",
+			"title-short": "Themenentwurf"
+		}
+	},
+	"user-autocomplete-input": {
+		"label": "Benutzer Eingabe"
+	},
+	"user-dialog": {
+		"reset-password": "Passwort zurücksetzen",
+		"snackbar": {
+			"message": "Das Passwort wurde erfolgreich zurückgesetzt.",
+			"ok": "Ok"
+		}
+	},
+	"user-form": {
+		"department": "Abteilung",
+		"email": "Email",
+		"error-invalid-email": "Ungültige E-mail",
+		"error-used-email": "Die Email wird bereits von einem anderen Nutzer verwendet verwendet.",
+		"first-name": "Vorname",
+		"job-title": "Jobbezeichnung",
+		"last-name": "Nachname"
+	},
+	"user-management": {
+		"active-table-header": "Aktiv",
+		"add-new-user": "Benutzer erstellen",
+		"admin-table-header": "Admin",
+		"checkbox": "Deaktivierte Benutzer anzeigen",
+		"department-table-header": "Abteilung ",
+		"email": "Email ",
+		"import-users": "Benutzer importieren",
+		"job-title-table-header": "Berufsbezeichnung ",
+		"name": "Name",
+		"tooltip": {
+			"activate-user": "Nutzer aktivieren",
+			"deactivate-user": "Nutzer deaktivieren ",
+			"edit-user": "Nutzer bearbeiten ",
+			"go-to-okr-unit-overview": "Zur Strukturübersicht",
+			"import-users-from-csv": "Benutzer aus CSV importieren"
+		},
+		"user-management-toolbar-title": "Benutzerverwaltung"
+	},
+	"user-minibutton": {
+		"loading-user": "Lade Benutzer...",
+		"tooltip": {
+			"remove-member": "Benutzer aus Team entfernen"
+		}
+	},
+	"user-selector": {
+		"no-entries": "Keine Benutzer gefunden.",
+		"placeholder": "Suche"
+	},
+	"user-selector-multi": {
+		"no-entires": "Keine Benutzer gefunden.",
+		"placeholder": "Suche"
+	},
+	"user-settings": {
+		"default-company": "Standard Unternehmen",
+		"default-team": "Standard Team",
+		"no-company": "Kein Unternehmen",
+		"no-team": "Kein Team"
+	},
+	"validation-error": {
+		"default-error-message": "Kein gültiger Wert."
+	},
+	"version-form": {
+		"change-log": "Versionsänderungen",
+		"close": "Schließen"
+	}
 }

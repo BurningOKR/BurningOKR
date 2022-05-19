@@ -2,7 +2,7 @@
   <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
     <mat-icon>home</mat-icon>
   </button>
-  <span>Dashboard</span>
+  <span>{{'dashboard.okr-toolbar.dashboard' | translate}}</span>
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
@@ -12,7 +12,7 @@
   </span>
   <div class="dashboard-charts">
     <div *ngFor="let chart of dashboard.charts">
-      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer> <!-- TODO: p.b. fix display flex problem with size of chart (chart shrinks when using display flex-->
+      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>
     </div>
   </div>
 </div>
