@@ -55,6 +55,10 @@
 			"title": "Change password"
 		}
 	},
+	"chart-options-card": {
+		"company-average": "Company average",
+		"teams": "Teams"
+	},
 	"comment-card": {
 		"edit-comment": "Edit comment",
 		"tooltip": {
@@ -116,6 +120,17 @@
 			"only-substructures-allowed": "A team can be created only in structures"
 		}
 	},
+	"create-dashboard": {
+		"add-new-chart-to-dashboard": "Add Chart",
+		"chart-title-placeholder": "Chart Title",
+		"create-dashboard-button": "Create Dashboard",
+		"dashboard-title-placeholder": "Dashboard Title",
+		"okr-toolbar": {
+			"create-dashboard": "Create Dashboard"
+		},
+		"select-teams-placeholder": "Select Teams",
+		"type-of-chart-placeholder": "Type of chart"
+	},
 	"create-user-init-state-form": {
 		"create-your-admin-account": "Create your administrator account",
 		"next": "Continue",
@@ -158,6 +173,20 @@
 		"start-date": "Start date",
 		"title": "Edit cycle",
 		"visibility": "Visibility"
+	},
+	"dashboard": {
+		"okr-toolbar": {
+			"dashboard": "Dashboard"
+		}
+	},
+	"dashboard-card": {
+		"created-by": "Created by: ",
+		"delete-dashboard": "Delete"
+	},
+	"dashboard-overview": {
+		"okr-toolbar": {
+			"dashboard-overview": "Dashboard overview"
+		}
 	},
 	"date-format-validator-function": {
 		"message": "The entered value is not a valid date in the form DD.MM.YYYY"
@@ -575,6 +604,7 @@
 			"admin-panel-text": "Admin panel",
 			"change-password-text": "Change password",
 			"cycle-administration-text": "Cycle management",
+			"dashboard-overview": "Dashboard overview",
 			"language-picker": "Pick language",
 			"logout-text": "Logout",
 			"settings-text": "Settings",

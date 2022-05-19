@@ -2,13 +2,13 @@
   <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
     <mat-icon>home</mat-icon>
   </button>
-  <span>Dashboard anlegen</span> <!-- TODO P.B. 28-03-2022 TRANSLATE!-->
+  <span>{{'create-dashboard.okr-toolbar.create-dashboard' | translate}}</span>
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
 <div class="dashboard-creation-title">
   <mat-form-field>
-    <input matInput placeholder="Dashboard-Titel" [(ngModel)]="dashboardCreationDto.title">
+    <input matInput placeholder="{{'create-dashboard.dashboard-title-placeholder' | translate}}" [(ngModel)]="dashboardCreationDto.title">
   </mat-form-field>
 </div>
 
@@ -21,13 +21,13 @@
     </div>
 
     <div class="chart-creation-options">
-      <p>Neues Diagramm zum Dashboard hinzufügen</p>
+      <p>{{'create-dashboard.add-new-chart-to-dashboard' | translate}}</p>
       <mat-form-field>
-        <input matInput placeholder="Titel" [(ngModel)]="newChart.title">
+        <input matInput placeholder="{{'create-dashboard.chart-title-placeholder' | translate}}" [(ngModel)]="newChart.title">
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select (selectionChange)="chartSelected($event)" placeholder="Art der Information">
+        <mat-select (selectionChange)="chartSelected($event)" placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
           <mat-option *ngFor="let chartType of chartTypes" value="{{chartType}}"
                       matTooltip="{{chartTypeRecord[chartType]}}">
             {{chartTypeRecord[chartType]}}
@@ -36,7 +36,7 @@
       </mat-form-field>
 
       <mat-form-field *ngIf="teamIsSelectable">
-        <mat-select multiple placeholder="Team auswählen" [(value)]="newChart.teamIds">
+        <mat-select multiple placeholder="{{'create-dashboard.select-teams-placeholder' | translate}}" [(value)]="newChart.teamIds">
           <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -53,7 +53,7 @@
     <button [disabled]="!dashboardValid()" mat-stroked-button
             (click)="createDashboardAndRouteToDashboard$()">
       <mat-icon>add_circle_outline</mat-icon>
-      Dashboard anlegen
+      {{'create-dashboard.create-dashboard-button' | translate}}
     </button>
   </div>
 </div>

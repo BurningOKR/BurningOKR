@@ -62,7 +62,7 @@
   </button>
   <button mat-menu-item *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
     <mat-icon>dashboard</mat-icon>
-    <span>Dashboard ÜBERSETUNG TODO</span>
+    <span>{{'okr-toolbar.menu.dashboard-overview' | translate}}</span>
   </button>
   <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item
           (click)="routeToCycleAdminPanel()">

@@ -10,16 +10,16 @@
     {{dashboard.title}}
     <br><br>
     <span class="dashboard-card-created-by">
-        Erstellt von: {{dashboard.creator.surname}} , {{dashboard.creator.givenName}}
-      </span> <!--TODO: p.b. Translate -->
+        {{'dashboard-card.created-by' | translate}} {{dashboard.creator.surname}} , {{dashboard.creator.givenName}}
+      </span>
   </div>
 </mat-card>
 
 <mat-menu #menu="matMenu">
-  <span matTooltip="Löschen">
+  <span matTooltip="{{'dashboard-card.delete-dashboard' | translate}}">
       <button mat-menu-item (click)="deleteDashboard.next(dashboard)">
         <mat-icon>delete</mat-icon>
-        <span>Dashboard löschen</span>
+        <span>{{'dashboard-card.delete-dashboard' | translate}}</span>
       </button>
     </span>
 </mat-menu>
