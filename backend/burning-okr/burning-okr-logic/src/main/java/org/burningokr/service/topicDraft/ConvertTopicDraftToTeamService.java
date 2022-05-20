@@ -2,7 +2,6 @@ package org.burningokr.service.topicDraft;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okr.OkrTopicDescription;
@@ -20,33 +19,33 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ConvertTopicDraftToTeamService {
-
   private final OkrTopicDraftService okrTopicDraftService;
   private final CompanyService companyService;
   private final OkrUnitServiceFactory<OkrDepartment> okrDepartmentOkrUnitServiceFactory;
 
   @Transactional
   public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId, User user) {
-    OkrTopicDraft topicDraft = this.okrTopicDraftService.findById(topicDraftId);
+    OkrTopicDraft topicDraft = okrTopicDraftService.findById(topicDraftId);
 
-    if (topicDraft.getCurrentStatus() != OkrTopicDraftStatusEnum.approved) {
+    if (!OkrTopicDraftStatusEnum.approved.equals(topicDraft.getCurrentStatus())) {
       throw new NotApprovedException(
-          "TopicDraft has to be Approved before it can be converted to a Team");
+          "TopicDraft has to be approved before it can be converted to a team");
     }
 
     OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), user);
     copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
     okrDepartment = writeOkrDepartmentToDatabase(okrDepartment, user);
-
     deleteTopicDraft(topicDraft, user);
 
     return okrDepartment;
   }
 
   private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, User user) {
+    String standardLabel = "Team";
+
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setName(name);
-    okrDepartment.setLabel("Team");
+    okrDepartment.setLabel(standardLabel);
 
     return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId, user);
   }
@@ -83,7 +82,7 @@ public class ConvertTopicDraftToTeamService {
   private void copyValuesFromOkrTopicDraftToOkrDepartment(
       OkrTopicDraft topicDraft, OkrDepartment okrDepartment) {
     okrDepartment.setName(topicDraft.getName());
-    okrDepartment.setOkrMemberIds(copyUserList(topicDraft.getStartTeam()));
+    okrDepartment.setOkrMemberIds(new ArrayList<>(topicDraft.getStartTeam()));
     okrDepartment.setOkrMasterId(topicDraft.getInitiatorId());
     okrDepartment.setActive(true);
 
@@ -95,10 +94,6 @@ public class ConvertTopicDraftToTeamService {
     topicDescription.setDependencies(topicDraft.getDependencies());
     topicDescription.setResources(topicDraft.getResources());
     topicDescription.setHandoverPlan(topicDraft.getHandoverPlan());
-  }
-
-  private Collection<UUID> copyUserList(Collection<UUID> userList) {
-    return new ArrayList<>(userList);
   }
 
   private void deleteTopicDraft(OkrTopicDraft topicDraft, User user) {

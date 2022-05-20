@@ -3,6 +3,7 @@ package org.burningokr.service.okrUnit;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
@@ -58,29 +59,24 @@ public class CompanyService {
   }
 
   public Collection<OkrCompany> getCompaniesByActiveStatus(boolean active) {
-    Collection<OkrCompany> okrCompanies;
     if (active) {
-      okrCompanies =
-          getAllCompanies().stream()
-              .filter(okrCompany -> okrCompany.getCycle().getCycleState() != CycleState.CLOSED)
-              .collect(Collectors.toList());
+      return filterCompanies(CycleState.ACTIVE);
     } else {
-      okrCompanies =
-          getAllCompanies().stream()
-              .filter(okrCompany -> okrCompany.getCycle().getCycleState() == CycleState.CLOSED)
-              .collect(Collectors.toList());
+      return filterCompanies(CycleState.CLOSED);
     }
-
-    return okrCompanies;
   }
 
-  public Collection<OkrCompany> attachCycleNameToCompanyName(Collection<OkrCompany> okrCompanies) {
-    return okrCompanies.stream()
-        .peek(
-            okrCompany ->
-                okrCompany.setName(
-                    okrCompany.getName() + " (" + okrCompany.getCycle().getName() + ")"))
+  private List<OkrCompany> filterCompanies(CycleState state) {
+    return getAllCompanies().stream()
+        .filter(okrCompany -> okrCompany.getCycle().getCycleState() == state)
         .collect(Collectors.toList());
+  }
+
+  public void attachCycleNameToCompanyName(Collection<OkrCompany> okrCompanies) {
+    okrCompanies.forEach(
+        okrCompany ->
+            okrCompany.setName(
+                okrCompany.getName() + " (" + okrCompany.getCycle().getName() + ")"));
   }
 
   public Collection<OkrCompany> findCompanyHistoryByCompanyId(long companyId) {

@@ -1,7 +1,6 @@
 package org.burningokr.controller.okr;
 
 import java.util.Collection;
-import java.util.logging.Logger;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
@@ -16,6 +15,8 @@ import org.burningokr.model.users.User;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.topicDraft.ConvertTopicDraftToTeamService;
 import org.burningokr.service.topicDraft.OkrTopicDraftService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class TopicDraftController {
   private final DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper;
   private final AuthorizationService authorizationService;
   private final ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
+  private final Logger logger = LoggerFactory.getLogger(TopicDraftController.class);
 
   /**
    * API Endpoint to get all TopicDrafts.
@@ -145,7 +147,7 @@ public class TopicDraftController {
   }
 
   /**
-   * Endpoint to create a OkrUnit from a TopicDraft
+   * Endpoint to create an OkrUnit from a TopicDraft
    *
    * @param okrUnitId The Identifier for the OkrUnit underneath which the new Unit should be created
    * @return The Identifier of the newly created Team
@@ -156,12 +158,8 @@ public class TopicDraftController {
       @RequestParam(name = "topicDraftId") long topicDraftId,
       @RequestParam(name = "okrUnitId") long okrUnitId,
       User user) {
-    Logger.getLogger("TopicDraftController")
-        .info(
-            "Converting Topic-Draft "
-                + topicDraftId
-                + " to new Department underneath "
-                + okrUnitId);
+    logger.info(
+        "Converting Topic-Draft " + topicDraftId + " to new Department underneath " + okrUnitId);
     OkrDepartmentDto okrDepartmentDto =
         okrDepartmentMapper.mapEntityToDto(
             convertTopicDraftToTeamService.convertTopicDraftToTeam(topicDraftId, okrUnitId, user));

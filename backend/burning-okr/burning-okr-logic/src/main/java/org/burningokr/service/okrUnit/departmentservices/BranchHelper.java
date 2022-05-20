@@ -29,7 +29,7 @@ public class BranchHelper {
   }
 
   /**
-   * Gets ChildUnits directly under a OkrCompany
+   * Gets ChildUnits directly under an OkrCompany
    *
    * @param okrCompany a {@link OkrCompany} object
    * @return a {@link Collection} of {@link OkrChildUnit}

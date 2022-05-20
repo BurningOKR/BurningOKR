@@ -36,7 +36,7 @@ public class StructureController {
     }
 
     if (attachCycleName) {
-      okrCompanies = companyService.attachCycleNameToCompanyName(okrCompanies);
+      companyService.attachCycleNameToCompanyName(okrCompanies);
     }
 
     return ResponseEntity.ok(structureMapper.mapCompaniesToStructureDtos(okrCompanies));
