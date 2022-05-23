@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BaseChartOptions } from '../../model/ui/base-chart-options';
 
 import { BaseChartComponent } from './base-chart.component';
 
 describe('BaseChartComponent', () => {
-  let component: BaseChartComponent;
-  let fixture: ComponentFixture<BaseChartComponent>;
+  let component: BaseChartComponent<BaseChartOptions>;
+  let fixture: ComponentFixture<BaseChartComponent<BaseChartOptions>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
