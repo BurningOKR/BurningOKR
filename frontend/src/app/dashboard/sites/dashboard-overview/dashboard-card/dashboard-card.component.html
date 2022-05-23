@@ -1,12 +1,13 @@
 <mat-card class="dashboard-card"
-        routerLink="/dashboard/{{dashboard.id}}" matTooltip="{{dashboard.title}}">
-  <div class="f-1">
-    <mat-icon class="font-32">dashboard</mat-icon>
+          routerLink="/dashboard/{{dashboard.id}}" matTooltip="{{dashboard.title}}">
+  <div>
     <button mat-icon-button class="dashboard_settings_button" (click)="$event.stopPropagation();">
       <mat-icon class="font-32 " [matMenuTriggerFor]="menu">more_vert</mat-icon>
     </button>
   </div>
-  <div class="overflow-ellipsis f-5">
+  <div class="overflow-ellipsis">
+    <mat-icon class="dashboard-icon font-32">dashboard</mat-icon>
+    <br>
     {{dashboard.title}}
     <br><br>
     <span class="dashboard-card-created-by">
