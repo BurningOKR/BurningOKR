@@ -184,6 +184,7 @@
 		"delete-dashboard": "Löschen"
 	},
 	"dashboard-overview": {
+		"create-dashboard-button": "Dashboard erstellen",
 		"okr-toolbar": {
 			"dashboard-overview": "Dashboardübersicht"
 		}

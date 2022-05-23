@@ -7,8 +7,9 @@
 </app-okr-toolbar>
 
 <div *ngIf="companyId$ | async; let companyId" class="create-dashboard-button">
-  <button mat-icon-button mat-mini-fab color="accent" routerLink="/companies/{{companyId}}/create-dashboard">
-    <mat-icon>add</mat-icon>
+  <button mat-stroked-button routerLink="/companies/{{companyId}}/create-dashboard">
+    <mat-icon>add_circle_outline</mat-icon>
+    {{'dashboard-overview.create-dashboard-button' | translate}}
   </button>
 </div>
 
