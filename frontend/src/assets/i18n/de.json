@@ -121,6 +121,7 @@
 		}
 	},
 	"create-dashboard": {
+		"add-chart-button": "Diagramm hinzufügen",
 		"add-new-chart-to-dashboard": "Diagramm hinzufügen",
 		"chart-title-placeholder": "Diagramm Titel",
 		"create-dashboard-button": "Dashboard erstellen",

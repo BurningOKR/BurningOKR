@@ -121,6 +121,7 @@
 		}
 	},
 	"create-dashboard": {
+		"add-chart-button": "Add chart",
 		"add-new-chart-to-dashboard": "Add Chart",
 		"chart-title-placeholder": "Chart Title",
 		"create-dashboard-button": "Create Dashboard",

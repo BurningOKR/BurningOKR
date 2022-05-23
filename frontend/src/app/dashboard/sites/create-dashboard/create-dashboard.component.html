@@ -41,10 +41,10 @@
         </mat-select>
       </mat-form-field>
 
-      <button [disabled]="!newChartValid()" class="chart-creation-add-button" mat-icon-button mat-mini-fab
-              color="accent"
+      <button [disabled]="!newChartValid()" class="chart-creation-add-button" mat-stroked-button
               (click)="addChart()">
         <mat-icon>add</mat-icon>
+        {{'create-dashboard.add-chart-button' | translate}}
       </button>
     </div>
   </div>
