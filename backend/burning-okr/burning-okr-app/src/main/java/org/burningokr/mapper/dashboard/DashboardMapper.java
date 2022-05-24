@@ -1,5 +1,7 @@
 package org.burningokr.mapper.dashboard;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.dto.dashboard.DashboardDto;
@@ -9,9 +11,6 @@ import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.ChartBuilderService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +30,9 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
     dto.setTitle(entity.getTitle());
     dto.setCreator(userService.findById(entity.getCreatorId()));
 
-    Collection<BaseChartOptionsDto> chartOptionsDtos = new ArrayList<>();  //entity.getChartCreationOptions().stream().map(chartBuilderService::buildChart).toArray(BaseChartOptionsDto[]::new);
-    for(ChartCreationOptions chartCreationOptions: entity.getChartCreationOptions()) {
+    Collection<BaseChartOptionsDto> chartOptionsDtos =
+        new ArrayList<>(); // entity.getChartCreationOptions().stream().map(chartBuilderService::buildChart).toArray(BaseChartOptionsDto[]::new);
+    for (ChartCreationOptions chartCreationOptions : entity.getChartCreationOptions()) {
       BaseChartOptionsDto test = chartBuilderService.buildChart(chartCreationOptions);
       chartOptionsDtos.add(test);
     }

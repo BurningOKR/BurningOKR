@@ -1,5 +1,7 @@
 package org.burningokr.mapper.dashboard;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
@@ -7,11 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 @Service
-public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptions, ChartCreationOptionsDto> {
+public class ChartCreationOptionsMapper
+    implements DataMapper<ChartCreationOptions, ChartCreationOptionsDto> {
 
   private final Logger logger = LoggerFactory.getLogger(ChartCreationOptionsMapper.class);
 
@@ -24,7 +24,10 @@ public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptio
     entity.setChartType(dto.getChartType());
     entity.setTeamIds(dto.getTeamIds());
 
-    logger.info("Mapped ChartCreationOptionsDto (id:" + dto.getId() + ") successful into ChartCreationOption.");
+    logger.info(
+        "Mapped ChartCreationOptionsDto (id:"
+            + dto.getId()
+            + ") successful into ChartCreationOption.");
 
     return entity;
   }
@@ -38,20 +41,25 @@ public class ChartCreationOptionsMapper implements DataMapper<ChartCreationOptio
     dto.setChartType(entity.getChartType());
     dto.setTeamIds(entity.getTeamIds());
 
-    logger.info("Mapped ChartCreationOptions (id:" + entity.getId() + ") successful into ChartCreationOptionsDto.");
+    logger.info(
+        "Mapped ChartCreationOptions (id:"
+            + entity.getId()
+            + ") successful into ChartCreationOptionsDto.");
 
     return dto;
   }
 
   @Override
-  public Collection<ChartCreationOptions> mapDtosToEntities(Collection<ChartCreationOptionsDto> dtos) {
+  public Collection<ChartCreationOptions> mapDtosToEntities(
+      Collection<ChartCreationOptionsDto> dtos) {
     Collection<ChartCreationOptions> entities = new ArrayList<>();
     dtos.forEach(dto -> entities.add(mapDtoToEntity(dto)));
     return entities;
   }
 
   @Override
-  public Collection<ChartCreationOptionsDto> mapEntitiesToDtos(Collection<ChartCreationOptions> entities) {
+  public Collection<ChartCreationOptionsDto> mapEntitiesToDtos(
+      Collection<ChartCreationOptions> entities) {
     Collection<ChartCreationOptionsDto> dtos = new ArrayList<>();
     entities.forEach(entity -> dtos.add(mapEntityToDto(entity)));
     return dtos;

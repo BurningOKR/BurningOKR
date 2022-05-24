@@ -1,9 +1,8 @@
 package org.burningokr.dto.dashboard.creation;
 
+import java.util.Collection;
 import lombok.Data;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
-
-import java.util.Collection;
 
 @Data
 public class ChartCreationOptionsDto {

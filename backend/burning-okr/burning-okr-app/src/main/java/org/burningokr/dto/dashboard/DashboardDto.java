@@ -1,9 +1,8 @@
 package org.burningokr.dto.dashboard;
 
+import java.util.Collection;
 import lombok.Data;
 import org.burningokr.model.users.User;
-
-import java.util.Collection;
 
 @Data
 public class DashboardDto {

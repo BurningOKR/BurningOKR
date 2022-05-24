@@ -1,5 +1,6 @@
 package org.burningokr.service.dashboard;
 
+import java.util.Collection;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
@@ -12,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-
 @Service
 public class DashboardService {
   private final DashboardCreationRepository dashboardCreationRepository;
@@ -22,9 +21,10 @@ public class DashboardService {
   private final Logger logger = LoggerFactory.getLogger(DashboardService.class);
 
   @Autowired
-  public DashboardService(DashboardCreationRepository dashboardCreationRepository,
-                          ChartCreationOptionsRepository chartCreationOptionsRepository,
-                          ActivityService activityService) {
+  public DashboardService(
+      DashboardCreationRepository dashboardCreationRepository,
+      ChartCreationOptionsRepository chartCreationOptionsRepository,
+      ActivityService activityService) {
     this.dashboardCreationRepository = dashboardCreationRepository;
     this.chartCreationOptionsRepository = chartCreationOptionsRepository;
     this.activityService = activityService;
@@ -50,7 +50,7 @@ public class DashboardService {
   }
 
   private void createChartOptions(DashboardCreation dashboardCreation, User user) {
-    for (ChartCreationOptions chartCreationOption: dashboardCreation.getChartCreationOptions()) {
+    for (ChartCreationOptions chartCreationOption : dashboardCreation.getChartCreationOptions()) {
       chartCreationOption.setDashboardCreation(dashboardCreation);
       chartCreationOptionsRepository.save(chartCreationOption);
       logger.info("Created ChartCreationOption: " + chartCreationOption.getTitle());
@@ -58,7 +58,8 @@ public class DashboardService {
   }
 
   public void deleteDashboard(long dashboardId, User user) {
-    DashboardCreation dashboardCreationToDelete = dashboardCreationRepository.findByIdOrThrow(dashboardId);
+    DashboardCreation dashboardCreationToDelete =
+        dashboardCreationRepository.findByIdOrThrow(dashboardId);
 
     dashboardCreationRepository.deleteById(dashboardCreationToDelete.getId());
     activityService.createActivity(user, dashboardCreationToDelete, Action.DELETED);

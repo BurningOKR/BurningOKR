@@ -1,10 +1,8 @@
 package org.burningokr.dto.dashboard.creation;
 
-import lombok.Data;
-import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
-
 import java.util.Collection;
 import java.util.UUID;
+import lombok.Data;
 
 @Data
 public class DashboardCreationDto {

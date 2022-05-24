@@ -5,7 +5,6 @@ import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
 public class ChartBuilderService {
@@ -14,13 +13,13 @@ public class ChartBuilderService {
 
   public BaseChartOptionsDto buildChart(ChartCreationOptions chartCreationOptions) {
     BaseChartOptionsDto chartOptionsDto;
-    switch(chartCreationOptions.getChartType()) {
+    switch (chartCreationOptions.getChartType()) {
       case PIE_TOPICDRAFTOVERVIEW:
-         chartOptionsDto = pieChartService.buildTopicDraftOverviewChart(chartCreationOptions);
-      break;
+        chartOptionsDto = pieChartService.buildTopicDraftOverviewChart(chartCreationOptions);
+        break;
       default:
         chartOptionsDto = lineChartService.buildProgressChart(chartCreationOptions);
-      break;
+        break;
     }
 
     chartOptionsDto.setTitle(chartCreationOptions.getTitle());

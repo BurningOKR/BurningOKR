@@ -47,7 +47,8 @@ public class ObjectiveService {
 
   /**
    * Initialize ObjectiveService.
-   *  @param parentService a {@link ParentService} object
+   *
+   * @param parentService a {@link ParentService} object
    * @param objectiveRepository an {@link ObjectiveRepository} object
    * @param keyResultRepository a {@link KeyResultRepository} object
    * @param keyResultHistoryService a {@link KeyResultHistoryService} object
@@ -58,15 +59,16 @@ public class ObjectiveService {
    */
   @Autowired
   public ObjectiveService(
-    ParentService parentService,
-    ObjectiveRepository objectiveRepository,
-    KeyResultRepository keyResultRepository,
-    KeyResultHistoryService keyResultHistoryService, ActivityService activityService,
-    EntityCrawlerService entityCrawlerService,
-    ConfigurationService configurationService,
-    KeyResultMilestoneService keyResultMilestoneService,
-    NoteObjectiveRepository noteObjectiveRepository,
-    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService) {
+      ParentService parentService,
+      ObjectiveRepository objectiveRepository,
+      KeyResultRepository keyResultRepository,
+      KeyResultHistoryService keyResultHistoryService,
+      ActivityService activityService,
+      EntityCrawlerService entityCrawlerService,
+      ConfigurationService configurationService,
+      KeyResultMilestoneService keyResultMilestoneService,
+      NoteObjectiveRepository noteObjectiveRepository,
+      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService) {
     this.parentService = parentService;
     this.objectiveRepository = objectiveRepository;
     this.keyResultRepository = keyResultRepository;

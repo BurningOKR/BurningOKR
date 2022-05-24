@@ -1,8 +1,7 @@
 package org.burningokr.dto.dashboard;
 
-import lombok.Data;
-
 import java.util.ArrayList;
+import lombok.Data;
 
 @Data
 public class LineChartLineKeyValues {
