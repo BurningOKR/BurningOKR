@@ -60,7 +60,7 @@ public class DashboardService {
   public void deleteDashboard(long dashboardId, User user) {
     DashboardCreation dashboardCreationToDelete = dashboardCreationRepository.findByIdOrThrow(dashboardId);
 
-    dashboardCreationRepository.delete(dashboardCreationToDelete);
+    dashboardCreationRepository.deleteById(dashboardCreationToDelete.getId());
     activityService.createActivity(user, dashboardCreationToDelete, Action.DELETED);
   }
 }

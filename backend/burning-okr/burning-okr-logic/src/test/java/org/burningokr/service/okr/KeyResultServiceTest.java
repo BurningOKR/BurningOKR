@@ -35,6 +35,8 @@ public class KeyResultServiceTest {
 
   @Mock private KeyResultMilestoneService keyResultMilestoneService;
 
+  @Mock private KeyResultHistoryService keyResultHistoryService;
+
   @Mock private User user;
 
   @Mock private TaskService taskService;

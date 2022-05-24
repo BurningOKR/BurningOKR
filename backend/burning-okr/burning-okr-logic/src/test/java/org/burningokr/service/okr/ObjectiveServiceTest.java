@@ -52,6 +52,8 @@ public class ObjectiveServiceTest {
 
   @Mock private KeyResultMilestoneService keyResultMilestoneService;
 
+  @Mock private KeyResultHistoryService keyResultHistoryService;
+
   @Mock private User user;
 
   @Mock ConfigurationService configurationService;
