@@ -56,8 +56,10 @@
 		}
 	},
 	"chart-options-card": {
+		"chartType": "Chart type: ",
 		"company-average": "Company average",
-		"teams": "Teams"
+		"teams": "Teams",
+		"title": "Title: "
 	},
 	"comment-card": {
 		"edit-comment": "Edit comment",
@@ -126,9 +128,11 @@
 		"chart-title-placeholder": "Chart Title",
 		"create-dashboard-button": "Create Dashboard",
 		"dashboard-title-placeholder": "Dashboard Title",
+		"line-progress": "Progress - Linechart",
 		"okr-toolbar": {
 			"create-dashboard": "Create Dashboard"
 		},
+		"pie-topicdraft": "Topicdraft overview - Piechart",
 		"select-teams-placeholder": "Select Teams",
 		"type-of-chart-placeholder": "Type of chart"
 	},

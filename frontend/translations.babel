@@ -624,6 +624,23 @@
                 <name>chart-options-card</name>
                 <children>
                     <concept_node>
+                        <name>chartType</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>company-average</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -642,6 +659,23 @@
                     </concept_node>
                     <concept_node>
                         <name>teams</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
+                        <name>title</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
                         <comment/>
@@ -1378,6 +1412,23 @@
                             </translation>
                         </translations>
                     </concept_node>
+                    <concept_node>
+                        <name>line-progress</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                     <folder_node>
                         <name>okr-toolbar</name>
                         <children>
@@ -1400,6 +1451,23 @@
                             </concept_node>
                         </children>
                     </folder_node>
+                    <concept_node>
+                        <name>pie-topicdraft</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>de-DE</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
                     <concept_node>
                         <name>select-teams-placeholder</name>
                         <definition_loaded>false</definition_loaded>

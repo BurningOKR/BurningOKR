@@ -56,8 +56,10 @@
 		}
 	},
 	"chart-options-card": {
+		"chartType": "Diagrammart: ",
 		"company-average": "Durchschnitt der Firma",
-		"teams": "Teams"
+		"teams": "Teams",
+		"title": "Titel: "
 	},
 	"comment-card": {
 		"edit-comment": "Kommentar bearbeiten",
@@ -126,9 +128,11 @@
 		"chart-title-placeholder": "Diagramm Titel",
 		"create-dashboard-button": "Dashboard erstellen",
 		"dashboard-title-placeholder": "Dashboard Titel",
+		"line-progress": "Fortschritt - Liniendiagramm",
 		"okr-toolbar": {
 			"create-dashboard": "Dashboard anlegen"
 		},
+		"pie-topicdraft": "Übersicht Themenentwürfe - Kuchendiagramm",
 		"select-teams-placeholder": "Teams auswählen",
 		"type-of-chart-placeholder": "Art des Diagramms"
 	},
