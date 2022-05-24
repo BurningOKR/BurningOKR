@@ -12,4 +12,3 @@ public class LineChartOptionsDto extends BaseChartOptionsDto {
   Collection<String> xAxisCategories = new ArrayList<>();
   Collection<LineChartLineKeyValues> series = new ArrayList<>();
 }
-

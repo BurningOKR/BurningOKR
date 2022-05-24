@@ -14,6 +14,5 @@ public interface KeyResultHistoryRepository extends ExtendedRepository<KeyResult
   @Query("SELECT krh FROM KeyResultHistory krh WHERE krh.keyResult = ?1 ORDER BY dateChanged ASC ")
   List<KeyResultHistory> findByKeyResultOrderByDateChangedAsc(KeyResult keyResult);
 
-
   KeyResultHistory findTopByKeyResultInOrderByDateChangedAsc(Collection<KeyResult> keyResults);
 }

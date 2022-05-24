@@ -5,7 +5,6 @@ import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
 public class ChartBuilderService {

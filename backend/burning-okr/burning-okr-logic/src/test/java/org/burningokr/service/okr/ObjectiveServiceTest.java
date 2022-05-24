@@ -40,29 +40,21 @@ import static org.mockito.Mockito.*;
 public class ObjectiveServiceTest {
 
   @Mock
+  ConfigurationService configurationService;
+  @Mock
   private ObjectiveRepository objectiveRepository;
-
   @Mock
   private KeyResultRepository keyResultRepository;
-
   @Mock
   private ActivityService activityService;
-
   @Mock
   private EntityCrawlerService entityCrawlerService;
-
   @Mock
   private ParentService parentService;
-
   @Mock
   private OkrUnitServiceUsers departmentService;
-
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
-
-  @Mock
-  ConfigurationService configurationService;
-
   @Mock
   private User user;
   @Mock

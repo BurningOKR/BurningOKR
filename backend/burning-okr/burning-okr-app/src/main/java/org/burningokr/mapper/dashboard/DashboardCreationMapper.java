@@ -14,12 +14,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
-public class DashboardCreationMapper implements DataMapper<DashboardCreation, DashboardCreationDto> {
+public class DashboardCreationMapper
+  implements DataMapper<DashboardCreation, DashboardCreationDto> {
   private final Logger logger = LoggerFactory.getLogger(DashboardCreationMapper.class);
   private DataMapper<ChartCreationOptions, ChartCreationOptionsDto> chartCreationMapper;
 
   @Autowired
-  public DashboardCreationMapper(DataMapper<ChartCreationOptions, ChartCreationOptionsDto> chartCreationMapper) {
+  public DashboardCreationMapper(
+    DataMapper<ChartCreationOptions, ChartCreationOptionsDto> chartCreationMapper
+  ) {
     this.chartCreationMapper = chartCreationMapper;
   }
 
@@ -30,9 +33,11 @@ public class DashboardCreationMapper implements DataMapper<DashboardCreation, Da
     entity.setTitle(dto.getTitle());
     entity.setCreatorId(dto.getCreatorId());
     entity.setCompanyId(dto.getCompanyId());
-    entity.setChartCreationOptions(chartCreationMapper.mapDtosToEntities(dto.getChartCreationOptions()));
+    entity.setChartCreationOptions(
+      chartCreationMapper.mapDtosToEntities(dto.getChartCreationOptions()));
 
-    logger.info("Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
+    logger.info(
+      "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
 
     return entity;
   }
@@ -44,9 +49,13 @@ public class DashboardCreationMapper implements DataMapper<DashboardCreation, Da
     dto.setTitle(entity.getTitle());
     dto.setCreatorId(entity.getCreatorId());
     dto.setCompanyId(entity.getCompanyId());
-    dto.setChartCreationOptions(chartCreationMapper.mapEntitiesToDtos(entity.getChartCreationOptions()));
+    dto.setChartCreationOptions(
+      chartCreationMapper.mapEntitiesToDtos(entity.getChartCreationOptions()));
 
-    logger.info("Mapped DashboardCreation (id:" + entity.getId() + ") successful into DashboardCreationDto.");
+    logger.info(
+      "Mapped DashboardCreation (id:"
+        + entity.getId()
+        + ") successful into DashboardCreationDto.");
 
     return dto;
   }
@@ -59,7 +68,9 @@ public class DashboardCreationMapper implements DataMapper<DashboardCreation, Da
   }
 
   @Override
-  public Collection<DashboardCreationDto> mapEntitiesToDtos(Collection<DashboardCreation> entities) {
+  public Collection<DashboardCreationDto> mapEntitiesToDtos(
+    Collection<DashboardCreation> entities
+  ) {
     Collection<DashboardCreationDto> dashboardCreationDtos = new ArrayList<>();
     entities.forEach(entity -> dashboardCreationDtos.add(mapEntityToDto(entity)));
     return dashboardCreationDtos;

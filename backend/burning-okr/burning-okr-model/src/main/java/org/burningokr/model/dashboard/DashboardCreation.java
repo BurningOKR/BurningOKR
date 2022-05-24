@@ -17,7 +17,7 @@ public class DashboardCreation implements Trackable<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  //Default length: 255
+  // Default length: 255
   private String title;
 
   @NotNull

@@ -1,6 +1,7 @@
 package org.burningokr.model.dashboard;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
