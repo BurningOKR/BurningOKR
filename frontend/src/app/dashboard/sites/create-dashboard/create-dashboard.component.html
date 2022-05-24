@@ -29,8 +29,8 @@
       <mat-form-field>
         <mat-select (selectionChange)="chartSelected($event)" placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
           <mat-option *ngFor="let chartType of chartTypes" value="{{chartType}}"
-                      matTooltip="{{chartTypeRecord[chartType]}}">
-            {{chartTypeRecord[chartType]}}
+                      matTooltip="{{chartTypeRecord[chartType] | translate}}">
+            {{chartTypeRecord[chartType] | translate}}
           </mat-option>
         </mat-select>
       </mat-form-field>

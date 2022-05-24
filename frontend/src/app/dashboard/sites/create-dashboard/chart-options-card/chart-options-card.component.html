@@ -1,5 +1,5 @@
-<p class="chart-title">Titel: {{chart.title}}</p>
-<p>Art: {{chartTypeRecord[chart.chartType]}}</p>
+<p class="chart-title">{{'chart-options-card.title' | translate}} {{chart.title}}</p>
+<p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
 <div *ngIf="allTeams$ | async; let teams">
   {{'chart-options-card.teams' | translate}}

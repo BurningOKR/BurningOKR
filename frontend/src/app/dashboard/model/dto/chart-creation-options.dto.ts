@@ -11,7 +11,7 @@ export enum ChartInformationTypeEnum {
 }
 
 export const ChartTypeEnumDropDownRecord: Record<ChartInformationTypeEnum, string> = {
-  [ChartInformationTypeEnum.LINE_PROGRESS]: 'Fortschritt - Liniendiagramm',
-  [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'Übersicht Themenentwürfe - Kuchendiagramm',
+  [ChartInformationTypeEnum.LINE_PROGRESS]: 'create-dashboard.line-progress',
+  [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'create-dashboard.pie-topicdraft',
 };
 
