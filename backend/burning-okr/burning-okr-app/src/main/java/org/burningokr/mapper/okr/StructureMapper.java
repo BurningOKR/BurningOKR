@@ -19,7 +19,7 @@ public class StructureMapper {
     structureDto.setOkrUnitId(input.getId());
     structureDto.setUnitName(input.getName());
     structureDto.setSubstructure(
-        mapChildUnitsToStructureDtos(BranchHelper.collectChildUnits(input)));
+        mapChildUnitsToStructureDtos(BranchHelper.collectDirectChildUnits(input)));
     return structureDto;
   }
 

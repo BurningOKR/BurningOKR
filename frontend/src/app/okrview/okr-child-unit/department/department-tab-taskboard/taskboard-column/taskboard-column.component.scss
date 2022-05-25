@@ -1,3 +1,5 @@
+@import '../../../../../../styles/themes/bag-theme';
+
 .taskcard {
     margin: 10px;
     cursor: pointer;
@@ -21,7 +23,7 @@ mat-card:hover {
     width       : 300px;
     min-height      : 300px;
     height          : 100%;
-    background-color: #ededed;
+    background-color: $bag-theme-white;
     border-radius   : 10px;
     align-items     : center;
 }

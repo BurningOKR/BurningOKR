@@ -1,0 +1,20 @@
+@import '../../../../styles/themes/bag-theme';
+
+.unit-name-entry {
+  width: calc(100% - 45px);
+  text-align: left;
+}
+
+.substructures {
+  margin-left: 2%;
+}
+
+.selected-unit {
+  background-color: $bag-theme-white;
+}
+
+.horizontal-line {
+  border: 0 solid #a81732;
+  border-bottom-width: 1px;
+  border-bottom-left-radius: 5px;
+}

@@ -11,6 +11,12 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.4.6 (--.--.2022)',
+      changes: [
+        'Feature: The Dialogue, to convert a TopicDraft to a Team now features a tree-structure'
+      ]
+    },
+    {
       version: '1.4.5 (16.05.2022)',
       changes: [
         'Feature: Buttons to add new Items will now look the same',

@@ -2,6 +2,9 @@ import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
 import { OkrTopicDraftDto } from '../../model/api/OkrUnit/okr-topic-draft.dto';
 import { Injectable } from '@angular/core';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
+import { map } from 'rxjs/operators';
+import { DepartmentMapper } from '../mapper/department.mapper';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +27,15 @@ export class TopicDraftApiService {
   }
 
   getAllTopicDrafts$(): Observable<OkrTopicDraftDto[]> {
-    return this.api.getData$('topicDrafts/all');
+    return this.api.getData$('topicDrafts');
   }
 
   deleteTopicDraft$(topicDraftId: number): Observable<boolean> {
     return this.api.deleteData$(`topicDraft/${topicDraftId}`);
+  }
+
+  convertTopicDraftToTeam$(topicDraftId: number, okrUnitId: number): Observable<OkrDepartment> {
+    return this.api.getData$(`topicDraft/convertToTeam?topicDraftId=${topicDraftId}&okrUnitId=${okrUnitId}`)
+      .pipe(map(DepartmentMapper.mapDepartmentDto));
   }
 }
