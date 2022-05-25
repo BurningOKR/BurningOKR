@@ -7,7 +7,7 @@ import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
-import org.burningokr.service.okr.OkrTopicDraftService;
+import org.burningokr.service.topicDraft.OkrTopicDraftService;
 import org.springframework.stereotype.Service;
 
 @Service
