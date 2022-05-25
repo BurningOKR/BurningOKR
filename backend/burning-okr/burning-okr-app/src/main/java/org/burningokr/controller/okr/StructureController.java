@@ -9,6 +9,7 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @RestApiController
@@ -23,11 +24,21 @@ public class StructureController {
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
    */
   @GetMapping("/structure")
-  public ResponseEntity<Collection<StructureDto>> getAllCompanyStructures() {
+  public ResponseEntity<Collection<StructureDto>> getAllCompanyStructures(
+      @RequestParam(name = "active", required = false) Boolean activeFilter,
+      @RequestParam(name = "attachCycleName", defaultValue = "false") boolean attachCycleName) {
+    Collection<OkrCompany> okrCompanies;
 
-    Collection<OkrCompany> okrCompanies = this.companyService.getAllCompanies();
-    Collection<StructureDto> structureDtos =
-        structureMapper.mapCompaniesToStructureDtos(okrCompanies);
-    return ResponseEntity.ok(structureDtos);
+    if (activeFilter != null) {
+      okrCompanies = this.companyService.getCompaniesByActiveStatus(activeFilter);
+    } else {
+      okrCompanies = this.companyService.getAllCompanies();
+    }
+
+    if (attachCycleName) {
+      companyService.attachCycleNameToCompanyName(okrCompanies);
+    }
+
+    return ResponseEntity.ok(structureMapper.mapCompaniesToStructureDtos(okrCompanies));
   }
 }

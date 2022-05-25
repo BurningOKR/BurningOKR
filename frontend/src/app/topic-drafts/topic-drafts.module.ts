@@ -30,6 +30,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import {
+  ConvertTopicDraftTreeComponent
+} from './convert-topic-draft-to-team/convert-topic-draft-tree/convert-topic-draft-tree.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { MatInputModule } from '@angular/material/input';
     TopicDraftDetailsDialogueComponent,
     TopicDraftEditDialogueComponent,
     ConvertTopicDraftToTeamDialogueComponent,
+    ConvertTopicDraftTreeComponent,
   ],
   imports: [
     CommonModule,

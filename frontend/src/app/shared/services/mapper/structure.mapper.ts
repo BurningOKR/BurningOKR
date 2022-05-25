@@ -21,6 +21,13 @@ export class StructureMapper {
       );
   }
 
+  getSchemaOfAllActiveStructuresWithCycleName$(): Observable<Structure[]>{
+    return this.structureApiService
+      .getSchemaOfAllActiveStructuresWithCycleName$().pipe(
+        map(companies => this.mapDtosToStructureArray(companies))
+      );
+  }
+
   private mapDtoToCompanyUnitStructure(structureDto: StructureDto) {
     if(structureDto.substructure === []){
       return;
