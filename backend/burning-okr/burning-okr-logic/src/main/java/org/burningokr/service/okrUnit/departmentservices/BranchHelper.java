@@ -29,6 +29,16 @@ public class BranchHelper {
   }
 
   /**
+   * Gets ChildUnits directly under an OkrCompany
+   *
+   * @param okrCompany a {@link OkrCompany} object
+   * @return a {@link Collection} of {@link OkrChildUnit}
+   */
+  public static Collection<OkrChildUnit> collectDirectChildUnits(OkrCompany okrCompany) {
+    return okrCompany.getOkrChildUnits();
+  }
+
+  /**
    * Gets all Departments of a OkrCompany.
    *
    * @param okrCompany a {@link OkrCompany} object
@@ -67,9 +77,7 @@ public class BranchHelper {
     Collection<OkrChildUnit> okrChildUnitCollection = new ArrayList<>();
 
     if (okrChildUnit instanceof OkrParentUnit) {
-      for (OkrChildUnit okrChildUnit1 : ((OkrParentUnit) okrChildUnit).getOkrChildUnits()) {
-        okrChildUnitCollection.addAll(collectChildUnits(okrChildUnit1));
-      }
+      okrChildUnitCollection.addAll(((OkrParentUnit) okrChildUnit).getOkrChildUnits());
     }
 
     return okrChildUnitCollection;

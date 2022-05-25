@@ -1,13 +1,3 @@
-1.4.5
+1.4.6
 
-- Feature: Buttons to add new Items will now look the same
-- Feature: Added SpringBoot Actuators
-- Feature: Teammembers can now create Objectives and KeyResults
-- Feature: End date in cycle creation now can't be less than start date
-- Bugfix: TopicDrafts are now convertable to drafts again
-- Bugfix: User Input Filds will only show active Users
-- Bugfix: Language Picker dialogue can be submitted with ENTER
-- Bugfix: After login the original deeplink is loaded
-- Bugfix: Structures no longer collapse when clicking on them
-- Usability: Cycle administration now shows current structure
-- Usability: Objectives now show childobjectives
+- Feature: The Dialogue, to convert a TopicDraft to a Team now features a tree-structure

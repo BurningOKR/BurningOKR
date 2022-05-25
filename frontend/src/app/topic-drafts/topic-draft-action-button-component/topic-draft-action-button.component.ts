@@ -227,9 +227,8 @@ export class TopicDraftActionButtonComponent implements OnInit {
       .subscribe(departmentId => {
           if (departmentId) {
             const url: string = `/okr/departments/${departmentId}`;
-            this.router.navigateByUrl(url).then(
-              () => this.deleteTopicDraft(),
-            );
+            this.router.navigateByUrl(url)
+              .catch(console.log);
           }
         },
       );

@@ -1,0 +1,14 @@
+<div class="horizontal-line" [ngClass]="(isSelected | async) ? 'selected-unit' : ''">
+  <button mat-flat-button (click)="selectStructure()" class="unit-name-entry" [ngClass]="(isSelected | async) ? 'selected-unit' : ''">
+    {{substructure.name}}
+  </button>
+  <button *ngIf="hasChildUnits()" mat-icon-button (click)="$event.stopPropagation();toggleOpen()">
+    <mat-icon *ngIf="isOpen">expand_less</mat-icon>
+    <mat-icon *ngIf="!isOpen">expand_more</mat-icon>
+  </button>
+</div>
+<div *ngIf="isOpen && hasChildUnits()" class="substructures">
+  <app-convert-topic-draft-tree *ngFor="let deeperSubstructure of substructure.substructures"
+                                [substructure]="deeperSubstructure">
+  </app-convert-topic-draft-tree>
+</div>

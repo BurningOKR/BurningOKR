@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ export interface TaskBoardDragDropEvent {
 @Component({
   selector: 'app-taskboard-column',
   templateUrl: './taskboard-column.component.html',
-  styleUrls: ['./taskboard-column.component.css']
+  styleUrls: ['./taskboard-column.component.scss']
 })
 export class TaskboardColumnComponent implements OnInit, OnDestroy {
   @Input() map: StateTaskMap;
