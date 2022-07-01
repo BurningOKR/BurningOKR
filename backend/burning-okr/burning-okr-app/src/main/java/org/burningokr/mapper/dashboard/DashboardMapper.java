@@ -31,7 +31,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
     dto.setTitle(entity.getTitle());
     dto.setCreator(userService.findById(entity.getCreatorId()));
 
-    Collection<BaseChartOptionsDto> chartOptionsDtos = new ArrayList<>();  //entity.getChartCreationOptions().stream().map(chartBuilderService::buildChart).toArray(BaseChartOptionsDto[]::new);
+    Collection<BaseChartOptionsDto> chartOptionsDtos = new ArrayList<>();
     for (ChartCreationOptions chartCreationOptions : entity.getChartCreationOptions()) {
       BaseChartOptionsDto test = chartBuilderService.buildChart(chartCreationOptions);
       chartOptionsDtos.add(test);
