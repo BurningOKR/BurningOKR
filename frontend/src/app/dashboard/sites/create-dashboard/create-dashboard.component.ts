@@ -31,10 +31,12 @@ export class CreateDashboardComponent implements OnInit {
 
   teamIsSelectable = false;
 
-  constructor(private readonly departmentService: DepartmentMapper,
-              private readonly activatedRoute: ActivatedRoute,
-              private readonly router: Router,
-              private readonly dashboardService: DashboardService) {
+  constructor(
+    private readonly departmentService: DepartmentMapper,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router,
+    private readonly dashboardService: DashboardService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class CreateDashboardComponent implements OnInit {
         this.dashboardCreationDto.companyId = +params.get('companyId');
 
         return this.dashboardCreationDto.companyId;
-      })
+      }),
     );
     this.resetNewChart();
     this.teams$ = this.companyId$.pipe(
@@ -64,10 +66,12 @@ export class CreateDashboardComponent implements OnInit {
   createDashboardAndRouteToDashboard$(): void {
     this.dashboardCreationDto.chartCreationOptions = this.charts;
     this.dashboardService.createDashboard$(this.dashboardCreationDto)
-      .pipe(take(1),
+      .pipe(
+        take(1),
         map(createdDashboard =>
           createdDashboard.id,
-        ))
+        ),
+      )
       .subscribe(dashboardId => {
         this.navigateToCreatedDashboard(dashboardId);
       });

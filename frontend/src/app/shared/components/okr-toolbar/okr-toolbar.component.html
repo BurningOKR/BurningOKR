@@ -60,7 +60,8 @@
     <mat-icon>assignment</mat-icon>
     <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
-  <button mat-menu-item *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
+  <button *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" mat-menu-item
+          routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
     <mat-icon>dashboard</mat-icon>
     <span>{{'okr-toolbar.menu.dashboard-overview' | translate}}</span>
   </button>

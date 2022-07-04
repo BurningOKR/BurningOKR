@@ -9,5 +9,5 @@ import { BaseChartComponent } from '../base-chart/base-chart.component';
   templateUrl: './basic-line-chart.component.html',
   styleUrls: ['./basic-line-chart.component.scss'],
 })
-export class BasicLineChartComponent extends BaseChartComponent<LineChartOptions>{
+export class BasicLineChartComponent extends BaseChartComponent<LineChartOptions> {
 }

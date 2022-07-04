@@ -1,8 +1,7 @@
-<mat-card class="dashboard-card"
-          routerLink="/dashboard/{{dashboard.id}}" matTooltip="{{dashboard.title}}">
+<mat-card class="dashboard-card" matTooltip="{{dashboard.title}}" routerLink="/dashboard/{{dashboard.id}}">
   <div>
-    <button mat-icon-button class="dashboard_settings_button" (click)="$event.stopPropagation();">
-      <mat-icon class="font-32 " [matMenuTriggerFor]="menu">more_vert</mat-icon>
+    <button (click)="$event.stopPropagation();" class="dashboard_settings_button" mat-icon-button>
+      <mat-icon [matMenuTriggerFor]="menu" class="font-32 ">more_vert</mat-icon>
     </button>
   </div>
   <div class="overflow-ellipsis">
@@ -18,7 +17,7 @@
 
 <mat-menu #menu="matMenu">
   <span matTooltip="{{'dashboard-card.delete-dashboard' | translate}}">
-      <button mat-menu-item (click)="deleteDashboard.next(dashboard)">
+      <button (click)="deleteDashboard.next(dashboard)" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>{{'dashboard-card.delete-dashboard' | translate}}</span>
       </button>

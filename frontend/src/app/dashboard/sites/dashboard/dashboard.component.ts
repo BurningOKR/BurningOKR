@@ -13,13 +13,16 @@ import { DashboardService } from '../../services/dashboard.service';
 export class DashboardComponent implements OnInit {
   dashboard$: Observable<Dashboard>;
 
-  constructor(private readonly activatedRoute: ActivatedRoute,
-              private readonly dashboardService: DashboardService) {
+  constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly dashboardService: DashboardService,
+  ) {
   }
 
   ngOnInit(): void {
     this.dashboard$ = this.activatedRoute.paramMap.pipe(
       map(params => +params.get('dashboardId')),
-      switchMap((dashboardId: number) => this.dashboardService.getDashboardById$(dashboardId)));
+      switchMap((dashboardId: number) => this.dashboardService.getDashboardById$(dashboardId)),
+    );
   }
 }

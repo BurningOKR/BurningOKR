@@ -28,7 +28,7 @@ export class ChartRendererComponent implements OnInit {
   ngOnInit(): void {
     const componentType: ConstructorType<BaseChartOptions> = chartComponentMappings.find(
       mapping => mapping.chartOptionsType === this.chartOptions.constructor,
-  )?.componentType;
+    )?.componentType;
 
     if (!componentType) {
       throw new Error(

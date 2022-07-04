@@ -5,11 +5,12 @@ import { DashboardCreationDto } from '../model/dto/dashboard-creation.dto';
 import { DashboardDto } from '../model/dto/dashboard.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardApiService {
 
-  constructor(private readonly api: ApiHttpService) { }
+  constructor(private readonly api: ApiHttpService) {
+  }
 
   getDashboardsByCompanyId$(companyId: number): Observable<DashboardDto[]> {
     return this.api.getData$<DashboardDto[]>(`dashboards/company/${companyId}`);

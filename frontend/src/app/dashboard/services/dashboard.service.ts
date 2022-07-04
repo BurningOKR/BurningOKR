@@ -11,8 +11,10 @@ import { DashboardMapperService } from './dashboard.mapper.service';
 })
 export class DashboardService {
 
-  constructor(private readonly dashboardApiService: DashboardApiService,
-              private readonly dashboardMapper: DashboardMapperService) {
+  constructor(
+    private readonly dashboardApiService: DashboardApiService,
+    private readonly dashboardMapper: DashboardMapperService,
+  ) {
   }
 
   getDashboardById$(dashboardId: number): Observable<Dashboard> {

@@ -6,7 +6,7 @@ import { ChartCreationOptionsDto, ChartTypeEnumDropDownRecord } from '../../../m
 @Component({
   selector: 'app-chart-options-card',
   templateUrl: './chart-options-card.component.html',
-  styleUrls: ['./chart-options-card.component.scss']
+  styleUrls: ['./chart-options-card.component.scss'],
 })
 export class ChartOptionsCardComponent {
   @Input() chart: ChartCreationOptionsDto;

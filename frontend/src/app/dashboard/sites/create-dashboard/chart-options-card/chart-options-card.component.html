@@ -3,13 +3,13 @@
 
 <div *ngIf="allTeams$ | async; let teams">
   {{'chart-options-card.teams' | translate}}
-  <p class="chart-team-list" *ngFor="let team of getTeamsOfChart(teams)">
+  <p *ngFor="let team of getTeamsOfChart(teams)" class="chart-team-list">
     {{team.name}}</p>
-  <p class="chart-team-list" *ngIf="!chart.teamIds.length">
+  <p *ngIf="!chart.teamIds.length" class="chart-team-list">
     {{'chart-options-card.company-average' | translate}}
   </p>
 </div>
 
-<button mat-icon-button mat-mini-fab color="primary" (click)="clickedDelete.next(chart)">
+<button (click)="clickedDelete.next(chart)" color="primary" mat-icon-button mat-mini-fab>
   <mat-icon>delete</mat-icon>
 </button>
