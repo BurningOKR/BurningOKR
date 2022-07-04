@@ -1,5 +1,6 @@
 package org.burningokr.controller.dashboard;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.dto.dashboard.creation.DashboardCreationDto;
@@ -7,28 +8,18 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.model.users.User;
 import org.burningokr.service.dashboard.DashboardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@RequiredArgsConstructor
 @RestApiController
 public class DashboardController {
-  private DashboardService dashboardService;
-  private DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper;
-  private DataMapper<DashboardCreation, DashboardDto> dashboardMapper;
+  private final DashboardService dashboardService;
+  private final DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper;
+  private final DataMapper<DashboardCreation, DashboardDto> dashboardMapper;
 
-  @Autowired
-  public DashboardController(
-    DashboardService dashboardService,
-    DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper,
-    DataMapper<DashboardCreation, DashboardDto> dashboardMapper
-  ) {
-    this.dashboardService = dashboardService;
-    this.dashboardCreationMapper = dashboardCreationMapper;
-    this.dashboardMapper = dashboardMapper;
-  }
 
   /**
    * API Endpoint to create a DashboardCreation
