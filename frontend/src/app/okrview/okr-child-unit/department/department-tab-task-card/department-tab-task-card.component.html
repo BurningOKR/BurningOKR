@@ -17,8 +17,8 @@
             </div>
             <mat-card-footer class="taskcard-user-pictures">
                 <div *ngFor="let user$ of users">
-                    <ngx-avatar *ngIf="user$ | async as user" [value]="'📁'" [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null" [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''" [size]="30" [matTooltip]="user.givenName +' ' + user.surname">
-                    </ngx-avatar>
+                    <ngx-avatars *ngIf="user$ | async as user" [value]="'📁'" [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null" [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''" [size]="30" [matTooltip]="user.givenName +' ' + user.surname">
+                    </ngx-avatars>
                 </div>
             </mat-card-footer>
         </div>

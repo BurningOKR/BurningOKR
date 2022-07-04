@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AvatarModule } from 'ngx-avatars';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { UserAutocompleteInputComponent } from './components/user-autocomplete-input/user-autocomplete-input.component';
@@ -21,7 +22,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog-component/dialog.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
-import { AvatarModule } from 'ngx-avatar';
 import { RouterModule } from '@angular/router';
 import { OkrToolbarBareComponent } from './components/okr-toolbar-bare/okr-toolbar-bare.component';
 import { OkrToolbarComponent } from './components/okr-toolbar/okr-toolbar.component';
@@ -68,27 +68,28 @@ import { AddButtonComponent } from './components/add-button/add-button.component
   entryComponents: [
     ConfirmationDialogComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatIconModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatSnackBarModule,
-    AvatarModule,
-    RouterModule,
-    NgxMatSelectSearchModule,
-    TranslateModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatIconModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatSnackBarModule,
+        AvatarModule,
+        RouterModule,
+        NgxMatSelectSearchModule,
+        TranslateModule,
+        AvatarModule,
+    ],
   exports: [
     UserAutocompleteInputComponent,
     UserMinibuttonComponent,

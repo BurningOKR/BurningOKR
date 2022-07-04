@@ -43,7 +43,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AvatarModule } from 'ngx-avatar';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizeEventModule } from 'angular-resize-event';
@@ -67,6 +66,7 @@ import { TaskBoardSwimlaneViewHelper } from '../shared/services/helper/task-boar
 import { TaskboardSwimlaneComponent } from './okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { TranslateModule } from '@ngx-translate/core';
+import { AvatarModule } from 'ngx-avatars';
 
 @NgModule({
     declarations: [
@@ -104,39 +104,39 @@ import { TranslateModule } from '@ngx-translate/core';
         OkrTopicDescriptionFormComponent,
         AddChildUnitButtonComponent,
     ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        OkrviewRoutingModule,
-        MatCardModule,
-        MatTabsModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatProgressBarModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatDividerModule,
-        MatMenuModule,
-        MatExpansionModule,
-        MatBadgeModule,
-        MatSliderModule,
-        MatSidenavModule,
-        MatDialogModule,
-        MatInputModule,
-        MatSelectModule,
-        FormsModule,
-        DragDropModule,
-        ReactiveFormsModule,
-        MatSlideToggleModule,
-        AvatarModule,
-        MatCheckboxModule,
-        ScrollingModule,
-        AngularResizeEventModule,
-        MatDatepickerModule,
-        MatButtonToggleModule,
-        NgxMatSelectSearchModule,
-        TranslateModule,
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    OkrviewRoutingModule,
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatBadgeModule,
+    MatSliderModule,
+    MatSidenavModule,
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    ScrollingModule,
+    AngularResizeEventModule,
+    MatDatepickerModule,
+    MatButtonToggleModule,
+    NgxMatSelectSearchModule,
+    TranslateModule,
+    AvatarModule,
+  ],
     exports: [
         OkrTopicDescriptionFormComponent
     ],
