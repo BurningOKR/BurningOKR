@@ -33,6 +33,7 @@ subprojects {
     }
 
     dependencies {
+        compile group: 'org.hibernate', name: 'hibernate-envers', version: '5.2.17.Final'
         compile group: 'org.springframework', name: 'spring-context', version: '5.0.7.RELEASE'
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.4.RELEASE'
         compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.0.7.RELEASE'

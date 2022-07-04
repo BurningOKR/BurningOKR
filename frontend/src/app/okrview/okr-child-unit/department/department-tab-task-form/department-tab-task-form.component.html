@@ -48,5 +48,63 @@
       </mat-select>
     </mat-form-field>
   </form>
+  <ng-container *ngIf="taskRevisions$ | async; let taskRevisions; else loading">
+    <table class="mat-table" *ngIf="taskRevisions.length > 0">
+      <thead>
+      <tr class="mat-header-row">
+        <th class="mat-header-cell">&nbsp;</th>
+        <th class="mat-header-cell">{{ 'department-tab-task-form.revisions.date' | translate }}
+          <mat-icon style="transform: scale(0.5); vertical-align: -8px;">arrow_downward</mat-icon>
+        </th>
+        <th class="mat-header-cell">{{ 'department-tab-task-form.revisions.user' | translate }}</th>
+        <th class="mat-header-cell">{{ 'department-tab-task-form.revisions.field' | translate }}</th>
+        <th class="mat-header-cell">{{ 'department-tab-task-form.revisions.old-value' | translate }}</th>
+        <th class="mat-header-cell">{{ 'department-tab-task-form.revisions.new-value' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let revision of taskRevisions" class="mat-row">
+          <td class="mat-cell type">
+            <mat-icon
+              style="transform: scale(0.7);">{{revision.revisionType === "ADD" ? "fiber_new" : (revision.revisionType === "MOD" ? "edit" : "")}}</mat-icon>
+          </td>
+          <td class="mat-cell date">{{revision.date | localizedDate:'short' }}</td>
+          <td class="mat-cell user">
+            <app-taskboard-users *ngIf="revision.user" [users]="[revision.user]"></app-taskboard-users>
+            <ng-container *ngIf="revision.revisionType === 'ADD' && !revision.user">
+              <mat-icon>device_unknown</mat-icon>
+            </ng-container>
+          </td>
+          <td
+            class="mat-cell field">{{ 'department-tab-task-form.revisions.fields.' + revision.changedField | translate }}</td>
+          <ng-container [ngSwitch]="revision.revisionValueType">
+            <ng-container *ngSwitchCase="'STRING'">
+              <td class="mat-cell changed-field">{{revision.oldValue === '' ? '-' : revision.oldValue}}
+              </td>
+              <td class="mat-cell changed-field">{{revision.newValue === '' ? '-' : revision.newValue}}
+              </td>
+            </ng-container>
+            <ng-container *ngSwitchCase="'USER_COLLECTION'">
+              <td class="mat-cell changed-field">
+                <ng-container *ngIf="revision.oldValue?.length === 0">-</ng-container>
+                <ng-container *ngIf="revision.oldValue.length > 0 ">
+                  <app-taskboard-users [users]="revision.oldValue"></app-taskboard-users>
+                </ng-container>
+              </td>
+              <td class="mat-cell changed-field">
+                <ng-container *ngIf="revision.newValue.length === 0">-</ng-container>
+                <ng-container *ngIf="revision.newValue.length > 0 ">
+                  <app-taskboard-users [users]="revision.newValue"></app-taskboard-users>
+                </ng-container>
+              </td>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #loading>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
 
 </app-dialog-component>

@@ -1,7 +1,11 @@
 package org.burningokr.model.okr;
 
 import lombok.Data;
+import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.*;
 
 import javax.persistence.*;
 
@@ -14,8 +18,10 @@ public class TaskState implements Trackable<Long> {
   private Long id;
 
   @Column(length = 255)
+  @Audited
   private String title;
 
+  @ToString.Exclude
   @ManyToOne
   @JoinColumn(name = "parent_task_board_id")
   private TaskBoard parentTaskBoard;

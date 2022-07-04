@@ -4,11 +4,13 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.TaskDto;
 import org.burningokr.mapper.okr.TaskMapper;
 import org.burningokr.model.okr.Task;
-import org.burningokr.model.users.User;
 import org.burningokr.service.okr.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Collection;
 
 import javax.validation.Valid;
 import java.util.Collection;
