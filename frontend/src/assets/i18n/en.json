@@ -273,7 +273,21 @@
 		"no-parent-key-result": "No parent key result",
 		"select-parent-key-result": "Choose a parent Key Result",
 		"task-state": "State",
-		"title": "Title *"
+		"title": "Title *",
+    "revisions": {
+      "date": "Date",
+      "user": "User",
+      "field": "Field",
+      "old-value": "Old value",
+      "new-value": "New value",
+      "fields": {
+        "title": "Title",
+        "description": "Description",
+        "taskState": "State",
+        "assignedUserIds": "Editor",
+        "assignedKeyResult": "Key result"
+      }
+    }
 	},
 	"department-tab-taskboard": {
 		"add-button": {

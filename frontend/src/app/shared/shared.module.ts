@@ -39,6 +39,7 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { LogPipe } from './pipes/log.pipe';
 import { AddButtonComponent } from './components/add-button/add-button.component';
+import { LocalizedDatePipe } from './pipes/localized-date.pipe';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     DateFormatPipe,
     LogPipe,
     AddButtonComponent,
+    LocalizedDatePipe
   ],
   entryComponents: [
     ConfirmationDialogComponent
@@ -110,6 +112,7 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     DateFormatPipe,
     LogPipe,
     AddButtonComponent,
+    LocalizedDatePipe
   ],
 })
 export class SharedModule {

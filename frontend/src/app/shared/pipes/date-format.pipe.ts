@@ -23,7 +23,7 @@ export class DateFormatPipe implements PipeTransform {
 
   private getLocalDateString$(date: Date, options: any = {}) {
     return this.currentLanguage$.pipe(map(language => {
-      return date.toLocaleDateString(language, options);
+      return date?.toLocaleDateString(language, options);
     }));
   }
 }

@@ -1,19 +1,14 @@
 package org.burningokr.model.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -26,6 +21,7 @@ public class KeyResult implements Trackable<Long> {
   @ToString.Exclude @ManyToOne private Objective parentObjective = null;
 
   @Column(length = 255)
+  @Audited
   private String name;
 
   @Column(length = 1023)

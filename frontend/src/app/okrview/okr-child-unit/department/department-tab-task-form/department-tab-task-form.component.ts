@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NEVER, Observable, of, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
 import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
 import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
@@ -12,6 +12,9 @@ import { KeyResultMap } from '../../../../shared/model/ui/key-result-map';
 import { ObjectiveViewMapper } from '../../../../shared/services/mapper/objective-view.mapper';
 import { UserService } from '../../../../shared/services/helper/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import {ApiHttpService} from '../../../../core/services/api-http.service';
+import {RevisionMapperService} from '../../../../shared/services/mapper/revision.mapper.service';
+import {RevisionDto} from '../../../../shared/model/api/revision-dto';
 
 export interface TaskFormData {
   task?: ViewTask;
@@ -29,7 +32,6 @@ export interface TaskFormData {
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm: FormGroup;
-  users: User[];
   user: User;
   users$: Observable<User[]>;
   objectives: ViewObjective[];
@@ -38,12 +40,16 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   title: string;
   isInteractive: boolean;
+  taskRevisions$: Observable<RevisionDto[]>;
 
   constructor(
     private objectiveMapper: ObjectiveViewMapper,
     private dialogRef: MatDialogRef<TaskFormComponent>,
     private userService: UserService,
     private translate: TranslateService,
+    private revisionMapper: RevisionMapperService,
+    private api: ApiHttpService,
+    public translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) private formData: (TaskFormData | any)
   ) { }
 
@@ -70,7 +76,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     }
 
     this.users$ = this.userService.getAllUsers$();
-
+    this.taskRevisions$ = this.formData.task?.id ? this.revisionMapper.getRevisionsForTask$(this.formData.task.id) : of([]);
     this.keyResultMaps$ = this.objectiveMapper.getObjectivesForUnit$(this.formData.unitId)
       .pipe(
         switchMap(objectives => {

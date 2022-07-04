@@ -273,7 +273,21 @@
 		"no-parent-key-result": "Kein übergeordnetes Key Result",
 		"select-parent-key-result": "Übergeordnetes Key Result auswählen",
 		"task-state": "Status",
-		"title": "Titel *"
+		"title": "Titel *",
+    "revisions": {
+      "date": "Datum",
+      "user": "Benutzer",
+      "field": "Feld",
+      "old-value": "Alter Wert",
+      "new-value": "Neuer Wert",
+      "fields": {
+        "title": "Titel",
+        "description": "Beschreibung",
+        "taskState": "Status",
+        "assignedUserIds": "Bearbeiter",
+        "assignedKeyResult": "Key result"
+      }
+    }
 	},
 	"department-tab-taskboard": {
 		"add-button": {
