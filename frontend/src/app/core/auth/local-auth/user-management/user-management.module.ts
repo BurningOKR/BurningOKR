@@ -15,7 +15,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AvatarModule } from 'ngx-avatars';
+import { AvatarModule } from 'ngx-avatar';
 import { UserDialogComponent } from './forms/user-dialog/user-dialog.component';
 import { ImportCsvDialogComponent } from './forms/import-csv-dialog/import-csv-dialog.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
