@@ -1,7 +1,6 @@
 package org.burningokr.controller.dashboard;
 
 import java.util.Collection;
-
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.dashboard.DashboardDto;
@@ -10,7 +9,6 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.model.users.User;
 import org.burningokr.service.dashboard.DashboardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +18,6 @@ public class DashboardController {
   private final DashboardService dashboardService;
   private final DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper;
   private final DataMapper<DashboardCreation, DashboardDto> dashboardMapper;
-
 
   /**
    * API Endpoint to create a DashboardCreation
