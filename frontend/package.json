@@ -64,6 +64,7 @@
     "ngx-avatars": "~1.4.0",
     "ngx-logger": "^4.3.3",
     "ngx-mat-select-search": "~4.0.0",
+    "ngx-material-file-input": "~4.0.0",
     "ngx-papaparse": "^5.0.0",
     "ngx-wow": "^2.0.1",
     "raw-loader": "^4.0.2",
