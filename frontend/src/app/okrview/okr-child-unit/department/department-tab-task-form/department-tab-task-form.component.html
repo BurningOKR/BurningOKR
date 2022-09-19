@@ -9,7 +9,7 @@
 
         <mat-form-field class="form-whole-line">
             <mat-label>{{ 'department-tab-task-form.description' | translate }}</mat-label>
-            <textarea formControlName="description" matInput [mat-autosize]="true"></textarea>
+            <textarea formControlName="description" matInput></textarea> <!-- TODO: Enable resize again. TGohlisch, 19.09.2022-->
             <mat-error>
                 <app-form-error [control]="taskForm.get('description')"></app-form-error>
             </mat-error>
