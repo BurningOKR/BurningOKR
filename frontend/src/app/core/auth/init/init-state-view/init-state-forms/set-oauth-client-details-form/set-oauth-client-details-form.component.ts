@@ -19,7 +19,7 @@ import { InitStateFormComponent } from '../init-state-form/init-state-form.compo
 export class SetOauthClientDetailsFormComponent extends InitStateFormComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
-  form: FormGroupTyped<OauthClientDetails>;
+  form; // TODO: Typed Forms are now a build-in part of Angular. Add explicit typing for this attribute. TGohlisch, 19.09.2022
   eventEmitter: EventEmitter<InitState> = new EventEmitter<InitState>();
   oauthClientDetails: OauthClientDetails = new OauthClientDetails();
   spinnerIsHidden: boolean = true;
@@ -78,7 +78,7 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
       refreshTokenValidity: [this.oauthClientDetails.refreshTokenValidity,
         [Validators.required, Validators.min(Consts.MIN_TOKEN_DURATION)]],
       webServerRedirectUri: [this.oauthClientDetails.webServerRedirectUri, [Validators.required]],
-    }) as FormGroupTyped<OauthClientDetails>;
+    });
     this.form.disable();
   }
 
