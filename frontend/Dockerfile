@@ -3,7 +3,7 @@ FROM node:12.14.1 AS build
 
 WORKDIR /usr/src/app
 COPY . .
-RUN npm install
+RUN npm ci
 RUN npm run build-docker
 
 
