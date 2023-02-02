@@ -7,9 +7,7 @@ import { take } from 'rxjs/operators';
 import { OkrTopicDraft } from '../../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { Structure } from '../../../shared/model/ui/OrganizationalUnit/structure';
 import { StructureMapper } from '../../../shared/services/mapper/structure.mapper';
-import {
-  SubmittedTopicDraftDetailsFormData
-} from '../../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
+import { SubmittedTopicDraftDetailsFormData } from '../../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
 import { ConvertTopicDraftToTeamService } from '../convert-topic-draft-to-team.service';
 
 @Component({

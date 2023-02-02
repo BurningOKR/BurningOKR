@@ -1,5 +1,6 @@
-import { Component, Inject, HostListener } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+
 @Component({
   selector: 'app-scroll-top',
   templateUrl: './scroll-top.component.html',

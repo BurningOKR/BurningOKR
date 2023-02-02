@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ApiHttpService } from '../services/api-http.service';
 import { Observable } from 'rxjs';
 import { ConfigurationDto } from '../../shared/model/api/configuration.dto';
 import { ConfigurationId } from '../../shared/model/id-types';

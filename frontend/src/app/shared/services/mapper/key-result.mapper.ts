@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { KeyResultDto } from '../../model/api/key-result.dto';
 import { ViewKeyResult } from '../../model/ui/view-key-result';

@@ -1,7 +1,7 @@
 import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import {
   StartDateBeforeEndDateValidator,
-  startDateNotBeforeEndDate
+  startDateNotBeforeEndDate,
 } from './start-date-before-end-date-validator-function';
 
 describe('StartDateBeforeEndDateValidator', () => {

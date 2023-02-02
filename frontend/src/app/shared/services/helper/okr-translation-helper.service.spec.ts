@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { OkrTranslationHelperService } from './okr-translation-helper.service';
-import {TranslateService} from '@ngx-translate/core';
-import {MaterialTestingModule} from '../../../testing/material-testing.module';
-import {CookieHelperService} from './cookie-helper.service';
+import { TranslateService } from '@ngx-translate/core';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
+import { CookieHelperService } from './cookie-helper.service';
 
 describe('OkrTranslationService', () => {
   let service: OkrTranslationHelperService;

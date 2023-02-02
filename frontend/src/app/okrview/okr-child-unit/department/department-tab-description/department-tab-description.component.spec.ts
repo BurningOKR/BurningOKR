@@ -10,10 +10,8 @@ import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/ok
 import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
 import { of } from 'rxjs';
 import { ContextRole } from '../../../../shared/model/ui/context-role';
-import {
-  DepartmentDescriptionEditFormComponent
-} from './department-description-edit-form/department-description-edit-form.component';
-import { OkrTranslationHelperService } from "../../../../shared/services/helper/okr-translation-helper.service";
+import { DepartmentDescriptionEditFormComponent } from './department-description-edit-form/department-description-edit-form.component';
+import { OkrTranslationHelperService } from '../../../../shared/services/helper/okr-translation-helper.service';
 
 describe('DepartmentTabDescription', () => {
   let component: DepartmentTabDescriptionComponent;

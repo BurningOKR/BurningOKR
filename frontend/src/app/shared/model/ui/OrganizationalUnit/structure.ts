@@ -1,5 +1,6 @@
 import { OkrUnit } from './okr-unit';
 import { ObjectiveId } from '../../id-types';
+
 export class Structure extends OkrUnit {
 
   substructures: Structure[];

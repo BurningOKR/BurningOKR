@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
-import {OkrTranslationHelperService} from '../../../shared/services/helper/okr-translation-helper.service';
+import { OkrTranslationHelperService } from '../../../shared/services/helper/okr-translation-helper.service';
 
 @Component({
   selector: 'app-pick-language',

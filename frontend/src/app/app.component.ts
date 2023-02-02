@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { FetchingService } from './core/services/fetching.service';
-import {OkrTranslationHelperService} from './shared/services/helper/okr-translation-helper.service';
+import { OkrTranslationHelperService } from './shared/services/helper/okr-translation-helper.service';
 
 @Component({
   selector: 'app-root',

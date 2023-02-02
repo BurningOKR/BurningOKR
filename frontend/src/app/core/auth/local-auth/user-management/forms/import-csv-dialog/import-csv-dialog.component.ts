@@ -7,7 +7,7 @@ import { User } from '../../../../../../shared/model/api/user';
 import { CsvParseResult, CsvUserParseService } from '../../services/csv-user-parse.service';
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../../../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { filter } from 'rxjs/operators';
 import { FormBuilder } from '@angular/forms';

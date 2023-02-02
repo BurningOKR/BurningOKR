@@ -1,16 +1,16 @@
-import {TestBed} from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {of, Subscription} from 'rxjs';
-import {ObjectiveContentsComponent} from './objective-contents.component';
-import {ObjectiveViewMapper} from '../../../shared/services/mapper/objective-view.mapper';
-import {KeyResultMapper} from '../../../shared/services/mapper/key-result.mapper';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import {ConfigurationManagerService} from '../../../core/settings/configuration-manager.service';
-import {ViewKeyResult} from '../../../shared/model/ui/view-key-result';
-import {Unit} from '../../../shared/model/api/unit.enum';
-import {ViewObjective} from '../../../shared/model/ui/view-objective';
-import {MaterialTestingModule} from '../../../testing/material-testing.module';
+import { TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { of, Subscription } from 'rxjs';
+import { ObjectiveContentsComponent } from './objective-contents.component';
+import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
+import { KeyResultMapper } from '../../../shared/services/mapper/key-result.mapper';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfigurationManagerService } from '../../../core/settings/configuration-manager.service';
+import { ViewKeyResult } from '../../../shared/model/ui/view-key-result';
+import { Unit } from '../../../shared/model/api/unit.enum';
+import { ViewObjective } from '../../../shared/model/ui/view-objective';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
 
 describe('ObjectiveContentsComponent', () => {
   const getObjectiveByIdMock: jest.Mock<any, any> = jest.fn();

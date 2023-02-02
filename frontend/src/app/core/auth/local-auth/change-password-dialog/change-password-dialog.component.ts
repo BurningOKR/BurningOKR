@@ -11,9 +11,7 @@ import { Consts } from '../../../../shared/consts';
 import { User } from '../../../../shared/model/api/user';
 import { NewPasswordForm } from '../../../../shared/model/forms/new-password-form';
 import { wrongPasswordValidatorError } from '../../../../shared/validators/errors/wrong-password-validator-error';
-import {
-  PasswordsMatchValidator,
-} from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { PasswordService } from '../password-service/password.service';
 

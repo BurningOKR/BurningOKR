@@ -1,5 +1,4 @@
-
-import { TaskId, TaskStateId, UserId, KeyResultId, DepartmentId, TaskBoardId } from '../../id-types';
+import { DepartmentId, KeyResultId, TaskBoardId, TaskId, TaskStateId, UserId } from '../../id-types';
 import { TaskBoardObject } from './task-board-object';
 
 export class ViewTask implements TaskBoardObject {

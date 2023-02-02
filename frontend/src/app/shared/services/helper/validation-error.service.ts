@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { AbstractValidator, getValidators } from '../../validators/abstract-validator';
 import { TranslateService } from '@ngx-translate/core';

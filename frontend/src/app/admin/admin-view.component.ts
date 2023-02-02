@@ -11,9 +11,7 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData,
 } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
-import {
-  UserAutocompleteInputComponent,
-} from '../shared/components/user-autocomplete-input/user-autocomplete-input.component';
+import { UserAutocompleteInputComponent } from '../shared/components/user-autocomplete-input/user-autocomplete-input.component';
 import { User } from '../shared/model/api/user';
 import { UserId } from '../shared/model/id-types';
 import { UserService } from '../shared/services/helper/user.service';

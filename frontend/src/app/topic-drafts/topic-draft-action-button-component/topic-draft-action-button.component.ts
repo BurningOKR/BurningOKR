@@ -18,12 +18,8 @@ import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topi
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import {
-  TopicDraftEditDialogueComponent
-} from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
-import {
-  ConvertTopicDraftToTeamDialogueComponent,
-} from '../convert-topic-draft-to-team/convert-topic-draft-to-team-dialogue-component/convert-topic-draft-to-team-dialogue.component';
+import { TopicDraftEditDialogueComponent } from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
+import { ConvertTopicDraftToTeamDialogueComponent } from '../convert-topic-draft-to-team/convert-topic-draft-to-team-dialogue-component/convert-topic-draft-to-team-dialogue.component';
 import { TopicDraftPermissionService } from '../topic-draft-permission.service';
 import { TopicDraftStatusService } from '../topic-draft-status.service';
 

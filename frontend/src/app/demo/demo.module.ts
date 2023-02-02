@@ -15,7 +15,7 @@ import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { DemoPrivacyPolicyComponent } from './demo-privacy-policy/demo-privacy-policy.component';
 import { DemoImprintComponent } from './demo-imprint/demo-imprint.component';
 import { DemoCreditsComponent } from './demo-credits/demo-credits.component';
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [

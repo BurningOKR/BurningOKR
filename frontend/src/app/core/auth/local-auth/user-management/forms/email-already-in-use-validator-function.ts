@@ -1,5 +1,4 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { LocalUserManagementUser } from '../user-management.component';
 
 export const emailAlreadyInUseValidatorFunction: (emails: string[]) =>
   ValidatorFn = (emailsOfUsers: string[]): ValidatorFn => {

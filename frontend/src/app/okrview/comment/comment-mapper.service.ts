@@ -6,7 +6,6 @@ import { ViewComment } from '../../shared/model/ui/view-comment';
 import { CommentApiService } from './comment-api.service';
 import { UserService } from '../../shared/services/helper/user.service';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
-import { CommentId } from '../../shared/model/id-types';
 
 @Injectable({
   providedIn: 'root'

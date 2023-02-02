@@ -2,7 +2,6 @@ import { inject, TestBed } from '@angular/core/testing';
 import { InitService } from '../../services/init.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { INIT_STATE_NAME } from '../../../shared/model/api/init-state';
 import { InitGuard } from './init.guard';
 
 const routerMock: any = {

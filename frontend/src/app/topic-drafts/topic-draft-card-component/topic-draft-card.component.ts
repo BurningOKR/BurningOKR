@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
-import {
-  TopicDraftDetailsDialogueComponent
-} from '../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
+import { TopicDraftDetailsDialogueComponent } from '../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

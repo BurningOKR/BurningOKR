@@ -1,29 +1,29 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {RxStompService} from '@stomp/ng2-stompjs';
-import {BehaviorSubject, forkJoin, Observable, Subscription} from 'rxjs';
-import {filter, map, take, tap} from 'rxjs/operators';
-import {TaskFormComponent, TaskFormData} from '../department-tab-task-form/department-tab-task-form.component';
-import {OkrChildUnit} from '../../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import {ContextRole} from '../../../../shared/model/ui/context-role';
-import {CycleUnit} from '../../../../shared/model/ui/cycle-unit';
-import {ViewTaskBoardEvent} from '../../../../shared/model/events/view-taskboard-event';
-import {TaskMapperService} from '../../../../shared/services/mapper/task.mapper';
-import {TaskStateMapper} from '../../../../shared/services/mapper/task-state.mapper';
-import {TaskBoardGeneralHelper} from '../../../../shared/services/helper/task-board/task-board-general-helper';
-import {TaskBoardViewEventService} from '../../../taskboard-services/task-board-view-event.service';
-import {KeyResultMapper} from '../../../../shared/services/mapper/key-result.mapper';
-import {OkrUnitId} from '../../../../shared/model/id-types';
-import {TaskDto} from '../../../../shared/model/api/task.dto';
-import {ViewTask} from '../../../../shared/model/ui/taskboard/view-task';
-import {ViewTaskState} from '../../../../shared/model/ui/taskboard/view-task-state';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
+import { TaskFormComponent, TaskFormData } from '../department-tab-task-form/department-tab-task-form.component';
+import { OkrChildUnit } from '../../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { ContextRole } from '../../../../shared/model/ui/context-role';
+import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
+import { ViewTaskBoardEvent } from '../../../../shared/model/events/view-taskboard-event';
+import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
+import { TaskStateMapper } from '../../../../shared/services/mapper/task-state.mapper';
+import { TaskBoardGeneralHelper } from '../../../../shared/services/helper/task-board/task-board-general-helper';
+import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
+import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
+import { OkrUnitId } from '../../../../shared/model/id-types';
+import { TaskDto } from '../../../../shared/model/api/task.dto';
+import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
+import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
 import {
   ConfirmationDialogComponent,
-  ConfirmationDialogData
+  ConfirmationDialogData,
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import {RxStompState} from '@stomp/rx-stomp';
-import {TranslateService} from '@ngx-translate/core';
+import { RxStompState } from '@stomp/rx-stomp';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-tab-taskboard',

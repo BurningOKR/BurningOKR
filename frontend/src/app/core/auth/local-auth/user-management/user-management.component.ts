@@ -10,9 +10,7 @@ import 'linq4js';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import {
-  ConfirmationDialogComponent,
-} from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { User } from '../../../../shared/model/api/user';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import { CurrentUserService } from '../../../services/current-user.service';

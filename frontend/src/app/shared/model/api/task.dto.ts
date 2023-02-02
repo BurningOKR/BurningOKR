@@ -1,4 +1,4 @@
-import { DepartmentId, KeyResultId, TaskId, UserId, TaskStateId } from '../id-types';
+import { DepartmentId, KeyResultId, TaskId, TaskStateId, UserId } from '../id-types';
 
 export class TaskDto {
     id?: TaskId;

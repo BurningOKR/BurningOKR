@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, Directive, Input, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OkrToolbarBareComponent } from './okr-toolbar-bare.component';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {DialogComponent} from "../dialog-component/dialog.component";
-import {MaterialTestingModule} from "../../../testing/material-testing.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog-component/dialog.component';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Directive({selector: '[oneviewPermitted]'})
 class OneviewPermittedDirective {

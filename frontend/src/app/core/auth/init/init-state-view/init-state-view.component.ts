@@ -5,7 +5,7 @@ import {
   ComponentRef,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { INIT_STATE_NAME, InitState } from '../../../../shared/model/api/init-state';
 import { CreateUserInitStateFormComponent } from './init-state-forms/create-user-init-state-form/create-user-init-state-form.component';

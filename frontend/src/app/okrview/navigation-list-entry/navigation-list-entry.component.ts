@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OkrUnitSchema, OkrUnitRole } from '../../shared/model/ui/okr-unit-schema';
+import { OkrUnitRole, OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
 import { CurrentNavigationService } from '../current-navigation.service';
 
 @Component({

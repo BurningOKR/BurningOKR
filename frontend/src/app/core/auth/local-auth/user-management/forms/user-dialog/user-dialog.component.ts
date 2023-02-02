@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
-import {shareReplay, switchMap, take} from 'rxjs/operators';
+import { shareReplay, switchMap, take } from 'rxjs/operators';
 import { environment } from '../../../../../../../environments/environment';
 import { User } from '../../../../../../shared/model/api/user';
 import { LocalUserService } from '../../../../../../shared/services/helper/local-user.service';

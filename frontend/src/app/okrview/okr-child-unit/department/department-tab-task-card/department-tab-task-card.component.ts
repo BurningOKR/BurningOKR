@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TaskBoardViewEventService } from '../../../../okrview/taskboard-services/task-board-view-event.service';
 import { User } from '../../../..//shared/model/api/user';
 import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';

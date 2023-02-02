@@ -8,14 +8,9 @@ import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
 import { DateMapper } from '../../shared/services/mapper/date.mapper';
 import { DateFormValidator } from '../../shared/validators/date-format-validator/date-format-validator-function';
-import {
-  DateNotInThePastValidator,
-} from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
-import { DateNotInRangeOfAnotherCycleValidator } from
-'../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
-import {
-  StartDateBeforeEndDateValidator,
-} from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
+import { DateNotInThePastValidator } from '../../shared/validators/date-not-in-the-past-validator/date-not-in-the-past-validator-function';
+import { DateNotInRangeOfAnotherCycleValidator } from '../../shared/validators/date-range-in-range-within-another-dates-validator/date-range-in-range-within-another-dates-validator-function';
+import { StartDateBeforeEndDateValidator } from '../../shared/validators/start-date-before-end-date-validator/start-date-before-end-date-validator-function';
 
 export interface CycleEditFormData {
   cycle: CycleUnit;

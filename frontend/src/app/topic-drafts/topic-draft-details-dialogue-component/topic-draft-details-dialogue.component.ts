@@ -6,9 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { FormControl, FormGroup } from '@angular/forms';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { CurrentUserService } from '../../core/services/current-user.service';
-import {
-  TopicDraftEditDialogueComponent
-} from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
+import { TopicDraftEditDialogueComponent } from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
 import { TopicDraftPermissionService } from '../topic-draft-permission.service';
 import { TopicDraftStatusService } from '../topic-draft-status.service';
 

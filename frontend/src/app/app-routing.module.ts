@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AdminViewComponent } from './admin/admin-view.component';
 import { LandingPageNavigationComponent } from './core/landing-page-router/landing-page-navigation.component';
 import { AdminRoleGuard } from './admin/admin-role-guard';

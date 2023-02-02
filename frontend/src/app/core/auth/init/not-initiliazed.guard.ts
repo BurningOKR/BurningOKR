@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { InitService } from '../../services/init.service';
 import { map } from 'rxjs/operators';
-import { INIT_STATE_NAME } from '../../../shared/model/api/init-state';
 
 @Injectable({
   providedIn: 'root'

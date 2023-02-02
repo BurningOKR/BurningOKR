@@ -18,7 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { OkrUnitFormComponent } from './okr-unit-form/okr-unit-form.component';
 import { DemoModule } from '../demo/demo.module';
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
