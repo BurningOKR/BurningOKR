@@ -10,7 +10,7 @@ import { LoggerTestingModule } from 'ngx-logger/testing';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { User } from '../../../../shared/model/api/user';
 import { of } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import 'linq4js';
 
@@ -66,7 +66,7 @@ describe('UserManagementComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         LoggerTestingModule,
-        BrowserAnimationsModule
+        NoopAnimationsModule
       ],
       providers: [
         {provide: MatDialog, useValue: {}},

@@ -43,7 +43,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AvatarModule } from 'ngx-avatar';
+import { AvatarModule } from 'ngx-avatars';
 import { KeyResultMilestoneFormComponent } from './keyresult/key-result-form/key-result-milestone-form/key-result-milestone-form.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AngularResizeEventModule } from 'angular-resize-event';

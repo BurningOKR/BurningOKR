@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UserMinibuttonComponent } from './user-minibutton.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { UserAvatarComponent } from '../user-avatar/user-avatar.component';
-import { AvatarComponent } from 'ngx-avatar';
+import { AvatarComponent } from 'ngx-avatars';
 import { UserService } from '../../services/helper/user.service';
 import { of } from 'rxjs';
 

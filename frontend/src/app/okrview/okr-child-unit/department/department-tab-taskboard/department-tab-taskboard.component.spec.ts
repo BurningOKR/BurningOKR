@@ -42,13 +42,16 @@ const taskBoardViewEventServiceMock: any = {};
 const keyResultMapperMock: any = {};
 const rxStompServiceMock: any = {
   webSocketErrors$: new Subject<any>(),
-  connectionState$: new Subject<any>()
+  connectionState$: new Subject<any>(),
+  deactivate: async () => {
+    return new Promise<void>(null);
+  }
 };
 
 const matDialogMock: any = {};
 
 const matSnackBarMock: any = {
-  open(params: any, actions: any, config: any): any {
+  open(): any {
     return of(true);
   }
 };
