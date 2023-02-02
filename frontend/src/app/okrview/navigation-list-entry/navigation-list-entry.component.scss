@@ -1,3 +1,5 @@
+@import '../../../styles/themes/bag-theme';
+
 .list-entry {
   margin: 6px 4px;
 }
@@ -23,7 +25,7 @@
 }
 
 .secondary-color {
-  background-color: #ededed;
+  background-color: $bag-theme-white;
 }
 
 .selected-child-unit {
