@@ -13,19 +13,20 @@ const routes: Routes = [
     children: [
       {
         path: 'departments/:departmentId',
-        component: OkrChildUnitComponent
+        component: OkrChildUnitComponent,
       },
       {
         path: 'companies/:companyId',
-        component: CompanyComponent
-      }
+        component: CompanyComponent,
+      },
     ],
-    canActivate: [AuthGuard]
-  }
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class OkrviewRoutingModule { }
+export class OkrviewRoutingModule {
+}

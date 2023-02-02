@@ -19,7 +19,7 @@ describe('OkrUnitCardComponent', () => {
 
   let fixture: any;
   let component: {
-    getDataForCompanyDeletionDialog: () => {data: DeleteDialogData};
+    getDataForCompanyDeletionDialog: () => { data: DeleteDialogData };
     company: CompanyUnit;
   };
   let translate: TranslateService;
@@ -39,13 +39,13 @@ describe('OkrUnitCardComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        {provide: CycleMapper, useValue: {}},
-        {provide: CompanyMapper, useValue: {}},
-        {provide: MatDialog, useValue: {}},
-        {provide: CompanyApiService, useValue: {}},
-        {provide: RouterTestingModule, useValue: {}},
-        {provide: CurrentUserService, useValue: {}},
-      ]
+        { provide: CycleMapper, useValue: {} },
+        { provide: CompanyMapper, useValue: {} },
+        { provide: MatDialog, useValue: {} },
+        { provide: CompanyApiService, useValue: {} },
+        { provide: RouterTestingModule, useValue: {} },
+        { provide: CurrentUserService, useValue: {} },
+      ],
     })
       .overrideComponent(OkrUnitCardComponent, {})
       .compileComponents();
@@ -74,7 +74,7 @@ describe('OkrUnitCardComponent', () => {
         return '';
       }
     });
-    const data: {data: DeleteDialogData} = component.getDataForCompanyDeletionDialog();
+    const data: { data: DeleteDialogData } = component.getDataForCompanyDeletionDialog();
 
     expect(data)
       .toEqual(
@@ -83,9 +83,9 @@ describe('OkrUnitCardComponent', () => {
             {
               title: 'correctGeneralDeleteDialogTitle',
               objectNameWithArticle: 'correctCompanyWithArticle',
-              dangerContent: ''
-            }
-        }
+              dangerContent: '',
+            },
+        },
       );
   });
 
@@ -100,7 +100,7 @@ describe('OkrUnitCardComponent', () => {
         return 'correctDeleteCompanyHasChildUnitWarning';
       }
     });
-    const data: {data: DeleteDialogData} = component.getDataForCompanyDeletionDialog();
+    const data: { data: DeleteDialogData } = component.getDataForCompanyDeletionDialog();
 
     expect(data)
       .toEqual(
@@ -109,9 +109,9 @@ describe('OkrUnitCardComponent', () => {
             {
               title: 'correctGeneralDeleteDialogTitle',
               objectNameWithArticle: 'correctCompanyWithArticle',
-              dangerContent: 'correctDeleteCompanyHasChildUnitWarning'
-            }
-        }
+              dangerContent: 'correctDeleteCompanyHasChildUnitWarning',
+            },
+        },
       );
   });
 });

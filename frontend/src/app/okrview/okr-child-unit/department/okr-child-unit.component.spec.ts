@@ -38,21 +38,21 @@ describe('OkrChildUnitComponent', () => {
   const departmentMapperService: any = {
     getDepartmentById$: jest.fn(),
     putDepartment$: jest.fn(),
-    deleteDepartment$: jest.fn()
+    deleteDepartment$: jest.fn(),
   };
 
   const unitMapperService: any = {
     getOkrChildUnitById$: jest.fn(),
     putOkrChildUnit$: jest.fn(),
-    deleteOkrChildUnit$: jest.fn()
+    deleteOkrChildUnit$: jest.fn(),
   };
 
   const departmentContextRoleService: any = {
-    getContextRoleForOkrChildUnit$: jest.fn()
+    getContextRoleForOkrChildUnit$: jest.fn(),
   };
 
   const router: any = {
-    navigate: jest.fn()
+    navigate: jest.fn(),
   };
 
   const currentOkrUnitSchemaService: any = {};
@@ -67,18 +67,18 @@ describe('OkrChildUnitComponent', () => {
       get: paramMapGetSpy,
       getAll: paramMapGetAllSpy,
       has: paramMapHasSpy,
-      keys: []
-    } as ParamMap)
+      keys: [],
+    } as ParamMap),
   };
 
   const currentOkrViewService: any = {
     browseDepartment: jest.fn(),
     refreshCurrentDepartmentView: jest.fn(),
-    refreshCurrentCompanyView: jest.fn()
+    refreshCurrentCompanyView: jest.fn(),
   };
 
   const currentCycleService: any = {
-    getCurrentCycle$: jest.fn()
+    getCurrentCycle$: jest.fn(),
   };
 
   const excelService: any = {};
@@ -89,7 +89,7 @@ describe('OkrChildUnitComponent', () => {
   @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-state-column-view',
-    template: ''
+    template: '',
   })
   class TaskBoardStateColumnViewMock {
     @Input() data$ = of();
@@ -99,7 +99,7 @@ describe('OkrChildUnitComponent', () => {
   @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-swimlane-view',
-    template: ''
+    template: '',
   })
   class TaskBoardSwimlaneViewMock {
     @Input() data$ = of();
@@ -123,7 +123,7 @@ describe('OkrChildUnitComponent', () => {
         DepartmentTabTaskboardComponent,
         TaskBoardStateColumnViewMock,
         TaskBoardSwimlaneViewMock,
-        AddChildUnitButtonComponent
+        AddChildUnitButtonComponent,
       ],
       imports: [SharedModule, MaterialTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
@@ -136,7 +136,7 @@ describe('OkrChildUnitComponent', () => {
         { provide: CurrentCycleService, useValue: currentCycleService },
         { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaService },
         { provide: ExcelMapper, useValue: excelService },
-      ]
+      ],
     })
       .compileComponents();
   }));
@@ -149,7 +149,8 @@ describe('OkrChildUnitComponent', () => {
       0,
       'department',
       'master', 'topicSponsor', ['member'],
-      true, false);
+      true, false,
+    );
 
     okrBranch = new OkrBranch(
       2,
@@ -159,7 +160,7 @@ describe('OkrChildUnitComponent', () => {
       0,
       [],
       true,
-      false
+      false,
     );
 
     paramMapGetSpy.mockReset();
@@ -191,7 +192,7 @@ describe('OkrChildUnitComponent', () => {
     departmentContextRoleService.getContextRoleForOkrChildUnit$.mockReturnValue(of(null));
 
     router.navigate.mockReset();
-    router.navigate.mockReturnValue({catch: jest.fn()});
+    router.navigate.mockReturnValue({ catch: jest.fn() });
   });
 
   it('should create', () => {

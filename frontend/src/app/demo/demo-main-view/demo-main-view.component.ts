@@ -5,7 +5,7 @@ import { DemoWarningComponent } from '../demo-warning/demo-warning.component';
 @Component({
   selector: 'app-demo-main-view',
   templateUrl: './demo-main-view.component.html',
-  styleUrls: ['./demo-main-view.component.scss']
+  styleUrls: ['./demo-main-view.component.scss'],
 })
 export class DemoMainViewComponent {
 

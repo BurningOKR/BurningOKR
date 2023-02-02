@@ -4,7 +4,8 @@
       <mat-icon class="icon-centered">person_add</mat-icon>
     </div>
     <div class="f-4">
-      <app-user-autocomplete-input #inputForm [placeHolderText]="inputPlaceholderText" (choseUser)="autoCompleteChoseUser($event)"></app-user-autocomplete-input>
+      <app-user-autocomplete-input #inputForm (choseUser)="autoCompleteChoseUser($event)"
+                                   [placeHolderText]="inputPlaceholderText"></app-user-autocomplete-input>
     </div>
   </div>
 </mat-card>

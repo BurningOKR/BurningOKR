@@ -8,7 +8,7 @@ import { AdminUser } from '../../model/api/admin-user';
 import { IUserService } from './i-user-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService implements IUserService {
 
@@ -24,14 +24,14 @@ export class UserService implements IUserService {
           const index: number = users.findIndex(u => u.id === objectId);
 
           return index !== -1 ? users[index] : undefined;
-        })
+        }),
       );
     } else {
       return this.userApiService.getUserById$(objectId)
         .pipe(
           map((user: User) => {
             return user;
-          })
+          }),
         );
     }
   }
@@ -56,18 +56,18 @@ export class UserService implements IUserService {
     }
     forkJoin({
       activeUsers: this.userApiService.getActiveUsers$(),
-      users: this.userApiService.getUsers$()
-    }).pipe(map (({ activeUsers, users}) => {
-        users.forEach(user => user.active = !!activeUsers.find(activeUser => activeUser.id === user.id));
+      users: this.userApiService.getUsers$(),
+    }).pipe(map(({ activeUsers, users }) => {
+      users.forEach(user => user.active = !!activeUsers.find(activeUser => activeUser.id === user.id));
 
-        return users;
-    }),take(1))
+      return users;
+    }), take(1))
       .subscribe(u => this.users$.next(u));
   }
 
   addAdmin$(adminToAdd: User): Observable<User> {
     return this.userApiService.addAdmin$(
-      new AdminUser(adminToAdd.id)
+      new AdminUser(adminToAdd.id),
     );
   }
 

@@ -1,14 +1,15 @@
-<mat-sidenav-container class="example-container footer-margin" autosize>
+<mat-sidenav-container autosize class="example-container footer-margin">
 
-  <mat-sidenav #sideNav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" class="list-content" opened>
+  <mat-sidenav #sideNav [fixedInViewport]="mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
+               class="list-content" opened>
 
     <div *ngIf="mobileQuery.matches" [style.marginTop.px]="37">
       <app-cycle-list-dropdown></app-cycle-list-dropdown>
     </div>
 
-    <div *ngIf="(currentCompany$ | async ) as company" (click)="closeSideNavMobileOnly()">
+    <div (click)="closeSideNavMobileOnly()" *ngIf="(currentCompany$ | async ) as company">
       <div class="flex-nowrap">
-        <button mat-button class="entry-title" [routerLink]="['./companies/'+company.id]">
+        <button [routerLink]="['./companies/'+company.id]" class="entry-title" mat-button>
           <mat-icon class="icon-spacer">business</mat-icon>
           {{company.name}}
         </button>
@@ -16,8 +17,7 @@
     </div>
 
     <div *ngFor="let unitSchema of (currentUnitSchema$ | async)">
-      <app-navigation-list-entry [schema]="unitSchema" (click)="closeSideNavMobileOnly()">
-      </app-navigation-list-entry>
+      <app-navigation-list-entry (click)="closeSideNavMobileOnly()" [schema]="unitSchema"></app-navigation-list-entry>
     </div>
 
   </mat-sidenav>

@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (keydown.enter)="login()" appCapsLock (capsLock)="capsLock=$event">
+<form (capsLock)="capsLock=$event" (keydown.enter)="login()" [formGroup]="loginForm" appCapsLock>
   <app-non-logged-in-card toolbarTitle="Login">
     <mat-card-header>
       <mat-card-title>Burning OKR - Login</mat-card-title>
@@ -27,12 +27,11 @@
       <mat-error *ngIf="errorType === authErrors.UNAUTHORIZED">{{ 'login.error-unauthorized' | translate }}</mat-error>
       <mat-error
         *ngIf="errorType === authErrors.INVALID_GRANT">{{ 'login.error-invalid-grant' | translate }}</mat-error>
-      <mat-error class="error-span" *ngIf="capsLock">{{ 'login.caps-lock-on' | translate }}</mat-error>
+      <mat-error *ngIf="capsLock" class="error-span">{{ 'login.caps-lock-on' | translate }}</mat-error>
     </mat-card-content>
     <mat-card-actions class="row">
-      <button type="submit" [disabled]="loginForm.invalid" (click)="login()" class="col-4"
-              color="primary"
-              mat-raised-button mat-ripple>
+      <button (click)="login()" [disabled]="loginForm.invalid" class="col-4" color="primary" mat-raised-button
+              mat-ripple type="submit">
         Login
       </button>
       <a mat-button routerLink="/auth/resetpassword" routerLinkActive="active">{{ 'login.button' | translate }}</a>

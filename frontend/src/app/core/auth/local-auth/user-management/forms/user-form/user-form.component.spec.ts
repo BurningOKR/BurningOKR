@@ -16,13 +16,12 @@ describe('UserFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserFormComponent ],
-      imports: [ MaterialTestingModule, BrowserAnimationsModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-      providers: [
-      ],
+      declarations: [UserFormComponent],
+      imports: [MaterialTestingModule, BrowserAnimationsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      providers: [],
     })
-    .compileComponents();
+      .compileComponents();
     fixture = TestBed.createComponent(UserFormComponent);
     component = fixture.componentInstance;
     component.userForm = formBuilder.group({
@@ -34,7 +33,7 @@ describe('UserFormComponent', () => {
       department: [''],
       photo: [''],
       isAdmin: [false],
-      active: [true]
+      active: [true],
     });
     fixture.detectChanges();
 

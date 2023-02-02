@@ -8,12 +8,13 @@ import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    LogoutComponent
+    LogoutComponent,
   ],
   imports: [TranslateModule,
     CommonModule,
     AuthRoutingModule,
-    MatCardModule
-  ]
+    MatCardModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {
+}

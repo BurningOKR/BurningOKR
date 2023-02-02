@@ -6,7 +6,7 @@ import { InitState } from '../../../../../../shared/model/api/init-state';
 @Component({
   selector: 'app-complete-init-state-form',
   templateUrl: './complete-init-state-form.component.html',
-  styleUrls: ['./complete-init-state-form.component.css']
+  styleUrls: ['./complete-init-state-form.component.css'],
 })
 export class CompleteInitStateFormComponent extends InitStateFormComponent {
   form: FormGroup;

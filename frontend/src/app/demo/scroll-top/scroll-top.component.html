@@ -1,5 +1,6 @@
-<!--Scroll to top--><div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">
-  <button mat-fab aria-label="Scroll to top" (click)="scrollToTop()">
-    <img src="../../../assets/arrow-right-black-18dp.svg" class="turn-icon fill-svg-white" alt="Scroll to top">
+<!--Scroll to top-->
+<div [ngClass]="{'show-scrollTop': windowScrolled}" class="scroll-to-top">
+  <button (click)="scrollToTop()" aria-label="Scroll to top" mat-fab>
+    <img alt="Scroll to top" class="turn-icon fill-svg-white" src="../../../assets/arrow-right-black-18dp.svg">
   </button>
 </div>

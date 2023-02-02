@@ -1,6 +1,7 @@
 <div class="comment">
   <div class="flex-nowrap-center">
-    <ngx-avatars [name]="comment.userName" [src]="comment.photo ? 'data:image/jpg;base64,' + comment.photo : ''"></ngx-avatars>
+    <ngx-avatars [name]="comment.userName"
+                 [src]="comment.photo ? 'data:image/jpg;base64,' + comment.photo : ''"></ngx-avatars>
   </div>
   <div class="ml-10">
     <div class="flex-nowrap comment-user-name">
@@ -9,19 +10,24 @@
       </div>
 
       <div *ngIf="!isEditingComment && isOwnerOfNote$ | async">
-        <button mat-icon-button class="icon-spacer" matTooltip="{{'comment-card.tooltip.edit-comment' | translate}}" (click)="clickedEditComment()">
+        <button (click)="clickedEditComment()" class="icon-spacer" mat-icon-button
+                matTooltip="{{'comment-card.tooltip.edit-comment' | translate}}">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-icon-button class="icon-spacer" matTooltip="{{'comment-card.tooltip.delete-comment' | translate}}" (click)="clickedDeleteComment()">
+        <button (click)="clickedDeleteComment()" class="icon-spacer" mat-icon-button
+                matTooltip="{{'comment-card.tooltip.delete-comment' | translate}}">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
       <div *ngIf="isEditingComment && isOwnerOfNote$ | async">
-        <button mat-icon-button class="icon-spacer" matTooltip="{{'comment-card.tooltip.save-comment' | translate}}" (click)="clickedSaveComment()" [disabled]="isSavingEdit || this.editedCommentText.length < 3 || this.editedCommentText.length > 255">
+        <button (click)="clickedSaveComment()"
+                [disabled]="isSavingEdit || this.editedCommentText.length < 3 || this.editedCommentText.length > 255"
+                class="icon-spacer" mat-icon-button matTooltip="{{'comment-card.tooltip.save-comment' | translate}}">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-icon-button class="icon-spacer" matTooltip="{{'comment-card.tooltip.cancel' | translate}}" (click)="clickedCancelEditComment()" [disabled]="isSavingEdit">
+        <button (click)="clickedCancelEditComment()" [disabled]="isSavingEdit" class="icon-spacer" mat-icon-button
+                matTooltip="{{'comment-card.tooltip.cancel' | translate}}">
           <mat-icon>cancel</mat-icon>
         </button>
       </div>
@@ -33,7 +39,8 @@
     <div *ngIf="isEditingComment">
       <div class="flex-nowrap">
         <mat-form-field class="full-width">
-        <textarea matInput cdkTextareaAutosize placeholder="{{'comment-card.edit-comment' | translate}}" [disabled]="isSavingEdit" [(ngModel)]="editedCommentText"></textarea>
+          <textarea [(ngModel)]="editedCommentText" [disabled]="isSavingEdit" cdkTextareaAutosize matInput
+                    placeholder="{{'comment-card.edit-comment' | translate}}"></textarea>
         </mat-form-field>
       </div>
     </div>

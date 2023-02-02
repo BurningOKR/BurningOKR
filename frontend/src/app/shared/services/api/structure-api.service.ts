@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { StructureDto } from '../../model/api/OkrUnit/structure.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StructureApiService {
 
   constructor(
     private api: ApiHttpService,
-  ){}
+  ) {
+  }
 
   getSchemaOfAllExistingStructures$(): Observable<StructureDto[]> {
     return this.api.getData$('structure');

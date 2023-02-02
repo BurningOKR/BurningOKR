@@ -13,7 +13,7 @@ import { FetchingService } from '../../../../../services/fetching.service';
 @Component({
   selector: 'app-set-azure-admin-init-state-form',
   templateUrl: './set-azure-admin-init-state-form.component.html',
-  styleUrls: ['./set-azure-admin-init-state-form.component.css']
+  styleUrls: ['./set-azure-admin-init-state-form.component.css'],
 })
 export class SetAzureAdminInitStateFormComponent extends InitStateFormComponent implements OnInit {
 
@@ -23,10 +23,12 @@ export class SetAzureAdminInitStateFormComponent extends InitStateFormComponent 
   buttonsEnabled: boolean = true;
   currentUser$: Observable<User>;
 
-  constructor(private currentUserService: CurrentUserService,
-              private authenticationService: AuthenticationService,
-              private initService: InitService,
-              private fetchingService: FetchingService) {
+  constructor(
+    private currentUserService: CurrentUserService,
+    private authenticationService: AuthenticationService,
+    private initService: InitService,
+    private fetchingService: FetchingService,
+  ) {
     super();
   }
 

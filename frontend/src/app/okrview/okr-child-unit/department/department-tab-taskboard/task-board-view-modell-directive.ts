@@ -4,6 +4,6 @@ import { ViewTaskBoardEvent } from '../../../../shared/model/events/view-taskboa
 
 @Directive()
 export abstract class TaskBoardViewDirective {
-    @Input() data$: Observable<ViewTaskBoardEvent>;
-    @Input() isInteractive: boolean;
+  @Input() data$: Observable<ViewTaskBoardEvent>;
+  @Input() isInteractive: boolean;
 }

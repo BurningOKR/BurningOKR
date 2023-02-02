@@ -23,11 +23,13 @@ export class OkrTopicDraft extends OkrTopicDescription {
     beginning: Date,
     dependencies: string,
     resources: string,
-    handoverPlan: string) {
-      super(topicDraftId, name, initiatorId, startTeam, stakeholders, description,
-      contributesTo, delimitation, beginning, dependencies, resources, handoverPlan);
-      this.okrParentUnitId = parentUnitId;
-      this.currentStatus = currentStatus;
-      this.initiator = initiator;
-    }
+    handoverPlan: string,
+  ) {
+    super(topicDraftId, name, initiatorId, startTeam, stakeholders, description,
+      contributesTo, delimitation, beginning, dependencies, resources, handoverPlan,
+    );
+    this.okrParentUnitId = parentUnitId;
+    this.currentStatus = currentStatus;
+    this.initiator = initiator;
+  }
 }

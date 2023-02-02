@@ -21,7 +21,7 @@ describe('DepartmentTabTaskCardComponent', () => {
   @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'ngx-avatars',
-    template: ''
+    template: '',
   })
   class NgxAvatarMockComponent {
     @Input() value: any;
@@ -35,7 +35,7 @@ describe('DepartmentTabTaskCardComponent', () => {
       const users: User[] = [
         new User('1', 'Max', 'Mustermann', 'mmustermann@email.com', 'Consultant', 'IT', ''),
         new User('2', 'Bastian', 'Pastewka', 'bpastewka@email.com', 'Consultant', 'IT', ''),
-        new User('3', 'Bernhard', 'Hoecker', 'bhoecker@email.com', 'Consultant', 'IT', '')
+        new User('3', 'Bernhard', 'Hoecker', 'bhoecker@email.com', 'Consultant', 'IT', ''),
       ];
 
       return of(users);
@@ -47,10 +47,10 @@ describe('DepartmentTabTaskCardComponent', () => {
       declarations: [NgxAvatarMockComponent, DepartmentTabTaskCardComponent],
       imports: [MaterialTestingModule, NoopAnimationsModule, SharedModule],
       providers: [
-        {provide: UserService, useValue: new UserServiceMock()},
-        {provide: TaskBoardViewEventService, useValue: {}},
-        {provide: KeyResultMapper, useValue: {}},
-      ]
+        { provide: UserService, useValue: new UserServiceMock() },
+        { provide: TaskBoardViewEventService, useValue: {} },
+        { provide: KeyResultMapper, useValue: {} },
+      ],
     })
       .compileComponents();
   }));
@@ -60,7 +60,7 @@ describe('DepartmentTabTaskCardComponent', () => {
     const keyResult: ViewKeyResult = new ViewKeyResult(1, 1, 1, 3, Unit.EURO, 'Titel', '', 1, [], []);
     const taskCardInformations: TaskCardInformation = {
       task,
-      keyResult
+      keyResult,
     };
 
     fixture = TestBed.createComponent(DepartmentTabTaskCardComponent);

@@ -12,10 +12,10 @@ export class ComponentFactoryResolverMock {
         injector: Injector,
         projectableNodes?: any[][],
         rootSelectorOrNode?: string | any,
-        ngModule?: NgModuleRef<any>
+        ngModule?: NgModuleRef<any>,
       ): ComponentRef<T> {
         return undefined;
-      }
+      },
     };
   }
 }

@@ -34,6 +34,7 @@ let validators: AbstractValidator[] = null;
 
 interface Constructor<T> {
   readonly prototype: T;
+
   new(...args: any[]): T;
 }
 

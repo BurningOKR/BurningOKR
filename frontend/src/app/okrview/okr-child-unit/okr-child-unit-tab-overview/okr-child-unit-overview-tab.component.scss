@@ -19,7 +19,7 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.placeholder-objective{
+.placeholder-objective {
   margin: 16px 6px 8px 6px;
   background-color: mat.get-color-from-palette($md-primary, 500);
   color: mat.get-contrast-color-from-palette($md-primary, 500);

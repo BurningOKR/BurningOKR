@@ -16,7 +16,7 @@ export interface TaskCardInformation {
 @Component({
   selector: 'app-department-tab-task-card',
   templateUrl: './department-tab-task-card.component.html',
-  styleUrls: ['./department-tab-task-card.component.css']
+  styleUrls: ['./department-tab-task-card.component.css'],
 })
 export class DepartmentTabTaskCardComponent implements OnInit {
   @Input() taskInformations: TaskCardInformation;
@@ -28,8 +28,9 @@ export class DepartmentTabTaskCardComponent implements OnInit {
   constructor(
     private userService: UserService,
     private keyResultService: KeyResultMapper,
-    private taskBoardEventService: TaskBoardViewEventService
-  ) { }
+    private taskBoardEventService: TaskBoardViewEventService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.isActive = false;

@@ -13,14 +13,14 @@ import { OkrUnitApiService } from '../api/okr-unit-api.service';
 import { OkrUnitId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CompanyMapper {
   constructor(
     private companyApiService: CompanyApiService,
     private cycleMapperService: CycleMapper,
     private departmentApiService: DepartmentApiService,
-    private okrUnitApiService: OkrUnitApiService
+    private okrUnitApiService: OkrUnitApiService,
   ) {
   }
 
@@ -31,7 +31,7 @@ export class CompanyMapper {
       company.okrChildUnitIds,
       company.objectiveIds,
       company.cycleId,
-      company.label
+      company.label,
     );
   }
 
@@ -42,7 +42,7 @@ export class CompanyMapper {
       okrChildUnitIds: companyUnit.okrChildUnitIds,
       objectiveIds: companyUnit.objectives,
       cycleId: companyUnit.cycleId,
-      label: companyUnit.label
+      label: companyUnit.label,
     };
   }
 
@@ -63,7 +63,7 @@ export class CompanyMapper {
           return companies
             .map(CompanyMapper.mapCompany)
             .sort((a: CompanyUnit, b: CompanyUnit) => (a.name < b.name ? -1 : a.name === b.name ? 0 : 1));
-        })
+        }),
       );
   }
 
@@ -74,7 +74,7 @@ export class CompanyMapper {
           return companies
             .map(CompanyMapper.mapCompany)
             .sort((a: CompanyUnit, b: CompanyUnit) => (a.name < b.name ? -1 : a.name === b.name ? 0 : 1));
-        })
+        }),
       );
   }
 
@@ -82,10 +82,11 @@ export class CompanyMapper {
     return this.getCompanyHistoryByCompanyId$(companyId)
       .pipe(
         mergeMap((companyUnits: CompanyUnit[]) => {
-          const cycleUnits$: Observable<CycleUnit>[] = companyUnits.map(company => this.cycleMapperService.getCycleById$(company.cycleId));
+          const cycleUnits$: Observable<CycleUnit>[] = companyUnits.map(company => this.cycleMapperService.getCycleById$(
+            company.cycleId));
 
           return forkJoin(cycleUnits$);
-        })
+        }),
       );
   }
 
@@ -97,12 +98,12 @@ export class CompanyMapper {
             this.cycleMapperService.getCycleById$(company.cycleId)
               .pipe(map((cycle: CycleUnit) => {
                   return new CycleWithHistoryCompany(cycle, company);
-                })
-              )
+                }),
+              ),
           );
 
           return forkJoin(cyclesWithCompanies$);
-        })
+        }),
       );
   }
 

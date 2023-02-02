@@ -25,18 +25,22 @@ export class TopicDraftsComponent implements OnInit {
 
   rowData = new MatTableDataSource([] as OkrTopicDraft[]);
 
-  constructor(private router: Router,
-              private topicDraftMapper: TopicDraftMapper,
-              private translate: TranslateService,
-              private snackBar: MatSnackBar,
-              private matDialog: MatDialog,
+  constructor(
+    private router: Router,
+    private topicDraftMapper: TopicDraftMapper,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar,
+    private matDialog: MatDialog,
   ) {
   }
 
   clickedAddTopicDraft(): void {
     const config: any = { width: '600px', data: {} };
 
-    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(TopicDraftCreationFormComponent, config);
+    const dialogReference: MatDialogRef<TopicDraftCreationFormComponent> = this.matDialog.open(
+      TopicDraftCreationFormComponent,
+      config,
+    );
 
     dialogReference
       .afterClosed()

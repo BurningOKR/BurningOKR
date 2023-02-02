@@ -4,11 +4,12 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Pipe({
-  name: 'dateFormat'
+  name: 'dateFormat',
 })
 export class DateFormatPipe implements PipeTransform {
 
   currentLanguage$: Observable<string>;
+
   constructor(private okrTranslationHelper: OkrTranslationHelperService) {
     this.currentLanguage$ = okrTranslationHelper.getCurrentLanguage$();
   }
@@ -18,7 +19,7 @@ export class DateFormatPipe implements PipeTransform {
   }
 
   private getDateWithMonthString$(date: Date): Observable<string> {
-    return this.getLocalDateString$(date, {month: 'short', day: 'numeric', year: 'numeric'});
+    return this.getLocalDateString$(date, { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   private getLocalDateString$(date: Date, options: any = {}) {

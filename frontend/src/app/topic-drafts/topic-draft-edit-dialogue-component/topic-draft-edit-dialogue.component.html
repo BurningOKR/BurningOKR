@@ -1,3 +1,5 @@
-<app-dialog-component [title]="'topic-draft-edit-dialogue.title' | translate" (okEmitter)="saveTopicDraft()" [formGroup]="topicDraftForm">
-  <app-okr-topic-description-form [descriptionForm]="topicDraftForm" [minBeginn]="minBegin"></app-okr-topic-description-form>
+<app-dialog-component (okEmitter)="saveTopicDraft()" [formGroup]="topicDraftForm"
+                      [title]="'topic-draft-edit-dialogue.title' | translate">
+  <app-okr-topic-description-form [descriptionForm]="topicDraftForm"
+                                  [minBeginn]="minBegin"></app-okr-topic-description-form>
 </app-dialog-component>

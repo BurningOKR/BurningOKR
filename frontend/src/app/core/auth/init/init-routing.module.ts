@@ -5,11 +5,12 @@ import { InitStateViewComponent } from './init-state-view/init-state-view.compon
 import { InitGuard } from './init.guard';
 
 const routes: Routes = [
-  { path: '', component: InitStateViewComponent, canActivate: [InitGuard]}
+  { path: '', component: InitStateViewComponent, canActivate: [InitGuard] },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class InitRoutingModule { }
+export class InitRoutingModule {
+}

@@ -7,7 +7,7 @@ export const emailAlreadyInUseValidatorFunction: (emails: string[]) =>
 
     for (const emailOfUser of emailsOfUsers) {
       if (newEmail === emailOfUser.toLowerCase()) {
-        return {emailAlreadyInUse: true};
+        return { emailAlreadyInUse: true };
       }
     }
   };

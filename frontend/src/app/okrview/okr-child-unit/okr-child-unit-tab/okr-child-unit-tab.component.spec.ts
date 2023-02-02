@@ -17,21 +17,21 @@ import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-chi
 import { SharedModule } from '../../../shared/shared.module';
 
 const currentOkrViewServiceMock: any = {
-  refreshCurrentDepartmentView: jest.fn()
+  refreshCurrentDepartmentView: jest.fn(),
 };
 
 const okrUnitServiceMock: any = {};
 
 const dialogMock: any = {
-  open: jest.fn()
+  open: jest.fn(),
 };
 
 const dialogRefMock: any = {
-  afterClosed: jest.fn()
+  afterClosed: jest.fn(),
 };
 
 const snackBarMock: any = {
-  open: jest.fn()
+  open: jest.fn(),
 };
 
 let currentUserRole: ContextRole;
@@ -44,16 +44,16 @@ describe('OkrChildUnitTabComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OkrChildUnitTabComponent, OkrChildUnitPreviewButtonComponent, AddChildUnitButtonComponent ],
-      imports: [ MaterialTestingModule, RouterTestingModule, MatDialogModule, SharedModule],
+      declarations: [OkrChildUnitTabComponent, OkrChildUnitPreviewButtonComponent, AddChildUnitButtonComponent],
+      imports: [MaterialTestingModule, RouterTestingModule, MatDialogModule, SharedModule],
       providers: [
         { provide: CurrentOkrviewService, useValue: currentOkrViewServiceMock },
         { provide: OkrUnitService, useValue: okrUnitServiceMock },
         { provide: MatDialog, useValue: dialogMock },
         { provide: MatSnackBar, useValue: snackBarMock },
-      ]
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -90,7 +90,7 @@ describe('OkrChildUnitTabComponent', () => {
 
     expect(dialogMock.open)
       .toHaveBeenCalledWith(OkrChildUnitFormComponent, {
-        data: { childUnitId: okrBranch.id, unitType: UnitType.OKR_BRANCH }
+        data: { childUnitId: okrBranch.id, unitType: UnitType.OKR_BRANCH },
       });
   });
 
@@ -111,7 +111,7 @@ describe('OkrChildUnitTabComponent', () => {
 
     expect(dialogMock.open)
       .toHaveBeenCalledWith(OkrChildUnitFormComponent, {
-        data: { childUnitId: okrBranch.id, unitType: UnitType.DEPARTMENT }
+        data: { childUnitId: okrBranch.id, unitType: UnitType.DEPARTMENT },
       });
   });
 

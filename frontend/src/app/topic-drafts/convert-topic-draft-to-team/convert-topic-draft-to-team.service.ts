@@ -6,7 +6,7 @@ import { TopicDraftApiService } from '../../shared/services/api/topic-draft-api.
 import { switchMap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConvertTopicDraftToTeamService {
 
@@ -25,7 +25,7 @@ export class ConvertTopicDraftToTeamService {
 
   convertTopicDraftToTeam$(topicDraftId: number): Observable<OkrDepartment> {
     return this.selectedUnit$.asObservable().pipe(switchMap(
-      okrUnit => this.topicDraftApiService.convertTopicDraftToTeam$(topicDraftId, okrUnit.id)
+      okrUnit => this.topicDraftApiService.convertTopicDraftToTeam$(topicDraftId, okrUnit.id),
     ));
   }
 }

@@ -25,7 +25,7 @@ export interface TaskFormData {
 @Component({
   selector: 'app-department-tab-task-form',
   templateUrl: './department-tab-task-form.component.html',
-  styleUrls: ['./department-tab-task-form.component.css']
+  styleUrls: ['./department-tab-task-form.component.css'],
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm: FormGroup;
@@ -44,17 +44,24 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<TaskFormComponent>,
     private userService: UserService,
     private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) private formData: (TaskFormData | any)
-  ) { }
+    @Inject(MAT_DIALOG_DATA) private formData: (TaskFormData | any),
+  ) {
+  }
 
   ngOnInit(): void {
     this.isInteractive = this.formData.isInteractive;
     this.taskForm = new FormGroup({
-      title: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.required, Validators.maxLength(255)]),
+      title: new FormControl({
+        value: '',
+        disabled: !this.isInteractive,
+      }, [Validators.required, Validators.maxLength(255)]),
       description: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.maxLength(255)]),
       assignedUserIds: new FormControl({ value: null, disabled: !this.isInteractive }),
       assignedKeyResultId: new FormControl({ value: null, disabled: !this.isInteractive }),
-      taskStateId: new FormControl({ value: this.formData.defaultState.id, disabled: !this.isInteractive }, [Validators.required]),
+      taskStateId: new FormControl({
+        value: this.formData.defaultState.id,
+        disabled: !this.isInteractive,
+      }, [Validators.required]),
     });
 
     this.states = this.formData.states;
@@ -78,17 +85,19 @@ export class TaskFormComponent implements OnInit, OnDestroy {
           for (const objective of objectives) {
             keyResultMap.push({
               objective,
-              keyResults: this.formData.keyResults.filter(keyResult => keyResult.parentObjectiveId === objective.id)
+              keyResults: this.formData.keyResults.filter(keyResult => keyResult.parentObjectiveId === objective.id),
             });
           }
 
           return of(keyResultMap);
-        })
+        }),
       );
     const editText: string = this.translate.instant('department-tab-task-form.dialog.edit');
     const createText: string = this.translate.instant('department-tab-task-form.dialog.create');
-    this.title = this.translate.instant('department-tab-task-form.dialog.title',
-      {editOrCreateText: this.formData.task ? editText : createText});
+    this.title = this.translate.instant(
+      'department-tab-task-form.dialog.title',
+      { editOrCreateText: this.formData.task ? editText : createText },
+    );
   }
 
   ngOnDestroy(): void {
@@ -128,7 +137,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         this.formData.unitId,
         formData.taskStateId,
         null,
-        null
+        null,
       );
 
       this.dialogRef.close(newTask);

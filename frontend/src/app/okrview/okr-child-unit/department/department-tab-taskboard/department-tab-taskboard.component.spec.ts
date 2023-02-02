@@ -18,7 +18,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-taskboard-state-column-view',
-  template: ''
+  template: '',
 })
 class TaskBoardStateColumnViewMockComponent {
   @Input() data$ = of();
@@ -28,7 +28,7 @@ class TaskBoardStateColumnViewMockComponent {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-taskboard-swimlane-view',
-  template: ''
+  template: '',
 })
 class TaskBoardSwimlaneViewMockComponent {
   @Input() data$ = of();
@@ -45,7 +45,7 @@ const rxStompServiceMock: any = {
   connectionState$: new Subject<any>(),
   deactivate: async () => {
     return new Promise<void>(null);
-  }
+  },
 };
 
 const matDialogMock: any = {};
@@ -53,7 +53,7 @@ const matDialogMock: any = {};
 const matSnackBarMock: any = {
   open(): any {
     return of(true);
-  }
+  },
 };
 
 describe('DepartmentTabTaskboardComponent', () => {
@@ -69,15 +69,15 @@ describe('DepartmentTabTaskboardComponent', () => {
         TaskBoardStateColumnViewMockComponent,
       ],
       providers: [
-        {provide: MatDialog, useValue: matDialogMock},
-        {provide: MatSnackBar, useValue: matSnackBarMock},
-        {provide: TaskMapperService, useValue: taskMapperServiceMock},
-        {provide: TaskStateMapper, useValue: taskStateMapperMock},
-        {provide: TaskBoardGeneralHelper, useValue: taskBoardGeneralHelperMock},
-        {provide: TaskBoardViewEventService, useValue: taskBoardViewEventServiceMock},
-        {provide: KeyResultMapper, useValue: keyResultMapperMock},
-        {provide: RxStompService, useValue: rxStompServiceMock},
-      ]
+        { provide: MatDialog, useValue: matDialogMock },
+        { provide: MatSnackBar, useValue: matSnackBarMock },
+        { provide: TaskMapperService, useValue: taskMapperServiceMock },
+        { provide: TaskStateMapper, useValue: taskStateMapperMock },
+        { provide: TaskBoardGeneralHelper, useValue: taskBoardGeneralHelperMock },
+        { provide: TaskBoardViewEventService, useValue: taskBoardViewEventServiceMock },
+        { provide: KeyResultMapper, useValue: keyResultMapperMock },
+        { provide: RxStompService, useValue: rxStompServiceMock },
+      ],
     })
       .compileComponents();
   }));

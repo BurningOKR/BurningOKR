@@ -12,15 +12,17 @@ interface CycleListWithCompany {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentCycleService {
 
   private currentCycle$: ReplaySubject<CycleUnit> = new ReplaySubject<CycleUnit>();
   private currentCycleList$: ReplaySubject<CycleUnit[]> = new ReplaySubject<CycleUnit[]>();
 
-  constructor(private currentCompanyService: CurrentCompanyService,
-              private cycleMapperService: CycleMapper) {
+  constructor(
+    private currentCompanyService: CurrentCompanyService,
+    private cycleMapperService: CycleMapper,
+  ) {
 
     this.currentCompanyService.getCurrentCompany$()
       .pipe(
@@ -31,14 +33,14 @@ export class CurrentCycleService {
                 map((cycleList: CycleUnit[]) => {
                   return {
                     cycleList,
-                    company: currentCompany
+                    company: currentCompany,
                   };
-                })
+                }),
               );
           } else {
             return NEVER;
           }
-        })
+        }),
       )
       .subscribe((cycleListWithCompany: CycleListWithCompany) => {
         this.currentCycleList$.next(cycleListWithCompany.cycleList);

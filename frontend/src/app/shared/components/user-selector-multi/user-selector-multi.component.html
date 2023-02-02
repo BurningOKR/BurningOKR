@@ -1,8 +1,10 @@
 <form>
   <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
-    <mat-select [formControl]="resultControl" multiple [placeholder]="placeholderText" panelClass="overwrite">
+    <mat-select [formControl]="resultControl" [placeholder]="placeholderText" multiple panelClass="overwrite">
       <mat-option>
-        <ngx-mat-select-search [formControl]="userFilter" placeholderLabel="{{'user-selector-multi.placeholder' | translate}}" noEntriesFoundLabel="{{'user-selector-multi.no-entires' | translate}}"></ngx-mat-select-search>
+        <ngx-mat-select-search [formControl]="userFilter"
+                               noEntriesFoundLabel="{{'user-selector-multi.no-entires' | translate}}"
+                               placeholderLabel="{{'user-selector-multi.placeholder' | translate}}"></ngx-mat-select-search>
       </mat-option>
       <mat-option *ngFor="let user of users | callbackFilter: userFilter.value: filter" [value]="user.id">
         {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})

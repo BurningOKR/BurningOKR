@@ -9,7 +9,7 @@ import { Unit } from '../../model/api/unit.enum';
 import { KeyResultMilestoneMapper } from './key-result-milestone.mapper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KeyResultMapper {
   constructor(private keyResultApiService: KeyResultApiService) {
@@ -33,7 +33,7 @@ export class KeyResultMapper {
       description: viewKeyResult.description,
       noteIds: viewKeyResult.commentIdList,
       parentObjectiveId: viewKeyResult.parentObjectiveId,
-      keyResultMilestoneDtos: KeyResultMilestoneMapper.mapToKeyResultMilestoneDtos(viewKeyResult.viewKeyResultMilestones)
+      keyResultMilestoneDtos: KeyResultMilestoneMapper.mapToKeyResultMilestoneDtos(viewKeyResult.viewKeyResultMilestones),
     };
   }
 
@@ -48,7 +48,7 @@ export class KeyResultMapper {
       keyResult.description,
       keyResult.parentObjectiveId,
       keyResult.noteIds,
-      KeyResultMilestoneMapper.mapToViewkeyResultMilestones(keyResult.keyResultMilestoneDtos)
+      KeyResultMilestoneMapper.mapToViewkeyResultMilestones(keyResult.keyResultMilestoneDtos),
     );
   }
 
@@ -57,7 +57,7 @@ export class KeyResultMapper {
       .pipe(
         map(((keyResultList: KeyResultDto[]) => {
           return keyResultList.map(KeyResultMapper.mapToViewKeyResult);
-        }))
+        })),
       );
   }
 
@@ -66,7 +66,7 @@ export class KeyResultMapper {
       .pipe(
         map((keyResultList: KeyResultDto[]) => {
           return keyResultList.map(KeyResultMapper.mapToViewKeyResult);
-        })
+        }),
       );
   }
 

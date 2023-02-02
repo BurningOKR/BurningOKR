@@ -1,6 +1,7 @@
 <form [formGroup]="userSettingsForm" class="settingsForm">
   <mat-form-field class="form-whole-line">
-    <mat-select (selectionChange)="onSelectCompany()" formControlName="defaultCompanyId" placeholder="{{ 'user-settings.default-company' | translate }}">
+    <mat-select (selectionChange)="onSelectCompany()" formControlName="defaultCompanyId"
+                placeholder="{{ 'user-settings.default-company' | translate }}">
       <mat-option [value]="null"><span>{{ 'user-settings.no-company' | translate }}</span>
       </mat-option>
       <mat-option *ngFor="let company of (companies$ | async)" [value]="company.id">

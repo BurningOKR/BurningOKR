@@ -8,26 +8,26 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PasswordService } from '../password-service/password.service';
 import { PasswordServiceMock } from '../../../../shared/mocks/password-service-mock';
 
-@Directive({selector: '[oneviewPermitted]'})
+@Directive({ selector: '[oneviewPermitted]' })
 class OneviewPermittedDirective {
   @Input() oneviewPermitted;
 }
 
-@Pipe({name: 'translate'})
+@Pipe({ name: 'translate' })
 class TranslatePipe implements PipeTransform {
   transform(value) {
     return value;
   }
 }
 
-@Pipe({name: 'phoneNumber'})
+@Pipe({ name: 'phoneNumber' })
 class PhoneNumberPipe implements PipeTransform {
   transform(value) {
     return value;
   }
 }
 
-@Pipe({name: 'safeHtml'})
+@Pipe({ name: 'safeHtml' })
 class SafeHtmlPipe implements PipeTransform {
   transform(value) {
     return value;
@@ -45,20 +45,20 @@ describe('ResetPasswordComponent', () => {
         HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        MatSnackBarModule
+        MatSnackBarModule,
       ],
       declarations: [
         ResetPasswordComponent,
         TranslatePipe,
         PhoneNumberPipe,
         SafeHtmlPipe,
-        OneviewPermittedDirective
+        OneviewPermittedDirective,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         FormBuilder,
-        {provide: PasswordService, useValue: passwordServiceMock},
-      ]
+        { provide: PasswordService, useValue: passwordServiceMock },
+      ],
     }).overrideComponent(ResetPasswordComponent, {}).compileComponents();
     fixture = TestBed.createComponent(ResetPasswordComponent);
     component = fixture.debugElement.componentInstance;

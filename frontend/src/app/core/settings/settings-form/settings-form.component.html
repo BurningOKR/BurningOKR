@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="form-header">
+<h1 class="form-header" mat-dialog-title>
   <span>{{ 'settings-form.settings' | translate }}</span>
 </h1>
 
@@ -8,7 +8,8 @@
     <mat-tab label="{{ 'settings-form.settings' | translate }}">
       <app-user-settings (valid)="userSettingsValid = $event"></app-user-settings>
     </mat-tab>
-    <mat-tab [disabled]="(isCurrentUserAdmin$ | async) === false" label="{{ 'settings-form.admin-settings' | translate }}">
+    <mat-tab [disabled]="(isCurrentUserAdmin$ | async) === false"
+             label="{{ 'settings-form.admin-settings' | translate }}">
       <app-admin-settings (valid)="adminSettingsValid = $event"></app-admin-settings>
     </mat-tab>
   </mat-tab-group>
@@ -16,6 +17,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button color="primary" (click)="onSave()" [disabled]="!userSettingsValid || (adminSettingsValid && isCurrentUserAdmin$ | async) === false"><span>{{ 'settings-form.save' | translate }}</span></button>
-  <button mat-button color="warn" (click)="closeDialog()"><span>{{ 'settings-form.cancel-button-text' | translate }}</span></button>
+  <button (click)="onSave()"
+          [disabled]="!userSettingsValid || (adminSettingsValid && isCurrentUserAdmin$ | async) === false"
+          color="primary" mat-button>
+    <span>{{ 'settings-form.save' | translate }}</span></button>
+  <button (click)="closeDialog()" color="warn" mat-button>
+    <span>{{ 'settings-form.cancel-button-text' | translate }}</span></button>
 </mat-dialog-actions>

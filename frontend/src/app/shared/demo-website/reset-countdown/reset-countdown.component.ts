@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-reset-countdown',
   templateUrl: './reset-countdown.component.html',
-  styleUrls: ['./reset-countdown.component.css']
+  styleUrls: ['./reset-countdown.component.css'],
 })
 export class ResetCountdownComponent implements OnInit {
 
@@ -15,8 +15,10 @@ export class ResetCountdownComponent implements OnInit {
   isPlayground: boolean = environment.playground;
   dateForNextReset$: Observable<Date>;
 
-  constructor(private countdownService: CountdownTimestampApiService,
-              private router: Router) {
+  constructor(
+    private countdownService: CountdownTimestampApiService,
+    private router: Router,
+  ) {
   }
 
   ngOnInit(): void {

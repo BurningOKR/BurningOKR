@@ -6,7 +6,7 @@ import { User } from '../../model/api/user';
 @Component({
   selector: 'app-user-selector',
   templateUrl: './user-selector.component.html',
-  styleUrls: ['./user-selector.component.css']
+  styleUrls: ['./user-selector.component.css'],
 })
 export class UserSelectorComponent implements OnInit {
 
@@ -21,7 +21,7 @@ export class UserSelectorComponent implements OnInit {
   }
 
   filter(user: User, filter: string): boolean {
-    const lFilter: string  = filter.toLowerCase();
+    const lFilter: string = filter.toLowerCase();
 
     return user.surname.toLowerCase()
         .includes(lFilter) ||

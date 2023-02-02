@@ -9,15 +9,15 @@ const oAuthService: any = {
   getRefreshToken: jest.fn(),
   refreshToken: jest.fn(),
   fetchTokenUsingPasswordFlow: jest.fn(),
-  getAccessTokenExpiration: jest.fn()
+  getAccessTokenExpiration: jest.fn(),
 };
 
 const router: any = {
-  navigate: jest.fn()
+  navigate: jest.fn(),
 };
 
 const fetchingService: any = {
-  refetchAll: jest.fn()
+  refetchAll: jest.fn(),
 };
 
 describe('DemoAuthTypeHandlerService', () => {
@@ -26,8 +26,8 @@ describe('DemoAuthTypeHandlerService', () => {
       DemoAuthTypeHandlerService,
       { provide: OAuthService, useValue: oAuthService },
       { provide: Router, useValue: router },
-      { provide: FetchingService, useValue: fetchingService }
-    ]
+      { provide: FetchingService, useValue: fetchingService },
+    ],
   }));
 
   beforeEach(() => {

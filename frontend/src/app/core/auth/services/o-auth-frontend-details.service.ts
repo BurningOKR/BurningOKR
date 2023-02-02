@@ -26,28 +26,28 @@ export class OAuthFrontendDetailsService {
 
   getOAuthFrontendDetails$(): Observable<OAuthFrontendDetails> {
     return this.oAuthFrontendDetails$.pipe(
-      filter(v => !!v)
+      filter(v => !!v),
     );
   }
 
   getAuthType$(): Observable<string> {
     return this.getOAuthFrontendDetails$()
       .pipe(
-        map(details => details.authType)
+        map(details => details.authType),
       );
   }
 
   isLocalAuthType$(): Observable<boolean> {
     return this.getOAuthFrontendDetails$()
       .pipe(
-        map(details => details.authType === Consts.AUTHTYPE_LOCAL || details.authType === Consts.AUTHTYPE_DEMO)
+        map(details => details.authType === Consts.AUTHTYPE_LOCAL || details.authType === Consts.AUTHTYPE_DEMO),
       );
   }
 
   isAzureAuthType$(): Observable<boolean> {
     return this.getOAuthFrontendDetails$()
       .pipe(
-        map(details => details.authType === Consts.AUTHTYPE_AZURE)
+        map(details => details.authType === Consts.AUTHTYPE_AZURE),
       );
   }
 
@@ -69,9 +69,9 @@ export class OAuthFrontendDetailsService {
             useHttpBasicAuth: details.useHttpBasicAuth,
             skipIssuerCheck: true,
             requireHttps: details.requireHttps,
-            strictDiscoveryDocumentValidation: details.strictDiscoveryDocumentValidation
+            strictDiscoveryDocumentValidation: details.strictDiscoveryDocumentValidation,
           };
-        })
+        }),
       );
   }
 }

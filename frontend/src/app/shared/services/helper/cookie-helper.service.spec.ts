@@ -8,7 +8,7 @@ describe('CookieHelperService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule ],
+      imports: [MaterialTestingModule],
     });
     service = TestBed.inject(CookieHelperService);
     service.clearAllCookies();

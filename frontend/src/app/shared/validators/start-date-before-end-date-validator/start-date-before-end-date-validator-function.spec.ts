@@ -10,7 +10,7 @@ describe('StartDateBeforeEndDateValidator', () => {
 
     const control: AbstractControl = new FormGroup({
       startDate: new FormControl(new Date('02.01.2020')),
-      endDate: new FormControl(new Date('01.01.2020'))
+      endDate: new FormControl(new Date('01.01.2020')),
     });
     control.markAllAsTouched();
 
@@ -23,7 +23,7 @@ describe('StartDateBeforeEndDateValidator', () => {
   it('should return undefined if enddate is after startdate', () => {
     const control: AbstractControl = new FormGroup({
       startDate: new FormControl(new Date('01.01.2020')),
-      endDate: new FormControl(new Date('02.01.2020'))
+      endDate: new FormControl(new Date('02.01.2020')),
     });
     control.markAllAsTouched();
 

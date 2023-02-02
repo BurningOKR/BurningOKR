@@ -27,7 +27,7 @@ describe('UserManagementComponent', () => {
   };
 
   const currentUserServiceMock: any = {
-    getCurrentUser$: jest.fn()
+    getCurrentUser$: jest.fn(),
   };
 
   const currentUserMock: User = {
@@ -38,7 +38,7 @@ describe('UserManagementComponent', () => {
     department: 'testDepartment',
     email: 'testEmail',
     photo: 'testPhoto',
-    active: true
+    active: true,
   };
   const anotherUserMock: User = {
     id: 'anotherTestId',
@@ -48,7 +48,7 @@ describe('UserManagementComponent', () => {
     department: 'anotherTestDepartment',
     email: 'anotherTestEmail',
     photo: 'anotherTestPhoto',
-    active: true
+    active: true,
   };
 
   beforeEach(waitForAsync(() => {
@@ -66,13 +66,13 @@ describe('UserManagementComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         LoggerTestingModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       providers: [
-        {provide: MatDialog, useValue: {}},
-        {provide: LocalUserService, useValue: localUserServiceMock},
-        {provide: OAuthService, useValue: oAuthServiceMock},
-        {provide: CurrentUserService, useValue: currentUserServiceMock},
+        { provide: MatDialog, useValue: {} },
+        { provide: LocalUserService, useValue: localUserServiceMock },
+        { provide: OAuthService, useValue: oAuthServiceMock },
+        { provide: CurrentUserService, useValue: currentUserServiceMock },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })

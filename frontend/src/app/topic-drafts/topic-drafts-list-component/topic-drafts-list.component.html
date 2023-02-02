@@ -1,4 +1,4 @@
-<div class="card-wrapper" *ngIf="topicDrafts[0] !== undefined">
+<div *ngIf="topicDrafts[0] !== undefined" class="card-wrapper">
   <div class="card-wrapper-head-wrapper">
     <div class="card-wrapper-head">
       <span class="card-wrapper-head-column-info">{{'topic-draft-list.column.submitted' | translate}}</span>
@@ -7,7 +7,9 @@
     </div>
   </div>
   <div *ngFor="let topicDraft of topicDrafts">
-    <app-topic-draft-card [topicDraft]="topicDraft" (editedTopicDraftEvent)="updateEditedTopicDraft($event)" (topicDraftDeletedEvent)="removeDeletedTopicDraft($event)"></app-topic-draft-card>
+    <app-topic-draft-card (editedTopicDraftEvent)="updateEditedTopicDraft($event)"
+                          (topicDraftDeletedEvent)="removeDeletedTopicDraft($event)"
+                          [topicDraft]="topicDraft"></app-topic-draft-card>
   </div>
 </div>
 <div *ngIf="topicDrafts[0] === undefined" class="card-wrapper-info-area">

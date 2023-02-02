@@ -12,7 +12,7 @@ export interface CsvParseResult {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CsvUserParseService {
 
@@ -20,7 +20,7 @@ export class CsvUserParseService {
   }
 
   parseCsvStringToUserArray(csvString: string): CsvParseResult {
-    const parsedData: ParseResult = this.papa.parse(csvString, {skipEmptyLines: true});
+    const parsedData: ParseResult = this.papa.parse(csvString, { skipEmptyLines: true });
     const warnings: CsvParseWarnings = this.validateParseResult(parsedData);
 
     // FORMAT: VORNAME, NACHNAME, EMAIL, JOBBEZEICHNUNG, ABTEILUNG
@@ -34,12 +34,12 @@ export class CsvUserParseService {
         department: userArray[4],
         active: true,
         id: null,
-        photo: null
+        photo: null,
       };
       users.push(user);
     }
 
-    return {users, warnings};
+    return { users, warnings };
   }
 
   private validateParseResult(parsedData: ParseResult): CsvParseWarnings {
@@ -55,7 +55,7 @@ export class CsvUserParseService {
     parsedArray.forEach(array => {
       if (array.length > 5) {
         if (!result) {
-          result = {tooManyFields: true};
+          result = { tooManyFields: true };
         }
         result.tooManyFields = true;
       }

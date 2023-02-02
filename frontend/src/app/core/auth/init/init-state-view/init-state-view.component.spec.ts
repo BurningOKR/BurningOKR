@@ -19,12 +19,12 @@ describe('InitStateViewComponent', () => {
       imports: [
         HttpClientTestingModule,
       ],
-      declarations: [ InitStateViewComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      declarations: [InitStateViewComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        {provide: InitService, useValue: initServiceMock},
-        {provide: ComponentFactoryResolver, useValue: componentFactoryResolverMock},
-      ]
+        { provide: InitService, useValue: initServiceMock },
+        { provide: ComponentFactoryResolver, useValue: componentFactoryResolverMock },
+      ],
     })
       .overrideComponent(InitStateViewComponent, {})
       .compileComponents();

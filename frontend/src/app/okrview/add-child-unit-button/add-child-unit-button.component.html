@@ -1,11 +1,12 @@
 <ng-container *ngIf="!cycleClosed && userRole.isAtleastAdmin()">
-  <app-add-button text="{{'add-child-unit-button.add-new-child-unit' | translate}}" [matMenuTriggerFor]="unitTypeDropdown"></app-add-button>
+  <app-add-button [matMenuTriggerFor]="unitTypeDropdown"
+                  text="{{'add-child-unit-button.add-new-child-unit' | translate}}"></app-add-button>
   <mat-menu #unitTypeDropdown="matMenu">
-    <button mat-menu-item (click)="clickedAddSubDepartment.emit()">
+    <button (click)="clickedAddSubDepartment.emit()" mat-menu-item>
       <mat-icon>group_add</mat-icon>
       <span>{{'add-child-unit-button.okr-team' | translate}}</span>
     </button>
-    <button mat-menu-item (click)="clickedAddSubBranch.emit()">
+    <button (click)="clickedAddSubBranch.emit()" mat-menu-item>
       <mat-icon>add</mat-icon>
       <span>{{'add-child-unit-button.substructure' | translate}}</span>
     </button>

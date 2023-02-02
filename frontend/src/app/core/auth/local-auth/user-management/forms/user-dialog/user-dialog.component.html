@@ -1,8 +1,10 @@
 <div class="user-dialog-component-wrapper">
-  <app-dialog-component [title]="formData.title" [formGroup]="userForm" (okEmitter)="onSave()" *ngIf="userForm">
-    <app-user-form [userForm]="userForm" [canEditAdminStatus]="editedUserIsCurrentUser$ | async" *ngIf="userForm">
-    </app-user-form>
+  <app-dialog-component (okEmitter)="onSave()" *ngIf="userForm" [formGroup]="userForm" [title]="formData.title">
+    <app-user-form *ngIf="userForm" [canEditAdminStatus]="editedUserIsCurrentUser$ | async"
+                   [userForm]="userForm"></app-user-form>
     <br>
-    <button *ngIf="formData.user" [disabled]="resetPasswordButtonDisabled" (click)="resetUserPassword()" class="small-padding mb-10 mt-10" color="primary" mat-button>{{ 'user-dialog.reset-password' | translate }}</button>
+    <button (click)="resetUserPassword()" *ngIf="formData.user" [disabled]="resetPasswordButtonDisabled"
+            class="small-padding mb-10 mt-10" color="primary"
+            mat-button>{{ 'user-dialog.reset-password' | translate }}</button>
   </app-dialog-component>
 </div>

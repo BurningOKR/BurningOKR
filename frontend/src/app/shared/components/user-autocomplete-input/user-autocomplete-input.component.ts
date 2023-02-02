@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-user-autocomplete-input',
   templateUrl: './user-autocomplete-input.component.html',
-  styleUrls: ['./user-autocomplete-input.component.scss']
+  styleUrls: ['./user-autocomplete-input.component.scss'],
 })
 export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
   @Input() placeHolderText: string = 'Set placeholder text';
@@ -35,7 +35,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
     this.loadUserListFromService();
     this.setupFormControlAutocomplete();
     if (this.disabled) {
-      this.inputFormControl.disable({onlySelf: true});
+      this.inputFormControl.disable({ onlySelf: true });
     }
   }
 
@@ -80,8 +80,8 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
         map((users: User[]) =>
           users.sort((a, b) => {
             return a.surname < b.surname ? -1 : a.surname === b.surname ? 0 : 1;
-          })
-        )
+          }),
+        ),
       );
   }
 
@@ -91,7 +91,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
         filter(value => typeof value === 'string'), // Hacky fix for JS ignoring parameter types
         debounceTime(this.autoCompleteWaitTime),
         startWith(''),
-        switchMap(inputString => this.getFilteredUserList$(inputString))
+        switchMap(inputString => this.getFilteredUserList$(inputString)),
       );
   }
 
@@ -106,7 +106,7 @@ export class UserAutocompleteInputComponent implements OnInit, OnDestroy {
 
           return !this.isUserExcluded(user.id) && (givenName.includes(lowerCaseInput) || surname.includes(lowerCaseInput));
         });
-      })
+      }),
     );
   }
 

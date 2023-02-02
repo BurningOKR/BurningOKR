@@ -6,30 +6,31 @@ import { StructureDto } from '../../model/api/OkrUnit/structure.dto';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StructureMapper {
 
   constructor(
-    private structureApiService: StructureApiService
-  ) {}
+    private structureApiService: StructureApiService,
+  ) {
+  }
 
-  getSchemaOfAllExistingStructures$(): Observable<Structure[]>{
+  getSchemaOfAllExistingStructures$(): Observable<Structure[]> {
     return this.structureApiService
       .getSchemaOfAllExistingStructures$().pipe(
-        map(companies => this.mapDtosToStructureArray(companies))
+        map(companies => this.mapDtosToStructureArray(companies)),
       );
   }
 
-  getSchemaOfAllActiveStructuresWithCycleName$(): Observable<Structure[]>{
+  getSchemaOfAllActiveStructuresWithCycleName$(): Observable<Structure[]> {
     return this.structureApiService
       .getSchemaOfAllActiveStructuresWithCycleName$().pipe(
-        map(companies => this.mapDtosToStructureArray(companies))
+        map(companies => this.mapDtosToStructureArray(companies)),
       );
   }
 
   private mapDtoToCompanyUnitStructure(structureDto: StructureDto) {
-    if(structureDto.substructure === []){
+    if (structureDto.substructure === []) {
       return;
     }
 
@@ -38,7 +39,7 @@ export class StructureMapper {
       structureDto.unitName,
       structureDto.label,
       structureDto.objectiveIds,
-      this.mapDtosToStructureArray(structureDto.substructure)
+      this.mapDtosToStructureArray(structureDto.substructure),
     );
   }
 

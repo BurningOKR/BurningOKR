@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 
 const matDialog: any = {
-  open: jest.fn()
+  open: jest.fn(),
 };
 
 describe('DemoHomeComponent', () => {
@@ -15,11 +15,11 @@ describe('DemoHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule, RouterTestingModule ],
-      providers: [ { provide: MatDialog, useValue: matDialog } ],
-      declarations: [ DemoHomeComponent ]
+      imports: [MaterialTestingModule, RouterTestingModule],
+      providers: [{ provide: MatDialog, useValue: matDialog }],
+      declarations: [DemoHomeComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

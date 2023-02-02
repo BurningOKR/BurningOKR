@@ -7,11 +7,12 @@ import { TaskApiService } from '../api/task-api.service';
 import { UserId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskMapperService {
 
-  constructor(private taskApiService: TaskApiService) { }
+  constructor(private taskApiService: TaskApiService) {
+  }
 
   mapToTaskDTO(viewTask: ViewTask): TaskDto {
     let userIds: UserId[] = [];
@@ -28,7 +29,7 @@ export class TaskMapperService {
       taskStateId: viewTask.taskStateId,
       parentTaskBoardId: viewTask.parentTaskBoardId,
       previousTaskId: viewTask.previousTaskId,
-      version: viewTask.version
+      version: viewTask.version,
     };
   }
 
@@ -42,7 +43,7 @@ export class TaskMapperService {
       task.parentTaskBoardId,
       task.taskStateId,
       task.previousTaskId,
-      task.version
+      task.version,
     );
   }
 
@@ -56,7 +57,7 @@ export class TaskMapperService {
       .pipe(
         map((taskList: TaskDto[]) => {
           return taskList.map(this.mapToViewTask);
-        })
+        }),
       );
   }
 
@@ -65,7 +66,7 @@ export class TaskMapperService {
       .pipe(
         map((taskList: TaskDto[]) => {
           return taskList.map(this.mapToViewTask);
-        })
+        }),
       );
   }
 

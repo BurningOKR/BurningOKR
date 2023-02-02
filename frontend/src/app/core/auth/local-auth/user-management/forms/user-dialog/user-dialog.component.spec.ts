@@ -22,12 +22,12 @@ describe('UserDialogComponent', () => {
   };
 
   const localUserServiceMock: any = {
-    getUsers$: jest.fn()
+    getUsers$: jest.fn(),
   };
 
   const currentUserServiceMock: any = {
     getCurrentUser$: jest.fn(),
-    isCurrentUserAdmin$: jest.fn()
+    isCurrentUserAdmin$: jest.fn(),
   };
 
   let component: UserDialogComponent;
@@ -35,22 +35,22 @@ describe('UserDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserDialogComponent ],
-      imports: [ MaterialTestingModule ],
+      declarations: [UserDialogComponent],
+      imports: [MaterialTestingModule],
       providers: [
-        {provide: MatDialogRef, useValue: {}},
-        {provide: FormBuilder, useValue: formBuilder},
-        {provide: MAT_DIALOG_DATA, useValue: formData},
-        {provide: LocalUserService, useValue: localUserServiceMock},
-        {provide: CurrentUserService, useValue: currentUserServiceMock},
-        {provide: PasswordService, useValue: PasswordServiceMock},
-        {provide: MatSnackBar, useValue: {}},
+        { provide: MatDialogRef, useValue: {} },
+        { provide: FormBuilder, useValue: formBuilder },
+        { provide: MAT_DIALOG_DATA, useValue: formData },
+        { provide: LocalUserService, useValue: localUserServiceMock },
+        { provide: CurrentUserService, useValue: currentUserServiceMock },
+        { provide: PasswordService, useValue: PasswordServiceMock },
+        { provide: MatSnackBar, useValue: {} },
       ],
       schemas: [
         NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA,
-      ]
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

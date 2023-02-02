@@ -1,15 +1,22 @@
-<app-dialog-component [title]="title" (okEmitter)="saveDepartment()" [formGroup]="childUnitForm">
+<app-dialog-component (okEmitter)="saveDepartment()" [formGroup]="childUnitForm" [title]="title">
   <form [formGroup]="childUnitForm">
     <mat-form-field class="name">
-      <input type="text" matInput placeholder="{{ 'okr-child-unit-form.name-*' | translate }}" cdkTextareaAutosize formControlName="name">
-      <mat-error><app-form-error [control]="childUnitForm.get('name').invalid"></app-form-error></mat-error>
+      <input cdkTextareaAutosize formControlName="name" matInput
+             placeholder="{{ 'okr-child-unit-form.name-*' | translate }}" type="text">
+      <mat-error>
+        <app-form-error [control]="childUnitForm.get('name').invalid"></app-form-error>
+      </mat-error>
 
     </mat-form-field>
     <mat-form-field class="name">
-      <input type="text" matInput placeholder="{{ 'okr-child-unit-form.description' | translate }}" cdkTextareaAutosize formControlName="label">
-      <mat-error><app-form-error [control]="childUnitForm.get('label').invalid"></app-form-error></mat-error>
+      <input cdkTextareaAutosize formControlName="label" matInput
+             placeholder="{{ 'okr-child-unit-form.description' | translate }}" type="text">
+      <mat-error>
+        <app-form-error [control]="childUnitForm.get('label').invalid"></app-form-error>
+      </mat-error>
     </mat-form-field>
 
-    <mat-slide-toggle class="col-l-6 toggle-fix" formControlName="isActive"><span>{{ 'okr-child-unit-form.header' | translate }}</span></mat-slide-toggle>
+    <mat-slide-toggle class="col-l-6 toggle-fix" formControlName="isActive">
+      <span>{{ 'okr-child-unit-form.header' | translate }}</span></mat-slide-toggle>
   </form>
 </app-dialog-component>

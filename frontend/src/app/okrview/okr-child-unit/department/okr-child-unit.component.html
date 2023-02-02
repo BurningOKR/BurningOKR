@@ -4,11 +4,13 @@
       <ng-container *ngIf="info.okrChildUnit as childUnit">
         <ng-container *ngIf="info.cycle as cycle">
           <ng-container *ngIf="info.currentUserRole as currentUserRole">
-            <mat-card class="small-padding card-margin card-size" [ngClass]="{ 'inactive-element': !childUnit.isActive }">
+            <mat-card [ngClass]="{ 'inactive-element': !childUnit.isActive }"
+                      class="small-padding card-margin card-size">
 
               <div class="flex-wrap inner-padding">
                 <div class="icon-spacer-large">
-                  <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" (click)="moveToParentUnit(childUnit)" class="changePositionButton">
+                  <button (click)="moveToParentUnit(childUnit)" class="changePositionButton" mat-icon-button
+                          matTooltip="Zu der übergeordneten Struktur">
                     <mat-icon>arrow_upward</mat-icon>
                   </button>
                 </div>
@@ -23,8 +25,9 @@
                     <span>{{ 'okr-child-unit.unit-not-active' | translate }}</span>
                   </div>
                 </div>
-                <div class="icon-spacer-large" *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()">
-                  <button mat-icon-button [matMenuTriggerFor]="optionsMenu" [matMenuTriggerData]="{ childUnit: childUnit }">
+                <div *ngIf="currentUserRole.isAtleastAdmin() && !cycle.isCycleClosed()" class="icon-spacer-large">
+                  <button [matMenuTriggerData]="{ childUnit: childUnit }" [matMenuTriggerFor]="optionsMenu"
+                          mat-icon-button>
                     <mat-icon matTooltip="{{ 'okr-child-unit.tooltip.more-options' | translate }}">more_vert
                     </mat-icon>
                   </button>
@@ -33,49 +36,50 @@
 
               <br>
               <!-- Tabs -->
-              <mat-tab-group animationDuration="350ms" *ngIf="activeTabs$ | async; let activeTabs">
+              <mat-tab-group *ngIf="activeTabs$ | async; let activeTabs" animationDuration="350ms">
                 <!-- Overview Tab-->
                 <mat-tab label="{{ 'okr-child-unit.overview' | translate }}">
                   <div class="inner-padding">
-                    <app-okr-child-unit-overview-tab [okrChildUnit]="childUnit" [currentUserRole]="currentUserRole" [cycle]="cycle">
-                    </app-okr-child-unit-overview-tab>
+                    <app-okr-child-unit-overview-tab [currentUserRole]="currentUserRole" [cycle]="cycle"
+                                                     [okrChildUnit]="childUnit"></app-okr-child-unit-overview-tab>
                   </div>
                 </mat-tab>
 
                 <!-- Members Tab-->
-                <mat-tab label="{{ 'okr-child-unit.team-member' | translate }}" *ngIf="activeTabs.teamsTab">
+                <mat-tab *ngIf="activeTabs.teamsTab" label="{{ 'okr-child-unit.team-member' | translate }}">
                   <div class="inner-padding">
-                    <app-department-tab-team [department]="childUnit" [currentUserRole]="currentUserRole" [cycle]="cycle">
-                    </app-department-tab-team>
+                    <app-department-tab-team [currentUserRole]="currentUserRole" [cycle]="cycle"
+                                             [department]="childUnit"></app-department-tab-team>
                   </div>
                 </mat-tab>
 
                 <!-- Subdepartments Tab-->
-                <mat-tab label="{{ 'okr-child-unit.substructures' | translate }}" *ngIf="activeTabs.childUnitTab">
+                <mat-tab *ngIf="activeTabs.childUnitTab" label="{{ 'okr-child-unit.substructures' | translate }}">
                   <ng-template matTabContent>
                     <div class="inner-padding">
-                      <app-okr-child-unit-tab [okrBranch]="childUnit" [currentUserRole]="currentUserRole" [cycle]="cycle">
-                      </app-okr-child-unit-tab>
+                      <app-okr-child-unit-tab [currentUserRole]="currentUserRole" [cycle]="cycle"
+                                              [okrBranch]="childUnit"></app-okr-child-unit-tab>
                     </div>
                   </ng-template>
                 </mat-tab>
 
                 <!-- Description Tab-->
-                <mat-tab label="{{ 'okr-child-unit.description' | translate }}" *ngIf="activeTabs.descriptionTab">
+                <mat-tab *ngIf="activeTabs.descriptionTab" label="{{ 'okr-child-unit.description' | translate }}">
                   <ng-template matTabContent>
-                      <div class="inner-padding">
-                        <app-department-tab-description [department]="childUnit" [currentUserRole]="currentUserRole">
-                        </app-department-tab-description>
-                      </div>
+                    <div class="inner-padding">
+                      <app-department-tab-description [currentUserRole]="currentUserRole"
+                                                      [department]="childUnit"></app-department-tab-description>
+                    </div>
                   </ng-template>
                 </mat-tab>
 
 
                 <!-- Tasks Tab -->
-                <mat-tab label="{{ 'okr-child-unit.task-board-headline' | translate }}" *ngIf="activeTabs.teamsTab">
+                <mat-tab *ngIf="activeTabs.teamsTab" label="{{ 'okr-child-unit.task-board-headline' | translate }}">
                   <ng-template matTabContent>
                     <div class="inner-padding">
-                      <app-department-tab-taskboard [childUnit]="childUnit" [currentUserRole]="currentUserRole" [cycle]="cycle">
+                      <app-department-tab-taskboard [childUnit]="childUnit" [currentUserRole]="currentUserRole"
+                                                    [cycle]="cycle">
 
                       </app-department-tab-taskboard>
                     </div>
@@ -93,12 +97,12 @@
 
 <!-- Options menu -->
 <mat-menu #optionsMenu="matMenu" xPosition="before">
-  <ng-template matMenuContent let-childUnit="childUnit">
-    <button mat-menu-item (click)="clickedEditChildUnit(childUnit)">
+  <ng-template let-childUnit="childUnit" matMenuContent>
+    <button (click)="clickedEditChildUnit(childUnit)" mat-menu-item>
       <mat-icon>edit</mat-icon>
       <span>{{ 'okr-child-unit.menu.editchild-unit' | translate }}</span>
     </button>
-    <button mat-menu-item (click)="toggleChildActive(childUnit)">
+    <button (click)="toggleChildActive(childUnit)" mat-menu-item>
       <div *ngIf="childUnit.isActive">
         <mat-icon>power_off</mat-icon>
         <span>{{ 'okr-child-unit.menu.disable-unit' | translate }}</span>
@@ -108,16 +112,16 @@
         <span>{{ 'okr-child-unit.menu.enable-unit' | translate }}</span>
       </div>
     </button>
-    <button mat-menu-item (click)="downloadOkrChildUnitExcelFile(childUnit)">
+    <button (click)="downloadOkrChildUnitExcelFile(childUnit)" mat-menu-item>
       <mat-icon>save_alt</mat-icon>
       <span>{{ 'okr-child-unit.menu.export' | translate }}</span>
     </button>
-    <button mat-menu-item *ngIf="isDepartmentUnit(childUnit)" (click)="downloadDepartmentExcelEmailFile(childUnit)">
+    <button (click)="downloadDepartmentExcelEmailFile(childUnit)" *ngIf="isDepartmentUnit(childUnit)" mat-menu-item>
       <mat-icon>save_alt</mat-icon>
       <span>{{ 'okr-child-unit.menu.contacts' | translate }}</span>
     </button>
     <div *ngIf="canChildUnitBeRemoved(childUnit); else cannotDeleteUnit;">
-      <button mat-menu-item (click)="clickedRemoveChildUnit(childUnit)" [disabled]="!canChildUnitBeRemoved(childUnit)">
+      <button (click)="clickedRemoveChildUnit(childUnit)" [disabled]="!canChildUnitBeRemoved(childUnit)" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>{{ 'okr-child-unit.menu.delete-unit' | translate }}</span>
       </button>
@@ -125,7 +129,7 @@
 
     <ng-template #cannotDeleteUnit>
       <div matTooltip="{{ 'okr-child-unit.tooltip.cannot-delete-unit' | translate }}">
-        <button mat-menu-item [disabled]="true">
+        <button [disabled]="true" mat-menu-item>
           <mat-icon>delete</mat-icon>
           <span>{{ 'okr-child-unit.menu.delete-unit' | translate }}</span>
         </button>
@@ -162,7 +166,7 @@
   <mat-card class="small-padding card-margin card-size">
     <div class="flex-wrap inner-padding">
       <div class="icon-spacer-large">
-        <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" disabled>
+        <button disabled mat-icon-button matTooltip="Zu der übergeordneten Struktur">
           <mat-icon>arrow_upward</mat-icon>
         </button>
       </div>
@@ -178,14 +182,14 @@
     <br>
 
     <mat-tab-group>
-      <mat-tab label="{{ 'okr-child-unit.overview' | translate }}" class="inner-padding">
+      <mat-tab class="inner-padding" label="{{ 'okr-child-unit.overview' | translate }}">
         <div class="loading-content">
           <br>
           <mat-spinner></mat-spinner>
           <br>
         </div>
       </mat-tab>
-      <mat-tab label="{{ 'okr-child-unit.loading' | translate }}" class="inner-padding"></mat-tab>
+      <mat-tab class="inner-padding" label="{{ 'okr-child-unit.loading' | translate }}"></mat-tab>
     </mat-tab-group>
   </mat-card>
 </ng-template>
@@ -194,7 +198,7 @@
   <mat-card class="small-padding card-margin card-size">
     <div class="flex-wrap inner-padding">
       <div class="icon-spacer-large">
-        <button mat-icon-button matTooltip="Zu der übergeordneten Struktur" disabled>
+        <button disabled mat-icon-button matTooltip="Zu der übergeordneten Struktur">
           <mat-icon>arrow_upward</mat-icon>
         </button>
       </div>
@@ -210,10 +214,11 @@
     <br>
 
     <mat-tab-group>
-      <mat-tab label="{{ 'okr-child-unit.error-info-label' | translate }}" class="inner-padding">
+      <mat-tab class="inner-padding" label="{{ 'okr-child-unit.error-info-label' | translate }}">
         <div class="inner-padding">
           <p>{{ 'okr-child-unit.load-department-failed-info-text' | translate }}</p>
-          <button mat-button mat-raised-button color="primary" (click)="moveToParentUnit404()">{{ 'okr-child-unit.load-department-failed-button' | translate }}</button>
+          <button (click)="moveToParentUnit404()" color="primary" mat-button
+                  mat-raised-button>{{ 'okr-child-unit.load-department-failed-button' | translate }}</button>
         </div>
       </mat-tab>
     </mat-tab-group>

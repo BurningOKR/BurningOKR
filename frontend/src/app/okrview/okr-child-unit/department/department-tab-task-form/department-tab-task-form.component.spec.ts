@@ -19,7 +19,7 @@ describe('DepartmentTabTaskFormComponent', () => {
 
   @Component({
     selector: 'app-form-error',
-    template: ''
+    template: '',
   })
   class ErrorMockComponent {
     @Input() control;
@@ -43,7 +43,7 @@ describe('DepartmentTabTaskFormComponent', () => {
     defaultState: new ViewTaskState(1, 'TODO'),
     states: [new ViewTaskState(1, 'TODO')],
     keyResults: [],
-    isInteractive: true
+    isInteractive: true,
   };
 
   beforeEach(waitForAsync(() => {
@@ -51,12 +51,12 @@ describe('DepartmentTabTaskFormComponent', () => {
       declarations: [TaskFormComponent, DialogComponent, ErrorMockComponent],
       imports: [NoopAnimationsModule, MatDialogModule, ReactiveFormsModule, MaterialTestingModule],
       providers: [
-        {provide: MAT_DIALOG_DATA, useValue: matDialogDataMock},
-        {provide: MatDialogRef, useValue: {}},
-        {provide: ObjectiveViewMapper, useValue: new ObjectiveViewMapperMock()},
-        {provide: UserService, useValue: new UserServiceMock()},
+        { provide: MAT_DIALOG_DATA, useValue: matDialogDataMock },
+        { provide: MatDialogRef, useValue: {} },
+        { provide: ObjectiveViewMapper, useValue: new ObjectiveViewMapperMock() },
+        { provide: UserService, useValue: new UserServiceMock() },
 
-      ]
+      ],
     })
       .compileComponents();
   }));

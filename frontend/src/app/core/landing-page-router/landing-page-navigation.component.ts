@@ -12,13 +12,15 @@ import { RouterParams } from '../../../typings';
 @Component({
   selector: 'app-landing-page-navigation',
   templateUrl: './landing-page-navigation.component.html',
-  styleUrls: ['./landing-page-navigation.component.scss']
+  styleUrls: ['./landing-page-navigation.component.scss'],
 })
 export class LandingPageNavigationComponent implements OnInit {
-  constructor(private companyMapperService: CompanyMapper,
-              private userSettingsManagerService: UserSettingsManagerService,
-              private configurationManagerService: ConfigurationManagerService,
-              private router: Router) {
+  constructor(
+    private companyMapperService: CompanyMapper,
+    private userSettingsManagerService: UserSettingsManagerService,
+    private configurationManagerService: ConfigurationManagerService,
+    private router: Router,
+  ) {
   }
 
   static userHasDefaultTeam(userSettings: UserSettings): boolean {
@@ -51,10 +53,10 @@ export class LandingPageNavigationComponent implements OnInit {
           } else {
             return this.getDefaultCompanyAndTeam$();
           }
-        })
+        }),
       )
       .pipe(
-        take(1)
+        take(1),
       );
   }
 
@@ -71,6 +73,7 @@ export class LandingPageNavigationComponent implements OnInit {
             return ['/companies'];
           }
         }),
-        take(1));
+        take(1),
+      );
   }
 }

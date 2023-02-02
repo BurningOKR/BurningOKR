@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import moment from 'moment/moment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CookieHelperService {
 
@@ -37,7 +37,7 @@ export class CookieHelperService {
     const expireDate: string = expiresInDays ? `expires=${expiresOn.toDate().toUTCString()}` : '';
     const cookiePath: string = path ? `; path=${path}` : '';
 
-    document.cookie=`${cookieName}=${cookieValue}; ${expireDate}${cookiePath}; SameSite=Strict`;
+    document.cookie = `${cookieName}=${cookieValue}; ${expireDate}${cookiePath}; SameSite=Strict`;
     this.cookieMap.set(cookieName, cookieValue);
   }
 
@@ -48,13 +48,13 @@ export class CookieHelperService {
   }
 
   deleteCookie(cookieName: string): void {
-    document.cookie=`${cookieName}="";max-age=0; SameSite=Strict`;
+    document.cookie = `${cookieName}="";max-age=0; SameSite=Strict`;
     this.cookieMap.delete(cookieName);
   }
 
   private getCookieMap(): Map<string, string> {
     const cookieArray: string[] = document.cookie.split('; ');
-    const cookieMap: Map<string, string> = new Map<string, string> ();
+    const cookieMap: Map<string, string> = new Map<string, string>();
 
     cookieArray.forEach(cookie => {
       const valueDelimiterPosition: number = cookie.indexOf('=');

@@ -30,12 +30,14 @@ export class CycleCreationFormComponent implements OnInit {
   firstAvailableDate: Date;
   minimumCycleDuration: number = 3;
 
-  constructor(private dialogRef: MatDialogRef<CycleCreationFormComponent>,
-              private cycleMapper: CycleMapper,
-              private companyService: CompanyMapper,
-              private dateMapper: DateMapper,
-              private translate: TranslateService,
-              @Inject(MAT_DIALOG_DATA) public formData: CycleDialogData) {
+  constructor(
+    private dialogRef: MatDialogRef<CycleCreationFormComponent>,
+    private cycleMapper: CycleMapper,
+    private companyService: CompanyMapper,
+    private dateMapper: DateMapper,
+    private translate: TranslateService,
+    @Inject(MAT_DIALOG_DATA) public formData: CycleDialogData,
+  ) {
   }
 
   ngOnInit(): void {

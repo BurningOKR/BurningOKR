@@ -11,7 +11,7 @@ describe('OkrTranslationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule ],
+      imports: [MaterialTestingModule],
     });
     service = TestBed.inject(OkrTranslationHelperService);
     translateService = TestBed.inject(TranslateService);

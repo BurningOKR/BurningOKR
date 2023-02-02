@@ -9,18 +9,18 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   {
     path: 'init', loadChildren: () => import('./init/init.module')
-      .then(mod => mod.InitModule)
+      .then(mod => mod.InitModule),
   },
   {
     path: '', loadChildren: () => import('./local-auth/local-auth.module')
       .then(mod => mod.LocalAuthModule),
-    canActivate: [LocalGuard]
+    canActivate: [LocalGuard],
   },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class AuthRoutingModule {
 }

@@ -13,9 +13,9 @@ describe('StatusDotComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-        declarations: [StatusDotComponent],
-        imports: [MaterialTestingModule],
-      })
+      declarations: [StatusDotComponent],
+      imports: [MaterialTestingModule],
+    })
       .compileComponents();
   }));
 

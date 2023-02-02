@@ -44,28 +44,28 @@ describe('TopicDraftStatusService', () => {
     expect(testTopicDraft.currentStatus).toBe(status.draft);
   });
 
-  it('should show if the topicDraft can be converted to a team',  () => {
+  it('should show if the topicDraft can be converted to a team', () => {
     expect(TopicDraftStatusService.isTopicDraftConvertableToTeam(draftTopicDraft)).toBe(false);
     expect(TopicDraftStatusService.isTopicDraftConvertableToTeam(submittedTopicDraft)).toBe(false);
     expect(TopicDraftStatusService.isTopicDraftConvertableToTeam(approvedTopicDraft)).toBe(true);
     expect(TopicDraftStatusService.isTopicDraftConvertableToTeam(rejectedTopicDraft)).toBe(false);
   });
 
-  it('should show if the topicDraft can be approved or rejected',  () => {
+  it('should show if the topicDraft can be approved or rejected', () => {
     expect(TopicDraftStatusService.isTopicDraftInApprovingStage(draftTopicDraft)).toBe(false);
     expect(TopicDraftStatusService.isTopicDraftInApprovingStage(submittedTopicDraft)).toBe(true);
     expect(TopicDraftStatusService.isTopicDraftInApprovingStage(approvedTopicDraft)).toBe(true);
     expect(TopicDraftStatusService.isTopicDraftInApprovingStage(rejectedTopicDraft)).toBe(true);
   });
 
-  it('should show if the topicDraft can be edited',  () => {
+  it('should show if the topicDraft can be edited', () => {
     expect(TopicDraftStatusService.isTopicDraftInSubmissionStage(draftTopicDraft)).toBe(true);
     expect(TopicDraftStatusService.isTopicDraftInSubmissionStage(submittedTopicDraft)).toBe(true);
     expect(TopicDraftStatusService.isTopicDraftInSubmissionStage(approvedTopicDraft)).toBe(false);
     expect(TopicDraftStatusService.isTopicDraftInSubmissionStage(rejectedTopicDraft)).toBe(false);
   });
 
-  it('should show if the topicDraft is approved or rejected',  () => {
+  it('should show if the topicDraft is approved or rejected', () => {
     expect(TopicDraftStatusService.isTopicDraftApprovedOrRejected(draftTopicDraft)).toBe(false);
     expect(TopicDraftStatusService.isTopicDraftApprovedOrRejected(submittedTopicDraft)).toBe(false);
     expect(TopicDraftStatusService.isTopicDraftApprovedOrRejected(approvedTopicDraft)).toBe(true);
@@ -76,5 +76,6 @@ describe('TopicDraftStatusService', () => {
 function getMockTopicDraft(topicDraftStatus: status): OkrTopicDraft {
   return new OkrTopicDraft(0, topicDraftStatus, undefined, 0, '', undefined,
     undefined, undefined, undefined, undefined, undefined, undefined,
-    undefined, undefined, undefined);
+    undefined, undefined, undefined,
+  );
 }

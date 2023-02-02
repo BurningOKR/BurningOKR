@@ -9,10 +9,10 @@ describe('CompleteInitStateFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CompleteInitStateFormComponent ],
-      imports: [ MaterialTestingModule ]
+      declarations: [CompleteInitStateFormComponent],
+      imports: [MaterialTestingModule],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -12,22 +12,26 @@ import { NotInitiliazedGuard } from '../init/not-initiliazed.guard';
 import { DemoGuard } from '../../../demo/demo.guard';
 
 const routes: Routes = [
-  {path: '*', redirectTo: 'login', pathMatch: 'full'},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, canActivate: [LocalGuard, NotLoggedInGuard, NotInitiliazedGuard, DemoGuard]},
-  {path: 'resetpassword', component: ResetPasswordComponent, canActivate: [LocalGuard, DemoGuard]},
-  {path: 'setpassword/:emailIdentifier', component: SetPasswordComponent, canActivate: [LocalGuard, DemoGuard]},
+  { path: '*', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [LocalGuard, NotLoggedInGuard, NotInitiliazedGuard, DemoGuard],
+  },
+  { path: 'resetpassword', component: ResetPasswordComponent, canActivate: [LocalGuard, DemoGuard] },
+  { path: 'setpassword/:emailIdentifier', component: SetPasswordComponent, canActivate: [LocalGuard, DemoGuard] },
   {
     // eslint-disable-next-line @typescript-eslint/promise-function-async
     path: 'users', loadChildren: () => import('./user-management/user-management.module') //TODO testen
       .then(mod => mod.UserManagementModule),
-    canActivate: [LocalGuard, AuthGuard, AdminRoleGuard]
+    canActivate: [LocalGuard, AuthGuard, AdminRoleGuard],
   },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class LocalAuthRoutingModule {
 }

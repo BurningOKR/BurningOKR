@@ -10,7 +10,7 @@ import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
 
 const currentUserService: any = {
   isCurrentUserAdmin$: jest.fn(),
-  getCurrentUser$: jest.fn()
+  getCurrentUser$: jest.fn(),
 };
 
 let department: OkrDepartment;
@@ -21,8 +21,8 @@ describe('OkrChildUnitRoleService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [],
     providers: [
-      { provide: CurrentUserService, useValue: currentUserService }
-    ]
+      { provide: CurrentUserService, useValue: currentUserService },
+    ],
   }));
 
   beforeEach(() => {
@@ -41,7 +41,8 @@ describe('OkrChildUnitRoleService', () => {
       0,
       'department',
       null, null, [],
-      true, false);
+      true, false,
+    );
 
     okrBranch = new OkrBranch(
       2,
@@ -50,7 +51,7 @@ describe('OkrChildUnitRoleService', () => {
       'okrBranch',
       0,
       [],
-      true
+      true,
     );
   });
 
@@ -137,21 +138,24 @@ describe('OkrChildUnitRoleService', () => {
       });
   });
 
-  it('getContextRoleForOkrChildUnit$, OkrChildUnitDto, user is okr topic sponsor, all false except okrManager', done => {
-    department.okrTopicSponsorId = 'test';
+  it(
+    'getContextRoleForOkrChildUnit$, OkrChildUnitDto, user is okr topic sponsor, all false except okrManager',
+    done => {
+      department.okrTopicSponsorId = 'test';
 
-    service.getContextRoleForOkrChildUnit$(department)
-      .subscribe((contextRole: ContextRole) => {
-        expect(contextRole.isAdmin)
-          .toBeFalsy();
-        expect(contextRole.isOKRManager)
-          .toBeTruthy();
-        expect(contextRole.isOKRMember)
-          .toBeFalsy();
+      service.getContextRoleForOkrChildUnit$(department)
+        .subscribe((contextRole: ContextRole) => {
+          expect(contextRole.isAdmin)
+            .toBeFalsy();
+          expect(contextRole.isOKRManager)
+            .toBeTruthy();
+          expect(contextRole.isOKRMember)
+            .toBeFalsy();
 
-        done();
-      });
-  });
+          done();
+        });
+    },
+  );
 
   it('getContextRoleForOkrChildUnit$, OkrChildUnitDto, user is okr topic member, all false except okrMember', done => {
     department.okrMemberIds = ['test'];

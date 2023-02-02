@@ -27,7 +27,7 @@ interface ImportCsvWarnings {
 @Component({
   selector: 'app-import-csv-dialog',
   templateUrl: './import-csv-dialog.component.html',
-  styleUrls: ['./import-csv-dialog.component.css']
+  styleUrls: ['./import-csv-dialog.component.css'],
 })
 export class ImportCsvDialogComponent implements OnInit {
 
@@ -43,10 +43,10 @@ export class ImportCsvDialogComponent implements OnInit {
     private csvService: CsvUserParseService,
     private dialog: MatDialog,
     private formbuilder: FormBuilder,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     this.fileForm = this.formbuilder.group({
-      csvFile: []
+      csvFile: [],
     }) as FormGroupTyped<ImportCsvDialogForm>;
   }
 
@@ -70,7 +70,7 @@ export class ImportCsvDialogComponent implements OnInit {
         this.rowData.data = records.users;
         this.warnings = {
           tooManyFields: records.warnings ? records.warnings.tooManyFields : false,
-          duplicateEmailAdresses: this.hasDuplicateEmailAdresses(records.users)
+          duplicateEmailAdresses: this.hasDuplicateEmailAdresses(records.users),
         };
       };
     }
@@ -78,10 +78,14 @@ export class ImportCsvDialogComponent implements OnInit {
 
   onSave(): void {
 
-    const confirmationTitle: string = this.translate.instant('import-csv-dialog.confirmation.title',
-      { list_length: this.rowData.data.length });
-    const confirmationText: string = this.translate.instant('import-csv-dialog.confirmation.text',
-      { list_length: this.rowData.data.length });
+    const confirmationTitle: string = this.translate.instant(
+      'import-csv-dialog.confirmation.title',
+      { list_length: this.rowData.data.length },
+    );
+    const confirmationText: string = this.translate.instant(
+      'import-csv-dialog.confirmation.text',
+      { list_length: this.rowData.data.length },
+    );
 
     const data: ConfirmationDialogData = {
       title: confirmationTitle,
@@ -90,7 +94,7 @@ export class ImportCsvDialogComponent implements OnInit {
     this.dialog.open(ConfirmationDialogComponent, { data })
       .afterClosed()
       .pipe(
-        filter(v => v)
+        filter(v => v),
       )
       .subscribe(_ => this.dialogRef.close(this.rowData.data));
   }

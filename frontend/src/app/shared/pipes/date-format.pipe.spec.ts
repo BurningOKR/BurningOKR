@@ -7,9 +7,14 @@ describe('DateFormatPipe', () => {
   let dateFormatPipe: DateFormatPipe;
   const testDate: Date = new Date('11.22.2021');
 
-  beforeAll (() => {
-    const okrTranslationHelper: OkrTranslationHelperService = new OkrTranslationHelperService(undefined, undefined, undefined, undefined);
-    (okrTranslationHelper as any).translateService = {currentLang: 'test-language'};
+  beforeAll(() => {
+    const okrTranslationHelper: OkrTranslationHelperService = new OkrTranslationHelperService(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    );
+    (okrTranslationHelper as any).translateService = { currentLang: 'test-language' };
     dateFormatPipe = new DateFormatPipe(okrTranslationHelper);
   });
 

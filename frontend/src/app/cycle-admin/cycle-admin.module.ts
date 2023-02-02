@@ -45,8 +45,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatStepperModule,
     MatSelectModule,
-    MatSlideToggleModule
-  ]
+    MatSlideToggleModule,
+  ],
 })
 export class CycleAdminModule {
 }

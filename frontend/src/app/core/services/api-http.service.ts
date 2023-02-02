@@ -6,7 +6,7 @@ import { Consts } from '../../shared/consts';
 import { ApiHttpErrorHandlingService, ErrorHandlingFunction } from './api-http-error-handling.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiHttpService {
 
@@ -14,10 +14,10 @@ export class ApiHttpService {
 
   constructor(
     private http: HttpClient,
-    private errorHandlerService: ApiHttpErrorHandlingService
+    private errorHandlerService: ApiHttpErrorHandlingService,
   ) {
     this.httpOptions = {
-      headers: new HttpHeaders({})
+      headers: new HttpHeaders({}),
     };
   }
 
@@ -30,8 +30,8 @@ export class ApiHttpService {
     return this.http.get<T>(Consts.API_URL + path, this.httpOptions)
       .pipe(
         catchError(
-          this.errorHandlerService.getErrorHandler(() => this.getData$<T>(path), customErrorHandler)
-        )
+          this.errorHandlerService.getErrorHandler(() => this.getData$<T>(path), customErrorHandler),
+        ),
       );
   }
 
@@ -40,8 +40,8 @@ export class ApiHttpService {
     return this.http.post<T>(Consts.API_URL + path, value, this.httpOptions)
       .pipe(
         catchError(
-          this.errorHandlerService.getErrorHandler(() => this.postData$<T>(path, value), customErrorHandler)
-        )
+          this.errorHandlerService.getErrorHandler(() => this.postData$<T>(path, value), customErrorHandler),
+        ),
       );
   }
 
@@ -49,8 +49,8 @@ export class ApiHttpService {
     return this.http.put<T>(Consts.API_URL + path, value, this.httpOptions)
       .pipe(
         catchError(
-          this.errorHandlerService.getErrorHandler(() => this.putData$<T>(path, value), customErrorHandler)
-        )
+          this.errorHandlerService.getErrorHandler(() => this.putData$<T>(path, value), customErrorHandler),
+        ),
       );
   }
 
@@ -59,8 +59,8 @@ export class ApiHttpService {
       .pipe(
         map((res: string) => res === 'deleted'),
         catchError(
-          this.errorHandlerService.getErrorHandler(() => this.deleteData$(path), customErrorHandler)
-        )
+          this.errorHandlerService.getErrorHandler(() => this.deleteData$(path), customErrorHandler),
+        ),
       );
   }
 
@@ -70,8 +70,8 @@ export class ApiHttpService {
       .pipe(
         catchError(this.errorHandlerService.getErrorHandler(() => {
             return this.patchData$<T>(path, value);
-          }, customErrorHandler
-        ))
+          }, customErrorHandler,
+        )),
       );
   }
 }

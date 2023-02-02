@@ -9,7 +9,7 @@ describe('DemoGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [DemoGuard]
+      providers: [DemoGuard],
     });
 
   });

@@ -28,7 +28,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-department-tab-taskboard',
   templateUrl: './department-tab-taskboard.component.html',
-  styleUrls: ['./department-tab-taskboard.component.css']
+  styleUrls: ['./department-tab-taskboard.component.css'],
 })
 export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, OnInit {
   @Input() childUnit: OkrChildUnit;
@@ -57,7 +57,9 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     private keyResultMapper: KeyResultMapper,
     private stompService: RxStompService,
     private snackBar: MatSnackBar,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.eventSubscriptions.push(
@@ -67,7 +69,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
           this.isInteractive = false;
           this.snackBar.open(this.websocketNotConnectedMessage, null, {
             verticalPosition: 'top',
-            duration: this.snackbarDuration
+            duration: this.snackbarDuration,
           });
           this.clearWebsocketConnectionSubscriptions();
         }
@@ -80,9 +82,10 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
         }
       }),
     );
-    this.eventSubscriptions.push(this.translate.stream('department-tab-taskboard.websocket-not-connected').subscribe(text => {
-      this.websocketNotConnectedMessage = text;
-    }));
+    this.eventSubscriptions.push(this.translate.stream('department-tab-taskboard.websocket-not-connected').subscribe(
+      text => {
+        this.websocketNotConnectedMessage = text;
+      }));
   }
 
   ngOnDestroy(): void {
@@ -121,7 +124,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
               viewData.tasks = this.taskHelper.orderTaskList(viewData.tasks);
 
               return viewData;
-            })
+            }),
           )
           .subscribe(viewData => {
             this.viewData = viewData;
@@ -138,7 +141,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       this.taskBoardEventService.taskAddButtonClick$.subscribe(task => this.onTaskAddButtonClick(task)),
       this.taskBoardEventService.taskDeleteButtonClick$.subscribe(task => this.onTaskDeleteButtonClick(task)),
       this.taskBoardEventService.taskUpdateButtonClick$.subscribe(task => this.onTaskUpdateButtonClick(task)),
-      this.taskBoardEventService.taskMovedInView$.subscribe(dropEvent => this.onTaskDragAndDrop(dropEvent))
+      this.taskBoardEventService.taskMovedInView$.subscribe(dropEvent => this.onTaskDragAndDrop(dropEvent)),
     );
   }
 
@@ -146,7 +149,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     return forkJoin({
       tasks$: this.taskMapperService.getTasksForOkrUnit$(childUnitId),
       states$: this.taskStateMapper.getTaskStates$(childUnitId),
-      keyResults$: this.keyResultMapper.getKeyResultsForOkrUnit$(childUnitId)
+      keyResults$: this.keyResultMapper.getKeyResultsForOkrUnit$(childUnitId),
     })
       .pipe(
         map(result => {
@@ -156,7 +159,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
           viewData.keyResults.push(...result.keyResults$);
 
           return viewData;
-        })
+        }),
       );
   }
 
@@ -168,7 +171,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
             const newAndUpdatedTasksDtos: TaskDto[] = JSON.parse(taskDtosMessage.body);
 
             return newAndUpdatedTasksDtos.map(this.taskMapperService.mapToViewTask);
-          })
+          }),
         )
         .subscribe(newAndUpdatedTasks => {
           if (newAndUpdatedTasks && newAndUpdatedTasks[0]) {
@@ -183,12 +186,12 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
             const deletedTasksDto: TaskDto = JSON.parse(taskDtosMessage.body);
 
             return this.taskMapperService.mapToViewTask(deletedTasksDto);
-          })
+          }),
         )
         .subscribe(task => {
           this.viewData.tasks = this.taskHelper.removeTaskAndUpdateTaskList(this.viewData.tasks, task);
           this.viewDataEmitter$.next(this.viewData);
-        })
+        }),
     );
   }
 
@@ -222,38 +225,46 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       states,
       task,
       keyResults: this.viewData.keyResults,
-      isInteractive: this.isInteractive
+      isInteractive: this.isInteractive,
     };
 
     const updatedTask$: Observable<ViewTask> = this.openDialog$(formData);
     this.eventSubscriptions.push(
       updatedTask$.pipe(
         tap((updatedTask: ViewTask) => {
-          this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/update`, body: JSON.stringify(updatedTask) });
-        })
+          this.stompService.publish({
+            destination: `/ws/unit/${this.childUnit.id}/tasks/update`,
+            body: JSON.stringify(updatedTask),
+          });
+        }),
       )
-        .subscribe()
+        .subscribe(),
     );
   }
 
   onTaskDeleteButtonClick(task: ViewTask): void {
     const title: string = this.translate.instant('department-tab-taskboard.deletion-dialog.title');
-    const message: string = this.translate.instant('department-tab-taskboard.deletion-dialog.message',
-      { title: task.title });
+    const message: string = this.translate.instant(
+      'department-tab-taskboard.deletion-dialog.message',
+      { title: task.title },
+    );
     const confirmButtonText: string = this.translate.instant('department-tab-taskboard.deletion-dialog.button-text');
 
     const formData: ConfirmationDialogData = {
-      title, message, confirmButtonText
+      title, message, confirmButtonText,
     };
 
     this.eventSubscriptions.push(
       this.openConfirmationDialog$(formData)
         .pipe(
           tap(_ => {
-            this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/delete`, body: JSON.stringify(task) });
+            this.stompService.publish({
+              destination: `/ws/unit/${this.childUnit.id}/tasks/delete`,
+              body: JSON.stringify(task),
+            });
           }),
         )
-        .subscribe()
+        .subscribe(),
     );
   }
 
@@ -277,17 +288,20 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       unitId: this.childUnit.id,
       defaultState: state, states,
       keyResults: this.viewData.keyResults,
-      isInteractive: this.isInteractive
+      isInteractive: this.isInteractive,
     };
 
     const newTask$: Observable<ViewTask> = this.openDialog$(formData);
     this.eventSubscriptions.push(
       newTask$.pipe(
         tap(task => {
-          this.stompService.publish({ destination: `/ws/unit/${this.childUnit.id}/tasks/add`, body: JSON.stringify(task) });
+          this.stompService.publish({
+            destination: `/ws/unit/${this.childUnit.id}/tasks/add`,
+            body: JSON.stringify(task),
+          });
         }),
       )
-        .subscribe()
+        .subscribe(),
     );
   }
 
@@ -300,7 +314,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
 
     this.stompService.publish({
       destination: `/ws/unit/${this.childUnit.id}/tasks/update`,
-      body: JSON.stringify(updatedTaskDto)
+      body: JSON.stringify(updatedTaskDto),
     });
   }
 
@@ -313,12 +327,15 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   }
 
   private openDialog$(formData: TaskFormData): Observable<ViewTask> {
-    const dialogReference: MatDialogRef<TaskFormComponent, ViewTask> = this.matDialog.open(TaskFormComponent, { data: formData });
+    const dialogReference: MatDialogRef<TaskFormComponent, ViewTask> = this.matDialog.open(
+      TaskFormComponent,
+      { data: formData },
+    );
 
     return dialogReference
       .afterClosed()
       .pipe(
-        filter(v => !!v)
+        filter(v => !!v),
       );
   }
 
@@ -330,7 +347,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       .afterClosed()
       .pipe(
         take(1),
-        filter(value => value)
+        filter(value => value),
       );
   }
 }

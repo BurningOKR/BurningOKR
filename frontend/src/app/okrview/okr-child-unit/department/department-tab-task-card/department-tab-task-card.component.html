@@ -1,31 +1,35 @@
-<mat-card class="taskcard" [class.mat-elevation-z8]="isActive" (mouseenter)="setIsActive(true)" (mouseleave)="setIsActive(false)" *ngIf="taskInformations.task" (click)="updateOrViewTask()">
-    <div *ngIf="taskInformations.keyResult" class="task-card-key-result">
-        <div>{{taskInformations.keyResult.keyResult}}</div>
-    </div>
-    <div class="taskcard-content">
-        <mat-card-title class="taskcard-title">{{taskInformations.task.title}}</mat-card-title>
-        <mat-card-content class="taskcard-description">
-            <div>{{taskInformations.task.description}}</div>
-        </mat-card-content>
-        <div class="taskcard-footer">
-            <div *ngIf="isInteractive">
-                <mat-card-actions>
-                    <button mat-button (click)="onDelete($event,taskInformations.task)" matTooltip="{{'department-tab-task-card.delete' | translate}}">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-card-actions>
-            </div>
-            <mat-card-footer class="taskcard-user-pictures">
-                <div *ngFor="let user$ of users">
-                    <ngx-avatars *ngIf="user$ | async as user" [value]="'📁'" [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null" [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''" [size]="30" [matTooltip]="user.givenName +' ' + user.surname">
-                    </ngx-avatars>
-                </div>
-            </mat-card-footer>
+<mat-card (click)="updateOrViewTask()" (mouseenter)="setIsActive(true)" (mouseleave)="setIsActive(false)"
+          *ngIf="taskInformations.task" [class.mat-elevation-z8]="isActive" class="taskcard">
+  <div *ngIf="taskInformations.keyResult" class="task-card-key-result">
+    <div>{{taskInformations.keyResult.keyResult}}</div>
+  </div>
+  <div class="taskcard-content">
+    <mat-card-title class="taskcard-title">{{taskInformations.task.title}}</mat-card-title>
+    <mat-card-content class="taskcard-description">
+      <div>{{taskInformations.task.description}}</div>
+    </mat-card-content>
+    <div class="taskcard-footer">
+      <div *ngIf="isInteractive">
+        <mat-card-actions>
+          <button (click)="onDelete($event,taskInformations.task)" mat-button
+                  matTooltip="{{'department-tab-task-card.delete' | translate}}">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </div>
+      <mat-card-footer class="taskcard-user-pictures">
+        <div *ngFor="let user$ of users">
+          <ngx-avatars *ngIf="user$ | async as user" [matTooltip]="user.givenName +' ' + user.surname"
+                       [name]="(user.givenName || user.surname) ? user.givenName + ' ' + user.surname : null"
+                       [size]="30" [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''"
+                       [value]="'📁'"></ngx-avatars>
         </div>
+      </mat-card-footer>
     </div>
+  </div>
 </mat-card>
 <ng-template #taskCardLoading>
-    <div class="task-card-key-result">
-        <div>{{ 'department-tab-task-card.task-board-loading' | translate }}</div>
-    </div>
+  <div class="task-card-key-result">
+    <div>{{ 'department-tab-task-card.task-board-loading' | translate }}</div>
+  </div>
 </ng-template>

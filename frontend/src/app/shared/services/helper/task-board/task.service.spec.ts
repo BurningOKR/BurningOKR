@@ -15,12 +15,12 @@ describe('TaskService', () => {
     new ViewTask(6, 'test6', 'test6-description', null, 1, 0, 1, 4, 1),
     new ViewTask(7, 'test7', 'test7-description', null, 0, 0, 2, 5, 1),
     new ViewTask(8, 'test8', 'test8-description', null, 2, 0, 3, 6, 1),
-    new ViewTask(9, 'test9', 'test9-description', null, 2, 0, 1, 7, 1)
+    new ViewTask(9, 'test9', 'test9-description', null, 2, 0, 1, 7, 1),
   ];
   let tasksForTesting: ViewTask[];
 
   beforeEach(() => TestBed.configureTestingModule({
-    providers: [TaskService]
+    providers: [TaskService],
   }));
 
   beforeEach(inject([TaskService], (s: TaskService) => {
@@ -52,12 +52,15 @@ describe('TaskService', () => {
       .toBe(copy[0]);
   });
 
-  it('By copying a null reference, then the result is null. By copying an empty array, then the result is an empty array', () => {
-    const nullCopy: ViewTask[] = service.copyTaskList(null);
-    const emptyCopy: ViewTask[] = service.copyTaskList([]);
-    expect(nullCopy)
-    .toBeNull();
-    expect(emptyCopy)
-    .toEqual([]);
-  });
+  it(
+    'By copying a null reference, then the result is null. By copying an empty array, then the result is an empty array',
+    () => {
+      const nullCopy: ViewTask[] = service.copyTaskList(null);
+      const emptyCopy: ViewTask[] = service.copyTaskList([]);
+      expect(nullCopy)
+        .toBeNull();
+      expect(emptyCopy)
+        .toEqual([]);
+    },
+  );
 });

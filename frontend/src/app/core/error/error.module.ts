@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [TranslateModule,
     CommonModule,
@@ -21,8 +21,8 @@ import { SharedModule } from '../../shared/shared.module';
     MatTooltipModule,
   ],
   exports: [
-    ErrorComponent
-  ]
+    ErrorComponent,
+  ],
 })
 export class ErrorModule {
 }

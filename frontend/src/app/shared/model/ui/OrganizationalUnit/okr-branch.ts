@@ -13,7 +13,8 @@ export class OkrBranch extends OkrChildUnit implements ParentUnit {
     parentUnitId: number,
     childUnit: OkrUnitId[],
     isActive: boolean,
-    isParentUnitABranch?: boolean) {
+    isParentUnitABranch?: boolean,
+  ) {
     super(id, name, label, objectives, parentUnitId, isActive, isParentUnitABranch);
     this.okrChildUnitIds = childUnit;
   }

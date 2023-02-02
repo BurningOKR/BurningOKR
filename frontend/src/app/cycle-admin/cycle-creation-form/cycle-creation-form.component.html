@@ -1,23 +1,32 @@
-<app-dialog-component *ngIf="cycleForm" title="{{title$ | async}}" [formGroup]="cycleForm" saveAndCloseLabel="{{saveAndCloseLabel}}" [hasFormGroupError]="true" (okEmitter)="createCycle()">
+<app-dialog-component (okEmitter)="createCycle()" *ngIf="cycleForm" [formGroup]="cycleForm" [hasFormGroupError]="true"
+                      saveAndCloseLabel="{{saveAndCloseLabel}}" title="{{title$ | async}}">
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
       <input formControlName="name" matInput placeholder="Name *" type="text">
-      <mat-error><app-form-error [control]="cycleForm.get('name')"></app-form-error></mat-error>
+      <mat-error>
+        <app-form-error [control]="cycleForm.get('name')"></app-form-error>
+      </mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="halfWidth leftDate">
-      <input [matDatepicker]="startDatePicker" (dateChange)="dateChangeHandler($event)" formControlName="startDate" matInput placeholder="{{ 'cycle-creation-form.start-date' | translate }}">
+      <input (dateChange)="dateChangeHandler($event)" [matDatepicker]="startDatePicker" formControlName="startDate"
+             matInput placeholder="{{ 'cycle-creation-form.start-date' | translate }}">
       <mat-datepicker-toggle [for]="startDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #startDatePicker></mat-datepicker>
-      <mat-error><app-form-error [control]="cycleForm.get('startDate')"></app-form-error></mat-error>
+      <mat-error>
+        <app-form-error [control]="cycleForm.get('startDate')"></app-form-error>
+      </mat-error>
 
     </mat-form-field>
     <mat-form-field class="halfWidth rightDate">
-      <input matInput [matDatepicker]="endDatePicker" [min]="firstAvailableDate" formControlName="endDate" placeholder="{{ 'cycle-creation-form.end-date' | translate }}">
+      <input [matDatepicker]="endDatePicker" [min]="firstAvailableDate" formControlName="endDate" matInput
+             placeholder="{{ 'cycle-creation-form.end-date' | translate }}">
       <mat-datepicker-toggle [for]="endDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
-      <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>
+      <mat-error>
+        <app-form-error [control]="cycleForm.get('endDate')"></app-form-error>
+      </mat-error>
 
     </mat-form-field>
     <mat-slide-toggle formControlName="isVisible">

@@ -15,7 +15,7 @@ export interface TaskBoardSwimlaneDragDropEvent {
 @Component({
   selector: 'app-taskboard-swimlane',
   templateUrl: './taskboard-swimlane.component.html',
-  styleUrls: ['./taskboard-swimlane.component.css']
+  styleUrls: ['./taskboard-swimlane.component.css'],
 })
 export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
   @Input() tasksForStates: StateTaskMap[];
@@ -27,8 +27,9 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
-    private taskBoardEventService: TaskBoardViewEventService
-  ) { }
+    private taskBoardEventService: TaskBoardViewEventService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -41,7 +42,7 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
             }
 
             return `${event.$event.container.id}` === `${idToCompare}`;
-          })
+          }),
         )
         .subscribe(event => {
           let keyResult: ViewKeyResult = null;
@@ -57,14 +58,15 @@ export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
               this.keyResult.description,
               this.keyResult.parentObjectiveId,
               this.keyResult.commentIdList,
-              this.keyResult.viewKeyResultMilestones);
+              this.keyResult.viewKeyResultMilestones,
+            );
           }
 
           this.taskBoardEventService.taskInSwimlaneMoved$.next({
             taskboardEvent: event,
-            keyResult
+            keyResult,
           });
-        })
+        }),
     );
   }
 

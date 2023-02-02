@@ -7,10 +7,10 @@ import { Router, UrlTree } from '@angular/router';
 describe('NotLoggedInGuard', () => {
 
   const authenticationServiceMock: any = {
-    hasValidAccessToken: jest.fn()
+    hasValidAccessToken: jest.fn(),
   };
   const routerMock: any = {
-    createUrlTree: jest.fn()
+    createUrlTree: jest.fn(),
   };
 
   beforeEach(() => {
@@ -18,8 +18,8 @@ describe('NotLoggedInGuard', () => {
       imports: [],
       providers: [
         NotLoggedInGuard,
-        {provide: AuthenticationService, useValue: authenticationServiceMock},
-        {provide: Router, useValue: routerMock}
+        { provide: AuthenticationService, useValue: authenticationServiceMock },
+        { provide: Router, useValue: routerMock },
       ],
     });
   });

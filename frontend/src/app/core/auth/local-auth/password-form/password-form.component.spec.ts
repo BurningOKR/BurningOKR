@@ -14,18 +14,18 @@ describe('PasswordFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordFormComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-      imports: [ MaterialTestingModule, BrowserAnimationsModule ]
+      declarations: [PasswordFormComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      imports: [MaterialTestingModule, BrowserAnimationsModule],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PasswordFormComponent);
     component = fixture.componentInstance;
     component.newPasswordForm = formBuilder.group({
       previousPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(7)]],
-      newPasswordRepetition: ['', [Validators.required]]
+      newPasswordRepetition: ['', [Validators.required]],
     });
     component.previousPasswordNecessary = true;
     fixture.detectChanges();

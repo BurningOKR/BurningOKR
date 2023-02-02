@@ -5,7 +5,7 @@ import { ExcelFileService } from './excel-file.service';
 import { OkrUnitId } from '../../shared/model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExcelMapper {
 
@@ -18,7 +18,7 @@ export class ExcelMapper {
   downloadExcelFileForOkrChildUnit(okrChildUnitId: OkrUnitId): Subscription {
     return this.excelFileService.downloadExcelFileForOkrChildUnit$(okrChildUnitId)
       .subscribe(data => {
-        const blob: Blob = new Blob([data], {type: this.blobType});
+        const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr.xlsx');
       });
   }
@@ -26,7 +26,7 @@ export class ExcelMapper {
   downloadExcelFileForCompany(companyId: number): Subscription {
     return this.excelFileService.downloadExcelFileCompany$(companyId)
       .subscribe(data => {
-        const blob: Blob = new Blob([data], {type: this.blobType});
+        const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr.xlsx');
       });
   }
@@ -34,7 +34,7 @@ export class ExcelMapper {
   downloadExcelEmailFileForOkrTeam(departmentId: OkrUnitId): Subscription {
     return this.excelFileService.downloadExcelEmailFileForOkrTeam$(departmentId)
       .subscribe(data => {
-        const blob: Blob = new Blob([data], {type: this.blobType});
+        const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr-member.xlsx');
       });
   }
@@ -42,7 +42,7 @@ export class ExcelMapper {
   downloadExcelEmailFileForCompany(companyId: number): Subscription {
     return this.excelFileService.downloadExcelEmailFileForCompany$(companyId)
       .subscribe(data => {
-        const blob: Blob = new Blob([data], {type: this.blobType});
+        const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr-member.xlsx');
       });
   }

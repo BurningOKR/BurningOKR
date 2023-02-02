@@ -74,8 +74,9 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatTooltipModule,
     MatSidenavModule,
     MaterialFileInputModule,
-    TranslateModule
+    TranslateModule,
   ],
-  imports: [ TranslateModule.forRoot() ]
+  imports: [TranslateModule.forRoot()],
 })
-export class MaterialTestingModule {}
+export class MaterialTestingModule {
+}

@@ -1,12 +1,15 @@
-<app-dialog-component (okEmitter)="onSave()" [isSaveButtonDisabled]="rowData.data.length === 0 || warnings.duplicateEmailAdresses">
+<app-dialog-component (okEmitter)="onSave()"
+                      [isSaveButtonDisabled]="rowData.data.length === 0 || warnings.duplicateEmailAdresses">
   <p>{{ 'import-csv-dialog.description' | translate }}</p>
   <p *ngIf="rowData.data.length > 0">{{ 'import-csv-dialog.amount-of-entries-loaded' | translate }}</p>
   <p *ngIf="warnings">
     <mat-error *ngIf="warnings.tooManyFields">{{ 'import-csv-dialog.to-many-entries-warning' | translate }}</mat-error>
-    <mat-error *ngIf="warnings.duplicateEmailAdresses">{{ 'import-csv-dialog.duplicate-email-adresses-warning' | translate }}</mat-error>
+    <mat-error
+      *ngIf="warnings.duplicateEmailAdresses">{{ 'import-csv-dialog.duplicate-email-adresses-warning' | translate }}</mat-error>
   </p>
   <mat-form-field [formGroup]="fileForm">
-    <ngx-mat-file-input [formControl]="fileForm.controls.csvFile" accept=".csv, .txt" placeholder="{{ 'import-csv-dialog.csv-file' | translate }}"></ngx-mat-file-input>
+    <ngx-mat-file-input [formControl]="fileForm.controls.csvFile" accept=".csv, .txt"
+                        placeholder="{{ 'import-csv-dialog.csv-file' | translate }}"></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
   </mat-form-field>
   <div style="max-height: 600px; overflow-y: auto">

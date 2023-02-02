@@ -3,7 +3,7 @@ import { DepartmentNavigationInformation } from '../shared/model/ui/department-n
 import { OkrUnitSchema } from '../shared/model/ui/okr-unit-schema';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentNavigationService {
 
@@ -18,10 +18,10 @@ export class CurrentNavigationService {
   }
 
   markStructureAsClosed(schema: OkrUnitSchema): void {
-    if((schema === null) || (schema === undefined)){
+    if ((schema === null) || (schema === undefined)) {
       return;
     }
-    if(!this.isStructureMarkedAsClosed(schema.id)){
+    if (!this.isStructureMarkedAsClosed(schema.id)) {
       this.currentNavigationInformation.departmentsToClose.push(schema.id);
       schema.subDepartments.forEach(subDepartment => this.markStructureAsClosed(subDepartment));
     }

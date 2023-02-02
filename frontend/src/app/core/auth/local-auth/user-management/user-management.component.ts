@@ -230,7 +230,10 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
-  private updateUserAndRemoveAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+  private updateUserAndRemoveAdminIfChanged$(
+    adminIds: string[],
+    editedUser: LocalUserManagementUser,
+  ): Observable<LocalUserManagementUser> {
     if (adminIds.Contains(editedUser.id)) {
       return forkJoin([
         this.userService.updateUser$(editedUser)
@@ -252,7 +255,10 @@ export class UserManagementComponent implements OnInit {
     }
   }
 
-  private updateUserAndSetToAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+  private updateUserAndSetToAdminIfChanged$(
+    adminIds: string[],
+    editedUser: LocalUserManagementUser,
+  ): Observable<LocalUserManagementUser> {
     if (!adminIds.Contains(editedUser.id)) {
       return forkJoin([
         this.userService.updateUser$(editedUser)

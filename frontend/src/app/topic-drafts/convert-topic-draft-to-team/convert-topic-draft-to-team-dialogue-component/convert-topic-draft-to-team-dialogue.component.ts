@@ -29,7 +29,9 @@ export class ConvertTopicDraftToTeamDialogueComponent implements OnInit, OnDestr
     private translate: TranslateService,
     private dialogRef: MatDialogRef<ConvertTopicDraftToTeamDialogueComponent>,
     private structureMapper: StructureMapper,
-    private convertTopicDraftToTeamService: ConvertTopicDraftToTeamService) { }
+    private convertTopicDraftToTeamService: ConvertTopicDraftToTeamService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.companyStructures$ = this.structureMapper.getSchemaOfAllActiveStructuresWithCycleName$();

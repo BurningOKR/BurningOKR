@@ -31,14 +31,16 @@ export class UserDialogComponent implements OnInit, OnDestroy {
   private passwordResetSuccessMsg: string;
   private okMsg: string;
 
-  constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public formData: UserDialogData,
-              private formBuilder: FormBuilder,
-              private userService: LocalUserService,
-              private currentUserService: CurrentUserService,
-              private passwordService: PasswordService,
-              private snackBar: MatSnackBar,
-              private translate: TranslateService) {
+  constructor(
+    private dialogRef: MatDialogRef<UserDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public formData: UserDialogData,
+    private formBuilder: FormBuilder,
+    private userService: LocalUserService,
+    private currentUserService: CurrentUserService,
+    private passwordService: PasswordService,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -94,7 +96,8 @@ export class UserDialogComponent implements OnInit, OnDestroy {
           {
             verticalPosition: 'top',
             duration: 20000,
-          });
+          },
+        );
       });
   }
 

@@ -8,11 +8,11 @@ import { CompanyUnit } from '../shared/model/ui/OrganizationalUnit/company-unit'
 import { CycleState, CycleUnit } from '../shared/model/ui/cycle-unit';
 
 const currentCompanyServiceMock: any = {
-  getCurrentCompany$: jest.fn()
+  getCurrentCompany$: jest.fn(),
 };
 
 const cycleMapperMock: any = {
-  getCyclesOfCompany$: jest.fn()
+  getCyclesOfCompany$: jest.fn(),
 };
 
 const currentCompanyMock: CompanyUnit = {
@@ -21,12 +21,12 @@ const currentCompanyMock: CompanyUnit = {
   cycleId: 2,
   label: 'test',
   name: 'testCompany',
-  objectives: []
+  objectives: [],
 };
 
 const cycleUnitsMock: CycleUnit[] = [
   new CycleUnit(2, 'testCycle', [1], new Date(), new Date(), CycleState.ACTIVE, true),
-  new CycleUnit(3, 'testCycle3', [], new Date(), new Date(), CycleState.CLOSED, true)
+  new CycleUnit(3, 'testCycle3', [], new Date(), new Date(), CycleState.CLOSED, true),
 ];
 
 describe('CurrentCycleService', () => {
@@ -35,7 +35,7 @@ describe('CurrentCycleService', () => {
       CurrentCycleService,
       { provide: CurrentCompanyService, useValue: currentCompanyServiceMock },
       { provide: CycleMapper, useValue: cycleMapperMock },
-    ]
+    ],
   }));
 
   beforeEach(() => {

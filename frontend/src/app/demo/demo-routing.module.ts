@@ -13,14 +13,14 @@ const routes: Routes = [
       { path: '', component: DemoHomeComponent },
       { path: 'privacy-policy', component: DemoPrivacyPolicyComponent },
       { path: 'imprint', component: DemoImprintComponent },
-      { path: 'credits', component: DemoCreditsComponent }
-    ]
-  }
+      { path: 'credits', component: DemoCreditsComponent },
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class DemoRoutingModule {
 }

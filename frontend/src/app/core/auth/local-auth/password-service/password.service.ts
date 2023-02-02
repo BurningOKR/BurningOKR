@@ -18,10 +18,11 @@ export class PasswordResetMailData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PasswordService {
-  constructor(private apiService: ApiHttpService) { }
+  constructor(private apiService: ApiHttpService) {
+  }
 
   setPasswordWithEmailIdentifier$(data: PasswordResetData): Observable<object> {
     return this.apiService.postData$('local-users/password', data, (error => {

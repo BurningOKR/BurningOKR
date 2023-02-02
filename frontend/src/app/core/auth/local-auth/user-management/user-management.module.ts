@@ -26,7 +26,7 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
     UserManagementComponent,
     UserDialogComponent,
     ImportCsvDialogComponent,
-    UserFormComponent
+    UserFormComponent,
   ],
   imports: [TranslateModule,
     CommonModule,
@@ -47,8 +47,8 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
   ],
   exports: [
     UserDialogComponent,
-    UserFormComponent
-  ]
+    UserFormComponent,
+  ],
 })
 export class UserManagementModule {
 }

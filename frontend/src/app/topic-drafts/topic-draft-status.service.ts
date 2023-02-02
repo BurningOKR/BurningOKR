@@ -5,11 +5,12 @@ import { take } from 'rxjs/operators';
 import { TopicDraftMapper } from '../shared/services/mapper/topic-draft-mapper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TopicDraftStatusService {
 
-  constructor(private topicDraftMapper: TopicDraftMapper) {}
+  constructor(private topicDraftMapper: TopicDraftMapper) {
+  }
 
   static isTopicDraftConvertableToTeam(topicDraft: OkrTopicDraft): boolean {
     return topicDraft.currentStatus === status.approved;

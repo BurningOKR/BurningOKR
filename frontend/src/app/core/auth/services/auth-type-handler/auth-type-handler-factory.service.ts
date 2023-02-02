@@ -9,15 +9,17 @@ import { DemoAuthTypeHandlerService } from './demo-auth-type-handler.service';
 import { environment } from '../../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthTypeHandlerFactoryService {
 
   isPlayground: boolean = environment.playground;
 
-  constructor(private injector: Injector,
-              private oAuthFrontendDetailsService: OAuthFrontendDetailsService
-  ) { }
+  constructor(
+    private injector: Injector,
+    private oAuthFrontendDetailsService: OAuthFrontendDetailsService,
+  ) {
+  }
 
   async getAuthTypeHandler(): Promise<AuthTypeHandlerBase> {
     return this.oAuthFrontendDetailsService.getAuthType$()
@@ -33,7 +35,7 @@ export class AuthTypeHandlerFactoryService {
             return this.injector.get(LocalAuthTypeHandlerService);
           }
         }),
-        shareReplay()
+        shareReplay(),
       )
       .toPromise();
   }

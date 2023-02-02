@@ -10,7 +10,7 @@ describe('NonLoggedInCardComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NonLoggedInCardComponent],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
       .compileComponents();
     fixture = TestBed.createComponent(NonLoggedInCardComponent);

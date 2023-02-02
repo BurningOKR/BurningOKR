@@ -8,26 +8,26 @@ import { DialogComponent } from '../dialog-component/dialog.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-@Directive({selector: '[oneviewPermitted]'})
+@Directive({ selector: '[oneviewPermitted]' })
 class OneviewPermittedDirective {
   @Input() oneviewPermitted;
 }
 
-@Pipe({name: 'translate'})
+@Pipe({ name: 'translate' })
 class TranslatePipe implements PipeTransform {
   transform(value) {
     return value;
   }
 }
 
-@Pipe({name: 'phoneNumber'})
+@Pipe({ name: 'phoneNumber' })
 class PhoneNumberPipe implements PipeTransform {
   transform(value) {
     return value;
   }
 }
 
-@Pipe({name: 'safeHtml'})
+@Pipe({ name: 'safeHtml' })
 class SafeHtmlPipe implements PipeTransform {
   transform(value) {
     return value;
@@ -48,13 +48,13 @@ describe('OkrToolbarBareComponent', () => {
       declarations: [
         OkrToolbarBareComponent,
         TranslatePipe, PhoneNumberPipe, SafeHtmlPipe,
-        OneviewPermittedDirective, DialogComponent
+        OneviewPermittedDirective, DialogComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} }
-      ]
+        { provide: MatDialogRef, useValue: {} },
+      ],
     }).overrideComponent(OkrToolbarBareComponent, {}).compileComponents();
     fixture = TestBed.createComponent(OkrToolbarBareComponent);
     component = fixture.debugElement.componentInstance;

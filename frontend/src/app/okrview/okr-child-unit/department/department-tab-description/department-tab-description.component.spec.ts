@@ -17,24 +17,24 @@ describe('DepartmentTabDescription', () => {
   let component: DepartmentTabDescriptionComponent;
   let fixture: ComponentFixture<DepartmentTabDescriptionComponent>;
   const topicDescriptionMapperService: any = {
-    getTopicDescriptionById$: jest.fn()
+    getTopicDescriptionById$: jest.fn(),
   };
 
   const matDialog: any = {
-    open: jest.fn()
+    open: jest.fn(),
   };
 
   const dialogReference: any = {
-    afterClosed: jest.fn()
+    afterClosed: jest.fn(),
   };
 
   const okrTranslationHelperService: any = {
     getCurrentLanguage$: jest.fn(
       () => {
         return of('de');
-      }
-    )
-  }
+      },
+    ),
+  };
 
   let department: OkrDepartment;
   let topicDescription: OkrTopicDescription;
@@ -48,7 +48,7 @@ describe('DepartmentTabDescription', () => {
         { provide: TopicDescriptionMapper, useValue: topicDescriptionMapperService },
         { provide: MatDialog, useValue: matDialog },
         { provide: OkrTranslationHelperService, useValue: okrTranslationHelperService },
-      ]
+      ],
     })
       .compileComponents();
   }));
@@ -193,8 +193,8 @@ describe('DepartmentTabDescription', () => {
       .toHaveBeenCalledWith(DepartmentDescriptionEditFormComponent, {
         width: '600px', data: {
           departmentId: department.id,
-          okrTopicDescription: topicDescription
-        }
+          okrTopicDescription: topicDescription,
+        },
       });
   });
 

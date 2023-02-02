@@ -12,7 +12,7 @@ const cache: TrackByFunctionCache = Object.create(null);
 
 @Pipe({
   name: 'trackByProperty',
-  pure: true
+  pure: true,
 })
 export class TrackByPropertyPipe implements PipeTransform {
 

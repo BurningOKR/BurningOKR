@@ -11,9 +11,11 @@ export class AuthenticationService {
   authTypeHandler: Promise<AuthTypeHandlerBase>;
   path: string;
 
-  constructor(protected oAuthService: OAuthService,
-              private oAuthDetails: OAuthFrontendDetailsService,
-              private authTypeHandlerFactoryService: AuthTypeHandlerFactoryService) {
+  constructor(
+    protected oAuthService: OAuthService,
+    private oAuthDetails: OAuthFrontendDetailsService,
+    private authTypeHandlerFactoryService: AuthTypeHandlerFactoryService,
+  ) {
 
     this.authTypeHandler = this.authTypeHandlerFactoryService.getAuthTypeHandler();
 

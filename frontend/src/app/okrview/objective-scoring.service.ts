@@ -9,7 +9,7 @@ export enum ObjectiveScore {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ObjectiveScoringService {
 

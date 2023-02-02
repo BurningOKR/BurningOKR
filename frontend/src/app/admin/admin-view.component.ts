@@ -60,8 +60,8 @@ export class AdminViewComponent implements OnInit {
     this.newAdminForm.setIsDisabled(false);
     this.newAdminForm.setFormText('');
     this.adminUsers$.pipe(
-        take(1),
-      )
+      take(1),
+    )
       .subscribe(users => {
         users.push(newAdmin);
         this.adminUsers$.next(users);
@@ -71,18 +71,23 @@ export class AdminViewComponent implements OnInit {
 
   onDeleteAdminButtonClicked(adminToDelete: User): void {
     const title: string = this.translate.instant('admin-view.delete-dialog.title');
-    const message: string = this.translate.instant('admin-view.delete-dialog.message',
-      { surname: adminToDelete.surname, name: adminToDelete.givenName });
+    const message: string = this.translate.instant(
+      'admin-view.delete-dialog.message',
+      { surname: adminToDelete.surname, name: adminToDelete.givenName },
+    );
     const confirmButtonText: string = this.translate.instant('admin-view.delete-dialog.button-text');
     const data: ConfirmationDialogData = {
       title,
       message,
       confirmButtonText,
     };
-    const dialogReference: MatDialogRef<ConfirmationDialogComponent, object> = this.matDialog.open(ConfirmationDialogComponent, {
-      width: '600px',
-      data,
-    });
+    const dialogReference: MatDialogRef<ConfirmationDialogComponent, object> = this.matDialog.open(
+      ConfirmationDialogComponent,
+      {
+        width: '600px',
+        data,
+      },
+    );
     dialogReference
       .afterClosed()
       .pipe(take(1))
@@ -104,8 +109,8 @@ export class AdminViewComponent implements OnInit {
 
   onAdminDeleted(deletedAdmin: User): void {
     this.adminUsers$.pipe(
-        take(1),
-      )
+      take(1),
+    )
       .subscribe(users => {
         const usersWithoutDeleted: User[] = users.Where(user => user.id !== deletedAdmin.id);
         this.adminUsers$.next(usersWithoutDeleted);

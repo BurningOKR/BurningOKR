@@ -53,6 +53,7 @@ import { ConvertTopicDraftTreeComponent } from './convert-topic-draft-to-team/co
     MatCardModule,
     MatInputModule,
   ],
-  exports: [TopicDraftsComponent]
+  exports: [TopicDraftsComponent],
 })
-export class TopicDraftsModule { }
+export class TopicDraftsModule {
+}

@@ -10,7 +10,8 @@ export class Structure extends OkrUnit {
     name: string,
     label: string,
     objectives: ObjectiveId[],
-    substructures: Structure[]) {
+    substructures: Structure[],
+  ) {
     super(id, name, label, objectives);
     this.substructures = substructures;
   }

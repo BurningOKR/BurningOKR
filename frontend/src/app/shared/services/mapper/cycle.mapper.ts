@@ -8,7 +8,7 @@ import { CompanyId, CycleId } from '../../model/id-types';
 import { CycleDto } from '../../model/api/cycle.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CycleMapper {
 
@@ -39,9 +39,9 @@ export class CycleMapper {
   getAllCycles$(): Observable<CycleUnit[]> {
     return this.cycleService.getAllCycles$()
       .pipe(map((cycles: CycleDto[]) => {
-      return cycles.map(this.mapCycleToCycleUnit)
-        .sort((a: CycleUnit, b: CycleUnit) => a.name < b.name ? -1 : (a.name === b.name ? 0 : 1));
-    }));
+        return cycles.map(this.mapCycleToCycleUnit)
+          .sort((a: CycleUnit, b: CycleUnit) => a.name < b.name ? -1 : (a.name === b.name ? 0 : 1));
+      }));
   }
 
   postCycle$(cycleUnit: CycleUnit): Observable<CycleUnit> {
@@ -51,13 +51,14 @@ export class CycleMapper {
 
   putCycle$(cycleUnit: CycleUnit): Observable<CycleUnit> {
     return this.cycleService.putCycleById$(this.mapCycleUnitToCycle(cycleUnit))
-      .pipe(map(this.mapCycleToCycleUnit),
-      tap((cycle: CycleUnit) => {
-        this.cycles[cycle.id] = new ReplaySubject<CycleUnit>(1);
-        this.cycles[cycle.id].next(cycle);
-        this.cycles[cycle.id].complete();
-      })
-    );
+      .pipe(
+        map(this.mapCycleToCycleUnit),
+        tap((cycle: CycleUnit) => {
+          this.cycles[cycle.id] = new ReplaySubject<CycleUnit>(1);
+          this.cycles[cycle.id].next(cycle);
+          this.cycles[cycle.id].complete();
+        }),
+      );
   }
 
   cloneCycleFromCycleId$(formerCycleId: number, cycleUnit: CycleUnit): Observable<CycleUnit> {
@@ -81,7 +82,11 @@ export class CycleMapper {
   }
 
   mapCycleToCycleUnit(cycle: CycleDto): CycleUnit {
-    const startDate: Date = new Date(cycle.plannedStartDate[0], cycle.plannedStartDate[1] - 1, cycle.plannedStartDate[2]);
+    const startDate: Date = new Date(
+      cycle.plannedStartDate[0],
+      cycle.plannedStartDate[1] - 1,
+      cycle.plannedStartDate[2],
+    );
     const endDate: Date = new Date(cycle.plannedEndDate[0], cycle.plannedEndDate[1] - 1, cycle.plannedEndDate[2]);
 
     return new CycleUnit(
@@ -91,17 +96,17 @@ export class CycleMapper {
       startDate,
       endDate,
       cycle.cycleState,
-      cycle.isVisible
+      cycle.isVisible,
     );
   }
 
   mapCycleUnitToCycle(cycleUnit: CycleUnit): CycleDto {
     const startDate: number[] = [Number(cycleUnit.startDate.getFullYear()),
-                                 Number(cycleUnit.startDate.getMonth()) + 1,
-                                 Number(cycleUnit.startDate.getDate())];
+      Number(cycleUnit.startDate.getMonth()) + 1,
+      Number(cycleUnit.startDate.getDate())];
     const endDate: number[] = [Number(cycleUnit.endDate.getFullYear()),
-                               Number(cycleUnit.endDate.getMonth()) + 1,
-                               Number(cycleUnit.endDate.getDate())];
+      Number(cycleUnit.endDate.getMonth()) + 1,
+      Number(cycleUnit.endDate.getDate())];
 
     return {
       plannedStartDate: startDate,
@@ -110,7 +115,7 @@ export class CycleMapper {
       name: cycleUnit.name,
       companyIds: cycleUnit.companyIds,
       cycleState: cycleUnit.cycleState,
-      isVisible: cycleUnit.isVisible
+      isVisible: cycleUnit.isVisible,
     };
   }
 }

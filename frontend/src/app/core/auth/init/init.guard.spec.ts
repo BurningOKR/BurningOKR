@@ -5,10 +5,10 @@ import { of } from 'rxjs';
 import { InitGuard } from './init.guard';
 
 const routerMock: any = {
-  createUrlTree: jest.fn()
+  createUrlTree: jest.fn(),
 };
 const initServiceMock: any = {
-  isInitialized$: jest.fn()
+  isInitialized$: jest.fn(),
 };
 
 describe('InitGuard', () => {
@@ -17,9 +17,9 @@ describe('InitGuard', () => {
       declarations: [],
       providers: [
         InitGuard,
-        {provide: InitService, useValue: initServiceMock},
-        {provide: Router, useValue: routerMock}
-      ]
+        { provide: InitService, useValue: initServiceMock },
+        { provide: Router, useValue: routerMock },
+      ],
     });
   });
 
@@ -33,9 +33,9 @@ describe('InitGuard', () => {
 
     const returnValue: any = guard.canActivate(null, null);
     returnValue.subscribe(() => {
-        expect(routerMock.createUrlTree)
-          .toHaveBeenCalled();
-      });
+      expect(routerMock.createUrlTree)
+        .toHaveBeenCalled();
+    });
   }));
 
 });

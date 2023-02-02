@@ -1,3 +1,3 @@
 export interface TaskBoardObject {
-    copy(): any;
+  copy(): any;
 }

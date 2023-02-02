@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent {
 
@@ -15,20 +15,20 @@ export class ResetPasswordComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private passwordService: PasswordService
+    private passwordService: PasswordService,
   ) {
     this.passwordResetForm = this.generateLoginForm();
   }
 
   sendResetPasswordMail(): void {
-    const data: PasswordResetMailData = {email: this.passwordResetForm.get('email').value};
+    const data: PasswordResetMailData = { email: this.passwordResetForm.get('email').value };
 
     this.passwordService.sendPasswordResetEmail$(data)
       .pipe(take(1))
       .subscribe(
         () => {
-        this.emailHasBeenSentOut = true;
-      });
+          this.emailHasBeenSentOut = true;
+        });
   }
 
   private generateLoginForm(): FormGroup {

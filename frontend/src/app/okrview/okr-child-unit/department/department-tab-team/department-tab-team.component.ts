@@ -67,10 +67,13 @@ export class DepartmentTabTeamComponent implements OnInit, OnChanges {
       title,
       message,
     };
-    const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(ConfirmationDialogComponent, {
-      width: '600px',
-      data,
-    });
+    const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(
+      ConfirmationDialogComponent,
+      {
+        width: '600px',
+        data,
+      },
+    );
 
     dialogReference
       .afterClosed()
@@ -96,10 +99,13 @@ export class DepartmentTabTeamComponent implements OnInit, OnChanges {
       title,
       message,
     };
-    const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(ConfirmationDialogComponent, {
-      width: '600px',
-      data,
-    });
+    const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(
+      ConfirmationDialogComponent,
+      {
+        width: '600px',
+        data,
+      },
+    );
 
     dialogReference
       .afterClosed()
@@ -125,10 +131,13 @@ export class DepartmentTabTeamComponent implements OnInit, OnChanges {
       title,
       message,
     };
-    const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(ConfirmationDialogComponent, {
-      width: '600px',
-      data,
-    });
+    const dialogReference: MatDialogRef<ConfirmationDialogComponent, string> = this.matDialog.open(
+      ConfirmationDialogComponent,
+      {
+        width: '600px',
+        data,
+      },
+    );
 
     dialogReference
       .afterClosed()

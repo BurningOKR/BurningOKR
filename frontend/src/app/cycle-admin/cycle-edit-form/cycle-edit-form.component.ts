@@ -26,11 +26,13 @@ export class CycleEditFormComponent {
   cycleStateEnum = CycleState;
   cycleForm: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<CycleEditFormComponent>,
-              private cycleMapper: CycleMapper,
-              private companyMapper: CompanyMapper,
-              private dateMapper: DateMapper,
-              @Inject(MAT_DIALOG_DATA) private formData: CycleEditFormData) {
+  constructor(
+    private dialogRef: MatDialogRef<CycleEditFormComponent>,
+    private cycleMapper: CycleMapper,
+    private companyMapper: CompanyMapper,
+    private dateMapper: DateMapper,
+    @Inject(MAT_DIALOG_DATA) private formData: CycleEditFormData,
+  ) {
     this.loadCyclesWithHistoryCompanyInForm();
     this.generateCycleForm();
   }
@@ -65,11 +67,15 @@ export class CycleEditFormComponent {
     const isVisibilityOptionDisabled: boolean = this.isCycleActive();
     this.cycleForm = new FormGroup({
       name: new FormControl(cycle.name, [Validators.required, Validators.maxLength(255)]),
-      startDate: new FormControl({ value: cycle.startDate, disabled: isStartDateDisabled },
-        [DateFormValidator.Validate, DateNotInThePastValidator.Validate]), // ADD CUSTOM DATE VALIDATOR
-                                                                           // https://stackoverflow.com/questions/51633047/angular-material-date-validator-get-invalid-value
-      endDate: new FormControl({ value: cycle.endDate, disabled: isEndDateDisabled },
-        [DateFormValidator.Validate]),
+      startDate: new FormControl(
+        { value: cycle.startDate, disabled: isStartDateDisabled },
+        [DateFormValidator.Validate, DateNotInThePastValidator.Validate],
+      ), // ADD CUSTOM DATE VALIDATOR
+         // https://stackoverflow.com/questions/51633047/angular-material-date-validator-get-invalid-value
+      endDate: new FormControl(
+        { value: cycle.endDate, disabled: isEndDateDisabled },
+        [DateFormValidator.Validate],
+      ),
       isVisible: new FormControl({ value: cycle.isVisible, disabled: isVisibilityOptionDisabled }),
     }, [StartDateBeforeEndDateValidator.Validate,
       DateNotInRangeOfAnotherCycleValidator.Validate(cycles)]);

@@ -6,7 +6,7 @@ import { UserSettings } from '../../shared/model/ui/user-settings';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserSettingsMapper {
 
@@ -26,7 +26,8 @@ export class UserSettingsMapper {
 
   mapToUserSettings(userSettingsDto: UserSettingsApi): UserSettings {
     return new UserSettings(userSettingsDto.id, userSettingsDto.userId,
-      userSettingsDto.defaultCompanyId, userSettingsDto.defaultTeamId);
+      userSettingsDto.defaultCompanyId, userSettingsDto.defaultTeamId,
+    );
   }
 
   mapToUserSettingsApi(userSettings: UserSettings): UserSettingsApi {
@@ -34,7 +35,7 @@ export class UserSettingsMapper {
       id: userSettings.id,
       userId: userSettings.userId,
       defaultCompanyId: userSettings.defaultCompanyId,
-      defaultTeamId: userSettings.defaultTeamId
+      defaultTeamId: userSettings.defaultTeamId,
     };
   }
 }

@@ -1,8 +1,10 @@
 <app-okr-toolbar>
-  <button mat-icon-button class="toolbar-margin-icon" matTooltip="{{ 'cycle-admin-container.tooltip.go-back-to-company' | translate }}" (click)="routeToCompany()">
+  <button (click)="routeToCompany()" class="toolbar-margin-icon" mat-icon-button
+          matTooltip="{{ 'cycle-admin-container.tooltip.go-back-to-company' | translate }}">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <button (click)="navigateToCompanies()" matTooltip="{{ 'cycle-admin-container.tooltip.go-to-okr-unit-overview' | translate }}" class="navbar-item" mat-icon-button>
+  <button (click)="navigateToCompanies()" class="navbar-item" mat-icon-button
+          matTooltip="{{ 'cycle-admin-container.tooltip.go-to-okr-unit-overview' | translate }}">
     <mat-icon>home</mat-icon>
   </button>
   <span>{{ 'cycle-admin-container.administration' | translate }}</span>
@@ -10,8 +12,10 @@
 </app-okr-toolbar>
 <div class="margin-toolbar item-actions">
   <h1> {{ company.name }}</h1>
-  <app-add-button text="{{ 'cycle-admin-container.create-new-cycle' | translate }}" (buttonClicked)="createCycle()"></app-add-button>
+  <app-add-button (buttonClicked)="createCycle()"
+                  text="{{ 'cycle-admin-container.create-new-cycle' | translate }}"></app-add-button>
 </div>
 <div *ngFor="let cycle of (cycles$ | async)">
-  <app-cycle-admin-card (cycleChanged)="loadCycles()" [cycle]="cycle" [allCyclesOfCompany$]="cycles$"></app-cycle-admin-card>
+  <app-cycle-admin-card (cycleChanged)="loadCycles()" [allCyclesOfCompany$]="cycles$"
+                        [cycle]="cycle"></app-cycle-admin-card>
 </div>

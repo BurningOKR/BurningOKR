@@ -5,7 +5,7 @@ import { ViewKeyResult } from '../../model/ui/view-key-result';
 @Component({
   selector: 'app-milestone-slider-wrapper',
   templateUrl: './milestone-slider-wrapper.component.html',
-  styleUrls: ['./milestone-slider-wrapper.component.scss']
+  styleUrls: ['./milestone-slider-wrapper.component.scss'],
 })
 export class MilestoneSliderWrapperComponent implements AfterContentInit {
 
@@ -33,7 +33,7 @@ export class MilestoneSliderWrapperComponent implements AfterContentInit {
       ((milestone.value - this.keyResult.start) / (this.keyResult.end - this.keyResult.start))
       * this.width
       + this.MILESTONE_TICK_OFFSET
-      - this.MILESTONE_TICK_WIDTH / 2
+      - this.MILESTONE_TICK_WIDTH / 2,
     );
   }
 

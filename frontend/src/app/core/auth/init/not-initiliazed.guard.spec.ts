@@ -14,8 +14,8 @@ describe('NotInitiliazedGuard', () => {
       declarations: [],
       providers: [
         NotInitiliazedGuard,
-        {provide: InitService, useValue: InitServiceMock}
-        ]
+        { provide: InitService, useValue: InitServiceMock },
+      ],
     });
   });
 

@@ -14,10 +14,12 @@ export class AppComponent {
   userLoggedIn: boolean = this.authService.hasValidAccessToken();
   isPlayground: boolean = environment.playground;
 
-  constructor(private authService: AuthenticationService,
-              private fetchingService: FetchingService,
-              private router: Router,
-              private OkrTranslationHelper: OkrTranslationHelperService) {
+  constructor(
+    private authService: AuthenticationService,
+    private fetchingService: FetchingService,
+    private router: Router,
+    private OkrTranslationHelper: OkrTranslationHelperService,
+  ) {
     this.authService.configure()
       .then(() => {
         this.fetchingService.refetchAll();

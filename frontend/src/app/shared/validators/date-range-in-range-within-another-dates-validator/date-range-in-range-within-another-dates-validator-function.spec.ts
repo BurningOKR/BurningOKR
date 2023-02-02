@@ -16,34 +16,34 @@ describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
 
       const control: FormGroup = new FormGroup({
         startDate: new FormControl(notOverlappingStartDate),
-        endDate: new FormControl(notOverlappingEndDate)
+        endDate: new FormControl(notOverlappingEndDate),
       });
 
       const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
-        testCycles
+        testCycles,
       )
         .call(testCycles, control);
 
       expect(actual)
         .toBeUndefined();
-    }
+    },
   );
 
   it('should return undefined, if dates are not set', () => {
 
       const control: FormGroup = new FormGroup({
         startDate: new FormControl(),
-        endDate: new FormControl()
+        endDate: new FormControl(),
       });
 
       const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
-        testCycles
+        testCycles,
       )
         .call(testCycles, control);
 
       expect(actual)
         .toBeUndefined();
-    }
+    },
   );
 
   it('periodCollidesWithOther should return the object, if cycles overlap', () => {
@@ -52,17 +52,17 @@ describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
 
       const control: FormGroup = new FormGroup({
         startDate: new FormControl(overlappingStartDate),
-        endDate: new FormControl(overlappingEndDate)
+        endDate: new FormControl(overlappingEndDate),
       });
 
       const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
-        testCycles
+        testCycles,
       )
         .call(testCycles, control);
 
       expect(actual)
         .toEqual(dateRangeInRangewithinAnotherDatesError);
-    }
+    },
   );
 
   it('periodCollidesWithOther should return the object, if cycles overlap 2', () => {
@@ -75,16 +75,16 @@ describe('dateRangeInRangeWithinAnotherDatesValidatorFunction', () => {
 
       const control: FormGroup = new FormGroup({
         startDate: new FormControl(overlappingStartDate),
-        endDate: new FormControl(overlappingEndDate)
+        endDate: new FormControl(overlappingEndDate),
       });
 
       const actual: ValidationErrors = DateNotInRangeOfAnotherCycleValidator.Validate(
-        testCycles
+        testCycles,
       )
         .call(testCycles, control);
       expect(actual)
         .toEqual(dateRangeInRangewithinAnotherDatesError);
-    }
+    },
   );
 
 });

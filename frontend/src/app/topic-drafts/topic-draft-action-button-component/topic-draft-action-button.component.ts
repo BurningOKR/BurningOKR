@@ -53,13 +53,15 @@ export class TopicDraftActionButtonComponent implements OnInit {
   notAdminToolTip$: Observable<string>;
   notApprovedToolTip$: Observable<string>;
 
-  constructor(private topicDraftMapper: TopicDraftMapper,
-              private topicDraftPermissionService: TopicDraftPermissionService,
-              private translate: TranslateService,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar,
-              private router: Router,
-              private topicDraftStatusService: TopicDraftStatusService) {
+  constructor(
+    private topicDraftMapper: TopicDraftMapper,
+    private topicDraftPermissionService: TopicDraftPermissionService,
+    private translate: TranslateService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private topicDraftStatusService: TopicDraftStatusService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -93,7 +95,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   clickedDeleteTopicDraft(): void {
     const dialogData: ConfirmationDialogData = {
       title: this.translate.instant('topic-draft-action-button.delete.title'),
-      message: this.translate.instant('topic-draft-action-button.delete.message', {name: this.topicDraft.name}),
+      message: this.translate.instant('topic-draft-action-button.delete.message', { name: this.topicDraft.name }),
       confirmButtonText: this.translate.instant('topic-draft-action-button.delete.button-text'),
     };
 
@@ -260,7 +262,8 @@ export class TopicDraftActionButtonComponent implements OnInit {
     this.editTooltipStatusAndUser$ = this.translate.stream('topic-draft-action-button.edit-tooltip.status-and-user');
     this.stateMustBeSubmittedTooltip$ = this.translate.stream('topic-draft-action-button.state-submitted-tooltip');
     this.userRoleToChangeStatus$ = this.translate.stream('topic-draft-action-button.no-permission');
-    this.changeCurrentStatusByStatusAndUser$ = this.translate.stream('topic-draft-action-button.approving-status-and-user');
+    this.changeCurrentStatusByStatusAndUser$ = this.translate.stream(
+      'topic-draft-action-button.approving-status-and-user');
     this.approveTopicDraftText$ = this.translate.stream('topic-draft-action-button.capitalised-approve');
     this.withDrawApprovalTopicDraftText$ = this.translate.stream('topic-draft-action-button.withdraw-approval');
     this.rejectTopicDraftText$ = this.translate.stream('topic-draft-action-button.capitalized-reject');

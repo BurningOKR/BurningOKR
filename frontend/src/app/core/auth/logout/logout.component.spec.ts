@@ -19,7 +19,7 @@ describe('LogoutComponent', () => {
     navigate: jest.fn(),
   };
   const oAuthDetailsMock: any = {
-    getAuthType$: jest.fn()
+    getAuthType$: jest.fn(),
   };
 
   beforeEach(() => {
@@ -30,15 +30,15 @@ describe('LogoutComponent', () => {
     TestBed.configureTestingModule({
       declarations: [LogoutComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      imports: [ MaterialTestingModule ],
+      imports: [MaterialTestingModule],
       providers: [
-        {provide: OAuthService, useValue: oAuthServiceMock},
-        {provide: Router, useValue: routerMock},
+        { provide: OAuthService, useValue: oAuthServiceMock },
+        { provide: Router, useValue: routerMock },
         {
           provide: OAuthFrontendDetailsService,
-          useValue: oAuthDetailsMock
+          useValue: oAuthDetailsMock,
         },
-      ]
+      ],
     })
       .compileComponents();
 

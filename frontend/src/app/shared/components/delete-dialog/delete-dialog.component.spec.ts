@@ -28,13 +28,13 @@ describe('DeleteDialogComponent', () => {
         MaterialTestingModule,
       ],
       declarations: [
-        DeleteDialogComponent
+        DeleteDialogComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        {provide: MatDialogRef, useValue: {}},
-        {provide: MAT_DIALOG_DATA, useValue: {}},
-      ]
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ],
     })
       .overrideComponent(DeleteDialogComponent, {})
       .compileComponents();
@@ -56,7 +56,7 @@ describe('DeleteDialogComponent', () => {
     component.dialogRef.close = jest.fn();
     component.confirmDelete();
     expect(component.dialogRef.close)
-        .toHaveBeenCalled();
+      .toHaveBeenCalled();
   });
 
   it('should run #closeDialog()', () => {
@@ -64,6 +64,6 @@ describe('DeleteDialogComponent', () => {
     component.dialogRef.close = jest.fn();
     component.closeDialog();
     expect(component.dialogRef.close)
-        .toHaveBeenCalled();
+      .toHaveBeenCalled();
   });
 });

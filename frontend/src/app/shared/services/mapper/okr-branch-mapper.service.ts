@@ -8,7 +8,7 @@ import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 import { OkrUnitId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OkrBranchMapper {
 
@@ -24,7 +24,7 @@ export class OkrBranchMapper {
       dto.parentUnitId,
       dto.okrChildUnitIds,
       dto.isActive,
-      dto.isParentUnitABranch
+      dto.isParentUnitABranch,
     );
   }
 
@@ -48,7 +48,7 @@ export class OkrBranchMapper {
     return this.okrBranchApiService
       .createForCompany$(companyId, OkrBranchMapper.mapToOkrBranchDto(okrBranch))
       .pipe(
-        map((dto: OkrBranchDto) => OkrBranchMapper.mapToOkrBranch(dto))
+        map((dto: OkrBranchDto) => OkrBranchMapper.mapToOkrBranch(dto)),
       );
   }
 
@@ -58,7 +58,7 @@ export class OkrBranchMapper {
       .createForOkrBranch$(
         okrUnitId, OkrBranchMapper.mapToOkrBranchDto(okrBranch))
       .pipe(
-        map((dto: OkrBranchDto) => OkrBranchMapper.mapToOkrBranch(dto))
+        map((dto: OkrBranchDto) => OkrBranchMapper.mapToOkrBranch(dto)),
       );
   }
 }

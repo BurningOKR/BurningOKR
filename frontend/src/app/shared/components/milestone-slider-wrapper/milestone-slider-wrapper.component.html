@@ -1,6 +1,7 @@
 <div #wrapper>
-  <div *ngFor="let milestone of keyResult.viewKeyResultMilestones" [style.left]="getMilestoneLeftPxValue(milestone) + 'px'" [matTooltip]="milestone.name" [class.milestone-reached]="milestone.value <= keyResult.current" class="milestone">
-  </div>
+  <div *ngFor="let milestone of keyResult.viewKeyResultMilestones"
+       [class.milestone-reached]="milestone.value <= keyResult.current" [matTooltip]="milestone.name"
+       [style.left]="getMilestoneLeftPxValue(milestone) + 'px'" class="milestone"></div>
   <ng-content></ng-content>
 </div>
 

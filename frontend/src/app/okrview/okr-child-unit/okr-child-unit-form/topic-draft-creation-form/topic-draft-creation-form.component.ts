@@ -24,11 +24,12 @@ export class TopicDraftCreationFormComponent implements OnInit {
   topicDraftForm: FormGroup;
   title: string;
 
-  constructor(private topicDraftMapper: TopicDraftMapper,
-              private dialogRef: MatDialogRef<TopicDraftCreationFormComponent>,
-              private translate: TranslateService,
-              private currentUserService: CurrentUserService,
-              @Inject(MAT_DIALOG_DATA) private formData: TopicDraftCreationFormData,
+  constructor(
+    private topicDraftMapper: TopicDraftMapper,
+    private dialogRef: MatDialogRef<TopicDraftCreationFormComponent>,
+    private translate: TranslateService,
+    private currentUserService: CurrentUserService,
+    @Inject(MAT_DIALOG_DATA) private formData: TopicDraftCreationFormData,
   ) {
   }
 

@@ -8,7 +8,7 @@ describe('ConvertTopicDraftToTeamService', () => {
   let selectedUnit$: ReplaySubject<Structure>;
 
   const topicDraftApiServiceMock: any = {
-    convertTopicDraftToTeam$: convertTopicDraftToDepartmentMock$
+    convertTopicDraftToTeam$: convertTopicDraftToDepartmentMock$,
   };
 
   const mockStructure1: Structure = getMockStructure(1, 'MockStructure1', 'MockLabel1');
@@ -38,15 +38,15 @@ describe('ConvertTopicDraftToTeamService', () => {
     selectedUnit$.next(mockStructure1);
     convertTopicDraftToTeamService.convertTopicDraftToTeam$(3)
       .subscribe(actual => {
-      expect(actual.id).toBe(1);
-      expect(actual.parentUnitId).toBe(1);
-      expect(actual.name).toBe('Department of 3');
-      done();
-    });
+        expect(actual.id).toBe(1);
+        expect(actual.parentUnitId).toBe(1);
+        expect(actual.name).toBe('Department of 3');
+        done();
+      });
   });
 
   function convertTopicDraftToDepartmentMock$(topicDraftId: number, okrUnitId: number): Observable<OkrDepartment> {
-    return of(new OkrDepartment(1, `Department of ${topicDraftId}`, [], okrUnitId, 'Team', '', '', [], true,  true));
+    return of(new OkrDepartment(1, `Department of ${topicDraftId}`, [], okrUnitId, 'Team', '', '', [], true, true));
   }
 
   function getMockStructure(id: number, name: string, label: string): Structure {

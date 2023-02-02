@@ -22,31 +22,54 @@ describe('ObjectiveContentsComponent', () => {
     getObjectiveByIdMock.mockReset();
 
     TestBed.configureTestingModule({
-      imports: [ FormsModule, ReactiveFormsModule, MatDialogModule, MaterialTestingModule ],
+      imports: [FormsModule, ReactiveFormsModule, MatDialogModule, MaterialTestingModule],
       declarations: [
         ObjectiveContentsComponent,
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         {
           provide: ObjectiveViewMapper,
           useValue: {
-            getObjectiveById$: getObjectiveByIdMock
-          }
+            getObjectiveById$: getObjectiveByIdMock,
+          },
         },
-        { provide: KeyResultMapper, useValue: { } },
+        { provide: KeyResultMapper, useValue: {} },
         MatDialog,
-        { provide: ConfigurationManagerService, useValue: { } }
-      ]
+        { provide: ConfigurationManagerService, useValue: {} },
+      ],
     })
-      .overrideComponent(ObjectiveContentsComponent, {
-    })
+      .overrideComponent(ObjectiveContentsComponent, {})
       .compileComponents();
     fixture = TestBed.createComponent(ObjectiveContentsComponent);
     component = fixture.debugElement.componentInstance;
     component.subscription = new Subscription();
-    component.keyResultList = [new ViewKeyResult(1,  1, 1, 1, Unit.PERCENT, 'test title', ' test description', null, [], [])];
-    component.objective = new ViewObjective(1, 'testName', 'testDescription', 'testRemark', 0, [], true, 0, 0, '', 0, undefined);
+    component.keyResultList = [new ViewKeyResult(
+      1,
+      1,
+      1,
+      1,
+      Unit.PERCENT,
+      'test title',
+      ' test description',
+      null,
+      [],
+      [],
+    )];
+    component.objective = new ViewObjective(
+      1,
+      'testName',
+      'testDescription',
+      'testRemark',
+      0,
+      [],
+      true,
+      0,
+      0,
+      '',
+      0,
+      undefined,
+    );
   });
 
   afterEach(() => {
@@ -54,11 +77,11 @@ describe('ObjectiveContentsComponent', () => {
   });
 
   it('should run #constructor()', () => {
-     expect(component)
-       .toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 
-  it('should run refreshParentObjective()',  () => {
+  it('should run refreshParentObjective()', () => {
     getObjectiveByIdMock.mockReturnValue(of({}));
     component.objective.hasParentObjective = jest.fn()
       .mockReturnValue(true);
@@ -71,7 +94,7 @@ describe('ObjectiveContentsComponent', () => {
       .toHaveBeenCalled();
   });
 
-  it('should set objective.parentObjective to null, if objective.parentObjectiveId is falsy',  () => {
+  it('should set objective.parentObjective to null, if objective.parentObjectiveId is falsy', () => {
     component.objective.parentObjectiveId = null;
 
     component.refreshParentObjective();
@@ -83,7 +106,7 @@ describe('ObjectiveContentsComponent', () => {
   });
 
   it('should set objective.parentObjective to ViewObjective with equal'
-  + ' id to objective.parentObjectiveId, if objective.parentObjectiveId is truthy',  () => {
+    + ' id to objective.parentObjectiveId, if objective.parentObjectiveId is truthy', () => {
     const expectedParentObjective: ViewObjective = new ViewObjective(
       5,
       'testName',
@@ -96,7 +119,7 @@ describe('ObjectiveContentsComponent', () => {
       0,
       '',
       0,
-      undefined
+      undefined,
     );
     component.objective.parentObjectiveId = 5;
 
@@ -114,7 +137,8 @@ describe('ObjectiveContentsComponent', () => {
       .toEqual(expectedParentObjective);
   });
 
-  it('should add new keyresult to bottom of the keyresultlist',
+  it(
+    'should add new keyresult to bottom of the keyresultlist',
     () => {
       const newKeyResult: ViewKeyResult = new ViewKeyResult(
         1,
@@ -126,12 +150,13 @@ describe('ObjectiveContentsComponent', () => {
         'Test Description',
         null,
         [],
-        []
+        [],
       );
       component.onKeyResultAdded(newKeyResult);
 
       expect(component.keyResultList.pop()).toEqual(newKeyResult);
       expect(component.objective.keyResultIdList.pop()).toEqual(newKeyResult.id);
-    });
+    },
+  );
 
 });

@@ -10,7 +10,7 @@ import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 @Component({
   selector: 'app-okr-unit-dashboard',
   templateUrl: './okr-unit-dashboard.component.html',
-  styleUrls: ['./okr-unit-dashboard.component.scss']
+  styleUrls: ['./okr-unit-dashboard.component.scss'],
 })
 export class OkrUnitDashboardComponent implements OnInit {
   companies$: Observable<CompanyUnit[]>;
@@ -19,7 +19,7 @@ export class OkrUnitDashboardComponent implements OnInit {
   constructor(
     private currentUserService: CurrentUserService,
     private companyFormDialog: MatDialog,
-    private companyMapperService: CompanyMapper
+    private companyMapperService: CompanyMapper,
   ) {
   }
 
@@ -30,14 +30,15 @@ export class OkrUnitDashboardComponent implements OnInit {
 
   addCompany(): void {
     const dialogRef: MatDialogRef<OkrUnitFormComponent, any> = this.companyFormDialog.open(OkrUnitFormComponent, {
-      data: {}
+      data: {},
     });
 
     dialogRef.afterClosed()
       .pipe(
         take(1),
         filter(v => v),
-        switchMap(v => v))
+        switchMap(v => v),
+      )
       .subscribe(() => {
         this.updateCompanies();
       });

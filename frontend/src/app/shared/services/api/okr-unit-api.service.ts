@@ -12,11 +12,12 @@ import { OkrUnitId } from '../../model/id-types';
 import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OkrUnitApiService {
 
-  constructor(private http: ApiHttpService) { }
+  constructor(private http: ApiHttpService) {
+  }
 
   getOkrChildUnitById$(unitId: OkrUnitId, handleErrors?: boolean): Observable<OkrChildUnitDto> {
     const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
@@ -29,11 +30,15 @@ export class OkrUnitApiService {
           } else if (value.__okrUnitType === 'OKR_BRANCH') {
             return plainToClass(OkrBranchDto, value);
           }
-        })
+        }),
       );
   }
 
-  putOkrChildUnit$(okrUnitId: OkrUnitId, okrChildUnit: OkrChildUnitDto, handleErrors?: boolean): Observable<OkrChildUnitDto> {
+  putOkrChildUnit$(
+    okrUnitId: OkrUnitId,
+    okrChildUnit: OkrChildUnitDto,
+    handleErrors?: boolean,
+  ): Observable<OkrChildUnitDto> {
     const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
 
     return this.http.putData$<OkrChildUnitDto>(`units/${okrUnitId}`, okrChildUnit, errorHandlingFunction)
@@ -44,7 +49,7 @@ export class OkrUnitApiService {
           } else if (value.__okrUnitType === 'OKR_BRANCH') {
             return plainToClass(OkrBranchDto, value);
           }
-        })
+        }),
       );
   }
 
@@ -66,7 +71,11 @@ export class OkrUnitApiService {
     return this.http.getData$(`units/${okrUnitId}/company`, errorHandlingFunction);
   }
 
-  putOkrUnitObjectiveSequence$(departmentId: number, sequenceList: number[], handleErrors?: boolean): Observable<number[]> {
+  putOkrUnitObjectiveSequence$(
+    departmentId: number,
+    sequenceList: number[],
+    handleErrors?: boolean,
+  ): Observable<number[]> {
     const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
 
     return this.http.putData$(`units/${departmentId}/objectivesequence`, sequenceList, errorHandlingFunction);

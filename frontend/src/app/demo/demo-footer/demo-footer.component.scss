@@ -3,10 +3,10 @@
 
 .footer-container {
   background-color: map-get($md-primary, 500);
-  overflow-x:hidden;
+  overflow-x: hidden;
   z-index: 10;
   color: $bag-theme-white;
-  bottom:0;
+  bottom: 0;
   width: 100%;
 
   font-size: small;
@@ -32,11 +32,10 @@
 }
 
 
-
 a {
   text-decoration: none;
 }
 
-a, a:visited{
+a, a:visited {
   color: $bag-theme-white;
 }

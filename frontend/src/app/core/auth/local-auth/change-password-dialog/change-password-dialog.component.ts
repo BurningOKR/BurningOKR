@@ -26,12 +26,14 @@ export class ChangePasswordDialogComponent implements OnInit {
   newPasswordForm: FormGroupTyped<NewPasswordForm>;
   title: string;
 
-  constructor(private dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
-              private formBuilder: FormBuilder,
-              private passwordService: PasswordService,
-              private currentUserService: CurrentUserService,
-              private logger: NGXLogger,
-              private translate: TranslateService) {
+  constructor(
+    private dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
+    private formBuilder: FormBuilder,
+    private passwordService: PasswordService,
+    private currentUserService: CurrentUserService,
+    private logger: NGXLogger,
+    private translate: TranslateService,
+  ) {
   }
 
   ngOnInit(): void {

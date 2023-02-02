@@ -25,7 +25,7 @@ import { ObjectiveFormComponent } from './objective-form/objective-form.componen
   templateUrl: './objective.component.html',
   styleUrls: ['./objective.component.scss'],
 })
-export class ObjectiveComponent implements OnInit{
+export class ObjectiveComponent implements OnInit {
   @Input() objective: ViewObjective;
   @Input() objectiveList: ViewObjective[];
   @Input() listNumber: number;
@@ -52,7 +52,7 @@ export class ObjectiveComponent implements OnInit{
   ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.objectiveMapper
       .getChildObjectivesOfObjectiveById$(this.objective.id)
       .pipe(take(1))
@@ -124,8 +124,10 @@ export class ObjectiveComponent implements OnInit{
 
   clickedDeleteObjective(): void {
     const title: string = this.translate.instant('objective.deletion-dialog.title');
-    const message: string = this.translate.instant('objective.deletion-dialog.message',
-      { number: this.listNumber, objectiveTitle: this.objective.name });
+    const message: string = this.translate.instant(
+      'objective.deletion-dialog.message',
+      { number: this.listNumber, objectiveTitle: this.objective.name },
+    );
     const confirmButtonText: string = this.translate.instant('objective.deletion-dialog.button-text');
 
     const dialogData: ConfirmationDialogData = {
