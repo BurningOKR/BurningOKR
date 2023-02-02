@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import { AdminViewComponent } from './admin/admin-view.component';
 import { LandingPageNavigationComponent } from './core/landing-page-router/landing-page-navigation.component';
 import { AdminRoleGuard } from './admin/admin-role-guard';
@@ -14,12 +15,11 @@ import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topi
 import { environment } from '../environments/environment';
 
 const routes: Routes = [
-  {path: 'demo', loadChildren: async () => import('./demo/demo.module')
+  {path: 'demo', loadChildren: () => import('./demo/demo.module')
       .then(mod => mod.DemoModule)
   },
   {
-    path: 'okr', loadChildren: async () => import('./okrview/okrview.module')
-      .then(mod => mod.OkrviewModule),
+    path: 'okr', loadChildren: () => import('./okrview/okrview.module').then(mod => mod.OkrviewModule),
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
   { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
@@ -36,8 +36,7 @@ const routes: Routes = [
     canActivate: [NotInitiliazedGuard, AuthGuard]
   },
   {
-    path: 'auth', loadChildren: async () => import('./core/auth/auth.module')
-      .then(mod => mod.AuthModule)
+    path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(mod => mod.AuthModule)
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },

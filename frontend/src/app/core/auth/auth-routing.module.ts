@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 import {TranslateModule} from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,11 +8,11 @@ import { LocalGuard } from './guards/local.guard';
 const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   {
-    path: 'init', loadChildren: async () => import('./init/init.module')
+    path: 'init', loadChildren: () => import('./init/init.module')
       .then(mod => mod.InitModule)
   },
   {
-    path: '', loadChildren: async () => import('./local-auth/local-auth.module')
+    path: '', loadChildren: () => import('./local-auth/local-auth.module')
       .then(mod => mod.LocalAuthModule),
     canActivate: [LocalGuard]
   },

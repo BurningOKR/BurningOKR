@@ -1,29 +1,29 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { RxStompService } from '@stomp/ng2-stompjs';
-import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
-import { TaskFormComponent, TaskFormData } from '../department-tab-task-form/department-tab-task-form.component';
-import { OkrChildUnit } from '../../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { ContextRole } from '../../../../shared/model/ui/context-role';
-import { CycleUnit } from '../../../../shared/model/ui/cycle-unit';
-import { ViewTaskBoardEvent } from '../../../../shared/model/events/view-taskboard-event';
-import { TaskMapperService } from '../../../../shared/services/mapper/task.mapper';
-import { TaskStateMapper } from '../../../../shared/services/mapper/task-state.mapper';
-import { TaskBoardGeneralHelper } from '../../../../shared/services/helper/task-board/task-board-general-helper';
-import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
-import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
-import { OkrUnitId } from '../../../../shared/model/id-types';
-import { TaskDto } from '../../../../shared/model/api/task.dto';
-import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
-import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {RxStompService} from '@stomp/ng2-stompjs';
+import {BehaviorSubject, forkJoin, Observable, Subscription} from 'rxjs';
+import {filter, map, take, tap} from 'rxjs/operators';
+import {TaskFormComponent, TaskFormData} from '../department-tab-task-form/department-tab-task-form.component';
+import {OkrChildUnit} from '../../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import {ContextRole} from '../../../../shared/model/ui/context-role';
+import {CycleUnit} from '../../../../shared/model/ui/cycle-unit';
+import {ViewTaskBoardEvent} from '../../../../shared/model/events/view-taskboard-event';
+import {TaskMapperService} from '../../../../shared/services/mapper/task.mapper';
+import {TaskStateMapper} from '../../../../shared/services/mapper/task-state.mapper';
+import {TaskBoardGeneralHelper} from '../../../../shared/services/helper/task-board/task-board-general-helper';
+import {TaskBoardViewEventService} from '../../../taskboard-services/task-board-view-event.service';
+import {KeyResultMapper} from '../../../../shared/services/mapper/key-result.mapper';
+import {OkrUnitId} from '../../../../shared/model/id-types';
+import {TaskDto} from '../../../../shared/model/api/task.dto';
+import {ViewTask} from '../../../../shared/model/ui/taskboard/view-task';
+import {ViewTaskState} from '../../../../shared/model/ui/taskboard/view-task-state';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { RxStompState } from '@stomp/rx-stomp';
-import { TranslateService } from '@ngx-translate/core';
+import {RxStompState} from '@stomp/rx-stomp';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-tab-taskboard',
@@ -61,7 +61,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
 
   ngOnInit(): void {
     this.eventSubscriptions.push(
-      this.stompService.webSocketErrors$.subscribe(tmp => {
+      this.stompService.webSocketErrors$.subscribe(() => {
         if (!this.tryingToReconnect) {
           this.tryingToReconnect = true;
           this.isInteractive = false;
@@ -166,9 +166,8 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
         .pipe(
           map(taskDtosMessage => {
             const newAndUpdatedTasksDtos: TaskDto[] = JSON.parse(taskDtosMessage.body);
-            const newAndUpdatedTasks: ViewTask[] = newAndUpdatedTasksDtos.map(this.taskMapperService.mapToViewTask);
 
-            return newAndUpdatedTasks;
+            return newAndUpdatedTasksDtos.map(this.taskMapperService.mapToViewTask);
           })
         )
         .subscribe(newAndUpdatedTasks => {
@@ -182,9 +181,8 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
         .pipe(
           map(taskDtosMessage => {
             const deletedTasksDto: TaskDto = JSON.parse(taskDtosMessage.body);
-            const deletedTask: ViewTask = this.taskMapperService.mapToViewTask(deletedTasksDto);
 
-            return deletedTask;
+            return this.taskMapperService.mapToViewTask(deletedTasksDto);
           })
         )
         .subscribe(task => {
@@ -195,17 +193,21 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   }
 
   clearEventSubscriptions(): void {
-    for (const subscription of this.eventSubscriptions) {
-      subscription.unsubscribe();
-    }
+    this.unsubscribeSubscriptions(this.eventSubscriptions);
     this.eventSubscriptions = [];
   }
 
   clearWebsocketConnectionSubscriptions(): void {
-    for (const subscription of this.websocketSubcriptions) {
-      subscription.unsubscribe();
-    }
+    this.unsubscribeSubscriptions(this.websocketSubcriptions);
     this.websocketSubcriptions = [];
+  }
+
+  unsubscribeSubscriptions(subscriptions: Subscription[]): void {
+    for (const subscription of subscriptions) {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    }
   }
 
   viewToggleChanged(): void {
@@ -316,7 +318,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     return dialogReference
       .afterClosed()
       .pipe(
-        filter(v => v ? true : false)
+        filter(v => !!v)
       );
   }
 

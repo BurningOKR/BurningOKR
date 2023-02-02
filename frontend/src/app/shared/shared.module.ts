@@ -21,7 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog-component/dialog.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
-import { AvatarModule } from 'ngx-avatar';
+import { AvatarModule } from 'ngx-avatars';
 import { RouterModule } from '@angular/router';
 import { OkrToolbarBareComponent } from './components/okr-toolbar-bare/okr-toolbar-bare.component';
 import { OkrToolbarComponent } from './components/okr-toolbar/okr-toolbar.component';

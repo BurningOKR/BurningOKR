@@ -9,4 +9,3 @@ Jenkinsfile
 dist
 node_modules
 Dockerfile*
-package-lock.json

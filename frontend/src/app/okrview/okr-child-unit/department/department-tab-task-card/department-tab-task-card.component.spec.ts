@@ -20,7 +20,7 @@ describe('DepartmentTabTaskCardComponent', () => {
 
   @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'ngx-avatar',
+    selector: 'ngx-avatars',
     template: ''
   })
   class NgxAvatarMockComponent {
