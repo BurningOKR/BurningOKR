@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
@@ -12,6 +10,9 @@ import org.burningokr.model.okrUnits.OkrUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {

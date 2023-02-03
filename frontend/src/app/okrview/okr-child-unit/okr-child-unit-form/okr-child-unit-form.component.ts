@@ -21,7 +21,7 @@ interface OkrChildUnitFormData {
 @Component({
   selector: 'app-okr-child-unit-form',
   templateUrl: './okr-child-unit-form.component.html',
-  styleUrls: ['./okr-child-unit-form.component.scss']
+  styleUrls: ['./okr-child-unit-form.component.scss'],
 })
 export class OkrChildUnitFormComponent {
   okrChildUnit: OkrChildUnit;
@@ -29,15 +29,20 @@ export class OkrChildUnitFormComponent {
   title: string;
   unitType = UnitType;
 
-  constructor(private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
-              private okrUnitService: OkrUnitService,
-              private departmentMapper: DepartmentMapper,
-              private okrBranchMapper: OkrBranchMapper,
-              private translate: TranslateService,
-              @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData) {
+  constructor(
+    private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
+    private okrUnitService: OkrUnitService,
+    private departmentMapper: DepartmentMapper,
+    private okrBranchMapper: OkrBranchMapper,
+    private translate: TranslateService,
+    @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData,
+  ) {
     this.childUnitForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      label: new FormControl(this.getDefaultLabel(), [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
+      label: new FormControl(
+        this.getDefaultLabel(),
+        [Validators.required, Validators.minLength(1), Validators.maxLength(255)],
+      ),
       isActive: new FormControl(true),
       // unitType: new FormControl(UnitType.OKR_BRANCH)
     });
@@ -47,8 +52,14 @@ export class OkrChildUnitFormComponent {
       this.childUnitForm.patchValue(this.formData.childUnit);
     }
 
-    const saveText: string = this.translate.instant('okr-child-unit-form.dialog.edit', {label: this.getDefaultLabel()});
-    const createText: string = this.translate.instant('okr-child-unit-form.dialog.create', {label: this.getDefaultLabel()});
+    const saveText: string = this.translate.instant(
+      'okr-child-unit-form.dialog.edit',
+      { label: this.getDefaultLabel() },
+    );
+    const createText: string = this.translate.instant(
+      'okr-child-unit-form.dialog.create',
+      { label: this.getDefaultLabel() },
+    );
 
     this.title = this.formData.childUnit ? saveText : createText;
   }

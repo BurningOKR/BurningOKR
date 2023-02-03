@@ -6,7 +6,7 @@ import { ObjectiveId, OkrUnitId } from '../../model/id-types';
 import { ObjectiveDto } from '../../model/api/objective.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ObjectiveApiService {
   constructor(private api: ApiHttpService) {

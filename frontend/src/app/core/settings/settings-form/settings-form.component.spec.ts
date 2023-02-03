@@ -17,27 +17,27 @@ import { UserSettings } from '../../../shared/model/ui/user-settings';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const companyService: any = {
-  getActiveCompanies$: jest.fn()
+  getActiveCompanies$: jest.fn(),
 };
 
 const userSettingsManager: any = {
-  getUserSettings$: jest.fn()
+  getUserSettings$: jest.fn(),
 };
 
 const departmentService: any = {};
 
 const configurationManagerService: any = {
-  getAllConfigurations$: jest.fn()
+  getAllConfigurations$: jest.fn(),
 };
 
 const currentUserService: any = {
-  isCurrentUserAdmin$: jest.fn()
+  isCurrentUserAdmin$: jest.fn(),
 };
 
 const dialog: any = {};
 
 const oAuthFrontendDetailsService: any = {
-  isAzureAuthType$: jest.fn()
+  isAzureAuthType$: jest.fn(),
 };
 
 const dialogRef: any = {};
@@ -46,7 +46,7 @@ const userSettings: UserSettings = {
   defaultCompanyId: 0,
   defaultTeamId: 0,
   id: 0,
-  userId: ''
+  userId: '',
 };
 
 describe('SettingsFormComponent', () => {
@@ -55,13 +55,13 @@ describe('SettingsFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsFormComponent, UserSettingsComponent, AdminSettingsFormComponent ],
+      declarations: [SettingsFormComponent, UserSettingsComponent, AdminSettingsFormComponent],
       imports: [
         MaterialTestingModule,
         FormsModule,
         ReactiveFormsModule,
         RouterTestingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
       providers: [
         { provide: CompanyMapper, useValue: companyService },
@@ -71,10 +71,10 @@ describe('SettingsFormComponent', () => {
         { provide: CurrentUserService, useValue: currentUserService },
         { provide: MatDialog, useValue: dialog },
         { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsService },
-        { provide: MatDialogRef, useValue: dialogRef }
-      ]
+        { provide: MatDialogRef, useValue: dialogRef },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

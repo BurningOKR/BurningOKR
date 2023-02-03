@@ -1,13 +1,5 @@
 package org.burningokr.service.security;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.UUID;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.Objective;
@@ -30,16 +22,32 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserRoleFromContextServiceTest {
 
-  @Mock private UnitRepository<OkrChildUnit> unitRepository;
-  @Mock private ObjectiveRepository objectiveRepository;
-  @Mock private KeyResultRepository keyResultRepository;
-  @Mock private NoteRepository noteRepository;
-  @Mock private AdminUserRepository adminUserRepository;
-  @Mock private UserService userService;
-  @InjectMocks private UserRoleFromContextService userRoleFromContextService;
+  @Mock
+  private UnitRepository<OkrChildUnit> unitRepository;
+  @Mock
+  private ObjectiveRepository objectiveRepository;
+  @Mock
+  private KeyResultRepository keyResultRepository;
+  @Mock
+  private NoteRepository noteRepository;
+  @Mock
+  private AdminUserRepository adminUserRepository;
+  @Mock
+  private UserService userService;
+  @InjectMocks
+  private UserRoleFromContextService userRoleFromContextService;
 
   private User currentUser;
   private AdminUser returnedAdminUser;

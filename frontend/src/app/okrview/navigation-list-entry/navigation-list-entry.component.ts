@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OkrUnitSchema, OkrUnitRole } from '../../shared/model/ui/okr-unit-schema';
+import { OkrUnitRole, OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
 import { CurrentNavigationService } from '../current-navigation.service';
 
 @Component({
   selector: 'app-navigation-list-entry',
   templateUrl: './navigation-list-entry.component.html',
-  styleUrls: ['./navigation-list-entry.component.scss']
+  styleUrls: ['./navigation-list-entry.component.scss'],
 })
 export class NavigationListEntryComponent implements OnInit {
   @Input() schema: OkrUnitSchema;
@@ -13,14 +13,15 @@ export class NavigationListEntryComponent implements OnInit {
 
   isOpen = true;
 
-  constructor(private currentNavigationService: CurrentNavigationService) {}
+  constructor(private currentNavigationService: CurrentNavigationService) {
+  }
 
   ngOnInit(): void {
     this.isOpen = !this.currentNavigationService.isStructureMarkedAsClosed(this.schema.id);
   }
 
   toggleOpen(): void {
-    if(this.isOpen){
+    if (this.isOpen) {
       this.currentNavigationService.markStructureAsClosed(this.schema);
     } else {
       this.currentNavigationService.markStructureAsOpen(this.schema.id);

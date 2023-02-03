@@ -1,9 +1,5 @@
 package org.burningokr.service.settings;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
 import org.assertj.core.util.Lists;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.settings.UserSettings;
@@ -15,12 +11,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserSettingsOnOkrCompanyDeleteServiceTest {
 
-  @Mock UserSettingsRepository userSettingsRepository;
+  @Mock
+  UserSettingsRepository userSettingsRepository;
 
-  @InjectMocks UserSettingsOnCompanyDeleteService userSettingsOnCompanyDeleteService;
+  @InjectMocks
+  UserSettingsOnCompanyDeleteService userSettingsOnCompanyDeleteService;
 
   private OkrCompany okrCompany1 = new OkrCompany();
   private OkrCompany okrCompany2 = new OkrCompany();
@@ -44,13 +47,13 @@ public class UserSettingsOnOkrCompanyDeleteServiceTest {
     long expected = 1;
 
     List<UserSettings> userSettings =
-        userSettingsOnCompanyDeleteService.removeCompaniesFromSettings(
-            Lists.newArrayList(okrCompany1));
+      userSettingsOnCompanyDeleteService.removeCompaniesFromSettings(
+        Lists.newArrayList(okrCompany1));
 
     long actual =
-        userSettings.stream()
-            .filter(userSetting -> userSetting.getDefaultOkrCompany() == null)
-            .count();
+      userSettings.stream()
+        .filter(userSetting -> userSetting.getDefaultOkrCompany() == null)
+        .count();
 
     assertEquals(expected, actual);
   }
@@ -60,13 +63,13 @@ public class UserSettingsOnOkrCompanyDeleteServiceTest {
     long expected = 2;
 
     List<UserSettings> userSettings =
-        userSettingsOnCompanyDeleteService.removeCompaniesFromSettings(
-            Lists.newArrayList(okrCompany1, okrCompany2));
+      userSettingsOnCompanyDeleteService.removeCompaniesFromSettings(
+        Lists.newArrayList(okrCompany1, okrCompany2));
 
     long actual =
-        userSettings.stream()
-            .filter(userSetting -> userSetting.getDefaultOkrCompany() == null)
-            .count();
+      userSettings.stream()
+        .filter(userSetting -> userSetting.getDefaultOkrCompany() == null)
+        .count();
 
     assertEquals(expected, actual);
   }
@@ -76,12 +79,12 @@ public class UserSettingsOnOkrCompanyDeleteServiceTest {
     long expected = 0;
 
     List<UserSettings> userSettings =
-        userSettingsOnCompanyDeleteService.removeCompaniesFromSettings(Lists.newArrayList());
+      userSettingsOnCompanyDeleteService.removeCompaniesFromSettings(Lists.newArrayList());
 
     long actual =
-        userSettings.stream()
-            .filter(userSetting -> userSetting.getDefaultOkrCompany() == null)
-            .count();
+      userSettings.stream()
+        .filter(userSetting -> userSetting.getDefaultOkrCompany() == null)
+        .count();
 
     assertEquals(expected, actual);
   }

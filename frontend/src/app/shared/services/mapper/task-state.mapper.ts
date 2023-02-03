@@ -7,16 +7,17 @@ import { ViewTaskState } from '../../model/ui/taskboard/view-task-state';
 import { TaskStateApiService } from '../api/task-state-api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskStateMapper {
 
-  constructor(private taskStateService: TaskStateApiService) { }
+  constructor(private taskStateService: TaskStateApiService) {
+  }
 
   private static mapToTaskStateDTO(viewState: ViewTaskState): TaskStateDto {
     return {
       id: viewState.id,
-      title: viewState.name
+      title: viewState.name,
     };
   }
 
@@ -29,7 +30,7 @@ export class TaskStateMapper {
       .pipe(
         map((stateList: TaskStateDto[]) => {
           return stateList.map(TaskStateMapper.mapToViewTaskState);
-        })
+        }),
       );
   }
 }

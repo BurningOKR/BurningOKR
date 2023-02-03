@@ -9,7 +9,7 @@ export class InitServiceMock {
   getInitState$(customErrorHandler?: ErrorHandlingFunction<InitState>): Observable<InitState> {
     return of({
       initState: INIT_STATE_NAME.INITIALIZED,
-      runtimeId: 'string'
+      runtimeId: 'string',
     });
   }
 

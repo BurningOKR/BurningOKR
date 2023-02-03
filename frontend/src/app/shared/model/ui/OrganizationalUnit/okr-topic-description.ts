@@ -14,9 +14,20 @@ export class OkrTopicDescription {
   resources: string;
   handoverPlan: string;
 
-  constructor(descriptionId: TopicDescriptionId, name: string, initiatorId: UserId, startTeam: UserId[], stakeholders: UserId[],
-              description: string, contributesTo: string, delimitation: string, beginning: Date,
-              dependencies: string, resources: string, handoverPlan: string) {
+  constructor(
+    descriptionId: TopicDescriptionId,
+    name: string,
+    initiatorId: UserId,
+    startTeam: UserId[],
+    stakeholders: UserId[],
+    description: string,
+    contributesTo: string,
+    delimitation: string,
+    beginning: Date,
+    dependencies: string,
+    resources: string,
+    handoverPlan: string,
+  ) {
     this.id = descriptionId;
     this.name = name;
     this.initiatorId = initiatorId;

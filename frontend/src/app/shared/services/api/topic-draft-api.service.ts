@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { DepartmentMapper } from '../mapper/department.mapper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class TopicDraftApiService {

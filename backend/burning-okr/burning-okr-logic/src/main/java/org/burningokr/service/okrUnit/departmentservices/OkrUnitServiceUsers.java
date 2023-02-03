@@ -1,7 +1,5 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
@@ -21,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Service("okrUnitServiceUsers")
 public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitService<T> {
 
@@ -33,11 +34,12 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
 
   @Autowired
   OkrUnitServiceUsers(
-      ParentService parentService,
-      UnitRepository<T> unitRepository,
-      ObjectiveRepository objectiveRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService) {
+    ParentService parentService,
+    UnitRepository<T> unitRepository,
+    ObjectiveRepository objectiveRepository,
+    ActivityService activityService,
+    EntityCrawlerService entityCrawlerService
+  ) {
     this.parentService = parentService;
     this.unitRepository = unitRepository;
     this.objectiveRepository = objectiveRepository;
@@ -90,7 +92,7 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
   void throwIfCycleForDepartmentIsClosed(OkrUnit okrUnitToCheck) {
     if (entityCrawlerService.getCycleOfUnit(okrUnitToCheck).getCycleState() == CycleState.CLOSED) {
       throw new ForbiddenException(
-          "Cannot modify this resource on a OkrDepartment in a closed cycle.");
+        "Cannot modify this resource on a OkrDepartment in a closed cycle.");
     }
   }
 }

@@ -1,6 +1,5 @@
 package org.burningokr.model.okrUnits;
 
-import java.util.ArrayList;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.junit.Assert;
@@ -8,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OkrCompanyTest {

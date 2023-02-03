@@ -11,9 +11,7 @@ if (environment.production) {
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule, {
-    providers: [
-
-    ]
+    providers: [],
   })
   // eslint-disable-next-line no-console
   .catch(err => console.log(err));

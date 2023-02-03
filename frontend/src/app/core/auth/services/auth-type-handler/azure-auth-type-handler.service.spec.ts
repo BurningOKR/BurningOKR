@@ -5,7 +5,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 const oAuthServiceMock: any = {
   loadDiscoveryDocumentAndLogin: jest.fn(),
   hasValidAccessToken: jest.fn(),
-  setupAutomaticSilentRefresh: jest.fn()
+  setupAutomaticSilentRefresh: jest.fn(),
 };
 
 let service: AzureAuthTypeHandlerService;
@@ -14,8 +14,8 @@ describe('AzureAuthTypeHandlerService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       AzureAuthTypeHandlerService,
-      {provide: OAuthService, useValue: oAuthServiceMock}
-    ]
+      { provide: OAuthService, useValue: oAuthServiceMock },
+    ],
   }));
 
   beforeEach(() => {
@@ -155,20 +155,23 @@ describe('AzureAuthTypeHandlerService', () => {
       });
   });
 
-  it('afterConfigured should start login procedure with invalid access token and silentRefreshActivated false', done => {
-    oAuthServiceMock.hasValidAccessToken.mockReturnValue(false);
+  it(
+    'afterConfigured should start login procedure with invalid access token and silentRefreshActivated false',
+    done => {
+      oAuthServiceMock.hasValidAccessToken.mockReturnValue(false);
 
-    service.afterConfigured();
+      service.afterConfigured();
 
-    service.startLoginProcedure()
-      .then(() => {
-        expect((service as any).silentRefreshActivated)
-          .toBeFalsy();
-        expect(oAuthServiceMock.setupAutomaticSilentRefresh)
-          .toHaveBeenCalledTimes(0);
-        done();
-      });
-  });
+      service.startLoginProcedure()
+        .then(() => {
+          expect((service as any).silentRefreshActivated)
+            .toBeFalsy();
+          expect(oAuthServiceMock.setupAutomaticSilentRefresh)
+            .toHaveBeenCalledTimes(0);
+          done();
+        });
+    },
+  );
 
   it('afterConfigured should start login procedure with valid access token and silentRefreshActivated true', done => {
     oAuthServiceMock.hasValidAccessToken.mockReturnValue(true);

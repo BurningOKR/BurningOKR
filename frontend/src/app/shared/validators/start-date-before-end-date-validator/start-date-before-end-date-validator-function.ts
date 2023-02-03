@@ -1,9 +1,9 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const startDateNotBeforeEndDate: ValidationErrors = {
-  startDateNotBeforeEndDate: true
+  startDateNotBeforeEndDate: true,
 };
 
 @register
@@ -12,7 +12,8 @@ export class StartDateBeforeEndDateValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('start-date-before-end-date-validator-function.message'),
-      startDateNotBeforeEndDate);
+      startDateNotBeforeEndDate,
+    );
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

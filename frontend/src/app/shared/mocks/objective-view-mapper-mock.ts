@@ -1,7 +1,5 @@
 import { Observable, of } from 'rxjs';
 import { ViewObjective } from '../model/ui/view-objective';
-import { map } from 'rxjs/operators';
-import { ObjectiveDto } from '../model/api/objective.dto';
 import { ObjectiveId } from '../model/id-types';
 
 export class ObjectiveViewMapperMock {

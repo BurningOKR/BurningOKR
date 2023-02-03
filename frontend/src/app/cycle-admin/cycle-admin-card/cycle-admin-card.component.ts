@@ -26,7 +26,8 @@ export class CycleAdminCardComponent {
     private translate: TranslateService,
     private dialog: MatDialog,
     private cycleMapper: CycleMapper,
-  ) {}
+  ) {
+  }
 
   deleteCycle(): void {
     const data: { data: DeleteDialogData } = this.getDataForCycleDeletionDialog();
@@ -37,7 +38,8 @@ export class CycleAdminCardComponent {
         filter(v => v),
         switchMap(() => {
           return this.cycleMapper.deleteCycleById$(this.cycle.id);
-        }))
+        }),
+      )
       .subscribe(() => {
         this.cycleChanged.emit(this.cycle);
       });

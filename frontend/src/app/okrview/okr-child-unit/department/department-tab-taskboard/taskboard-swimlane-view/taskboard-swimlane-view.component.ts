@@ -19,7 +19,7 @@ export interface TaskBoardSwimlaneViewData {
 @Component({
   selector: 'app-taskboard-swimlane-view',
   templateUrl: './taskboard-swimlane-view.component.html',
-  styleUrls: ['./taskboard-swimlane-view.component.css']
+  styleUrls: ['./taskboard-swimlane-view.component.css'],
 })
 export class TaskboardSwimlaneViewComponent extends TaskBoardViewDirective implements OnInit, OnDestroy {
   dataEmitter$: Subject<KeyResultStateTaskMap> = new Subject();
@@ -31,7 +31,7 @@ export class TaskboardSwimlaneViewComponent extends TaskBoardViewDirective imple
 
   constructor(
     private taskHelper: TaskBoardSwimlaneViewHelper,
-    private taskBoardEventService: TaskBoardViewEventService
+    private taskBoardEventService: TaskBoardViewEventService,
   ) {
     super();
   }
@@ -48,15 +48,20 @@ export class TaskboardSwimlaneViewComponent extends TaskBoardViewDirective imple
       map(viewData => {
         const data: TaskBoardSwimlaneViewData = {
           states: viewData.taskStates,
-          maps: this.taskHelper.createKeyResultStateTaskMapList(viewData.keyResults, viewData.taskStates, viewData.tasks),
-          keyResults: viewData.keyResults
+          maps: this.taskHelper.createKeyResultStateTaskMapList(
+            viewData.keyResults,
+            viewData.taskStates,
+            viewData.tasks,
+          ),
+          keyResults: viewData.keyResults,
         };
 
         return data;
-      })
+      }),
     );
 
-    this.subscriptions.push(this.taskBoardEventService.taskInSwimlaneMoved$.subscribe(event => this.onTaskMovedInView(event)));
+    this.subscriptions.push(this.taskBoardEventService.taskInSwimlaneMoved$.subscribe(event => this.onTaskMovedInView(
+      event)));
   }
 
   onTaskMovedInView(dropEvent: TaskBoardSwimlaneDragDropEvent): void {
@@ -67,7 +72,7 @@ export class TaskboardSwimlaneViewComponent extends TaskBoardViewDirective imple
         dropEvent.taskboardEvent.$event.currentIndex,
         dropEvent.taskboardEvent.$event.container.data,
         dropEvent.taskboardEvent.state,
-        dropEvent.keyResult
+        dropEvent.keyResult,
       );
 
     this.taskBoardEventService.taskMovedInView$.next(result);

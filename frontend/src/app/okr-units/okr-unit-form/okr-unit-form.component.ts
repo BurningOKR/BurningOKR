@@ -23,14 +23,19 @@ export class OkrUnitFormComponent {
   title: string;
   structureTranslation: string;
 
-  constructor(private dialogRef: MatDialogRef<DialogComponent<CompanyFormData>>,
-              private companyMapper: CompanyMapper,
-              @Inject(MAT_DIALOG_DATA) private formData: CompanyFormData,
-              private x: ValidationErrorService,
-              private translate: TranslateService) {
+  constructor(
+    private dialogRef: MatDialogRef<DialogComponent<CompanyFormData>>,
+    private companyMapper: CompanyMapper,
+    @Inject(MAT_DIALOG_DATA) private formData: CompanyFormData,
+    private x: ValidationErrorService,
+    private translate: TranslateService,
+  ) {
     this.companyForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      label: new FormControl(this.getDefaultLabel(), [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
+      label: new FormControl(
+        this.getDefaultLabel(),
+        [Validators.required, Validators.minLength(1), Validators.maxLength(255)],
+      ),
     });
 
     if (this.formData.company) {

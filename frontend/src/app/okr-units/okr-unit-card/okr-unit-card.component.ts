@@ -65,10 +65,10 @@ export class OkrUnitCardComponent implements OnInit {
 
   editCompany(): void {
     this.formDialog.open(OkrUnitFormComponent, {
-        data: {
-          company: this.company,
-        },
-      })
+      data: {
+        company: this.company,
+      },
+    })
       .afterClosed()
       .pipe(
         take(1),
@@ -89,7 +89,8 @@ export class OkrUnitCardComponent implements OnInit {
         filter(v => v),
         switchMap(() => {
           return this.companyApiService.deleteCompanyById$(this.company.id);
-        }))
+        }),
+      )
       .subscribe(() => {
         this.companyDeleted.emit(this.company);
       });
@@ -125,8 +126,10 @@ export class OkrUnitCardComponent implements OnInit {
 
   private getChildUnitWarningIfNecessary(): string {
     if (this.hasChildUnit()) {
-      return this.translate.instant('okr-unit-card.delete-company-has-child-unit-warning',
-        { value: this.company.name });
+      return this.translate.instant(
+        'okr-unit-card.delete-company-has-child-unit-warning',
+        { value: this.company.name },
+      );
     } else {
       return '';
     }

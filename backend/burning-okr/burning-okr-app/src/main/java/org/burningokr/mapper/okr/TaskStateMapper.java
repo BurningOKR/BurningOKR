@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.TaskStateDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.TaskBoard;
@@ -9,6 +7,9 @@ import org.burningokr.model.okr.TaskState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class TaskStateMapper implements DataMapper<TaskState, TaskStateDto> {

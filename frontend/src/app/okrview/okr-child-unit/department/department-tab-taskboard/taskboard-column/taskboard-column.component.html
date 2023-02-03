@@ -1,15 +1,16 @@
 <div class="taskboard-column">
-    <div class="column-headline">
-        <div>{{map.state.name}}</div>
-    </div>
-    <div class="tasks">
-        <div cdkDropList [id]="id" [cdkDropListData]="map.tasks" (cdkDropListDropped)="dropTask($event)" class="card-list">
-            <div *ngFor="let cardInformation of taskCardInformations" class="taskcard " cdkDrag [cdkDragDisabled]="!isInteractive">
-                <div class="taskcard-placeholder" *cdkDragPlaceholder></div>
-                <app-department-tab-task-card [taskInformations]="cardInformation" [isInteractive]="isInteractive">
+  <div class="column-headline">
+    <div>{{map.state.name}}</div>
+  </div>
+  <div class="tasks">
+    <div (cdkDropListDropped)="dropTask($event)" [cdkDropListData]="map.tasks" [id]="id" cdkDropList class="card-list">
+      <div *ngFor="let cardInformation of taskCardInformations" [cdkDragDisabled]="!isInteractive" cdkDrag
+           class="taskcard ">
+        <div *cdkDragPlaceholder class="taskcard-placeholder"></div>
+        <app-department-tab-task-card [isInteractive]="isInteractive" [taskInformations]="cardInformation">
 
-                </app-department-tab-task-card>
-            </div>
-        </div>
+        </app-department-tab-task-card>
+      </div>
     </div>
+  </div>
 </div>

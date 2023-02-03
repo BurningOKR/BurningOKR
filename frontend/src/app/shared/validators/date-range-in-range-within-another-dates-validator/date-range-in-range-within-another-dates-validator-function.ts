@@ -5,7 +5,7 @@ import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const dateInRangeOfAnotherCycleError: ValidationErrors = {
-  dateInRangeOfAnotherCycleError: true
+  dateInRangeOfAnotherCycleError: true,
 };
 
 @register
@@ -14,7 +14,8 @@ export class DateNotInRangeOfAnotherCycleValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('date-range-in-range-within-another-dates-validator-function.message'),
-      dateInRangeOfAnotherCycleError);
+      dateInRangeOfAnotherCycleError,
+    );
   }
 
   static Validate(cycles: CycleUnit[]): ValidatorFn {
@@ -34,7 +35,7 @@ export class DateNotInRangeOfAnotherCycleValidator extends AbstractValidator {
   private static periodCollidesWithOther(
     startDateFromInput: Date,
     endDateFromInput: Date,
-    cycles: CycleUnit[]
+    cycles: CycleUnit[],
   ): { [key: string]: boolean } {
     for (const cycle of cycles) {
       const startDateFromExistingCycle: Date = cycle.startDate;

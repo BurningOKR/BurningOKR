@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { UserSettingsApi } from '../../model/api/user-settings.api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserSettingsApiService {
 

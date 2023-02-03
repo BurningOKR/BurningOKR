@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteObjective;
@@ -11,6 +9,9 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class ObjectiveMapperTest {
 
@@ -180,7 +181,7 @@ public class ObjectiveMapperTest {
   public void mapDtoToEntity_expects_notesAreMapped() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     Assert.assertArrayEquals(
-        new ArrayList<NoteObjective>().toArray(), objective.getNotes().toArray());
+      new ArrayList<NoteObjective>().toArray(), objective.getNotes().toArray());
   }
 
   @Test

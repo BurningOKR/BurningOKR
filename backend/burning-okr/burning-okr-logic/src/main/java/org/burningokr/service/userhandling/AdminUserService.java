@@ -1,15 +1,16 @@
 package org.burningokr.service.userhandling;
 
 import com.google.common.collect.Lists;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminUserService {
@@ -42,8 +43,8 @@ public class AdminUserService {
    */
   public Collection<UUID> getAllAdmins() {
     return Lists.newArrayList(adminUserRepository.findAll()).stream()
-        .map(AdminUser::getId)
-        .collect(Collectors.toList());
+      .map(AdminUser::getId)
+      .collect(Collectors.toList());
   }
 
   /**

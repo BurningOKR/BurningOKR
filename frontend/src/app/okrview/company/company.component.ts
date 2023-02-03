@@ -30,7 +30,7 @@ interface RoleDepartmentIds {
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.scss']
+  styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
   company$: Observable<CompanyUnit>;
@@ -50,7 +50,7 @@ export class CompanyComponent implements OnInit {
     private companyMapperService: CompanyMapper,
     private matDialog: MatDialog,
     private roleService: OkrChildUnitRoleService,
-    private excelFileService: ExcelMapper
+    private excelFileService: ExcelMapper,
   ) {
   }
 
@@ -70,7 +70,7 @@ export class CompanyComponent implements OnInit {
           if (company) {
             this.currentOkrViewService.browseCompany(company.id);
           }
-        })
+        }),
       );
 
     this.cycle$ = this.currentCycleService.getCurrentCycle$();
@@ -79,27 +79,33 @@ export class CompanyComponent implements OnInit {
       .pipe(
         map(([company, cycle]: [CompanyUnit, CycleUnit]) => {
           return { company, cycle };
-        })
+        }),
       );
 
     this.roleDepartmentIds$ = this.currentOkrUnitSchemaService.getCurrentUnitSchemas$()
       .pipe(
-        map((unitList: OkrUnitSchema[]) => this.categorizeSchemaMemberships(unitList))
+        map((unitList: OkrUnitSchema[]) => this.categorizeSchemaMemberships(unitList)),
       );
   }
 
   clickedAddSubBranch(company: CompanyUnit): void {
-    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { companyId: company.id, unitType: UnitType.OKR_BRANCH }
-    });
+    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(
+      OkrChildUnitFormComponent,
+      {
+        data: { companyId: company.id, unitType: UnitType.OKR_BRANCH },
+      },
+    );
 
     this.handleDialogClosed(dialogReference, company);
   }
 
   clickedAddSubDepartment(company: CompanyUnit): void {
-    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { companyId: company.id, unitType: UnitType.DEPARTMENT }
-    });
+    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(
+      OkrChildUnitFormComponent,
+      {
+        data: { companyId: company.id, unitType: UnitType.DEPARTMENT },
+      },
+    );
 
     this.handleDialogClosed(dialogReference, company);
   }
@@ -143,7 +149,7 @@ export class CompanyComponent implements OnInit {
       .pipe(
         take(1),
         filter(v => v),
-        switchMap((dialogClosed$: ObservableInput<object>) => dialogClosed$)
+        switchMap((dialogClosed$: ObservableInput<object>) => dialogClosed$),
       )
       .subscribe(addedSubDepartment => this.onSubDepartmentAdded(company, addedSubDepartment as OkrChildUnit));
   }

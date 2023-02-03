@@ -1,7 +1,5 @@
 package org.burningokr.mapper.configuration;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.configuration.OAuthFrontendDetailsDto;
 import org.burningokr.model.configuration.OAuthConfiguration;
 import org.burningokr.model.configuration.OAuthConfigurationName;
@@ -9,11 +7,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class OAuthFrontendDetailsMapperTest {
 
+  Collection<OAuthConfiguration> configurations;
   private OAuthFrontendDetailsMapper mapper;
   private OAuthFrontendDetailsDto dto;
-  Collection<OAuthConfiguration> configurations;
 
   @Before
   public void init() {
@@ -117,7 +118,7 @@ public class OAuthFrontendDetailsMapperTest {
   @Test
   public void mapDtoToEntity_expectStrictDiscoveryDocumentValidationIsMapped() {
     OAuthConfigurationName expectedKey =
-        OAuthConfigurationName.STRICT_DISCOVERY_DOCUMENT_VALIDATION;
+      OAuthConfigurationName.STRICT_DISCOVERY_DOCUMENT_VALIDATION;
     dto.setStrictDiscoveryDocumentValidation(true);
     testMappingWithExpectedResult(dto, expectedKey, "true");
     dto.setStrictDiscoveryDocumentValidation(false);
@@ -130,16 +131,17 @@ public class OAuthFrontendDetailsMapperTest {
   }
 
   private void testMappingWithExpectedResult(
-      OAuthFrontendDetailsDto dto, OAuthConfigurationName expectedKey, String expectedValue) {
+    OAuthFrontendDetailsDto dto, OAuthConfigurationName expectedKey, String expectedValue
+  ) {
     OAuthConfiguration actualConfig;
 
     configurations = mapper.mapDtoToEntity(dto);
 
     actualConfig =
-        configurations.stream()
-            .filter(item -> item.getKey().equals(expectedKey.getName()))
-            .findFirst()
-            .get();
+      configurations.stream()
+        .filter(item -> item.getKey().equals(expectedKey.getName()))
+        .findFirst()
+        .get();
 
     Assert.assertNotNull(actualConfig);
     Assert.assertEquals(expectedKey.getName(), actualConfig.getKey());

@@ -31,12 +31,12 @@ public class ApplicationStartupAzureAuthConfigurer {
   public void onApplicationEvent(ApplicationReadyEvent event) {
     oAuthConfigurationService.updateOAuthConfiguration(externalOAuthClientDetails);
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.ISSUER, azureAdProperties.getIssuer());
+      OAuthConfigurationName.ISSUER, azureAdProperties.getIssuer());
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.RESPONSE_TYPE, DefaultAzureAuthData.responseType);
+      OAuthConfigurationName.RESPONSE_TYPE, DefaultAzureAuthData.responseType);
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.OIDC, DefaultAzureAuthData.oidc);
+      OAuthConfigurationName.OIDC, DefaultAzureAuthData.oidc);
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.AUTH_TYPE, DefaultAzureAuthData.authType);
+      OAuthConfigurationName.AUTH_TYPE, DefaultAzureAuthData.authType);
   }
 }

@@ -3,13 +3,13 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotLoggedInGuard implements CanActivate {
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
-) {
+    private router: Router,
+  ) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {

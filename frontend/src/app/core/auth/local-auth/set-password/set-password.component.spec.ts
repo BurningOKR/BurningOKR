@@ -17,21 +17,21 @@ describe('SetPasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SetPasswordComponent ],
+      declarations: [SetPasswordComponent],
       imports: [
         MatCardModule,
         HttpClientTestingModule,
         RouterTestingModule,
         MaterialTestingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
       providers: [
-        {provide: PasswordService, useValue: PasswordServiceMock},
-        {provide: MatSnackBar, useValue: {}}
+        { provide: PasswordService, useValue: PasswordServiceMock },
+        { provide: MatSnackBar, useValue: {} },
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

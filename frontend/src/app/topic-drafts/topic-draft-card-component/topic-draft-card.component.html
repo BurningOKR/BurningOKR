@@ -1,13 +1,15 @@
-<mat-card class="topic-draft-card" (click)="viewTopicDraft()">
+<mat-card (click)="viewTopicDraft()" class="topic-draft-card">
   <div class="card-head-wrapper">
     <div class="card-head-info-wrapper">
       <span class="card-head-info">{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</span>
       <span class="card-head-info">{{topicDraft.beginning | dateFormat | async}}</span>
       <span class="card-head-info card-head-info-name" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
     </div>
-    <div class="card-head-button-wrapper" (click)="$event.stopPropagation();">
-      <app-topic-draft-action-button (editedTopicDraftEvent)="notifyWrapperOfEditing($event)" (topicDraftDeletedEvent)="notifyWrapperOfDeletion()" [topicDraft]="topicDraft" class="topic-draft-option-button"></app-topic-draft-action-button>
+    <div (click)="$event.stopPropagation();" class="card-head-button-wrapper">
+      <app-topic-draft-action-button (editedTopicDraftEvent)="notifyWrapperOfEditing($event)"
+                                     (topicDraftDeletedEvent)="notifyWrapperOfDeletion()" [topicDraft]="topicDraft"
+                                     class="topic-draft-option-button"></app-topic-draft-action-button>
     </div>
-    <app-status-dot class="right-upper-corner" [state]="topicDraft.currentStatus"></app-status-dot>
+    <app-status-dot [state]="topicDraft.currentStatus" class="right-upper-corner"></app-status-dot>
   </div>
 </mat-card>

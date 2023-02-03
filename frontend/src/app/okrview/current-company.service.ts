@@ -5,7 +5,7 @@ import { take } from 'rxjs/operators';
 import { CompanyMapper } from '../shared/services/mapper/company.mapper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentCompanyService {
 

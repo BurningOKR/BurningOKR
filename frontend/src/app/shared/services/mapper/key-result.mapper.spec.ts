@@ -8,7 +8,7 @@ import { ViewKeyResult } from '../../model/ui/view-key-result';
 
 const keyResultApiServiceMock: any = {
   getKeyResultsForObjective$: jest.fn(),
-  putKeyResult$: jest.fn()
+  putKeyResult$: jest.fn(),
 };
 
 const keyResultDto: KeyResultDto = {
@@ -21,28 +21,28 @@ const keyResultDto: KeyResultDto = {
   targetValue: 10,
   title: 'test key result',
   unit: Unit[Unit.EURO],
-  keyResultMilestoneDtos: []
+  keyResultMilestoneDtos: [],
 };
 
 const keyResult: ViewKeyResult = new ViewKeyResult(
-  0,
-  1,
-  2,
-  3,
-  Unit.EURO,
-  'result',
-  'description',
-  11,
-  [12345],
-  []
+    0,
+    1,
+    2,
+    3,
+    Unit.EURO,
+    'result',
+    'description',
+    11,
+    [12345],
+    [],
   )
 ;
 let service: KeyResultMapper;
 describe('KeyResultMapper', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      {provide: KeyResultApiService, useValue: keyResultApiServiceMock}
-    ]
+      { provide: KeyResultApiService, useValue: keyResultApiServiceMock },
+    ],
   }));
 
   beforeEach(() => {
@@ -90,7 +90,7 @@ describe('KeyResultMapper', () => {
         expect(result.unit)
           .toEqual(Unit[keyResultDto.unit]);
         done();
-      }
+      },
     );
   });
 

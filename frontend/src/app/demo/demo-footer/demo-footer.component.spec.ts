@@ -9,10 +9,10 @@ describe('DemoFooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DemoFooterComponent ],
-      imports: [ MaterialTestingModule ],
+      declarations: [DemoFooterComponent],
+      imports: [MaterialTestingModule],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

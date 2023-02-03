@@ -1,10 +1,5 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
-import java.time.LocalDateTime;
-import java.util.*;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.configuration.ConfigurationName;
@@ -35,32 +30,41 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ObjectiveServiceTest {
 
-  @Mock private ObjectiveRepository objectiveRepository;
+  @Mock
+  ConfigurationService configurationService;
+  @Mock
+  private ObjectiveRepository objectiveRepository;
+  @Mock
+  private KeyResultRepository keyResultRepository;
+  @Mock
+  private ActivityService activityService;
+  @Mock
+  private EntityCrawlerService entityCrawlerService;
+  @Mock
+  private ParentService parentService;
+  @Mock
+  private OkrUnitServiceUsers departmentService;
+  @Mock
+  private KeyResultMilestoneService keyResultMilestoneService;
+  @Mock
+  private User user;
+  @Mock
+  private NoteObjectiveRepository noteObjectiveRepository;
 
-  @Mock private KeyResultRepository keyResultRepository;
+  @Mock
+  private NoteObjective noteObjectiveMock;
 
-  @Mock private ActivityService activityService;
-
-  @Mock private EntityCrawlerService entityCrawlerService;
-
-  @Mock private ParentService parentService;
-
-  @Mock private OkrUnitServiceUsers departmentService;
-
-  @Mock private KeyResultMilestoneService keyResultMilestoneService;
-
-  @Mock private User user;
-
-  @Mock ConfigurationService configurationService;
-
-  @Mock private NoteObjectiveRepository noteObjectiveRepository;
-
-  @Mock private NoteObjective noteObjectiveMock;
-
-  @InjectMocks private ObjectiveService objectiveService;
+  @InjectMocks
+  private ObjectiveService objectiveService;
 
   private Long objectiveId = 1337L;
   private Objective objective;
@@ -87,7 +91,7 @@ public class ObjectiveServiceTest {
     maxKeyResultsConfiguration.setName(ConfigurationName.MAX_KEY_RESULTS.getName());
     maxKeyResultsConfiguration.setValue("7");
     when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
-        .thenReturn(maxKeyResultsConfiguration);
+      .thenReturn(maxKeyResultsConfiguration);
 
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
@@ -121,7 +125,7 @@ public class ObjectiveServiceTest {
 
   @Test
   public void createKeyResult_expectedOtherObjectivesSequenceAdvanced()
-      throws KeyResultOverflowException {
+    throws KeyResultOverflowException {
     Long expected = 18L;
     objective.setId(expected);
 
@@ -134,7 +138,7 @@ public class ObjectiveServiceTest {
     KeyResult otherKeyResult3 = new KeyResult();
     otherKeyResult3.setSequence(10);
     Collection<KeyResult> otherKeyResults =
-        Arrays.asList(otherKeyResult1, otherKeyResult2, otherKeyResult3);
+      Arrays.asList(otherKeyResult1, otherKeyResult2, otherKeyResult3);
 
     Objective parentObjective = new Objective();
     parentObjective.setKeyResults(otherKeyResults);
@@ -150,7 +154,7 @@ public class ObjectiveServiceTest {
 
   @Test(expected = ForbiddenException.class)
   public void createKeyResult_cycleOfObjectiveIsClosed_expectedForbiddenThrow()
-      throws KeyResultOverflowException {
+    throws KeyResultOverflowException {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(closedCycle);
@@ -160,8 +164,8 @@ public class ObjectiveServiceTest {
 
   @Test(expected = KeyResultOverflowException.class)
   public void
-      createKeyResult_expectsKeyResultOverflowExceptionBecauseOfMaximumNumberOfKeyResultsReached()
-          throws KeyResultOverflowException {
+  createKeyResult_expectsKeyResultOverflowExceptionBecauseOfMaximumNumberOfKeyResultsReached()
+    throws KeyResultOverflowException {
 
     int maxKeyResultsPerObjective = 7;
 
@@ -194,7 +198,7 @@ public class ObjectiveServiceTest {
 
   @Test
   public void createKeyResult_doesNotSaveMilestonesWhenThereAreNoMilestones()
-      throws KeyResultOverflowException {
+    throws KeyResultOverflowException {
     List<KeyResultMilestone> milestoneList = new ArrayList<>();
 
     keyResult.setMilestones(milestoneList);
@@ -361,7 +365,7 @@ public class ObjectiveServiceTest {
     objectiveAboveInSequence.setSequence(7);
 
     Collection<Objective> otherObjectives =
-        Arrays.asList(objectiveAboveInSequence, objectiveBelowInSequence, objectiveToDelete);
+      Arrays.asList(objectiveAboveInSequence, objectiveBelowInSequence, objectiveToDelete);
     parentOkrDepartment.setObjectives(otherObjectives);
 
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objectiveToDelete);

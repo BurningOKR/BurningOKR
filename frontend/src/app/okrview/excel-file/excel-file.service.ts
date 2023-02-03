@@ -5,7 +5,7 @@ import { Consts } from '../../shared/consts';
 import { OkrUnitId } from '../../shared/model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExcelFileService {
 
@@ -14,37 +14,37 @@ export class ExcelFileService {
   constructor(private http: HttpClient) {
     this._headers = {
       headers: [
-        new HttpHeaders({'Content-Disposition': 'attachment; filename=okr.xlsx'}),
-        new HttpHeaders({application: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet'})
-      ]
+        new HttpHeaders({ 'Content-Disposition': 'attachment; filename=okr.xlsx' }),
+        new HttpHeaders({ application: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet' }),
+      ],
     };
   }
 
   downloadExcelFileForOkrChildUnit$(okrChildUnitId: OkrUnitId): Observable<any> {
     return this.http.get(`${Consts.API_URL}export/unit/${okrChildUnitId}`, {
       headers: this._headers,
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 
   downloadExcelFileCompany$(companyId: number): Observable<any> {
     return this.http.get(`${Consts.API_URL}export/company/${companyId}`, {
       headers: this._headers,
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 
   downloadExcelEmailFileForOkrTeam$(departmentId: OkrUnitId): Observable<any> {
     return this.http.get(`${Consts.API_URL}export/email/department/${departmentId}`, {
       headers: this._headers,
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 
   downloadExcelEmailFileForCompany$(companyId: number): Observable<any> {
     return this.http.get(`${Consts.API_URL}export/email/company/${companyId}`, {
       headers: this._headers,
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 

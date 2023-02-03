@@ -1,9 +1,10 @@
 package org.burningokr.dto.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

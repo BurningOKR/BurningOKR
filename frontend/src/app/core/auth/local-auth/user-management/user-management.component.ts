@@ -10,9 +10,7 @@ import 'linq4js';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import {
-  ConfirmationDialogComponent,
-} from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { User } from '../../../../shared/model/api/user';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
 import { CurrentUserService } from '../../../services/current-user.service';
@@ -232,7 +230,10 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
-  private updateUserAndRemoveAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+  private updateUserAndRemoveAdminIfChanged$(
+    adminIds: string[],
+    editedUser: LocalUserManagementUser,
+  ): Observable<LocalUserManagementUser> {
     if (adminIds.Contains(editedUser.id)) {
       return forkJoin([
         this.userService.updateUser$(editedUser)
@@ -254,7 +255,10 @@ export class UserManagementComponent implements OnInit {
     }
   }
 
-  private updateUserAndSetToAdminIfChanged$(adminIds: string[], editedUser: LocalUserManagementUser): Observable<LocalUserManagementUser> {
+  private updateUserAndSetToAdminIfChanged$(
+    adminIds: string[],
+    editedUser: LocalUserManagementUser,
+  ): Observable<LocalUserManagementUser> {
     if (!adminIds.Contains(editedUser.id)) {
       return forkJoin([
         this.userService.updateUser$(editedUser)

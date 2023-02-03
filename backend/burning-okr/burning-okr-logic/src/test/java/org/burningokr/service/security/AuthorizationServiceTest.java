@@ -1,7 +1,5 @@
 package org.burningokr.service.security;
 
-import static org.mockito.Mockito.when;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,12 +7,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class AuthorizationServiceTest {
 
-  @Mock UserRoleFromContextService userRoleFromContextService;
+  @Mock
+  UserRoleFromContextService userRoleFromContextService;
 
-  @InjectMocks private AuthorizationService authorizationService;
+  @InjectMocks
+  private AuthorizationService authorizationService;
 
   private Long departmentId = 100L;
   private Long objectiveId = 200L;

@@ -1,12 +1,5 @@
 package org.burningokr.service.userutil;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.UUID;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.repositories.users.AadUserRepository;
 import org.burningokr.service.exceptions.AzureApiException;
@@ -17,19 +10,32 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class AadUserListUpdaterTest {
 
-  @Mock private AzureUserFetcher azureUserFetcher;
-  @Mock private AadUserRepository aadUserRepository;
-  @Mock private AzurePhotoFetcher azurePhotoFetcher;
-  @Mock private AzureApiCaller azureApiCaller;
+  @Mock
+  private AzureUserFetcher azureUserFetcher;
+  @Mock
+  private AadUserRepository aadUserRepository;
+  @Mock
+  private AzurePhotoFetcher azurePhotoFetcher;
+  @Mock
+  private AzureApiCaller azureApiCaller;
 
-  @InjectMocks private AadUserListUpdater aadUserListUpdater;
+  @InjectMocks
+  private AadUserListUpdater aadUserListUpdater;
 
   @Test
   public void testUpdateAadUserListShouldFetchUsers()
-      throws AzureApiException, AzureUserFetchException {
+    throws AzureApiException, AzureUserFetchException {
     String accessToken = "testToken";
     AadUser firstUser = new AadUser();
     AadUser secondUser = new AadUser();
@@ -39,7 +45,7 @@ public class AadUserListUpdaterTest {
 
     when(azureApiCaller.getAccessToken()).thenReturn(accessToken);
     when(azureUserFetcher.fetchAzureUsers(accessToken))
-        .thenReturn(Arrays.asList(firstUser, secondUser));
+      .thenReturn(Arrays.asList(firstUser, secondUser));
 
     aadUserListUpdater.updateAadUserList();
 
@@ -49,11 +55,11 @@ public class AadUserListUpdaterTest {
 
   @Test
   public void testUpdateAadUserListShouldUpdateUsers()
-      throws AzureApiException, AzureUserFetchException {
+    throws AzureApiException, AzureUserFetchException {
     final String accessToken = "testToken";
     final AadUser updatingUser = new AadUser();
     final String expectedNewEmail =
-        "user1@test.mail"; // use lowercase because method updateAADUserList sets the mail
+      "user1@test.mail"; // use lowercase because method updateAADUserList sets the mail
     // toLowerCase()
 
     updatingUser.setId(UUID.randomUUID());
@@ -61,7 +67,7 @@ public class AadUserListUpdaterTest {
 
     when(azureApiCaller.getAccessToken()).thenReturn(accessToken);
     when(azureUserFetcher.fetchAzureUsers(accessToken))
-        .thenReturn(Collections.singletonList(updateUserMail(updatingUser, expectedNewEmail)));
+      .thenReturn(Collections.singletonList(updateUserMail(updatingUser, expectedNewEmail)));
 
     aadUserListUpdater.updateAadUserList();
 
@@ -78,7 +84,7 @@ public class AadUserListUpdaterTest {
 
   @Test
   public void testUpdateAadUserListShouldMailSetToLowerCase()
-      throws AzureApiException, AzureUserFetchException {
+    throws AzureApiException, AzureUserFetchException {
     final String accessToken = "testToken";
     final AadUser updatingUser = new AadUser();
     final String expectedNewEmail = "user1@test.mail";
@@ -88,7 +94,7 @@ public class AadUserListUpdaterTest {
 
     when(azureApiCaller.getAccessToken()).thenReturn(accessToken);
     when(azureUserFetcher.fetchAzureUsers(accessToken))
-        .thenReturn(Collections.singletonList(updatingUser));
+      .thenReturn(Collections.singletonList(updatingUser));
 
     aadUserListUpdater.updateAadUserList();
 

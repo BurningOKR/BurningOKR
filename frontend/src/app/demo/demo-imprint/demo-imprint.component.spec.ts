@@ -8,10 +8,10 @@ describe('DemoImprintComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DemoImprintComponent ],
-      imports: [ MaterialTestingModule ]
+      declarations: [DemoImprintComponent],
+      imports: [MaterialTestingModule],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

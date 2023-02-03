@@ -1,9 +1,9 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const startEqualsEndError: ValidationErrors = {
-  wrongPassword: true
+  wrongPassword: true,
 };
 
 @register
@@ -12,7 +12,8 @@ export class StartDateNotEqualEndDateValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('start-not-equal-end-validator-function.message'),
-      startEqualsEndError);
+      startEqualsEndError,
+    );
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

@@ -1,12 +1,5 @@
 package org.burningokr.service.userutil;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.exceptions.AzureUserFetchException;
@@ -17,6 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Conditional(AadCondition.class)
 @Service
@@ -48,9 +49,9 @@ public class AzureUserFetcher {
     Collection<AadUser> azureUsers = new ArrayList<>();
     for (AzureGroup azureGroup : this.azureAdProperties.getAzureGroups()) {
       String uri =
-          "https://graph.microsoft.com/v1.0/groups/"
-              + azureGroup.getId()
-              + "/members?$select=id,givenName,surname,mail,mailNickname,jobTitle,department&$top=1";
+        "https://graph.microsoft.com/v1.0/groups/"
+          + azureGroup.getId()
+          + "/members?$select=id,givenName,surname,mail,mailNickname,jobTitle,department&$top=1";
 
       AzureGroupResponse response;
       do {
@@ -63,7 +64,7 @@ public class AzureUserFetcher {
   }
 
   private AzureGroupResponse fetchAzureUsersForGroupId(String accessToken, String uri)
-      throws AzureUserFetchException {
+    throws AzureUserFetchException {
     try {
       InputStream inputStream = azureApiCaller.callApi(accessToken, new URL(uri));
 
@@ -77,8 +78,8 @@ public class AzureUserFetcher {
       }
 
       return new ObjectMapper()
-          .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-          .readValue(stringBuilder.toString(), AzureGroupResponse.class);
+        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .readValue(stringBuilder.toString(), AzureGroupResponse.class);
     } catch (IOException e) {
       throw new AzureUserFetchException(e.getMessage());
     }

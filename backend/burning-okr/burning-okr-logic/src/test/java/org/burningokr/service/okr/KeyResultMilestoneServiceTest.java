@@ -1,13 +1,5 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
@@ -23,18 +15,32 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class KeyResultMilestoneServiceTest {
 
-  @Mock private KeyResultMilestoneRepository keyResultMilestoneRepository;
+  @Mock
+  private KeyResultMilestoneRepository keyResultMilestoneRepository;
 
-  @Mock private KeyResultRepository keyResultRepository;
+  @Mock
+  private KeyResultRepository keyResultRepository;
 
-  @Mock private ActivityService activityService;
+  @Mock
+  private ActivityService activityService;
 
-  @Mock private User user;
+  @Mock
+  private User user;
 
-  @InjectMocks private KeyResultMilestoneService keyResultMilestoneService;
+  @InjectMocks
+  private KeyResultMilestoneService keyResultMilestoneService;
 
   private KeyResult keyResult;
   private KeyResultMilestone milestone;
@@ -83,7 +89,7 @@ public class KeyResultMilestoneServiceTest {
   @Test(expected = EntityNotFoundException.class)
   public void createKeyResultMilestone_expectEntityNotFoundExceptionWhenKeyResultDoesNotExist() {
     when(keyResultRepository.findByIdOrThrow(any(Long.class)))
-        .thenThrow(new EntityNotFoundException());
+      .thenThrow(new EntityNotFoundException());
 
     keyResultMilestoneService.createKeyResultMilestone(10L, milestone, user);
   }
@@ -147,7 +153,7 @@ public class KeyResultMilestoneServiceTest {
     updateMilestone.setId(10L);
 
     when(keyResultMilestoneRepository.findByIdOrThrow(anyLong()))
-        .thenThrow(new EntityNotFoundException());
+      .thenThrow(new EntityNotFoundException());
 
     keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, user);
   }
@@ -175,7 +181,7 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void
-      deleteKeyResultMilestone_expectOnlyMilestoneIsRemovedFromParentKeyResultsMilestoneList() {
+  deleteKeyResultMilestone_expectOnlyMilestoneIsRemovedFromParentKeyResultsMilestoneList() {
     milestone.setParentKeyResult(keyResult);
 
     List<KeyResultMilestone> milestoneList = new ArrayList<>();
@@ -199,7 +205,7 @@ public class KeyResultMilestoneServiceTest {
   @Test(expected = EntityNotFoundException.class)
   public void deleteKeyResultMilestone_expectExceptionWhenMilestoneDoesNotExist() {
     when(keyResultMilestoneRepository.findByIdOrThrow(anyLong()))
-        .thenThrow(new EntityNotFoundException());
+      .thenThrow(new EntityNotFoundException());
 
     keyResultMilestoneService.deleteKeyResultMilestone(10L, user);
   }

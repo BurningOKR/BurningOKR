@@ -44,11 +44,12 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
     'admin-settings-form.config-names.email-feedabck-receiver',
   ];
 
-  constructor(private configurationManagerService: ConfigurationManagerService,
-              private currentUserService: CurrentUserService,
-              private dialog: MatDialog,
-              private translate: TranslateService,
-              private oAuthDetails: OAuthFrontendDetailsService,
+  constructor(
+    private configurationManagerService: ConfigurationManagerService,
+    private currentUserService: CurrentUserService,
+    private dialog: MatDialog,
+    private translate: TranslateService,
+    private oAuthDetails: OAuthFrontendDetailsService,
   ) {
     super();
   }
@@ -64,7 +65,7 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
     }));
 
     this.confirmationTitle = this.translate.instant('admin-settings-form.confirmation-title');
-    this.confirmationText =this.translate.instant('admin-settings-form.confirmation-text');
+    this.confirmationText = this.translate.instant('admin-settings-form.confirmation-text');
 
     const translations: { [key: string]: string } = this.translate.instant(this.configurationNamesTranslationKeys);
 
@@ -118,7 +119,10 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
               return new FormGroup({
                 id: new FormControl(configuration.id),
                 name: new FormControl(configuration.name),
-                value: new FormControl(this.mapConfigurationValueToBooleanIfTypeIsCheckbox(configuration), [Validators.required]),
+                value: new FormControl(
+                  this.mapConfigurationValueToBooleanIfTypeIsCheckbox(configuration),
+                  [Validators.required],
+                ),
                 type: new FormControl(configuration.type),
               });
             })

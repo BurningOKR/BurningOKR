@@ -3,7 +3,7 @@ import { ViewKeyResultMilestone } from '../../model/ui/view-key-result-milestone
 import { KeyResultMilestoneDto } from '../../model/api/key-result-milestone.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KeyResultMilestoneMapper {
 
@@ -12,7 +12,7 @@ export class KeyResultMilestoneMapper {
       id: viewKeyResultMilestone.id,
       name: viewKeyResultMilestone.name,
       parentKeyResultId: viewKeyResultMilestone.parentKeyResult,
-      value: viewKeyResultMilestone.value
+      value: viewKeyResultMilestone.value,
     };
   }
 
@@ -27,7 +27,7 @@ export class KeyResultMilestoneMapper {
       keyResultMilestoneDto.id,
       keyResultMilestoneDto.name,
       keyResultMilestoneDto.parentKeyResultId,
-      keyResultMilestoneDto.value
+      keyResultMilestoneDto.value,
     );
   }
 

@@ -1,13 +1,14 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.KeyResultMilestoneDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class KeyResultMilestoneMapperTest {
   private KeyResultMilestone keyResultMilestone;
@@ -91,7 +92,7 @@ public class KeyResultMilestoneMapperTest {
   public void test_mapEntitiesToDtos_expectEmptyListIsMapped() {
     Collection<KeyResultMilestone> emptyList = new ArrayList<>();
     Collection<KeyResultMilestoneDto> emptyDtoList =
-        keyResultMilestoneMapper.mapEntitiesToDtos(emptyList);
+      keyResultMilestoneMapper.mapEntitiesToDtos(emptyList);
     Assert.assertTrue(emptyDtoList.isEmpty());
   }
 
@@ -110,7 +111,7 @@ public class KeyResultMilestoneMapperTest {
   public void test_mapDtosToEntities_expectEmptyListIsMapped() {
     Collection<KeyResultMilestoneDto> emptyList = new ArrayList<>();
     Collection<KeyResultMilestone> emptyDtoList =
-        keyResultMilestoneMapper.mapDtosToEntities(emptyList);
+      keyResultMilestoneMapper.mapDtosToEntities(emptyList);
     Assert.assertTrue(emptyDtoList.isEmpty());
   }
 

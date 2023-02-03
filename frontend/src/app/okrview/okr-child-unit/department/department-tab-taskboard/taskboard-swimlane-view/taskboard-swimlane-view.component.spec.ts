@@ -16,7 +16,7 @@ describe('TaskboardSwimlaneViewComponent', () => {
 
   @Component({
     selector: 'app-taskboard-swimlane',
-    template: ''
+    template: '',
   })
   class TaskBoardSwimlaneMockComponent {
     @Input() tasksForStates: StateTaskMap[];
@@ -28,13 +28,13 @@ describe('TaskboardSwimlaneViewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, MaterialTestingModule],
-      declarations: [ TaskboardSwimlaneViewComponent, TaskBoardSwimlaneMockComponent ],
+      declarations: [TaskboardSwimlaneViewComponent, TaskBoardSwimlaneMockComponent],
       providers: [
         TaskBoardSwimlaneViewHelper,
-        TaskBoardViewEventService
-      ]
+        TaskBoardViewEventService,
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

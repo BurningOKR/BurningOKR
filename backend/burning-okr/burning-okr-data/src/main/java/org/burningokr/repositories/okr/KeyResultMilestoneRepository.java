@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KeyResultMilestoneRepository
-    extends ExtendedRepository<KeyResultMilestone, Long> {}
+  extends ExtendedRepository<KeyResultMilestone, Long> {
+}

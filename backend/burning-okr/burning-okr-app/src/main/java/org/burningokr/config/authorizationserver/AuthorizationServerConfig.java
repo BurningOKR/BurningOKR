@@ -1,7 +1,5 @@
 package org.burningokr.config.authorizationserver;
 
-import java.util.Arrays;
-import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.service.condition.LocalUserCondition;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,6 +19,9 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import javax.sql.DataSource;
+import java.util.Arrays;
 
 @Conditional(LocalUserCondition.class)
 @Configuration
@@ -46,10 +47,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
     tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
     endpoints
-        .tokenStore(tokenStore())
-        .tokenEnhancer(tokenEnhancerChain)
-        .authenticationManager(authenticationManager)
-        .userDetailsService(userDetailsService);
+      .tokenStore(tokenStore())
+      .tokenEnhancer(tokenEnhancerChain)
+      .authenticationManager(authenticationManager)
+      .userDetailsService(userDetailsService);
   }
 
   /**

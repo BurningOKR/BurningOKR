@@ -9,7 +9,7 @@ describe('dateFormatValidatorFunction', () => {
     const actual: any = DateFormValidator.Validate(control);
 
     expect(actual)
-      .toEqual({dateFormatError: true});
+      .toEqual({ dateFormatError: true });
   });
 
   it('should return error if date is empty', () => {
@@ -18,7 +18,7 @@ describe('dateFormatValidatorFunction', () => {
     const actual: any = DateFormValidator.Validate(control);
 
     expect(actual)
-      .toEqual({dateFormatError: true});
+      .toEqual({ dateFormatError: true });
   });
 
   it('should return undefiend if date is date', () => {

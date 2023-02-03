@@ -1,13 +1,5 @@
 package org.burningokr.service.excel;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -24,19 +16,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.UUID;
+
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class TeamMemberRowBuilderServiceTest {
 
-  @Mock private UserService userService;
-
-  @Mock private OkrUnitServiceUsers departmentServiceUsers;
-
-  @Mock private CompanyService companyService;
-
-  @Mock private Messages messages;
-
-  @InjectMocks TeamMemberRowBuilderService teamMemberRowBuilderService;
-
+  @InjectMocks
+  TeamMemberRowBuilderService teamMemberRowBuilderService;
+  @Mock
+  private UserService userService;
+  @Mock
+  private OkrUnitServiceUsers departmentServiceUsers;
+  @Mock
+  private CompanyService companyService;
+  @Mock
+  private Messages messages;
   private OkrCompany okrCompany;
   private long companyId = 2L;
   private OkrDepartment okrDepartment;
@@ -74,9 +72,9 @@ public class TeamMemberRowBuilderServiceTest {
 
   @Test
   public void
-      generateForDepartment_ShouldReturnEmptyListIfThereAreNoTeamMembersOrOkrMasterOrTopicSponsor() {
+  generateForDepartment_ShouldReturnEmptyListIfThereAreNoTeamMembersOrOkrMasterOrTopicSponsor() {
     Collection<TeamMemberRow> rows =
-        teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
+      teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertTrue(rows.isEmpty());
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -89,27 +87,30 @@ public class TeamMemberRowBuilderServiceTest {
     okrDepartment.setOkrMemberIds(Collections.singletonList(guidUser3));
 
     Collection<TeamMemberRow> rows =
-        teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
+      teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Assert.assertEquals(3, rows.size());
 
     Assert.assertEquals(okrDepartment.getName(), ((TeamMemberRow) rows.toArray()[0]).getTeamName());
     Assert.assertEquals("OKR Master", ((TeamMemberRow) rows.toArray()[0]).getRole());
     Assert.assertEquals(
-        user1.getGivenName() + " " + user1.getSurname(),
-        ((TeamMemberRow) rows.toArray()[0]).getFullName());
+      user1.getGivenName() + " " + user1.getSurname(),
+      ((TeamMemberRow) rows.toArray()[0]).getFullName()
+    );
     Assert.assertEquals(user1.getMail(), ((TeamMemberRow) rows.toArray()[0]).getEmailAddress());
     Assert.assertEquals(okrDepartment.getName(), ((TeamMemberRow) rows.toArray()[1]).getTeamName());
     Assert.assertEquals("Topic sponsor", ((TeamMemberRow) rows.toArray()[1]).getRole());
     Assert.assertEquals(
-        user2.getGivenName() + " " + user2.getSurname(),
-        ((TeamMemberRow) rows.toArray()[1]).getFullName());
+      user2.getGivenName() + " " + user2.getSurname(),
+      ((TeamMemberRow) rows.toArray()[1]).getFullName()
+    );
     Assert.assertEquals(user2.getMail(), ((TeamMemberRow) rows.toArray()[1]).getEmailAddress());
     Assert.assertEquals(okrDepartment.getName(), ((TeamMemberRow) rows.toArray()[2]).getTeamName());
     Assert.assertEquals("Team member", ((TeamMemberRow) rows.toArray()[2]).getRole());
     Assert.assertEquals(
-        user3.getGivenName() + " " + user3.getSurname(),
-        ((TeamMemberRow) rows.toArray()[2]).getFullName());
+      user3.getGivenName() + " " + user3.getSurname(),
+      ((TeamMemberRow) rows.toArray()[2]).getFullName()
+    );
     Assert.assertEquals(user3.getMail(), ((TeamMemberRow) rows.toArray()[2]).getEmailAddress());
 
     verify(departmentServiceUsers, times(1)).findById(departmentId);
@@ -120,7 +121,7 @@ public class TeamMemberRowBuilderServiceTest {
 
   @Test
   public void
-      generateForCompany_ShouldReturnEmptyListIfThereAreNoTeamMembersOrOkrMasterOrTopicSponsor() {
+  generateForCompany_ShouldReturnEmptyListIfThereAreNoTeamMembersOrOkrMasterOrTopicSponsor() {
     Collection<TeamMemberRow> rows = teamMemberRowBuilderService.generateForCompany(companyId);
 
     Assert.assertTrue(rows.isEmpty());
@@ -142,20 +143,23 @@ public class TeamMemberRowBuilderServiceTest {
     Assert.assertEquals(okrDepartment.getName(), ((TeamMemberRow) rows.toArray()[0]).getTeamName());
     Assert.assertEquals("OKR Master", ((TeamMemberRow) rows.toArray()[0]).getRole());
     Assert.assertEquals(
-        user1.getGivenName() + " " + user1.getSurname(),
-        ((TeamMemberRow) rows.toArray()[0]).getFullName());
+      user1.getGivenName() + " " + user1.getSurname(),
+      ((TeamMemberRow) rows.toArray()[0]).getFullName()
+    );
     Assert.assertEquals(user1.getMail(), ((TeamMemberRow) rows.toArray()[0]).getEmailAddress());
     Assert.assertEquals(okrDepartment.getName(), ((TeamMemberRow) rows.toArray()[1]).getTeamName());
     Assert.assertEquals("Topic sponsor", ((TeamMemberRow) rows.toArray()[1]).getRole());
     Assert.assertEquals(
-        user2.getGivenName() + " " + user2.getSurname(),
-        ((TeamMemberRow) rows.toArray()[1]).getFullName());
+      user2.getGivenName() + " " + user2.getSurname(),
+      ((TeamMemberRow) rows.toArray()[1]).getFullName()
+    );
     Assert.assertEquals(user2.getMail(), ((TeamMemberRow) rows.toArray()[1]).getEmailAddress());
     Assert.assertEquals(okrDepartment.getName(), ((TeamMemberRow) rows.toArray()[2]).getTeamName());
     Assert.assertEquals("Team member", ((TeamMemberRow) rows.toArray()[2]).getRole());
     Assert.assertEquals(
-        user3.getGivenName() + " " + user3.getSurname(),
-        ((TeamMemberRow) rows.toArray()[2]).getFullName());
+      user3.getGivenName() + " " + user3.getSurname(),
+      ((TeamMemberRow) rows.toArray()[2]).getFullName()
+    );
     Assert.assertEquals(user3.getMail(), ((TeamMemberRow) rows.toArray()[2]).getEmailAddress());
 
     verify(companyService, times(1)).findById(companyId);

@@ -1,11 +1,5 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.*;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.*;
@@ -22,26 +16,33 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class KeyResultServiceTest {
 
-  @Mock private KeyResultRepository keyResultRepository;
-
-  @Mock private EntityCrawlerService entityCrawlerService;
-
-  @Mock private ActivityService activityService;
-
-  @Mock private ObjectiveService objectiveService;
-
-  @Mock private KeyResultMilestoneService keyResultMilestoneService;
-
-  @Mock private User user;
-
-  @Mock private TaskService taskService;
-
-  @InjectMocks private KeyResultService keyResultService;
-
   private final Long keyResultId = 1337L;
+  @Mock
+  private KeyResultRepository keyResultRepository;
+  @Mock
+  private EntityCrawlerService entityCrawlerService;
+  @Mock
+  private ActivityService activityService;
+  @Mock
+  private ObjectiveService objectiveService;
+  @Mock
+  private KeyResultMilestoneService keyResultMilestoneService;
+  @Mock
+  private User user;
+  @Mock
+  private TaskService taskService;
+  @InjectMocks
+  private KeyResultService keyResultService;
   private KeyResult keyResult;
   private KeyResult updateKeyResult;
 
@@ -55,13 +56,13 @@ public class KeyResultServiceTest {
     activeCycle.setCycleState(CycleState.ACTIVE);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
     when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult), any()))
-        .thenReturn(updateKeyResult);
+      .thenReturn(updateKeyResult);
   }
 
   @Test(expected = EntityNotFoundException.class)
   public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() throws Exception {
     when(keyResultRepository.findByIdOrThrow(any(Long.class)))
-        .thenThrow(new EntityNotFoundException());
+      .thenThrow(new EntityNotFoundException());
     keyResultService.deleteKeyResult(keyResultId, user);
   }
 
@@ -81,7 +82,7 @@ public class KeyResultServiceTest {
     KeyResult keyResultToDelete = new KeyResult();
     KeyResult keyResultAboveInSequence = new KeyResult();
     Collection<KeyResult> keyResultList =
-        Arrays.asList(keyResultAboveInSequence, keyResultBelowInSequence, keyResultToDelete);
+      Arrays.asList(keyResultAboveInSequence, keyResultBelowInSequence, keyResultToDelete);
     parentObjective.setKeyResults(keyResultList);
 
     keyResultBelowInSequence.setSequence(5);

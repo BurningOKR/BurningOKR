@@ -1,4 +1,4 @@
-import {CycleCreationFormComponent} from './cycle-creation-form.component';
+import { CycleCreationFormComponent } from './cycle-creation-form.component';
 import moment from 'moment';
 
 describe('CycleCreationFormComponent', () => {

@@ -9,13 +9,15 @@ import { CompanyId, OkrUnitId } from '../../model/id-types';
 import { OkrUnitApiService } from '../api/okr-unit-api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OkrUnitSchemaMapper {
   constructor(
     private departmentApiService: DepartmentApiService,
     private companyApiService: CompanyApiService,
-    private okrUnitApiService: OkrUnitApiService) {}
+    private okrUnitApiService: OkrUnitApiService,
+  ) {
+  }
 
   getOkrUnitSchemaOfDepartment$(departmentId: OkrUnitId): Observable<OkrUnitSchema[]> {
     return this.departmentApiService
@@ -32,7 +34,7 @@ export class OkrUnitSchemaMapper {
   getOkrUnitSchemaByUnitId$(id: OkrUnitId): Observable<OkrUnitSchema[]> {
     return this.okrUnitApiService.getOkrUnitSchemaByUnitId$(id)
       .pipe(
-        map((okrUnitSchemas: OkrUnitSchema[]) => this.mapOkrUnitSchemaDtoList(okrUnitSchemas))
+        map((okrUnitSchemas: OkrUnitSchema[]) => this.mapOkrUnitSchemaDtoList(okrUnitSchemas)),
       );
   }
 
@@ -63,7 +65,13 @@ export class OkrUnitSchemaMapper {
   }
 
   mapOkrUnitSchemaDto(dto: OkrUnitSchemaDto): OkrUnitSchema {
-    const okrUnitSchema: OkrUnitSchema = new OkrUnitSchema(dto.id, dto.name.toString(), dto.userRole, dto.isActive, dto.isTeam);
+    const okrUnitSchema: OkrUnitSchema = new OkrUnitSchema(
+      dto.id,
+      dto.name.toString(),
+      dto.userRole,
+      dto.isActive,
+      dto.isTeam,
+    );
     okrUnitSchema.subDepartments = this.mapOkrUnitSchemaDtoList(dto.subDepartments);
 
     return okrUnitSchema;

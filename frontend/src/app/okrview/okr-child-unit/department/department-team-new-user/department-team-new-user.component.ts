@@ -5,7 +5,7 @@ import { User } from '../../../../shared/model/api/user';
 @Component({
   selector: 'app-department-team-new-user',
   templateUrl: './department-team-new-user.component.html',
-  styleUrls: ['./department-team-new-user.component.scss']
+  styleUrls: ['./department-team-new-user.component.scss'],
 })
 export class DepartmentTeamNewUserComponent {
   @ViewChild('inputForm') inputForm: UserAutocompleteInputComponent;

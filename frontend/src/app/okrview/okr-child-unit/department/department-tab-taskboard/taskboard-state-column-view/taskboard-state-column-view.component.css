@@ -1,9 +1,9 @@
 .taskboard-state-column-view {
-    display        : flex;
-    flex-direction : row;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-    width          : 100%;
-    flex-grow      : 1;  
+    width: 100%;
+    flex-grow: 1;
 }
 
 @media (max-width: 1550px) {

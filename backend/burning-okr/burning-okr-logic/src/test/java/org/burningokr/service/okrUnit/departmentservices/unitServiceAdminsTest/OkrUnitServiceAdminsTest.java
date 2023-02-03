@@ -1,11 +1,5 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceAdminsTest;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
@@ -26,19 +20,35 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import javax.persistence.EntityNotFoundException;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
 
   protected final Long departmentId = 1337L;
   protected final String departmentName = "Java Academy";
-  @Mock protected UnitRepository<T> unitRepository;
-  @Mock protected ObjectiveRepository objectiveRepository;
-  @Mock protected TaskBoardService taskBoardService;
-  @Mock protected User user;
-  @Mock protected EntityCrawlerService entityCrawlerService;
-  @Mock protected ActivityService activityService;
-  @Mock protected OkrTopicDescriptionRepository okrTopicDescriptionRepository;
-  @Mock protected OkrTopicDescriptionService okrTopicDescriptionService;
-  @InjectMocks protected OkrUnitServiceAdmins<T> okrUnitServiceAdmins;
+  @Mock
+  protected UnitRepository<T> unitRepository;
+  @Mock
+  protected ObjectiveRepository objectiveRepository;
+  @Mock
+  protected TaskBoardService taskBoardService;
+  @Mock
+  protected User user;
+  @Mock
+  protected EntityCrawlerService entityCrawlerService;
+  @Mock
+  protected ActivityService activityService;
+  @Mock
+  protected OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  @Mock
+  protected OkrTopicDescriptionService okrTopicDescriptionService;
+  @InjectMocks
+  protected OkrUnitServiceAdmins<T> okrUnitServiceAdmins;
   protected T unit;
 
   protected abstract T createDepartment();
@@ -61,13 +71,13 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     T childUnit = createDepartment();
 
     when(unitRepository.findByIdOrThrow(any(Long.class)))
-        .thenAnswer(
-            invocation -> {
-              if (invocation.getArgument(0).equals(unit.getId())) {
-                return unit;
-              }
-              throw new EntityNotFoundException();
-            });
+      .thenAnswer(
+        invocation -> {
+          if (invocation.getArgument(0).equals(unit.getId())) {
+            return unit;
+          }
+          throw new EntityNotFoundException();
+        });
     when(unitRepository.save(any(getDepartment()))).thenReturn(childUnit);
 
     okrUnitServiceAdmins.createChildUnit(departmentId, childUnit, user);

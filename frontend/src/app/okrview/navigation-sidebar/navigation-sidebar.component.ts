@@ -10,7 +10,7 @@ import { CurrentCompanyService } from '../current-company.service';
 @Component({
   selector: 'app-navigation-sidebar',
   templateUrl: './navigation-sidebar.component.html',
-  styleUrls: ['./navigation-sidebar.component.scss']
+  styleUrls: ['./navigation-sidebar.component.scss'],
 })
 export class NavigationSidebarComponent implements OnInit, OnDestroy {
   @ViewChild('sideNav') sideNav: MatSidenav;
@@ -26,7 +26,7 @@ export class NavigationSidebarComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
-    private currentCompanyService: CurrentCompanyService
+    private currentCompanyService: CurrentCompanyService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

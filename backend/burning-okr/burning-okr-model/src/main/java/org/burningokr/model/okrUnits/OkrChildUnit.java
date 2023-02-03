@@ -1,14 +1,18 @@
 package org.burningokr.model.okrUnits;
 
-import javax.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class OkrChildUnit extends OkrUnit implements OkrChildUnitSchema {
-  @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude protected OkrUnit parentOkrUnit;
+  @ToString.Exclude
+  @ManyToOne
+  @EqualsAndHashCode.Exclude
+  protected OkrUnit parentOkrUnit;
 
   @Column
   @Getter(AccessLevel.NONE)

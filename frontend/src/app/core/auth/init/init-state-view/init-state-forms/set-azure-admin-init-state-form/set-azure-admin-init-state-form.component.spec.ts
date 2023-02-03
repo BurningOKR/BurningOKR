@@ -14,13 +14,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { INIT_STATE_NAME, InitState } from '../../../../../../shared/model/api/init-state';
 
 const currentUserService: any = {
-  getCurrentUser$: jest.fn()
+  getCurrentUser$: jest.fn(),
 };
 
 const authenticationService: any = {};
 
 const initService: any = {
-  postAzureAdminUser$: jest.fn()
+  postAzureAdminUser$: jest.fn(),
 };
 
 const fetchingService: any = {};
@@ -31,7 +31,7 @@ let user: User;
 
 const initState: InitState = {
   runtimeId: '',
-  initState: INIT_STATE_NAME.INITIALIZED
+  initState: INIT_STATE_NAME.INITIALIZED,
 };
 
 describe('SetAzureAdminInitStateFormComponent', () => {
@@ -44,7 +44,7 @@ describe('SetAzureAdminInitStateFormComponent', () => {
         SharedModule,
         HttpClientTestingModule,
         MaterialTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
         SetAzureAdminInitStateFormComponent,
@@ -54,8 +54,8 @@ describe('SetAzureAdminInitStateFormComponent', () => {
         { provide: AuthenticationService, useValue: authenticationService },
         { provide: InitService, useValue: initService },
         { provide: FetchingService, useValue: fetchingService },
-        { provide: NGXLogger, useValue: ngxLogger }
-      ]
+        { provide: NGXLogger, useValue: ngxLogger },
+      ],
     })
       .compileComponents();
   }));
@@ -69,7 +69,7 @@ describe('SetAzureAdminInitStateFormComponent', () => {
       givenName: 'John',
       jobTitle: '',
       photo: '',
-      surname: 'Doe'
+      surname: 'Doe',
     };
 
     currentUserService.getCurrentUser$.mockReset();

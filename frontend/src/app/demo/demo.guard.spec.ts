@@ -1,15 +1,15 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { DemoGuard } from './demo.guard';
 import { RouterTestingModule } from '@angular/router/testing';
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 describe('DemoGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [DemoGuard]
+      providers: [DemoGuard],
     });
 
   });

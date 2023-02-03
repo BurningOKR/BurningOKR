@@ -8,9 +8,9 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-dialog-component',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class DialogComponent<T> implements OnInit{
+export class DialogComponent<T> implements OnInit {
   @Input() title: string;
   @Input() saveAndCloseLabel;
   @Input() formGroup: FormGroup = new FormGroup({});
@@ -22,9 +22,10 @@ export class DialogComponent<T> implements OnInit{
 
   NO_ENTER_TAGS: string[] = ['TEXTAREA', 'MAT-SELECT', 'BUTTON'];
 
-  constructor(private dialogRef: MatDialogRef<DialogComponent<T>>,
-              @Inject(MAT_DIALOG_DATA) private formData: any,
-              private translate: TranslateService,
+  constructor(
+    private dialogRef: MatDialogRef<DialogComponent<T>>,
+    @Inject(MAT_DIALOG_DATA) private formData: any,
+    private translate: TranslateService,
   ) {
   }
 
@@ -42,7 +43,7 @@ export class DialogComponent<T> implements OnInit{
 
   handleEnter(event): void {
     if ((event.target.id === 'language-select' || !this.NO_ENTER_TAGS.includes(event.target.tagName))
-        && !this.isSaveDisabled()) {
+      && !this.isSaveDisabled()) {
       this.sendOk();
     }
   }
@@ -53,7 +54,7 @@ export class DialogComponent<T> implements OnInit{
 
   ngOnInit(): void {
     this.translate.get('dialog-component.save').subscribe((text: string) => {
-      if(!this.saveAndCloseLabel){
+      if (!this.saveAndCloseLabel) {
         this.saveAndCloseLabel = text;
       }
     });

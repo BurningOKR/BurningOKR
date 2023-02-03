@@ -11,7 +11,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private logger: NGXLogger,
     private router: Router,
-    private authService: OAuthService
+    private authService: OAuthService,
   ) {
   }
 
@@ -19,11 +19,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(catchError(err => {
         if (this.authService.hasValidAccessToken()) {
-          this.logger.setCustomHttpHeaders(new HttpHeaders({Authorization: `Bearer ${this.authService.getAccessToken()}`}));
+          this.logger.setCustomHttpHeaders(new HttpHeaders({ Authorization: `Bearer ${this.authService.getAccessToken()}` }));
           this.logger.error(err);
         }
 
         return throwError(err);
-    }));
+      }));
   }
 }

@@ -1,16 +1,5 @@
 package org.burningokr.service.okr;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -27,22 +16,41 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OkrTopicDescriptionServiceTest {
 
-  @Mock private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  @Mock
+  private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
 
-  @Mock private ActivityService activityService;
+  @Mock
+  private ActivityService activityService;
 
-  @Mock private OkrDepartmentRepository okrDepartmentRepository;
+  @Mock
+  private OkrDepartmentRepository okrDepartmentRepository;
 
-  @Mock private EntityManagerFactory entityManagerFactory;
+  @Mock
+  private EntityManagerFactory entityManagerFactory;
 
-  @Mock private EntityManager entityManager;
+  @Mock
+  private EntityManager entityManager;
 
-  @Mock private EntityTransaction entityTransaction;
+  @Mock
+  private EntityTransaction entityTransaction;
 
-  @InjectMocks private OkrTopicDescriptionService okrTopicDescriptionService;
+  @InjectMocks
+  private OkrTopicDescriptionService okrTopicDescriptionService;
 
   private OkrTopicDescription okrTopicDescription;
 
@@ -77,12 +85,12 @@ public class OkrTopicDescriptionServiceTest {
     okrTopicDescription.setName("testName");
 
     when(okrTopicDescriptionRepository.findByIdOrThrow(ArgumentMatchers.any(Long.class)))
-        .thenReturn(new OkrTopicDescription());
+      .thenReturn(new OkrTopicDescription());
     when(okrTopicDescriptionRepository.save(ArgumentMatchers.any(OkrTopicDescription.class)))
-        .thenAnswer(invocation -> invocation.getArgument(0));
+      .thenAnswer(invocation -> invocation.getArgument(0));
 
     OkrTopicDescription updatedDescription =
-        okrTopicDescriptionService.updateOkrTopicDescription(okrTopicDescription, new LocalUser());
+      okrTopicDescriptionService.updateOkrTopicDescription(okrTopicDescription, new LocalUser());
 
     assertEquals(okrTopicDescription.getInitiatorId(), updatedDescription.getInitiatorId());
     assertEquals(okrTopicDescription.getName(), updatedDescription.getName());
@@ -94,10 +102,11 @@ public class OkrTopicDescriptionServiceTest {
     assertEquals(okrTopicDescription.getHandoverPlan(), updatedDescription.getHandoverPlan());
     assertEquals(okrTopicDescription.getResources(), updatedDescription.getResources());
     assertEquals(
-        (long) okrTopicDescription.getStakeholders().size(),
-        updatedDescription.getStakeholders().size());
+      (long) okrTopicDescription.getStakeholders().size(),
+      updatedDescription.getStakeholders().size()
+    );
     assertEquals(
-        (long) okrTopicDescription.getStartTeam().size(), updatedDescription.getStartTeam().size());
+      (long) okrTopicDescription.getStartTeam().size(), updatedDescription.getStartTeam().size());
   }
 
   @Test
@@ -105,15 +114,15 @@ public class OkrTopicDescriptionServiceTest {
     when(okrDepartmentRepository.findAll()).thenReturn(new ArrayList<>());
 
     List<OkrDepartment> okrDepartments =
-        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
-            okrTopicDescription.getId());
+      okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+        okrTopicDescription.getId());
 
     assertEquals(0, okrDepartments.size());
   }
 
   @Test
   public void
-      getOkrDepartmentsWithTopicDescription_returnsEmptyListWhenThereAreNoDepartmentsThatReferenceTheTopicDescriptionId() {
+  getOkrDepartmentsWithTopicDescription_returnsEmptyListWhenThereAreNoDepartmentsThatReferenceTheTopicDescriptionId() {
     OkrTopicDescription okrTopicDescription1 = new OkrTopicDescription();
     okrTopicDescription1.setId(11L);
     OkrTopicDescription okrTopicDescription2 = new OkrTopicDescription();
@@ -136,15 +145,15 @@ public class OkrTopicDescriptionServiceTest {
     when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
 
     List<OkrDepartment> actualOkrDepartments =
-        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
-            okrTopicDescription.getId());
+      okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+        okrTopicDescription.getId());
 
     assertEquals(0, actualOkrDepartments.size());
   }
 
   @Test
   public void
-      getOkrDepartmentsWithTopicDescription_returnsOnlyDepartmentsWithTheCorrectTopicDescription() {
+  getOkrDepartmentsWithTopicDescription_returnsOnlyDepartmentsWithTheCorrectTopicDescription() {
     OkrTopicDescription okrTopicDescription1 = new OkrTopicDescription();
     okrTopicDescription1.setId(11L);
 
@@ -163,15 +172,15 @@ public class OkrTopicDescriptionServiceTest {
     when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
 
     List<OkrDepartment> actualOkrDepartments =
-        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
-            okrTopicDescription.getId());
+      okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+        okrTopicDescription.getId());
 
     assertEquals(2, actualOkrDepartments.size());
   }
 
   @Test
   public void
-      getOkrDepartmentsWithTopicDescription_returnsAllDepartmentsWithTheCorrectTopicDescription() {
+  getOkrDepartmentsWithTopicDescription_returnsAllDepartmentsWithTheCorrectTopicDescription() {
     OkrDepartment department1 = new OkrDepartment();
     department1.setOkrTopicDescription(okrTopicDescription);
     OkrDepartment department2 = new OkrDepartment();
@@ -187,8 +196,8 @@ public class OkrTopicDescriptionServiceTest {
     when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
 
     List<OkrDepartment> actualOkrDepartments =
-        okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
-            okrTopicDescription.getId());
+      okrTopicDescriptionService.getOkrDepartmentsWithTopicDescription(
+        okrTopicDescription.getId());
 
     assertEquals(3, actualOkrDepartments.size());
   }
@@ -197,12 +206,12 @@ public class OkrTopicDescriptionServiceTest {
   public void safeDeleteOkrTopicDescription_deletesOkrTopicDescription() {
     when(okrDepartmentRepository.findAll()).thenReturn(new ArrayList<>());
     when(entityManager.find(OkrTopicDescription.class, okrTopicDescription.getId()))
-        .thenReturn(okrTopicDescription);
+      .thenReturn(okrTopicDescription);
     when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
     when(entityManager.getTransaction()).thenReturn(entityTransaction);
 
     okrTopicDescriptionService.safeDeleteOkrTopicDescription(
-        okrTopicDescription.getId(), new LocalUser());
+      okrTopicDescription.getId(), new LocalUser());
 
     verify(entityManager).remove(okrTopicDescription);
   }
@@ -224,7 +233,7 @@ public class OkrTopicDescriptionServiceTest {
     when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
 
     okrTopicDescriptionService.safeDeleteOkrTopicDescription(
-        okrTopicDescription.getId(), new LocalUser());
+      okrTopicDescription.getId(), new LocalUser());
 
     verify(entityManager, never()).remove(any());
   }
@@ -246,7 +255,7 @@ public class OkrTopicDescriptionServiceTest {
 
     when(okrDepartmentRepository.findAll()).thenReturn(new ArrayList<>());
     when(entityManager.find(OkrTopicDescription.class, okrTopicDescription.getId()))
-        .thenReturn(okrTopicDescription);
+      .thenReturn(okrTopicDescription);
     when(entityManagerFactory.createEntityManager()).thenReturn(entityManager);
     when(entityManager.getTransaction()).thenReturn(entityTransaction);
 

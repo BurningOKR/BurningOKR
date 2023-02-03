@@ -12,7 +12,7 @@ export interface ConfirmationDialogData {
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.scss']
+  styleUrls: ['./confirmation-dialog.component.scss'],
 })
 export class ConfirmationDialogComponent implements OnInit, OnDestroy {
 
@@ -23,7 +23,7 @@ export class ConfirmationDialogComponent implements OnInit, OnDestroy {
   constructor(
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public formData: ConfirmationDialogData,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     if (formData.confirmButtonText) {
       this.confirmButtonText = formData.confirmButtonText;

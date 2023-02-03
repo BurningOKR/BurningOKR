@@ -13,7 +13,7 @@ describe('TopicDraftPermissionServiceService', () => {
   const mockAdmin: User = new User('mockAdminId');
   const mockAuditor: User = new User('mockAuditorId');
 
-  currentUserServiceMock.isCurrentUserAdmin$  = jest.fn().mockImplementation(() => {
+  currentUserServiceMock.isCurrentUserAdmin$ = jest.fn().mockImplementation(() => {
     return currentUserServiceMock.getCurrentUser$().pipe(map(user => user === mockAdmin));
   });
 
@@ -126,5 +126,6 @@ describe('TopicDraftPermissionServiceService', () => {
 function getMockTopicDraft(user: User): OkrTopicDraft {
   return new OkrTopicDraft(0, undefined, user, 0, '', user.id,
     undefined, undefined, undefined, undefined, undefined, undefined,
-    undefined, undefined, undefined);
+    undefined, undefined, undefined,
+  );
 }

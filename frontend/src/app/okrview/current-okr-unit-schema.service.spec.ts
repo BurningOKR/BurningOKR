@@ -19,8 +19,8 @@ describe('CurrentOkrUnitSchemaService', () => {
       isTeam: true,
       name: 'testUnitSchema',
       subDepartments: [],
-      userRole: OkrUnitRole.MEMBER
-    }
+      userRole: OkrUnitRole.MEMBER,
+    },
   ];
 
   const threeUnitSchema: OkrUnitSchema[] = [
@@ -42,14 +42,14 @@ describe('CurrentOkrUnitSchemaService', () => {
               name: 'testUnitSchema3',
               userRole: OkrUnitRole.USER,
               subDepartments: [],
-              isTeam: false
-            }
+              isTeam: false,
+            },
           ],
-          isTeam: false
-        }
+          isTeam: false,
+        },
       ],
-      isTeam: false
-    }
+      isTeam: false,
+    },
   ];
 
   const threeFlatUnitSchema: OkrUnitSchema[] = [
@@ -59,7 +59,7 @@ describe('CurrentOkrUnitSchemaService', () => {
       name: 'testUnitSchema',
       userRole: OkrUnitRole.MEMBER,
       subDepartments: [],
-      isTeam: true
+      isTeam: true,
     },
     {
       id: 6,
@@ -67,7 +67,7 @@ describe('CurrentOkrUnitSchemaService', () => {
       name: 'testUnitSchema2',
       userRole: OkrUnitRole.MANAGER,
       subDepartments: [],
-      isTeam: true
+      isTeam: true,
     },
     {
       id: 7,
@@ -75,8 +75,8 @@ describe('CurrentOkrUnitSchemaService', () => {
       name: 'testUnitSchema3',
       userRole: OkrUnitRole.USER,
       subDepartments: [],
-      isTeam: true
-    }
+      isTeam: true,
+    },
   ];
 
   beforeEach(() => TestBed.configureTestingModule(
@@ -87,8 +87,8 @@ describe('CurrentOkrUnitSchemaService', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        { provide: OkrUnitSchemaMapper, useValue: unitSchemaMapperMock }
-      ]
+        { provide: OkrUnitSchemaMapper, useValue: unitSchemaMapperMock },
+      ],
     }));
 
   beforeEach(() => {
@@ -325,7 +325,7 @@ describe('CurrentOkrUnitSchemaService', () => {
         expect(schemas)
           .toEqual([
             threeUnitSchema[0],
-            threeUnitSchema[0].subDepartments[0]
+            threeUnitSchema[0].subDepartments[0],
           ]);
         done();
       });
@@ -382,7 +382,7 @@ describe('CurrentOkrUnitSchemaService', () => {
         expect(schemas)
           .toEqual([
             threeUnitSchema[0].id,
-            threeUnitSchema[0].subDepartments[0].id
+            threeUnitSchema[0].subDepartments[0].id,
           ]);
         done();
       });
@@ -462,12 +462,12 @@ describe('CurrentOkrUnitSchemaService', () => {
                       isTeam: false,
                       name: 'testUnitSchema3',
                       userRole: OkrUnitRole.MANAGER,
-                      subDepartments: []
-                    }
-                  ]
-                }
-              ]
-            }
+                      subDepartments: [],
+                    },
+                  ],
+                },
+              ],
+            },
           ]);
         done();
       });

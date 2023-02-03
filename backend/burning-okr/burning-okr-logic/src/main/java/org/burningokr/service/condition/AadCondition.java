@@ -10,10 +10,10 @@ public class AadCondition implements Condition {
   @Override
   public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
     boolean isAadCondition =
-        context
-            .getEnvironment()
-            .getProperty(EnvironmentPropertyNames.AUTH_MODE.getFullName())
-            .equals(AuthModes.AZURE.getName());
+      context
+        .getEnvironment()
+        .getProperty(EnvironmentPropertyNames.AUTH_MODE.getFullName())
+        .equals(AuthModes.AZURE.getName());
     return isAadCondition;
   }
 }

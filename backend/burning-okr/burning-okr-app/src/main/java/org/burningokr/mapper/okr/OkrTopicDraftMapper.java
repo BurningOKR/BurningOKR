@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -9,6 +7,9 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor

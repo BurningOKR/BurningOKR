@@ -16,18 +16,18 @@ describe('ChangePasswordDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangePasswordDialogComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      declarations: [ChangePasswordDialogComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       imports: [MaterialTestingModule],
       providers: [
-        {provide: MatDialogRef, useValue: {}},
-        {provide: FormBuilder, useValue: formBuilder},
-        {provide: PasswordService, useValue: {}},
-        {provide: CurrentUserService, useValue: {}},
-        {provide: NGXLogger, useValue: {}},
-      ]
+        { provide: MatDialogRef, useValue: {} },
+        { provide: FormBuilder, useValue: formBuilder },
+        { provide: PasswordService, useValue: {} },
+        { provide: CurrentUserService, useValue: {} },
+        { provide: NGXLogger, useValue: {} },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
     fixture = TestBed.createComponent(ChangePasswordDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

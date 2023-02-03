@@ -7,10 +7,11 @@ import { ObjectiveDto } from '../../model/api/objective.dto';
 import { ObjectiveId, OkrUnitId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ObjectiveViewMapper {
-  constructor(private objectiveApiService: ObjectiveApiService) {}
+  constructor(private objectiveApiService: ObjectiveApiService) {
+  }
 
   private static mapToObjectiveDTO(viewObjective: ViewObjective): ObjectiveDto {
     return {
@@ -53,17 +54,17 @@ export class ObjectiveViewMapper {
       .pipe(
         map((objectiveList: ObjectiveDto[]) => {
           return objectiveList.map(ObjectiveViewMapper.mapToViewObjective);
-        })
+        }),
       );
   }
 
   getObjectivesForDepartment$(departmentId: number): Observable<ViewObjective[]> {
     return this.objectiveApiService.getObjectivesForDepartment$(departmentId)
       .pipe(
-      map((objectiveList: ObjectiveDto[]) => {
-        return objectiveList.map(ObjectiveViewMapper.mapToViewObjective);
-      })
-    );
+        map((objectiveList: ObjectiveDto[]) => {
+          return objectiveList.map(ObjectiveViewMapper.mapToViewObjective);
+        }),
+      );
   }
 
   getObjectivesForUnit$(unitId: OkrUnitId): Observable<ViewObjective[]> {
@@ -71,7 +72,7 @@ export class ObjectiveViewMapper {
       .pipe(
         map((objectiveList: ObjectiveDto[]) => {
           return objectiveList.map(ObjectiveViewMapper.mapToViewObjective);
-        })
+        }),
       );
   }
 

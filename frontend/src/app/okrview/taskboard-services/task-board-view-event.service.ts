@@ -6,7 +6,7 @@ import { TaskBoardDragDropEvent } from '../okr-child-unit/department/department-
 import { TaskBoardSwimlaneDragDropEvent } from '../okr-child-unit/department/department-tab-taskboard/taskboard-swimlane-view/taskboard-swimlane/taskboard-swimlane.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskBoardViewEventService {
   /**

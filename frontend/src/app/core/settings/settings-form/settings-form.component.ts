@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-settings-form',
   templateUrl: './settings-form.component.html',
-  styleUrls: ['./settings-form.component.css']
+  styleUrls: ['./settings-form.component.css'],
 })
 export class SettingsFormComponent implements OnInit {
 
@@ -20,8 +20,11 @@ export class SettingsFormComponent implements OnInit {
   adminSettingsValid: boolean = true;
   userSettingsValid: boolean = true;
 
-  constructor(private dialogRef: MatDialogRef<SettingsFormComponent>,
-              private currentUserService: CurrentUserService) { }
+  constructor(
+    private dialogRef: MatDialogRef<SettingsFormComponent>,
+    private currentUserService: CurrentUserService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.isCurrentUserAdmin$ = this.currentUserService.isCurrentUserAdmin$();
@@ -32,7 +35,7 @@ export class SettingsFormComponent implements OnInit {
       .subscribe((canClose: boolean) => {
         if (canClose) {
           this.dialogRef.close(
-            forkJoin(this.children.map((form: SettingsForm) => form.createUpdate$()))
+            forkJoin(this.children.map((form: SettingsForm) => form.createUpdate$())),
           );
         }
       });
@@ -47,7 +50,7 @@ export class SettingsFormComponent implements OnInit {
       .pipe(
         map((values: boolean[]) => {
           return values.All(value => value); // check if all forms returned true
-        })
+        }),
       );
   }
 

@@ -14,8 +14,8 @@ describe('LocalUserService', () => {
     providers: [
       { provide: LocalUserApiService, useValue: localUserApiServiceMock },
       { provide: UserService, useValue: userServiceMock },
-      { provide: FetchingService, useValue: fetchingServiceMock }
-    ]
+      { provide: FetchingService, useValue: fetchingServiceMock },
+    ],
   }));
 
   it('should be created', () => {

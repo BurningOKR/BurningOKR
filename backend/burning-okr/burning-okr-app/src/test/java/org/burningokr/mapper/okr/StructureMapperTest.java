@@ -1,11 +1,11 @@
 package org.burningokr.mapper.okr;
 
-import static org.junit.Assert.assertEquals;
-
 import org.burningokr.dto.okr.StructureDto;
-import org.burningokr.model.okrUnits.*;
+import org.burningokr.model.okrUnits.OkrCompany;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class StructureMapperTest {
 

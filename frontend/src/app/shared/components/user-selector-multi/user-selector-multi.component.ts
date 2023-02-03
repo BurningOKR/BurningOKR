@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-user-selector-multi',
   templateUrl: './user-selector-multi.component.html',
-  styleUrls: ['./user-selector-multi.component.css']
+  styleUrls: ['./user-selector-multi.component.css'],
 })
 export class UserSelectorMultiComponent implements OnInit {
 
@@ -20,7 +20,7 @@ export class UserSelectorMultiComponent implements OnInit {
   }
 
   filter(user: User, filter: string): boolean {
-    const lFilter: string  = filter.toLowerCase();
+    const lFilter: string = filter.toLowerCase();
 
     return user.surname.toLowerCase()
         .includes(lFilter) ||

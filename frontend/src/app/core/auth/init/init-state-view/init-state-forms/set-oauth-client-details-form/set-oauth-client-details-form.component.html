@@ -1,26 +1,33 @@
 <div *ngIf="spinnerIsHidden else loading">
   <mat-card-title>{{ 'set-oauth-client-details-form.title' | translate }}</mat-card-title>
   <p>{{ 'set-oauth-client-details-form.explanation' | translate }}</p>
-  <mat-checkbox class="small-padding" (change)="toggleForm()">{{ 'set-oauth-client-details-form.only-do-this-if-you-are-a-nerd-warning' | translate }}</mat-checkbox>
+  <mat-checkbox (change)="toggleForm()"
+                class="small-padding">{{ 'set-oauth-client-details-form.only-do-this-if-you-are-a-nerd-warning' | translate }}</mat-checkbox>
   <div *ngIf="form">
-    <form [formGroup]="form" (ngSubmit)="handleSubmitClick()">
+    <form (ngSubmit)="handleSubmitClick()" [formGroup]="form">
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.accessTokenValidity" matInput placeholder="{{ 'set-oauth-client-details-form.access-token-validity' | translate }}" type="number">
+        <input [formControl]="form.controls.accessTokenValidity" matInput
+               placeholder="{{ 'set-oauth-client-details-form.access-token-validity' | translate }}" type="number">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.clientId" matInput placeholder="{{ 'set-oauth-client-details-form.client-id' | translate }}" type="text">
+        <input [formControl]="form.controls.clientId" matInput
+               placeholder="{{ 'set-oauth-client-details-form.client-id' | translate }}" type="text">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.clientSecret" matInput placeholder="{{ 'set-oauth-client-details-form.client-secret' | translate }}" type="text">
+        <input [formControl]="form.controls.clientSecret" matInput
+               placeholder="{{ 'set-oauth-client-details-form.client-secret' | translate }}" type="text">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.refreshTokenValidity" matInput placeholder="{{ 'set-oauth-client-details-form.refresh-token-validity' | translate }}" type="number">
+        <input [formControl]="form.controls.refreshTokenValidity" matInput
+               placeholder="{{ 'set-oauth-client-details-form.refresh-token-validity' | translate }}" type="number">
       </mat-form-field>
       <mat-form-field class="form-whole-line">
-        <input [formControl]="form.controls.webServerRedirectUri" matInput placeholder="{{ 'set-oauth-client-details-form.web-server-redirect-uri' | translate }}" type="text">
+        <input [formControl]="form.controls.webServerRedirectUri" matInput
+               placeholder="{{ 'set-oauth-client-details-form.web-server-redirect-uri' | translate }}" type="text">
       </mat-form-field>
 
-      <button mat-raised-button class="flex-nowrap-center" color="primary" type="submit" [disabled]="form.invalid">{{ 'set-oauth-client-details-form.next' | translate }}</button>
+      <button [disabled]="form.invalid" class="flex-nowrap-center" color="primary" mat-raised-button
+              type="submit">{{ 'set-oauth-client-details-form.next' | translate }}</button>
     </form>
   </div>
 </div>

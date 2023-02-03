@@ -10,7 +10,7 @@ import { ScrollTopComponent } from '../scroll-top/scroll-top.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const matDialog: any = {
-  open: jest.fn()
+  open: jest.fn(),
 };
 
 describe('DemoMainViewComponent', () => {
@@ -19,11 +19,11 @@ describe('DemoMainViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule, RouterTestingModule, BrowserAnimationsModule, MaterialTestingModule ],
-      providers: [ { provide: MatDialog, useValue: matDialog } ],
-      declarations: [ DemoMainViewComponent, OkrToolbarBareComponent, DemoFooterComponent, ScrollTopComponent ]
+      imports: [MaterialTestingModule, RouterTestingModule, BrowserAnimationsModule, MaterialTestingModule],
+      providers: [{ provide: MatDialog, useValue: matDialog }],
+      declarations: [DemoMainViewComponent, OkrToolbarBareComponent, DemoFooterComponent, ScrollTopComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

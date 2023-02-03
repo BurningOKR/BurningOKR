@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-feedback-button',
   templateUrl: './feedback-button.component.html',
-  styleUrls: ['./feedback-button.component.scss']
+  styleUrls: ['./feedback-button.component.scss'],
 })
 export class FeedbackButtonComponent implements OnDestroy {
 
@@ -53,7 +53,7 @@ export class FeedbackButtonComponent implements OnDestroy {
         if (success) {
           this.snackBar.open(this.feedbackSuccessfullySubmittedMessage, undefined, {
             verticalPosition: 'top',
-            duration: 3500
+            duration: 3500,
           });
         }
       }));

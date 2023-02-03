@@ -1,8 +1,5 @@
 package org.burningokr.mapper.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -12,6 +9,10 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class OkrBranchMapperTest {
 
@@ -168,7 +169,7 @@ public class OkrBranchMapperTest {
   @Test
   public void test_mapEntitiesToDots_expectAllAreMapped() {
     Collection<OkrBranch> entities =
-        Arrays.asList(new OkrBranch(), new OkrBranch(), new OkrBranch());
+      Arrays.asList(new OkrBranch(), new OkrBranch(), new OkrBranch());
     Collection<OkrBranchDto> dtos = mapper.mapEntitiesToDtos(entities);
     Assert.assertEquals(entities.size(), dtos.size());
   }

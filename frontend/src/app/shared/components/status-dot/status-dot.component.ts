@@ -4,9 +4,9 @@ import { status } from '../../model/ui/OrganizationalUnit/okr-topic-draft/okr-to
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-status-dot',
-    templateUrl: './status-dot.component.html',
-    styleUrls: ['./status-dot.component.css']
+  selector: 'app-status-dot',
+  templateUrl: './status-dot.component.html',
+  styleUrls: ['./status-dot.component.css'],
 })
 export class StatusDotComponent implements OnInit, OnChanges {
 
@@ -14,28 +14,28 @@ export class StatusDotComponent implements OnInit, OnChanges {
   enumStatus = status;
   statusTooltip$: Observable<string>;
 
-    constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService) {
+  }
+
+  ngOnInit(): void {
+    this.statusTooltip$ = this.getTranslateTooltip$(this.state);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.statusTooltip$ = this.getTranslateTooltip$(changes.state.currentValue);
+  }
+
+  getTranslateTooltip$(currentStatus: status): Observable<string> {
+    switch (currentStatus) {
+      case status.submitted:
+        return this.translate.stream('status-dot.submitted');
+      case status.approved:
+        return this.translate.stream('status-dot.approved');
+      case status.rejected:
+        return this.translate.stream('status-dot.rejected');
+      default:
+        return this.translate.stream('status-dot.draft');
     }
 
-    ngOnInit(): void {
-        this.statusTooltip$ = this.getTranslateTooltip$(this.state);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.statusTooltip$ = this.getTranslateTooltip$(changes.state.currentValue);
-    }
-
-    getTranslateTooltip$(currentStatus: status): Observable<string> {
-        switch (currentStatus) {
-            case status.submitted:
-                return this.translate.stream('status-dot.submitted');
-            case status.approved:
-                return this.translate.stream('status-dot.approved');
-            case status.rejected:
-                return this.translate.stream('status-dot.rejected');
-            default:
-                return this.translate.stream('status-dot.draft');
-        }
-
-    }
+  }
 }

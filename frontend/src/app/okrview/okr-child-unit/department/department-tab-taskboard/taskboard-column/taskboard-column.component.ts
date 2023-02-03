@@ -18,7 +18,7 @@ export interface TaskBoardDragDropEvent {
 @Component({
   selector: 'app-taskboard-column',
   templateUrl: './taskboard-column.component.html',
-  styleUrls: ['./taskboard-column.component.scss']
+  styleUrls: ['./taskboard-column.component.scss'],
 })
 export class TaskboardColumnComponent implements OnInit, OnDestroy {
   @Input() map: StateTaskMap;
@@ -31,7 +31,8 @@ export class TaskboardColumnComponent implements OnInit, OnDestroy {
 
   constructor(
     private taskBoardEventService: TaskBoardViewEventService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     for (const task of this.map.tasks) {

@@ -8,16 +8,17 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-cycle-list-dropdown',
   templateUrl: './cycle-list-dropdown.component.html',
-  styleUrls: ['./cycle-list-dropdown.component.scss']
+  styleUrls: ['./cycle-list-dropdown.component.scss'],
 })
 export class CycleListDropdownComponent implements OnInit {
 
   currentCycle$: Observable<CycleUnit>;
   currentCycleList$: Observable<CycleUnit[]>;
 
-  constructor(private currentCycleService: CurrentCycleService,
-              private router: Router,
-              private route: ActivatedRoute
+  constructor(
+    private currentCycleService: CurrentCycleService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -34,8 +35,8 @@ export class CycleListDropdownComponent implements OnInit {
             });
 
             return this.removeAllInvisibleCyclesFromCycleList(newCycleList);
-          }
-        )
+          },
+        ),
       );
 
     this.currentCycle$ = this.currentCycleService.getCurrentCycle$();
@@ -43,7 +44,7 @@ export class CycleListDropdownComponent implements OnInit {
 
   onSelectCycle(cycleUnit: CycleUnit): void {
     const chosenCompanyId: number = cycleUnit.companyIds[0];
-    this.router.navigate([`../okr/companies/${chosenCompanyId}`], {relativeTo: this.route})
+    this.router.navigate([`../okr/companies/${chosenCompanyId}`], { relativeTo: this.route })
       .catch();
   }
 

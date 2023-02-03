@@ -16,7 +16,7 @@ import { ContextRole } from '../../../shared/model/ui/context-role';
 @Component({
   selector: 'app-objective-contents',
   templateUrl: './objective-contents.component.html',
-  styleUrls: ['./objective-contents.component.scss']
+  styleUrls: ['./objective-contents.component.scss'],
 })
 export class ObjectiveContentsComponent implements OnInit, OnDestroy {
   @Input() objective: ViewObjective;
@@ -36,13 +36,13 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
     private objectiveMapperService: ObjectiveViewMapper,
     private keyResultMapper: KeyResultMapper,
     private matDialog: MatDialog,
-    private configurationManagerService: ConfigurationManagerService
+    private configurationManagerService: ConfigurationManagerService,
   ) {
   }
 
   ngOnInit(): void {
     this.subscription = this.keyResultMapper.getKeyResultsForObjective$(this.objective.id)
-        .subscribe(newKeyResultList => {
+      .subscribe(newKeyResultList => {
         this.keyResultList = newKeyResultList;
         this.updateVisualKeyResultProgressTotals();
       });
@@ -110,9 +110,12 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
 
   clickedAddKeyResult(): void {
     if (this.objective.keyResultIdList.length < this.maxKeyResults) {
-      const dialogReference: MatDialogRef<KeyResultFormComponent, ObservableInput<any>> = this.matDialog.open(KeyResultFormComponent, {
-        data: {objectiveId: this.objective.id}, width: '75%'
-      });
+      const dialogReference: MatDialogRef<KeyResultFormComponent, ObservableInput<any>> = this.matDialog.open(
+        KeyResultFormComponent,
+        {
+          data: { objectiveId: this.objective.id }, width: '75%',
+        },
+      );
 
       dialogReference
         .afterClosed()
@@ -120,7 +123,7 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
           take(1),
           filter(v => v as any),
           switchMap(n => n),
-          take(1)
+          take(1),
         )
         .subscribe(newKeyResult => {
           this.onKeyResultAdded(newKeyResult as ViewKeyResult);
@@ -136,14 +139,15 @@ export class ObjectiveContentsComponent implements OnInit, OnDestroy {
 
   refreshParentObjective(): void {
     if (this.objective.hasParentObjective()) {
-        this.objectiveMapperService
-          .getObjectiveById$(this.objective.parentObjectiveId)
-          .pipe(take(1))
-          .subscribe(parentObjective => (this.parentObjective = parentObjective));
+      this.objectiveMapperService
+        .getObjectiveById$(this.objective.parentObjectiveId)
+        .pipe(take(1))
+        .subscribe(parentObjective => (this.parentObjective = parentObjective));
     } else {
       this.parentObjective = null;
     }
   }
+
   maximumKeyResultsReached(): boolean {
     return this.objective.keyResultIdList.length >= this.maxKeyResults;
   }

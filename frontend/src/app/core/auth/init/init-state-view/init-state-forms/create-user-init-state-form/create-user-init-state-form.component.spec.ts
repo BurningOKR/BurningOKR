@@ -16,15 +16,15 @@ describe('CreateUserInitStateFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateUserInitStateFormComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-      imports: [ MaterialTestingModule ],
+      declarations: [CreateUserInitStateFormComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      imports: [MaterialTestingModule],
       providers: [
-        {provide: FormBuilder, useValue: formBuilder},
-        {provide: InitService, useValue: initServiceMock},
+        { provide: FormBuilder, useValue: formBuilder },
+        { provide: InitService, useValue: initServiceMock },
       ],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CreateUserInitStateFormComponent);
     component = fixture.componentInstance;

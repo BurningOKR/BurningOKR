@@ -1,17 +1,17 @@
 <mat-toolbar [color]="'primary'" class="app-toolbar">
   <mat-toolbar-row>
-    <button mat-stroked-button class="button-bag-layout hidden-s-down" id="mainPageButton" routerLink="/"
-            *ngIf="isPlayground">{{'okr-toolbar.main-page' | translate}}</button>
-    <button mat-icon-button class="hidden-s-up" routerLink="/"
-            matTooltip="{{'okr-toolbar.return-to-demo-text' | translate}}">
+    <button *ngIf="isPlayground" class="button-bag-layout hidden-s-down" id="mainPageButton" mat-stroked-button
+            routerLink="/">{{'okr-toolbar.main-page' | translate}}</button>
+    <button class="hidden-s-up" mat-icon-button matTooltip="{{'okr-toolbar.return-to-demo-text' | translate}}"
+            routerLink="/">
       <mat-icon>cancel</mat-icon>
     </button>
     <ng-content></ng-content>
     <span class="fill-space"></span>
 
-    <app-reset-countdown class="hidden-s-down center-countdown" *ngIf="isPlayground"></app-reset-countdown>
+    <app-reset-countdown *ngIf="isPlayground" class="hidden-s-down center-countdown"></app-reset-countdown>
 
-    <div class="warningText hidden-m-down" *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false">
+    <div *ngIf="isPlayground === false && (hasMailConfigured$ | async) === false" class="warningText hidden-m-down">
       <span class="break-word">{{'okr-toolbar.warning.no-smtp-text' | translate}}</span>
       <br>
       <a [routerLink]="['/noMailInformation']"
@@ -26,13 +26,13 @@
           verified_user
         </mat-icon>
       </div>
-      <span [matTooltip]="currentUser.givenName + ' ' + currentUser.surname"
-            *ngIf="currentUser$ | async as currentUser">
-         <app-user-avatar class="icon-spacer-large profileIcon" [user]="currentUser" size="40"></app-user-avatar>
+      <span *ngIf="currentUser$ | async as currentUser"
+            [matTooltip]="currentUser.givenName + ' ' + currentUser.surname">
+         <app-user-avatar [user]="currentUser" class="icon-spacer-large profileIcon" size="40"></app-user-avatar>
       </span>
 
-      <button mat-icon-button class="icon-spacer-large menuIcon"
-              matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}" [matMenuTriggerFor]="menu">
+      <button [matMenuTriggerFor]="menu" class="icon-spacer-large menuIcon" mat-icon-button
+              matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}">
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>
@@ -43,7 +43,7 @@
 
 <!-- Interactions menu -->
 <mat-menu #menu="matMenu">
-  <button mat-menu-item disabled class="hidden-s-up">
+  <button class="hidden-s-up" disabled mat-menu-item>
     <mat-icon>timer</mat-icon>
     <app-reset-countdown></app-reset-countdown>
   </button>
@@ -60,12 +60,12 @@
     <mat-icon>assignment</mat-icon>
     <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
-  <button *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" mat-menu-item
-          (click)="routeToCycleAdminPanel()">
+  <button (click)="routeToCycleAdminPanel()" *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)"
+          mat-menu-item>
     <mat-icon>history</mat-icon>
     <span>{{'okr-toolbar.menu.cycle-administration-text' | translate}}</span>
   </button>
-  <button mat-menu-item (click)="openSettings()" [disabled]="isPlayground">
+  <button (click)="openSettings()" [disabled]="isPlayground" mat-menu-item>
     <mat-icon>settings_applications</mat-icon>
     <span>{{'okr-toolbar.menu.settings-text' | translate}}</span>
   </button>
@@ -73,19 +73,19 @@
     <mat-icon>account_box</mat-icon>
     <span>{{'okr-toolbar.menu.user-managment-text' | translate}}</span>
   </button>
-  <button *ngIf="(isLocalUserbase$ | async)" mat-menu-item (click)="openPasswordChangeForm()" [disabled]="isPlayground">
+  <button (click)="openPasswordChangeForm()" *ngIf="(isLocalUserbase$ | async)" [disabled]="isPlayground" mat-menu-item>
     <mat-icon>vpn_key</mat-icon>
     <span>{{'okr-toolbar.menu.change-password-text'| translate}}</span>
   </button>
-  <button mat-menu-item [routerLink]="['/auth', 'logout']" [disabled]="isPlayground">
+  <button [disabled]="isPlayground" [routerLink]="['/auth', 'logout']" mat-menu-item>
     <mat-icon>power_settings_new</mat-icon>
     <span>{{'okr-toolbar.menu.logout-text' | translate}}</span>
   </button>
-  <button mat-menu-item (click)="pickLanguageClicked()">
+  <button (click)="pickLanguageClicked()" mat-menu-item>
     <mat-icon>language</mat-icon>
     <span>{{'okr-toolbar.menu.language-picker' | translate}}</span>
   </button>
-  <button mat-menu-item (click)="openVersionChangelog()">
+  <button (click)="openVersionChangelog()" mat-menu-item>
     <mat-icon>info</mat-icon>
     <span>v{{ versionString }}</span>
   </button>

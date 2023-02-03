@@ -1,10 +1,11 @@
 <mat-card-title>{{ 'create-user-init-state-form.create-your-admin-account' | translate }}</mat-card-title>
 <p>{{ 'create-user-init-state-form.subtitle' | translate }}</p>
 <div *ngIf="adminUserForm && newPasswordForm">
-  <form [formGroup]="form" (ngSubmit)="handleSubmitClick()">
+  <form (ngSubmit)="handleSubmitClick()" [formGroup]="form">
     <app-user-form [userForm]="adminUserForm"></app-user-form>
     <app-password-form [newPasswordForm]="newPasswordForm" [previousPasswordNecessary]="false"></app-password-form>
-    <button mat-raised-button color="primary" type="submit" class="submit_button" [disabled]="form.invalid">{{ 'create-user-init-state-form.next' | translate }}</button>
+    <button [disabled]="form.invalid" class="submit_button" color="primary" mat-raised-button
+            type="submit">{{ 'create-user-init-state-form.next' | translate }}</button>
   </form>
 </div>
 

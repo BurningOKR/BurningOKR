@@ -10,10 +10,10 @@ import { AzureAuthTypeHandlerService } from './azure-auth-type-handler.service';
 import { LocalAuthTypeHandlerService } from './local-auth-type-handler.service';
 
 const injectorMock: any = {
-  get: jest.fn()
+  get: jest.fn(),
 };
 const oAuthFrontendDetailsServiceMock: any = {
-  getAuthType$: jest.fn()
+  getAuthType$: jest.fn(),
 };
 const azureAuthTypeHandlerServiceMock: any = {};
 const localAuthTypeHandlerServiceMock: any = {};
@@ -22,11 +22,11 @@ let service: AuthTypeHandlerFactoryService;
 describe('AuthTypeHandlerFactoryService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      {provide: Injector, useValue: injectorMock},
-      {provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceMock},
-      {provide: AzureAuthTypeHandlerService, useValue: azureAuthTypeHandlerServiceMock},
-      {provide: LocalAuthTypeHandlerService, useValue: localAuthTypeHandlerServiceMock}
-    ]
+      { provide: Injector, useValue: injectorMock },
+      { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceMock },
+      { provide: AzureAuthTypeHandlerService, useValue: azureAuthTypeHandlerServiceMock },
+      { provide: LocalAuthTypeHandlerService, useValue: localAuthTypeHandlerServiceMock },
+    ],
   }));
 
   beforeEach(() => {

@@ -1,11 +1,12 @@
 package org.burningokr.mapper.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class OkrBranchMapper implements DataMapper<OkrBranch, OkrBranchDto> {
@@ -27,10 +28,10 @@ public class OkrBranchMapper implements DataMapper<OkrBranch, OkrBranchDto> {
     dto.setIsActive(entity.isActive());
     dto.setLabel(entity.getLabel());
     dto.setParentUnitId(
-        entity.getParentOkrUnit() != null ? entity.getParentOkrUnit().getId() : null);
+      entity.getParentOkrUnit() != null ? entity.getParentOkrUnit().getId() : null);
     entity
-        .getOkrChildUnits()
-        .forEach(department -> dto.getOkrChildUnitIds().add(department.getId()));
+      .getOkrChildUnits()
+      .forEach(department -> dto.getOkrChildUnitIds().add(department.getId()));
     entity.getObjectives().forEach(objective -> dto.getObjectiveIds().add(objective.getId()));
     dto.setIsParentUnitABranch(entity.getParentOkrUnit() instanceof OkrBranch);
     return dto;

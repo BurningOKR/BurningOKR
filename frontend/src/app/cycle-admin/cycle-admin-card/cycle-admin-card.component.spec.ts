@@ -30,11 +30,11 @@ describe('CycleAdminCardComponent', () => {
         CycleAdminCardComponent,
         DateFormatPipe,
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        { provide: MatDialog, useValue: {}},
-        { provide: CycleMapper, useValue: {}}
-      ]
+        { provide: MatDialog, useValue: {} },
+        { provide: CycleMapper, useValue: {} },
+      ],
     })
       .overrideComponent(CycleAdminCardComponent, {})
       .compileComponents();
@@ -61,7 +61,7 @@ describe('CycleAdminCardComponent', () => {
         return 'correctCycleDeletionTitle';
       }
     });
-    const data: {data: DeleteDialogData} = component.getDataForCycleDeletionDialog();
+    const data: { data: DeleteDialogData } = component.getDataForCycleDeletionDialog();
 
     expect(data)
       .toEqual(
@@ -70,8 +70,8 @@ describe('CycleAdminCardComponent', () => {
             {
               title: 'correctCycleDeletionTitle',
               objectNameWithArticle: 'correctCycleDeletionContent',
-            }
-        }
+            },
+        },
       );
   });
   it('should return correct string with getCycleTranslation', () => {

@@ -6,12 +6,15 @@
         <div class="tab-headline">{{ 'okr-child-unit-tab.substructures' | translate }}</div>
       </div>
       <div class="icon-spacer f-1">
-        <app-add-child-unit-button [userRole]="currentUserRole" [cycleClosed]="cycle.isCycleClosed()" [topicSubject]="okrBranch" (clickedAddSubBranch)="clickedAddChildOkrBranch()" (clickedAddSubDepartment)="clickedAddChildDepartment()">
-        </app-add-child-unit-button>
+        <app-add-child-unit-button (clickedAddSubBranch)="clickedAddChildOkrBranch()"
+                                   (clickedAddSubDepartment)="clickedAddChildDepartment()"
+                                   [cycleClosed]="cycle.isCycleClosed()" [topicSubject]="okrBranch"
+                                   [userRole]="currentUserRole"></app-add-child-unit-button>
       </div>
     </div>
     <!-- Subdepartments -->
-    <div *ngIf="okrBranch.okrChildUnitIds.length === 0" class="tab-subtitle">{{ 'okr-child-unit-tab.no-child-unit' | translate }}</div>
+    <div *ngIf="okrBranch.okrChildUnitIds.length === 0"
+         class="tab-subtitle">{{ 'okr-child-unit-tab.no-child-unit' | translate }}</div>
     <div class="flex-wrap-spreadinner">
       <div *ngFor="let currentdepartmentId of okrBranch.okrChildUnitIds">
         <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>

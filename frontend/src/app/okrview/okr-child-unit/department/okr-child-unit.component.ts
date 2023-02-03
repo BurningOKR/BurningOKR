@@ -126,9 +126,12 @@ export class OkrChildUnitComponent implements OnInit {
   // Template actions
 
   clickedEditChildUnit(childUnit: OkrChildUnit): void {
-    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { childUnit },
-    });
+    const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(
+      OkrChildUnitFormComponent,
+      {
+        data: { childUnit },
+      },
+    );
     dialogReference
       .afterClosed()
       .pipe(
@@ -147,7 +150,8 @@ export class OkrChildUnitComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         returnedChildUnit => this.onChildUnitEdited(returnedChildUnit),
-        () => this.set404State());
+        () => this.set404State(),
+      );
   }
 
   onChildUnitEdited(okrChildUnit: OkrChildUnit): void {
@@ -191,10 +195,12 @@ export class OkrChildUnitComponent implements OnInit {
     this.okrUnitService
       .deleteOkrChildUnit$(okrChildUnit, false)
       .pipe(take(1))
-      .subscribe(() => {
+      .subscribe(
+        () => {
           this.onChildUnitDeleted(okrChildUnit);
         },
-        () => this.onChildUnitDeleted(okrChildUnit));
+        () => this.onChildUnitDeleted(okrChildUnit),
+      );
   }
 
   onChildUnitDeleted(okrChildUnit: OkrChildUnit): void {

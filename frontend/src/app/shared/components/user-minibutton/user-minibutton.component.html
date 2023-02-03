@@ -1,4 +1,4 @@
-<mat-card class="user-card" *ngIf="user$ | async as user; else loading;">
+<mat-card *ngIf="user$ | async as user; else loading;" class="user-card">
   <div class="flex-center f-1 user-details">
     <div class="flex-center f-1 user-avatar">
       <app-user-avatar [user]="user"></app-user-avatar>
@@ -9,13 +9,13 @@
       <div class="subtitle">{{user.department}}</div>
     </div>
     <div *ngIf="canBeRemoved" class="flex-center f-1">
-      <button class="delete-button" (click)="clickedDeleteButton()" mat-icon-button matTooltip="{{ 'user-minibutton.tooltip.remove-member' | translate }}">
+      <button (click)="clickedDeleteButton()" class="delete-button" mat-icon-button
+              matTooltip="{{ 'user-minibutton.tooltip.remove-member' | translate }}">
         <mat-icon class="icon-centered">delete</mat-icon>
       </button>
     </div>
   </div>
-</mat-card>
-<!-- Loading placeholder -->
+</mat-card><!-- Loading placeholder -->
 <ng-template #loading>
   <mat-card class="user-card">
     <mat-card-header>

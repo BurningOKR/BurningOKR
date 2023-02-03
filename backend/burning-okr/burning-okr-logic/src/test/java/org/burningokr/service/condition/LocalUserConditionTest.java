@@ -1,7 +1,5 @@
 package org.burningokr.service.condition;
 
-import static org.mockito.Mockito.mock;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +9,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.mock.env.MockEnvironment;
+
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LocalUserConditionTest {

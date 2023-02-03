@@ -1,11 +1,12 @@
 package org.burningokr.mapper.initialisation;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
 import org.burningokr.dto.initialisation.InitStateDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.initialisation.InitState;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class InitStateMapper implements DataMapper<InitState, InitStateDto> {

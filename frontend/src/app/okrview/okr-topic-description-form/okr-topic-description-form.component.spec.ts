@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 const userServiceMock: any = {
-  getAllUsers$: jest.fn()
+  getAllUsers$: jest.fn(),
 };
 
 describe('OkrTopicDescriptionFormComponent', () => {
@@ -19,14 +19,14 @@ describe('OkrTopicDescriptionFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      declarations: [ OkrTopicDescriptionFormComponent ],
-      imports: [ MaterialTestingModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, SharedModule, NgxMatSelectSearchModule ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [OkrTopicDescriptionFormComponent],
+      imports: [MaterialTestingModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, SharedModule, NgxMatSelectSearchModule],
       providers: [
         { provide: UserService, useValue: userServiceMock },
-      ]
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -44,7 +44,7 @@ describe('OkrTopicDescriptionFormComponent', () => {
       handoverPlan: new FormControl('', Validators.maxLength(1024)),
       initiatorId: new FormControl(),
       startTeam: new FormControl([]),
-      stakeholders: new FormControl([])
+      stakeholders: new FormControl([]),
     });
 
     fixture.detectChanges();

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DefaultTaskStateRepository
-    extends ExtendedRepository<DefaultTaskBoardState, Long> {}
+  extends ExtendedRepository<DefaultTaskBoardState, Long> {
+}

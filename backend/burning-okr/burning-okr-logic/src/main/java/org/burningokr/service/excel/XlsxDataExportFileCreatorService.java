@@ -1,7 +1,5 @@
 package org.burningokr.service.excel;
 
-import java.util.Arrays;
-import java.util.Collection;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.burningokr.model.excel.ObjectiveRow;
 import org.burningokr.service.messages.Messages;
@@ -9,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 @Service
 public class XlsxDataExportFileCreatorService {
@@ -22,30 +23,32 @@ public class XlsxDataExportFileCreatorService {
   /**
    * Initializes XlsxExportEmailFileCreatorService.
    *
-   * @param objectiveRowBuilderService a {@link ObjectiveRowBuilderService} object
+   * @param objectiveRowBuilderService    a {@link ObjectiveRowBuilderService} object
    * @param genericXlsxFileCreatorService a {@link GenericXlsxFileCreatorService} object
-   * @param messages a {@link Messages} object
+   * @param messages                      a {@link Messages} object
    */
   @Autowired
   public XlsxDataExportFileCreatorService(
-      ObjectiveRowBuilderService objectiveRowBuilderService,
-      GenericXlsxFileCreatorService<ObjectiveRow> genericXlsxFileCreatorService,
-      Messages messages) {
+    ObjectiveRowBuilderService objectiveRowBuilderService,
+    GenericXlsxFileCreatorService<ObjectiveRow> genericXlsxFileCreatorService,
+    Messages messages
+  ) {
     this.objectiveRowBuilderService = objectiveRowBuilderService;
     this.genericXlsxFileCreatorService = genericXlsxFileCreatorService;
     this.messages = messages;
     this.headlines =
-        Arrays.asList(
-            messages.get("team"),
-            messages.get("objective"),
-            messages.get("progress"),
-            messages.get("branch"),
-            messages.get("keyResult"),
-            messages.get("description"),
-            messages.get("start"),
-            messages.get("end"),
-            messages.get("actual"),
-            messages.get("unit"));
+      Arrays.asList(
+        messages.get("team"),
+        messages.get("objective"),
+        messages.get("progress"),
+        messages.get("branch"),
+        messages.get("keyResult"),
+        messages.get("description"),
+        messages.get("start"),
+        messages.get("end"),
+        messages.get("actual"),
+        messages.get("unit")
+      );
   }
 
   /**
@@ -57,10 +60,10 @@ public class XlsxDataExportFileCreatorService {
    */
   public Workbook createFileForOkrTeam(long unitId) throws IllegalAccessException {
     Collection<ObjectiveRow> objectiveRows =
-        objectiveRowBuilderService.generateForOkrChildUnit(unitId);
+      objectiveRowBuilderService.generateForOkrChildUnit(unitId);
 
     Workbook workbook =
-        genericXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, "okr");
+      genericXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, "okr");
 
     logger.info("Created excel file for OKR team with ID: " + unitId);
 
@@ -76,10 +79,10 @@ public class XlsxDataExportFileCreatorService {
    */
   public Workbook createFileForCompany(long companyId) throws IllegalAccessException {
     Collection<ObjectiveRow> objectiveRows =
-        objectiveRowBuilderService.generateForCompany(companyId);
+      objectiveRowBuilderService.generateForCompany(companyId);
 
     Workbook workbook =
-        genericXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, "okr");
+      genericXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, "okr");
 
     logger.info("Created excel file for company with ID: " + companyId);
 

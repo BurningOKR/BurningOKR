@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SharedModule } from '../../../shared/shared.module';
 
 const matDialogRefMock: any = {
-  close: jest.fn()
+  close: jest.fn(),
 };
 
 const keyResultMapperMock: any = {
@@ -33,16 +33,16 @@ describe('KeyResultFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         KeyResultFormComponent,
-        KeyResultMilestoneFormComponent
+        KeyResultMilestoneFormComponent,
       ],
-      imports: [ FormsModule, ReactiveFormsModule, MaterialTestingModule, NoopAnimationsModule, SharedModule ],
+      imports: [FormsModule, ReactiveFormsModule, MaterialTestingModule, NoopAnimationsModule, SharedModule],
       providers: [
         { provide: MatDialogRef, useValue: matDialogRefMock },
         { provide: KeyResultMapper, useValue: keyResultMapperMock },
-        { provide: MAT_DIALOG_DATA, useValue: matDialogDataMock }
-      ]
+        { provide: MAT_DIALOG_DATA, useValue: matDialogDataMock },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('KeyResultFormComponent', () => {
       'desc',
       0,
       [],
-      []
+      [],
     );
 
     matDialogRefMock.close.mockReset();

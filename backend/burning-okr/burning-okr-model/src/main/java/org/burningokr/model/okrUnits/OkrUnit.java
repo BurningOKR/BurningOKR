@@ -1,14 +1,15 @@
 package org.burningokr.model.okrUnits;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.Objective;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

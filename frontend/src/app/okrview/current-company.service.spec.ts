@@ -3,12 +3,12 @@ import { TestBed } from '@angular/core/testing';
 import { CurrentCompanyService } from './current-company.service';
 import { CompanyMapper } from '../shared/services/mapper/company.mapper';
 import { CompanyUnit } from '../shared/model/ui/OrganizationalUnit/company-unit';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 const companyMapperMock: any = {
   getCompanyById$: jest.fn(getCompanyByIdMock$),
-  getParentCompanyOfOkrUnits$: jest.fn(getParentCompanyOfOkrUnitsMock$)
+  getParentCompanyOfOkrUnits$: jest.fn(getParentCompanyOfOkrUnitsMock$),
 };
 
 function getCompanyByIdMock$(companyId: number): Observable<CompanyUnit> {
@@ -25,7 +25,7 @@ const testCompany: CompanyUnit = {
   cycleId: 1,
   label: '',
   name: '',
-  objectives: []
+  objectives: [],
 };
 const testCompany2: CompanyUnit = {
   id: 2,
@@ -33,7 +33,7 @@ const testCompany2: CompanyUnit = {
   cycleId: 1,
   label: '',
   name: '',
-  objectives: []
+  objectives: [],
 };
 const testCompanyList: CompanyUnit[] = [testCompany, testCompany2];
 
@@ -42,8 +42,8 @@ let service: CurrentCompanyService;
 describe('CurrentCompanyService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      {provide: CompanyMapper, useValue: companyMapperMock}
-    ]
+      { provide: CompanyMapper, useValue: companyMapperMock },
+    ],
   }));
 
   beforeEach(() => {
@@ -108,7 +108,7 @@ describe('CurrentCompanyService', () => {
     });
   });
 
-  it('setCurrentCompanyByChildDepartment sets parentCompany as currentCompany',  done => {
+  it('setCurrentCompanyByChildDepartment sets parentCompany as currentCompany', done => {
     service.setCurrentCompanyByChildDepartmentId(0);
     (service as any).currentCompany$.asObservable().subscribe(value => {
       expect(value).toEqual(testCompany);
@@ -132,7 +132,7 @@ describe('CurrentCompanyService', () => {
     });
   });
 
-  it('getCurrentCompany returns actual company',  done => {
+  it('getCurrentCompany returns actual company', done => {
     (service as any).currentCompany$.next(testCompany);
     service.getCurrentCompany$()
       .pipe(take(1))
@@ -143,7 +143,7 @@ describe('CurrentCompanyService', () => {
       });
   });
 
-  it('getCurrentCompany returns last set company',  done => {
+  it('getCurrentCompany returns last set company', done => {
     service.setCurrentCompanyByCompanyId(testCompany.id);
     service.setCurrentCompanyByCompanyId(testCompany2.id);
     service.getCurrentCompany$()

@@ -1,10 +1,5 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceManagersTest;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.Collection;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
@@ -25,6 +20,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
 
@@ -32,12 +33,18 @@ public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
   protected final String departmentName = "Java Academy";
   protected T unit;
 
-  @Mock protected UnitRepository<T> unitRepository;
-  @Mock protected ObjectiveRepository objectiveRepository;
-  @Mock protected ActivityService activityService;
-  @Mock protected EntityCrawlerService entityCrawlerService;
-  @Mock protected User user;
-  @InjectMocks protected OkrUnitServiceManagers<T> okrUnitServiceManagers;
+  @Mock
+  protected UnitRepository<T> unitRepository;
+  @Mock
+  protected ObjectiveRepository objectiveRepository;
+  @Mock
+  protected ActivityService activityService;
+  @Mock
+  protected EntityCrawlerService entityCrawlerService;
+  @Mock
+  protected User user;
+  @InjectMocks
+  protected OkrUnitServiceManagers<T> okrUnitServiceManagers;
 
   protected abstract T createUnit();
 
@@ -89,7 +96,7 @@ public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
 
     T savedUnit = createUnit();
     Collection<Objective> otherObjectives =
-        Arrays.asList(otherObjective0, otherObjective1, otherObjective2);
+      Arrays.asList(otherObjective0, otherObjective1, otherObjective2);
     savedUnit.setObjectives(otherObjectives);
     when(unitRepository.findByIdOrThrow(any(Long.class))).thenReturn(savedUnit);
 

@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.cycles.Cycle;
@@ -12,6 +10,9 @@ import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {

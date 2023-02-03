@@ -44,17 +44,18 @@ export class CycleMapperMock {
       undefined,
       undefined,
       undefined,
-      false);
+      false,
+    );
   }
 
   mapCycleUnitToCycle(cycleUnit: CycleUnit): CycleDto {
     return {
       name: '',
-      companyIds : [],
-      plannedStartDate : [],
-      plannedEndDate : [],
-      cycleState : CycleState.CLOSED,
-      isVisible : true
+      companyIds: [],
+      plannedStartDate: [],
+      plannedEndDate: [],
+      cycleState: CycleState.CLOSED,
+      isVisible: true,
     };
   }
 }

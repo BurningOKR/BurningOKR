@@ -5,7 +5,7 @@ import { ConfigurationDto } from '../../shared/model/api/configuration.dto';
 import { ConfigurationId } from '../../shared/model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigurationApiService {
 

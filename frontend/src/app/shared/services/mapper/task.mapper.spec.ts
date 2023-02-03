@@ -16,9 +16,9 @@ describe('Task.MapperService', () => {
   beforeEach(() => TestBed.configureTestingModule({
       providers: [{
         provide: TaskApiService,
-        useValue: new TaskApiServiceMock()
-      }]
-    })
+        useValue: new TaskApiServiceMock(),
+      }],
+    }),
   );
 
   it('should be created', () => {

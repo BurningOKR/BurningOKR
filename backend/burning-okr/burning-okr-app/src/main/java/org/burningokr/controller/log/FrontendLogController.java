@@ -18,8 +18,9 @@ public class FrontendLogController {
 
   @Autowired
   public FrontendLogController(
-      FrontendLoggerService frontendLoggerService,
-      DataMapper<FrontendLog, FrontendLogDto> frontEndLogMapper) {
+    FrontendLoggerService frontendLoggerService,
+    DataMapper<FrontendLog, FrontendLogDto> frontEndLogMapper
+  ) {
     this.frontendLoggerService = frontendLoggerService;
     this.frontEndLogMapper = frontEndLogMapper;
   }
@@ -32,9 +33,10 @@ public class FrontendLogController {
    */
   @PostMapping("/log")
   public ResponseEntity<FrontendLogDto> createNewFrontEndLog(
-      @RequestBody FrontendLogDto frontendLogDto) {
+    @RequestBody FrontendLogDto frontendLogDto
+  ) {
     FrontendLog frontendLog = frontEndLogMapper.mapDtoToEntity(frontendLogDto);
     return ResponseEntity.ok(
-        frontEndLogMapper.mapEntityToDto(frontendLoggerService.createFrontendLog(frontendLog)));
+      frontEndLogMapper.mapEntityToDto(frontendLoggerService.createFrontendLog(frontendLog)));
   }
 }

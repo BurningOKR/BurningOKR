@@ -17,27 +17,27 @@ import { Configuration } from '../../../../shared/model/ui/configuration';
 import { User } from '../../../../shared/model/api/user';
 
 const currentUserServiceMock: any = {
-  getCurrentUser$: jest.fn()
+  getCurrentUser$: jest.fn(),
 };
 
 const departmentMapperMock: any = {
-  putDepartment$: jest.fn()
+  putDepartment$: jest.fn(),
 };
 
 const configurationManagerServiceMock: any = {
-  getTopicSponsorsActivated$: jest.fn()
+  getTopicSponsorsActivated$: jest.fn(),
 };
 
 const matDialogMock: any = {
-  open: jest.fn()
+  open: jest.fn(),
 };
 
 const matDialogReferenceMock: any = {
-  afterClosed: jest.fn()
+  afterClosed: jest.fn(),
 };
 
 const currentOkrUnitSchemaServiceMock: any = {
-  updateSchemaTeamRole: jest.fn()
+  updateSchemaTeamRole: jest.fn(),
 };
 
 let cycle: CycleUnit;
@@ -47,7 +47,7 @@ let currentUserRole: ContextRole;
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-department-team-new-user',
-  template: ''
+  template: '',
 })
 class DepartmentTeamNewUserMockComponent {
   @Output() choseUser = new EventEmitter();
@@ -57,7 +57,7 @@ class DepartmentTeamNewUserMockComponent {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-user-minibutton',
-  template: ''
+  template: '',
 })
 class UserMinibuttonMockComponent {
   @Input() userId: string;
@@ -79,7 +79,7 @@ describe('DepartmentTabTeamComponent', () => {
         { provide: ConfigurationManagerService, useValue: configurationManagerServiceMock },
         { provide: CurrentOkrUnitSchemaService, useValue: currentOkrUnitSchemaServiceMock },
         { provide: MatDialog, useValue: matDialogMock },
-      ]
+      ],
     })
       .compileComponents();
   }));
@@ -91,7 +91,7 @@ describe('DepartmentTabTeamComponent', () => {
 
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReset();
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReturnValue(
-      of(new Configuration(1, 'topic-sponsors-activated', true, 'boolean'))
+      of(new Configuration(1, 'topic-sponsors-activated', true, 'boolean')),
     );
 
     matDialogMock.open.mockReset();
@@ -132,7 +132,7 @@ describe('DepartmentTabTeamComponent', () => {
 
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReset();
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReturnValue(
-      of(new Configuration(1, 'topic-sponsors-activated', true, 'boolean'))
+      of(new Configuration(1, 'topic-sponsors-activated', true, 'boolean')),
     );
 
     component.ngOnInit();
@@ -148,7 +148,7 @@ describe('DepartmentTabTeamComponent', () => {
 
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReset();
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReturnValue(
-      of(new Configuration(1, 'topic-sponsors-activated', false, 'boolean'))
+      of(new Configuration(1, 'topic-sponsors-activated', false, 'boolean')),
     );
 
     component.ngOnInit();

@@ -20,26 +20,26 @@ describe('OkrToolbarComponent', () => {
   const currentCompanyMock: CompanyUnit = new CompanyUnit(1, '', null, null, 0, '');
 
   const currentCompanyService: any = {
-    getCurrentCompany$: jest.fn()
+    getCurrentCompany$: jest.fn(),
   };
   const router: any = {
-    navigate: jest.fn()
+    navigate: jest.fn(),
   };
   const dialog: any = {
-    open: jest.fn()
+    open: jest.fn(),
   };
   const currentUserService: any = {
     getCurrentUser$: jest.fn(),
-    isCurrentUserAdmin$: jest.fn()
+    isCurrentUserAdmin$: jest.fn(),
   };
   const oAuthDetails: any = {
-    isLocalAuthType$: jest.fn()
+    isLocalAuthType$: jest.fn(),
   };
   const configurationService: any = {
-    getHasMailConfigured$: jest.fn()
+    getHasMailConfigured$: jest.fn(),
   };
   const okrUnitService: any = {
-    refreshOkrChildUnit: jest.fn()
+    refreshOkrChildUnit: jest.fn(),
   };
 
   beforeEach((() => {
@@ -48,14 +48,14 @@ describe('OkrToolbarComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       imports: [MaterialTestingModule],
       providers: [
-        {provide: CurrentCompanyService, useValue: currentCompanyService},
-        {provide: MatDialog, useValue: dialog},
-        {provide: CurrentUserService, useValue: currentUserService},
-        {provide: OAuthFrontendDetailsService, useValue: oAuthDetails},
-        {provide: ConfigurationService, useValue: configurationService},
-        {provide: OkrUnitService, useValue: okrUnitService},
-        {provide: Router, useValue: router}
-      ]
+        { provide: CurrentCompanyService, useValue: currentCompanyService },
+        { provide: MatDialog, useValue: dialog },
+        { provide: CurrentUserService, useValue: currentUserService },
+        { provide: OAuthFrontendDetailsService, useValue: oAuthDetails },
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: OkrUnitService, useValue: okrUnitService },
+        { provide: Router, useValue: router },
+      ],
     })
       .compileComponents();
   }));
@@ -68,7 +68,7 @@ describe('OkrToolbarComponent', () => {
 
     currentCompanyService.getCurrentCompany$.mockReturnValue(of(currentCompanyMock));
     oAuthDetails.isLocalAuthType$.mockReturnValue(of(false));
-    dialog.open.mockReturnValue({afterClosed: () => of(of(true))});
+    dialog.open.mockReturnValue({ afterClosed: () => of(of(true)) });
 
     fixture = TestBed.createComponent(OkrToolbarComponent);
     component = fixture.componentInstance;

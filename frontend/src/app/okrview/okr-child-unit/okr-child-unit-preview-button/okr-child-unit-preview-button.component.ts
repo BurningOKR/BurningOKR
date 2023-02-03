@@ -7,7 +7,7 @@ import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branc
 @Component({
   selector: 'app-okr-child-unit-preview-button',
   templateUrl: './okr-child-unit-preview-button.component.html',
-  styleUrls: ['./okr-child-unit-preview-button.component.scss']
+  styleUrls: ['./okr-child-unit-preview-button.component.scss'],
 })
 export class OkrChildUnitPreviewButtonComponent implements OnInit {
   @Input() unitId: number;

@@ -3,8 +3,8 @@ package org.burningokr.service.environment;
 public enum EnvironmentPropertyNames {
   AUTH_MODE("auth-mode");
 
-  private String name;
   public static final String ENVIRONMENT_PREFIX = "system.configuration";
+  private String name;
 
   EnvironmentPropertyNames(String name) {
     this.name = name;

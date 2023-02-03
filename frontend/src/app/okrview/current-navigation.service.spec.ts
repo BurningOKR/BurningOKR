@@ -67,7 +67,7 @@ describe('CurrentNavigationService', () => {
   });
 
   it('getClosedStructures should return closed Structures when we mark the structures as closed', () => {
-    const expected: number[] = [1,2,5,3];
+    const expected: number[] = [1, 2, 5, 3];
     currentNavigationService.markStructureAsClosed(mockSchema1);
     currentNavigationService.markStructureAsClosed(mockSchema2);
     currentNavigationService.markStructureAsClosed(mockSchema3);
@@ -76,14 +76,17 @@ describe('CurrentNavigationService', () => {
     expect(expected).toEqual(actual);
   });
 
-  it('getClosedStructures should return closed Structures and their subDepartments when we mark the structures as closed', () => {
-    const expected: number[] = [1,4,2,5,3];
-    currentNavigationService.markStructureAsClosed(mockSchema1);
-    currentNavigationService.markStructureAsClosed(mockSchema4);
-    const actual: number[] = currentNavigationService.getClosedStructures();
+  it(
+    'getClosedStructures should return closed Structures and their subDepartments when we mark the structures as closed',
+    () => {
+      const expected: number[] = [1, 4, 2, 5, 3];
+      currentNavigationService.markStructureAsClosed(mockSchema1);
+      currentNavigationService.markStructureAsClosed(mockSchema4);
+      const actual: number[] = currentNavigationService.getClosedStructures();
 
-    expect(expected).toEqual(actual);
-  });
+      expect(expected).toEqual(actual);
+    },
+  );
 
   it('markStructureAsClosed should only mark the structure if it is not already marked', () => {
     const expected: number[] = [1];

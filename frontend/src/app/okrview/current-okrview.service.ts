@@ -8,7 +8,7 @@ import { CurrentCompanyService } from './current-company.service';
 import { CompanyId, DepartmentId } from '../shared/model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentOkrviewService {
 
@@ -18,7 +18,7 @@ export class CurrentOkrviewService {
     private cycleMapperService: CycleMapper,
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private currentNavigationService: CurrentNavigationService,
-    private currentCompanyService: CurrentCompanyService
+    private currentCompanyService: CurrentCompanyService,
   ) {
   }
 

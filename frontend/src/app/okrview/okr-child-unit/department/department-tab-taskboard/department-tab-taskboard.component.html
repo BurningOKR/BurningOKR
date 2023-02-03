@@ -1,30 +1,33 @@
 <div class="d-flex center middle tab-limited-width">
-    <div class="f-3 text-center">
-        <div class="tab-headline">{{ 'department-tab-taskboard.task-board-headline' | translate }}</div>
-    </div>
+  <div class="f-3 text-center">
+    <div class="tab-headline">{{ 'department-tab-taskboard.task-board-headline' | translate }}</div>
+  </div>
 </div>
 <div class="taskboard-button-menu">
-    <div class="taskboards-switch-buttons">
-        <mat-button-toggle-group #viewgroup="matButtonToggleGroup">
-            <mat-button-toggle [checked]="true" value="states" aria-label="Text align left" data-i18n="columns:columnView">
-                <mat-icon>view_column</mat-icon>
-                columns
-            </mat-button-toggle>
-            <mat-button-toggle value="swimlanes" aria-label="Text align center" data-i18n="swimlanes:swimlaneView">
-                <mat-icon>view_stream</mat-icon>
-                swimlanes
-            </mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-      <app-add-button class="ml-10" text="{{ 'department-tab-taskboard.add-button.create-new-task' | translate }}" (buttonClicked)="onTaskAddButtonClick()" [isDisabled]="!isInteractive" matTooltip="{{ 'department-tab-taskboard.add-button.tooltip' | translate }}" [matTooltipDisabled]="isInteractive"></app-add-button>
+  <div class="taskboards-switch-buttons">
+    <mat-button-toggle-group #viewgroup="matButtonToggleGroup">
+      <mat-button-toggle [checked]="true" aria-label="Text align left" data-i18n="columns:columnView" value="states">
+        <mat-icon>view_column</mat-icon>
+        columns
+      </mat-button-toggle>
+      <mat-button-toggle aria-label="Text align center" data-i18n="swimlanes:swimlaneView" value="swimlanes">
+        <mat-icon>view_stream</mat-icon>
+        swimlanes
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <app-add-button (buttonClicked)="onTaskAddButtonClick()" [isDisabled]="!isInteractive"
+                  [matTooltipDisabled]="isInteractive" class="ml-10"
+                  matTooltip="{{ 'department-tab-taskboard.add-button.tooltip' | translate }}"
+                  text="{{ 'department-tab-taskboard.add-button.create-new-task' | translate }}"></app-add-button>
 </div>
 <div *ngIf="viewgroup.value === 'states'">
-    <app-taskboard-state-column-view [data$]="viewDataEmitter$" [isInteractive]="isInteractive">
+  <app-taskboard-state-column-view [data$]="viewDataEmitter$" [isInteractive]="isInteractive">
 
-    </app-taskboard-state-column-view>
+  </app-taskboard-state-column-view>
 </div>
 <div *ngIf="viewgroup.value === 'swimlanes'">
-    <app-taskboard-swimlane-view [data$]="viewDataEmitter$" [isInteractive]="isInteractive">
+  <app-taskboard-swimlane-view [data$]="viewDataEmitter$" [isInteractive]="isInteractive">
 
-    </app-taskboard-swimlane-view>
+  </app-taskboard-swimlane-view>
 </div>

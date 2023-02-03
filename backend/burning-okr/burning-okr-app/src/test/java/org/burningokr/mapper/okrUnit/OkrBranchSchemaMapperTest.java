@@ -1,10 +1,5 @@
 package org.burningokr.mapper.okrUnit;
 
-import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.dto.okrUnit.OkrDepartmentDtoRole;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -18,10 +13,17 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
+
+import static org.junit.Assert.fail;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OkrBranchSchemaMapperTest {
 
-  @InjectMocks private OkrBranchSchemaMapper okrBranchSchemaMapper;
+  @InjectMocks
+  private OkrBranchSchemaMapper okrBranchSchemaMapper;
 
   private OkrBranch department1;
   private OkrBranch department2;
@@ -68,7 +70,7 @@ public class OkrBranchSchemaMapperTest {
       child.setParentOkrUnit(parent);
     } else {
       fail(
-          "Trying to attach a child okrUnit to a child okrUnit. This is an error with your test. See Method attachDepartmentToDepartment.");
+        "Trying to attach a child okrUnit to a child okrUnit. This is an error with your test. See Method attachDepartmentToDepartment.");
     }
   }
 
@@ -77,7 +79,7 @@ public class OkrBranchSchemaMapperTest {
     ArrayList<OkrDepartment> emptyList = new ArrayList<>();
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(emptyList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(emptyList, currentUserId);
 
     Assert.assertEquals(0, actual.size());
   }
@@ -88,8 +90,8 @@ public class OkrBranchSchemaMapperTest {
     departmentList.add(department1);
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            departmentList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
 
     Assert.assertEquals(1, actual.size());
     for (OkrUnitSchemaDto dto : actual) {
@@ -107,8 +109,8 @@ public class OkrBranchSchemaMapperTest {
     departmentList.add(okrDepartment4);
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            departmentList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
 
     Assert.assertEquals(1, actual.size());
     for (OkrUnitSchemaDto dto : actual) {
@@ -126,8 +128,8 @@ public class OkrBranchSchemaMapperTest {
     departmentList.add(department2);
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            departmentList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
 
     OkrUnitSchemaDto dto1 = null;
     OkrUnitSchemaDto dto2 = null;
@@ -151,8 +153,8 @@ public class OkrBranchSchemaMapperTest {
     departmentList.add(department2);
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            departmentList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
 
     OkrUnitSchemaDto dto1 = null;
     OkrUnitSchemaDto dto2 = null;
@@ -183,8 +185,8 @@ public class OkrBranchSchemaMapperTest {
     departmentList.add(okrDepartment6);
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            departmentList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
 
     OkrUnitSchemaDto dto4 = null;
     OkrUnitSchemaDto dto5 = null;
@@ -212,8 +214,8 @@ public class OkrBranchSchemaMapperTest {
     attachDepartmentToDepartment(department1, department2);
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            departmentList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
 
     Assert.assertEquals(1, actual.size());
     for (OkrUnitSchemaDto dto : actual) {
@@ -232,8 +234,8 @@ public class OkrBranchSchemaMapperTest {
     attachDepartmentToDepartment(department1, department3);
 
     Collection<OkrUnitSchemaDto> actual =
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            departmentList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
 
     Assert.assertEquals(1, actual.size());
     for (OkrUnitSchemaDto outerDto : actual) {

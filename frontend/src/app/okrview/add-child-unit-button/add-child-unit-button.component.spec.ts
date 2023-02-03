@@ -11,17 +11,17 @@ describe('AddChildUnitButtonComponent', () => {
   let fixture: ComponentFixture<AddChildUnitButtonComponent>;
 
   const contextRoleMock: any = {
-    isAtleastAdmin: jest.fn()
-    };
+    isAtleastAdmin: jest.fn(),
+  };
 
   beforeEach(waitForAsync(() => {
     contextRoleMock.isAtleastAdmin.mockReset();
     contextRoleMock.isAtleastAdmin.mockReturnValue(true);
     TestBed.configureTestingModule({
-      declarations: [ AddChildUnitButtonComponent ],
-      imports: [ MaterialTestingModule, MatSnackBarModule, MatDialogModule, SharedModule ],
+      declarations: [AddChildUnitButtonComponent],
+      imports: [MaterialTestingModule, MatSnackBarModule, MatDialogModule, SharedModule],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   it('should create', () => {

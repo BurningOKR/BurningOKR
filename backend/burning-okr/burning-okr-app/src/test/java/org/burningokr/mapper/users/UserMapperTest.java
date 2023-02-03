@@ -1,13 +1,5 @@
 package org.burningokr.mapper.users;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.UUID;
 import org.burningokr.dto.users.UserDto;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.LocalUser;
@@ -22,6 +14,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.UUID;
+
+import static org.hamcrest.Matchers.instanceOf;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserMapperTest {
   private static User user1;
@@ -30,9 +31,11 @@ public class UserMapperTest {
   private static UserDto userDto1;
   private static UserDto userDto2;
 
-  @Mock public AppEnvironment appEnvironment;
+  @Mock
+  public AppEnvironment appEnvironment;
 
-  @InjectMocks public UserMapper userMapper;
+  @InjectMocks
+  public UserMapper userMapper;
 
   @BeforeClass
   public static void initClass() {

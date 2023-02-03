@@ -4,9 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import {
-  SubmittedTopicDraftDetailsFormData
-} from '../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
+import { SubmittedTopicDraftDetailsFormData } from '../topic-draft-details-dialogue-component/topic-draft-details-dialogue.component';
 
 @Component({
   selector: 'app-topic-draft-edit-dialogue',

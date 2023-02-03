@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OkrTopicDescriptionRepository
-    extends ExtendedRepository<OkrTopicDescription, Long> {}
+  extends ExtendedRepository<OkrTopicDescription, Long> {
+}

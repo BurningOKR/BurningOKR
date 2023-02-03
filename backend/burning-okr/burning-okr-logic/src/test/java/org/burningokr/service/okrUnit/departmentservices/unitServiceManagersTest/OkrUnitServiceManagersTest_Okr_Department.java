@@ -1,26 +1,27 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceManagersTest;
 
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
-import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class OkrUnitServiceManagersTest_Okr_Department
-    extends OkrUnitServiceManagersTest<OkrDepartment> {
+  extends OkrUnitServiceManagersTest<OkrDepartment> {
 
   @Test
   public void updateDepartmentMemberList_expectedOkrMemberIdsAreChangedInSavedDepartment() {
     OkrDepartment insertedOkrDepartment = new OkrDepartment();
     Collection<UUID> insertedOkrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+      Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     insertedOkrDepartment.setOkrMemberIds(insertedOkrMemberIds);
     insertedOkrDepartment.setId(100L);
     insertedOkrDepartment.setName("Test");
@@ -44,7 +45,7 @@ public class OkrUnitServiceManagersTest_Okr_Department
   public void updateDepartmentMemberList_expectedOtherVariablesUnchangedInSavedDepartment() {
     OkrDepartment insertedOkrDepartment = new OkrDepartment();
     Collection<UUID> insertedOkrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+      Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     insertedOkrDepartment.setOkrMemberIds(insertedOkrMemberIds);
     insertedOkrDepartment.setId(100L);
     insertedOkrDepartment.setName("Insert");
@@ -75,20 +76,20 @@ public class OkrUnitServiceManagersTest_Okr_Department
     verify(unitRepository).save(originalOkrDepartment);
     Assert.assertNotEquals(originalOkrDepartment.getName(), insertedOkrDepartment.getName());
     Assert.assertNotEquals(
-        originalOkrDepartment.getOkrMasterId(), insertedOkrDepartment.getOkrMasterId());
+      originalOkrDepartment.getOkrMasterId(), insertedOkrDepartment.getOkrMasterId());
     Assert.assertNotEquals(
-        originalOkrDepartment.getOkrTopicSponsorId(), insertedOkrDepartment.getOkrTopicSponsorId());
+      originalOkrDepartment.getOkrTopicSponsorId(), insertedOkrDepartment.getOkrTopicSponsorId());
     Assert.assertNotEquals(
-        originalOkrDepartment.getParentOkrUnit(), insertedOkrDepartment.getParentOkrUnit());
+      originalOkrDepartment.getParentOkrUnit(), insertedOkrDepartment.getParentOkrUnit());
     Assert.assertNotSame(
-        originalOkrDepartment.getObjectives(), insertedOkrDepartment.getObjectives());
+      originalOkrDepartment.getObjectives(), insertedOkrDepartment.getObjectives());
   }
 
   @Test
   public void updateDepartmentMemberList_expectedReturnsFromSaveCall() {
     OkrDepartment insertedOkrDepartment = new OkrDepartment();
     Collection<UUID> insertedOkrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+      Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     insertedOkrDepartment.setOkrMemberIds(insertedOkrMemberIds);
     insertedOkrDepartment.setId(100L);
     insertedOkrDepartment.setName("Test");
@@ -105,7 +106,7 @@ public class OkrUnitServiceManagersTest_Okr_Department
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(saveCallReturnedOkrDepartment);
 
     OkrDepartment actualOkrDepartment =
-        okrUnitServiceManagers.updateUnit(insertedOkrDepartment, user);
+      okrUnitServiceManagers.updateUnit(insertedOkrDepartment, user);
 
     verify(unitRepository).save(originalOkrDepartment);
     Assert.assertEquals(saveCallReturnedOkrDepartment, actualOkrDepartment);

@@ -1,17 +1,18 @@
 package org.burningokr.mapper.okr;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.burningokr.dto.okr.OkrTopicDescriptionDto;
+import org.burningokr.model.okr.OkrTopicDescription;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import org.burningokr.dto.okr.OkrTopicDescriptionDto;
-import org.burningokr.model.okr.OkrTopicDescription;
-import org.junit.Before;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class OkrTopicDescriptionMapperTest {
 

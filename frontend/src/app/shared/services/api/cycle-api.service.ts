@@ -6,7 +6,7 @@ import { CycleDto } from '../../model/api/cycle.dto';
 import { CycleId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CycleApiService {
 

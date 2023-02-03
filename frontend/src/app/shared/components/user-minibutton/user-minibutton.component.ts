@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-user-minibutton',
   templateUrl: './user-minibutton.component.html',
-  styleUrls: ['./user-minibutton.component.scss']
+  styleUrls: ['./user-minibutton.component.scss'],
 })
 export class UserMinibuttonComponent implements OnInit, OnChanges {
   @Input() userId: string;

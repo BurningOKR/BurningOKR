@@ -1,17 +1,18 @@
 package org.burningokr.mapper.configuration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
 import org.burningokr.dto.configuration.OAuthClientDetailsDto;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class OAuthClientDetailsMapperTest {
 
@@ -40,14 +41,17 @@ public class OAuthClientDetailsMapperTest {
     assertEquals(oauthClientDetailsDto.getClientId(), oauthClientDetails.getClientId());
     assertEquals(oauthClientDetailsDto.getClientSecret(), oauthClientDetails.getClientSecret());
     assertEquals(
-        oauthClientDetailsDto.getRefreshTokenValidity(),
-        oauthClientDetails.getRefreshTokenValidity());
+      oauthClientDetailsDto.getRefreshTokenValidity(),
+      oauthClientDetails.getRefreshTokenValidity()
+    );
     assertEquals(
-        oauthClientDetailsDto.getAccessTokenValidity(),
-        oauthClientDetails.getAccessTokenValidity());
+      oauthClientDetailsDto.getAccessTokenValidity(),
+      oauthClientDetails.getAccessTokenValidity()
+    );
     assertEquals(
-        oauthClientDetailsDto.getWebServerRedirectUri(),
-        oauthClientDetails.getWebServerRedirectUri());
+      oauthClientDetailsDto.getWebServerRedirectUri(),
+      oauthClientDetails.getWebServerRedirectUri()
+    );
   }
 
   @Test
@@ -70,14 +74,17 @@ public class OAuthClientDetailsMapperTest {
     assertEquals(oauthClientDetails.getClientId(), oauthClientDetailsDto.getClientId());
     assertEquals(oauthClientDetails.getClientSecret(), oauthClientDetailsDto.getClientSecret());
     assertEquals(
-        oauthClientDetails.getRefreshTokenValidity(),
-        oauthClientDetailsDto.getRefreshTokenValidity());
+      oauthClientDetails.getRefreshTokenValidity(),
+      oauthClientDetailsDto.getRefreshTokenValidity()
+    );
     assertEquals(
-        oauthClientDetails.getAccessTokenValidity(),
-        oauthClientDetailsDto.getAccessTokenValidity());
+      oauthClientDetails.getAccessTokenValidity(),
+      oauthClientDetailsDto.getAccessTokenValidity()
+    );
     assertEquals(
-        oauthClientDetails.getWebServerRedirectUri(),
-        oauthClientDetailsDto.getWebServerRedirectUri());
+      oauthClientDetails.getWebServerRedirectUri(),
+      oauthClientDetailsDto.getWebServerRedirectUri()
+    );
   }
 
   @Test
@@ -85,7 +92,7 @@ public class OAuthClientDetailsMapperTest {
     Collection<OAuthClientDetails> oauthClientDetailsCollection = new ArrayList<>();
 
     Collection<OAuthClientDetailsDto> oauthClientDetailsDtoCollection =
-        oauthClientDetailsMapper.mapEntitiesToDtos(oauthClientDetailsCollection);
+      oauthClientDetailsMapper.mapEntitiesToDtos(oauthClientDetailsCollection);
 
     assertTrue(oauthClientDetailsDtoCollection.isEmpty());
   }
@@ -121,28 +128,31 @@ public class OAuthClientDetailsMapperTest {
     oauthClientDetails2.setScope("scope");
 
     Collection<OAuthClientDetails> oauthClientDetailsCollection =
-        Arrays.asList(oauthClientDetails1, oauthClientDetails2);
+      Arrays.asList(oauthClientDetails1, oauthClientDetails2);
 
     Collection<OAuthClientDetailsDto> oauthClientDetailsDtoCollection =
-        oauthClientDetailsMapper.mapEntitiesToDtos(oauthClientDetailsCollection);
+      oauthClientDetailsMapper.mapEntitiesToDtos(oauthClientDetailsCollection);
 
     assertEquals(oauthClientDetailsCollection.size(), oauthClientDetailsDtoCollection.size());
     Optional<OAuthClientDetailsDto> firstOAuthClientDetailsDto =
-        oauthClientDetailsDtoCollection.stream().findFirst();
+      oauthClientDetailsDtoCollection.stream().findFirst();
     Optional<OAuthClientDetailsDto> secondOAuthClientDetailsDto =
-        oauthClientDetailsDtoCollection.stream().skip(1).findFirst();
+      oauthClientDetailsDtoCollection.stream().skip(1).findFirst();
     if (firstOAuthClientDetailsDto.isPresent() && secondOAuthClientDetailsDto.isPresent()) {
       assertEquals(
-          oauthClientDetails1.getClientId(), firstOAuthClientDetailsDto.get().getClientId());
+        oauthClientDetails1.getClientId(), firstOAuthClientDetailsDto.get().getClientId());
       assertEquals(
-          oauthClientDetails1.getClientSecret(),
-          firstOAuthClientDetailsDto.get().getClientSecret());
+        oauthClientDetails1.getClientSecret(),
+        firstOAuthClientDetailsDto.get().getClientSecret()
+      );
       assertEquals(
-          oauthClientDetails1.getAccessTokenValidity(),
-          firstOAuthClientDetailsDto.get().getAccessTokenValidity());
+        oauthClientDetails1.getAccessTokenValidity(),
+        firstOAuthClientDetailsDto.get().getAccessTokenValidity()
+      );
       assertEquals(
-          oauthClientDetails1.getRefreshTokenValidity(),
-          firstOAuthClientDetailsDto.get().getRefreshTokenValidity());
+        oauthClientDetails1.getRefreshTokenValidity(),
+        firstOAuthClientDetailsDto.get().getRefreshTokenValidity()
+      );
     } else {
       Assert.fail();
     }
@@ -153,7 +163,7 @@ public class OAuthClientDetailsMapperTest {
     Collection<OAuthClientDetailsDto> oauthClientDetailsDtoCollection = new ArrayList<>();
 
     Collection<OAuthClientDetails> oauthClientDetailsCollection =
-        oauthClientDetailsMapper.mapDtosToEntities(oauthClientDetailsDtoCollection);
+      oauthClientDetailsMapper.mapDtosToEntities(oauthClientDetailsDtoCollection);
 
     assertTrue(oauthClientDetailsCollection.isEmpty());
   }
@@ -175,28 +185,31 @@ public class OAuthClientDetailsMapperTest {
     oauthClientDetailsDto2.setWebServerRedirectUri("google.com");
 
     Collection<OAuthClientDetailsDto> oauthClientDetailsDtoCollection =
-        Arrays.asList(oauthClientDetailsDto1, oauthClientDetailsDto2);
+      Arrays.asList(oauthClientDetailsDto1, oauthClientDetailsDto2);
 
     Collection<OAuthClientDetails> oauthClientDetailsCollection =
-        oauthClientDetailsMapper.mapDtosToEntities(oauthClientDetailsDtoCollection);
+      oauthClientDetailsMapper.mapDtosToEntities(oauthClientDetailsDtoCollection);
 
     assertEquals(oauthClientDetailsDtoCollection.size(), oauthClientDetailsCollection.size());
     Optional<OAuthClientDetails> firstOAuthClientDetails =
-        oauthClientDetailsCollection.stream().findFirst();
+      oauthClientDetailsCollection.stream().findFirst();
     Optional<OAuthClientDetails> secondOAuthClientDetails =
-        oauthClientDetailsCollection.stream().skip(1).findFirst();
+      oauthClientDetailsCollection.stream().skip(1).findFirst();
     if (firstOAuthClientDetails.isPresent() && secondOAuthClientDetails.isPresent()) {
       assertEquals(
-          oauthClientDetailsDto1.getClientId(), firstOAuthClientDetails.get().getClientId());
+        oauthClientDetailsDto1.getClientId(), firstOAuthClientDetails.get().getClientId());
       assertEquals(
-          oauthClientDetailsDto1.getClientSecret(),
-          firstOAuthClientDetails.get().getClientSecret());
+        oauthClientDetailsDto1.getClientSecret(),
+        firstOAuthClientDetails.get().getClientSecret()
+      );
       assertEquals(
-          oauthClientDetailsDto1.getAccessTokenValidity(),
-          firstOAuthClientDetails.get().getAccessTokenValidity());
+        oauthClientDetailsDto1.getAccessTokenValidity(),
+        firstOAuthClientDetails.get().getAccessTokenValidity()
+      );
       assertEquals(
-          oauthClientDetailsDto1.getRefreshTokenValidity(),
-          firstOAuthClientDetails.get().getRefreshTokenValidity());
+        oauthClientDetailsDto1.getRefreshTokenValidity(),
+        firstOAuthClientDetails.get().getRefreshTokenValidity()
+      );
     } else {
       Assert.fail();
     }

@@ -49,7 +49,8 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   constructor(
     private matDialog: MatDialog,
     private keyResultMapperService: KeyResultMapper,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -210,8 +211,10 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   private getDataForDeletionDialog(): ConfirmationDialogData {
     const title: string = this.translate.instant('keyresult.deletion-dialog.title');
-    const message: string = this.translate.instant('keyresult.deletion-dialog.message',
-      { number: this.listNumber, keyResultTitle: this.keyResult.keyResult });
+    const message: string = this.translate.instant(
+      'keyresult.deletion-dialog.message',
+      { number: this.listNumber, keyResultTitle: this.keyResult.keyResult },
+    );
     const confirmButtonText: string = this.translate.instant('keyresult.deletion-dialog.button-text');
 
     return {

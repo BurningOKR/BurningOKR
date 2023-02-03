@@ -1,23 +1,23 @@
 .status-dot {
-  height: 100%;
-  width: 100%;
-  background-color: #c9c9c9;
-  border-radius: 50%;
-  border: 1px solid #a9a9a9;
-  display: inline-block;
+    height: 100%;
+    width: 100%;
+    background-color: #c9c9c9;
+    border-radius: 50%;
+    border: 1px solid #a9a9a9;
+    display: inline-block;
 }
 
 .status-dot-approved {
-  background-color: #81e173;
-  border-color: #086E23;
+    background-color: #81e173;
+    border-color: #086E23;
 }
 
 .status-dot-rejected {
-  background-color: #e88567;
-  border-color: #790000;
+    background-color: #e88567;
+    border-color: #790000;
 }
 
-.status-dot-submitted{
-  background-color: #ffe869;
-  border-color: #d79c2c;
+.status-dot-submitted {
+    background-color: #ffe869;
+    border-color: #d79c2c;
 }

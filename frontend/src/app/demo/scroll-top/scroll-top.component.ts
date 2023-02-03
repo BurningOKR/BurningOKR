@@ -1,13 +1,17 @@
-import { Component, Inject, HostListener } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+
 @Component({
   selector: 'app-scroll-top',
   templateUrl: './scroll-top.component.html',
-  styleUrls: ['./scroll-top.component.scss']
+  styleUrls: ['./scroll-top.component.scss'],
 })
 export class ScrollTopComponent {
   windowScrolled: boolean;
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+
+  constructor(@Inject(DOCUMENT) private document: Document) {
+  }
+
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     if (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
@@ -16,6 +20,7 @@ export class ScrollTopComponent {
       this.windowScrolled = false;
     }
   }
+
   scrollToTop(): void {
     (function smoothScroll(): void {
       const currentScroll: any = document.documentElement.scrollTop || document.body.scrollTop;

@@ -1,10 +1,11 @@
 package org.burningokr.model.okrUnits.okrUnitHistories;
 
-import java.util.Collection;
-import javax.persistence.*;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.okrUnits.*;
+import org.burningokr.model.okrUnits.OkrUnit;
+
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Data

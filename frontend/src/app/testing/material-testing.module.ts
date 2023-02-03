@@ -1,4 +1,4 @@
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -74,8 +74,9 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatTooltipModule,
     MatSidenavModule,
     MaterialFileInputModule,
-    TranslateModule
+    TranslateModule,
   ],
-  imports: [ TranslateModule.forRoot() ]
+  imports: [TranslateModule.forRoot()],
 })
-export class MaterialTestingModule {}
+export class MaterialTestingModule {
+}

@@ -1,21 +1,31 @@
-<app-dialog-component title="{{'cycle-edit-form.title' | translate}}" [formGroup]="cycleForm" saveAndCloseLabel="{{'cycle-edit-form.save' | translate}}" [hasFormGroupError]="true" (okEmitter)="saveCycle()">
+<app-dialog-component (okEmitter)="saveCycle()" [formGroup]="cycleForm" [hasFormGroupError]="true"
+                      saveAndCloseLabel="{{'cycle-edit-form.save' | translate}}"
+                      title="{{'cycle-edit-form.title' | translate}}">
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
-      <input type="text" matInput placeholder="{{ 'cycle-edit-form.name' | translate }}" formControlName="name">
-      <mat-error><app-form-error [control]="cycleForm.get('name')"></app-form-error></mat-error>
+      <input formControlName="name" matInput placeholder="{{ 'cycle-edit-form.name' | translate }}" type="text">
+      <mat-error>
+        <app-form-error [control]="cycleForm.get('name')"></app-form-error>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="halfWidth leftDate">
-      <input matInput [matDatepicker]="cycleEditStartDatePicker" placeholder="{{ 'cycle-edit-form.start-date' | translate }}" formControlName="startDate">
-      <mat-datepicker-toggle matSuffix [for]="cycleEditStartDatePicker"></mat-datepicker-toggle>
+      <input [matDatepicker]="cycleEditStartDatePicker" formControlName="startDate" matInput
+             placeholder="{{ 'cycle-edit-form.start-date' | translate }}">
+      <mat-datepicker-toggle [for]="cycleEditStartDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #cycleEditStartDatePicker></mat-datepicker>
-      <mat-error><app-form-error [control]="cycleForm.get('startDate')"></app-form-error></mat-error>
+      <mat-error>
+        <app-form-error [control]="cycleForm.get('startDate')"></app-form-error>
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="halfWidth rightDate">
-      <input matInput [matDatepicker]="cycleEditEndDatePicker" placeholder="{{ 'cycle-edit-form.end-date' | translate }}" formControlName="endDate">
-      <mat-datepicker-toggle matSuffix [for]="cycleEditEndDatePicker"></mat-datepicker-toggle>
+      <input [matDatepicker]="cycleEditEndDatePicker" formControlName="endDate" matInput
+             placeholder="{{ 'cycle-edit-form.end-date' | translate }}">
+      <mat-datepicker-toggle [for]="cycleEditEndDatePicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #cycleEditEndDatePicker></mat-datepicker>
-      <mat-error><app-form-error [control]="cycleForm.get('endDate')"></app-form-error></mat-error>
+      <mat-error>
+        <app-form-error [control]="cycleForm.get('endDate')"></app-form-error>
+      </mat-error>
     </mat-form-field>
     <mat-slide-toggle formControlName="isVisible">
       <span>{{ 'cycle-edit-form.visibility' | translate }}</span>

@@ -1,14 +1,5 @@
 package org.burningokr.service.configuration;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
@@ -21,18 +12,31 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.ApplicationEventPublisher;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
+
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ConfigurationServiceTest {
 
-  @Mock private ConfigurationRepository configurationRepository;
+  @Mock
+  private ConfigurationRepository configurationRepository;
 
-  @Mock private ActivityService activityService;
+  @Mock
+  private ActivityService activityService;
 
-  @Mock private User mockedUser;
+  @Mock
+  private User mockedUser;
 
-  @Mock private ApplicationEventPublisher applicationEventPublisher;
+  @Mock
+  private ApplicationEventPublisher applicationEventPublisher;
 
-  @InjectMocks private ConfigurationService configurationService;
+  @InjectMocks
+  private ConfigurationService configurationService;
 
   @Test
   public void getAllConfiguration_expectEmptyCollection() {
@@ -94,7 +98,7 @@ public class ConfigurationServiceTest {
     configurationArgument.setValue("3");
     when(configurationRepository.save(configurationArgument)).thenReturn(configurationArgument);
     Configuration actual =
-        configurationService.createConfiguration(configurationArgument, mockedUser);
+      configurationService.createConfiguration(configurationArgument, mockedUser);
     assertConfigurationsWithoutId(configurationArgument, actual);
   }
 
@@ -135,7 +139,7 @@ public class ConfigurationServiceTest {
     dbConfiguration.setName("name");
     dbConfiguration.setValue("3");
     when(configurationRepository.findByIdOrThrow(dbConfiguration.getId()))
-        .thenReturn(dbConfiguration);
+      .thenReturn(dbConfiguration);
     configurationService.deleteConfigurationById(dbConfiguration.getId(), mockedUser);
     verify(configurationRepository, times(1)).delete(dbConfiguration);
   }

@@ -12,7 +12,7 @@ const objectiveApiServiceMock: any = {
   postObjectiveForUnit$: jest.fn(),
   putObjective$: jest.fn(),
   putObjectiveKeyResultSequence$: jest.fn(),
-  deleteObjective$: jest.fn()
+  deleteObjective$: jest.fn(),
 };
 
 let service: ObjectiveViewMapper;
@@ -22,12 +22,26 @@ let objectiveDto: ObjectiveDto;
 describe('ObjectiveViewMapper', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      { provide: ObjectiveApiService, useValue: objectiveApiServiceMock }
-    ]
+      { provide: ObjectiveApiService, useValue: objectiveApiServiceMock },
+    ],
   }));
 
   beforeEach(() => {
-    objective = new ViewObjective(1, 'ObjectiveName', 'ObjectiveDesc', 'remark', 100, [], true, 2, 3, 'contactPerson', 0, [], 'review');
+    objective = new ViewObjective(
+      1,
+      'ObjectiveName',
+      'ObjectiveDesc',
+      'remark',
+      100,
+      [],
+      true,
+      2,
+      3,
+      'contactPerson',
+      0,
+      [],
+      'review',
+    );
     objectiveDto = {
       id: 1,
       title: 'ObjectiveName',
@@ -40,7 +54,7 @@ describe('ObjectiveViewMapper', () => {
       contactPersonId: 'contactPerson',
       review: 'review',
       noteIds: [],
-      subObjectiveIds: []
+      subObjectiveIds: [],
     };
 
     objectiveApiServiceMock.getObjectiveById$.mockReset();
@@ -146,7 +160,7 @@ describe('ObjectiveViewMapper', () => {
             noteIds: objective.commentIdList,
             parentUnitId: objective.parentUnitId,
             parentObjectiveId: objective.parentObjectiveId,
-            contactPersonId: objective.contactPersonId
+            contactPersonId: objective.contactPersonId,
           });
         done();
       });
@@ -188,7 +202,7 @@ describe('ObjectiveViewMapper', () => {
             noteIds: objective.commentIdList,
             parentUnitId: objective.parentUnitId,
             parentObjectiveId: objective.parentObjectiveId,
-            contactPersonId: objective.contactPersonId
+            contactPersonId: objective.contactPersonId,
           });
         done();
       });
@@ -230,7 +244,7 @@ describe('ObjectiveViewMapper', () => {
             noteIds: objective.commentIdList,
             parentUnitId: objective.parentUnitId,
             parentObjectiveId: objective.parentObjectiveId,
-            contactPersonId: objective.contactPersonId
+            contactPersonId: objective.contactPersonId,
           }, 1);
         done();
       });

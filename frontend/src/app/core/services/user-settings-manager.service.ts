@@ -6,7 +6,7 @@ import { Fetchable } from '../../shared/decorators/fetchable.decorator';
 
 @Fetchable()
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserSettingsManagerService implements Fetchable {
 

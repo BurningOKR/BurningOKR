@@ -1,21 +1,23 @@
 <ng-container *ngIf="currentCycleList$ | async as currentCycleList">
   <ng-container *ngIf="currentCycle$ | async as currentCycle">
     <mat-form-field class="number-input history-cycle-input navbar-item-dropdown">
-      <mat-select [value]="currentCycle" (selectionChange)="onSelectCycle($event.value)">
+      <mat-select (selectionChange)="onSelectCycle($event.value)" [value]="currentCycle">
 
         <mat-select-trigger>
           {{currentCycle.abbreviation}} <br>
-          <small>[{{currentCycle.startDate | dateFormat | async}} - {{currentCycle.endDate | dateFormat | async}}]</small>
-          <mat-icon class="padlock-margin" *ngIf="currentCycle.cycleState === 'CLOSED'">lock</mat-icon>
-          <mat-icon class="padlock-margin" *ngIf="currentCycle.cycleState === 'PREPARATION'">watch_later
+          <small>[{{currentCycle.startDate | dateFormat | async}} - {{currentCycle.endDate | dateFormat | async}}
+            ]</small>
+          <mat-icon *ngIf="currentCycle.cycleState === 'CLOSED'" class="padlock-margin">lock</mat-icon>
+          <mat-icon *ngIf="currentCycle.cycleState === 'PREPARATION'" class="padlock-margin">watch_later
           </mat-icon>
         </mat-select-trigger>
 
-        <mat-option class="option" *ngFor="let cycleListEntry of currentCycleList" [value]="cycleListEntry">
+        <mat-option *ngFor="let cycleListEntry of currentCycleList" [value]="cycleListEntry" class="option">
           {{cycleListEntry.abbreviation}} <br>
-          <small>[{{cycleListEntry.startDate | dateFormat | async}} - {{cycleListEntry.endDate | dateFormat | async}}]</small>
-          <mat-icon class="padlock-margin" *ngIf="cycleListEntry.cycleState === 'CLOSED'">lock</mat-icon>
-          <mat-icon class="padlock-margin" *ngIf="cycleListEntry.cycleState === 'PREPARATION'">watch_later
+          <small>[{{cycleListEntry.startDate | dateFormat | async}} - {{cycleListEntry.endDate | dateFormat | async}}
+            ]</small>
+          <mat-icon *ngIf="cycleListEntry.cycleState === 'CLOSED'" class="padlock-margin">lock</mat-icon>
+          <mat-icon *ngIf="cycleListEntry.cycleState === 'PREPARATION'" class="padlock-margin">watch_later
           </mat-icon>
         </mat-option>
 

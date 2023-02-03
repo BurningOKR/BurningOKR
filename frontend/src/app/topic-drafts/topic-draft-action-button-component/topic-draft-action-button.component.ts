@@ -18,12 +18,8 @@ import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topi
 import { status } from '../../shared/model/ui/OrganizationalUnit/okr-topic-draft/okr-topic-draft-status-enum';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mapper';
-import {
-  TopicDraftEditDialogueComponent
-} from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
-import {
-  ConvertTopicDraftToTeamDialogueComponent,
-} from '../convert-topic-draft-to-team/convert-topic-draft-to-team-dialogue-component/convert-topic-draft-to-team-dialogue.component';
+import { TopicDraftEditDialogueComponent } from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
+import { ConvertTopicDraftToTeamDialogueComponent } from '../convert-topic-draft-to-team/convert-topic-draft-to-team-dialogue-component/convert-topic-draft-to-team-dialogue.component';
 import { TopicDraftPermissionService } from '../topic-draft-permission.service';
 import { TopicDraftStatusService } from '../topic-draft-status.service';
 
@@ -57,13 +53,15 @@ export class TopicDraftActionButtonComponent implements OnInit {
   notAdminToolTip$: Observable<string>;
   notApprovedToolTip$: Observable<string>;
 
-  constructor(private topicDraftMapper: TopicDraftMapper,
-              private topicDraftPermissionService: TopicDraftPermissionService,
-              private translate: TranslateService,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar,
-              private router: Router,
-              private topicDraftStatusService: TopicDraftStatusService) {
+  constructor(
+    private topicDraftMapper: TopicDraftMapper,
+    private topicDraftPermissionService: TopicDraftPermissionService,
+    private translate: TranslateService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private topicDraftStatusService: TopicDraftStatusService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -97,7 +95,7 @@ export class TopicDraftActionButtonComponent implements OnInit {
   clickedDeleteTopicDraft(): void {
     const dialogData: ConfirmationDialogData = {
       title: this.translate.instant('topic-draft-action-button.delete.title'),
-      message: this.translate.instant('topic-draft-action-button.delete.message', {name: this.topicDraft.name}),
+      message: this.translate.instant('topic-draft-action-button.delete.message', { name: this.topicDraft.name }),
       confirmButtonText: this.translate.instant('topic-draft-action-button.delete.button-text'),
     };
 
@@ -264,7 +262,8 @@ export class TopicDraftActionButtonComponent implements OnInit {
     this.editTooltipStatusAndUser$ = this.translate.stream('topic-draft-action-button.edit-tooltip.status-and-user');
     this.stateMustBeSubmittedTooltip$ = this.translate.stream('topic-draft-action-button.state-submitted-tooltip');
     this.userRoleToChangeStatus$ = this.translate.stream('topic-draft-action-button.no-permission');
-    this.changeCurrentStatusByStatusAndUser$ = this.translate.stream('topic-draft-action-button.approving-status-and-user');
+    this.changeCurrentStatusByStatusAndUser$ = this.translate.stream(
+      'topic-draft-action-button.approving-status-and-user');
     this.approveTopicDraftText$ = this.translate.stream('topic-draft-action-button.capitalised-approve');
     this.withDrawApprovalTopicDraftText$ = this.translate.stream('topic-draft-action-button.withdraw-approval');
     this.rejectTopicDraftText$ = this.translate.stream('topic-draft-action-button.capitalized-reject');

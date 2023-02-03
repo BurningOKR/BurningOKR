@@ -1,12 +1,5 @@
 package org.burningokr.service.userhandling;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AdminUserRepository;
@@ -19,20 +12,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
+
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class AdminUserServiceTest {
 
-  @Mock private UserService userService;
-
-  @Mock private AdminUserRepository adminUserRepository;
-
-  @InjectMocks private AdminUserService adminUserService;
-
   private static User userToAdd;
   private static AdminUser adminUser;
-
   private static UUID userId;
-
+  @Mock
+  private UserService userService;
+  @Mock
+  private AdminUserRepository adminUserRepository;
+  @InjectMocks
+  private AdminUserService adminUserService;
   private ArrayList<AdminUser> adminUsersToReturn;
 
   private UUID adminUserUuid1;
@@ -40,6 +37,14 @@ public class AdminUserServiceTest {
 
   private AdminUser adminUser1;
   private AdminUser adminUser2;
+
+  @BeforeClass
+  public static void init() {
+    userId = UUID.randomUUID();
+    userToAdd = mock(User.class);
+    when(userToAdd.getId()).thenReturn(userId);
+    adminUser = new AdminUser();
+  }
 
   private void setupGetAllAdminsTest() {
     adminUserUuid1 = UUID.randomUUID();
@@ -53,14 +58,6 @@ public class AdminUserServiceTest {
     adminUsersToReturn = new ArrayList<>();
 
     when(adminUserRepository.findAll()).thenReturn(adminUsersToReturn);
-  }
-
-  @BeforeClass
-  public static void init() {
-    userId = UUID.randomUUID();
-    userToAdd = mock(User.class);
-    when(userToAdd.getId()).thenReturn(userId);
-    adminUser = new AdminUser();
   }
 
   @Test

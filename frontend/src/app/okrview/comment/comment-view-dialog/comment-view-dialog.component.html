@@ -11,7 +11,7 @@
     <div *ngIf="this.commentList.length !== 0 else noComments">
       <div *ngIf="commentList else loading">
         <div *ngFor="let comment of commentList">
-          <app-comment-card [comment]="comment" (deleteComment)="queryDeleteComment($event)"></app-comment-card>
+          <app-comment-card (deleteComment)="queryDeleteComment($event)" [comment]="comment"></app-comment-card>
           <mat-divider></mat-divider>
         </div>
       </div>
@@ -34,15 +34,19 @@
 
     <div class="flex-nowrap">
       <mat-form-field class="full-width" hintLabel="{{getHintLabel$() | async}}">
-        <textarea matInput cdkTextareaAutosize placeholder="{{ 'comment-view-dialog.write-comment' | translate }}" [disabled]="isPostingComment" [(ngModel)]="newCommentText" #input maxlength="255"></textarea>
+        <textarea #input [(ngModel)]="newCommentText" [disabled]="isPostingComment" cdkTextareaAutosize matInput
+                  maxlength="255" placeholder="{{ 'comment-view-dialog.write-comment' | translate }}"></textarea>
         <mat-hint align="end">{{input.value?.length || 0}}/255</mat-hint>
       </mat-form-field>
-      <button *ngIf="canPostNewComment(); else commentToSmall" mat-mini-fab class="m-24" [disabled]="!canPostNewComment()" (click)="postNewComment()" matTooltip="{{ 'comment-view-dialog.tooltip.write-new-comment' | translate }}">
+      <button (click)="postNewComment()" *ngIf="canPostNewComment(); else commentToSmall"
+              [disabled]="!canPostNewComment()" class="m-24" mat-mini-fab
+              matTooltip="{{ 'comment-view-dialog.tooltip.write-new-comment' | translate }}">
         <mat-icon class="v-top">send</mat-icon>
       </button>
 
       <ng-template #commentToSmall>
-        <button mat-mini-fab class="m-24" [disabled]="!canPostNewComment()" (click)="postNewComment()" matTooltip="{{ 'comment-view-dialog.tooltip.comment-to-small' | translate }}">
+        <button (click)="postNewComment()" [disabled]="!canPostNewComment()" class="m-24" mat-mini-fab
+                matTooltip="{{ 'comment-view-dialog.tooltip.comment-to-small' | translate }}">
           <mat-icon class="v-top">send</mat-icon>
         </button>
       </ng-template>
@@ -51,6 +55,6 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-stroked-button (click)="clickedClose()">{{ 'comment-view-dialog.close' | translate }}</button>
+    <button (click)="clickedClose()" mat-stroked-button>{{ 'comment-view-dialog.close' | translate }}</button>
   </mat-dialog-actions>
 </div>

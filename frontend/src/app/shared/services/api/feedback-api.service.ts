@@ -4,7 +4,7 @@ import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeedbackApiService {
 
@@ -14,7 +14,7 @@ export class FeedbackApiService {
   postFeedback$(feedbackText: string, name: string): Observable<object> {
     const feedback: { feedbackText: string; name: string } = {
       feedbackText,
-      name
+      name,
     };
 
     return this.api.postData$('feedback', feedback);

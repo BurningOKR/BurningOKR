@@ -1,6 +1,5 @@
 package org.burningokr.service.userutil;
 
-import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,8 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotEmpty;
+
 @Conditional(AadCondition.class)
 @ConfigurationProperties("security.oauth2.client")
 @Component
@@ -20,17 +21,23 @@ import org.springframework.validation.annotation.Validated;
 @Builder
 public class ExternalOAuthClientDetails implements AuthenticationProperties {
 
-  @NotEmpty private String userAuthorizationUri;
+  @NotEmpty
+  private String userAuthorizationUri;
 
-  @NotEmpty private String accessTokenUri;
+  @NotEmpty
+  private String accessTokenUri;
 
-  @NotEmpty private String clientId;
+  @NotEmpty
+  private String clientId;
 
-  @NotEmpty private String clientSecret;
+  @NotEmpty
+  private String clientSecret;
 
-  @NotEmpty private String scope;
+  @NotEmpty
+  private String scope;
 
-  @NotEmpty private String tokenName;
+  @NotEmpty
+  private String tokenName;
 
   public String getUserAuthorizationUri() {
     return userAuthorizationUri;

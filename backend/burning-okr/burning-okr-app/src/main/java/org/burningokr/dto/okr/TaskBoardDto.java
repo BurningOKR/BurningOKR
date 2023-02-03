@@ -1,8 +1,9 @@
 package org.burningokr.dto.okr;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import lombok.Data;
 
 @Data
 public class TaskBoardDto {

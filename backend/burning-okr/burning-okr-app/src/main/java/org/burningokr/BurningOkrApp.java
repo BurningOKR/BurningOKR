@@ -13,11 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableResourceServer
 public class BurningOkrApp extends SpringBootServletInitializer {
 
-  @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-    return application.sources(BurningOkrApp.class);
-  }
-
   /**
    * Main Method to configure and start SpringApplication.
    *
@@ -31,5 +26,10 @@ public class BurningOkrApp extends SpringBootServletInitializer {
     app.setWebApplicationType(WebApplicationType.SERVLET);
     app.addListeners(new ApplicationPidFileWriter());
     app.run(args);
+  }
+
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    return application.sources(BurningOkrApp.class);
   }
 }

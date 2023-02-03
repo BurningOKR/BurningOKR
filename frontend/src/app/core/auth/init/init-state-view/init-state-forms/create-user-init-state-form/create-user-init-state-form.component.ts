@@ -14,7 +14,7 @@ import { PasswordsMatchValidator } from '../../../../../../shared/validators/pas
 @Component({
   selector: 'app-create-user-state-form',
   templateUrl: './create-user-init-state-form.component.html',
-  styleUrls: ['./create-user-init-state-form.component.css']
+  styleUrls: ['./create-user-init-state-form.component.css'],
 })
 export class CreateUserInitStateFormComponent extends InitStateFormComponent implements OnInit {
   adminUserForm: FormGroupTyped<AdminUserForm>;
@@ -43,8 +43,8 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
       jobTitle: [''],
       department: [''],
       photo: [''],
-      isAdmin: [{value: true, disabled: true}],
-      active: [{value: true, disabled: true}]
+      isAdmin: [{ value: true, disabled: true }],
+      active: [{ value: true, disabled: true }],
     }) as FormGroupTyped<AdminUserForm>;
   }
 
@@ -52,7 +52,7 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
     const createdNewPasswordForm: FormGroup = this.formBuilder.group({
       previousPassword: [''],
       newPassword: ['', [Validators.required, Validators.minLength(7)]],
-      newPasswordRepetition: ['', [Validators.required]]
+      newPasswordRepetition: ['', [Validators.required]],
     });
     createdNewPasswordForm.setValidators(PasswordsMatchValidator.Validate);
     this.newPasswordForm = createdNewPasswordForm as FormGroupTyped<NewPasswordForm>;
@@ -76,14 +76,14 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
   private createForm(): void {
     this.form = this.formBuilder.group({
       adminUserForm: this.adminUserForm,
-      newPasswordForm: this.newPasswordForm
+      newPasswordForm: this.newPasswordForm,
     });
   }
 
   private getFormData(): PostLocalAdminUserData {
     return {
       password: this.getPasswordFromForm(),
-      userDto: this.getAdminUserFromForm()
+      userDto: this.getAdminUserFromForm(),
     };
   }
 
@@ -99,7 +99,7 @@ export class CreateUserInitStateFormComponent extends InitStateFormComponent imp
       this.adminUserForm.get('email').value,
       this.adminUserForm.get('jobTitle').value,
       this.adminUserForm.get('department').value,
-      this.adminUserForm.get('photo').value
-      );
+      this.adminUserForm.get('photo').value,
+    );
   }
 }

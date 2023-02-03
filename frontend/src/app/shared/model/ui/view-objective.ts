@@ -16,9 +16,21 @@ export class ViewObjective implements ViewCommentRequiredAttributes {
   review?: string;
   commentIdList: CommentId[];
 
-  constructor(id: ObjectiveId, name: string, description: string, remark: string, progress: number, keyResultIdList: number[],
-              isActive: boolean, parentObjectiveId: number, parentUnitId: number, contactPersonId: string, subObjectivesCount: number,
-              commentIdList: CommentId[], review?: string) {
+  constructor(
+    id: ObjectiveId,
+    name: string,
+    description: string,
+    remark: string,
+    progress: number,
+    keyResultIdList: number[],
+    isActive: boolean,
+    parentObjectiveId: number,
+    parentUnitId: number,
+    contactPersonId: string,
+    subObjectivesCount: number,
+    commentIdList: CommentId[],
+    review?: string,
+  ) {
     this.id = id;
     this.name = name;
     this.description = description;

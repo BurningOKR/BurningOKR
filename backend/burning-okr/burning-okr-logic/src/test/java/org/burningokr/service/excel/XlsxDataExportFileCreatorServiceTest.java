@@ -1,13 +1,5 @@
 package org.burningokr.service.excel;
 
-import static org.mockito.ArgumentMatchers.anyCollection;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.burningokr.model.excel.ObjectiveRow;
@@ -20,16 +12,27 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.mockito.ArgumentMatchers.anyCollection;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class XlsxDataExportFileCreatorServiceTest {
 
-  @Mock private ObjectiveRowBuilderService objectiveRowBuilderService;
+  @Mock
+  private ObjectiveRowBuilderService objectiveRowBuilderService;
 
-  @Mock private GenericXlsxFileCreatorService<ObjectiveRow> genericXlsxFileCreatorService;
+  @Mock
+  private GenericXlsxFileCreatorService<ObjectiveRow> genericXlsxFileCreatorService;
 
-  @Mock private Messages messages;
+  @Mock
+  private Messages messages;
 
-  @InjectMocks private XlsxDataExportFileCreatorService xlsxDataExportFileCreatorService;
+  @InjectMocks
+  private XlsxDataExportFileCreatorService xlsxDataExportFileCreatorService;
 
   private long departmentId = 42L;
   private long companyId = 44L;
@@ -41,17 +44,17 @@ public class XlsxDataExportFileCreatorServiceTest {
     objectiveRowCollection = new ArrayList<>();
     this.workbook = new XSSFWorkbook();
     when(objectiveRowBuilderService.generateForOkrChildUnit(departmentId))
-        .thenReturn(objectiveRowCollection);
+      .thenReturn(objectiveRowCollection);
     when(objectiveRowBuilderService.generateForCompany(companyId))
-        .thenReturn(objectiveRowCollection);
+      .thenReturn(objectiveRowCollection);
     when(genericXlsxFileCreatorService.createWorkbook(
-            anyCollection(), anyCollection(), anyString()))
-        .thenReturn(workbook);
+      anyCollection(), anyCollection(), anyString()))
+      .thenReturn(workbook);
   }
 
   @Test
   public void createFileForOkrTeam_ShouldReturnWorkWhichIsReturnedByGenericFileCreatorService()
-      throws IllegalAccessException {
+    throws IllegalAccessException {
     Workbook workbook = xlsxDataExportFileCreatorService.createFileForOkrTeam(departmentId);
     Assert.assertEquals(this.workbook, workbook);
     verify(objectiveRowBuilderService, times(1)).generateForOkrChildUnit(departmentId);
@@ -59,7 +62,7 @@ public class XlsxDataExportFileCreatorServiceTest {
 
   @Test
   public void createFileForCompany_ShouldReturnWorkWhichIsReturnedByGenericFileCreatorService()
-      throws IllegalAccessException {
+    throws IllegalAccessException {
     Workbook workbook = xlsxDataExportFileCreatorService.createFileForCompany(companyId);
     Assert.assertEquals(this.workbook, workbook);
     verify(objectiveRowBuilderService, times(1)).generateForCompany(companyId);

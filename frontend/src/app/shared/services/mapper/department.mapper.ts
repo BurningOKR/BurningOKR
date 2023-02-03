@@ -8,7 +8,7 @@ import { CompanyId, OkrUnitId } from '../../model/id-types';
 import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DepartmentMapper {
   constructor(private departmentApiService: DepartmentApiService) {
@@ -25,7 +25,7 @@ export class DepartmentMapper {
       department.okrTopicSponsorId,
       department.okrMemberIds,
       department.isActive,
-      department.isParentUnitABranch
+      department.isParentUnitABranch,
     );
   }
 
@@ -56,7 +56,7 @@ export class DepartmentMapper {
     return this.departmentApiService
       .getDepartmentsFlattedForCompany$(companyId)
       .pipe(map((departments: OkrDepartmentDto[]) => departments.map(DepartmentMapper.mapDepartmentDto)
-        .sort((a: OkrDepartment, b: OkrDepartment) => a.name < b.name ? -1 : a.name === b.name ? 0 : 1
+        .sort((a: OkrDepartment, b: OkrDepartment) => a.name < b.name ? -1 : a.name === b.name ? 0 : 1,
         )));
   }
 

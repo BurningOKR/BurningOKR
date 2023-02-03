@@ -9,10 +9,10 @@ describe('ScrollTopComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScrollTopComponent ],
-      imports: [ MaterialTestingModule ]
+      declarations: [ScrollTopComponent],
+      imports: [MaterialTestingModule],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

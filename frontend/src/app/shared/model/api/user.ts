@@ -10,14 +10,16 @@ export class User {
   photo: string;
   active: boolean;
 
-  constructor(id: UserId = '',
-              givenName: string = '',
-              surname: string = '',
-              email: string = '',
-              jobTitle: string = '',
-              department: string = '',
-              photo: string = '',
-              active: boolean = true) {
+  constructor(
+    id: UserId = '',
+    givenName: string = '',
+    surname: string = '',
+    email: string = '',
+    jobTitle: string = '',
+    department: string = '',
+    photo: string = '',
+    active: boolean = true,
+  ) {
     this.id = id;
     this.givenName = givenName;
     this.surname = surname;

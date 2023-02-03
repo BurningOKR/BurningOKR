@@ -1,14 +1,5 @@
 package org.burningokr.service.okrUnit;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
@@ -44,38 +35,48 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OkrCompanyServiceTest {
-
-  @Mock private CompanyRepository companyRepository;
-
-  @Mock private UnitRepository<OkrChildUnit> unitRepository;
-
-  @Mock private EntityCrawlerService entityCrawlerService;
-
-  @Mock private ObjectiveRepository objectiveRepository;
-
-  @Mock private ActivityService activityService;
-
-  @Mock private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
-
-  @Mock private BranchHistoryRepository branchHistoryRepository;
-
-  @Mock private DepartmentHistoryRepository departmentHistoryRepository;
-
-  @Mock private TopicDraftHistoryRepository topicDraftHistoryRepository;
-
-  @Mock private OkrTopicDraftRepository okrTopicDraftRepository;
-
-  @Mock private User user;
-
-  @InjectMocks private CompanyService companyService;
-
-  @Mock private TaskBoardService taskBoardService;
 
   private final Long companyId = 1337L;
   private final String companyName = "Brockhaus AG";
   private final String updatedCompanyName = "BAG";
+  @Mock
+  private CompanyRepository companyRepository;
+  @Mock
+  private UnitRepository<OkrChildUnit> unitRepository;
+  @Mock
+  private EntityCrawlerService entityCrawlerService;
+  @Mock
+  private ObjectiveRepository objectiveRepository;
+  @Mock
+  private ActivityService activityService;
+  @Mock
+  private OkrTopicDescriptionRepository okrTopicDescriptionRepository;
+  @Mock
+  private BranchHistoryRepository branchHistoryRepository;
+  @Mock
+  private DepartmentHistoryRepository departmentHistoryRepository;
+  @Mock
+  private TopicDraftHistoryRepository topicDraftHistoryRepository;
+  @Mock
+  private OkrTopicDraftRepository okrTopicDraftRepository;
+  @Mock
+  private User user;
+  @InjectMocks
+  private CompanyService companyService;
+  @Mock
+  private TaskBoardService taskBoardService;
   private OkrCompany okrCompany;
 
   @Before
@@ -136,7 +137,7 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
     when(okrTopicDescriptionRepository.save(any()))
-        .thenAnswer(invocation -> invocation.getArgument(0));
+      .thenAnswer(invocation -> invocation.getArgument(0));
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
@@ -166,7 +167,7 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
     when(okrTopicDescriptionRepository.save(any()))
-        .thenAnswer(invocation -> invocation.getArgument(0));
+      .thenAnswer(invocation -> invocation.getArgument(0));
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
@@ -223,9 +224,10 @@ public class OkrCompanyServiceTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw EntityNotFoundException.",
-          ex,
-          instanceOf(EntityNotFoundException.class));
+        "Should only throw EntityNotFoundException.",
+        ex,
+        instanceOf(EntityNotFoundException.class)
+      );
     }
 
     verify(companyRepository).findByIdOrThrow(anyLong());
@@ -251,9 +253,10 @@ public class OkrCompanyServiceTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw EntityNotFoundException.",
-          ex,
-          instanceOf(EntityNotFoundException.class));
+        "Should only throw EntityNotFoundException.",
+        ex,
+        instanceOf(EntityNotFoundException.class)
+      );
     }
   }
 
@@ -380,7 +383,7 @@ public class OkrCompanyServiceTest {
     OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
 
     companyService.createTopicDraftHistory(
-        okrTopicDraft, okrTopicDraftHistory, topicDraftHistoryRepository);
+      okrTopicDraft, okrTopicDraftHistory, topicDraftHistoryRepository);
     verify(topicDraftHistoryRepository).save(any());
   }
 

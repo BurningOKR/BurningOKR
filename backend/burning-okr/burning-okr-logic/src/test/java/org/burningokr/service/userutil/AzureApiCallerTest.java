@@ -1,12 +1,13 @@
 package org.burningokr.service.userutil;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.burningokr.service.exceptions.AzureApiException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AzureApiCallerTest {
@@ -16,7 +17,7 @@ public class AzureApiCallerTest {
   @Before
   public void setup() {
     externalOAuthClientDetails =
-        new ExternalOAuthClientDetails("", "", "clientId", "clientSecret", "", "");
+      new ExternalOAuthClientDetails("", "", "clientId", "clientSecret", "", "");
     List<AzureGroup> azureGroups = new ArrayList<>();
     azureGroups.add(AzureGroup.builder().id("groupId").name("groupIntern").build());
   }

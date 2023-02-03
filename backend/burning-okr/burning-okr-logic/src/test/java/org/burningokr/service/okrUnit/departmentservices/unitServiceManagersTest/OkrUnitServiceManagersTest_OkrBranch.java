@@ -1,11 +1,13 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceManagersTest;
 
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class OkrUnitServiceManagersTest_OkrBranch extends OkrUnitServiceManagersTest<OkrBranch> {
 

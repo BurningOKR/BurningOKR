@@ -1,7 +1,5 @@
 package org.burningokr.config.swagger;
 
-import java.util.Arrays;
-import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthConfigurationName;
 import org.burningokr.service.condition.LocalUserCondition;
@@ -18,6 +16,9 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 @Profile("!prod")
 @Conditional(LocalUserCondition.class)
 @EnableAutoConfiguration
@@ -31,8 +32,8 @@ public class SwaggerLocalConfig extends SwaggerConfig {
   @Bean
   public Docket api() {
     return baseApi()
-        .securitySchemes(Collections.singletonList(securityScheme()))
-        .securityContexts(Collections.singletonList(securityContext()));
+      .securitySchemes(Collections.singletonList(securityScheme()))
+      .securityContexts(Collections.singletonList(securityContext()));
   }
 
   @Override
@@ -42,16 +43,16 @@ public class SwaggerLocalConfig extends SwaggerConfig {
 
   private SecurityScheme securityScheme() {
     GrantType passwordGrant =
-        new ResourceOwnerPasswordCredentialsGrant(
-            oAuthConfigurationService
-                .getOAuthConfigurationByName(OAuthConfigurationName.TOKEN_ENDPOINT)
-                .getValue());
+      new ResourceOwnerPasswordCredentialsGrant(
+        oAuthConfigurationService
+          .getOAuthConfigurationByName(OAuthConfigurationName.TOKEN_ENDPOINT)
+          .getValue());
 
     return new OAuthBuilder()
-        .name("spring_oauth")
-        .grantTypes(Collections.singletonList(passwordGrant))
-        .scopes(Arrays.asList(scopes()))
-        .build();
+      .name("spring_oauth")
+      .grantTypes(Collections.singletonList(passwordGrant))
+      .scopes(Arrays.asList(scopes()))
+      .build();
   }
 
   private AuthorizationScope[] scopes() {
@@ -60,9 +61,9 @@ public class SwaggerLocalConfig extends SwaggerConfig {
 
   private SecurityContext securityContext() {
     return SecurityContext.builder()
-        .securityReferences(
-            Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
-        .forPaths(PathSelectors.any())
-        .build();
+      .securityReferences(
+        Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
+      .forPaths(PathSelectors.any())
+      .build();
   }
 }

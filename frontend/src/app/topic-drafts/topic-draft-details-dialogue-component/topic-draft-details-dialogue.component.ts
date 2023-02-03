@@ -6,9 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { FormControl, FormGroup } from '@angular/forms';
 import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
 import { CurrentUserService } from '../../core/services/current-user.service';
-import {
-  TopicDraftEditDialogueComponent
-} from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
+import { TopicDraftEditDialogueComponent } from '../topic-draft-edit-dialogue-component/topic-draft-edit-dialogue.component';
 import { TopicDraftPermissionService } from '../topic-draft-permission.service';
 import { TopicDraftStatusService } from '../topic-draft-status.service';
 
@@ -20,7 +18,7 @@ export interface SubmittedTopicDraftDetailsFormData {
   selector: 'app-topic-draft-details-dialogue',
   templateUrl: './topic-draft-details-dialogue.component.html',
   styleUrls: ['./topic-draft-details-dialogue.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class TopicDraftDetailsDialogueComponent implements OnInit {
@@ -31,12 +29,14 @@ export class TopicDraftDetailsDialogueComponent implements OnInit {
   submittedTopicDraftDetailsForm: FormGroup;
   canEdit: boolean;
 
-  constructor(private dialogRef: MatDialogRef<TopicDraftDetailsDialogueComponent>,
-              private okrChildUnitRoleService: OkrChildUnitRoleService,
-              private currentUserService: CurrentUserService,
-              private dialog: MatDialog,
-              private topicDraftPermissionService: TopicDraftPermissionService,
-              @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any)) {
+  constructor(
+    private dialogRef: MatDialogRef<TopicDraftDetailsDialogueComponent>,
+    private okrChildUnitRoleService: OkrChildUnitRoleService,
+    private currentUserService: CurrentUserService,
+    private dialog: MatDialog,
+    private topicDraftPermissionService: TopicDraftPermissionService,
+    @Inject(MAT_DIALOG_DATA) private formData: (SubmittedTopicDraftDetailsFormData | any),
+  ) {
   }
 
   ngOnInit(): void {
@@ -52,8 +52,8 @@ export class TopicDraftDetailsDialogueComponent implements OnInit {
         dependencies: new FormControl(this.topicDraft.dependencies),
         delimitation: new FormControl(this.topicDraft.delimitation),
         resources: new FormControl(this.topicDraft.resources),
-        description: new FormControl(this.topicDraft.description)
-      }
+        description: new FormControl(this.topicDraft.description),
+      },
     );
     this.canEdit = this.topicDraftPermissionService.hasCurrentUserEditingPermissions(this.topicDraft)
       && TopicDraftStatusService.isTopicDraftInSubmissionStage(this.topicDraft);
@@ -64,8 +64,8 @@ export class TopicDraftDetailsDialogueComponent implements OnInit {
     const data: object = {
       data: {
         topicDraft: this.topicDraft,
-        editedTopicDraftEvent: this.editedTopicDraftEvent
-      }
+        editedTopicDraftEvent: this.editedTopicDraftEvent,
+      },
     };
     this.dialog.open(TopicDraftEditDialogueComponent, data);
   }

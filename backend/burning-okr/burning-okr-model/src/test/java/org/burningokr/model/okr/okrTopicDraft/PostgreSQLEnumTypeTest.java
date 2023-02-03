@@ -1,11 +1,5 @@
 package org.burningokr.model.okr.okrTopicDraft;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +7,21 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+
 @RunWith(MockitoJUnitRunner.class)
 public class PostgreSQLEnumTypeTest {
-  @Mock PreparedStatement preparedStatement;
+  @Mock
+  PreparedStatement preparedStatement;
 
-  @Mock SharedSessionContractImplementor session;
+  @Mock
+  SharedSessionContractImplementor session;
 
   private OkrTopicDraftStatusEnum statusEnum;
   private PostgreSQLEnumType postgreSQLEnumType;

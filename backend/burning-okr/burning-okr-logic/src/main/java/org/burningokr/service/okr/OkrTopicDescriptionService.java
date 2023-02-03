@@ -1,11 +1,5 @@
 package org.burningokr.service.okr;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.OkrTopicDescription;
@@ -16,13 +10,22 @@ import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.hibernate.event.service.spi.EventListenerRegistry;
-import org.hibernate.event.spi.*;
+import org.hibernate.event.spi.EventType;
+import org.hibernate.event.spi.PostDeleteEvent;
+import org.hibernate.event.spi.PostDeleteEventListener;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.persister.entity.EntityPersister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +41,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
   private void init() {
     SessionFactoryImpl sessionFactory = entityManagerFactory.unwrap(SessionFactoryImpl.class);
     EventListenerRegistry registry =
-        sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
+      sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
     registry.getEventListenerGroup(EventType.POST_COMMIT_DELETE).appendListener(this);
   }
 
@@ -59,7 +62,8 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @return the updated OkrTopicDescription
    */
   public OkrTopicDescription updateOkrTopicDescription(
-      OkrTopicDescription okrTopicDescription, User user) {
+    OkrTopicDescription okrTopicDescription, User user
+  ) {
     OkrTopicDescription existing = findById(okrTopicDescription.getId());
 
     existing.setName(okrTopicDescription.getName());
@@ -77,7 +81,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     existing = okrTopicDescriptionRepository.save(existing);
 
     logger.info(
-        "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
+      "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
     activityService.createActivity(user, existing, Action.EDITED);
 
     return existing;
@@ -93,13 +97,13 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     ArrayList<OkrDepartment> okrDepartments = new ArrayList<>();
 
     okrDepartmentRepository
-        .findAll()
-        .forEach(
-            department -> {
-              if (department.getOkrTopicDescription().getId().equals(okrTopicDescriptionId)) {
-                okrDepartments.add(department);
-              }
-            });
+      .findAll()
+      .forEach(
+        department -> {
+          if (department.getOkrTopicDescription().getId().equals(okrTopicDescriptionId)) {
+            okrDepartments.add(department);
+          }
+        });
 
     return okrDepartments;
   }
@@ -118,11 +122,11 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
       deleteOkrTopicDescription(okrTopicDescriptionId, user);
     } else {
       logger.info(
-          "OkrTopicDescription with Id "
-              + okrTopicDescriptionId
-              + " was not deleted, because it is referenced by"
-              + count
-              + " departments.");
+        "OkrTopicDescription with Id "
+          + okrTopicDescriptionId
+          + " was not deleted, because it is referenced by"
+          + count
+          + " departments.");
     }
   }
 
@@ -179,7 +183,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     try {
       transaction.begin();
       OkrTopicDescription existing =
-          entityManager.find(OkrTopicDescription.class, okrTopicDescriptionId);
+        entityManager.find(OkrTopicDescription.class, okrTopicDescriptionId);
       entityManager.remove(existing);
       entityManager.flush();
       transaction.commit();

@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ImportCsvDialogComponent } from './import-csv-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
@@ -9,7 +9,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 import 'linq4js';
 import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ImportCsvDialogComponent', () => {
   const formBuilder: FormBuilder = new FormBuilder();

@@ -5,15 +5,17 @@ import { TaskDto } from '../../model/api/task.dto';
 import { KeyResultId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskApiService {
 
-  constructor(private api: ApiHttpService) { }
+  constructor(private api: ApiHttpService) {
+  }
 
   getTaskById$(id: number): Observable<TaskDto> {
     return this.api.getData$(`tasks/${id}`);
   }
+
   getTasksForKeyResult$(keyResultId: KeyResultId): Observable<TaskDto[]> {
     return this.api.getData$(`tasks/keyresults/${keyResultId}`);
   }

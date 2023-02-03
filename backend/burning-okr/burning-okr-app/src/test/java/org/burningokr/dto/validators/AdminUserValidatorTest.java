@@ -1,16 +1,5 @@
 package org.burningokr.dto.validators;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-import java.util.UUID;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
@@ -22,14 +11,26 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class AdminUserValidatorTest {
 
-  @Mock org.burningokr.service.userhandling.UserService userService;
+  @Mock
+  org.burningokr.service.userhandling.UserService userService;
 
-  @Mock AdminUserRepository adminUserRepository;
+  @Mock
+  AdminUserRepository adminUserRepository;
 
-  @InjectMocks AdminUserValidator adminUserValidator;
+  @InjectMocks
+  AdminUserValidator adminUserValidator;
 
   private User userToInsert;
   private UUID userToInsertId;
@@ -66,7 +67,7 @@ public class AdminUserValidatorTest {
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
 
     verify(userService, never()).getCurrentUser();
@@ -83,7 +84,7 @@ public class AdminUserValidatorTest {
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
 
     verify(adminUserRepository).findById(existingAdminId);
@@ -108,7 +109,7 @@ public class AdminUserValidatorTest {
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
 
     verify(adminUserRepository, never()).findById(null);
@@ -121,7 +122,7 @@ public class AdminUserValidatorTest {
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException", ex, instanceOf(InvalidDtoException.class));
     }
 
     verify(userService).getCurrentUser();
@@ -136,7 +137,7 @@ public class AdminUserValidatorTest {
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException", ex, instanceOf(InvalidDtoException.class));
     }
 
     verify(userService).getCurrentUser();

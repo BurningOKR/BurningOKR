@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
+  styleUrls: ['./error.component.scss'],
 })
 export class ErrorComponent implements OnInit {
   errors$: Observable<HttpErrorResponse[]>;
@@ -20,7 +20,7 @@ export class ErrorComponent implements OnInit {
     private api: ApiHttpService,
     private router: Router,
     private authentificationService: AuthenticationService,
-    private location: Location
+    private location: Location,
   ) {
     this.errors$ = this.api.getErrors$();
   }
@@ -30,7 +30,7 @@ export class ErrorComponent implements OnInit {
 
     this.errors$
       .pipe(
-        take(1)
+        take(1),
       )
       .subscribe(errors => {
         if (!errors || errors.length === 0) {

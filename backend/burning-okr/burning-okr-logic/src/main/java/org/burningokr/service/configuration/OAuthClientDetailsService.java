@@ -1,8 +1,6 @@
 package org.burningokr.service.configuration;
 
 import com.google.common.collect.Lists;
-import java.util.List;
-import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.consts.DefaultLocalAuthData;
 import org.burningokr.model.configuration.OAuthClientDetails;
@@ -11,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,13 +43,15 @@ public class OAuthClientDetailsService {
    */
   public void encodeClientSecret(OAuthClientDetails oauthClientDetails) {
     oauthClientDetails.setClientSecret(
-        passwordEncoder.encode(oauthClientDetails.getClientSecret()));
+      passwordEncoder.encode(oauthClientDetails.getClientSecret()));
   }
 
-  /** Gets the OAuthClientDetails. */
+  /**
+   * Gets the OAuthClientDetails.
+   */
   public OAuthClientDetails getOAuthClientDetails() {
     List<OAuthClientDetails> oauthClientDetails =
-        Lists.newArrayList(oauthClientDetailsRepository.findAll());
+      Lists.newArrayList(oauthClientDetailsRepository.findAll());
     if (!oauthClientDetails.isEmpty()) {
       return oauthClientDetails.get(0);
     } else {

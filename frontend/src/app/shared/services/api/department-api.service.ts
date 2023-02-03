@@ -8,10 +8,11 @@ import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
 import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DepartmentApiService {
-  constructor(private api: ApiHttpService) {}
+  constructor(private api: ApiHttpService) {
+  }
 
   getDepartmentById$(id: OkrUnitId): Observable<OkrDepartmentDto> {
     return this.api.getData$<OkrDepartmentDto>(`departments/${id}`);
@@ -40,6 +41,7 @@ export class DepartmentApiService {
   deleteDepartment$(departmentId: number): Observable<boolean> {
     return this.api.deleteData$(`departments/${departmentId}`);
   }
+
   getDepartmentsFlattedForCompany$(companyId: number): Observable<OkrDepartmentDto[]> {
     return this.api.getData$(`departments/flatted/${companyId}`);
   }

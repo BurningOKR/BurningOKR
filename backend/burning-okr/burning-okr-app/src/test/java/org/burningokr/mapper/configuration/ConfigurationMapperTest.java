@@ -1,13 +1,14 @@
 package org.burningokr.mapper.configuration;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.model.configuration.Configuration;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class ConfigurationMapperTest {
 
@@ -90,16 +91,16 @@ public class ConfigurationMapperTest {
   public void mapEntitiesToDtos_expectEmptyList() {
     Collection<Configuration> configurations = new ArrayList<>();
     Collection<ConfigurationDto> configurationDtos =
-        configurationMapper.mapEntitiesToDtos(configurations);
+      configurationMapper.mapEntitiesToDtos(configurations);
     Assert.assertTrue(configurationDtos.isEmpty());
   }
 
   @Test
   public void mapEntitiesToDtos_expectListWithTwoElements() {
     Collection<Configuration> configurations =
-        Arrays.asList(new Configuration(), new Configuration());
+      Arrays.asList(new Configuration(), new Configuration());
     Collection<ConfigurationDto> configurationDtos =
-        configurationMapper.mapEntitiesToDtos(configurations);
+      configurationMapper.mapEntitiesToDtos(configurations);
     Assert.assertEquals(configurations.size(), configurationDtos.size());
   }
 }

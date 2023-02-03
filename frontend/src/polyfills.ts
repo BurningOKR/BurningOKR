@@ -17,11 +17,9 @@ import '@angular/localize/init';
  *
  * Learn more in https://angular.io/guide/browser-support
  */
-
 /***************************************************************************************************
-* BROWSER POLYFILLS
-*/
-
+ * BROWSER POLYFILLS
+ */
 /** IE10 and IE11 requires the following for the Reflect API. */
 import 'core-js/es/reflect';
 /***************************************************************************************************

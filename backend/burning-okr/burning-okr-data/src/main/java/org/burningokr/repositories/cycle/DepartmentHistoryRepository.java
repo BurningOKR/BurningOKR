@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DepartmentHistoryRepository
-    extends ExtendedRepository<OkrDepartmentHistory, Long> {}
+  extends ExtendedRepository<OkrDepartmentHistory, Long> {
+}

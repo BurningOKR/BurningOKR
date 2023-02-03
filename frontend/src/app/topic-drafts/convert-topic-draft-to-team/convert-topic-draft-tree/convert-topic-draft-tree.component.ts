@@ -14,7 +14,8 @@ export class ConvertTopicDraftTreeComponent implements OnInit {
   isSelected: Observable<boolean>;
   isOpen = false;
 
-  constructor(private convertTopicDraftToTeamService: ConvertTopicDraftToTeamService) { }
+  constructor(private convertTopicDraftToTeamService: ConvertTopicDraftToTeamService) {
+  }
 
   ngOnInit(): void {
     this.isSelected = this.convertTopicDraftToTeamService.getSelectedUnit$()

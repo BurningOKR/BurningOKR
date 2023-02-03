@@ -2,12 +2,14 @@
   <mat-card-title>{{ 'set-azure-admin-init-state-form.set-azure-admin-title' | translate }}</mat-card-title>
   <p>{{ 'set-azure-admin-init-state-form.set-azure-admin-subtitle' | translate }}</p>
   <div class="flex-wrap-spreadinner-nocenter">
-    <app-user-minibutton [userId]="user.id" [canBeRemoved]="false"></app-user-minibutton>
+    <app-user-minibutton [canBeRemoved]="false" [userId]="user.id"></app-user-minibutton>
   </div>
   <p>{{ 'set-azure-admin-init-state-form.other-user-notice' | translate }}</p>
   <div class="text-center">
-    <button mat-raised-button color="primary" (click)="handleSubmitClick(user)" [disabled]="!buttonsEnabled">{{ 'set-azure-admin-init-state-form.set-admin-button' | translate }}</button>
-    <button mat-button color="primary" (click)="handleLogoutClick()" [disabled]="!buttonsEnabled">{{ 'set-azure-admin-init-state-form.set-admin-logout-button' | translate }}</button>
+    <button (click)="handleSubmitClick(user)" [disabled]="!buttonsEnabled" color="primary"
+            mat-raised-button>{{ 'set-azure-admin-init-state-form.set-admin-button' | translate }}</button>
+    <button (click)="handleLogoutClick()" [disabled]="!buttonsEnabled" color="primary"
+            mat-button>{{ 'set-azure-admin-init-state-form.set-admin-logout-button' | translate }}</button>
   </div>
 </div>
 <ng-template #loading>

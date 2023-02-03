@@ -7,7 +7,7 @@ import { UserService } from '../../services/helper/user.service';
 import { of } from 'rxjs';
 
 const userService: any = {
-  getUserById$: jest.fn()
+  getUserById$: jest.fn(),
 };
 
 describe('UserMinibuttonComponent', () => {
@@ -19,12 +19,12 @@ describe('UserMinibuttonComponent', () => {
       declarations: [
         UserMinibuttonComponent,
         UserAvatarComponent,
-        AvatarComponent
+        AvatarComponent,
       ],
       imports: [MaterialTestingModule],
       providers: [
-        { provide: UserService, useValue: userService }
-      ]
+        { provide: UserService, useValue: userService },
+      ],
     })
       .compileComponents();
   }));
@@ -118,7 +118,7 @@ describe('UserMinibuttonComponent', () => {
     userService.getUserById$.mockReset(); // get a clean mock, after ngOnInit was called
 
     component.ngOnChanges({
-      test: { currentValue: 'test', previousValue: 'also test', firstChange: false, isFirstChange: jest.fn() }
+      test: { currentValue: 'test', previousValue: 'also test', firstChange: false, isFirstChange: jest.fn() },
     });
 
     expect(userService.getUserById$)
@@ -136,7 +136,7 @@ describe('UserMinibuttonComponent', () => {
     userService.getUserById$.mockReset(); // get a clean mock, after ngOnInit was called
 
     component.ngOnChanges({
-      userId: { currentValue: 'test', previousValue: 'some user', firstChange: true, isFirstChange: jest.fn() }
+      userId: { currentValue: 'test', previousValue: 'some user', firstChange: true, isFirstChange: jest.fn() },
     });
 
     expect(userService.getUserById$)
@@ -154,7 +154,7 @@ describe('UserMinibuttonComponent', () => {
     userService.getUserById$.mockReset(); // get a clean mock, after ngOnInit was called
 
     component.ngOnChanges({
-      userId: { currentValue: 'test', previousValue: 'some user', firstChange: false, isFirstChange: jest.fn() }
+      userId: { currentValue: 'test', previousValue: 'some user', firstChange: false, isFirstChange: jest.fn() },
     });
 
     expect(userService.getUserById$)
@@ -173,7 +173,7 @@ describe('UserMinibuttonComponent', () => {
 
     component.userId = 'test';
     component.ngOnChanges({
-      userId: { currentValue: 'test', previousValue: 'some user', firstChange: false, isFirstChange: jest.fn() }
+      userId: { currentValue: 'test', previousValue: 'some user', firstChange: false, isFirstChange: jest.fn() },
     });
 
     expect(userService.getUserById$)

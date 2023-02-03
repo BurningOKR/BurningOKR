@@ -12,9 +12,10 @@ export class CompanyMapperMock {
       company.okrChildUnitIds,
       company.objectiveIds,
       company.cycleId,
-      company.label
+      company.label,
     );
   }
+
   static mapCompanyUnit(companyUnit: CompanyUnit): CompanyDto {
     return {
       okrUnitId: companyUnit.id,
@@ -22,7 +23,7 @@ export class CompanyMapperMock {
       okrChildUnitIds: companyUnit.okrChildUnitIds,
       objectiveIds: companyUnit.objectives,
       cycleId: companyUnit.cycleId,
-      label: companyUnit.label
+      label: companyUnit.label,
     };
   }
 

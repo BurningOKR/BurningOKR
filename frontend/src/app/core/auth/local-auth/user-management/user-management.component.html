@@ -1,5 +1,6 @@
 <app-okr-toolbar>
-  <button (click)="navigateToCompanies()" class="navbar-item" mat-icon-button matTooltip="{{ 'user-management.tooltip.go-to-okr-unit-overview' | translate }}">
+  <button (click)="navigateToCompanies()" class="navbar-item" mat-icon-button
+          matTooltip="{{ 'user-management.tooltip.go-to-okr-unit-overview' | translate }}">
     <mat-icon>home</mat-icon>
   </button>
   <span>{{ 'user-management.user-management-toolbar-title' | translate }}</span>
@@ -15,13 +16,17 @@
 
       <mat-card-content>
         <div class="row">
-          <mat-checkbox (change)="onShowDeactivatedUserChange($event)">{{ 'user-management.checkbox' | translate }}</mat-checkbox>
+          <mat-checkbox
+            (change)="onShowDeactivatedUserChange($event)">{{ 'user-management.checkbox' | translate }}</mat-checkbox>
           <mat-form-field class="form-whole-line col-11">
             <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
           </mat-form-field>
           <div>
-            <app-add-button text="{{'user-management.import-users' | translate }}" (buttonClicked)="handleCsvImport()" [isDisabled]="isPlayground" matTooltip="{{'user-management.tooltip.import-users-from-csv' | translate}}" matIcon="unarchive"> </app-add-button>
-            <app-add-button class="ml-10" text="{{'user-management.add-new-user' | translate }}" (buttonClicked)="handleCreate()" [isDisabled]="isPlayground"> </app-add-button>
+            <app-add-button (buttonClicked)="handleCsvImport()" [isDisabled]="isPlayground" matIcon="unarchive"
+                            matTooltip="{{'user-management.tooltip.import-users-from-csv' | translate}}"
+                            text="{{'user-management.import-users' | translate }}"></app-add-button>
+            <app-add-button (buttonClicked)="handleCreate()" [isDisabled]="isPlayground" class="ml-10"
+                            text="{{'user-management.add-new-user' | translate }}"></app-add-button>
           </div>
         </div>
         <table [dataSource]="rowData" mat-table matSort matSortActive="active" matSortDirection="desc">
@@ -32,43 +37,52 @@
             </td>
           </ng-container>
           <ng-container matColumnDef="active">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'user-management.active-table-header' | translate}}</th>
+            <th *matHeaderCellDef mat-header-cell
+                mat-sort-header>{{'user-management.active-table-header' | translate}}</th>
             <td *matCellDef="let user" mat-cell>
               <mat-icon *ngIf="user.active">check</mat-icon>
             </td>
           </ng-container>
           <ng-container matColumnDef="email">
-            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{'user-management.email' | translate }}</th>
-            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.email}}</td>
+            <th *matHeaderCellDef class="hidden-mobile-table" mat-header-cell
+                mat-sort-header> {{'user-management.email' | translate }}</th>
+            <td *matCellDef="let user" class="hidden-mobile-table" mat-cell>{{user.email}}</td>
           </ng-container>
           <ng-container matColumnDef="givenName">
             <th *matHeaderCellDef mat-header-cell mat-sort-header> {{'user-management.name' | translate}}</th>
-            <td *matCellDef="let user" mat-cell class="name-column" matTooltip="{{user.givenName + ' ' + user.surname}}">{{user.givenName + ' ' + user.surname}}</td>
+            <td *matCellDef="let user" class="name-column" mat-cell
+                matTooltip="{{user.givenName + ' ' + user.surname}}">{{user.givenName + ' ' + user.surname}}</td>
           </ng-container>
-          <ng-container matColumnDef="department" class="cell">
-            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{'user-management.department-table-header' | translate}}</th>
-            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.department}}</td>
+          <ng-container class="cell" matColumnDef="department">
+            <th *matHeaderCellDef class="hidden-mobile-table" mat-header-cell
+                mat-sort-header> {{'user-management.department-table-header' | translate}}</th>
+            <td *matCellDef="let user" class="hidden-mobile-table" mat-cell>{{user.department}}</td>
           </ng-container>
           <ng-container matColumnDef="jobTitle">
-            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{'user-management.job-title-table-header' | translate}}</th>
-            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>{{user.jobTitle}}</td>
+            <th *matHeaderCellDef class="hidden-mobile-table" mat-header-cell
+                mat-sort-header> {{'user-management.job-title-table-header' | translate}}</th>
+            <td *matCellDef="let user" class="hidden-mobile-table" mat-cell>{{user.jobTitle}}</td>
           </ng-container>
           <ng-container matColumnDef="isAdmin">
-            <th class="hidden-mobile-table" *matHeaderCellDef mat-header-cell mat-sort-header> {{'user-management.admin-table-header' | translate}}</th>
-            <td class="hidden-mobile-table" *matCellDef="let user" mat-cell>
+            <th *matHeaderCellDef class="hidden-mobile-table" mat-header-cell
+                mat-sort-header> {{'user-management.admin-table-header' | translate}}</th>
+            <td *matCellDef="let user" class="hidden-mobile-table" mat-cell>
               <mat-icon *ngIf="user.isAdmin">verified_user</mat-icon>
             </td>
           </ng-container>
           <ng-container matColumnDef="actions">
             <th *matHeaderCellDef mat-header-cell></th>
             <td *matCellDef="let user" mat-cell>
-              <button (click)="handleEdit(user)" mat-icon-button matTooltip="{{ 'user-management.tooltip.edit-user' | translate }}">
+              <button (click)="handleEdit(user)" mat-icon-button
+                      matTooltip="{{ 'user-management.tooltip.edit-user' | translate }}">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button (click)="handleDeactivate(user)" *ngIf="currentUser$.getValue().id !== user.id && user.active" mat-icon-button [disabled]="this.isPlayground" [matTooltip]="this.deactivateUserTranslation">
+              <button (click)="handleDeactivate(user)" *ngIf="currentUser$.getValue().id !== user.id && user.active"
+                      [disabled]="this.isPlayground" [matTooltip]="this.deactivateUserTranslation" mat-icon-button>
                 <mat-icon>delete</mat-icon>
               </button>
-              <button (click)="handleActivate(user)" *ngIf="currentUser$.getValue().id !== user.id && !user.active" mat-icon-button matTooltip="{{ 'user-management.tooltip.activate-user' | translate }}">
+              <button (click)="handleActivate(user)" *ngIf="currentUser$.getValue().id !== user.id && !user.active"
+                      mat-icon-button matTooltip="{{ 'user-management.tooltip.activate-user' | translate }}">
                 <mat-icon>restore_from_trash</mat-icon>
               </button>
             </td>

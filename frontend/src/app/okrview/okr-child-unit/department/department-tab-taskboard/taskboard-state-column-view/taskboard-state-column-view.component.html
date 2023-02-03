@@ -1,5 +1,7 @@
-<div class="taskboard-state-column-view" cdkDropListGroup *ngIf="statesWithTasks$ | async; let data" style="overflow-x: auto;" #container1>
-    <app-taskboard-column class="taskboard-column" *ngFor="let map of data" [map]="map" [isInteractive]="isInteractive" [keyResults]="keyResults">
+<div #container1 *ngIf="statesWithTasks$ | async; let data" cdkDropListGroup class="taskboard-state-column-view"
+     style="overflow-x: auto;">
+  <app-taskboard-column *ngFor="let map of data" [isInteractive]="isInteractive" [keyResults]="keyResults" [map]="map"
+                        class="taskboard-column">
 
-    </app-taskboard-column>
+  </app-taskboard-column>
 </div>

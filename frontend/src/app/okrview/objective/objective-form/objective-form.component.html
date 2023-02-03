@@ -1,13 +1,16 @@
-<app-dialog-component [title]="title" (okEmitter)="saveObjective()" [formGroup]="objectiveForm">
+<app-dialog-component (okEmitter)="saveObjective()" [formGroup]="objectiveForm" [title]="title">
   <form [formGroup]="objectiveForm">
     <mat-form-field class="form-whole-line">
-      <input type="text" matInput placeholder="Name *" formControlName="name">
-      <mat-error><app-form-error [control]="objectiveForm.get('name')"></app-form-error></mat-error>
+      <input formControlName="name" matInput placeholder="Name *" type="text">
+      <mat-error>
+        <app-form-error [control]="objectiveForm.get('name')"></app-form-error>
+      </mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <mat-select placeholder="{{ 'objective-form.select-parent-objective' | translate }}" formControlName="parentObjectiveId">
+      <mat-select formControlName="parentObjectiveId"
+                  placeholder="{{ 'objective-form.select-parent-objective' | translate }}">
         <mat-option [value]="null"><span>{{ 'objective-form.no-parent-objective' | translate }}</span></mat-option>
         <mat-optgroup *ngFor="let item of parentElements$ | async" [label]="item.department.name">
           <mat-option *ngFor="let objective of item.objectiveList" [value]="objective.id">{{objective.name}}
@@ -17,19 +20,25 @@
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <textarea type="text" matInput placeholder="{{ 'objective-form.description' | translate }}" matTextareaAutosize formControlName="description"></textarea>
-      <mat-error><app-form-error [control]="objectiveForm.get('description')"></app-form-error></mat-error>
+      <textarea formControlName="description" matInput matTextareaAutosize
+                placeholder="{{ 'objective-form.description' | translate }}" type="text"></textarea>
+      <mat-error>
+        <app-form-error [control]="objectiveForm.get('description')"></app-form-error>
+      </mat-error>
 
     </mat-form-field>
 
     <mat-form-field class="form-whole-line">
-      <input type="text" matInput placeholder="{{ 'objective-form.annotation' | translate }}" formControlName="remark">
-      <mat-error><app-form-error [control]="objectiveForm.get('remark')"></app-form-error></mat-error>
+      <input formControlName="remark" matInput placeholder="{{ 'objective-form.annotation' | translate }}" type="text">
+      <mat-error>
+        <app-form-error [control]="objectiveForm.get('remark')"></app-form-error>
+      </mat-error>
 
     </mat-form-field>
 
-    <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
-      <mat-select (selectionChange)="onSelectUser($event)" formControlName="contactPersonId" placeholder="{{ 'objective-form.contact-person' | translate }}">
+    <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
+      <mat-select (selectionChange)="onSelectUser($event)" formControlName="contactPersonId"
+                  placeholder="{{ 'objective-form.contact-person' | translate }}">
         <mat-option [value]="null"><span>{{ 'objective-form.no-contact-person' | translate }}</span></mat-option>
         <mat-option *ngFor="let user of users" [value]="user.id">
           {{user.surname}}, {{user.givenName}} ({{user?.email | lowercase}})
@@ -38,7 +47,8 @@
     </mat-form-field>
 
 
-    <mat-slide-toggle formControlName="isActive">{{ 'objective-form.objective-is-active-in-process' | translate }}</mat-slide-toggle>
+    <mat-slide-toggle
+      formControlName="isActive">{{ 'objective-form.objective-is-active-in-process' | translate }}</mat-slide-toggle>
 
   </form>
 

@@ -66,7 +66,7 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     AddButtonComponent,
   ],
   entryComponents: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -87,7 +87,7 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     AvatarModule,
     RouterModule,
     NgxMatSelectSearchModule,
-    TranslateModule
+    TranslateModule,
   ],
   exports: [
     UserAutocompleteInputComponent,

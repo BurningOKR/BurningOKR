@@ -19,14 +19,14 @@ describe('LoginComponent', () => {
       imports: [
         RouterTestingModule,
         MaterialTestingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
       declarations: [LoginComponent, OkrToolbarBareComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         FormBuilder,
-        {provide: AuthenticationService, useValue: AuthenticationServiceMock}
-      ]
+        { provide: AuthenticationService, useValue: AuthenticationServiceMock },
+      ],
     })
       .compileComponents();
   });

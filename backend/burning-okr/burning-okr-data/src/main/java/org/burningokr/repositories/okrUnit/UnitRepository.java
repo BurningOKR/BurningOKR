@@ -5,4 +5,5 @@ import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UnitRepository<T extends OkrUnit> extends ExtendedRepository<T, Long> {}
+public interface UnitRepository<T extends OkrUnit> extends ExtendedRepository<T, Long> {
+}
