@@ -1,14 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
@@ -22,12 +13,24 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OkrTopicDraftMapperTest {
 
-  @Mock private UserService userService;
+  @Mock
+  private UserService userService;
 
-  @Mock private User user;
+  @Mock
+  private User user;
 
   private OkrTopicDraft topicDraft;
   private OkrTopicDraftDto topicDraftDto;

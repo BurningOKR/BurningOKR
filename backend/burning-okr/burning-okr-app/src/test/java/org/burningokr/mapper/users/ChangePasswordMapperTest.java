@@ -1,13 +1,14 @@
 package org.burningokr.mapper.users;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
 import org.burningokr.dto.users.ChangePasswordDto;
 import org.burningokr.model.users.ChangePasswordData;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ChangePasswordMapperTest {
 

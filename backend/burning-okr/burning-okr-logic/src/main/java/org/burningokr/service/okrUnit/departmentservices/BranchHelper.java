@@ -1,14 +1,15 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
+import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrParentUnit;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.okrUnits.OkrCompany;
-import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.okrUnits.OkrParentUnit;
 
 public class BranchHelper {
 

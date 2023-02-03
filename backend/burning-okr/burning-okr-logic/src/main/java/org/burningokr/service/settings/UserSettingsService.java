@@ -1,9 +1,6 @@
 package org.burningokr.service.settings;
 
 import com.google.common.collect.Lists;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -18,6 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserSettingsService {

@@ -1,7 +1,5 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
@@ -20,6 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service("okrUnitServiceUsers")
 public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitService<T> {

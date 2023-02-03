@@ -1,10 +1,14 @@
 package org.burningokr.repositories.okr;
 
-import java.util.List;
-import org.burningokr.model.okr.*;
+import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.Task;
+import org.burningokr.model.okr.TaskBoard;
+import org.burningokr.model.okr.TaskState;
 import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface TaskRepository extends ExtendedRepository<Task, Long> {

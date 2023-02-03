@@ -1,6 +1,5 @@
 package org.burningokr.controller.okr;
 
-import java.util.Collection;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.TaskStateDto;
 import org.burningokr.mapper.okr.TaskStateMapper;
@@ -11,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Collection;
 
 @RestApiController
 public class TaskStateController {

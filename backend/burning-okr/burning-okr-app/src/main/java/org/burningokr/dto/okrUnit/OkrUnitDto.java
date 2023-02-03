@@ -1,10 +1,11 @@
 package org.burningokr.dto.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import lombok.Data;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 public abstract class OkrUnitDto {

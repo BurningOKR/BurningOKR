@@ -1,8 +1,9 @@
 package org.burningokr.dto.users;
 
+import lombok.Data;
+
 import java.util.Date;
 import java.util.UUID;
-import lombok.Data;
 
 @Data
 public class PasswordDto {

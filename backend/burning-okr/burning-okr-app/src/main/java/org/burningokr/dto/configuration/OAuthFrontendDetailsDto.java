@@ -1,15 +1,17 @@
 package org.burningokr.dto.configuration;
 
-import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class OAuthFrontendDetailsDto {
-  @Id private String clientId;
+  @Id
+  private String clientId;
   private String dummyClientSecret;
   private String scope;
   private String redirectUri;

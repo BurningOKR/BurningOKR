@@ -1,8 +1,5 @@
 package org.burningokr.mapper.cycle;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.mapper.CycleMapper;
 import org.burningokr.model.cycles.Cycle;
@@ -11,6 +8,10 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class CycleMapperTest {
 

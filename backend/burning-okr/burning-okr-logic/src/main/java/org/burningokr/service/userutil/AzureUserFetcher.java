@@ -1,12 +1,5 @@
 package org.burningokr.service.userutil;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.exceptions.AzureUserFetchException;
@@ -17,6 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Conditional(AadCondition.class)
 @Service

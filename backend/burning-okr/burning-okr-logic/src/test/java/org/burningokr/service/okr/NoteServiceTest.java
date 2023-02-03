@@ -1,11 +1,5 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
@@ -23,15 +17,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class NoteServiceTest {
-
-  @Mock private NoteRepository noteRepository;
-  @Mock private ActivityService activityService;
-
-  @Mock private UserService userService;
-
-  @InjectMocks private NoteService noteService;
 
   private static Long originalId;
   private static UUID originalUserId;
@@ -40,11 +34,19 @@ public class NoteServiceTest {
   private static Long changedId;
   private static UUID changedUserId;
   private static String changedText;
-
+  @Mock
+  private NoteRepository noteRepository;
+  @Mock
+  private ActivityService activityService;
+  @Mock
+  private UserService userService;
+  @InjectMocks
+  private NoteService noteService;
   private Note originalNote;
   private Note changedNote;
 
-  @Mock private User authorizedUser;
+  @Mock
+  private User authorizedUser;
 
   @BeforeClass
   public static void init() {
@@ -115,8 +117,8 @@ public class NoteServiceTest {
     noteService.updateNote(changedNote, authorizedUser);
 
     verify(activityService)
-        .createActivity(
-            capturedUsers.capture(), capturedNotes.capture(), capturedActions.capture());
+      .createActivity(
+        capturedUsers.capture(), capturedNotes.capture(), capturedActions.capture());
     Assert.assertEquals(authorizedUser, capturedUsers.getValue());
     Assert.assertEquals(returnedNote, capturedNotes.getValue());
     Assert.assertEquals(Action.EDITED, capturedActions.getValue());

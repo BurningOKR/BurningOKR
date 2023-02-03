@@ -1,12 +1,13 @@
 package org.burningokr.config.authorizationserver;
 
 import com.google.common.collect.Lists;
-import java.util.Collection;
 import lombok.Data;
 import org.burningokr.model.users.LocalUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Data
 public class LocalUserDetails implements UserDetails {

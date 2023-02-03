@@ -1,11 +1,5 @@
 package org.burningokr.service.activity;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
@@ -20,28 +14,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ActivityServiceTest {
 
-  private class MockTrackable implements Trackable {
-    @Override
-    public String getName() {
-      return "TestName";
-    }
-
-    @Override
-    public Object getId() {
-      return "TestId";
-    }
-  }
-
+  @Mock
+  ActivityRepository activityRepository;
+  User user;
+  @InjectMocks
+  ActivityService activityService;
   private UUID uuid;
   private String userPrincipalName;
-
-  @Mock ActivityRepository activityRepository;
-  User user;
-
-  @InjectMocks ActivityService activityService;
 
   @Before
   public void init() {
@@ -56,12 +43,12 @@ public class ActivityServiceTest {
     MockTrackable expectedTrackable = new MockTrackable();
     String expectedUserId = userId + " (" + userPrincipalName + ")";
     String expectedObject =
-        expectedTrackable.getClass().getSimpleName()
-            + " - "
-            + expectedTrackable.getName()
-            + " (id:"
-            + expectedTrackable.getId()
-            + ")";
+      expectedTrackable.getClass().getSimpleName()
+        + " - "
+        + expectedTrackable.getName()
+        + " (id:"
+        + expectedTrackable.getId()
+        + ")";
 
     activityService.createActivity(user, expectedTrackable, expectedAction);
 
@@ -72,7 +59,7 @@ public class ActivityServiceTest {
     Assert.assertEquals(expectedObject, capturedActivity.getObject());
     Assert.assertEquals(expectedAction, capturedActivity.getAction());
     boolean isTimeSimiliarEnough =
-        LocalDateTime.now().minusMinutes(1).isBefore(capturedActivity.getDate());
+      LocalDateTime.now().minusMinutes(1).isBefore(capturedActivity.getDate());
     Assert.assertTrue(isTimeSimiliarEnough);
   }
 
@@ -88,5 +75,17 @@ public class ActivityServiceTest {
     userPrincipalName = "test4";
     when(user.getMail()).thenReturn(userPrincipalName);
     testActivityCreation(uuid, userPrincipalName, Action.DELETED);
+  }
+
+  private class MockTrackable implements Trackable {
+    @Override
+    public String getName() {
+      return "TestName";
+    }
+
+    @Override
+    public Object getId() {
+      return "TestId";
+    }
   }
 }

@@ -1,13 +1,14 @@
 package org.burningokr.mapper.configuration;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.configuration.OAuthFrontendDetailsDto;
 import org.burningokr.model.configuration.OAuthConfiguration;
 import org.burningokr.model.configuration.OAuthConfigurationName;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class OAuthFrontendDetailsMapperTest {
 

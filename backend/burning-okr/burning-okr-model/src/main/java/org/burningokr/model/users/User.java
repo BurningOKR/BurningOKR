@@ -1,6 +1,7 @@
 package org.burningokr.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.UUID;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

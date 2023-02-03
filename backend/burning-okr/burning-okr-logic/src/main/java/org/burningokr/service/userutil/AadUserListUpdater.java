@@ -1,6 +1,5 @@
 package org.burningokr.service.userutil;
 
-import java.util.Collection;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.repositories.users.AadUserRepository;
 import org.burningokr.service.condition.AadCondition;
@@ -11,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Conditional(AadCondition.class)
 @Service

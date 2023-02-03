@@ -1,13 +1,14 @@
 package org.burningokr.mapper.settings;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class UserSettingsMapper implements DataMapper<UserSettings, UserSettingsDto> {

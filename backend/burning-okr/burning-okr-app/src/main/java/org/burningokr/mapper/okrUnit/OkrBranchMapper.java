@@ -1,11 +1,12 @@
 package org.burningokr.mapper.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class OkrBranchMapper implements DataMapper<OkrBranch, OkrBranchDto> {

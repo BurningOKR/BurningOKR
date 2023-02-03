@@ -1,12 +1,13 @@
 package org.burningokr.service.okrUnit;
 
-import java.util.Collection;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.Collection;
 
 public interface OkrUnitService<T extends OkrUnit> {
   T findById(long UnitId);

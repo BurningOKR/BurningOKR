@@ -1,10 +1,5 @@
 package org.burningokr.service.userhandling;
 
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.repositories.users.AadUserRepository;
 import org.burningokr.service.userutil.AadUserListUpdater;
@@ -15,14 +10,23 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class AadUserServiceTest {
 
-  @Mock AadUserListUpdater aadUserListUpdater;
+  @Mock
+  AadUserListUpdater aadUserListUpdater;
 
-  @Mock AadUserRepository aadUserRepository;
+  @Mock
+  AadUserRepository aadUserRepository;
 
-  @InjectMocks AadUserService aadUserService;
+  @InjectMocks
+  AadUserService aadUserService;
 
   @Test
   public void test_expectEmptyUserList() {

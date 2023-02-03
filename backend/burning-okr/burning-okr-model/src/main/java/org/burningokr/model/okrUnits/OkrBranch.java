@@ -1,13 +1,14 @@
 package org.burningokr.model.okrUnits;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import lombok.*;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import lombok.*;
-import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -15,13 +16,16 @@ import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
 
   @OneToMany(
-      mappedBy = "parentOkrUnit",
-      cascade = CascadeType.REMOVE,
-      targetEntity = OkrChildUnit.class)
+    mappedBy = "parentOkrUnit",
+    cascade = CascadeType.REMOVE,
+    targetEntity = OkrChildUnit.class
+  )
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)
   @EqualsAndHashCode.Exclude
   protected Collection<OkrChildUnit> okrChildUnits = new ArrayList<>();
+  @ManyToOne
+  private OkrBranchHistory history;
 
   public boolean hasDepartments() {
     return !okrChildUnits.isEmpty();
@@ -36,8 +40,6 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
   public void setOkrChildUnits(Collection<OkrChildUnit> subDepartments) {
     this.okrChildUnits = subDepartments;
   }
-
-  @ManyToOne private OkrBranchHistory history;
 
   /**
    * Creates a copy of the OkrBranch without relations.

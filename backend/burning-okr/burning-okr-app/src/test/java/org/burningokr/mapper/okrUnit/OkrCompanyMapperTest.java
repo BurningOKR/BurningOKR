@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
@@ -12,6 +10,9 @@ import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class OkrCompanyMapperTest {
 

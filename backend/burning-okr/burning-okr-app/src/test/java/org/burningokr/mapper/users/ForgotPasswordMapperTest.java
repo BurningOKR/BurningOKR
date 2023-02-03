@@ -1,14 +1,15 @@
 package org.burningokr.mapper.users;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
 import org.burningokr.dto.users.ForgotPasswordDto;
 import org.burningokr.model.users.ForgotPassword;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class ForgotPasswordMapperTest {
   private final ForgotPasswordMapper forgotPasswordMapper = new ForgotPasswordMapper();

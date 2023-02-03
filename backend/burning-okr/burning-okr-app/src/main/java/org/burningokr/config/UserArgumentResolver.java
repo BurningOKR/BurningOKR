@@ -1,6 +1,5 @@
 package org.burningokr.config;
 
-import javax.naming.ConfigurationException;
 import org.burningokr.model.users.User;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import javax.naming.ConfigurationException;
 
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 

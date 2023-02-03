@@ -1,13 +1,14 @@
 package org.burningokr.dto.validators;
 
-import java.util.Optional;
-import java.util.UUID;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AdminUserValidator {

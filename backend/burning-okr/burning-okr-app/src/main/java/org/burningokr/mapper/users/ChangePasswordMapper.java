@@ -1,13 +1,14 @@
 package org.burningokr.mapper.users;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.users.ChangePasswordDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.users.ChangePasswordData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class ChangePasswordMapper implements DataMapper<ChangePasswordData, ChangePasswordDto> {

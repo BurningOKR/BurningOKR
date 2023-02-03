@@ -1,6 +1,5 @@
 package org.burningokr.controller.configuration;
 
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.configuration.OAuthFrontendDetailsDto;
@@ -9,6 +8,8 @@ import org.burningokr.model.configuration.OAuthConfiguration;
 import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Collection;
 
 @RestApiController
 @RequiredArgsConstructor

@@ -1,6 +1,5 @@
 package org.burningokr.controller.okr;
 
-import java.util.Collection;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okr.KeyResultService;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Collection;
+
 @RestApiController
 public class KeyResultSequenceController {
 
@@ -18,7 +19,8 @@ public class KeyResultSequenceController {
   private AuthorizationService authorizationService;
 
   public KeyResultSequenceController(
-      KeyResultService keyResultService, AuthorizationService authorizationService) {
+    KeyResultService keyResultService, AuthorizationService authorizationService
+  ) {
     this.keyResultService = keyResultService;
     this.authorizationService = authorizationService;
   }
@@ -26,8 +28,10 @@ public class KeyResultSequenceController {
   @PutMapping("/objective/{objectiveId}/keyresultsequence")
   @PreAuthorize("@authorizationService.hasMemberPrivilegeForObjective(#objectiveId)")
   public ResponseEntity updateSequenceOf(
-      @PathVariable long objectiveId, @RequestBody Collection<Long> sequenceList, User user)
-      throws Exception {
+    @PathVariable long objectiveId,
+    @RequestBody Collection<Long> sequenceList, User user
+  )
+    throws Exception {
     keyResultService.updateSequence(objectiveId, sequenceList, user);
     return ResponseEntity.ok().build();
   }

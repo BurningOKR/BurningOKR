@@ -1,13 +1,5 @@
 package org.burningokr.service.userhandling;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import javax.mail.MessagingException;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.mail.Mail;
 import org.burningokr.model.users.ChangePasswordData;
@@ -21,6 +13,11 @@ import org.burningokr.service.mail.MailService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedClientException;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class PasswordService {

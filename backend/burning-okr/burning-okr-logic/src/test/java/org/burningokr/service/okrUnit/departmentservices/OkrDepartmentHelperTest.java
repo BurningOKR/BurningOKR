@@ -1,14 +1,15 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class OkrDepartmentHelperTest {
 

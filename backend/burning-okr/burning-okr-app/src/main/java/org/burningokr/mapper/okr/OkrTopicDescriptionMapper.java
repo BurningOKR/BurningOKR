@@ -1,15 +1,16 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.OkrTopicDescriptionDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Service
 public class OkrTopicDescriptionMapper
-    implements DataMapper<OkrTopicDescription, OkrTopicDescriptionDto> {
+  implements DataMapper<OkrTopicDescription, OkrTopicDescriptionDto> {
   @Override
   public OkrTopicDescription mapDtoToEntity(OkrTopicDescriptionDto input) {
     OkrTopicDescription entity = new OkrTopicDescription();
@@ -52,7 +53,8 @@ public class OkrTopicDescriptionMapper
 
   @Override
   public Collection<OkrTopicDescription> mapDtosToEntities(
-      Collection<OkrTopicDescriptionDto> input) {
+    Collection<OkrTopicDescriptionDto> input
+  ) {
     Collection<OkrTopicDescription> descriptions = new ArrayList<>();
     input.forEach(descriptionDto -> descriptions.add(mapDtoToEntity(descriptionDto)));
     return descriptions;
@@ -60,7 +62,8 @@ public class OkrTopicDescriptionMapper
 
   @Override
   public Collection<OkrTopicDescriptionDto> mapEntitiesToDtos(
-      Collection<OkrTopicDescription> input) {
+    Collection<OkrTopicDescription> input
+  ) {
     Collection<OkrTopicDescriptionDto> dtos = new ArrayList<>();
     input.forEach(description -> dtos.add(mapEntityToDto(description)));
     return dtos;

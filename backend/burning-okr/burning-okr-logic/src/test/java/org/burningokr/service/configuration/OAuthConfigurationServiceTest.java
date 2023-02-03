@@ -1,9 +1,5 @@
 package org.burningokr.service.configuration;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-
-import java.util.*;
 import org.burningokr.model.configuration.ConfigurationType;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.configuration.OAuthConfiguration;
@@ -15,12 +11,22 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OAuthConfigurationServiceTest {
 
-  @Mock private OAuthConfigurationRepository oAuthConfigurationRepository;
+  @Mock
+  private OAuthConfigurationRepository oAuthConfigurationRepository;
 
-  @InjectMocks private OAuthConfigurationService oAuthConfigurationService;
+  @InjectMocks
+  private OAuthConfigurationService oAuthConfigurationService;
 
   @Test
   public void updateOauthFrontendDetails_updates_details() {
@@ -41,33 +47,36 @@ public class OAuthConfigurationServiceTest {
   public void getOauthFrontendDetails_getsDetails() {
 
     OAuthConfiguration clientId =
-        new OAuthConfiguration(OAuthConfigurationName.CLIENT_ID, "test123", ConfigurationType.TEXT);
+      new OAuthConfiguration(OAuthConfigurationName.CLIENT_ID, "test123", ConfigurationType.TEXT);
     OAuthConfiguration clientSecret =
-        new OAuthConfiguration(
-            OAuthConfigurationName.CLIENT_SECRET, "abc123", ConfigurationType.TEXT);
+      new OAuthConfiguration(
+        OAuthConfigurationName.CLIENT_SECRET, "abc123", ConfigurationType.TEXT);
 
     when(oAuthConfigurationRepository.findAll()).thenReturn(Arrays.asList(clientId, clientSecret));
 
     Collection<OAuthConfiguration> oAuthConfigurations =
-        oAuthConfigurationService.getOAuthConfigurations();
+      oAuthConfigurationService.getOAuthConfigurations();
 
     assertEquals(
-        "test123",
-        getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_ID).getValue());
+      "test123",
+      getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_ID).getValue()
+    );
     assertEquals(
-        "abc123",
-        getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_SECRET)
-            .getValue());
+      "abc123",
+      getConfigurationByName(oAuthConfigurations, OAuthConfigurationName.CLIENT_SECRET)
+        .getValue()
+    );
   }
 
   private OAuthConfiguration getConfigurationByName(
-      Collection<OAuthConfiguration> configurations, OAuthConfigurationName configurationName) {
+    Collection<OAuthConfiguration> configurations, OAuthConfigurationName configurationName
+  ) {
     Optional<OAuthConfiguration> foundConfiguration =
-        configurations.stream()
-            .filter(configuration -> configuration.getKey().equals(configurationName.getName()))
-            .findFirst();
+      configurations.stream()
+        .filter(configuration -> configuration.getKey().equals(configurationName.getName()))
+        .findFirst();
 
     return foundConfiguration.orElse(
-        new OAuthConfiguration(configurationName, "", ConfigurationType.TEXT));
+      new OAuthConfiguration(configurationName, "", ConfigurationType.TEXT));
   }
 }

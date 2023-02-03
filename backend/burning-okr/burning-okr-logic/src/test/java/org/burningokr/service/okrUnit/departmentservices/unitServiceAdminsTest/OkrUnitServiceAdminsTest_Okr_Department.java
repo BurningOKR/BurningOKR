@@ -1,19 +1,22 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceAdminsTest;
 
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.*;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.UUID;
+
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OkrUnitServiceAdminsTest_Okr_Department
-    extends OkrUnitServiceAdminsTest<OkrDepartment> {
+  extends OkrUnitServiceAdminsTest<OkrDepartment> {
 
   @Test
   public void updateDepartment_expectsOkrMasterIdIsChanged() {
@@ -54,7 +57,7 @@ public class OkrUnitServiceAdminsTest_Okr_Department
     OkrDepartment updateOkrDepartment = new OkrDepartment();
     updateOkrDepartment.setId(departmentId);
     Collection<UUID> okrMemberIds =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+      Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     updateOkrDepartment.setOkrMemberIds(okrMemberIds);
     OkrDepartment persistedOkrDepartment = new OkrDepartment();
     unit.setId(departmentId);

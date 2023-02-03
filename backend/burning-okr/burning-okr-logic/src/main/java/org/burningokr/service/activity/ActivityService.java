@@ -1,6 +1,5 @@
 package org.burningokr.service.activity;
 
-import java.time.LocalDateTime;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
@@ -8,6 +7,8 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.activity.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class ActivityService {

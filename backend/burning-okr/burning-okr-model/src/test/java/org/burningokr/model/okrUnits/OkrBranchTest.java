@@ -1,10 +1,11 @@
 package org.burningokr.model.okrUnits;
 
-import java.util.Collections;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Collections;
 
 public class OkrBranchTest {
 

@@ -1,6 +1,5 @@
 package org.burningokr.controller.okr;
 
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.StructureDto;
@@ -10,6 +9,8 @@ import org.burningokr.service.okrUnit.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Collection;
 
 @RequiredArgsConstructor
 @RestApiController

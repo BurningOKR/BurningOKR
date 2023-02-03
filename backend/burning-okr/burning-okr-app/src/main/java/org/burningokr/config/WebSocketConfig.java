@@ -1,7 +1,5 @@
 package org.burningokr.config;
 
-import java.util.List;
-import javax.naming.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +29,9 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+
+import javax.naming.AuthenticationException;
+import java.util.List;
 
 @Configuration
 @EnableWebSocketMessageBroker

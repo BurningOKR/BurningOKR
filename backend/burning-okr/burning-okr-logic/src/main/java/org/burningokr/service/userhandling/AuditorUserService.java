@@ -1,11 +1,12 @@
 package org.burningokr.service.userhandling;
 
-import java.util.Optional;
-import java.util.UUID;
 import org.burningokr.model.users.AuditorUser;
 import org.burningokr.repositories.users.AuditorUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AuditorUserService {

@@ -1,7 +1,5 @@
 package org.burningokr.service.security;
 
-import java.util.Optional;
-import java.util.UUID;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrChildUnit;
@@ -20,6 +18,9 @@ import org.burningokr.repositories.users.AuditorUserRepository;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserRoleFromContextService {

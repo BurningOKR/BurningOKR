@@ -1,8 +1,5 @@
 package org.burningokr.service.topicDraft;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
@@ -15,6 +12,10 @@ import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor

@@ -1,7 +1,5 @@
 package org.burningokr.mapper.users;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.users.LocalUserDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.users.LocalUser;
@@ -9,6 +7,9 @@ import org.burningokr.model.users.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class LocalUserMapper implements DataMapper<User, LocalUserDto> {

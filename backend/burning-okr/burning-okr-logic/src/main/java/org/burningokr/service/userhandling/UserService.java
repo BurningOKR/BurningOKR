@@ -1,9 +1,10 @@
 package org.burningokr.service.userhandling;
 
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.model.users.User;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.UUID;
 
 @Service
 public interface UserService {

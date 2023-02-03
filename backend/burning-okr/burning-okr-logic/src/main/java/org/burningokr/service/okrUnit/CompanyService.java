@@ -1,10 +1,6 @@
 package org.burningokr.service.okrUnit;
 
 import com.google.common.collect.Lists;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
@@ -13,8 +9,14 @@ import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
-import org.burningokr.model.okrUnits.*;
-import org.burningokr.model.okrUnits.okrUnitHistories.*;
+import org.burningokr.model.okrUnits.OkrBranch;
+import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
+import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.ExtendedRepository;
 import org.burningokr.repositories.cycle.*;
@@ -30,6 +32,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

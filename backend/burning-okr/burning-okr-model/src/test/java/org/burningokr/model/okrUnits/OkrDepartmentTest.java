@@ -1,9 +1,5 @@
 package org.burningokr.model.okrUnits;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 import org.junit.Assert;
@@ -11,6 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OkrDepartmentTest {
@@ -114,7 +115,7 @@ public class OkrDepartmentTest {
     OkrDepartment actualDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
     Assert.assertSame(
-        expectedOkrDepartment.getOkrTopicDescription(), actualDepartment.getOkrTopicDescription());
+      expectedOkrDepartment.getOkrTopicDescription(), actualDepartment.getOkrTopicDescription());
   }
 
   @Test

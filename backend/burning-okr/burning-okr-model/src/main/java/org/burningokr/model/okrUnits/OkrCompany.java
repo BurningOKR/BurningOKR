@@ -1,17 +1,14 @@
 package org.burningokr.model.okrUnits;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "okr_company")
@@ -19,14 +16,20 @@ import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 @EqualsAndHashCode(callSuper = true)
 public class OkrCompany extends OkrUnit implements OkrParentUnit {
 
-  @ToString.Exclude @ManyToOne @EqualsAndHashCode.Exclude private Cycle cycle;
+  @ToString.Exclude
+  @ManyToOne
+  @EqualsAndHashCode.Exclude
+  private Cycle cycle;
 
   @OneToMany(
-      mappedBy = "parentOkrUnit",
-      cascade = CascadeType.REMOVE,
-      targetEntity = OkrChildUnit.class)
+    mappedBy = "parentOkrUnit",
+    cascade = CascadeType.REMOVE,
+    targetEntity = OkrChildUnit.class
+  )
   @EqualsAndHashCode.Exclude
   private Collection<OkrChildUnit> okrChildUnits = new ArrayList<>();
+  @ManyToOne
+  private OkrCompanyHistory history;
 
   public boolean hasDepartments() {
     return !okrChildUnits.isEmpty();
@@ -41,8 +44,6 @@ public class OkrCompany extends OkrUnit implements OkrParentUnit {
   public void setOkrChildUnits(Collection<OkrChildUnit> subDepartments) {
     this.okrChildUnits = subDepartments;
   }
-
-  @ManyToOne private OkrCompanyHistory history;
 
   /**
    * Creates a copy of the OkrCompany without relations.

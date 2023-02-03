@@ -2,14 +2,6 @@ package org.burningokr.service.userhandling;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.users.ChangePasswordData;
@@ -27,6 +19,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+
+import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RequiredArgsConstructor
 public class LocalUserService implements UserService {

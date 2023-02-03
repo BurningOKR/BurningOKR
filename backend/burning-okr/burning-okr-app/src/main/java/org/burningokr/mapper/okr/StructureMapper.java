@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.StructureDto;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -9,6 +7,9 @@ import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service

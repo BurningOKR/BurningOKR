@@ -1,15 +1,16 @@
 package org.burningokr.mapper.users;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.UUID;
 import org.burningokr.dto.users.AdminUserDto;
 import org.burningokr.model.users.AdminUser;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.UUID;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class AdminUserMapperTest {
   private final AdminUserMapper adminUserMapper = new AdminUserMapper();

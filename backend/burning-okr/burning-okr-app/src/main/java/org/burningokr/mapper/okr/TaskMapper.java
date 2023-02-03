@@ -1,8 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.dto.okr.TaskDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
@@ -13,22 +10,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
+
 @Service
 public class TaskMapper implements DataMapper<Task, TaskDto> {
   private final Logger logger = LoggerFactory.getLogger(TaskMapper.class);
 
   public Task mapDtoToEntity(TaskDto taskDto) {
     logger.info(
-        String.format(
-            "mapDtoToEntity dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d, previousTaskId: %d}",
-            taskDto.getId(),
-            taskDto.getTitle(),
-            taskDto.getDescription(),
-            String.valueOf(taskDto.getAssignedUserIds()),
-            taskDto.getAssignedKeyResultId(),
-            taskDto.getParentTaskBoardId(),
-            taskDto.getTaskStateId(),
-            taskDto.getPreviousTaskId()));
+      String.format(
+        "mapDtoToEntity dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d, previousTaskId: %d}",
+        taskDto.getId(),
+        taskDto.getTitle(),
+        taskDto.getDescription(),
+        String.valueOf(taskDto.getAssignedUserIds()),
+        taskDto.getAssignedKeyResultId(),
+        taskDto.getParentTaskBoardId(),
+        taskDto.getTaskStateId(),
+        taskDto.getPreviousTaskId()
+      ));
     Task taskEntity = new Task();
 
     taskEntity.setId(taskDto.getId());
@@ -91,11 +93,11 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
     }
 
     logger.info(
-        "mapEntityToDto (id:"
-            + taskDto.getId()
-            + " assigned Key Result id: "
-            + taskDto.getAssignedKeyResultId()
-            + ") successful into TaskDto.");
+      "mapEntityToDto (id:"
+        + taskDto.getId()
+        + " assigned Key Result id: "
+        + taskDto.getAssignedKeyResultId()
+        + ") successful into TaskDto.");
     return taskDto;
   }
 
@@ -136,9 +138,9 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
       result.append("previous Task Id: ").append(task.getPreviousTaskId()).append("\n");
       result.append("parent TaskBoard Id: ").append(task.getParentTaskBoardId()).append("\n");
       result
-          .append("My Assigned User Ids: ")
-          .append(String.valueOf(task.getAssignedUserIds()))
-          .append("\n");
+        .append("My Assigned User Ids: ")
+        .append(String.valueOf(task.getAssignedUserIds()))
+        .append("\n");
       result.append("Version: ").append(task.getVersion()).append("\n");
     }
     logger.info(result.toString());

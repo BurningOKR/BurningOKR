@@ -1,7 +1,5 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.configuration.ConfigurationName;
@@ -25,6 +23,9 @@ import org.burningokr.service.okrUnitUtil.ParentService;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.UUID;
 
 @Service("okrUnitServiceAdmins")
 public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitServiceManagers<T> {

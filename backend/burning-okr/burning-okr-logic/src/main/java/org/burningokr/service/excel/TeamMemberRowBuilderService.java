@@ -1,8 +1,5 @@
 package org.burningokr.service.excel;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -15,6 +12,10 @@ import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
 
 @Service
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {

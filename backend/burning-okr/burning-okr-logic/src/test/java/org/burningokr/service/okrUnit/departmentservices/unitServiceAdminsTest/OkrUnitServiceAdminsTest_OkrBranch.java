@@ -1,13 +1,5 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceAdminsTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
@@ -17,6 +9,15 @@ import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest<OkrBranch> {
@@ -40,13 +41,13 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
     when(unitRepository.findByIdOrThrow(any(Long.class))).thenReturn(new OkrBranch());
     when(unitRepository.save(any())).thenReturn(department);
     when(okrTopicDescriptionRepository.save(any()))
-        .thenAnswer(invocation -> invocation.getArgument(0));
+      .thenAnswer(invocation -> invocation.getArgument(0));
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any(TaskBoard.class))).thenReturn(taskBoard);
 
     OkrDepartment actual =
-        (OkrDepartment)
-            okrUnitServiceAdmins.createChildUnit(departmentId, department, new LocalUser());
+      (OkrDepartment)
+        okrUnitServiceAdmins.createChildUnit(departmentId, department, new LocalUser());
 
     assertNotNull(actual.getOkrTopicDescription());
     assertEquals(department.getName(), actual.getOkrTopicDescription().getName());

@@ -2,11 +2,6 @@ package org.burningokr.service.userhandling;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AadUserRepository;
@@ -24,6 +19,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.UUID;
 
 public class AadUserService implements UserService {
 

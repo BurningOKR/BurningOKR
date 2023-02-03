@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteObjective;
@@ -11,6 +9,9 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class ObjectiveMapperTest {
 

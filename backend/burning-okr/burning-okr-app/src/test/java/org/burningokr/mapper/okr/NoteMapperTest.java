@@ -1,12 +1,13 @@
 package org.burningokr.mapper.okr;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.model.okr.Note;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class NoteMapperTest {
   private Note note;

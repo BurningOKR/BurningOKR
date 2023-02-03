@@ -1,6 +1,5 @@
 package org.burningokr.config.swagger;
 
-import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.userutil.ExternalOAuthClientDetails;
@@ -16,6 +15,11 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @Profile("!prod")
 @Conditional(AadCondition.class)
