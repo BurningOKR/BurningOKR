@@ -25,6 +25,10 @@
         "eslint-plugin-unicorn"
       ],
       "rules": {
+        "linebreak-style": [
+          "error",
+          "unix"
+        ],
         "no-trailing-spaces": [
           "error",
           {
