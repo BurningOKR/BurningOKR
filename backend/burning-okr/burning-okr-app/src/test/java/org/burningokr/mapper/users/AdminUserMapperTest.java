@@ -1,15 +1,16 @@
 package org.burningokr.mapper.users;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.UUID;
 import org.burningokr.dto.users.AdminUserDto;
 import org.burningokr.model.users.AdminUser;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.UUID;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class AdminUserMapperTest {
   private final AdminUserMapper adminUserMapper = new AdminUserMapper();
@@ -51,7 +52,7 @@ public class AdminUserMapperTest {
     adminUserDtos.add(adminUserDto2);
 
     ArrayList<AdminUser> adminUsers =
-        (ArrayList<AdminUser>) adminUserMapper.mapDtosToEntities(adminUserDtos);
+      (ArrayList<AdminUser>) adminUserMapper.mapDtosToEntities(adminUserDtos);
 
     assertThat(adminUserDtos, hasSize(2));
     assertEquals(adminUserDtos.size(), adminUsers.size());
@@ -71,7 +72,7 @@ public class AdminUserMapperTest {
     adminUsers.add(adminUser2);
 
     ArrayList<AdminUserDto> adminUserDtos =
-        (ArrayList<AdminUserDto>) adminUserMapper.mapEntitiesToDtos(adminUsers);
+      (ArrayList<AdminUserDto>) adminUserMapper.mapEntitiesToDtos(adminUsers);
 
     assertThat(adminUsers, hasSize(2));
     assertEquals(adminUsers.size(), adminUserDtos.size());

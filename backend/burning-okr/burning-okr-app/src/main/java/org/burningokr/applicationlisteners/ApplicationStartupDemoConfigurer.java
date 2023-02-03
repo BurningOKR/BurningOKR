@@ -1,6 +1,5 @@
 package org.burningokr.applicationlisteners;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.configuration.OAuthConfigurationName;
@@ -15,6 +14,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class ApplicationStartupDemoConfigurer {
 
     if (isDemo) {
       oAuthConfigurationService.setOAuthConfiguration(
-          OAuthConfigurationName.AUTH_TYPE, AuthModes.DEMO.getName());
+        OAuthConfigurationName.AUTH_TYPE, AuthModes.DEMO.getName());
 
       OAuthClientDetails oAuthClientDetails = new OAuthClientDetails();
       oAuthClientDetails.setClientId(UUID.randomUUID().toString());

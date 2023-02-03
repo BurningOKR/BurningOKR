@@ -1,103 +1,103 @@
 .display-status-dot {
-  height: 24px;
-  width: 24px;
-  display: inline-block;
-  margin-right: 10px;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .first-item {
-  width: 30px;
+    width: 30px;
 }
 
 .information-row {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .information-row-item {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
 }
 
 .margin-user-list mat-card.user-card {
-  margin: 10px 0;
+    margin: 10px 0;
 }
 
 .multiline-text {
-  width: 100%;
-  resize: vertical;
-  border-radius: 0;
-  margin-top: 15px;
+    width: 100%;
+    resize: vertical;
+    border-radius: 0;
+    margin-top: 15px;
 }
 
 .multiline-text-wrapper textarea {
-  font-size: 1.1rem;
+    font-size: 1.1rem;
 }
 
 .multiline-text-wrapper {
-  width: 100%;
+    width: 100%;
 }
 
 .no-margin-user-button mat-card.user-card {
-  margin: 0;
+    margin: 0;
 }
 
 .padding-user-list div.mat-expansion-panel-body {
-  padding: 0 5px !important;
+    padding: 0 5px !important;
 }
 
 .topic-details-subheading {
-  color: #000000;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 15px;
-  margin-bottom: 15px;
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .tooltip-edit-button.mat-tooltip.tooltip {
-  background-color: #2dc937;
-  font-size: 2rem;
+    background-color: #2dc937;
+    font-size: 2rem;
 }
 
 .topic-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 20px;
-  white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 20px;
+    white-space: nowrap;
 }
 
 .zero-team-member-information {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
-  color: grey;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    color: grey;
 }
 
 @media (max-width: 400px) {
-  .display-status-dot {
-    margin-bottom: 15px;
-  }
+    .display-status-dot {
+        margin-bottom: 15px;
+    }
 
-  div .user-infos {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-  }
+    div .user-infos {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
 
-  mat-card.user-card {
-    min-width: 0 !important;
-  }
+    mat-card.user-card {
+        min-width: 0 !important;
+    }
 
-  .padding-dialog-content {
-    padding-right: 12px;
-    padding-left: 12px;
-  }
+    .padding-dialog-content {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
 
-  .responsive-hidden-display app-user-avatar, .user-avatar {
-     display:none !important;
-   }
+    .responsive-hidden-display app-user-avatar, .user-avatar {
+        display: none !important;
+    }
 }

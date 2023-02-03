@@ -1,7 +1,5 @@
 package org.burningokr.service.userutil;
 
-import java.util.List;
-import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +10,9 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
+
 @Conditional(AadCondition.class)
 @Component
 @Validated
@@ -21,7 +22,8 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @Data
 public class AzureAdProperties {
-  @NotEmpty private String issuer;
+  @NotEmpty
+  private String issuer;
 
   private List<AzureGroup> azureGroups;
 }

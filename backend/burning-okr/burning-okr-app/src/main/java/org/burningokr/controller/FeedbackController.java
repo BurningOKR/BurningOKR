@@ -21,7 +21,9 @@ public class FeedbackController {
 
   @PostMapping("/feedback")
   @TurnOff
-  public ResponseEntity<FeedbackDto> postFeedback(@RequestBody FeedbackDto feedbackDto) {
+  public ResponseEntity<FeedbackDto> postFeedback(
+    @RequestBody FeedbackDto feedbackDto
+  ) {
     feedbackService.sendFeedbackMail(feedbackDto.getName(), feedbackDto.getFeedbackText());
     return ResponseEntity.ok(feedbackDto);
   }

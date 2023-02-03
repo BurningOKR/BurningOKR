@@ -1,13 +1,14 @@
 package org.burningokr.dto.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 public class OkrUnitSchemaDto {
@@ -28,9 +29,11 @@ public class OkrUnitSchemaDto {
   @Setter(AccessLevel.NONE)
   private Boolean isTeam;
 
-  @NotNull private Collection<OkrUnitSchemaDto> subDepartments = new ArrayList<>();
+  @NotNull
+  private Collection<OkrUnitSchemaDto> subDepartments = new ArrayList<>();
 
-  @NotNull private OkrDepartmentDtoRole userRole;
+  @NotNull
+  private OkrDepartmentDtoRole userRole;
 
   public Boolean getIsActive() {
     return isActive;

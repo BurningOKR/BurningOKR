@@ -7,8 +7,8 @@ import { ApiHttpServiceMock } from '../../../../shared/mocks/api-http-service-mo
 describe('PasswordService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      {provide: ApiHttpService, useValue: ApiHttpServiceMock}
-      ]
+      { provide: ApiHttpService, useValue: ApiHttpServiceMock },
+    ],
   }));
 
   it('should be created', () => {

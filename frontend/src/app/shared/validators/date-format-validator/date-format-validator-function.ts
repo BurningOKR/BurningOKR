@@ -3,7 +3,7 @@ import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const dateFormatError: ValidationErrors = {
-  dateFormatError: true
+  dateFormatError: true,
 };
 
 @register
@@ -12,7 +12,8 @@ export class DateFormValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('date-format-validator-function.message'),
-      dateFormatError);
+      dateFormatError,
+    );
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

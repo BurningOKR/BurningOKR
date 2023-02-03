@@ -10,15 +10,17 @@ import { UserId } from '../../shared/model/id-types';
 
 @Fetchable()
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentUserService implements Fetchable {
   private isAdmin$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   private isAuditor$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   private currentUser$: ReplaySubject<User> = new ReplaySubject<User>(1);
 
-  constructor(private oAuthService: OAuthService,
-              private userApiService: UserApiService) {
+  constructor(
+    private oAuthService: OAuthService,
+    private userApiService: UserApiService,
+  ) {
   }
 
   getCurrentUser$(): Observable<User> {
@@ -26,13 +28,13 @@ export class CurrentUserService implements Fetchable {
   }
 
   getCurrentUserId$(): Observable<UserId> {
-      return this.getCurrentUser$()
-        .pipe(
-            map((user: User) => {
-                return user.id;
-            }),
-        );
-    }
+    return this.getCurrentUser$()
+      .pipe(
+        map((user: User) => {
+          return user.id;
+        }),
+      );
+  }
 
   isCurrentUserAdmin$(): Observable<boolean> {
     return this.isAdmin$.asObservable();

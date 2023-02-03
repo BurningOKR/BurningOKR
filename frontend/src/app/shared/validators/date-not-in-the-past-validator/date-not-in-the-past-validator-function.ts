@@ -1,9 +1,9 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const dateIsInThePastError: ValidationErrors = {
-  dateNoInThePastError: true
+  dateNoInThePastError: true,
 };
 
 @register
@@ -12,7 +12,8 @@ export class DateNotInThePastValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('date-not-in-the-past-validator-function.message'),
-      dateIsInThePastError);
+      dateIsInThePastError,
+    );
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

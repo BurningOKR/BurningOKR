@@ -5,16 +5,18 @@ import { FetchingService } from '../../../services/fetching.service';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DemoAuthTypeHandlerService extends LocalAuthTypeHandlerService {
 
   private EMAIL: string = 'iwant@burningokr';
   private PASSWORD: string = 'Passwort';
 
-  constructor(oAuthService: OAuthService,
-              router: Router,
-              fetchingService: FetchingService) {
+  constructor(
+    oAuthService: OAuthService,
+    router: Router,
+    fetchingService: FetchingService,
+  ) {
     super(oAuthService, router, fetchingService);
   }
 

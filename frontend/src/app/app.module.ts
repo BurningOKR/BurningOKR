@@ -55,6 +55,7 @@ import { OkrUnitModule } from './okr-units/okr-unit.module';
 import { OkrviewModule } from './okrview/okrview.module';
 import { SharedModule } from './shared/shared.module';
 import { TopicDraftsModule } from './topic-drafts/topic-drafts.module';
+import { AvatarModule } from 'ngx-avatars';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeDe, 'de', localeDeExtra);
@@ -74,6 +75,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     AppRoutingModule,
+    AvatarModule,
     BrowserAnimationsModule,
     BrowserModule,
     CoreModule,

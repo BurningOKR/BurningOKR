@@ -5,7 +5,7 @@ import {
   ComponentRef,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { INIT_STATE_NAME, InitState } from '../../../../shared/model/api/init-state';
 import { CreateUserInitStateFormComponent } from './init-state-forms/create-user-init-state-form/create-user-init-state-form.component';
@@ -19,27 +19,27 @@ import { SetAzureAdminInitStateFormComponent } from './init-state-forms/set-azur
 @Component({
   selector: 'app-init-state-view',
   templateUrl: './init-state-view.component.html',
-  styleUrls: ['./init-state-view.component.scss']
+  styleUrls: ['./init-state-view.component.scss'],
 })
 export class InitStateViewComponent implements OnInit {
 
-  @ViewChild('currentForm', {read: ViewContainerRef, static: true}) currentForm: ViewContainerRef;
+  @ViewChild('currentForm', { read: ViewContainerRef, static: true }) currentForm: ViewContainerRef;
   initState: InitState;
   componentRef: ComponentRef<InitStateFormComponent>;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private initService: InitService,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
     this.initService.getInitState$()
       .subscribe(initState => {
-      this.initState = initState;
-      this.generateCurrentFormComponent();
+        this.initState = initState;
+        this.generateCurrentFormComponent();
 
-    });
+      });
   }
 
   private generateCurrentFormComponent(): void {
@@ -49,10 +49,10 @@ export class InitStateViewComponent implements OnInit {
     this.componentRef = this.currentForm.createComponent(componentFactory);
     this.componentRef.instance.eventEmitter
       .subscribe(newInitState => {
-      this.initState = newInitState;
-      this.componentRef.destroy();
-      this.generateCurrentFormComponent();
-    });
+        this.initState = newInitState;
+        this.componentRef.destroy();
+        this.generateCurrentFormComponent();
+      });
   }
 
   private getComponentBasedOnCurrentInitState(): TypeOf<InitStateFormComponent> {

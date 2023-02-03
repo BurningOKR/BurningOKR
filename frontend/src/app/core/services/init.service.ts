@@ -9,7 +9,7 @@ import { PostAzureAdminUserData } from '../../shared/model/api/post-azure-admin-
 import { map, take, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InitService {
 
@@ -32,7 +32,7 @@ export class InitService {
               this.initialized$.next(true);
             }
           }),
-          take(1)
+          take(1),
         );
     } else {
       return this.initialized$.asObservable();

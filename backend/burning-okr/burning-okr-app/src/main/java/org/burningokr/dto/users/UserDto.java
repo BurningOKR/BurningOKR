@@ -1,7 +1,8 @@
 package org.burningokr.dto.users;
 
-import java.util.UUID;
 import lombok.Data;
+
+import java.util.UUID;
 
 @Data
 public class UserDto {

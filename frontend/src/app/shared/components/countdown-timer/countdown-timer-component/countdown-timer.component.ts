@@ -1,17 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  Input, OnChanges,
-  Output,
-} from '@angular/core';
-import { Observable,  timer} from 'rxjs';
-import { map} from 'rxjs/operators';
-import {CountdownTimerService} from '../countdown-timer.service';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Observable, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CountdownTimerService } from '../countdown-timer.service';
 
 @Component({
   selector: 'app-countdown-timer',
   templateUrl: './countdown-timer.component.html',
-  styleUrls: ['./countdown-timer.component.scss']
+  styleUrls: ['./countdown-timer.component.scss'],
 })
 export class CountdownTimerComponent implements OnChanges {
 
@@ -20,7 +15,8 @@ export class CountdownTimerComponent implements OnChanges {
 
   remainingTimeString$: Observable<String>;
 
-  constructor(private timerService: CountdownTimerService) { }
+  constructor(private timerService: CountdownTimerService) {
+  }
 
   ngOnChanges(): void {
 
@@ -30,13 +26,13 @@ export class CountdownTimerComponent implements OnChanges {
 
           const remainingTime: Date = this.timerService.getRemainingTimeUntil(this.endTime);
 
-          if(remainingTime.getTime() <= 0) {
+          if (remainingTime.getTime() <= 0) {
 
             this.zeroTrigger.emit();
           }
 
           return this.timerService.getLocalTimeString(remainingTime);
-        })
+        }),
       );
   }
 

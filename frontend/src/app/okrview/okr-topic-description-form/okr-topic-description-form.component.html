@@ -1,11 +1,12 @@
 <form [formGroup]="descriptionForm">
 
   <mat-form-field class="half-width">
-    <input matInput placeholder="{{ 'okr-topic-description-form.header' | translate }}" formControlName="name">
+    <input formControlName="name" matInput placeholder="{{ 'okr-topic-description-form.header' | translate }}">
   </mat-form-field>
 
   <mat-form-field class="half-width">
-    <input [matDatepicker]="startDatePicker" readonly [min]="minBeginn" matInput placeholder="{{ 'okr-topic-description-form.beginning' | translate }}" formControlName="beginning">
+    <input [matDatepicker]="startDatePicker" [min]="minBeginn" formControlName="beginning" matInput
+           placeholder="{{ 'okr-topic-description-form.beginning' | translate }}" readonly>
     <mat-datepicker-toggle [for]="startDatePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #startDatePicker></mat-datepicker>
     <mat-error>
@@ -14,39 +15,49 @@
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" matInput placeholder="{{ 'okr-topic-description-form.description' | translate }}" formControlName="description">
+      <textarea formControlName="description" matInput
+                placeholder="{{ 'okr-topic-description-form.description' | translate }}" type="text">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" matInput placeholder="{{ 'okr-topic-description-form.contributes-to' | translate }}" formControlName="contributesTo">
+      <textarea formControlName="contributesTo" matInput
+                placeholder="{{ 'okr-topic-description-form.contributes-to' | translate }}" type="text">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" matInput placeholder="{{ 'okr-topic-description-form.delimitation' | translate }}" formControlName="delimitation">
+      <textarea formControlName="delimitation" matInput
+                placeholder="{{ 'okr-topic-description-form.delimitation' | translate }}" type="text">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" matInput placeholder="{{ 'okr-topic-description-form.dependencies' | translate }}" formControlName="dependencies">
+      <textarea formControlName="dependencies" matInput
+                placeholder="{{ 'okr-topic-description-form.dependencies' | translate }}" type="text">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" matInput placeholder="{{ 'okr-topic-description-form.resources' | translate }}" formControlName="resources">
+      <textarea formControlName="resources" matInput
+                placeholder="{{ 'okr-topic-description-form.resources' | translate }}" type="text">
       </textarea>
   </mat-form-field>
 
   <mat-form-field class="form-whole-line">
-      <textarea type="text" matInput placeholder="{{ 'okr-topic-description-form.handover-plan' | translate }}" formControlName="handoverPlan">
+      <textarea formControlName="handoverPlan" matInput
+                placeholder="{{ 'okr-topic-description-form.handover-plan' | translate }}" type="text">
       </textarea>
   </mat-form-field>
 
-  <app-user-selector [resultControl]="descriptionForm.get(['initiatorId'])" [users$]="users$" placeholderText="{{'okr-topic-description-form.initiator' | translate}}" noUser="{{'okr-topic-description-form.no-initiator' | translate}}"></app-user-selector>
+  <app-user-selector [resultControl]="descriptionForm.get(['initiatorId'])" [users$]="users$"
+                     noUser="{{'okr-topic-description-form.no-initiator' | translate}}"
+                     placeholderText="{{'okr-topic-description-form.initiator' | translate}}"></app-user-selector>
 
-  <app-user-selector-multi [users$]="users$" [resultControl]="descriptionForm.get(['startTeam'])" placeholderText="{{'okr-topic-description-form.start-team' | translate}}"></app-user-selector-multi>
+  <app-user-selector-multi [resultControl]="descriptionForm.get(['startTeam'])" [users$]="users$"
+                           placeholderText="{{'okr-topic-description-form.start-team' | translate}}"></app-user-selector-multi>
 
-  <app-user-selector-multi [users$]="users$" [resultControl]="descriptionForm.get(['stakeholders'])" placeholderText="{{'okr-topic-description-form.stakeholder' | translate}}"></app-user-selector-multi>
+  <app-user-selector-multi [resultControl]="descriptionForm.get(['stakeholders'])" [users$]="users$"
+                           placeholderText="{{'okr-topic-description-form.stakeholder' | translate}}"></app-user-selector-multi>
 
 </form>

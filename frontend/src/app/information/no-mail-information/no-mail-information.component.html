@@ -1,9 +1,9 @@
 <app-okr-toolbar>
-  <button (click)="navigateToCompanies()" class="navbar-item" mat-icon-button matTooltip="{{ 'no-mail-information.tooltip.go-to-okr-unit-overview' | translate }}">
+  <button (click)="navigateToCompanies()" class="navbar-item" mat-icon-button
+          matTooltip="{{ 'no-mail-information.tooltip.go-to-okr-unit-overview' | translate }}">
     <mat-icon>home</mat-icon>
   </button>
-</app-okr-toolbar>
-<br>
+</app-okr-toolbar><br>
 <div class="container">
   <h1>{{ 'no-mail-information.title' | translate }}</h1>
   <p>{{ 'no-mail-information.info' | translate }}</p>
@@ -18,7 +18,7 @@
     <li>{{ 'no-mail-information.password-reset-mails' | translate }}</li>
   </ul>
 
-  <button mat-raised-button color="primary" routerLink="/">{{ 'no-mail-information.back-to-home' | translate }}</button>
+  <button color="primary" mat-raised-button routerLink="/">{{ 'no-mail-information.back-to-home' | translate }}</button>
 
 
 </div>

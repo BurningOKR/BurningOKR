@@ -10,7 +10,7 @@ import { DepartmentDescriptionEditFormComponent } from './department-description
 @Component({
   selector: 'app-department-tab-description',
   templateUrl: './department-tab-description.component.html',
-  styleUrls: ['./department-tab-description.component.scss']
+  styleUrls: ['./department-tab-description.component.scss'],
 })
 export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
   @Input() department: OkrDepartment;
@@ -21,7 +21,7 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
 
   constructor(
     private topicDescriptionMapperService: TopicDescriptionMapper,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
   }
 
@@ -38,8 +38,8 @@ export class DepartmentTabDescriptionComponent implements OnInit, OnChanges {
       this.dialog.open(DepartmentDescriptionEditFormComponent, {
         width: '600px', data: {
           departmentId: this.department.id,
-          okrTopicDescription: description
-        }
+          okrTopicDescription: description,
+        },
       });
 
     dialogReference.afterClosed().subscribe(() => this.updateDescription());

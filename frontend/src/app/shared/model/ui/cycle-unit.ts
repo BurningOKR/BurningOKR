@@ -12,7 +12,8 @@ export class CycleUnit {
   isVisible: boolean;
 
   constructor(id: CycleId, name: string, companyIds: CompanyId[], startDate: Date, endDate: Date,
-              cycleState: CycleState, isVisible: boolean) {
+    cycleState: CycleState, isVisible: boolean,
+  ) {
     this.id = id;
     this.name = name;
     this.abbreviation = this.abbreviate();

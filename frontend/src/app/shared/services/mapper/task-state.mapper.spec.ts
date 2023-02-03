@@ -13,7 +13,12 @@ describe('TaskStateService', () => {
     }
   }
 
-  beforeEach(() => TestBed.configureTestingModule({providers: [{provide: TaskStateApiService, useValue: new TaskStateApiServiceMock()}]}));
+  beforeEach(() => TestBed.configureTestingModule({
+    providers: [{
+      provide: TaskStateApiService,
+      useValue: new TaskStateApiServiceMock(),
+    }],
+  }));
 
   it('should be created', () => {
     const service: TaskStateMapper = TestBed.inject(TaskStateMapper);

@@ -6,7 +6,7 @@ import { ViewKeyResultMilestone } from '../../../../shared/model/ui/view-key-res
 @Component({
   selector: 'app-key-result-milestone-form',
   templateUrl: './key-result-milestone-form.component.html',
-  styleUrls: ['./key-result-milestone-form.component.scss']
+  styleUrls: ['./key-result-milestone-form.component.scss'],
 })
 export class KeyResultMilestoneFormComponent implements OnInit, OnChanges {
 
@@ -29,7 +29,7 @@ export class KeyResultMilestoneFormComponent implements OnInit, OnChanges {
           viewKeyResultMilestone.id,
           viewKeyResultMilestone.name,
           viewKeyResultMilestone.value,
-          viewKeyResultMilestone.parentKeyResult
+          viewKeyResultMilestone.parentKeyResult,
         );
       });
     }
@@ -46,7 +46,7 @@ export class KeyResultMilestoneFormComponent implements OnInit, OnChanges {
       id: new FormControl(id),
       name: new FormControl(name, [Validators.required, Validators.maxLength(255)]),
       value: new FormControl(value, [Validators.required, Validators.min(this.min), Validators.max(this.max)]),
-      parentKeyResult: new FormControl(parentKeyResultId)
+      parentKeyResult: new FormControl(parentKeyResultId),
     }));
   }
 

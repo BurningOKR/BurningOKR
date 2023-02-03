@@ -1,18 +1,12 @@
 package org.burningokr.model.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrUnit;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -22,9 +16,13 @@ public class Objective implements Trackable<Long> {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @ToString.Exclude @ManyToOne private OkrUnit parentOkrUnit;
+  @ToString.Exclude
+  @ManyToOne
+  private OkrUnit parentOkrUnit;
 
-  @ToString.Exclude @ManyToOne private Objective parentObjective;
+  @ToString.Exclude
+  @ManyToOne
+  private Objective parentObjective;
 
   @Column(length = 255)
   private String name;
@@ -43,9 +41,11 @@ public class Objective implements Trackable<Long> {
   @Setter(AccessLevel.NONE)
   private boolean isActive;
 
-  @Column private String contactPersonId;
+  @Column
+  private String contactPersonId;
 
-  @Column private int sequence;
+  @Column
+  private int sequence;
 
   @OneToMany(mappedBy = "parentObjective", cascade = CascadeType.DETACH)
   private Collection<Objective> subObjectives = new ArrayList<>();

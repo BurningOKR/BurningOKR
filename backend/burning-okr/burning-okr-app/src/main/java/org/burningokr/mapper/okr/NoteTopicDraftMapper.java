@@ -1,16 +1,17 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.NoteTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Service
 public class NoteTopicDraftMapper extends NoteAbstractMapper
-    implements DataMapper<NoteTopicDraft, NoteTopicDraftDto> {
+  implements DataMapper<NoteTopicDraft, NoteTopicDraftDto> {
 
   @Override
   public NoteTopicDraft mapDtoToEntity(NoteTopicDraftDto input) {

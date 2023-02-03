@@ -8,7 +8,7 @@ import { map } from 'rxjs/internal/operators';
 import { DateMapper } from './date.mapper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class TopicDescriptionMapper {
@@ -33,7 +33,7 @@ export class TopicDescriptionMapper {
         null,
       description.dependencies,
       description.resources,
-      description.handoverPlan
+      description.handoverPlan,
     );
   }
 
@@ -51,7 +51,7 @@ export class TopicDescriptionMapper {
     descriptionDto.beginning = beginning ? [
       Number(beginning.getFullYear()),
       Number(beginning.getMonth()) + 1,
-      Number(beginning.getDate())
+      Number(beginning.getDate()),
     ] : null;
     descriptionDto.dependencies = description.dependencies;
     descriptionDto.resources = description.resources;

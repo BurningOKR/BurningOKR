@@ -9,8 +9,9 @@
     flex-direction: row;
     flex-grow: 1;
     flex-shrink: 1;
-    
+
 }
+
 .swimlane-task-container {
     display: flex;
     flex-direction: column;

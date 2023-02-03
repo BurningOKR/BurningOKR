@@ -6,7 +6,7 @@ import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { OkrUnitSchemaMapper } from '../shared/services/mapper/okr-unit-schema.mapper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrentOkrUnitSchemaService {
 
@@ -31,7 +31,7 @@ export class CurrentOkrUnitSchemaService {
             return null;
           }
         }),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       );
   }
 
@@ -44,7 +44,7 @@ export class CurrentOkrUnitSchemaService {
           } else {
             return null;
           }
-        })
+        }),
       );
   }
 
@@ -81,10 +81,10 @@ export class CurrentOkrUnitSchemaService {
             return this.getUnitSchemasToReachUnitWithIdRecursive(
               departmentId,
               unitSchemas,
-              okrUnitSchemas
+              okrUnitSchemas,
             );
-          }
-        )
+          },
+        ),
       );
   }
 
@@ -94,10 +94,10 @@ export class CurrentOkrUnitSchemaService {
         map((okrUnitSchemas: OkrUnitSchema[]) => {
             return okrUnitSchemas.map((okrUnitSchema: OkrUnitSchema) => {
                 return okrUnitSchema.id;
-              }
+              },
             );
-          }
-        )
+          },
+        ),
       );
   }
 
@@ -108,7 +108,7 @@ export class CurrentOkrUnitSchemaService {
         this.updateUnitSchemaTeamRoleRecursive(departmentId, newRole, okrUnitSchemas);
 
         return okrUnitSchemas;
-      })
+      }),
     )
       .subscribe((okrUnitSchemas: OkrUnitSchema[]) => {
         this.currentUnitSchema$.next(okrUnitSchemas);
@@ -130,7 +130,7 @@ export class CurrentOkrUnitSchemaService {
   private getUnitSchemasToReachUnitWithIdRecursive(
     departmentId: number,
     okrUnitSchemas: OkrUnitSchema[],
-    unitSchemas: OkrUnitSchema[]
+    unitSchemas: OkrUnitSchema[],
   ): OkrUnitSchema[] {
     if (okrUnitSchemas) {
       for (const subDepartment of okrUnitSchemas) {
@@ -139,7 +139,7 @@ export class CurrentOkrUnitSchemaService {
           this.getUnitSchemasToReachUnitWithIdRecursive(
             departmentId,
             subDepartment.subDepartments,
-            unitSchemas
+            unitSchemas,
           );
         }
       }
@@ -151,7 +151,7 @@ export class CurrentOkrUnitSchemaService {
   private updateUnitSchemaTeamRoleRecursive(
     departmentId: number,
     newRole: OkrUnitRole,
-    okrUnitSchemas: OkrUnitSchema[]
+    okrUnitSchemas: OkrUnitSchema[],
   ): void {
     okrUnitSchemas.forEach(schema => {
       if (schema.id === departmentId) {

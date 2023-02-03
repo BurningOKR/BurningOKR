@@ -1,15 +1,5 @@
 package org.burningokr.service.topicDraft;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
@@ -26,17 +16,31 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ConvertTopicDraftToTeamServiceTest {
 
-  @Mock private OkrTopicDraftService okrTopicDraftService;
-  @Mock private CompanyService companyService;
-  @Mock private OkrUnitServiceFactory<OkrDepartment> okrDepartmentOkrUnitServiceFactory;
-  @Mock private OkrUnitService<OkrDepartment> okrDepartmentService;
-  @Mock private OkrDepartment okrDepartment;
-  @Mock private OkrTopicDescription okrTopicDescription;
+  @Mock
+  private OkrTopicDraftService okrTopicDraftService;
+  @Mock
+  private CompanyService companyService;
+  @Mock
+  private OkrUnitServiceFactory<OkrDepartment> okrDepartmentOkrUnitServiceFactory;
+  @Mock
+  private OkrUnitService<OkrDepartment> okrDepartmentService;
+  @Mock
+  private OkrDepartment okrDepartment;
+  @Mock
+  private OkrTopicDescription okrTopicDescription;
 
-  @InjectMocks private ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
+  @InjectMocks
+  private ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
 
   private OkrTopicDraft draftTopicDraft;
   private OkrTopicDraft submittedTopicDraft;
@@ -67,7 +71,7 @@ public class ConvertTopicDraftToTeamServiceTest {
     rejectedTopicDraft.setStartTeam(new ArrayList<>());
 
     when(okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(anyLong()))
-        .thenReturn(okrDepartmentService);
+      .thenReturn(okrDepartmentService);
     when(companyService.createDepartment(anyLong(), any(), isNull())).thenReturn(okrDepartment);
     when(okrDepartmentService.createChildUnit(anyLong(), any(), any())).thenReturn(okrDepartment);
     when(okrDepartment.getOkrTopicDescription()).thenReturn(okrTopicDescription);

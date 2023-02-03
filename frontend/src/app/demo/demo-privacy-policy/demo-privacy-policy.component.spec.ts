@@ -8,10 +8,10 @@ describe('DemoPrivacyPolicyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DemoPrivacyPolicyComponent ],
-      imports: [ MaterialTestingModule ]
+      declarations: [DemoPrivacyPolicyComponent],
+      imports: [MaterialTestingModule],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

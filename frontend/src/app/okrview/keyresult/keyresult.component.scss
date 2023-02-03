@@ -2,13 +2,13 @@
 @import '../../../styles/themes/bag-theme';
 
 .keyresult-slider {
-      flex: 1.0 0.3 100px;
-      padding: 4px;
-      flex-direction: column;
-      align-items: stretch;
-      height: 56px;
-      position: relative;
-      top: -8px;
+  flex: 1.0 0.3 100px;
+  padding: 4px;
+  flex-direction: column;
+  align-items: stretch;
+  height: 56px;
+  position: relative;
+  top: -8px;
 }
 
 mat-slider {
@@ -34,10 +34,10 @@ mat-slider {
 }
 
 .keyresult-progress-text {
-   text-align: center;
-   white-space: nowrap;
-   position:relative;
-   bottom: 10px;
+  text-align: center;
+  white-space: nowrap;
+  position: relative;
+  bottom: 10px;
 }
 
 .customFlex-1 {

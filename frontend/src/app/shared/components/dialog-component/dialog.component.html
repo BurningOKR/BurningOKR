@@ -1,25 +1,25 @@
-<form [formGroup]="formGroup" (keydown.enter)="handleEnter($event)">
-  <h1 mat-dialog-title class="form-header">{{title}}</h1>
+<form (keydown.enter)="handleEnter($event)" [formGroup]="formGroup">
+  <h1 class="form-header" mat-dialog-title>{{title}}</h1>
 
   <mat-dialog-content>
     <ng-content></ng-content>
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button type="submit" mat-button color="primary" (click)="sendOk()" [disabled]="isSaveDisabled()">
+    <button (click)="sendOk()" [disabled]="isSaveDisabled()" color="primary" mat-button type="submit">
       {{saveAndCloseLabel}}
     </button>
-    <button type="button" *ngIf="needsCancelButton" mat-button color="warn" (click)="closeDialog()">
+    <button (click)="closeDialog()" *ngIf="needsCancelButton" color="warn" mat-button type="button">
       <span>{{'dialog-component.cancel' | translate}}</span>
     </button>
     <div *ngIf="hasFormGroupError">
-      <mat-error class="error-span" *ngIf="formGroup.hasError('startEqualsEnd')">
+      <mat-error *ngIf="formGroup.hasError('startEqualsEnd')" class="error-span">
         <span>{{'dialog-component.start-equals-end' | translate}}</span>
       </mat-error>
-      <mat-error class="error-span" *ngIf="formGroup.hasError('startDateNotBeforeEndDate')">
+      <mat-error *ngIf="formGroup.hasError('startDateNotBeforeEndDate')" class="error-span">
         <span>{{'dialog-component.start-date-not-before-end-date' | translate}}</span>
       </mat-error>
-      <mat-error class="error-span" *ngIf="formGroup.hasError('dateRangeWithinAnotherDateRange')">
+      <mat-error *ngIf="formGroup.hasError('dateRangeWithinAnotherDateRange')" class="error-span">
         <span>{{'dialog-component.date-range-within-another-date-range' | translate}}</span>
       </mat-error>
     </div>

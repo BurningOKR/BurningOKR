@@ -8,14 +8,14 @@ import { Consts } from '../../../shared/consts';
 @Component({
   selector: 'app-login',
   templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.scss']
+  styleUrls: ['./logout.component.scss'],
 })
 export class LogoutComponent implements OnInit {
 
   constructor(
     private oAuthService: OAuthService,
     private router: Router,
-    private oAuthDetails: OAuthFrontendDetailsService
+    private oAuthDetails: OAuthFrontendDetailsService,
   ) {
   }
 

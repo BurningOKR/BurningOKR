@@ -6,10 +6,11 @@ import { CommentId, KeyResultId } from '../../shared/model/id-types';
 import { ViewCommentParentType } from '../../shared/model/ui/view-comment-parent-type';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentApiService {
-  constructor(private api: ApiHttpService) {}
+  constructor(private api: ApiHttpService) {
+  }
 
   getCommentById$(id: CommentId): Observable<Comment> {
     return this.api.getData$(`notes/${id}`);
@@ -19,7 +20,10 @@ export class CommentApiService {
     return this.api.getData$(`${parentObjectUrlPath}/${keyResultId}/notes`);
   }
 
-  getCommentForParentObject$(viewCommentParentType: ViewCommentParentType, parentObjectId: number): Observable<Comment[]> {
+  getCommentForParentObject$(
+    viewCommentParentType: ViewCommentParentType,
+    parentObjectId: number,
+  ): Observable<Comment[]> {
     return this.getCommentsForParent$(this.getParentObjectUrlPath(viewCommentParentType), parentObjectId);
   }
 
@@ -28,7 +32,7 @@ export class CommentApiService {
   }
 
   postCommentForParentObject$(viewCommentParentType: ViewCommentParentType, parentObjectId: number, comment: Comment):
-        Observable<Comment> {
+    Observable<Comment> {
     return this.postComment$(this.getParentObjectUrlPath(viewCommentParentType), parentObjectId, comment);
   }
 

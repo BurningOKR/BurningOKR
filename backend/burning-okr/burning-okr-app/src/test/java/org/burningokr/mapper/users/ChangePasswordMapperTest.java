@@ -1,13 +1,14 @@
 package org.burningokr.mapper.users;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
 import org.burningokr.dto.users.ChangePasswordDto;
 import org.burningokr.model.users.ChangePasswordData;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ChangePasswordMapperTest {
 
@@ -64,7 +65,7 @@ public class ChangePasswordMapperTest {
     dtoList.add(changePasswordDto3);
 
     ArrayList<ChangePasswordData> dataList =
-        (ArrayList<ChangePasswordData>) this.changePasswordMapper.mapDtosToEntities(dtoList);
+      (ArrayList<ChangePasswordData>) this.changePasswordMapper.mapDtosToEntities(dtoList);
 
     assertEquals(3, dtoList.size());
     assertEquals(dtoList.size(), dataList.size());
@@ -78,7 +79,7 @@ public class ChangePasswordMapperTest {
     ArrayList<ChangePasswordDto> dtoList = new ArrayList<>();
 
     ArrayList<ChangePasswordData> dataList =
-        (ArrayList<ChangePasswordData>) this.changePasswordMapper.mapDtosToEntities(dtoList);
+      (ArrayList<ChangePasswordData>) this.changePasswordMapper.mapDtosToEntities(dtoList);
 
     assertTrue(dataList.isEmpty());
   }
@@ -100,7 +101,7 @@ public class ChangePasswordMapperTest {
     changePasswordData3.setEmail("e@mail3");
 
     ArrayList<ChangePasswordDto> dtoList =
-        (ArrayList<ChangePasswordDto>) this.changePasswordMapper.mapEntitiesToDtos(dataList);
+      (ArrayList<ChangePasswordDto>) this.changePasswordMapper.mapEntitiesToDtos(dataList);
 
     for (int i = 0; i < dataList.size(); i++) {
       assertEnitityMappedCorrectly(dtoList.get(i), dataList.get(i));
@@ -112,20 +113,22 @@ public class ChangePasswordMapperTest {
     ArrayList<ChangePasswordData> dataList = new ArrayList<>();
 
     ArrayList<ChangePasswordDto> dtoList =
-        (ArrayList<ChangePasswordDto>) this.changePasswordMapper.mapEntitiesToDtos(dataList);
+      (ArrayList<ChangePasswordDto>) this.changePasswordMapper.mapEntitiesToDtos(dataList);
 
     assertTrue(dtoList.isEmpty());
   }
 
   private void assertEnitityMappedCorrectly(
-      ChangePasswordDto changePasswordDto, ChangePasswordData changePasswordData) {
+    ChangePasswordDto changePasswordDto, ChangePasswordData changePasswordData
+  ) {
     assertEquals(changePasswordDto.getEmail(), changePasswordData.getEmail());
     assertEquals(changePasswordDto.getNewPassword(), changePasswordData.getNewPassword());
     assertEquals(changePasswordDto.getOldPassword(), changePasswordData.getOldPassword());
   }
 
   private void assertDtoMappedCorrectly(
-      ChangePasswordData changePasswordData, ChangePasswordDto changePasswordDto) {
+    ChangePasswordData changePasswordData, ChangePasswordDto changePasswordDto
+  ) {
     assertEquals(changePasswordData.getEmail(), changePasswordDto.getEmail());
     assertEquals(changePasswordData.getNewPassword(), changePasswordDto.getNewPassword());
     assertEquals(changePasswordData.getOldPassword(), changePasswordDto.getOldPassword());

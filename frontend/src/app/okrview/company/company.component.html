@@ -5,7 +5,7 @@
     <div class="flex-nowrap-center">
       <mat-card class="card-size card-margin">
         <div class="company-title overflow-ellipsis">{{ companyView.company.name }}
-          <button mat-icon-button [matMenuTriggerFor]="optionsMenu" class="more-button">
+          <button [matMenuTriggerFor]="optionsMenu" class="more-button" mat-icon-button>
             <mat-icon matTooltip="{{'company.tooltip.more-options-for-structure' | translate}}">
               more_vert
             </mat-icon>
@@ -46,12 +46,16 @@
                 <div class="tab-headline">{{'company.substructures' | translate}}</div>
               </div>
               <div class="icon-spacer f-1">
-                <app-add-child-unit-button [userRole]="currentUserRole$ | async" [cycleClosed]="companyView.cycle.isCycleClosed()" [topicSubject]="companyView.company" (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)" (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)">
-                </app-add-child-unit-button>
+                <app-add-child-unit-button (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)"
+                                           (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)"
+                                           [cycleClosed]="companyView.cycle.isCycleClosed()"
+                                           [topicSubject]="companyView.company"
+                                           [userRole]="currentUserRole$ | async"></app-add-child-unit-button>
               </div>
             </div>
             <!-- Subdepartments -->
-            <div *ngIf="companyView.company.okrChildUnitIds.length === 0" class="tab-subtitle">{{'company.no-child-units' | translate}}</div>
+            <div *ngIf="companyView.company.okrChildUnitIds.length === 0"
+                 class="tab-subtitle">{{'company.no-child-units' | translate}}</div>
             <div class="flex-wrap-spreadinner">
               <div *ngFor="let currentdepartmentId of companyView.company.okrChildUnitIds">
                 <app-okr-child-unit-preview-button [unitId]="currentdepartmentId"></app-okr-child-unit-preview-button>
@@ -66,11 +70,11 @@
     <!-- Options menu -->
     <mat-menu #optionsMenu="matMenu" xPosition="before">
       <ng-template matMenuContent>
-        <button mat-menu-item (click)="clickedDownloadExcelFileForCompany(companyView.company)">
+        <button (click)="clickedDownloadExcelFileForCompany(companyView.company)" mat-menu-item>
           <mat-icon>save_alt</mat-icon>
           <span>{{'company.menu.export' | translate}}</span>
         </button>
-        <button mat-menu-item (click)="clickedDownloadExcelEmailFileForCompany(companyView.company)">
+        <button (click)="clickedDownloadExcelEmailFileForCompany(companyView.company)" mat-menu-item>
           <mat-icon>save_alt</mat-icon>
           <span>{{'company.menu.export-contacts' | translate}}</span>
         </button>
@@ -87,7 +91,8 @@
   <div class="card-margin">
     <h3>{{'company.error.error' | translate}}</h3>
     <p>{{'company.error.error-loading-company' | translate}}</p>
-    <button mat-button mat-raised-button color="primary" routerLink="/companies">{{'company.error.navigate-to-structure-view' | translate}}</button>
+    <button color="primary" mat-button mat-raised-button
+            routerLink="/companies">{{'company.error.navigate-to-structure-view' | translate}}</button>
   </div>
 
 </ng-template>

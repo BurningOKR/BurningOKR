@@ -18,17 +18,19 @@ interface KeyResultFormData {
   templateUrl: './key-result-form.component.html',
   styleUrls: ['./key-result-form.component.scss'],
 })
-export class KeyResultFormComponent implements OnInit{
+export class KeyResultFormComponent implements OnInit {
 
   keyResult: ViewKeyResult;
   keyResultForm: FormGroup;
   unitEnum = Unit;
   title: string;
 
-  constructor(private dialogRef: MatDialogRef<KeyResultFormComponent>,
-              private translate: TranslateService,
-              private keyResultMapper: KeyResultMapper,
-              @Inject(MAT_DIALOG_DATA) private formData: KeyResultFormData) {
+  constructor(
+    private dialogRef: MatDialogRef<KeyResultFormComponent>,
+    private translate: TranslateService,
+    private keyResultMapper: KeyResultMapper,
+    @Inject(MAT_DIALOG_DATA) private formData: KeyResultFormData,
+  ) {
   }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class KeyResultFormComponent implements OnInit{
       start: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl(Unit.NUMBER, [Validators.required]),
       description: new FormControl('', [Validators.maxLength(255)]),
-      viewKeyResultMilestones: new FormArray([])
+      viewKeyResultMilestones: new FormArray([]),
     }, [StartDateNotEqualEndDateValidator.Validate, CurrentHigherThanEndValidator.Validate]);
 
     if (this.formData.keyResult) {
@@ -95,7 +97,7 @@ export class KeyResultFormComponent implements OnInit{
         formData.description,
         undefined,
         undefined,
-        formData.viewKeyResultMilestones
+        formData.viewKeyResultMilestones,
       );
 
       this.dialogRef.close(this.keyResultMapper.postKeyResult$(this.formData.objectiveId, newKeyResult));

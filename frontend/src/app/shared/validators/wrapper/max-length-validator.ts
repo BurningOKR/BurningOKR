@@ -3,7 +3,7 @@ import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const maxLengthError: ValidationErrors = {
-  maxLengthError: true
+  maxLengthError: true,
 };
 
 @register
@@ -12,7 +12,8 @@ export class MaxLengthValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('max-length-validator.message'),
-      maxLengthError);
+      maxLengthError,
+    );
   }
 
   static Validate(max: number): ValidatorFn {

@@ -9,15 +9,16 @@ import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 import 'linq4js';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OkrChildUnitRoleService {
-  constructor(private currentUserService: CurrentUserService) {}
+  constructor(private currentUserService: CurrentUserService) {
+  }
 
   getContextRoleForOkrChildUnit$(okrChildUnit: OkrChildUnit): Observable<ContextRole> {
     return combineLatest([
       this.currentUserService.isCurrentUserAdmin$(),
-      this.currentUserService.getCurrentUser$()
+      this.currentUserService.getCurrentUser$(),
     ])
       .pipe(
         take(1),
@@ -31,7 +32,7 @@ export class OkrChildUnitRoleService {
           }
 
           return role;
-        })
+        }),
       );
   }
 
@@ -45,7 +46,7 @@ export class OkrChildUnitRoleService {
           role.isAdmin = isAdmin;
 
           return role;
-        })
+        }),
       );
   }
 }

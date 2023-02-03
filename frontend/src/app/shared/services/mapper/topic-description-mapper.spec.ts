@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 const topicDescriptionApiServiceMock: any = {
   getTopicDescriptionById$: jest.fn(),
-  putTopicDescription$: jest.fn()
+  putTopicDescription$: jest.fn(),
 };
 
 let service: TopicDescriptionMapper;
@@ -17,13 +17,14 @@ let descriptionDto: OkrTopicDescriptionDto;
 describe('TopicDescriptionMapper', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      { provide: TopicDescriptionApiService, useValue: topicDescriptionApiServiceMock }
-    ]
+      { provide: TopicDescriptionApiService, useValue: topicDescriptionApiServiceMock },
+    ],
   }));
 
   beforeEach(() => {
     description = new OkrTopicDescription(1, 'DescriptionName', '2', ['2', '3', '4'], ['3', '4'], 'description',
-      'Contributes To', 'Delimination', new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover Plan');
+      'Contributes To', 'Delimination', new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover Plan',
+    );
 
     descriptionDto = {
       id: 1,
@@ -37,7 +38,7 @@ describe('TopicDescriptionMapper', () => {
       beginning: [2021, 2, 1],
       dependencies: 'Dependencies',
       resources: 'Resources',
-      handoverPlan: 'Handover Plan'
+      handoverPlan: 'Handover Plan',
     };
 
     topicDescriptionApiServiceMock.getTopicDescriptionById$.mockReset();
@@ -104,7 +105,7 @@ describe('TopicDescriptionMapper', () => {
             beginning: [2021, 2, 1],
             dependencies: 'Dependencies',
             resources: 'Resources',
-            handoverPlan: 'Handover Plan'
+            handoverPlan: 'Handover Plan',
           });
         done();
       });

@@ -5,14 +5,15 @@
 
   <!-- General Buttons -->
   <div class="margin-toolbar item-actions">
-    <app-add-button text="{{'okr-unit-dashboard.add-unit' | translate}}" (buttonClicked)="addCompany()" [isDisabled]="(isCurrentUserAdmin$ | async) === false"></app-add-button>
+    <app-add-button (buttonClicked)="addCompany()" [isDisabled]="(isCurrentUserAdmin$ | async) === false"
+                    text="{{'okr-unit-dashboard.add-unit' | translate}}"></app-add-button>
   </div>
 
   <!-- A card for each company -->
   <div *ngIf="companies$ | async as companies; else loading">
     <div *ngFor="let company of companies">
-      <app-okr-unit-card [company]="company" (companyDeleted)="updateCompanies()" (newCycleStarted)="updateCompanies()">
-      </app-okr-unit-card>
+      <app-okr-unit-card (companyDeleted)="updateCompanies()" (newCycleStarted)="updateCompanies()"
+                         [company]="company"></app-okr-unit-card>
     </div>
   </div>
   <ng-template #loading>

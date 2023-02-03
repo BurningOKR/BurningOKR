@@ -8,7 +8,7 @@ import { AuthErrors } from '../../auth-errors';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   private generateLoginForm(): FormGroup {
     return this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 }

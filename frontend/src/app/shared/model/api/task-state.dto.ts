@@ -1,4 +1,4 @@
 export class TaskStateDto {
-    id: number;
-    title: string;
+  id: number;
+  title: string;
 }

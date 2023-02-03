@@ -1,47 +1,52 @@
-<app-dialog-component [title]="title" [isSaveButtonDisabled]="!isInteractive" (okEmitter)="saveObjective()" [formGroup]="taskForm">
-    <form [formGroup]="taskForm">
-        <mat-form-field class="form-whole-line">
-            <input type="text" matInput placeholder="{{ 'department-tab-task-form.title' | translate }}" formControlName="title">
-            <mat-error>
-                <app-form-error [control]="taskForm.get('title')"></app-form-error>
-            </mat-error>
-        </mat-form-field>
+<app-dialog-component (okEmitter)="saveObjective()" [formGroup]="taskForm" [isSaveButtonDisabled]="!isInteractive"
+                      [title]="title">
+  <form [formGroup]="taskForm">
+    <mat-form-field class="form-whole-line">
+      <input formControlName="title" matInput placeholder="{{ 'department-tab-task-form.title' | translate }}"
+             type="text">
+      <mat-error>
+        <app-form-error [control]="taskForm.get('title')"></app-form-error>
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="form-whole-line">
-            <mat-label>{{ 'department-tab-task-form.description' | translate }}</mat-label>
-            <textarea formControlName="description" matInput></textarea> <!-- TODO: Enable resize again. TGohlisch, 19.09.2022-->
-            <mat-error>
-                <app-form-error [control]="taskForm.get('description')"></app-form-error>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-whole-line">
-            <mat-select placeholder="{{ 'department-tab-task-form.select-parent-key-result' | translate }}" formControlName="assignedKeyResultId">
-                <mat-option [value]="null">
-                    <span>{{ 'department-tab-task-form.no-parent-key-result' | translate }}</span>
-                </mat-option>
-                <mat-optgroup *ngFor="let map of keyResultMaps$ |async" [label]="map.objective.name">
-                    <mat-option *ngFor="let keyResult of map.keyResults" [value]="keyResult.id">
-                        {{keyResult.keyResult}}
-                    </mat-option>
-                </mat-optgroup>
-            </mat-select>
-        </mat-form-field>
+    <mat-form-field class="form-whole-line">
+      <mat-label>{{ 'department-tab-task-form.description' | translate }}</mat-label>
+      <textarea formControlName="description" matInput></textarea>
+      <!-- TODO: Enable resize again. TGohlisch, 19.09.2022-->
+      <mat-error>
+        <app-form-error [control]="taskForm.get('description')"></app-form-error>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-whole-line">
+      <mat-select formControlName="assignedKeyResultId"
+                  placeholder="{{ 'department-tab-task-form.select-parent-key-result' | translate }}">
+        <mat-option [value]="null">
+          <span>{{ 'department-tab-task-form.no-parent-key-result' | translate }}</span>
+        </mat-option>
+        <mat-optgroup *ngFor="let map of keyResultMaps$ |async" [label]="map.objective.name">
+          <mat-option *ngFor="let keyResult of map.keyResults" [value]="keyResult.id">
+            {{keyResult.keyResult}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
 
-        <mat-form-field class="form-whole-line" *ngIf="users$ | async; let users">
-            <mat-select (selectionChange)="onSelectUser($event)" formControlName="assignedUserIds" placeholder="{{ 'department-tab-task-form.assigned-user-ids' | translate }}" multiple>
-                <mat-option *ngFor="let user of users" [value]="user.id">
-                    {{user?.email | lowercase}} ({{user.surname}}, {{user.givenName}})
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+    <mat-form-field *ngIf="users$ | async; let users" class="form-whole-line">
+      <mat-select (selectionChange)="onSelectUser($event)" formControlName="assignedUserIds" multiple
+                  placeholder="{{ 'department-tab-task-form.assigned-user-ids' | translate }}">
+        <mat-option *ngFor="let user of users" [value]="user.id">
+          {{user?.email | lowercase}} ({{user.surname}}, {{user.givenName}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <mat-form-field class="form-whole-line">
-            <mat-select formControlName="taskStateId" placeholder="{{ 'department-tab-task-form.task-state' | translate }}">
-                <mat-option *ngFor="let state of states" [value]="state.id">
-                    {{state.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </form>
+    <mat-form-field class="form-whole-line">
+      <mat-select formControlName="taskStateId" placeholder="{{ 'department-tab-task-form.task-state' | translate }}">
+        <mat-option *ngFor="let state of states" [value]="state.id">
+          {{state.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 
 </app-dialog-component>

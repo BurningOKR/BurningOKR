@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -10,9 +8,12 @@ import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Service
 public class NoteObjectiveMapper extends NoteAbstractMapper
-    implements DataMapper<NoteObjective, NoteObjectiveDto> {
+  implements DataMapper<NoteObjective, NoteObjectiveDto> {
 
   private NoteObjective noteToNoteObjective(Note note) {
 

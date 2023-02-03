@@ -5,17 +5,20 @@ import { OAuthFrontendDetailsService } from '../services/o-auth-frontend-details
 import { map, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalGuard implements CanActivate {
 
-  constructor(private router: Router,
-              private oAuthDetails: OAuthFrontendDetailsService) {
+  constructor(
+    private router: Router,
+    private oAuthDetails: OAuthFrontendDetailsService,
+  ) {
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot,
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.oAuthDetails.isLocalAuthType$()
       .pipe(
         take(1),
@@ -25,7 +28,7 @@ export class LocalGuard implements CanActivate {
           } else {
             return this.router.createUrlTree(['']);
           }
-        })
+        }),
       );
   }
 }

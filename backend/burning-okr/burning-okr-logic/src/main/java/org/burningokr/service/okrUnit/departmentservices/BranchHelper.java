@@ -1,14 +1,15 @@
 package org.burningokr.service.okrUnit.departmentservices;
 
+import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrParentUnit;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.okrUnits.OkrCompany;
-import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.okrUnits.OkrParentUnit;
 
 public class BranchHelper {
 
@@ -48,21 +49,21 @@ public class BranchHelper {
     Collection<OkrChildUnit> okrChildUnitCollection = collectChildUnits(okrCompany);
 
     return okrChildUnitCollection.stream()
-        .map(
-            childUnit -> {
-              if (childUnit instanceof OkrDepartment) {
-                return (OkrDepartment) childUnit;
-              } else {
-                return null;
-              }
-            })
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
+      .map(
+        childUnit -> {
+          if (childUnit instanceof OkrDepartment) {
+            return (OkrDepartment) childUnit;
+          } else {
+            return null;
+          }
+        })
+      .filter(Objects::nonNull)
+      .collect(Collectors.toList());
   }
 
   public static Collection<OkrChildUnit> collectChildUnits(OkrChildUnit okrChildUnit) {
     Collection<OkrChildUnit> okrChildUnitCollection =
-        new ArrayList<>(Collections.singletonList(okrChildUnit));
+      new ArrayList<>(Collections.singletonList(okrChildUnit));
 
     if (okrChildUnit instanceof OkrParentUnit) {
       for (OkrChildUnit okrChildUnit1 : ((OkrParentUnit) okrChildUnit).getOkrChildUnits()) {

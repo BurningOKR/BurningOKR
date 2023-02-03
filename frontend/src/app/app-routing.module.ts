@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AdminViewComponent } from './admin/admin-view.component';
 import { LandingPageNavigationComponent } from './core/landing-page-router/landing-page-navigation.component';
 import { AdminRoleGuard } from './admin/admin-role-guard';
@@ -15,12 +15,13 @@ import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topi
 import { environment } from '../environments/environment';
 
 const routes: Routes = [
-  {path: 'demo', loadChildren: () => import('./demo/demo.module')
-      .then(mod => mod.DemoModule)
+  {
+    path: 'demo', loadChildren: () => import('./demo/demo.module')
+      .then(mod => mod.DemoModule),
   },
   {
     path: 'okr', loadChildren: () => import('./okrview/okrview.module').then(mod => mod.OkrviewModule),
-    canActivate: [NotInitiliazedGuard, AuthGuard]
+    canActivate: [NotInitiliazedGuard, AuthGuard],
   },
   { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
   { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
@@ -28,26 +29,28 @@ const routes: Routes = [
   {
     path: 'cycle-admin/:companyId',
     component: CycleAdminContainerComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard]
+    canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard],
   },
   {
     path: 'submitted-topic-drafts',
     component: TopicDraftsComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard]
+    canActivate: [NotInitiliazedGuard, AuthGuard],
   },
   {
-    path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(mod => mod.AuthModule)
+    path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(mod => mod.AuthModule),
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
-  { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage' , pathMatch: 'full' },
-  { path: '**', redirectTo: environment.playground ? 'landingpage' : '' }
+  { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
+  { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forRoot(routes, { useHash: false, onSameUrlNavigation: 'reload',
-    relativeLinkResolution: 'legacy', scrollPositionRestoration: 'enabled' })],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forRoot(routes, {
+    useHash: false, onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy', scrollPositionRestoration: 'enabled',
+  })],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 }

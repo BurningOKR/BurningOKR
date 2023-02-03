@@ -14,7 +14,7 @@ describe('TaskboardSwimlaneComponent', () => {
 
   @Component({
     selector: 'app-taskboard-column',
-    template: ''
+    template: '',
   })
   class TaskBoardColumnMockComponent {
     @Input() map: StateTaskMap;
@@ -26,7 +26,7 @@ describe('TaskboardSwimlaneComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MaterialTestingModule, NoopAnimationsModule],
-      declarations: [TaskboardSwimlaneComponent, TaskBoardColumnMockComponent]
+      declarations: [TaskboardSwimlaneComponent, TaskBoardColumnMockComponent],
     })
       .compileComponents();
   }));

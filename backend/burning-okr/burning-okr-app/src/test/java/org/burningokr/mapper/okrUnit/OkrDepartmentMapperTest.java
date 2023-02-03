@@ -1,9 +1,5 @@
 package org.burningokr.mapper.okrUnit;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -12,6 +8,11 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.UUID;
 
 public class OkrDepartmentMapperTest {
 
@@ -194,7 +195,7 @@ public class OkrDepartmentMapperTest {
   @Test
   public void test_mapDtoToEntity_expects_okrMemberIdsAreMapped() {
     Collection<UUID> okrMembersUuids =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+      Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     okrDepartmentDto.setOkrMemberIds(okrMembersUuids);
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
     Assert.assertEquals(okrMembersUuids, okrDepartment.getOkrMemberIds());

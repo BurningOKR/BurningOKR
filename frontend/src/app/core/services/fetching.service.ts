@@ -4,14 +4,16 @@ import { TypeOf } from '../../../typings';
 import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FetchingService {
 
   static fetchingServices: FetchingServiceData[] = [];
 
-  constructor(private injector: Injector,
-              private oAuthService: OAuthService) {
+  constructor(
+    private injector: Injector,
+    private oAuthService: OAuthService,
+  ) {
   }
 
   refetchAll(): void {

@@ -14,7 +14,7 @@ import { DepartmentMapper } from '../../../../shared/services/mapper/department.
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.css'],
-  providers: [{provide: SettingsForm, useExisting: UserSettingsComponent}]
+  providers: [{ provide: SettingsForm, useExisting: UserSettingsComponent }],
 })
 export class UserSettingsComponent extends SettingsForm implements OnInit {
 
@@ -24,9 +24,11 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
   companies$: Observable<CompanyUnit[]>;
   departments$: Observable<OkrDepartment[]>;
 
-  constructor(private companyService: CompanyMapper,
-              private userSettingsManager: UserSettingsManagerService,
-              private departmentService: DepartmentMapper) {
+  constructor(
+    private companyService: CompanyMapper,
+    private userSettingsManager: UserSettingsManagerService,
+    private departmentService: DepartmentMapper,
+  ) {
     super();
   }
 
@@ -47,7 +49,7 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
           userSettings.defaultTeamId = this.userSettingsForm.get('defaultTeamId').value;
 
           return this.userSettingsManager.updateUserSettings$(userSettings);
-        })
+        }),
       );
   }
 
@@ -62,7 +64,7 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
       .subscribe((userSettings: UserSettings) => {
         this.userSettingsForm = new FormGroup({
           defaultCompanyId: new FormControl(userSettings.defaultCompanyId),
-          defaultTeamId: new FormControl(userSettings.defaultTeamId)
+          defaultTeamId: new FormControl(userSettings.defaultTeamId),
         });
         this.initDepartmentsForCompany(userSettings.defaultCompanyId);
       });

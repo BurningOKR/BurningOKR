@@ -1,24 +1,33 @@
-<mat-slide-toggle class="toggleMilestone" [checked]="isChecked" [disabled]="formArray?.length > 0" (change)="isChecked=$event.checked">{{ 'key-result-milestone-form.toggle' | translate }}</mat-slide-toggle>
+<mat-slide-toggle (change)="isChecked=$event.checked" [checked]="isChecked" [disabled]="formArray?.length > 0"
+                  class="toggleMilestone">{{ 'key-result-milestone-form.toggle' | translate }}</mat-slide-toggle>
 
 <div *ngIf="isChecked" class="keyresult-milestone-form-wrapper">
-  <div class="inputs" *ngFor="let formGroup of formArray.controls">
+  <div *ngFor="let formGroup of formArray.controls" class="inputs">
     <mat-form-field class="text-input">
-      <input type="text" matInput placeholder="{{ 'key-result-milestone-form.name-*' | translate }}" [formControl]="formGroup.get('name')">
-      <mat-error><app-form-error [control]="formGroup.get('name')"></app-form-error></mat-error>
+      <input [formControl]="formGroup.get('name')" matInput
+             placeholder="{{ 'key-result-milestone-form.name-*' | translate }}" type="text">
+      <mat-error>
+        <app-form-error [control]="formGroup.get('name')"></app-form-error>
+      </mat-error>
     </mat-form-field>
 
 
     <mat-form-field class="number-input">
-      <input type="number" matInput placeholder="{{ 'key-result-milestone-form.value-input' | translate }}" [formControl]="formGroup.get('value')">
-      <mat-error><app-form-error [control]="formGroup.get('value')"></app-form-error></mat-error>
+      <input [formControl]="formGroup.get('value')" matInput
+             placeholder="{{ 'key-result-milestone-form.value-input' | translate }}" type="number">
+      <mat-error>
+        <app-form-error [control]="formGroup.get('value')"></app-form-error>
+      </mat-error>
     </mat-form-field>
 
 
-    <button class="delete-button" mat-icon-button matTooltip="{{ 'key-result-milestone-form.tooltip.delete-button' | translate }}" (click)="deleteMilestone(formGroup)">
+    <button (click)="deleteMilestone(formGroup)" class="delete-button" mat-icon-button
+            matTooltip="{{ 'key-result-milestone-form.tooltip.delete-button' | translate }}">
       <mat-icon>
         delete
       </mat-icon>
     </button>
   </div>
 </div>
-<app-add-button text="{{ 'key-result-milestone-form.add-button' | translate }}" (buttonClicked)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked"> </app-add-button>
+<app-add-button (buttonClicked)="addMilestone(undefined, undefined,undefined, undefined)" *ngIf="isChecked"
+                text="{{ 'key-result-milestone-form.add-button' | translate }}"></app-add-button>

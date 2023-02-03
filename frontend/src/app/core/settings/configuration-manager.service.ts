@@ -7,7 +7,7 @@ import { map, take } from 'rxjs/operators';
 
 @Fetchable()
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigurationManagerService implements Fetchable {
 
@@ -58,7 +58,7 @@ export class ConfigurationManagerService implements Fetchable {
       .pipe(
         map((configurations: Configuration[]) => {
           return configurations.find((configuration: Configuration) => configuration.name === name);
-        })
+        }),
       );
   }
 }

@@ -1,15 +1,5 @@
 package org.burningokr.service.initialisation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.Collections;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
@@ -29,19 +19,37 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class InitServiceTest {
 
-  @Mock private InitStateRepository initStateRepository;
-  @Mock private LocalUserService localUserService;
-  @Mock private PasswordService passwordService;
-  @Mock private AdminUserService adminUserService;
-  @Mock private InitOrderService initOrderService;
-  @Mock private OAuthClientDetailsService oauthClientDetailsService;
-  @Mock private OAuthConfigurationService oauthConfigurationService;
-  @Mock private ApplicationContext applicationContext;
+  @Mock
+  private InitStateRepository initStateRepository;
+  @Mock
+  private LocalUserService localUserService;
+  @Mock
+  private PasswordService passwordService;
+  @Mock
+  private AdminUserService adminUserService;
+  @Mock
+  private InitOrderService initOrderService;
+  @Mock
+  private OAuthClientDetailsService oauthClientDetailsService;
+  @Mock
+  private OAuthConfigurationService oauthConfigurationService;
+  @Mock
+  private ApplicationContext applicationContext;
 
-  @InjectMocks private InitService initService;
+  @InjectMocks
+  private InitService initService;
 
   private Iterable<InitState> iterable;
   private InitState initState;

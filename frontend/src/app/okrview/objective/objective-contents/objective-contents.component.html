@@ -1,7 +1,8 @@
 <div *ngIf="keyResultList; else loading">
   <!-- Parent objective button -->
   <div *ngIf="parentObjective" class="flex-nowrap-center">
-    <button mat-stroked-button matTooltip="{{ 'objective-contents.tooltip.navigate-to-unit' | translate }}" [routerLink]="['../', parentObjective.parentUnitId]" class="parent-objective">
+    <button [routerLink]="['../', parentObjective.parentUnitId]" class="parent-objective" mat-stroked-button
+            matTooltip="{{ 'objective-contents.tooltip.navigate-to-unit' | translate }}">
       <span>{{ 'objective-contents.parent-objective' | translate }}</span>
       <span class="font-w-400"> {{parentObjective.name}}</span>
     </button>
@@ -20,9 +21,14 @@
   </div>
 
   <!-- List of KeyResults -->
-  <div cdkDropList (cdkDropListDropped)="dropKeyResult($event)" [cdkDropListDisabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())">
+  <div (cdkDropListDropped)="dropKeyResult($event)"
+       [cdkDropListDisabled]="!(currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed())" cdkDropList>
     <div *ngFor="let keyResult of keyResultList; let i = index" cdkDrag>
-      <app-keyresult (keyResultProgressChanged)="updateVisualKeyResultProgressTotals()" (moveKeyResultToBottom)="moveKeyResultToBottom($event)" (moveKeyResultToTop)="moveKeyResultToTop($event)" [currentUserRole]="currentUserRole" [cycle]="cycle" [keyResultList]="keyResultList" [keyResult]="keyResult" [listNumber]="i+1" [objective]="objective">
+      <app-keyresult (keyResultProgressChanged)="updateVisualKeyResultProgressTotals()"
+                     (moveKeyResultToBottom)="moveKeyResultToBottom($event)"
+                     (moveKeyResultToTop)="moveKeyResultToTop($event)" [currentUserRole]="currentUserRole"
+                     [cycle]="cycle" [keyResultList]="keyResultList" [keyResult]="keyResult" [listNumber]="i+1"
+                     [objective]="objective">
         <div *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()" class="icon-spacer">
           <mat-icon cdkDragHandle>drag_indicator</mat-icon>
         </div>
@@ -30,7 +36,9 @@
     </div>
   </div>
   <div *ngIf="currentUserRole.isAtleastOKRMember() && !cycle.isCycleClosed()" class="f-1">
-    <app-add-button id="key-result-button" text="{{ 'objective-contents.define-new-key-result' | translate }}" (buttonClicked)="clickedAddKeyResult()" [isDisabled]="maximumKeyResultsReached()"></app-add-button>
+    <app-add-button (buttonClicked)="clickedAddKeyResult()" [isDisabled]="maximumKeyResultsReached()"
+                    id="key-result-button"
+                    text="{{ 'objective-contents.define-new-key-result' | translate }}"></app-add-button>
   </div>
 </div>
 

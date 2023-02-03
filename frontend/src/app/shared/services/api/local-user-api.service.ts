@@ -6,7 +6,7 @@ import { User } from '../../model/api/user';
 import { UserId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalUserApiService {
 

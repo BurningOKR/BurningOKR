@@ -3,7 +3,7 @@ import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const requiredError: ValidationErrors = {
-  required: true
+  required: true,
 };
 
 @register
@@ -12,7 +12,8 @@ export class RequiredValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('required-validator.message'),
-      requiredError);
+      requiredError,
+    );
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

@@ -13,7 +13,7 @@ describe('ValidationErrorService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule ],
+      imports: [MaterialTestingModule],
     });
     service = TestBed.inject(ValidationErrorService);
     translate = TestBed.inject(TranslateService);

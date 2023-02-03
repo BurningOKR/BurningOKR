@@ -18,13 +18,14 @@ public class OkrUnitServiceMembers<T extends OkrChildUnit> extends OkrUnitServic
 
   @Autowired
   OkrUnitServiceMembers(
-      ParentService parentService,
-      UnitRepository<T> unitRepository,
-      ObjectiveRepository objectiveRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService) {
+    ParentService parentService,
+    UnitRepository<T> unitRepository,
+    ObjectiveRepository objectiveRepository,
+    ActivityService activityService,
+    EntityCrawlerService entityCrawlerService
+  ) {
     super(
-        parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
+      parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
   }
 
   @Override
@@ -47,13 +48,13 @@ public class OkrUnitServiceMembers<T extends OkrChildUnit> extends OkrUnitServic
 
     objective = objectiveRepository.save(objective);
     logger.info(
-        "Created Objective: "
-            + objective.getName()
-            + " into department "
-            + department.getName()
-            + "(id:"
-            + unitId
-            + ")");
+      "Created Objective: "
+        + objective.getName()
+        + " into department "
+        + department.getName()
+        + "(id:"
+        + unitId
+        + ")");
     activityService.createActivity(user, objective, Action.CREATED);
 
     return objective;

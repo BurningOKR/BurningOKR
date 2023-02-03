@@ -1,4 +1,4 @@
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [TranslateModule,
     CommonModule,
@@ -21,8 +21,8 @@ import { SharedModule } from '../../shared/shared.module';
     MatTooltipModule,
   ],
   exports: [
-    ErrorComponent
-  ]
+    ErrorComponent,
+  ],
 })
 export class ErrorModule {
 }

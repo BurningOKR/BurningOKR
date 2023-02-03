@@ -1,12 +1,13 @@
 package org.burningokr.dto.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import lombok.Data;
+import org.burningokr.model.okr.Unit;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
-import lombok.Data;
-import org.burningokr.model.okr.Unit;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 public class KeyResultDto {
@@ -21,15 +22,19 @@ public class KeyResultDto {
 
   @NotNull
   @Size(
-      max = 1023,
-      message = "The description of a key result may not be longer than 1023 characters.")
+    max = 1023,
+    message = "The description of a key result may not be longer than 1023 characters."
+  )
   private String description;
 
-  @PositiveOrZero private long startValue;
+  @PositiveOrZero
+  private long startValue;
 
-  @PositiveOrZero private long currentValue;
+  @PositiveOrZero
+  private long currentValue;
 
-  @PositiveOrZero private long targetValue;
+  @PositiveOrZero
+  private long targetValue;
 
   private Unit unit = Unit.NUMBER;
 

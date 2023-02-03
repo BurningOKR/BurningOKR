@@ -7,17 +7,19 @@ import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OkrTranslationHelperService {
 
   private currentLanguage$: Observable<string> = of('');
 
-  constructor(@Inject(LOCALE_ID) private locale: string,
-              private translateService: TranslateService,
-              private dateAdapter: DateAdapter<Date>,
-              private cookieHelper: CookieHelperService,
-  ) {}
+  constructor(
+    @Inject(LOCALE_ID) private locale: string,
+    private translateService: TranslateService,
+    private dateAdapter: DateAdapter<Date>,
+    private cookieHelper: CookieHelperService,
+  ) {
+  }
 
   initializeTranslationOnStartup(): void {
     // this language will be used as a fallback when a translation isn't found in the current language

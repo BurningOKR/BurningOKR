@@ -1,11 +1,8 @@
 package org.burningokr.model.initialisation;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -17,5 +14,6 @@ public class InitState {
 
   private InitStateName initState;
 
-  @Transient private String runtimeId;
+  @Transient
+  private String runtimeId;
 }

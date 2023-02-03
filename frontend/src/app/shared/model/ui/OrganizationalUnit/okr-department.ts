@@ -16,7 +16,8 @@ export class OkrDepartment extends OkrChildUnit {
     okrTopicSponsorId: string,
     okrMemberIds: UserId[],
     isActive: boolean,
-    isParentUnitABranch: boolean) {
+    isParentUnitABranch: boolean,
+  ) {
     super(id, name, label, objectives, parentUnitId, isActive);
     this.okrMasterId = okrMasterId;
     this.okrTopicSponsorId = okrTopicSponsorId;

@@ -8,9 +8,11 @@ import { FetchingService } from '../../../services/fetching.service';
 @Injectable()
 export class LocalAuthTypeHandlerService implements AuthTypeHandlerBase {
 
-  constructor(protected oAuthService: OAuthService,
-              protected router: Router,
-              private fetchingService: FetchingService) {
+  constructor(
+    protected oAuthService: OAuthService,
+    protected router: Router,
+    private fetchingService: FetchingService,
+  ) {
   }
 
   async startLoginProcedure(): Promise<boolean> {

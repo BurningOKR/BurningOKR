@@ -1,8 +1,5 @@
 package org.burningokr.controller.userhandling;
 
-import java.util.Collection;
-import java.util.UUID;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.annotation.TurnOff;
@@ -21,12 +18,11 @@ import org.burningokr.service.condition.LocalUserCondition;
 import org.burningokr.service.userhandling.LocalUserService;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Collection;
+import java.util.UUID;
 
 @RestApiController
 @RequiredArgsConstructor
@@ -44,7 +40,9 @@ public class LocalUserController {
   }
 
   @GetMapping("/local-users/{userId}")
-  public ResponseEntity<LocalUserDto> getUserById(@PathVariable UUID userId) {
+  public ResponseEntity<LocalUserDto> getUserById(
+    @PathVariable UUID userId
+  ) {
     LocalUser localUser = localUserService.findById(userId);
     return ResponseEntity.ok(localUserMapper.mapEntityToDto(localUser));
   }
@@ -58,9 +56,12 @@ public class LocalUserController {
   @PostMapping("/local-users")
   @TurnOff
   public ResponseEntity<LocalUserDto> createLocalUser(
-      @Valid @RequestBody LocalUserDto localUserDto) {
+    @Valid
+    @RequestBody
+    LocalUserDto localUserDto
+  ) {
     LocalUser localUser =
-        localUserService.createLocalUser(localUserMapper.mapDtoToEntity(localUserDto));
+      localUserService.createLocalUser(localUserMapper.mapDtoToEntity(localUserDto));
     return ResponseEntity.ok(localUserMapper.mapEntityToDto(localUser));
   }
 
@@ -69,43 +70,56 @@ public class LocalUserController {
    *
    * @param localUserDtos a {@link Collection} of {@link LocalUserDto} objects
    * @return a {@link ResponseEntity} with status ok and a {@link Collection} of {@link
-   *     LocalUserDto}
+   * LocalUserDto}
    */
   @PostMapping("/local-users/bulk")
   @TurnOff
   public ResponseEntity<Collection<LocalUserDto>> bulkCreateLocalUsers(
-      @Valid @RequestBody Collection<LocalUserDto> localUserDtos) {
+    @Valid
+    @RequestBody
+    Collection<LocalUserDto> localUserDtos
+  ) {
     Collection<User> localUsers =
-        localUserService.bulkCreateLocalUsers(localUserMapper.mapDtosToEntities(localUserDtos));
+      localUserService.bulkCreateLocalUsers(localUserMapper.mapDtosToEntities(localUserDtos));
     return ResponseEntity.ok(localUserMapper.mapEntitiesToDtos(localUsers));
   }
 
   /**
    * API Endpoint to update the Local User.
    *
-   * @param userId an {@link UUID}
+   * @param userId       an {@link UUID}
    * @param localUserDto a {@link LocalUserDto} object
    * @return a {@link ResponseEntity} with status ok and the updated {@link LocalUserDto}
    */
   @PutMapping("/local-users/{userId}")
   @TurnOff
   public ResponseEntity<LocalUserDto> updateLocalUser(
-      @PathVariable UUID userId, @Valid @RequestBody LocalUserDto localUserDto) {
+    @PathVariable UUID userId,
+    @Valid
+    @RequestBody
+    LocalUserDto localUserDto
+  ) {
     LocalUser responseUser =
-        localUserService.updateLocalUser(userId, localUserMapper.mapDtoToEntity(localUserDto));
+      localUserService.updateLocalUser(userId, localUserMapper.mapDtoToEntity(localUserDto));
     return ResponseEntity.ok(localUserMapper.mapEntityToDto(responseUser));
   }
 
   @DeleteMapping("/local-users/{userId}")
   @TurnOff
-  public ResponseEntity<LocalUserDto> deleteLocalUserById(@PathVariable UUID userId) {
+  public ResponseEntity<LocalUserDto> deleteLocalUserById(
+    @PathVariable UUID userId
+  ) {
     localUserService.deleteLocalUserById(userId);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/local-users/password")
   @TurnOff
-  public ResponseEntity<PasswordDto> setPassword(@Valid @RequestBody PasswordDto passwordDto) {
+  public ResponseEntity<PasswordDto> setPassword(
+    @Valid
+    @RequestBody
+    PasswordDto passwordDto
+  ) {
     localUserService.setPassword(passwordDto.getEmailIdentifier(), passwordDto.getPassword());
     return ResponseEntity.ok().build();
   }
@@ -119,9 +133,12 @@ public class LocalUserController {
   @PostMapping("/local-users/change-password")
   @TurnOff
   public ResponseEntity<ChangePasswordDto> changePassword(
-      @Valid @RequestBody ChangePasswordDto changePasswordDto) {
+    @Valid
+    @RequestBody
+    ChangePasswordDto changePasswordDto
+  ) {
     ChangePasswordData changePasswordData =
-        this.changePasswordMapper.mapDtoToEntity(changePasswordDto);
+      this.changePasswordMapper.mapDtoToEntity(changePasswordDto);
 
     localUserService.changePassword(changePasswordData);
     return ResponseEntity.ok().build();
@@ -136,7 +153,10 @@ public class LocalUserController {
   @PostMapping("/local-users/forgot-password")
   @TurnOff
   public ResponseEntity<ForgotPasswordDto> resetPassword(
-      @Valid @RequestBody ForgotPasswordDto forgotPasswordDto) {
+    @Valid
+    @RequestBody
+    ForgotPasswordDto forgotPasswordDto
+  ) {
     ForgotPassword forgotPassword = forgotPasswordMapper.mapDtoToEntity(forgotPasswordDto);
     localUserService.resetPassword(forgotPassword);
     return ResponseEntity.ok().build();

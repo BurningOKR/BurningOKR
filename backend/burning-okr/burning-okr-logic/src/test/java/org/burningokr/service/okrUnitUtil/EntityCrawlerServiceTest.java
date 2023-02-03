@@ -1,6 +1,5 @@
 package org.burningokr.service.okrUnitUtil;
 
-import java.util.ArrayList;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
@@ -15,10 +14,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+
 @RunWith(MockitoJUnitRunner.class)
 public class EntityCrawlerServiceTest {
 
-  @InjectMocks private EntityCrawlerService entityCrawlerService;
+  @InjectMocks
+  private EntityCrawlerService entityCrawlerService;
 
   // Testing entities
   private Cycle cycle;
@@ -122,7 +124,7 @@ public class EntityCrawlerServiceTest {
   @Test
   public void getCompanyOfDepartment_companyIsNestedParent_expectedCompany() {
     OkrCompany actualOkrCompany =
-        entityCrawlerService.getCompanyOfUnit(okrDepartmentChildSecondDegree);
+      entityCrawlerService.getCompanyOfUnit(okrDepartmentChildSecondDegree);
 
     Assert.assertEquals(okrCompany, actualOkrCompany);
   }

@@ -1,5 +1,7 @@
 <div *ngIf="childUnit$ | async as childUnit; else loading">
-  <button class="previewButton" [ngClass]="{ 'inactive-element': !childUnit.isActive }" mat-raised-button [routerLink]="['../../departments', unitId]" matTooltip="{{ 'okr-child-unit-preview-button.tooltip.show-department' | translate }}">
+  <button [ngClass]="{ 'inactive-element': !childUnit.isActive }" [routerLink]="['../../departments', unitId]"
+          class="previewButton" mat-raised-button
+          matTooltip="{{ 'okr-child-unit-preview-button.tooltip.show-department' | translate }}">
     <div class="d-flex center">
       <div class="f-1">
         <mat-icon class="font-32">{{isOkrBranch(childUnit) ? 'account_tree' : 'group'}}</mat-icon>
@@ -10,18 +12,21 @@
         {{ childUnit.name }}
         <div class="d-flex">
           <div class="f-1">
-            <mat-icon matTooltip="{{ 'okr-child-unit-preview-button.tooltip.list-objectives' | translate }}">list</mat-icon>
+            <mat-icon matTooltip="{{ 'okr-child-unit-preview-button.tooltip.list-objectives' | translate }}">list
+            </mat-icon>
             {{ childUnit.objectives.length }}
           </div>
-          <div class="f-1" *ngIf="isOkrBranch(childUnit)">
-            <mat-icon matTooltip="{{ 'okr-child-unit-preview-button.tooltip.list-child-unit' | translate }}">low_priority</mat-icon>
+          <div *ngIf="isOkrBranch(childUnit)" class="f-1">
+            <mat-icon matTooltip="{{ 'okr-child-unit-preview-button.tooltip.list-child-unit' | translate }}">
+              low_priority
+            </mat-icon>
             <!-- IDEs will show an error at okrChildUnitIds, because it is not a member of OkrChildUnit -->
             <!-- But it is safe to access okrChildUnitIds here, because we check that the childUnit is an OkrBranch before. -->
             {{ childUnit.okrChildUnitIds.length }}
           </div>
         </div>
       </div>
-      <div class="f-05" *ngIf="!childUnit.isActive">
+      <div *ngIf="!childUnit.isActive" class="f-05">
         <mat-icon matTooltip="{{ 'okr-child-unit-preview-button.tooltip.not-active' | translate }}">info</mat-icon>
       </div>
     </div>

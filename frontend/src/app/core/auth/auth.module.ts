@@ -1,4 +1,4 @@
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,12 +8,13 @@ import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    LogoutComponent
+    LogoutComponent,
   ],
   imports: [TranslateModule,
     CommonModule,
     AuthRoutingModule,
-    MatCardModule
-  ]
+    MatCardModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {
+}

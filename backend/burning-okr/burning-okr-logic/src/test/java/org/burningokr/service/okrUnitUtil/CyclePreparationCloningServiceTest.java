@@ -1,19 +1,6 @@
 package org.burningokr.service.okrUnitUtil;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.google.common.collect.Lists;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -34,20 +21,31 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.*;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class CyclePreparationCloningServiceTest {
 
-  @Mock private CompanyRepository companyRepository;
+  @Mock
+  private CompanyRepository companyRepository;
 
-  @Mock private UnitRepository<OkrChildUnit> subUnitRepository;
+  @Mock
+  private UnitRepository<OkrChildUnit> subUnitRepository;
 
-  @Mock private ObjectiveRepository objectiveRepository;
+  @Mock
+  private ObjectiveRepository objectiveRepository;
 
-  @Mock private UserSettingsRepository userSettingsRepository;
+  @Mock
+  private UserSettingsRepository userSettingsRepository;
 
-  @Mock private TaskBoardService taskBoardService;
+  @Mock
+  private TaskBoardService taskBoardService;
 
-  @InjectMocks private CyclePreparationCloningService cyclePreparationCloningService;
+  @InjectMocks
+  private CyclePreparationCloningService cyclePreparationCloningService;
   private Collection<OkrCompany> unwrappedOkrCompanyList;
   private OkrCompany unwrappedOkrCompany;
   private Collection<Objective> unwrappedObjectiveList1;
@@ -75,16 +73,16 @@ public class CyclePreparationCloningServiceTest {
     Cycle exampleCycle = new Cycle();
     Collection<OkrCompany> companysToAdd = createCompanyList(amountOfAdditions);
     CyclePreparationCloningService cyclePreparationCloningService1 =
-        spy(cyclePreparationCloningService);
+      spy(cyclePreparationCloningService);
     doNothing()
-        .when(cyclePreparationCloningService1)
-        .cloneCompanyIntoCycleForPreparation(any(), any());
+      .when(cyclePreparationCloningService1)
+      .cloneCompanyIntoCycleForPreparation(any(), any());
 
     cyclePreparationCloningService1.cloneCompanyListIntoCycleForPreparation(
-        companysToAdd, exampleCycle);
+      companysToAdd, exampleCycle);
 
     verify(cyclePreparationCloningService1, times(amountOfAdditions))
-        .cloneCompanyIntoCycleForPreparation(any(), any());
+      .cloneCompanyIntoCycleForPreparation(any(), any());
   }
 
   @Test
@@ -147,7 +145,7 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany okrCompanyToClone = testingCycleStructure.createTestingCompanyRelationship();
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(
-        okrCompanyToClone, cycleToCloneInto);
+      okrCompanyToClone, cycleToCloneInto);
 
     unwrapCycleContents(cycleToCloneInto);
     // The unwrap method working to set the following references is a proof of functional child
@@ -171,7 +169,7 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany okrCompanyToClone = testingCycleStructure.createTestingCompanyRelationship();
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(
-        okrCompanyToClone, cycleToCloneInto);
+      okrCompanyToClone, cycleToCloneInto);
 
     unwrapCycleContents(cycleToCloneInto);
     // CyclePreparationCloningService properly sets up parent relations
@@ -192,12 +190,12 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany okrCompanyToClone = testingCycleStructure.createTestingCompanyRelationship();
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(
-        okrCompanyToClone, cycleToCloneInto);
+      okrCompanyToClone, cycleToCloneInto);
 
     unwrapCycleContents(cycleToCloneInto);
     ArgumentCaptor<OkrCompany> savedCompanyCaptor = ArgumentCaptor.forClass(OkrCompany.class);
     ArgumentCaptor<OkrDepartment> savedDepartmentCaptor =
-        ArgumentCaptor.forClass(OkrDepartment.class);
+      ArgumentCaptor.forClass(OkrDepartment.class);
     ArgumentCaptor<Objective> savedObjectiveCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository).save(savedCompanyCaptor.capture());
@@ -222,7 +220,7 @@ public class CyclePreparationCloningServiceTest {
 
   @Test
   public void
-      cloneCompanyIntoCycle_ExampleCompany_expectUserSettingsWithOldCompanyIdHasNewCompanyId() {
+  cloneCompanyIntoCycle_ExampleCompany_expectUserSettingsWithOldCompanyIdHasNewCompanyId() {
     TestingCycleStructure testingCycleStructure = new TestingCycleStructure();
     final OkrCompany okrCompanyToClone = testingCycleStructure.createTestingCompanyRelationship();
     final Cycle cycleToCloneInto = new Cycle();
@@ -235,17 +233,17 @@ public class CyclePreparationCloningServiceTest {
     userSettings2.setId(666L);
     userSettings2.setUserId(UUID.randomUUID());
     Collection<UserSettings> userSettingsList =
-        new ArrayList<>(Arrays.asList(userSettings1, userSettings2));
+      new ArrayList<>(Arrays.asList(userSettings1, userSettings2));
 
     when(userSettingsRepository.findAll()).thenReturn(userSettingsList);
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(
-        okrCompanyToClone, cycleToCloneInto);
+      okrCompanyToClone, cycleToCloneInto);
     unwrapCycleContents(cycleToCloneInto);
 
     ArgumentCaptor<OkrCompany> savedCompanyCaptor = ArgumentCaptor.forClass(OkrCompany.class);
     ArgumentCaptor<UserSettings> savedUserSettingsCaptor =
-        ArgumentCaptor.forClass(UserSettings.class);
+      ArgumentCaptor.forClass(UserSettings.class);
 
     verify(userSettingsRepository, times(1)).save(savedUserSettingsCaptor.capture());
     verify(companyRepository).save(savedCompanyCaptor.capture());
@@ -261,7 +259,7 @@ public class CyclePreparationCloningServiceTest {
 
   @Test
   public void
-      cloneCompanyIntoCycle_ExampleCompany_expectUserSettingsWithOldDepartmentIdHasNewDepartmentId() {
+  cloneCompanyIntoCycle_ExampleCompany_expectUserSettingsWithOldDepartmentIdHasNewDepartmentId() {
     TestingCycleStructure testingCycleStructure = new TestingCycleStructure();
     final OkrCompany okrCompanyToClone = testingCycleStructure.createTestingCompanyRelationship();
     final Cycle cycleToCloneInto = new Cycle();
@@ -275,19 +273,19 @@ public class CyclePreparationCloningServiceTest {
     userSettings2.setId(666L);
     userSettings2.setUserId(UUID.randomUUID());
     Collection<UserSettings> userSettingsList =
-        new ArrayList<>(Arrays.asList(userSettings1, userSettings2));
+      new ArrayList<>(Arrays.asList(userSettings1, userSettings2));
 
     when(userSettingsRepository.findAll()).thenReturn(userSettingsList);
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(
-        okrCompanyToClone, cycleToCloneInto);
+      okrCompanyToClone, cycleToCloneInto);
     unwrapCycleContents(cycleToCloneInto);
 
     ArgumentCaptor<OkrCompany> savedCompanyCaptor = ArgumentCaptor.forClass(OkrCompany.class);
     ArgumentCaptor<OkrDepartment> savedDepartmentCaptor =
-        ArgumentCaptor.forClass(OkrDepartment.class);
+      ArgumentCaptor.forClass(OkrDepartment.class);
     ArgumentCaptor<UserSettings> savedUserSettingsCaptor =
-        ArgumentCaptor.forClass(UserSettings.class);
+      ArgumentCaptor.forClass(UserSettings.class);
 
     verify(userSettingsRepository, times(1)).save(savedUserSettingsCaptor.capture());
     verify(subUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
@@ -333,8 +331,9 @@ public class CyclePreparationCloningServiceTest {
     Assert.assertFalse(((Objective) okrCompany.getObjectives().toArray()[0]).hasParentObjective());
     Assert.assertTrue(((Objective) okrCompany.getObjectives().toArray()[1]).hasParentObjective());
     Assert.assertEquals(
-        ((Objective) okrCompany.getObjectives().toArray()[1]).getParentObjective(),
-        parentObjective);
+      ((Objective) okrCompany.getObjectives().toArray()[1]).getParentObjective(),
+      parentObjective
+    );
     Assert.assertEquals(1, parentObjective.getSubObjectives().size());
     Assert.assertEquals(objective, parentObjective.getSubObjectives().toArray()[0]);
   }
@@ -456,7 +455,7 @@ public class CyclePreparationCloningServiceTest {
 
     ArgumentCaptor<OkrCompany> companyCaptor = ArgumentCaptor.forClass(OkrCompany.class);
     ArgumentCaptor<OkrDepartment> departmentArgumentCaptor =
-        ArgumentCaptor.forClass(OkrDepartment.class);
+      ArgumentCaptor.forClass(OkrDepartment.class);
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(okrCompany, cycle);
 

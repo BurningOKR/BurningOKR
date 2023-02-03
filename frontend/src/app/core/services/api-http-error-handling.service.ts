@@ -14,9 +14,9 @@ export type ErrorHandlingFunction<T> = (error: HttpErrorResponse) => ErrorObserv
 export type RetryFunction<T> = () => Observable<T>;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ApiHttpErrorHandlingService implements OnDestroy{
+export class ApiHttpErrorHandlingService implements OnDestroy {
 
   private subscriptions: Subscription[] = [];
   private errorSubjects: Subject<boolean>[] = [];
@@ -28,17 +28,20 @@ export class ApiHttpErrorHandlingService implements OnDestroy{
   private retryMsg: string;
   private requestAppendix: string;
 
-  constructor(private authenticationService: AuthenticationService,
-              private translate: TranslateService,
-              private snackbar: MatSnackBar,
-              private logger: NGXLogger,
-              private router: Router) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private translate: TranslateService,
+    private snackbar: MatSnackBar,
+    private logger: NGXLogger,
+    private router: Router,
+  ) {
     this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.single-error').subscribe(text => {
       this.singleErrorMsg = text;
     }));
-    this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.one-or-more-errors').subscribe(text => {
-      this.oneOrMoreErrorMsg = text;
-    }));
+    this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.one-or-more-errors').subscribe(
+      text => {
+        this.oneOrMoreErrorMsg = text;
+      }));
     this.subscriptions.push(this.translate.stream('api-http-error-handling.error-message.more-detail').subscribe(text => {
       this.moreDetailsMsg = text;
     }));
@@ -58,7 +61,10 @@ export class ApiHttpErrorHandlingService implements OnDestroy{
     return this.errors$.asObservable();
   }
 
-  getErrorHandler<T>(retryFunction: RetryFunction<T>, customHandlerFunction?: (error: HttpErrorResponse) => Observable<T>):
+  getErrorHandler<T>(
+    retryFunction: RetryFunction<T>,
+    customHandlerFunction?: (error: HttpErrorResponse) => Observable<T>,
+  ):
     ErrorHandlingFunction<T> {
 
     return (error: HttpErrorResponse) => {
@@ -104,7 +110,7 @@ export class ApiHttpErrorHandlingService implements OnDestroy{
       .open(this.oneOrMoreErrorMsg, this.moreDetailsMsg, {
         panelClass: 'api-error-snackbar',
         verticalPosition: 'top',
-        duration: 20000
+        duration: 20000,
       });
     snackbar.onAction()
       .subscribe(() => {
@@ -116,17 +122,19 @@ export class ApiHttpErrorHandlingService implements OnDestroy{
   private showRetryErrorSnackbar(): void {
     const errorCountMsg: string = this.translate.instant('api-http-error-handling.error-counting', {
       errorCount: this.errorSubjects.length,
-      pluralAppendix: this.errorSubjects.length > 1 ? this.requestAppendix : ''
+      pluralAppendix: this.errorSubjects.length > 1 ? this.requestAppendix : '',
     });
 
     const snackbar: MatSnackBarRef<SimpleSnackBar> = this.snackbar
-      .open(`${this.singleErrorMsg} ${errorCountMsg}.`,
+      .open(
+        `${this.singleErrorMsg} ${errorCountMsg}.`,
         this.retryMsg,
         {
           panelClass: 'api-error-snackbar',
           verticalPosition: 'top',
-          duration: 20000
-        });
+          duration: 20000,
+        },
+      );
     snackbar.onAction()
       .subscribe(() => {
         this.retryErrors();

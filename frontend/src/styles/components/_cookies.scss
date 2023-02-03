@@ -11,8 +11,8 @@
   font-size: 1.8rem !important;
 }
 
-.klaro .cookie-modal .cm-app-input:checked+.cm-app-label .slider,
-.klaro .cookie-notice .cm-app-input:checked+.cm-app-label .slider {
+.klaro .cookie-modal .cm-app-input:checked + .cm-app-label .slider,
+.klaro .cookie-notice .cm-app-input:checked + .cm-app-label .slider {
   background-color: #b81f40 !important;
 }
 
@@ -30,15 +30,15 @@
 }
 
 .klaro .title {
-  font-size  : 1.8em !important;
+  font-size: 1.8em !important;
   line-height: 1em !important;
 }
 
-.klaro input[type=checkbox]+label::after {
+.klaro input[type=checkbox] + label::after {
   content: unset !important;
 }
 
-.klaro .cm-app>div>div {
+.klaro .cm-app > div > div {
   margin-left: 65px !important;
 }
 
@@ -68,15 +68,15 @@
 
 .klaro .cm-btn-decline,
 .klaro .cm-btn-accept {
-  background : #555 !important;
-  font-size  : 1.3rem !important;
+  background: #555 !important;
+  font-size: 1.3rem !important;
   line-height: 25px;
 }
 
 .klaro .cm-btn-accept-all {
   background-color: #b81f40 !important;
-  font-size       : 1.8rem !important;
-  white-space     : normal;
-  line-height     : unset !important;
-  min-height      : 60px;
+  font-size: 1.8rem !important;
+  white-space: normal;
+  line-height: unset !important;
+  min-height: 60px;
 }

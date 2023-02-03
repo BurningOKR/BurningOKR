@@ -1,4 +1,4 @@
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CycleAdminContainerComponent } from './cycle-admin-container/cycle-admin-container.component';
@@ -45,8 +45,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatStepperModule,
     MatSelectModule,
-    MatSlideToggleModule
-  ]
+    MatSlideToggleModule,
+  ],
 })
 export class CycleAdminModule {
 }

@@ -1,21 +1,26 @@
 <app-okr-toolbar [isCycleManagementOptionVisible]="true">
 
-  <button mat-icon-button class="toolbar-margin-icon" matTooltip="{{'main-view.tooltip.toogle-navigvation' | translate}}" (click)="toggleSideBar()">
+  <button (click)="toggleSideBar()" class="toolbar-margin-icon" mat-icon-button
+          matTooltip="{{'main-view.tooltip.toogle-navigvation' | translate}}">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <button mat-icon-button class="toolbar-margin-icon" matTooltip="{{'main-view.tooltip.go-to-structure-view' | translate}}" [routerLink]="['../companies']">
+  <button [routerLink]="['../companies']" class="toolbar-margin-icon" mat-icon-button
+          matTooltip="{{'main-view.tooltip.go-to-structure-view' | translate}}">
     <mat-icon>home</mat-icon>
   </button>
 
-  <app-cycle-list-dropdown *ngIf="!mobileQuery.matches" matTooltip="{{'main-view.tooltip.adjust-cycleperiod' | translate}}" matTooltipPosition="after" class="max-width-230"></app-cycle-list-dropdown>
+  <app-cycle-list-dropdown *ngIf="!mobileQuery.matches" class="max-width-230"
+                           matTooltip="{{'main-view.tooltip.adjust-cycleperiod' | translate}}"
+                           matTooltipPosition="after"></app-cycle-list-dropdown>
 
 </app-okr-toolbar>
 
 <app-navigation-sidebar #sideBar>
 
   <div *ngIf="currentCycle$ | async as cycle">
-    <mat-card *ngIf="!cycle.isCycleActive()" [ngClass]="cycle.isCycleInPreparation()?'cycle-hint-preparation':'cycle-hint-closed'">
+    <mat-card *ngIf="!cycle.isCycleActive()"
+              [ngClass]="cycle.isCycleInPreparation()?'cycle-hint-preparation':'cycle-hint-closed'">
       <div class="flex-nowrap">
         <mat-icon class="icon-spacer-large">info</mat-icon>
         <div *ngIf="cycle.isCycleInPreparation()">{{'main-view.navigation-sidebar.cycle-not-started' | translate}}</div>

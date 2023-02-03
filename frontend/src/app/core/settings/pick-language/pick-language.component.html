@@ -1,8 +1,5 @@
-<app-dialog-component
-  [title]="title$ | async"
-  (okEmitter)="clickedDone()"
-  [saveAndCloseLabel]="saveAndCloseLabel$ | async"
->
+<app-dialog-component (okEmitter)="clickedDone()" [saveAndCloseLabel]="saveAndCloseLabel$ | async"
+                      [title]="title$ | async">
   <mat-form-field>
     <mat-select-trigger>
       <small>{{'language-picker.select-trigger-text' | translate}}</small> <br>

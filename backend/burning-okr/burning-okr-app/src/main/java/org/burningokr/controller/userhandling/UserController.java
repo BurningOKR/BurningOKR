@@ -1,7 +1,5 @@
 package org.burningokr.controller.userhandling;
 
-import java.util.Collection;
-import java.util.UUID;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.users.UserDto;
 import org.burningokr.mapper.users.UserMapper;
@@ -12,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Collection;
+import java.util.UUID;
 
 @RestApiController
 public class UserController {
@@ -32,7 +33,8 @@ public class UserController {
 
   @GetMapping("/users")
   public ResponseEntity<Collection<UserDto>> getAllUsers(
-      @RequestParam(value = "activeUsers", required = false) Boolean activeUsers) {
+    @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
+  ) {
     Collection<User> userList;
     if (activeUsers == null) {
       userList = userService.findAll();
@@ -46,7 +48,9 @@ public class UserController {
   }
 
   @GetMapping("/users/{userId}")
-  public ResponseEntity<UserDto> getUserByInformation(@PathVariable UUID userId) {
+  public ResponseEntity<UserDto> getUserByInformation(
+    @PathVariable UUID userId
+  ) {
     return ResponseEntity.ok(userMapper.mapEntityToDto(userService.findById(userId)));
   }
 }

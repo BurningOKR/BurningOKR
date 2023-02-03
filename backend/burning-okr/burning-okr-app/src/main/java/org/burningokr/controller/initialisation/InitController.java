@@ -1,6 +1,5 @@
 package org.burningokr.controller.initialisation;
 
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.annotation.TurnOff;
@@ -20,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 @RestApiController
 @RequiredArgsConstructor
@@ -62,10 +63,13 @@ public class InitController {
   @PostMapping("/init/oauth-server")
   @TurnOff
   public ResponseEntity<InitStateDto> setOauthServerSettings(
-      @Valid @RequestBody OAuthClientDetailsDto oauthClientDetailsDto) {
+    @Valid
+    @RequestBody
+    OAuthClientDetailsDto oauthClientDetailsDto
+  ) {
 
     OAuthClientDetails oauthClientDetails =
-        oauthClientDetailsMapper.mapDtoToEntity(oauthClientDetailsDto);
+      oauthClientDetailsMapper.mapDtoToEntity(oauthClientDetailsDto);
     InitState initState = initService.setOAuthClientDetails(oauthClientDetails);
 
     return ResponseEntity.ok(initStateMapper.mapEntityToDto(initState));
@@ -80,11 +84,14 @@ public class InitController {
   @PostMapping("/init/admin-account")
   @TurnOff
   public ResponseEntity<InitStateDto> setAdminAccount(
-      @Valid @RequestBody AdminAccountInitialisationDto adminAccountInitialisationDto) {
+    @Valid
+    @RequestBody
+    AdminAccountInitialisationDto adminAccountInitialisationDto
+  ) {
 
     User user = userMapper.mapDtoToEntity(adminAccountInitialisationDto.getUserDto());
     InitState initState =
-        initService.setAdminUser(user, adminAccountInitialisationDto.getPassword());
+      initService.setAdminUser(user, adminAccountInitialisationDto.getPassword());
 
     return ResponseEntity.ok(initStateMapper.mapEntityToDto(initState));
   }
@@ -98,7 +105,10 @@ public class InitController {
   @PostMapping("/init/azure-admin-user")
   @TurnOff
   public ResponseEntity<InitStateDto> setAdminAzureAdminUser(
-      @Valid @RequestBody AdminUser adminUser) {
+    @Valid
+    @RequestBody
+    AdminUser adminUser
+  ) {
 
     InitState initState = initService.setAzureAdminUser(adminUser);
 

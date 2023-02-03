@@ -1,15 +1,16 @@
 package org.burningokr.mapper.configuration;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
 import org.burningokr.dto.configuration.OAuthClientDetailsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 @Service
 public class OAuthClientDetailsMapper
-    implements DataMapper<OAuthClientDetails, OAuthClientDetailsDto> {
+  implements DataMapper<OAuthClientDetails, OAuthClientDetailsDto> {
   @Override
   public OAuthClientDetails mapDtoToEntity(OAuthClientDetailsDto input) {
     OAuthClientDetails oauthClientDetails = new OAuthClientDetails();

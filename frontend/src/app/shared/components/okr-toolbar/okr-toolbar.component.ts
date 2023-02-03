@@ -20,7 +20,7 @@ import { PickLanguageComponent } from '../../../core/settings/pick-language/pick
 @Component({
   selector: 'app-okr-toolbar',
   templateUrl: './okr-toolbar.component.html',
-  styleUrls: ['./okr-toolbar.component.scss']
+  styleUrls: ['./okr-toolbar.component.scss'],
 })
 export class OkrToolbarComponent implements OnInit {
   @Input() isCycleManagementOptionVisible = false;
@@ -67,14 +67,14 @@ export class OkrToolbarComponent implements OnInit {
   }
 
   openSettings(): void {
-    this.dialog.open(SettingsFormComponent, {disableClose: true})
+    this.dialog.open(SettingsFormComponent, { disableClose: true })
       .afterClosed()
       .pipe(switchMap(_ => _))
       .subscribe(() => this.okrUnitService.refreshOkrChildUnit());
   }
 
   openPasswordChangeForm(): void {
-    this.dialog.open(ChangePasswordDialogComponent, {disableClose: true})
+    this.dialog.open(ChangePasswordDialogComponent, { disableClose: true })
       .afterClosed()
       .subscribe();
   }

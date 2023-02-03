@@ -29,16 +29,16 @@ describe('SetOauthClientDetailsFormComponent', () => {
         RouterTestingModule,
         MaterialTestingModule,
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-      declarations: [ SetOauthClientDetailsFormComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      declarations: [SetOauthClientDetailsFormComponent],
       providers: [
-        {provide: FormBuilder, useValue: formBuilder},
-        {provide: InitService, useValue: initServiceMock},
-        {provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceMock},
-        {provide: MatSnackBar, useValue: {}},
-      ]
+        { provide: FormBuilder, useValue: formBuilder },
+        { provide: InitService, useValue: initServiceMock },
+        { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceMock },
+        { provide: MatSnackBar, useValue: {} },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
     fixture = TestBed.createComponent(SetOauthClientDetailsFormComponent);
     component = fixture.debugElement.componentInstance;
   });

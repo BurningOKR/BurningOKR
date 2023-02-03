@@ -1,4 +1,5 @@
-<app-dialog-component [title]="formData.title" saveAndCloseLabel="{{'delete-dialog.delete' | translate}}" (okEmitter)="confirmDelete()">
+<app-dialog-component (okEmitter)="confirmDelete()" [title]="formData.title"
+                      saveAndCloseLabel="{{'delete-dialog.delete' | translate}}">
   <h3 class="mat-h3">{{'delete-dialog.general-do-you-want-to-delete' | translate: param}}</h3>
-  <h3 class="mat-h3 mat-error" *ngIf="formData.dangerContent">{{formData.dangerContent}}</h3>
+  <h3 *ngIf="formData.dangerContent" class="mat-h3 mat-error">{{formData.dangerContent}}</h3>
 </app-dialog-component>

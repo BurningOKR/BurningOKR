@@ -7,7 +7,7 @@ import { ConfigurationDto } from '../../model/api/configuration.dto';
 import { ConfigurationId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigurationMapper {
 
@@ -23,17 +23,17 @@ export class ConfigurationMapper {
       id: configuration.id,
       name: configuration.name,
       value: configuration.value,
-      type: configuration.type
+      type: configuration.type,
     };
   }
 
   getConfigurations$(): Observable<Configuration[]> {
     return this.configurationApiService.getConfigurations$()
       .pipe(
-      map((configurations: ConfigurationDto[]) => {
-        return configurations.map(ConfigurationMapper.mapToConfiguration);
-      })
-    );
+        map((configurations: ConfigurationDto[]) => {
+          return configurations.map(ConfigurationMapper.mapToConfiguration);
+        }),
+      );
   }
 
   getConfigurationById$(id: ConfigurationId): Observable<Configuration> {

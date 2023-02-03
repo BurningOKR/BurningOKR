@@ -1,8 +1,5 @@
 package org.burningokr.service.excel;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Collectors;
 import org.burningokr.model.excel.ObjectiveRow;
 import org.burningokr.model.excel.PercentageCellValue;
 import org.burningokr.model.okr.KeyResult;
@@ -15,6 +12,10 @@ import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 @Service
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
 
@@ -23,8 +24,9 @@ public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRo
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService,
-      CompanyService companyService) {
+    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService,
+    CompanyService companyService
+  ) {
     this.okrChildUnitService = okrChildUnitService;
     this.companyService = companyService;
   }
@@ -42,41 +44,43 @@ public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRo
     Collection<OkrChildUnit> okrChildUnitCollection = BranchHelper.collectChildUnits(okrCompany);
 
     return okrChildUnitCollection.stream()
-        .flatMap(childUnit -> generateObjectiveRowCollectionForDepartment(childUnit).stream())
-        .collect(Collectors.toList());
+      .flatMap(childUnit -> generateObjectiveRowCollectionForDepartment(childUnit).stream())
+      .collect(Collectors.toList());
   }
 
   private Collection<ObjectiveRow> generateObjectiveRowCollectionForDepartment(
-      OkrChildUnit okrChildUnit) {
+    OkrChildUnit okrChildUnit
+  ) {
     Collection<ObjectiveRow> rows = new ArrayList<>();
 
     okrChildUnit
-        .getObjectives()
-        .forEach(
-            objective ->
-                objective
-                    .getKeyResults()
-                    .forEach(
-                        keyResult -> {
-                          ObjectiveRow objectiveRow =
-                              new ObjectiveRow(
-                                  ifNullEmptyString(okrChildUnit.getName()),
-                                  ifNullEmptyString(objective.getName()),
-                                  new PercentageCellValue(getProgress(objective)),
-                                  ifNullEmptyString(
-                                      objective.getParentObjective() != null
-                                          ? objective.getParentObjective().getName()
-                                          : ""),
-                                  ifNullEmptyString(keyResult.getName()),
-                                  ifNullEmptyString(keyResult.getDescription()),
-                                  keyResult.getStartValue(),
-                                  keyResult.getTargetValue(),
-                                  keyResult.getCurrentValue(),
-                                  (keyResult.getUnit() != null
-                                      ? keyResult.getUnit().toString()
-                                      : ""));
-                          rows.add(objectiveRow);
-                        }));
+      .getObjectives()
+      .forEach(
+        objective ->
+          objective
+            .getKeyResults()
+            .forEach(
+              keyResult -> {
+                ObjectiveRow objectiveRow =
+                  new ObjectiveRow(
+                    ifNullEmptyString(okrChildUnit.getName()),
+                    ifNullEmptyString(objective.getName()),
+                    new PercentageCellValue(getProgress(objective)),
+                    ifNullEmptyString(
+                      objective.getParentObjective() != null
+                        ? objective.getParentObjective().getName()
+                        : ""),
+                    ifNullEmptyString(keyResult.getName()),
+                    ifNullEmptyString(keyResult.getDescription()),
+                    keyResult.getStartValue(),
+                    keyResult.getTargetValue(),
+                    keyResult.getCurrentValue(),
+                    (keyResult.getUnit() != null
+                      ? keyResult.getUnit().toString()
+                      : "")
+                  );
+                rows.add(objectiveRow);
+              }));
 
     return rows;
   }
@@ -87,7 +91,7 @@ public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRo
 
   private float getProgress(Objective objective) {
     double progressValuesCombined =
-        objective.getKeyResults().stream().mapToDouble(this::getKeyResultProgressNormalized).sum();
+      objective.getKeyResults().stream().mapToDouble(this::getKeyResultProgressNormalized).sum();
     int keyResultsCount = objective.getKeyResults().size();
     return (float) (progressValuesCombined / keyResultsCount);
   }

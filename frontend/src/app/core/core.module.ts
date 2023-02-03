@@ -61,7 +61,7 @@ import { PickLanguageComponent } from './settings/pick-language/pick-language.co
     LocalAuthModule,
     MatCheckboxModule,
     TranslateModule,
-  ]
+  ],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

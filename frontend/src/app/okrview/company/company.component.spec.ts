@@ -25,7 +25,7 @@ import { SharedModule } from '../../shared/shared.module';
 @Component({
   selector: 'app-okr-child-unit-preview-button',
   template: '',
-  styleUrls: []
+  styleUrls: [],
 })
 export class OkrChildUnitPreviewButtonMockComponent {
   @Input() unitId: number;
@@ -36,44 +36,44 @@ describe('CompanyComponent', () => {
   let fixture: ComponentFixture<CompanyComponent>;
 
   const currentOkrViewServiceMock: any = {
-    browseCompany: jest.fn()
+    browseCompany: jest.fn(),
   };
 
   const currentOkrUnitSchemaServiceMock: any = {
-    getCurrentUnitSchemas$: jest.fn()
+    getCurrentUnitSchemas$: jest.fn(),
   };
 
   const currentCycleServiceMock: any = {
-    getCurrentCycle$: jest.fn()
+    getCurrentCycle$: jest.fn(),
   };
 
   const companyServiceMock: any = {
-    getCompanyById$: jest.fn()
+    getCompanyById$: jest.fn(),
   };
 
   const roleServiceMock: any = {
-    getRoleWithoutContext$: jest.fn()
+    getRoleWithoutContext$: jest.fn(),
   };
 
   const excelServiceMock: any = {
     downloadExcelFileForCompany: jest.fn(),
-    downloadExcelEmailFileForCompany: jest.fn()
+    downloadExcelEmailFileForCompany: jest.fn(),
   };
 
   const matDialogMock: any = {
-    open: jest.fn()
+    open: jest.fn(),
   };
 
   const dialogRefMock: any = {
-    afterClosed: jest.fn()
+    afterClosed: jest.fn(),
   };
 
   const route: any = {
-    paramMap: of(convertToParamMap({companyId: '10'}))
+    paramMap: of(convertToParamMap({ companyId: '10' })),
   };
 
   const snackBarMock: any = {
-    open: jest.fn()
+    open: jest.fn(),
   };
 
 
@@ -85,7 +85,7 @@ describe('CompanyComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
-        CompanyComponent, OkrChildUnitPreviewButtonMockComponent, AddChildUnitButtonComponent
+        CompanyComponent, OkrChildUnitPreviewButtonMockComponent, AddChildUnitButtonComponent,
       ],
       imports: [MaterialTestingModule, RouterTestingModule, SharedModule],
       providers: [
@@ -97,8 +97,8 @@ describe('CompanyComponent', () => {
         { provide: ExcelMapper, useValue: excelServiceMock },
         { provide: MatDialog, useValue: matDialogMock },
         { provide: ActivatedRoute, useValue: route },
-        { provide: MatSnackBar, useValue: snackBarMock }
-      ]
+        { provide: MatSnackBar, useValue: snackBarMock },
+      ],
     })
       .compileComponents();
   }));
@@ -109,10 +109,10 @@ describe('CompanyComponent', () => {
     unitSchemas = [
       new OkrUnitSchema(11, 'Unit', OkrUnitRole.MANAGER, true, true),
       new OkrUnitSchema(12, 'Name', OkrUnitRole.MEMBER, true, true),
-      new OkrUnitSchema(13, 'Schema', OkrUnitRole.USER, true, true)
+      new OkrUnitSchema(13, 'Schema', OkrUnitRole.USER, true, true),
     ];
     unitSchemas[2].subDepartments = [
-      new OkrUnitSchema(14, 'SubUnit', OkrUnitRole.MANAGER, true, true)
+      new OkrUnitSchema(14, 'SubUnit', OkrUnitRole.MANAGER, true, true),
     ];
 
     company = new CompanyUnit(10, 'TestCompany', [], [], 1, 'label');

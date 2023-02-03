@@ -4,9 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import {
-  PasswordsMatchValidator,
-} from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
+import { PasswordsMatchValidator } from '../../../../shared/validators/password-match-validator/passwords-match-validator-function';
 import { PasswordResetData, PasswordService } from '../password-service/password.service';
 
 @Component({

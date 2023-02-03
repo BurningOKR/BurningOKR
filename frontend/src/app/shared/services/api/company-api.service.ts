@@ -9,10 +9,11 @@ import { CompanyId } from '../../model/id-types';
 import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CompanyApiService {
-  constructor(private api: ApiHttpService) {}
+  constructor(private api: ApiHttpService) {
+  }
 
   getActiveCompanies$(): Observable<CompanyDto[]> {
     return this.api.getData$('companies');

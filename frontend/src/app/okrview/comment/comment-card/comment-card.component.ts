@@ -9,7 +9,7 @@ import { CommentMapperService } from '../comment-mapper.service';
 @Component({
   selector: 'app-comment-card',
   templateUrl: './comment-card.component.html',
-  styleUrls: ['./comment-card.component.scss']
+  styleUrls: ['./comment-card.component.scss'],
 })
 export class CommentCardComponent implements OnInit {
   @Input() comment: ViewComment;
@@ -30,7 +30,7 @@ export class CommentCardComponent implements OnInit {
         map((user: User) => {
           return user.id === this.comment.userId;
         }),
-        take(1)
+        take(1),
       )
       .subscribe((isOwner: boolean) => {
         this.isOwnerOfNote$.next(isOwner);

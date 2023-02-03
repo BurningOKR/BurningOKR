@@ -3,38 +3,49 @@
   <table class="form-whole-line">
     <tr>
       <td rowspan="3">
-        <app-user-avatar (clickOnAvatar)="uploader.click()" [size]="150" [user]="userForm.value" [clickable]="true" bgColor="#575756"></app-user-avatar>
+        <app-user-avatar (clickOnAvatar)="uploader.click()" [clickable]="true" [size]="150" [user]="userForm.value"
+                         bgColor="#575756"></app-user-avatar>
         <input #uploader (change)="setPhoto($event)" accept=".jpg, .png" hidden type="file">
         <canvas #canvasElement height="250" hidden width="250">Hier text</canvas>
       </td>
       <td class="fullWidth">
         <mat-form-field class="form-whole-line">
-          <input [formControl]="userForm.controls.givenName" matInput placeholder="{{ 'user-form.first-name' | translate }}" required type="text">
+          <input [formControl]="userForm.controls.givenName" matInput
+                 placeholder="{{ 'user-form.first-name' | translate }}" required type="text">
         </mat-form-field>
       </td>
     </tr>
     <tr class="fullWidth">
       <mat-form-field class="form-whole-line">
-        <input [formControl]="userForm.controls.surname" matInput placeholder="{{ 'user-form.last-name' | translate }}" required type="text">
+        <input [formControl]="userForm.controls.surname" matInput placeholder="{{ 'user-form.last-name' | translate }}"
+               required type="text">
       </mat-form-field>
     </tr>
     <tr class="fullWidth">
       <mat-form-field class="form-whole-line">
-        <input [formControl]="userForm.controls.email" email matInput placeholder="{{ 'user-form.email' | translate }}" required type="email">
-        <mat-error *ngIf="userForm.controls.email.errors?.email">{{ 'user-form.error-invalid-email' | translate }}</mat-error>
-        <mat-error *ngIf="userForm.controls.email.errors?.emailAlreadyInUse">{{ 'user-form.error-used-email' | translate }}</mat-error>
+        <input [formControl]="userForm.controls.email" email matInput placeholder="{{ 'user-form.email' | translate }}"
+               required type="email">
+        <mat-error
+          *ngIf="userForm.controls.email.errors?.email">{{ 'user-form.error-invalid-email' | translate }}</mat-error>
+        <mat-error
+          *ngIf="userForm.controls.email.errors?.emailAlreadyInUse">{{ 'user-form.error-used-email' | translate }}</mat-error>
       </mat-form-field>
     </tr>
 
   </table>
   <mat-form-field class="form-whole-line">
-    <input [formControl]="userForm.controls.department" matInput placeholder="{{ 'user-form.department' | translate }}" type="text">
+    <input [formControl]="userForm.controls.department" matInput placeholder="{{ 'user-form.department' | translate }}"
+           type="text">
   </mat-form-field>
   <mat-form-field class="form-whole-line">
-    <input [formControl]="userForm.controls.jobTitle" matInput placeholder="{{ 'user-form.job-title' | translate }}" type="text">
+    <input [formControl]="userForm.controls.jobTitle" matInput placeholder="{{ 'user-form.job-title' | translate }}"
+           type="text">
   </mat-form-field>
-  <mat-checkbox [formControl]="userForm.controls.active" [disabled]="canEditAdminStatus" class="small-padding">Aktiviert</mat-checkbox>
-  <mat-checkbox [formControl]="userForm.controls.isAdmin" [disabled]="canEditAdminStatus || isPlayground" class="small-padding" [matTooltip]="isPlayground
+  <mat-checkbox [disabled]="canEditAdminStatus" [formControl]="userForm.controls.active" class="small-padding">
+    Aktiviert
+  </mat-checkbox>
+  <mat-checkbox [disabled]="canEditAdminStatus || isPlayground" [formControl]="userForm.controls.isAdmin" [matTooltip]="isPlayground
                   ? 'Als Admin autorisieren ⚠ Deaktiviert in der Demo Version'
-                  : ''">Admin</mat-checkbox>
+                  : ''" class="small-padding">Admin
+  </mat-checkbox>
 </form>

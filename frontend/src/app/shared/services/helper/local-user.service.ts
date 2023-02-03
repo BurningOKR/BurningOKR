@@ -10,13 +10,15 @@ import { FetchingService } from '../../../core/services/fetching.service';
 import { CurrentUserService } from '../../../core/services/current-user.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class LocalUserService implements  IUserService {
+export class LocalUserService implements IUserService {
 
-  constructor(private localUserApiService: LocalUserApiService,
-              private userService: UserService,
-              private fetchingService: FetchingService) {
+  constructor(
+    private localUserApiService: LocalUserApiService,
+    private userService: UserService,
+    private fetchingService: FetchingService,
+  ) {
   }
 
   addAdmin$(adminToAdd: User): Observable<User> {
@@ -43,7 +45,7 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.createUser$(user)
       .pipe(
         take(1),
-        finalize(() => this.updateServices())
+        finalize(() => this.updateServices()),
       );
   }
 
@@ -51,7 +53,7 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.bulkCreateUsers$(users)
       .pipe(
         take(1),
-        finalize(() => this.updateServices())
+        finalize(() => this.updateServices()),
       );
   }
 
@@ -59,7 +61,7 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.putUser$(user)
       .pipe(
         take(1),
-        finalize(() => this.updateServices())
+        finalize(() => this.updateServices()),
       );
   }
 
@@ -67,7 +69,7 @@ export class LocalUserService implements  IUserService {
     return this.localUserApiService.deactivateUser$(id)
       .pipe(
         take(1),
-        finalize(() => this.updateServices())
+        finalize(() => this.updateServices()),
       );
   }
 

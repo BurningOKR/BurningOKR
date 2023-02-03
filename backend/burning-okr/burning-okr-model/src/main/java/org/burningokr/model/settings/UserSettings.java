@@ -1,16 +1,12 @@
 package org.burningokr.model.settings;
 
-import java.util.UUID;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Data

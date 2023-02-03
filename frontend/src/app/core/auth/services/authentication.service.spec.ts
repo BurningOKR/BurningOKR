@@ -9,26 +9,26 @@ const oAuthService: any = {
   setStorage: jest.fn(),
   configure: jest.fn(),
   hasValidAccessToken: jest.fn(),
-  logOut: jest.fn()
+  logOut: jest.fn(),
 };
 
 const oAuthFrontendDetailsService: any = {
-  getAuthConfig$: jest.fn()
+  getAuthConfig$: jest.fn(),
 };
 
 const authTypeHandlerFactoryService: any = {
-  getAuthTypeHandler: jest.fn()
+  getAuthTypeHandler: jest.fn(),
 };
 
 const authTypeHandler: any = {
   afterConfigured: jest.fn(),
   startLoginProcedure: jest.fn(),
-  login: jest.fn()
+  login: jest.fn(),
 };
 
 const authConfig: AuthConfig = {
   clientId: 'testing',
-  dummyClientSecret: 'testingSecret'
+  dummyClientSecret: 'testingSecret',
 };
 
 describe('AuthenticationService', () => {
@@ -37,8 +37,8 @@ describe('AuthenticationService', () => {
       AuthenticationService,
       { provide: OAuthService, useValue: oAuthService },
       { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsService },
-      { provide: AuthTypeHandlerFactoryService, useValue: authTypeHandlerFactoryService }
-    ]
+      { provide: AuthTypeHandlerFactoryService, useValue: authTypeHandlerFactoryService },
+    ],
   }));
 
   beforeEach(() => {

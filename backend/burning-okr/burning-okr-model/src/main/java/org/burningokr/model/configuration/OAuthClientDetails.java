@@ -1,15 +1,17 @@
 package org.burningokr.model.configuration;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "oauth_client_details")
 public class OAuthClientDetails implements AuthenticationProperties {
-  @Id private String clientId;
+  @Id
+  private String clientId;
   private String clientSecret;
   private String resourceIds;
   private String scope;

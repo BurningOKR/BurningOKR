@@ -1,8 +1,5 @@
 package org.burningokr.mapper.settings;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -10,6 +7,10 @@ import org.burningokr.model.settings.UserSettings;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class UserSettingsMapperTest {
 

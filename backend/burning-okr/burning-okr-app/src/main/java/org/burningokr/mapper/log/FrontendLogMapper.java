@@ -1,15 +1,16 @@
 package org.burningokr.mapper.log;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.validation.constraints.NotNull;
 import org.burningokr.dto.log.FrontendLogDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.log.FrontendLog;
 import org.burningokr.model.log.FrontendLogLevel;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class FrontendLogMapper implements DataMapper<FrontendLog, FrontendLogDto> {
@@ -22,9 +23,10 @@ public class FrontendLogMapper implements DataMapper<FrontendLog, FrontendLogDto
     frontendLog.setId(frontendLogDto.getId());
     frontendLog.setLevel(FrontendLogLevel.getLevelByIdentifier(frontendLogDto.getLevel()).name());
     frontendLog.setTimestamp(
-        LocalDateTime.parse(
-            formatStringToValidIsoWithoutMilliseconds(frontendLogDto.getTimestamp()),
-            dateTimeFormatter));
+      LocalDateTime.parse(
+        formatStringToValidIsoWithoutMilliseconds(frontendLogDto.getTimestamp()),
+        dateTimeFormatter
+      ));
     frontendLog.setFileName(frontendLogDto.getFileName());
     frontendLog.setLineNumber(frontendLogDto.getLineNumber());
     frontendLog.setMessage(frontendLogDto.getMessage());
@@ -33,10 +35,11 @@ public class FrontendLogMapper implements DataMapper<FrontendLog, FrontendLogDto
   }
 
   private String formatStringToValidIsoWithoutMilliseconds(
-      @NotNull String potentialTimestampWithMilliseconds) {
+    @NotNull String potentialTimestampWithMilliseconds
+  ) {
     return potentialTimestampWithMilliseconds.contains(".")
-        ? potentialTimestampWithMilliseconds.split("\\.")[0]
-        : potentialTimestampWithMilliseconds;
+      ? potentialTimestampWithMilliseconds.split("\\.")[0]
+      : potentialTimestampWithMilliseconds;
   }
 
   @Override
@@ -44,7 +47,7 @@ public class FrontendLogMapper implements DataMapper<FrontendLog, FrontendLogDto
     FrontendLogDto frontendLogDto = new FrontendLogDto();
     frontendLogDto.setId(frontendLog.getId());
     frontendLogDto.setLevel(
-        String.valueOf(FrontendLogLevel.valueOf(frontendLog.getLevel()).getLevelId()));
+      String.valueOf(FrontendLogLevel.valueOf(frontendLog.getLevel()).getLevelId()));
     frontendLogDto.setTimestamp(frontendLog.getTimestamp().format(dateTimeFormatter));
     frontendLogDto.setFileName(frontendLog.getFileName());
     frontendLogDto.setLineNumber(frontendLog.getLineNumber());

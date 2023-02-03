@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CountdownTimestampApiService } from '../../services/api/countdown-timestamp-api.service';
 import { Router } from '@angular/router';
-import {environment} from '../../../../environments/environment';
-import {Observable} from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-reset-countdown',
   templateUrl: './reset-countdown.component.html',
-  styleUrls: ['./reset-countdown.component.css']
+  styleUrls: ['./reset-countdown.component.css'],
 })
 export class ResetCountdownComponent implements OnInit {
 
@@ -15,8 +15,10 @@ export class ResetCountdownComponent implements OnInit {
   isPlayground: boolean = environment.playground;
   dateForNextReset$: Observable<Date>;
 
-  constructor(private countdownService: CountdownTimestampApiService,
-              private router: Router) {
+  constructor(
+    private countdownService: CountdownTimestampApiService,
+    private router: Router,
+  ) {
   }
 
   ngOnInit(): void {

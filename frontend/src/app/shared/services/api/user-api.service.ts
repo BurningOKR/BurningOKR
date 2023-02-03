@@ -7,10 +7,11 @@ import { User } from '../../model/api/user';
 import { UserId } from '../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserApiService {
-  constructor(private api: ApiHttpService) {}
+  constructor(private api: ApiHttpService) {
+  }
 
   getUserById$(objectId: string): Observable<User> {
     return this.api.getData$(`users/${objectId}`);

@@ -1,8 +1,5 @@
 package org.burningokr.controller.okrUnit;
 
-import java.util.Collection;
-import java.util.UUID;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
@@ -29,6 +26,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Collection;
+import java.util.UUID;
+
 @RestApiController
 @RequiredArgsConstructor
 public class OkrUnitController {
@@ -43,9 +44,11 @@ public class OkrUnitController {
   private final DataMapper<KeyResult, KeyResultDto> keyResultMapper;
 
   @GetMapping("/units/{unitId}")
-  public ResponseEntity<OkrChildUnitDto> getUnitByUnitId(@PathVariable long unitId) {
+  public ResponseEntity<OkrChildUnitDto> getUnitByUnitId(
+    @PathVariable long unitId
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrChildUnit unit = okrUnitService.findById(unitId);
     DataMapper mapper = mapperPicker.getMapper(unit.getClass());
     return ResponseEntity.ok((OkrChildUnitDto) mapper.mapEntityToDto(unit));
@@ -59,15 +62,16 @@ public class OkrUnitController {
    */
   @GetMapping("/units/{unitId}/schema")
   public ResponseEntity<Collection<OkrUnitSchemaDto>> getDepartmentSchemaOfDepartment(
-      @PathVariable long unitId) {
+    @PathVariable long unitId
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrChildUnit childUnit = okrUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(childUnit);
     UUID currentUserId = userService.getCurrentUser().getId();
     return ResponseEntity.ok(
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            parentOkrCompany.getOkrChildUnits(), currentUserId));
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        parentOkrCompany.getOkrChildUnits(), currentUserId));
   }
 
   /**
@@ -77,9 +81,11 @@ public class OkrUnitController {
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Objectives
    */
   @GetMapping("/units/{unitId}/objectives")
-  public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfUnit(@PathVariable long unitId) {
+  public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfUnit(
+    @PathVariable long unitId
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Collection<Objective> objectives = okrUnitService.findObjectivesOfUnit(unitId);
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(objectives));
   }
@@ -91,9 +97,11 @@ public class OkrUnitController {
    * @return a {@link ResponseEntity} ok with a {@link Collection} of KeyResult
    */
   @GetMapping("/units/{unitId}/keyresults")
-  public ResponseEntity<Collection<KeyResultDto>> getKeyResultsOfUnit(@PathVariable long unitId) {
+  public ResponseEntity<Collection<KeyResultDto>> getKeyResultsOfUnit(
+    @PathVariable long unitId
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Collection<KeyResult> keyResults = okrUnitService.findKeyResultsOfUnit(unitId);
     return ResponseEntity.ok(keyResultMapper.mapEntitiesToDtos(keyResults));
   }
@@ -105,9 +113,11 @@ public class OkrUnitController {
    * @return a {@link ResponseEntity} ok with the parent-OkrCompany
    */
   @GetMapping("/units/{unitId}/company")
-  public ResponseEntity<OkrCompanyDto> getParentCompanyOfUnit(@PathVariable long unitId) {
+  public ResponseEntity<OkrCompanyDto> getParentCompanyOfUnit(
+    @PathVariable long unitId
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrChildUnit unit = okrUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(unit);
     return ResponseEntity.ok(okrCompanyMapper.mapEntityToDto(parentOkrCompany));
@@ -115,9 +125,11 @@ public class OkrUnitController {
 
   @PutMapping(value = "/units/{unitId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<OkrChildUnitDto> updateUnit(
-      @PathVariable long unitId, @RequestBody OkrChildUnitDto okrChildUnitDto, User user) {
+    @PathVariable long unitId,
+    @RequestBody OkrChildUnitDto okrChildUnitDto, User user
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
 
     OkrChildUnit childUnit = okrUnitService.findById(unitId);
     DataMapper mapper = mapperPicker.getMapper(childUnit.getClass());
@@ -133,17 +145,22 @@ public class OkrUnitController {
   /**
    * API Endpoint to add an Objective to a okrUnit.
    *
-   * @param unitId a long value
+   * @param unitId       a long value
    * @param objectiveDto an {@link ObjectiveDto} object
-   * @param user an {@link User} object
+   * @param user         an {@link User} object
    * @return a {@link ResponseEntity} ok with the added objective
    */
   @PostMapping("/units/{unitId}/objectives")
   @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#unitId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
-      @PathVariable long unitId, @Valid @RequestBody ObjectiveDto objectiveDto, User user) {
+    @PathVariable long unitId,
+    @Valid
+    @RequestBody
+    ObjectiveDto objectiveDto,
+    User user
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
     objective = okrUnitService.createObjective(unitId, objective, user);
@@ -151,9 +168,11 @@ public class OkrUnitController {
   }
 
   @DeleteMapping("/units/{unitId}")
-  public ResponseEntity deleteUnit(@PathVariable long unitId, User user) {
+  public ResponseEntity deleteUnit(
+    @PathVariable long unitId, User user
+  ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
-        okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     okrUnitService.deleteUnit(unitId, user);
     return ResponseEntity.ok().build();
   }

@@ -5,13 +5,14 @@ import { User } from '../shared/model/api/user';
 import { take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TopicDraftPermissionService {
 
   private isAdmin: boolean;
   private isAuditor: boolean;
   private currentUser: User;
+
   constructor(private currentUserService: CurrentUserService) {
     this.initializeAuthService();
   }

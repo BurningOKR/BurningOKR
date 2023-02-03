@@ -1,14 +1,15 @@
 package org.burningokr.mapper.users;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Collectors;
 import org.burningokr.dto.users.ForgotPasswordDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.users.ForgotPassword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class ForgotPasswordMapper implements DataMapper<ForgotPassword, ForgotPasswordDto> {
@@ -37,14 +38,14 @@ public class ForgotPasswordMapper implements DataMapper<ForgotPassword, ForgotPa
   @Override
   public Collection<ForgotPassword> mapDtosToEntities(Collection<ForgotPasswordDto> input) {
     return input.stream()
-        .map(this::mapDtoToEntity)
-        .collect(Collectors.toCollection(ArrayList::new));
+      .map(this::mapDtoToEntity)
+      .collect(Collectors.toCollection(ArrayList::new));
   }
 
   @Override
   public Collection<ForgotPasswordDto> mapEntitiesToDtos(Collection<ForgotPassword> input) {
     return input.stream()
-        .map(this::mapEntityToDto)
-        .collect(Collectors.toCollection(ArrayList::new));
+      .map(this::mapEntityToDto)
+      .collect(Collectors.toCollection(ArrayList::new));
   }
 }

@@ -13,7 +13,7 @@ import any = jasmine.any;
 const okrUnitApiService: any = {
   getOkrChildUnitById$: jest.fn(),
   putOkrChildUnit$: jest.fn(),
-  deleteOkrChildUnit$: jest.fn()
+  deleteOkrChildUnit$: jest.fn(),
 };
 
 let departmentDto: OkrDepartmentDto;
@@ -27,8 +27,8 @@ describe('OkrUnitService', () => {
     imports: [HttpClientTestingModule],
     providers: [
       OkrUnitService,
-      { provide: OkrUnitApiService, useValue: okrUnitApiService }
-    ]
+      { provide: OkrUnitApiService, useValue: okrUnitApiService },
+    ],
   }));
 
   beforeEach(() => {
@@ -202,7 +202,7 @@ describe('OkrUnitService', () => {
   it('putOkrChildUnit$ does not accept null', done => {
     okrUnitApiService.putOkrChildUnit$.mockReturnValue(of(null));
 
-    const test: () => void  = () => {
+    const test: () => void = () => {
       const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
       service.putOkrChildUnit$(null)

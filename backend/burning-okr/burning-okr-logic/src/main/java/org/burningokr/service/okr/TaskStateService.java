@@ -1,12 +1,13 @@
 package org.burningokr.service.okr;
 
-import java.util.Collection;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okr.TaskState;
 import org.burningokr.repositories.okr.TaskStateRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class TaskStateService {
@@ -15,7 +16,8 @@ public class TaskStateService {
 
   @Autowired
   public TaskStateService(
-      TaskStateRepository taskStateRepository, OkrDepartmentRepository okrDepartmentRepository) {
+    TaskStateRepository taskStateRepository, OkrDepartmentRepository okrDepartmentRepository
+  ) {
     this.taskStateRepository = taskStateRepository;
     this.okrDepartmentRepository = okrDepartmentRepository;
   }

@@ -1,9 +1,5 @@
 package org.burningokr.model.okr.okrTopicDraft;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.annotation.Nullable;
-import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -12,14 +8,22 @@ import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
 import org.burningokr.model.okrUnits.OkrUnit;
 
+import javax.annotation.Nullable;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class OkrTopicDraft extends OkrTopicDescription {
 
-  @Nullable @ManyToOne private OkrUnit parentUnit;
+  @Nullable
+  @ManyToOne
+  private OkrUnit parentUnit;
 
-  @ManyToOne private OkrTopicDraftHistory history;
+  @ManyToOne
+  private OkrTopicDraftHistory history;
 
   @Enumerated(EnumType.STRING)
   private OkrTopicDraftStatusEnum currentStatus;

@@ -19,14 +19,20 @@ import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserExc
 
 public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
-  @Mock protected UnitRepository<T> unitRepository;
-  @Mock protected ObjectiveRepository objectiveRepository;
-  @Mock protected OkrTopicDraftRepository okrTopicDraftRepository;
-  @Mock protected ActivityService activityService;
-  @Mock protected EntityCrawlerService entityCrawlerService;
-  @Mock private User user;
-  @InjectMocks OkrUnitServiceUsers<T> okrUnitServiceUsers;
-
+  @Mock
+  protected UnitRepository<T> unitRepository;
+  @Mock
+  protected ObjectiveRepository objectiveRepository;
+  @Mock
+  protected OkrTopicDraftRepository okrTopicDraftRepository;
+  @Mock
+  protected ActivityService activityService;
+  @Mock
+  protected EntityCrawlerService entityCrawlerService;
+  @InjectMocks
+  OkrUnitServiceUsers<T> okrUnitServiceUsers;
+  @Mock
+  private User user;
   private T unit;
 
   protected abstract T createUnit();

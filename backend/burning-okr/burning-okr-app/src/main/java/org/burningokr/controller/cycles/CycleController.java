@@ -1,8 +1,5 @@
 package org.burningokr.controller.cycles;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.dto.validators.CycleDtoValidator;
@@ -15,11 +12,11 @@ import org.burningokr.service.security.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @RestApiController
 public class CycleController {
@@ -32,17 +29,18 @@ public class CycleController {
   /**
    * Initialize CycleController.
    *
-   * @param cycleService a {@link CycleService} object
-   * @param cycleDtoValidator a {@link CycleDtoValidator} object
-   * @param cycleMapper a {@link DataMapper} object with {@link Cycle} and {@link CycleDto}
+   * @param cycleService         a {@link CycleService} object
+   * @param cycleDtoValidator    a {@link CycleDtoValidator} object
+   * @param cycleMapper          a {@link DataMapper} object with {@link Cycle} and {@link CycleDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
   public CycleController(
-      CycleService cycleService,
-      CycleDtoValidator cycleDtoValidator,
-      DataMapper<Cycle, CycleDto> cycleMapper,
-      AuthorizationService authorizationService) {
+    CycleService cycleService,
+    CycleDtoValidator cycleDtoValidator,
+    DataMapper<Cycle, CycleDto> cycleMapper,
+    AuthorizationService authorizationService
+  ) {
     this.cycleService = cycleService;
     this.cycleDtoValidator = cycleDtoValidator;
     this.cycleMapper = cycleMapper;
@@ -64,7 +62,9 @@ public class CycleController {
   }
 
   @GetMapping("/cycles/{cycleId}")
-  public ResponseEntity<CycleDto> getCycleById(@PathVariable Long cycleId) {
+  public ResponseEntity<CycleDto> getCycleById(
+    @PathVariable Long cycleId
+  ) {
     Cycle cycle = cycleService.findById(cycleId);
     return ResponseEntity.ok(cycleMapper.mapEntityToDto(cycle));
   }
@@ -72,7 +72,7 @@ public class CycleController {
   /**
    * API Endpoint to update a Cycle.
    *
-   * @param cycleId a long value
+   * @param cycleId  a long value
    * @param cycleDto a {@link CycleDto} object
    * @return a {@link ResponseEntity} ok with a Cycle
    * @throws InvalidDtoException if Cycle is invalid
@@ -80,8 +80,11 @@ public class CycleController {
   @PutMapping("/cycles/{cycleId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<CycleDto> updateCycleById(
-      @PathVariable Long cycleId, @RequestBody @Valid CycleDto cycleDto)
-      throws InvalidDtoException {
+    @PathVariable Long cycleId,
+    @RequestBody
+    @Valid CycleDto cycleDto
+  )
+    throws InvalidDtoException {
     cycleDtoValidator.validateCycleDto(cycleDto);
     Cycle cycle = cycleMapper.mapDtoToEntity(cycleDto);
     cycle.setId(cycleId);
@@ -90,8 +93,10 @@ public class CycleController {
   }
 
   @DeleteMapping("/cycles/{cycleId}")
-  public ResponseEntity<Boolean> deleteCycleById(@PathVariable Long cycleId, User user)
-      throws Exception {
+  public ResponseEntity<Boolean> deleteCycleById(
+    @PathVariable Long cycleId, User user
+  )
+    throws Exception {
     cycleService.deleteCycle(cycleId, user);
     return ResponseEntity.ok().build();
   }

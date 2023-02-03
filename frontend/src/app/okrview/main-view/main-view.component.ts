@@ -8,7 +8,7 @@ import { CurrentCycleService } from '../current-cycle.service';
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
-  styleUrls: ['./main-view.component.scss']
+  styleUrls: ['./main-view.component.scss'],
 })
 export class MainViewComponent implements OnInit, OnDestroy {
   @ViewChild('sideBar') sideBar: NavigationSidebarComponent;
@@ -21,7 +21,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private media: MediaMatcher,
-    private currentCycleService: CurrentCycleService
+    private currentCycleService: CurrentCycleService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

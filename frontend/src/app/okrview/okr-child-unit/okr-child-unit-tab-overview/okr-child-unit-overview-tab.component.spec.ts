@@ -18,7 +18,7 @@ import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'app-objective',
-  template: '<p>Mock</p>'
+  template: '<p>Mock</p>',
 })
 class MockObjectiveComponent {
   @Input() objective: ViewObjective;
@@ -29,16 +29,14 @@ class MockObjectiveComponent {
 }
 
 const objectiveViewMapper: any = {
-  getObjectivesForUnit$: jest.fn()
+  getObjectivesForUnit$: jest.fn(),
 };
 
 const unitMapper: any = {
-  putOkrUnitObjectiveSequence$: jest.fn()
+  putOkrUnitObjectiveSequence$: jest.fn(),
 };
 
-const matDialog: any = {
-
-};
+const matDialog: any = {};
 
 let department: OkrDepartment;
 let currentUserRole: ContextRole;
@@ -55,20 +53,20 @@ describe('ChildUnitOverviewTabComponent', () => {
       declarations: [
         OkrChildUnitOverviewTabComponent,
         MockObjectiveComponent,
-        CdkDropList
+        CdkDropList,
       ],
       imports: [MaterialTestingModule, RouterTestingModule, SharedModule],
       providers: [
         { provide: ObjectiveViewMapper, useValue: objectiveViewMapper },
         { provide: OkrUnitService, useValue: unitMapper },
-        { provide: MatDialog, useValue: matDialog }
-      ]
+        { provide: MatDialog, useValue: matDialog },
+      ],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    objectiveList = [{id: 1}, {id: 2}, {id: 3}];
+    objectiveList = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
     objectiveViewMapper.getObjectivesForUnit$.mockReset();
     objectiveViewMapper.getObjectivesForUnit$.mockReturnValue(of(objectiveList));
@@ -86,7 +84,7 @@ describe('ChildUnitOverviewTabComponent', () => {
       'testSponsor',
       [],
       true,
-      false
+      false,
     );
 
     currentUserRole = new ContextRole();
@@ -96,7 +94,20 @@ describe('ChildUnitOverviewTabComponent', () => {
     component = fixture.componentInstance;
     component.okrChildUnit = department;
     component.currentUserRole = currentUserRole;
-    component.objectiveList = [new ViewObjective(1, 'testName', 'testDescription', '', 0, [], true, null, 123, '321', 0, [])];
+    component.objectiveList = [new ViewObjective(
+      1,
+      'testName',
+      'testDescription',
+      '',
+      0,
+      [],
+      true,
+      null,
+      123,
+      '321',
+      0,
+      [],
+    )];
     fixture.detectChanges();
   });
 
@@ -108,55 +119,55 @@ describe('ChildUnitOverviewTabComponent', () => {
   it('dropObjective moves objective', () => {
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    component.dropObjective({previousIndex: 0, currentIndex: 2} as CdkDragDrop<ViewObjective[]>);
+    component.dropObjective({ previousIndex: 0, currentIndex: 2 } as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
-      .toEqual([{id: 2}, {id: 3}, {id: 1}]);
+      .toEqual([{ id: 2 }, { id: 3 }, { id: 1 }]);
   });
 
   it('dropObjective on same index does not move objective', () => {
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    component.dropObjective({previousIndex: 0, currentIndex: 0} as CdkDragDrop<ViewObjective[]>);
+    component.dropObjective({ previousIndex: 0, currentIndex: 0 } as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
-      .toEqual([{id: 1}, {id: 2}, {id: 3}]);
+      .toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
   });
 
   it('dropObjective on very high index moves to back', () => {
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    component.dropObjective({previousIndex: 0, currentIndex: 1337} as CdkDragDrop<ViewObjective[]>);
+    component.dropObjective({ previousIndex: 0, currentIndex: 1337 } as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
-      .toEqual([{id: 2}, {id: 3}, {id: 1}]);
+      .toEqual([{ id: 2 }, { id: 3 }, { id: 1 }]);
   });
 
   it('dropObjective on very low index moves to front', () => {
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    component.dropObjective({previousIndex: 2, currentIndex: -1337} as CdkDragDrop<ViewObjective[]>);
+    component.dropObjective({ previousIndex: 2, currentIndex: -1337 } as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
-      .toEqual([{id: 3}, {id: 1}, {id: 2}]);
+      .toEqual([{ id: 3 }, { id: 1 }, { id: 2 }]);
   });
 
   it('dropObjective on index out of bounds moves last objective', () => {
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    component.dropObjective({previousIndex: 1337, currentIndex: 0} as CdkDragDrop<ViewObjective[]>);
+    component.dropObjective({ previousIndex: 1337, currentIndex: 0 } as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
-      .toEqual([{id: 3}, {id: 1}, {id: 2}]);
+      .toEqual([{ id: 3 }, { id: 1 }, { id: 2 }]);
   });
 
   it('dropObjective on negative index out of bounds moves last objective', () => {
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    component.dropObjective({previousIndex: -1337, currentIndex: 2} as CdkDragDrop<ViewObjective[]>);
+    component.dropObjective({ previousIndex: -1337, currentIndex: 2 } as CdkDragDrop<ViewObjective[]>);
 
     expect(objectiveList)
-      .toEqual([{id: 2}, {id: 3}, {id: 1}]);
+      .toEqual([{ id: 2 }, { id: 3 }, { id: 1 }]);
   });
 
   it('moveObjectiveToTop moves objective to top', () => {
@@ -165,7 +176,7 @@ describe('ChildUnitOverviewTabComponent', () => {
     component.moveObjectiveToTop(objectiveList[2] as ViewObjective);
 
     expect(objectiveList)
-      .toEqual([{id: 3}, {id: 1}, {id: 2}]);
+      .toEqual([{ id: 3 }, { id: 1 }, { id: 2 }]);
   });
 
   it('moveObjectiveToTop objective already at top, does not change anything', () => {
@@ -174,7 +185,7 @@ describe('ChildUnitOverviewTabComponent', () => {
     component.moveObjectiveToTop(objectiveList[0] as ViewObjective);
 
     expect(objectiveList)
-      .toEqual([{id: 1}, {id: 2}, {id: 3}]);
+      .toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
   });
 
   it('moveObjectiveToBottom moves objective to bottom', () => {
@@ -183,7 +194,7 @@ describe('ChildUnitOverviewTabComponent', () => {
     component.moveObjectiveToBottom(objectiveList[0] as ViewObjective);
 
     expect(objectiveList)
-      .toEqual([{id: 2}, {id: 3}, {id: 1}]);
+      .toEqual([{ id: 2 }, { id: 3 }, { id: 1 }]);
   });
 
   it('moveObjectiveToBottom objective already at bottom, does not change anything', () => {
@@ -192,7 +203,7 @@ describe('ChildUnitOverviewTabComponent', () => {
     component.moveObjectiveToBottom(objectiveList[2] as ViewObjective);
 
     expect(objectiveList)
-      .toEqual([{id: 1}, {id: 2}, {id: 3}]);
+      .toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
   });
 
   it('queryUpdatedObjectiveOrder puts child unit', () => {
@@ -234,7 +245,7 @@ describe('ChildUnitOverviewTabComponent', () => {
       23,
       '321',
       0,
-      []
+      [],
     );
 
     component.onObjectiveAdded(newObjective);

@@ -1,12 +1,5 @@
 package org.burningokr.service.topicDraft;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.*;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
@@ -23,17 +16,35 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OkrTopicDraftServiceTest {
 
-  @Mock private OkrTopicDraftRepository okrTopicDraftRepository;
-  @Mock private User user;
-  @Mock private ActivityService activityService;
+  @Mock
+  private OkrTopicDraftRepository okrTopicDraftRepository;
+  @Mock
+  private User user;
+  @Mock
+  private ActivityService activityService;
 
-  @Mock private UserService userService;
-  @Mock private AdminUserService adminUserService;
+  @Mock
+  private UserService userService;
+  @Mock
+  private AdminUserService adminUserService;
 
-  @InjectMocks private OkrTopicDraftService okrTopicDraftService;
+  @InjectMocks
+  private OkrTopicDraftService okrTopicDraftService;
 
   private OkrTopicDraft okrTopicDraft;
   private OkrTopicDraft okrTopicDraft2;

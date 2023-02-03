@@ -1,11 +1,12 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Note;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class NoteMapper extends NoteAbstractMapper implements DataMapper<Note, NoteDto> {

@@ -1,6 +1,7 @@
-<ng-template [ngIf]="isPlayground" [ngIfElse]="demoOff">
+<ng-template [ngIfElse]="demoOff" [ngIf]="isPlayground">
   <div class="scroll-to-top show-scrollTop">
-    <button mat-fab class="color-white" matTooltip="{{'feedback-button.button-icon.tooltip' | translate}}" (click)="navigateToGitHub()">
+    <button (click)="navigateToGitHub()" class="color-white" mat-fab
+            matTooltip="{{'feedback-button.button-icon.tooltip' | translate}}">
       <mat-icon>
         report_problem
       </mat-icon>
@@ -9,7 +10,8 @@
 </ng-template>
 <ng-template #demoOff>
   <div class="fab-container">
-    <button mat-fab matTooltip="{{'feedback-button.button-icon.tooltip' | translate}}" (click)="openFeedbackPopup()" [disabled]="(hasMail$ | async) === false">
+    <button (click)="openFeedbackPopup()" [disabled]="(hasMail$ | async) === false" mat-fab
+            matTooltip="{{'feedback-button.button-icon.tooltip' | translate}}">
       <mat-icon>
         contact_mail
       </mat-icon>

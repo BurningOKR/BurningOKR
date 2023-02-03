@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-taskboard-state-column-view',
   templateUrl: './taskboard-state-column-view.component.html',
-  styleUrls: ['./taskboard-state-column-view.component.css']
+  styleUrls: ['./taskboard-state-column-view.component.css'],
 })
 export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
@@ -24,14 +24,14 @@ export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective im
   constructor(
     private taskHelper: TaskBoardStateColumnViewHelper,
     private taskBoardEventService: TaskBoardViewEventService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.taskBoardEventService.taskDragAndDropInView$.subscribe(event => this.onTaskMovedInView(event))
+      this.taskBoardEventService.taskDragAndDropInView$.subscribe(event => this.onTaskMovedInView(event)),
     );
 
     this.statesWithTasks$ = this.data$.pipe(
@@ -42,7 +42,8 @@ export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective im
         const defaultMap: StateTaskMap = { state: new ViewTaskState(null, 'defaultStateText'), tasks: null };
 
         return this.taskHelper.createStateTaskMapList(viewdata.taskStates, viewdata.tasks, defaultMap);
-      }));
+      }),
+    );
   }
 
   ngOnDestroy(): void {
@@ -55,7 +56,8 @@ export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective im
 
     const result: ViewTask = this.taskHelper
       .getMovedTaskWithNewPositionData(dropEvent.$event.previousIndex, dropEvent.$event.previousContainer.data,
-      dropEvent.$event.currentIndex, dropEvent.$event.container.data, dropEvent.state);
+        dropEvent.$event.currentIndex, dropEvent.$event.container.data, dropEvent.state,
+      );
 
     this.taskBoardEventService.taskMovedInView$.next(result);
   }

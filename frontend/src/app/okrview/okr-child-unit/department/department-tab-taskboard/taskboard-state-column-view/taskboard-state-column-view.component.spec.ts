@@ -14,7 +14,7 @@ describe('TaskboardStateColumnViewComponent', () => {
   @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'app-taskboard-column',
-    template: ''
+    template: '',
   })
   class TaskBoardStateColumnMockComponent {
     @Input() map: StateTaskMap[];
@@ -24,13 +24,13 @@ describe('TaskboardStateColumnViewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskboardStateColumnViewComponent, TaskBoardStateColumnMockComponent ],
+      declarations: [TaskboardStateColumnViewComponent, TaskBoardStateColumnMockComponent],
       imports: [MaterialTestingModule],
       providers: [
-        {provide: TaskBoardStateColumnViewHelper},
-        ]
+        { provide: TaskBoardStateColumnViewHelper },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

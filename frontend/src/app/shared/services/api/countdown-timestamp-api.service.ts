@@ -4,7 +4,7 @@ import { ApiHttpService } from '../../../core/services/api-http.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CountdownTimestampApiService {
 
@@ -16,7 +16,7 @@ export class CountdownTimestampApiService {
     return this.api.getData$('demo/reset')
       .pipe(map((timeLeft: number) => {
           return new Date(Date.now() + timeLeft);
-        }
+        },
       ));
   }
 }

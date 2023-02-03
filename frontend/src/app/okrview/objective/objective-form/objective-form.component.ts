@@ -32,7 +32,7 @@ class DepartmentObjectiveSchema {
 @Component({
   selector: 'app-objective-form',
   templateUrl: './objective-form.component.html',
-  styleUrls: ['./objective-form.component.scss']
+  styleUrls: ['./objective-form.component.scss'],
 })
 export class ObjectiveFormComponent implements OnInit, OnDestroy {
   objective: ViewObjective;
@@ -52,7 +52,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
     private currentOkrUnitSchemaService: CurrentOkrUnitSchemaService,
     private userService: UserService,
     private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) private formData: ObjectiveFormData
+    @Inject(MAT_DIALOG_DATA) private formData: ObjectiveFormData,
   ) {
   }
 
@@ -63,7 +63,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       description: new FormControl('', [Validators.maxLength(255)]),
       remark: new FormControl('', [Validators.maxLength(255)]),
       contactPersonId: new FormControl(),
-      isActive: new FormControl(true)
+      isActive: new FormControl(true),
     });
 
     if (this.formData.objective) {
@@ -78,8 +78,10 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
 
     const editText: string = this.translate.instant('objective-form.dialog.edit');
     const createText: string = this.translate.instant('objective-form.dialog.create');
-    this.title = this.translate.instant('objective-form.dialog.title',
-      {editOrCreateText: this.objective ? editText : createText});
+    this.title = this.translate.instant(
+      'objective-form.dialog.title',
+      { editOrCreateText: this.objective ? editText : createText },
+    );
   }
 
   ngOnDestroy(): void {
@@ -120,7 +122,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
         formData.parentUnitId,
         formData.contactPersonId,
         undefined,
-        undefined
+        undefined,
       );
       newObjective.parentUnitId = this.formData.unitId;
       this.dialogRef.close(this.objectiveMapper.postObjectiveForUnit$(this.formData.unitId, newObjective));
@@ -132,7 +134,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((departmentList: OkrUnitSchema[]) => {
           return this.getDepartmentObjectiveUnitsForDepartments$(departmentList);
-        })
+        }),
       )
       .subscribe((departmentObjectiveSchemas: DepartmentObjectiveSchema[]) => {
         this.parentElements$.next(departmentObjectiveSchemas);
@@ -146,7 +148,7 @@ export class ObjectiveFormComponent implements OnInit, OnDestroy {
         .pipe(
           map((objectiveList: ViewObjective[]) => {
             return new DepartmentObjectiveSchema(currentUnit, objectiveList);
-          })
+          }),
         );
     }));
   }

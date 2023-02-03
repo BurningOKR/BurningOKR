@@ -1,20 +1,26 @@
 .content-wrapper {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .content {
-  width: 80%;
+    width: 80%;
 }
 
 .short-text {
-  display: none;
+    display: none;
 }
 
 @media (max-width: 768px) {
-  .short-text { display: inline-block; }
-  .full-text { display: none; }
-  #topic-drafts-page-topic {
-    font-size: medium;
-  }
+    .short-text {
+        display: inline-block;
+    }
+
+    .full-text {
+        display: none;
+    }
+
+    #topic-drafts-page-topic {
+        font-size: medium;
+    }
 }

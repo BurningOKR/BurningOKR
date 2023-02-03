@@ -11,20 +11,20 @@ public class ParentService {
   /**
    * Validates if an {@link Objective} is a parent of another {@link Objective}.
    *
-   * @param childObjective a {@link Objective} object
+   * @param childObjective  a {@link Objective} object
    * @param parentObjective a {@link Objective} object
    */
   public void validateParentObjective(Objective childObjective, Objective parentObjective) {
     if (!isParentObjectiveLegal(childObjective, parentObjective)) {
       throw new IllegalArgumentException(
-          "Objective with id " + parentObjective.getId() + " is not suitable as parentObjective.");
+        "Objective with id " + parentObjective.getId() + " is not suitable as parentObjective.");
     }
   }
 
   /**
    * Test if an Objective is a child of another Objective.
    *
-   * @param childObjective an {@link Objective} object
+   * @param childObjective  an {@link Objective} object
    * @param parentObjective an {@link Objective} object
    * @return a boolean value
    */
@@ -38,7 +38,7 @@ public class ParentService {
   /**
    * Test if a okrUnit is a Child of another okrUnit.
    *
-   * @param childOkrUnit a {@link OkrUnit} object
+   * @param childOkrUnit  a {@link OkrUnit} object
    * @param parentOkrUnit a {@link OkrUnit} object
    * @return a boolean value
    */

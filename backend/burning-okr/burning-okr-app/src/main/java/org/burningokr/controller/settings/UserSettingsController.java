@@ -1,6 +1,5 @@
 package org.burningokr.controller.settings;
 
-import javax.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
+
 @RestApiController
 public class UserSettingsController {
 
@@ -24,16 +25,17 @@ public class UserSettingsController {
   /**
    * Initialize UserSettingsController.
    *
-   * @param userSettingsService an {@link UserSettingsService} object
-   * @param dataMapper a {@link DataMapper} object with {@link UserSettings} and {@link
-   *     UserSettingsDto}
+   * @param userSettingsService  an {@link UserSettingsService} object
+   * @param dataMapper           a {@link DataMapper} object with {@link UserSettings} and {@link
+   *                             UserSettingsDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
   public UserSettingsController(
-      UserSettingsService userSettingsService,
-      DataMapper<UserSettings, UserSettingsDto> dataMapper,
-      AuthorizationService authorizationService) {
+    UserSettingsService userSettingsService,
+    DataMapper<UserSettings, UserSettingsDto> dataMapper,
+    AuthorizationService authorizationService
+  ) {
     this.userSettingsService = userSettingsService;
     this.mapper = dataMapper;
     this.authorizationService = authorizationService;
@@ -55,15 +57,18 @@ public class UserSettingsController {
    * API Endpoint to update the user settings.
    *
    * @param userSettingsDto an {@link UserSettingsDto} object
-   * @param user an {@link User} object
+   * @param user            an {@link User} object
    * @return a {@link ResponseEntity} ok with the updated user settings
    */
   @PutMapping("/settings")
   public ResponseEntity<UserSettingsDto> updateUserSettingsDto(
-      @Valid @RequestBody UserSettingsDto userSettingsDto, User user) {
+    @Valid
+    @RequestBody
+    UserSettingsDto userSettingsDto, User user
+  ) {
     UserSettings userSettings = this.mapper.mapDtoToEntity(userSettingsDto);
     return ResponseEntity.ok(
-        this.mapper.mapEntityToDto(
-            this.userSettingsService.updateUserSettings(userSettings, user)));
+      this.mapper.mapEntityToDto(
+        this.userSettingsService.updateUserSettings(userSettings, user)));
   }
 }

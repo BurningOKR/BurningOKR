@@ -4,7 +4,7 @@ import { User } from '../../model/api/user';
 @Component({
   selector: 'app-user-avatar',
   templateUrl: './user-avatar.component.html',
-  styleUrls: ['./user-avatar.component.css']
+  styleUrls: ['./user-avatar.component.css'],
 })
 export class UserAvatarComponent implements OnChanges {
   @Input() user: User;

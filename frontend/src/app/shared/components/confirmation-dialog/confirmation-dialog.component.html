@@ -3,6 +3,7 @@
   {{ formData.message }}
 </div>
 <div mat-dialog-actions>
-  <button mat-stroked-button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{confirmButtonText}}</button>
-  <button mat-stroked-button mat-button color="warn" (click)="onNoClick()">{{cancelButtonText}}</button>
+  <button [mat-dialog-close]="true" cdkFocusInitial color="primary" mat-button
+          mat-stroked-button>{{confirmButtonText}}</button>
+  <button (click)="onNoClick()" color="warn" mat-button mat-stroked-button>{{cancelButtonText}}</button>
 </div>

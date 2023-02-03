@@ -1,8 +1,9 @@
 package org.burningokr.model.mail;
 
+import lombok.Data;
+
 import java.util.Collection;
 import java.util.Map;
-import lombok.Data;
 
 @Data
 public class Mail {

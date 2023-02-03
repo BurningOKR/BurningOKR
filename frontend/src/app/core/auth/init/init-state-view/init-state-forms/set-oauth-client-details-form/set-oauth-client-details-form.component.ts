@@ -58,7 +58,8 @@ export class SetOauthClientDetailsFormComponent extends InitStateFormComponent i
       }, () => {
         this.toggleLoadingScreen();
         this.snackBar.open(this.timeoutErrorMessage, this.timeoutErrorMessageAction,
-          { panelClass: 'api-error-snackbar', verticalPosition: 'top' });
+          { panelClass: 'api-error-snackbar', verticalPosition: 'top' },
+        );
       }));
   }
 

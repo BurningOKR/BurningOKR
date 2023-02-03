@@ -8,9 +8,11 @@ import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
 @Injectable()
 export class OAuthInterceptorService implements HttpInterceptor {
 
-  constructor(private authStorage: OAuthStorage,
-              private errorHandler: OAuthResourceServerErrorHandler,
-              private injector: Injector) {
+  constructor(
+    private authStorage: OAuthStorage,
+    private errorHandler: OAuthResourceServerErrorHandler,
+    private injector: Injector,
+  ) {
 
   }
 
@@ -35,9 +37,9 @@ export class OAuthInterceptorService implements HttpInterceptor {
             headers = this.setBearerAuthorizationHeader(req, authConfig);
           }
 
-          return next.handle(req.clone({headers}))
+          return next.handle(req.clone({ headers }))
             .pipe(catchError(error => this.errorHandler.handleError(error)));
-        })
+        }),
       );
   }
 

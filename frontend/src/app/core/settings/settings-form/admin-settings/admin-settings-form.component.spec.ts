@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const configurationManagerServiceStub: any = {
   getAllConfigurations$: jest.fn(),
-  updateConfigurations$: jest.fn()
+  updateConfigurations$: jest.fn(),
 };
 
 const currentUserServiceStub: any = {
@@ -22,18 +22,18 @@ const currentUserServiceStub: any = {
 
 const oAuthFrontendDetailsServiceStub: any = {
   getAuthType$: jest.fn(),
-  isAzureAuthType$: jest.fn()
+  isAzureAuthType$: jest.fn(),
 };
 
 const dialog: any = {
-  open: jest.fn()
+  open: jest.fn(),
 };
 
 const configuration: Configuration = {
   id: 0,
   name: 'config_name',
   value: 'true',
-  type: 'text'
+  type: 'text',
 };
 
 let configurationCheckBox: Configuration;
@@ -48,7 +48,7 @@ describe('AdminSettingsForm', () => {
       id: 1,
       name: 'topic-sponsors-activated',
       value: 'true',
-      type: 'checkbox'
+      type: 'checkbox',
     };
 
     configurationManagerServiceStub.getAllConfigurations$.mockReset();
@@ -64,8 +64,10 @@ describe('AdminSettingsForm', () => {
     oAuthFrontendDetailsServiceStub.isAzureAuthType$.mockReturnValue(of('false'));
     oAuthFrontendDetailsServiceStub.getAuthType$.mockReturnValue(of('local'));
     /* eslint-disable  */
-    dialog.open.mockReturnValue({ afterClosed: jest.fn()
-        .mockReturnValue(of(true)) });
+    dialog.open.mockReturnValue({
+      afterClosed: jest.fn()
+        .mockReturnValue(of(true)),
+    });
     /* eslint-enable */
 
     TestBed.configureTestingModule(
@@ -73,11 +75,11 @@ describe('AdminSettingsForm', () => {
         declarations: [AdminSettingsFormComponent],
         imports: [MaterialTestingModule, BrowserAnimationsModule],
         providers: [
-          {provide: ConfigurationManagerService, useValue: configurationManagerServiceStub},
-          {provide: CurrentUserService, useValue: currentUserServiceStub},
-          {provide: MatDialogRef, useValue: {}},
-          {provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceStub},
-          {provide: MatDialog, useValue: dialog},
+          { provide: ConfigurationManagerService, useValue: configurationManagerServiceStub },
+          { provide: CurrentUserService, useValue: currentUserServiceStub },
+          { provide: MatDialogRef, useValue: {} },
+          { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceStub },
+          { provide: MatDialog, useValue: dialog },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       })

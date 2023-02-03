@@ -4,5 +4,5 @@ export const loggerConfig: LoggerConfig = {
   serverLoggingUrl: '/api/log',
   level: NgxLoggerLevel.TRACE,
   serverLogLevel: NgxLoggerLevel.WARN,
-  enableSourceMaps: true
+  enableSourceMaps: true,
 };

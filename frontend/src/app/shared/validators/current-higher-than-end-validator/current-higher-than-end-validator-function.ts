@@ -3,7 +3,7 @@ import { AbstractValidator, register } from '../abstract-validator';
 import { TranslateService } from '@ngx-translate/core';
 
 export const currentHigherThanEndError: ValidationErrors = {
-  currentHigherThanEndError: true
+  currentHigherThanEndError: true,
 };
 
 @register
@@ -12,7 +12,8 @@ export class CurrentHigherThanEndValidator extends AbstractValidator {
   constructor(private translate: TranslateService) {
     super(
       translate.instant('current-higher-than-end-validator-function.message'),
-      currentHigherThanEndError);
+      currentHigherThanEndError,
+    );
   }
 
   static Validate(control: AbstractControl): ValidationErrors {

@@ -1,14 +1,15 @@
 package org.burningokr.mapper.users;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
 import org.burningokr.dto.users.ForgotPasswordDto;
 import org.burningokr.model.users.ForgotPassword;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class ForgotPasswordMapperTest {
   private final ForgotPasswordMapper forgotPasswordMapper = new ForgotPasswordMapper();
@@ -50,7 +51,7 @@ public class ForgotPasswordMapperTest {
     forgotPasswordDtos.add(forgotPasswordDto2);
 
     ArrayList<ForgotPassword> forgotPasswords =
-        (ArrayList<ForgotPassword>) forgotPasswordMapper.mapDtosToEntities(forgotPasswordDtos);
+      (ArrayList<ForgotPassword>) forgotPasswordMapper.mapDtosToEntities(forgotPasswordDtos);
 
     assertThat(forgotPasswordDtos, hasSize(2));
     assertEquals(forgotPasswordDtos.size(), forgotPasswords.size());
@@ -70,7 +71,7 @@ public class ForgotPasswordMapperTest {
     forgotPasswords.add(forgotPassword2);
 
     ArrayList<ForgotPasswordDto> forgotPasswordDtos =
-        (ArrayList<ForgotPasswordDto>) forgotPasswordMapper.mapEntitiesToDtos(forgotPasswords);
+      (ArrayList<ForgotPasswordDto>) forgotPasswordMapper.mapEntitiesToDtos(forgotPasswords);
 
     assertThat(forgotPasswords, hasSize(2));
     assertEquals(forgotPasswords.size(), forgotPasswordDtos.size());

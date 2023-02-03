@@ -3,7 +3,7 @@ import { ViewTask } from '../../../model/ui/taskboard/view-task';
 import { TaskId, TaskStateId } from '../../../model/id-types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export abstract class TaskService {
   getFirstTaskId(taskList: ViewTask[]): number {

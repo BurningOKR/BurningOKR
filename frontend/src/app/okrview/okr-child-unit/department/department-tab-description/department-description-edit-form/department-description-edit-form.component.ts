@@ -15,16 +15,19 @@ interface OkrTopicDescriptionFormData {
 @Component({
   selector: 'app-department-description-edit-form',
   templateUrl: './department-description-edit-form.component.html',
-  styleUrls: ['./department-description-edit-form.component.css']
+  styleUrls: ['./department-description-edit-form.component.css'],
 })
 export class DepartmentDescriptionEditFormComponent implements OnInit {
   descriptionForm: FormGroup;
   title$: Observable<string>;
 
-  constructor(private okrTopicDescriptionService: TopicDescriptionMapper,
-              private dialogRef: MatDialogRef<DepartmentDescriptionEditFormComponent>,
-              private translate: TranslateService,
-              @Inject(MAT_DIALOG_DATA) private formData: OkrTopicDescriptionFormData) { }
+  constructor(
+    private okrTopicDescriptionService: TopicDescriptionMapper,
+    private dialogRef: MatDialogRef<DepartmentDescriptionEditFormComponent>,
+    private translate: TranslateService,
+    @Inject(MAT_DIALOG_DATA) private formData: OkrTopicDescriptionFormData,
+  ) {
+  }
 
   ngOnInit(): void {
     this.descriptionForm = new FormGroup({
@@ -38,8 +41,8 @@ export class DepartmentDescriptionEditFormComponent implements OnInit {
       handoverPlan: new FormControl('', Validators.maxLength(1024)),
       initiatorId: new FormControl(),
       startTeam: new FormControl([]),
-      stakeholders: new FormControl([])
-      });
+      stakeholders: new FormControl([]),
+    });
 
     if (this.formData.okrTopicDescription) {
       this.descriptionForm.patchValue(this.formData.okrTopicDescription);

@@ -1,6 +1,7 @@
 <app-okr-toolbar-bare [fixedPosition]="true">
   <span class="spacer"></span>
-  <button mat-stroked-button class="button-bag-layout" (click)="openPlayground()">{{ 'demo-main-view.playground' | translate }}</button>
+  <button (click)="openPlayground()" class="button-bag-layout"
+          mat-stroked-button>{{ 'demo-main-view.playground' | translate }}</button>
 </app-okr-toolbar-bare>
 <div class="placeholder"></div>
 <router-outlet></router-outlet>

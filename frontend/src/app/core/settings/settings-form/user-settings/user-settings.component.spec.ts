@@ -12,15 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 
 const companyService: any = {
-  getActiveCompanies$: jest.fn()
+  getActiveCompanies$: jest.fn(),
 };
 
 const userSettingsManager: any = {
-  getUserSettings$: jest.fn()
+  getUserSettings$: jest.fn(),
 };
 
 const departmentService: any = {
-  getAllDepartmentsForCompanyFlatted$: jest.fn()
+  getAllDepartmentsForCompanyFlatted$: jest.fn(),
 };
 
 let userSettings: UserSettings;
@@ -35,7 +35,7 @@ const okrDepartment: OkrDepartment = {
   okrMasterId: '',
   okrMemberIds: [],
   okrTopicSponsorId: '',
-  parentUnitId: 1
+  parentUnitId: 1,
 };
 
 describe('UserSettingsComponent', () => {
@@ -49,8 +49,8 @@ describe('UserSettingsComponent', () => {
       providers: [
         { provide: CompanyMapper, useValue: companyService },
         { provide: UserSettingsManagerService, useValue: userSettingsManager },
-        { provide: DepartmentMapper, useValue: departmentService }
-      ]
+        { provide: DepartmentMapper, useValue: departmentService },
+      ],
     })
       .compileComponents();
   }));
@@ -60,7 +60,7 @@ describe('UserSettingsComponent', () => {
       defaultCompanyId: 4,
       defaultTeamId: 5,
       id: 1,
-      userId: ''
+      userId: '',
     };
 
     userSettingsManager.getUserSettings$.mockReset();

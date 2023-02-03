@@ -1,886 +1,886 @@
 {
-	"add-child-unit-button": {
-		"add-new-child-unit": "Create substructure",
-		"demo-privacy-policy": "<div class=\"container footer-margin\">\n\n  <div class=\"content-container\">\n    <h1>DATA PROTECTION</h1>\n\n    <div class=\"content-container\">\n      With this statement, we inform you about aspects relevant to data protection as well as the measures used to protect your rights. Brockhaus AG complies with the requirements of the German Federal Data Protection Act (BDSG) and the EU General Data Protection Regulation (EU-DSGVO).\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>1. COLLECTION AND USE OF PERSONAL DATA</h3>\n\n    <div class=\"content-container\">\n      <h4>1.1 Basic</h4>\n      The sole purpose of your data is to provide you with the most user-friendly, practical and secure Internet service possible. Personal data includes all information about personal or factual circumstances of an identified or identifiable natural person, e.g. name, address, contact details, IP addresses, data volumes transferred, etc.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.2 Legal basis</h4>\n      a) The provision of this website with products and services: Contract initiation or contract fulfillment<br>\n      b) Requests by mail, email or fax to us: contract initiation or fulfillment<br>\n      c) Links to other offers or evaluation of accesses: legitimate interest.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.3 Automatic processing by website operation</h4>\n      The websites are operated by a provider in Western Europe (Frankfurt, Germany), which in turn stores the accesses to the system in so-called server logs for the operation of the web offer. In doing so, the following data is usually collected: IP addresses, timestamps of accesses, names of web pages, amounts of data transferred, logouts or terminations, browser types, information from the operating system, referrer URLs. This data is not stored or evaluated by us. In the event of a justified suspicion of abuse based on concrete information, these log files can be subsequently checked.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.4 Data input by the website user</h4>\n      You can furthermore, use our websites without the input of personal data without restriction. If we collect personal data (contact form), we will inform in each case about the purpose, scope, legality, and possible disclosure and use this only for these purposes. The input of this data by you is voluntary.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>2. USE OF DATA</h3>\n\n    <div class=\"content-container\">\n      <h4>2.1 Use for service provision</h4>\n      We use the personal data collected and processed exclusively for the purposes of providing our services under the user agreement concluded with you and for processing payments. In doing so, we naturally comply with all applicable data protection laws, in particular the German Federal Data Protection Act/EU-DSGVO and the German Telemedia Act (TMG).\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.2 Disclosure to third parties</h4>\n      We do not pass on your personal data to third parties for marketing or similar purposes. Data will only be passed on if and insofar as this is necessary for the implementation of the user agreement, Brockhaus AG is legally obliged to do so or it should be necessary to enforce the general terms of use or other agreements concluded with you as well as our rights and claims.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.3 Customer information by eMail</h4>\n      In the context of customer loyalty, we send current information to our customers to inform you about news and changes within our offer. This information is not to be confused with the general newsletters. If it concerns our offers and contains e.g. safety-relevant points or important information from our house, we can handle this only by eMail. Please have understanding for it.\n    </div>\n  </div>\n\n\n  <div class=\"content-container\">\n    <h3>3. COOKIES</h3>\n\n    <div class=\"content-container\">\n      Our website uses cookies to provide you with an effective experience and user-friendly handling. This makes the use of cookies necessary and justifies our legitimate interest in using this technology. Most browsers offer you the functionality to display the cookies used.\n    </div>\n   <div class=\"content-container\">\n      However, if you would like to generally prevent the use of cookies, your browser offers the option of preventing the acceptance and storage of new cookies. To find out how this works with your browser, please use the help function of the respective browser. However, we recommend that you leave the cookies function switched on, as only then will you be able to fully benefit from the high level of user comfort that we have set up for you. We do not create user profiles from this user data collected through cookies.\n    </div>\n\n    <div class=\"content-container\">\n      To edit your cookie settings, please click <a id=\"open-cookie-settings-link\" href=\"javascript:klaro.show();\">here</a>\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>4. WEBSITE EVALUATIONS AND TOOLS</h3>\n    <div class=\"content-container\">We use the following analysis tool to evaluate our websites and describe it to you as follows:</div>\n    <div class=\"content-container\">\n      This website uses Google Analytics, a web analytics service provided by Google, Inc. (\"Google\"). Google Analytics uses \"cookies\", which are text files placed on your computer, to help the website analyze how users use the site. The information generated by the cookie about your use of the website is usually transmitted to a Google server in the USA and stored there. The IP address transmitted by your browser as part of Google Analytics is not merged with other data from Google. We have also extended Google Analytics on this website with the code \"anonymizeIP\". This guarantees the masking of your IP address so that all data is collected anonymously. Only in exceptional cases will the full IP address be transferred to a Google server in the USA and shortened there.\n    </div>\n    <div class=\"content-container\">\n      On behalf of the operator of this website, Google will use this information for the purpose of evaluating your use of the website, compiling reports on website activity and providing other services relating to website activity and internet usage to the website operator. You may refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website.\n    </div>\n    <div class=\"content-container\">\n      You can also prevent the collection of data generated by the cookie and related to your use of the website (including your IP address) to Google and the processing of this data by Google by downloading and installing the browser plugin available at the following link: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n    <div class=\"content-container\">\n      As an alternative to the browser add-on, especially for browsers on mobile devices, you can also prevent the collection by Google Analytics by clicking on this link. An opt-out cookie will be set that prevents the future collection of your data when visiting this website. The opt-out cookie is only valid in this browser and only for our website and is stored on your device. If you delete the cookies in this browser, you must set the opt-out cookie again\n    </div>\n    <div class=\"content-container\">\n      We continue to use Google Analytics to analyze data from Double Click cookies and also AdWords for statistical purposes. If you do not wish to do so, you can disable this via the Ads Preferences Manager (<a href=\"https://www.google.com/settings/ads/onweb/?hl=de\">https://www.google.com/settings/ads/onweb/?hl=de</a>).\n    </div>\n    <div class=\"content-container\">\n      If you wish to object to the collection, you can use a plugin via the following link and install it: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>5. SECURITY</h3>\n\n\n    <div class=\"content-container\">\n      Brockhaus AG uses technical and organizational security measures to ensure that your personal data is protected against loss, incorrect modification or unauthorized access by third parties. In any case, only authorized persons have access to the personal data, and only to the extent necessary for the above-mentioned purposes. The security measures are constantly adapted to the improved technical possibilities.\n    </div>\n  </div>\n \n<div class=\"content-container\">\n    <h3>6. FURTHER INFORMATION REQUIREMENTS</h3>\n\n    <div class=\"content-container\">\n      <h4>6.1 Responsible entity</h4>\n      BROCKHAUS AG, Lünen. For full contact details, see imprint.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.2 Data protection officer</h4>\n      P2 Consult<br>\n      Jürgen Golda<br>\n      Wilhelm-Bläser-Str. 3c, D-59174 Kamen<br>\n      Phone: +49 (0) 2307 28 74 488<br>\n      Mail: datenschutz@brockhaus-ag.de<br>\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.3. storage period</h4>\n      We store your data as long as the purpose of storage remains (requests, projects, contracts, etc.) If the purpose ceases to exist or you withdraw consent, your data will be deleted by the regular deletion run, provided that no legal retention periods must be observed.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.4 Children</h4>\n      We will not knowingly collect or process data from children. To the extent that students make requests, we will only store the data if we have the express consent of the parent or guardian. If children's data may then be stored, we will only share it as required by law. The term \"children\" includes the definitions from national law and the legal provisions in force at our company.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.5 Profiling</h4>\n      Profiling of your data does not take place.\n      Automatic decision-making and/or profiling with your data does not take place with us.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.6 Your rights</h4>\n      You can contact us at any time if you want to make a disclosure, a deletion, a restriction or an objection. To do so, use the contact information provided. Requests must be made in writing so that we can clearly identify the requester.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.7 Right of complaint</h4>\n      If you have reasonable doubts about our handling of your data, please inform us or contact the relevant supervisory authority.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.8. Changes</h4>\n      We reserve the right to amend this privacy statement from time to time. Therefore, we recommend that you review this statement regularly.\n    </div>\n  </div>\n\n</div>\n\n\n\n\n\n\n  \n    \n\n",
-		"okr-team": "OKR Team",
-		"substructure": "Substructure"
-	},
-	"admin-settings-form": {
-		"config-names": {
-			"email-feedabck-receiver": "Email addresses of the feedback recipients. (Separated by a comma)",
-			"email-sender": "Email address of the OKR tool",
-			"frontend-base-url": "Frontend Base URL",
-			"max-key-results": "Maximum number of Key results",
-			"subject": {
-				"feedback": "Email subject for feedback",
-				"new-user": "Email subject for new users",
-				"reset-password": "Email Subject for the password reset email"
-			},
-			"threshold": {
-				"green-yellow": "Objective forecast threshold (green/yellow)",
-				"yellow-red": "Objective prognosis threshold (yellow/red)"
-			},
-			"topic-sponsors-activated": "Topic sponsors activated"
-		},
-		"confirmation-text": "By deactivating all OKR topic sponsors, they become team members in their respective team.",
-		"confirmation-title": "Deactivate OKR topic sponsors"
-	},
-	"admin-view": {
-		"admin-panel": "Admin panel",
-		"admins": "Admins",
-		"delete-dialog": {
-			"button-text": "Delete",
-			"message": " Delete {{surname}}, {{name}} from the admins?",
-			"title": "Delete admin"
-		},
-		"icon-tooltip": " Delete {{adminName}} from the admins",
-		"placeholder": "Define new admin",
-		"tooltip": {
-			"cannot-delete-yourself": "You cannot remove yourself",
-			"go-to-okr-unit-overview": "Go to structure overview"
-		}
-	},
-	"api-http-error-handling": {
-		"error-counting": "{{errorCount}} failed request{{pluralAppendix}}",
-		"error-message": {
-			"appendix": "s",
-			"more-detail": "More Details",
-			"one-or-more-errors": "Error executing one or more requests.",
-			"retry": "Try again",
-			"single-error": "Error executing the request."
-		}
-	},
-	"change-password-dialog": {
-		"form": {
-			"title": "Change password"
-		}
-	},
-	"comment-card": {
-		"edit-comment": "Edit comment",
-		"tooltip": {
-			"cancel": "Cancel editing",
-			"delete-comment": "Delete comment",
-			"edit-comment": "Edit comment",
-			"save-comment": "Save comment"
-		}
-	},
-	"comment-view-dialog": {
-		"close": "Close",
-		"min-char-message": "At least 3 characters are required",
-		"no-comment": "There are no comments yet for this KeyResult",
-		"title": "comments",
-		"tooltip": {
-			"comment-to-small": "Your comment must be longer",
-			"write-new-comment": "Post new comment"
-		},
-		"write-comment": "Write a new comment"
-	},
-	"company": {
-		"error": {
-			"error": "Error",
-			"error-loading-company": "The company could not be loaded. It could have been deleted by another user or the server is not responding.",
-			"navigate-to-structure-view": "To the structure overview"
-		},
-		"loading-company": "Loading company ...",
-		"menu": {
-			"export": "Export",
-			"export-contacts": "Export contacts"
-		},
-		"no-child-units": "There are no substructures for this structure yet",
-		"substructures": "Substructures",
-		"tooltip": {
-			"more-options-for-structure": "More options on this structure"
-		},
-		"your-teams-as-manager": "Your teams as managers",
-		"your-teams-as-member": "Your teams as a member"
-	},
-	"complete-init-state-form": {
-		"initialisation-completed": "Done!",
-		"initialisation-completed-message": "The initialization was successfully completed🎉",
-		"lets-go!": "Let's go!"
-	},
-	"confirmation-dialog": {
-		"cancel-text": "Cancel",
-		"confirm-text": "Confirm"
-	},
-	"convert-topic-draft-to-team": {
-		"dialog": {
-			"save-and-close-label": "Convert "
-		},
-		"form": {
-			"company-option": "Create team in {{value}} ",
-			"select": "Choose parent structure *"
-		},
-		"title": "Convert Topic Draft to a Team",
-		"tooltip": {
-			"only-substructures-allowed": "A team can be created only in structures"
-		}
-	},
-	"create-user-init-state-form": {
-		"create-your-admin-account": "Create your administrator account",
-		"next": "Continue",
-		"subtitle": "Create an initial administrator account."
-	},
-	"current-higher-than-end-validator-function": {
-		"message": "The \"current\" value is higher than the maximum value."
-	},
-	"cycle-admin-card": {
-		"delete-cycle": "Delete cycle",
-		"deletion-dialog": {
-			"content": "the cycle from {{cycleStart}} to {{cycleEnd}}",
-			"title": "Delete the cycle?"
-		},
-		"edit-cycle": "Edit cycle",
-		"hidden": "Hidden",
-		"visible": "Visible"
-	},
-	"cycle-admin-container": {
-		"administration": "Cycle administration",
-		"create-new-cycle": "Create new cycle",
-		"tooltip": {
-			"go-back-to-company": "Return to structure",
-			"go-to-okr-unit-overview": "Go to structure overview"
-		}
-	},
-	"cycle-creation-form": {
-		"creation-dialog": {
-			"save": "Create cycle",
-			"title": "Create a new cycle"
-		},
-		"end-date": "End date",
-		"start-date": "Start date",
-		"visibility": "Visibility"
-	},
-	"cycle-edit-form": {
-		"end-date": "End date",
-		"name": "Name *",
-		"save": "Save",
-		"start-date": "Start date",
-		"title": "Edit cycle",
-		"visibility": "Visibility"
-	},
-	"date-format-validator-function": {
-		"message": "The entered value is not a valid date in the form DD.MM.YYYY"
-	},
-	"date-not-in-the-past-validator-function": {
-		"message": "The entered date is in the past"
-	},
-	"date-range-in-range-within-another-dates-validator-function": {
-		"message": "The date is within the time span of another cycle."
-	},
-	"delete-dialog": {
-		"delete": "Delete",
-		"general-do-you-want-to-delete": "Do you really want to delete {{value}}?"
-	},
-	"demo-footer": {
-		"credits": "Credits",
-		"imprint": "Legal",
-		"privacy-policy": "Privacy policy"
-	},
-	"demo-home": {
-		"contact": {
-			"content": "Do you have questions, suggestions, or problems with the Burning OKR Tool? You are welcome to contact us.",
-			"content-with-link": "In case of bugs or suggestions for improvement regarding the tool, please contact us via <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. If you would like BROCKHAUS AG to perform customization for you, or if you require consulting or any other service, please contact us via <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
-			"title": "How to reach us"
-		},
-		"digitalization": {
-			"content": "With Burning OKR, you digitally map all essential components of the OKR framework and create transparency across teams. The teams manage their own objectives and key results with Burning OKR and make their progress and successes visible. Furthermore, the hierarchies of your company can be made visible within the tool.",
-			"title": "Digitize your entire OKR process"
-		},
-		"documentation": "Documentation",
-		"features": {
-			"content": "Our OKR tool enables you to digitalize the OKR process and its result metrics in a holistic way, including all necessary features. In detail, Burning OKR offers...",
-			"perks-list": "<li>the authentication via Azure Active Directory or a local user management</li>\n        <li>the management of multiple companies (multitenancy)</li>\n        <li>the mapping of cycles, company structures, teams, objectives and key results</li>\n        <li>a progress indicator for Objectives and Key Results</li>\n        <li>a flexible individualization, including the designation of teams, the restriction of the maximum Key Result number, etc.</li>\n        <li>a data export as Excel spreadsheet</li>",
-			"title": "Innovative features"
-		},
-		"free-and-open-source": {
-			"content": "The application is completely free for corporate and private customers. In addition, you can view the open source code at any time on <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> and adapt it to your needs. We are happy to assist you in this process. Make your customizations available as a pull request for the whole world!",
-			"title": "Our free offer for you"
-		},
-		"further-information": {
-			"content": "For more information on the OKR Framework, please visit the <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY page of BROCKHAUS AG</a>.",
-			"title": "Learn more about the OKR Framework and OKR processes"
-		},
-		"github": "GitHub",
-		"installation": {
-			"content": "Burning OKR is easy to install on various platforms. We offer tutorials on how to install with...",
-			"list": "<li>Docker</li>        \n<li>a Tomcat Web Server (coming soon)</li>",
-			"title": "Easy installation"
-		},
-		"playground": "Playground",
-		"target-management": {
-			"content": "Objectives and Key Results are processed in cycles. Design the name, length and content of the cycles according to your wishes. Keep track of the productivity of OKR teams with the Objectives and Key Results progress bar.",
-			"title": "Manage and control your company goals"
-		},
-		"visions": {
-			"content": "The agile OKR framework supports you in achieving strategic business goals through a structured goal-setting process. Short cycles and measurable goals promote regular evaluation of results and give you the opportunity to quickly modify your business model based on new information. With Burning OKR we offer you a powerful and user-friendly OpenSource tool to support you.",
-			"title": "Realize Visions with the help of OKR"
-		},
-		"welcome": {
-			"content": "Burning OKR supports you in achieving strategic corporate goals and promotes an agile and transparent corporate culture. The open source OKR tool is based on BROCKHAUS AG's many years of experience with the OKR framework.",
-			"title": "Welcome to Burning OKR!"
-		}
-	},
-	"demo-imprint": "<div class=\"container footer-margin\">  <h1>IMPRINT</h1>\n  <h4>Imprint according to § 5 TMG:</h4>\n  <div class=\"content-container\">    <h4>BROCKHAUS AG</h4>    Pierbusch 17<br>    44536 Lünen<br>    Germany<br>  </div>\n  <div class=\"content-container\">    <h4>LOCATION DORTMUND</h4>    Emil-Figge-Strasse 85<br>    44227 Dortmund<br>    Germany<br>  </div>\n  <div class=\"content-container\">    <h4>LOCATION HAMBURG </h4>    Willy-Brandt-Strasse 23-25<br>    20457 Hamburg<br>    Germany<br>  </div>\n\n  <div class=\"content-container\">    <b>Phone:</b> +49 (0) 231 98 75-0<br>    <b>Fax:</b> +49 (0) 231 98 75-540<br>    <b>E-mail:</b> info@brockhaus-ag.de<br>    <b>Website:</b> www.brockhaus-ag.de<br>\n    <br>\n    <b>Authorized representative:</b> Matthias Besenfelder<br>    Chairman of the Supervisory Board: Dr. Adam Spalek<br>\n    <br>\n    <b>Register Court:</b>Amtsgericht Dortmund<br>    <b>Register number:</b> HRB 27027<br>    <b>Sales tax identification number:</b> DE 299350276<br>\n    <br>\n    <b>Responsible for the content according to § 55 RStV:</b> Matthias Besenfelder<br>\n    <br>\n    <b>Disclaimer:</b> Despite careful control of the content, we do not assume any liability for the content of external links. The operators of the linked pages are solely responsible for their content.<br>  </div>\n</div>",
-	"demo-main-view": {
-		"playground": "Playground"
-	},
-	"demo-warning": {
-		"abort-button": "Cancel",
-		"database-deletion-text": "Every 2 hours all data on the Demo Playground is deleted. A countdown is displayed for this purpose.",
-		"database-deletion-title": "Data deletion",
-		"explanation": "You are now entering the playground of the Burning OKR Demo.",
-		"good-vibes-only-text": "Please do not spread negative content on the demo playground.",
-		"good-vibes-only-title": "#GoodVibesOnly",
-		"headline": "User generated content",
-		"playground-button": "To the Playground",
-		"title": "Playground",
-		"user-generated-text": "All content on Demo Playground is generated by users. We take no responsibility for this content.",
-		"user-generated-title": "User generated content"
-	},
-	"department-description-edit-form": {
-		"edit-description": "Edit description"
-	},
-	"department-tab-description": {
-		"beginning": "Beginning:",
-		"delimitation": "Delimitation:",
-		"dependencies": "Dependencies:",
-		"description": "Description",
-		"edit-description": "Edit description",
-		"handover-plan": "Handover Plan:",
-		"initiator": "Initiator:",
-		"resources": "Required Resources:",
-		"stakeholder": "Stakeholders:",
-		"startteam": "Start Team:",
-		"to": "Contributes to:",
-		"tooltip": {
-			"no-edit-rights": "Only OKR Masters are allowed to edit descriptions"
-		},
-		"topic": "Topic:"
-	},
-	"department-tab-task-card": {
-		"delete": "Delete",
-		"task-board-loading": "loading"
-	},
-	"department-tab-task-form": {
-		"assigned-user-ids": "Editor",
-		"description": "Description",
-		"dialog": {
-			"create": "create",
-			"edit": "edit",
-			"title": "{{editOrCreateText}} task"
-		},
-		"no-parent-key-result": "No parent key result",
-		"select-parent-key-result": "Choose a parent Key Result",
-		"task-state": "State",
-		"title": "Title *"
-	},
-	"department-tab-taskboard": {
-		"add-button": {
-			"create-new-task": "Create task",
-			"tooltip": "WebSocket-Connection is broken"
-		},
-		"deletion-dialog": {
-			"button-text": "Delete",
-			"message": "Do you really want to delete task \"{{title}}\"?",
-			"title": "Delete task"
-		},
-		"task-board-headline": "Tasks",
-		"websocket-not-connected": "Websocket connection could not be established. Changes are currently not adopted."
-	},
-	"department-tab-team": {
-		"define-o-k-r-master": "No OKR Master defined",
-		"define-topic-sponsor": "No OKR topic sponsor defined",
-		"deletion-dialog": {
-			"button-text": "Delete",
-			"message": "Are you sure you want to do this? This user will lose his manager rights for this team.",
-			"message-member": "Do you want to remove this member from the team? The user will lose his membership rights in this team.",
-			"title-master": "Remove OKR topic sponsor",
-			"title-member": "Delete member",
-			"title-sponsor": "Delete OKR Master"
-		},
-		"members-of-unit": "Structure Members",
-		"no-members-defined": "No team members defined",
-		"o-k-r-master": "OKR Master",
-		"o-k-r-topic-sponsor": "OKR Topic sponsor",
-		"placeholder": {
-			"member": "Add new member",
-			"okr-master": "Add OKR master",
-			"topic-sponsor": "Add topic sponsor"
-		},
-		"team-member": "Team members"
-	},
-	"dialog-component": {
-		"cancel": "Cancel",
-		"date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
-		"save": "Save",
-		"start-date-not-before-end-date": "The start date cannot be before the end date.",
-		"start-equals-end": "The start value must not be the same as the target value."
-	},
-	"disabled-in-demo-version": "⚠ Disabled in the demo version",
-	"error": {
-		"error-id": "Error ID:",
-		"error-list": "Error list",
-		"tooltip": {
-			"go-to-okr-unit-overview": "Go to structure overview",
-			"navigate-to-previous": "Return to the previous page"
-		}
-	},
-	"feedback-button": {
-		"button-icon": {
-			"tooltip": "Feedback"
-		},
-		"successful-send": {
-			"message": "Feedback sent successfully 📬"
-		}
-	},
-	"feedback-form": {
-		"dialog": {
-			"save-button": "Submit Feedback",
-			"title": "Give feedback"
-		},
-		"form-field": {
-			"feedback": "Feedback",
-			"name": "Name"
-		}
-	},
-	"import-csv-dialog": {
-		"amount-of-entries-loaded": "entries were loaded.",
-		"confirmation": {
-			"text": "This operation will add all {{list_length}} users.",
-			"title": " Create {{list_length}} users."
-		},
-		"csv-file": "CSV file",
-		"department": "Department",
-		"description": "This function allows you to import users with a CSV file. The CSV file must provide the user data in the following order: First name, last name, email, job title, department",
-		"duplicate-email-adresses-warning": "There are duplicate email addresses in this record.",
-		"email": "Email",
-		"job-title": "Job title",
-		"name": "Name",
-		"to-many-entries-warning": "At least one entry has too many columns."
-	},
-	"key-result-form": {
-		"amount-units": "Amount",
-		"current": "Current *",
-		"description": "Description",
-		"dialog": {
-			"create": "creation",
-			"edit": "editing"
-		},
-		"key-result": "Key Result *",
-		"start": "Start *",
-		"target": "Target *",
-		"unit": "Unit *"
-	},
-	"key-result-milestone-form": {
-		"add-button": "Add milestone",
-		"name-*": "Name *",
-		"toggle": "Milestones active",
-		"tooltip": {
-			"delete-button": "Delete milestone"
-		},
-		"value-input": "Target-Value *"
-	},
-	"keyresult": {
-		"deletion-dialog": {
-			"button-text": "Delete KeyResult",
-			"message": "Delete KeyResult {{number}}. {{keyResultTitle}} from the Objective?",
-			"title": "Clear"
-		},
-		"menu": {
-			"edit-key-result": "Edit KeyResult",
-			"keyresult": "Delete key result",
-			"move-key-result-down": "Move KeyResult down",
-			"move-key-result-up": "Move KeyResult up"
-		},
-		"tooltip": {
-			"adjust-progress": "Adjust progress",
-			"comments-for-this-key-result": "Comments about this KeyResult",
-			"more-options": "More options for this KeyResult"
-		}
-	},
-	"language-picker": {
-		"language": {
-			"english": "English",
-			"german": "German"
-		},
-		"select-trigger-text": "Select language"
-	},
-	"login": {
-		"button": "Password forgotten",
-		"caps-lock-on": "The caps lock key is active",
-		"email": "Email",
-		"error-invalid-grant": "Invalid password or username",
-		"error-unauthorized": "Username not found",
-		"password": "Password"
-	},
-	"logout": {
-		"logged-out": "You have been successfully logged out.",
-		"redirect": "You will be redirected in a moment."
-	},
-	"main-view": {
-		"navigation-sidebar": {
-			"cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
-			"cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent."
-		},
-		"tooltip": {
-			"adjust-cycleperiod": "Adjust the observation period",
-			"go-to-structure-view": "To the structure overview",
-			"toogle-navigvation": "Show / hide navigation menu"
-		}
-	},
-	"max-length-validator": {
-		"message": "Maximum number of characters exceeded"
-	},
-	"navigation-list-entry": {
-		"tooltip": {
-			"is-substructure": "This is a substructure",
-			"is-team": "This is a team",
-			"you-are-manager": "You are manager of this structure",
-			"you-are-member": "You are a member of this structure"
-		}
-	},
-	"no-mail-information": {
-		"a-a-d": "If an Azure Active Directory is used for user management, the following functions are not available:",
-		"back-to-home": "Back to home page",
-		"create-user-mails": "Sending mails when creating a new user",
-		"feedback": "Sending feedback",
-		"info": "This can restrict the usability of the application.",
-		"local": "If the local user database of BurningOKR is used for user management, the following functions are not available:",
-		"no-smtp": "No SMTP configured",
-		"password-reset-mails": "Sending mails when resetting a password",
-		"title": "No SMTP configuration was found.",
-		"tooltip": {
-			"go-to-okr-unit-overview": "Go to structure overview"
-		}
-	},
-	"objective": {
-		"deletion-dialog": {
-			"button-text": "Delete",
-			"message": "Delete Objective {{number}}. {{objectiveTitle}}?",
-			"title": "Delete Objective"
-		},
-		"menu": {
-			"comment-objective": "Comment Objective",
-			"delete-objective": "Delete Objective",
-			"disable-objective": "Set Objective to inactive",
-			"edit-objective": "Edit Objective",
-			"enable-objective": "Set Objective to Active",
-			"move-down-objective": "Move Objective down",
-			"move-up-objective": "Move Objective up"
-		},
-		"objective-isnt-active": "This objective is not active",
-		"tooltip": {
-			"bad-progress": "The objective is making bad progress",
-			"expand-objective": "Expand Objective",
-			"good-progress": "The Objective makes good progress",
-			"progress-can-be-better": "The objective should improve progress",
-			"subordinate": {
-				"": "Amount of subordinate objectives"
-			}
-		}
-	},
-	"objective-contents": {
-		"define-new-key-result": "Add KeyResult",
-		"key-results": "KeyResults",
-		"load-key-results": "Load KeyResults...",
-		"no-key-result-found": "There are no KeyResults for this Objective yet.",
-		"parent-objective": "Parent Objective",
-		"tooltip": {
-			"navigate-to-unit": "Go to the structure of this objective"
-		}
-	},
-	"objective-form": {
-		"annotation": "Remarks",
-		"contact-person": "Contact person",
-		"description": "Description",
-		"dialog": {
-			"create": "Create",
-			"edit": "Edit",
-			"title": "{{editOrCreateText}} Objective"
-		},
-		"no-contact-person": "No contact person",
-		"no-parent-objective": "No parent objective",
-		"objective-is-active-in-process": "Objective is being actively processed in the current cycle.",
-		"select-parent-objective": "Select parent objective"
-	},
-	"okr-child-unit": {
-		"deletion-dialog": {
-			"button-text": "Delete",
-			"message": "All subordinate objectives, key results and comments are also going to be deleted.",
-			"title": " Delete {{name}}?"
-		},
-		"description": "Description",
-		"empty-label": "-",
-		"error-info-label": "Info",
-		"load-department": "Loading Department",
-		"load-department-failed": "Loading Failed",
-		"load-department-failed-button": "Go to next higher structure",
-		"load-department-failed-info-text": "The structure could not be loaded. It could have been deleted by another user, or the server is not responding.",
-		"loading": "Loading…",
-		"menu": {
-			"contacts": "Export contacts",
-			"delete-unit": "Delete structure",
-			"disable-unit": "Set structure inactive",
-			"editchild-unit": "Edit structure",
-			"enable-unit": "Set structure active",
-			"export": "Export"
-		},
-		"overview": "Overview",
-		"please-wait": "Please wait",
-		"substructures": "Substructures",
-		"task-board-headline": "Tasks",
-		"team-member": "Team members",
-		"tooltip": {
-			"cannot-delete-unit": "Cannot be deleted due to existing substructures!",
-			"more-options": "More options for this structure"
-		},
-		"unit-not-active": "This structure is inactive"
-	},
-	"okr-child-unit-form": {
-		"description": "Label *",
-		"dialog": {
-			"create": " Create {{label}}",
-			"edit": " Edit {{label}}"
-		},
-		"header": "Active",
-		"name-*": "Name *"
-	},
-	"okr-child-unit-overview-tab": {
-		"create-new-objective": "Create Objective",
-		"load-objective": "Load Objective...",
-		"no-objectives": "There are no objectives for this structure yet."
-	},
-	"okr-child-unit-preview-button": {
-		"load": "Load",
-		"tooltip": {
-			"list-child-unit": "Substructures of this structure",
-			"list-objectives": "Objectives of this structure",
-			"not-active": "This structure is not active",
-			"show-department": "Show structure"
-		}
-	},
-	"okr-child-unit-tab": {
-		"no-child-unit": "There aren’t any substructures for this structure yet",
-		"substructures": "Substructures"
-	},
-	"okr-toolbar": {
-		"admin-icon": {
-			"tooltip": {
-				"is-admin": "Authorized as admin"
-			}
-		},
-		"main-page": "Home",
-		"menu": {
-			"admin-panel-text": "Admin panel",
-			"change-password-text": "Change password",
-			"cycle-administration-text": "Cycle management",
-			"language-picker": "Pick language",
-			"logout-text": "Logout",
-			"settings-text": "Settings",
-			"topic-drafts-text": "Topic drafts",
-			"user-managment-text": "User management"
-		},
-		"return-to-demo-text": "Home",
-		"tooltip": {
-			"menue": "Menu"
-		},
-		"warning": {
-			"no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
-			"no-smtp-text": "Warning: No SMTP server has been configured."
-		}
-	},
-	"okr-topic-description-form": {
-		"beginning": "Beginning *",
-		"contributes-to": "Contributes to",
-		"delimitation": "Delimitation",
-		"dependencies": "Dependencies",
-		"description": "Description",
-		"handover-plan": "Handover Plan",
-		"header": "Topic *",
-		"initiator": "Initiator *",
-		"no-initiator": "No initiator",
-		"resources": "Required Resources",
-		"stakeholder": "Stakeholder",
-		"start-team": "Start team"
-	},
-	"okr-unit-card": {
-		"delete-company-has-child-unit-warning": "{{value}} still contains substructures",
-		"general-delete-dialog-title": " Delete {{value}}?",
-		"label": "Delete the company",
-		"mat-card-actions": {
-			"delete": "Delete structure",
-			"edit-name": "Edit name",
-			"tooltip": {
-				"delete-unit": "Delete structure",
-				"edit-unit-name": "Edit the name of the structure"
-			}
-		},
-		"mat-card-subtitle": {
-			"unit-structure": "Company structure"
-		}
-	},
-	"okr-unit-dashboard": {
-		"add-unit": "Add structure",
-		"okr-toolbar": {
-			"unit-overview": "Structure Overview"
-		}
-	},
-	"okr-unit-form": {
-		"create": "Create {{value}}",
-		"default-label": {
-			"structure": "Substructure",
-			"team": "OKR team"
-		},
-		"placeholder": {
-			"label": "label *",
-			"name": "name *"
-		},
-		"save": " Save {{value}}",
-		"structure": "structure"
-	},
-	"password-form": {
-		"caps-lock-on": "The caps lock key is active",
-		"error-message-previous-password-required": "The previous password must be entered.",
-		"error-message-previous-password-wrong": "The previous password has been entered incorrectly.",
-		"new-password": "New password",
-		"new-password-invalid": "The password must contain at least 7 characters",
-		"new-password-repetition": "Repeat new password",
-		"passwords-do-not-match": "The entries do not match.",
-		"previous-password": "Previous password"
-	},
-	"passwords-match-validator-function": {
-		"message": "The passwords do not match."
-	},
-	"required-validator": {
-		"message": "Required field"
-	},
-	"reset-countdown": {
-		"until-next": "Reset the data in:"
-	},
-	"reset-password": {
-		"email": "Email",
-		"error-invalid-email": "Invalid e-mail",
-		"password-reset-email-has-been-send-out": "An email to reset your password has been sent to the email address provided.",
-		"password-reset-title": "Burning OKR - reset password",
-		"reset-password": "Reset password"
-	},
-	"set-azure-admin-init-state-form": {
-		"other-user-notice": "If you want to set another user as initial administrator, please log in with their account.",
-		"set-admin-button": "Set this user as administrator",
-		"set-admin-logout-button": "Logout",
-		"set-azure-admin-subtitle": "The following user will become the initial administrator.",
-		"set-azure-admin-title": "Set an administrator"
-	},
-	"set-oauth-client-details-form": {
-		"access-token-validity": "Duration of the access token (in seconds)",
-		"client-id": "Client ID",
-		"client-secret": "Client Secret",
-		"explanation": "To use the local user database, you have to configure OAuth. It is important, to keep the Client-ID and the Client-Secret unique to any other application. All form fields have already been filled with meaningful data and a change of this data is only recommended for advanced users.",
-		"next": "Continue",
-		"only-do-this-if-you-are-a-nerd-warning": "Activate form. ⚠ Only do this if you know what you are doing ⚠",
-		"please-hang-on-the-server-is-beeing-configured": "Please wait a moment while the server is beeing configured.",
-		"refresh-token-validity": "Duration of the refresh token (in seconds)",
-		"timeout": {
-			"error-message": "The server took too long for the configuration. Please check the server and reload the page.",
-			"error-message-action": "Ok"
-		},
-		"title": "Configure Authentication",
-		"web-server-redirect-uri": "Webserver Redirect URI"
-	},
-	"set-password": {
-		"new-password": "New password",
-		"new-password-invalid": "The password must contain at least 7 characters",
-		"new-password-repetition": "Repeat new password",
-		"password-changed-message": "Password changed successfully ✅",
-		"passwords-do-not-match": "The entries do not match.",
-		"reset-password": "Reset password",
-		"set-new-password-instruction": "Set a new password",
-		"toolbar-title": "Burning OKR -Change password"
-	},
-	"settings-form": {
-		"admin-settings": "Admin settings",
-		"cancel-button-text": "Cancel",
-		"save": "Save",
-		"settings": "Settings"
-	},
-	"start-date-before-end-date-validator-function": {
-		"message": "The start date is after the end date"
-	},
-	"start-not-equal-end-validator-function": {
-		"message": "The start date is after the end date"
-	},
-	"status-dot": {
-		"approved": "Approved",
-		"draft": "Draft",
-		"rejected": "Rejected",
-		"submitted": "Submitted"
-	},
-	"task-board-swimlane-view-helper": {
-		"no-keyresult-title": "No KeyResult"
-	},
-	"taskboard-state-column-view": {
-		"default-state-text": "Not assigned"
-	},
-	"topic-draft-action-button": {
-		"admin-initiator-tooltip": "Only an admin or the initiator can submit or withdraw submission",
-		"approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
-		"capitalised-approve": "Approve",
-		"capitalized-reject": "Reject",
-		"capitalized-submit": "Submit",
-		"comments": {
-			"heading": "Topic draft"
-		},
-		"comments-text": "Comments",
-		"create-team": "Convert to team",
-		"delete": {
-			"button-text": "Delete",
-			"message": "Are you sure you want to delete draft topic {{name}}?",
-			"title": "Delete topic draft"
-		},
-		"delete-text": "Delete",
-		"edit": "Edit",
-		"edit-tooltip": {
-			"status": "The status must be \"Submitted\" or \"Draft\"",
-			"status-and-user": "The status must be \"Submitted\" or \"Draft\" and only an admin or the initiator can edit",
-			"user": "Only an admin or the initiator can edit"
-		},
-		"no-permission": "Only an admin or an auditor can approve or reject",
-		"not-approved": "Topic Draft not approved",
-		"snackbar": {
-			"ok": "Ok",
-			"submit": "Your topic draft has been sent for review."
-		},
-		"state-submitted-tooltip": "The status must be \"Submitted\"",
-		"status-submitted": "The status must be \"Submitted\" so that the submission can be withdrawn",
-		"status-submitted-user": "The status must be \"Submitted\" and you must be an admin or the initiator for the submission to be withdrawn",
-		"tooltip": {
-			"feature-coming-soon": "",
-			"header": "Comments",
-			"only-admin-or-initiator-permission-to-delete": "Only the admin or the Initiator are able to delete this topic draft"
-		},
-		"user-not-admin": "Admin rights required",
-		"withdraw-approval": "Withdraw Approval",
-		"withdraw-rejection": "Withdraw rejection",
-		"withdraw-submit": "Withdraw submission"
-	},
-	"topic-draft-creation-form": {
-		"dialog-title": "Create topic draft"
-	},
-	"topic-draft-details-dialogue": {
-		"button": {
-			"close": "Close",
-			"edit": "Edit",
-			"tooltip-no-permission": "Only the initiator of the topic draft or an admin can edit it. For this purpose, the topic draft must not have been approved or rejected."
-		},
-		"field": {
-			"begin": "Beginning",
-			"contribution": "Pays in on",
-			"delimitation": "Delimitation",
-			"dependencies": "Dependencies",
-			"description": "Description",
-			"handover": "Handover plan",
-			"initiator": "Initiator",
-			"no-team-members": "No team members available",
-			"resources": "Resources",
-			"stakeholder-team": "Stakeholder team",
-			"start-team": "Starting team",
-			"topic": "Topic"
-		},
-		"status": {
-			"approved": "Approved",
-			"rejected": "Rejected",
-			"submitted": "Submitted",
-			"template": "Template",
-			"title": "Status"
-		},
-		"title": "Submitted topic draft"
-	},
-	"topic-draft-edit-dialogue": {
-		"title": "Edit topic draft"
-	},
-	"topic-draft-list": {
-		"column": {
-			"name": "Name",
-			"start": "Start",
-			"submitted": "Submitted By"
-		},
-		"no-new-topic-drafts": "No new topic drafts"
-	},
-	"topic-drafts": {
-		"add-topic-draft-button": "Add a topic draft",
-		"home-button": {
-			"tooltip": "Go to structure overview"
-		},
-		"initiator-table-header": "Topic",
-		"navbar": {
-			"title": "Submitted topic drafts",
-			"title-short": "Topic draft"
-		}
-	},
-	"user-autocomplete-input": {
-		"label": "User input"
-	},
-	"user-dialog": {
-		"reset-password": "Reset password",
-		"snackbar": {
-			"message": "The password was successfully reset.",
-			"ok": "Ok"
-		}
-	},
-	"user-form": {
-		"department": "Department",
-		"email": "Email",
-		"error-invalid-email": "Invalid e-mail",
-		"error-used-email": "The email is already in use by another user.",
-		"first-name": "Forename",
-		"job-title": "Job title",
-		"last-name": "Surname"
-	},
-	"user-management": {
-		"active-table-header": "Active",
-		"add-new-user": "Create user",
-		"admin-table-header": "Admin",
-		"checkbox": "Show deactivated users",
-		"department-table-header": "Department",
-		"email": "Email",
-		"import-users": "Import users",
-		"job-title-table-header": "Job title",
-		"name": "Name",
-		"tooltip": {
-			"activate-user": "Activate user",
-			"deactivate-user": "Disable user",
-			"edit-user": "Edit User",
-			"go-to-okr-unit-overview": "Go to structure overview",
-			"import-users-from-csv": "Import users from CSV"
-		},
-		"user-management-toolbar-title": "User administration"
-	},
-	"user-minibutton": {
-		"loading-user": "Load user...",
-		"tooltip": {
-			"remove-member": "Remove user from team"
-		}
-	},
-	"user-selector": {
-		"no-entries": "No users found.",
-		"placeholder": "Search"
-	},
-	"user-selector-multi": {
-		"no-entires": "No users found.",
-		"placeholder": "Search"
-	},
-	"user-settings": {
-		"default-company": "Default Company",
-		"default-team": "Default team",
-		"no-company": "No company",
-		"no-team": "No team"
-	},
-	"validation-error": {
-		"default-error-message": "Not a valid value."
-	},
-	"version-form": {
-		"change-log": "Changelog",
-		"close": "Close"
-	}
+  "add-child-unit-button": {
+    "add-new-child-unit": "Create substructure",
+    "demo-privacy-policy": "<div class=\"container footer-margin\">\n\n  <div class=\"content-container\">\n    <h1>DATA PROTECTION</h1>\n\n    <div class=\"content-container\">\n      With this statement, we inform you about aspects relevant to data protection as well as the measures used to protect your rights. Brockhaus AG complies with the requirements of the German Federal Data Protection Act (BDSG) and the EU General Data Protection Regulation (EU-DSGVO).\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>1. COLLECTION AND USE OF PERSONAL DATA</h3>\n\n    <div class=\"content-container\">\n      <h4>1.1 Basic</h4>\n      The sole purpose of your data is to provide you with the most user-friendly, practical and secure Internet service possible. Personal data includes all information about personal or factual circumstances of an identified or identifiable natural person, e.g. name, address, contact details, IP addresses, data volumes transferred, etc.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.2 Legal basis</h4>\n      a) The provision of this website with products and services: Contract initiation or contract fulfillment<br>\n      b) Requests by mail, email or fax to us: contract initiation or fulfillment<br>\n      c) Links to other offers or evaluation of accesses: legitimate interest.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.3 Automatic processing by website operation</h4>\n      The websites are operated by a provider in Western Europe (Frankfurt, Germany), which in turn stores the accesses to the system in so-called server logs for the operation of the web offer. In doing so, the following data is usually collected: IP addresses, timestamps of accesses, names of web pages, amounts of data transferred, logouts or terminations, browser types, information from the operating system, referrer URLs. This data is not stored or evaluated by us. In the event of a justified suspicion of abuse based on concrete information, these log files can be subsequently checked.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>1.4 Data input by the website user</h4>\n      You can furthermore, use our websites without the input of personal data without restriction. If we collect personal data (contact form), we will inform in each case about the purpose, scope, legality, and possible disclosure and use this only for these purposes. The input of this data by you is voluntary.\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>2. USE OF DATA</h3>\n\n    <div class=\"content-container\">\n      <h4>2.1 Use for service provision</h4>\n      We use the personal data collected and processed exclusively for the purposes of providing our services under the user agreement concluded with you and for processing payments. In doing so, we naturally comply with all applicable data protection laws, in particular the German Federal Data Protection Act/EU-DSGVO and the German Telemedia Act (TMG).\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.2 Disclosure to third parties</h4>\n      We do not pass on your personal data to third parties for marketing or similar purposes. Data will only be passed on if and insofar as this is necessary for the implementation of the user agreement, Brockhaus AG is legally obliged to do so or it should be necessary to enforce the general terms of use or other agreements concluded with you as well as our rights and claims.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>2.3 Customer information by eMail</h4>\n      In the context of customer loyalty, we send current information to our customers to inform you about news and changes within our offer. This information is not to be confused with the general newsletters. If it concerns our offers and contains e.g. safety-relevant points or important information from our house, we can handle this only by eMail. Please have understanding for it.\n    </div>\n  </div>\n\n\n  <div class=\"content-container\">\n    <h3>3. COOKIES</h3>\n\n    <div class=\"content-container\">\n      Our website uses cookies to provide you with an effective experience and user-friendly handling. This makes the use of cookies necessary and justifies our legitimate interest in using this technology. Most browsers offer you the functionality to display the cookies used.\n    </div>\n   <div class=\"content-container\">\n      However, if you would like to generally prevent the use of cookies, your browser offers the option of preventing the acceptance and storage of new cookies. To find out how this works with your browser, please use the help function of the respective browser. However, we recommend that you leave the cookies function switched on, as only then will you be able to fully benefit from the high level of user comfort that we have set up for you. We do not create user profiles from this user data collected through cookies.\n    </div>\n\n    <div class=\"content-container\">\n      To edit your cookie settings, please click <a id=\"open-cookie-settings-link\" href=\"javascript:klaro.show();\">here</a>\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>4. WEBSITE EVALUATIONS AND TOOLS</h3>\n    <div class=\"content-container\">We use the following analysis tool to evaluate our websites and describe it to you as follows:</div>\n    <div class=\"content-container\">\n      This website uses Google Analytics, a web analytics service provided by Google, Inc. (\"Google\"). Google Analytics uses \"cookies\", which are text files placed on your computer, to help the website analyze how users use the site. The information generated by the cookie about your use of the website is usually transmitted to a Google server in the USA and stored there. The IP address transmitted by your browser as part of Google Analytics is not merged with other data from Google. We have also extended Google Analytics on this website with the code \"anonymizeIP\". This guarantees the masking of your IP address so that all data is collected anonymously. Only in exceptional cases will the full IP address be transferred to a Google server in the USA and shortened there.\n    </div>\n    <div class=\"content-container\">\n      On behalf of the operator of this website, Google will use this information for the purpose of evaluating your use of the website, compiling reports on website activity and providing other services relating to website activity and internet usage to the website operator. You may refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website.\n    </div>\n    <div class=\"content-container\">\n      You can also prevent the collection of data generated by the cookie and related to your use of the website (including your IP address) to Google and the processing of this data by Google by downloading and installing the browser plugin available at the following link: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n    <div class=\"content-container\">\n      As an alternative to the browser add-on, especially for browsers on mobile devices, you can also prevent the collection by Google Analytics by clicking on this link. An opt-out cookie will be set that prevents the future collection of your data when visiting this website. The opt-out cookie is only valid in this browser and only for our website and is stored on your device. If you delete the cookies in this browser, you must set the opt-out cookie again\n    </div>\n    <div class=\"content-container\">\n      We continue to use Google Analytics to analyze data from Double Click cookies and also AdWords for statistical purposes. If you do not wish to do so, you can disable this via the Ads Preferences Manager (<a href=\"https://www.google.com/settings/ads/onweb/?hl=de\">https://www.google.com/settings/ads/onweb/?hl=de</a>).\n    </div>\n    <div class=\"content-container\">\n      If you wish to object to the collection, you can use a plugin via the following link and install it: <a href=\"https://tools.google.com/dlpage/gaoptout?hl=de\">https://tools.google.com/dlpage/gaoptout?hl=de</a>\n    </div>\n  </div>\n\n  <div class=\"content-container\">\n    <h3>5. SECURITY</h3>\n\n\n    <div class=\"content-container\">\n      Brockhaus AG uses technical and organizational security measures to ensure that your personal data is protected against loss, incorrect modification or unauthorized access by third parties. In any case, only authorized persons have access to the personal data, and only to the extent necessary for the above-mentioned purposes. The security measures are constantly adapted to the improved technical possibilities.\n    </div>\n  </div>\n \n<div class=\"content-container\">\n    <h3>6. FURTHER INFORMATION REQUIREMENTS</h3>\n\n    <div class=\"content-container\">\n      <h4>6.1 Responsible entity</h4>\n      BROCKHAUS AG, Lünen. For full contact details, see imprint.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.2 Data protection officer</h4>\n      P2 Consult<br>\n      Jürgen Golda<br>\n      Wilhelm-Bläser-Str. 3c, D-59174 Kamen<br>\n      Phone: +49 (0) 2307 28 74 488<br>\n      Mail: datenschutz@brockhaus-ag.de<br>\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.3. storage period</h4>\n      We store your data as long as the purpose of storage remains (requests, projects, contracts, etc.) If the purpose ceases to exist or you withdraw consent, your data will be deleted by the regular deletion run, provided that no legal retention periods must be observed.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.4 Children</h4>\n      We will not knowingly collect or process data from children. To the extent that students make requests, we will only store the data if we have the express consent of the parent or guardian. If children's data may then be stored, we will only share it as required by law. The term \"children\" includes the definitions from national law and the legal provisions in force at our company.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.5 Profiling</h4>\n      Profiling of your data does not take place.\n      Automatic decision-making and/or profiling with your data does not take place with us.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.6 Your rights</h4>\n      You can contact us at any time if you want to make a disclosure, a deletion, a restriction or an objection. To do so, use the contact information provided. Requests must be made in writing so that we can clearly identify the requester.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.7 Right of complaint</h4>\n      If you have reasonable doubts about our handling of your data, please inform us or contact the relevant supervisory authority.\n    </div>\n\n    <div class=\"content-container\">\n      <h4>6.8. Changes</h4>\n      We reserve the right to amend this privacy statement from time to time. Therefore, we recommend that you review this statement regularly.\n    </div>\n  </div>\n\n</div>\n\n\n\n\n\n\n  \n    \n\n",
+    "okr-team": "OKR Team",
+    "substructure": "Substructure"
+  },
+  "admin-settings-form": {
+    "config-names": {
+      "email-feedabck-receiver": "Email addresses of the feedback recipients. (Separated by a comma)",
+      "email-sender": "Email address of the OKR tool",
+      "frontend-base-url": "Frontend Base URL",
+      "max-key-results": "Maximum number of Key results",
+      "subject": {
+        "feedback": "Email subject for feedback",
+        "new-user": "Email subject for new users",
+        "reset-password": "Email Subject for the password reset email"
+      },
+      "threshold": {
+        "green-yellow": "Objective forecast threshold (green/yellow)",
+        "yellow-red": "Objective prognosis threshold (yellow/red)"
+      },
+      "topic-sponsors-activated": "Topic sponsors activated"
+    },
+    "confirmation-text": "By deactivating all OKR topic sponsors, they become team members in their respective team.",
+    "confirmation-title": "Deactivate OKR topic sponsors"
+  },
+  "admin-view": {
+    "admin-panel": "Admin panel",
+    "admins": "Admins",
+    "delete-dialog": {
+      "button-text": "Delete",
+      "message": " Delete {{surname}}, {{name}} from the admins?",
+      "title": "Delete admin"
+    },
+    "icon-tooltip": " Delete {{adminName}} from the admins",
+    "placeholder": "Define new admin",
+    "tooltip": {
+      "cannot-delete-yourself": "You cannot remove yourself",
+      "go-to-okr-unit-overview": "Go to structure overview"
+    }
+  },
+  "api-http-error-handling": {
+    "error-counting": "{{errorCount}} failed request{{pluralAppendix}}",
+    "error-message": {
+      "appendix": "s",
+      "more-detail": "More Details",
+      "one-or-more-errors": "Error executing one or more requests.",
+      "retry": "Try again",
+      "single-error": "Error executing the request."
+    }
+  },
+  "change-password-dialog": {
+    "form": {
+      "title": "Change password"
+    }
+  },
+  "comment-card": {
+    "edit-comment": "Edit comment",
+    "tooltip": {
+      "cancel": "Cancel editing",
+      "delete-comment": "Delete comment",
+      "edit-comment": "Edit comment",
+      "save-comment": "Save comment"
+    }
+  },
+  "comment-view-dialog": {
+    "close": "Close",
+    "min-char-message": "At least 3 characters are required",
+    "no-comment": "There are no comments yet for this KeyResult",
+    "title": "comments",
+    "tooltip": {
+      "comment-to-small": "Your comment must be longer",
+      "write-new-comment": "Post new comment"
+    },
+    "write-comment": "Write a new comment"
+  },
+  "company": {
+    "error": {
+      "error": "Error",
+      "error-loading-company": "The company could not be loaded. It could have been deleted by another user or the server is not responding.",
+      "navigate-to-structure-view": "To the structure overview"
+    },
+    "loading-company": "Loading company ...",
+    "menu": {
+      "export": "Export",
+      "export-contacts": "Export contacts"
+    },
+    "no-child-units": "There are no substructures for this structure yet",
+    "substructures": "Substructures",
+    "tooltip": {
+      "more-options-for-structure": "More options on this structure"
+    },
+    "your-teams-as-manager": "Your teams as managers",
+    "your-teams-as-member": "Your teams as a member"
+  },
+  "complete-init-state-form": {
+    "initialisation-completed": "Done!",
+    "initialisation-completed-message": "The initialization was successfully completed🎉",
+    "lets-go!": "Let's go!"
+  },
+  "confirmation-dialog": {
+    "cancel-text": "Cancel",
+    "confirm-text": "Confirm"
+  },
+  "convert-topic-draft-to-team": {
+    "dialog": {
+      "save-and-close-label": "Convert "
+    },
+    "form": {
+      "company-option": "Create team in {{value}} ",
+      "select": "Choose parent structure *"
+    },
+    "title": "Convert Topic Draft to a Team",
+    "tooltip": {
+      "only-substructures-allowed": "A team can be created only in structures"
+    }
+  },
+  "create-user-init-state-form": {
+    "create-your-admin-account": "Create your administrator account",
+    "next": "Continue",
+    "subtitle": "Create an initial administrator account."
+  },
+  "current-higher-than-end-validator-function": {
+    "message": "The \"current\" value is higher than the maximum value."
+  },
+  "cycle-admin-card": {
+    "delete-cycle": "Delete cycle",
+    "deletion-dialog": {
+      "content": "the cycle from {{cycleStart}} to {{cycleEnd}}",
+      "title": "Delete the cycle?"
+    },
+    "edit-cycle": "Edit cycle",
+    "hidden": "Hidden",
+    "visible": "Visible"
+  },
+  "cycle-admin-container": {
+    "administration": "Cycle administration",
+    "create-new-cycle": "Create new cycle",
+    "tooltip": {
+      "go-back-to-company": "Return to structure",
+      "go-to-okr-unit-overview": "Go to structure overview"
+    }
+  },
+  "cycle-creation-form": {
+    "creation-dialog": {
+      "save": "Create cycle",
+      "title": "Create a new cycle"
+    },
+    "end-date": "End date",
+    "start-date": "Start date",
+    "visibility": "Visibility"
+  },
+  "cycle-edit-form": {
+    "end-date": "End date",
+    "name": "Name *",
+    "save": "Save",
+    "start-date": "Start date",
+    "title": "Edit cycle",
+    "visibility": "Visibility"
+  },
+  "date-format-validator-function": {
+    "message": "The entered value is not a valid date in the form DD.MM.YYYY"
+  },
+  "date-not-in-the-past-validator-function": {
+    "message": "The entered date is in the past"
+  },
+  "date-range-in-range-within-another-dates-validator-function": {
+    "message": "The date is within the time span of another cycle."
+  },
+  "delete-dialog": {
+    "delete": "Delete",
+    "general-do-you-want-to-delete": "Do you really want to delete {{value}}?"
+  },
+  "demo-footer": {
+    "credits": "Credits",
+    "imprint": "Legal",
+    "privacy-policy": "Privacy policy"
+  },
+  "demo-home": {
+    "contact": {
+      "content": "Do you have questions, suggestions, or problems with the Burning OKR Tool? You are welcome to contact us.",
+      "content-with-link": "In case of bugs or suggestions for improvement regarding the tool, please contact us via <a href=\"https://github.com/BurningOKR/BurningOKR/issues/new/choose\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. If you would like BROCKHAUS AG to perform customization for you, or if you require consulting or any other service, please contact us via <a href=\"mailto:info@brockhaus-ag.de\">info@brockhaus-ag.de</a>.",
+      "title": "How to reach us"
+    },
+    "digitalization": {
+      "content": "With Burning OKR, you digitally map all essential components of the OKR framework and create transparency across teams. The teams manage their own objectives and key results with Burning OKR and make their progress and successes visible. Furthermore, the hierarchies of your company can be made visible within the tool.",
+      "title": "Digitize your entire OKR process"
+    },
+    "documentation": "Documentation",
+    "features": {
+      "content": "Our OKR tool enables you to digitalize the OKR process and its result metrics in a holistic way, including all necessary features. In detail, Burning OKR offers...",
+      "perks-list": "<li>the authentication via Azure Active Directory or a local user management</li>\n        <li>the management of multiple companies (multitenancy)</li>\n        <li>the mapping of cycles, company structures, teams, objectives and key results</li>\n        <li>a progress indicator for Objectives and Key Results</li>\n        <li>a flexible individualization, including the designation of teams, the restriction of the maximum Key Result number, etc.</li>\n        <li>a data export as Excel spreadsheet</li>",
+      "title": "Innovative features"
+    },
+    "free-and-open-source": {
+      "content": "The application is completely free for corporate and private customers. In addition, you can view the open source code at any time on <a href=\"https://github.com/BurningOKR/BurningOKR\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> and adapt it to your needs. We are happy to assist you in this process. Make your customizations available as a pull request for the whole world!",
+      "title": "Our free offer for you"
+    },
+    "further-information": {
+      "content": "For more information on the OKR Framework, please visit the <a href=\"https://www.brockhaus-ag.de/themen/AGILEVERSITY#themenAgileversity_accordionImage_okr\" target=\"_blank\" rel=\"noopener noreferrer\">AGILEVERSITY page of BROCKHAUS AG</a>.",
+      "title": "Learn more about the OKR Framework and OKR processes"
+    },
+    "github": "GitHub",
+    "installation": {
+      "content": "Burning OKR is easy to install on various platforms. We offer tutorials on how to install with...",
+      "list": "<li>Docker</li>        \n<li>a Tomcat Web Server (coming soon)</li>",
+      "title": "Easy installation"
+    },
+    "playground": "Playground",
+    "target-management": {
+      "content": "Objectives and Key Results are processed in cycles. Design the name, length and content of the cycles according to your wishes. Keep track of the productivity of OKR teams with the Objectives and Key Results progress bar.",
+      "title": "Manage and control your company goals"
+    },
+    "visions": {
+      "content": "The agile OKR framework supports you in achieving strategic business goals through a structured goal-setting process. Short cycles and measurable goals promote regular evaluation of results and give you the opportunity to quickly modify your business model based on new information. With Burning OKR we offer you a powerful and user-friendly OpenSource tool to support you.",
+      "title": "Realize Visions with the help of OKR"
+    },
+    "welcome": {
+      "content": "Burning OKR supports you in achieving strategic corporate goals and promotes an agile and transparent corporate culture. The open source OKR tool is based on BROCKHAUS AG's many years of experience with the OKR framework.",
+      "title": "Welcome to Burning OKR!"
+    }
+  },
+  "demo-imprint": "<div class=\"container footer-margin\">  <h1>IMPRINT</h1>\n  <h4>Imprint according to § 5 TMG:</h4>\n  <div class=\"content-container\">    <h4>BROCKHAUS AG</h4>    Pierbusch 17<br>    44536 Lünen<br>    Germany<br>  </div>\n  <div class=\"content-container\">    <h4>LOCATION DORTMUND</h4>    Emil-Figge-Strasse 85<br>    44227 Dortmund<br>    Germany<br>  </div>\n  <div class=\"content-container\">    <h4>LOCATION HAMBURG </h4>    Willy-Brandt-Strasse 23-25<br>    20457 Hamburg<br>    Germany<br>  </div>\n\n  <div class=\"content-container\">    <b>Phone:</b> +49 (0) 231 98 75-0<br>    <b>Fax:</b> +49 (0) 231 98 75-540<br>    <b>E-mail:</b> info@brockhaus-ag.de<br>    <b>Website:</b> www.brockhaus-ag.de<br>\n    <br>\n    <b>Authorized representative:</b> Matthias Besenfelder<br>    Chairman of the Supervisory Board: Dr. Adam Spalek<br>\n    <br>\n    <b>Register Court:</b>Amtsgericht Dortmund<br>    <b>Register number:</b> HRB 27027<br>    <b>Sales tax identification number:</b> DE 299350276<br>\n    <br>\n    <b>Responsible for the content according to § 55 RStV:</b> Matthias Besenfelder<br>\n    <br>\n    <b>Disclaimer:</b> Despite careful control of the content, we do not assume any liability for the content of external links. The operators of the linked pages are solely responsible for their content.<br>  </div>\n</div>",
+  "demo-main-view": {
+    "playground": "Playground"
+  },
+  "demo-warning": {
+    "abort-button": "Cancel",
+    "database-deletion-text": "Every 2 hours all data on the Demo Playground is deleted. A countdown is displayed for this purpose.",
+    "database-deletion-title": "Data deletion",
+    "explanation": "You are now entering the playground of the Burning OKR Demo.",
+    "good-vibes-only-text": "Please do not spread negative content on the demo playground.",
+    "good-vibes-only-title": "#GoodVibesOnly",
+    "headline": "User generated content",
+    "playground-button": "To the Playground",
+    "title": "Playground",
+    "user-generated-text": "All content on Demo Playground is generated by users. We take no responsibility for this content.",
+    "user-generated-title": "User generated content"
+  },
+  "department-description-edit-form": {
+    "edit-description": "Edit description"
+  },
+  "department-tab-description": {
+    "beginning": "Beginning:",
+    "delimitation": "Delimitation:",
+    "dependencies": "Dependencies:",
+    "description": "Description",
+    "edit-description": "Edit description",
+    "handover-plan": "Handover Plan:",
+    "initiator": "Initiator:",
+    "resources": "Required Resources:",
+    "stakeholder": "Stakeholders:",
+    "startteam": "Start Team:",
+    "to": "Contributes to:",
+    "tooltip": {
+      "no-edit-rights": "Only OKR Masters are allowed to edit descriptions"
+    },
+    "topic": "Topic:"
+  },
+  "department-tab-task-card": {
+    "delete": "Delete",
+    "task-board-loading": "loading"
+  },
+  "department-tab-task-form": {
+    "assigned-user-ids": "Editor",
+    "description": "Description",
+    "dialog": {
+      "create": "create",
+      "edit": "edit",
+      "title": "{{editOrCreateText}} task"
+    },
+    "no-parent-key-result": "No parent key result",
+    "select-parent-key-result": "Choose a parent Key Result",
+    "task-state": "State",
+    "title": "Title *"
+  },
+  "department-tab-taskboard": {
+    "add-button": {
+      "create-new-task": "Create task",
+      "tooltip": "WebSocket-Connection is broken"
+    },
+    "deletion-dialog": {
+      "button-text": "Delete",
+      "message": "Do you really want to delete task \"{{title}}\"?",
+      "title": "Delete task"
+    },
+    "task-board-headline": "Tasks",
+    "websocket-not-connected": "Websocket connection could not be established. Changes are currently not adopted."
+  },
+  "department-tab-team": {
+    "define-o-k-r-master": "No OKR Master defined",
+    "define-topic-sponsor": "No OKR topic sponsor defined",
+    "deletion-dialog": {
+      "button-text": "Delete",
+      "message": "Are you sure you want to do this? This user will lose his manager rights for this team.",
+      "message-member": "Do you want to remove this member from the team? The user will lose his membership rights in this team.",
+      "title-master": "Remove OKR topic sponsor",
+      "title-member": "Delete member",
+      "title-sponsor": "Delete OKR Master"
+    },
+    "members-of-unit": "Structure Members",
+    "no-members-defined": "No team members defined",
+    "o-k-r-master": "OKR Master",
+    "o-k-r-topic-sponsor": "OKR Topic sponsor",
+    "placeholder": {
+      "member": "Add new member",
+      "okr-master": "Add OKR master",
+      "topic-sponsor": "Add topic sponsor"
+    },
+    "team-member": "Team members"
+  },
+  "dialog-component": {
+    "cancel": "Cancel",
+    "date-range-within-another-date-range": "The start and end dates must not overlap with any other cycle range.",
+    "save": "Save",
+    "start-date-not-before-end-date": "The start date cannot be before the end date.",
+    "start-equals-end": "The start value must not be the same as the target value."
+  },
+  "disabled-in-demo-version": "⚠ Disabled in the demo version",
+  "error": {
+    "error-id": "Error ID:",
+    "error-list": "Error list",
+    "tooltip": {
+      "go-to-okr-unit-overview": "Go to structure overview",
+      "navigate-to-previous": "Return to the previous page"
+    }
+  },
+  "feedback-button": {
+    "button-icon": {
+      "tooltip": "Feedback"
+    },
+    "successful-send": {
+      "message": "Feedback sent successfully 📬"
+    }
+  },
+  "feedback-form": {
+    "dialog": {
+      "save-button": "Submit Feedback",
+      "title": "Give feedback"
+    },
+    "form-field": {
+      "feedback": "Feedback",
+      "name": "Name"
+    }
+  },
+  "import-csv-dialog": {
+    "amount-of-entries-loaded": "entries were loaded.",
+    "confirmation": {
+      "text": "This operation will add all {{list_length}} users.",
+      "title": " Create {{list_length}} users."
+    },
+    "csv-file": "CSV file",
+    "department": "Department",
+    "description": "This function allows you to import users with a CSV file. The CSV file must provide the user data in the following order: First name, last name, email, job title, department",
+    "duplicate-email-adresses-warning": "There are duplicate email addresses in this record.",
+    "email": "Email",
+    "job-title": "Job title",
+    "name": "Name",
+    "to-many-entries-warning": "At least one entry has too many columns."
+  },
+  "key-result-form": {
+    "amount-units": "Amount",
+    "current": "Current *",
+    "description": "Description",
+    "dialog": {
+      "create": "creation",
+      "edit": "editing"
+    },
+    "key-result": "Key Result *",
+    "start": "Start *",
+    "target": "Target *",
+    "unit": "Unit *"
+  },
+  "key-result-milestone-form": {
+    "add-button": "Add milestone",
+    "name-*": "Name *",
+    "toggle": "Milestones active",
+    "tooltip": {
+      "delete-button": "Delete milestone"
+    },
+    "value-input": "Target-Value *"
+  },
+  "keyresult": {
+    "deletion-dialog": {
+      "button-text": "Delete KeyResult",
+      "message": "Delete KeyResult {{number}}. {{keyResultTitle}} from the Objective?",
+      "title": "Clear"
+    },
+    "menu": {
+      "edit-key-result": "Edit KeyResult",
+      "keyresult": "Delete key result",
+      "move-key-result-down": "Move KeyResult down",
+      "move-key-result-up": "Move KeyResult up"
+    },
+    "tooltip": {
+      "adjust-progress": "Adjust progress",
+      "comments-for-this-key-result": "Comments about this KeyResult",
+      "more-options": "More options for this KeyResult"
+    }
+  },
+  "language-picker": {
+    "language": {
+      "english": "English",
+      "german": "German"
+    },
+    "select-trigger-text": "Select language"
+  },
+  "login": {
+    "button": "Password forgotten",
+    "caps-lock-on": "The caps lock key is active",
+    "email": "Email",
+    "error-invalid-grant": "Invalid password or username",
+    "error-unauthorized": "Username not found",
+    "password": "Password"
+  },
+  "logout": {
+    "logged-out": "You have been successfully logged out.",
+    "redirect": "You will be redirected in a moment."
+  },
+  "main-view": {
+    "navigation-sidebar": {
+      "cycle-not-started": "This cycle has not yet started and can be processed in preparation.",
+      "cycle-started": "This cycle has already expired and is therefore closed - processing is only possible to a limited extent."
+    },
+    "tooltip": {
+      "adjust-cycleperiod": "Adjust the observation period",
+      "go-to-structure-view": "To the structure overview",
+      "toogle-navigvation": "Show / hide navigation menu"
+    }
+  },
+  "max-length-validator": {
+    "message": "Maximum number of characters exceeded"
+  },
+  "navigation-list-entry": {
+    "tooltip": {
+      "is-substructure": "This is a substructure",
+      "is-team": "This is a team",
+      "you-are-manager": "You are manager of this structure",
+      "you-are-member": "You are a member of this structure"
+    }
+  },
+  "no-mail-information": {
+    "a-a-d": "If an Azure Active Directory is used for user management, the following functions are not available:",
+    "back-to-home": "Back to home page",
+    "create-user-mails": "Sending mails when creating a new user",
+    "feedback": "Sending feedback",
+    "info": "This can restrict the usability of the application.",
+    "local": "If the local user database of BurningOKR is used for user management, the following functions are not available:",
+    "no-smtp": "No SMTP configured",
+    "password-reset-mails": "Sending mails when resetting a password",
+    "title": "No SMTP configuration was found.",
+    "tooltip": {
+      "go-to-okr-unit-overview": "Go to structure overview"
+    }
+  },
+  "objective": {
+    "deletion-dialog": {
+      "button-text": "Delete",
+      "message": "Delete Objective {{number}}. {{objectiveTitle}}?",
+      "title": "Delete Objective"
+    },
+    "menu": {
+      "comment-objective": "Comment Objective",
+      "delete-objective": "Delete Objective",
+      "disable-objective": "Set Objective to inactive",
+      "edit-objective": "Edit Objective",
+      "enable-objective": "Set Objective to Active",
+      "move-down-objective": "Move Objective down",
+      "move-up-objective": "Move Objective up"
+    },
+    "objective-isnt-active": "This objective is not active",
+    "tooltip": {
+      "bad-progress": "The objective is making bad progress",
+      "expand-objective": "Expand Objective",
+      "good-progress": "The Objective makes good progress",
+      "progress-can-be-better": "The objective should improve progress",
+      "subordinate": {
+        "": "Amount of subordinate objectives"
+      }
+    }
+  },
+  "objective-contents": {
+    "define-new-key-result": "Add KeyResult",
+    "key-results": "KeyResults",
+    "load-key-results": "Load KeyResults...",
+    "no-key-result-found": "There are no KeyResults for this Objective yet.",
+    "parent-objective": "Parent Objective",
+    "tooltip": {
+      "navigate-to-unit": "Go to the structure of this objective"
+    }
+  },
+  "objective-form": {
+    "annotation": "Remarks",
+    "contact-person": "Contact person",
+    "description": "Description",
+    "dialog": {
+      "create": "Create",
+      "edit": "Edit",
+      "title": "{{editOrCreateText}} Objective"
+    },
+    "no-contact-person": "No contact person",
+    "no-parent-objective": "No parent objective",
+    "objective-is-active-in-process": "Objective is being actively processed in the current cycle.",
+    "select-parent-objective": "Select parent objective"
+  },
+  "okr-child-unit": {
+    "deletion-dialog": {
+      "button-text": "Delete",
+      "message": "All subordinate objectives, key results and comments are also going to be deleted.",
+      "title": " Delete {{name}}?"
+    },
+    "description": "Description",
+    "empty-label": "-",
+    "error-info-label": "Info",
+    "load-department": "Loading Department",
+    "load-department-failed": "Loading Failed",
+    "load-department-failed-button": "Go to next higher structure",
+    "load-department-failed-info-text": "The structure could not be loaded. It could have been deleted by another user, or the server is not responding.",
+    "loading": "Loading…",
+    "menu": {
+      "contacts": "Export contacts",
+      "delete-unit": "Delete structure",
+      "disable-unit": "Set structure inactive",
+      "editchild-unit": "Edit structure",
+      "enable-unit": "Set structure active",
+      "export": "Export"
+    },
+    "overview": "Overview",
+    "please-wait": "Please wait",
+    "substructures": "Substructures",
+    "task-board-headline": "Tasks",
+    "team-member": "Team members",
+    "tooltip": {
+      "cannot-delete-unit": "Cannot be deleted due to existing substructures!",
+      "more-options": "More options for this structure"
+    },
+    "unit-not-active": "This structure is inactive"
+  },
+  "okr-child-unit-form": {
+    "description": "Label *",
+    "dialog": {
+      "create": " Create {{label}}",
+      "edit": " Edit {{label}}"
+    },
+    "header": "Active",
+    "name-*": "Name *"
+  },
+  "okr-child-unit-overview-tab": {
+    "create-new-objective": "Create Objective",
+    "load-objective": "Load Objective...",
+    "no-objectives": "There are no objectives for this structure yet."
+  },
+  "okr-child-unit-preview-button": {
+    "load": "Load",
+    "tooltip": {
+      "list-child-unit": "Substructures of this structure",
+      "list-objectives": "Objectives of this structure",
+      "not-active": "This structure is not active",
+      "show-department": "Show structure"
+    }
+  },
+  "okr-child-unit-tab": {
+    "no-child-unit": "There aren’t any substructures for this structure yet",
+    "substructures": "Substructures"
+  },
+  "okr-toolbar": {
+    "admin-icon": {
+      "tooltip": {
+        "is-admin": "Authorized as admin"
+      }
+    },
+    "main-page": "Home",
+    "menu": {
+      "admin-panel-text": "Admin panel",
+      "change-password-text": "Change password",
+      "cycle-administration-text": "Cycle management",
+      "language-picker": "Pick language",
+      "logout-text": "Logout",
+      "settings-text": "Settings",
+      "topic-drafts-text": "Topic drafts",
+      "user-managment-text": "User management"
+    },
+    "return-to-demo-text": "Home",
+    "tooltip": {
+      "menue": "Menu"
+    },
+    "warning": {
+      "no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
+      "no-smtp-text": "Warning: No SMTP server has been configured."
+    }
+  },
+  "okr-topic-description-form": {
+    "beginning": "Beginning *",
+    "contributes-to": "Contributes to",
+    "delimitation": "Delimitation",
+    "dependencies": "Dependencies",
+    "description": "Description",
+    "handover-plan": "Handover Plan",
+    "header": "Topic *",
+    "initiator": "Initiator *",
+    "no-initiator": "No initiator",
+    "resources": "Required Resources",
+    "stakeholder": "Stakeholder",
+    "start-team": "Start team"
+  },
+  "okr-unit-card": {
+    "delete-company-has-child-unit-warning": "{{value}} still contains substructures",
+    "general-delete-dialog-title": " Delete {{value}}?",
+    "label": "Delete the company",
+    "mat-card-actions": {
+      "delete": "Delete structure",
+      "edit-name": "Edit name",
+      "tooltip": {
+        "delete-unit": "Delete structure",
+        "edit-unit-name": "Edit the name of the structure"
+      }
+    },
+    "mat-card-subtitle": {
+      "unit-structure": "Company structure"
+    }
+  },
+  "okr-unit-dashboard": {
+    "add-unit": "Add structure",
+    "okr-toolbar": {
+      "unit-overview": "Structure Overview"
+    }
+  },
+  "okr-unit-form": {
+    "create": "Create {{value}}",
+    "default-label": {
+      "structure": "Substructure",
+      "team": "OKR team"
+    },
+    "placeholder": {
+      "label": "label *",
+      "name": "name *"
+    },
+    "save": " Save {{value}}",
+    "structure": "structure"
+  },
+  "password-form": {
+    "caps-lock-on": "The caps lock key is active",
+    "error-message-previous-password-required": "The previous password must be entered.",
+    "error-message-previous-password-wrong": "The previous password has been entered incorrectly.",
+    "new-password": "New password",
+    "new-password-invalid": "The password must contain at least 7 characters",
+    "new-password-repetition": "Repeat new password",
+    "passwords-do-not-match": "The entries do not match.",
+    "previous-password": "Previous password"
+  },
+  "passwords-match-validator-function": {
+    "message": "The passwords do not match."
+  },
+  "required-validator": {
+    "message": "Required field"
+  },
+  "reset-countdown": {
+    "until-next": "Reset the data in:"
+  },
+  "reset-password": {
+    "email": "Email",
+    "error-invalid-email": "Invalid e-mail",
+    "password-reset-email-has-been-send-out": "An email to reset your password has been sent to the email address provided.",
+    "password-reset-title": "Burning OKR - reset password",
+    "reset-password": "Reset password"
+  },
+  "set-azure-admin-init-state-form": {
+    "other-user-notice": "If you want to set another user as initial administrator, please log in with their account.",
+    "set-admin-button": "Set this user as administrator",
+    "set-admin-logout-button": "Logout",
+    "set-azure-admin-subtitle": "The following user will become the initial administrator.",
+    "set-azure-admin-title": "Set an administrator"
+  },
+  "set-oauth-client-details-form": {
+    "access-token-validity": "Duration of the access token (in seconds)",
+    "client-id": "Client ID",
+    "client-secret": "Client Secret",
+    "explanation": "To use the local user database, you have to configure OAuth. It is important, to keep the Client-ID and the Client-Secret unique to any other application. All form fields have already been filled with meaningful data and a change of this data is only recommended for advanced users.",
+    "next": "Continue",
+    "only-do-this-if-you-are-a-nerd-warning": "Activate form. ⚠ Only do this if you know what you are doing ⚠",
+    "please-hang-on-the-server-is-beeing-configured": "Please wait a moment while the server is beeing configured.",
+    "refresh-token-validity": "Duration of the refresh token (in seconds)",
+    "timeout": {
+      "error-message": "The server took too long for the configuration. Please check the server and reload the page.",
+      "error-message-action": "Ok"
+    },
+    "title": "Configure Authentication",
+    "web-server-redirect-uri": "Webserver Redirect URI"
+  },
+  "set-password": {
+    "new-password": "New password",
+    "new-password-invalid": "The password must contain at least 7 characters",
+    "new-password-repetition": "Repeat new password",
+    "password-changed-message": "Password changed successfully ✅",
+    "passwords-do-not-match": "The entries do not match.",
+    "reset-password": "Reset password",
+    "set-new-password-instruction": "Set a new password",
+    "toolbar-title": "Burning OKR -Change password"
+  },
+  "settings-form": {
+    "admin-settings": "Admin settings",
+    "cancel-button-text": "Cancel",
+    "save": "Save",
+    "settings": "Settings"
+  },
+  "start-date-before-end-date-validator-function": {
+    "message": "The start date is after the end date"
+  },
+  "start-not-equal-end-validator-function": {
+    "message": "The start date is after the end date"
+  },
+  "status-dot": {
+    "approved": "Approved",
+    "draft": "Draft",
+    "rejected": "Rejected",
+    "submitted": "Submitted"
+  },
+  "task-board-swimlane-view-helper": {
+    "no-keyresult-title": "No KeyResult"
+  },
+  "taskboard-state-column-view": {
+    "default-state-text": "Not assigned"
+  },
+  "topic-draft-action-button": {
+    "admin-initiator-tooltip": "Only an admin or the initiator can submit or withdraw submission",
+    "approving-status-and-user": "The status must be \"Pending\" and only an admin or an auditor can accept or reject",
+    "capitalised-approve": "Approve",
+    "capitalized-reject": "Reject",
+    "capitalized-submit": "Submit",
+    "comments": {
+      "heading": "Topic draft"
+    },
+    "comments-text": "Comments",
+    "create-team": "Convert to team",
+    "delete": {
+      "button-text": "Delete",
+      "message": "Are you sure you want to delete draft topic {{name}}?",
+      "title": "Delete topic draft"
+    },
+    "delete-text": "Delete",
+    "edit": "Edit",
+    "edit-tooltip": {
+      "status": "The status must be \"Submitted\" or \"Draft\"",
+      "status-and-user": "The status must be \"Submitted\" or \"Draft\" and only an admin or the initiator can edit",
+      "user": "Only an admin or the initiator can edit"
+    },
+    "no-permission": "Only an admin or an auditor can approve or reject",
+    "not-approved": "Topic Draft not approved",
+    "snackbar": {
+      "ok": "Ok",
+      "submit": "Your topic draft has been sent for review."
+    },
+    "state-submitted-tooltip": "The status must be \"Submitted\"",
+    "status-submitted": "The status must be \"Submitted\" so that the submission can be withdrawn",
+    "status-submitted-user": "The status must be \"Submitted\" and you must be an admin or the initiator for the submission to be withdrawn",
+    "tooltip": {
+      "feature-coming-soon": "",
+      "header": "Comments",
+      "only-admin-or-initiator-permission-to-delete": "Only the admin or the Initiator are able to delete this topic draft"
+    },
+    "user-not-admin": "Admin rights required",
+    "withdraw-approval": "Withdraw Approval",
+    "withdraw-rejection": "Withdraw rejection",
+    "withdraw-submit": "Withdraw submission"
+  },
+  "topic-draft-creation-form": {
+    "dialog-title": "Create topic draft"
+  },
+  "topic-draft-details-dialogue": {
+    "button": {
+      "close": "Close",
+      "edit": "Edit",
+      "tooltip-no-permission": "Only the initiator of the topic draft or an admin can edit it. For this purpose, the topic draft must not have been approved or rejected."
+    },
+    "field": {
+      "begin": "Beginning",
+      "contribution": "Pays in on",
+      "delimitation": "Delimitation",
+      "dependencies": "Dependencies",
+      "description": "Description",
+      "handover": "Handover plan",
+      "initiator": "Initiator",
+      "no-team-members": "No team members available",
+      "resources": "Resources",
+      "stakeholder-team": "Stakeholder team",
+      "start-team": "Starting team",
+      "topic": "Topic"
+    },
+    "status": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "submitted": "Submitted",
+      "template": "Template",
+      "title": "Status"
+    },
+    "title": "Submitted topic draft"
+  },
+  "topic-draft-edit-dialogue": {
+    "title": "Edit topic draft"
+  },
+  "topic-draft-list": {
+    "column": {
+      "name": "Name",
+      "start": "Start",
+      "submitted": "Submitted By"
+    },
+    "no-new-topic-drafts": "No new topic drafts"
+  },
+  "topic-drafts": {
+    "add-topic-draft-button": "Add a topic draft",
+    "home-button": {
+      "tooltip": "Go to structure overview"
+    },
+    "initiator-table-header": "Topic",
+    "navbar": {
+      "title": "Submitted topic drafts",
+      "title-short": "Topic draft"
+    }
+  },
+  "user-autocomplete-input": {
+    "label": "User input"
+  },
+  "user-dialog": {
+    "reset-password": "Reset password",
+    "snackbar": {
+      "message": "The password was successfully reset.",
+      "ok": "Ok"
+    }
+  },
+  "user-form": {
+    "department": "Department",
+    "email": "Email",
+    "error-invalid-email": "Invalid e-mail",
+    "error-used-email": "The email is already in use by another user.",
+    "first-name": "Forename",
+    "job-title": "Job title",
+    "last-name": "Surname"
+  },
+  "user-management": {
+    "active-table-header": "Active",
+    "add-new-user": "Create user",
+    "admin-table-header": "Admin",
+    "checkbox": "Show deactivated users",
+    "department-table-header": "Department",
+    "email": "Email",
+    "import-users": "Import users",
+    "job-title-table-header": "Job title",
+    "name": "Name",
+    "tooltip": {
+      "activate-user": "Activate user",
+      "deactivate-user": "Disable user",
+      "edit-user": "Edit User",
+      "go-to-okr-unit-overview": "Go to structure overview",
+      "import-users-from-csv": "Import users from CSV"
+    },
+    "user-management-toolbar-title": "User administration"
+  },
+  "user-minibutton": {
+    "loading-user": "Load user...",
+    "tooltip": {
+      "remove-member": "Remove user from team"
+    }
+  },
+  "user-selector": {
+    "no-entries": "No users found.",
+    "placeholder": "Search"
+  },
+  "user-selector-multi": {
+    "no-entires": "No users found.",
+    "placeholder": "Search"
+  },
+  "user-settings": {
+    "default-company": "Default Company",
+    "default-team": "Default team",
+    "no-company": "No company",
+    "no-team": "No team"
+  },
+  "validation-error": {
+    "default-error-message": "Not a valid value."
+  },
+  "version-form": {
+    "change-log": "Changelog",
+    "close": "Close"
+  }
 }

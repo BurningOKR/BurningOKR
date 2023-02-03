@@ -1,14 +1,15 @@
 package org.burningokr.service.okrUnitUtil;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class TestingCycleStructure {
 
@@ -35,27 +36,23 @@ public class TestingCycleStructure {
       - 1 OkrDepartment
   */
 
+  public static final String exampleCycleName = "exampleCycle";
+  public static final String exampleCompanyName = "exampleOkrCompany";
+  public static final String exampleObjective1Name = "exampleObjective1";
+  public static final String exampleChildObjective1Name = "exampleChildObjective1";
+  public static final String exampleDepartmentName = "exampleOkrDepartment";
+  public static final String exampleObjective2Name = "exampleObjective2";
+  public static final String exampleChildObjective2Name = "exampleChildObjective2";
   public long originalId = 100L;
-
   @SuppressWarnings("WeakerAccess")
   public Cycle exampleCycle;
-
-  public static final String exampleCycleName = "exampleCycle";
-
   @SuppressWarnings("WeakerAccess")
   public OkrCompany exampleOkrCompany;
-
-  public static final String exampleCompanyName = "exampleOkrCompany";
   public Objective exampleObjective1;
-  public static final String exampleObjective1Name = "exampleObjective1";
   public Objective exampleChildObjective1;
-  public static final String exampleChildObjective1Name = "exampleChildObjective1";
   public OkrDepartment exampleOkrDepartment;
-  public static final String exampleDepartmentName = "exampleOkrDepartment";
   public Objective exampleObjective2;
-  public static final String exampleObjective2Name = "exampleObjective2";
   public Objective exampleChildObjective2;
-  public static final String exampleChildObjective2Name = "exampleChildObjective2";
 
   public void createTestingCompanyInstances() {
     // Creating fresh instances of all objects

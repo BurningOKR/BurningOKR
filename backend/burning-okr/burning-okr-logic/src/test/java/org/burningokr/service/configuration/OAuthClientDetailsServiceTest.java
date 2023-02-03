@@ -1,14 +1,5 @@
 package org.burningokr.service.configuration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Collections;
-import javax.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.repositories.configuration.OAuthClientDetailsRepository;
 import org.junit.Before;
@@ -19,13 +10,24 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
+
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class OAuthClientDetailsServiceTest {
 
-  @Mock private PasswordEncoder passwordEncoder;
-  @Mock private OAuthClientDetailsRepository oauthClientDetailsRepository;
+  @Mock
+  private PasswordEncoder passwordEncoder;
+  @Mock
+  private OAuthClientDetailsRepository oauthClientDetailsRepository;
 
-  @InjectMocks private OAuthClientDetailsService oauthClientDetailsService;
+  @InjectMocks
+  private OAuthClientDetailsService oauthClientDetailsService;
 
   private OAuthClientDetails oauthClientDetails;
 
@@ -75,27 +77,28 @@ public class OAuthClientDetailsServiceTest {
     when(oauthClientDetailsRepository.findAll()).thenReturn(iterable);
 
     OAuthClientDetails oauthClientDetailsFromService =
-        oauthClientDetailsService.getOAuthClientDetails();
+      oauthClientDetailsService.getOAuthClientDetails();
 
     verify(oauthClientDetailsRepository).findAll();
 
     assertEquals(oauthClientDetails.getClientId(), oauthClientDetails.getClientId());
     assertEquals(
-        oauthClientDetails.getRefreshTokenValidity(), oauthClientDetails.getRefreshTokenValidity());
+      oauthClientDetails.getRefreshTokenValidity(), oauthClientDetails.getRefreshTokenValidity());
     assertEquals(
-        oauthClientDetails.getAccessTokenValidity(), oauthClientDetails.getAccessTokenValidity());
+      oauthClientDetails.getAccessTokenValidity(), oauthClientDetails.getAccessTokenValidity());
     assertEquals(oauthClientDetails.getClientSecret(), oauthClientDetails.getClientSecret());
     assertEquals(
-        oauthClientDetails.getAdditionalInformation(),
-        oauthClientDetails.getAdditionalInformation());
+      oauthClientDetails.getAdditionalInformation(),
+      oauthClientDetails.getAdditionalInformation()
+    );
     assertEquals(oauthClientDetails.getAuthorities(), oauthClientDetails.getAuthorities());
     assertEquals(
-        oauthClientDetails.getAuthorizedGrantTypes(), oauthClientDetails.getAuthorizedGrantTypes());
+      oauthClientDetails.getAuthorizedGrantTypes(), oauthClientDetails.getAuthorizedGrantTypes());
     assertEquals(oauthClientDetails.getAutoapprove(), oauthClientDetails.getAutoapprove());
     assertEquals(oauthClientDetails.getResourceIds(), oauthClientDetails.getResourceIds());
     assertEquals(oauthClientDetails.getScope(), oauthClientDetails.getScope());
     assertEquals(
-        oauthClientDetails.getWebServerRedirectUri(), oauthClientDetails.getWebServerRedirectUri());
+      oauthClientDetails.getWebServerRedirectUri(), oauthClientDetails.getWebServerRedirectUri());
   }
 
   @Test

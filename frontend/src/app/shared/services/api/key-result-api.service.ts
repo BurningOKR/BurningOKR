@@ -6,7 +6,7 @@ import { KeyResultId, ObjectiveId, OkrUnitId } from '../../model/id-types';
 import { KeyResultDto } from '../../model/api/key-result.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KeyResultApiService {
 

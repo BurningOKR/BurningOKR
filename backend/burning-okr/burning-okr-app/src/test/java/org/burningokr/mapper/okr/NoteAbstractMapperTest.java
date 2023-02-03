@@ -1,16 +1,15 @@
 package org.burningokr.mapper.okr;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.model.okr.Note;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class NoteAbstractMapperTest {
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-  private static class NoteMapper extends NoteAbstractMapper {}
+public class NoteAbstractMapperTest {
 
   private Note note;
   private NoteDto noteDto;
@@ -23,14 +22,14 @@ public class NoteAbstractMapperTest {
     noteMapper = new NoteMapper();
   }
 
-  // Dto to Entity
-
   @Test
   public void mapNoteDtoToEntity_expects_NoteBodyIsMapped() {
     String expected = "test";
     noteDto.setNoteBody(expected);
     Assert.assertEquals(expected, noteMapper.mapNoteDtoToEntity(noteDto).getText());
   }
+
+  // Dto to Entity
 
   @Test
   public void mapNoteDtoToEntity_expects_NoteIdIsMapped() {
@@ -53,14 +52,14 @@ public class NoteAbstractMapperTest {
     Assert.assertEquals(expected, noteMapper.mapNoteDtoToEntity(noteDto).getDate());
   }
 
-  // Entity to Dto
-
   @Test
   public void mapEntityToNoteDto_expects_NoteBodyIsMapped() {
     String expected = "test";
     note.setText(expected);
     Assert.assertEquals(expected, noteMapper.mapNoteEntityToDto(note).getNoteBody());
   }
+
+  // Entity to Dto
 
   @Test
   public void mapEntityToNoteDto_expects_NoteIdIsMapped() {
@@ -81,5 +80,8 @@ public class NoteAbstractMapperTest {
     LocalDateTime expected = LocalDateTime.now();
     note.setDate(expected);
     Assert.assertEquals(expected, noteMapper.mapNoteEntityToDto(note).getDate());
+  }
+
+  private static class NoteMapper extends NoteAbstractMapper {
   }
 }

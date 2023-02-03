@@ -2,11 +2,6 @@ package org.burningokr.service.userhandling;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AadUserRepository;
@@ -25,6 +20,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.UUID;
+
 public class AadUserService implements UserService {
 
   private final AadUserRepository aadUserRepository;
@@ -34,7 +35,8 @@ public class AadUserService implements UserService {
 
   @Autowired
   public AadUserService(
-      AadUserRepository aadUserRepository, AadUserListUpdater aadUserListUpdater) {
+    AadUserRepository aadUserRepository, AadUserListUpdater aadUserListUpdater
+  ) {
     this.aadUserRepository = aadUserRepository;
     this.aadUserListUpdater = aadUserListUpdater;
   }
@@ -62,7 +64,7 @@ public class AadUserService implements UserService {
   @Override
   public User getCurrentUser() {
     OAuth2Authentication auth =
-        (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+      (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
     Gson g = new Gson();
     String userString = g.toJson(auth.getUserAuthentication().getDetails());
     return parseUserString(userString);
@@ -84,8 +86,8 @@ public class AadUserService implements UserService {
       ObjectMapper objectMapper = new ObjectMapper();
 
       return objectMapper
-          .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-          .readValue(userString, AadUser.class);
+        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .readValue(userString, AadUser.class);
     } catch (IOException ex) {
       logger.error("There was an error parsing the User Token.");
       logger.debug("parseUserString", ex);

@@ -1,13 +1,14 @@
 package org.burningokr.model.cycles;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CycleTest {

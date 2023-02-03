@@ -11,17 +11,19 @@ import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-un
 @Component({
   selector: 'app-cycle-admin-container',
   templateUrl: './cycle-admin-container.component.html',
-  styleUrls: ['./cycle-admin-container.component.scss']
+  styleUrls: ['./cycle-admin-container.component.scss'],
 })
 export class CycleAdminContainerComponent implements OnInit {
   cycles$: Observable<CycleUnit[]>;
 
   company: CompanyUnit;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private companyService: CompanyMapper,
-              private cycleCreationDialog: MatDialog) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private companyService: CompanyMapper,
+    private cycleCreationDialog: MatDialog,
+  ) {
   }
 
   ngOnInit(): void {
@@ -32,22 +34,22 @@ export class CycleAdminContainerComponent implements OnInit {
         (company: CompanyUnit) => {
           this.company = company;
           this.loadCycles();
-    });
+        });
   }
 
   createCycle(): void {
     const cycleDialogData: object = {
       data: {
         company: this.company,
-        cycles$: this.cycles$
-      }
+        cycles$: this.cycles$,
+      },
     };
     this.cycleCreationDialog.open(CycleCreationFormComponent, cycleDialogData)
       .afterClosed()
       .pipe(
         take(1),
         filter(x => x),
-        switchMap(x => x)
+        switchMap(x => x),
       )
       .subscribe(() => this.loadCycles());
   }

@@ -11,7 +11,7 @@ describe('UserService', () => {
     getUsers$: jest.fn(),
     addAdmin$: jest.fn(),
     deleteAdmin$: jest.fn(),
-    getActiveUsers$: jest.fn()
+    getActiveUsers$: jest.fn(),
   };
 
   const mockUser1: User = {
@@ -22,7 +22,7 @@ describe('UserService', () => {
     email: 'test@tester.test',
     jobTitle: 'testTitle',
     photo: 'photoString',
-    active: true
+    active: true,
   };
   const mockUser2: User = {
     id: '654321',
@@ -32,7 +32,7 @@ describe('UserService', () => {
     email: 'test@tester.test2',
     jobTitle: 'testTitle2',
     photo: 'photoString2',
-    active: true
+    active: true,
   };
 
   const mockUser3: User = {
@@ -43,7 +43,7 @@ describe('UserService', () => {
     email: 'test@tester.test3',
     jobTitle: 'testTitle3',
     photo: 'photoString3',
-    active: false
+    active: false,
   };
 
   beforeEach(() => {
@@ -77,11 +77,11 @@ describe('UserService', () => {
 
     fromApi$.subscribe((actual: User[]) => {
       expect(actual)
-          .toEqual(expected);
+        .toEqual(expected);
     });
     fromCache$.subscribe((actual: User[]) => {
       expect(actual)
-          .toEqual(expected);
+        .toEqual(expected);
       done();
     });
   });
@@ -101,7 +101,7 @@ describe('UserService', () => {
   it('getUserById$ should return a user from cache', done => {
     userService.getAllUsers$();
 
-    const  actual$: Observable<User> = userService.getUserById$(mockUser1.id);
+    const actual$: Observable<User> = userService.getUserById$(mockUser1.id);
 
     actual$.subscribe((user: User) => {
       expect(user)
@@ -174,7 +174,16 @@ describe('UserService', () => {
   });
 
   function copyUser(user: User): User {
-    return new User(user.id, user.givenName, user.surname, user.email, user.jobTitle, user.department, user.photo, user.active);
+    return new User(
+      user.id,
+      user.givenName,
+      user.surname,
+      user.email,
+      user.jobTitle,
+      user.department,
+      user.photo,
+      user.active,
+    );
   }
 
 });

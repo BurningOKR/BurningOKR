@@ -1,11 +1,12 @@
 package org.burningokr.model.okr;
 
+import lombok.Data;
+import org.burningokr.model.activity.Trackable;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
-import javax.persistence.*;
-import lombok.Data;
-import org.burningokr.model.activity.Trackable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

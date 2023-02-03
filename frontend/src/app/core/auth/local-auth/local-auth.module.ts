@@ -1,4 +1,4 @@
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -38,11 +38,11 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
     MatStepperModule,
     UserManagementModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
   ],
   exports: [
-    PasswordFormComponent
-  ]
+    PasswordFormComponent,
+  ],
 })
 export class LocalAuthModule {
 }

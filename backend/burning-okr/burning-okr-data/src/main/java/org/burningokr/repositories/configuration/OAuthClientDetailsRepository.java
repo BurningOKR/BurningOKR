@@ -4,4 +4,5 @@ import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.repositories.ExtendedRepository;
 
 public interface OAuthClientDetailsRepository
-    extends ExtendedRepository<OAuthClientDetails, String> {}
+  extends ExtendedRepository<OAuthClientDetails, String> {
+}

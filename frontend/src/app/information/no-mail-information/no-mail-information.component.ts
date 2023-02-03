@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-no-mail-information',
   templateUrl: './no-mail-information.component.html',
-  styleUrls: ['./no-mail-information.component.css']
+  styleUrls: ['./no-mail-information.component.css'],
 })
-export class NoMailInformationComponent  {
+export class NoMailInformationComponent {
 
   constructor(private router: Router) {
   }

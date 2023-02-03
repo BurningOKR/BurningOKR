@@ -18,10 +18,10 @@ describe('AdminViewComponent', () => {
   const userService: any = {
     getCurrentUser$: jest.fn(),
     getAdminIds$: jest.fn(),
-    getUsers$: jest.fn()
+    getUsers$: jest.fn(),
   };
   const currentUserService: any = {
-    getCurrentUser$: jest.fn()
+    getCurrentUser$: jest.fn(),
   };
   const router: any = {};
 
@@ -33,7 +33,7 @@ describe('AdminViewComponent', () => {
     department: 'testDepartment',
     email: 'testEmail',
     photo: 'testPhoto',
-    active: true
+    active: true,
   };
   const anotherUserMock: User = {
     id: 'anotherTestId',
@@ -43,7 +43,7 @@ describe('AdminViewComponent', () => {
     department: 'anotherTestDepartment',
     email: 'anotherTestEmail',
     photo: 'anotherTestPhoto',
-    active: true
+    active: true,
   };
 
   const adminList: string[] = ['testId'];
@@ -57,14 +57,14 @@ describe('AdminViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AdminViewComponent, TrackByPropertyPipe, AdminUserIdsPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      imports: [ MatDialogModule, MaterialTestingModule ],
+      imports: [MatDialogModule, MaterialTestingModule],
       providers: [
-        {provide: UserService, useValue: userService},
+        { provide: UserService, useValue: userService },
         {
           provide: CurrentUserService,
-          useValue: currentUserService
+          useValue: currentUserService,
         },
-        {provide: Router, useValue: router},
+        { provide: Router, useValue: router },
       ],
     })
       .compileComponents();

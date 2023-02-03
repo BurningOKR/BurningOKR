@@ -1,14 +1,5 @@
 package org.burningokr.service;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -23,12 +14,32 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ParentServiceTest {
 
-  @Mock private ParentService mockParentService;
-
-  @InjectMocks private ParentService parentService;
+  OkrCompany treeOkrCompany;
+  OkrBranch treeDepartment1;
+  OkrBranch treeDepartment2;
+  OkrBranch treeDepartment22;
+  OkrDepartment treeOkrDepartment221;
+  Objective treeObjectiveCompany;
+  Objective treeObjectiveD1;
+  Objective treeObjectiveD2;
+  Objective treeObjectiveD22;
+  Objective treeObjectiveD221;
+  Objective treeOrigin;
+  @Mock
+  private ParentService mockParentService;
+  @InjectMocks
+  private ParentService parentService;
 
   @Before
   public void reset() {
@@ -36,13 +47,19 @@ public class ParentServiceTest {
     buildTestCompany();
   }
 
+  ///////////////////////////////
+  /////   Tree-Structures  //////
+  // ////////////////////////////
+  /////   For a visualisation look at JTK_Backend/ObjectiveServiceTest_TreeStructure
+  // ////////////////////////////
+
   @Test
   public void test_validateParentObjective_expectsNothing() {
     when(mockParentService.isParentObjectiveLegal(any(Objective.class), any(Objective.class)))
-        .thenReturn(true);
+      .thenReturn(true);
     doCallRealMethod()
-        .when(mockParentService)
-        .validateParentObjective(any(Objective.class), any(Objective.class));
+      .when(mockParentService)
+      .validateParentObjective(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
     mockParentService.validateParentObjective(testObjective, testObjective);
@@ -53,10 +70,10 @@ public class ParentServiceTest {
   @Test
   public void test_validateParentObjective_expectsFalse() {
     when(mockParentService.isParentObjectiveLegal(any(Objective.class), any(Objective.class)))
-        .thenReturn(false);
+      .thenReturn(false);
     doCallRealMethod()
-        .when(mockParentService)
-        .validateParentObjective(any(Objective.class), any(Objective.class));
+      .when(mockParentService)
+      .validateParentObjective(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
     try {
@@ -64,9 +81,10 @@ public class ParentServiceTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw IllegalArgumentException.",
-          ex,
-          instanceOf(IllegalArgumentException.class));
+        "Should only throw IllegalArgumentException.",
+        ex,
+        instanceOf(IllegalArgumentException.class)
+      );
     }
 
     verify(mockParentService).isParentObjectiveLegal(any(Objective.class), any(Objective.class));
@@ -75,10 +93,10 @@ public class ParentServiceTest {
   @Test
   public void test_isParentObjectiveLegal_expectsTrue() {
     when(mockParentService.isUnitAChildUnit(any(OkrUnit.class), any(OkrUnit.class)))
-        .thenReturn(true);
+      .thenReturn(true);
     doCallRealMethod()
-        .when(mockParentService)
-        .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
+      .when(mockParentService)
+      .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
     OkrUnit testParentOkrUnit = new OkrDepartment();
@@ -91,10 +109,10 @@ public class ParentServiceTest {
   @Test
   public void test_isParentObjectiveLegal_expectsFalse() {
     when(mockParentService.isUnitAChildUnit(any(OkrUnit.class), any(OkrUnit.class)))
-        .thenReturn(false);
+      .thenReturn(false);
     doCallRealMethod()
-        .when(mockParentService)
-        .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
+      .when(mockParentService)
+      .isParentObjectiveLegal(any(Objective.class), any(Objective.class));
 
     Objective testObjective = new Objective();
     OkrUnit testParentOkrUnit = new OkrDepartment();
@@ -138,24 +156,6 @@ public class ParentServiceTest {
   public void test_isParentObjectiveLegal_OriginToObjD221_expectsFalse() {
     Assert.assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD221));
   }
-
-  ///////////////////////////////
-  /////   Tree-Structures  //////
-  // ////////////////////////////
-  /////   For a visualisation look at JTK_Backend/ObjectiveServiceTest_TreeStructure
-  // ////////////////////////////
-
-  OkrCompany treeOkrCompany;
-  OkrBranch treeDepartment1;
-  OkrBranch treeDepartment2;
-  OkrBranch treeDepartment22;
-  OkrDepartment treeOkrDepartment221;
-  Objective treeObjectiveCompany;
-  Objective treeObjectiveD1;
-  Objective treeObjectiveD2;
-  Objective treeObjectiveD22;
-  Objective treeObjectiveD221;
-  Objective treeOrigin;
 
   private void buildTestCompany() {
     treeOkrCompany = new OkrCompany();

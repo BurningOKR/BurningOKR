@@ -7,7 +7,7 @@ import { AuthConfig } from 'angular-oauth2-oidc';
 import { Consts } from '../../../shared/consts';
 
 const httpClient: any = {
-  get: jest.fn()
+  get: jest.fn(),
 };
 
 let testOAuthFrontendDetails: OAuthFrontendDetails;
@@ -16,8 +16,8 @@ describe('OAuthFrontendDetailsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       OAuthFrontendDetailsService,
-      { provide: HttpClient, useValue: httpClient }
-    ]
+      { provide: HttpClient, useValue: httpClient },
+    ],
   }));
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('OAuthFrontendDetailsService', () => {
       silentRefreshRedirectUri: 'burningokr.com',
       strictDiscoveryDocumentValidation: false,
       tokenEndpoint: 'a token endpoint',
-      useHttpBasicAuth: true
+      useHttpBasicAuth: true,
     };
 
     httpClient.get.mockReset();

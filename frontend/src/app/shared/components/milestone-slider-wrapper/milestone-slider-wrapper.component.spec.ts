@@ -15,7 +15,7 @@ describe('MilestoneSliderWrapperComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MilestoneSliderWrapperComponent],
-      imports: [MaterialTestingModule]
+      imports: [MaterialTestingModule],
     })
       .compileComponents();
   });

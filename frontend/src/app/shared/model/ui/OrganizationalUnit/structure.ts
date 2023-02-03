@@ -1,5 +1,6 @@
 import { OkrUnit } from './okr-unit';
 import { ObjectiveId } from '../../id-types';
+
 export class Structure extends OkrUnit {
 
   substructures: Structure[];
@@ -9,7 +10,8 @@ export class Structure extends OkrUnit {
     name: string,
     label: string,
     objectives: ObjectiveId[],
-    substructures: Structure[]) {
+    substructures: Structure[],
+  ) {
     super(id, name, label, objectives);
     this.substructures = substructures;
   }

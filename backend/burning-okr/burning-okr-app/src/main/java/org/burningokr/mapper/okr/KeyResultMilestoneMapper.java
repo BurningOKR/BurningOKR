@@ -1,16 +1,17 @@
 package org.burningokr.mapper.okr;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
 import org.burningokr.dto.okr.KeyResultMilestoneDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 @Service
 public class KeyResultMilestoneMapper
-    implements DataMapper<KeyResultMilestone, KeyResultMilestoneDto> {
+  implements DataMapper<KeyResultMilestone, KeyResultMilestoneDto> {
   @Override
   public KeyResultMilestone mapDtoToEntity(KeyResultMilestoneDto input) {
     KeyResultMilestone milestone = new KeyResultMilestone();

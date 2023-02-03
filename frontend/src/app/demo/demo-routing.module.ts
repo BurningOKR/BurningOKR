@@ -1,4 +1,4 @@
-import {TranslateModule} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoMainViewComponent } from './demo-main-view/demo-main-view.component';
@@ -13,14 +13,14 @@ const routes: Routes = [
       { path: '', component: DemoHomeComponent },
       { path: 'privacy-policy', component: DemoPrivacyPolicyComponent },
       { path: 'imprint', component: DemoImprintComponent },
-      { path: 'credits', component: DemoCreditsComponent }
-    ]
-  }
+      { path: 'credits', component: DemoCreditsComponent },
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [TranslateModule,RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [TranslateModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class DemoRoutingModule {
 }

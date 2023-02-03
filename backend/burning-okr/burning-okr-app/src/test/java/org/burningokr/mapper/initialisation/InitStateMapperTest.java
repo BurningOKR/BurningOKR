@@ -1,18 +1,19 @@
 package org.burningokr.mapper.initialisation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
 import org.burningokr.dto.initialisation.InitStateDto;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class InitStateMapperTest {
 

@@ -1,12 +1,13 @@
 package org.burningokr.model.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrDepartment;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data

@@ -8,7 +8,7 @@ import { INIT_STATE_NAME, InitState } from '../../shared/model/api/init-state';
 import { of } from 'rxjs';
 
 const apiHttpService: any = {
-  getData$: jest.fn()
+  getData$: jest.fn(),
 };
 
 describe('InitService', () => {
@@ -19,11 +19,11 @@ describe('InitService', () => {
       imports: [
         HttpClientTestingModule,
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         InitService,
-        {provide: ApiHttpService, useValue: apiHttpService}
-      ]
+        { provide: ApiHttpService, useValue: apiHttpService },
+      ],
     }));
 
   beforeEach(() => {
@@ -65,7 +65,7 @@ describe('InitService', () => {
   it('isInitialized should call http service when subject is false', done => {
     const initState: InitState = {
       initState: INIT_STATE_NAME.INITIALIZED,
-      runtimeId: 'test'
+      runtimeId: 'test',
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 
@@ -84,7 +84,7 @@ describe('InitService', () => {
   it('isInitialized should return true, when subject is false and http service is initialized', done => {
     const initState: InitState = {
       initState: INIT_STATE_NAME.INITIALIZED,
-      runtimeId: 'test'
+      runtimeId: 'test',
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 
@@ -103,7 +103,7 @@ describe('InitService', () => {
   it('isInitialized should make subject true, when http service is initialized and subject was false', done => {
     const initState: InitState = {
       initState: INIT_STATE_NAME.INITIALIZED,
-      runtimeId: 'test'
+      runtimeId: 'test',
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 
@@ -122,7 +122,7 @@ describe('InitService', () => {
   it('isInitialized should return false, when subject is false and http service is not initialized', done => {
     const initState: InitState = {
       initState: INIT_STATE_NAME.CREATE_USER,
-      runtimeId: 'test'
+      runtimeId: 'test',
     };
     apiHttpService.getData$.mockReturnValue(of(initState));
 

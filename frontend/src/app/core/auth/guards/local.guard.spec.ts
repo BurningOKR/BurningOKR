@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { Consts } from '../../../shared/consts';
 
 const oAuthDetailsMock: any = {
-  isLocalAuthType$: jest.fn()
+  isLocalAuthType$: jest.fn(),
 };
 const routerMock: any = {
   navigate: jest.fn(),
@@ -23,9 +23,9 @@ describe('LocalAuthGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         LocalGuard,
-        {provide: OAuthFrontendDetailsService, useValue: oAuthDetailsMock},
-        {provide: Router, useValue: routerMock}
-      ]
+        { provide: OAuthFrontendDetailsService, useValue: oAuthDetailsMock },
+        { provide: Router, useValue: routerMock },
+      ],
     })
       .compileComponents();
   });

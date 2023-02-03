@@ -1,7 +1,5 @@
 package org.burningokr.mapper.okr;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -11,6 +9,9 @@ import org.burningokr.model.okr.Objective;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +44,7 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
     keyResult.setNotes(new ArrayList<>());
 
     keyResult.setMilestones(
-        keyResultMilestoneMapper.mapDtosToEntities(keyResultDto.getKeyResultMilestoneDtos()));
+      keyResultMilestoneMapper.mapDtosToEntities(keyResultDto.getKeyResultMilestoneDtos()));
 
     logger.info("Mapped KeyResultDto (id:" + keyResultDto.getNoteIds() + ") to KeyResult.");
     return keyResult;
@@ -71,7 +72,7 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
     keyResultDto.setNoteIds(noteIds);
 
     keyResultDto.setKeyResultMilestoneDtos(
-        keyResultMilestoneMapper.mapEntitiesToDtos(keyResult.getMilestones()));
+      keyResultMilestoneMapper.mapEntitiesToDtos(keyResult.getMilestones()));
 
     logger.info("Mapped KeyResult (id:" + keyResult.getId() + ") to KeyResultDto.");
     return keyResultDto;

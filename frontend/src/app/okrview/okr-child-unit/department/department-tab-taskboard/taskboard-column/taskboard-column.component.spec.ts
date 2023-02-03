@@ -13,7 +13,7 @@ describe('TaskboardColumnComponent', () => {
 
   @Component({
     selector: 'app-department-tab-task-card',
-    template: ''
+    template: '',
   })
   class TasKCardMockComponent {
     @Input() taskInformations: any;
@@ -26,7 +26,7 @@ describe('TaskboardColumnComponent', () => {
       imports: [SharedModule, MaterialTestingModule, DragDropModule],
       providers: [
         CdkDropList,
-      ]
+      ],
     })
       .compileComponents();
   }));
@@ -34,7 +34,7 @@ describe('TaskboardColumnComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TaskboardColumnComponent);
     component = fixture.componentInstance;
-    component.map = {state: new ViewTaskState(1, 'title'), tasks: []};
+    component.map = { state: new ViewTaskState(1, 'title'), tasks: [] };
     component.id = 1;
     component.keyResults = [];
     component.isInteractive = false;

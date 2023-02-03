@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CookieHelperService } from './cookie-helper.service';
-import {MaterialTestingModule} from '../../../testing/material-testing.module';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
 
 describe('CookieHelperService', () => {
   let service: CookieHelperService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialTestingModule ],
+      imports: [MaterialTestingModule],
     });
     service = TestBed.inject(CookieHelperService);
     service.clearAllCookies();

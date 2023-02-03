@@ -27,9 +27,10 @@ public class ApplicationStartupLocalAuthConfigurer {
   @EventListener(ApplicationReadyEvent.class)
   public void onApplicationEvent(ApplicationReadyEvent event) {
     String tokenEndpointPrefix =
-        environment.getProperty("system.configuration.token-endpoint-prefix");
+      environment.getProperty("system.configuration.token-endpoint-prefix");
     oAuthConfigurationService.setOAuthConfiguration(
-        OAuthConfigurationName.TOKEN_ENDPOINT,
-        tokenEndpointPrefix + DefaultLocalAuthData.tokenEndpoint);
+      OAuthConfigurationName.TOKEN_ENDPOINT,
+      tokenEndpointPrefix + DefaultLocalAuthData.tokenEndpoint
+    );
   }
 }

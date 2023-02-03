@@ -1,15 +1,5 @@
 package org.burningokr.dto.validators;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.cycles.Cycle;
@@ -26,14 +16,28 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class CycleDtoValidatorTest {
 
-  @Mock private CycleRepository cycleRepository;
+  @Mock
+  private CycleRepository cycleRepository;
 
-  @Mock private CompanyRepository companyRepository;
+  @Mock
+  private CompanyRepository companyRepository;
 
-  @InjectMocks private CycleDtoValidator cycleDtoValidator;
+  @InjectMocks
+  private CycleDtoValidator cycleDtoValidator;
 
   private Long cycleDtoId = 100L;
 
@@ -54,9 +58,9 @@ public class CycleDtoValidatorTest {
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(targetOkrCompany);
     when(cycleRepository.findByCompanyHistoryAndDateBetweenPlannedTimeRange(any(), any()))
-        .thenReturn(repositoryReturnCyclesThatOverlapFromSameCompanyHistory);
+      .thenReturn(repositoryReturnCyclesThatOverlapFromSameCompanyHistory);
     when(cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(any(), any(), any()))
-        .thenReturn(repositoryReturnCyclesThatAreEnvelopedFromSameCompanyHistory);
+      .thenReturn(repositoryReturnCyclesThatAreEnvelopedFromSameCompanyHistory);
   }
 
   private CycleDto getValidCycleDto() {
@@ -86,7 +90,7 @@ public class CycleDtoValidatorTest {
 
   @Test
   public void validateCycleDto_DtoNameEmpty_expectedInvalidDtoException()
-      throws InvalidDtoException {
+    throws InvalidDtoException {
     CycleDto cycleDto = getValidCycleDto();
     cycleDto.setName("");
 
@@ -95,7 +99,7 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
@@ -110,7 +114,7 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
@@ -126,7 +130,7 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
@@ -140,13 +144,13 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
   @Test
   public void
-      validateCycleDto_DtoPreparationStatusPlannedStartInPast_expectedInvalidDtoException() {
+  validateCycleDto_DtoPreparationStatusPlannedStartInPast_expectedInvalidDtoException() {
     CycleDto cycleDto = getValidCycleDto();
     cycleDto.setCycleState(CycleState.PREPARATION);
     cycleDto.setPlannedStartDate(LocalDate.now().minusDays(5));
@@ -155,7 +159,7 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
@@ -168,7 +172,7 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
@@ -187,13 +191,13 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
   @Test
   public void validateCycleDto_DtoEnvelopsSameCycle_expectedNoExceptionThrown()
-      throws InvalidDtoException {
+    throws InvalidDtoException {
     CycleDto cycleDto = getValidCycleDto();
     Cycle envelopedCycle = new Cycle();
     envelopedCycle.setId(cycleDtoId);
@@ -204,7 +208,7 @@ public class CycleDtoValidatorTest {
 
   @Test
   public void validateCycleDto_DtoDateOverlapsWithOtherCycle_expectedInvalidDtoException()
-      throws InvalidDtoException {
+    throws InvalidDtoException {
     CycleDto cycleDto = getValidCycleDto();
     Cycle envelopedCycle = new Cycle();
     envelopedCycle.setId(cycleDtoId + 100L);
@@ -214,13 +218,13 @@ public class CycleDtoValidatorTest {
       Assert.fail();
     } catch (Exception ex) {
       assertThat(
-          "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
     }
   }
 
   @Test
   public void validateCycleDto_DtoDateOverlapsSameCycle_expectedNoExceptionThrown()
-      throws InvalidDtoException {
+    throws InvalidDtoException {
     CycleDto cycleDto = getValidCycleDto();
     Cycle envelopedCycle = new Cycle();
     envelopedCycle.setId(cycleDtoId);
