@@ -92,7 +92,7 @@ public class KeyResultMilestoneMapperTest {
   public void test_mapEntitiesToDtos_expectEmptyListIsMapped() {
     Collection<KeyResultMilestone> emptyList = new ArrayList<>();
     Collection<KeyResultMilestoneDto> emptyDtoList =
-        keyResultMilestoneMapper.mapEntitiesToDtos(emptyList);
+      keyResultMilestoneMapper.mapEntitiesToDtos(emptyList);
     Assert.assertTrue(emptyDtoList.isEmpty());
   }
 
@@ -111,7 +111,7 @@ public class KeyResultMilestoneMapperTest {
   public void test_mapDtosToEntities_expectEmptyListIsMapped() {
     Collection<KeyResultMilestoneDto> emptyList = new ArrayList<>();
     Collection<KeyResultMilestone> emptyDtoList =
-        keyResultMilestoneMapper.mapDtosToEntities(emptyList);
+      keyResultMilestoneMapper.mapDtosToEntities(emptyList);
     Assert.assertTrue(emptyDtoList.isEmpty());
   }
 

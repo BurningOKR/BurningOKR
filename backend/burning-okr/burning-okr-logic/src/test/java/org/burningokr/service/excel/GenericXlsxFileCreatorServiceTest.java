@@ -28,12 +28,12 @@ public class GenericXlsxFileCreatorServiceTest {
 
   @Test
   public void createWorkbook_shouldCreateTeamMemberWorkbookWithHeadlineRowAndFillThemOutCorrectly()
-      throws IllegalAccessException {
+    throws IllegalAccessException {
     Collection<String> headlines = Arrays.asList("h1", "h2", "h3", "h4");
     String sheetTitle = "okr-members";
 
     Workbook workbook =
-        teamMemberXlsxFileCreatorService.createWorkbook(new ArrayList<>(), headlines, sheetTitle);
+      teamMemberXlsxFileCreatorService.createWorkbook(new ArrayList<>(), headlines, sheetTitle);
 
     Sheet sheet = workbook.getSheet(sheetTitle);
 
@@ -46,23 +46,24 @@ public class GenericXlsxFileCreatorServiceTest {
 
   @Test
   public void createWorkbook_shouldCreateObjectiveRowWorkbookWithHeadlines()
-      throws IllegalAccessException {
+    throws IllegalAccessException {
     Collection<String> headlines =
-        Arrays.asList(
-            "Team",
-            "Objective",
-            "Fortschritt",
-            "Uebergeordnetes Unternehemensziel",
-            "Key Result",
-            "Beschreibung",
-            "Start",
-            "Ende",
-            "Aktuell",
-            "Einheit");
+      Arrays.asList(
+        "Team",
+        "Objective",
+        "Fortschritt",
+        "Uebergeordnetes Unternehemensziel",
+        "Key Result",
+        "Beschreibung",
+        "Start",
+        "Ende",
+        "Aktuell",
+        "Einheit"
+      );
     String sheetTitle = "okr-members";
 
     Workbook workbook =
-        objectiveRowXlsxFileCreatorService.createWorkbook(new ArrayList<>(), headlines, sheetTitle);
+      objectiveRowXlsxFileCreatorService.createWorkbook(new ArrayList<>(), headlines, sheetTitle);
 
     Sheet sheet = workbook.getSheet(sheetTitle);
 
@@ -81,7 +82,7 @@ public class GenericXlsxFileCreatorServiceTest {
 
   @Test
   public void createWorkbook_shouldTeamMemberCreateWorkbookShouldFillOutWorkBookCorrectly()
-      throws IllegalAccessException {
+    throws IllegalAccessException {
     Collection<String> headlines = Arrays.asList("h1", "h2", "h3", "h4");
     String sheetTitle = "okr-members";
     TeamMemberRow row1 = new TeamMemberRow("team1", "role1", "name1", "email1");
@@ -91,7 +92,7 @@ public class GenericXlsxFileCreatorServiceTest {
     Collection<TeamMemberRow> teamMemberRows = Arrays.asList(row1, row2, row3);
 
     Workbook workbook =
-        teamMemberXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, sheetTitle);
+      teamMemberXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, sheetTitle);
 
     Sheet sheet = workbook.getSheet(sheetTitle);
 
@@ -116,51 +117,54 @@ public class GenericXlsxFileCreatorServiceTest {
 
   @Test
   public void
-      createWorkbook_shouldCreateObjectiveRowWorkbookWithHeadlineRowAndFillThemOutCorrectly()
-          throws IllegalAccessException {
+  createWorkbook_shouldCreateObjectiveRowWorkbookWithHeadlineRowAndFillThemOutCorrectly()
+    throws IllegalAccessException {
     Collection<String> headlines =
-        Arrays.asList(
-            "Team",
-            "Objective",
-            "Fortschritt",
-            "Uebergeordnetes Unternehemensziel",
-            "Key Result",
-            "Beschreibung",
-            "Start",
-            "Ende",
-            "Aktuell",
-            "Einheit");
+      Arrays.asList(
+        "Team",
+        "Objective",
+        "Fortschritt",
+        "Uebergeordnetes Unternehemensziel",
+        "Key Result",
+        "Beschreibung",
+        "Start",
+        "Ende",
+        "Aktuell",
+        "Einheit"
+      );
     String sheetTitle = "okr-members";
 
     ObjectiveRow row1 =
-        new ObjectiveRow(
-            "Workflow (Camunda)",
-            "Wir begeistern unsere Kollegen für Camunda",
-            new PercentageCellValue(15f),
-            "Wir verstehen die Bedüfnisse...",
-            "Wir haben 10 interessante...",
-            "Workshopideen...",
-            0,
-            10,
-            1,
-            "Anzahl");
+      new ObjectiveRow(
+        "Workflow (Camunda)",
+        "Wir begeistern unsere Kollegen für Camunda",
+        new PercentageCellValue(15f),
+        "Wir verstehen die Bedüfnisse...",
+        "Wir haben 10 interessante...",
+        "Workshopideen...",
+        0,
+        10,
+        1,
+        "Anzahl"
+      );
     ObjectiveRow row2 =
-        new ObjectiveRow(
-            "Workflow (Camunda)",
-            "Wie begeistern unsre Kollegen für...",
-            new PercentageCellValue(15f),
-            "Wir verstehen...",
-            "Wir kommunizieren...",
-            "z.b. Projektbericht...",
-            0,
-            5,
-            1,
-            "Anzahl");
+      new ObjectiveRow(
+        "Workflow (Camunda)",
+        "Wie begeistern unsre Kollegen für...",
+        new PercentageCellValue(15f),
+        "Wir verstehen...",
+        "Wir kommunizieren...",
+        "z.b. Projektbericht...",
+        0,
+        5,
+        1,
+        "Anzahl"
+      );
 
     Collection<ObjectiveRow> objectiveRows = Arrays.asList(row1, row2);
 
     Workbook workbook =
-        objectiveRowXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, sheetTitle);
+      objectiveRowXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, sheetTitle);
 
     Sheet sheet = workbook.getSheet(sheetTitle);
 
@@ -178,7 +182,7 @@ public class GenericXlsxFileCreatorServiceTest {
     Assert.assertEquals(row1.getTeam(), getStringContentOf(sheet, 1, 0));
     Assert.assertEquals(row1.getObjective(), getStringContentOf(sheet, 1, 1));
     Assert.assertEquals(
-        String.valueOf(row1.getProgress().getValue()), getStringContentOf(sheet, 1, 2));
+      String.valueOf(row1.getProgress().getValue()), getStringContentOf(sheet, 1, 2));
     Assert.assertEquals(row1.getParentUnitGoal(), getStringContentOf(sheet, 1, 3));
     Assert.assertEquals(row1.getKeyResult(), getStringContentOf(sheet, 1, 4));
     Assert.assertEquals(row1.getDescription(), getStringContentOf(sheet, 1, 5));
@@ -189,7 +193,7 @@ public class GenericXlsxFileCreatorServiceTest {
     Assert.assertEquals(row2.getTeam(), getStringContentOf(sheet, 2, 0));
     Assert.assertEquals(row2.getObjective(), getStringContentOf(sheet, 2, 1));
     Assert.assertEquals(
-        String.valueOf(row2.getProgress().getValue()), getStringContentOf(sheet, 2, 2));
+      String.valueOf(row2.getProgress().getValue()), getStringContentOf(sheet, 2, 2));
     Assert.assertEquals(row2.getParentUnitGoal(), getStringContentOf(sheet, 2, 3));
     Assert.assertEquals(String.valueOf(row2.getKeyResult()), getStringContentOf(sheet, 2, 4));
     Assert.assertEquals(row2.getDescription(), getStringContentOf(sheet, 2, 5));
@@ -201,50 +205,53 @@ public class GenericXlsxFileCreatorServiceTest {
 
   @Test
   public void createWorkbook_shouldCreateObjectiveRowWorkbookWithCorrectCellTypes()
-      throws IllegalAccessException {
+    throws IllegalAccessException {
     Collection<String> headlines =
-        Arrays.asList(
-            "Team",
-            "Objective",
-            "Fortschritt",
-            "Uebergeordnetes Unternehemensziel",
-            "Key Result",
-            "Beschreibung",
-            "Start",
-            "Ende",
-            "Aktuell",
-            "Einheit");
+      Arrays.asList(
+        "Team",
+        "Objective",
+        "Fortschritt",
+        "Uebergeordnetes Unternehemensziel",
+        "Key Result",
+        "Beschreibung",
+        "Start",
+        "Ende",
+        "Aktuell",
+        "Einheit"
+      );
     String sheetTitle = "okr-members";
 
     ObjectiveRow row1 =
-        new ObjectiveRow(
-            "Workflow (Camunda)",
-            "Wir begeistern unsere Kollegen für Camunda",
-            new PercentageCellValue(15f),
-            "Wir verstehen die Bedüfnisse...",
-            "Wir haben 10 interessante...",
-            "Workshopideen...",
-            0,
-            10,
-            1,
-            "Anzahl");
+      new ObjectiveRow(
+        "Workflow (Camunda)",
+        "Wir begeistern unsere Kollegen für Camunda",
+        new PercentageCellValue(15f),
+        "Wir verstehen die Bedüfnisse...",
+        "Wir haben 10 interessante...",
+        "Workshopideen...",
+        0,
+        10,
+        1,
+        "Anzahl"
+      );
     ObjectiveRow row2 =
-        new ObjectiveRow(
-            "Workflow (Camunda)",
-            "Wie begeistern unsre Kollegen für...",
-            new PercentageCellValue(15f),
-            "Wir verstehen...",
-            "Wir kommunizieren...",
-            "z.b. Projektbericht...",
-            0,
-            5,
-            1,
-            "Anzahl");
+      new ObjectiveRow(
+        "Workflow (Camunda)",
+        "Wie begeistern unsre Kollegen für...",
+        new PercentageCellValue(15f),
+        "Wir verstehen...",
+        "Wir kommunizieren...",
+        "z.b. Projektbericht...",
+        0,
+        5,
+        1,
+        "Anzahl"
+      );
 
     Collection<ObjectiveRow> objectiveRows = Arrays.asList(row1, row2);
 
     Workbook workbook =
-        objectiveRowXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, sheetTitle);
+      objectiveRowXlsxFileCreatorService.createWorkbook(objectiveRows, headlines, sheetTitle);
 
     Sheet sheet = workbook.getSheet(sheetTitle);
 

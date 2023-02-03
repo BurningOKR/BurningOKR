@@ -19,15 +19,16 @@ public class GenericXlsxFileCreatorService<T> {
    * Creates a Workbook.
    *
    * @param contentRows a {@link Collection} of {@link T} objects
-   * @param headlines a {@link Collection} of String values
-   * @param sheetTitle a String value
+   * @param headlines   a {@link Collection} of String values
+   * @param sheetTitle  a String value
    * @return a {@link Workbook} object
    * @throws IllegalAccessException if the name is null or invalid or workbook already contains a
-   *     sheet with this name
+   *                                sheet with this name
    */
   public Workbook createWorkbook(
-      @NotNull Collection<T> contentRows, @NotNull Collection<String> headlines, String sheetTitle)
-      throws IllegalAccessException {
+    @NotNull Collection<T> contentRows, @NotNull Collection<String> headlines, String sheetTitle
+  )
+    throws IllegalAccessException {
     Workbook workbook = new XSSFWorkbook();
     Sheet sheet = workbook.createSheet(sheetTitle);
 
@@ -49,7 +50,7 @@ public class GenericXlsxFileCreatorService<T> {
   }
 
   private void fillOutSheet(Workbook workbook, Sheet sheet, Collection<T> contentRows)
-      throws IllegalAccessException {
+    throws IllegalAccessException {
     int rowIndex = 1;
 
     for (T content : contentRows) {
@@ -81,16 +82,17 @@ public class GenericXlsxFileCreatorService<T> {
    */
   private void sortFieldDependingOnColumnIndex(Field[] fields) throws MissingAnnotationException {
     Arrays.sort(
-        fields,
-        (o1, o2) -> {
-          ColumnIndex columnIndex1 = o1.getAnnotation(ColumnIndex.class);
-          ColumnIndex columnIndex2 = o2.getAnnotation(ColumnIndex.class);
-          if (columnIndex1 != null && columnIndex2 != null) {
-            return columnIndex1.value() - columnIndex2.value();
-          }
-          throw new MissingAnnotationException(
-              "One or both fields are not annotated with the @ColumnIndex annotation");
-        });
+      fields,
+      (o1, o2) -> {
+        ColumnIndex columnIndex1 = o1.getAnnotation(ColumnIndex.class);
+        ColumnIndex columnIndex2 = o2.getAnnotation(ColumnIndex.class);
+        if (columnIndex1 != null && columnIndex2 != null) {
+          return columnIndex1.value() - columnIndex2.value();
+        }
+        throw new MissingAnnotationException(
+          "One or both fields are not annotated with the @ColumnIndex annotation");
+      }
+    );
   }
 
   private void fillOutCell(Row row, int cellIndex, String value) {
@@ -109,7 +111,7 @@ public class GenericXlsxFileCreatorService<T> {
     row.createCell(cellIndex).setCellValue(value.getValue());
     CellStyle stylePercentage = workbook.createCellStyle();
     stylePercentage.setDataFormat(
-        workbook.createDataFormat().getFormat(BuiltinFormats.getBuiltinFormat(10)));
+      workbook.createDataFormat().getFormat(BuiltinFormats.getBuiltinFormat(10)));
     row.getCell(cellIndex).setCellStyle(stylePercentage);
   }
 

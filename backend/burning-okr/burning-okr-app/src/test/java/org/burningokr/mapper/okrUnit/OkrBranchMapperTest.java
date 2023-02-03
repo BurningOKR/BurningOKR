@@ -169,7 +169,7 @@ public class OkrBranchMapperTest {
   @Test
   public void test_mapEntitiesToDots_expectAllAreMapped() {
     Collection<OkrBranch> entities =
-        Arrays.asList(new OkrBranch(), new OkrBranch(), new OkrBranch());
+      Arrays.asList(new OkrBranch(), new OkrBranch(), new OkrBranch());
     Collection<OkrBranchDto> dtos = mapper.mapEntitiesToDtos(entities);
     Assert.assertEquals(entities.size(), dtos.size());
   }

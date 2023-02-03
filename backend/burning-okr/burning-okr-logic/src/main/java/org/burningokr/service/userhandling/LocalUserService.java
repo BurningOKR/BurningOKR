@@ -51,7 +51,7 @@ public class LocalUserService implements UserService {
   @Override
   public LocalUser getCurrentUser() {
     OAuth2Authentication auth =
-        (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+      (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
     Object decodedDetails = ((OAuth2AuthenticationDetails) auth.getDetails()).getDecodedDetails();
     Gson g = new Gson();
     String userString = g.toJson(decodedDetails);
@@ -79,8 +79,8 @@ public class LocalUserService implements UserService {
     try {
       ObjectMapper objectMapper = new ObjectMapper();
       return objectMapper
-          .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-          .readValue(userString, LocalUser.class);
+        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .readValue(userString, LocalUser.class);
     } catch (IOException ex) {
       logger.error("There was an error parsing the User Token.");
       logger.debug("parseUserString", ex);
@@ -101,7 +101,7 @@ public class LocalUserService implements UserService {
   /**
    * Create a Local User.
    *
-   * @param user an {@link User} object
+   * @param user         an {@link User} object
    * @param sendPassword if set to true a change password email will be sent
    * @return an {@link LocalUser} object
    */
@@ -145,7 +145,7 @@ public class LocalUserService implements UserService {
    * Update a Local User.
    *
    * @param userId an {@link UUID} object
-   * @param user an {@link User} object
+   * @param user   an {@link User} object
    * @return a {@link LocalUser} object
    */
   public LocalUser updateLocalUser(UUID userId, User user) {

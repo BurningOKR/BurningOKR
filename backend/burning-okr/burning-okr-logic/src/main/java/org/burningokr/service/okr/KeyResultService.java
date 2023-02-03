@@ -48,7 +48,7 @@ public class KeyResultService {
    * Updates a Key Result.
    *
    * @param updatedKeyResult a {@link KeyResult} object
-   * @param user an {@link User} object
+   * @param user             an {@link User} object
    * @return a {@link KeyResult} object
    */
   @Transactional
@@ -67,11 +67,11 @@ public class KeyResultService {
 
     referencedKeyResult = keyResultRepository.save(referencedKeyResult);
     logger.info(
-        "Updated Key Result "
-            + referencedKeyResult.getName()
-            + "(id:"
-            + referencedKeyResult.getId()
-            + ")");
+      "Updated Key Result "
+        + referencedKeyResult.getName()
+        + "(id:"
+        + referencedKeyResult.getId()
+        + ")");
     activityService.createActivity(user, referencedKeyResult, Action.EDITED);
     return referencedKeyResult;
   }
@@ -80,7 +80,7 @@ public class KeyResultService {
    * Deletes a Key Result.
    *
    * @param keyResultId a long value
-   * @param user an {@link User} object
+   * @param user        an {@link User} object
    */
   @Transactional
   public void deleteKeyResult(Long keyResultId, User user) throws Exception {
@@ -90,7 +90,7 @@ public class KeyResultService {
 
     if (referencedKeyResult.getParentObjective() != null) {
       Collection<KeyResult> keyResultList =
-          referencedKeyResult.getParentObjective().getKeyResults();
+        referencedKeyResult.getParentObjective().getKeyResults();
       for (KeyResult keyResult : keyResultList) {
         if (keyResult.getSequence() > referencedKeyResult.getSequence()) {
           keyResult.setSequence(keyResult.getSequence() - 1);
@@ -113,9 +113,9 @@ public class KeyResultService {
   /**
    * Creates a Note for a Key Result.
    *
-   * @param keyResultId a long value
+   * @param keyResultId   a long value
    * @param noteKeyResult a {@link NoteKeyResult} object
-   * @param user an {@link User} object
+   * @param user          an {@link User} object
    * @return a {@link Note} object
    */
   @Transactional
@@ -126,14 +126,14 @@ public class KeyResultService {
 
     noteKeyResult = noteKeyResultRepository.save(noteKeyResult);
     logger.info(
-        "Added Note with id "
-            + noteKeyResult.getId()
-            + " from User "
-            + user.getGivenName()
-            + " "
-            + user.getSurname()
-            + " to KeyResult "
-            + keyResultId);
+      "Added Note with id "
+        + noteKeyResult.getId()
+        + " from User "
+        + user.getGivenName()
+        + " "
+        + user.getSurname()
+        + " to KeyResult "
+        + keyResultId);
     activityService.createActivity(user, noteKeyResult, Action.CREATED);
 
     return noteKeyResult;
@@ -142,7 +142,7 @@ public class KeyResultService {
   @Transactional
   public NoteKeyResult updateNote(NoteKeyResult updatedNoteKeyResult) {
     NoteKeyResult referencedNoteKeyResult =
-        noteKeyResultRepository.findByIdOrThrow(updatedNoteKeyResult.getId());
+      noteKeyResultRepository.findByIdOrThrow(updatedNoteKeyResult.getId());
 
     referencedNoteKeyResult.setUserId(updatedNoteKeyResult.getUserId());
     referencedNoteKeyResult.setText(updatedNoteKeyResult.getText());
@@ -157,37 +157,37 @@ public class KeyResultService {
   /**
    * Updates a Sequence.
    *
-   * @param objectiveId a long value
+   * @param objectiveId  a long value
    * @param sequenceList a {@link Collection} of long values
-   * @param user an {@link User} object
+   * @param user         an {@link User} object
    * @throws Exception if Sequence is invalid
    */
   @Transactional
   public void updateSequence(Long objectiveId, Collection<Long> sequenceList, User user)
-      throws Exception {
+    throws Exception {
     Objective objective = objectiveService.findById(objectiveId);
     throwIfSequenceInvalid(objective, sequenceList);
 
     ArrayList<Long> sequenceArray = new ArrayList<>(sequenceList);
     objective
-        .getKeyResults()
-        .forEach(
-            keyResult -> {
-              int currentOrder = sequenceArray.indexOf(keyResult.getId());
-              keyResult.setSequence(currentOrder);
-              keyResultRepository.save(keyResult);
-              activityService.createActivity(user, keyResult, Action.EDITED);
-              logger.info("Update sequence of KeyResult with id " + keyResult.getId());
-            });
+      .getKeyResults()
+      .forEach(
+        keyResult -> {
+          int currentOrder = sequenceArray.indexOf(keyResult.getId());
+          keyResult.setSequence(currentOrder);
+          keyResultRepository.save(keyResult);
+          activityService.createActivity(user, keyResult, Action.EDITED);
+          logger.info("Update sequence of KeyResult with id " + keyResult.getId());
+        });
   }
 
   private void throwIfSequenceInvalid(Objective objective, Collection<Long> sequenceList)
-      throws Exception {
+    throws Exception {
     Collection<KeyResult> keyResultList = objective.getKeyResults();
 
     if (keyResultList.size() != sequenceList.size()) {
       throw new IllegalArgumentException(
-          "Size of KeyResult List and Sequence List has to be equal");
+        "Size of KeyResult List and Sequence List has to be equal");
     }
 
     ArrayList<Long> keyResultIdList = new ArrayList<>();
@@ -207,7 +207,7 @@ public class KeyResultService {
 
   private void throwIfCycleOfKeyResultIsClosed(KeyResult keyResultToCheck) {
     if (entityCrawlerService.getCycleOfKeyResult(keyResultToCheck).getCycleState()
-        == CycleState.CLOSED) {
+      == CycleState.CLOSED) {
       throw new ForbiddenException("Cannot modify this resource on a KeyResult in a closed cycle.");
     }
   }

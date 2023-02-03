@@ -23,9 +23,10 @@ public class FrontendLogMapper implements DataMapper<FrontendLog, FrontendLogDto
     frontendLog.setId(frontendLogDto.getId());
     frontendLog.setLevel(FrontendLogLevel.getLevelByIdentifier(frontendLogDto.getLevel()).name());
     frontendLog.setTimestamp(
-        LocalDateTime.parse(
-            formatStringToValidIsoWithoutMilliseconds(frontendLogDto.getTimestamp()),
-            dateTimeFormatter));
+      LocalDateTime.parse(
+        formatStringToValidIsoWithoutMilliseconds(frontendLogDto.getTimestamp()),
+        dateTimeFormatter
+      ));
     frontendLog.setFileName(frontendLogDto.getFileName());
     frontendLog.setLineNumber(frontendLogDto.getLineNumber());
     frontendLog.setMessage(frontendLogDto.getMessage());
@@ -34,10 +35,11 @@ public class FrontendLogMapper implements DataMapper<FrontendLog, FrontendLogDto
   }
 
   private String formatStringToValidIsoWithoutMilliseconds(
-      @NotNull String potentialTimestampWithMilliseconds) {
+    @NotNull String potentialTimestampWithMilliseconds
+  ) {
     return potentialTimestampWithMilliseconds.contains(".")
-        ? potentialTimestampWithMilliseconds.split("\\.")[0]
-        : potentialTimestampWithMilliseconds;
+      ? potentialTimestampWithMilliseconds.split("\\.")[0]
+      : potentialTimestampWithMilliseconds;
   }
 
   @Override
@@ -45,7 +47,7 @@ public class FrontendLogMapper implements DataMapper<FrontendLog, FrontendLogDto
     FrontendLogDto frontendLogDto = new FrontendLogDto();
     frontendLogDto.setId(frontendLog.getId());
     frontendLogDto.setLevel(
-        String.valueOf(FrontendLogLevel.valueOf(frontendLog.getLevel()).getLevelId()));
+      String.valueOf(FrontendLogLevel.valueOf(frontendLog.getLevel()).getLevelId()));
     frontendLogDto.setTimestamp(frontendLog.getTimestamp().format(dateTimeFormatter));
     frontendLogDto.setFileName(frontendLog.getFileName());
     frontendLogDto.setLineNumber(frontendLog.getLineNumber());

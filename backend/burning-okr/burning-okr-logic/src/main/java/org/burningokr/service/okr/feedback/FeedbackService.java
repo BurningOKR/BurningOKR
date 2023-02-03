@@ -25,7 +25,7 @@ public class FeedbackService {
    * Sends Feedback Mail to all configured Contact Persons.
    *
    * @param feedbackSender a String value
-   * @param feedbackText a String value
+   * @param feedbackText   a String value
    */
   public void sendFeedbackMail(String feedbackSender, String feedbackText) {
     Mail mail = createFeedbackMail(feedbackSender, feedbackText);

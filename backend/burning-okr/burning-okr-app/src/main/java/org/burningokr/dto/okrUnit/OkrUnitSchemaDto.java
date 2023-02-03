@@ -29,9 +29,11 @@ public class OkrUnitSchemaDto {
   @Setter(AccessLevel.NONE)
   private Boolean isTeam;
 
-  @NotNull private Collection<OkrUnitSchemaDto> subDepartments = new ArrayList<>();
+  @NotNull
+  private Collection<OkrUnitSchemaDto> subDepartments = new ArrayList<>();
 
-  @NotNull private OkrDepartmentDtoRole userRole;
+  @NotNull
+  private OkrDepartmentDtoRole userRole;
 
   public Boolean getIsActive() {
     return isActive;

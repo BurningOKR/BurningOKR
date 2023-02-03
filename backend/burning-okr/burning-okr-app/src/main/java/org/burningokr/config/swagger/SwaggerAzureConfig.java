@@ -34,8 +34,8 @@ public class SwaggerAzureConfig extends SwaggerConfig {
   @Bean
   public Docket api() {
     return baseApi()
-        .securitySchemes(Collections.singletonList(securityScheme()))
-        .securityContexts(Collections.singletonList(securityContext()));
+      .securitySchemes(Collections.singletonList(securityScheme()))
+      .securityContexts(Collections.singletonList(securityContext()));
   }
 
   @Bean
@@ -44,24 +44,25 @@ public class SwaggerAzureConfig extends SwaggerConfig {
     Map<String, Object> queryParams = new HashMap<>();
 
     return SecurityConfigurationBuilder.builder()
-        .clientId(externalOAuthClientDetails.getClientId())
-        .scopeSeparator(",")
-        .useBasicAuthenticationWithAccessCodeGrant(true)
-        .additionalQueryStringParams(queryParams)
-        .build();
+      .clientId(externalOAuthClientDetails.getClientId())
+      .scopeSeparator(",")
+      .useBasicAuthenticationWithAccessCodeGrant(true)
+      .additionalQueryStringParams(queryParams)
+      .build();
   }
 
   private SecurityScheme securityScheme() {
     ImplicitGrant implicitGrant =
-        new ImplicitGrant(
-            new LoginEndpoint(externalOAuthClientDetails.getUserAuthorizationUri()),
-            externalOAuthClientDetails.getTokenName());
+      new ImplicitGrant(
+        new LoginEndpoint(externalOAuthClientDetails.getUserAuthorizationUri()),
+        externalOAuthClientDetails.getTokenName()
+      );
 
     return new OAuthBuilder()
-        .name("spring_oauth")
-        .grantTypes(Collections.singletonList(implicitGrant))
-        .scopes(Arrays.asList(scopes()))
-        .build();
+      .name("spring_oauth")
+      .grantTypes(Collections.singletonList(implicitGrant))
+      .scopes(Arrays.asList(scopes()))
+      .build();
   }
 
   private AuthorizationScope[] scopes() {
@@ -72,9 +73,9 @@ public class SwaggerAzureConfig extends SwaggerConfig {
 
   private SecurityContext securityContext() {
     return SecurityContext.builder()
-        .securityReferences(
-            Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
-        .forPaths(PathSelectors.any())
-        .build();
+      .securityReferences(
+        Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
+      .forPaths(PathSelectors.any())
+      .build();
   }
 }

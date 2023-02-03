@@ -21,7 +21,8 @@ import org.springframework.lang.Nullable;
 public class UserServiceConfig {
 
   private final AadUserRepository aadUserRepository;
-  @Nullable private final AadUserListUpdater aadUserListUpdater;
+  @Nullable
+  private final AadUserListUpdater aadUserListUpdater;
   private final LocalUserRepository localUserRepository;
   private final PasswordService passwordService;
   private final ActivityService activityService;

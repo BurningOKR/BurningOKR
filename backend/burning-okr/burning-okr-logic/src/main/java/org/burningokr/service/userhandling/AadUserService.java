@@ -35,7 +35,8 @@ public class AadUserService implements UserService {
 
   @Autowired
   public AadUserService(
-      AadUserRepository aadUserRepository, AadUserListUpdater aadUserListUpdater) {
+    AadUserRepository aadUserRepository, AadUserListUpdater aadUserListUpdater
+  ) {
     this.aadUserRepository = aadUserRepository;
     this.aadUserListUpdater = aadUserListUpdater;
   }
@@ -63,7 +64,7 @@ public class AadUserService implements UserService {
   @Override
   public User getCurrentUser() {
     OAuth2Authentication auth =
-        (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+      (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
     Gson g = new Gson();
     String userString = g.toJson(auth.getUserAuthentication().getDetails());
     return parseUserString(userString);
@@ -85,8 +86,8 @@ public class AadUserService implements UserService {
       ObjectMapper objectMapper = new ObjectMapper();
 
       return objectMapper
-          .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-          .readValue(userString, AadUser.class);
+        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .readValue(userString, AadUser.class);
     } catch (IOException ex) {
       logger.error("There was an error parsing the User Token.");
       logger.debug("parseUserString", ex);

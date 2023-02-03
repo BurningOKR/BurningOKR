@@ -75,15 +75,15 @@ public class CompanyService {
 
   private List<OkrCompany> filterCompanies(CycleState state) {
     return getAllCompanies().stream()
-        .filter(okrCompany -> okrCompany.getCycle().getCycleState() == state)
-        .collect(Collectors.toList());
+      .filter(okrCompany -> okrCompany.getCycle().getCycleState() == state)
+      .collect(Collectors.toList());
   }
 
   public void attachCycleNameToCompanyName(Collection<OkrCompany> okrCompanies) {
     okrCompanies.forEach(
-        okrCompany ->
-            okrCompany.setName(
-                okrCompany.getName() + " (" + okrCompany.getCycle().getName() + ")"));
+      okrCompany ->
+        okrCompany.setName(
+          okrCompany.getName() + " (" + okrCompany.getCycle().getName() + ")"));
   }
 
   public Collection<OkrCompany> findCompanyHistoryByCompanyId(long companyId) {
@@ -115,7 +115,7 @@ public class CompanyService {
    * Creates a OkrCompany.
    *
    * @param okrCompany a {@link OkrCompany} object
-   * @param user an {@link User} object
+   * @param user       an {@link User} object
    * @return a {@link OkrCompany} object
    */
   @Transactional
@@ -141,7 +141,7 @@ public class CompanyService {
    * Updates a OkrCompany.
    *
    * @param updatedOkrCompany a {@link OkrCompany} object
-   * @param user an {@link User} object
+   * @param user              an {@link User} object
    * @return a {@link OkrCompany} object
    */
   @Transactional
@@ -156,12 +156,12 @@ public class CompanyService {
 
     referencedOkrCompany = companyRepository.save(referencedOkrCompany);
     logger.info(
-        "Updated OkrCompany "
-            + oldName
-            + " (id: "
-            + referencedOkrCompany.getId()
-            + "), updated name to: +"
-            + referencedOkrCompany.getName());
+      "Updated OkrCompany "
+        + oldName
+        + " (id: "
+        + referencedOkrCompany.getId()
+        + "), updated name to: +"
+        + referencedOkrCompany.getName());
     activityService.createActivity(user, referencedOkrCompany, Action.EDITED);
 
     return referencedOkrCompany;
@@ -170,9 +170,9 @@ public class CompanyService {
   /**
    * Deletes a OkrCompany.
    *
-   * @param companyId a long value
+   * @param companyId          a long value
    * @param deleteWholeHistory a boolean value
-   * @param user an {@link User} object
+   * @param user               an {@link User} object
    */
   @Transactional
   public void deleteCompany(Long companyId, boolean deleteWholeHistory, User user) {
@@ -210,9 +210,9 @@ public class CompanyService {
   /**
    * Create a OkrDepartment.
    *
-   * @param companyId a long value
+   * @param companyId     a long value
    * @param okrDepartment a {@link OkrDepartment} object
-   * @param user an {@link User} object
+   * @param user          an {@link User} object
    * @return a {@link OkrDepartment} object
    */
   @Transactional
@@ -223,7 +223,7 @@ public class CompanyService {
 
     okrDepartment.setParentOkrUnit(referencedOkrCompany);
     okrDepartment.setHistory(
-        createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository));
+      createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository));
 
     OkrTopicDescription description = new OkrTopicDescription(okrDepartment.getName());
     description = okrTopicDescriptionRepository.save(description);
@@ -237,13 +237,13 @@ public class CompanyService {
     taskBoardService.saveTaskBoard(taskBoard);
 
     logger.info(
-        "Created okrDepartment "
-            + okrDepartment.getName()
-            + " into company: "
-            + referencedOkrCompany.getName()
-            + "(id:"
-            + companyId
-            + ")");
+      "Created okrDepartment "
+        + okrDepartment.getName()
+        + " into company: "
+        + referencedOkrCompany.getName()
+        + "(id:"
+        + companyId
+        + ")");
     activityService.createActivity(user, okrDepartment, Action.CREATED);
 
     return okrDepartment;
@@ -260,27 +260,29 @@ public class CompanyService {
 
     okrBranch = unitRepository.save(okrBranch);
     logger.info(
-        "Created okrBranch: "
-            + okrBranch.getName()
-            + " into OkrCompany "
-            + referencedOkrCompany.getName()
-            + "(id:"
-            + companyId
-            + ")");
+      "Created okrBranch: "
+        + okrBranch.getName()
+        + " into OkrCompany "
+        + referencedOkrCompany.getName()
+        + "(id:"
+        + companyId
+        + ")");
     activityService.createActivity(user, okrBranch, Action.CREATED);
 
     return okrBranch;
   }
 
   protected <T extends OkrUnitHistory, U extends OkrChildUnit> T createHistory(
-      U unit, T history, ExtendedRepository<T, Long> repository) {
+    U unit, T history, ExtendedRepository<T, Long> repository
+  ) {
     history.addUnit(unit);
     history = repository.save(history);
     return history;
   }
 
   protected OkrTopicDraftHistory createTopicDraftHistory(
-      OkrTopicDraft draft, OkrTopicDraftHistory history, TopicDraftHistoryRepository repository) {
+    OkrTopicDraft draft, OkrTopicDraftHistory history, TopicDraftHistoryRepository repository
+  ) {
     history.addUnit(draft);
     history = repository.save(history);
     return history;
@@ -293,18 +295,18 @@ public class CompanyService {
 
     topicDraft.setParentUnit(referencedOkrCompany);
     topicDraft.setHistory(
-        createTopicDraftHistory(
-            topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
+      createTopicDraftHistory(
+        topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
     logger.info(
-        "Created Topic Draft: "
-            + topicDraft.getName()
-            + " into department "
-            + referencedOkrCompany.getName()
-            + "(id:"
-            + companyId
-            + ")");
+      "Created Topic Draft: "
+        + topicDraft.getName()
+        + " into department "
+        + referencedOkrCompany.getName()
+        + "(id:"
+        + companyId
+        + ")");
 
     activityService.createActivity(user, topicDraft, Action.CREATED);
 
@@ -313,9 +315,9 @@ public class CompanyService {
 
   private void throwIfCompanyInClosedCycle(OkrCompany okrCompanyToCheck) {
     if (entityCrawlerService.getCycleOfCompany(okrCompanyToCheck).getCycleState()
-        == CycleState.CLOSED) {
+      == CycleState.CLOSED) {
       throw new ForbiddenException(
-          "Cannot modify this resource on a OkrCompany in a closed cycle.");
+        "Cannot modify this resource on a OkrCompany in a closed cycle.");
     }
   }
 

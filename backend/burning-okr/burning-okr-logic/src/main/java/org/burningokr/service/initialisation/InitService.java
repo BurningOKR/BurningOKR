@@ -100,7 +100,7 @@ public class InitService {
    * only for InitState CREATE_USER. Creates an Admin User.
    *
    * @param adminUser The user that should be created
-   * @param password The password of the new user
+   * @param password  The password of the new user
    * @return the new InitState
    * @throws InvalidInitStateException when the current {@link InitState} is not CREATE_USER.
    */
@@ -114,7 +114,9 @@ public class InitService {
     return nextInitState();
   }
 
-  /** only for InitState NO_AZURE_ADMIN_USER. Sets the given Azure User as an Admin. */
+  /**
+   * only for InitState NO_AZURE_ADMIN_USER. Sets the given Azure User as an Admin.
+   */
   public InitState setAzureAdminUser(AdminUser adminUser) throws InvalidInitStateException {
     isInitStateElseThrow(InitStateName.NO_AZURE_ADMIN_USER);
 
@@ -128,7 +130,7 @@ public class InitService {
     InitState currentInitState = getInitState();
 
     InitStateName nextInitStateName =
-        initOrderService.getNextInitState(currentInitState.getInitState());
+      initOrderService.getNextInitState(currentInitState.getInitState());
 
     currentInitState.setInitState(nextInitStateName);
     return saveInitState(currentInitState);

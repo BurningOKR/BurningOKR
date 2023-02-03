@@ -60,10 +60,11 @@ public class MailService {
     if (javaMailSender.isPresent()) {
       MimeMessage message = javaMailSender.get().createMimeMessage();
       MimeMessageHelper helper =
-          new MimeMessageHelper(
-              message,
-              MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-              StandardCharsets.UTF_8.name());
+        new MimeMessageHelper(
+          message,
+          MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+          StandardCharsets.UTF_8.name()
+        );
 
       helper.setTo(convertToArray(mail.getTo()));
       helper.setCc(convertToArray(mail.getCc()));

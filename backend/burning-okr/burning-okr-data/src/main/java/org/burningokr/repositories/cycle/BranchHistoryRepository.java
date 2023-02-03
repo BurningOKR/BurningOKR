@@ -5,4 +5,5 @@ import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BranchHistoryRepository extends ExtendedRepository<OkrBranchHistory, Long> {}
+public interface BranchHistoryRepository extends ExtendedRepository<OkrBranchHistory, Long> {
+}

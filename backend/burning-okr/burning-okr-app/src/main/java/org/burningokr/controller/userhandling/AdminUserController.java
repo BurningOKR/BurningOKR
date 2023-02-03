@@ -60,8 +60,10 @@ public class AdminUserController {
   @PostMapping("/admins")
   @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity<UserDto> addAdmin(@RequestBody AdminUserDto user)
-      throws InvalidDtoException {
+  public ResponseEntity<UserDto> addAdmin(
+    @RequestBody AdminUserDto user
+  )
+    throws InvalidDtoException {
     AdminUser adminUser = adminUserMapper.mapDtoToEntity(user);
     adminUserValidator.validateAdminUserOnAdd(adminUser);
     return ResponseEntity.ok(userMapper.mapEntityToDto(adminUserService.addAdmin(adminUser)));
@@ -77,7 +79,9 @@ public class AdminUserController {
   @DeleteMapping("/admins/{adminUuid}")
   @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity removeAdmin(@PathVariable UUID adminUuid) throws InvalidDtoException {
+  public ResponseEntity removeAdmin(
+    @PathVariable UUID adminUuid
+  ) throws InvalidDtoException {
     adminUserValidator.validateAdminUserId(adminUuid);
     adminUserService.removeAdmin(adminUuid);
     return ResponseEntity.ok().build();

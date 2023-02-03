@@ -12,7 +12,8 @@ import org.hibernate.service.ServiceRegistry;
 public class SQLServer2012UUIDFixDialect extends SQLServer2012Dialect {
   @Override
   public void contributeTypes(
-      TypeContributions typeContributions, ServiceRegistry serviceRegistry) {
+    TypeContributions typeContributions, ServiceRegistry serviceRegistry
+  ) {
     super.contributeTypes(typeContributions, serviceRegistry);
 
     typeContributions.contributeType(SqlServerUUIDFixType.INSTANCE);

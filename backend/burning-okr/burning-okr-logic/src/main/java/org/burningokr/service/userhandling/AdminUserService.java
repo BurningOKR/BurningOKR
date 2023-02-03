@@ -43,8 +43,8 @@ public class AdminUserService {
    */
   public Collection<UUID> getAllAdmins() {
     return Lists.newArrayList(adminUserRepository.findAll()).stream()
-        .map(AdminUser::getId)
-        .collect(Collectors.toList());
+      .map(AdminUser::getId)
+      .collect(Collectors.toList());
   }
 
   /**

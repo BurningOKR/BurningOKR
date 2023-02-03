@@ -22,15 +22,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DatabaseScheduleService {
 
+  private final EntityManagerFactory entityManagerFactory;
+  private final int RATE_IN_MINUTES = 120;
   @Value("${spring.environment.demo}")
   private boolean isPlayground;
-
   @Value("classpath:demoWebsite/DemoWebsiteDefaultData.sql")
   private Resource sqlFile;
-
-  private final EntityManagerFactory entityManagerFactory;
-
-  private final int RATE_IN_MINUTES = 120;
   private LocalDateTime nextSchedule = LocalDateTime.now().plusMinutes(RATE_IN_MINUTES);
 
   @Scheduled(fixedRate = RATE_IN_MINUTES * 60 * 1000)

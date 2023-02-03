@@ -27,17 +27,18 @@ public class AadUserListUpdater {
   /**
    * Initialize AadUserListUpdater.
    *
-   * @param azureUserFetcher an {@link AzureUserFetcher} object
+   * @param azureUserFetcher  an {@link AzureUserFetcher} object
    * @param aadUserRepository an {@link AadUserRepository} object
    * @param azurePhotoFetcher an {@link AzurePhotoFetcher} object
-   * @param azureApiCaller an {@link AzureApiCaller} object
+   * @param azureApiCaller    an {@link AzureApiCaller} object
    */
   @Autowired
   public AadUserListUpdater(
-      AzureUserFetcher azureUserFetcher,
-      AadUserRepository aadUserRepository,
-      AzurePhotoFetcher azurePhotoFetcher,
-      AzureApiCaller azureApiCaller) {
+    AzureUserFetcher azureUserFetcher,
+    AadUserRepository aadUserRepository,
+    AzurePhotoFetcher azurePhotoFetcher,
+    AzureApiCaller azureApiCaller
+  ) {
     this.azureUserFetcher = azureUserFetcher;
     this.aadUserRepository = aadUserRepository;
     this.azurePhotoFetcher = azurePhotoFetcher;
@@ -48,8 +49,8 @@ public class AadUserListUpdater {
    * Update the AAD User List.
    *
    * @throws AzureUserFetchException if problem occurs while getting the Users from Azure Active
-   *     Directory.
-   * @throws AzureApiException if problem occurs while getting the Access Token
+   *                                 Directory.
+   * @throws AzureApiException       if problem occurs while getting the Access Token
    */
   public void updateAadUserList() throws AzureUserFetchException, AzureApiException {
 
@@ -61,10 +62,10 @@ public class AadUserListUpdater {
       String mail = "";
       if (aadUser.getMail() == null) {
         logger.info(
-            "Problem with updating user. Missing mail:"
-                + aadUser.getGivenName()
-                + ", "
-                + aadUser.getSurname());
+          "Problem with updating user. Missing mail:"
+            + aadUser.getGivenName()
+            + ", "
+            + aadUser.getSurname());
       } else {
         mail = aadUser.getMail();
       }

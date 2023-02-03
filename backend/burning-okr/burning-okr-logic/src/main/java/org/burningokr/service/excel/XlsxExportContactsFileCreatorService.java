@@ -22,23 +22,25 @@ public class XlsxExportContactsFileCreatorService {
   /**
    * Initializes XlsxExportEmailFileCreatorService.
    *
-   * @param teamMemberRowBuilderService a {@link TeamMemberRowBuilderService} object
+   * @param teamMemberRowBuilderService   a {@link TeamMemberRowBuilderService} object
    * @param genericXlsxFileCreatorService a {@link GenericXlsxFileCreatorService} object
-   * @param messages a {@link Messages} object
+   * @param messages                      a {@link Messages} object
    */
   public XlsxExportContactsFileCreatorService(
-      TeamMemberRowBuilderService teamMemberRowBuilderService,
-      GenericXlsxFileCreatorService<TeamMemberRow> genericXlsxFileCreatorService,
-      Messages messages) {
+    TeamMemberRowBuilderService teamMemberRowBuilderService,
+    GenericXlsxFileCreatorService<TeamMemberRow> genericXlsxFileCreatorService,
+    Messages messages
+  ) {
     this.teamMemberRowBuilderService = teamMemberRowBuilderService;
     this.genericXlsxFileCreatorService = genericXlsxFileCreatorService;
     this.messages = messages;
     this.headlines =
-        Arrays.asList(
-            messages.get("team"),
-            messages.get("role"),
-            messages.get("name"),
-            messages.get("emailAddress"));
+      Arrays.asList(
+        messages.get("team"),
+        messages.get("role"),
+        messages.get("name"),
+        messages.get("emailAddress")
+      );
   }
 
   /**
@@ -50,13 +52,13 @@ public class XlsxExportContactsFileCreatorService {
    */
   public Workbook createFileForOkrTeam(long departmentId) throws IllegalAccessException {
     Collection<TeamMemberRow> teamMemberRows =
-        teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
+      teamMemberRowBuilderService.generateForOkrChildUnit(departmentId);
 
     Workbook workbook =
-        genericXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, "okr-members");
+      genericXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, "okr-members");
 
     logger.info(
-        "Created excel file with member information about okr team with ID: " + departmentId);
+      "Created excel file with member information about okr team with ID: " + departmentId);
 
     return workbook;
   }
@@ -70,10 +72,10 @@ public class XlsxExportContactsFileCreatorService {
    */
   public Workbook createFileForCompany(long companyId) throws IllegalAccessException {
     Collection<TeamMemberRow> teamMemberRows =
-        teamMemberRowBuilderService.generateForCompany(companyId);
+      teamMemberRowBuilderService.generateForCompany(companyId);
 
     Workbook workbook =
-        genericXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, "okr-members");
+      genericXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, "okr-members");
 
     logger.info("Created excel file with member information about company with ID: " + companyId);
 

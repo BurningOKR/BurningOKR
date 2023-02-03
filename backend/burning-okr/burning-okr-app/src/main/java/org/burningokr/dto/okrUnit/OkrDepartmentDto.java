@@ -11,13 +11,11 @@ import java.util.UUID;
 @Data
 public class OkrDepartmentDto extends OkrChildUnitDto {
 
+  private UUID okrMasterId;
+  private UUID okrTopicSponsorId;
+  private Collection<UUID> okrMemberIds = new ArrayList<>();
+
   public OkrDepartmentDto() {
     super(UnitType.DEPARTMENT);
   }
-
-  private UUID okrMasterId;
-
-  private UUID okrTopicSponsorId;
-
-  private Collection<UUID> okrMemberIds = new ArrayList<>();
 }

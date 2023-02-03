@@ -51,7 +51,7 @@ subprojects {
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.3.5.RELEASE'
         compile group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
         compile("org.springframework:spring-messaging")
-        compile ('org.springframework.security:spring-security-messaging:5.0.4.RELEASE')
+        compile('org.springframework.security:spring-security-messaging:5.0.4.RELEASE')
 
 
         compile("org.webjars:sockjs-client:1.1.2")
@@ -74,7 +74,7 @@ subprojects {
 
     spotless {
         format 'misc', {
-            target '**/*.gradle','**/.*.md','**/.gitignore'
+            target '**/*.gradle', '**/.*.md', '**/.gitignore'
 
             trimTrailingWhitespace()
             indentWithSpaces()

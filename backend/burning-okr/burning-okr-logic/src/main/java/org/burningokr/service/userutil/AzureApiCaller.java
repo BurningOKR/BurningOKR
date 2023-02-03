@@ -53,12 +53,12 @@ public class AzureApiCaller {
       final URL url = new URL(externalOAuthClientDetails.getAccessTokenUri());
 
       ImmutableMap<String, String> params =
-          ImmutableMap.<String, String>builder()
-              .put("client_id", externalOAuthClientDetails.getClientId())
-              .put("client_secret", externalOAuthClientDetails.getClientSecret())
-              .put("scope", "https://graph.microsoft.com/.default")
-              .put("grant_type", "client_credentials")
-              .build();
+        ImmutableMap.<String, String>builder()
+          .put("client_id", externalOAuthClientDetails.getClientId())
+          .put("client_secret", externalOAuthClientDetails.getClientSecret())
+          .put("scope", "https://graph.microsoft.com/.default")
+          .put("grant_type", "client_credentials")
+          .build();
 
       String urlFormattedParams = formatQueryParams(params);
       byte[] postData = urlFormattedParams.getBytes(StandardCharsets.UTF_8);
@@ -78,7 +78,7 @@ public class AzureApiCaller {
       }
 
       BufferedReader reader =
-          new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        new BufferedReader(new InputStreamReader(connection.getInputStream()));
       StringBuilder builder = new StringBuilder();
 
       String line;
@@ -101,9 +101,9 @@ public class AzureApiCaller {
 
   private String formatQueryParams(ImmutableMap<String, String> params) {
     return params.entrySet().stream()
-        .map(p -> encodeUrl(p.getKey()) + "=" + encodeUrl(p.getValue()))
-        .reduce((p1, p2) -> p1 + "&" + p2)
-        .orElse("");
+      .map(p -> encodeUrl(p.getKey()) + "=" + encodeUrl(p.getValue()))
+      .reduce((p1, p2) -> p1 + "&" + p2)
+      .orElse("");
   }
 
   private String encodeUrl(String stringToEncode) {

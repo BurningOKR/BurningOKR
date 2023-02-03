@@ -51,31 +51,32 @@ public class CompanyController {
   /**
    * Initialize CompanyController.
    *
-   * @param companyService a {@link CompanyService} object
-   * @param companyMapper a {@link DataMapper} object with {@link OkrCompany} and {@link
-   *     OkrCompanyDto}
-   * @param cycleMapper a {@link DataMapper} object with {@link Cycle} nad {@link CycleDto}
-   * @param departmentMapper a {@link DataMapper} object with {@link OkrDepartment} and {@link
-   *     OkrDepartmentDto}
-   * @param objectiveMapper a {@link DataMapper} object with {@link Objective} and {@link
-   *     ObjectiveDto}
+   * @param companyService       a {@link CompanyService} object
+   * @param companyMapper        a {@link DataMapper} object with {@link OkrCompany} and {@link
+   *                             OkrCompanyDto}
+   * @param cycleMapper          a {@link DataMapper} object with {@link Cycle} nad {@link CycleDto}
+   * @param departmentMapper     a {@link DataMapper} object with {@link OkrDepartment} and {@link
+   *                             OkrDepartmentDto}
+   * @param objectiveMapper      a {@link DataMapper} object with {@link Objective} and {@link
+   *                             ObjectiveDto}
    * @param authorizationService an {@link AuthorizationService} object
-   * @param okrUnitSchemaMapper a {@link OkrBranchSchemaMapper} object
-   * @param userService an {@link UserService} object
+   * @param okrUnitSchemaMapper  a {@link OkrBranchSchemaMapper} object
+   * @param userService          an {@link UserService} object
    */
   @Autowired
   public CompanyController(
-      CompanyService companyService,
-      DataMapper<OkrCompany, OkrCompanyDto> companyMapper,
-      DataMapper<Cycle, CycleDto> cycleMapper,
-      DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
-      DataMapper<Objective, ObjectiveDto> objectiveMapper,
-      DataMapper<OkrBranch, OkrBranchDto> OkrBranchMapper,
-      DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper,
-      AuthorizationService authorizationService,
-      OkrBranchSchemaMapper okrUnitSchemaMapper,
-      UserService userService,
-      OkrUnitServiceAdmins<OkrBranch> OkrBranchService) {
+    CompanyService companyService,
+    DataMapper<OkrCompany, OkrCompanyDto> companyMapper,
+    DataMapper<Cycle, CycleDto> cycleMapper,
+    DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
+    DataMapper<Objective, ObjectiveDto> objectiveMapper,
+    DataMapper<OkrBranch, OkrBranchDto> OkrBranchMapper,
+    DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper,
+    AuthorizationService authorizationService,
+    OkrBranchSchemaMapper okrUnitSchemaMapper,
+    UserService userService,
+    OkrUnitServiceAdmins<OkrBranch> OkrBranchService
+  ) {
     this.companyService = companyService;
     this.companyMapper = companyMapper;
     this.cycleMapper = cycleMapper;
@@ -123,7 +124,9 @@ public class CompanyController {
    * @return a {@link ResponseEntity} ok with a OkrCompany
    */
   @GetMapping("/companies/{companyId}")
-  public ResponseEntity<OkrCompanyDto> getCompanyById(@PathVariable long companyId) {
+  public ResponseEntity<OkrCompanyDto> getCompanyById(
+    @PathVariable long companyId
+  ) {
     OkrCompany okrCompany = this.companyService.findById(companyId);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
   }
@@ -136,7 +139,8 @@ public class CompanyController {
    */
   @GetMapping("/companies/{companyId}/history")
   public ResponseEntity<Collection<OkrCompanyDto>> getCompanyHistoryByCompanyId(
-      @PathVariable long companyId) {
+    @PathVariable long companyId
+  ) {
     Collection<OkrCompany> companies = companyService.findCompanyHistoryByCompanyId(companyId);
     return ResponseEntity.ok(companyMapper.mapEntitiesToDtos(companies));
   }
@@ -148,7 +152,9 @@ public class CompanyController {
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Cycles
    */
   @GetMapping("/companies/{companyId}/cycles")
-  public ResponseEntity<Collection<CycleDto>> getCompanyCycleList(@PathVariable long companyId) {
+  public ResponseEntity<Collection<CycleDto>> getCompanyCycleList(
+    @PathVariable long companyId
+  ) {
     Collection<Cycle> cycles = companyService.findCycleListByCompanyId(companyId);
     return ResponseEntity.ok(cycleMapper.mapEntitiesToDtos(cycles));
   }
@@ -161,25 +167,29 @@ public class CompanyController {
    */
   @GetMapping("/companies/{companyId}/unit")
   public ResponseEntity<Collection<OkrUnitSchemaDto>> getDepartmentSchemaOfCompany(
-      @PathVariable long companyId) {
+    @PathVariable long companyId
+  ) {
     OkrCompany okrCompany = this.companyService.findById(companyId);
     UUID currentUserId = userService.getCurrentUser().getId();
     return ResponseEntity.ok(
-        okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            okrCompany.getOkrChildUnits(), currentUserId));
+      okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        okrCompany.getOkrChildUnits(), currentUserId));
   }
 
   /**
    * API Endpoint to add a OkrCompany.
    *
    * @param okrCompanyDto a {@link OkrCompanyDto} object
-   * @param user an {@link User} object
+   * @param user          an {@link User} object
    * @return a {@link ResponseEntity} ok with a OkrCompany
    */
   @PostMapping("/companies")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> addCompany(
-      @Valid @RequestBody OkrCompanyDto okrCompanyDto, User user) {
+    @Valid
+    @RequestBody
+    OkrCompanyDto okrCompanyDto, User user
+  ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
     okrCompany = this.companyService.createCompany(okrCompany, user);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
@@ -188,17 +198,20 @@ public class CompanyController {
   /**
    * API Endpoint to add an Objective to a OkrDepartment.
    *
-   * @param companyId a ong value
+   * @param companyId        a ong value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
-   * @param user an {@link User} object
+   * @param user             an {@link User} object
    * @return a {@link ResponseEntity} ok with a OkrDepartment
    */
   @PostMapping("/companies/{companyId}/departments")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrDepartmentDto> addDepartmentToCompanyById(
-      @PathVariable long companyId,
-      @Valid @RequestBody OkrDepartmentDto okrDepartmentDto,
-      User user) {
+    @PathVariable long companyId,
+    @Valid
+    @RequestBody
+    OkrDepartmentDto okrDepartmentDto,
+    User user
+  ) {
     DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper = new OkrDepartmentMapper();
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment.setId(null);
@@ -209,7 +222,12 @@ public class CompanyController {
   @PostMapping("/companies/{companyId}/branch")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrBranchDto> addBranchToCompanyById(
-      @PathVariable long companyId, @Valid @RequestBody OkrBranchDto okrBranchDTO, User user) {
+    @PathVariable long companyId,
+    @Valid
+    @RequestBody
+    OkrBranchDto okrBranchDTO,
+    User user
+  ) {
 
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
     okrBranch.setId(null);
@@ -221,15 +239,17 @@ public class CompanyController {
   /**
    * API Endpoint to update a OkrCompany by ID.
    *
-   * @param companyId a long value
+   * @param companyId     a long value
    * @param okrCompanyDto a {@link OkrCompanyDto} object
-   * @param user an {@link User} object
+   * @param user          an {@link User} object
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
    */
   @PutMapping("/companies/{companyId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> updateCompanyById(
-      @PathVariable long companyId, @RequestBody OkrCompanyDto okrCompanyDto, User user) {
+    @PathVariable long companyId,
+    @RequestBody OkrCompanyDto okrCompanyDto, User user
+  ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
     okrCompany = this.companyService.updateCompany(okrCompany, user);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
@@ -239,12 +259,14 @@ public class CompanyController {
    * API Endpoint to delete a OkrCompany and it's history.
    *
    * @param companyId a long value
-   * @param user an {@link User} object
+   * @param user      an {@link User} object
    * @return a {@link ResponseEntity} ok
    */
   @DeleteMapping("/companies/{companyId}")
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity deleteCompany(@PathVariable Long companyId, User user) {
+  public ResponseEntity deleteCompany(
+    @PathVariable Long companyId, User user
+  ) {
     companyService.deleteCompany(companyId, true, user);
     return ResponseEntity.ok().build();
   }

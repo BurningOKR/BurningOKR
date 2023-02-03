@@ -23,9 +23,9 @@ public class ChangePasswordMapper implements DataMapper<ChangePasswordData, Chan
     result.setOldPassword(changePasswordDto.getOldPassword());
 
     logger.info(
-        "Mapped ChangePasswordDto (email: "
-            + changePasswordDto.getEmail()
-            + ") to ChangePasswordData");
+      "Mapped ChangePasswordDto (email: "
+        + changePasswordDto.getEmail()
+        + ") to ChangePasswordData");
 
     return result;
   }
@@ -39,9 +39,9 @@ public class ChangePasswordMapper implements DataMapper<ChangePasswordData, Chan
     result.setOldPassword(changePasswordData.getOldPassword());
 
     logger.info(
-        "Mapped ChangePasswordDto (email: "
-            + changePasswordData.getEmail()
-            + "to ChangePasswordDto");
+      "Mapped ChangePasswordDto (email: "
+        + changePasswordData.getEmail()
+        + "to ChangePasswordDto");
 
     return result;
   }
@@ -50,13 +50,14 @@ public class ChangePasswordMapper implements DataMapper<ChangePasswordData, Chan
   public Collection<ChangePasswordData> mapDtosToEntities(Collection<ChangePasswordDto> input) {
     Collection<ChangePasswordData> changePasswordDataSets = new ArrayList<>();
     input.forEach(
-        changePasswordDto -> changePasswordDataSets.add(mapDtoToEntity(changePasswordDto)));
+      changePasswordDto -> changePasswordDataSets.add(mapDtoToEntity(changePasswordDto)));
     return changePasswordDataSets;
   }
 
   @Override
   public Collection<ChangePasswordDto> mapEntitiesToDtos(
-      Collection<ChangePasswordData> changePasswordDataSets) {
+    Collection<ChangePasswordData> changePasswordDataSets
+  ) {
     Collection<ChangePasswordDto> changePasswordDtos = new ArrayList<>();
     for (ChangePasswordData changePasswordData : changePasswordDataSets) {
       ChangePasswordDto changePasswordDto = mapEntityToDto(changePasswordData);

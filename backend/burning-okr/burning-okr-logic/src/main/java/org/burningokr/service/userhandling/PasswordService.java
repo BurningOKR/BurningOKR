@@ -22,27 +22,28 @@ import java.util.*;
 @Service
 public class PasswordService {
 
+  private final PasswordEncoder passwordEncoder;
   private MailService mailService;
   private ConfigurationService configurationService;
   private PasswordTokenRepository passwordTokenRepository;
   private LocalUserRepository localUserRepository;
-  private final PasswordEncoder passwordEncoder;
 
   /**
    * Initializes PasswordService.
    *
-   * @param mailService a {@link MailService} object
-   * @param configurationService a {@link ConfigurationService} object
+   * @param mailService             a {@link MailService} object
+   * @param configurationService    a {@link ConfigurationService} object
    * @param passwordTokenRepository a {@link PasswordTokenRepository} object
-   * @param localUserRepository a {@link LocalUserRepository} object
-   * @param passwordEncoder a {@link PasswordEncoder} object
+   * @param localUserRepository     a {@link LocalUserRepository} object
+   * @param passwordEncoder         a {@link PasswordEncoder} object
    */
   public PasswordService(
-      MailService mailService,
-      ConfigurationService configurationService,
-      PasswordTokenRepository passwordTokenRepository,
-      LocalUserRepository localUserRepository,
-      PasswordEncoder passwordEncoder) {
+    MailService mailService,
+    ConfigurationService configurationService,
+    PasswordTokenRepository passwordTokenRepository,
+    LocalUserRepository localUserRepository,
+    PasswordEncoder passwordEncoder
+  ) {
 
     this.mailService = mailService;
     this.configurationService = configurationService;
@@ -85,7 +86,7 @@ public class PasswordService {
    * Sets the Password of the User by an email identifier.
    *
    * @param emailIdentifier an {@link UUID} object
-   * @param password a string value
+   * @param password        a string value
    */
   public void setPassword(UUID emailIdentifier, String password) {
     Optional<PasswordToken> opt = passwordTokenRepository.findByEmailIdentifier(emailIdentifier);
@@ -95,14 +96,14 @@ public class PasswordService {
       setPassword(localUser, password);
     } else {
       throw new EntityNotFoundException(
-          "Entity with emailIdentifier " + emailIdentifier.toString() + " could not be found");
+        "Entity with emailIdentifier " + emailIdentifier.toString() + " could not be found");
     }
   }
 
   /**
    * Sets the Password of the User.
    *
-   * @param user a {@link LocalUser} object
+   * @param user     a {@link LocalUser} object
    * @param password a string value
    */
   public void setPassword(LocalUser user, String password) {
@@ -127,7 +128,7 @@ public class PasswordService {
       }
     } else {
       throw new EntityNotFoundException(
-          "Entity with email" + changePasswordData.getEmail() + " could not be found");
+        "Entity with email" + changePasswordData.getEmail() + " could not be found");
     }
   }
 

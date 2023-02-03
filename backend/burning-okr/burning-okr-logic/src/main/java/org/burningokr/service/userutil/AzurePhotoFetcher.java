@@ -51,11 +51,11 @@ public class AzurePhotoFetcher {
       scaledImage = new BufferedImage(width, height, imageToScale.getType());
       Graphics2D graphics2D = scaledImage.createGraphics();
       graphics2D.setRenderingHint(
-          RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
       graphics2D.setRenderingHint(
-          RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
       graphics2D.setRenderingHint(
-          RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
       graphics2D.drawImage(imageToScale, 0, 0, width, height, null);
       graphics2D.dispose();
     }

@@ -51,7 +51,7 @@ public class ForgotPasswordMapperTest {
     forgotPasswordDtos.add(forgotPasswordDto2);
 
     ArrayList<ForgotPassword> forgotPasswords =
-        (ArrayList<ForgotPassword>) forgotPasswordMapper.mapDtosToEntities(forgotPasswordDtos);
+      (ArrayList<ForgotPassword>) forgotPasswordMapper.mapDtosToEntities(forgotPasswordDtos);
 
     assertThat(forgotPasswordDtos, hasSize(2));
     assertEquals(forgotPasswordDtos.size(), forgotPasswords.size());
@@ -71,7 +71,7 @@ public class ForgotPasswordMapperTest {
     forgotPasswords.add(forgotPassword2);
 
     ArrayList<ForgotPasswordDto> forgotPasswordDtos =
-        (ArrayList<ForgotPasswordDto>) forgotPasswordMapper.mapEntitiesToDtos(forgotPasswords);
+      (ArrayList<ForgotPasswordDto>) forgotPasswordMapper.mapEntitiesToDtos(forgotPasswords);
 
     assertThat(forgotPasswords, hasSize(2));
     assertEquals(forgotPasswords.size(), forgotPasswordDtos.size());

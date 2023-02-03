@@ -38,23 +38,24 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
   /**
    * Initialize DepartmentServiceAdmins.
    *
-   * @param parentService a {@link ParentService} object
-   * @param unitRepository a {@link OkrDepartmentRepository} object
-   * @param objectiveRepository an {@link ObjectiveRepository} object
-   * @param activityService an {@link ActivityService} object
+   * @param parentService        a {@link ParentService} object
+   * @param unitRepository       a {@link OkrDepartmentRepository} object
+   * @param objectiveRepository  an {@link ObjectiveRepository} object
+   * @param activityService      an {@link ActivityService} object
    * @param entityCrawlerService an {@link EntityCrawlerService} object
    */
   public OkrUnitServiceAdmins(
-      ParentService parentService,
-      UnitRepository<T> unitRepository,
-      UnitRepository<OkrUnit> superUnitRepository,
-      ObjectiveRepository objectiveRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService,
-      OkrTopicDescriptionRepository okrTopicDescriptionRepository,
-      TaskBoardService taskBoardService) {
+    ParentService parentService,
+    UnitRepository<T> unitRepository,
+    UnitRepository<OkrUnit> superUnitRepository,
+    ObjectiveRepository objectiveRepository,
+    ActivityService activityService,
+    EntityCrawlerService entityCrawlerService,
+    OkrTopicDescriptionRepository okrTopicDescriptionRepository,
+    TaskBoardService taskBoardService
+  ) {
     super(
-        parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
+      parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
 
     this.superUnitRepository = superUnitRepository;
     this.okrTopicDescriptionRepository = okrTopicDescriptionRepository;
@@ -67,7 +68,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     final Configuration changedConfiguration = event.getChangedConfiguration();
 
     if (changedConfiguration.getName().equals(ConfigurationName.TOPIC_SPONSORS_ACTIVATED.getName())
-        && changedConfiguration.getValue().equals("false")) {
+      && changedConfiguration.getValue().equals("false")) {
       for (OkrUnit unit : getAllOkrDepartments()) {
         if (unit instanceof OkrDepartment) {
           degradeTopicSponsor((OkrDepartment) unit);
@@ -98,11 +99,11 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
 
     referencedUnit = unitRepository.save(referencedUnit);
     logger.info(
-        "Updated OkrDepartment "
-            + referencedUnit.getName()
-            + "(id:"
-            + referencedUnit.getId()
-            + ")");
+      "Updated OkrDepartment "
+        + referencedUnit.getName()
+        + "(id:"
+        + referencedUnit.getId()
+        + ")");
     activityService.createActivity(user, referencedUnit, Action.EDITED);
 
     return referencedUnit;
@@ -115,7 +116,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     throwIfCycleForDepartmentIsClosed(referencedUnit);
 
     if (!(referencedUnit instanceof OkrParentUnit)
-        || ((OkrParentUnit) referencedUnit).getOkrChildUnits().isEmpty()) {
+      || ((OkrParentUnit) referencedUnit).getOkrChildUnits().isEmpty()) {
       activityService.createActivity(user, referencedUnit, Action.DELETED);
       unitRepository.deleteById(unitId);
       logger.info("Deleted OkrDepartment with id: " + unitId);
@@ -123,11 +124,11 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
 
     } else {
       logger.info(
-          "Could not delete department with id: "
-              + unitId
-              + ". The department contains sub-departments.");
+        "Could not delete department with id: "
+          + unitId
+          + ". The department contains sub-departments.");
       throw new InvalidDeleteRequestException(
-          "You can not delete departments which contains sub-departments.");
+        "You can not delete departments which contains sub-departments.");
     }
   }
 
@@ -160,13 +161,13 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
     }
 
     logger.info(
-        "Created subdepartment: "
-            + subDepartment.getName()
-            + " into OkrDepartment "
-            + parentOkrUnit.getName()
-            + "(id:"
-            + parentUnitId
-            + ")");
+      "Created subdepartment: "
+        + subDepartment.getName()
+        + " into OkrDepartment "
+        + parentOkrUnit.getName()
+        + "(id:"
+        + parentUnitId
+        + ")");
     activityService.createActivity(user, subDepartment, Action.CREATED);
     return subDepartment;
   }
@@ -191,9 +192,10 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
         department.setOkrMemberIds(memberIds);
       } else {
         logger.warn(
-            String.format(
-                "Couldn't add topic sponsor %s to member of department %d",
-                topicSponsorId, department.getId()));
+          String.format(
+            "Couldn't add topic sponsor %s to member of department %d",
+            topicSponsorId, department.getId()
+          ));
       }
     }
   }

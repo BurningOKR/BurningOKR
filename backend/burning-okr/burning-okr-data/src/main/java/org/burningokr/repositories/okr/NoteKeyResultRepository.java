@@ -5,4 +5,5 @@ import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NoteKeyResultRepository extends ExtendedRepository<NoteKeyResult, Long> {}
+public interface NoteKeyResultRepository extends ExtendedRepository<NoteKeyResult, Long> {
+}

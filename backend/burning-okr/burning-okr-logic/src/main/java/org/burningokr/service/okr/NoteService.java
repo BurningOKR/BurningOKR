@@ -26,9 +26,10 @@ public class NoteService {
 
   @Autowired
   public NoteService(
-      NoteRepository noteRepository,
-      NoteKeyResultRepository noteKeyResultRepository,
-      ActivityService activityService) {
+    NoteRepository noteRepository,
+    NoteKeyResultRepository noteKeyResultRepository,
+    ActivityService activityService
+  ) {
     this.noteRepository = noteRepository;
     this.noteKeyResultRepository = noteKeyResultRepository;
     this.activityService = activityService;
@@ -51,7 +52,7 @@ public class NoteService {
    * Updates a Note.
    *
    * @param updatedNote a {@link Note} object
-   * @param user an {@link User} object
+   * @param user        an {@link User} object
    * @return a {@link Note} object
    */
   @Transactional
@@ -67,7 +68,7 @@ public class NoteService {
    * Deletes a Note.
    *
    * @param noteId a long value
-   * @param user an {@link User} object
+   * @param user   an {@link User} object
    */
   @Transactional
   public void deleteNote(Long noteId, User user) {

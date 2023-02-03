@@ -38,14 +38,17 @@ public class ConfigurationController {
   }
 
   @GetMapping("/configurations/id/{configurationId}")
-  public ResponseEntity<ConfigurationDto> getConfigurationById(@PathVariable Long configurationId) {
+  public ResponseEntity<ConfigurationDto> getConfigurationById(
+    @PathVariable Long configurationId
+  ) {
     Configuration configuration = configurationService.getConfigurationById(configurationId);
     return ResponseEntity.ok().body(dataMapper.mapEntityToDto(configuration));
   }
 
   @GetMapping("/configurations/name/{configurationName}")
   public ResponseEntity<ConfigurationDto> getConfigurationByName(
-      @PathVariable String configurationName) {
+    @PathVariable String configurationName
+  ) {
     Configuration configuration = configurationService.getConfigurationByName(configurationName);
     return ResponseEntity.ok().body(dataMapper.mapEntityToDto(configuration));
   }
@@ -54,45 +57,53 @@ public class ConfigurationController {
    * API Endpoint to add Configuration.
    *
    * @param configurationDto a {@link ConfigurationDto} object
-   * @param user an {@link User} object
+   * @param user             an {@link User} object
    * @return
    */
   @PostMapping("/configurations")
   @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<ConfigurationDto> createConfiguration(
-      @Valid @RequestBody ConfigurationDto configurationDto, User user) {
+    @Valid
+    @RequestBody
+    ConfigurationDto configurationDto, User user
+  ) {
     Configuration requestConfigurationEntity = dataMapper.mapDtoToEntity(configurationDto);
     Configuration responseConfigurationEntity =
-        configurationService.createConfiguration(requestConfigurationEntity, user);
+      configurationService.createConfiguration(requestConfigurationEntity, user);
     return ResponseEntity.ok().body(dataMapper.mapEntityToDto(responseConfigurationEntity));
   }
 
   /**
    * API Endpoint to update a Configuration.
    *
-   * @param configurationId a long value
+   * @param configurationId  a long value
    * @param configurationDto a {@link ConfigurationDto} object
-   * @param user an {@link User} object
+   * @param user             an {@link User} object
    * @return a {@link ResponseEntity} ok with a Configuration
    */
   @PutMapping("/configurations/{configurationId}")
   @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<ConfigurationDto> updateConfigurationById(
-      @PathVariable Long configurationId,
-      @Valid @RequestBody ConfigurationDto configurationDto,
-      User user) {
+    @PathVariable Long configurationId,
+    @Valid
+    @RequestBody
+    ConfigurationDto configurationDto,
+    User user
+  ) {
     Configuration requestConfigurationEntity = dataMapper.mapDtoToEntity(configurationDto);
     Configuration responseConfigurationEntity =
-        configurationService.updateConfigurationById(requestConfigurationEntity, user);
+      configurationService.updateConfigurationById(requestConfigurationEntity, user);
     return ResponseEntity.ok().body(dataMapper.mapEntityToDto(responseConfigurationEntity));
   }
 
   @DeleteMapping("/configurations/{configurationId}")
   @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity deleteConfigurationById(@PathVariable Long configurationId, User user) {
+  public ResponseEntity deleteConfigurationById(
+    @PathVariable Long configurationId, User user
+  ) {
     configurationService.deleteConfigurationById(configurationId, user);
     return ResponseEntity.ok().build();
   }

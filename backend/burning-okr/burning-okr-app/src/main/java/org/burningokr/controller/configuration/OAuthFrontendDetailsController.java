@@ -20,7 +20,7 @@ public class OAuthFrontendDetailsController {
   @GetMapping("/oAuthFrontendDetails")
   public ResponseEntity<OAuthFrontendDetailsDto> getOAuthFrontendDetails() {
     Collection<OAuthConfiguration> oAuthConfigurations =
-        oauthConfigurationService.getOAuthConfigurations();
+      oauthConfigurationService.getOAuthConfigurations();
     return ResponseEntity.ok().body(dataMapper.mapEntityToDto(oAuthConfigurations));
   }
 }

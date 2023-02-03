@@ -41,14 +41,14 @@ public class CycleDtoValidator {
       exceptionString += "Cycle planned end date has to be AFTER planned start date.\n";
     }
     if (cycleDto.getCycleState() == CycleState.ACTIVE
-        && cycleDto.getPlannedStartDate().isAfter(LocalDate.now())) {
+      && cycleDto.getPlannedStartDate().isAfter(LocalDate.now())) {
       exceptionString +=
-          "Cycle with ACTIVE state but planned start date in the future can not be created.\n";
+        "Cycle with ACTIVE state but planned start date in the future can not be created.\n";
     }
     if (cycleDto.getCycleState() == CycleState.PREPARATION
-        && cycleDto.getPlannedStartDate().isBefore(LocalDate.now())) {
+      && cycleDto.getPlannedStartDate().isBefore(LocalDate.now())) {
       exceptionString +=
-          "Cycle with PREPARATION state but planned start date in the past can not be created.\n";
+        "Cycle with PREPARATION state but planned start date in the past can not be created.\n";
     }
     if (cycleDto.getCycleState() == CycleState.CLOSED) {
       exceptionString += "Cycle with CLOSED state can not be created.\n";
@@ -58,23 +58,23 @@ public class CycleDtoValidator {
   }
 
   private void checkForSemanticExceptionsWithOtherCyclesInDatabase(CycleDto cycleDto)
-      throws InvalidDtoException {
+    throws InvalidDtoException {
     String exceptionString = "";
 
     OkrCompany targetOkrCompany = companyRepository.findByIdOrThrow(cycleDto.getCompanyId());
     OkrUnitHistory<OkrCompany> targetOkrUnitHistory = targetOkrCompany.getHistory();
 
     if (isDateWithinOtherCycleInCompanyHistory(
-        cycleDto.getId(), cycleDto.getPlannedStartDate(), targetOkrUnitHistory)) {
+      cycleDto.getId(), cycleDto.getPlannedStartDate(), targetOkrUnitHistory)) {
       exceptionString +=
-          "Cycle planned start can not be inside another cycle of the same company.\n";
+        "Cycle planned start can not be inside another cycle of the same company.\n";
     }
     if (isDateWithinOtherCycleInCompanyHistory(
-        cycleDto.getId(), cycleDto.getPlannedEndDate(), targetOkrUnitHistory)) {
+      cycleDto.getId(), cycleDto.getPlannedEndDate(), targetOkrUnitHistory)) {
       exceptionString += "Cycle planned end can not be inside another cycle of the same company.\n";
     }
     if (isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
-        cycleDto, targetOkrUnitHistory)) {
+      cycleDto, targetOkrUnitHistory)) {
       exceptionString += "Cycle can not completely envelop another cycle of the same company.\n";
     }
 
@@ -88,26 +88,29 @@ public class CycleDtoValidator {
   }
 
   private boolean isDateWithinOtherCycleInCompanyHistory(
-      Long cycleDtoId, LocalDate dateToCheck, OkrUnitHistory<OkrCompany> okrUnitHistory) {
+    Long cycleDtoId, LocalDate dateToCheck, OkrUnitHistory<OkrCompany> okrUnitHistory
+  ) {
     List<Cycle> collidingCycles =
-        cycleRepository.findByCompanyHistoryAndDateBetweenPlannedTimeRange(
-            okrUnitHistory, dateToCheck);
+      cycleRepository.findByCompanyHistoryAndDateBetweenPlannedTimeRange(
+        okrUnitHistory, dateToCheck);
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDtoId));
   }
 
   private boolean isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
-      CycleDto cycleDto, OkrUnitHistory<OkrCompany> okrUnitHistory) {
+    CycleDto cycleDto, OkrUnitHistory<OkrCompany> okrUnitHistory
+  ) {
     List<Cycle> collidingCycles =
-        cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(
-            okrUnitHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
+      cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(
+        okrUnitHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDto.getId()));
   }
 
   private boolean isCycleListFilledWithCyclesWithoutMatchingId(
-      List<Cycle> cycleList, Long cycleId) {
+    List<Cycle> cycleList, Long cycleId
+  ) {
     return !(cycleList.isEmpty()
-        || cycleList.size() == 1 && cycleList.get(0).getId().longValue() == cycleId.longValue());
+      || cycleList.size() == 1 && cycleList.get(0).getId().longValue() == cycleId.longValue());
   }
 }

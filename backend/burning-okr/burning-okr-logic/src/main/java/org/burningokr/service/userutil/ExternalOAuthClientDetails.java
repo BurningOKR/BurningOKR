@@ -21,17 +21,23 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class ExternalOAuthClientDetails implements AuthenticationProperties {
 
-  @NotEmpty private String userAuthorizationUri;
+  @NotEmpty
+  private String userAuthorizationUri;
 
-  @NotEmpty private String accessTokenUri;
+  @NotEmpty
+  private String accessTokenUri;
 
-  @NotEmpty private String clientId;
+  @NotEmpty
+  private String clientId;
 
-  @NotEmpty private String clientSecret;
+  @NotEmpty
+  private String clientSecret;
 
-  @NotEmpty private String scope;
+  @NotEmpty
+  private String scope;
 
-  @NotEmpty private String tokenName;
+  @NotEmpty
+  private String tokenName;
 
   public String getUserAuthorizationUri() {
     return userAuthorizationUri;

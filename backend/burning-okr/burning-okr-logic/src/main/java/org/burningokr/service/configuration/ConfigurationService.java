@@ -54,7 +54,7 @@ public class ConfigurationService {
    * Creates a Configuration.
    *
    * @param configuration a {@link Configuration} object
-   * @param user an {@link User} object
+   * @param user          an {@link User} object
    * @return a {@link Configuration} object
    */
   public Configuration createConfiguration(Configuration configuration, User user) {
@@ -68,7 +68,7 @@ public class ConfigurationService {
    * Updates a Configuration by ID.
    *
    * @param configuration a {@link Configuration} object
-   * @param user an {@link User} object
+   * @param user          an {@link User} object
    * @return a {@link Configuration} object
    */
   public Configuration updateConfigurationById(Configuration configuration, User user) {
@@ -76,11 +76,11 @@ public class ConfigurationService {
     dbConfiguration.setValue(configuration.getValue());
     dbConfiguration.setName(configuration.getName());
     logger.info(
-        "Updated configuration "
-            + dbConfiguration.getName()
-            + " (id: "
-            + dbConfiguration.getId()
-            + ")");
+      "Updated configuration "
+        + dbConfiguration.getName()
+        + " (id: "
+        + dbConfiguration.getId()
+        + ")");
     activityService.createActivity(user, dbConfiguration, Action.EDITED);
     publishConfigurationChangedEvent(dbConfiguration);
     return configurationRepository.save(dbConfiguration);
@@ -90,23 +90,23 @@ public class ConfigurationService {
    * Deletes a Configuration by ID.
    *
    * @param configurationId a long value
-   * @param user an {@link User} object
+   * @param user            an {@link User} object
    */
   public void deleteConfigurationById(Long configurationId, User user) {
     Configuration configuration = configurationRepository.findByIdOrThrow(configurationId);
     logger.info(
-        "Deleted configuration "
-            + configuration.getName()
-            + " (id: "
-            + configuration.getId()
-            + ")");
+      "Deleted configuration "
+        + configuration.getName()
+        + " (id: "
+        + configuration.getId()
+        + ")");
     activityService.createActivity(user, configuration, Action.DELETED);
     configurationRepository.delete(configuration);
   }
 
   private void publishConfigurationChangedEvent(final Configuration configuration) {
     ConfigurationChangedEvent configurationChangedEvent =
-        new ConfigurationChangedEvent(this, configuration);
+      new ConfigurationChangedEvent(this, configuration);
     applicationEventPublisher.publishEvent(configurationChangedEvent);
   }
 }

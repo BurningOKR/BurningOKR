@@ -51,30 +51,31 @@ public class OkrDepartmentController {
   /**
    * Initialize DepartmentController.
    *
-   * @param departmentServicePicker {@link OkrUnitServiceFactory}
-   * @param departmentMapper {@link DataMapper} with OkrDepartment and OkrDepartmentDto
-   * @param objectiveMapper {@link DataMapper} with Objective and ObjectiveDto
-   * @param authorizationService {@link AuthorizationService}
-   * @param entityCrawlerService {@link EntityCrawlerService}
-   * @param okrBranchSchemaMapper {@link OkrBranchSchemaMapper}
+   * @param departmentServicePicker   {@link OkrUnitServiceFactory}
+   * @param departmentMapper          {@link DataMapper} with OkrDepartment and OkrDepartmentDto
+   * @param objectiveMapper           {@link DataMapper} with Objective and ObjectiveDto
+   * @param authorizationService      {@link AuthorizationService}
+   * @param entityCrawlerService      {@link EntityCrawlerService}
+   * @param okrBranchSchemaMapper     {@link OkrBranchSchemaMapper}
    * @param okrTopicDescriptionMapper {@link OkrTopicDescriptionMapper}
-   * @param userService {@link UserService}
-   * @param okrCompanyMapper {@link OkrCompanyMapper}
-   * @param companyService {@link CompanyService}
+   * @param userService               {@link UserService}
+   * @param okrCompanyMapper          {@link OkrCompanyMapper}
+   * @param companyService            {@link CompanyService}
    */
   @Autowired
   public OkrDepartmentController(
-      OkrUnitServiceFactory<OkrDepartment> departmentServicePicker,
-      DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
-      DataMapper<Objective, ObjectiveDto> objectiveMapper,
-      AuthorizationService authorizationService,
-      EntityCrawlerService entityCrawlerService,
-      OkrBranchSchemaMapper okrBranchSchemaMapper,
-      OkrTopicDescriptionMapper okrTopicDescriptionMapper,
-      OkrTopicDescriptionService okrTopicDescriptionService,
-      UserService userService,
-      OkrCompanyMapper okrCompanyMapper,
-      CompanyService companyService) {
+    OkrUnitServiceFactory<OkrDepartment> departmentServicePicker,
+    DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
+    DataMapper<Objective, ObjectiveDto> objectiveMapper,
+    AuthorizationService authorizationService,
+    EntityCrawlerService entityCrawlerService,
+    OkrBranchSchemaMapper okrBranchSchemaMapper,
+    OkrTopicDescriptionMapper okrTopicDescriptionMapper,
+    OkrTopicDescriptionService okrTopicDescriptionService,
+    UserService userService,
+    OkrCompanyMapper okrCompanyMapper,
+    CompanyService companyService
+  ) {
     this.departmentServicePicker = departmentServicePicker;
     this.departmentMapper = departmentMapper;
     this.objectiveMapper = objectiveMapper;
@@ -96,9 +97,10 @@ public class OkrDepartmentController {
    */
   @GetMapping("/departments/{departmentId}")
   public ResponseEntity<OkrDepartmentDto> getDepartmentByDepartmentId(
-      @PathVariable long departmentId) {
+    @PathVariable long departmentId
+  ) {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentService.findById(departmentId);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
@@ -111,15 +113,16 @@ public class OkrDepartmentController {
    */
   @GetMapping("/departments/{departmentId}/schema")
   public ResponseEntity<Collection<OkrUnitSchemaDto>> getDepartmentSchemaOfDepartment(
-      @PathVariable long departmentId) {
+    @PathVariable long departmentId
+  ) {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentService.findById(departmentId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(okrDepartment);
     UUID currentUserId = userService.getCurrentUser().getId();
     return ResponseEntity.ok(
-        okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-            parentOkrCompany.getOkrChildUnits(), currentUserId));
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        parentOkrCompany.getOkrChildUnits(), currentUserId));
   }
 
   /**
@@ -130,9 +133,10 @@ public class OkrDepartmentController {
    */
   @GetMapping("/departments/{departmentId}/company")
   public ResponseEntity<OkrCompanyDto> getParentCompanyOfDepartment(
-      @PathVariable long departmentId) {
+    @PathVariable long departmentId
+  ) {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentService.findById(departmentId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(okrDepartment);
     return ResponseEntity.ok(okrCompanyMapper.mapEntityToDto(parentOkrCompany));
@@ -146,9 +150,10 @@ public class OkrDepartmentController {
    */
   @GetMapping("/departments/{departmentId}/objectives")
   public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfDepartment(
-      @PathVariable long departmentId) {
+    @PathVariable long departmentId
+  ) {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Collection<Objective> objectives = departmentService.findObjectivesOfUnit(departmentId);
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(objectives));
   }
@@ -161,9 +166,10 @@ public class OkrDepartmentController {
    */
   @GetMapping("/departments/{departmentId}/topicdescription")
   public ResponseEntity<OkrTopicDescriptionDto> getTopicDescriptionOfDepartment(
-      @PathVariable long departmentId) {
+    @PathVariable long departmentId
+  ) {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment department = departmentService.findById(departmentId);
     OkrTopicDescription topicDescription = department.getOkrTopicDescription();
 
@@ -180,7 +186,8 @@ public class OkrDepartmentController {
    */
   @GetMapping("/departments/flatted/{companyId}")
   public ResponseEntity<Collection<OkrDepartmentDto>> getAllDepartmentsForCompany(
-      @PathVariable long companyId) {
+    @PathVariable long companyId
+  ) {
     OkrCompany okrCompany = companyService.findById(companyId);
     Collection<OkrDepartment> okrDepartments = BranchHelper.collectDepartments(okrCompany);
     return ResponseEntity.ok(departmentMapper.mapEntitiesToDtos(okrDepartments));
@@ -189,20 +196,23 @@ public class OkrDepartmentController {
   /**
    * API Endpoint to update an existing OkrDepartment.
    *
-   * @param departmentId a long value
+   * @param departmentId     a long value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
-   * @param user an {@link User} object
+   * @param user             an {@link User} object
    * @return the updated department
    */
   @PutMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
   public ResponseEntity<OkrDepartmentDto> updateDepartment(
-      @PathVariable long departmentId,
-      @Valid @RequestBody OkrDepartmentDto okrDepartmentDto,
-      User user)
-      throws DuplicateTeamMemberException {
+    @PathVariable long departmentId,
+    @Valid
+    @RequestBody
+    OkrDepartmentDto okrDepartmentDto,
+    User user
+  )
+    throws DuplicateTeamMemberException {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment.setId(departmentId);
     okrDepartment = departmentService.updateUnit(okrDepartment, user);
@@ -212,28 +222,31 @@ public class OkrDepartmentController {
   /**
    * API Endpoint to update the OkrTopicDescription of an OkrDepartment
    *
-   * @param departmentId the id of the OkrDepartment
+   * @param departmentId           the id of the OkrDepartment
    * @param okrTopicDescriptionDto an {@link OkrTopicDescriptionDto} object
-   * @param user an {@link User} object
+   * @param user                   an {@link User} object
    * @return the updated OkrTopicDescription
    */
   @PutMapping("/departments/{departmentId}/topicdescription")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
   public ResponseEntity<OkrTopicDescriptionDto> updateOkrTopicDescription(
-      @PathVariable long departmentId,
-      @Valid @RequestBody OkrTopicDescriptionDto okrTopicDescriptionDto,
-      User user) {
+    @PathVariable long departmentId,
+    @Valid
+    @RequestBody
+    OkrTopicDescriptionDto okrTopicDescriptionDto,
+    User user
+  ) {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentService.findById(departmentId);
     OkrTopicDescription oldOkrTopicDescription = okrDepartment.getOkrTopicDescription();
     OkrTopicDescription updatedOkrTopicDescription =
-        okrTopicDescriptionMapper.mapDtoToEntity(okrTopicDescriptionDto);
+      okrTopicDescriptionMapper.mapDtoToEntity(okrTopicDescriptionDto);
 
     updatedOkrTopicDescription.setId(oldOkrTopicDescription.getId());
 
     updatedOkrTopicDescription =
-        okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription, user);
+      okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription, user);
 
     return ResponseEntity.ok(okrTopicDescriptionMapper.mapEntityToDto(updatedOkrTopicDescription));
   }
@@ -243,15 +256,20 @@ public class OkrDepartmentController {
    *
    * @param departmentId a long value
    * @param objectiveDto an {@link ObjectiveDto} object
-   * @param user an {@link User} object
+   * @param user         an {@link User} object
    * @return a {@link ResponseEntity} ok with the added objective
    */
   @PostMapping("/departments/{departmentId}/objectives")
   @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
-      @PathVariable long departmentId, @Valid @RequestBody ObjectiveDto objectiveDto, User user) {
+    @PathVariable long departmentId,
+    @Valid
+    @RequestBody
+    ObjectiveDto objectiveDto,
+    User user
+  ) {
     OkrUnitService departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
     objective = departmentService.createObjective(departmentId, objective, user);
@@ -262,14 +280,16 @@ public class OkrDepartmentController {
    * API Endpoint to delete a OkrDepartment.
    *
    * @param departmentId a long value
-   * @param user an {@link User} object
+   * @param user         an {@link User} object
    * @return a {@link ResponseEntity} ok
    */
   @DeleteMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity deleteDepartment(@PathVariable Long departmentId, User user) {
+  public ResponseEntity deleteDepartment(
+    @PathVariable Long departmentId, User user
+  ) {
     OkrUnitService<OkrDepartment> departmentService =
-        departmentServicePicker.getRoleServiceForDepartment(departmentId);
+      departmentServicePicker.getRoleServiceForDepartment(departmentId);
     departmentService.deleteUnit(departmentId, user);
     return ResponseEntity.ok().build();
   }

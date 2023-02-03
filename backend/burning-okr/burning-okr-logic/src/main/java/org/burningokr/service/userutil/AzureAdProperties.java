@@ -22,7 +22,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class AzureAdProperties {
-  @NotEmpty private String issuer;
+  @NotEmpty
+  private String issuer;
 
   private List<AzureGroup> azureGroups;
 }

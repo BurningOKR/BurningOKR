@@ -20,7 +20,7 @@ public class StructureMapper {
     structureDto.setOkrUnitId(input.getId());
     structureDto.setUnitName(input.getName());
     structureDto.setSubstructure(
-        mapChildUnitsToStructureDtos(BranchHelper.collectDirectChildUnits(input)));
+      mapChildUnitsToStructureDtos(BranchHelper.collectDirectChildUnits(input)));
     return structureDto;
   }
 
@@ -30,9 +30,9 @@ public class StructureMapper {
 
   private Collection<StructureDto> mapChildUnitsToStructureDtos(Collection<OkrChildUnit> input) {
     return input.stream()
-        .filter(OkrBranch.class::isInstance)
-        .map(this::mapChildUnitToStructureDto)
-        .collect(Collectors.toList());
+      .filter(OkrBranch.class::isInstance)
+      .map(this::mapChildUnitToStructureDto)
+      .collect(Collectors.toList());
   }
 
   private StructureDto mapChildUnitToStructureDto(OkrChildUnit input) {

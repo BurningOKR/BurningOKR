@@ -10,10 +10,10 @@ public class LocalUserCondition implements Condition {
   @Override
   public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
     boolean isLocalUserCondition =
-        context
-            .getEnvironment()
-            .getProperty(EnvironmentPropertyNames.AUTH_MODE.getFullName())
-            .equals(AuthModes.LOCAL.getName());
+      context
+        .getEnvironment()
+        .getProperty(EnvironmentPropertyNames.AUTH_MODE.getFullName())
+        .equals(AuthModes.LOCAL.getName());
     return isLocalUserCondition;
   }
 }

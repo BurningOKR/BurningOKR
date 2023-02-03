@@ -47,10 +47,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
     tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
     endpoints
-        .tokenStore(tokenStore())
-        .tokenEnhancer(tokenEnhancerChain)
-        .authenticationManager(authenticationManager)
-        .userDetailsService(userDetailsService);
+      .tokenStore(tokenStore())
+      .tokenEnhancer(tokenEnhancerChain)
+      .authenticationManager(authenticationManager)
+      .userDetailsService(userDetailsService);
   }
 
   /**

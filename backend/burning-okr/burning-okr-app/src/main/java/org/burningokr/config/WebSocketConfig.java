@@ -57,27 +57,27 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
   public void configureMessageBroker(MessageBrokerRegistry config) {
     long[] heartbeats = {10000l, 10000l};
     config
-        .enableSimpleBroker("/topic")
-        .setTaskScheduler(heartBeatScheduler())
-        .setHeartbeatValue(heartbeats);
+      .enableSimpleBroker("/topic")
+      .setTaskScheduler(heartBeatScheduler())
+      .setHeartbeatValue(heartbeats);
     config.setApplicationDestinationPrefixes("/ws");
   }
 
   @Override
   protected void configureInbound(MessageSecurityMetadataSourceRegistry message) {
     message
-        .nullDestMatcher()
-        .permitAll()
-        .simpTypeMatchers(SimpMessageType.CONNECT)
-        .authenticated()
-        .simpTypeMatchers(SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT)
-        .authenticated()
-        .simpDestMatchers("/ws/**")
-        .authenticated()
-        .simpSubscribeDestMatchers("/topic/**")
-        .authenticated()
-        .anyMessage()
-        .denyAll();
+      .nullDestMatcher()
+      .permitAll()
+      .simpTypeMatchers(SimpMessageType.CONNECT)
+      .authenticated()
+      .simpTypeMatchers(SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT)
+      .authenticated()
+      .simpDestMatchers("/ws/**")
+      .authenticated()
+      .simpSubscribeDestMatchers("/topic/**")
+      .authenticated()
+      .anyMessage()
+      .denyAll();
   }
 
   @Override
@@ -88,34 +88,34 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
   @Override
   public void customizeClientInboundChannel(ChannelRegistration registration) {
     registration.interceptors(
-        new ChannelInterceptor() {
-          @Override
-          public Message<?> preSend(Message<?> message, MessageChannel channel) {
-            StompHeaderAccessor accessor =
-                MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+      new ChannelInterceptor() {
+        @Override
+        public Message<?> preSend(Message<?> message, MessageChannel channel) {
+          StompHeaderAccessor accessor =
+            MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
-            if (accessor != null) {
-              if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-                String token = getToken(accessor);
-                if (token == null) {
-                  return message;
-                }
+          if (accessor != null) {
+            if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+              String token = getToken(accessor);
+              if (token == null) {
+                return message;
+              }
 
-                try {
-                  Authentication authByService = getAuthentication(token);
-                  if (authByService != null) {
-                    accessor.setUser(authByService);
-                  } else {
-                    throw new AuthenticationException();
-                  }
-                } catch (Exception ex) {
-                  logger.info(ex.getMessage());
+              try {
+                Authentication authByService = getAuthentication(token);
+                if (authByService != null) {
+                  accessor.setUser(authByService);
+                } else {
+                  throw new AuthenticationException();
                 }
+              } catch (Exception ex) {
+                logger.info(ex.getMessage());
               }
             }
-            return message;
           }
-        });
+          return message;
+        }
+      });
   }
 
   private Authentication getAuthentication(String token) {
@@ -128,7 +128,8 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
     // for TokenStore or ResourceServerTokenServices defined.
     /* else if(endpoints != null) {
       authByService = endpoints.getEndpointsConfigurer().getTokenStore().readAuthentication(token);
-    } */ else {
+    } */
+    else {
       authByService = resourceServerTokenServices.loadAuthentication(token);
     }
     return authByService;

@@ -10,9 +10,9 @@ import java.util.Collection;
 @EqualsAndHashCode(callSuper = true)
 public class OkrBranchDto extends OkrChildUnitDto {
 
+  private Collection<Long> okrChildUnitIds = new ArrayList<>();
+
   public OkrBranchDto() {
     super(UnitType.OKR_BRANCH);
   }
-
-  private Collection<Long> okrChildUnitIds = new ArrayList<>();
 }

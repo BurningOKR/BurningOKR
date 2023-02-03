@@ -21,15 +21,16 @@ public class ArgumentResolverConfig implements WebMvcConfigurer {
   /**
    * Initialize Argument Resolver Config.
    *
-   * @param okrInterceptor an {@link OkrInterceptor} object
+   * @param okrInterceptor          an {@link OkrInterceptor} object
    * @param localeChangeInterceptor a {@link LocaleChangeInterceptor} object
-   * @param userService an {@link UserService} object
+   * @param userService             an {@link UserService} object
    */
   @Autowired
   public ArgumentResolverConfig(
-      OkrInterceptor okrInterceptor,
-      LocaleChangeInterceptor localeChangeInterceptor,
-      UserService userService) {
+    OkrInterceptor okrInterceptor,
+    LocaleChangeInterceptor localeChangeInterceptor,
+    UserService userService
+  ) {
     this.okrInterceptor = okrInterceptor;
     this.localeChangeInterceptor = localeChangeInterceptor;
     this.userService = userService;
@@ -44,20 +45,20 @@ public class ArgumentResolverConfig implements WebMvcConfigurer {
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addRedirectViewController("/v2/api-docs", "/v2/api-docs");
     registry.addRedirectViewController(
-        "/swagger-resources/configuration/ui", "/swagger-resources/configuration/ui");
+      "/swagger-resources/configuration/ui", "/swagger-resources/configuration/ui");
     registry.addRedirectViewController(
-        "/swagger-resources/configuration/security", "/swagger-resources/configuration/security");
+      "/swagger-resources/configuration/security", "/swagger-resources/configuration/security");
     registry.addRedirectViewController("/swagger-resources", "/swagger-resources");
   }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry
-        .addResourceHandler("/swagger-ui.html**")
-        .addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
+      .addResourceHandler("/swagger-ui.html**")
+      .addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
     registry
-        .addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+      .addResourceHandler("/webjars/**")
+      .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
   @Override

@@ -28,17 +28,18 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   /**
    * Initializes TeamMemberRowBuilderService.
    *
-   * @param userService an {@link UserService} object
+   * @param userService            an {@link UserService} object
    * @param departmentServiceUsers a {@link OkrUnitServiceUsers} object
-   * @param companyService a {@link CompanyService} object
-   * @param messages a {@link Messages} object
+   * @param companyService         a {@link CompanyService} object
+   * @param messages               a {@link Messages} object
    */
   @Autowired
   public TeamMemberRowBuilderService(
-      UserService userService,
-      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers,
-      CompanyService companyService,
-      Messages messages) {
+    UserService userService,
+    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers,
+    CompanyService companyService,
+    Messages messages
+  ) {
     this.userService = userService;
     this.departmentServiceUsers = departmentServiceUsers;
     this.companyService = companyService;
@@ -52,30 +53,32 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   }
 
   private Collection<TeamMemberRow> generateTeamMemberRowForDepartment(
-      OkrDepartment okrDepartment) {
+    OkrDepartment okrDepartment
+  ) {
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
 
     if (okrDepartment.getOkrMasterId() != null && !(okrDepartment.getOkrMasterId() == null)) {
       addUserToList(okrDepartment.getOkrMasterId(), okrDepartment, teamMemberRows);
     }
     if (okrDepartment.getOkrTopicSponsorId() != null
-        && !(okrDepartment.getOkrTopicSponsorId() == null)) {
+      && !(okrDepartment.getOkrTopicSponsorId() == null)) {
       addUserToList(okrDepartment.getOkrTopicSponsorId(), okrDepartment, teamMemberRows);
     }
     okrDepartment
-        .getOkrMemberIds()
-        .forEach(memberId -> addUserToList(memberId, okrDepartment, teamMemberRows));
+      .getOkrMemberIds()
+      .forEach(memberId -> addUserToList(memberId, okrDepartment, teamMemberRows));
 
     return teamMemberRows;
   }
 
   private void addUserToList(
-      UUID guidUser, OkrDepartment okrDepartment, Collection<TeamMemberRow> rows) {
+    UUID guidUser, OkrDepartment okrDepartment, Collection<TeamMemberRow> rows
+  ) {
     User user = userService.findById(guidUser);
     String role = getTeamRoleFromUser(user, okrDepartment);
 
     TeamMemberRow row =
-        new TeamMemberRow(okrDepartment.getName(), role, getFullName(user), user.getMail());
+      new TeamMemberRow(okrDepartment.getName(), role, getFullName(user), user.getMail());
     rows.add(row);
   }
 
@@ -105,7 +108,7 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
     Collection<OkrDepartment> okrDepartments = BranchHelper.collectDepartments(okrCompany);
     okrDepartments.forEach(
-        department -> teamMemberRows.addAll(generateTeamMemberRowForDepartment(department)));
+      department -> teamMemberRows.addAll(generateTeamMemberRowForDepartment(department)));
 
     return teamMemberRows;
   }

@@ -43,13 +43,15 @@ public class OAuthClientDetailsService {
    */
   public void encodeClientSecret(OAuthClientDetails oauthClientDetails) {
     oauthClientDetails.setClientSecret(
-        passwordEncoder.encode(oauthClientDetails.getClientSecret()));
+      passwordEncoder.encode(oauthClientDetails.getClientSecret()));
   }
 
-  /** Gets the OAuthClientDetails. */
+  /**
+   * Gets the OAuthClientDetails.
+   */
   public OAuthClientDetails getOAuthClientDetails() {
     List<OAuthClientDetails> oauthClientDetails =
-        Lists.newArrayList(oauthClientDetailsRepository.findAll());
+      Lists.newArrayList(oauthClientDetailsRepository.findAll());
     if (!oauthClientDetails.isEmpty()) {
       return oauthClientDetails.get(0);
     } else {

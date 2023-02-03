@@ -31,12 +31,12 @@ public class UserSettingsOnCompanyDeleteService {
    */
   public List<UserSettings> removeCompaniesFromSettings(Collection<OkrCompany> companiesToDelete) {
     List<UserSettings> allUserSettings =
-        Lists.newArrayList(userSettingsRepository.findAll()).stream()
-            .filter(
-                userSettings ->
-                    userSettings.getDefaultOkrCompany() != null
-                        && companiesToDelete.contains(userSettings.getDefaultOkrCompany()))
-            .collect(Collectors.toList());
+      Lists.newArrayList(userSettingsRepository.findAll()).stream()
+        .filter(
+          userSettings ->
+            userSettings.getDefaultOkrCompany() != null
+              && companiesToDelete.contains(userSettings.getDefaultOkrCompany()))
+        .collect(Collectors.toList());
 
     for (UserSettings userSetting : allUserSettings) {
       userSetting.setDefaultOkrCompany(null);

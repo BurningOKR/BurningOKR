@@ -33,7 +33,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
     okrDepartment.setObjectives(new ArrayList<>());
 
     logger.info(
-        "Mapped OkrDepartmentDto (id:" + okrDepartmentDto.getOkrUnitId() + ") to OkrDepartment.");
+      "Mapped OkrDepartmentDto (id:" + okrDepartmentDto.getOkrUnitId() + ") to OkrDepartment.");
     return okrDepartment;
   }
 

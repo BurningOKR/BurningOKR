@@ -52,7 +52,7 @@ public class AdminUserMapperTest {
     adminUserDtos.add(adminUserDto2);
 
     ArrayList<AdminUser> adminUsers =
-        (ArrayList<AdminUser>) adminUserMapper.mapDtosToEntities(adminUserDtos);
+      (ArrayList<AdminUser>) adminUserMapper.mapDtosToEntities(adminUserDtos);
 
     assertThat(adminUserDtos, hasSize(2));
     assertEquals(adminUserDtos.size(), adminUsers.size());
@@ -72,7 +72,7 @@ public class AdminUserMapperTest {
     adminUsers.add(adminUser2);
 
     ArrayList<AdminUserDto> adminUserDtos =
-        (ArrayList<AdminUserDto>) adminUserMapper.mapEntitiesToDtos(adminUsers);
+      (ArrayList<AdminUserDto>) adminUserMapper.mapEntitiesToDtos(adminUsers);
 
     assertThat(adminUsers, hasSize(2));
     assertEquals(adminUsers.size(), adminUserDtos.size());

@@ -26,7 +26,9 @@ public class TaskStateController {
   }
 
   @GetMapping("/unit/{unitId}/states")
-  public Collection<TaskStateDto> getStatesForTaskBoard(@PathVariable long unitId) {
+  public Collection<TaskStateDto> getStatesForTaskBoard(
+    @PathVariable long unitId
+  ) {
     Collection<TaskState> stateList = taskStateService.findTaskStatesForUnitId(unitId);
     return taskStateMapper.mapEntitiesToDtos(stateList);
   }

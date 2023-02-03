@@ -28,10 +28,10 @@ public class OkrBranchMapper implements DataMapper<OkrBranch, OkrBranchDto> {
     dto.setIsActive(entity.isActive());
     dto.setLabel(entity.getLabel());
     dto.setParentUnitId(
-        entity.getParentOkrUnit() != null ? entity.getParentOkrUnit().getId() : null);
+      entity.getParentOkrUnit() != null ? entity.getParentOkrUnit().getId() : null);
     entity
-        .getOkrChildUnits()
-        .forEach(department -> dto.getOkrChildUnitIds().add(department.getId()));
+      .getOkrChildUnits()
+      .forEach(department -> dto.getOkrChildUnitIds().add(department.getId()));
     entity.getObjectives().forEach(objective -> dto.getObjectiveIds().add(objective.getId()));
     dto.setIsParentUnitABranch(entity.getParentOkrUnit() instanceof OkrBranch);
     return dto;

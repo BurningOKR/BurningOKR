@@ -24,22 +24,25 @@ public class NoteController {
   /**
    * Initialize NoteController.
    *
-   * @param noteService a {@link NoteService} object
-   * @param noteMapper a {@link DataMapper} object with {@link Note} and {@link NoteDto}
+   * @param noteService          a {@link NoteService} object
+   * @param noteMapper           a {@link DataMapper} object with {@link Note} and {@link NoteDto}
    * @param authorizationService an {@link AuthorizationService} object
    */
   @Autowired
   public NoteController(
-      NoteService noteService,
-      DataMapper<Note, NoteDto> noteMapper,
-      AuthorizationService authorizationService) {
+    NoteService noteService,
+    DataMapper<Note, NoteDto> noteMapper,
+    AuthorizationService authorizationService
+  ) {
     this.noteService = noteService;
     this.noteMapper = noteMapper;
     this.authorizationService = authorizationService;
   }
 
   @GetMapping("/notes/{noteId}")
-  public ResponseEntity<NoteDto> getNoteById(@PathVariable Long noteId) {
+  public ResponseEntity<NoteDto> getNoteById(
+    @PathVariable Long noteId
+  ) {
     Note note = noteService.findByIdExtendedRepositories(noteId);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
@@ -47,15 +50,20 @@ public class NoteController {
   /**
    * API Endpoint to update a Note.
    *
-   * @param noteId a long value
+   * @param noteId  a long value
    * @param noteDto a {@link NoteDto} object
-   * @param user an {@link User} object
+   * @param user    an {@link User} object
    * @return a {@link ResponseEntity} ok with a Note
    */
   @PutMapping("/notes/{noteId}")
   @PreAuthorize("@authorizationService.isNoteOwner(#noteId)")
   public ResponseEntity<NoteDto> updateNoteById(
-      @PathVariable Long noteId, @Valid @RequestBody NoteDto noteDto, User user) {
+    @PathVariable Long noteId,
+    @Valid
+    @RequestBody
+    NoteDto noteDto,
+    User user
+  ) {
     Note note = noteMapper.mapDtoToEntity(noteDto);
     note.setId(noteId);
     note = this.noteService.updateNote(note, user);
@@ -64,7 +72,9 @@ public class NoteController {
 
   @DeleteMapping("/notes/{noteId}")
   @PreAuthorize("@authorizationService.isNoteOwner(#noteId)")
-  public ResponseEntity deleteNoteById(@PathVariable Long noteId, User user) {
+  public ResponseEntity deleteNoteById(
+    @PathVariable Long noteId, User user
+  ) {
     noteService.deleteNote(noteId, user);
     return ResponseEntity.ok().build();
   }

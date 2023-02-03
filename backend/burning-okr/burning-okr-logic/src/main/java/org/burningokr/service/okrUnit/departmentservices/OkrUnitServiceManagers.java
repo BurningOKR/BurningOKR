@@ -17,13 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServiceMembers<T> {
   @Autowired
   OkrUnitServiceManagers(
-      ParentService parentService,
-      UnitRepository<T> unitRepository,
-      ObjectiveRepository objectiveRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService) {
+    ParentService parentService,
+    UnitRepository<T> unitRepository,
+    ObjectiveRepository objectiveRepository,
+    ActivityService activityService,
+    EntityCrawlerService entityCrawlerService
+  ) {
     super(
-        parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
+      parentService, unitRepository, objectiveRepository, activityService, entityCrawlerService);
   }
 
   @Override
@@ -35,15 +36,15 @@ public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServi
 
     if (updatedUnit instanceof OkrDepartment) {
       ((OkrDepartment) referencedUnit)
-          .setOkrMemberIds(((OkrDepartment) updatedUnit).getOkrMemberIds());
+        .setOkrMemberIds(((OkrDepartment) updatedUnit).getOkrMemberIds());
 
       referencedUnit = unitRepository.save(referencedUnit);
       logger.info(
-          "Updated OkrDepartment "
-              + referencedUnit.getName()
-              + "(id:"
-              + referencedUnit.getId()
-              + ")");
+        "Updated OkrDepartment "
+          + referencedUnit.getName()
+          + "(id:"
+          + referencedUnit.getId()
+          + ")");
       activityService.createActivity(user, referencedUnit, Action.EDITED);
     }
 

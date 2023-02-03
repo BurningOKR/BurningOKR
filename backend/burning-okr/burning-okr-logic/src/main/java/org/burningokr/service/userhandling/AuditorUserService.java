@@ -28,7 +28,7 @@ public class AuditorUserService {
   public Boolean isCurrentUserAuditor() {
     UUID currentUserId = userService.getCurrentUser().getId();
     Optional<AuditorUser> currentUserAuditorOptional =
-        auditorUserRepository.findById(currentUserId);
+      auditorUserRepository.findById(currentUserId);
 
     return currentUserAuditorOptional.isPresent();
   }

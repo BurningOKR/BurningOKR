@@ -52,9 +52,9 @@ public class FrontendLogMapperTest {
   @Test
   public void test_mapEntitiesToDtosShouldMapCorrectly() {
     FrontendLog frontendLog1 =
-        new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
+      new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
     FrontendLog frontendLog2 =
-        new FrontendLog(2L, "DEBUG", LocalDateTime.now(), "main.ts", "4", "Joining new entry");
+      new FrontendLog(2L, "DEBUG", LocalDateTime.now(), "main.ts", "4", "Joining new entry");
     Collection<FrontendLog> frontendLogs = Arrays.asList(frontendLog1, frontendLog2);
 
     Collection<FrontendLogDto> frontendLogDtos = frontendLogMapper.mapEntitiesToDtos(frontendLogs);
@@ -67,11 +67,13 @@ public class FrontendLogMapperTest {
   private void assertFrontendLogWithDto(FrontendLog frontendLog, FrontendLogDto frontendLogDto) {
     Assert.assertEquals(frontendLog.getId(), frontendLogDto.getId());
     Assert.assertEquals(
-        frontendLog.getLevel(),
-        FrontendLogLevel.getLevelByIdentifier(frontendLogDto.getLevel()).name());
+      frontendLog.getLevel(),
+      FrontendLogLevel.getLevelByIdentifier(frontendLogDto.getLevel()).name()
+    );
     Assert.assertEquals(
-        frontendLog.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-        frontendLogDto.getTimestamp());
+      frontendLog.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+      frontendLogDto.getTimestamp()
+    );
     Assert.assertEquals(frontendLog.getFileName(), frontendLogDto.getFileName());
     Assert.assertEquals(frontendLog.getLineNumber(), frontendLogDto.getLineNumber());
     Assert.assertEquals(frontendLog.getMessage(), frontendLogDto.getMessage());

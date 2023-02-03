@@ -25,19 +25,20 @@ public class OkrUnitServiceFactory<T extends OkrChildUnit> {
   /**
    * Initialize DepartmentServicePicker.
    *
-   * @param departmentServiceUsers a {@link OkrUnitServiceUsers} object
-   * @param departmentServiceManagers a {@link OkrUnitServiceManagers} object
-   * @param departmentServiceAdmins a {@link OkrUnitServiceAdmins} object
+   * @param departmentServiceUsers     a {@link OkrUnitServiceUsers} object
+   * @param departmentServiceManagers  a {@link OkrUnitServiceManagers} object
+   * @param departmentServiceAdmins    a {@link OkrUnitServiceAdmins} object
    * @param userRoleFromContextService an {@link UserRoleFromContextService} object
    */
   @Autowired
   public OkrUnitServiceFactory(
-      @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<T> departmentServiceUsers,
-      @Qualifier("okrUnitServiceMembers") OkrUnitServiceMembers<T> departmentServiceMembers,
-      @Qualifier("okrUnitServiceManagers") OkrUnitServiceManagers<T> departmentServiceManagers,
-      @Qualifier("okrUnitServiceAdmins") OkrUnitServiceAdmins<T> departmentServiceAdmins,
-      UserRoleFromContextService userRoleFromContextService,
-      UnitRepository<T> unitRepository) {
+    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<T> departmentServiceUsers,
+    @Qualifier("okrUnitServiceMembers") OkrUnitServiceMembers<T> departmentServiceMembers,
+    @Qualifier("okrUnitServiceManagers") OkrUnitServiceManagers<T> departmentServiceManagers,
+    @Qualifier("okrUnitServiceAdmins") OkrUnitServiceAdmins<T> departmentServiceAdmins,
+    UserRoleFromContextService userRoleFromContextService,
+    UnitRepository<T> unitRepository
+  ) {
     this.userService = departmentServiceUsers;
     this.memberService = departmentServiceMembers;
     this.managerService = departmentServiceManagers;

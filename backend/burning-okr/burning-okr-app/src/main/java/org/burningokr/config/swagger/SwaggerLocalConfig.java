@@ -32,8 +32,8 @@ public class SwaggerLocalConfig extends SwaggerConfig {
   @Bean
   public Docket api() {
     return baseApi()
-        .securitySchemes(Collections.singletonList(securityScheme()))
-        .securityContexts(Collections.singletonList(securityContext()));
+      .securitySchemes(Collections.singletonList(securityScheme()))
+      .securityContexts(Collections.singletonList(securityContext()));
   }
 
   @Override
@@ -43,16 +43,16 @@ public class SwaggerLocalConfig extends SwaggerConfig {
 
   private SecurityScheme securityScheme() {
     GrantType passwordGrant =
-        new ResourceOwnerPasswordCredentialsGrant(
-            oAuthConfigurationService
-                .getOAuthConfigurationByName(OAuthConfigurationName.TOKEN_ENDPOINT)
-                .getValue());
+      new ResourceOwnerPasswordCredentialsGrant(
+        oAuthConfigurationService
+          .getOAuthConfigurationByName(OAuthConfigurationName.TOKEN_ENDPOINT)
+          .getValue());
 
     return new OAuthBuilder()
-        .name("spring_oauth")
-        .grantTypes(Collections.singletonList(passwordGrant))
-        .scopes(Arrays.asList(scopes()))
-        .build();
+      .name("spring_oauth")
+      .grantTypes(Collections.singletonList(passwordGrant))
+      .scopes(Arrays.asList(scopes()))
+      .build();
   }
 
   private AuthorizationScope[] scopes() {
@@ -61,9 +61,9 @@ public class SwaggerLocalConfig extends SwaggerConfig {
 
   private SecurityContext securityContext() {
     return SecurityContext.builder()
-        .securityReferences(
-            Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
-        .forPaths(PathSelectors.any())
-        .build();
+      .securityReferences(
+        Collections.singletonList(new SecurityReference("spring_oauth", scopes())))
+      .forPaths(PathSelectors.any())
+      .build();
   }
 }

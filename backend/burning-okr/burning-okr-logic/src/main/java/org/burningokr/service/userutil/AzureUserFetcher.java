@@ -49,9 +49,9 @@ public class AzureUserFetcher {
     Collection<AadUser> azureUsers = new ArrayList<>();
     for (AzureGroup azureGroup : this.azureAdProperties.getAzureGroups()) {
       String uri =
-          "https://graph.microsoft.com/v1.0/groups/"
-              + azureGroup.getId()
-              + "/members?$select=id,givenName,surname,mail,mailNickname,jobTitle,department&$top=1";
+        "https://graph.microsoft.com/v1.0/groups/"
+          + azureGroup.getId()
+          + "/members?$select=id,givenName,surname,mail,mailNickname,jobTitle,department&$top=1";
 
       AzureGroupResponse response;
       do {
@@ -64,7 +64,7 @@ public class AzureUserFetcher {
   }
 
   private AzureGroupResponse fetchAzureUsersForGroupId(String accessToken, String uri)
-      throws AzureUserFetchException {
+    throws AzureUserFetchException {
     try {
       InputStream inputStream = azureApiCaller.callApi(accessToken, new URL(uri));
 
@@ -78,8 +78,8 @@ public class AzureUserFetcher {
       }
 
       return new ObjectMapper()
-          .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-          .readValue(stringBuilder.toString(), AzureGroupResponse.class);
+        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .readValue(stringBuilder.toString(), AzureGroupResponse.class);
     } catch (IOException e) {
       throw new AzureUserFetchException(e.getMessage());
     }

@@ -21,9 +21,11 @@ public class CycleDto {
   @Size(min = 1)
   private String name;
 
-  @NotNull private LocalDate plannedStartDate;
+  @NotNull
+  private LocalDate plannedStartDate;
 
-  @NotNull private LocalDate plannedEndDate;
+  @NotNull
+  private LocalDate plannedEndDate;
 
   private CycleState cycleState = CycleState.PREPARATION;
   private Collection<Long> companyIds = new ArrayList<>();

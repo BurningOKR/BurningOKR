@@ -195,7 +195,7 @@ public class OkrDepartmentMapperTest {
   @Test
   public void test_mapDtoToEntity_expects_okrMemberIdsAreMapped() {
     Collection<UUID> okrMembersUuids =
-        Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+      Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     okrDepartmentDto.setOkrMemberIds(okrMembersUuids);
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
     Assert.assertEquals(okrMembersUuids, okrDepartment.getOkrMemberIds());

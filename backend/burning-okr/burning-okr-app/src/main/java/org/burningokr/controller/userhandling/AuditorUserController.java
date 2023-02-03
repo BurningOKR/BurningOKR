@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AuditorUserController {
 
   private final AuditorUserService auditorUserService;
+
   /**
    * API Endpoint to check if the current user is an auditor.
    *

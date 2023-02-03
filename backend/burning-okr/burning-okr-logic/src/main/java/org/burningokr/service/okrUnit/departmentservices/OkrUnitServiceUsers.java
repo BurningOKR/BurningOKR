@@ -34,11 +34,12 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
 
   @Autowired
   OkrUnitServiceUsers(
-      ParentService parentService,
-      UnitRepository<T> unitRepository,
-      ObjectiveRepository objectiveRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService) {
+    ParentService parentService,
+    UnitRepository<T> unitRepository,
+    ObjectiveRepository objectiveRepository,
+    ActivityService activityService,
+    EntityCrawlerService entityCrawlerService
+  ) {
     this.parentService = parentService;
     this.unitRepository = unitRepository;
     this.objectiveRepository = objectiveRepository;
@@ -91,7 +92,7 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
   void throwIfCycleForDepartmentIsClosed(OkrUnit okrUnitToCheck) {
     if (entityCrawlerService.getCycleOfUnit(okrUnitToCheck).getCycleState() == CycleState.CLOSED) {
       throw new ForbiddenException(
-          "Cannot modify this resource on a OkrDepartment in a closed cycle.");
+        "Cannot modify this resource on a OkrDepartment in a closed cycle.");
     }
   }
 }

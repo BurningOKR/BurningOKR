@@ -28,11 +28,12 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
   @Override
   public User resolveArgument(
-      @NonNull MethodParameter parameter,
-      ModelAndViewContainer mavContainer,
-      @NonNull NativeWebRequest webRequest,
-      WebDataBinderFactory binderFactory)
-      throws ConfigurationException {
+    @NonNull MethodParameter parameter,
+    ModelAndViewContainer mavContainer,
+    @NonNull NativeWebRequest webRequest,
+    WebDataBinderFactory binderFactory
+  )
+    throws ConfigurationException {
     return userService.getCurrentUser();
   }
 }

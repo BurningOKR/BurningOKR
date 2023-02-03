@@ -41,7 +41,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
   private void init() {
     SessionFactoryImpl sessionFactory = entityManagerFactory.unwrap(SessionFactoryImpl.class);
     EventListenerRegistry registry =
-        sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
+      sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
     registry.getEventListenerGroup(EventType.POST_COMMIT_DELETE).appendListener(this);
   }
 
@@ -62,7 +62,8 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @return the updated OkrTopicDescription
    */
   public OkrTopicDescription updateOkrTopicDescription(
-      OkrTopicDescription okrTopicDescription, User user) {
+    OkrTopicDescription okrTopicDescription, User user
+  ) {
     OkrTopicDescription existing = findById(okrTopicDescription.getId());
 
     existing.setName(okrTopicDescription.getName());
@@ -80,7 +81,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     existing = okrTopicDescriptionRepository.save(existing);
 
     logger.info(
-        "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
+      "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
     activityService.createActivity(user, existing, Action.EDITED);
 
     return existing;
@@ -96,13 +97,13 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     ArrayList<OkrDepartment> okrDepartments = new ArrayList<>();
 
     okrDepartmentRepository
-        .findAll()
-        .forEach(
-            department -> {
-              if (department.getOkrTopicDescription().getId().equals(okrTopicDescriptionId)) {
-                okrDepartments.add(department);
-              }
-            });
+      .findAll()
+      .forEach(
+        department -> {
+          if (department.getOkrTopicDescription().getId().equals(okrTopicDescriptionId)) {
+            okrDepartments.add(department);
+          }
+        });
 
     return okrDepartments;
   }
@@ -121,11 +122,11 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
       deleteOkrTopicDescription(okrTopicDescriptionId, user);
     } else {
       logger.info(
-          "OkrTopicDescription with Id "
-              + okrTopicDescriptionId
-              + " was not deleted, because it is referenced by"
-              + count
-              + " departments.");
+        "OkrTopicDescription with Id "
+          + okrTopicDescriptionId
+          + " was not deleted, because it is referenced by"
+          + count
+          + " departments.");
     }
   }
 
@@ -182,7 +183,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     try {
       transaction.begin();
       OkrTopicDescription existing =
-          entityManager.find(OkrTopicDescription.class, okrTopicDescriptionId);
+        entityManager.find(OkrTopicDescription.class, okrTopicDescriptionId);
       entityManager.remove(existing);
       entityManager.flush();
       transaction.commit();

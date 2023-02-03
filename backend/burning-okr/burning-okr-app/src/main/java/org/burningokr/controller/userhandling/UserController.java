@@ -33,7 +33,8 @@ public class UserController {
 
   @GetMapping("/users")
   public ResponseEntity<Collection<UserDto>> getAllUsers(
-      @RequestParam(value = "activeUsers", required = false) Boolean activeUsers) {
+    @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
+  ) {
     Collection<User> userList;
     if (activeUsers == null) {
       userList = userService.findAll();
@@ -47,7 +48,9 @@ public class UserController {
   }
 
   @GetMapping("/users/{userId}")
-  public ResponseEntity<UserDto> getUserByInformation(@PathVariable UUID userId) {
+  public ResponseEntity<UserDto> getUserByInformation(
+    @PathVariable UUID userId
+  ) {
     return ResponseEntity.ok(userMapper.mapEntityToDto(userService.findById(userId)));
   }
 }

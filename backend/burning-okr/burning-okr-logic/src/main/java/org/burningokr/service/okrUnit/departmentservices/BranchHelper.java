@@ -49,21 +49,21 @@ public class BranchHelper {
     Collection<OkrChildUnit> okrChildUnitCollection = collectChildUnits(okrCompany);
 
     return okrChildUnitCollection.stream()
-        .map(
-            childUnit -> {
-              if (childUnit instanceof OkrDepartment) {
-                return (OkrDepartment) childUnit;
-              } else {
-                return null;
-              }
-            })
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
+      .map(
+        childUnit -> {
+          if (childUnit instanceof OkrDepartment) {
+            return (OkrDepartment) childUnit;
+          } else {
+            return null;
+          }
+        })
+      .filter(Objects::nonNull)
+      .collect(Collectors.toList());
   }
 
   public static Collection<OkrChildUnit> collectChildUnits(OkrChildUnit okrChildUnit) {
     Collection<OkrChildUnit> okrChildUnitCollection =
-        new ArrayList<>(Collections.singletonList(okrChildUnit));
+      new ArrayList<>(Collections.singletonList(okrChildUnit));
 
     if (okrChildUnit instanceof OkrParentUnit) {
       for (OkrChildUnit okrChildUnit1 : ((OkrParentUnit) okrChildUnit).getOkrChildUnits()) {

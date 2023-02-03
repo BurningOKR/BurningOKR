@@ -36,10 +36,11 @@ public class TaskService {
 
   @Autowired
   public TaskService(
-      TaskRepository taskRepository,
-      OkrDepartmentRepository okrDepartmentRepository,
-      ActivityService activityService,
-      EntityCrawlerService entityCrawlerService) {
+    TaskRepository taskRepository,
+    OkrDepartmentRepository okrDepartmentRepository,
+    ActivityService activityService,
+    EntityCrawlerService entityCrawlerService
+  ) {
     this.taskRepository = taskRepository;
     this.okrDepartmentRepository = okrDepartmentRepository;
     this.activityService = activityService;
@@ -66,7 +67,7 @@ public class TaskService {
     throwIfCycleOfTaskIsNotActive(okrUnit);
 
     Task firstTaskInList =
-        this.taskRepository.findFirstTaskOfList(okrUnit.getTaskBoard(), newTask.getTaskState());
+      this.taskRepository.findFirstTaskOfList(okrUnit.getTaskBoard(), newTask.getTaskState());
     newTask.setPreviousTask(null);
     newTask.setParentTaskBoard(okrUnit.getTaskBoard());
     newTask = taskRepository.save(newTask);
@@ -102,7 +103,7 @@ public class TaskService {
 
     if (hasPositionChanged(updatedTask, referencedTask)) {
       logger.info(
-          "update Task -> wurde in eine andere Spalte verschoben: " + updatedTask.getName());
+        "update Task -> wurde in eine andere Spalte verschoben: " + updatedTask.getName());
       updatedTasks.addAll(updateTaskWithPositioning(updatedTask, referencedTask));
     } else {
       // es wurden nur Attributwerte geändert
@@ -144,7 +145,7 @@ public class TaskService {
   }
 
   private Collection<Task> updateTaskWithPositioning(Task newVersion, Task oldVersion)
-      throws Exception {
+    throws Exception {
     Collection<Task> updatedTasks = new ArrayList<>();
 
     Task newPreviousTask;
@@ -160,15 +161,16 @@ public class TaskService {
       logger.info("new precessor exists");
       logTask(newPreviousTask);
       newNextTask =
-          taskRepository.findByPreviousTask(
-              newPreviousTask,
-              newPreviousTask.getTaskState(),
-              newPreviousTask.getParentTaskBoard());
+        taskRepository.findByPreviousTask(
+          newPreviousTask,
+          newPreviousTask.getTaskState(),
+          newPreviousTask.getParentTaskBoard()
+        );
     } else {
       logger.info("no new precessor");
       newNextTask =
-          taskRepository.findFirstTaskOfList(
-              newVersion.getParentTaskBoard(), newVersion.getTaskState());
+        taskRepository.findFirstTaskOfList(
+          newVersion.getParentTaskBoard(), newVersion.getTaskState());
     }
 
     Task nextTaskOfOldVersion = null;
@@ -178,8 +180,8 @@ public class TaskService {
       logTask(oldVersion);
 
       nextTaskOfOldVersion =
-          taskRepository.findByPreviousTask(
-              oldVersion, oldVersion.getTaskState(), oldVersion.getParentTaskBoard());
+        taskRepository.findByPreviousTask(
+          oldVersion, oldVersion.getTaskState(), oldVersion.getParentTaskBoard());
     }
 
     if (newNextTask != null) {
@@ -223,8 +225,8 @@ public class TaskService {
     }
 
     Task nextTask =
-        this.taskRepository.findByPreviousTask(
-            taskToDelete, taskToDelete.getTaskState(), taskToDelete.getParentTaskBoard());
+      this.taskRepository.findByPreviousTask(
+        taskToDelete, taskToDelete.getTaskState(), taskToDelete.getParentTaskBoard());
     if (nextTask != null) {
       nextTask.setPreviousTask(previousTask);
       nextTask = taskRepository.save(nextTask);
@@ -267,26 +269,28 @@ public class TaskService {
 
   private void logTask(Task task) {
     String keyresultId =
-        task.hasAssignedKeyResult() ? task.getAssignedKeyResult().getId().toString() : "null";
+      task.hasAssignedKeyResult() ? task.getAssignedKeyResult().getId().toString() : "null";
     String previousTaskId =
-        task.hasPreviousTask() ? task.getPreviousTask().getId().toString() : "null";
+      task.hasPreviousTask() ? task.getPreviousTask().getId().toString() : "null";
     String text =
-        String.format(
-            "-----\nid: %s, title: %s, taskState: %s, keyresult: %s, previousTask: %s, parentTaskboard: %s, version: %s\n---------",
-            task.getId(),
-            task.getTitle(),
-            task.getTaskState().getId(),
-            keyresultId,
-            previousTaskId,
-            task.getParentTaskBoard().getId(),
-            task.getVersion());
+      String.format(
+        "-----\nid: %s, title: %s, taskState: %s, keyresult: %s, previousTask: %s, parentTaskboard: %s, version: %s\n---------",
+        task.getId(),
+        task.getTitle(),
+        task.getTaskState().getId(),
+        keyresultId,
+        previousTaskId,
+        task.getParentTaskBoard().getId(),
+        task.getVersion()
+      );
     this.logger.info(text);
   }
 
   public Collection<Task> copyTasksAndBindToNewCopyOfTaskStatesListAndTaskBoard(
-      Collection<Task> notFinishedTasks,
-      Collection<TaskState> copiedStates,
-      TaskBoard copiedTaskBoard) {
+    Collection<Task> notFinishedTasks,
+    Collection<TaskState> copiedStates,
+    TaskBoard copiedTaskBoard
+  ) {
     Collection<Task> copiedTasks = new ArrayList<>();
     for (Task oldTask : notFinishedTasks) {
       Task copiedTask = oldTask.copyWithNoRelations();

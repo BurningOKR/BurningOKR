@@ -58,11 +58,11 @@ public class CycleMapperTest {
     OkrCompany okrCompany = new OkrCompany();
     okrCompany.setId(1337L);
     Collection<OkrCompany> companies =
-        new ArrayList<OkrCompany>() {
-          {
-            add(okrCompany);
-          }
-        };
+      new ArrayList<OkrCompany>() {
+        {
+          add(okrCompany);
+        }
+      };
     return companies;
   }
 

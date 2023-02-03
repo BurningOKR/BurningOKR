@@ -22,15 +22,19 @@ public class KeyResultDto {
 
   @NotNull
   @Size(
-      max = 1023,
-      message = "The description of a key result may not be longer than 1023 characters.")
+    max = 1023,
+    message = "The description of a key result may not be longer than 1023 characters."
+  )
   private String description;
 
-  @PositiveOrZero private long startValue;
+  @PositiveOrZero
+  private long startValue;
 
-  @PositiveOrZero private long currentValue;
+  @PositiveOrZero
+  private long currentValue;
 
-  @PositiveOrZero private long targetValue;
+  @PositiveOrZero
+  private long targetValue;
 
   private Unit unit = Unit.NUMBER;
 

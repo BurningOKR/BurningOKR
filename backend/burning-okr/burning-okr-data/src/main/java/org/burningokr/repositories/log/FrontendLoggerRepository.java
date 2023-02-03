@@ -5,4 +5,5 @@ import org.burningokr.repositories.ExtendedRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FrontendLoggerRepository extends ExtendedRepository<FrontendLog, Long> {}
+public interface FrontendLoggerRepository extends ExtendedRepository<FrontendLog, Long> {
+}

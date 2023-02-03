@@ -29,7 +29,6 @@ import java.util.HashMap;
 @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CyclePreparationCloningService {
 
-  private HashMap<Objective, Objective> clonedObjectives = new HashMap<>();
   private final Logger logger = LoggerFactory.getLogger(CyclePreparationCloningService.class);
   private final CompanyRepository companyRepository;
   private final UnitRepository<OkrChildUnit> subUnitRepository;
@@ -37,41 +36,46 @@ public class CyclePreparationCloningService {
   private final ObjectiveRepository objectiveRepository;
   private final UserSettingsRepository userSettingsRepository;
   private final TaskBoardService taskBoardService;
+  private HashMap<Objective, Objective> clonedObjectives = new HashMap<>();
 
   public void cloneCompanyListIntoCycleForPreparation(
-      Collection<OkrCompany> companiesToClone, Cycle cycleToCloneInto) {
+    Collection<OkrCompany> companiesToClone, Cycle cycleToCloneInto
+  ) {
     companiesToClone.forEach(
-        company -> cloneCompanyIntoCycleForPreparation(company, cycleToCloneInto));
+      company -> cloneCompanyIntoCycleForPreparation(company, cycleToCloneInto));
   }
 
   /**
    * Clones the OkrCompany and adds it to the Cycle.
    *
    * @param okrCompanyToClone a {@link OkrCompany} object
-   * @param cycleToCloneInto a {@link Cycle} object
+   * @param cycleToCloneInto  a {@link Cycle} object
    */
   public void cloneCompanyIntoCycleForPreparation(
-      OkrCompany okrCompanyToClone, Cycle cycleToCloneInto) {
+    OkrCompany okrCompanyToClone, Cycle cycleToCloneInto
+  ) {
     OkrCompany okrCompanyCopy = okrCompanyToClone.getCopyWithoutRelations();
     cycleToCloneInto.getCompanies().add(okrCompanyCopy);
     okrCompanyCopy.setCycle(cycleToCloneInto);
     companyRepository.save(okrCompanyCopy);
     cloneObjectiveListIntoOkrUnitForPreparation(okrCompanyToClone.getObjectives(), okrCompanyCopy);
     cloneChildUnitListIntoParentUnitForPreparation(
-        okrCompanyToClone.getOkrChildUnits(), okrCompanyCopy);
+      okrCompanyToClone.getOkrChildUnits(), okrCompanyCopy);
     cloneUserSettingsFromClonedCompanyIntoOkrBranchForPreparation(
-        okrCompanyToClone, okrCompanyCopy);
+      okrCompanyToClone, okrCompanyCopy);
   }
 
   private void cloneChildUnitListIntoParentUnitForPreparation(
-      Collection<OkrChildUnit> okrChildUnitListToClone, OkrUnit okrUnitToCloneInto) {
+    Collection<OkrChildUnit> okrChildUnitListToClone, OkrUnit okrUnitToCloneInto
+  ) {
     okrChildUnitListToClone.forEach(
-        original -> cloneChildUnitIntoParentUnitForPreparation(original, okrUnitToCloneInto));
+      original -> cloneChildUnitIntoParentUnitForPreparation(original, okrUnitToCloneInto));
   }
 
   @Transactional
   void cloneChildUnitIntoParentUnitForPreparation(
-      OkrChildUnit okrChildUnitToClone, OkrUnit okrUnitToCloneInto) {
+    OkrChildUnit okrChildUnitToClone, OkrUnit okrUnitToCloneInto
+  ) {
     OkrChildUnit copy = okrChildUnitToClone.getCopyWithoutRelations();
 
     if (okrUnitToCloneInto instanceof OkrParentUnit) {
@@ -85,8 +89,8 @@ public class CyclePreparationCloningService {
       this.logOkrDepartment((OkrDepartment) copy);
 
       TaskBoard newTaskBoard =
-          taskBoardService.cloneTaskBoard(
-              (OkrDepartment) copy, ((OkrDepartment) okrChildUnitToClone).getTaskBoard());
+        taskBoardService.cloneTaskBoard(
+          (OkrDepartment) copy, ((OkrDepartment) okrChildUnitToClone).getTaskBoard());
       taskBoardService.saveTaskBoard(newTaskBoard);
 
       subUnitRepository.save(copy);
@@ -97,19 +101,21 @@ public class CyclePreparationCloningService {
 
     if (okrChildUnitToClone instanceof OkrParentUnit) {
       cloneChildUnitListIntoParentUnitForPreparation(
-          ((OkrParentUnit) okrChildUnitToClone).getOkrChildUnits(), copy);
+        ((OkrParentUnit) okrChildUnitToClone).getOkrChildUnits(), copy);
     }
   }
 
   private void cloneObjectiveListIntoOkrUnitForPreparation(
-      Collection<Objective> objectiveListToClone, OkrUnit okrUnitToCloneInto) {
+    Collection<Objective> objectiveListToClone, OkrUnit okrUnitToCloneInto
+  ) {
     for (Objective original : objectiveListToClone) {
       cloneObjectiveIntoOkrUnitForPreparation(original, okrUnitToCloneInto);
     }
   }
 
   private void cloneObjectiveIntoOkrUnitForPreparation(
-      Objective objectiveToClone, OkrUnit okrUnitToCloneInto) {
+    Objective objectiveToClone, OkrUnit okrUnitToCloneInto
+  ) {
     Objective copy = objectiveToClone.getCopyWithoutRelations();
     copy.setParentOkrUnit(okrUnitToCloneInto);
     okrUnitToCloneInto.getObjectives().add(copy);
@@ -124,15 +130,16 @@ public class CyclePreparationCloningService {
   }
 
   private void cloneUserSettingsFromClonedCompanyIntoOkrBranchForPreparation(
-      OkrCompany okrCompanyToClone, OkrCompany okrCompanyCopy) {
+    OkrCompany okrCompanyToClone, OkrCompany okrCompanyCopy
+  ) {
     Iterable<UserSettings> userSettingsIter = userSettingsRepository.findAll();
     for (UserSettings userSettings : userSettingsIter) {
       if (userSettings.getDefaultOkrCompany() != null
-          && userSettings.getDefaultOkrCompany().equals(okrCompanyToClone)) {
+        && userSettings.getDefaultOkrCompany().equals(okrCompanyToClone)) {
         userSettings.setDefaultOkrCompany(okrCompanyCopy);
         if (userSettings.getDefaultTeam() != null) {
           OkrDepartment newTeamCopy =
-              findNewTeamCopy(userSettings.getDefaultTeam(), okrCompanyCopy);
+            findNewTeamCopy(userSettings.getDefaultTeam(), okrCompanyCopy);
           userSettings.setDefaultTeam(newTeamCopy);
         }
         userSettingsRepository.save(userSettings);
