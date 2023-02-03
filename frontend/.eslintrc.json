@@ -25,6 +25,12 @@
         "eslint-plugin-unicorn"
       ],
       "rules": {
+        "no-trailing-spaces": [
+          "error",
+          {
+            "skipBlankLines": true
+          }
+        ],
         "@angular-eslint/component-selector": [
           "error",
           {
