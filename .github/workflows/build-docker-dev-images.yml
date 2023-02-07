@@ -2,7 +2,7 @@ name: build docker-dev-images
 
 on:
   push:
-    branches: [development]
+    branches: [development, feat/docker_images_on_github]
   workflow_dispatch:
 
 env:
