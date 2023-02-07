@@ -49,7 +49,7 @@ export class SettingsFormComponent implements OnInit {
     return combineLatest(this.children.map((form: SettingsForm) => form.canClose$()))
       .pipe(
         map((values: boolean[]) => {
-          return values.All(value => value); // check if all forms returned true
+          return values.every(value => value); // check if all forms returned true
         }),
       );
   }
