@@ -1,3 +1,4 @@
-1.4.6
+1.4.7
 
-- Feature: The Dialogue, to convert a TopicDraft to a Team now features a tree-structure
+- Update: FE updated angular to version 14
+- Update: FE updated dependencies

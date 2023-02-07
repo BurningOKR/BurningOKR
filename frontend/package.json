@@ -2,7 +2,6 @@
   "name": "okr-frontend",
   "version": "1.0.0",
   "scripts": {
-    "ng": "ng",
     "prestart": "ts-appversion",
     "prebuild": "ts-appversion",
     "pretest": "ts-appversion",
@@ -17,7 +16,6 @@
     "build-demo": "npm run build -- --output-hashing=all --configuration demo",
     "build-docker": "npm run build -- --output-hashing=all --configuration production --configuration docker --base-href=/",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "stats": "webpack-bundle-analyzer dist/stats.json"
   },
   "private": true,
