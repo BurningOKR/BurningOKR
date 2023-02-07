@@ -38,6 +38,8 @@ public class KeyResultServiceTest {
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock
+  private KeyResultHistoryService keyResultHistoryService;
+  @Mock
   private User user;
   @Mock
   private TaskService taskService;
@@ -55,14 +57,12 @@ public class KeyResultServiceTest {
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
-    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult), any()))
-      .thenReturn(updateKeyResult);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult), any())).thenReturn(updateKeyResult);
   }
 
   @Test(expected = EntityNotFoundException.class)
   public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() throws Exception {
-    when(keyResultRepository.findByIdOrThrow(any(Long.class)))
-      .thenThrow(new EntityNotFoundException());
+    when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenThrow(new EntityNotFoundException());
     keyResultService.deleteKeyResult(keyResultId, user);
   }
 
@@ -81,8 +81,11 @@ public class KeyResultServiceTest {
     KeyResult keyResultBelowInSequence = new KeyResult();
     KeyResult keyResultToDelete = new KeyResult();
     KeyResult keyResultAboveInSequence = new KeyResult();
-    Collection<KeyResult> keyResultList =
-      Arrays.asList(keyResultAboveInSequence, keyResultBelowInSequence, keyResultToDelete);
+    Collection<KeyResult> keyResultList = Arrays.asList(
+      keyResultAboveInSequence,
+      keyResultBelowInSequence,
+      keyResultToDelete
+    );
     parentObjective.setKeyResults(keyResultList);
 
     keyResultBelowInSequence.setSequence(5);
