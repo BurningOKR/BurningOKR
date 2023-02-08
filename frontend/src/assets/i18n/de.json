@@ -55,6 +55,12 @@
       "title": "Passwort ändern"
     }
   },
+  "chart-options-card": {
+    "chartType": "Diagrammart: ",
+    "company-average": "Durchschnitt der Firma",
+    "teams": "Teams",
+    "title": "Titel: "
+  },
   "comment-card": {
     "edit-comment": "Kommentar bearbeiten",
     "tooltip": {
@@ -116,6 +122,20 @@
       "only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
     }
   },
+  "create-dashboard": {
+    "add-chart-button": "Diagramm hinzufügen",
+    "add-new-chart-to-dashboard": "Diagramm hinzufügen",
+    "chart-title-placeholder": "Diagramm Titel",
+    "create-dashboard-button": "Dashboard erstellen",
+    "dashboard-title-placeholder": "Dashboard Titel",
+    "line-progress": "Fortschritt - Liniendiagramm",
+    "okr-toolbar": {
+      "create-dashboard": "Dashboard anlegen"
+    },
+    "pie-topicdraft": "Übersicht Themenentwürfe - Kuchendiagramm",
+    "select-teams-placeholder": "Teams auswählen",
+    "type-of-chart-placeholder": "Art des Diagramms"
+  },
   "create-user-init-state-form": {
     "create-your-admin-account": "Administratorenkonto",
     "next": "Weiter",
@@ -158,6 +178,21 @@
     "start-date": "Startdatum",
     "title": "Zyklus bearbeiten",
     "visibility": "Sichtbarkeit"
+  },
+  "dashboard": {
+    "okr-toolbar": {
+      "dashboard": "Dashboard"
+    }
+  },
+  "dashboard-card": {
+    "created-by": "Erstellt von: ",
+    "delete-dashboard": "Löschen"
+  },
+  "dashboard-overview": {
+    "create-dashboard-button": "Dashboard erstellen",
+    "okr-toolbar": {
+      "dashboard-overview": "Dashboardübersicht"
+    }
   },
   "date-format-validator-function": {
     "message": "Der eingegebene Wert ist kein gültiges Datum in der Form TT.MM.JJJJ"
@@ -575,6 +610,7 @@
       "admin-panel-text": "Admin Panel",
       "change-password-text": "Passwort ändern",
       "cycle-administration-text": "Zyklusverwaltung",
+      "dashboard-overview": "Dashboardübersicht",
       "language-picker": "Sprache wählen",
       "logout-text": "Logout",
       "settings-text": "Einstellungen",

@@ -1,0 +1,9 @@
+.line-chart {
+  max-width: 40VW;
+}
+
+@media (max-width: 768px) {
+  .line-chart {
+    max-width: 90VW;
+  }
+}
