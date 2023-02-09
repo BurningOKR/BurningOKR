@@ -121,8 +121,8 @@ describe('CompanyComponent', () => {
       objectives: [],
       okrChildUnitIds: [],
       cycleId: 1,
-      label: 'label'
-    }
+      label: 'label',
+    };
 
     contextRole = new ContextRole();
 

@@ -68,7 +68,7 @@ describe('OkrChildUnitTabComponent', () => {
       parentUnitId: 2,
       okrChildUnitIds: [],
       isActive: true,
-      isParentUnitABranch: false
+      isParentUnitABranch: false,
     };
     cycle = new CycleUnit(3, 'testCycle', [], new Date(), new Date(), CycleState.ACTIVE, true);
 

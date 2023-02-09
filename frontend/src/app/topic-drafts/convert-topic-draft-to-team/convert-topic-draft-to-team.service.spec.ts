@@ -1,8 +1,8 @@
-import {ConvertTopicDraftToTeamService} from './convert-topic-draft-to-team.service';
-import {Observable, of, ReplaySubject} from 'rxjs';
-import {OkrDepartment} from '../../shared/model/ui/OrganizationalUnit/okr-department';
-import {Structure} from '../../shared/model/ui/OrganizationalUnit/structure';
-import {UnitType} from "../../shared/model/api/OkrUnit/unit-type.enum";
+import { ConvertTopicDraftToTeamService } from './convert-topic-draft-to-team.service';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
+import { Structure } from '../../shared/model/ui/OrganizationalUnit/structure';
+import { UnitType } from '../../shared/model/api/OkrUnit/unit-type.enum';
 
 describe('ConvertTopicDraftToTeamService', () => {
   let convertTopicDraftToTeamService: ConvertTopicDraftToTeamService;
@@ -58,9 +58,10 @@ describe('ConvertTopicDraftToTeamService', () => {
       okrMasterId: '',
       okrMemberIds: [],
       isParentUnitABranch: true,
-      isActive: true
+      isActive: true,
 
-    }
+    };
+
     return of(x);
   }
 
@@ -70,7 +71,7 @@ describe('ConvertTopicDraftToTeamService', () => {
       name,
       label,
       objectives: [],
-      substructures: []
-    }
+      substructures: [],
+    };
   }
 });

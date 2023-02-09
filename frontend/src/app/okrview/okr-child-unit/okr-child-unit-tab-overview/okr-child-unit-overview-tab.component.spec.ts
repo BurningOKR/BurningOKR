@@ -15,7 +15,7 @@ import { CycleState, CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { Component, Input } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
-import {UnitType} from "../../../shared/model/api/OkrUnit/unit-type.enum";
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 @Component({
   selector: 'app-objective',
@@ -86,7 +86,7 @@ describe('ChildUnitOverviewTabComponent', () => {
       okrMemberIds: [],
       isActive: true,
       isParentUnitABranch: false,
-      type: UnitType.DEPARTMENT
+      type: UnitType.DEPARTMENT,
     };
 
     currentUserRole = new ContextRole();

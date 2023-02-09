@@ -70,8 +70,8 @@ describe('OkrUnitCardComponent', () => {
       okrChildUnitIds: [],
       objectives: [],
       cycleId: 0,
-      label: ''
-    }
+      label: '',
+    };
     spyOn(translate, 'instant').and.callFake(function(arg) {
       if (arg === 'okr-unit-card.label') {
         return 'correctGeneralDeleteDialogTitle';
@@ -103,8 +103,8 @@ describe('OkrUnitCardComponent', () => {
       okrChildUnitIds: [123, 234, 345, 45],
       objectives: [],
       cycleId: 0,
-      label: ''
-    }
+      label: '',
+    };
     spyOn(translate, 'instant').and.callFake(function(arg) {
       if (arg === 'okr-unit-card.label') {
         return 'correctGeneralDeleteDialogTitle';

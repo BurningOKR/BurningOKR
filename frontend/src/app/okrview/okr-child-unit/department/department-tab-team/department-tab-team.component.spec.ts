@@ -15,7 +15,7 @@ import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { of } from 'rxjs';
 import { Configuration } from '../../../../shared/model/ui/configuration';
 import { User } from '../../../../shared/model/api/user';
-import {UnitType} from "../../../../shared/model/api/OkrUnit/unit-type.enum";
+import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
 
 const currentUserServiceMock: any = {
   getCurrentUser$: jest.fn(),
@@ -99,7 +99,7 @@ describe('DepartmentTabTeamComponent', () => {
       isActive: true,
       isParentUnitABranch: false,
       type: UnitType.DEPARTMENT,
-    }    ;
+    };
     currentUserRole = new ContextRole();
 
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReset();

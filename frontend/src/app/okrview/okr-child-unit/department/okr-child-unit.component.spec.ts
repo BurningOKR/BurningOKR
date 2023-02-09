@@ -30,7 +30,7 @@ import { DepartmentTabDescriptionComponent } from './department-tab-description/
 import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-child-unit-button.component';
 import { DepartmentTabTaskboardComponent } from './department-tab-taskboard/department-tab-taskboard.component';
 import { Component, Input } from '@angular/core';
-import {UnitType} from "../../../shared/model/api/OkrUnit/unit-type.enum";
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 describe('OkrChildUnitComponent', () => {
   let component: OkrChildUnitComponent;
@@ -154,7 +154,7 @@ describe('OkrChildUnitComponent', () => {
       okrMemberIds: ['member'],
       isActive: true,
       isParentUnitABranch: false,
-      type: UnitType.DEPARTMENT
+      type: UnitType.DEPARTMENT,
     };
 
     okrBranch = {
@@ -166,7 +166,7 @@ describe('OkrChildUnitComponent', () => {
       parentUnitId: 0,
       okrChildUnitIds: [],
       isActive: true,
-      isParentUnitABranch: false
+      isParentUnitABranch: false,
     };
 
     paramMapGetSpy.mockReset();
