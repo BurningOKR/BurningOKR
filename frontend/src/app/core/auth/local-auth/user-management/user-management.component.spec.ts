@@ -12,7 +12,6 @@ import { User } from '../../../../shared/model/api/user';
 import { of } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalUserService } from '../../../../shared/services/helper/local-user.service';
-import 'linq4js';
 
 describe('UserManagementComponent', () => {
 
