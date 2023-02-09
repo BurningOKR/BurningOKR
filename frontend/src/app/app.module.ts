@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
@@ -43,12 +44,12 @@ import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-hand
 import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-handler/local-auth-type-handler.service';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
-
 import { OAuthInterceptorService } from './core/auth/services/o-auth-interceptor.service';
 import { CoreModule } from './core/core.module';
 import { ErrorInterceptor } from './core/error/error.interceptor';
 import { ErrorModule } from './core/error/error.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { DemoModule } from './demo/demo.module';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
 import { OkrUnitModule } from './okr-units/okr-unit.module';
@@ -116,6 +117,7 @@ export function createTranslateLoader(http: HttpClient) {
       defaultLanguage: 'de',
     }),
     MatTreeModule,
+    DashboardModule,
   ],
   providers: [
     OAuthFrontendDetailsService,

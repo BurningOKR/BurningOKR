@@ -33,6 +33,7 @@ public class KeyResultService {
   private final EntityCrawlerService entityCrawlerService;
   private final ObjectiveService objectiveService;
   private final KeyResultMilestoneService keyResultMilestoneService;
+  private final KeyResultHistoryService keyResultHistoryService;
   private final TaskService taskService;
 
   public KeyResult findById(long keyResultId) {
@@ -45,7 +46,7 @@ public class KeyResultService {
   }
 
   /**
-   * Updates a Key Result.
+   * Updates a Key Result and updates or creates a KeyResultHistory.
    *
    * @param updatedKeyResult a {@link KeyResult} object
    * @param user             an {@link User} object
@@ -55,6 +56,8 @@ public class KeyResultService {
   public KeyResult updateKeyResult(KeyResult updatedKeyResult, User user) {
     KeyResult referencedKeyResult = findById(updatedKeyResult.getId());
     throwIfCycleOfKeyResultIsClosed(referencedKeyResult);
+
+    boolean keyResultProgressChanged = createdOrProgressChanged(referencedKeyResult, updatedKeyResult);
 
     referencedKeyResult.setName(updatedKeyResult.getName());
     referencedKeyResult.setDescription(updatedKeyResult.getDescription());
@@ -66,6 +69,9 @@ public class KeyResultService {
     referencedKeyResult = keyResultMilestoneService.updateMilestones(updatedKeyResult, user);
 
     referencedKeyResult = keyResultRepository.save(referencedKeyResult);
+    if (keyResultProgressChanged) {
+      keyResultHistoryService.updateKeyResultHistory(user, referencedKeyResult);
+    }
     logger.info(
       "Updated Key Result "
         + referencedKeyResult.getName()
@@ -210,5 +216,11 @@ public class KeyResultService {
       == CycleState.CLOSED) {
       throw new ForbiddenException("Cannot modify this resource on a KeyResult in a closed cycle.");
     }
+  }
+
+  private boolean createdOrProgressChanged(KeyResult oldKeyResult, KeyResult updatedKeyResult) {
+    return oldKeyResult == null || oldKeyResult.getCurrentValue() != updatedKeyResult.getCurrentValue() ||
+      oldKeyResult.getStartValue() != updatedKeyResult.getStartValue() ||
+      oldKeyResult.getTargetValue() != updatedKeyResult.getTargetValue();
   }
 }

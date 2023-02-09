@@ -1,0 +1,25 @@
+<mat-card class="dashboard-card" matTooltip="{{dashboard.title}}" routerLink="/dashboard/{{dashboard.id}}">
+  <div>
+    <button (click)="$event.stopPropagation();" class="dashboard_settings_button" mat-icon-button>
+      <mat-icon [matMenuTriggerFor]="menu" class="font-32 ">more_vert</mat-icon>
+    </button>
+  </div>
+  <div class="overflow-ellipsis">
+    <mat-icon class="dashboard-icon font-32">dashboard</mat-icon>
+    <br>
+    {{dashboard.title}}
+    <br><br>
+    <span class="dashboard-card-created-by">
+        {{'dashboard-card.created-by' | translate}} {{dashboard.creator.surname}} , {{dashboard.creator.givenName}}
+      </span>
+  </div>
+</mat-card>
+
+<mat-menu #menu="matMenu">
+  <span matTooltip="{{'dashboard-card.delete-dashboard' | translate}}">
+      <button (click)="deleteDashboard.next(dashboard)" mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>{{'dashboard-card.delete-dashboard' | translate}}</span>
+      </button>
+    </span>
+</mat-menu>

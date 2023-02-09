@@ -1,0 +1,26 @@
+.dashboard-card {
+  height: auto;
+  width: 30VW;
+  margin: 8px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+@media only screen and (max-width: 420px) {
+  .dashboard-card {
+    width: 240px;
+  }
+}
+
+.dashboard-card-created-by {
+  font-weight: lighter;
+}
+
+.dashboard_settings_button {
+  float: right;
+}
+
+.dashboard-icon {
+  margin-top: 2px;
+}

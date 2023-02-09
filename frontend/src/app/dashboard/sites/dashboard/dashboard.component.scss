@@ -1,0 +1,19 @@
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 780px) {
+  .dashboard-charts {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.dashboard-title {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: large;
+  font-weight: bolder;
+  margin: 10px 10px 20px 10px;
+}

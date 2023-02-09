@@ -58,6 +58,9 @@ public class ObjectiveServiceTest {
   @Mock
   private User user;
   @Mock
+  private KeyResultHistoryService keyResultHistoryService;
+
+  @Mock
   private NoteObjectiveRepository noteObjectiveRepository;
 
   @Mock

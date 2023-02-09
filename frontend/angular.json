@@ -128,7 +128,8 @@
               "scripts": [
                 "node_modules/wowjs/dist/wow.js",
                 "src/config.js",
-                "src/klaro.js"
+                "src/klaro.js",
+                "node_modules/apexcharts/dist/apexcharts.min.js"
               ]
             },
             "docker": {
