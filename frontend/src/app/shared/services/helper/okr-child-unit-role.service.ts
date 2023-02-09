@@ -5,7 +5,6 @@ import { User } from '../../model/api/user';
 import { combineLatest, Observable } from 'rxjs';
 import { ContextRole } from '../../model/ui/context-role';
 import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
-import 'linq4js';
 import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 
@@ -30,7 +29,7 @@ export class OkrChildUnitRoleService {
           if (okrChildUnit.type === UnitType.DEPARTMENT) {
             role.isOKRManager = (okrChildUnit as OkrDepartment).okrMasterId === currentUser.id ||
               (okrChildUnit as OkrDepartment).okrTopicSponsorId === currentUser.id;
-            role.isOKRMember = (okrChildUnit as OkrDepartment).okrMemberIds.Contains(currentUser.id);
+            role.isOKRMember = (okrChildUnit as OkrDepartment).okrMemberIds.indexOf(currentUser.id) !== -1;
           }
 
           return role;

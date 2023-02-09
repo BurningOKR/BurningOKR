@@ -7,7 +7,7 @@ import { User } from '../../shared/model/api/user';
 export class AdminUserIdsPipe implements PipeTransform {
 
   transform(users: User[], shouldUpdate: any): string[] {
-    return users.Select(user => user.id);
+    return users.map(user => user.id);
   }
 
 }

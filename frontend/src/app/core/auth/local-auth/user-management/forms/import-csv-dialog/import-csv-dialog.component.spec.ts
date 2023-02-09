@@ -7,7 +7,6 @@ import { CsvUserParseService } from '../../services/csv-user-parse.service';
 import { FormBuilder } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HAMMER_LOADER } from '@angular/platform-browser';
-import 'linq4js';
 import { MaterialTestingModule } from '../../../../../../testing/material-testing.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
