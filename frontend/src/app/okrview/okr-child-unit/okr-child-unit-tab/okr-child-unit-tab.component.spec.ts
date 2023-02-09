@@ -60,7 +60,7 @@ describe('OkrChildUnitTabComponent', () => {
 
     currentUserRole = new ContextRole();
     okrBranch = {
-      type: UnitType.OKR_BRANCH,
+      type: UnitType.BRANCH,
       id: 1,
       name: 'test',
       objectives: [],
@@ -100,7 +100,7 @@ describe('OkrChildUnitTabComponent', () => {
 
     expect(dialogMock.open)
       .toHaveBeenCalledWith(OkrChildUnitFormComponent, {
-        data: { childUnitId: okrBranch.id, unitType: UnitType.OKR_BRANCH },
+        data: { childUnitId: okrBranch.id, unitType: UnitType.BRANCH },
       });
   });
 

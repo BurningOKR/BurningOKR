@@ -17,7 +17,7 @@ export class OkrBranchMapper {
 
   static mapToOkrBranch(dto: OkrBranchDto): OkrBranch {
     return {
-      type: UnitType.OKR_BRANCH,
+      type: UnitType.BRANCH,
       id: dto.okrUnitId,
       name: dto.unitName,
       objectives: dto.objectiveIds,
@@ -39,7 +39,7 @@ export class OkrBranchMapper {
       parentUnitId: entity.parentUnitId,
       okrChildUnitIds: entity.okrChildUnitIds,
       isActive: entity.isActive,
-      __okrUnitType: UnitType.OKR_BRANCH,
+      __okrUnitType: UnitType.BRANCH,
     };
   }
 

@@ -102,7 +102,7 @@ export class OkrChildUnitFormComponent {
       case UnitType.DEPARTMENT:
         this.createDepartment(okrChildUnit1 as OkrDepartment);
         break;
-      case UnitType.OKR_BRANCH:
+      case UnitType.BRANCH:
         this.createOkrBranch(okrChildUnit1 as OkrBranch);
         break;
       default:

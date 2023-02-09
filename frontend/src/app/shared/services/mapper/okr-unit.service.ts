@@ -26,7 +26,7 @@ export class OkrUnitService {
   private static mapToDto(okrChildUnit: OkrChildUnit): OkrChildUnitDto {
     if (okrChildUnit.type === UnitType.DEPARTMENT) {
       return DepartmentMapper.mapDepartmentUnit(okrChildUnit as OkrDepartment);
-    } else if (okrChildUnit.type === UnitType.OKR_BRANCH) {
+    } else if (okrChildUnit.type === UnitType.BRANCH) {
       return OkrBranchMapper.mapToOkrBranchDto(okrChildUnit as OkrBranch);
     }
   }
@@ -34,7 +34,7 @@ export class OkrUnitService {
   private static mapToEntity(okrChildUnit: OkrChildUnitDto): OkrChildUnit {
     if (okrChildUnit?.__okrUnitType === UnitType.DEPARTMENT) {
       return DepartmentMapper.mapDepartmentDto(okrChildUnit as OkrDepartmentDto);
-    } else if (okrChildUnit?.__okrUnitType === UnitType.OKR_BRANCH) {
+    } else if (okrChildUnit?.__okrUnitType === UnitType.BRANCH) {
       return OkrBranchMapper.mapToOkrBranch(okrChildUnit as OkrBranchDto);
     }
   }

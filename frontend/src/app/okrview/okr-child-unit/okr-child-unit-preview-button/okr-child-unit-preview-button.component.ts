@@ -23,6 +23,6 @@ export class OkrChildUnitPreviewButtonComponent implements OnInit {
   }
 
   isOkrBranch(okrChildUnit: OkrChildUnit): boolean {
-    return okrChildUnit.type === UnitType.OKR_BRANCH;
+    return okrChildUnit.type === UnitType.BRANCH;
   }
 }

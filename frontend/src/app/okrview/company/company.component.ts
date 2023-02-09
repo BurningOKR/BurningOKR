@@ -92,7 +92,7 @@ export class CompanyComponent implements OnInit {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent, object> = this.matDialog.open(
       OkrChildUnitFormComponent,
       {
-        data: { companyId: company.id, unitType: UnitType.OKR_BRANCH },
+        data: { companyId: company.id, unitType: UnitType.BRANCH },
       },
     );
 

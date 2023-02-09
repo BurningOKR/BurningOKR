@@ -65,7 +65,7 @@ describe('OkrUnitService', () => {
     };
 
     okrBranchDto = {
-      __okrUnitType: UnitType.OKR_BRANCH,
+      __okrUnitType: UnitType.BRANCH,
       okrUnitId: 2,
       unitName: 'testName2',
       label: 'testLabel',
@@ -77,7 +77,7 @@ describe('OkrUnitService', () => {
     };
 
     okrBranch = {
-      type: UnitType.OKR_BRANCH,
+      type: UnitType.BRANCH,
       id: 2,
       name: 'testName2',
       label: 'testLabel',
@@ -132,7 +132,7 @@ describe('OkrUnitService', () => {
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
-        expect(okrChildUnit.type === UnitType.OKR_BRANCH)
+        expect(okrChildUnit.type === UnitType.BRANCH)
           .toBeTruthy();
         done();
       });
@@ -145,7 +145,7 @@ describe('OkrUnitService', () => {
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
-        if (okrChildUnit.type === UnitType.OKR_BRANCH) {
+        if (okrChildUnit.type === UnitType.BRANCH) {
           expect(okrChildUnit)
             .toEqual(okrBranch);
         } else {
@@ -174,7 +174,7 @@ describe('OkrUnitService', () => {
     const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.putOkrChildUnit$(departmentUnit)
-      .subscribe((okrChildUnit: OkrChildUnit) => {
+      .subscribe(() => {
         expect(okrUnitApiService.putOkrChildUnit$)
           .toHaveBeenCalledWith(1, departmentDto, true);
         done();
@@ -187,7 +187,7 @@ describe('OkrUnitService', () => {
     const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.putOkrChildUnit$(okrBranch)
-      .subscribe((okrChildUnit: OkrChildUnit) => {
+      .subscribe(() => {
         expect(okrUnitApiService.putOkrChildUnit$)
           .toHaveBeenCalledWith(2, okrBranchDto, true);
         done();
@@ -214,7 +214,7 @@ describe('OkrUnitService', () => {
       const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
       service.putOkrChildUnit$(null)
-        .subscribe((okrChildUnit: OkrChildUnit) => {
+        .subscribe(() => {
           fail('No Error has been thrown, although an error should have been thrown.');
           done();
         });
@@ -260,7 +260,7 @@ describe('OkrUnitService', () => {
     // eslint-disable-next-line
     const test = () => {
       service.deleteOkrChildUnit$(null)
-        .subscribe((deleted: boolean) => {
+        .subscribe(() => {
           fail('No Error has been thrown, although an error should have been thrown.');
           done();
         });

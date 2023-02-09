@@ -50,7 +50,7 @@ describe('OkrChildUnitRoleService', () => {
     };
 
     okrBranch = {
-      type: UnitType.OKR_BRANCH,
+      type: UnitType.BRANCH,
       id: 2,
       name: 'testBranch',
       objectives: [],

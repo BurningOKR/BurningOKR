@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -71,7 +70,7 @@ export class OkrChildUnitComponent implements OnInit {
 
           return this.okrUnitService.getOkrChildUnitById$(unitId, false)
             .pipe(
-              catchError((error: HttpErrorResponse) => {
+              catchError(() => {
                 this.set404State();
 
                 return of(null);
@@ -116,7 +115,7 @@ export class OkrChildUnitComponent implements OnInit {
       .pipe(
         map((childUnit: OkrChildUnit) => {
           return {
-            childUnitTab: childUnit.type === UnitType.OKR_BRANCH,
+            childUnitTab: childUnit.type === UnitType.BRANCH,
             teamsTab: childUnit.type === UnitType.DEPARTMENT,
             descriptionTab: childUnit.type === UnitType.DEPARTMENT,
           };
@@ -184,7 +183,8 @@ export class OkrChildUnitComponent implements OnInit {
   }
 
   canChildUnitBeRemoved(okrChildUnit: OkrChildUnit): boolean {
-    return this.isDepartmentUnit(okrChildUnit) || (this.isOkrBranch(okrChildUnit) && (okrChildUnit as OkrBranch).okrChildUnitIds?.length === 0);
+    return this.isDepartmentUnit(okrChildUnit) ||
+      (this.isOkrBranch(okrChildUnit) && (okrChildUnit as OkrBranch).okrChildUnitIds?.length === 0);
   }
 
   isDepartmentUnit(okrChildUnit: OkrChildUnit): boolean {
@@ -192,7 +192,7 @@ export class OkrChildUnitComponent implements OnInit {
   }
 
   isOkrBranch(okrChildUnit: OkrChildUnit): boolean {
-    return okrChildUnit.type === UnitType.OKR_BRANCH;
+    return okrChildUnit.type === UnitType.BRANCH;
   }
 
   queryRemoveChildUnit(okrChildUnit: OkrChildUnit): void {
