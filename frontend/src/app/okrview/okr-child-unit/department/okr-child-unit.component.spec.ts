@@ -30,6 +30,7 @@ import { DepartmentTabDescriptionComponent } from './department-tab-description/
 import { AddChildUnitButtonComponent } from '../../add-child-unit-button/add-child-unit-button.component';
 import { DepartmentTabTaskboardComponent } from './department-tab-taskboard/department-tab-taskboard.component';
 import { Component, Input } from '@angular/core';
+import {UnitType} from "../../../shared/model/api/OkrUnit/unit-type.enum";
 
 describe('OkrChildUnitComponent', () => {
   let component: OkrChildUnitComponent;
@@ -142,26 +143,31 @@ describe('OkrChildUnitComponent', () => {
   }));
 
   beforeEach(() => {
-    department = new OkrDepartment(
-      1,
-      'testDepartment',
-      [],
-      0,
-      'department',
-      'master', 'topicSponsor', ['member'],
-      true, false,
-    );
+    department = {
+      id: 1,
+      name: 'testDepartment',
+      objectives: [],
+      parentUnitId: 0,
+      label: 'department',
+      okrMasterId: 'master',
+      okrTopicSponsorId: 'topicSponsor',
+      okrMemberIds: ['member'],
+      isActive: true,
+      isParentUnitABranch: false,
+      type: UnitType.DEPARTMENT
+    };
 
-    okrBranch = new OkrBranch(
-      2,
-      'testBranch',
-      [],
-      'testLAbel',
-      0,
-      [],
-      true,
-      false,
-    );
+    okrBranch = {
+      type: UnitType.OKR_BRANCH,
+      id: 2,
+      name: 'testBranch',
+      objectives: [],
+      label: 'testLAbel',
+      parentUnitId: 0,
+      okrChildUnitIds: [],
+      isActive: true,
+      isParentUnitABranch: false
+    };
 
     paramMapGetSpy.mockReset();
     paramMapGetAllSpy.mockReset();

@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { OkrBranchApiService } from '../api/okr-branch-api.service';
-import { Observable } from 'rxjs';
-import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
-import { map } from 'rxjs/operators';
-import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
-import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
-import { OkrUnitId } from '../../model/id-types';
+import {Injectable} from '@angular/core';
+import {OkrBranchApiService} from '../api/okr-branch-api.service';
+import {Observable} from 'rxjs';
+import {OkrBranch} from '../../model/ui/OrganizationalUnit/okr-branch';
+import {map} from 'rxjs/operators';
+import {OkrBranchDto} from '../../model/api/OkrUnit/okr-branch.dto';
+import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
+import {OkrUnitId} from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root',
@@ -16,31 +16,31 @@ export class OkrBranchMapper {
   }
 
   static mapToOkrBranch(dto: OkrBranchDto): OkrBranch {
-    return new OkrBranch(
-      dto.okrUnitId,
-      dto.unitName,
-      dto.objectiveIds,
-      dto.label,
-      dto.parentUnitId,
-      dto.okrChildUnitIds,
-      dto.isActive,
-      dto.isParentUnitABranch,
-    );
+    return {
+      type: UnitType.OKR_BRANCH,
+      id: dto.okrUnitId,
+      name: dto.unitName,
+      objectives: dto.objectiveIds,
+      label: dto.label,
+      parentUnitId: dto.parentUnitId,
+      okrChildUnitIds: dto.okrChildUnitIds,
+      isActive: dto.isActive,
+      isParentUnitABranch: dto.isParentUnitABranch
+    }
   }
 
   static mapToOkrBranchDto(entity: OkrBranch): OkrBranchDto {
-    const dto: OkrBranchDto = new OkrBranchDto();
-    dto.okrUnitId = entity.id;
-    dto.isParentUnitABranch = entity.isParentUnitABranch;
-    dto.unitName = entity.name;
-    dto.objectiveIds = entity.objectives;
-    dto.label = entity.label;
-    dto.parentUnitId = entity.parentUnitId;
-    dto.okrChildUnitIds = entity.okrChildUnitIds;
-    dto.isActive = entity.isActive;
-    dto.__okrUnitType = UnitType.OKR_BRANCH;
-
-    return dto;
+    return {
+      okrUnitId: entity.id,
+      isParentUnitABranch: entity.isParentUnitABranch,
+      unitName: entity.name,
+      objectiveIds: entity.objectives,
+      label: entity.label,
+      parentUnitId: entity.parentUnitId,
+      okrChildUnitIds: entity.okrChildUnitIds,
+      isActive: entity.isActive,
+      __okrUnitType: UnitType.OKR_BRANCH,
+    }
   }
 
   createForCompany$(companyId: OkrUnitId, okrBranch: OkrBranch): Observable<OkrBranch> {

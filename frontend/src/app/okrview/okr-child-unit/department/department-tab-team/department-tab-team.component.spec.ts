@@ -15,6 +15,7 @@ import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { of } from 'rxjs';
 import { Configuration } from '../../../../shared/model/ui/configuration';
 import { User } from '../../../../shared/model/api/user';
+import {UnitType} from "../../../../shared/model/api/OkrUnit/unit-type.enum";
 
 const currentUserServiceMock: any = {
   getCurrentUser$: jest.fn(),
@@ -86,7 +87,19 @@ describe('DepartmentTabTeamComponent', () => {
 
   beforeEach(() => {
     cycle = new CycleUnit(1, 'testCycle', [], new Date(), new Date(), CycleState.ACTIVE, true);
-    department = new OkrDepartment(2, 'testDepartment', [], 0, 'test', null, null, [], true, false);
+    department = {
+      id: 2,
+      name: 'testDepartment',
+      objectives: [],
+      parentUnitId: 0,
+      label: 'label',
+      okrMasterId: null,
+      okrTopicSponsorId: null,
+      okrMemberIds: [],
+      isActive: true,
+      isParentUnitABranch: false,
+      type: UnitType.DEPARTMENT,
+    }    ;
     currentUserRole = new ContextRole();
 
     configurationManagerServiceMock.getTopicSponsorsActivated$.mockReset();

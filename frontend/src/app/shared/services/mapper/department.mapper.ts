@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
-import { DepartmentApiService } from '../api/department-api.service';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
-import { CompanyId, OkrUnitId } from '../../model/id-types';
-import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {OkrDepartment} from '../../model/ui/OrganizationalUnit/okr-department';
+import {DepartmentApiService} from '../api/department-api.service';
+import {OkrDepartmentDto} from '../../model/api/OkrUnit/okr-department.dto';
+import {CompanyId, OkrUnitId} from '../../model/id-types';
+import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -15,35 +15,35 @@ export class DepartmentMapper {
   }
 
   static mapDepartmentDto(department: OkrDepartmentDto): OkrDepartment {
-    return new OkrDepartment(
-      department.okrUnitId,
-      department.unitName,
-      department.objectiveIds,
-      department.parentUnitId,
-      department.label,
-      department.okrMasterId,
-      department.okrTopicSponsorId,
-      department.okrMemberIds,
-      department.isActive,
-      department.isParentUnitABranch,
-    );
+    return {
+      type: UnitType.DEPARTMENT,
+      id: department.okrUnitId,
+      name: department.unitName,
+      objectives: department.objectiveIds,
+      parentUnitId: department.parentUnitId,
+      label: department.label,
+      okrMasterId: department.okrMasterId,
+      okrTopicSponsorId: department.okrTopicSponsorId,
+      okrMemberIds: department.okrMemberIds,
+      isActive: department.isActive,
+      isParentUnitABranch: department.isParentUnitABranch
+    }
   }
 
   static mapDepartmentUnit(department: OkrDepartment): OkrDepartmentDto {
-    const departmentDto: OkrDepartmentDto = new OkrDepartmentDto();
-    departmentDto.__okrUnitType = UnitType.DEPARTMENT;
-    departmentDto.okrUnitId = department.id;
-    departmentDto.unitName = department.name;
-    departmentDto.label = department.label;
-    departmentDto.isActive = department.isActive;
-    departmentDto.parentUnitId = department.parentUnitId;
-    departmentDto.okrMasterId = department.okrMasterId;
-    departmentDto.okrMemberIds = department.okrMemberIds;
-    departmentDto.okrTopicSponsorId = department.okrTopicSponsorId;
-    departmentDto.objectiveIds = department.objectives;
-    departmentDto.isParentUnitABranch = department.isParentUnitABranch;
-
-    return departmentDto;
+      return {
+        __okrUnitType: UnitType.DEPARTMENT,
+        okrUnitId: department.id,
+        unitName: department.name,
+        label: department.label,
+        isActive: department.isActive,
+        parentUnitId: department.parentUnitId,
+        okrMasterId: department.okrMasterId,
+        okrMemberIds: department.okrMemberIds,
+        okrTopicSponsorId: department.okrTopicSponsorId,
+        objectiveIds: department.objectives,
+        isParentUnitABranch: department.isParentUnitABranch,
+    };
   }
 
   getDepartmentById$(departmentId: OkrUnitId): Observable<OkrDepartment> {

@@ -88,6 +88,7 @@ export class OkrChildUnitFormComponent {
   createChildUnit(): void {
     const formData: OkrChildUnit = this.childUnitForm.getRawValue();
     const okrChildUnit1: OkrChildUnit = {
+      type: formData.type,
       id: undefined,
       parentUnitId: undefined,
       objectives: [],

@@ -25,14 +25,14 @@ export class CompanyMapper {
   }
 
   static mapCompany(company: CompanyDto): CompanyUnit {
-    return new CompanyUnit(
-      company.okrUnitId,
-      company.unitName,
-      company.okrChildUnitIds,
-      company.objectiveIds,
-      company.cycleId,
-      company.label,
-    );
+    return {
+        id: company.okrUnitId,
+        name: company.unitName,
+        okrChildUnitIds: company.okrChildUnitIds,
+        objectives: company.objectiveIds,
+        cycleId: company.cycleId,
+        label: company.label,
+    };
   }
 
   static mapCompanyUnit(companyUnit: CompanyUnit): CompanyDto {
