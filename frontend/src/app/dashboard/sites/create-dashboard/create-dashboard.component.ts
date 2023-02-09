@@ -55,7 +55,7 @@ export class CreateDashboardComponent implements OnInit {
   }
 
   addChart(): void {
-    this.charts.Add(this.newChart);
+    this.charts.push(this.newChart);
     this.resetNewChart();
   }
 
