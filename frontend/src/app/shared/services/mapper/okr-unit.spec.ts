@@ -8,7 +8,7 @@ import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department'
 import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
-import any = jasmine.any;
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 const okrUnitApiService: any = {
   getOkrChildUnitById$: jest.fn(),
@@ -36,49 +36,57 @@ describe('OkrUnitService', () => {
     okrUnitApiService.putOkrChildUnit$.mockReset();
     okrUnitApiService.deleteOkrChildUnit$.mockReset();
 
-    departmentDto = new OkrDepartmentDto();
-    departmentDto.okrUnitId = 1;
-    departmentDto.unitName = 'testName';
-    departmentDto.label = 'test';
-    departmentDto.isActive = true;
-    departmentDto.objectiveIds = [1, 2, 3];
-    departmentDto.okrMasterId = 'testMaster';
-    departmentDto.okrMemberIds = ['member1', 'member2'];
-    departmentDto.okrTopicSponsorId = 'testSponsor';
-    departmentDto.parentUnitId = 2;
-    departmentDto.isParentUnitABranch = true;
+    departmentDto = {
+      okrUnitId: 1,
+      unitName: 'testName',
+      label: 'test',
+      isActive: true,
+      objectiveIds: [1, 2, 3],
+      okrMasterId: 'testMaster',
+      okrMemberIds: ['member1', 'member2'],
+      okrTopicSponsorId: 'testSponsor',
+      parentUnitId: 2,
+      isParentUnitABranch: true,
+      __okrUnitType: UnitType.DEPARTMENT,
+    };
 
-    // @ts-ignore
-    departmentUnit = new OkrDepartment();
-    departmentUnit.id = 1;
-    departmentUnit.label = 'test';
-    departmentUnit.name = 'testName';
-    departmentUnit.isActive = true;
-    departmentUnit.objectives = [1, 2, 3];
-    departmentUnit.okrTopicSponsorId = 'testSponsor';
-    departmentUnit.okrMemberIds = ['member1', 'member2'];
-    departmentUnit.okrMasterId = 'testMaster';
-    departmentUnit.parentUnitId = 2;
-    departmentUnit.isParentUnitABranch = true;
+    departmentUnit = {
+      id: 1,
+      name: 'testName',
+      label: 'test',
+      isActive: true,
+      objectives: [1, 2, 3],
+      okrMasterId: 'testMaster',
+      okrMemberIds: ['member1', 'member2'],
+      okrTopicSponsorId: 'testSponsor',
+      parentUnitId: 2,
+      isParentUnitABranch: true,
+      type: UnitType.DEPARTMENT,
+    };
 
-    okrBranchDto = new OkrBranchDto();
-    okrBranchDto.okrUnitId = 2;
-    okrBranchDto.unitName = 'testName2';
-    okrBranchDto.label = 'testLabel';
-    okrBranchDto.isActive = true;
-    okrBranchDto.okrChildUnitIds = [1];
-    okrBranchDto.parentUnitId = 0;
-    okrBranchDto.objectiveIds = [4, 5, 6];
+    okrBranchDto = {
+      __okrUnitType: UnitType.BRANCH,
+      okrUnitId: 2,
+      unitName: 'testName2',
+      label: 'testLabel',
+      isActive: true,
+      okrChildUnitIds: [1],
+      parentUnitId: 0,
+      objectiveIds: [4, 5, 6],
+      isParentUnitABranch: true,
+    };
 
-    // @ts-ignore
-    okrBranch = new OkrBranch();
-    okrBranch.id = 2;
-    okrBranch.name = 'testName2';
-    okrBranch.label = 'testLabel';
-    okrBranch.isActive = true;
-    okrBranch.okrChildUnitIds = [1];
-    okrBranch.parentUnitId = 0;
-    okrBranch.objectives = [4, 5, 6];
+    okrBranch = {
+      type: UnitType.BRANCH,
+      id: 2,
+      name: 'testName2',
+      label: 'testLabel',
+      isActive: true,
+      okrChildUnitIds: [1],
+      parentUnitId: 0,
+      objectives: [4, 5, 6],
+      isParentUnitABranch: true,
+    };
   });
 
   it('should be created', () => {
@@ -94,7 +102,7 @@ describe('OkrUnitService', () => {
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
-        expect(okrChildUnit instanceof OkrDepartment)
+        expect(okrChildUnit.type === UnitType.DEPARTMENT)
           .toBeTruthy();
         done();
       });
@@ -107,7 +115,7 @@ describe('OkrUnitService', () => {
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
-        if (okrChildUnit instanceof OkrDepartment) {
+        if (okrChildUnit.type === UnitType.DEPARTMENT) {
           expect(okrChildUnit)
             .toEqual(departmentUnit);
         } else {
@@ -124,7 +132,7 @@ describe('OkrUnitService', () => {
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
-        expect(okrChildUnit instanceof OkrBranch)
+        expect(okrChildUnit.type === UnitType.BRANCH)
           .toBeTruthy();
         done();
       });
@@ -137,7 +145,7 @@ describe('OkrUnitService', () => {
 
     service.getOkrChildUnitById$(1)
       .subscribe((okrChildUnit: OkrChildUnit) => {
-        if (okrChildUnit instanceof OkrBranch) {
+        if (okrChildUnit.type === UnitType.BRANCH) {
           expect(okrChildUnit)
             .toEqual(okrBranch);
         } else {
@@ -166,9 +174,9 @@ describe('OkrUnitService', () => {
     const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.putOkrChildUnit$(departmentUnit)
-      .subscribe((okrChildUnit: OkrChildUnit) => {
+      .subscribe(() => {
         expect(okrUnitApiService.putOkrChildUnit$)
-          .toHaveBeenCalledWith(1, any(OkrDepartmentDto), true);
+          .toHaveBeenCalledWith(1, departmentDto, true);
         done();
       });
   });
@@ -179,9 +187,9 @@ describe('OkrUnitService', () => {
     const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
     service.putOkrChildUnit$(okrBranch)
-      .subscribe((okrChildUnit: OkrChildUnit) => {
+      .subscribe(() => {
         expect(okrUnitApiService.putOkrChildUnit$)
-          .toHaveBeenCalledWith(2, any(OkrBranchDto), true);
+          .toHaveBeenCalledWith(2, okrBranchDto, true);
         done();
       });
   });
@@ -206,7 +214,7 @@ describe('OkrUnitService', () => {
       const service: OkrUnitService = TestBed.inject(OkrUnitService);
 
       service.putOkrChildUnit$(null)
-        .subscribe((okrChildUnit: OkrChildUnit) => {
+        .subscribe(() => {
           fail('No Error has been thrown, although an error should have been thrown.');
           done();
         });
@@ -252,7 +260,7 @@ describe('OkrUnitService', () => {
     // eslint-disable-next-line
     const test = () => {
       service.deleteOkrChildUnit$(null)
-        .subscribe((deleted: boolean) => {
+        .subscribe(() => {
           fail('No Error has been thrown, although an error should have been thrown.');
           done();
         });

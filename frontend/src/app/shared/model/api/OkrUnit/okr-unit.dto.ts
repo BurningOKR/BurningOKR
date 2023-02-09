@@ -1,6 +1,6 @@
 import { ObjectiveId, OkrUnitId } from '../../id-types';
 
-export class OkrUnitDto {
+export interface OkrUnitDto {
   okrUnitId?: OkrUnitId;
   unitName: string;
   label: string;

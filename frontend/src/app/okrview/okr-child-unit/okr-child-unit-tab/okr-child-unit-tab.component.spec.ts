@@ -59,7 +59,17 @@ describe('OkrChildUnitTabComponent', () => {
   beforeEach(() => {
 
     currentUserRole = new ContextRole();
-    okrBranch = new OkrBranch(1, 'test', [], 'testBranch', 2, [], true, false);
+    okrBranch = {
+      type: UnitType.BRANCH,
+      id: 1,
+      name: 'test',
+      objectives: [],
+      label: 'testBranch',
+      parentUnitId: 2,
+      okrChildUnitIds: [],
+      isActive: true,
+      isParentUnitABranch: false,
+    };
     cycle = new CycleUnit(3, 'testCycle', [], new Date(), new Date(), CycleState.ACTIVE, true);
 
     dialogMock.open.mockReset();
@@ -90,7 +100,7 @@ describe('OkrChildUnitTabComponent', () => {
 
     expect(dialogMock.open)
       .toHaveBeenCalledWith(OkrChildUnitFormComponent, {
-        data: { childUnitId: okrBranch.id, unitType: UnitType.OKR_BRANCH },
+        data: { childUnitId: okrBranch.id, unitType: UnitType.BRANCH },
       });
   });
 

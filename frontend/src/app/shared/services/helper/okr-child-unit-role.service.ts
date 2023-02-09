@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 import { CurrentUserService } from '../../../core/services/current-user.service';
-import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 import { User } from '../../model/api/user';
 import { combineLatest, Observable } from 'rxjs';
 import { ContextRole } from '../../model/ui/context-role';
 import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 import 'linq4js';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +27,10 @@ export class OkrChildUnitRoleService {
           const role: ContextRole = new ContextRole();
 
           role.isAdmin = isAdmin;
-          if (okrChildUnit instanceof OkrDepartment) {
-            role.isOKRManager = okrChildUnit.okrMasterId === currentUser.id || okrChildUnit.okrTopicSponsorId === currentUser.id;
-            role.isOKRMember = okrChildUnit.okrMemberIds.Contains(currentUser.id);
+          if (okrChildUnit.type === UnitType.DEPARTMENT) {
+            role.isOKRManager = (okrChildUnit as OkrDepartment).okrMasterId === currentUser.id ||
+              (okrChildUnit as OkrDepartment).okrTopicSponsorId === currentUser.id;
+            role.isOKRMember = (okrChildUnit as OkrDepartment).okrMemberIds.Contains(currentUser.id);
           }
 
           return role;

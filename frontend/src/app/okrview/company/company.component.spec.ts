@@ -115,7 +115,14 @@ describe('CompanyComponent', () => {
       new OkrUnitSchema(14, 'SubUnit', OkrUnitRole.MANAGER, true, true),
     ];
 
-    company = new CompanyUnit(10, 'TestCompany', [], [], 1, 'label');
+    company = {
+      id: 10,
+      name: 'TestComapy',
+      objectives: [],
+      okrChildUnitIds: [],
+      cycleId: 1,
+      label: 'label',
+    };
 
     contextRole = new ContextRole();
 
