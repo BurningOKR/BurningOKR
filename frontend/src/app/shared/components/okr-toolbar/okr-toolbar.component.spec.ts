@@ -24,7 +24,7 @@ describe('OkrToolbarComponent', () => {
     objectives: null,
     cycleId: 0,
     label: '',
-  }
+  };
   const currentCompanyService: any = {
     getCurrentCompany$: jest.fn(),
   };

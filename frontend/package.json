@@ -43,7 +43,6 @@
     "angular-oauth2-oidc": "~12.1.0",
     "angular-oauth2-oidc-jwks": "~12.0.0",
     "angular-resize-event": "~3.2.0",
-    "class-transformer": "~0.4.0",
     "core-js": "~3.20.3",
     "file-saver": "~2.0.5",
     "linq4js": "~2.2.3",

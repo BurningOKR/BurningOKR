@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {map, take} from 'rxjs/operators';
-import {CurrentUserService} from '../../../core/services/current-user.service';
-import {User} from '../../model/api/user';
-import {combineLatest, Observable} from 'rxjs';
-import {ContextRole} from '../../model/ui/context-role';
-import {OkrChildUnit} from '../../model/ui/OrganizationalUnit/okr-child-unit';
+import { Injectable } from '@angular/core';
+import { map, take } from 'rxjs/operators';
+import { CurrentUserService } from '../../../core/services/current-user.service';
+import { User } from '../../model/api/user';
+import { combineLatest, Observable } from 'rxjs';
+import { ContextRole } from '../../model/ui/context-role';
+import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 import 'linq4js';
-import {UnitType} from "../../model/api/OkrUnit/unit-type.enum";
-import {OkrDepartment} from "../../model/ui/OrganizationalUnit/okr-department";
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 
 @Injectable({
   providedIn: 'root',

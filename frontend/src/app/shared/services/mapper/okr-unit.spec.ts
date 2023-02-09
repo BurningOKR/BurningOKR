@@ -1,15 +1,14 @@
-import {TestBed} from '@angular/core/testing';
-import {OkrUnitService} from './okr-unit.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {OkrUnitApiService} from '../api/okr-unit-api.service';
-import {of} from 'rxjs';
-import {OkrDepartmentDto} from '../../model/api/OkrUnit/okr-department.dto';
-import {OkrDepartment} from '../../model/ui/OrganizationalUnit/okr-department';
-import {OkrChildUnit} from '../../model/ui/OrganizationalUnit/okr-child-unit';
-import {OkrBranchDto} from '../../model/api/OkrUnit/okr-branch.dto';
-import {OkrBranch} from '../../model/ui/OrganizationalUnit/okr-branch';
-import {UnitType} from "../../model/api/OkrUnit/unit-type.enum";
-import any = jasmine.any;
+import { TestBed } from '@angular/core/testing';
+import { OkrUnitService } from './okr-unit.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { OkrUnitApiService } from '../api/okr-unit-api.service';
+import { of } from 'rxjs';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
+import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
+import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
+import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 const okrUnitApiService: any = {
   getOkrChildUnitById$: jest.fn(),
@@ -42,28 +41,28 @@ describe('OkrUnitService', () => {
       unitName: 'testName',
       label: 'test',
       isActive: true,
-      objectiveIds: [1,2,3],
+      objectiveIds: [1, 2, 3],
       okrMasterId: 'testMaster',
-      okrMemberIds: ['member1','member2'],
+      okrMemberIds: ['member1', 'member2'],
       okrTopicSponsorId: 'testSponsor',
       parentUnitId: 2,
       isParentUnitABranch: true,
-      __okrUnitType: UnitType.DEPARTMENT
-    }
+      __okrUnitType: UnitType.DEPARTMENT,
+    };
 
     departmentUnit = {
       id: 1,
       name: 'testName',
       label: 'test',
       isActive: true,
-      objectives: [1,2,3],
+      objectives: [1, 2, 3],
       okrMasterId: 'testMaster',
-      okrMemberIds: ['member1','member2'],
+      okrMemberIds: ['member1', 'member2'],
       okrTopicSponsorId: 'testSponsor',
       parentUnitId: 2,
       isParentUnitABranch: true,
-      type: UnitType.DEPARTMENT
-    }
+      type: UnitType.DEPARTMENT,
+    };
 
     okrBranchDto = {
       __okrUnitType: UnitType.OKR_BRANCH,
@@ -73,8 +72,10 @@ describe('OkrUnitService', () => {
       isActive: true,
       okrChildUnitIds: [1],
       parentUnitId: 0,
-      objectiveIds: [4,5,6]
-    }
+      objectiveIds: [4, 5, 6],
+      isParentUnitABranch: true,
+    };
+
     okrBranch = {
       type: UnitType.OKR_BRANCH,
       id: 2,
@@ -83,9 +84,9 @@ describe('OkrUnitService', () => {
       isActive: true,
       okrChildUnitIds: [1],
       parentUnitId: 0,
-      objectives: [4,5,6],
-      isParentUnitABranch: true
-    }
+      objectives: [4, 5, 6],
+      isParentUnitABranch: true,
+    };
   });
 
   it('should be created', () => {
@@ -175,7 +176,7 @@ describe('OkrUnitService', () => {
     service.putOkrChildUnit$(departmentUnit)
       .subscribe((okrChildUnit: OkrChildUnit) => {
         expect(okrUnitApiService.putOkrChildUnit$)
-          .toHaveBeenCalledWith(1, true);
+          .toHaveBeenCalledWith(1, departmentDto, true);
         done();
       });
   });
@@ -188,7 +189,7 @@ describe('OkrUnitService', () => {
     service.putOkrChildUnit$(okrBranch)
       .subscribe((okrChildUnit: OkrChildUnit) => {
         expect(okrUnitApiService.putOkrChildUnit$)
-          .toHaveBeenCalledWith(2, true);
+          .toHaveBeenCalledWith(2, okrBranchDto, true);
         done();
       });
   });

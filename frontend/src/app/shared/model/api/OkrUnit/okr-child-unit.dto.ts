@@ -6,5 +6,5 @@ export interface OkrChildUnitDto extends OkrUnitDto {
   __okrUnitType: UnitType;
   parentUnitId: OkrUnitId;
   isActive: boolean;
-  isParentUnitABranch?: boolean;
+  isParentUnitABranch: boolean;
 }

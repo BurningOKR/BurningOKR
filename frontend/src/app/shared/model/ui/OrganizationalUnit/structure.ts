@@ -1,5 +1,5 @@
-import {OkrUnit} from './okr-unit';
+import { OkrUnit } from './okr-unit';
 
 export interface Structure extends OkrUnit {
-    substructures: Structure[];
+  substructures: Structure[];
 }

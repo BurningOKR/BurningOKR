@@ -7,7 +7,7 @@ import { ContextRole } from '../../model/ui/context-role';
 import { User } from '../../model/api/user';
 import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
 import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
-import {UnitType} from "../../model/api/OkrUnit/unit-type.enum";
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 const currentUserService: any = {
   isCurrentUserAdmin$: jest.fn(),
@@ -35,31 +35,31 @@ describe('OkrChildUnitRoleService', () => {
     currentUserService.isCurrentUserAdmin$.mockReturnValue(of(false));
     currentUserService.getCurrentUser$.mockReturnValue(of(new User('test')));
 
-      department = {
-          id: 1,
-          name: 'testDepartment',
-          objectives: [],
-          parentUnitId: 0,
-          label: 'department',
-          okrMasterId: null,
-          okrTopicSponsorId: null,
-          okrMemberIds: [],
-          isActive: true,
-          isParentUnitABranch: false,
-          type: UnitType.DEPARTMENT
-      };
+    department = {
+      id: 1,
+      name: 'testDepartment',
+      objectives: [],
+      parentUnitId: 0,
+      label: 'department',
+      okrMasterId: null,
+      okrTopicSponsorId: null,
+      okrMemberIds: [],
+      isActive: true,
+      isParentUnitABranch: false,
+      type: UnitType.DEPARTMENT,
+    };
 
-      okrBranch = {
-          type: UnitType.OKR_BRANCH,
-          id: 2,
-          name: 'testBranch',
-          objectives: [],
-          label: 'testLAbel',
-          parentUnitId: 0,
-          okrChildUnitIds: [],
-          isActive: true,
-          isParentUnitABranch: false
-      };
+    okrBranch = {
+      type: UnitType.OKR_BRANCH,
+      id: 2,
+      name: 'testBranch',
+      objectives: [],
+      label: 'testLAbel',
+      parentUnitId: 0,
+      okrChildUnitIds: [],
+      isActive: true,
+      isParentUnitABranch: false,
+    };
   });
 
   it('should be created', () => {

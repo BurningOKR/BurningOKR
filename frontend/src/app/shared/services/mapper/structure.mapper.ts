@@ -40,7 +40,7 @@ export class StructureMapper {
       label: structureDto.label,
       objectives: structureDto.objectiveIds,
       substructures: this.mapDtosToStructureArray(structureDto.substructure),
-    }
+    };
   }
 
   private mapDtosToStructureArray(structureDtos: StructureDto[]): Structure[] {

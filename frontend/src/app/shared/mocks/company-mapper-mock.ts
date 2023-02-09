@@ -13,7 +13,7 @@ export class CompanyMapperMock {
       objectives: company.objectiveIds,
       cycleId: company.cycleId,
       label: company.label,
-    }
+    };
   }
 
   static mapCompanyUnit(companyUnit: CompanyUnit): CompanyDto {

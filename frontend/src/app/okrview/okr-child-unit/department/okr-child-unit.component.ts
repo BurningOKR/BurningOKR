@@ -1,27 +1,27 @@
-import {HttpErrorResponse} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-import {combineLatest, Observable, of} from 'rxjs';
-import {catchError, filter, map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { combineLatest, Observable, of } from 'rxjs';
+import { catchError, filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData,
 } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import {ContextRole} from '../../../shared/model/ui/context-role';
-import {CycleUnit} from '../../../shared/model/ui/cycle-unit';
-import {OkrBranch} from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
-import {OkrChildUnit} from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import {OkrDepartment} from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import {OkrChildUnitRoleService} from '../../../shared/services/helper/okr-child-unit-role.service';
-import {OkrUnitService} from '../../../shared/services/mapper/okr-unit.service';
-import {CurrentCycleService} from '../../current-cycle.service';
-import {CurrentOkrUnitSchemaService} from '../../current-okr-unit-schema.service';
-import {CurrentOkrviewService} from '../../current-okrview.service';
-import {ExcelMapper} from '../../excel-file/excel.mapper';
-import {OkrChildUnitFormComponent} from '../okr-child-unit-form/okr-child-unit-form.component';
-import {UnitType} from "../../../shared/model/api/OkrUnit/unit-type.enum";
+import { ContextRole } from '../../../shared/model/ui/context-role';
+import { CycleUnit } from '../../../shared/model/ui/cycle-unit';
+import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { OkrChildUnitRoleService } from '../../../shared/services/helper/okr-child-unit-role.service';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
+import { CurrentCycleService } from '../../current-cycle.service';
+import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.service';
+import { CurrentOkrviewService } from '../../current-okrview.service';
+import { ExcelMapper } from '../../excel-file/excel.mapper';
+import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit-form.component';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 interface DepartmentView {
   cycle: CycleUnit;
@@ -116,9 +116,9 @@ export class OkrChildUnitComponent implements OnInit {
       .pipe(
         map((childUnit: OkrChildUnit) => {
           return {
-            childUnitTab: childUnit.type ===  UnitType.OKR_BRANCH,
-            teamsTab:  childUnit.type ===  UnitType.DEPARTMENT,
-            descriptionTab:  childUnit.type ===  UnitType.DEPARTMENT
+            childUnitTab: childUnit.type === UnitType.OKR_BRANCH,
+            teamsTab: childUnit.type === UnitType.DEPARTMENT,
+            descriptionTab: childUnit.type === UnitType.DEPARTMENT,
           };
         }),
       );
@@ -184,10 +184,14 @@ export class OkrChildUnitComponent implements OnInit {
   }
 
   canChildUnitBeRemoved(okrChildUnit: OkrChildUnit): boolean {
-    return this.isDepartmentUnit(okrChildUnit) || (okrChildUnit as OkrBranch).okrChildUnitIds?.length === 0;
+    return this.isDepartmentUnit(okrChildUnit) || (this.isOkrBranch(okrChildUnit) && (okrChildUnit as OkrBranch).okrChildUnitIds?.length === 0);
   }
 
   isDepartmentUnit(okrChildUnit: OkrChildUnit): boolean {
+    return okrChildUnit.type === UnitType.DEPARTMENT;
+  }
+
+  isOkrBranch(okrChildUnit: OkrChildUnit): boolean {
     return okrChildUnit.type === UnitType.OKR_BRANCH;
   }
 

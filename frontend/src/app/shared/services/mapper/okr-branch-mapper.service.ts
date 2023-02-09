@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {OkrBranchApiService} from '../api/okr-branch-api.service';
-import {Observable} from 'rxjs';
-import {OkrBranch} from '../../model/ui/OrganizationalUnit/okr-branch';
-import {map} from 'rxjs/operators';
-import {OkrBranchDto} from '../../model/api/OkrUnit/okr-branch.dto';
-import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
-import {OkrUnitId} from '../../model/id-types';
+import { Injectable } from '@angular/core';
+import { OkrBranchApiService } from '../api/okr-branch-api.service';
+import { Observable } from 'rxjs';
+import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
+import { map } from 'rxjs/operators';
+import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
+import { OkrUnitId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +25,8 @@ export class OkrBranchMapper {
       parentUnitId: dto.parentUnitId,
       okrChildUnitIds: dto.okrChildUnitIds,
       isActive: dto.isActive,
-      isParentUnitABranch: dto.isParentUnitABranch
-    }
+      isParentUnitABranch: dto.isParentUnitABranch,
+    };
   }
 
   static mapToOkrBranchDto(entity: OkrBranch): OkrBranchDto {
@@ -40,7 +40,7 @@ export class OkrBranchMapper {
       okrChildUnitIds: entity.okrChildUnitIds,
       isActive: entity.isActive,
       __okrUnitType: UnitType.OKR_BRANCH,
-    }
+    };
   }
 
   createForCompany$(companyId: OkrUnitId, okrBranch: OkrBranch): Observable<OkrBranch> {

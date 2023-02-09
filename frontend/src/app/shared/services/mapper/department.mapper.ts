@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {OkrDepartment} from '../../model/ui/OrganizationalUnit/okr-department';
-import {DepartmentApiService} from '../api/department-api.service';
-import {OkrDepartmentDto} from '../../model/api/OkrUnit/okr-department.dto';
-import {CompanyId, OkrUnitId} from '../../model/id-types';
-import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
+import { DepartmentApiService } from '../api/department-api.service';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
+import { CompanyId, OkrUnitId } from '../../model/id-types';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -26,23 +26,23 @@ export class DepartmentMapper {
       okrTopicSponsorId: department.okrTopicSponsorId,
       okrMemberIds: department.okrMemberIds,
       isActive: department.isActive,
-      isParentUnitABranch: department.isParentUnitABranch
-    }
+      isParentUnitABranch: department.isParentUnitABranch,
+    };
   }
 
   static mapDepartmentUnit(department: OkrDepartment): OkrDepartmentDto {
-      return {
-        __okrUnitType: UnitType.DEPARTMENT,
-        okrUnitId: department.id,
-        unitName: department.name,
-        label: department.label,
-        isActive: department.isActive,
-        parentUnitId: department.parentUnitId,
-        okrMasterId: department.okrMasterId,
-        okrMemberIds: department.okrMemberIds,
-        okrTopicSponsorId: department.okrTopicSponsorId,
-        objectiveIds: department.objectives,
-        isParentUnitABranch: department.isParentUnitABranch,
+    return {
+      __okrUnitType: UnitType.DEPARTMENT,
+      okrUnitId: department.id,
+      unitName: department.name,
+      label: department.label,
+      isActive: department.isActive,
+      parentUnitId: department.parentUnitId,
+      okrMasterId: department.okrMasterId,
+      okrMemberIds: department.okrMemberIds,
+      okrTopicSponsorId: department.okrTopicSponsorId,
+      objectiveIds: department.objectives,
+      isParentUnitABranch: department.isParentUnitABranch,
     };
   }
 
