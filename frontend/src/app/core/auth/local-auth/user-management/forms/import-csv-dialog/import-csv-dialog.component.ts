@@ -100,6 +100,8 @@ export class ImportCsvDialogComponent implements OnInit {
   }
 
   private hasDuplicateEmailAdresses(users: User[]): boolean {
-    return users.filter(user => users.filter(anotherUser => user !== anotherUser && user.email === anotherUser.email).length > 0).length > 0;
+    return users.filter(user => {
+      return users.filter(anotherUser => user !== anotherUser && user.email === anotherUser.email).length > 0;
+    }).length > 0;
   }
 }
