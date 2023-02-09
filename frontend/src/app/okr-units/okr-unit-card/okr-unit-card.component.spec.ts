@@ -64,7 +64,14 @@ describe('OkrUnitCardComponent', () => {
   });
 
   it('should return fitting data object #getDataForCompanyDeletionDialog without error warning', () => {
-    component.company = new CompanyUnit(7331, 'correctCompanyWithArticle', [], [], 0, '');
+    component.company = {
+      id: 7331,
+      name: 'correctCompanyWithArticle',
+      okrChildUnitIds: [],
+      objectives: [],
+      cycleId: 0,
+      label: '',
+    };
     spyOn(translate, 'instant').and.callFake(function(arg) {
       if (arg === 'okr-unit-card.label') {
         return 'correctGeneralDeleteDialogTitle';
@@ -90,7 +97,14 @@ describe('OkrUnitCardComponent', () => {
   });
 
   it('should return fitting data object #getDataForCompanyDeletionDialog with error warning', () => {
-    component.company = new CompanyUnit(7331, 'correctCompanyWithArticle', [123, 234, 345, 45], [], 0, '');
+    component.company = {
+      id: 7331,
+      name: 'correctCompanyWithArticle',
+      okrChildUnitIds: [123, 234, 345, 45],
+      objectives: [],
+      cycleId: 0,
+      label: '',
+    };
     spyOn(translate, 'instant').and.callFake(function(arg) {
       if (arg === 'okr-unit-card.label') {
         return 'correctGeneralDeleteDialogTitle';

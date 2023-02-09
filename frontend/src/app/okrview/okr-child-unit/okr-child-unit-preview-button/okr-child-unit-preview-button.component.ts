@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
 import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
-import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 @Component({
   selector: 'app-okr-child-unit-preview-button',
@@ -23,6 +23,6 @@ export class OkrChildUnitPreviewButtonComponent implements OnInit {
   }
 
   isOkrBranch(okrChildUnit: OkrChildUnit): boolean {
-    return okrChildUnit instanceof OkrBranch;
+    return okrChildUnit.type === UnitType.BRANCH;
   }
 }

@@ -1,23 +1,10 @@
 import { OkrUnit } from './okr-unit';
-import { ObjectiveId, OkrUnitId } from '../../id-types';
+import { OkrUnitId } from '../../id-types';
+import { UnitType } from '../../api/OkrUnit/unit-type.enum';
 
-export abstract class OkrChildUnit extends OkrUnit {
+export interface OkrChildUnit extends OkrUnit {
   parentUnitId: OkrUnitId;
   isActive: boolean;
   isParentUnitABranch: boolean;
-
-  constructor(
-    id: number,
-    name: string,
-    label: string,
-    objectives: ObjectiveId[],
-    parenUnitId: number,
-    isActive: boolean,
-    isParentUnitABranch?: boolean,
-  ) {
-    super(id, name, label, objectives);
-    this.parentUnitId = parenUnitId;
-    this.isActive = isActive;
-    this.isParentUnitABranch = isParentUnitABranch;
-  }
+  type: UnitType;
 }

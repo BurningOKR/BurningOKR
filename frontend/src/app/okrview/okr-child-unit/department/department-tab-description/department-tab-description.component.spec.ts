@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { ContextRole } from '../../../../shared/model/ui/context-role';
 import { DepartmentDescriptionEditFormComponent } from './department-description-edit-form/department-description-edit-form.component';
 import { OkrTranslationHelperService } from '../../../../shared/services/helper/okr-translation-helper.service';
+import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
 
 describe('DepartmentTabDescription', () => {
   let component: DepartmentTabDescriptionComponent;
@@ -54,7 +55,19 @@ describe('DepartmentTabDescription', () => {
   }));
 
   beforeEach(() => {
-    department = new OkrDepartment(1, 'test', [], 2, 'label', null, null, [], true, false);
+    department = {
+      id: 1,
+      name: 'test',
+      objectives: [],
+      parentUnitId: 2,
+      label: 'label',
+      okrMasterId: null,
+      okrTopicSponsorId: null,
+      okrMemberIds: null,
+      isActive: true,
+      isParentUnitABranch: false,
+      type: UnitType.DEPARTMENT,
+    };
     topicDescription = new OkrTopicDescription(4, 'test', null, [], [], '', '', '', new Date(), '', '', '');
     userRole = new ContextRole();
 

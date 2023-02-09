@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { UserSettings } from '../../../../shared/model/ui/user-settings';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
 
 const companyService: any = {
   getActiveCompanies$: jest.fn(),
@@ -36,6 +37,7 @@ const okrDepartment: OkrDepartment = {
   okrMemberIds: [],
   okrTopicSponsorId: '',
   parentUnitId: 1,
+  type: UnitType.DEPARTMENT,
 };
 
 describe('UserSettingsComponent', () => {

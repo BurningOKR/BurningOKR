@@ -2,6 +2,7 @@ import { ConvertTopicDraftToTeamService } from './convert-topic-draft-to-team.se
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
 import { Structure } from '../../shared/model/ui/OrganizationalUnit/structure';
+import { UnitType } from '../../shared/model/api/OkrUnit/unit-type.enum';
 
 describe('ConvertTopicDraftToTeamService', () => {
   let convertTopicDraftToTeamService: ConvertTopicDraftToTeamService;
@@ -46,10 +47,31 @@ describe('ConvertTopicDraftToTeamService', () => {
   });
 
   function convertTopicDraftToDepartmentMock$(topicDraftId: number, okrUnitId: number): Observable<OkrDepartment> {
-    return of(new OkrDepartment(1, `Department of ${topicDraftId}`, [], okrUnitId, 'Team', '', '', [], true, true));
+    const x: OkrDepartment = {
+      id: 1,
+      name: `Department of ${topicDraftId}`,
+      objectives: [],
+      parentUnitId: okrUnitId,
+      type: UnitType.DEPARTMENT,
+      label: 'Team',
+      okrTopicSponsorId: '',
+      okrMasterId: '',
+      okrMemberIds: [],
+      isParentUnitABranch: true,
+      isActive: true,
+
+    };
+
+    return of(x);
   }
 
   function getMockStructure(id: number, name: string, label: string): Structure {
-    return new Structure(id, name, label, [], []);
+    return {
+      id,
+      name,
+      label,
+      objectives: [],
+      substructures: [],
+    };
   }
 });

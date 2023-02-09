@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +20,7 @@ import { CurrentOkrUnitSchemaService } from '../../current-okr-unit-schema.servi
 import { CurrentOkrviewService } from '../../current-okrview.service';
 import { ExcelMapper } from '../../excel-file/excel.mapper';
 import { OkrChildUnitFormComponent } from '../okr-child-unit-form/okr-child-unit-form.component';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 interface DepartmentView {
   cycle: CycleUnit;
@@ -70,7 +70,7 @@ export class OkrChildUnitComponent implements OnInit {
 
           return this.okrUnitService.getOkrChildUnitById$(unitId, false)
             .pipe(
-              catchError((error: HttpErrorResponse) => {
+              catchError(() => {
                 this.set404State();
 
                 return of(null);
@@ -115,9 +115,9 @@ export class OkrChildUnitComponent implements OnInit {
       .pipe(
         map((childUnit: OkrChildUnit) => {
           return {
-            childUnitTab: childUnit instanceof OkrBranch,
-            teamsTab: childUnit instanceof OkrDepartment,
-            descriptionTab: childUnit instanceof OkrDepartment,
+            childUnitTab: childUnit.type === UnitType.BRANCH,
+            teamsTab: childUnit.type === UnitType.DEPARTMENT,
+            descriptionTab: childUnit.type === UnitType.DEPARTMENT,
           };
         }),
       );
@@ -184,11 +184,15 @@ export class OkrChildUnitComponent implements OnInit {
 
   canChildUnitBeRemoved(okrChildUnit: OkrChildUnit): boolean {
     return this.isDepartmentUnit(okrChildUnit) ||
-      (okrChildUnit instanceof OkrBranch && okrChildUnit.okrChildUnitIds.length === 0);
+      (this.isOkrBranch(okrChildUnit) && (okrChildUnit as OkrBranch).okrChildUnitIds?.length === 0);
   }
 
   isDepartmentUnit(okrChildUnit: OkrChildUnit): boolean {
-    return okrChildUnit instanceof OkrDepartment;
+    return okrChildUnit.type === UnitType.DEPARTMENT;
+  }
+
+  isOkrBranch(okrChildUnit: OkrChildUnit): boolean {
+    return okrChildUnit.type === UnitType.BRANCH;
   }
 
   queryRemoveChildUnit(okrChildUnit: OkrChildUnit): void {

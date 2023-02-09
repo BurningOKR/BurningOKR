@@ -17,8 +17,14 @@ describe('OkrToolbarComponent', () => {
   let component: any;
   let fixture: any;
 
-  const currentCompanyMock: CompanyUnit = new CompanyUnit(1, '', null, null, 0, '');
-
+  const currentCompanyMock: CompanyUnit = {
+    id: 1,
+    name: '',
+    okrChildUnitIds: null,
+    objectives: null,
+    cycleId: 0,
+    label: '',
+  };
   const currentCompanyService: any = {
     getCurrentCompany$: jest.fn(),
   };

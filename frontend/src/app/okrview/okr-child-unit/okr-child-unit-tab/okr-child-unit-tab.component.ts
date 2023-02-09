@@ -24,7 +24,7 @@ export class OkrChildUnitTabComponent {
 
   clickedAddChildOkrBranch(): void {
     const dialogReference: MatDialogRef<OkrChildUnitFormComponent> = this.matDialog.open(OkrChildUnitFormComponent, {
-      data: { childUnitId: this.okrBranch.id, unitType: UnitType.OKR_BRANCH },
+      data: { childUnitId: this.okrBranch.id, unitType: UnitType.BRANCH },
     });
     this.handleChildUnitDialogReference(dialogReference);
   }

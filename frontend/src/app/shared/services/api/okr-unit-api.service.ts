@@ -3,10 +3,6 @@ import { ApiHttpService } from '../../../core/services/api-http.service';
 import { Observable, throwError } from 'rxjs';
 import { OkrChildUnitDto } from '../../model/api/OkrUnit/okr-child-unit.dto';
 import { OkrUnitSchema } from '../../model/ui/okr-unit-schema';
-import { map } from 'rxjs/operators';
-import { plainToClass } from 'class-transformer';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
-import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
 import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
 import { OkrUnitId } from '../../model/id-types';
 import { ErrorHandlingFunction } from '../../../core/services/api-http-error-handling.service';
@@ -22,16 +18,7 @@ export class OkrUnitApiService {
   getOkrChildUnitById$(unitId: OkrUnitId, handleErrors?: boolean): Observable<OkrChildUnitDto> {
     const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
 
-    return this.http.getData$<OkrChildUnitDto>(`units/${unitId}`, errorHandlingFunction)
-      .pipe(
-        map((value: OkrChildUnitDto) => {
-          if (value.__okrUnitType === 'DEPARTMENT') {
-            return plainToClass(OkrDepartmentDto, value);
-          } else if (value.__okrUnitType === 'OKR_BRANCH') {
-            return plainToClass(OkrBranchDto, value);
-          }
-        }),
-      );
+    return this.http.getData$<OkrChildUnitDto>(`units/${unitId}`, errorHandlingFunction);
   }
 
   putOkrChildUnit$(
@@ -41,16 +28,7 @@ export class OkrUnitApiService {
   ): Observable<OkrChildUnitDto> {
     const errorHandlingFunction: ErrorHandlingFunction<any> = this.getErrorHandlingFunction(handleErrors);
 
-    return this.http.putData$<OkrChildUnitDto>(`units/${okrUnitId}`, okrChildUnit, errorHandlingFunction)
-      .pipe(
-        map((value: OkrChildUnitDto) => {
-          if (value.__okrUnitType === 'DEPARTMENT') {
-            return plainToClass(OkrDepartmentDto, value);
-          } else if (value.__okrUnitType === 'OKR_BRANCH') {
-            return plainToClass(OkrBranchDto, value);
-          }
-        }),
-      );
+    return this.http.putData$<OkrChildUnitDto>(`units/${okrUnitId}`, okrChildUnit, errorHandlingFunction);
   }
 
   deleteOkrChildUnit$(okrUnitId: OkrUnitId, handleErrors?: boolean): Observable<boolean> {
