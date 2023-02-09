@@ -1,33 +1,59 @@
 import { Injectable } from '@angular/core';
-import { plainToClass } from 'class-transformer';
 import { ChartInformationTypeEnum } from '../model/dto/chart-creation-options.dto';
-import { BaseChartOptionsDto } from '../model/dto/chart-options/base-chart-options.dto';
-import { LineChartOptionsDto } from '../model/dto/chart-options/line-chart-options.dto';
-import { PieChartOptionsDto } from '../model/dto/chart-options/pie-chart-options.dto';
 import { DashboardDto } from '../model/dto/dashboard.dto';
 import { Dashboard } from '../model/ui/dashboard';
+import { LineChartOptionsDto } from '../model/dto/chart-options/line-chart-options.dto';
+import { PieChartOptionsDto } from '../model/dto/chart-options/pie-chart-options.dto';
+import { BaseChartOptionsDto } from '../model/dto/chart-options/base-chart-options.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardMapperService {
 
+  static mapLineChartOptions(chartOptionsDto: LineChartOptionsDto): LineChartOptionsDto {
+    const lineChartOptions: LineChartOptionsDto = new LineChartOptionsDto();
+    lineChartOptions.chart = chartOptionsDto.chart;
+    lineChartOptions.title = chartOptionsDto.title;
+    lineChartOptions.xaxisCategories = chartOptionsDto.xaxisCategories;
+    lineChartOptions.series = chartOptionsDto.series;
+
+    return lineChartOptions;
+  }
+
+  static mapPieChartOptions(chartOptionsDto: PieChartOptionsDto): PieChartOptionsDto {
+    const pieChartOptions: PieChartOptionsDto = new PieChartOptionsDto();
+    pieChartOptions.chart = chartOptionsDto.chart;
+    pieChartOptions.title = chartOptionsDto.title;
+    pieChartOptions.series = chartOptionsDto.series;
+    pieChartOptions.valueLabels = chartOptionsDto.valueLabels;
+
+    return pieChartOptions;
+  }
+
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
-    const new_dashboardDto: DashboardDto = plainToClass(DashboardDto, dashboardDto);
 
     return {
-      id: new_dashboardDto.id,
-      title: new_dashboardDto.title,
-      creator: new_dashboardDto.creator,
-      charts: new_dashboardDto.chartDtos.map(chartDto => {
-        const ChartTypeOptionStringRecord: Record<ChartInformationTypeEnum, BaseChartOptionsDto> = {
-          [ChartInformationTypeEnum.LINE_PROGRESS]: plainToClass(LineChartOptionsDto, chartDto),
-          [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: plainToClass(PieChartOptionsDto, chartDto),
-        };
+      id: dashboardDto.id,
+      title: dashboardDto.title,
+      creator: dashboardDto.creator,
+      charts: dashboardDto.chartDtos.map(chartDto => {
+        let chartOptions: BaseChartOptionsDto;
+        switch (chartDto.chart) {
+          case ChartInformationTypeEnum.LINE_PROGRESS:
+            chartOptions = DashboardMapperService.mapLineChartOptions(chartDto as LineChartOptionsDto);
+            break;
+          case ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW:
+            chartOptions = DashboardMapperService.mapPieChartOptions(chartDto as PieChartOptionsDto);
+            break;
+          default:
+            chartOptions = undefined;
+            break;
+        }
 
-        return ChartTypeOptionStringRecord[chartDto.chart].buildChartOptions();
+        return chartOptions?.buildChartOptions();
       }),
-      creationDate: new_dashboardDto.creationDate,
+      creationDate: dashboardDto.creationDate,
     };
   }
 }
