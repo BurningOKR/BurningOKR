@@ -28,7 +28,8 @@ export class OkrChildUnitRoleService {
 
           role.isAdmin = isAdmin;
           if (okrChildUnit.type === UnitType.DEPARTMENT) {
-            role.isOKRManager = (okrChildUnit as OkrDepartment).okrMasterId === currentUser.id || (okrChildUnit as OkrDepartment).okrTopicSponsorId === currentUser.id;
+            role.isOKRManager = (okrChildUnit as OkrDepartment).okrMasterId === currentUser.id ||
+              (okrChildUnit as OkrDepartment).okrTopicSponsorId === currentUser.id;
             role.isOKRMember = (okrChildUnit as OkrDepartment).okrMemberIds.Contains(currentUser.id);
           }
 
