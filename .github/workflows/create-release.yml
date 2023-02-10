@@ -9,12 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.read-version.outputs.version }}
+      changelog: ${{ steps.read-changelog.outputs.changelog }}
 
     steps:
       - uses: actions/checkout@v2
+    - name: Remove Windows file endings
+      run: vi version.txt -c "set ff=unix" -c ":wq"
     - name: Read package version
       id: read-version
       run: echo version=$(head -n 1 version.txt) >> $GITHUB_OUTPUT
+    - name: Read changelog
+      id: read-changelog
+      run: echo changelog=$(tail -n+3 version.txt) >> $GITHUB_OUTPUT
 
   release-app:
     runs-on: ubuntu-latest
@@ -23,9 +29,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Read changelog
-      run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo ::set-env name=CHANGELOG::$CHANGELOG
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     - name: Set up JDK 1.8
       uses: actions/setup-java@v3
       with:
@@ -74,7 +77,7 @@ jobs:
       with:
         tag_name: ${{needs.get-version.outputs.version}}
         release_name: Release ${{needs.get-version.outputs.version}}
-        body: ${{ env.CHANGELOG }}
+        body: ${{needs.get-version.outputs.changelog}}
         draft: false
         prerelease: true
     - name: Upload Release Jar
