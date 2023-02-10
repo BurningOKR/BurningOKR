@@ -2,20 +2,20 @@ name: build docker-dev-images
 
 on:
   push:
-    branches: [development, feat/docker_images_on_github]
+    branches: [master, feat/docker_images_on_github]
   workflow_dispatch:
 
-env:
-  VERSION_NUMBER: $(date +'%y.%m').${{ github.run_number }}
-
 jobs:
-  get-version-number:
+  get-version:
     runs-on: ubuntu-latest
     outputs:
-      version-no: ${{ steps.get_version_number.outputs.version_no }}
+      version: ${{ steps.read-version.outputs.version }}
+
     steps:
-    - id: get_version_number
-      run: echo "version_no=$VERSION_NUMBER" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v3
+    - name: Read package version
+      id: read-version
+      run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo ::set-output name=version::$PACKAGE_VERSION
 
   build-backend-image-dev:
     runs-on: ubuntu-latest
@@ -44,8 +44,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/burningokr/b-okr-be-dev:latest
-            ghcr.io/burningokr/b-okr-be-dev:${{needs.get-version-number.outputs.version-no}}
+            ghcr.io/burningokr/b-okr-backend:latest
+            ghcr.io/burningokr/b-okr-backend:${{ needs.get-version-number.outputs.version-no }}
   build-frontend-image-dev:
     runs-on: ubuntu-latest
     needs: get-version-number
@@ -76,5 +76,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/burningokr/b-okr-fe-dev:latest
-            ghcr.io/burningokr/b-okr-fe-dev:${{needs.get-version-number.outputs.version-no}}
+            ghcr.io/burningokr/b-okr-frontend:latest
+            ghcr.io/burningokr/b-okr-frontend:${{ needs.get-version-number.outputs.version-no }}
