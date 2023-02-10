@@ -7,7 +7,6 @@ import { CurrentUserService } from '../core/services/current-user.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { User } from '../shared/model/api/user';
 import { of } from 'rxjs';
-import 'linq4js';
 import { TrackByPropertyPipe } from './pipes/track-by-property.pipe';
 import { AdminUserIdsPipe } from './pipes/admin-user-ids.pipe';
 import { MaterialTestingModule } from '../testing/material-testing.module';

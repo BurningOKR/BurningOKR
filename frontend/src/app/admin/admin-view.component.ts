@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import 'linq4js';
 import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -112,7 +111,7 @@ export class AdminViewComponent implements OnInit {
       take(1),
     )
       .subscribe(users => {
-        const usersWithoutDeleted: User[] = users.Where(user => user.id !== deletedAdmin.id);
+        const usersWithoutDeleted: User[] = users.filter(user => user.id !== deletedAdmin.id);
         this.adminUsers$.next(usersWithoutDeleted);
         this.excludedIdsShouldUpdate = [];
       });
@@ -148,8 +147,8 @@ export class AdminViewComponent implements OnInit {
   }
 
   private getAdminUsers(users: User[], adminStrings: string[]): any[] {
-    return users.Where(user => {
-      return adminStrings.Contains(user.id);
+    return users.filter(user => {
+      return adminStrings.indexOf(user.id) !== -1;
     });
   }
 }

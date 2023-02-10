@@ -67,7 +67,7 @@ export class UserDialogComponent implements OnInit, OnDestroy {
       .subscribe(([users]) => {
         for (const user of users) {
           if (!this.formData.user || (user.email !== this.formData.user.email)) {
-            this.userEmails.Add(user.email);
+            this.userEmails.push(user.email);
           }
         }
         this.userForm = this.generateUserEditForm();

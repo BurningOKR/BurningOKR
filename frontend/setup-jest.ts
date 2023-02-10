@@ -1,5 +1,4 @@
 import 'jest-preset-angular/setup-jest';
-import 'linq4js';
 
 const WARN_SUPPRESSING_PATTERNS = [
   /Could not find Angular Material core theme/,
