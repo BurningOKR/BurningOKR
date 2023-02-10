@@ -5,9 +5,6 @@ on:
     branches: [development, feat/docker_images_on_github]
   workflow_dispatch:
 
-env:
-  VERSION_NUMBER: $(date +'%y.%m').${{ github.run_number }}
-
 jobs:
   get-version-number:
     runs-on: ubuntu-latest
@@ -15,7 +12,7 @@ jobs:
       version-no: ${{ steps.get_version_number.outputs.version_no }}
     steps:
     - id: get_version_number
-      run: echo "version_no=$VERSION_NUMBER" >> $GITHUB_OUTPUT
+      run: echo "version_no=$(date +'%y.%m').${{ github.run_number }}" >> $GITHUB_OUTPUT
 
   build-backend-image-dev:
     runs-on: ubuntu-latest
