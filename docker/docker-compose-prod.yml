@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:9.6.16
+    container_name: burning-okr-postgres
+    env_file:
+      - postgres.env
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - b-okr-backend-network
+  backend:
+    image: ghcr.io/burningokr/b-okr-backend:latest
+    container_name: burning-okr-backend
+    env_file:
+      - backend.env
+    depends_on:
+      - db
+    networks:
+      - b-okr-frontend-network
+      - b-okr-backend-network
+  frontend:
+    image: ghcr.io/burningokr/b-okr-frontend:latest
+    container_name: burning-okr-frontend
+    depends_on:
+      - backend
+    ports:
+      - 4200:80
+    networks:
+      - b-okr-frontend-network
+
+volumes:
+  pgdata:
+
+networks:
+  b-okfrontend-network:
+  b-okr-backend-network:
