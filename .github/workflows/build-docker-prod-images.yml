@@ -2,7 +2,7 @@ name: build docker-prod-images
 
 on:
   push:
-    branches: [master, feat/docker_images_on_github]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
