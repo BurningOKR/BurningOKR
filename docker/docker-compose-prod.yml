@@ -7,7 +7,7 @@ services:
     env_file:
       - postgres.env
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - b-okr-pgdata:/var/lib/postgresql/data
     networks:
       - b-okr-backend-network
   backend:
@@ -31,8 +31,8 @@ services:
       - b-okr-frontend-network
 
 volumes:
-  pgdata:
+  b-okr-pgdata:
 
 networks:
-  b-okfrontend-network:
+  b-okr-frontend-network:
   b-okr-backend-network:
