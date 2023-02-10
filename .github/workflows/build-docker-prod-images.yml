@@ -48,7 +48,7 @@ jobs:
             ghcr.io/burningokr/b-okr-backend:${{ needs.get-version.outputs.version-no }}
   build-frontend-image-dev:
     runs-on: ubuntu-latest
-    needs: get-version-number
+    needs: get-version
     steps:
       - uses: actions/checkout@v3
       - name: Update version number in package.json
