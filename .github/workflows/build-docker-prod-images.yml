@@ -13,9 +13,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-    - name: Read package version
-      id: read-version
-      run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo ::set-output name=version::$PACKAGE_VERSION
+      - name: Read package version
+        id: read-version
+        run: head -n 1 version.txt || PACKAGE_VERSION=$(sed 's/\d+.\d+.\d+//') && echo ::set-output name=version::$PACKAGE_VERSION
 
   build-backend-image-dev:
     runs-on: ubuntu-latest
