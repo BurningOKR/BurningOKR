@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Remove Windows file endings
+        run: vi version.txt -c "set ff=unix" -c ":wq"
       - name: Read package version
         id: read-version
         run: echo version=$(head -n 1 version.txt) >> $GITHUB_OUTPUT
