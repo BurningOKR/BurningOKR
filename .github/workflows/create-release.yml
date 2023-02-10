@@ -5,22 +5,32 @@ on:
     branches: [ master ]
 
 jobs:
-  release-app:
-
+  get-version:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.read-version.outputs.version }}
+      changelog: ${{ steps.read-changelog.outputs.changelog }}
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+    - name: Remove Windows file endings
+      run: vi version.txt -c "set ff=unix" -c ":wq"
     - name: Read package version
-      run: PACKAGE_VERSION=$(head -n 1 version.txt) && echo $PACKAGE_VERSION && echo ::set-env name=PACKAGE_VERSION::$PACKAGE_VERSION
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      id: read-version
+      run: echo version=$(head -n 1 version.txt) >> $GITHUB_OUTPUT
     - name: Read changelog
-      run: CHANGELOG=$(tail -n+3 version.txt) && echo $CHANGELOG && echo ::set-env name=CHANGELOG::$CHANGELOG
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      id: read-changelog
+      run: echo changelog=$(tail -n+3 version.txt) >> $GITHUB_OUTPUT
+
+  release-app:
+    runs-on: ubuntu-latest
+    needs: get-version-number
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Read changelog
     - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v3
       with:
         java-version: 1.8
     - name: Add execution privileges
@@ -30,20 +40,20 @@ jobs:
       run: ./gradlew check
       working-directory: ./backend/burning-okr
     - name: Build jar
-      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootJar
+      run: ./gradlew -PprojVersion="${{needs.get-version.outputs.version}}" bootJar
       working-directory: ./backend/burning-okr
     - name: Build war
-      run: ./gradlew -PprojVersion="$PACKAGE_VERSION" bootWar
+      run: ./gradlew -PprojVersion="${{needs.get-version.outputs.version}}" bootWar
       working-directory: ./backend/burning-okr
     - name: Npm Setup
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: '16.x'
     - name: Npm Install
       run: npm install
       working-directory: ./frontend
     - name: Npm version
-      run: npm version $PACKAGE_VERSION --allow-same-version
+      run: npm version ${{needs.get-version.outputs.version}} --allow-same-version
       working-directory: ./frontend
     - name: Npm Build
       run: npm run build-prod
@@ -65,9 +75,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.PACKAGE_VERSION }}
-        release_name: Release ${{ env.PACKAGE_VERSION }}
-        body: ${{ env.CHANGELOG }}
+        tag_name: ${{needs.get-version.outputs.version}}
+        release_name: Release ${{needs.get-version.outputs.version}}
+        body: ${{needs.get-version.outputs.changelog}}
         draft: false
         prerelease: true
     - name: Upload Release Jar
@@ -77,8 +87,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
-        asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.jar
+        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{needs.get-version.outputs.version}}.jar
+        asset_name: burning-okr-app-${{needs.get-version.outputs.version}}.jar
         asset_content_type: application/jar
     - name: Upload Release War
       id: upload-release-war
@@ -87,8 +97,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{ env.PACKAGE_VERSION }}.war
-        asset_name: burning-okr-app-${{ env.PACKAGE_VERSION }}.war
+        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{needs.get-version.outputs.version}}.war
+        asset_name: burning-okr-app-${{needs.get-version.outputs.version}}.war
         asset_content_type: application/war
     - name: Upload Release Frontend Zip
       id: upload-release-frontend-zip

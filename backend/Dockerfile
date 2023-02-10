@@ -9,7 +9,7 @@ FROM openjdk:8-jre-slim
 
 EXPOSE 8080
 
-RUN apt-get update; apt-get install -y fontconfig libfreetype6 
+RUN apt-get update; apt-get install -y fontconfig libfreetype6
 
 RUN mkdir /app
 
