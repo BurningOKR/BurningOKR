@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import 'linq4js';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -234,7 +233,7 @@ export class UserManagementComponent implements OnInit {
     adminIds: string[],
     editedUser: LocalUserManagementUser,
   ): Observable<LocalUserManagementUser> {
-    if (adminIds.Contains(editedUser.id)) {
+    if (adminIds.indexOf(editedUser.id) !== -1) {
       return forkJoin([
         this.userService.updateUser$(editedUser)
           .pipe(map((user: LocalUserManagementUser) => {
@@ -248,7 +247,7 @@ export class UserManagementComponent implements OnInit {
     } else {
       return this.userService.updateUser$(editedUser)
         .pipe(map((user: LocalUserManagementUser) => {
-          user.isAdmin = adminIds.Contains(user.id);
+          user.isAdmin = adminIds.indexOf(user.id) !== -1;
 
           return user;
         }));
@@ -259,7 +258,7 @@ export class UserManagementComponent implements OnInit {
     adminIds: string[],
     editedUser: LocalUserManagementUser,
   ): Observable<LocalUserManagementUser> {
-    if (!adminIds.Contains(editedUser.id)) {
+    if (adminIds.indexOf(editedUser.id) !== -1) {
       return forkJoin([
         this.userService.updateUser$(editedUser)
           .pipe(map((user: LocalUserManagementUser) => {
@@ -273,7 +272,7 @@ export class UserManagementComponent implements OnInit {
     } else {
       return this.userService.updateUser$(editedUser)
         .pipe(map((user: LocalUserManagementUser) => {
-          user.isAdmin = adminIds.Contains(user.id);
+          user.isAdmin = adminIds.indexOf(user.id) !== -1;
 
           return user;
         }));
@@ -294,7 +293,7 @@ export class UserManagementComponent implements OnInit {
         take(1),
         map(([users, adminIds]: [User[], string[]]) => {
           return users.map((user: LocalUserManagementUser) => {
-            if (adminIds.Contains(user.id)) {
+            if (adminIds.indexOf(user.id) !== -1) {
               user.isAdmin = true;
             }
 
@@ -354,7 +353,7 @@ export class UserManagementComponent implements OnInit {
     let filteredUsers: LocalUserManagementUser[] = users;
 
     if (!this.showDeactivatedUsers) {
-      filteredUsers = filteredUsers.Where(user => user.active);
+      filteredUsers = filteredUsers.filter(user => user.active);
     }
 
     return filteredUsers;
