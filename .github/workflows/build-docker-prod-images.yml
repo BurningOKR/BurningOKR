@@ -45,14 +45,14 @@ jobs:
           push: true
           tags: |
             ghcr.io/burningokr/b-okr-backend:latest
-            ghcr.io/burningokr/b-okr-backend:${{ needs.get-version.outputs.version-no }}
+            ghcr.io/burningokr/b-okr-backend:${{needs.get-version.outputs.version}}
   build-frontend-image-prod:
     runs-on: ubuntu-latest
     needs: get-version
     steps:
       - uses: actions/checkout@v3
       - name: Update version number in package.json
-        run: npm version ${{needs.get-version-number.outputs.version-no}}
+        run: npm version ${{needs.get-version.outputs.version}}
         working-directory: ./frontend
       - name: Set up QEMU
         uses: docker/setup-qemu-action@master
@@ -77,4 +77,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/burningokr/b-okr-frontend:latest
-            ghcr.io/burningokr/b-okr-frontend:${{ needs.get-version.outputs.version-no }}
+            ghcr.io/burningokr/b-okr-frontend:${{needs.get-version.outputs.version}}
