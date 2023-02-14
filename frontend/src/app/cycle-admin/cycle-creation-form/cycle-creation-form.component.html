@@ -2,7 +2,7 @@
                       saveAndCloseLabel="{{saveAndCloseLabel}}" title="{{title$ | async}}">
   <form [formGroup]="cycleForm">
     <mat-form-field class="fullWidth">
-      <input formControlName="name" matInput placeholder="Name *" type="text">
+      <input formControlName="name" matInput placeholder="Name" type="text">
       <mat-error>
         <app-form-error [control]="cycleForm.get('name')"></app-form-error>
       </mat-error>

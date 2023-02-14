@@ -115,7 +115,7 @@
     },
     "form": {
       "company-option": "Create team in {{value}} ",
-      "select": "Choose parent structure *"
+      "select": "Choose parent structure"
     },
     "title": "Convert Topic Draft to a Team",
     "tooltip": {
@@ -173,7 +173,7 @@
   },
   "cycle-edit-form": {
     "end-date": "End date",
-    "name": "Name *",
+    "name": "Name",
     "save": "Save",
     "start-date": "Start date",
     "title": "Edit cycle",
@@ -308,7 +308,7 @@
     "no-parent-key-result": "No parent key result",
     "select-parent-key-result": "Choose a parent Key Result",
     "task-state": "State",
-    "title": "Title *"
+    "title": "Title"
   },
   "department-tab-taskboard": {
     "add-button": {
@@ -396,25 +396,25 @@
   },
   "key-result-form": {
     "amount-units": "Amount",
-    "current": "Current *",
+    "current": "Current",
     "description": "Description",
     "dialog": {
       "create": "creation",
       "edit": "editing"
     },
-    "key-result": "Key Result *",
-    "start": "Start *",
-    "target": "Target *",
-    "unit": "Unit *"
+    "key-result": "Key Result",
+    "start": "Start",
+    "target": "Target",
+    "unit": "Unit"
   },
   "key-result-milestone-form": {
     "add-button": "Add milestone",
-    "name-*": "Name *",
+    "name-*": "Name",
     "toggle": "Milestones active",
     "tooltip": {
       "delete-button": "Delete milestone"
     },
-    "value-input": "Target-Value *"
+    "value-input": "Target-Value"
   },
   "keyresult": {
     "deletion-dialog": {
@@ -573,13 +573,13 @@
     "unit-not-active": "This structure is inactive"
   },
   "okr-child-unit-form": {
-    "description": "Label *",
+    "description": "Label",
     "dialog": {
       "create": " Create {{label}}",
       "edit": " Edit {{label}}"
     },
     "header": "Active",
-    "name-*": "Name *"
+    "name-*": "Name"
   },
   "okr-child-unit-overview-tab": {
     "create-new-objective": "Create Objective",
@@ -627,14 +627,14 @@
     }
   },
   "okr-topic-description-form": {
-    "beginning": "Beginning *",
+    "beginning": "Beginning",
     "contributes-to": "Contributes to",
     "delimitation": "Delimitation",
     "dependencies": "Dependencies",
     "description": "Description",
     "handover-plan": "Handover Plan",
-    "header": "Topic *",
-    "initiator": "Initiator *",
+    "header": "Topic",
+    "initiator": "Initiator",
     "no-initiator": "No initiator",
     "resources": "Required Resources",
     "stakeholder": "Stakeholder",
@@ -669,8 +669,8 @@
       "team": "OKR team"
     },
     "placeholder": {
-      "label": "label *",
-      "name": "name *"
+      "label": "label",
+      "name": "name"
     },
     "save": " Save {{value}}",
     "structure": "structure"

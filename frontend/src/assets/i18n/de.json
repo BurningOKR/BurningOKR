@@ -115,7 +115,7 @@
     },
     "form": {
       "company-option": "Team in {{value}} erstellen",
-      "select": "Übergeordnete Struktur auswählen *"
+      "select": "Übergeordnete Struktur auswählen"
     },
     "title": "Themenentwurf in ein Team umwandeln ",
     "tooltip": {
@@ -173,7 +173,7 @@
   },
   "cycle-edit-form": {
     "end-date": "Enddatum",
-    "name": "Name *",
+    "name": "Name",
     "save": "Speichern",
     "start-date": "Startdatum",
     "title": "Zyklus bearbeiten",
@@ -308,7 +308,7 @@
     "no-parent-key-result": "Kein übergeordnetes Key Result",
     "select-parent-key-result": "Übergeordnetes Key Result auswählen",
     "task-state": "Status",
-    "title": "Titel *"
+    "title": "Titel"
   },
   "department-tab-taskboard": {
     "add-button": {
@@ -396,25 +396,25 @@
   },
   "key-result-form": {
     "amount-units": "Anzahl",
-    "current": "Aktuell *",
+    "current": "Aktuell",
     "description": "Beschreibung",
     "dialog": {
       "create": "erstellen",
       "edit": "bearbeiten"
     },
-    "key-result": "Key Result *",
-    "start": "Start *",
-    "target": "Ziel *",
-    "unit": "Einheit *"
+    "key-result": "Key Result",
+    "start": "Start",
+    "target": "Ziel",
+    "unit": "Einheit"
   },
   "key-result-milestone-form": {
     "add-button": "Meilenstein hinzufügen",
-    "name-*": "Name *",
+    "name-*": "Name",
     "toggle": "Meilensteine aktiv",
     "tooltip": {
       "delete-button": "Meilenstein löschen"
     },
-    "value-input": "Ziel-Wert *"
+    "value-input": "Ziel-Wert"
   },
   "keyresult": {
     "deletion-dialog": {
@@ -573,13 +573,13 @@
     "unit-not-active": "Diese Struktur ist nicht aktiv"
   },
   "okr-child-unit-form": {
-    "description": "Bezeichnung *",
+    "description": "Bezeichnung",
     "dialog": {
       "create": "{{label}} erstellen",
       "edit": "{{label}} bearbeiten"
     },
     "header": "Aktiv",
-    "name-*": "Name *"
+    "name-*": "Name"
   },
   "okr-child-unit-overview-tab": {
     "create-new-objective": "Objective erstellen",
@@ -627,14 +627,14 @@
     }
   },
   "okr-topic-description-form": {
-    "beginning": "Beginn *",
+    "beginning": "Beginn",
     "contributes-to": "Zahlt ein auf",
     "delimitation": "Abgrenzung",
     "dependencies": "Abhängigkeiten",
     "description": "Beschreibung",
     "handover-plan": "Übergabeplan",
-    "header": "Thema *",
-    "initiator": "Initiator *",
+    "header": "Thema",
+    "initiator": "Initiator",
     "no-initiator": "Kein Initiator",
     "resources": "Benötigte Ressourcen",
     "stakeholder": "Stakeholder",
@@ -669,8 +669,8 @@
       "team": "OKR Team"
     },
     "placeholder": {
-      "label": "Bezeichnung *",
-      "name": "Name *"
+      "label": "Bezeichnung",
+      "name": "Name"
     },
     "save": "{{value}} speichern",
     "structure": "Struktur"
