@@ -1,0 +1,8 @@
+[versions]
+springboot-version = '2.0.4.RELEASE'
+spring-framework-version = '5.0.7.RELEASE'
+swagger-version = '2.9.2'
+
+[libraries]
+spring-context = { module = 'org.springframework:spring-context', version.ref = 'spring-framework-version' }
+lombok = { module = 'org.projectlombok:lombok', version = '1.18.26' }
