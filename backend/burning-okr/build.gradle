@@ -89,7 +89,7 @@ subprojects {
     }
 }
 
-task testReport(type: TestReport) {
-    destinationDir = file("$buildDir/reports/allTests")
-    reportOn subprojects*.test
-}
+/* tasks.register('testReport', TestReport) {
+    // destinationDir = file("$buildDir/reports/allTests")
+    // reportOn subprojects*.test
+} */
