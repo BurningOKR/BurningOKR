@@ -52,7 +52,6 @@ dependencies {
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     implementation project(':burning-okr-logic')
-    runtime project(':burning-okr-data')
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
@@ -80,10 +79,10 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
-    compile "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
-    compile "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
+    implementation "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
+    implementation "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
 
-    compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
+    implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
 }
 
 springBoot {

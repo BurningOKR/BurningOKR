@@ -1,5 +1,7 @@
+repositories {
+    mavenCentral()
+}
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"
-
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    implementation 'org.projectlombok:lombok:1.18.10'
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 }
