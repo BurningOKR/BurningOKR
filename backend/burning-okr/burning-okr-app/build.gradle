@@ -9,23 +9,10 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
-
-plugins {
-    id 'java'
-    id 'war'
-    id 'org.springframework.boot' version '2.0.4.RELEASE'
-    id 'io.spring.dependency-management' version '1.1.0'
-}
+apply plugin: 'java'
+apply plugin: 'war'
 
 group = 'org.burningokr'
-
-if (project.hasProperty('projVersion')) {
-    version = project.projVersion
-} else {
-    version = '1.0.0'
-}
-
-bootRun.systemProperties = System.properties
 
 bootWar {
     enabled = true
@@ -35,29 +22,15 @@ war {
     enabled = true
 }
 
-repositories {
-    mavenCentral()
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
+    // project implementations
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     implementation project(':burning-okr-logic')
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
-
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
-
+    // util
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.0.RELEASE'
@@ -77,17 +50,34 @@ dependencies {
 
     implementation "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
     implementation "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
-    implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
+    implementation 'org.springframework.security.oauth:spring-security-oauth'
+    implementation 'org.springframework.security:spring-security-jwt:1.1.0.RELEASE'
+
+    // db
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'com.microsoft.sqlserver:mssql-jdbc'
+    implementation 'org.postgresql:postgresql:42.2.4'
+
+    // TODO refactor
+    implementation 'org.apache.poi:poi-ooxml:3.9'
+    implementation 'org.apache.poi:poi:3.9'
 }
 
 springBoot {
     buildInfo()
 }
 
-configurations {
-    providedRuntime
-    all {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+// logic
+if (project.hasProperty('projVersion')) {
+    version = project.projVersion
+} else {
+    version = '1.0.0'
 }
+
+bootRun.systemProperties = System.properties
