@@ -32,34 +32,34 @@ subprojects {
     dependencies {
         implementation 'org.springframework:spring-context:5.0.7.RELEASE'
         implementation 'org.springframework.boot:spring-boot-starter-security:2.0.4.RELEASE'
-        implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.0.7.RELEASE'
-        implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
-        implementation group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.11'
-        implementation group: 'org.springframework.security', name: 'spring-security-acl', version: '5.0.8.RELEASE'
-        implementation group: 'org.springframework', name: 'spring-context-support', version: '5.0.9.RELEASE'
-        implementation group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
+        implementation 'org.springframework.security:spring-security-web:5.0.7.RELEASE'
+        implementation 'io.jsonwebtoken:jjwt:0.2'
+        implementation 'net.sf.ehcache:ehcache-core:2.6.11'
+        implementation 'org.springframework.security:spring-security-acl:5.0.8.RELEASE'
+        implementation 'org.springframework:spring-context-support:5.0.9.RELEASE'
+        implementation 'javax.mail:mail:1.5.0-b01'
 
-        implementation("com.auth0:java-jwt:3.4.0")
-        implementation group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.2.6'
+        implementation 'com.auth0:java-jwt:3.4.0'
+        implementation 'com.auth0:auth0-spring-security-api:1.2.6'
 
-        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+        implementation 'org.slf4j:slf4j-api:1.7.25'
 
-        implementation('javax.xml.bind:jaxb-api:2.3.0')
-        implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-        implementation("org.springframework.boot:spring-boot-starter-web")
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.3.5.RELEASE'
-        implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
-        implementation("org.springframework:spring-messaging")
-        implementation('org.springframework.security:spring-security-messaging:5.0.4.RELEASE')
+        implementation 'javax.xml.bind:jaxb-api:2.3.0'
+        implementation 'javax.validation:validation-api:2.0.1.Final'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-websocket:2.3.5.RELEASE'
+        implementation 'org.webjars:stomp-websocket:2.3.3-1'
+        implementation 'org.springframework:spring-messaging'
+        implementation 'org.springframework.security:spring-security-messaging:5.0.4.RELEASE'
 
 
-        implementation("org.webjars:sockjs-client:1.1.2")
+        implementation 'org.webjars:sockjs-client:1.1.2'
 
 
         implementation 'com.google.code.gson:gson:2.8.5'
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.3.9.RELEASE'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator:2.3.9.RELEASE'
         annotationProcessor 'org.projectlombok:lombok:1.18.26'
-        testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
+        testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
         testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
     }
 
