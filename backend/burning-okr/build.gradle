@@ -7,11 +7,14 @@ buildscript {
             url 'https://plugins.gradle.org/m2/'
         }
     }
+
     dependencies {
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
     }
 }
 
+plugins {
+}
 
 subprojects {
     apply plugin: 'java'
@@ -30,7 +33,7 @@ subprojects {
     }
 
     dependencies {
-        implementation 'org.springframework:spring-context:5.0.7.RELEASE'
+        implementation deps.spring.context
         implementation 'org.springframework.boot:spring-boot-starter-security:2.0.4.RELEASE'
         implementation 'org.springframework.security:spring-security-web:5.0.7.RELEASE'
         implementation 'io.jsonwebtoken:jjwt:0.2'
@@ -46,7 +49,6 @@ subprojects {
 
         implementation 'javax.xml.bind:jaxb-api:2.3.0'
         implementation 'javax.validation:validation-api:2.0.1.Final'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-websocket:2.3.5.RELEASE'
         implementation 'org.webjars:stomp-websocket:2.3.3-1'
         implementation 'org.springframework:spring-messaging'
@@ -58,9 +60,12 @@ subprojects {
 
         implementation 'com.google.code.gson:gson:2.8.5'
         implementation 'org.springframework.boot:spring-boot-starter-actuator:2.3.9.RELEASE'
-        annotationProcessor 'org.projectlombok:lombok:1.18.26'
         testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-        testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+        // lombok
+        annotationProcessor deps.lombok
+        compileOnly deps.lombok
+        testAnnotationProcessor deps.lombok
     }
 
     test {
