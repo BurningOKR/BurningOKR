@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 @import '../../../styles/themes/bag-theme';
 
-.objective {
-  background-color: mat.get-color-from-palette($md-primary, 500);
+.mat-expansion-panel-header {
+  background-color: mat.get-color-from-palette($md-primary, 500) !important;
   color: mat.get-contrast-color-from-palette($md-primary, 500);
 }
 
