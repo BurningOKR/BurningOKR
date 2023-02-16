@@ -26,7 +26,6 @@ dependencies {
     implementation project(':burning-okr-logic')
 
     // util
-    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     implementation 'org.modelmapper:modelmapper:2.1.0'
@@ -58,6 +57,7 @@ dependencies {
     implementation 'com.google.guava:guava:20.0'
     implementation 'org.apache.poi:poi-ooxml:3.9'
     implementation 'org.apache.poi:poi:3.9'
+    implementation 'javax.servlet:servlet-api:2.5'
 }
 
 springBoot {

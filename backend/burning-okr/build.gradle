@@ -23,17 +23,14 @@ subprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-    ext {
-        springBootVersion = '2.0.4.RELEASE'
-        springFrameworkVersion = '5.0.7.RELEASE'
-    }
-
     repositories {
         mavenCentral()
     }
 
     dependencies {
+        // Spring dependency resolution
         implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+
         implementation deps.spring.context
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.security:spring-security-web'
@@ -46,6 +43,8 @@ subprojects {
         implementation 'com.auth0:java-jwt:3.4.0'
         implementation 'com.auth0:auth0-spring-security-api:1.2.6'
 
+        // Logging
+        implementation 'org.springframework.boot:spring-boot-starter-log4j2'
         implementation 'org.slf4j:slf4j-api:1.7.25'
 
         implementation 'javax.xml.bind:jaxb-api:2.3.0'
@@ -63,8 +62,8 @@ subprojects {
         testImplementation "org.springframework.boot:spring-boot-starter-test"
 
         // lombok
-        annotationProcessor deps.lombok
         compileOnly deps.lombok
+        annotationProcessor deps.lombok
         testAnnotationProcessor deps.lombok
     }
 
