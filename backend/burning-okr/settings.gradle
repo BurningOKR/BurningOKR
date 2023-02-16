@@ -10,10 +10,4 @@ dependencyResolutionManagement {
     }
 }
 
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        if (details.requested.group == 'org.') {
-            details.useVersion '1.7.20'
-        }
-    }
-}
+
