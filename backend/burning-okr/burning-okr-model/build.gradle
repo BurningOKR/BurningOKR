@@ -1,3 +1,5 @@
+jar { enabled = true } // TODO remove after Spring Framework Version > 2.5
+
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 

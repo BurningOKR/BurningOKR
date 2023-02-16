@@ -8,7 +8,7 @@ buildscript {
 
     dependencies {
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.4.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.2")
     }
 }
 

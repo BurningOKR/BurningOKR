@@ -5,11 +5,8 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
 }
-apply plugin: 'java'
+
 apply plugin: 'war'
 
 group = 'org.burningokr'
@@ -23,7 +20,6 @@ war {
 }
 
 dependencies {
-
     // project implementations
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
@@ -44,7 +40,7 @@ dependencies {
 
     // security
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.4.0.RELEASE'
+    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE'
     implementation 'org.springframework.security.oauth:spring-security-oauth:2.4.0.RELEASE'
     implementation 'org.springframework.security:spring-security-jwt:1.1.0.RELEASE'
 
@@ -54,7 +50,12 @@ dependencies {
     implementation 'com.microsoft.sqlserver:mssql-jdbc'
     implementation 'org.postgresql:postgresql:42.2.4'
 
+    // swagger
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
     // TODO refactor
+    implementation 'com.google.guava:guava:20.0'
     implementation 'org.apache.poi:poi-ooxml:3.9'
     implementation 'org.apache.poi:poi:3.9'
 }
