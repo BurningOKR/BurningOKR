@@ -1,0 +1,61 @@
+<app-okr-toolbar>
+  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>{{'create-dashboard.okr-toolbar.create-dashboard' | translate}}</span>
+  <span class="fill-space"></span>
+</app-okr-toolbar>
+
+<div class="dashboard-creation-title">
+  <mat-form-field>
+    <input [(ngModel)]="dashboardCreationDto.title" matInput
+           placeholder="{{'create-dashboard.dashboard-title-placeholder' | translate}}">
+  </mat-form-field>
+</div>
+
+<div *ngIf="companyId$ | async">
+  <div class="chart-creation">
+
+    <div *ngFor="let chart of charts" class="chart-creation-options">
+      <app-chart-options-card (clickedDelete)="deleteChart($event)" [allTeams$]="teams$"
+                              [chart]="chart"></app-chart-options-card>
+    </div>
+
+    <div class="chart-creation-options">
+      <p>{{'create-dashboard.add-new-chart-to-dashboard' | translate}}</p>
+      <mat-form-field>
+        <input [(ngModel)]="newChart.title" matInput
+               placeholder="{{'create-dashboard.chart-title-placeholder' | translate}}">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select (selectionChange)="chartSelected($event)"
+                    placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
+          <mat-option *ngFor="let chartType of chartTypes" matTooltip="{{chartTypeRecord[chartType] | translate}}"
+                      value="{{chartType}}">
+            {{chartTypeRecord[chartType] | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="teamIsSelectable">
+        <mat-select [(value)]="newChart.teamIds" multiple
+                    placeholder="{{'create-dashboard.select-teams-placeholder' | translate}}">
+          <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button (click)="addChart()" [disabled]="!newChartValid()" class="chart-creation-add-button" mat-stroked-button>
+        <mat-icon>add</mat-icon>
+        {{'create-dashboard.add-chart-button' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div class="button-create-dashboard">
+    <button (click)="createDashboardAndRouteToDashboard$()" [disabled]="!dashboardValid()" mat-stroked-button>
+      <mat-icon>add_circle_outline</mat-icon>
+      {{'create-dashboard.create-dashboard-button' | translate}}
+    </button>
+  </div>
+</div>

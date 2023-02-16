@@ -1,7 +1,7 @@
 <app-dialog-component (okEmitter)="saveObjective()" [formGroup]="objectiveForm" [title]="title">
   <form [formGroup]="objectiveForm">
     <mat-form-field class="form-whole-line">
-      <input formControlName="name" matInput placeholder="Name *" type="text">
+      <input formControlName="name" matInput placeholder="Name" type="text">
       <mat-error>
         <app-form-error [control]="objectiveForm.get('name')"></app-form-error>
       </mat-error>

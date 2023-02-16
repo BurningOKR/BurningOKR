@@ -36,6 +36,6 @@ public class LocalUser implements User, Trackable<UUID> {
 
   @Override
   public String getName() {
-    return givenName.substring(0, 1) + surname.substring(0, 1);
+    return String.format("%s%s", givenName.charAt(0), surname.charAt(0));
   }
 }

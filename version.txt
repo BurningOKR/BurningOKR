@@ -1,4 +1,4 @@
-1.4.7
+1.4.8
 
-- Update: FE updated angular to version 14
-- Update: FE updated dependencies
+- Feature: added Dashboard view
+- Fix: fixed styling issues

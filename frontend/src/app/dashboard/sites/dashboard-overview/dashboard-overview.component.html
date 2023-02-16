@@ -1,0 +1,20 @@
+<app-okr-toolbar>
+  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>{{'dashboard-overview.okr-toolbar.dashboard-overview' | translate}}</span>
+  <span class="fill-space"></span>
+</app-okr-toolbar>
+
+<div *ngIf="companyId$ | async; let companyId" class="create-dashboard-button">
+  <button mat-stroked-button routerLink="/companies/{{companyId}}/create-dashboard">
+    <mat-icon>add_circle_outline</mat-icon>
+    {{'dashboard-overview.create-dashboard-button' | translate}}
+  </button>
+</div>
+
+<div class="dashboard-overview-cards d-flex">
+  <div *ngFor="let dashboard of (currentCompanyDashboards$| async)">
+    <app-dashboard-card (deleteDashboard)="deleteDashboard($event)" [dashboard]="dashboard"></app-dashboard-card>
+  </div>
+</div>

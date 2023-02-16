@@ -11,7 +11,14 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
-      version: '1.4.7 (07.02.2022)',
+      version: '1.4.8 (16.02.2023)',
+      changes: [
+        'Feature: added Dashboard view',
+        'Fix: fixed styling issues',
+      ],
+    },
+    {
+      version: '1.4.7 (07.02.2023)',
       changes: [
         'Update: FE updated angular to version 14',
         'Update: FE updated dependencies',

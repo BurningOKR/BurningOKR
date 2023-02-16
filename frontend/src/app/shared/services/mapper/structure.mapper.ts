@@ -29,18 +29,18 @@ export class StructureMapper {
       );
   }
 
-  private mapDtoToCompanyUnitStructure(structureDto: StructureDto) {
+  private mapDtoToCompanyUnitStructure(structureDto: StructureDto): Structure {
     if (structureDto.substructure === []) {
       return;
     }
 
-    return new Structure(
-      structureDto.okrUnitId,
-      structureDto.unitName,
-      structureDto.label,
-      structureDto.objectiveIds,
-      this.mapDtosToStructureArray(structureDto.substructure),
-    );
+    return {
+      id: structureDto.okrUnitId,
+      name: structureDto.unitName,
+      label: structureDto.label,
+      objectives: structureDto.objectiveIds,
+      substructures: this.mapDtosToStructureArray(structureDto.substructure),
+    };
   }
 
   private mapDtosToStructureArray(structureDtos: StructureDto[]): Structure[] {

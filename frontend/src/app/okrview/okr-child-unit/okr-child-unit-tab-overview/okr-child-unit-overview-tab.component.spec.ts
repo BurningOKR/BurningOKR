@@ -15,6 +15,7 @@ import { CycleState, CycleUnit } from '../../../shared/model/ui/cycle-unit';
 import { ViewObjective } from '../../../shared/model/ui/view-objective';
 import { Component, Input } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 @Component({
   selector: 'app-objective',
@@ -74,18 +75,19 @@ describe('ChildUnitOverviewTabComponent', () => {
     unitMapper.putOkrUnitObjectiveSequence$.mockReset();
     unitMapper.putOkrUnitObjectiveSequence$.mockReturnValue(of(null));
 
-    department = new OkrDepartment(
-      1,
-      'testDepartment',
-      [],
-      0,
-      'test',
-      'testMaster',
-      'testSponsor',
-      [],
-      true,
-      false,
-    );
+    department = {
+      id: 1,
+      name: 'testDepartment',
+      objectives: [],
+      parentUnitId: 0,
+      label: 'test',
+      okrMasterId: 'testMaster',
+      okrTopicSponsorId: 'testSponsor',
+      okrMemberIds: [],
+      isActive: true,
+      isParentUnitABranch: false,
+      type: UnitType.DEPARTMENT,
+    };
 
     currentUserRole = new ContextRole();
     cycle = new CycleUnit(1, 'test', [0], new Date(), new Date(), CycleState.ACTIVE, true);

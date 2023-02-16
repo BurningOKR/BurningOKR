@@ -55,6 +55,12 @@
       "title": "Change password"
     }
   },
+  "chart-options-card": {
+    "chartType": "Chart type: ",
+    "company-average": "Company average",
+    "teams": "Teams",
+    "title": "Title: "
+  },
   "comment-card": {
     "edit-comment": "Edit comment",
     "tooltip": {
@@ -109,12 +115,26 @@
     },
     "form": {
       "company-option": "Create team in {{value}} ",
-      "select": "Choose parent structure *"
+      "select": "Choose parent structure"
     },
     "title": "Convert Topic Draft to a Team",
     "tooltip": {
       "only-substructures-allowed": "A team can be created only in structures"
     }
+  },
+  "create-dashboard": {
+    "add-chart-button": "Add chart",
+    "add-new-chart-to-dashboard": "Add Chart",
+    "chart-title-placeholder": "Chart Title",
+    "create-dashboard-button": "Create Dashboard",
+    "dashboard-title-placeholder": "Dashboard Title",
+    "line-progress": "Progress - Linechart",
+    "okr-toolbar": {
+      "create-dashboard": "Create Dashboard"
+    },
+    "pie-topicdraft": "Topicdraft overview - Piechart",
+    "select-teams-placeholder": "Select Teams",
+    "type-of-chart-placeholder": "Type of chart"
   },
   "create-user-init-state-form": {
     "create-your-admin-account": "Create your administrator account",
@@ -153,11 +173,26 @@
   },
   "cycle-edit-form": {
     "end-date": "End date",
-    "name": "Name *",
+    "name": "Name",
     "save": "Save",
     "start-date": "Start date",
     "title": "Edit cycle",
     "visibility": "Visibility"
+  },
+  "dashboard": {
+    "okr-toolbar": {
+      "dashboard": "Dashboard"
+    }
+  },
+  "dashboard-card": {
+    "created-by": "Created by: ",
+    "delete-dashboard": "Delete"
+  },
+  "dashboard-overview": {
+    "create-dashboard-button": "Create Dashboard",
+    "okr-toolbar": {
+      "dashboard-overview": "Dashboard overview"
+    }
   },
   "date-format-validator-function": {
     "message": "The entered value is not a valid date in the form DD.MM.YYYY"
@@ -273,7 +308,7 @@
     "no-parent-key-result": "No parent key result",
     "select-parent-key-result": "Choose a parent Key Result",
     "task-state": "State",
-    "title": "Title *"
+    "title": "Title"
   },
   "department-tab-taskboard": {
     "add-button": {
@@ -361,25 +396,25 @@
   },
   "key-result-form": {
     "amount-units": "Amount",
-    "current": "Current *",
+    "current": "Current",
     "description": "Description",
     "dialog": {
       "create": "creation",
       "edit": "editing"
     },
-    "key-result": "Key Result *",
-    "start": "Start *",
-    "target": "Target *",
-    "unit": "Unit *"
+    "key-result": "Key Result",
+    "start": "Start",
+    "target": "Target",
+    "unit": "Unit"
   },
   "key-result-milestone-form": {
     "add-button": "Add milestone",
-    "name-*": "Name *",
+    "name-*": "Name",
     "toggle": "Milestones active",
     "tooltip": {
       "delete-button": "Delete milestone"
     },
-    "value-input": "Target-Value *"
+    "value-input": "Target-Value"
   },
   "keyresult": {
     "deletion-dialog": {
@@ -538,13 +573,13 @@
     "unit-not-active": "This structure is inactive"
   },
   "okr-child-unit-form": {
-    "description": "Label *",
+    "description": "Label",
     "dialog": {
       "create": " Create {{label}}",
       "edit": " Edit {{label}}"
     },
     "header": "Active",
-    "name-*": "Name *"
+    "name-*": "Name"
   },
   "okr-child-unit-overview-tab": {
     "create-new-objective": "Create Objective",
@@ -575,6 +610,7 @@
       "admin-panel-text": "Admin panel",
       "change-password-text": "Change password",
       "cycle-administration-text": "Cycle management",
+      "dashboard-overview": "Dashboard overview",
       "language-picker": "Pick language",
       "logout-text": "Logout",
       "settings-text": "Settings",
@@ -591,14 +627,14 @@
     }
   },
   "okr-topic-description-form": {
-    "beginning": "Beginning *",
+    "beginning": "Beginning",
     "contributes-to": "Contributes to",
     "delimitation": "Delimitation",
     "dependencies": "Dependencies",
     "description": "Description",
     "handover-plan": "Handover Plan",
-    "header": "Topic *",
-    "initiator": "Initiator *",
+    "header": "Topic",
+    "initiator": "Initiator",
     "no-initiator": "No initiator",
     "resources": "Required Resources",
     "stakeholder": "Stakeholder",
@@ -633,8 +669,8 @@
       "team": "OKR team"
     },
     "placeholder": {
-      "label": "label *",
-      "name": "name *"
+      "label": "label",
+      "name": "name"
     },
     "save": " Save {{value}}",
     "structure": "structure"
