@@ -33,23 +33,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.0.RELEASE'
-    implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.0.RELEASE'
-    implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth', version: '2.4.0.RELEASE'
-    implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.0.RELEASE'
+    implementation 'org.modelmapper:modelmapper:2.1.0'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.4'
-
-    implementation group: 'org.flywaydb', name: 'flyway-core'
-
-    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
-
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.0'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-
-    implementation "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
-    implementation "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
+    // websockets
+    implementation 'no.fiken.oss.junixsocket:junixsocket-common:1.0.2'
+    implementation 'no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     // security

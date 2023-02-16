@@ -3,8 +3,8 @@ package org.burningokr.model.okr;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
+import org.springframework.lang.Nullable;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
