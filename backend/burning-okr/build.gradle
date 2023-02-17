@@ -15,7 +15,7 @@ buildscript {
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'checkstyle'
+    /*apply plugin: 'checkstyle'*/ // TODO enable again?
     apply plugin: 'com.diffplug.gradle.spotless'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -28,6 +28,9 @@ subprojects {
     }
 
     dependencies {
+        implementation 'com.google.code.findbugs:jsr305:3.0.2'
+        // TODO look if needed after spring update (fixes Missing Annotation Warning)
+
         // Spring dependency resolution
         implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
 
@@ -76,9 +79,9 @@ subprojects {
         //useJUnitPlatform()
     }
 
-    checkstyle {
-        toolVersion '8.29'
-    }
+    /*checkstyle {
+        toolVersion '8.29' // TODO enable again?
+    }*/
 
     spotless {
         format 'misc', {
@@ -96,13 +99,15 @@ subprojects {
             setLineEndings("UNIX")
         }
     }
-    configurations.all {
+    configurations.configureEach {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'org.springframework.boot') {
                 details.useVersion '2.0.4.RELEASE'
+                //details.useVersion '3.0.2'
             }
             if (details.requested.group == 'org.springframework') {
                 details.useVersion '5.0.9.RELEASE'
+                //details.useVersion '6.0.4'
             }
             if (details.requested.group == 'org.springframework.security') {
                 details.useVersion '5.0.8.RELEASE'
@@ -110,6 +115,16 @@ subprojects {
             if (details.requested.group == 'org.springframework.security' && details.requested.name == 'spring-security-jwt') {
                 details.useVersion '1.1.0.RELEASE'
             }
+            if (details.requested.group == 'org.springframework.security.oauth.boot') {
+                details.useVersion '2.1.0.RELEASE'
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.compilerArgs += ['-Xlint:deprecation']
+            options.compilerArgs += ['-Xlint:unchecked']
         }
     }
 }

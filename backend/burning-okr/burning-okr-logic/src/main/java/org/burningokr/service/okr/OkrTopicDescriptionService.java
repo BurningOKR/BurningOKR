@@ -145,6 +145,8 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     }
   }
 
+  // TODO check if TopicDrafts are deleted after a cascading deletion, deprecated method try to remove
+
   /**
    * This method must return true, otherwise the onPostDelete method will not be called.
    *
@@ -152,18 +154,8 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @return true
    */
   @Override
+  @Deprecated
   public boolean requiresPostCommitHanding(EntityPersister entityPersister) {
-    return true;
-  }
-
-  /**
-   * This method must return true, otherwise the onPostDelete method will not be called.
-   *
-   * @param persister an {@link EntityPersister}
-   * @return true
-   */
-  @Override
-  public boolean requiresPostCommitHandling(EntityPersister persister) {
     return true;
   }
 

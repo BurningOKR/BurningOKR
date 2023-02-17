@@ -12,13 +12,11 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
@@ -27,8 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -56,11 +53,6 @@ public class UserSettingsServiceTest {
   public static void initClass() {
     user = mock(User.class);
     when(user.getId()).thenReturn(userId);
-  }
-
-  @Before
-  public void init() {
-    MockitoAnnotations.initMocks(this);
   }
 
   @Test
@@ -323,11 +315,7 @@ public class UserSettingsServiceTest {
       this.userSettingsService.updateUserSettings(userSettings, user);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw EntityNotFoundException.",
-        ex,
-        instanceOf(EntityNotFoundException.class)
-      );
+      assertEquals(ex.getClass(), EntityNotFoundException.class);
     }
   }
 

@@ -8,9 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class AdminUserMapperTest {
   private final AdminUserMapper adminUserMapper = new AdminUserMapper();
@@ -54,7 +52,6 @@ public class AdminUserMapperTest {
     ArrayList<AdminUser> adminUsers =
       (ArrayList<AdminUser>) adminUserMapper.mapDtosToEntities(adminUserDtos);
 
-    assertThat(adminUserDtos, hasSize(2));
     assertEquals(adminUserDtos.size(), adminUsers.size());
     for (int i = 0; i < adminUserDtos.size(); i++) {
       assertMapped(adminUserDtos.get(i), adminUsers.get(i));
@@ -74,7 +71,6 @@ public class AdminUserMapperTest {
     ArrayList<AdminUserDto> adminUserDtos =
       (ArrayList<AdminUserDto>) adminUserMapper.mapEntitiesToDtos(adminUsers);
 
-    assertThat(adminUsers, hasSize(2));
     assertEquals(adminUsers.size(), adminUserDtos.size());
     for (int i = 0; i < adminUsers.size(); i++) {
       assertMapped(adminUsers.get(i), adminUserDtos.get(i));

@@ -6,7 +6,7 @@ dependencies {
     implementation project(':burning-okr-model')
     testImplementation project(':burning-okr-model')
 
-    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE'
+    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     // TODO remove later

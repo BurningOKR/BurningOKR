@@ -16,8 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -80,11 +79,7 @@ public class ParentServiceTest {
       mockParentService.validateParentObjective(testObjective, testObjective);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw IllegalArgumentException.",
-        ex,
-        instanceOf(IllegalArgumentException.class)
-      );
+      assertEquals(ex.getClass(), IllegalArgumentException.class);
     }
 
     verify(mockParentService).isParentObjectiveLegal(any(Objective.class), any(Objective.class));

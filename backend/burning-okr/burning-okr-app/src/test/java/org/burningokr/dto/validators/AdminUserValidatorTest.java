@@ -14,8 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -66,8 +65,7 @@ public class AdminUserValidatorTest {
       adminUserValidator.validateAdminUserOnAdd(null);
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
 
     verify(userService, never()).getCurrentUser();
@@ -75,7 +73,7 @@ public class AdminUserValidatorTest {
   }
 
   @Test
-  public void validateAdminUserOnAdd_existingAdmin_expectedThrow() throws InvalidDtoException {
+  public void validateAdminUserOnAdd_existingAdmin_expectedThrow() {
     when(userToInsert.getId()).thenReturn(existingAdminId);
     adminUser.setId(userToInsert.getId());
 
@@ -83,8 +81,7 @@ public class AdminUserValidatorTest {
       adminUserValidator.validateAdminUserOnAdd(adminUser);
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
 
     verify(adminUserRepository).findById(existingAdminId);
@@ -98,7 +95,7 @@ public class AdminUserValidatorTest {
     try {
       adminUserValidator.validateAdminUserOnAdd(adminUser);
     } catch (Exception ex) {
-      assertThat("Should not throw any Exception.", ex, instanceOf(Exception.class));
+      fail("Should not throw any exception");
     }
   }
 
@@ -108,8 +105,7 @@ public class AdminUserValidatorTest {
       adminUserValidator.validateAdminUserId(null);
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
 
     verify(adminUserRepository, never()).findById(null);
@@ -121,8 +117,7 @@ public class AdminUserValidatorTest {
       adminUserValidator.validateAdminUserId(currentUserId);
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
 
     verify(userService).getCurrentUser();
@@ -136,8 +131,7 @@ public class AdminUserValidatorTest {
       adminUserValidator.validateAdminUserId(uuid);
       fail("Should throw InvalidDtoException.");
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
 
     verify(userService).getCurrentUser();

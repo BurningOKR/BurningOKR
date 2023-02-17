@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -78,7 +78,7 @@ public class UserMapperTest {
   public void test_mapDtoToEntity_aadUser_ShouldMapCorrectly() {
     when(appEnvironment.getAuthMode()).thenReturn(AuthModes.AZURE);
     User user = userMapper.mapDtoToEntity(userDto1);
-    Assert.assertThat(user, instanceOf(AadUser.class));
+    assertEquals(user.getClass(), AadUser.class);
     assertDtoWithUser(userDto1, user);
   }
 
@@ -86,7 +86,7 @@ public class UserMapperTest {
   public void test_mapDtoToEntity_localUser_ShouldMapCorrectly() {
     when(appEnvironment.getAuthMode()).thenReturn(AuthModes.LOCAL);
     User user = userMapper.mapDtoToEntity(userDto1);
-    Assert.assertThat(user, instanceOf(LocalUser.class));
+    assertEquals(user.getClass(), LocalUser.class);
     assertDtoWithUser(userDto1, user);
   }
 

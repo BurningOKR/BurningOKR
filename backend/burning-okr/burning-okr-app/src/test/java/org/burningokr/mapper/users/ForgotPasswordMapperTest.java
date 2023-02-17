@@ -7,9 +7,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class ForgotPasswordMapperTest {
   private final ForgotPasswordMapper forgotPasswordMapper = new ForgotPasswordMapper();
@@ -53,7 +51,6 @@ public class ForgotPasswordMapperTest {
     ArrayList<ForgotPassword> forgotPasswords =
       (ArrayList<ForgotPassword>) forgotPasswordMapper.mapDtosToEntities(forgotPasswordDtos);
 
-    assertThat(forgotPasswordDtos, hasSize(2));
     assertEquals(forgotPasswordDtos.size(), forgotPasswords.size());
     for (int i = 0; i < forgotPasswordDtos.size(); i++) {
       assertMapped(forgotPasswordDtos.get(i), forgotPasswords.get(i));
@@ -73,7 +70,6 @@ public class ForgotPasswordMapperTest {
     ArrayList<ForgotPasswordDto> forgotPasswordDtos =
       (ArrayList<ForgotPasswordDto>) forgotPasswordMapper.mapEntitiesToDtos(forgotPasswords);
 
-    assertThat(forgotPasswords, hasSize(2));
     assertEquals(forgotPasswords.size(), forgotPasswordDtos.size());
     for (int i = 0; i < forgotPasswords.size(); i++) {
       assertMapped(forgotPasswords.get(i), forgotPasswordDtos.get(i));

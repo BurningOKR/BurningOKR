@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -30,17 +29,13 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CycleDtoValidatorTest {
 
+  private final Long cycleDtoId = 100L;
   @Mock
   private CycleRepository cycleRepository;
-
   @Mock
   private CompanyRepository companyRepository;
-
   @InjectMocks
   private CycleDtoValidator cycleDtoValidator;
-
-  private Long cycleDtoId = 100L;
-
   private OkrCompanyHistory targetOkrUnitHistory;
   private OkrCompany targetOkrCompany;
 
@@ -89,8 +84,7 @@ public class CycleDtoValidatorTest {
   }
 
   @Test
-  public void validateCycleDto_DtoNameEmpty_expectedInvalidDtoException()
-    throws InvalidDtoException {
+  public void validateCycleDto_DtoNameEmpty_expectedInvalidDtoException() {
     CycleDto cycleDto = getValidCycleDto();
     cycleDto.setName("");
 
@@ -98,8 +92,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 
@@ -113,8 +106,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 
@@ -129,8 +121,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 
@@ -143,8 +134,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 
@@ -158,8 +148,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 
@@ -171,8 +160,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 
@@ -190,8 +178,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 
@@ -207,8 +194,7 @@ public class CycleDtoValidatorTest {
   }
 
   @Test
-  public void validateCycleDto_DtoDateOverlapsWithOtherCycle_expectedInvalidDtoException()
-    throws InvalidDtoException {
+  public void validateCycleDto_DtoDateOverlapsWithOtherCycle_expectedInvalidDtoException() {
     CycleDto cycleDto = getValidCycleDto();
     Cycle envelopedCycle = new Cycle();
     envelopedCycle.setId(cycleDtoId + 100L);
@@ -217,8 +203,7 @@ public class CycleDtoValidatorTest {
       cycleDtoValidator.validateCycleDto(cycleDto);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw InvalidDtoException.", ex, instanceOf(InvalidDtoException.class));
+      assertEquals(ex.getClass(), InvalidDtoException.class);
     }
   }
 

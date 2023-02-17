@@ -39,7 +39,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -122,7 +121,7 @@ public class OkrCompanyServiceTest {
       companyService.createDepartment(companyId, okrDepartment, user);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat("Should only throw ForbiddenException.", ex, instanceOf(ForbiddenException.class));
+      assertEquals(ex.getClass(), ForbiddenException.class);
     }
   }
 
@@ -152,12 +151,12 @@ public class OkrCompanyServiceTest {
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setName("test");
     TaskBoard taskBoard = new TaskBoard();
-    Collection<TaskState> availableStates = new ArrayList();
+    Collection<TaskState> availableStates = new ArrayList<>();
 
     TaskState state1 = new TaskState();
     state1.setParentTaskBoard(taskBoard);
     state1.setTitle("state1");
-    state1.setId(1l);
+    state1.setId(1L);
 
     availableStates.add(state1);
     taskBoard.setAvailableStates(availableStates);
@@ -206,7 +205,7 @@ public class OkrCompanyServiceTest {
       okrCompany = companyService.updateCompany(updateOkrCompany, user);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat("Should only throw ForbiddenException.", ex, instanceOf(ForbiddenException.class));
+      assertEquals(ex.getClass(), ForbiddenException.class);
     }
   }
 
@@ -223,11 +222,7 @@ public class OkrCompanyServiceTest {
       okrCompany = companyService.updateCompany(updateOkrCompany, user);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw EntityNotFoundException.",
-        ex,
-        instanceOf(EntityNotFoundException.class)
-      );
+      assertEquals(ex.getClass(), EntityNotFoundException.class);
     }
 
     verify(companyRepository).findByIdOrThrow(anyLong());
@@ -252,11 +247,7 @@ public class OkrCompanyServiceTest {
       companyService.deleteCompany(notExistingCompanyId, true, user);
       Assert.fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw EntityNotFoundException.",
-        ex,
-        instanceOf(EntityNotFoundException.class)
-      );
+      assertEquals(ex.getClass(), EntityNotFoundException.class);
     }
   }
 
@@ -390,7 +381,6 @@ public class OkrCompanyServiceTest {
   @Test
   public void createTopicDraftHistory_expectsSetsHistory() {
     OkrTopicDraftHistory okrTopicDraftHistory = new OkrTopicDraftHistory();
-    OkrTopicDescription okrTopicDescription = new OkrTopicDescription();
     OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);

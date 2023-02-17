@@ -9,13 +9,11 @@ import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.service.okrUnitUtil.CyclePreparationCloningService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.persistence.EntityNotFoundException;
@@ -30,29 +28,20 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CycleServiceTest {
 
+  private final LocalDate plannedStartDate = LocalDate.now().minusMonths(1);
+  private final LocalDate plannedEndDate = LocalDate.now().plusMonths(1);
+  private final LocalDate factualStartDate = plannedStartDate.plusDays(1);
+  private final LocalDate factualEndDate = plannedEndDate.plusDays(1);
   @Mock
   private CycleRepository cycleRepository;
-
   @Mock
   private CyclePreparationCloningService cyclePreparationCloningService;
-
   @Mock
   private CompanyHistoryRepository companyHistoryRepository;
-
   @Mock
   private User mockedUser;
-
   @InjectMocks
   private CycleService cycleService;
-  private LocalDate plannedStartDate = LocalDate.now().minusMonths(1);
-  private LocalDate plannedEndDate = LocalDate.now().plusMonths(1);
-  private LocalDate factualStartDate = plannedStartDate.plusDays(1);
-  private LocalDate factualEndDate = plannedEndDate.plusDays(1);
-
-  @Before
-  public void init() {
-    MockitoAnnotations.initMocks(this);
-  }
 
   @Test
   public void getAllCycles_expectedNoCycles() {
