@@ -1,5 +1,9 @@
 package org.burningokr.service.okr;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.OkrTopicDescription;
@@ -20,10 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,8 +154,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @return true
    */
   @Override
-  @Deprecated
-  public boolean requiresPostCommitHanding(EntityPersister entityPersister) {
+  public boolean requiresPostCommitHandling(EntityPersister entityPersister) {
     return true;
   }
 

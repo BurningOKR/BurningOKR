@@ -1,5 +1,6 @@
 package org.burningokr.service.initialisation;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
@@ -19,7 +20,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.Collections;
 

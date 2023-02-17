@@ -1,5 +1,6 @@
 package org.burningokr.service.okr.feedback;
 
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.mail.Mail;
@@ -8,7 +9,6 @@ import org.burningokr.service.exceptions.SendingMailFailedException;
 import org.burningokr.service.mail.MailService;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

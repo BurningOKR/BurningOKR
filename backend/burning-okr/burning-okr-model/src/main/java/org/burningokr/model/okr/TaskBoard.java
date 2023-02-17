@@ -1,11 +1,11 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrDepartment;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 

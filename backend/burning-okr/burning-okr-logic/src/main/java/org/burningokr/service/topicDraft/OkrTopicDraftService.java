@@ -1,6 +1,7 @@
 package org.burningokr.service.topicDraft;
 
 import com.google.common.collect.Lists;
+import jakarta.transaction.Transactional;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteTopicDraft;
@@ -16,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

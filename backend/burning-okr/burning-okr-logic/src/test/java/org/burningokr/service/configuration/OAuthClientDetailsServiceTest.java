@@ -1,5 +1,6 @@
 package org.burningokr.service.configuration;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.repositories.configuration.OAuthClientDetailsRepository;
 import org.junit.Before;
@@ -10,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 
 import static org.junit.Assert.*;

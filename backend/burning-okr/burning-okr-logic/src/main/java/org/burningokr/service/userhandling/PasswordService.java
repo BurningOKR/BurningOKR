@@ -1,5 +1,7 @@
 package org.burningokr.service.userhandling;
 
+import jakarta.mail.MessagingException;
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.mail.Mail;
 import org.burningokr.model.users.ChangePasswordData;
@@ -14,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedClientException;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.*;
 

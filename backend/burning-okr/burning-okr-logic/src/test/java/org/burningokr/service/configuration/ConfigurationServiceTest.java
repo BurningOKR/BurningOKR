@@ -1,5 +1,6 @@
 package org.burningokr.service.configuration;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
@@ -12,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.ApplicationEventPublisher;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

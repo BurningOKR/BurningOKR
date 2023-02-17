@@ -1,12 +1,12 @@
 package org.burningokr.model.okrUnits;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 

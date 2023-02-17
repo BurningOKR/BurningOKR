@@ -1,5 +1,6 @@
 package org.burningokr.controller.exceptions;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.service.exceptions.*;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice

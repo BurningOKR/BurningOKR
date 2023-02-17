@@ -1,9 +1,9 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;

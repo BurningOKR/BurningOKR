@@ -1,10 +1,10 @@
 package org.burningokr.model.dashboard;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,10 +1,10 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 
-import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 
 @Entity

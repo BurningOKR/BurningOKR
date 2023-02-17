@@ -1,8 +1,7 @@
 package org.burningokr.model.okrUnits;
 
+import jakarta.persistence.*;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

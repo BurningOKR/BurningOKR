@@ -1,10 +1,10 @@
 package org.burningokr.repositories;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
-import javax.persistence.EntityNotFoundException;
 import java.io.Serializable;
 
 public class ExtendedRepositoryImpl<T, I extends Serializable> extends SimpleJpaRepository<T, I>

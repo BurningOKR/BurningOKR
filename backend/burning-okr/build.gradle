@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.2")
+        classpath 'io.freefair.gradle:lombok-plugin:6.6.2'
     }
 
 }
@@ -19,9 +20,10 @@ subprojects {
     apply plugin: 'com.diffplug.gradle.spotless'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'io.freefair.lombok'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 17
+    targetCompatibility = 17
 
     repositories {
         mavenCentral()
@@ -41,7 +43,7 @@ subprojects {
         implementation 'net.sf.ehcache:ehcache-core:2.6.11'
         implementation 'org.springframework.security:spring-security-acl'
         implementation 'org.springframework:spring-context-support'
-        implementation 'javax.mail:mail:1.5.0-b01'
+        implementation 'jakarta.mail:jakarta.mail-api:2.1.1'
 
         implementation 'com.auth0:java-jwt:3.4.0'
         implementation 'com.auth0:auth0-spring-security-api:1.2.6'
@@ -70,9 +72,10 @@ subprojects {
         testImplementation "org.springframework.boot:spring-boot-starter-test"
 
         // lombok
-        compileOnly deps.lombok
+/*        compileOnly deps.lombok
         annotationProcessor deps.lombok
-        testAnnotationProcessor deps.lombok
+        testCompileOnly deps.lombok
+        testAnnotationProcessor deps.lombok*/
     }
 
     test {
@@ -99,15 +102,17 @@ subprojects {
             setLineEndings("UNIX")
         }
     }
+
+    // unifies and Configures the Versions of Dependencies in all Sub
     configurations.configureEach {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'org.springframework.boot') {
-                details.useVersion '2.0.4.RELEASE'
-                //details.useVersion '3.0.2'
+                //details.useVersion '2.0.4.RELEASE'
+                details.useVersion '3.0.2'
             }
             if (details.requested.group == 'org.springframework') {
-                details.useVersion '5.0.9.RELEASE'
-                //details.useVersion '6.0.4'
+                //details.useVersion '5.0.9.RELEASE'
+                details.useVersion '6.0.4'
             }
             if (details.requested.group == 'org.springframework.security') {
                 details.useVersion '5.0.8.RELEASE'
@@ -121,6 +126,7 @@ subprojects {
         }
     }
 
+    // shows more information about violations
     tasks.withType(JavaCompile).tap {
         configureEach {
             options.compilerArgs += ['-Xlint:deprecation']
