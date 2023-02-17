@@ -1,5 +1,7 @@
 jar { enabled = true } // TODO remove after Spring Framework Version > 2.5
 
+bootJar { enabled = false }
+
 dependencies {
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')

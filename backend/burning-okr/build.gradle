@@ -46,6 +46,11 @@ subprojects {
         // Logging
         implementation 'org.springframework.boot:spring-boot-starter-log4j2'
         implementation 'org.slf4j:slf4j-api:1.7.25'
+        modules {
+            module("org.springframework.boot:spring-boot-starter-logging") {
+                replacedBy("org.springframework.boot:spring-boot-starter-log4j2", "Use Log4j2 instead of Logback")
+            }
+        }
 
         implementation 'javax.xml.bind:jaxb-api:2.3.0'
         implementation 'javax.validation:validation-api:2.0.1.Final' // TODO check if removable
