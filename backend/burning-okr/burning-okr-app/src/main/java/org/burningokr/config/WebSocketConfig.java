@@ -20,15 +20,17 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
-import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;
+import org.springframework.security.config.annotation.web.socket.EnableWebSocketSecurity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.messaging.access.intercept.MessageMatcherDelegatingAuthorizationManager;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerEndpointsConfiguration;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
@@ -37,8 +39,9 @@ import java.util.List;
 @EnableWebSocketMessageBroker
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableWebSocketSecurity
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
   private final ResourceServerTokenServices resourceServerTokenServices;
 
@@ -55,7 +58,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
-    long[] heartbeats = {10000l, 10000l};
+    long[] heartbeats = {10000L, 10000L};
     config
       .enableSimpleBroker("/topic")
       .setTaskScheduler(heartBeatScheduler())
@@ -63,9 +66,9 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
     config.setApplicationDestinationPrefixes("/ws");
   }
 
-  @Override
-  protected void configureInbound(MessageSecurityMetadataSourceRegistry message) {
-    message
+  @Bean
+  AuthorizationManager<Message<?>> authorizationManager(MessageMatcherDelegatingAuthorizationManager.Builder messages) {
+    messages
       .nullDestMatcher()
       .permitAll()
       .simpTypeMatchers(SimpMessageType.CONNECT)
@@ -78,15 +81,11 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
       .authenticated()
       .anyMessage()
       .denyAll();
+    return messages.build();
   }
 
   @Override
-  protected boolean sameOriginDisabled() {
-    return true;
-  }
-
-  @Override
-  public void customizeClientInboundChannel(ChannelRegistration registration) {
+  public void configureClientInboundChannel(ChannelRegistration registration) {
     registration.interceptors(
       new ChannelInterceptor() {
         @Override

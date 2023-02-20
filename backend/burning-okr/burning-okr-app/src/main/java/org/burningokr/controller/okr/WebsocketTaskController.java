@@ -1,6 +1,5 @@
 package org.burningokr.controller.okr;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.okr.TaskDto;
 import org.burningokr.mapper.okr.TaskMapper;
@@ -8,6 +7,7 @@ import org.burningokr.model.okr.Task;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskService;
 import org.burningokr.service.security.AuthorizationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -20,12 +20,24 @@ import java.util.Collection;
 
 @Controller
 @Slf4j
-@RequiredArgsConstructor
 public class WebsocketTaskController {
   private final SimpMessagingTemplate simpMessagingTemplate;
   private final TaskService taskService;
   private final TaskMapper taskMapper;
   private AuthorizationService authorizationService;
+
+  @Autowired
+  public WebsocketTaskController(
+    AuthorizationService authorizationService,
+    TaskService taskService,
+    TaskMapper taskMapper,
+    SimpMessagingTemplate simpMessagingTemplate
+  ) {
+    this.authorizationService = authorizationService;
+    this.taskService = taskService;
+    this.taskMapper = taskMapper;
+    this.simpMessagingTemplate = simpMessagingTemplate;
+  }
 
   @MessageMapping("unit/{unitId}/tasks/add")
   public void addTask(

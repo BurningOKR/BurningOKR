@@ -8,10 +8,9 @@ import org.flywaydb.core.api.MigrationInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
@@ -31,21 +30,24 @@ public class MigrationConfiguration {
    * Override default flyway initializer to do nothing.
    */
   @Bean
-  FlywayMigrationInitializer flywayInitializer(Flyway flyway) {
-    safeRepairDatabase(flyway);
-
-    return new FlywayMigrationInitializer(flyway, (f) -> {});
+  public FlywayMigrationStrategy flywayMigrationStrategy() {
+    return flyway -> {
+      // do nothing
+    };
   }
+
+  /*  */
 
   /**
    * Create a second flyway initializer to run after jpa has created the schema.
-   */
+   *//*
   @Bean
   @DependsOn("entityManagerFactory")
-  FlywayMigrationInitializer delayedFlywayInitializer(Flyway flyway) {
-    return new FlywayMigrationInitializer(flyway, null);
-  }
-
+  public FlywayMigrationStrategy delayedFlywayMigrationStrategy() {
+    return flyway -> {
+      // do nothing
+    };
+  }*/
   private void safeRepairDatabase(Flyway flyway) {
     MigrationInfo[] appliedMigrations = flyway.info().applied();
     if (doesContainDeprecatedMigrations(appliedMigrations)) {

@@ -8,15 +8,25 @@ buildscript {
 }
 
 apply plugin: 'war'
+//apply plugin: 'io.freefair.lombok'
+
 
 group = 'org.burningokr'
 
 bootWar {
     enabled = true
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
 
 war {
     enabled = true
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 dependencies {
@@ -47,7 +57,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.flywaydb:flyway-core'
     implementation 'com.microsoft.sqlserver:mssql-jdbc'
-    implementation 'org.postgresql:postgresql:42.2.4'
+    implementation 'org.postgresql:postgresql:42.5.4'
 
     // swagger
     implementation 'io.springfox:springfox-swagger2:2.9.2'
@@ -57,7 +67,8 @@ dependencies {
     implementation 'com.google.guava:guava:20.0'
     implementation 'org.apache.poi:poi-ooxml:3.9'
     implementation 'org.apache.poi:poi:3.9'
-    implementation 'javax.servlet:servlet-api:2.5'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
 }
 
 springBoot {

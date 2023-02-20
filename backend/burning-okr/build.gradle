@@ -7,9 +7,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
+//        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.2")
-        classpath 'io.freefair.gradle:lombok-plugin:6.6.2'
+//        classpath 'io.freefair.gradle:lombok-plugin:6.6.2'
     }
 
 }
@@ -17,10 +17,10 @@ buildscript {
 subprojects {
     apply plugin: 'java'
     /*apply plugin: 'checkstyle'*/ // TODO enable again?
-    apply plugin: 'com.diffplug.gradle.spotless'
+//    apply plugin: 'com.diffplug.gradle.spotless'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'io.freefair.lombok'
+//    apply plugin: 'io.freefair.lombok'
 
     sourceCompatibility = 17
     targetCompatibility = 17
@@ -30,6 +30,9 @@ subprojects {
     }
 
     dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
         implementation 'com.google.code.findbugs:jsr305:3.0.2'
         // TODO look if needed after spring update (fixes Missing Annotation Warning)
 
@@ -72,10 +75,10 @@ subprojects {
         testImplementation "org.springframework.boot:spring-boot-starter-test"
 
         // lombok
-/*        compileOnly deps.lombok
-        annotationProcessor deps.lombok
-        testCompileOnly deps.lombok
-        testAnnotationProcessor deps.lombok*/
+//        compileOnly deps.lombok
+//        annotationProcessor deps.lombok
+//        testCompileOnly deps.lombok
+//        testAnnotationProcessor deps.lombok
     }
 
     test {
@@ -86,9 +89,9 @@ subprojects {
         toolVersion '8.29' // TODO enable again?
     }*/
 
-    spotless {
+    /*spotless {
         format 'misc', {
-            target '**/*.gradle', '**/.*.md', '**/.gitignore'
+            target '**\/*.gradle', '**\/.*.md', '**\/.gitignore'
 
             trimTrailingWhitespace()
             indentWithSpaces()
@@ -101,7 +104,7 @@ subprojects {
             endWithNewline()
             setLineEndings("UNIX")
         }
-    }
+    }*/
 
     // unifies and Configures the Versions of Dependencies in all Sub
     configurations.configureEach {
@@ -115,7 +118,7 @@ subprojects {
                 details.useVersion '6.0.4'
             }
             if (details.requested.group == 'org.springframework.security') {
-                details.useVersion '5.0.8.RELEASE'
+                details.useVersion '5.8.1'
             }
             if (details.requested.group == 'org.springframework.security' && details.requested.name == 'spring-security-jwt') {
                 details.useVersion '1.1.0.RELEASE'
@@ -125,7 +128,6 @@ subprojects {
             }
         }
     }
-
     // shows more information about violations
     tasks.withType(JavaCompile).tap {
         configureEach {
@@ -133,6 +135,8 @@ subprojects {
             options.compilerArgs += ['-Xlint:unchecked']
         }
     }
+
+    tasks.withType(Copy).configureEach { duplicatesStrategy 'exclude' }
 }
 
 /* tasks.register('testReport', TestReport) {

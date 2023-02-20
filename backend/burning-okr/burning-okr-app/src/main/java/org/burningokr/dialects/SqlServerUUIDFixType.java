@@ -1,3 +1,4 @@
+/* TODO
 package org.burningokr.dialects;
 
 import org.hibernate.dialect.Dialect;
@@ -33,3 +34,4 @@ public class SqlServerUUIDFixType extends AbstractSingleColumnStandardBasicType<
     return StringType.INSTANCE.objectToSQLString(uuid.toString(), dialect);
   }
 }
+*/
