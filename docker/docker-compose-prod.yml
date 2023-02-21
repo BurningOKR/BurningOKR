@@ -1,9 +1,9 @@
-version: "3"
+version: '3'
 
 services:
   db:
     image: postgres:9.6.16
-    container_name: burning-okr-postgres
+    hostname: burning-okr-postgres
     env_file:
       - postgres.env
     volumes:
@@ -12,7 +12,7 @@ services:
       - b-okr-backend-network
   backend:
     image: ghcr.io/burningokr/b-okr-backend:latest
-    container_name: burning-okr-backend
+    hostname: burning-okr-backend
     env_file:
       - backend.env
     depends_on:
@@ -22,7 +22,7 @@ services:
       - b-okr-backend-network
   frontend:
     image: ghcr.io/burningokr/b-okr-frontend:latest
-    container_name: burning-okr-frontend
+    hostname: burning-okr-frontend
     depends_on:
       - backend
     ports:
