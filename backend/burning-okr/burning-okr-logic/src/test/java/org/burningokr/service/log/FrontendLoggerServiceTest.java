@@ -1,19 +1,21 @@
 package org.burningokr.service.log;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.log.FrontendLog;
 import org.burningokr.repositories.log.FrontendLoggerRepository;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class FrontendLoggerServiceTest {
 
   @Mock
@@ -31,17 +33,18 @@ public class FrontendLoggerServiceTest {
 
     FrontendLog frontendLog = frontendLoggerService.findById(expectedFrontendLog.getId());
 
-    Assert.assertEquals(expectedFrontendLog, frontendLog);
+    assertEquals(expectedFrontendLog, frontendLog);
   }
 
-  @Test(expected = NullPointerException.class)
+  @Test()
   public void test_findByIdShouldThrowNullPointerException() {
     FrontendLog expectedFrontendLog =
       new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
     when(frontendLoggerRepository.findByIdOrThrow(expectedFrontendLog.getId()))
       .thenThrow(NullPointerException.class);
-
-    frontendLoggerService.findById(expectedFrontendLog.getId());
+    assertThrows(EntityNotFoundException.class, () -> {
+      frontendLoggerService.findById(expectedFrontendLog.getId());
+    });
   }
 
   @Test
@@ -52,6 +55,6 @@ public class FrontendLoggerServiceTest {
 
     FrontendLog frontendLog = frontendLoggerRepository.save(expectedFrontendLog);
 
-    Assert.assertEquals(frontendLog, expectedFrontendLog);
+    assertEquals(frontendLog, expectedFrontendLog);
   }
 }

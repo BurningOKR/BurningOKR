@@ -5,21 +5,22 @@ import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.activity.ActivityRepository;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ActivityServiceTest {
 
   @Mock
@@ -30,7 +31,7 @@ public class ActivityServiceTest {
   private UUID uuid;
   private String userPrincipalName;
 
-  @Before
+  @BeforeEach
   public void init() {
     uuid = UUID.randomUUID();
     user = mock(User.class);
@@ -55,12 +56,12 @@ public class ActivityServiceTest {
     verify(activityRepository).save(capturedActivityArgument.capture());
     Activity capturedActivity = capturedActivityArgument.getValue();
 
-    Assert.assertEquals(expectedUserId, capturedActivity.getUserId());
-    Assert.assertEquals(expectedObject, capturedActivity.getObject());
-    Assert.assertEquals(expectedAction, capturedActivity.getAction());
+    assertEquals(expectedUserId, capturedActivity.getUserId());
+    assertEquals(expectedObject, capturedActivity.getObject());
+    assertEquals(expectedAction, capturedActivity.getAction());
     boolean isTimeSimiliarEnough =
       LocalDateTime.now().minusMinutes(1).isBefore(capturedActivity.getDate());
-    Assert.assertTrue(isTimeSimiliarEnough);
+    assertTrue(isTimeSimiliarEnough);
   }
 
   @Test

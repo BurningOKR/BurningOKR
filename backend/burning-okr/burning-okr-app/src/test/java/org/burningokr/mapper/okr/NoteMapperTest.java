@@ -2,19 +2,20 @@ package org.burningokr.mapper.okr;
 
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.model.okr.Note;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NoteMapperTest {
   private Note note;
   private NoteDto noteDto;
   private NoteMapper noteMapper;
 
-  @Before
+  @BeforeEach
   public void reset() {
     this.noteDto = new NoteDto();
     this.note = new Note();
@@ -27,7 +28,7 @@ public class NoteMapperTest {
     String expected = "test";
     note.setText(expected);
     noteDto = noteMapper.mapEntityToDto(note);
-    Assert.assertEquals(expected, noteDto.getNoteBody());
+    assertEquals(expected, noteDto.getNoteBody());
   }
 
   @Test
@@ -35,7 +36,7 @@ public class NoteMapperTest {
     Long expected = 5L;
     note.setId(expected);
     noteDto = noteMapper.mapEntityToDto(note);
-    Assert.assertEquals(expected, noteDto.getNoteId());
+    assertEquals(expected, noteDto.getNoteId());
   }
 
   @Test
@@ -43,7 +44,7 @@ public class NoteMapperTest {
     UUID expectedUuid = UUID.randomUUID();
     note.setUserId(expectedUuid);
     noteDto = noteMapper.mapEntityToDto(note);
-    Assert.assertEquals(expectedUuid, noteDto.getUserId());
+    assertEquals(expectedUuid, noteDto.getUserId());
   }
 
   @Test
@@ -51,7 +52,7 @@ public class NoteMapperTest {
     LocalDateTime expected = LocalDateTime.now();
     note.setDate(expected);
     noteDto = noteMapper.mapEntityToDto(note);
-    Assert.assertEquals(expected, noteDto.getDate());
+    assertEquals(expected, noteDto.getDate());
   }
   // endregion
 
@@ -61,7 +62,7 @@ public class NoteMapperTest {
     String expected = "test";
     noteDto.setNoteBody(expected);
     note = noteMapper.mapDtoToEntity(noteDto);
-    Assert.assertEquals(expected, note.getText());
+    assertEquals(expected, note.getText());
   }
 
   @Test
@@ -69,7 +70,7 @@ public class NoteMapperTest {
     Long expected = 5L;
     noteDto.setNoteId(expected);
     note = noteMapper.mapDtoToEntity(noteDto);
-    Assert.assertEquals(expected, note.getId());
+    assertEquals(expected, note.getId());
   }
 
   @Test
@@ -77,7 +78,7 @@ public class NoteMapperTest {
     LocalDateTime expected = LocalDateTime.now();
     noteDto.setDate(expected);
     note = noteMapper.mapDtoToEntity(noteDto);
-    Assert.assertEquals(expected, note.getDate());
+    assertEquals(expected, note.getDate());
   }
   // endregion
 }

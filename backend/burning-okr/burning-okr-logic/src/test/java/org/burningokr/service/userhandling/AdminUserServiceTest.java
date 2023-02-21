@@ -3,22 +3,23 @@ package org.burningokr.service.userhandling;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AdminUserRepository;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AdminUserServiceTest {
 
   private static User userToAdd;
@@ -38,7 +39,7 @@ public class AdminUserServiceTest {
   private AdminUser adminUser1;
   private AdminUser adminUser2;
 
-  @BeforeClass
+  @BeforeAll
   public static void init() {
     userId = UUID.randomUUID();
     userToAdd = mock(User.class);
@@ -66,7 +67,7 @@ public class AdminUserServiceTest {
 
     Collection<UUID> actual = adminUserService.getAllAdmins();
 
-    Assert.assertEquals(0, actual.size());
+    assertEquals(0, actual.size());
   }
 
   @Test
@@ -76,8 +77,8 @@ public class AdminUserServiceTest {
 
     Collection<UUID> actual = adminUserService.getAllAdmins();
 
-    Assert.assertEquals(1, actual.size());
-    Assert.assertTrue(actual.contains(adminUserUuid1));
+    assertEquals(1, actual.size());
+    assertTrue(actual.contains(adminUserUuid1));
   }
 
   @Test
@@ -88,9 +89,9 @@ public class AdminUserServiceTest {
 
     Collection<UUID> actual = adminUserService.getAllAdmins();
 
-    Assert.assertEquals(2, actual.size());
-    Assert.assertTrue(actual.contains(adminUserUuid1));
-    Assert.assertTrue(actual.contains(adminUserUuid2));
+    assertEquals(2, actual.size());
+    assertTrue(actual.contains(adminUserUuid1));
+    assertTrue(actual.contains(adminUserUuid2));
   }
 
   @Test
@@ -104,7 +105,7 @@ public class AdminUserServiceTest {
 
     AdminUser capturedAdmin = capturedSave.getValue();
 
-    Assert.assertEquals(userId, capturedAdmin.getId());
+    assertEquals(userId, capturedAdmin.getId());
   }
 
   @Test
@@ -116,7 +117,7 @@ public class AdminUserServiceTest {
 
     User actual = adminUserService.addAdmin(adminUser);
 
-    Assert.assertEquals(userToReturn, actual);
+    assertEquals(userToReturn, actual);
   }
 
   @Test

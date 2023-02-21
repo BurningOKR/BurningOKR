@@ -8,25 +8,25 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CycleDtoValidatorTest {
 
   private final Long cycleDtoId = 100L;
@@ -42,7 +42,7 @@ public class CycleDtoValidatorTest {
   private List<Cycle> repositoryReturnCyclesThatOverlapFromSameCompanyHistory;
   private List<Cycle> repositoryReturnCyclesThatAreEnvelopedFromSameCompanyHistory;
 
-  @Before
+  @BeforeEach
   public void reset() {
     targetOkrUnitHistory = new OkrCompanyHistory();
     targetOkrCompany = new OkrCompany();
@@ -90,7 +90,7 @@ public class CycleDtoValidatorTest {
 
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }
@@ -104,7 +104,7 @@ public class CycleDtoValidatorTest {
     cycleDto.setPlannedEndDate(timestamp.minusDays(2));
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }
@@ -119,7 +119,7 @@ public class CycleDtoValidatorTest {
 
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }
@@ -132,7 +132,7 @@ public class CycleDtoValidatorTest {
     cycleDto.setPlannedStartDate(LocalDate.now().plusDays(5));
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }
@@ -146,7 +146,7 @@ public class CycleDtoValidatorTest {
     cycleDto.setPlannedStartDate(LocalDate.now().minusDays(5));
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }
@@ -158,7 +158,7 @@ public class CycleDtoValidatorTest {
     cycleDto.setCycleState(CycleState.CLOSED);
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }
@@ -176,7 +176,7 @@ public class CycleDtoValidatorTest {
     repositoryReturnCyclesThatAreEnvelopedFromSameCompanyHistory.add(envelopedCycle);
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }
@@ -201,7 +201,7 @@ public class CycleDtoValidatorTest {
     repositoryReturnCyclesThatOverlapFromSameCompanyHistory.add(envelopedCycle);
     try {
       cycleDtoValidator.validateCycleDto(cycleDto);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), InvalidDtoException.class);
     }

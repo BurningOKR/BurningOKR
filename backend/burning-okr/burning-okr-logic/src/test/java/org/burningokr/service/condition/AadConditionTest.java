@@ -1,18 +1,19 @@
 package org.burningokr.service.condition;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.mock.env.MockEnvironment;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AadConditionTest {
 
   private AadCondition aadCondition;
@@ -21,7 +22,7 @@ public class AadConditionTest {
 
   private ConditionContext conditionContext;
 
-  @Before
+  @BeforeEach
   public void setup() {
     this.aadCondition = new AadCondition();
     annotatedTypeMetadata = mock(AnnotatedTypeMetadata.class);
@@ -33,7 +34,7 @@ public class AadConditionTest {
     MockEnvironment environment = new MockEnvironment();
     environment.setProperty("system.configuration.auth-mode", "123412531235");
     BDDMockito.given(conditionContext.getEnvironment()).willReturn(environment);
-    Assert.assertFalse(aadCondition.matches(conditionContext, annotatedTypeMetadata));
+    assertFalse(aadCondition.matches(conditionContext, annotatedTypeMetadata));
   }
 
   @Test
@@ -41,7 +42,7 @@ public class AadConditionTest {
     MockEnvironment environment = new MockEnvironment();
     environment.setProperty("system.configuration.auth-mode", "azure");
     BDDMockito.given(conditionContext.getEnvironment()).willReturn(environment);
-    Assert.assertTrue(aadCondition.matches(conditionContext, annotatedTypeMetadata));
+    assertTrue(aadCondition.matches(conditionContext, annotatedTypeMetadata));
   }
 
   @Test
@@ -49,6 +50,6 @@ public class AadConditionTest {
     MockEnvironment environment = new MockEnvironment();
     environment.setProperty("system.configuration.auth-mode", "local");
     BDDMockito.given(conditionContext.getEnvironment()).willReturn(environment);
-    Assert.assertFalse(aadCondition.matches(conditionContext, annotatedTypeMetadata));
+    assertFalse(aadCondition.matches(conditionContext, annotatedTypeMetadata));
   }
 }

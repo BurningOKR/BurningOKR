@@ -6,20 +6,19 @@ import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrParentUnit;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class OkrBranchSchemaMapperTest {
 
   @InjectMocks
@@ -34,7 +33,7 @@ public class OkrBranchSchemaMapperTest {
 
   private UUID currentUserId;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     department1 = new OkrBranch();
     department1.setId(10L);
@@ -81,7 +80,7 @@ public class OkrBranchSchemaMapperTest {
     Collection<OkrUnitSchemaDto> actual =
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(emptyList, currentUserId);
 
-    Assert.assertEquals(0, actual.size());
+    assertEquals(0, actual.size());
   }
 
   @Test
@@ -93,13 +92,13 @@ public class OkrBranchSchemaMapperTest {
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
         departmentList, currentUserId);
 
-    Assert.assertEquals(1, actual.size());
+    assertEquals(1, actual.size());
     for (OkrUnitSchemaDto dto : actual) {
-      Assert.assertEquals(department1.getId(), dto.getId());
-      Assert.assertEquals(department1.getName(), dto.getName());
-      Assert.assertEquals(department1.getOkrChildUnits().size(), dto.getSubDepartments().size());
-      Assert.assertEquals(OkrDepartmentDtoRole.USER, dto.getUserRole());
-      Assert.assertFalse(dto.getIsTeam());
+      assertEquals(department1.getId(), dto.getId());
+      assertEquals(department1.getName(), dto.getName());
+      assertEquals(department1.getOkrChildUnits().size(), dto.getSubDepartments().size());
+      assertEquals(OkrDepartmentDtoRole.USER, dto.getUserRole());
+      assertFalse(dto.getIsTeam());
     }
   }
 
@@ -112,12 +111,12 @@ public class OkrBranchSchemaMapperTest {
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
         departmentList, currentUserId);
 
-    Assert.assertEquals(1, actual.size());
+    assertEquals(1, actual.size());
     for (OkrUnitSchemaDto dto : actual) {
-      Assert.assertEquals(okrDepartment4.getId(), dto.getId());
-      Assert.assertEquals(okrDepartment4.getName(), dto.getName());
-      Assert.assertEquals(OkrDepartmentDtoRole.USER, dto.getUserRole());
-      Assert.assertTrue(dto.getIsTeam());
+      assertEquals(okrDepartment4.getId(), dto.getId());
+      assertEquals(okrDepartment4.getName(), dto.getName());
+      assertEquals(OkrDepartmentDtoRole.USER, dto.getUserRole());
+      assertTrue(dto.getIsTeam());
     }
   }
 
@@ -141,9 +140,9 @@ public class OkrBranchSchemaMapperTest {
       }
     }
 
-    Assert.assertEquals(2, actual.size());
-    Assert.assertNotNull(dto1);
-    Assert.assertNotNull(dto2);
+    assertEquals(2, actual.size());
+    assertNotNull(dto1);
+    assertNotNull(dto2);
   }
 
   @Test
@@ -166,12 +165,12 @@ public class OkrBranchSchemaMapperTest {
       }
     }
 
-    Assert.assertEquals(2, actual.size());
-    Assert.assertNotNull(dto1);
-    Assert.assertNotNull(dto2);
+    assertEquals(2, actual.size());
+    assertNotNull(dto1);
+    assertNotNull(dto2);
 
-    Assert.assertTrue(dto1.getIsActive());
-    Assert.assertFalse(dto2.getIsActive());
+    assertTrue(dto1.getIsActive());
+    assertFalse(dto2.getIsActive());
   }
 
   @Test
@@ -201,10 +200,10 @@ public class OkrBranchSchemaMapperTest {
       }
     }
 
-    Assert.assertEquals(3, actual.size());
-    Assert.assertEquals(OkrDepartmentDtoRole.USER, dto4.getUserRole());
-    Assert.assertEquals(OkrDepartmentDtoRole.MANAGER, dto5.getUserRole());
-    Assert.assertEquals(OkrDepartmentDtoRole.MEMBER, dto6.getUserRole());
+    assertEquals(3, actual.size());
+    assertEquals(OkrDepartmentDtoRole.USER, dto4.getUserRole());
+    assertEquals(OkrDepartmentDtoRole.MANAGER, dto5.getUserRole());
+    assertEquals(OkrDepartmentDtoRole.MEMBER, dto6.getUserRole());
   }
 
   @Test
@@ -217,11 +216,11 @@ public class OkrBranchSchemaMapperTest {
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
         departmentList, currentUserId);
 
-    Assert.assertEquals(1, actual.size());
+    assertEquals(1, actual.size());
     for (OkrUnitSchemaDto dto : actual) {
-      Assert.assertEquals(1, dto.getSubDepartments().size());
+      assertEquals(1, dto.getSubDepartments().size());
       for (OkrUnitSchemaDto innerDto : dto.getSubDepartments()) {
-        Assert.assertEquals(department2.getId(), innerDto.getId());
+        assertEquals(department2.getId(), innerDto.getId());
       }
     }
   }
@@ -237,9 +236,9 @@ public class OkrBranchSchemaMapperTest {
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
         departmentList, currentUserId);
 
-    Assert.assertEquals(1, actual.size());
+    assertEquals(1, actual.size());
     for (OkrUnitSchemaDto outerDto : actual) {
-      Assert.assertEquals(2, outerDto.getSubDepartments().size());
+      assertEquals(2, outerDto.getSubDepartments().size());
       OkrUnitSchemaDto dto2 = null;
       OkrUnitSchemaDto dto3 = null;
       for (OkrUnitSchemaDto dto : outerDto.getSubDepartments()) {
@@ -249,8 +248,8 @@ public class OkrBranchSchemaMapperTest {
           dto3 = dto;
         }
       }
-      Assert.assertNotNull(dto2);
-      Assert.assertNotNull(dto3);
+      assertNotNull(dto2);
+      assertNotNull(dto3);
     }
   }
 }

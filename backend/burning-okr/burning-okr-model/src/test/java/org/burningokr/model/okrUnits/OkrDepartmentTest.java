@@ -2,18 +2,20 @@ package org.burningokr.model.okrUnits;
 
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+
+@ExtendWith(MockitoExtension.class)
 public class OkrDepartmentTest {
 
   private OkrDepartment expectedOkrDepartment;
@@ -28,7 +30,7 @@ public class OkrDepartmentTest {
   private Collection<OkrDepartment> originalOkrDepartments;
   private OkrTopicDescription originalOkrTopicDescription;
 
-  @Before
+  @BeforeEach
   public void init() {
     originalOkrCompany = new OkrCompany();
     originalName = "originalName";
@@ -65,56 +67,54 @@ public class OkrDepartmentTest {
   @Test
   public void getCopyWithoutRelations_expectedNotNull() {
     OkrDepartment actualOkrDepartment = expectedOkrDepartment.getCopyWithoutRelations();
-
-    Assert.assertNotNull(actualOkrDepartment);
+    assertNotNull(actualOkrDepartment);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCopyNotOriginal() {
     OkrDepartment actualOkrDepartment = expectedOkrDepartment.getCopyWithoutRelations();
-
-    Assert.assertNotEquals(expectedOkrDepartment, actualOkrDepartment);
+    assertNotEquals(expectedOkrDepartment, actualOkrDepartment);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedIdNotCopied() {
     OkrDepartment actualOkrDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedOkrDepartment.getId(), actualOkrDepartment.getId());
+    assertNotEquals(expectedOkrDepartment.getId(), actualOkrDepartment.getId());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedMemberListDeepClone() {
     OkrDepartment actualOkrDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
-    Assert.assertEquals(originalName, actualOkrDepartment.getName());
-    Assert.assertEquals(originalLabel, actualOkrDepartment.getLabel());
-    Assert.assertEquals(originalOkrMasterUuid, actualOkrDepartment.getOkrMasterId());
-    Assert.assertEquals(originalOkrSponsorUuid, actualOkrDepartment.getOkrTopicSponsorId());
-    Assert.assertTrue(actualOkrDepartment.isActive());
+    assertEquals(originalName, actualOkrDepartment.getName());
+    assertEquals(originalLabel, actualOkrDepartment.getLabel());
+    assertEquals(originalOkrMasterUuid, actualOkrDepartment.getOkrMasterId());
+    assertEquals(originalOkrSponsorUuid, actualOkrDepartment.getOkrTopicSponsorId());
+    assertTrue(actualOkrDepartment.isActive());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCorrectNameList() {
     OkrDepartment actualOkrDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
-    Assert.assertEquals(originalOkrMembers, actualOkrDepartment.getOkrMemberIds());
-    Assert.assertNotSame(originalOkrMembers, actualOkrDepartment.getOkrMemberIds());
+    assertEquals(originalOkrMembers, actualOkrDepartment.getOkrMemberIds());
+    assertNotSame(originalOkrMembers, actualOkrDepartment.getOkrMemberIds());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNoRelations() {
     OkrBranch actualDepartment = okrBranch.getCopyWithoutRelations();
 
-    Assert.assertNull(actualDepartment.getParentOkrUnit());
-    Assert.assertEquals(0, actualDepartment.getOkrChildUnits().size());
+    assertNull(actualDepartment.getParentOkrUnit());
+    assertEquals(0, actualDepartment.getOkrChildUnits().size());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedTopicDescriptionsAreEqual() {
     OkrDepartment actualDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
-    Assert.assertSame(
+    assertSame(
       expectedOkrDepartment.getOkrTopicDescription(), actualDepartment.getOkrTopicDescription());
   }
 
@@ -122,6 +122,6 @@ public class OkrDepartmentTest {
   public void getCopyWithoutRelations_expectHistoriesAreEqual() {
     OkrDepartment actualDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
-    Assert.assertSame(expectedOkrDepartment.getHistory(), actualDepartment.getHistory());
+    assertSame(expectedOkrDepartment.getHistory(), actualDepartment.getHistory());
   }
 }

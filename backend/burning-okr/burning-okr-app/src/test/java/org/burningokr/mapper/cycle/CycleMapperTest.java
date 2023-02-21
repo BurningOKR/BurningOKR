@@ -5,13 +5,14 @@ import org.burningokr.mapper.CycleMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CycleMapperTest {
 
@@ -22,7 +23,7 @@ public class CycleMapperTest {
   private LocalDate expectedDatePlanned = LocalDate.now();
   private LocalDate expectedDateFactual = LocalDate.now().plusDays(1337);
 
-  @Before
+  @BeforeEach
   public void init() {
     initCycle();
     initCycleDto();
@@ -77,31 +78,31 @@ public class CycleMapperTest {
   @Test
   public void test_mapEntityToDto_expectsIdIsMapped() {
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(cycle.getId(), cycleDto.getId());
+    assertEquals(cycle.getId(), cycleDto.getId());
   }
 
   @Test
   public void test_mapEntityToDto_expectsNameIsMapped() {
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(cycle.getName(), cycleDto.getName());
+    assertEquals(cycle.getName(), cycleDto.getName());
   }
 
   @Test
   public void test_mapEntityToDto_expectsPlannedStartDateIsMapped() {
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(cycle.getPlannedStartDate(), cycleDto.getPlannedStartDate());
+    assertEquals(cycle.getPlannedStartDate(), cycleDto.getPlannedStartDate());
   }
 
   @Test
   public void test_mapEntityToDto_expectsPlannedEndDateIsMapped() {
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(cycle.getPlannedEndDate(), cycleDto.getPlannedEndDate());
+    assertEquals(cycle.getPlannedEndDate(), cycleDto.getPlannedEndDate());
   }
 
   @Test
   public void test_mapEntityToDto_expectsCompaniesAreMapped() {
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(cycle.getCompanies().size(), cycleDto.getCompanyIds().size());
+    assertEquals(cycle.getCompanies().size(), cycleDto.getCompanyIds().size());
   }
 
   @Test
@@ -109,7 +110,7 @@ public class CycleMapperTest {
     CycleState expected = CycleState.ACTIVE;
     cycle.setCycleState(expected);
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(expected, cycleDto.getCycleState());
+    assertEquals(expected, cycleDto.getCycleState());
   }
 
   @Test
@@ -117,7 +118,7 @@ public class CycleMapperTest {
     CycleState expected = CycleState.CLOSED;
     cycle.setCycleState(expected);
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(expected, cycleDto.getCycleState());
+    assertEquals(expected, cycleDto.getCycleState());
   }
 
   @Test
@@ -127,7 +128,7 @@ public class CycleMapperTest {
     CycleState expected = CycleState.PREPARATION;
     cycle.setCycleState(expected);
     cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(expected, cycleDto.getCycleState());
+    assertEquals(expected, cycleDto.getCycleState());
   }
 
   @Test
@@ -135,7 +136,7 @@ public class CycleMapperTest {
     cycle.setVisible(true);
 
     CycleDto cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(cycle.isVisible(), cycleDto.getIsVisible());
+    assertEquals(cycle.isVisible(), cycleDto.getIsVisible());
   }
 
   @Test
@@ -143,7 +144,7 @@ public class CycleMapperTest {
     cycle.setVisible(false);
 
     CycleDto cycleDto = cycleMapper.mapEntityToDto(cycle);
-    Assert.assertEquals(cycle.isVisible(), cycleDto.getIsVisible());
+    assertEquals(cycle.isVisible(), cycleDto.getIsVisible());
   }
 
   // endregion
@@ -152,25 +153,25 @@ public class CycleMapperTest {
   @Test
   public void test_mapDtoToEntity_expectsIdIsMapped() {
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
-    Assert.assertEquals(cycleDto.getId(), cycle.getId());
+    assertEquals(cycleDto.getId(), cycle.getId());
   }
 
   @Test
   public void test_mapDtoToEntity_expectsNameIsMapped() {
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
-    Assert.assertEquals(cycleDto.getName(), cycle.getName());
+    assertEquals(cycleDto.getName(), cycle.getName());
   }
 
   @Test
   public void test_mapDtoToEntity_expectsPlannedStartDateIsMapped() {
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
-    Assert.assertEquals(cycleDto.getPlannedStartDate(), cycle.getPlannedStartDate());
+    assertEquals(cycleDto.getPlannedStartDate(), cycle.getPlannedStartDate());
   }
 
   @Test
   public void test_mapDtoToEntity_expectsPlannedEndDateIsMapped() {
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
-    Assert.assertEquals(cycleDto.getPlannedEndDate(), cycle.getPlannedEndDate());
+    assertEquals(cycleDto.getPlannedEndDate(), cycle.getPlannedEndDate());
   }
 
   @Test
@@ -178,7 +179,7 @@ public class CycleMapperTest {
     CycleState expected = CycleState.ACTIVE;
     cycleDto.setCycleState(expected);
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
-    Assert.assertEquals(expected, cycle.getCycleState());
+    assertEquals(expected, cycle.getCycleState());
   }
 
   @Test
@@ -186,7 +187,7 @@ public class CycleMapperTest {
     CycleState expected = CycleState.CLOSED;
     cycleDto.setCycleState(expected);
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
-    Assert.assertEquals(expected, cycle.getCycleState());
+    assertEquals(expected, cycle.getCycleState());
   }
 
   @Test
@@ -196,7 +197,7 @@ public class CycleMapperTest {
     CycleState expected = CycleState.PREPARATION;
     cycleDto.setCycleState(expected);
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
-    Assert.assertEquals(expected, cycle.getCycleState());
+    assertEquals(expected, cycle.getCycleState());
   }
 
   @Test
@@ -205,7 +206,7 @@ public class CycleMapperTest {
 
     Cycle cycle = cycleMapper.mapDtoToEntity(cycleDto);
 
-    Assert.assertEquals(cycleDto.getIsVisible(), cycle.isVisible());
+    assertEquals(cycleDto.getIsVisible(), cycle.isVisible());
   }
 
   @Test
@@ -214,7 +215,7 @@ public class CycleMapperTest {
 
     Cycle cycle = cycleMapper.mapDtoToEntity(cycleDto);
 
-    Assert.assertEquals(cycleDto.getIsVisible(), cycle.isVisible());
+    assertEquals(cycleDto.getIsVisible(), cycle.isVisible());
   }
   // endregion
 

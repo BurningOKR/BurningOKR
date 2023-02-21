@@ -14,24 +14,24 @@ import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.burningokr.service.userhandling.UserService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserRoleFromContextServiceTest {
 
   @Mock
@@ -69,7 +69,7 @@ public class UserRoleFromContextServiceTest {
   private Long noteId = 400L;
   private Note dbNote;
 
-  @Before
+  @BeforeEach
   public void init() {
     setupFakeEntities();
     setupRepositoryMocks();
@@ -133,7 +133,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleWithoutContext();
 
-    Assert.assertEquals(UserContextRole.ADMIN, actualRole);
+    assertEquals(UserContextRole.ADMIN, actualRole);
   }
 
   @Test
@@ -142,7 +142,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleWithoutContext();
 
-    Assert.assertEquals(UserContextRole.USER, actualRole);
+    assertEquals(UserContextRole.USER, actualRole);
   }
 
   @Test
@@ -151,7 +151,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
 
-    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+    assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
 
   @Test
@@ -160,7 +160,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
 
-    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+    assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
 
   @Test
@@ -169,7 +169,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
 
-    Assert.assertEquals(UserContextRole.OKRMEMBER, actualRole);
+    assertEquals(UserContextRole.OKRMEMBER, actualRole);
   }
 
   @Test
@@ -178,7 +178,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnitId(departmentId);
 
-    Assert.assertEquals(UserContextRole.USER, actualRole);
+    assertEquals(UserContextRole.USER, actualRole);
   }
 
   @Test
@@ -187,7 +187,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInObjectiveId(objectiveId);
 
-    Assert.assertEquals(UserContextRole.OKRMEMBER, actualRole);
+    assertEquals(UserContextRole.OKRMEMBER, actualRole);
   }
 
   @Test
@@ -196,7 +196,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInKeyResultId(keyResultId);
 
-    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+    assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
 
   @Test
@@ -205,7 +205,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInKeyResultId(keyResultId);
 
-    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+    assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
 
   @Test
@@ -214,7 +214,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInKeyResultId(keyResultId);
 
-    Assert.assertEquals(UserContextRole.OKRMEMBER, actualRole);
+    assertEquals(UserContextRole.OKRMEMBER, actualRole);
   }
 
   @Test
@@ -223,7 +223,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInKeyResultId(keyResultId);
 
-    Assert.assertEquals(UserContextRole.USER, actualRole);
+    assertEquals(UserContextRole.USER, actualRole);
   }
 
   @Test
@@ -232,7 +232,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInNoteId(noteId);
 
-    Assert.assertEquals(UserContextRole.ENTITYOWNER, actualRole);
+    assertEquals(UserContextRole.ENTITYOWNER, actualRole);
   }
 
   @Test
@@ -241,7 +241,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInNoteId(noteId);
 
-    Assert.assertEquals(UserContextRole.USER, actualRole);
+    assertEquals(UserContextRole.USER, actualRole);
   }
 
   @Test
@@ -252,7 +252,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnit(okrChildUnit);
 
-    Assert.assertEquals(UserContextRole.USER, actualRole);
+    assertEquals(UserContextRole.USER, actualRole);
   }
 
   @Test
@@ -264,7 +264,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnit(okrDepartment);
 
-    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+    assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
 
   @Test
@@ -276,7 +276,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnit(okrDepartment);
 
-    Assert.assertEquals(UserContextRole.OKRMANAGER, actualRole);
+    assertEquals(UserContextRole.OKRMANAGER, actualRole);
   }
 
   @Test
@@ -288,7 +288,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnit(okrDepartment);
 
-    Assert.assertEquals(UserContextRole.OKRMEMBER, actualRole);
+    assertEquals(UserContextRole.OKRMEMBER, actualRole);
   }
 
   @Test
@@ -299,7 +299,7 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnit(okrChildUnit);
 
-    Assert.assertEquals(UserContextRole.USER, actualRole);
+    assertEquals(UserContextRole.USER, actualRole);
   }
 
   @Test
@@ -310,6 +310,6 @@ public class UserRoleFromContextServiceTest {
 
     UserContextRole actualRole = userRoleFromContextService.getUserRoleInUnit(okrChildUnit);
 
-    Assert.assertEquals(UserContextRole.ADMIN, actualRole);
+    assertEquals(UserContextRole.ADMIN, actualRole);
   }
 }

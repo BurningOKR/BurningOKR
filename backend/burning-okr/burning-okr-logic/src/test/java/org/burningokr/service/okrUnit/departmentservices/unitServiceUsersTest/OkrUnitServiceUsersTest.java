@@ -11,11 +11,13 @@ import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
@@ -37,7 +39,7 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 
   protected abstract T createUnit();
 
-  @Before
+  @BeforeEach
   public void setup() {
     unit = createUnit();
 
@@ -47,23 +49,31 @@ public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
     activeCycle.setCycleState(CycleState.ACTIVE);
   }
 
-  @Test(expected = UnauthorizedUserException.class)
+  @Test
   public void updateUnit_expectedThrow() {
-    okrUnitServiceUsers.updateUnit(unit, user);
+    assertThrows(UnauthorizedUserException.class, () -> {
+      okrUnitServiceUsers.updateUnit(unit, user);
+    });
   }
 
-  @Test(expected = UnauthorizedUserException.class)
+  @Test
   public void createObjective_expectedThrow() {
-    okrUnitServiceUsers.createObjective(100L, new Objective(), user);
+    assertThrows(UnauthorizedUserException.class, () -> {
+      okrUnitServiceUsers.createObjective(100L, new Objective(), user);
+    });
   }
 
-  @Test(expected = UnauthorizedUserException.class)
+  @Test
   public void createChildUnit_expectedThrow() {
-    okrUnitServiceUsers.createChildUnit(100L, unit, user);
+    assertThrows(UnauthorizedUserException.class, () -> {
+      okrUnitServiceUsers.createChildUnit(100L, unit, user);
+    });
   }
 
-  @Test(expected = UnauthorizedUserException.class)
+  @Test
   public void removeUnit_expectedThrow() {
-    okrUnitServiceUsers.deleteUnit(100L, user);
+    assertThrows(UnauthorizedUserException.class, () -> {
+      okrUnitServiceUsers.deleteUnit(100L, user);
+    });
   }
 }

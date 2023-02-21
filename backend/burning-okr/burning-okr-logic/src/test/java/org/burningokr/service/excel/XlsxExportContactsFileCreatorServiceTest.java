@@ -4,22 +4,22 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.service.messages.Messages;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class XlsxExportContactsFileCreatorServiceTest {
 
   @Mock
@@ -39,7 +39,7 @@ public class XlsxExportContactsFileCreatorServiceTest {
   private long companyId = 44L;
   private Workbook workbook;
 
-  @Before
+  @BeforeEach
   public void init() throws IllegalAccessException {
     teamMemberRows = new ArrayList<>();
     this.workbook = new XSSFWorkbook();
@@ -55,7 +55,7 @@ public class XlsxExportContactsFileCreatorServiceTest {
   public void createFileForOkrTeam_shouldReturnWorkbookWhichIsReturnedByGenericFileCreatorService()
     throws IllegalAccessException {
     Workbook workbook = xlsxExportContactsFileCreatorService.createFileForOkrTeam(departmentId);
-    Assert.assertEquals(this.workbook, workbook);
+    assertEquals(this.workbook, workbook);
     verify(teamMemberRowBuilderService, times(1)).generateForOkrChildUnit(departmentId);
   }
 
@@ -63,7 +63,7 @@ public class XlsxExportContactsFileCreatorServiceTest {
   public void createFileForOkrTeam_shouldReturnExcelWithJustHeaderRowIfTeamMemberRowIsEmpty()
     throws IllegalAccessException {
     Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
-    Assert.assertEquals(this.workbook, workbook);
+    assertEquals(this.workbook, workbook);
     verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
   }
 }

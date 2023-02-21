@@ -3,12 +3,14 @@ package org.burningokr.mapper.okr;
 import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteKeyResult;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class NoteKeyResultMapperTest {
 
@@ -16,7 +18,7 @@ public class NoteKeyResultMapperTest {
   private NoteKeyResultDto noteKeyResultDto;
   private NoteKeyResultMapper noteKeyResultMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     this.noteKeyResult = new NoteKeyResult();
     this.noteKeyResultDto = new NoteKeyResultDto();
@@ -29,7 +31,7 @@ public class NoteKeyResultMapperTest {
     Long expected = 249L;
     noteKeyResultDto.setNoteId(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    Assert.assertEquals(expected, noteKeyResult.getId());
+    assertEquals(expected, noteKeyResult.getId());
   }
 
   @Test
@@ -37,7 +39,7 @@ public class NoteKeyResultMapperTest {
     String expected = "An example for a text";
     noteKeyResultDto.setNoteBody(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    Assert.assertEquals(expected, noteKeyResult.getText());
+    assertEquals(expected, noteKeyResult.getText());
   }
 
   @Test
@@ -45,7 +47,7 @@ public class NoteKeyResultMapperTest {
     LocalDateTime expected = LocalDateTime.now();
     noteKeyResultDto.setDate(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    Assert.assertEquals(expected, noteKeyResult.getDate());
+    assertEquals(expected, noteKeyResult.getDate());
   }
 
   @Test
@@ -53,7 +55,7 @@ public class NoteKeyResultMapperTest {
     UUID expected = UUID.randomUUID();
     noteKeyResultDto.setUserId(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    Assert.assertEquals(expected, noteKeyResult.getUserId());
+    assertEquals(expected, noteKeyResult.getUserId());
   }
 
   @Test
@@ -61,13 +63,13 @@ public class NoteKeyResultMapperTest {
     Long expected = 234L;
     noteKeyResultDto.setParentKeyResultId(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    Assert.assertEquals(expected, noteKeyResult.getParentKeyResult().getId());
+    assertEquals(expected, noteKeyResult.getParentKeyResult().getId());
   }
 
   @Test
   public void test_mapDtoToEntity_expectsParentKeyResultIdIsNull() {
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    Assert.assertNull(noteKeyResult.getParentKeyResult());
+    assertNull(noteKeyResult.getParentKeyResult());
   }
   // endregion
 
@@ -77,7 +79,7 @@ public class NoteKeyResultMapperTest {
     Long expected = 1234L;
     noteKeyResult.setId(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
-    Assert.assertEquals(expected, noteKeyResultDto.getNoteId());
+    assertEquals(expected, noteKeyResultDto.getNoteId());
   }
 
   @Test
@@ -85,7 +87,7 @@ public class NoteKeyResultMapperTest {
     String expected = "An example";
     noteKeyResult.setText(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
-    Assert.assertEquals(expected, noteKeyResultDto.getNoteBody());
+    assertEquals(expected, noteKeyResultDto.getNoteBody());
   }
 
   @Test
@@ -93,7 +95,7 @@ public class NoteKeyResultMapperTest {
     LocalDateTime expected = LocalDateTime.now();
     noteKeyResult.setDate(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
-    Assert.assertEquals(expected, noteKeyResultDto.getDate());
+    assertEquals(expected, noteKeyResultDto.getDate());
   }
 
   @Test
@@ -101,7 +103,7 @@ public class NoteKeyResultMapperTest {
     UUID expected = UUID.randomUUID();
     noteKeyResult.setUserId(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
-    Assert.assertEquals(expected, noteKeyResultDto.getUserId());
+    assertEquals(expected, noteKeyResultDto.getUserId());
   }
 
   @Test
@@ -110,13 +112,13 @@ public class NoteKeyResultMapperTest {
     expected.setId(34L);
     noteKeyResult.setParentKeyResult(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
-    Assert.assertEquals(expected.getId(), noteKeyResultDto.getParentKeyResultId());
+    assertEquals(expected.getId(), noteKeyResultDto.getParentKeyResultId());
   }
 
   @Test
   public void test_mapEntityToDto_expectsParentKeyResultIsNull() {
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
-    Assert.assertNull(noteKeyResultDto.getParentKeyResultId());
+    assertNull(noteKeyResultDto.getParentKeyResultId());
   }
   // endregion
 }

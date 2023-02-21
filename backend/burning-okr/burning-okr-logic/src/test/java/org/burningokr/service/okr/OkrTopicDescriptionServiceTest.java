@@ -11,24 +11,24 @@ import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.hibernate.event.spi.PostDeleteEvent;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class OkrTopicDescriptionServiceTest {
 
   @Mock
@@ -54,7 +54,7 @@ public class OkrTopicDescriptionServiceTest {
 
   private OkrTopicDescription okrTopicDescription;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     okrTopicDescription = new OkrTopicDescription();
     okrTopicDescription.setId(10L);
@@ -292,7 +292,7 @@ public class OkrTopicDescriptionServiceTest {
 
   @Test
   public void requiresPostCommitHanding_returnsTrue() {
-    assertTrue(okrTopicDescriptionService.requiresPostCommitHanding(null));
+    assertTrue(okrTopicDescriptionService.requiresPostCommitHandling(null));
   }
 
   @Test

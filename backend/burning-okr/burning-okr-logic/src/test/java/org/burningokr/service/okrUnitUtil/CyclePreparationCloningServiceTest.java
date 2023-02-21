@@ -13,20 +13,20 @@ import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.okr.TaskBoardService;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CyclePreparationCloningServiceTest {
 
   @Mock
@@ -133,7 +133,7 @@ public class CyclePreparationCloningServiceTest {
           unwrappedChildObjective2 = x;
           break;
         default:
-          Assert.fail("Cycle unwrap failed");
+          fail("Cycle unwrap failed");
       }
     }
   }
@@ -150,16 +150,16 @@ public class CyclePreparationCloningServiceTest {
     unwrapCycleContents(cycleToCloneInto);
     // The unwrap method working to set the following references is a proof of functional child
     // relationships
-    Assert.assertEquals(1, unwrappedOkrCompanyList.size());
-    Assert.assertEquals(1, unwrappedOkrChildUnitList.size());
-    Assert.assertEquals(2, unwrappedObjectiveList1.size());
-    Assert.assertEquals(2, unwrappedObjectiveList2.size());
-    Assert.assertNotNull(unwrappedOkrCompany);
-    Assert.assertNotNull(unwrappedOkrChildUnit);
-    Assert.assertNotNull(unwrappedObjective1);
-    Assert.assertNotNull(unwrappedObjective2);
-    Assert.assertNotNull(unwrappedChildObjective1);
-    Assert.assertNotNull(unwrappedChildObjective2);
+    assertEquals(1, unwrappedOkrCompanyList.size());
+    assertEquals(1, unwrappedOkrChildUnitList.size());
+    assertEquals(2, unwrappedObjectiveList1.size());
+    assertEquals(2, unwrappedObjectiveList2.size());
+    assertNotNull(unwrappedOkrCompany);
+    assertNotNull(unwrappedOkrChildUnit);
+    assertNotNull(unwrappedObjective1);
+    assertNotNull(unwrappedObjective2);
+    assertNotNull(unwrappedChildObjective1);
+    assertNotNull(unwrappedChildObjective2);
   }
 
   @Test
@@ -173,14 +173,14 @@ public class CyclePreparationCloningServiceTest {
 
     unwrapCycleContents(cycleToCloneInto);
     // CyclePreparationCloningService properly sets up parent relations
-    Assert.assertEquals(cycleToCloneInto, unwrappedOkrCompany.getCycle());
-    Assert.assertEquals(unwrappedOkrCompany, unwrappedOkrChildUnit.getParentOkrUnit());
-    Assert.assertEquals(unwrappedOkrCompany, unwrappedObjective1.getParentOkrUnit());
-    Assert.assertEquals(unwrappedOkrCompany, unwrappedChildObjective1.getParentOkrUnit());
-    Assert.assertEquals(unwrappedOkrChildUnit, unwrappedObjective2.getParentOkrUnit());
-    Assert.assertEquals(unwrappedOkrChildUnit, unwrappedChildObjective2.getParentOkrUnit());
-    Assert.assertEquals(unwrappedObjective1, unwrappedChildObjective1.getParentObjective());
-    Assert.assertEquals(unwrappedObjective2, unwrappedChildObjective2.getParentObjective());
+    assertEquals(cycleToCloneInto, unwrappedOkrCompany.getCycle());
+    assertEquals(unwrappedOkrCompany, unwrappedOkrChildUnit.getParentOkrUnit());
+    assertEquals(unwrappedOkrCompany, unwrappedObjective1.getParentOkrUnit());
+    assertEquals(unwrappedOkrCompany, unwrappedChildObjective1.getParentOkrUnit());
+    assertEquals(unwrappedOkrChildUnit, unwrappedObjective2.getParentOkrUnit());
+    assertEquals(unwrappedOkrChildUnit, unwrappedChildObjective2.getParentOkrUnit());
+    assertEquals(unwrappedObjective1, unwrappedChildObjective1.getParentObjective());
+    assertEquals(unwrappedObjective2, unwrappedChildObjective2.getParentObjective());
   }
 
   @Test
@@ -210,12 +210,12 @@ public class CyclePreparationCloningServiceTest {
     Objective savedObjective2 = savedObjectives.get(2);
     Objective savedChildObjective2 = savedObjectives.get(3);
 
-    Assert.assertEquals(unwrappedOkrCompany, savedOkrCompany);
-    Assert.assertEquals(unwrappedOkrChildUnit, savedOkrDepartment);
-    Assert.assertEquals(unwrappedObjective1, savedObjective1);
-    Assert.assertEquals(unwrappedObjective2, savedObjective2);
-    Assert.assertEquals(unwrappedChildObjective1, savedChildObjective1);
-    Assert.assertEquals(unwrappedChildObjective2, savedChildObjective2);
+    assertEquals(unwrappedOkrCompany, savedOkrCompany);
+    assertEquals(unwrappedOkrChildUnit, savedOkrDepartment);
+    assertEquals(unwrappedObjective1, savedObjective1);
+    assertEquals(unwrappedObjective2, savedObjective2);
+    assertEquals(unwrappedChildObjective1, savedChildObjective1);
+    assertEquals(unwrappedChildObjective2, savedChildObjective2);
   }
 
   @Test
@@ -251,10 +251,10 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany savedOkrCompany = savedCompanyCaptor.getValue();
     UserSettings userSettings1Captured = savedUserSettingsCaptor.getValue();
 
-    Assert.assertEquals(userSettings1.getId(), userSettings1Captured.getId());
-    Assert.assertEquals(userSettings1.getUserId(), userSettings1Captured.getUserId());
-    Assert.assertEquals(savedOkrCompany, userSettings1Captured.getDefaultOkrCompany());
-    Assert.assertNull(userSettings1Captured.getDefaultTeam());
+    assertEquals(userSettings1.getId(), userSettings1Captured.getId());
+    assertEquals(userSettings1.getUserId(), userSettings1Captured.getUserId());
+    assertEquals(savedOkrCompany, userSettings1Captured.getDefaultOkrCompany());
+    assertNull(userSettings1Captured.getDefaultTeam());
   }
 
   @Test
@@ -295,10 +295,10 @@ public class CyclePreparationCloningServiceTest {
     OkrDepartment savedOkrDepartment = savedDepartmentCaptor.getValue();
     UserSettings userSettings1Captured = savedUserSettingsCaptor.getValue();
 
-    Assert.assertEquals(userSettings1.getId(), userSettings1Captured.getId());
-    Assert.assertEquals(userSettings1.getUserId(), userSettings1Captured.getUserId());
-    Assert.assertEquals(savedOkrCompany, userSettings1Captured.getDefaultOkrCompany());
-    Assert.assertEquals(savedOkrDepartment, userSettings1Captured.getDefaultTeam());
+    assertEquals(userSettings1.getId(), userSettings1Captured.getId());
+    assertEquals(userSettings1.getUserId(), userSettings1Captured.getUserId());
+    assertEquals(savedOkrCompany, userSettings1Captured.getDefaultOkrCompany());
+    assertEquals(savedOkrDepartment, userSettings1Captured.getDefaultTeam());
   }
 
   @Test
@@ -327,15 +327,15 @@ public class CyclePreparationCloningServiceTest {
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(okrCompany, cycle);
 
-    Assert.assertEquals(2, okrCompany.getObjectives().size());
-    Assert.assertFalse(((Objective) okrCompany.getObjectives().toArray()[0]).hasParentObjective());
-    Assert.assertTrue(((Objective) okrCompany.getObjectives().toArray()[1]).hasParentObjective());
-    Assert.assertEquals(
+    assertEquals(2, okrCompany.getObjectives().size());
+    assertFalse(((Objective) okrCompany.getObjectives().toArray()[0]).hasParentObjective());
+    assertTrue(((Objective) okrCompany.getObjectives().toArray()[1]).hasParentObjective());
+    assertEquals(
       ((Objective) okrCompany.getObjectives().toArray()[1]).getParentObjective(),
       parentObjective
     );
-    Assert.assertEquals(1, parentObjective.getSubObjectives().size());
-    Assert.assertEquals(objective, parentObjective.getSubObjectives().toArray()[0]);
+    assertEquals(1, parentObjective.getSubObjectives().size());
+    assertEquals(objective, parentObjective.getSubObjectives().toArray()[0]);
   }
 
   @Test
@@ -361,8 +361,8 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrBranch okrBranchCaptured = okrBranchArgumentCaptor.getValue();
 
-    Assert.assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
-    Assert.assertEquals(okrBranch.getName(), okrBranchCaptured.getName());
+    assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
+    assertEquals(okrBranch.getName(), okrBranchCaptured.getName());
   }
 
   @Test
@@ -396,9 +396,9 @@ public class CyclePreparationCloningServiceTest {
     OkrBranch okrBranchCaptured = okrBranchArgumentCaptor.getValue();
     Objective objectiveCaptured = objectiveArgumentCaptor.getValue();
 
-    Assert.assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
-    Assert.assertEquals(okrBranch.getName(), okrBranchCaptured.getName());
-    Assert.assertEquals(objective.getName(), objectiveCaptured.getName());
+    assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
+    assertEquals(okrBranch.getName(), okrBranchCaptured.getName());
+    assertEquals(objective.getName(), objectiveCaptured.getName());
   }
 
   @Test
@@ -430,9 +430,9 @@ public class CyclePreparationCloningServiceTest {
     OkrBranch okrBranchCaptured = okrBranchArgumentCaptor.getAllValues().get(0);
     OkrBranch childOkrBranchCaptured = okrBranchArgumentCaptor.getAllValues().get(1);
 
-    Assert.assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
-    Assert.assertEquals(okrBranch.getName(), okrBranchCaptured.getName());
-    Assert.assertEquals(childOkrBranch.getName(), childOkrBranchCaptured.getName());
+    assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
+    assertEquals(okrBranch.getName(), okrBranchCaptured.getName());
+    assertEquals(childOkrBranch.getName(), childOkrBranchCaptured.getName());
   }
 
   @Test
@@ -468,7 +468,7 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrDepartment okrDepartmentCaptured = departmentArgumentCaptor.getValue();
 
-    Assert.assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
-    Assert.assertEquals(okrDepartment.getName(), okrDepartmentCaptured.getName());
+    assertEquals(okrCompany.getName(), okrCompanyCaptured.getName());
+    assertEquals(okrDepartment.getName(), okrDepartmentCaptured.getName());
   }
 }

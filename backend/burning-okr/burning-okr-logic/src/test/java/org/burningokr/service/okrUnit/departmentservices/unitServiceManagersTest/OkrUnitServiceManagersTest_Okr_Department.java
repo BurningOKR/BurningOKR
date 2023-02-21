@@ -1,14 +1,14 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceManagersTest;
 
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -38,7 +38,7 @@ public class OkrUnitServiceManagersTest_Okr_Department
     okrUnitServiceManagers.updateUnit(insertedOkrDepartment, user);
 
     verify(unitRepository).save(originalOkrDepartment);
-    Assert.assertEquals(originalOkrDepartment.getOkrMemberIds(), insertedOkrMemberIds);
+    assertEquals(originalOkrDepartment.getOkrMemberIds(), insertedOkrMemberIds);
   }
 
   @Test
@@ -74,14 +74,14 @@ public class OkrUnitServiceManagersTest_Okr_Department
     okrUnitServiceManagers.updateUnit(insertedOkrDepartment, user);
 
     verify(unitRepository).save(originalOkrDepartment);
-    Assert.assertNotEquals(originalOkrDepartment.getName(), insertedOkrDepartment.getName());
-    Assert.assertNotEquals(
+    assertNotEquals(originalOkrDepartment.getName(), insertedOkrDepartment.getName());
+    assertNotEquals(
       originalOkrDepartment.getOkrMasterId(), insertedOkrDepartment.getOkrMasterId());
-    Assert.assertNotEquals(
+    assertNotEquals(
       originalOkrDepartment.getOkrTopicSponsorId(), insertedOkrDepartment.getOkrTopicSponsorId());
-    Assert.assertNotEquals(
+    assertNotEquals(
       originalOkrDepartment.getParentOkrUnit(), insertedOkrDepartment.getParentOkrUnit());
-    Assert.assertNotSame(
+    assertNotSame(
       originalOkrDepartment.getObjectives(), insertedOkrDepartment.getObjectives());
   }
 
@@ -109,7 +109,7 @@ public class OkrUnitServiceManagersTest_Okr_Department
       okrUnitServiceManagers.updateUnit(insertedOkrDepartment, user);
 
     verify(unitRepository).save(originalOkrDepartment);
-    Assert.assertEquals(saveCallReturnedOkrDepartment, actualOkrDepartment);
+    assertEquals(saveCallReturnedOkrDepartment, actualOkrDepartment);
   }
 
   @Override

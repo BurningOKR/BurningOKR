@@ -2,19 +2,19 @@ package org.burningokr.mapper.users;
 
 import org.burningokr.dto.users.ForgotPasswordDto;
 import org.burningokr.model.users.ForgotPassword;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ForgotPasswordMapperTest {
   private final ForgotPasswordMapper forgotPasswordMapper = new ForgotPasswordMapper();
   private ForgotPasswordDto forgotPasswordDto;
   private ForgotPassword forgotPassword;
 
-  @Before
+  @BeforeEach
   public void init() {
     forgotPasswordDto = new ForgotPasswordDto();
     forgotPassword = new ForgotPassword();

@@ -1,10 +1,10 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceUsersTest;
 
 import org.burningokr.model.okrUnits.OkrBranch;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class OkrUnitServiceUserTest_OkrBranch extends OkrUnitServiceUsersTest<OkrBranch> {
 
   @Override

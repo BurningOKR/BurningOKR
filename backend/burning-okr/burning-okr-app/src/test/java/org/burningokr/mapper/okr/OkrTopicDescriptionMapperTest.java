@@ -2,8 +2,8 @@ package org.burningokr.mapper.okr;
 
 import org.burningokr.dto.okr.OkrTopicDescriptionDto;
 import org.burningokr.model.okr.OkrTopicDescription;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OkrTopicDescriptionMapperTest {
 
@@ -20,7 +20,7 @@ public class OkrTopicDescriptionMapperTest {
   private OkrTopicDescriptionDto descriptionDto;
   private OkrTopicDescriptionMapper mapper;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     description = new OkrTopicDescription();
     descriptionDto = new OkrTopicDescriptionDto();

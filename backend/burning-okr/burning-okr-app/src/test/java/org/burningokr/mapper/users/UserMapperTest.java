@@ -6,24 +6,23 @@ import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.service.environment.AppEnvironment;
 import org.burningokr.service.environment.AuthModes;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserMapperTest {
   private static User user1;
   private static User user2;
@@ -37,7 +36,7 @@ public class UserMapperTest {
   @InjectMocks
   public UserMapper userMapper;
 
-  @BeforeClass
+  @BeforeAll
   public static void initClass() {
     user1 = mock(User.class);
     when(user1.getId()).thenReturn(UUID.randomUUID());
@@ -100,8 +99,8 @@ public class UserMapperTest {
   public void test_mapEntitiesToDtos() {
     Collection<User> users = Arrays.asList(user1, user2);
     Collection<UserDto> dtos = userMapper.mapEntitiesToDtos(users);
-    Assert.assertEquals(2, users.size());
-    Assert.assertEquals(users.size(), dtos.size());
+    assertEquals(2, users.size());
+    assertEquals(users.size(), dtos.size());
     Iterator<User> userIt = users.iterator();
     Iterator<UserDto> dtoIt = dtos.iterator();
     while (userIt.hasNext() && dtoIt.hasNext()) {
@@ -114,8 +113,8 @@ public class UserMapperTest {
     when(appEnvironment.getAuthMode()).thenReturn(AuthModes.AZURE);
     Collection<UserDto> dtos = Arrays.asList(userDto1, userDto2);
     Collection<User> users = userMapper.mapDtosToEntities(dtos);
-    Assert.assertEquals(2, dtos.size());
-    Assert.assertEquals(dtos.size(), users.size());
+    assertEquals(2, dtos.size());
+    assertEquals(dtos.size(), users.size());
     Iterator<UserDto> dtoIt = dtos.iterator();
     Iterator<User> userIt = users.iterator();
     while (dtoIt.hasNext() && userIt.hasNext()) {
@@ -124,22 +123,22 @@ public class UserMapperTest {
   }
 
   private void assertDtoWithUser(UserDto expected, User actual) {
-    Assert.assertEquals(expected.getId(), actual.getId());
-    Assert.assertEquals(expected.getEmail(), actual.getMail());
-    Assert.assertEquals(expected.getGivenName(), actual.getGivenName());
-    Assert.assertEquals(expected.getSurname(), actual.getSurname());
-    Assert.assertEquals(expected.getDepartment(), actual.getDepartment());
-    Assert.assertEquals(expected.getJobTitle(), actual.getJobTitle());
-    Assert.assertEquals(expected.getPhoto(), actual.getPhoto());
+    assertEquals(expected.getId(), actual.getId());
+    assertEquals(expected.getEmail(), actual.getMail());
+    assertEquals(expected.getGivenName(), actual.getGivenName());
+    assertEquals(expected.getSurname(), actual.getSurname());
+    assertEquals(expected.getDepartment(), actual.getDepartment());
+    assertEquals(expected.getJobTitle(), actual.getJobTitle());
+    assertEquals(expected.getPhoto(), actual.getPhoto());
   }
 
   private void assertUserWithDto(User expected, UserDto actual) {
-    Assert.assertEquals(expected.getId(), actual.getId());
-    Assert.assertEquals(expected.getMail(), actual.getEmail());
-    Assert.assertEquals(expected.getGivenName(), actual.getGivenName());
-    Assert.assertEquals(expected.getSurname(), actual.getSurname());
-    Assert.assertEquals(expected.getDepartment(), actual.getDepartment());
-    Assert.assertEquals(expected.getJobTitle(), actual.getJobTitle());
-    Assert.assertEquals(expected.getPhoto(), actual.getPhoto());
+    assertEquals(expected.getId(), actual.getId());
+    assertEquals(expected.getMail(), actual.getEmail());
+    assertEquals(expected.getGivenName(), actual.getGivenName());
+    assertEquals(expected.getSurname(), actual.getSurname());
+    assertEquals(expected.getDepartment(), actual.getDepartment());
+    assertEquals(expected.getJobTitle(), actual.getJobTitle());
+    assertEquals(expected.getPhoto(), actual.getPhoto());
   }
 }

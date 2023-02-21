@@ -2,20 +2,20 @@ package org.burningokr.mapper.users;
 
 import org.burningokr.dto.users.AdminUserDto;
 import org.burningokr.model.users.AdminUser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AdminUserMapperTest {
   private final AdminUserMapper adminUserMapper = new AdminUserMapper();
   private AdminUserDto adminUserDto;
   private AdminUser adminUser;
 
-  @Before
+  @BeforeEach
   public void init() {
     adminUserDto = new AdminUserDto();
     adminUser = new AdminUser();

@@ -9,23 +9,24 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.service.okrUnitUtil.CyclePreparationCloningService;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CycleServiceTest {
 
   private final LocalDate plannedStartDate = LocalDate.now().minusMonths(1);
@@ -50,7 +51,7 @@ public class CycleServiceTest {
 
     Collection<Cycle> actualCycles = cycleService.getAllCycles();
 
-    Assert.assertEquals(expectedCycles, actualCycles);
+    assertEquals(expectedCycles, actualCycles);
   }
 
   @Test
@@ -67,7 +68,7 @@ public class CycleServiceTest {
 
     Collection<Cycle> actualCycles = cycleService.getAllCycles();
 
-    Assert.assertEquals(expectedCycles, actualCycles);
+    assertEquals(expectedCycles, actualCycles);
   }
 
   @Test
@@ -86,15 +87,17 @@ public class CycleServiceTest {
 
     Collection<Cycle> actualCycles = cycleService.getAllCycles();
 
-    Assert.assertEquals(expectedCycles, actualCycles);
+    assertEquals(expectedCycles, actualCycles);
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test()
   public void findById_expectedNoMatch() {
     long searchId = 100L;
 
     when(cycleRepository.findByIdOrThrow(searchId)).thenThrow(new EntityNotFoundException());
-    cycleService.findById(searchId);
+    assertThrows(EntityNotFoundException.class, () -> {
+      cycleService.findById(searchId);
+    });
   }
 
   @Test
@@ -106,7 +109,7 @@ public class CycleServiceTest {
 
     Cycle actualCycle = cycleService.findById(searchId);
 
-    Assert.assertEquals(expectedCycle, actualCycle);
+    assertEquals(expectedCycle, actualCycle);
   }
 
   private Cycle createDummyCycle(String cycleName, long cycleId, int monthDelay) {
@@ -120,7 +123,7 @@ public class CycleServiceTest {
     return newCycle;
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test()
   public void updateCycle_noOriginalCycle_expectedNoMatchException() {
     // Mock Cycle data
     long cycleId = 100L;
@@ -130,15 +133,16 @@ public class CycleServiceTest {
     Cycle cycleToUpdate = createDummyCycle(oldCycleName, cycleId, oldMonthDelay);
 
     when(cycleRepository.findByIdOrThrow(cycleId)).thenThrow(new EntityNotFoundException());
-
-    cycleService.updateCycle(cycleToUpdate);
+    assertThrows(EntityNotFoundException.class, () -> {
+      cycleService.updateCycle(cycleToUpdate);
+    });
   }
 
   private void assertCycles(Cycle expectedCycle, Cycle actualCycle) {
-    Assert.assertEquals(expectedCycle.getId(), actualCycle.getId());
-    Assert.assertEquals(expectedCycle.getName(), actualCycle.getName());
-    Assert.assertEquals(expectedCycle.getPlannedStartDate(), actualCycle.getPlannedStartDate());
-    Assert.assertEquals(expectedCycle.getPlannedEndDate(), actualCycle.getPlannedEndDate());
+    assertEquals(expectedCycle.getId(), actualCycle.getId());
+    assertEquals(expectedCycle.getName(), actualCycle.getName());
+    assertEquals(expectedCycle.getPlannedStartDate(), actualCycle.getPlannedStartDate());
+    assertEquals(expectedCycle.getPlannedEndDate(), actualCycle.getPlannedEndDate());
   }
 
   @Test
@@ -164,11 +168,13 @@ public class CycleServiceTest {
     assertCycles(expectedCycle, actualCycle);
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test()
   public void deleteCycle_expectedEntityNotFoundException() throws Exception {
     Cycle cycle = createDummyCycle("c", 42, 1);
     when(cycleRepository.findByIdOrThrow(anyLong())).thenThrow(new EntityNotFoundException());
-    cycleService.deleteCycle(cycle.getId(), mockedUser);
+    assertThrows(EntityNotFoundException.class, () -> {
+      cycleService.deleteCycle(cycle.getId(), mockedUser);
+    });
   }
 
   @Test
@@ -191,10 +197,10 @@ public class CycleServiceTest {
     cycleService.defineCycle(100L, newCycle);
 
     LocalDate currentTime = LocalDate.now();
-    Assert.assertEquals(currentTime, oldCycle.getFactualEndDate());
-    Assert.assertEquals(currentTime, newCycle.getFactualStartDate());
-    Assert.assertEquals(CycleState.CLOSED, oldCycle.getCycleState());
-    Assert.assertEquals(CycleState.ACTIVE, newCycle.getCycleState());
+    assertEquals(currentTime, oldCycle.getFactualEndDate());
+    assertEquals(currentTime, newCycle.getFactualStartDate());
+    assertEquals(CycleState.CLOSED, oldCycle.getCycleState());
+    assertEquals(CycleState.ACTIVE, newCycle.getCycleState());
   }
 
   @Test
@@ -241,7 +247,7 @@ public class CycleServiceTest {
 
     Cycle actualCycle = cycleService.defineCycle(100L, newCycle);
 
-    Assert.assertEquals(savedCycle, actualCycle);
+    assertEquals(savedCycle, actualCycle);
   }
 
   private Cycle createDummyCycleWithStateAndEndDateInFuture(
@@ -288,7 +294,7 @@ public class CycleServiceTest {
     cycleService.processAutomaticCycleSwitch();
 
     // We don't need to verify any save calls
-    Assert.assertEquals(CycleState.ACTIVE, cycleForHistoryA1.getCycleState());
+    assertEquals(CycleState.ACTIVE, cycleForHistoryA1.getCycleState());
   }
 
   @Test
@@ -317,10 +323,10 @@ public class CycleServiceTest {
     verify(cycleRepository).save(cycleForCompanyA1);
     verify(cycleRepository).save(cycleForCompanyA2);
 
-    Assert.assertEquals(CycleState.CLOSED, cycleForCompanyA1.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA1.getFactualEndDate());
-    Assert.assertEquals(CycleState.ACTIVE, cycleForCompanyA2.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA2.getFactualStartDate());
+    assertEquals(CycleState.CLOSED, cycleForCompanyA1.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA1.getFactualEndDate());
+    assertEquals(CycleState.ACTIVE, cycleForCompanyA2.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA2.getFactualStartDate());
   }
 
   @Test
@@ -353,12 +359,12 @@ public class CycleServiceTest {
     verify(cycleRepository).save(cycleForCompanyA2);
     verify(cycleRepository).save(cycleForCompanyA3);
 
-    Assert.assertEquals(CycleState.CLOSED, cycleForCompanyA1.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA1.getFactualEndDate());
-    Assert.assertEquals(CycleState.CLOSED, cycleForCompanyA2.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA2.getFactualEndDate());
-    Assert.assertEquals(CycleState.ACTIVE, cycleForCompanyA3.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA3.getFactualStartDate());
+    assertEquals(CycleState.CLOSED, cycleForCompanyA1.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA1.getFactualEndDate());
+    assertEquals(CycleState.CLOSED, cycleForCompanyA2.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA2.getFactualEndDate());
+    assertEquals(CycleState.ACTIVE, cycleForCompanyA3.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA3.getFactualStartDate());
   }
 
   @Test
@@ -410,17 +416,17 @@ public class CycleServiceTest {
     verify(cycleRepository).save(cycleForCompanyB2);
     verify(cycleRepository).save(cycleForCompanyB3);
 
-    Assert.assertEquals(CycleState.CLOSED, cycleForCompanyA1.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA1.getFactualEndDate());
-    Assert.assertEquals(CycleState.CLOSED, cycleForCompanyA2.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA2.getFactualEndDate());
-    Assert.assertEquals(CycleState.ACTIVE, cycleForCompanyA3.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyA3.getFactualStartDate());
-    Assert.assertEquals(CycleState.CLOSED, cycleForCompanyB1.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyB1.getFactualEndDate());
-    Assert.assertEquals(CycleState.CLOSED, cycleForCompanyB2.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyB2.getFactualEndDate());
-    Assert.assertEquals(CycleState.ACTIVE, cycleForCompanyB3.getCycleState());
-    Assert.assertEquals(LocalDate.now(), cycleForCompanyB3.getFactualStartDate());
+    assertEquals(CycleState.CLOSED, cycleForCompanyA1.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA1.getFactualEndDate());
+    assertEquals(CycleState.CLOSED, cycleForCompanyA2.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA2.getFactualEndDate());
+    assertEquals(CycleState.ACTIVE, cycleForCompanyA3.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyA3.getFactualStartDate());
+    assertEquals(CycleState.CLOSED, cycleForCompanyB1.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyB1.getFactualEndDate());
+    assertEquals(CycleState.CLOSED, cycleForCompanyB2.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyB2.getFactualEndDate());
+    assertEquals(CycleState.ACTIVE, cycleForCompanyB3.getCycleState());
+    assertEquals(LocalDate.now(), cycleForCompanyB3.getFactualStartDate());
   }
 }

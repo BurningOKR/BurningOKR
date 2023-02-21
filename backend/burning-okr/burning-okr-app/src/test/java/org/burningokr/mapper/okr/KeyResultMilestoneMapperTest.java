@@ -3,19 +3,20 @@ package org.burningokr.mapper.okr;
 import org.burningokr.dto.okr.KeyResultMilestoneDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class KeyResultMilestoneMapperTest {
   private KeyResultMilestone keyResultMilestone;
   private KeyResultMilestoneDto keyResultMilestoneDto;
   private KeyResultMilestoneMapper keyResultMilestoneMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     this.keyResultMilestone = new KeyResultMilestone();
     KeyResult parentKeyResult = new KeyResult();
@@ -29,7 +30,7 @@ public class KeyResultMilestoneMapperTest {
     Long expected = 15L;
     keyResultMilestone.setId(expected);
     keyResultMilestoneDto = keyResultMilestoneMapper.mapEntityToDto(keyResultMilestone);
-    Assert.assertEquals(expected, keyResultMilestoneDto.getId());
+    assertEquals(expected, keyResultMilestoneDto.getId());
   }
 
   @Test
@@ -37,7 +38,7 @@ public class KeyResultMilestoneMapperTest {
     String expected = "Name";
     keyResultMilestone.setName(expected);
     keyResultMilestoneDto = keyResultMilestoneMapper.mapEntityToDto(keyResultMilestone);
-    Assert.assertEquals(expected, keyResultMilestoneDto.getName());
+    assertEquals(expected, keyResultMilestoneDto.getName());
   }
 
   @Test
@@ -45,7 +46,7 @@ public class KeyResultMilestoneMapperTest {
     Long expected = 11L;
     keyResultMilestone.setValue(expected);
     keyResultMilestoneDto = keyResultMilestoneMapper.mapEntityToDto(keyResultMilestone);
-    Assert.assertEquals(expected, keyResultMilestoneDto.getValue());
+    assertEquals(expected, keyResultMilestoneDto.getValue());
   }
 
   @Test
@@ -53,7 +54,7 @@ public class KeyResultMilestoneMapperTest {
     Long expected = 18L;
     keyResultMilestone.getParentKeyResult().setId(expected);
     keyResultMilestoneDto = keyResultMilestoneMapper.mapEntityToDto(keyResultMilestone);
-    Assert.assertEquals(expected, keyResultMilestoneDto.getParentKeyResultId());
+    assertEquals(expected, keyResultMilestoneDto.getParentKeyResultId());
   }
 
   @Test
@@ -61,7 +62,7 @@ public class KeyResultMilestoneMapperTest {
     Long expected = 15L;
     keyResultMilestoneDto.setId(expected);
     keyResultMilestone = keyResultMilestoneMapper.mapDtoToEntity(keyResultMilestoneDto);
-    Assert.assertEquals(expected, keyResultMilestone.getId());
+    assertEquals(expected, keyResultMilestone.getId());
   }
 
   @Test
@@ -69,7 +70,7 @@ public class KeyResultMilestoneMapperTest {
     String expected = "Name";
     keyResultMilestoneDto.setName(expected);
     keyResultMilestone = keyResultMilestoneMapper.mapDtoToEntity(keyResultMilestoneDto);
-    Assert.assertEquals(expected, keyResultMilestone.getName());
+    assertEquals(expected, keyResultMilestone.getName());
   }
 
   @Test
@@ -77,7 +78,7 @@ public class KeyResultMilestoneMapperTest {
     Long expected = 11L;
     keyResultMilestoneDto.setValue(expected);
     keyResultMilestone = keyResultMilestoneMapper.mapDtoToEntity(keyResultMilestoneDto);
-    Assert.assertEquals(expected, keyResultMilestone.getValue());
+    assertEquals(expected, keyResultMilestone.getValue());
   }
 
   @Test
@@ -85,7 +86,7 @@ public class KeyResultMilestoneMapperTest {
     Long expected = 18L;
     keyResultMilestoneDto.setParentKeyResultId(expected);
     keyResultMilestone = keyResultMilestoneMapper.mapDtoToEntity(keyResultMilestoneDto);
-    Assert.assertEquals(expected, keyResultMilestone.getParentKeyResult().getId());
+    assertEquals(expected, keyResultMilestone.getParentKeyResult().getId());
   }
 
   @Test
@@ -93,7 +94,7 @@ public class KeyResultMilestoneMapperTest {
     Collection<KeyResultMilestone> emptyList = new ArrayList<>();
     Collection<KeyResultMilestoneDto> emptyDtoList =
       keyResultMilestoneMapper.mapEntitiesToDtos(emptyList);
-    Assert.assertTrue(emptyDtoList.isEmpty());
+    assertTrue(emptyDtoList.isEmpty());
   }
 
   @Test
@@ -103,8 +104,8 @@ public class KeyResultMilestoneMapperTest {
     keyResultMilestone.setId(expected);
     list.add(keyResultMilestone);
     Collection<KeyResultMilestoneDto> dtoList = keyResultMilestoneMapper.mapEntitiesToDtos(list);
-    Assert.assertFalse(dtoList.isEmpty());
-    Assert.assertTrue(dtoList.stream().anyMatch(dto -> dto.getId().equals(expected)));
+    assertFalse(dtoList.isEmpty());
+    assertTrue(dtoList.stream().anyMatch(dto -> dto.getId().equals(expected)));
   }
 
   @Test
@@ -112,7 +113,7 @@ public class KeyResultMilestoneMapperTest {
     Collection<KeyResultMilestoneDto> emptyList = new ArrayList<>();
     Collection<KeyResultMilestone> emptyDtoList =
       keyResultMilestoneMapper.mapDtosToEntities(emptyList);
-    Assert.assertTrue(emptyDtoList.isEmpty());
+    assertTrue(emptyDtoList.isEmpty());
   }
 
   @Test
@@ -122,7 +123,7 @@ public class KeyResultMilestoneMapperTest {
     keyResultMilestoneDto.setId(expected);
     list.add(keyResultMilestoneDto);
     Collection<KeyResultMilestone> dtoList = keyResultMilestoneMapper.mapDtosToEntities(list);
-    Assert.assertFalse(dtoList.isEmpty());
-    Assert.assertTrue(dtoList.stream().anyMatch(dto -> dto.getId().equals(expected)));
+    assertFalse(dtoList.isEmpty());
+    assertTrue(dtoList.stream().anyMatch(dto -> dto.getId().equals(expected)));
   }
 }

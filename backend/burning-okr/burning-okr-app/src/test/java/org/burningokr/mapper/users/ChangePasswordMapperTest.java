@@ -2,13 +2,13 @@ package org.burningokr.mapper.users;
 
 import org.burningokr.dto.users.ChangePasswordDto;
 import org.burningokr.model.users.ChangePasswordData;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChangePasswordMapperTest {
 
@@ -16,7 +16,7 @@ public class ChangePasswordMapperTest {
   private ChangePasswordDto changePasswordDto;
   private ChangePasswordMapper changePasswordMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     changePasswordData = new ChangePasswordData();
     changePasswordDto = new ChangePasswordDto();

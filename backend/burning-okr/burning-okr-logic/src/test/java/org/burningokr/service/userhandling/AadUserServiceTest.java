@@ -3,20 +3,21 @@ package org.burningokr.service.userhandling;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.repositories.users.AadUserRepository;
 import org.burningokr.service.userutil.AadUserListUpdater;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AadUserServiceTest {
 
   @Mock
@@ -32,7 +33,7 @@ public class AadUserServiceTest {
   public void test_expectEmptyUserList() {
     when(aadUserRepository.findAll()).thenReturn(new ArrayList<>());
 
-    Assert.assertTrue(aadUserService.findAll().isEmpty());
+    assertTrue(aadUserService.findAll().isEmpty());
   }
 
   @Test
@@ -41,6 +42,6 @@ public class AadUserServiceTest {
 
     when(aadUserRepository.findAll()).thenReturn(users);
 
-    Assert.assertEquals(2, aadUserService.findAll().size());
+    assertEquals(2, aadUserService.findAll().size());
   }
 }

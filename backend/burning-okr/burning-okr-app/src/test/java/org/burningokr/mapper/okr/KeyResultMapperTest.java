@@ -3,12 +3,13 @@ package org.burningokr.mapper.okr;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.KeyResultMilestoneDto;
 import org.burningokr.model.okr.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class KeyResultMapperTest {
 
@@ -16,7 +17,7 @@ public class KeyResultMapperTest {
   private KeyResultDto keyResultDto;
   private KeyResultMapper keyResultMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     this.keyResultDto = new KeyResultDto();
     this.keyResult = new KeyResult();
@@ -31,7 +32,7 @@ public class KeyResultMapperTest {
     Long expected = 15L;
     keyResult.setId(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getId());
+    assertEquals(expected, keyResultDto.getId());
   }
 
   @Test
@@ -41,7 +42,7 @@ public class KeyResultMapperTest {
     parentObjective.setId(expected);
     keyResult.setParentObjective(parentObjective);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getParentObjectiveId());
+    assertEquals(expected, keyResultDto.getParentObjectiveId());
   }
 
   @Test
@@ -49,7 +50,7 @@ public class KeyResultMapperTest {
     String expected = "Beef";
     keyResult.setName(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getTitle());
+    assertEquals(expected, keyResultDto.getTitle());
   }
 
   @Test
@@ -57,7 +58,7 @@ public class KeyResultMapperTest {
     String expected = "Beef";
     keyResult.setDescription(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getDescription());
+    assertEquals(expected, keyResultDto.getDescription());
   }
 
   @Test
@@ -65,7 +66,7 @@ public class KeyResultMapperTest {
     long expected = 1337L;
     keyResult.setStartValue(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getStartValue());
+    assertEquals(expected, keyResultDto.getStartValue());
   }
 
   @Test
@@ -73,7 +74,7 @@ public class KeyResultMapperTest {
     long expected = 25L;
     keyResult.setCurrentValue(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getCurrentValue());
+    assertEquals(expected, keyResultDto.getCurrentValue());
   }
 
   @Test
@@ -81,7 +82,7 @@ public class KeyResultMapperTest {
     long expected = 15L;
     keyResult.setTargetValue(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getTargetValue());
+    assertEquals(expected, keyResultDto.getTargetValue());
   }
 
   @Test
@@ -93,7 +94,7 @@ public class KeyResultMapperTest {
     }
     keyResult.setNotes(notesKeyResult);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
-    Assert.assertEquals(expected, keyResultDto.getNoteIds().size());
+    assertEquals(expected, keyResultDto.getNoteIds().size());
   }
 
   @Test
@@ -102,7 +103,7 @@ public class KeyResultMapperTest {
     keyResult.setUnit(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
 
-    Assert.assertEquals(expected, keyResultDto.getUnit());
+    assertEquals(expected, keyResultDto.getUnit());
   }
 
   @Test
@@ -111,7 +112,7 @@ public class KeyResultMapperTest {
     keyResult.setUnit(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
 
-    Assert.assertEquals(expected, keyResultDto.getUnit());
+    assertEquals(expected, keyResultDto.getUnit());
   }
 
   @Test
@@ -120,7 +121,7 @@ public class KeyResultMapperTest {
     keyResult.setUnit(expected);
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
 
-    Assert.assertEquals(expected, keyResultDto.getUnit());
+    assertEquals(expected, keyResultDto.getUnit());
   }
 
   @Test
@@ -131,7 +132,7 @@ public class KeyResultMapperTest {
 
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
 
-    Assert.assertTrue(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
+    assertTrue(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
   }
 
   @Test
@@ -148,8 +149,8 @@ public class KeyResultMapperTest {
 
     keyResultDto = keyResultMapper.mapEntityToDto(keyResult);
 
-    Assert.assertFalse(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
-    Assert.assertTrue(
+    assertFalse(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
+    assertTrue(
       keyResultDto.getKeyResultMilestoneDtos().stream()
         .anyMatch(keyResultDto -> keyResultDto.getId().equals(expectedId)));
   }
@@ -161,13 +162,13 @@ public class KeyResultMapperTest {
     Long expected = 15L;
     keyResultDto.setId(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getId());
+    assertEquals(expected, keyResult.getId());
   }
 
   @Test
   public void test_mapDtoToEntity_expects_expectsParentIsNull() {
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertNull(keyResult.getParentObjective());
+    assertNull(keyResult.getParentObjective());
   }
 
   @Test
@@ -175,7 +176,7 @@ public class KeyResultMapperTest {
     Long expected = 1337L;
     keyResultDto.setParentObjectiveId(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getParentObjective().getId());
+    assertEquals(expected, keyResult.getParentObjective().getId());
   }
 
   @Test
@@ -183,7 +184,7 @@ public class KeyResultMapperTest {
     String expected = "Beef";
     keyResultDto.setTitle(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getName());
+    assertEquals(expected, keyResult.getName());
   }
 
   @Test
@@ -191,7 +192,7 @@ public class KeyResultMapperTest {
     String expected = "Beef";
     keyResultDto.setDescription(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getDescription());
+    assertEquals(expected, keyResult.getDescription());
   }
 
   @Test
@@ -199,7 +200,7 @@ public class KeyResultMapperTest {
     long expected = 1337L;
     keyResultDto.setStartValue(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getStartValue());
+    assertEquals(expected, keyResult.getStartValue());
   }
 
   @Test
@@ -207,7 +208,7 @@ public class KeyResultMapperTest {
     long expected = 25L;
     keyResultDto.setCurrentValue(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getCurrentValue());
+    assertEquals(expected, keyResult.getCurrentValue());
   }
 
   @Test
@@ -215,13 +216,13 @@ public class KeyResultMapperTest {
     long expected = 15L;
     keyResultDto.setTargetValue(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getTargetValue());
+    assertEquals(expected, keyResult.getTargetValue());
   }
 
   @Test
   public void test_mapDtoToEntity_expectsNotesNotNull() {
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertNotNull(keyResult);
+    assertNotNull(keyResult);
   }
 
   @Test
@@ -229,7 +230,7 @@ public class KeyResultMapperTest {
     Unit expected = Unit.NUMBER;
     keyResultDto.setUnit(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getUnit());
+    assertEquals(expected, keyResult.getUnit());
   }
 
   @Test
@@ -237,7 +238,7 @@ public class KeyResultMapperTest {
     Unit expected = Unit.EURO;
     keyResultDto.setUnit(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getUnit());
+    assertEquals(expected, keyResult.getUnit());
   }
 
   @Test
@@ -245,7 +246,7 @@ public class KeyResultMapperTest {
     Unit expected = Unit.PERCENT;
     keyResultDto.setUnit(expected);
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    Assert.assertEquals(expected, keyResult.getUnit());
+    assertEquals(expected, keyResult.getUnit());
   }
 
   @Test
@@ -256,7 +257,7 @@ public class KeyResultMapperTest {
 
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
 
-    Assert.assertTrue(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
+    assertTrue(keyResultDto.getKeyResultMilestoneDtos().isEmpty());
   }
 
   @Test
@@ -274,8 +275,8 @@ public class KeyResultMapperTest {
 
     keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
 
-    Assert.assertFalse(keyResult.getMilestones().isEmpty());
-    Assert.assertTrue(
+    assertFalse(keyResult.getMilestones().isEmpty());
+    assertTrue(
       keyResult.getMilestones().stream()
         .anyMatch(keyResult -> keyResult.getId().equals(expectedId)));
   }

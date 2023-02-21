@@ -11,22 +11,23 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceManagers;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@ExtendWith(MockitoExtension.class)
 public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
 
   protected final Long departmentId = 1337L;
@@ -48,7 +49,7 @@ public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
 
   protected abstract T createUnit();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.unit = createUnit();
     unit.setId(departmentId);
@@ -59,14 +60,19 @@ public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(activeCycle);
   }
 
-  @Test(expected = UnauthorizedUserException.class)
+  @Test
   public void createChildUnit_expectedThrow() {
-    okrUnitServiceManagers.createChildUnit(departmentId, createUnit(), user);
+    assertThrows(UnauthorizedUserException.class, () -> {
+      okrUnitServiceManagers.createChildUnit(departmentId, createUnit(), user);
+    });
+
   }
 
-  @Test(expected = UnauthorizedUserException.class)
+  @Test
   public void removeUnit_expectedThrow() {
-    okrUnitServiceManagers.deleteUnit(departmentId, user);
+    assertThrows(UnauthorizedUserException.class, () -> {
+      okrUnitServiceManagers.deleteUnit(departmentId, user);
+    });
   }
 
   @Test
@@ -78,8 +84,8 @@ public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
 
     okrUnitServiceManagers.createObjective(departmentId, objective, user);
 
-    Assert.assertNotNull(objective.getParentOkrUnit().getId());
-    Assert.assertEquals(departmentId, objective.getParentOkrUnit().getId());
+    assertNotNull(objective.getParentOkrUnit().getId());
+    assertEquals(departmentId, objective.getParentOkrUnit().getId());
   }
 
   @Test
@@ -102,26 +108,30 @@ public abstract class OkrUnitServiceManagersTest<T extends OkrChildUnit> {
 
     okrUnitServiceManagers.createObjective(departmentId, objective, user);
 
-    Assert.assertEquals(5, otherObjective0.getSequence());
-    Assert.assertEquals(6, otherObjective1.getSequence());
-    Assert.assertEquals(10, otherObjective2.getSequence());
+    assertEquals(5, otherObjective0.getSequence());
+    assertEquals(6, otherObjective1.getSequence());
+    assertEquals(10, otherObjective2.getSequence());
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void createObjective_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
-    okrUnitServiceManagers.createObjective(10L, new Objective(), user);
+    assertThrows(ForbiddenException.class, () -> {
+      okrUnitServiceManagers.createObjective(10L, new Objective(), user);
+    });
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void updateUnit_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
-    okrUnitServiceManagers.updateUnit(createUnit(), user);
+    assertThrows(ForbiddenException.class, () -> {
+      okrUnitServiceManagers.updateUnit(createUnit(), user);
+    });
   }
 }

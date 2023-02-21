@@ -2,7 +2,7 @@ package org.burningokr.service.okrUnit.departmentservices.unitServiceManagersTes
 
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 

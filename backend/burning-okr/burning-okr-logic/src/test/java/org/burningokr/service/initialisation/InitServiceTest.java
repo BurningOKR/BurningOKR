@@ -12,23 +12,23 @@ import org.burningokr.service.exceptions.InvalidInitStateException;
 import org.burningokr.service.userhandling.AdminUserService;
 import org.burningokr.service.userhandling.LocalUserService;
 import org.burningokr.service.userhandling.PasswordService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationContext;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class InitServiceTest {
 
   @Mock
@@ -55,7 +55,7 @@ public class InitServiceTest {
   private InitState initState;
   private LocalUser localUser;
 
-  @Before
+  @BeforeEach
   public void init() {
     initState = new InitState();
     localUser = new LocalUser();

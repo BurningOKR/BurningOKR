@@ -1,15 +1,16 @@
 package org.burningokr.service.security;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AuthorizationServiceTest {
 
   @Mock
@@ -37,7 +38,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.isAdmin();
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -46,7 +47,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.isAdmin();
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 
   @Test
@@ -55,7 +56,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasManagerPrivilegeForDepartment(departmentId);
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -64,7 +65,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasManagerPrivilegeForDepartment(departmentId);
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 
   @Test
@@ -73,7 +74,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasManagerPrivilegeForObjective(objectiveId);
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -82,7 +83,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasManagerPrivilegeForObjective(objectiveId);
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 
   @Test
@@ -91,7 +92,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasManagerPrivilegeForKeyResult(keyResultId);
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -100,7 +101,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasManagerPrivilegeForKeyResult(keyResultId);
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 
   @Test
@@ -109,7 +110,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasMemberPrivilegeForDepartment(departmentId);
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -118,7 +119,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasMemberPrivilegeForDepartment(departmentId);
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 
   @Test
@@ -127,7 +128,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasMemberPrivilegeForObjective(objectiveId);
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -136,7 +137,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasMemberPrivilegeForObjective(objectiveId);
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 
   @Test
@@ -145,7 +146,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasMemberPrivilegeForKeyResult(keyResultId);
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -154,7 +155,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.hasMemberPrivilegeForKeyResult(keyResultId);
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 
   @Test
@@ -163,7 +164,7 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.isNoteOwner(noteId);
 
-    Assert.assertTrue(actual);
+    assertTrue(actual);
   }
 
   @Test
@@ -172,6 +173,6 @@ public class AuthorizationServiceTest {
 
     boolean actual = authorizationService.isNoteOwner(noteId);
 
-    Assert.assertFalse(actual);
+    assertFalse(actual);
   }
 }
