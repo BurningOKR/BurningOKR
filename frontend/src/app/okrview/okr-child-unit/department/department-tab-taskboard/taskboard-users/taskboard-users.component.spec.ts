@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskboardUsersComponent } from './taskboard-users.component';
-import {AvatarComponent} from "ngx-avatar";
+import { AvatarComponent } from 'ngx-avatars';
 
 describe('TaskboardUsersComponent', () => {
   let component: TaskboardUsersComponent;
@@ -9,9 +9,9 @@ describe('TaskboardUsersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaskboardUsersComponent, AvatarComponent ]
+      declarations: [TaskboardUsersComponent, AvatarComponent],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -14,13 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
-
 @Entity
 @Data
 @AllArgsConstructor

@@ -6,6 +6,7 @@ import org.burningokr.model.okr.Task;
 import org.burningokr.service.WebsocketUserService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskService;
+import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.userhandling.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

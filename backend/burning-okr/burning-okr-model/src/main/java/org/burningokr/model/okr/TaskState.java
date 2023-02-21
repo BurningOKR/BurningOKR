@@ -7,8 +7,6 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
-import javax.persistence.*;
-
 @Entity
 @Data
 public class TaskState implements Trackable<Long> {

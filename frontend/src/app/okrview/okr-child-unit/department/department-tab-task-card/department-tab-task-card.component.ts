@@ -1,13 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { TaskBoardViewEventService } from '../../../../okrview/taskboard-services/task-board-view-event.service';
-import { User } from '../../../..//shared/model/api/user';
-import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
 import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
-import { ViewKeyResult } from '../../../../shared/model/ui/view-key-result';
+import { ViewKeyResult } from 'src/app/shared/model/ui/view-key-result';
 
 import { UserService } from '../../../../shared/services/helper/user.service';
 import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
+import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
 
 export interface TaskCardInformation {
   task: ViewTask;
