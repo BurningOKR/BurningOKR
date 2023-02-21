@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+@import 'src/styles/themes/bag-theme.scss';
+
+.info-bar-text {
+  text-align: center;
+  background-color: mat.get-color-from-palette($bag-theme-primary, A400);
+  margin-top: 0;
+  border-radius: 0 0 4px 4px;
+  color: white;
+  font-weight: 500;
+}
