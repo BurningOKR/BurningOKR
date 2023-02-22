@@ -1,16 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-additional-info-bar',
   templateUrl: './additional-info-bar.component.html',
-  styleUrls: ['./additional-info-bar.component.scss']
+  styleUrls: ['./additional-info-bar.component.scss'],
 })
-export class AdditionalInfoBarComponent implements OnInit {
-
+export class AdditionalInfoBarComponent {
   @Input() text: string;
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
