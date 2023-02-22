@@ -101,21 +101,19 @@ subprojects {
     configurations.configureEach {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'org.springframework.boot') {
-                //details.useVersion '2.0.4.RELEASE'
                 details.useVersion '3.0.2'
             }
             if (details.requested.group == 'org.springframework') {
-                //details.useVersion '5.0.9.RELEASE'
                 details.useVersion '6.0.4'
             }
             if (details.requested.group == 'org.springframework.security') {
-                details.useVersion '5.8.1'
+                details.useVersion '6.0.2'
             }
             if (details.requested.group == 'org.springframework.security' && details.requested.name == 'spring-security-jwt') {
-                details.useVersion '1.1.0.RELEASE'
+                details.useVersion '1.1.1.RELEASE'
             }
             if (details.requested.group == 'org.springframework.security.oauth.boot') {
-                details.useVersion '2.1.0.RELEASE'
+                details.useVersion '2.6.8'
             }
         }
     }
