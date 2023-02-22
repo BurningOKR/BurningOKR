@@ -9,7 +9,7 @@ buildscript {
     dependencies {
 //        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.2")
-//        classpath 'io.freefair.gradle:lombok-plugin:6.6.2'
+        classpath 'io.freefair.gradle:lombok-plugin:6.6.2'
     }
 
 }
@@ -20,7 +20,7 @@ subprojects {
 //    apply plugin: 'com.diffplug.gradle.spotless'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-//    apply plugin: 'io.freefair.lombok'
+    apply plugin: 'io.freefair.lombok'
 
     sourceCompatibility = 17
     targetCompatibility = 17
@@ -30,8 +30,6 @@ subprojects {
     }
 
     dependencies {
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
 
         // TODO look if needed after spring update (fixes Missing Annotation Warning)
         implementation 'com.google.code.findbugs:jsr305:3.0.2'
@@ -72,12 +70,6 @@ subprojects {
         implementation 'com.google.code.gson:gson:2.8.5'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         testImplementation "org.springframework.boot:spring-boot-starter-test"
-
-        // lombok
-//        compileOnly deps.lombok
-//        annotationProcessor deps.lombok
-//        testCompileOnly deps.lombok
-//        testAnnotationProcessor deps.lombok
     }
 
     test {
