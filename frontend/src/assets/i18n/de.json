@@ -189,6 +189,7 @@
     "delete-dashboard": "Löschen"
   },
   "dashboard-overview": {
+    "wip-info-text": "Diese Seite befindet sich aktuell im Aufbau",
     "create-dashboard-button": "Dashboard erstellen",
     "okr-toolbar": {
       "dashboard-overview": "Dashboardübersicht"
