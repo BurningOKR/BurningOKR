@@ -1,8 +1,6 @@
 package org.burningokr.config.swagger;
 
 import lombok.RequiredArgsConstructor;
-import org.burningokr.service.condition.AadCondition;
-import org.burningokr.service.userutil.ExternalOAuthClientDetails;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;

@@ -6,7 +6,7 @@ import org.burningokr.annotation.TurnOff;
 import org.burningokr.dto.configuration.OAuthClientDetailsDto;
 import org.burningokr.dto.initialisation.AdminAccountInitialisationDto;
 import org.burningokr.dto.initialisation.InitStateDto;
-import org.burningokr.dto.users.LocalUserDto;
+import org.burningokr.dto.users.UserDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.initialisation.InitState;
@@ -27,7 +27,7 @@ import javax.validation.Valid;
 public class InitController {
 
   private final DataMapper<InitState, InitStateDto> initStateMapper;
-  private final DataMapper<User, LocalUserDto> userMapper;
+  private final DataMapper<User, UserDto> userMapper;
   private final DataMapper<OAuthClientDetails, OAuthClientDetailsDto> oauthClientDetailsMapper;
   private final InitService initService;
   private final Logger logger = LoggerFactory.getLogger(InitController.class);

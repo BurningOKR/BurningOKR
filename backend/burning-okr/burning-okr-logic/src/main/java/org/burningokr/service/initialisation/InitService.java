@@ -15,7 +15,6 @@ import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.burningokr.service.exceptions.InvalidInitStateException;
 import org.burningokr.service.userhandling.AdminUserService;
 import org.burningokr.service.userhandling.LocalUserService;
-import org.burningokr.service.userhandling.PasswordService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;

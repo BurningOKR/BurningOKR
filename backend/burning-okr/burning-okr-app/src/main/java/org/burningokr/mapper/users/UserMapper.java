@@ -5,7 +5,6 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
-import org.burningokr.service.environment.AppEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

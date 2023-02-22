@@ -7,8 +7,6 @@ import com.google.gson.Gson;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
-import org.burningokr.model.users.ChangePasswordData;
-import org.burningokr.model.users.ForgotPassword;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.LocalUserRepository;
@@ -30,7 +28,6 @@ public class LocalUserService implements UserService {
   private final Logger logger = LoggerFactory.getLogger(LocalUserService.class);
 
   private final LocalUserRepository localUserRepository;
-  private final PasswordService passwordService;
   private final ActivityService activityService;
 
   @Override
@@ -120,10 +117,6 @@ public class LocalUserService implements UserService {
       throw new DuplicateEmailException("The given Email adress already exists.");
     }
 
-    if (sendPassword) {
-      passwordService.sendPasswordLinkToNewUser(result);
-    }
-
     activityService.createActivity(localUser, localUser, Action.CREATED);
     return result;
   }
@@ -175,27 +168,5 @@ public class LocalUserService implements UserService {
     localUser.setActive(false);
     localUserRepository.save(localUser);
     activityService.createActivity(localUser, localUser, Action.DELETED);
-  }
-
-  public void setPassword(UUID emailIdentifier, String password) {
-    passwordService.setPassword(emailIdentifier, password);
-  }
-
-  public void changePassword(ChangePasswordData changePasswordData) {
-    passwordService.changePassword(changePasswordData);
-  }
-
-  /**
-   * Create a Password Link to reset the password of a User.
-   *
-   * @param forgotPassword a {@link ForgotPassword} object
-   */
-  public void resetPassword(ForgotPassword forgotPassword) {
-    Optional<LocalUser> user = localUserRepository.findByMail(forgotPassword.getEmail());
-    if (user.isPresent()) {
-      passwordService.sendPasswordLinkToUser(user.get());
-    } else {
-      throw new EntityNotFoundException("An User with the given e-mail address does not exist.");
-    }
   }
 }

@@ -3,7 +3,7 @@ package org.burningokr.dto.initialisation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.burningokr.dto.users.LocalUserDto;
+import org.burningokr.dto.users.UserDto;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class AdminAccountInitialisationDto {
 
   @NotNull
-  private LocalUserDto userDto;
+  private UserDto userDto;
 
   @NotNull
   private String password;

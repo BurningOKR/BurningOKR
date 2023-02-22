@@ -11,7 +11,6 @@ import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.burningokr.service.exceptions.InvalidInitStateException;
 import org.burningokr.service.userhandling.AdminUserService;
 import org.burningokr.service.userhandling.LocalUserService;
-import org.burningokr.service.userhandling.PasswordService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,8 +34,6 @@ public class InitServiceTest {
   private InitStateRepository initStateRepository;
   @Mock
   private LocalUserService localUserService;
-  @Mock
-  private PasswordService passwordService;
   @Mock
   private AdminUserService adminUserService;
   @Mock

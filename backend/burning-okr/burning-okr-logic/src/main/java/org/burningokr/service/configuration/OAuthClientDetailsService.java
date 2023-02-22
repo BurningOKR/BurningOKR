@@ -3,7 +3,6 @@ package org.burningokr.service.configuration;
 import com.google.common.collect.Lists;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.consts.DefaultLocalAuthData;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.repositories.configuration.OAuthClientDetailsRepository;
 import org.slf4j.Logger;
@@ -28,12 +27,7 @@ public class OAuthClientDetailsService {
    * @param oauthClientDetails the model
    */
   public void fillDefaultValues(OAuthClientDetails oauthClientDetails) {
-    oauthClientDetails.setResourceIds(DefaultLocalAuthData.resourceIds);
-    oauthClientDetails.setScope(DefaultLocalAuthData.scope);
-    oauthClientDetails.setAuthorizedGrantTypes(DefaultLocalAuthData.authorizedGrantTypes);
-    oauthClientDetails.setAuthorities(DefaultLocalAuthData.authorities);
-    oauthClientDetails.setAdditionalInformation(DefaultLocalAuthData.additionalInformation);
-    oauthClientDetails.setAutoapprove(DefaultLocalAuthData.autoApprove);
+    // TODO fix auth
   }
 
   /**

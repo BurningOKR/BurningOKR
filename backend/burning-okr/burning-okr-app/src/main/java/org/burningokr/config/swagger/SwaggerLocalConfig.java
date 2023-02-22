@@ -2,7 +2,6 @@ package org.burningokr.config.swagger;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.configuration.OAuthConfigurationName;
-import org.burningokr.service.condition.LocalUserCondition;
 import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;

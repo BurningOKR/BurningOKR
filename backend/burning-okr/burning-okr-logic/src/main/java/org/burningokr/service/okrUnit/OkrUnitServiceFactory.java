@@ -6,8 +6,6 @@ import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceManagers;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceMembers;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
-import org.burningokr.service.security.UserContextRole;
-import org.burningokr.service.security.UserRoleFromContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
