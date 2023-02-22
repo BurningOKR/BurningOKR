@@ -1,5 +1,7 @@
 package org.burningokr.service.userhandling;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import org.burningokr.model.users.AadUser;
@@ -8,8 +10,6 @@ import org.burningokr.repositories.users.AadUserRepository;
 import org.burningokr.service.exceptions.AzureApiException;
 import org.burningokr.service.exceptions.AzureUserFetchException;
 import org.burningokr.service.userutil.AadUserListUpdater;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +86,7 @@ public class AadUserService implements UserService {
       ObjectMapper objectMapper = new ObjectMapper();
 
       return objectMapper
-        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         .readValue(userString, AadUser.class);
     } catch (IOException ex) {
       logger.error("There was an error parsing the User Token.");

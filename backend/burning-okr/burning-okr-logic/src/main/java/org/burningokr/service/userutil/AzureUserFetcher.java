@@ -1,10 +1,10 @@
 package org.burningokr.service.userutil;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.burningokr.model.users.AadUser;
 import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.exceptions.AzureUserFetchException;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ public class AzureUserFetcher {
       }
 
       return new ObjectMapper()
-        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         .readValue(stringBuilder.toString(), AzureGroupResponse.class);
     } catch (IOException e) {
       throw new AzureUserFetchException(e.getMessage());

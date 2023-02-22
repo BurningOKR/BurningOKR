@@ -1,5 +1,7 @@
 package org.burningokr.service.userhandling;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,8 +14,6 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.LocalUserRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.DuplicateEmailException;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -79,7 +79,7 @@ public class LocalUserService implements UserService {
     try {
       ObjectMapper objectMapper = new ObjectMapper();
       return objectMapper
-        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         .readValue(userString, LocalUser.class);
     } catch (IOException ex) {
       logger.error("There was an error parsing the User Token.");

@@ -1,9 +1,9 @@
 package org.burningokr.service.userutil;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import org.burningokr.service.condition.AadCondition;
 import org.burningokr.service.exceptions.AzureApiException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
