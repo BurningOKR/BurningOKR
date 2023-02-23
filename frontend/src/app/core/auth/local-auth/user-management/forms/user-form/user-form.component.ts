@@ -22,6 +22,12 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+  trimText(): void {
+    this.userForm.get('givenName').setValue(this.userForm.get('givenName').value.trim());
+    this.userForm.get('surname').setValue(this.userForm.get('surname').value.trim());
+    this.userForm.get('email').setValue(this.userForm.get('email').value.trim());
+  }
+
   setPhoto($event: any): void {
     const files: FileList = $event.target.files;
     if (files.length) {
