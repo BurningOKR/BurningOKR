@@ -63,43 +63,43 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let revision of taskRevisions" class="mat-row">
-          <td class="mat-cell type">
-            <mat-icon
-              style="transform: scale(0.7);">{{revision.revisionType === "ADD" ? "fiber_new" : (revision.revisionType === "MOD" ? "edit" : "")}}</mat-icon>
-          </td>
-          <td class="mat-cell date">{{revision.date | localizedDate:'short' }}</td>
-          <td class="mat-cell user">
-            <app-taskboard-users *ngIf="revision.user" [users]="[revision.user]"></app-taskboard-users>
-            <ng-container *ngIf="revision.revisionType === 'ADD' && !revision.user">
-              <mat-icon>device_unknown</mat-icon>
-            </ng-container>
-          </td>
-          <td
-            class="mat-cell field">{{ 'department-tab-task-form.revisions.fields.' + revision.changedField | translate }}</td>
-          <ng-container [ngSwitch]="revision.revisionValueType">
-            <ng-container *ngSwitchCase="'STRING'">
-              <td class="mat-cell changed-field">{{revision.oldValue === '' ? '-' : revision.oldValue}}
-              </td>
-              <td class="mat-cell changed-field">{{revision.newValue === '' ? '-' : revision.newValue}}
-              </td>
-            </ng-container>
-            <ng-container *ngSwitchCase="'USER_COLLECTION'">
-              <td class="mat-cell changed-field">
-                <ng-container *ngIf="revision.oldValue?.length === 0">-</ng-container>
-                <ng-container *ngIf="revision.oldValue.length > 0 ">
-                  <app-taskboard-users [users]="revision.oldValue"></app-taskboard-users>
-                </ng-container>
-              </td>
-              <td class="mat-cell changed-field">
-                <ng-container *ngIf="revision.newValue.length === 0">-</ng-container>
-                <ng-container *ngIf="revision.newValue.length > 0 ">
-                  <app-taskboard-users [users]="revision.newValue"></app-taskboard-users>
-                </ng-container>
-              </td>
-            </ng-container>
+      <tr *ngFor="let revision of taskRevisions" class="mat-row">
+        <td class="mat-cell type">
+          <mat-icon
+            style="transform: scale(0.7);">{{revision.revisionType === "ADD" ? "fiber_new" : (revision.revisionType === "MOD" ? "edit" : "")}}</mat-icon>
+        </td>
+        <td class="mat-cell date">{{revision.date | date:'mediumDate': undefined: (currentLanguage || 'de-DE')}}</td>
+        <td class="mat-cell user">
+          <app-taskboard-users *ngIf="revision.user" [users]="[revision.user]"></app-taskboard-users>
+          <ng-container *ngIf="revision.revisionType === 'ADD' && !revision.user">
+            <mat-icon>device_unknown</mat-icon>
           </ng-container>
-        </tr>
+        </td>
+        <td
+          class="mat-cell field">{{ 'department-tab-task-form.revisions.fields.' + revision.changedField | translate }}</td>
+        <ng-container [ngSwitch]="revision.revisionValueType">
+          <ng-container *ngSwitchCase="'STRING'">
+            <td class="mat-cell changed-field">{{revision.oldValue === '' ? '-' : revision.oldValue}}
+            </td>
+            <td class="mat-cell changed-field">{{revision.newValue === '' ? '-' : revision.newValue}}
+            </td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'USER_COLLECTION'">
+            <td class="mat-cell changed-field">
+              <ng-container *ngIf="revision.oldValue?.length === 0">-</ng-container>
+              <ng-container *ngIf="revision.oldValue.length > 0 ">
+                <app-taskboard-users [users]="revision.oldValue"></app-taskboard-users>
+              </ng-container>
+            </td>
+            <td class="mat-cell changed-field">
+              <ng-container *ngIf="revision.newValue.length === 0">-</ng-container>
+              <ng-container *ngIf="revision.newValue.length > 0 ">
+                <app-taskboard-users [users]="revision.newValue"></app-taskboard-users>
+              </ng-container>
+            </td>
+          </ng-container>
+        </ng-container>
+      </tr>
       </tbody>
     </table>
   </ng-container>
