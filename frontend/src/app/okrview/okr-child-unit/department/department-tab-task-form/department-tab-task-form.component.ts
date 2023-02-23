@@ -12,6 +12,9 @@ import { KeyResultMap } from '../../../../shared/model/ui/key-result-map';
 import { ObjectiveViewMapper } from '../../../../shared/services/mapper/objective-view.mapper';
 import { UserService } from '../../../../shared/services/helper/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ApiHttpService } from '../../../../core/services/api-http.service';
+import { RevisionMapperService } from '../../../../shared/services/mapper/revision.mapper.service';
+import { RevisionDto } from '../../../../shared/model/api/revision-dto';
 
 export interface TaskFormData {
   task?: ViewTask;
@@ -29,7 +32,6 @@ export interface TaskFormData {
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm: FormGroup;
-  users: User[];
   user: User;
   users$: Observable<User[]>;
   objectives: ViewObjective[];
@@ -38,18 +40,24 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   title: string;
   isInteractive: boolean;
+  taskRevisions$: Observable<RevisionDto[]>;
+  currentLanguage: string;
 
   constructor(
     private objectiveMapper: ObjectiveViewMapper,
     private dialogRef: MatDialogRef<TaskFormComponent>,
     private userService: UserService,
     private translate: TranslateService,
+    private revisionMapper: RevisionMapperService,
+    private api: ApiHttpService,
+    private translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) private formData: (TaskFormData | any),
   ) {
   }
 
   ngOnInit(): void {
     this.isInteractive = this.formData.isInteractive;
+    this.currentLanguage = this.translateService.currentLang;
     this.taskForm = new FormGroup({
       title: new FormControl({
         value: '',
@@ -77,7 +85,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     }
 
     this.users$ = this.userService.getAllUsers$();
-
+    this.taskRevisions$ = this.formData.task?.id ? this.revisionMapper.getRevisionsForTask$(this.formData.task.id) : of(
+      []);
     this.keyResultMaps$ = this.objectiveMapper.getObjectivesForUnit$(this.formData.unitId)
       .pipe(
         switchMap(objectives => {
