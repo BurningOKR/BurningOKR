@@ -11,20 +11,20 @@
       <td class="fullWidth">
         <mat-form-field class="form-whole-line">
           <input [formControl]="userForm.controls.givenName" matInput
-                 placeholder="{{ 'user-form.first-name' | translate }}" required type="text">
+                 (blur)="trimText()" placeholder="{{ 'user-form.first-name' | translate }}" required type="text">
         </mat-form-field>
       </td>
     </tr>
     <tr class="fullWidth">
       <mat-form-field class="form-whole-line">
         <input [formControl]="userForm.controls.surname" matInput placeholder="{{ 'user-form.last-name' | translate }}"
-               required type="text">
+               (blur)="trimText()" required type="text">
       </mat-form-field>
     </tr>
     <tr class="fullWidth">
       <mat-form-field class="form-whole-line">
         <input [formControl]="userForm.controls.email" email matInput placeholder="{{ 'user-form.email' | translate }}"
-               required type="email">
+               (blur)="trimText()" required type="email">
         <mat-error
           *ngIf="userForm.controls.email.errors?.email">{{ 'user-form.error-invalid-email' | translate }}</mat-error>
         <mat-error
