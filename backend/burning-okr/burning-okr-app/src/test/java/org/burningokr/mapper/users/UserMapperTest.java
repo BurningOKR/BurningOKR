@@ -1,7 +1,6 @@
 package org.burningokr.mapper.users;
 
 import org.burningokr.dto.users.UserDto;
-import org.burningokr.model.users.AadUser;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.junit.jupiter.api.BeforeAll;

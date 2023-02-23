@@ -16,7 +16,6 @@ import org.burningokr.service.okrUnitUtil.ParentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -71,22 +70,25 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
 
   @Override
   public T updateUnit(T updatedUnit, User user) {
-    throw new UnauthorizedUserException("Service method not supported for current user role.");
+    // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");
+    return null;
   }
 
   @Override
   public void deleteUnit(Long unitId, User user) {
-    throw new UnauthorizedUserException("Service method not supported for current user role.");
+    // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
   @Override
   public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit subDepartment, User user) {
-    throw new UnauthorizedUserException("Service method not supported for current user role.");
+    // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");
+    return null;
   }
 
   @Override
   public Objective createObjective(Long unitId, Objective objective, User user) {
-    throw new UnauthorizedUserException("Service method not supported for current user role.");
+    // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");#
+    return null;
   }
 
   void throwIfCycleForDepartmentIsClosed(OkrUnit okrUnitToCheck) {

@@ -1,26 +1,20 @@
 package org.burningokr.dto.validators;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.repositories.users.AdminUserRepository;
-import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AdminUserValidator {
 
-  private UserService userService;
   private AdminUserRepository adminUserRepository;
-
-  @Autowired
-  public AdminUserValidator(UserService userService, AdminUserRepository adminUserRepository) {
-    this.userService = userService;
-    this.adminUserRepository = adminUserRepository;
-  }
 
   /**
    * Checks that the given User can be added as an Admin.
@@ -60,12 +54,7 @@ public class AdminUserValidator {
   }
 
   private void checkIdForSemanticExceptions(UUID uuid) throws InvalidDtoException {
-    if (userService.getCurrentUser().getId().equals(uuid)) {
-      throw new InvalidDtoException("Cannot modify Admin status of self.");
-    }
-
-    if (!userService.doesUserExist(uuid)) {
-      throw new InvalidDtoException("New Admin is not part of company.");
-    }
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
   }
 }

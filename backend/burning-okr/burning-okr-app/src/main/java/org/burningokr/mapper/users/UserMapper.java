@@ -1,28 +1,21 @@
 package org.burningokr.mapper.users;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.users.UserDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.users.AadUser;
-import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
+@RequiredArgsConstructor
 public class UserMapper implements DataMapper<User, UserDto> {
 
   private final Logger logger = LoggerFactory.getLogger(UserMapper.class);
-  private final AppEnvironment appEnvironment;
-
-  @Autowired
-  public UserMapper(AppEnvironment appEnvironment) {
-    this.appEnvironment = appEnvironment;
-  }
 
   @Override
   public User mapDtoToEntity(UserDto dto) {
@@ -68,18 +61,7 @@ public class UserMapper implements DataMapper<User, UserDto> {
   }
 
   private User getEmptyUser() {
-    User user = null;
-    switch (appEnvironment.getAuthMode()) {
-      case AZURE:
-        user = new AadUser();
-        break;
-      case LOCAL:
-        user = new LocalUser();
-        break;
-      default:
-        break;
-    }
-
-    return user;
+    // TODO fix auth
+    return null;
   }
 }

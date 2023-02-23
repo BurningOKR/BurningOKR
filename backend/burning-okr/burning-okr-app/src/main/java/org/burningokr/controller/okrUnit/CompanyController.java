@@ -1,29 +1,22 @@
 package org.burningokr.controller.okrUnit;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.cycle.CycleDto;
-import org.burningokr.dto.okr.ObjectiveDto;
-import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.mapper.okrUnit.OkrDepartmentMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
-import org.burningokr.service.security.AuthorizationService;
-import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,64 +24,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 
 @RestApiController
+@RequiredArgsConstructor
 public class CompanyController {
 
-  private CompanyService companyService;
-  private DataMapper<OkrCompany, OkrCompanyDto> companyMapper;
-  private DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper;
-  private DataMapper<Cycle, CycleDto> cycleMapper;
-  private OkrBranchSchemaMapper okrUnitSchemaMapper;
-  private DataMapper<Objective, ObjectiveDto> objectiveMapper;
-  private DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
-  private DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
-  private AuthorizationService authorizationService;
-  private UserService userService;
-  private OkrUnitServiceAdmins<OkrBranch> OkrBranchService;
-
-  /**
-   * Initialize CompanyController.
-   *
-   * @param companyService       a {@link CompanyService} object
-   * @param companyMapper        a {@link DataMapper} object with {@link OkrCompany} and {@link
-   *                             OkrCompanyDto}
-   * @param cycleMapper          a {@link DataMapper} object with {@link Cycle} nad {@link CycleDto}
-   * @param departmentMapper     a {@link DataMapper} object with {@link OkrDepartment} and {@link
-   *                             OkrDepartmentDto}
-   * @param objectiveMapper      a {@link DataMapper} object with {@link Objective} and {@link
-   *                             ObjectiveDto}
-   * @param authorizationService an {@link AuthorizationService} object
-   * @param okrUnitSchemaMapper  a {@link OkrBranchSchemaMapper} object
-   * @param userService          an {@link UserService} object
-   */
-  @Autowired
-  public CompanyController(
-    CompanyService companyService,
-    DataMapper<OkrCompany, OkrCompanyDto> companyMapper,
-    DataMapper<Cycle, CycleDto> cycleMapper,
-    DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
-    DataMapper<Objective, ObjectiveDto> objectiveMapper,
-    DataMapper<OkrBranch, OkrBranchDto> OkrBranchMapper,
-    DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper,
-    AuthorizationService authorizationService,
-    OkrBranchSchemaMapper okrUnitSchemaMapper,
-    UserService userService,
-    OkrUnitServiceAdmins<OkrBranch> OkrBranchService
-  ) {
-    this.companyService = companyService;
-    this.companyMapper = companyMapper;
-    this.cycleMapper = cycleMapper;
-    this.departmentMapper = departmentMapper;
-    this.objectiveMapper = objectiveMapper;
-    this.authorizationService = authorizationService;
-    this.okrUnitSchemaMapper = okrUnitSchemaMapper;
-    this.okrBranchMapper = OkrBranchMapper;
-    this.userService = userService;
-    this.OkrBranchService = OkrBranchService;
-    this.okrTopicDraftMapper = okrTopicDraftMapper;
-  }
+  private final CompanyService companyService;
+  private final DataMapper<OkrCompany, OkrCompanyDto> companyMapper;
+  private final DataMapper<Cycle, CycleDto> cycleMapper;
+  private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
 
   /**
    * API Endpoint to get active Companies.
@@ -170,10 +114,11 @@ public class CompanyController {
     @PathVariable long companyId
   ) {
     OkrCompany okrCompany = this.companyService.findById(companyId);
-    UUID currentUserId = userService.getCurrentUser().getId();
-    return ResponseEntity.ok(
-      okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-        okrCompany.getOkrChildUnits(), currentUserId));
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
+//    return ResponseEntity.ok(
+//      okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+//        okrCompany.getOkrChildUnits(), currentUserId));
   }
 
   /**

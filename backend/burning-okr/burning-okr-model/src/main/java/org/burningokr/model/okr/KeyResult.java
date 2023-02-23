@@ -10,11 +10,6 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
-import java.util.ArrayList;
-import java.util.Collection;
-
 @Entity
 @Data
 public class KeyResult implements Trackable<Long> {

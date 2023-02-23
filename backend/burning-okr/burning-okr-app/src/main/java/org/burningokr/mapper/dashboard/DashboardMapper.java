@@ -7,7 +7,6 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.ChartBuilderService;
-import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class DashboardMapper implements DataMapper<DashboardCreation, DashboardDto> {
   private final ChartBuilderService chartBuilderService;
-  private final UserService userService;
 
   @Override
   public DashboardCreation mapDtoToEntity(DashboardDto dtos) {
@@ -29,7 +27,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
     DashboardDto dto = new DashboardDto();
     dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
-    dto.setCreator(userService.findById(entity.getCreatorId()));
+    dto.setCreator(null);
 
     Collection<BaseChartOptionsDto> chartOptionsDtos =
       new ArrayList<>();

@@ -1,28 +1,22 @@
 package org.burningokr.service.userhandling;
 
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.AdminUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class AdminUserService {
 
   private AdminUserRepository adminUserRepository;
-  private UserService userService;
-
-  @Autowired
-  public AdminUserService(AdminUserRepository adminUserRepository, UserService userService) {
-    this.adminUserRepository = adminUserRepository;
-    this.userService = userService;
-  }
 
   /**
    * Checks if the Current User is an Admin User.
@@ -30,10 +24,12 @@ public class AdminUserService {
    * @return a Boolean value
    */
   public Boolean isCurrentUserAdmin() {
-    UUID currentUserId = userService.getCurrentUser().getId();
-    Optional<AdminUser> currentUserAdminOptional = adminUserRepository.findById(currentUserId);
-
-    return currentUserAdminOptional.isPresent();
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
+//    UUID currentUserId = userService.getCurrentUser().getId();
+//    Optional<AdminUser> currentUserAdminOptional = adminUserRepository.findById(currentUserId);
+//
+//    return currentUserAdminOptional.isPresent();
   }
 
   /**
@@ -58,8 +54,9 @@ public class AdminUserService {
     AdminUser newAdmin = new AdminUser();
     newAdmin.setId(newAdminUuid);
     adminUserRepository.save(newAdmin);
-
-    return userService.findById(newAdminUser.getId());
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
+//    return userService.findById(newAdminUser.getId());
   }
 
   public void removeAdmin(UUID adminToRemove) {

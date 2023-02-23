@@ -1,3 +1,4 @@
+/* TODO fix auth
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
@@ -125,9 +126,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // DM 26.05.2021:
     // The following code is for new authentication functions. This is usefull when there is no bean
     // for TokenStore or ResourceServerTokenServices defined.
-    /* else if(endpoints != null) {
+    */
+/* else if(endpoints != null) {
       authByService = endpoints.getEndpointsConfigurer().getTokenStore().readAuthentication(token);
-    } */
+    } *//*
+
     else {
       authByService = resourceServerTokenServices.loadAuthentication(token);
     }
@@ -150,3 +153,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     return new ThreadPoolTaskScheduler();
   }
 }
+*/

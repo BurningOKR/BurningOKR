@@ -3,8 +3,6 @@ package org.burningokr.service.userhandling;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.users.LocalUser;
@@ -15,9 +13,6 @@ import org.burningokr.service.exceptions.DuplicateEmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -47,18 +42,8 @@ public class LocalUserService implements UserService {
 
   @Override
   public LocalUser getCurrentUser() {
-    OAuth2Authentication auth =
-      (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
-    Object decodedDetails = ((OAuth2AuthenticationDetails) auth.getDetails()).getDecodedDetails();
-    Gson g = new Gson();
-    String userString = g.toJson(decodedDetails);
-    LocalUser user = parseUserString(userString);
-    Optional<LocalUser> userFromDb = localUserRepository.findById(user.getId());
-    if (userFromDb.isPresent()) {
-      return userFromDb.get();
-    } else {
-      throw new EntityNotFoundException();
-    }
+    // TODO fix auth
+    return null;
   }
 
   @Override

@@ -3,6 +3,7 @@ package org.burningokr.service.initialisation;
 import com.google.common.collect.Lists;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
@@ -14,8 +15,6 @@ import org.burningokr.service.configuration.OAuthClientDetailsService;
 import org.burningokr.service.configuration.OAuthConfigurationService;
 import org.burningokr.service.exceptions.InvalidInitStateException;
 import org.burningokr.service.userhandling.AdminUserService;
-import org.burningokr.service.userhandling.LocalUserService;
-import org.burningokr.service.userhandling.UserService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
@@ -29,9 +28,7 @@ import java.util.List;
 public class InitService {
 
   private final InitStateRepository initStateRepository;
-  private final UserService userService;
   private final AdminUserService adminUserService;
-  private final PasswordService passwordService;
   private final InitOrderService initOrderService;
   private final OAuthClientDetailsService oauthClientDetailsService;
   private final OAuthConfigurationService oauthConfigurationService;
@@ -105,12 +102,12 @@ public class InitService {
    */
   public InitState setAdminUser(User adminUser, String password) throws InvalidInitStateException {
     isInitStateElseThrow(InitStateName.CREATE_USER);
-
-    LocalUser user = ((LocalUserService) userService).createLocalUser(adminUser, false);
-    passwordService.setPassword(user, password);
-    adminUserService.addAdmin(createAdminUser(user));
-
-    return nextInitState();
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
+//    LocalUser user = ((LocalUserService) userService).createLocalUser(adminUser, false);
+//    adminUserService.addAdmin(createAdminUser(user));
+//
+//    return nextInitState();
   }
 
   /**
