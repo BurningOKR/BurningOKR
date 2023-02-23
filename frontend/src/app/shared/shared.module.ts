@@ -39,6 +39,7 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { LogPipe } from './pipes/log.pipe';
 import { AddButtonComponent } from './components/add-button/add-button.component';
+import { AdditionalInfoBarComponent } from './components/additional-info-bar/additional-info-bar.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     DateFormatPipe,
     LogPipe,
     AddButtonComponent,
+    AdditionalInfoBarComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent,
@@ -89,28 +91,29 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     NgxMatSelectSearchModule,
     TranslateModule,
   ],
-  exports: [
-    UserAutocompleteInputComponent,
-    UserMinibuttonComponent,
-    LoadingSpinnerComponent,
-    MatButtonModule,
-    DialogComponent,
-    UserAvatarComponent,
-    OkrToolbarBareComponent,
-    OkrToolbarComponent,
-    CapsLockDirective,
-    NonLoggedInCardComponent,
-    FormErrorComponent,
-    ResetCountdownComponent,
-    MilestoneSliderWrapperComponent,
-    StatusDotComponent,
-    CallbackFilterPipe,
-    UserSelectorMultiComponent,
-    UserSelectorComponent,
-    DateFormatPipe,
-    LogPipe,
-    AddButtonComponent,
-  ],
+    exports: [
+        UserAutocompleteInputComponent,
+        UserMinibuttonComponent,
+        LoadingSpinnerComponent,
+        MatButtonModule,
+        DialogComponent,
+        UserAvatarComponent,
+        OkrToolbarBareComponent,
+        OkrToolbarComponent,
+        CapsLockDirective,
+        NonLoggedInCardComponent,
+        FormErrorComponent,
+        ResetCountdownComponent,
+        MilestoneSliderWrapperComponent,
+        StatusDotComponent,
+        CallbackFilterPipe,
+        UserSelectorMultiComponent,
+        UserSelectorComponent,
+        DateFormatPipe,
+        LogPipe,
+        AddButtonComponent,
+        AdditionalInfoBarComponent,
+    ],
 })
 export class SharedModule {
 }

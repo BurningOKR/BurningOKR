@@ -6,6 +6,8 @@
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
+<app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>
+
 <div *ngIf="companyId$ | async; let companyId" class="create-dashboard-button">
   <button mat-stroked-button routerLink="/companies/{{companyId}}/create-dashboard">
     <mat-icon>add_circle_outline</mat-icon>

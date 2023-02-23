@@ -16,6 +16,7 @@ import { NoMailInformationComponent } from './information/no-mail-information/no
 import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topic-drafts.component';
 import { environment } from '../environments/environment';
+import { PlaygroundGuard } from './core/auth/guards/playground.guard';
 
 const routes: Routes = [
   {
@@ -44,9 +45,17 @@ const routes: Routes = [
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
-  { path: 'companies/:companyId/dashboard-overview', component: DashboardOverviewComponent, canActivate: [AuthGuard] },
-  { path: 'companies/:companyId/create-dashboard', component: CreateDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/:dashboardId', component: DashboardComponent, canActivate: [AuthGuard] },
+  {
+    path: 'companies/:companyId/dashboard-overview',
+    component: DashboardOverviewComponent,
+    canActivate: [AuthGuard, PlaygroundGuard],
+  },
+  {
+    path: 'companies/:companyId/create-dashboard',
+    component: CreateDashboardComponent,
+    canActivate: [AuthGuard, PlaygroundGuard],
+  },
+  { path: 'dashboard/:dashboardId', component: DashboardComponent, canActivate: [AuthGuard, PlaygroundGuard] },
   { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
   { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },
 ];

@@ -1,5 +1,5 @@
 export enum UnitType {
   COMPANY = 'COMPANY',
   DEPARTMENT = 'DEPARTMENT',
-  BRANCH = 'BRANCH',
+  BRANCH = 'OKR_BRANCH',
 }
