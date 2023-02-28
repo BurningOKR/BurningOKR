@@ -186,6 +186,7 @@
   },
   "dashboard-card": {
     "created-by": "Erstellt von: ",
+    "edit-dashboard": "Bearbeiten",
     "delete-dashboard": "Löschen"
   },
   "dashboard-overview": {

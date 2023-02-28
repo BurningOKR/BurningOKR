@@ -16,10 +16,17 @@
 </mat-card>
 
 <mat-menu #menu="matMenu">
+  <span matTooltip="{{'dashboard-card.edit-dashboard' | translate}}">
+<!--      <button (click)="editDashboard.next(dashboard)" mat-menu-item>-->
+      <button mat-menu-item routerLink="/dashboard/{{dashboard.id}}/edit-dashboard">
+        <mat-icon>edit</mat-icon>
+        <span>{{'dashboard-card.edit-dashboard' | translate}}</span>
+      </button>
+  </span>
   <span matTooltip="{{'dashboard-card.delete-dashboard' | translate}}">
       <button (click)="deleteDashboard.next(dashboard)" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>{{'dashboard-card.delete-dashboard' | translate}}</span>
       </button>
-    </span>
+  </span>
 </mat-menu>

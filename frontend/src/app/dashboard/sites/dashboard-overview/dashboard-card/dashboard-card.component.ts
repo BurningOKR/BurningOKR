@@ -8,5 +8,6 @@ import { Dashboard } from '../../../model/ui/dashboard';
 })
 export class DashboardCardComponent {
   @Input() dashboard!: Dashboard;
+  @Output() editDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
   @Output() deleteDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
 }

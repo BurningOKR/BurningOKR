@@ -9,7 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './sites/dashboard/dashboard.component';
 import { BasicLineChartComponent } from './charts/basic-line-chart/basic-line-chart.component';
@@ -21,6 +20,8 @@ import { DashboardOverviewComponent } from './sites/dashboard-overview/dashboard
 import { CreateDashboardComponent } from './sites/create-dashboard/create-dashboard.component';
 import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-card/dashboard-card.component';
 import { ChartOptionsCardComponent } from './sites/create-dashboard/chart-options-card/chart-options-card.component';
+import { EditDashboardComponent } from './sites/edit-dashboard/edit-dashboard.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
   declarations: [
@@ -34,11 +35,12 @@ import { ChartOptionsCardComponent } from './sites/create-dashboard/chart-option
     CreateDashboardComponent,
     DashboardCardComponent,
     ChartOptionsCardComponent,
+    EditDashboardComponent,
   ],
   imports: [
     CommonModule,
     NgApexchartsModule,
-    AppRoutingModule,
+    DashboardRoutingModule,
     SharedModule,
     MatIconModule,
     MatTooltipModule,

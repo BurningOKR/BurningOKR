@@ -9,7 +9,6 @@ import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-containe
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { CreateDashboardComponent } from './dashboard/sites/create-dashboard/create-dashboard.component';
 import { DashboardOverviewComponent } from './dashboard/sites/dashboard-overview/dashboard-overview.component';
-import { DashboardComponent } from './dashboard/sites/dashboard/dashboard.component';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
@@ -46,6 +45,9 @@ const routes: Routes = [
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
   {
+    path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
+  },
+  {
     path: 'companies/:companyId/dashboard-overview',
     component: DashboardOverviewComponent,
     canActivate: [AuthGuard, PlaygroundGuard],
@@ -55,7 +57,6 @@ const routes: Routes = [
     component: CreateDashboardComponent,
     canActivate: [AuthGuard, PlaygroundGuard],
   },
-  { path: 'dashboard/:dashboardId', component: DashboardComponent, canActivate: [AuthGuard, PlaygroundGuard] },
   { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
   { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },
 ];
