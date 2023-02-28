@@ -14,9 +14,20 @@ export class UserAvatarComponent implements OnChanges {
   @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   render: boolean = true;
-
+  
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => this.render = false);
     setTimeout(() => this.render = true);
+  }
+
+  buildInitialsForUserAvatar(user: User): string {
+    const trimmedFirstName: string = user.givenName?.trim();
+    const trimmedLastName: string = user.surname?.trim();
+
+    if (trimmedFirstName && trimmedLastName) {
+      return `${trimmedFirstName[0]} ${trimmedLastName[0]}`;
+    } else {
+      return null;
+    }
   }
 }
