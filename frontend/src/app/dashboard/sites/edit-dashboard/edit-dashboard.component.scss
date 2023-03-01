@@ -1,0 +1,12 @@
+.edit-dashboard-title {
+  display: flex;
+  justify-content: center;
+  text-align-last: center;
+  font-size: large;
+  font-weight: bolder;
+  margin: 10px 10px 20px 10px;
+
+  mat-form-field {
+    width: 50VW;
+  }
+}

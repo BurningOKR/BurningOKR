@@ -179,6 +179,10 @@
     "title": "Edit cycle",
     "visibility": "Visibility"
   },
+  "edit-dashboard": {
+    "chart-title-placeholder": "Chart Title",
+    "dashboard-title-placeholder": "Dashboard Title"
+  },
   "dashboard": {
     "okr-toolbar": {
       "dashboard": "Dashboard"

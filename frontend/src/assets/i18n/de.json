@@ -179,6 +179,10 @@
     "title": "Zyklus bearbeiten",
     "visibility": "Sichtbarkeit"
   },
+  "edit-dashboard": {
+    "chart-title-placeholder": "Diagramm Titel",
+    "dashboard-title-placeholder": "Dashboard Titel"
+  },
   "dashboard": {
     "okr-toolbar": {
       "dashboard": "Dashboard"
