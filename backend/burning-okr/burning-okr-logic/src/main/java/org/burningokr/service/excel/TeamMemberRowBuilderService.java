@@ -19,7 +19,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {
-
   private final OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers;
   private final CompanyService companyService;
   private final Messages messages;
@@ -35,11 +34,10 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   ) {
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
 
-    if (okrDepartment.getOkrMasterId() != null && !(okrDepartment.getOkrMasterId() == null)) {
+    if (okrDepartment.getOkrMasterId() != null) {
       addUserToList(okrDepartment.getOkrMasterId(), okrDepartment, teamMemberRows);
     }
-    if (okrDepartment.getOkrTopicSponsorId() != null
-      && !(okrDepartment.getOkrTopicSponsorId() == null)) {
+    if (okrDepartment.getOkrTopicSponsorId() != null) {
       addUserToList(okrDepartment.getOkrTopicSponsorId(), okrDepartment, teamMemberRows);
     }
     okrDepartment

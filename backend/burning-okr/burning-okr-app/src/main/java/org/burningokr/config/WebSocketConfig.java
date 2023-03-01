@@ -1,10 +1,9 @@
-/* TODO fix auth
+// TODO fix auth
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +25,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.socket.EnableWebSocketSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.messaging.access.intercept.MessageMatcherDelegatingAuthorizationManager;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerEndpointsConfiguration;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -44,13 +40,10 @@ import java.util.List;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
-  private final ResourceServerTokenServices resourceServerTokenServices;
+/*  private final ResourceServerTokenServices resourceServerTokenServices;
 
   @Autowired(required = false)
-  private TokenStore tokenStore;
-
-  @Autowired(required = false)
-  private AuthorizationServerEndpointsConfiguration endpoints;
+  private AuthorizationServerEndpointsConfiguration endpoints;*/
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -119,21 +112,19 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   }
 
   private Authentication getAuthentication(String token) {
-    Authentication authByService;
-    if (tokenStore != null) {
+    Authentication authByService = null;
+    /*if (tokenStore != null) {
       authByService = tokenStore.readAuthentication(token);
     }
     // DM 26.05.2021:
     // The following code is for new authentication functions. This is usefull when there is no bean
     // for TokenStore or ResourceServerTokenServices defined.
-    */
-/* else if(endpoints != null) {
-      authByService = endpoints.getEndpointsConfigurer().getTokenStore().readAuthentication(token);
-    } *//*
 
-    else {
+    else if (endpoints != null) {
+      authByService = endpoints.getEndpointsConfigurer().getTokenStore().readAuthentication(token);
+    } else {
       authByService = resourceServerTokenServices.loadAuthentication(token);
-    }
+    }*/
     return authByService;
   }
 
@@ -153,4 +144,3 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     return new ThreadPoolTaskScheduler();
   }
 }
-*/
