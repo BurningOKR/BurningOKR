@@ -11,6 +11,14 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.5.0 (28.02.2023)',
+      changes: [
+        'Feature: activity feed in task board',
+        'Feature: marked dashboard as WIP',
+        'Fix: issues with usernames',
+      ],
+    },
+    {
       version: '1.4.8 (16.02.2023)',
       changes: [
         'Feature: added Dashboard view',

@@ -1,4 +1,5 @@
-1.4.8
+1.5.0
 
-- Feature: added Dashboard view
-- Fix: fixed styling issues
+- Feature: activity feed in task board
+- Feature: marked dashboard as WIP
+- Fix: issues with usernames
