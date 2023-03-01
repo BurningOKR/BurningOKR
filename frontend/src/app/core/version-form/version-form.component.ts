@@ -11,6 +11,12 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.5.2 (01.03.2023)',
+      changes: [
+        'Fix: Wrong Ms-Sql Migration',
+      ],
+    },
+    {
       version: '1.5.1 (01.03.2023)',
       changes: [
         'Fix: Taskboard works again with azure-ad',
