@@ -11,7 +11,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -20,11 +19,7 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.security.authorization.AuthorizationManager;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.socket.EnableWebSocketSecurity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.messaging.access.intercept.MessageMatcherDelegatingAuthorizationManager;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -34,9 +29,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSocketMessageBroker
-@EnableWebSecurity
 @RequiredArgsConstructor
-@EnableWebSocketSecurity
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
@@ -60,7 +53,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     config.setApplicationDestinationPrefixes("/ws");
   }
 
-  @Bean
+  /*@Bean
   AuthorizationManager<Message<?>> authorizationManager(MessageMatcherDelegatingAuthorizationManager.Builder messages) {
     messages
       .nullDestMatcher()
@@ -76,7 +69,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
       .anyMessage()
       .denyAll();
     return messages.build();
-  }
+  }*/
 
   @Override
   public void configureClientInboundChannel(ChannelRegistration registration) {

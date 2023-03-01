@@ -38,7 +38,7 @@ subprojects {
         implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
 
         // TODO new oauth2 client
-        implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+        //implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
         implementation deps.spring.context
         implementation 'org.springframework.boot:spring-boot-starter-security'
