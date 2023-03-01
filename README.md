@@ -10,12 +10,20 @@ Burning OKR is our vision to help consistently establish focus and alignment aro
 
 BurningOKR has been developed as a web application with an Angular Frontend and Java Spring Boot Backend. As a database, Postgres SQL is used.
 
+## Quick start (familiar with Docker)
+When you have Docker and Docker-Compose installed you can proceed with the next steps, otherwise please install Docker and Docker-Compose first.  
+You can use our [docker-compose-prod.yml](/docker/docker-compose-prod.yml) file for easy use and compatibility!  
+1. Download the [docker-compose-prod.yml](/docker/docker-compose-prod.yml) file
+2. Download [backend.env.sample](/docker/backend.env.sample) file and rename it to backend.env
+3. Download [backend.env.sample](/docker/postgres.env.sample) file and rename it to postgres.env
+4. Now fill in your configurations in the two downloaded .env-files
+5. Hint: When you don't want to use Azure or a SMTP-Mailserver just comment these parts in the .env-files out and they won't be used. For more information read the full docs.
+6. After that you are good to go and you can run `docker-compose -f docker-compose-prod.yml up` in the directory where the previously downloaded files are saved. Hint: When you want to reuse the console windows add a `-d` to the compose command to run in detached mode!
+
 ## Installation
 You can install BurningOKR using the following technologies.
 - Docker [Tutorial](/docker/README.md) *(Recommended for beginners)*
 - Tomcat [Tutorial](/docs/tomcat_install.md)
-- SNAP *Coming Soon*
-- Azure Web App *Coming Soon*
 
 ## Getting started with the development
 We are already working on a faster and easier installation process, so stay tuned.
