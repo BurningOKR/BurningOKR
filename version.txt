@@ -1,5 +1,3 @@
-1.5.0
+1.5.1
 
-- Feature: activity feed in task board
-- Feature: marked dashboard as WIP
-- Fix: issues with usernames
+- Fix: Taskboard works again with azure-ad
