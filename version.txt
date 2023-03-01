@@ -1,4 +1,3 @@
-1.4.8
+1.5.1
 
-- Feature: added Dashboard view
-- Fix: fixed styling issues
+- Fix: Taskboard works again with azure-ad

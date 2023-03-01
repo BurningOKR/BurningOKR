@@ -1,0 +1,13 @@
+.user-pictures ngx-avatar {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.user-pictures {
+  display: flex;
+  flex-direction: row;
+}
+::ng-deep .multiline-tooltip {
+  white-space: pre-line;
+}
+

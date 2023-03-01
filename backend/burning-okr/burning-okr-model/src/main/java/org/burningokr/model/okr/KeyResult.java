@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.histories.KeyResultHistory;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
@@ -28,6 +29,7 @@ public class KeyResult implements Trackable<Long> {
   private Objective parentObjective = null;
 
   @Column(length = 255)
+  @Audited
   private String name;
 
   @Column(length = 1023)

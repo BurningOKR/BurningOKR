@@ -12,5 +12,4 @@ export class AdditionalInfoBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
