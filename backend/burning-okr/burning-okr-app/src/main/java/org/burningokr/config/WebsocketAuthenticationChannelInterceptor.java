@@ -1,9 +1,8 @@
 package org.burningokr.config;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.service.security.UserFromContextService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -12,30 +11,24 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
+@Slf4j
 public class WebsocketAuthenticationChannelInterceptor implements ChannelInterceptor {
 
   public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
 
-  private final Logger logger =
-      LoggerFactory.getLogger(WebsocketAuthenticationChannelInterceptor.class);
-
-  private final TokenStore tokenStore;
-
-  @Autowired
-  public WebsocketAuthenticationChannelInterceptor(TokenStore tokenStore) {
-    this.tokenStore = tokenStore;
-  }
+  private final ResourceServerTokenServices resourceServerTokenServices;
 
   @Override
   public Message<?> preSend(Message<?> message, MessageChannel channel) {
     StompHeaderAccessor accessor =
-        MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+      MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
     if (isConnectionAttempt(accessor)) {
       tryAuthentication(accessor);
@@ -53,12 +46,13 @@ public class WebsocketAuthenticationChannelInterceptor implements ChannelInterce
         accessor.setUser(authByService);
         SecurityContextHolder.getContext().setAuthentication(authByService);
         accessor
-            .getSessionAttributes()
-            .put(
-                WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY,
-                UserFromContextService.extractUserIdFromSecurityContext());
+          .getSessionAttributes()
+          .put(
+            WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY,
+            UserFromContextService.extractUserIdFromSecurityContext()
+          );
       } else {
-        logger.info("User could not be identified");
+        log.info("User could not be identified");
       }
     }
   }
@@ -68,10 +62,7 @@ public class WebsocketAuthenticationChannelInterceptor implements ChannelInterce
   }
 
   private Authentication getAuthentication(String token) {
-    Authentication authByService = tokenStore.readAuthentication(token);
-    // MV: Hier stand mal weiterer nicht funktionierender Code zur Authentifizierung, falls es
-    // hiermit Probleme geben sollte, schaut in der GIT-Historie.
-    return authByService;
+    return resourceServerTokenServices.loadAuthentication(token);
   }
 
   private String getBearerToken(StompHeaderAccessor accessor) {
