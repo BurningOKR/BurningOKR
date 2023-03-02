@@ -4,7 +4,7 @@ import { UserSettingsComponent } from './user-settings.component';
 import { MaterialTestingModule } from '../../../../testing/material-testing.module';
 import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyMapper } from '../../../../shared/services/mapper/company.mapper';
-import { UserSettingsManagerService } from '../../../services/user-settings-manager.service';
+import { UserSettingsService } from '../../../services/user-settings.service';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { of } from 'rxjs';
 import { UserSettings } from '../../../../shared/model/ui/user-settings';
@@ -16,7 +16,7 @@ const companyService: any = {
   getActiveCompanies$: jest.fn(),
 };
 
-const userSettingsManager: any = {
+const userSettingsService: any = {
   getUserSettings$: jest.fn(),
 };
 
@@ -50,7 +50,7 @@ describe('UserSettingsComponent', () => {
       imports: [MaterialTestingModule, FormsModule, ReactiveFormsModule, BrowserAnimationsModule],
       providers: [
         { provide: CompanyMapper, useValue: companyService },
-        { provide: UserSettingsManagerService, useValue: userSettingsManager },
+        { provide: UserSettingsService, useValue: userSettingsService },
         { provide: DepartmentMapper, useValue: departmentService },
       ],
     })
@@ -65,8 +65,8 @@ describe('UserSettingsComponent', () => {
       userId: '',
     };
 
-    userSettingsManager.getUserSettings$.mockReset();
-    userSettingsManager.getUserSettings$.mockReturnValue(of(userSettings));
+    userSettingsService.getUserSettings$.mockReset();
+    userSettingsService.getUserSettings$.mockReturnValue(of(userSettings));
     companyService.getActiveCompanies$.mockReset();
     companyService.getActiveCompanies$.mockReturnValue(of(null));
     departmentService.getAllDepartmentsForCompanyFlatted$.mockReset();
