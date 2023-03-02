@@ -15,9 +15,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button (click)="onSave()"
-          [disabled]="!userSettingsValid || ((isCurrentUserAdmin$ | async)  && (!adminSettingsValid || !userSettingsValid))"
-          color="primary" mat-button>
+  <button (click)="onSave()" [disabled]="!(userSettingsValid && adminSettingsValid)" color="primary" mat-button>
     <span>{{ 'settings-form.save' | translate }}</span></button>
   <button (click)="closeDialog()" color="warn" mat-button>
     <span>{{ 'settings-form.cancel-button-text' | translate }}</span></button>
