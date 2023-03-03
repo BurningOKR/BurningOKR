@@ -32,6 +32,8 @@ dependencies {
     // util
     implementation deps.spring.boot.starter.validation
     providedRuntime deps.spring.boot.starter.tomcat
+    implementation deps.spring.boot.starter.data // Used to handle Exceptions and Import/Export files
+    implementation deps.apache.poi //  Java API To Access Microsoft Format Files
 
     // logging and monitoring
     implementation deps.spring.boot.starter.actuator
@@ -40,40 +42,27 @@ dependencies {
     implementation deps.spring.boot.starter.security
 
     // db
+    implementation deps.db.flyway
+    implementation deps.db.postgres
+    implementation deps.db.mssql
 
-    // untested
     // websockets
-    implementation 'no.fiken.oss.junixsocket:junixsocket-common:1.0.2'
-    implementation 'no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2'
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation deps.spring.boot.starter.websocket
 
-    // db
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.flywaydb:flyway-core'
-    implementation 'com.microsoft.sqlserver:mssql-jdbc'
-    implementation 'org.postgresql:postgresql:42.5.4'
-
-    // swagger
-    implementation 'io.springfox:springfox-swagger2:2.9.2'
-    implementation "io.springfox:springfox-swagger-ui:2.9.2"
-
-    // TODO refactor
-    implementation 'com.google.guava:guava:20.0'
-    implementation 'org.apache.poi:poi-ooxml:3.9'
-    implementation 'org.apache.poi:poi:3.9'
-    implementation 'javax.servlet:javax.servlet-api:4.0.1'
-
+    // swagger TODO upgrade to newest version
+    implementation deps.swagger.swagger2
+    implementation deps.swagger.ui
 }
 
 springBoot {
     buildInfo()
 }
 
-// logic
+// used to access the Version of the Application inside the Application (Mainly for Startup-Screen)
 if (project.hasProperty('projVersion')) {
     version = project.projVersion
 } else {
     version = '1.0.0'
 }
 
-bootRun.systemProperties = System.properties
+bootRun.systemProperties = System.properties as Map<String, ?>

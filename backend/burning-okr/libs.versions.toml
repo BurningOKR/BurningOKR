@@ -1,23 +1,29 @@
 [versions]
 spring-boot = '3.+'
 spring-framework = '6.+'
-swagger = '2.9.2' # TODO upgrade to 2.10.5 or 3.0.0
+swagger = '2.9.+'
 lombok-plugin = '6.+'
 jakarta-mail = '2.+'
 jackson = '2.+'
 postgres = '42.+'
 flyway = '9.+'
+mssql = '12.+'
+apache-poi = '5.+'
 
 [libraries]
-# spring
+# spring booot
 spring-boot-plugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'spring-boot' }
 spring-boot-starter-test = { module = 'org.springframework.boot:spring-boot-starter-test' }
 spring-boot-starter-validation = { module = 'org.springframework.boot:spring-boot-starter-validation' }
 spring-boot-starter-actuator = { module = 'org.springframework.boot:spring-boot-starter-actuator' }
 spring-boot-starter-security = { module = 'org.springframework.boot:spring-boot-starter-security' }
 spring-boot-starter-tomcat = { module = 'org.springframework.boot:spring-boot-starter-tomcat' }
-spring-boot-starter-websocket = { module = 'org.springframework.boot:spring-boot-starter-websocket' } # TODO
+spring-boot-starter-data = { module = 'org.springframework.boot:spring-boot-starter-data-jpa' }
+spring-boot-starter-websocket = { module = 'org.springframework.boot:spring-boot-starter-websocket' }
+
+# spring framework
 spring-framework-springContext = { module = 'org.springframework:spring-context' }
+spring-framework-springContextSupport = { module = 'org.springframework:spring-context-support' }
 
 # lombok
 lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
@@ -29,9 +35,13 @@ jakarta-mail = { module = 'jakarta.mail:jakarta.mail-api', version.ref = 'jakart
 jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }
 
 # swagger
-swagger = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
+swagger-swagger2 = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
 swagger-ui = { module = 'io.springfox:springfox-swagger-ui', version.ref = 'swagger' }
 
 # db
-postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }
-flyway = { module = 'org.flywaydb:flyway-core', version.ref = 'flyway' }
+db-postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }
+db-mssql = { module = 'com.microsoft.sqlserver:mssql-jdbc', version.ref = 'mssql' }
+db-flyway = { module = 'org.flywaydb:flyway-core', version.ref = 'flyway' }
+
+# apache poi
+apache-poi = { module = 'org.apache.poi:poi', version.ref = 'apache-poi' }

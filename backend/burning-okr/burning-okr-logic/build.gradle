@@ -14,14 +14,14 @@ dependencies {
     // tested
     // util
     implementation deps.jackson.databind
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation deps.spring.boot.starter.validation
 
     // mail
-    implementation 'org.springframework:spring-context-support'
+    implementation deps.spring.framework.springContextSupport
     implementation deps.jakarta.mail
 
     // security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation deps.spring.boot.starter.security
 
     // Untested
     implementation 'org.apache.poi:poi-ooxml:3.9'
