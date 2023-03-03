@@ -6,7 +6,7 @@ lombok-plugin = '6.+'
 jakarta-mail = '2.+'
 jackson = '2.+'
 postgres = '42.+'
-flyway = ''
+flyway = '9.+'
 
 [libraries]
 # spring
@@ -32,5 +32,6 @@ jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', ver
 swagger = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
 swagger-ui = { module = 'io.springfox:springfox-swagger-ui', version.ref = 'swagger' }
 
-# postgres
+# db
 postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }
+flyway = { module = 'org.flywaydb:flyway-core', version.ref = 'flyway' }

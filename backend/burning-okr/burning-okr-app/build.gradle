@@ -39,7 +39,7 @@ dependencies {
     // security
     implementation deps.spring.boot.starter.security
 
-    // util
+    // db
 
     // untested
     // websockets
