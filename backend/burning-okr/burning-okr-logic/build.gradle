@@ -12,15 +12,16 @@ dependencies {
     testImplementation project(':burning-okr-data')
 
     // tested
-    // Util
+    // util
     implementation deps.jackson.databind
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // Mail
+    // mail
     implementation 'org.springframework:spring-context-support'
     implementation deps.jakarta.mail
 
-    implementation deps.jackson.databind
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Untested
     implementation 'org.apache.poi:poi-ooxml:3.9'

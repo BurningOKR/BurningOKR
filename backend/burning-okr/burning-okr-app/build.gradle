@@ -25,29 +25,27 @@ configurations {
 }
 
 dependencies {
-
-    // project implementations
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     implementation project(':burning-okr-logic')
 
-    // tested
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // util
+    implementation deps.spring.boot.starter.validation
+    providedRuntime deps.spring.boot.starter.tomcat
+
+    // logging and monitoring
+    implementation deps.spring.boot.starter.actuator
+
+    // security
+    implementation deps.spring.boot.starter.security
 
     // util
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    implementation 'org.modelmapper:modelmapper:2.1.0'
-    implementation 'org.apache.commons:commons-lang3:3.0'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-
+    // untested
     // websockets
     implementation 'no.fiken.oss.junixsocket:junixsocket-common:1.0.2'
     implementation 'no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-
-    // security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // db
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

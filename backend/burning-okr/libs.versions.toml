@@ -1,13 +1,36 @@
 [versions]
-springbootVersion = '3.0.2'
-springFrameworkVersion = '6.0.4'
-swaggerVersion = '2.9.2'
-lombokPluginVersion = '6.6.2'
-jakarta-mail = '2.1.1'
-jacksonVersion = '2.14.2'
+spring-boot = '3.+'
+spring-framework = '6.+'
+swagger = '2.9.2' # TODO upgrade to 2.10.5 or 3.0.0
+lombok-plugin = '6.+'
+jakarta-mail = '2.+'
+jackson = '2.+'
+postgres = '42.+'
+flyway = ''
 
 [libraries]
-springBootPlugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'springbootVersion' }
-lombokPlugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombokPluginVersion' }
+# spring
+spring-boot-plugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'spring-boot' }
+spring-boot-starter-test = { module = 'org.springframework.boot:spring-boot-starter-test' }
+spring-boot-starter-validation = { module = 'org.springframework.boot:spring-boot-starter-validation' }
+spring-boot-starter-actuator = { module = 'org.springframework.boot:spring-boot-starter-actuator' }
+spring-boot-starter-security = { module = 'org.springframework.boot:spring-boot-starter-security' }
+spring-boot-starter-tomcat = { module = 'org.springframework.boot:spring-boot-starter-tomcat' }
+spring-boot-starter-websocket = { module = 'org.springframework.boot:spring-boot-starter-websocket' } # TODO
+spring-framework-springContext = { module = 'org.springframework:spring-context' }
+
+# lombok
+lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
+
+# mail
 jakarta-mail = { module = 'jakarta.mail:jakarta.mail-api', version.ref = 'jakarta-mail' }
-jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind ', version.ref = 'jacksonVersion' }
+
+# jackson
+jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }
+
+# swagger
+swagger = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
+swagger-ui = { module = 'io.springfox:springfox-swagger-ui', version.ref = 'swagger' }
+
+# postgres
+postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }

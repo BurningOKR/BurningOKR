@@ -7,8 +7,8 @@ buildscript {
     }
 
     dependencies {
-        classpath(deps.lombokPlugin)
-        classpath(deps.springBootPlugin)
+        classpath(deps.lombok.plugin)
+        classpath(deps.spring.boot.plugin)
 //        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
     }
 }
@@ -28,34 +28,20 @@ subprojects {
     }
 
     dependencies {
-
-        // TODO look if needed after spring update (fixes Missing Annotation Warning)
-//        implementation 'com.google.code.findbugs:jsr305:3.0.2'
-
-        // Spring dependency resolution
-        // implementation platform(SpringBootPlugin.BOM_COORDINATES)
-
-        // tested
-        implementation 'org.springframework:spring-context'
-        implementation 'org.springframework.boot:spring-boot-starter-security'
-        implementation 'org.springframework.security:spring-security-web'
-
-        // untested
-//        implementation 'org.springframework.boot:spring-boot-starter-websocket'
-        implementation 'org.webjars:stomp-websocket:2.3.3-1'
-        implementation 'org.springframework:spring-messaging'
-        implementation 'org.springframework.security:spring-security-messaging'
-
-
-        implementation 'org.webjars:sockjs-client:1.1.2'
-
-        implementation 'com.google.code.gson:gson:2.8.5'
-        implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation deps.spring.framework.springContext
+        testImplementation deps.spring.boot.starter.test
     }
 
     test {
-        //useJUnitPlatform()
+//        useJUnitPlatform() TODO enable again
+    }
+
+    // shows more information about violations (C.K.: keep for more insights!)
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.compilerArgs += ['-Xlint:deprecation']
+            options.compilerArgs += ['-Xlint:unchecked']
+        }
     }
 
     /*checkstyle {
@@ -78,40 +64,4 @@ subprojects {
             setLineEndings("UNIX")
         }
     }*/
-
-    // unifies and Configures the Versions of Dependencies in all Sub
-    configurations.configureEach {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-//            if (details.requested.group == 'org.springframework.boot') {
-//                details.useVersion '3.0.2'
-//            }
-//            if (details.requested.group == 'org.springframework') {
-//                details.useVersion '6.0.4'
-//            }
-//            if (details.requested.group == 'org.springframework.security') {
-//                details.useVersion '6.0.2'
-//            }
-//            if (details.requested.group == 'org.springframework.security' && details.requested.name == 'spring-security-jwt') {
-//                details.useVersion '1.1.1.RELEASE'
-//            }
-//            if (details.requested.group == 'org.springframework.security.oauth.boot') {
-//                details.useVersion '2.6.8'
-//            }
-        }
-    }
-    // shows more information about violations
-    tasks.withType(JavaCompile).tap {
-        configureEach {
-            options.compilerArgs += ['-Xlint:deprecation']
-            options.compilerArgs += ['-Xlint:unchecked']
-        }
-    }
-
-    tasks.withType(Copy).configureEach { duplicatesStrategy 'exclude' }
 }
-
-
-/* tasks.register('testReport', TestReport) {
-    // destinationDir = file("$buildDir/reports/allTests")
-    // reportOn subprojects*.test
-} */
