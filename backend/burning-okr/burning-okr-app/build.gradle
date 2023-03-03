@@ -1,11 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 apply plugin: 'war'
-
 group = 'org.burningokr'
 
 bootWar {
@@ -16,12 +9,6 @@ bootWar {
 war {
     enabled = true
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
 }
 
 dependencies {

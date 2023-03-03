@@ -1,11 +1,5 @@
 bootJar { enabled = false }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 dependencies {
     implementation deps.spring.boot.starter.data
     implementation deps.spring.boot.starter.validation

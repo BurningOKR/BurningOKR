@@ -1,6 +1,6 @@
 package org.burningokr.service.excel;
 
-import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.burningokr.model.excel.ObjectiveRow;
@@ -257,43 +257,43 @@ public class GenericXlsxFileCreatorServiceTest {
     Sheet sheet = workbook.getSheet(sheetTitle);
 
     assertEquals(3, sheet.getPhysicalNumberOfRows());
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 0));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 1));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 2));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 3));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 4));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 5));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 6));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 7));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 8));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 0, 9));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 1, 0));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 1, 1));
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 1, 2));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 1, 3));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 1, 4));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 1, 5));
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 1, 6), 0.0f);
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 1, 7), 0.0f);
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 1, 8), 0.0f);
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 1, 9));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 2, 0));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 2, 1));
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 2, 2));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 2, 3));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 2, 4));
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 2, 5));
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 2, 6), 0.0f);
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 2, 7), 0.0f);
-    assertEquals(Cell.CELL_TYPE_NUMERIC, getTypeOf(sheet, 2, 8), 0.0f);
-    assertEquals(Cell.CELL_TYPE_STRING, getTypeOf(sheet, 2, 9));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 0));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 1));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 2));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 3));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 4));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 5));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 6));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 7));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 8));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 0, 9));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 1, 0));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 1, 1));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 1, 2));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 1, 3));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 1, 4));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 1, 5));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 1, 6));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 1, 7));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 1, 8));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 1, 9));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 2, 0));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 2, 1));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 2, 2));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 2, 3));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 2, 4));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 2, 5));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 2, 6));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 2, 7));
+    assertEquals(CellType.NUMERIC, getTypeOf(sheet, 2, 8));
+    assertEquals(CellType.STRING, getTypeOf(sheet, 2, 9));
   }
 
   private String getStringContentOf(Sheet sheet, int rowIndex, int columnIndex) {
     return String.valueOf(sheet.getRow(rowIndex).getCell(columnIndex));
   }
 
-  private int getTypeOf(Sheet sheet, int rowIndex, int columnIndex) {
+  private CellType getTypeOf(Sheet sheet, int rowIndex, int columnIndex) {
     return sheet.getRow(rowIndex).getCell(columnIndex).getCellType();
   }
 

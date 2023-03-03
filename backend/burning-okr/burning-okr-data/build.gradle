@@ -4,5 +4,5 @@ dependencies {
     implementation project(':burning-okr-model')
     testImplementation project(':burning-okr-model')
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation deps.spring.boot.starter.data
 }

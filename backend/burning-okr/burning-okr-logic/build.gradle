@@ -1,34 +1,25 @@
 bootJar { enabled = false }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 dependencies {
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     testImplementation project(':burning-okr-data')
 
-    // tested
     // util
     implementation deps.jackson.databind
     implementation deps.spring.boot.starter.validation
+    implementation deps.apache.poiOoxml //  Java API To Access Microsoft Format Files
+    implementation deps.apache.poi //  Java API To Access Microsoft Format Files
+    implementation deps.guava // google java util classes etc
 
     // mail
     implementation deps.spring.framework.springContextSupport
     implementation deps.jakarta.mail
+    implementation deps.spring.boot.starter.thymeleaf
 
     // security
     implementation deps.spring.boot.starter.security
 
-    // Untested
-    implementation 'org.apache.poi:poi-ooxml:3.9'
-    implementation 'org.apache.poi:poi:3.9'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-    // TODO test -> refactor
-    implementation 'com.google.guava:guava:20.0'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // db
+    implementation deps.spring.boot.starter.data
 }
