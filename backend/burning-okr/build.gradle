@@ -1,98 +1,67 @@
-import com.diffplug.spotless.LineEnding
-
 buildscript {
-    ext {
-        //junitPlatfromGradlePluginVersion = '1.1.0'
-    }
     repositories {
         mavenCentral()
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
     }
+
     dependencies {
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
-        //classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatfromGradlePluginVersion}"
+        classpath(deps.lombok.plugin)
+        classpath(deps.spring.boot.plugin)
+//        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
     }
 }
 
-
 subprojects {
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'io.freefair.lombok'
     apply plugin: 'java'
-    apply plugin: 'checkstyle'
-    apply plugin: 'com.diffplug.gradle.spotless'
+    apply plugin: 'org.springframework.boot'
+//    apply plugin: 'com.diffplug.gradle.spotless'
 
-    ext['log4j2.version'] = '2.17.0'
-
-    ext {
-        springBootVersion = '2.0.4.RELEASE'
-    }
+    sourceCompatibility = 17
+    targetCompatibility = 17
 
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        compile group: 'org.springframework', name: 'spring-context', version: '5.0.7.RELEASE'
-        compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.4.RELEASE'
-        compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.0.7.RELEASE'
-        compile group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.2.6'
-        compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
-        compile group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.11'
-        compile group: 'org.springframework.security', name: 'spring-security-acl', version: '5.0.8.RELEASE'
-        compile group: 'org.springframework', name: 'spring-context-support', version: '5.0.9.RELEASE'
-        compile group: 'javax.mail', name: 'mail', version: '1.5.0-b01'
-
-        compile("com.auth0:java-jwt:3.4.0")
-
-        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-
-        compile('javax.xml.bind:jaxb-api:2.3.0')
-        compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-        compile("org.springframework.boot:spring-boot-starter-web")
-        compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.3.5.RELEASE'
-        compile group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
-        compile("org.springframework:spring-messaging")
-        compile('org.springframework.security:spring-security-messaging:5.0.4.RELEASE')
-
-
-        compile("org.webjars:sockjs-client:1.1.2")
-
-
-        implementation 'com.google.code.gson:gson:2.8.5'
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.3.9.RELEASE'
-
-        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
-
+        implementation deps.spring.framework.springContext
+        testImplementation deps.spring.boot.starter.test
     }
 
     test {
-        //useJUnitPlatform()
+//        useJUnitPlatform() // TODO enable again
     }
 
-    checkstyle {
-        toolVersion '8.29'
+    // shows more information about violations (C.K.: keep for more insights!)
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.compilerArgs += ['-Xlint:deprecation']
+            options.compilerArgs += ['-Xlint:unchecked']
+        }
     }
 
-    spotless {
+    /*checkstyle {
+        toolVersion '8.29' // TODO enable again?
+    }*/
+
+    /*spotless {
         format 'misc', {
-            target '**/*.gradle', '**/.*.md', '**/.gitignore'
+            target '**\/*.gradle', '**\/.*.md', '**\/.gitignore'
 
             trimTrailingWhitespace()
             indentWithSpaces()
             endWithNewline()
-            setLineEndings("UNIX" as LineEnding)
+            setLineEndings("UNIX")
         }
         java {
             trimTrailingWhitespace()
             indentWithSpaces()
             endWithNewline()
-            setLineEndings("UNIX" as LineEnding)
+            setLineEndings("UNIX")
         }
-    }
-}
-
-task testReport(type: TestReport) {
-    destinationDir = file("$buildDir/reports/allTests")
-    reportOn subprojects*.test
+    }*/
 }

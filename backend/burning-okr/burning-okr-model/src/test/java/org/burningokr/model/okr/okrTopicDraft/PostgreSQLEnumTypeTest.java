@@ -1,21 +1,21 @@
 package org.burningokr.model.okr.okrTopicDraft;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class PostgreSQLEnumTypeTest {
   @Mock
   PreparedStatement preparedStatement;
@@ -27,7 +27,7 @@ public class PostgreSQLEnumTypeTest {
   private PostgreSQLEnumType postgreSQLEnumType;
   private int index;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     index = 0;
     statusEnum = OkrTopicDraftStatusEnum.submitted;

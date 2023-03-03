@@ -1,5 +1,6 @@
 package org.burningokr.model.okrUnits;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -7,7 +8,6 @@ import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

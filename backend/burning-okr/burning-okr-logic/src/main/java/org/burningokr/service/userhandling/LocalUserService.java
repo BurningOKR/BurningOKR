@@ -1,26 +1,19 @@
 package org.burningokr.service.userhandling;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
-import org.burningokr.model.users.ChangePasswordData;
-import org.burningokr.model.users.ForgotPassword;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.LocalUserRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.DuplicateEmailException;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
-import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -30,7 +23,6 @@ public class LocalUserService implements UserService {
   private final Logger logger = LoggerFactory.getLogger(LocalUserService.class);
 
   private final LocalUserRepository localUserRepository;
-  private final PasswordService passwordService;
   private final ActivityService activityService;
 
   @Override
@@ -50,18 +42,8 @@ public class LocalUserService implements UserService {
 
   @Override
   public LocalUser getCurrentUser() {
-    OAuth2Authentication auth =
-      (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
-    Object decodedDetails = ((OAuth2AuthenticationDetails) auth.getDetails()).getDecodedDetails();
-    Gson g = new Gson();
-    String userString = g.toJson(decodedDetails);
-    LocalUser user = parseUserString(userString);
-    Optional<LocalUser> userFromDb = localUserRepository.findById(user.getId());
-    if (userFromDb.isPresent()) {
-      return userFromDb.get();
-    } else {
-      throw new EntityNotFoundException();
-    }
+    // TODO fix auth
+    return null;
   }
 
   @Override
@@ -79,7 +61,7 @@ public class LocalUserService implements UserService {
     try {
       ObjectMapper objectMapper = new ObjectMapper();
       return objectMapper
-        .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         .readValue(userString, LocalUser.class);
     } catch (IOException ex) {
       logger.error("There was an error parsing the User Token.");
@@ -118,10 +100,6 @@ public class LocalUserService implements UserService {
       // adress
       // So we can simply throw a DuplicateEmailException.
       throw new DuplicateEmailException("The given Email adress already exists.");
-    }
-
-    if (sendPassword) {
-      passwordService.sendPasswordLinkToNewUser(result);
     }
 
     activityService.createActivity(localUser, localUser, Action.CREATED);
@@ -175,27 +153,5 @@ public class LocalUserService implements UserService {
     localUser.setActive(false);
     localUserRepository.save(localUser);
     activityService.createActivity(localUser, localUser, Action.DELETED);
-  }
-
-  public void setPassword(UUID emailIdentifier, String password) {
-    passwordService.setPassword(emailIdentifier, password);
-  }
-
-  public void changePassword(ChangePasswordData changePasswordData) {
-    passwordService.changePassword(changePasswordData);
-  }
-
-  /**
-   * Create a Password Link to reset the password of a User.
-   *
-   * @param forgotPassword a {@link ForgotPassword} object
-   */
-  public void resetPassword(ForgotPassword forgotPassword) {
-    Optional<LocalUser> user = localUserRepository.findByMail(forgotPassword.getEmail());
-    if (user.isPresent()) {
-      passwordService.sendPasswordLinkToUser(user.get());
-    } else {
-      throw new EntityNotFoundException("An User with the given e-mail address does not exist.");
-    }
   }
 }

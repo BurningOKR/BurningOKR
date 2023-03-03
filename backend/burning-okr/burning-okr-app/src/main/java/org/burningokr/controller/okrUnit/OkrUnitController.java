@@ -1,6 +1,8 @@
 package org.burningokr.controller.okrUnit;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.ObjectiveDto;
@@ -20,15 +22,12 @@ import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.userhandling.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
-import java.util.UUID;
 
 @RestApiController
 @RequiredArgsConstructor
@@ -37,7 +36,6 @@ public class OkrUnitController {
   private final OkrUnitServiceFactory<OkrChildUnit> okrUnitServiceFactory;
   private final UnitMapperFactory mapperPicker;
   private final EntityCrawlerService entityCrawlerService;
-  private final UserService userService;
   private final OkrBranchSchemaMapper okrBranchSchemaMapper;
   private final ObjectiveMapper objectiveMapper;
   private final OkrCompanyMapper okrCompanyMapper;
@@ -68,10 +66,12 @@ public class OkrUnitController {
       okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrChildUnit childUnit = okrUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(childUnit);
-    UUID currentUserId = userService.getCurrentUser().getId();
-    return ResponseEntity.ok(
-      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-        parentOkrCompany.getOkrChildUnits(), currentUserId));
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
+//    UUID currentUserId = userService.getCurrentUser().getId();
+//    return ResponseEntity.ok(
+//      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+//        parentOkrCompany.getOkrChildUnits(), currentUserId));
   }
 
   /**

@@ -1,12 +1,12 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
+import org.springframework.lang.Nullable;
 
-import javax.annotation.Nullable;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;

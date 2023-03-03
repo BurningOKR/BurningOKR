@@ -1,10 +1,9 @@
 package org.burningokr.dto.configuration;
 
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor

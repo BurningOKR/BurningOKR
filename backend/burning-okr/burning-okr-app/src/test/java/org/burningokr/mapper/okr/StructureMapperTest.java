@@ -2,17 +2,17 @@ package org.burningokr.mapper.okr;
 
 import org.burningokr.dto.okr.StructureDto;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StructureMapperTest {
 
   private StructureMapper mapper;
   private OkrCompany company1;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     mapper = new StructureMapper();
     company1 = new OkrCompany();

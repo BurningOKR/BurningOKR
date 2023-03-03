@@ -1,16 +1,14 @@
 package org.burningokr.service.configuration;
 
 import com.google.common.collect.Lists;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.consts.DefaultLocalAuthData;
 import org.burningokr.model.configuration.OAuthClientDetails;
 import org.burningokr.repositories.configuration.OAuthClientDetailsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -18,7 +16,6 @@ import java.util.List;
 public class OAuthClientDetailsService {
 
   private final OAuthClientDetailsRepository oauthClientDetailsRepository;
-  private final PasswordEncoder passwordEncoder;
   private final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
 
   /**
@@ -28,12 +25,7 @@ public class OAuthClientDetailsService {
    * @param oauthClientDetails the model
    */
   public void fillDefaultValues(OAuthClientDetails oauthClientDetails) {
-    oauthClientDetails.setResourceIds(DefaultLocalAuthData.resourceIds);
-    oauthClientDetails.setScope(DefaultLocalAuthData.scope);
-    oauthClientDetails.setAuthorizedGrantTypes(DefaultLocalAuthData.authorizedGrantTypes);
-    oauthClientDetails.setAuthorities(DefaultLocalAuthData.authorities);
-    oauthClientDetails.setAdditionalInformation(DefaultLocalAuthData.additionalInformation);
-    oauthClientDetails.setAutoapprove(DefaultLocalAuthData.autoApprove);
+    // TODO fix auth
   }
 
   /**
@@ -42,8 +34,7 @@ public class OAuthClientDetailsService {
    * @param oauthClientDetails an {@link OAuthClientDetails} object
    */
   public void encodeClientSecret(OAuthClientDetails oauthClientDetails) {
-    oauthClientDetails.setClientSecret(
-      passwordEncoder.encode(oauthClientDetails.getClientSecret()));
+
   }
 
   /**

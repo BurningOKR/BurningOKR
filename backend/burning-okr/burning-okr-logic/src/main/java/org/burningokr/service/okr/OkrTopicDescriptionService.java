@@ -1,5 +1,9 @@
 package org.burningokr.service.okr;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.OkrTopicDescription;
@@ -20,10 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,6 +145,8 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
     }
   }
 
+  // TODO check if TopicDrafts are deleted after a cascading deletion, deprecated method try to remove
+
   /**
    * This method must return true, otherwise the onPostDelete method will not be called.
    *
@@ -152,18 +154,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @return true
    */
   @Override
-  public boolean requiresPostCommitHanding(EntityPersister entityPersister) {
-    return true;
-  }
-
-  /**
-   * This method must return true, otherwise the onPostDelete method will not be called.
-   *
-   * @param persister an {@link EntityPersister}
-   * @return true
-   */
-  @Override
-  public boolean requiresPostCommitHandling(EntityPersister persister) {
+  public boolean requiresPostCommitHandling(EntityPersister entityPersister) {
     return true;
   }
 

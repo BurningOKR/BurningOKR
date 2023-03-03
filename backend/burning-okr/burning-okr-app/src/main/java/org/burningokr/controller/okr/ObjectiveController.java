@@ -1,5 +1,6 @@
 package org.burningokr.controller.okr;
 
+import jakarta.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.NoteDto;
@@ -17,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
 
 @RestApiController

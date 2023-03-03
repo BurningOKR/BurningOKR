@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.*;
@@ -8,22 +9,22 @@ import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class KeyResultServiceTest {
 
   private final Long keyResultId = 1337L;
@@ -48,7 +49,7 @@ public class KeyResultServiceTest {
   private KeyResult keyResult;
   private KeyResult updateKeyResult;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     keyResult = new KeyResult();
     keyResult.setId(keyResultId);
@@ -60,19 +61,22 @@ public class KeyResultServiceTest {
     when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult), any())).thenReturn(updateKeyResult);
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test
   public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() throws Exception {
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenThrow(new EntityNotFoundException());
-    keyResultService.deleteKeyResult(keyResultId, user);
+    assertThrows(EntityNotFoundException.class, () -> {
+      keyResultService.deleteKeyResult(keyResultId, user);
+    });
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void deleteKeyResult_cycleOfKeyResultIsClosed_expectedForbiddenThrow() throws Exception {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(closedCycle);
-
-    keyResultService.deleteKeyResult(10L, user);
+    assertThrows(ForbiddenException.class, () -> {
+      keyResultService.deleteKeyResult(10L, user);
+    });
   }
 
   @Test
@@ -97,11 +101,11 @@ public class KeyResultServiceTest {
     when(taskService.findTasksForKeyResult(any(KeyResult.class))).thenReturn(new ArrayList<Task>());
     keyResultService.deleteKeyResult(10L, user);
 
-    Assert.assertEquals(5, keyResultBelowInSequence.getSequence());
-    Assert.assertEquals(6, keyResultAboveInSequence.getSequence());
+    assertEquals(5, keyResultBelowInSequence.getSequence());
+    assertEquals(6, keyResultAboveInSequence.getSequence());
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void updateKeyResult_cycleOfKeyResultIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
@@ -110,7 +114,9 @@ public class KeyResultServiceTest {
 
     KeyResult updatedKeyResult = new KeyResult();
     updatedKeyResult.setId(10L);
-    keyResultService.updateKeyResult(updatedKeyResult, user);
+    assertThrows(EntityNotFoundException.class, () -> {
+      keyResultService.updateKeyResult(updatedKeyResult, user);
+    });
   }
 
   @Test
@@ -124,7 +130,7 @@ public class KeyResultServiceTest {
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
 
-    Assert.assertEquals(expectedName, keyResult.getName());
+    assertEquals(expectedName, keyResult.getName());
   }
 
   @Test
@@ -138,7 +144,7 @@ public class KeyResultServiceTest {
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
 
-    Assert.assertEquals(expectedDescription, keyResult.getDescription());
+    assertEquals(expectedDescription, keyResult.getDescription());
   }
 
   @Test
@@ -152,7 +158,7 @@ public class KeyResultServiceTest {
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
 
-    Assert.assertEquals(expectedStartValue, keyResult.getStartValue());
+    assertEquals(expectedStartValue, keyResult.getStartValue());
   }
 
   @Test
@@ -166,7 +172,7 @@ public class KeyResultServiceTest {
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
 
-    Assert.assertEquals(expectedCurrentValue, keyResult.getCurrentValue());
+    assertEquals(expectedCurrentValue, keyResult.getCurrentValue());
   }
 
   @Test
@@ -180,7 +186,7 @@ public class KeyResultServiceTest {
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
 
-    Assert.assertEquals(expectedTargetValue, keyResult.getTargetValue());
+    assertEquals(expectedTargetValue, keyResult.getTargetValue());
   }
 
   @Test
@@ -194,7 +200,7 @@ public class KeyResultServiceTest {
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
 
-    Assert.assertEquals(expectedUnit, keyResult.getUnit());
+    assertEquals(expectedUnit, keyResult.getUnit());
   }
 
   @Test
@@ -215,17 +221,18 @@ public class KeyResultServiceTest {
     verify(keyResultMilestoneService).updateMilestones(any(), any());
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void updateSequence_NonEqualSizes_expectException() throws Exception {
     Objective objective = new Objective();
     objective.setId(42L);
     objective.setKeyResults(new ArrayList<>());
     Collection<Long> sequenceList = Collections.singletonList(1L);
-
-    keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    assertThrows(Exception.class, () -> {
+      keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    });
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void updateSequence_WrongObjectiveIdsInSequence_expectException() throws Exception {
     Objective objective = new Objective();
     objective.setId(40L);
@@ -241,8 +248,9 @@ public class KeyResultServiceTest {
     objective.setKeyResults(Arrays.asList(keyResult0, keyResult1, keyResult2));
 
     Collection<Long> sequenceList = Arrays.asList(30L, 20L, 40L);
-
-    keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    assertThrows(Exception.class, () -> {
+      keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    });
   }
 
   @Test
@@ -266,8 +274,8 @@ public class KeyResultServiceTest {
 
     keyResultService.updateSequence(objective.getId(), sequenceList, user);
 
-    Assert.assertEquals(2, keyResult0.getSequence());
-    Assert.assertEquals(1, keyResult1.getSequence());
-    Assert.assertEquals(0, keyResult2.getSequence());
+    assertEquals(2, keyResult0.getSequence());
+    assertEquals(1, keyResult1.getSequence());
+    assertEquals(0, keyResult2.getSequence());
   }
 }

@@ -3,12 +3,14 @@ package org.burningokr.mapper.configuration;
 import org.burningokr.dto.configuration.OAuthFrontendDetailsDto;
 import org.burningokr.model.configuration.OAuthConfiguration;
 import org.burningokr.model.configuration.OAuthConfigurationName;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class OAuthFrontendDetailsMapperTest {
 
@@ -16,7 +18,7 @@ public class OAuthFrontendDetailsMapperTest {
   private OAuthFrontendDetailsMapper mapper;
   private OAuthFrontendDetailsDto dto;
 
-  @Before
+  @BeforeEach
   public void init() {
     mapper = new OAuthFrontendDetailsMapper();
     dto = new OAuthFrontendDetailsDto();
@@ -143,8 +145,8 @@ public class OAuthFrontendDetailsMapperTest {
         .findFirst()
         .get();
 
-    Assert.assertNotNull(actualConfig);
-    Assert.assertEquals(expectedKey.getName(), actualConfig.getKey());
-    Assert.assertEquals(expectedValue, actualConfig.getValue());
+    assertNotNull(actualConfig);
+    assertEquals(expectedKey.getName(), actualConfig.getKey());
+    assertEquals(expectedValue, actualConfig.getValue());
   }
 }

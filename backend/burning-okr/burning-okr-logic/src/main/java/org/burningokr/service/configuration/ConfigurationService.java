@@ -1,6 +1,7 @@
 package org.burningokr.service.configuration;
 
 import com.google.common.collect.Lists;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
@@ -13,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Optional;
 

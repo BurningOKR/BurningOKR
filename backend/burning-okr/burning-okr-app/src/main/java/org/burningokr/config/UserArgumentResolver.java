@@ -1,8 +1,8 @@
 package org.burningokr.config;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.users.User;
-import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -10,16 +10,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import javax.naming.ConfigurationException;
-
+@RequiredArgsConstructor
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
-
-  private final UserService userService;
-
-  @Autowired
-  public UserArgumentResolver(UserService userService) {
-    this.userService = userService;
-  }
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
@@ -32,8 +24,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     ModelAndViewContainer mavContainer,
     @NonNull NativeWebRequest webRequest,
     WebDataBinderFactory binderFactory
-  )
-    throws ConfigurationException {
-    return userService.getCurrentUser();
+  ) {
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
   }
 }

@@ -7,16 +7,18 @@ import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+@ExtendWith(MockitoExtension.class)
 public class EntityCrawlerServiceTest {
 
   @InjectMocks
@@ -30,7 +32,7 @@ public class EntityCrawlerServiceTest {
   private Objective objective;
   private KeyResult keyResult;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     // We define the following entities with the following relationship:
     // cycle <-> okrCompany <-> departmentChildFirstDegree <-> okrDepartmentChildSecondDegree
@@ -65,21 +67,21 @@ public class EntityCrawlerServiceTest {
   public void getCycleOfCompany_expectedCycle() {
     Cycle actualCycle = entityCrawlerService.getCycleOfCompany(okrCompany);
 
-    Assert.assertEquals(cycle, actualCycle);
+    assertEquals(cycle, actualCycle);
   }
 
   @Test
   public void getCycleOfDepartment_companyIsFirstParent_expectedCycle() {
     Cycle actualCycle = entityCrawlerService.getCycleOfUnit(departmentChildFirstDegree);
 
-    Assert.assertEquals(cycle, actualCycle);
+    assertEquals(cycle, actualCycle);
   }
 
   @Test
   public void getCycleOfDepartment_companyIsNestedParent_expectedCycle() {
     Cycle actualCycle = entityCrawlerService.getCycleOfUnit(okrDepartmentChildSecondDegree);
 
-    Assert.assertEquals(cycle, actualCycle);
+    assertEquals(cycle, actualCycle);
   }
 
   @Test
@@ -87,7 +89,7 @@ public class EntityCrawlerServiceTest {
     attachObjectiveToDepartment(objective, departmentChildFirstDegree);
     Cycle actualCycle = entityCrawlerService.getCycleOfObjective(objective);
 
-    Assert.assertEquals(cycle, actualCycle);
+    assertEquals(cycle, actualCycle);
   }
 
   @Test
@@ -95,7 +97,7 @@ public class EntityCrawlerServiceTest {
     attachObjectiveToDepartment(objective, okrDepartmentChildSecondDegree);
     Cycle actualCycle = entityCrawlerService.getCycleOfObjective(objective);
 
-    Assert.assertEquals(cycle, actualCycle);
+    assertEquals(cycle, actualCycle);
   }
 
   @Test
@@ -103,7 +105,7 @@ public class EntityCrawlerServiceTest {
     attachObjectiveToDepartment(objective, departmentChildFirstDegree);
     Cycle actualCycle = entityCrawlerService.getCycleOfKeyResult(keyResult);
 
-    Assert.assertEquals(cycle, actualCycle);
+    assertEquals(cycle, actualCycle);
   }
 
   @Test
@@ -111,14 +113,14 @@ public class EntityCrawlerServiceTest {
     attachObjectiveToDepartment(objective, okrDepartmentChildSecondDegree);
     Cycle actualCycle = entityCrawlerService.getCycleOfKeyResult(keyResult);
 
-    Assert.assertEquals(cycle, actualCycle);
+    assertEquals(cycle, actualCycle);
   }
 
   @Test
   public void getCompanyOfDepartment_companyIsFirstParent_expectedCompany() {
     OkrCompany actualOkrCompany = entityCrawlerService.getCompanyOfUnit(departmentChildFirstDegree);
 
-    Assert.assertEquals(okrCompany, actualOkrCompany);
+    assertEquals(okrCompany, actualOkrCompany);
   }
 
   @Test
@@ -126,6 +128,6 @@ public class EntityCrawlerServiceTest {
     OkrCompany actualOkrCompany =
       entityCrawlerService.getCompanyOfUnit(okrDepartmentChildSecondDegree);
 
-    Assert.assertEquals(okrCompany, actualOkrCompany);
+    assertEquals(okrCompany, actualOkrCompany);
   }
 }

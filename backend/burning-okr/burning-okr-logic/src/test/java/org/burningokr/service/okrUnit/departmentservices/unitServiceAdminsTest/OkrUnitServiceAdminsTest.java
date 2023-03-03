@@ -1,5 +1,6 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceAdminsTest;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
@@ -14,14 +15,12 @@ import org.burningokr.service.okr.OkrTopicDescriptionService;
 import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import javax.persistence.EntityNotFoundException;
-
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
@@ -55,7 +54,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
 
   protected abstract Class<T> getDepartment();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     unit = createDepartment();
     unit.setId(departmentId);
@@ -82,37 +81,43 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
 
     okrUnitServiceAdmins.createChildUnit(departmentId, childUnit, user);
 
-    Assert.assertEquals(departmentId, childUnit.getParentOkrUnit().getId());
+    assertEquals(departmentId, childUnit.getParentOkrUnit().getId());
 
     verify(unitRepository).findByIdOrThrow(anyLong());
     verify(unitRepository).save(any(getDepartment()));
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void createChildUnit_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
-    okrUnitServiceAdmins.createChildUnit(10L, createDepartment(), user);
+    assertThrows(ForbiddenException.class, () -> {
+      okrUnitServiceAdmins.createChildUnit(10L, createDepartment(), user);
+    });
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void updateUnit_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
-    okrUnitServiceAdmins.updateUnit(createDepartment(), user);
+    assertThrows(ForbiddenException.class, () -> {
+      okrUnitServiceAdmins.updateUnit(createDepartment(), user);
+    });
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test
   public void deletUnit_cycleOfDepartmentIsClosed_expectedForbiddenThrow() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
-    okrUnitServiceAdmins.deleteUnit(10L, user);
+    assertThrows(ForbiddenException.class, () -> {
+      okrUnitServiceAdmins.deleteUnit(10L, user);
+    });
   }
 
   @Test
@@ -124,8 +129,8 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
 
     okrUnitServiceAdmins.createObjective(departmentId, objective, user);
 
-    Assert.assertNotNull(objective.getParentOkrUnit().getId());
-    Assert.assertEquals(departmentId, objective.getParentOkrUnit().getId());
+    assertNotNull(objective.getParentOkrUnit().getId());
+    assertEquals(departmentId, objective.getParentOkrUnit().getId());
   }
 
   @Test
@@ -140,7 +145,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
 
     unit = okrUnitServiceAdmins.updateUnit(updatedUnit, user);
 
-    Assert.assertEquals(updateName, unit.getName());
+    assertEquals(updateName, unit.getName());
   }
 
   @Test
@@ -154,6 +159,6 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
 
     unit = okrUnitServiceAdmins.updateUnit(updateUnit, user);
 
-    Assert.assertTrue(unit.isActive());
+    assertTrue(unit.isActive());
   }
 }

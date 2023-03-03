@@ -5,7 +5,6 @@ import org.burningokr.dto.okr.OkrTopicDraftDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
-import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +13,6 @@ import java.util.Collection;
 @Service
 @RequiredArgsConstructor
 public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDraftDto> {
-
-  private final UserService userService;
 
   @Override
   public OkrTopicDraft mapDtoToEntity(OkrTopicDraftDto input) {
@@ -40,7 +37,8 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
   public OkrTopicDraftDto mapEntityToDto(OkrTopicDraft input) {
     OkrTopicDraftDto dto = new OkrTopicDraftDto();
     dto.setDescription(input.getDescription());
-    dto.setInitiator(userService.findById(input.getInitiatorId()));
+    // TODO fix auth (jklein 23.02.2023)
+    dto.setInitiator(null);
     if (input.getCurrentStatus() != null) {
       dto.setCurrentStatus(input.getCurrentStatus().ordinal());
     }

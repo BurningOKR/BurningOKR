@@ -1,20 +1,21 @@
 package org.burningokr.service.okrUnit.departmentservices.unitServiceAdminsTest;
 
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@ExtendWith(MockitoExtension.class)
 public class OkrUnitServiceAdminsTest_Okr_Department
   extends OkrUnitServiceAdminsTest<OkrDepartment> {
 
@@ -32,7 +33,7 @@ public class OkrUnitServiceAdminsTest_Okr_Department
 
     unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, user);
 
-    Assert.assertEquals(updateOkrDepartment.getOkrMasterId(), unit.getOkrMasterId());
+    assertEquals(updateOkrDepartment.getOkrMasterId(), unit.getOkrMasterId());
   }
 
   @Test
@@ -49,7 +50,7 @@ public class OkrUnitServiceAdminsTest_Okr_Department
 
     unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, user);
 
-    Assert.assertEquals(updateOkrDepartment.getOkrTopicSponsorId(), unit.getOkrTopicSponsorId());
+    assertEquals(updateOkrDepartment.getOkrTopicSponsorId(), unit.getOkrTopicSponsorId());
   }
 
   @Test
@@ -66,7 +67,7 @@ public class OkrUnitServiceAdminsTest_Okr_Department
 
     unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, user);
 
-    Assert.assertEquals(okrMemberIds, unit.getOkrMemberIds());
+    assertEquals(okrMemberIds, unit.getOkrMemberIds());
   }
 
   @Override

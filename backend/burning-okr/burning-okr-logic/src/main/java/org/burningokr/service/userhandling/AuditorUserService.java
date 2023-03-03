@@ -1,24 +1,15 @@
 package org.burningokr.service.userhandling;
 
-import org.burningokr.model.users.AuditorUser;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.repositories.users.AuditorUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
-
 @Service
+@RequiredArgsConstructor
 public class AuditorUserService {
 
-  private AuditorUserRepository auditorUserRepository;
-  private UserService userService;
+  private final AuditorUserRepository auditorUserRepository;
 
-  @Autowired
-  public AuditorUserService(AuditorUserRepository auditorUserRepository, UserService userService) {
-    this.auditorUserRepository = auditorUserRepository;
-    this.userService = userService;
-  }
 
   /**
    * Checks if the Current User is an Auditor.
@@ -26,10 +17,12 @@ public class AuditorUserService {
    * @return a Boolean value
    */
   public Boolean isCurrentUserAuditor() {
-    UUID currentUserId = userService.getCurrentUser().getId();
-    Optional<AuditorUser> currentUserAuditorOptional =
-      auditorUserRepository.findById(currentUserId);
-
-    return currentUserAuditorOptional.isPresent();
+    // TODO fix auth (jklein 23.02.2023)
+    return true;
+//    UUID currentUserId = userService.getCurrentUser().getId();
+//    Optional<AuditorUser> currentUserAuditorOptional =
+//      auditorUserRepository.findById(currentUserId);
+//
+//    return currentUserAuditorOptional.isPresent();
   }
 }

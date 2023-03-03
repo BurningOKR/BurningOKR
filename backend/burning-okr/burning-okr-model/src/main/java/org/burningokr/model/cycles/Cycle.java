@@ -1,10 +1,10 @@
 package org.burningokr.model.cycles;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrCompany;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;

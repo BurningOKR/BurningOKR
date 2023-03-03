@@ -1,9 +1,8 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
-
-import javax.persistence.*;
 
 @Entity
 @Data

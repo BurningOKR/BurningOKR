@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
@@ -7,24 +8,24 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.userhandling.UserService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class NoteServiceTest {
 
   private static Long originalId;
@@ -48,7 +49,7 @@ public class NoteServiceTest {
   @Mock
   private User authorizedUser;
 
-  @BeforeClass
+  @BeforeAll
   public static void init() {
     originalId = 100L;
     changedId = 200L;
@@ -59,7 +60,7 @@ public class NoteServiceTest {
     originalParentKeyResult = new KeyResult();
   }
 
-  @Before
+  @BeforeEach
   public void refresh() {
     originalNote = createOriginalNote();
     changedNote = createOriginalNote();
@@ -74,11 +75,13 @@ public class NoteServiceTest {
     return createdNote;
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test
   public void findById_expectedNotFoundException() {
     when(noteRepository.findByIdOrThrow(originalId)).thenThrow(new EntityNotFoundException());
+    assertThrows(EntityNotFoundException.class, () -> {
+      noteService.findById(originalId);
+    });
 
-    noteService.findById(originalId);
   }
 
   @Test
@@ -99,9 +102,9 @@ public class NoteServiceTest {
 
     verify(noteRepository).save(capturedNotes.capture());
     Note capturedNote = capturedNotes.getValue();
-    Assert.assertEquals(changedText, capturedNote.getText());
-    Assert.assertEquals(originalId, capturedNote.getId());
-    Assert.assertEquals(originalUserId, capturedNote.getUserId());
+    assertEquals(changedText, capturedNote.getText());
+    assertEquals(originalId, capturedNote.getId());
+    assertEquals(originalUserId, capturedNote.getUserId());
   }
 
   @Test
@@ -119,9 +122,9 @@ public class NoteServiceTest {
     verify(activityService)
       .createActivity(
         capturedUsers.capture(), capturedNotes.capture(), capturedActions.capture());
-    Assert.assertEquals(authorizedUser, capturedUsers.getValue());
-    Assert.assertEquals(returnedNote, capturedNotes.getValue());
-    Assert.assertEquals(Action.EDITED, capturedActions.getValue());
+    assertEquals(authorizedUser, capturedUsers.getValue());
+    assertEquals(returnedNote, capturedNotes.getValue());
+    assertEquals(Action.EDITED, capturedActions.getValue());
   }
 
   @Test
@@ -133,7 +136,7 @@ public class NoteServiceTest {
 
     Note actualNote = noteService.updateNote(changedNote, authorizedUser);
 
-    Assert.assertEquals(actualNote, returnedNote);
+    assertEquals(actualNote, returnedNote);
   }
 
   @Test

@@ -1,5 +1,6 @@
 package org.burningokr.service.dashboard;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
@@ -7,23 +8,23 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.dashboard.ChartCreationOptionsRepository;
 import org.burningokr.repositories.dashboard.DashboardCreationRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DashboardServiceTest {
   private static Long dashboardCreationId;
   private static String dashboardCreationTitle;
@@ -42,7 +43,7 @@ public class DashboardServiceTest {
   private DashboardService dashboardService;
   private DashboardCreation dashboardCreation;
 
-  @BeforeClass
+  @BeforeAll
   public static void init() {
     dashboardCreationId = 100L;
     dashboardCreationTitle = "DashboardCreationTitle";
@@ -51,7 +52,7 @@ public class DashboardServiceTest {
     chartCreationOptions.add(new ChartCreationOptions());
   }
 
-  @Before
+  @BeforeEach
   public void Refresh() {
     dashboardCreation = createDashboardCreation();
   }
@@ -66,11 +67,12 @@ public class DashboardServiceTest {
     return dashboardCreation;
   }
 
-  @Test(expected = EntityNotFoundException.class)
+  @Test()
   public void findDashboardCreationById_expectedNotFoundException() {
     when(dashboardCreationRepository.findByIdOrThrow(dashboardCreationId)).thenThrow(new EntityNotFoundException());
-
-    dashboardService.findDashboardCreationById(dashboardCreationId);
+    assertThrows(EntityNotFoundException.class, () -> {
+      dashboardService.findDashboardCreationById(dashboardCreationId);
+    });
   }
 
   @Test

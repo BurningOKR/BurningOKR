@@ -1,5 +1,6 @@
 package org.burningokr.controller.cycles;
 
+import jakarta.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.dto.validators.CycleDtoValidator;
@@ -14,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -82,7 +82,8 @@ public class CycleController {
   public ResponseEntity<CycleDto> updateCycleById(
     @PathVariable Long cycleId,
     @RequestBody
-    @Valid CycleDto cycleDto
+    @Valid
+    CycleDto cycleDto
   )
     throws InvalidDtoException {
     cycleDtoValidator.validateCycleDto(cycleDto);

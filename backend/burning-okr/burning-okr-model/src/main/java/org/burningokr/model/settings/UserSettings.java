@@ -1,11 +1,11 @@
 package org.burningokr.model.settings;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Entity

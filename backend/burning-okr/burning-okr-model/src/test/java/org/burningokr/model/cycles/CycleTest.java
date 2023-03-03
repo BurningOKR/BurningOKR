@@ -1,16 +1,17 @@
 package org.burningokr.model.cycles;
 
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
 public class CycleTest {
 
   private Long originalId;
@@ -24,7 +25,7 @@ public class CycleTest {
 
   private Cycle expectedCycle;
 
-  @Before
+  @BeforeEach
   public void init() {
     originalName = "originalName";
     originalId = 100L;
@@ -51,39 +52,39 @@ public class CycleTest {
   public void getCopyWithoutRelations_expectedNotNull() {
     Cycle actualCycle = expectedCycle.getCopyWithoutRelations();
 
-    Assert.assertNotNull(actualCycle);
+    assertNotNull(actualCycle);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCopyNotOriginal() {
     Cycle actualCycle = expectedCycle.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedCycle, actualCycle);
+    assertNotEquals(expectedCycle, actualCycle);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCorrectCopiedInformation() {
     Cycle actualCycle = expectedCycle.getCopyWithoutRelations();
 
-    Assert.assertEquals(originalName, actualCycle.getName());
-    Assert.assertEquals(originalPlannedStartDate, actualCycle.getPlannedStartDate());
-    Assert.assertEquals(originalPlannedEndDate, actualCycle.getPlannedEndDate());
-    Assert.assertEquals(originalFactualStartDate, actualCycle.getFactualStartDate());
-    Assert.assertEquals(originalFactualEndDate, actualCycle.getFactualEndDate());
-    Assert.assertEquals(originalCycleState, actualCycle.getCycleState());
+    assertEquals(originalName, actualCycle.getName());
+    assertEquals(originalPlannedStartDate, actualCycle.getPlannedStartDate());
+    assertEquals(originalPlannedEndDate, actualCycle.getPlannedEndDate());
+    assertEquals(originalFactualStartDate, actualCycle.getFactualStartDate());
+    assertEquals(originalFactualEndDate, actualCycle.getFactualEndDate());
+    assertEquals(originalCycleState, actualCycle.getCycleState());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedIdNotCopied() {
     Cycle actualCycle = expectedCycle.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedCycle.getId(), actualCycle.getId());
+    assertNotEquals(expectedCycle.getId(), actualCycle.getId());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNoRelations() {
     Cycle actualCycle = expectedCycle.getCopyWithoutRelations();
 
-    Assert.assertEquals(0, actualCycle.getCompanies().size());
+    assertEquals(0, actualCycle.getCompanies().size());
   }
 }

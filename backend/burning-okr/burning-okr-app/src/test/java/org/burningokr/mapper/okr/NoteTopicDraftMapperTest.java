@@ -3,12 +3,14 @@ package org.burningokr.mapper.okr;
 import org.burningokr.dto.okr.NoteTopicDraftDto;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class NoteTopicDraftMapperTest {
 
@@ -16,7 +18,7 @@ public class NoteTopicDraftMapperTest {
   private NoteTopicDraftDto noteTopicDraftDto;
   private NoteTopicDraftMapper noteTopicDraftMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     this.noteTopicDraft = new NoteTopicDraft();
     this.noteTopicDraftDto = new NoteTopicDraftDto();
@@ -29,7 +31,7 @@ public class NoteTopicDraftMapperTest {
     Long expected = 234L;
     noteTopicDraftDto.setNoteId(expected);
     noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
-    Assert.assertEquals(expected, noteTopicDraft.getId());
+    assertEquals(expected, noteTopicDraft.getId());
   }
 
   @Test
@@ -37,7 +39,7 @@ public class NoteTopicDraftMapperTest {
     String expected = "An example for a text";
     noteTopicDraftDto.setNoteBody(expected);
     noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
-    Assert.assertEquals(expected, noteTopicDraft.getText());
+    assertEquals(expected, noteTopicDraft.getText());
   }
 
   @Test
@@ -45,7 +47,7 @@ public class NoteTopicDraftMapperTest {
     LocalDateTime expected = LocalDateTime.now();
     noteTopicDraftDto.setDate(expected);
     noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
-    Assert.assertEquals(expected, noteTopicDraft.getDate());
+    assertEquals(expected, noteTopicDraft.getDate());
   }
 
   @Test
@@ -53,7 +55,7 @@ public class NoteTopicDraftMapperTest {
     UUID expected = UUID.randomUUID();
     noteTopicDraftDto.setUserId(expected);
     noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
-    Assert.assertEquals(expected, noteTopicDraft.getUserId());
+    assertEquals(expected, noteTopicDraft.getUserId());
   }
 
   @Test
@@ -61,13 +63,13 @@ public class NoteTopicDraftMapperTest {
     Long expected = 234L;
     noteTopicDraftDto.setParentTopicDraftId(expected);
     noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
-    Assert.assertEquals(expected, noteTopicDraft.getParentTopicDraft().getId());
+    assertEquals(expected, noteTopicDraft.getParentTopicDraft().getId());
   }
 
   @Test
   public void test_mapDtoToEntity_expectsParentTopicDraftIdIsNull() {
     noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
-    Assert.assertNull(noteTopicDraft.getParentTopicDraft());
+    assertNull(noteTopicDraft.getParentTopicDraft());
   }
   // endregion
 
@@ -77,7 +79,7 @@ public class NoteTopicDraftMapperTest {
     Long expected = 1234L;
     noteTopicDraft.setId(expected);
     noteTopicDraftDto = noteTopicDraftMapper.mapEntityToDto(noteTopicDraft);
-    Assert.assertEquals(expected, noteTopicDraftDto.getNoteId());
+    assertEquals(expected, noteTopicDraftDto.getNoteId());
   }
 
   @Test
@@ -85,7 +87,7 @@ public class NoteTopicDraftMapperTest {
     String expected = "An example";
     noteTopicDraft.setText(expected);
     noteTopicDraftDto = noteTopicDraftMapper.mapEntityToDto(noteTopicDraft);
-    Assert.assertEquals(expected, noteTopicDraftDto.getNoteBody());
+    assertEquals(expected, noteTopicDraftDto.getNoteBody());
   }
 
   @Test
@@ -93,7 +95,7 @@ public class NoteTopicDraftMapperTest {
     LocalDateTime expected = LocalDateTime.now();
     noteTopicDraft.setDate(expected);
     noteTopicDraftDto = noteTopicDraftMapper.mapEntityToDto(noteTopicDraft);
-    Assert.assertEquals(expected, noteTopicDraftDto.getDate());
+    assertEquals(expected, noteTopicDraftDto.getDate());
   }
 
   @Test
@@ -101,7 +103,7 @@ public class NoteTopicDraftMapperTest {
     UUID expected = UUID.randomUUID();
     noteTopicDraft.setUserId(expected);
     noteTopicDraftDto = noteTopicDraftMapper.mapEntityToDto(noteTopicDraft);
-    Assert.assertEquals(expected, noteTopicDraftDto.getUserId());
+    assertEquals(expected, noteTopicDraftDto.getUserId());
   }
 
   @Test
@@ -110,13 +112,13 @@ public class NoteTopicDraftMapperTest {
     expected.setId(48L);
     noteTopicDraft.setParentTopicDraft(expected);
     noteTopicDraftDto = noteTopicDraftMapper.mapEntityToDto(noteTopicDraft);
-    Assert.assertEquals(expected.getId(), noteTopicDraftDto.getParentTopicDraftId());
+    assertEquals(expected.getId(), noteTopicDraftDto.getParentTopicDraftId());
   }
 
   @Test
   public void test_mapEntityToDto_expectsParentTopicDraftIsNull() {
     noteTopicDraftDto = noteTopicDraftMapper.mapEntityToDto(noteTopicDraft);
-    Assert.assertNull(noteTopicDraft.getParentTopicDraft());
+    assertNull(noteTopicDraft.getParentTopicDraft());
   }
   // endregion
 }

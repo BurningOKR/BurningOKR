@@ -1,5 +1,8 @@
 package org.burningokr.controller.okrUnit;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.dto.okr.OkrTopicDescriptionDto;
@@ -22,72 +25,25 @@ import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.security.AuthorizationService;
-import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
-import java.util.UUID;
 
 @RestApiController
+@RequiredArgsConstructor
 public class OkrDepartmentController {
 
-  private OkrUnitServiceFactory<OkrDepartment> departmentServicePicker;
-  private DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper;
-  private DataMapper<Objective, ObjectiveDto> objectiveMapper;
-  private OkrBranchSchemaMapper okrBranchSchemaMapper;
-  private OkrCompanyMapper okrCompanyMapper;
-  private OkrTopicDescriptionMapper okrTopicDescriptionMapper;
-  private OkrTopicDescriptionService okrTopicDescriptionService;
-  private CompanyService companyService;
-  private AuthorizationService authorizationService;
-  private EntityCrawlerService entityCrawlerService;
-  private UserService userService;
-
-  /**
-   * Initialize DepartmentController.
-   *
-   * @param departmentServicePicker   {@link OkrUnitServiceFactory}
-   * @param departmentMapper          {@link DataMapper} with OkrDepartment and OkrDepartmentDto
-   * @param objectiveMapper           {@link DataMapper} with Objective and ObjectiveDto
-   * @param authorizationService      {@link AuthorizationService}
-   * @param entityCrawlerService      {@link EntityCrawlerService}
-   * @param okrBranchSchemaMapper     {@link OkrBranchSchemaMapper}
-   * @param okrTopicDescriptionMapper {@link OkrTopicDescriptionMapper}
-   * @param userService               {@link UserService}
-   * @param okrCompanyMapper          {@link OkrCompanyMapper}
-   * @param companyService            {@link CompanyService}
-   */
-  @Autowired
-  public OkrDepartmentController(
-    OkrUnitServiceFactory<OkrDepartment> departmentServicePicker,
-    DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper,
-    DataMapper<Objective, ObjectiveDto> objectiveMapper,
-    AuthorizationService authorizationService,
-    EntityCrawlerService entityCrawlerService,
-    OkrBranchSchemaMapper okrBranchSchemaMapper,
-    OkrTopicDescriptionMapper okrTopicDescriptionMapper,
-    OkrTopicDescriptionService okrTopicDescriptionService,
-    UserService userService,
-    OkrCompanyMapper okrCompanyMapper,
-    CompanyService companyService
-  ) {
-    this.departmentServicePicker = departmentServicePicker;
-    this.departmentMapper = departmentMapper;
-    this.objectiveMapper = objectiveMapper;
-    this.authorizationService = authorizationService;
-    this.entityCrawlerService = entityCrawlerService;
-    this.okrBranchSchemaMapper = okrBranchSchemaMapper;
-    this.userService = userService;
-    this.okrCompanyMapper = okrCompanyMapper;
-    this.companyService = companyService;
-    this.okrTopicDescriptionMapper = okrTopicDescriptionMapper;
-    this.okrTopicDescriptionService = okrTopicDescriptionService;
-  }
+  private final OkrUnitServiceFactory<OkrDepartment> departmentServicePicker;
+  private final DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper;
+  private final DataMapper<Objective, ObjectiveDto> objectiveMapper;
+  private final OkrBranchSchemaMapper okrBranchSchemaMapper;
+  private final OkrCompanyMapper okrCompanyMapper;
+  private final OkrTopicDescriptionMapper okrTopicDescriptionMapper;
+  private final OkrTopicDescriptionService okrTopicDescriptionService;
+  private final CompanyService companyService;
+  private final EntityCrawlerService entityCrawlerService;
 
   /**
    * API Endpoint to get a OkrDepartment by it's ID.
@@ -119,10 +75,12 @@ public class OkrDepartmentController {
       departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentService.findById(departmentId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(okrDepartment);
-    UUID currentUserId = userService.getCurrentUser().getId();
-    return ResponseEntity.ok(
-      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-        parentOkrCompany.getOkrChildUnits(), currentUserId));
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
+    //    UUID currentUserId = userService.getCurrentUser().getId();
+//    return ResponseEntity.ok(
+//      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+//        parentOkrCompany.getOkrChildUnits(), currentUserId));
   }
 
   /**

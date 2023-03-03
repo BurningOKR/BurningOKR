@@ -24,7 +24,7 @@ services:
             - backend-network
     okr-db:
         image: 'postgres:9.6.16'
-        container_name: 'burning-okr-postgres'
+        container_name: 'burning-okr-postgres-1'
         env_file:
             - postgres.env
         ports:

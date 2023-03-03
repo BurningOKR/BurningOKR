@@ -1,11 +1,10 @@
 package org.burningokr.controller.userhandling;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.users.UserDto;
 import org.burningokr.mapper.users.UserMapper;
-import org.burningokr.model.users.User;
-import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,42 +14,30 @@ import java.util.Collection;
 import java.util.UUID;
 
 @RestApiController
+@RequiredArgsConstructor
 public class UserController {
 
-  private UserService userService;
   private UserMapper userMapper;
-
-  @Autowired
-  public UserController(UserService userService, UserMapper userMapper) {
-    this.userService = userService;
-    this.userMapper = userMapper;
-  }
 
   @GetMapping("/users/current")
   public ResponseEntity<UserDto> getCurrentUser() {
-    return ResponseEntity.ok(userMapper.mapEntityToDto(userService.getCurrentUser()));
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
   }
 
   @GetMapping("/users")
   public ResponseEntity<Collection<UserDto>> getAllUsers(
     @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
   ) {
-    Collection<User> userList;
-    if (activeUsers == null) {
-      userList = userService.findAll();
-    } else if (activeUsers) {
-      userList = userService.findAllActive();
-    } else {
-      userList = userService.findAllInactive();
-    }
-
-    return ResponseEntity.ok(userMapper.mapEntitiesToDtos(userList));
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
   }
 
   @GetMapping("/users/{userId}")
   public ResponseEntity<UserDto> getUserByInformation(
     @PathVariable UUID userId
   ) {
-    return ResponseEntity.ok(userMapper.mapEntityToDto(userService.findById(userId)));
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
   }
 }

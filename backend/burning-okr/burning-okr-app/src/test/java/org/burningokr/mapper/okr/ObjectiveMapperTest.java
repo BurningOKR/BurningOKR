@@ -6,12 +6,13 @@ import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjectiveMapperTest {
 
@@ -19,7 +20,7 @@ public class ObjectiveMapperTest {
   private ObjectiveDto objectiveDto;
   private ObjectiveMapper objectiveMapper;
 
-  @Before
+  @BeforeEach
   public void reset() {
     this.objectiveDto = new ObjectiveDto();
     this.objective = new Objective();
@@ -36,7 +37,7 @@ public class ObjectiveMapperTest {
     Long expected = 7L;
     objective.setId(7L);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getId());
+    assertEquals(expected, objectiveDto.getId());
   }
 
   @Test
@@ -46,7 +47,7 @@ public class ObjectiveMapperTest {
     parentOkrCompany.setId(expected);
     objective.setParentOkrUnit(parentOkrCompany);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getParentUnitId());
+    assertEquals(expected, objectiveDto.getParentUnitId());
   }
 
   @Test
@@ -56,14 +57,14 @@ public class ObjectiveMapperTest {
     parentOkrDepartment.setId(expected);
     objective.setParentOkrUnit(parentOkrDepartment);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getParentUnitId());
+    assertEquals(expected, objectiveDto.getParentUnitId());
   }
 
   @Test
   public void test_mapEntityToDto_expects_parentObjectiveIsNullFromNull() {
     objective.setParentObjective(null);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertNull(objectiveDto.getParentObjectiveId());
+    assertNull(objectiveDto.getParentObjectiveId());
   }
 
   @Test
@@ -73,7 +74,7 @@ public class ObjectiveMapperTest {
     parentObjective.setId(expected);
     objective.setParentObjective(parentObjective);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getParentObjectiveId());
+    assertEquals(expected, objectiveDto.getParentObjectiveId());
   }
 
   @Test
@@ -81,7 +82,7 @@ public class ObjectiveMapperTest {
     String expected = "test";
     objective.setName(expected);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getTitle());
+    assertEquals(expected, objectiveDto.getTitle());
   }
 
   @Test
@@ -89,7 +90,7 @@ public class ObjectiveMapperTest {
     String expected = "test";
     objective.setDescription(expected);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getDescription());
+    assertEquals(expected, objectiveDto.getDescription());
   }
 
   @Test
@@ -97,7 +98,7 @@ public class ObjectiveMapperTest {
     String expected = "test";
     objective.setRemark(expected);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getRemark());
+    assertEquals(expected, objectiveDto.getRemark());
   }
 
   @Test
@@ -108,7 +109,7 @@ public class ObjectiveMapperTest {
     noteObjectives.add(noteObjective);
     objective.setNotes(noteObjectives);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(noteObjective.getId(), objectiveDto.getNoteIds().toArray()[0]);
+    assertEquals(noteObjective.getId(), objectiveDto.getNoteIds().toArray()[0]);
   }
 
   @Test
@@ -116,13 +117,13 @@ public class ObjectiveMapperTest {
     String expectedId = "1337";
     objective.setContactPersonId(expectedId);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expectedId, objectiveDto.getContactPersonId());
+    assertEquals(expectedId, objectiveDto.getContactPersonId());
   }
 
   private void mapEntityToDto_isActiveTest(boolean isActive) {
     objective.setActive(isActive);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(isActive, objectiveDto.getIsActive());
+    assertEquals(isActive, objectiveDto.getIsActive());
   }
 
   @Test
@@ -144,7 +145,7 @@ public class ObjectiveMapperTest {
     }
     objective.setSubObjectives(subobjectives);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getSubObjectiveIds().size());
+    assertEquals(expected, objectiveDto.getSubObjectiveIds().size());
   }
 
   @Test
@@ -156,7 +157,7 @@ public class ObjectiveMapperTest {
     }
     objective.setKeyResults(keyResults);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getKeyResultIds().size());
+    assertEquals(expected, objectiveDto.getKeyResultIds().size());
   }
 
   @Test
@@ -164,7 +165,7 @@ public class ObjectiveMapperTest {
     String expected = "test";
     objective.setReview(expected);
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
-    Assert.assertEquals(expected, objectiveDto.getReview());
+    assertEquals(expected, objectiveDto.getReview());
   }
   // endregion
 
@@ -174,20 +175,20 @@ public class ObjectiveMapperTest {
     Long expected = 7L;
     objectiveDto.setId(7L);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getId());
+    assertEquals(expected, objective.getId());
   }
 
   @Test
   public void mapDtoToEntity_expects_notesAreMapped() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertArrayEquals(
+    assertArrayEquals(
       new ArrayList<NoteObjective>().toArray(), objective.getNotes().toArray());
   }
 
   @Test
   public void test_mapDtoToEntity_expects_expectsParentUnitIsNull() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertNull(objective.getParentOkrUnit());
+    assertNull(objective.getParentOkrUnit());
   }
 
   @Test
@@ -195,13 +196,13 @@ public class ObjectiveMapperTest {
     Long expected = 15L;
     objectiveDto.setParentUnitId(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getParentOkrUnit().getId());
+    assertEquals(expected, objective.getParentOkrUnit().getId());
   }
 
   @Test
   public void test_mapDtoToEntity_expects_expectsParentObjectiveIsNull() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertNull(objective.getParentObjective());
+    assertNull(objective.getParentObjective());
   }
 
   @Test
@@ -209,7 +210,7 @@ public class ObjectiveMapperTest {
     Long expected = 14L;
     objectiveDto.setParentObjectiveId(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getParentObjective().getId());
+    assertEquals(expected, objective.getParentObjective().getId());
   }
 
   @Test
@@ -217,7 +218,7 @@ public class ObjectiveMapperTest {
     String expected = "test";
     objectiveDto.setTitle(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getName());
+    assertEquals(expected, objective.getName());
   }
 
   @Test
@@ -225,7 +226,7 @@ public class ObjectiveMapperTest {
     String expected = "desc";
     objectiveDto.setDescription(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getDescription());
+    assertEquals(expected, objective.getDescription());
   }
 
   @Test
@@ -233,7 +234,7 @@ public class ObjectiveMapperTest {
     String expected = "remark";
     objectiveDto.setRemark(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getRemark());
+    assertEquals(expected, objective.getRemark());
   }
 
   @Test
@@ -241,13 +242,13 @@ public class ObjectiveMapperTest {
     String expected = "1337123";
     objectiveDto.setContactPersonId(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getContactPersonId());
+    assertEquals(expected, objective.getContactPersonId());
   }
 
   private void mapDtoToEntity_isActiveTest(boolean expectedIsActive) {
     objectiveDto.setIsActive(expectedIsActive);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expectedIsActive, objective.isActive());
+    assertEquals(expectedIsActive, objective.isActive());
   }
 
   @Test
@@ -263,13 +264,13 @@ public class ObjectiveMapperTest {
   @Test
   public void test_mapDtoToEntity_expects_subobjectivesNotNull() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertNotNull(objective.getSubObjectives());
+    assertNotNull(objective.getSubObjectives());
   }
 
   @Test
   public void test_mapDtoToEntity_expects_keyResultsNotNull() {
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertNotNull(objective.getKeyResults());
+    assertNotNull(objective.getKeyResults());
   }
 
   @Test
@@ -277,7 +278,7 @@ public class ObjectiveMapperTest {
     String expected = "bad review";
     objectiveDto.setReview(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    Assert.assertEquals(expected, objective.getReview());
+    assertEquals(expected, objective.getReview());
   }
   // endregion
 }

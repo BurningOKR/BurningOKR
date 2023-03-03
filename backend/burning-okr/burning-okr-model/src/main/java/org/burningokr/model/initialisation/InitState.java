@@ -1,8 +1,7 @@
 package org.burningokr.model.initialisation;
 
+import jakarta.persistence.*;
 import lombok.Data;
-
-import javax.persistence.*;
 
 @Entity
 @Data

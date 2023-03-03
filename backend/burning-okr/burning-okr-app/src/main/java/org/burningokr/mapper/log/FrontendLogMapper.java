@@ -1,12 +1,12 @@
 package org.burningokr.mapper.log;
 
+import jakarta.validation.constraints.NotNull;
 import org.burningokr.dto.log.FrontendLogDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.log.FrontendLog;
 import org.burningokr.model.log.FrontendLogLevel;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

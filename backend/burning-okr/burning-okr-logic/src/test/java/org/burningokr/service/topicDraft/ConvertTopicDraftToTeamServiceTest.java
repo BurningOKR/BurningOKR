@@ -9,21 +9,22 @@ import org.burningokr.service.exceptions.NotApprovedException;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ConvertTopicDraftToTeamServiceTest {
 
   @Mock
@@ -47,7 +48,7 @@ public class ConvertTopicDraftToTeamServiceTest {
   private OkrTopicDraft approvedTopicDraft;
   private OkrTopicDraft rejectedTopicDraft;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     draftTopicDraft = new OkrTopicDraft();
     draftTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
@@ -77,22 +78,28 @@ public class ConvertTopicDraftToTeamServiceTest {
     when(okrDepartment.getOkrTopicDescription()).thenReturn(okrTopicDescription);
   }
 
-  @Test(expected = NotApprovedException.class)
+  @Test
   public void convertTopicDraftToTeamService_throwsIfTheTopicDraftIsDraft() {
     when(okrTopicDraftService.findById(anyLong())).thenReturn(draftTopicDraft);
-    convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0, null);
+    assertThrows(NotApprovedException.class, () -> {
+      convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0, null);
+    });
   }
 
-  @Test(expected = NotApprovedException.class)
+  @Test
   public void convertTopicDraftToTeamService_throwsIfTheTopicDraftIsSubmitted() {
     when(okrTopicDraftService.findById(anyLong())).thenReturn(submittedTopicDraft);
-    convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0, null);
+    assertThrows(NotApprovedException.class, () -> {
+      convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0, null);
+    });
   }
 
-  @Test(expected = NotApprovedException.class)
+  @Test
   public void convertTopicDraftToTeamService_throwsIfTheTopicDraftIsRejected() {
     when(okrTopicDraftService.findById(anyLong())).thenReturn(rejectedTopicDraft);
-    convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0, null);
+    assertThrows(NotApprovedException.class, () -> {
+      convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0, null);
+    });
   }
 
   @Test

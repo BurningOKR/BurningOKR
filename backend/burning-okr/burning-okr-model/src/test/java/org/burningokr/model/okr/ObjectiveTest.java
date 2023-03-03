@@ -1,13 +1,14 @@
 package org.burningokr.model.okr;
 
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
 public class ObjectiveTest {
 
   private String originalName;
@@ -20,7 +21,7 @@ public class ObjectiveTest {
 
   private Objective expectedObjective;
 
-  @Before
+  @BeforeEach
   public void init() {
     originalName = "originalName";
     originalId = 100L;
@@ -45,39 +46,39 @@ public class ObjectiveTest {
   public void getCopyWithoutRelations_expectedNotNull() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNotNull(actualObjective);
+    assertNotNull(actualObjective);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCopyNotOriginal() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedObjective, actualObjective);
+    assertNotEquals(expectedObjective, actualObjective);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedIdNotCopied() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedObjective.getId(), actualObjective.getId());
+    assertNotEquals(expectedObjective.getId(), actualObjective.getId());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCorrectCopiedInformation() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertEquals(originalContactPerson, actualObjective.getContactPersonId());
-    Assert.assertEquals(originalDescription, actualObjective.getDescription());
-    Assert.assertEquals(originalName, actualObjective.getName());
-    Assert.assertEquals(originalRemark, actualObjective.getRemark());
-    Assert.assertTrue(actualObjective.isActive());
+    assertEquals(originalContactPerson, actualObjective.getContactPersonId());
+    assertEquals(originalDescription, actualObjective.getDescription());
+    assertEquals(originalName, actualObjective.getName());
+    assertEquals(originalRemark, actualObjective.getRemark());
+    assertTrue(actualObjective.isActive());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNoRelations() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNull(actualObjective.getParentObjective());
-    Assert.assertNull(actualObjective.getParentOkrUnit());
+    assertNull(actualObjective.getParentObjective());
+    assertNull(actualObjective.getParentOkrUnit());
   }
 }

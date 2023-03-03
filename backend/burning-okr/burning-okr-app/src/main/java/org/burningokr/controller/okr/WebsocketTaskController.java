@@ -1,14 +1,12 @@
 package org.burningokr.controller.okr;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.okr.TaskDto;
 import org.burningokr.mapper.okr.TaskMapper;
 import org.burningokr.model.okr.Task;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskService;
-import org.burningokr.service.security.AuthorizationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -20,25 +18,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Controller
+@Slf4j
+@RequiredArgsConstructor
 public class WebsocketTaskController {
-  private final Logger logger = LoggerFactory.getLogger(TaskService.class);
   private final SimpMessagingTemplate simpMessagingTemplate;
-  private AuthorizationService authorizationService;
-  private TaskService taskService;
-  private TaskMapper taskMapper;
-
-  @Autowired
-  public WebsocketTaskController(
-    AuthorizationService authorizationService,
-    TaskService taskService,
-    TaskMapper taskMapper,
-    SimpMessagingTemplate simpMessagingTemplate
-  ) {
-    this.authorizationService = authorizationService;
-    this.taskService = taskService;
-    this.taskMapper = taskMapper;
-    this.simpMessagingTemplate = simpMessagingTemplate;
-  }
+  private final TaskService taskService;
+  private final TaskMapper taskMapper;
 
   @MessageMapping("unit/{unitId}/tasks/add")
   public void addTask(
@@ -46,13 +31,13 @@ public class WebsocketTaskController {
     TaskDto taskDto,
     @AuthenticationPrincipal Authentication currentUser
   ) {
-    logger.info(
+    log.info(
       String.format(
         "Websocket add Task dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d}",
         taskDto.getId(),
         taskDto.getTitle(),
         taskDto.getDescription(),
-        String.valueOf(taskDto.getAssignedUserIds()),
+        taskDto.getAssignedUserIds(),
         taskDto.getAssignedKeyResultId(),
         taskDto.getParentTaskBoardId(),
         taskDto.getTaskStateId()
@@ -64,10 +49,10 @@ public class WebsocketTaskController {
         this.taskMapper.mapEntitiesToDtos(taskService.createTask(newTask, unitId, null));
 
       sendNewOrUpdatedTasks(createdAndUpdatedTasks, unitId);
-      logger.info("Broadcast for added task");
+      log.info("Broadcast for added task");
     } catch (ForbiddenException ex) {
-      logger.error(ex.getMessage());
-      logger.info("want to add a task in a not active cycle");
+      log.error(ex.getMessage());
+      log.info("want to add a task in a not active cycle");
       sendDeletedTasks(taskDto, unitId);
     }
   }
@@ -79,20 +64,20 @@ public class WebsocketTaskController {
     @AuthenticationPrincipal Authentication currentUser
   )
     throws Exception {
-    logger.info("update Task on Websocket");
+    log.info("update Task on Websocket");
     try {
       Task updatedTask = taskMapper.mapDtoToEntity(taskDto);
       Collection<Task> updatedTasks = taskService.updateTask(updatedTask, null);
       Collection<TaskDto> taskDtoList = taskMapper.mapEntitiesToDtos(updatedTasks);
 
       sendNewOrUpdatedTasks(taskDtoList, unitId);
-      logger.info("Broadcast for updated task");
+      log.info("Broadcast for updated task");
     } catch (ForbiddenException ex) {
       TaskDto oldTask = taskMapper.mapEntityToDto(taskService.getById(taskDto.getId()));
-      Collection tasks = new ArrayList<TaskDto>();
+      Collection<TaskDto> tasks = new ArrayList<>();
       tasks.add(oldTask);
       sendNewOrUpdatedTasks(tasks, unitId);
-      logger.info("want to update a task in a not active cycle");
+      log.info("want to update a task in a not active cycle");
     }
   }
 
@@ -102,7 +87,7 @@ public class WebsocketTaskController {
     TaskDto taskDto,
     @AuthenticationPrincipal Authentication currentUser
   ) {
-    logger.info("delete Task on Websocket");
+    log.info("delete Task on Websocket");
 
     try {
       Task taskToDelete = taskMapper.mapDtoToEntity(taskDto);
@@ -114,14 +99,14 @@ public class WebsocketTaskController {
 
       simpMessagingTemplate.convertAndSend(deletionUrl, taskDto);
       simpMessagingTemplate.convertAndSend(updateUrl, taskMapper.mapEntitiesToDtos(updatedTasks));
-      logger.info("Task deleted and broadcast to: " + deletionUrl);
-      logger.info("Referenced Tasks updated after Deletion and broadcast to: " + updateUrl);
+      log.info("Task deleted and broadcast to: " + deletionUrl);
+      log.info("Referenced Tasks updated after Deletion and broadcast to: " + updateUrl);
     } catch (ForbiddenException ex) {
       TaskDto oldTask = taskMapper.mapEntityToDto(taskService.getById(taskDto.getId()));
-      Collection tasks = new ArrayList<TaskDto>();
+      Collection<TaskDto> tasks = new ArrayList<>();
       tasks.add(oldTask);
       sendNewOrUpdatedTasks(tasks, unitId);
-      logger.info("want to delete a task in a not active cycle");
+      log.warn("want to delete a task in a not active cycle");
     }
   }
 

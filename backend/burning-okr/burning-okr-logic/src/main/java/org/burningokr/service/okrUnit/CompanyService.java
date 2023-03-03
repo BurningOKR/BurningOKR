@@ -250,7 +250,7 @@ public class CompanyService {
   }
 
   @Transactional
-  public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch, User user) {
+  public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch, User user) throws ForbiddenException {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
@@ -288,7 +288,7 @@ public class CompanyService {
     return history;
   }
 
-  public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) {
+  public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, User user) throws ForbiddenException {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
@@ -313,7 +313,7 @@ public class CompanyService {
     return topicDraft;
   }
 
-  private void throwIfCompanyInClosedCycle(OkrCompany okrCompanyToCheck) {
+  private void throwIfCompanyInClosedCycle(OkrCompany okrCompanyToCheck) throws ForbiddenException {
     if (entityCrawlerService.getCycleOfCompany(okrCompanyToCheck).getCycleState()
       == CycleState.CLOSED) {
       throw new ForbiddenException(

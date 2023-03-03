@@ -2,17 +2,15 @@ package org.burningokr.mapper.configuration;
 
 import org.burningokr.dto.configuration.OAuthClientDetailsDto;
 import org.burningokr.model.configuration.OAuthClientDetails;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OAuthClientDetailsMapperTest {
 
@@ -20,7 +18,7 @@ public class OAuthClientDetailsMapperTest {
   private OAuthClientDetailsDto oauthClientDetailsDto;
   private OAuthClientDetailsMapper oauthClientDetailsMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     oauthClientDetailsDto = new OAuthClientDetailsDto();
     oauthClientDetails = new OAuthClientDetails();
@@ -154,7 +152,7 @@ public class OAuthClientDetailsMapperTest {
         firstOAuthClientDetailsDto.get().getRefreshTokenValidity()
       );
     } else {
-      Assert.fail();
+      fail();
     }
   }
 
@@ -211,7 +209,7 @@ public class OAuthClientDetailsMapperTest {
         firstOAuthClientDetails.get().getRefreshTokenValidity()
       );
     } else {
-      Assert.fail();
+      fail();
     }
   }
 }

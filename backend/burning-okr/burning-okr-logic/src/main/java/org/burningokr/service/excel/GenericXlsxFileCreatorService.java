@@ -1,5 +1,6 @@
 package org.burningokr.service.excel;
 
+import jakarta.validation.constraints.NotNull;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.burningokr.model.excel.ColumnIndex;
@@ -7,7 +8,6 @@ import org.burningokr.model.excel.PercentageCellValue;
 import org.burningokr.service.exceptions.MissingAnnotationException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,7 +26,8 @@ public class GenericXlsxFileCreatorService<T> {
    *                                sheet with this name
    */
   public Workbook createWorkbook(
-    @NotNull Collection<T> contentRows, @NotNull Collection<String> headlines, String sheetTitle
+    @NotNull Collection<T> contentRows,
+    @NotNull Collection<String> headlines, String sheetTitle
   )
     throws IllegalAccessException {
     Workbook workbook = new XSSFWorkbook();

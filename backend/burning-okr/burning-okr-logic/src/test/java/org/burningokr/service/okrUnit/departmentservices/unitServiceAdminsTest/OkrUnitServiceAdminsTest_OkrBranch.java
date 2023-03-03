@@ -6,20 +6,19 @@ import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.LocalUser;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest<OkrBranch> {
 
   @Override
@@ -53,7 +52,7 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
     assertEquals(department.getName(), actual.getOkrTopicDescription().getName());
   }
 
-  @Test(expected = InvalidDeleteRequestException.class)
+  @Test
   public void deleteUnitWithChildUnit_expectsInvalidDeleteRequestException() {
     OkrBranch okrBranch = new OkrBranch();
     okrBranch.setId(13L);
@@ -63,7 +62,9 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
 
     when(unitRepository.findByIdOrThrow(anyLong())).thenReturn(okrBranch);
 
-    okrUnitServiceAdmins.deleteUnit(13L, user);
+    assertThrows(InvalidDeleteRequestException.class, () -> {
+      okrUnitServiceAdmins.deleteUnit(13L, user);
+    });
   }
 
   @Test

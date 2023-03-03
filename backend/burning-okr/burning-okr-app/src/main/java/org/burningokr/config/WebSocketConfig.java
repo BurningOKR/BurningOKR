@@ -1,9 +1,9 @@
+// TODO fix auth
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -20,33 +19,24 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
-import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerEndpointsConfiguration;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
 
 @Configuration
 @EnableWebSocketMessageBroker
-@EnableWebSecurity
 @RequiredArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
-  private final ResourceServerTokenServices resourceServerTokenServices;
+/*  private final ResourceServerTokenServices resourceServerTokenServices;
 
   @Autowired(required = false)
-  private TokenStore tokenStore;
-
-  @Autowired(required = false)
-  private AuthorizationServerEndpointsConfiguration endpoints;
+  private AuthorizationServerEndpointsConfiguration endpoints;*/
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -55,7 +45,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
-    long[] heartbeats = {10000l, 10000l};
+    long[] heartbeats = {10000L, 10000L};
     config
       .enableSimpleBroker("/topic")
       .setTaskScheduler(heartBeatScheduler())
@@ -63,9 +53,9 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
     config.setApplicationDestinationPrefixes("/ws");
   }
 
-  @Override
-  protected void configureInbound(MessageSecurityMetadataSourceRegistry message) {
-    message
+  /*@Bean
+  AuthorizationManager<Message<?>> authorizationManager(MessageMatcherDelegatingAuthorizationManager.Builder messages) {
+    messages
       .nullDestMatcher()
       .permitAll()
       .simpTypeMatchers(SimpMessageType.CONNECT)
@@ -78,15 +68,11 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
       .authenticated()
       .anyMessage()
       .denyAll();
-  }
+    return messages.build();
+  }*/
 
   @Override
-  protected boolean sameOriginDisabled() {
-    return true;
-  }
-
-  @Override
-  public void customizeClientInboundChannel(ChannelRegistration registration) {
+  public void configureClientInboundChannel(ChannelRegistration registration) {
     registration.interceptors(
       new ChannelInterceptor() {
         @Override
@@ -119,19 +105,19 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
   }
 
   private Authentication getAuthentication(String token) {
-    Authentication authByService;
-    if (tokenStore != null) {
+    Authentication authByService = null;
+    /*if (tokenStore != null) {
       authByService = tokenStore.readAuthentication(token);
     }
     // DM 26.05.2021:
     // The following code is for new authentication functions. This is usefull when there is no bean
     // for TokenStore or ResourceServerTokenServices defined.
-    /* else if(endpoints != null) {
+
+    else if (endpoints != null) {
       authByService = endpoints.getEndpointsConfigurer().getTokenStore().readAuthentication(token);
-    } */
-    else {
+    } else {
       authByService = resourceServerTokenServices.loadAuthentication(token);
-    }
+    }*/
     return authByService;
   }
 

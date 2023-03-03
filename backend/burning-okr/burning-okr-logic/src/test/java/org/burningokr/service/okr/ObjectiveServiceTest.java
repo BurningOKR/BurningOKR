@@ -22,21 +22,21 @@ import org.burningokr.service.exceptions.KeyResultOverflowException;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ObjectiveServiceTest {
 
   @Mock
@@ -75,7 +75,7 @@ public class ObjectiveServiceTest {
   private KeyResult keyResult;
   private NoteObjective noteObjective;
 
-  @Before
+  @BeforeEach
   public void reset() {
 
     this.objective = new Objective();
@@ -121,7 +121,7 @@ public class ObjectiveServiceTest {
 
     objectiveService.createKeyResult(expected, keyResult, user);
 
-    Assert.assertEquals(expected, keyResult.getParentObjective().getId());
+    assertEquals(expected, keyResult.getParentObjective().getId());
 
     verifyCreateKeyResult();
   }
@@ -150,22 +150,25 @@ public class ObjectiveServiceTest {
 
     objectiveService.createKeyResult(expected, keyResult, user);
 
-    Assert.assertEquals(5, otherKeyResult1.getSequence());
-    Assert.assertEquals(6, otherKeyResult2.getSequence());
-    Assert.assertEquals(10, otherKeyResult3.getSequence());
+    assertEquals(5, otherKeyResult1.getSequence());
+    assertEquals(6, otherKeyResult2.getSequence());
+    assertEquals(10, otherKeyResult3.getSequence());
   }
 
-  @Test(expected = ForbiddenException.class)
+  @Test()
   public void createKeyResult_cycleOfObjectiveIsClosed_expectedForbiddenThrow()
     throws KeyResultOverflowException {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(closedCycle);
 
-    objectiveService.createKeyResult(10L, new KeyResult(), user);
+    assertThrows(ForbiddenException.class, () -> {
+      objectiveService.createKeyResult(10L, new KeyResult(), user);
+    });
+
   }
 
-  @Test(expected = KeyResultOverflowException.class)
+  @Test()
   public void
   createKeyResult_expectsKeyResultOverflowExceptionBecauseOfMaximumNumberOfKeyResultsReached()
     throws KeyResultOverflowException {
@@ -178,7 +181,9 @@ public class ObjectiveServiceTest {
 
     KeyResult keyResult = new KeyResult();
 
-    objectiveService.createKeyResult(anyLong(), keyResult, user);
+    assertThrows(KeyResultOverflowException.class, () -> {
+      objectiveService.createKeyResult(anyLong(), keyResult, user);
+    });
 
     verifyCreateKeyResult();
   }
@@ -223,7 +228,7 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertEquals(expectedTestName, objective.getName());
+    assertEquals(expectedTestName, objective.getName());
   }
 
   @Test
@@ -236,7 +241,7 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertEquals(expectedDescription, objective.getDescription());
+    assertEquals(expectedDescription, objective.getDescription());
   }
 
   @Test
@@ -249,7 +254,7 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertEquals(expectedRemark, objective.getRemark());
+    assertEquals(expectedRemark, objective.getRemark());
   }
 
   @Test
@@ -266,7 +271,7 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertEquals(expectedTestReview, objective.getReview());
+    assertEquals(expectedTestReview, objective.getReview());
   }
 
   @Test
@@ -292,15 +297,15 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertNull(objective.getParentOkrUnit());
-    Assert.assertNull(objective.getParentObjective());
-    Assert.assertFalse(objective.isActive());
-    Assert.assertNull(objective.getContactPersonId());
-    Assert.assertNull(objective.getDescription());
-    Assert.assertNotSame(objective.getKeyResults(), keyresultList);
-    Assert.assertNull(objective.getName());
-    Assert.assertNull(objective.getRemark());
-    Assert.assertNotSame(objective.getSubObjectives(), objectiveList);
+    assertNull(objective.getParentOkrUnit());
+    assertNull(objective.getParentObjective());
+    assertFalse(objective.isActive());
+    assertNull(objective.getContactPersonId());
+    assertNull(objective.getDescription());
+    assertNotSame(objective.getKeyResults(), keyresultList);
+    assertNull(objective.getName());
+    assertNull(objective.getRemark());
+    assertNotSame(objective.getSubObjectives(), objectiveList);
   }
 
   @Test
@@ -313,7 +318,7 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertEquals(expected, objective.getContactPersonId());
+    assertEquals(expected, objective.getContactPersonId());
   }
 
   @Test
@@ -329,7 +334,7 @@ public class ObjectiveServiceTest {
 
     objective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertEquals(newParentObjective, objective.getParentObjective());
+    assertEquals(newParentObjective, objective.getParentObjective());
   }
 
   @Test
@@ -344,7 +349,7 @@ public class ObjectiveServiceTest {
 
     Objective actualObjective = objectiveService.updateObjective(updateObjective, user);
 
-    Assert.assertEquals(newIsActive, actualObjective.isActive());
+    assertEquals(newIsActive, actualObjective.isActive());
   }
 
   @Test
@@ -375,8 +380,8 @@ public class ObjectiveServiceTest {
 
     objectiveService.deleteObjectiveById(objectiveId, user);
 
-    Assert.assertEquals(5, objectiveBelowInSequence.getSequence());
-    Assert.assertEquals(6, objectiveAboveInSequence.getSequence());
+    assertEquals(5, objectiveBelowInSequence.getSequence());
+    assertEquals(6, objectiveAboveInSequence.getSequence());
   }
 
   @Test
@@ -403,7 +408,7 @@ public class ObjectiveServiceTest {
     verify(activityService).createActivity(user, this.objective, Action.DELETED);
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void updateSequence_NonEqualSizes_expectException() throws Exception {
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setId(42L);
@@ -412,10 +417,12 @@ public class ObjectiveServiceTest {
 
     when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
-    objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
+    assertThrows(Exception.class, () -> {
+      objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
+    });
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void updateSequence_WrongObjectiveIdsInSequence_expectException() throws Exception {
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setId(50L);
@@ -433,7 +440,9 @@ public class ObjectiveServiceTest {
 
     when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
-    objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
+    assertThrows(Exception.class, () -> {
+      objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
+    });
   }
 
   @Test
@@ -458,9 +467,9 @@ public class ObjectiveServiceTest {
 
     objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
 
-    Assert.assertEquals(2, objective0.getSequence());
-    Assert.assertEquals(0, objective1.getSequence());
-    Assert.assertEquals(1, objective2.getSequence());
+    assertEquals(2, objective0.getSequence());
+    assertEquals(0, objective1.getSequence());
+    assertEquals(1, objective2.getSequence());
   }
 
   // note (comment) tests

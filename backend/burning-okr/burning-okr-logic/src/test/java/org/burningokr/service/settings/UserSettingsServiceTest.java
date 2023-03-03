@@ -1,5 +1,6 @@
 package org.burningokr.service.settings;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -11,28 +12,23 @@ import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserSettingsServiceTest {
   private static final UUID userId = UUID.randomUUID();
   private static User user;
@@ -52,15 +48,10 @@ public class UserSettingsServiceTest {
   @InjectMocks
   private UserSettingsService userSettingsService;
 
-  @BeforeClass
+  @BeforeAll
   public static void initClass() {
     user = mock(User.class);
     when(user.getId()).thenReturn(userId);
-  }
-
-  @Before
-  public void init() {
-    MockitoAnnotations.initMocks(this);
   }
 
   @Test
@@ -69,7 +60,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(userId, userSettings.getUserId());
+    assertEquals(userId, userSettings.getUserId());
     verify(userSettingsRepository, times(1)).save(any());
   }
 
@@ -87,7 +78,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertNull(userSettings.getDefaultOkrCompany());
+    assertNull(userSettings.getDefaultOkrCompany());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -103,7 +94,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(okrCompany, userSettings.getDefaultOkrCompany());
+    assertEquals(okrCompany, userSettings.getDefaultOkrCompany());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -122,7 +113,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(okrDepartment, userSettings.getDefaultTeam());
+    assertEquals(okrDepartment, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -145,7 +136,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(subOkrDepartmentWithUserAsSponsor, userSettings.getDefaultTeam());
+    assertEquals(subOkrDepartmentWithUserAsSponsor, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -169,7 +160,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(subOkrDepartmentWithUserAsOkrMaster, userSettings.getDefaultTeam());
+    assertEquals(subOkrDepartmentWithUserAsOkrMaster, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -194,7 +185,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertNull(userSettings.getDefaultTeam());
+    assertNull(userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -219,7 +210,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertNull(userSettings.getDefaultTeam());
+    assertNull(userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -245,7 +236,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertNull(userSettings.getDefaultTeam());
+    assertNull(userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -268,7 +259,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(subOkrDepartmentWithUserAsMember, userSettings.getDefaultTeam());
+    assertEquals(subOkrDepartmentWithUserAsMember, userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -293,7 +284,7 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertNull(userSettings.getDefaultTeam());
+    assertNull(userSettings.getDefaultTeam());
     verify(userSettingsRepository, times(1)).save(any());
     verify(companyService, times(1)).getAllCompanies();
   }
@@ -308,8 +299,8 @@ public class UserSettingsServiceTest {
 
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
 
-    Assert.assertEquals(userId, userSettings.getUserId());
-    Assert.assertEquals(userSettingsId, userSettings.getId());
+    assertEquals(userId, userSettings.getUserId());
+    assertEquals(userSettingsId, userSettings.getId());
     verify(userSettingsRepository, times(0)).save(any());
   }
 
@@ -321,13 +312,9 @@ public class UserSettingsServiceTest {
     userSettings.setId(id);
     try {
       this.userSettingsService.updateUserSettings(userSettings, user);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw EntityNotFoundException.",
-        ex,
-        instanceOf(EntityNotFoundException.class)
-      );
+      assertEquals(ex.getClass(), EntityNotFoundException.class);
     }
   }
 
@@ -353,13 +340,13 @@ public class UserSettingsServiceTest {
     UserSettings userSettingsResult =
       this.userSettingsService.updateUserSettings(userSettingsParam, user);
 
-    Assert.assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
-    Assert.assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
-    Assert.assertEquals(
+    assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
+    assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
+    assertEquals(
       userSettingsParam.getDefaultOkrCompany().getId(),
       userSettingsParam.getDefaultOkrCompany().getId()
     );
-    Assert.assertEquals(
+    assertEquals(
       userSettingsParam.getDefaultTeam().getId(), userSettingsParam.getDefaultTeam().getId());
     verify(userSettingsRepository, times(1)).save(any());
     verify(userSettingsRepository, times(1)).findByIdOrThrow(id);
@@ -383,9 +370,9 @@ public class UserSettingsServiceTest {
     UserSettings userSettingsResult =
       this.userSettingsService.updateUserSettings(userSettingsParam, user);
 
-    Assert.assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
-    Assert.assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
-    Assert.assertEquals(
+    assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
+    assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
+    assertEquals(
       userSettingsParam.getDefaultOkrCompany().getId(),
       userSettingsParam.getDefaultOkrCompany().getId()
     );
@@ -411,9 +398,9 @@ public class UserSettingsServiceTest {
     UserSettings userSettingsResult =
       this.userSettingsService.updateUserSettings(userSettingsParam, user);
 
-    Assert.assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
-    Assert.assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
-    Assert.assertEquals(
+    assertEquals(userSettingsParam.getId(), userSettingsResult.getId());
+    assertEquals(userSettingsParam.getUserId(), userSettingsResult.getUserId());
+    assertEquals(
       userSettingsParam.getDefaultTeam().getId(), userSettingsParam.getDefaultTeam().getId());
     verify(userSettingsRepository, times(1)).save(any());
     verify(userSettingsRepository, times(1)).findByIdOrThrow(id);

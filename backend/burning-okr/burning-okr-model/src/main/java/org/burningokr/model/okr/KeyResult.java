@@ -1,17 +1,12 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.histories.KeyResultHistory;
 
-import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.Collection;
 

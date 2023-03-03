@@ -1,5 +1,7 @@
 package org.burningokr.service.excel;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -8,9 +10,6 @@ import org.burningokr.service.messages.Messages;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
-import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,33 +17,11 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {
-
-  private final UserService userService;
   private final OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers;
   private final CompanyService companyService;
   private final Messages messages;
-
-  /**
-   * Initializes TeamMemberRowBuilderService.
-   *
-   * @param userService            an {@link UserService} object
-   * @param departmentServiceUsers a {@link OkrUnitServiceUsers} object
-   * @param companyService         a {@link CompanyService} object
-   * @param messages               a {@link Messages} object
-   */
-  @Autowired
-  public TeamMemberRowBuilderService(
-    UserService userService,
-    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers,
-    CompanyService companyService,
-    Messages messages
-  ) {
-    this.userService = userService;
-    this.departmentServiceUsers = departmentServiceUsers;
-    this.companyService = companyService;
-    this.messages = messages;
-  }
 
   @Override
   public Collection<TeamMemberRow> generateForOkrChildUnit(long departmentId) {
@@ -57,11 +34,10 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   ) {
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
 
-    if (okrDepartment.getOkrMasterId() != null && !(okrDepartment.getOkrMasterId() == null)) {
+    if (okrDepartment.getOkrMasterId() != null) {
       addUserToList(okrDepartment.getOkrMasterId(), okrDepartment, teamMemberRows);
     }
-    if (okrDepartment.getOkrTopicSponsorId() != null
-      && !(okrDepartment.getOkrTopicSponsorId() == null)) {
+    if (okrDepartment.getOkrTopicSponsorId() != null) {
       addUserToList(okrDepartment.getOkrTopicSponsorId(), okrDepartment, teamMemberRows);
     }
     okrDepartment
@@ -74,12 +50,14 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   private void addUserToList(
     UUID guidUser, OkrDepartment okrDepartment, Collection<TeamMemberRow> rows
   ) {
-    User user = userService.findById(guidUser);
-    String role = getTeamRoleFromUser(user, okrDepartment);
-
-    TeamMemberRow row =
-      new TeamMemberRow(okrDepartment.getName(), role, getFullName(user), user.getMail());
-    rows.add(row);
+    // TODO fix auth (jklein 23.02.2023)
+    throw new NotImplementedException("fix auth");
+//    User user = null;
+//    String role = getTeamRoleFromUser(user, okrDepartment);
+//
+//    TeamMemberRow row =
+//      new TeamMemberRow(okrDepartment.getName(), role, getFullName(user), user.getMail());
+//    rows.add(row);
   }
 
   private String getFullName(User user) {
