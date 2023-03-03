@@ -1,8 +1,11 @@
 [versions]
-springboot-version = '2.0.4.RELEASE'
-spring-framework-version = '5.0.7.RELEASE'
-swagger-version = '2.9.2'
+springbootVersion = '3.0.2'
+springFrameworkVersion = '6.0.4'
+swaggerVersion = '2.9.2'
+lombokPluginVersion = '6.6.2'
+jakarta-mail = '2.1.1'
 
 [libraries]
-spring-context = { module = 'org.springframework:spring-context', version.ref = 'spring-framework-version' }
-lombok = { module = 'org.projectlombok:lombok', version = '1.18.26' }
+springBootPlugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'springbootVersion' }
+lombokPlugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombokPluginVersion' }
+jakarta-mail = { module = 'jakarta.mail:jakarta.mail-api', version.ref = 'jakarta-mail' }

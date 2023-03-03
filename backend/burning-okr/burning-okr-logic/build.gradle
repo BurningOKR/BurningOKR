@@ -1,5 +1,3 @@
-//jar { enabled = true } // TODO remove after Spring Framework Version > 2.5
-
 bootJar { enabled = false }
 
 configurations {
@@ -14,6 +12,11 @@ dependencies {
 
     testImplementation project(':burning-okr-data')
 
+    // Mail
+    implementation 'org.springframework:spring-context-support'
+    implementation deps.jakarta.mail
+
+    // Untested
     implementation 'org.apache.poi:poi-ooxml:3.9'
     implementation 'org.apache.poi:poi:3.9'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
