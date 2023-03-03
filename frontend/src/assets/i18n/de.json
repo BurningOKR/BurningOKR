@@ -181,7 +181,8 @@
   },
   "edit-dashboard": {
     "chart-title-placeholder": "Diagramm Titel",
-    "dashboard-title-placeholder": "Dashboard Titel"
+    "dashboard-title-placeholder": "Dashboard Titel",
+    "save-dashboard-button": "Änderungen Speichern"
   },
   "dashboard": {
     "okr-toolbar": {

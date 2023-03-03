@@ -11,7 +11,11 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./edit-dashboard.component.scss'],
 })
 export class EditDashboardComponent implements OnInit {
+  dashboard: Dashboard;
   dashboard$: Observable<Dashboard>;
+  // dashboardDto: DashboardDto = {} as DashboardDto;
+
+  title: string;
 
   constructor(private readonly activatedRoute: ActivatedRoute, private readonly dashboardService: DashboardService) {
   }
@@ -22,5 +26,13 @@ export class EditDashboardComponent implements OnInit {
       switchMap((dashboardId: number) => this.dashboardService.getDashboardById$(dashboardId)),
     );
   }
+
+  updateDashboard(): void {
+    this.dashboardService.updateDashboard$(this.dashboard).subscribe();
+  }
+
+  // dashboardValid(): boolean {
+  //   return !!this.dashboardDto.title.trim(); // && !!this.charts.length;
+  // }
 
 }

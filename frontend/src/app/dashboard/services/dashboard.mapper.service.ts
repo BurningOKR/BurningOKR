@@ -56,4 +56,13 @@ export class DashboardMapperService {
       creationDate: dashboardDto.creationDate,
     };
   }
+
+  mapUiToDto(dashboard: Dashboard): DashboardDto {
+    return {
+      id: dashboard.id,
+      title: dashboard.title,
+      creator: dashboard.creator,
+      creationDate: dashboard.creationDate,
+    } as DashboardDto; //TODO
+  }
 }

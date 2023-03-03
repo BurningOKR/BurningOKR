@@ -11,6 +11,13 @@
 <!--<app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>-->
 
 <div *ngIf="dashboard$ | async; let dashboard">
+  <!--  <h4>Show available Data:</h4>-->
+  <!--  <p>Dashboard Title: {{ dashboard.title }}</p>-->
+  <!--  <p>Dashboard ID: {{ dashboard.id }}</p>-->
+  <!--  <p>Dashboard Creator: {{ dashboard.creator.givenName }}</p>-->
+  <!--  <p>Dashboard Creation Date: {{ dashboard.creationDate }}</p>-->
+  <!--  <div *ngFor="let chart of dashboard.charts">-->
+  <!--  <p>Chart Title: {{ chart.title }}</p>-->
   <span class="edit-dashboard-title">
     <mat-form-field>
       <input [(ngModel)]="dashboard.title" matInput
@@ -37,6 +44,12 @@
   <!--      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>-->
   <!--    </div>-->
   <!--  </div>-->
+</div>
+<div class="button-save-dashboard">
+  <button (click)="updateDashboard()" mat-stroked-button>
+    <mat-icon>add_circle_outline</mat-icon>
+    {{'edit-dashboard.save-dashboard-button' | translate}}
+  </button>
 </div>
 
 

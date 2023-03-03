@@ -5,6 +5,7 @@ import { DashboardCreationDto } from '../model/dto/dashboard-creation.dto';
 import { Dashboard } from '../model/ui/dashboard';
 import { DashboardApiService } from './dashboard-api.service';
 import { DashboardMapperService } from './dashboard.mapper.service';
+import { DashboardDto } from '../model/dto/dashboard.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,11 @@ export class DashboardService {
   }
 
   createDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
-    return this.dashboardApiService.postDashboard$(dashboard);
+    return this.dashboardApiService.createDashboard$(dashboard);
+  }
+
+  updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
+    return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
   }
 
   deleteDashboardById$(dashboardId: number): Observable<boolean> {
