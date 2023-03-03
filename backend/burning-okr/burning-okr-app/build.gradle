@@ -25,10 +25,14 @@ configurations {
 }
 
 dependencies {
+
     // project implementations
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     implementation project(':burning-okr-logic')
+
+    // tested
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // util
     implementation 'org.springframework.boot:spring-boot-starter-mail'

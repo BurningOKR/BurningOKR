@@ -1,11 +1,11 @@
 package org.burningokr.model.dashboard;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;

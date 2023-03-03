@@ -1,13 +1,13 @@
 package org.burningokr.model.okrUnits;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.Objective;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 

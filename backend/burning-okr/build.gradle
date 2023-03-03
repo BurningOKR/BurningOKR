@@ -7,19 +7,18 @@ buildscript {
     }
 
     dependencies {
-//        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
-        classpath(deps.springBootPlugin)
         classpath(deps.lombokPlugin)
+        classpath(deps.springBootPlugin)
+//        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.27.1'
     }
-
 }
 
 subprojects {
-//    apply plugin: 'com.diffplug.gradle.spotless'
-    apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'io.freefair.lombok'
     apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+//    apply plugin: 'com.diffplug.gradle.spotless'
 
     sourceCompatibility = 17
     targetCompatibility = 17
@@ -31,7 +30,7 @@ subprojects {
     dependencies {
 
         // TODO look if needed after spring update (fixes Missing Annotation Warning)
-        implementation 'com.google.code.findbugs:jsr305:3.0.2'
+//        implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
         // Spring dependency resolution
         // implementation platform(SpringBootPlugin.BOM_COORDINATES)
@@ -42,16 +41,8 @@ subprojects {
         implementation 'org.springframework.security:spring-security-web'
 
         // untested
-        // Logging
-        implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-        modules {
-            module("org.springframework.boot:spring-boot-starter-logging") {
-                replacedBy("org.springframework.boot:spring-boot-starter-log4j2", "Use Log4j2 instead of Logback")
-            }
-        }
-
         implementation 'javax.xml.bind:jaxb-api:2.3.0'
-        implementation 'javax.validation:validation-api:2.0.1.Final' // TODO check if removable
+//        implementation 'jakarta.validation.validation-api:2.0.1.Final' // TODO check if removable
         implementation 'org.springframework.boot:spring-boot-starter-websocket'
         implementation 'org.webjars:stomp-websocket:2.3.3-1'
         implementation 'org.springframework:spring-messaging'

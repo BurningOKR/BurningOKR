@@ -1,5 +1,6 @@
 package org.burningokr.controller.settings;
 
+import jakarta.validation.Valid;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -12,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.validation.Valid;
 
 @RestApiController
 public class UserSettingsController {

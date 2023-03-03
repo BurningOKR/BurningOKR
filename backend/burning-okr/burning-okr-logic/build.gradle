@@ -16,6 +16,8 @@ dependencies {
     implementation 'org.springframework:spring-context-support'
     implementation deps.jakarta.mail
 
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
     // Untested
     implementation 'org.apache.poi:poi-ooxml:3.9'
     implementation 'org.apache.poi:poi:3.9'
