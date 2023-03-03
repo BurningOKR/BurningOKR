@@ -4,8 +4,10 @@ springFrameworkVersion = '6.0.4'
 swaggerVersion = '2.9.2'
 lombokPluginVersion = '6.6.2'
 jakarta-mail = '2.1.1'
+jacksonVersion = '2.14.2'
 
 [libraries]
 springBootPlugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'springbootVersion' }
 lombokPlugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombokPluginVersion' }
 jakarta-mail = { module = 'jakarta.mail:jakarta.mail-api', version.ref = 'jakarta-mail' }
+jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind ', version.ref = 'jacksonVersion' }

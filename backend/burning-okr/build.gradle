@@ -41,9 +41,7 @@ subprojects {
         implementation 'org.springframework.security:spring-security-web'
 
         // untested
-        implementation 'javax.xml.bind:jaxb-api:2.3.0'
-//        implementation 'jakarta.validation.validation-api:2.0.1.Final' // TODO check if removable
-        implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//        implementation 'org.springframework.boot:spring-boot-starter-websocket'
         implementation 'org.webjars:stomp-websocket:2.3.3-1'
         implementation 'org.springframework:spring-messaging'
         implementation 'org.springframework.security:spring-security-messaging'
@@ -53,7 +51,7 @@ subprojects {
 
         implementation 'com.google.code.gson:gson:2.8.5'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        testImplementation "org.springframework.boot:spring-boot-starter-test"
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 
     test {

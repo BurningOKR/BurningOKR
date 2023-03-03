@@ -9,14 +9,18 @@ configurations {
 dependencies {
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
-
     testImplementation project(':burning-okr-data')
+
+    // tested
+    // Util
+    implementation deps.jackson.databind
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // Mail
     implementation 'org.springframework:spring-context-support'
     implementation deps.jakarta.mail
 
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation deps.jackson.databind
 
     // Untested
     implementation 'org.apache.poi:poi-ooxml:3.9'
