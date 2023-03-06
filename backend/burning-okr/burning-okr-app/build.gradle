@@ -27,6 +27,7 @@ dependencies {
 
     // security
     implementation deps.spring.boot.starter.security
+    implementation deps.spring.boot.starter.oauth2ResourceServer
 
     // db
     implementation deps.db.flyway
@@ -39,6 +40,9 @@ dependencies {
     // swagger TODO upgrade to newest version
     implementation deps.swagger.swagger2
     implementation deps.swagger.ui
+
+    // annotation processors
+    annotationProcessor deps.spring.boot.configurationProcessor
 }
 
 springBoot {

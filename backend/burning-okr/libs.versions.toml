@@ -10,10 +10,12 @@ flyway = '9.+'
 mssql = '12.+'
 apache-poi = '5.+'
 guava = '31.+'
+springdoc = '2.+'
 
 [libraries]
 # spring booot
 spring-boot-plugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'spring-boot' }
+spring-boot-configurationProcessor = { module = 'org.springframework.boot:spring-boot-configuration-processor' }
 spring-boot-starter-test = { module = 'org.springframework.boot:spring-boot-starter-test' }
 spring-boot-starter-validation = { module = 'org.springframework.boot:spring-boot-starter-validation' }
 spring-boot-starter-actuator = { module = 'org.springframework.boot:spring-boot-starter-actuator' }
@@ -22,6 +24,7 @@ spring-boot-starter-tomcat = { module = 'org.springframework.boot:spring-boot-st
 spring-boot-starter-data = { module = 'org.springframework.boot:spring-boot-starter-data-jpa' }
 spring-boot-starter-thymeleaf = { module = 'org.springframework.boot:spring-boot-starter-thymeleaf' }
 spring-boot-starter-websocket = { module = 'org.springframework.boot:spring-boot-starter-websocket' }
+spring-boot-starter-oauth2ResourceServer = { module = 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' }
 
 # spring framework
 spring-framework-springContext = { module = 'org.springframework:spring-context' }
@@ -39,6 +42,9 @@ jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', ver
 # swagger
 swagger-swagger2 = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
 swagger-ui = { module = 'io.springfox:springfox-swagger-ui', version.ref = 'swagger' }
+
+# swagger - springdoc
+springdoc-starter-webmvcUi = { module = 'org.springdoc:springdoc-openapi-starter-webmvc-ui' }
 
 # db
 db-postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }
