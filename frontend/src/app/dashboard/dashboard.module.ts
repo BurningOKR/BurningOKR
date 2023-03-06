@@ -22,6 +22,7 @@ import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-car
 import { ChartOptionsCardComponent } from './sites/create-dashboard/chart-options-card/chart-options-card.component';
 import { EditDashboardComponent } from './sites/edit-dashboard/edit-dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardModificationComponent } from './sites/edit-dashboard/dashboard-modification/dashboard-modification.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     DashboardCardComponent,
     ChartOptionsCardComponent,
     EditDashboardComponent,
+    DashboardModificationComponent,
   ],
   imports: [
     CommonModule,

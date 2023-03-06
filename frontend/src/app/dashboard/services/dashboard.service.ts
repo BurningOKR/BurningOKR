@@ -33,6 +33,20 @@ export class DashboardService {
   }
 
   updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
+    console.log(`Dashboard: ${dashboard}`);
+    console.log(`Title: ${dashboard.title}`);
+    console.log(`ID: ${dashboard.id}`);
+    console.log(`Creator: ${dashboard.creator}`);
+    console.log(`Creation date: ${dashboard.creationDate}`);
+    // // for (const chart of dashboard.charts) {
+    // //   console.log(`Chart: ${chart.title}`);
+    // // }
+    // dashboard.charts.forEach(chart => {
+    //   console.log(`Chart: ${chart.chart}`);
+    //   console.log(`Chart Title: ${chart.title}`);
+    //   console.log(`Chart Colors: ${chart.colors}`);
+    // });
+
     return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
   }
 

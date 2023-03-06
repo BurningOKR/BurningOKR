@@ -1,5 +1,3 @@
-<!--<p>edit-dashboard works!</p>-->
-
 <app-okr-toolbar>
   <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
     <mat-icon>home</mat-icon>
@@ -8,61 +6,8 @@
   <span class="fill-space"></span>
 </app-okr-toolbar>
 
-<!--<app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>-->
+<app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>
 
-<div *ngIf="dashboard$ | async; let dashboard">
-  <!--  <h4>Show available Data:</h4>-->
-  <!--  <p>Dashboard Title: {{ dashboard.title }}</p>-->
-  <!--  <p>Dashboard ID: {{ dashboard.id }}</p>-->
-  <!--  <p>Dashboard Creator: {{ dashboard.creator.givenName }}</p>-->
-  <!--  <p>Dashboard Creation Date: {{ dashboard.creationDate }}</p>-->
-  <!--  <div *ngFor="let chart of dashboard.charts">-->
-  <!--  <p>Chart Title: {{ chart.title }}</p>-->
-  <span class="edit-dashboard-title">
-    <mat-form-field>
-      <input [(ngModel)]="dashboard.title" matInput
-             placeholder="{{'create-dashboard.dashboard-title-placeholder' | translate}}">
-    </mat-form-field>
-  </span>
-  <!--  <div class="dashboard-charts">-->
-  <!--    <div *ngFor="let chart of dashboard.charts">-->
-  <!--      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <div *ngFor="let chart of dashboard.charts">
-    <span class="edit-dashboard-title">
-      <mat-form-field>
-        <input [(ngModel)]="chart.title" matInput
-               placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">
-      </mat-form-field>
-    </span>
-    <!--    <app-chart-options-card (clickedDelete)="deleteChart($event)" [allTeams$]="teams$"-->
-    <!--                            [chart]="chart"></app-chart-options-card>-->
-  </div>
-  <!--  <div class="dashboard-charts">-->
-  <!--    <div *ngFor="let chart of dashboard.charts">-->
-  <!--      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>-->
-  <!--    </div>-->
-  <!--  </div>-->
-</div>
-<div class="button-save-dashboard">
-  <button (click)="updateDashboard()" mat-stroked-button>
-    <mat-icon>add_circle_outline</mat-icon>
-    {{'edit-dashboard.save-dashboard-button' | translate}}
-  </button>
-</div>
+<app-dashboard-modification (updateDashboard)="updateDashboard($event)" [dashboard]="dashboard$ | async">
 
-
-<!--<div *ngIf="companyId$ | async">--><!--  <div class="chart-creation">-->
-
-<!--    <div *ngFor="let chart of charts" class="chart-creation-options">--><!--      <app-chart-options-card (clickedDelete)="deleteChart($event)" [allTeams$]="teams$"--><!--                              [chart]="chart"></app-chart-options-card>--><!--    </div>-->
-
-<!--    <div class="chart-creation-options">--><!--      <p>{{'create-dashboard.add-new-chart-to-dashboard' | translate}}</p>--><!--      <mat-form-field>--><!--        <input [(ngModel)]="newChart.title" matInput--><!--               placeholder="{{'create-dashboard.chart-title-placeholder' | translate}}">--><!--      </mat-form-field>-->
-
-<!--      <mat-form-field>--><!--        <mat-select (selectionChange)="chartSelected($event)"--><!--                    placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">--><!--          <mat-option *ngFor="let chartType of chartTypes" matTooltip="{{chartTypeRecord[chartType] | translate}}"--><!--                      value="{{chartType}}">--><!--            {{chartTypeRecord[chartType] | translate}}--><!--          </mat-option>--><!--        </mat-select>--><!--      </mat-form-field>-->
-
-<!--      <mat-form-field *ngIf="teamIsSelectable">--><!--        <mat-select [(value)]="newChart.teamIds" multiple--><!--                    placeholder="{{'create-dashboard.select-teams-placeholder' | translate}}">--><!--          <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>--><!--        </mat-select>--><!--      </mat-form-field>-->
-
-<!--      <button (click)="addChart()" [disabled]="!newChartValid()" class="chart-creation-add-button" mat-stroked-button>--><!--        <mat-icon>add</mat-icon>--><!--        {{'create-dashboard.add-chart-button' | translate}}--><!--      </button>--><!--    </div>--><!--  </div>-->
-
-<!--  <div class="button-create-dashboard">--><!--    <button (click)="createDashboardAndRouteToDashboard$()" [disabled]="!dashboardValid()" mat-stroked-button>--><!--      <mat-icon>add_circle_outline</mat-icon>--><!--      {{'create-dashboard.create-dashboard-button' | translate}}--><!--    </button>--><!--  </div>--><!--</div>-->
+</app-dashboard-modification>

@@ -5,11 +5,15 @@ import { Dashboard } from '../model/ui/dashboard';
 import { LineChartOptionsDto } from '../model/dto/chart-options/line-chart-options.dto';
 import { PieChartOptionsDto } from '../model/dto/chart-options/pie-chart-options.dto';
 import { BaseChartOptionsDto } from '../model/dto/chart-options/base-chart-options.dto';
+import { ChartMapperService } from './chart.mapper.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardMapperService {
+
+  constructor(private chartMapper: ChartMapperService) {
+  }
 
   static mapLineChartOptions(chartOptionsDto: LineChartOptionsDto): LineChartOptionsDto {
     const lineChartOptions: LineChartOptionsDto = new LineChartOptionsDto();
@@ -63,6 +67,7 @@ export class DashboardMapperService {
       title: dashboard.title,
       creator: dashboard.creator,
       creationDate: dashboard.creationDate,
-    } as DashboardDto; //TODO
+      chartDtos: dashboard.charts.map(this.chartMapper.mapEntityToDto),
+    };
   }
 }

@@ -1,0 +1,29 @@
+<div *ngIf="dashboard">
+  <span class="edit-dashboard-title">
+      <mat-form-field>
+        <input [(ngModel)]="dashboard.title" matInput
+               placeholder="{{'create-dashboard.dashboard-title-placeholder' | translate}}">
+      </mat-form-field>
+  </span>
+  <!--  <div class="dashboard-charts">-->
+  <!--    <div *ngFor="let chart of dashboard.charts">-->
+  <!--      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div *ngFor="let chart of dashboard.charts">
+      <span class="edit-dashboard-title">
+        <mat-form-field>
+          <input [(ngModel)]="chart.title.text" matInput
+                 placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">
+        </mat-form-field>
+      </span>
+    <!--    <app-chart-options-card (clickedDelete)="deleteChart($event)" [allTeams$]="teams$"-->
+    <!--                            [chart]="chart"></app-chart-options-card>-->
+  </div>
+  <div class="button-save-dashboard">
+    <button (click)="updateDashboard.emit(dashboard)" mat-stroked-button>
+      <mat-icon>add_circle_outline</mat-icon>
+      {{'edit-dashboard.save-dashboard-button' | translate}}
+    </button>
+  </div>
+</div>
