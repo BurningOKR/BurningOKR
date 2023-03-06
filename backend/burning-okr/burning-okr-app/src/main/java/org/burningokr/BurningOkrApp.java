@@ -5,11 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-@ConfigurationPropertiesScan("org.burningokr.config")
+@EnableConfigurationProperties
 public class BurningOkrApp extends SpringBootServletInitializer {
 
   /**
@@ -23,7 +23,6 @@ public class BurningOkrApp extends SpringBootServletInitializer {
     MDC.put("tempPath", (osName.contains("win") ? "C:\\temp\\" : "/tmp/"));
     SpringApplication app = new SpringApplication(BurningOkrApp.class);
     app.setWebApplicationType(WebApplicationType.SERVLET);
-//    app.addListeners(new ApplicationPidFileWriter());
     app.run(args);
   }
 

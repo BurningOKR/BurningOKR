@@ -46,12 +46,11 @@ public class WebSecurityConfig {
         "/swagger-resources/configuration/security",
         "/swagger-resources",
         "/swagger-ui.html**",
-//        "/webjars/**",
+        "/webjars/**",
 //        systemProperties.getApiEndpoint() + "/oAuthFrontendDetails",
         "/wsregistry",
         "/actuator/**",
-        systemProperties.getApiEndpoint() + "/companies/**", // TODO open for testing-purposes
-        "/api/init/**"
+        systemProperties.getApiEndpoint() + "/companies/**" // TODO open for testing-purposes
       )
       .permitAll()
       .anyRequest()
