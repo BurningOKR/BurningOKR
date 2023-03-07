@@ -47,6 +47,10 @@ public class DashboardService {
     return dashboardCreation;
   }
 
+//  public DashboardCreation updateDashboard() {
+//
+//  }
+
   public Collection<DashboardCreation> findDashboardsOfCompany(long companyId) {
     return dashboardCreationRepository.findDashboardCreationsByCompanyId(companyId);
   }

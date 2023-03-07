@@ -38,6 +38,22 @@ public class DashboardController {
   }
 
   /**
+   * API Endpoint to update a DashboardDto by id.
+   *
+   * @param dashboardCreationDto a {@link DashboardCreationDto} object
+   * @param user                 a {@link User} object
+   * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
+   */
+  @PostMapping("/dashboards/edit")
+  public ResponseEntity<DashboardCreationDto> updateDashboard(@RequestBody DashboardCreationDto dashboardCreationDto, User user) {
+    System.out.println("Inside updateDashboard im Backend!");
+    return null;
+//    DashboardCreation dashboard = dashboardCreationMapper.mapDtoToEntity(dashboardDto);
+//    dashboard = dashboardService.createDashboard(dashboard, user);
+//    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboard));
+  }
+
+  /**
    * API Endpoint to get a DashboardDto by id.
    *
    * @param dashboardId a {@link Long} object
