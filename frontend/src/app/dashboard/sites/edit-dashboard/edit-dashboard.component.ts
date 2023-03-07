@@ -21,8 +21,6 @@ export class EditDashboardComponent implements OnInit {
       map(params => +params.get('dashboardId')),
       switchMap((dashboardId: number) => this.dashboardService.getDashboardById$(dashboardId)),
     );
-    console.log(`Dashboard after Subscription: ${this.dashboard$}`);
-
   }
 
   updateDashboard(dashboard: Dashboard): void {

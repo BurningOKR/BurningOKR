@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseChartOptionsDto } from '../model/dto/chart-options/base-chart-options.dto';
 import { BaseChartOptions } from '../model/ui/base-chart-options';
-import { ChartInformationTypeEnum } from '../model/dto/chart-creation-options.dto';
+import { ChartCreationOptionsDto, ChartInformationTypeEnum } from '../model/dto/chart-creation-options.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +22,17 @@ export class ChartMapperService {
   //   return null;
   // }
 
-  mapEntityToDto(baseChartOptions: BaseChartOptions): BaseChartOptionsDto {
+  mapEntityToDto(baseChartOptions: BaseChartOptions): ChartCreationOptionsDto {
     return {
       title: baseChartOptions.title.text,
       chart: ChartMapperService.getChartType(baseChartOptions),
     } as any; //buildChartOptions function cannot be mapped.
   }
+
+  // mapEntityToDto(baseChartOptions: BaseChartOptions): BaseChartOptionsDto {
+  //   return {
+  //     title: baseChartOptions.title.text,
+  //     chart: ChartMapperService.getChartType(baseChartOptions),
+  //   } as any; //buildChartOptions function cannot be mapped.
+  // }
 }

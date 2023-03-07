@@ -182,7 +182,10 @@
   "edit-dashboard": {
     "chart-title-placeholder": "Chart Title",
     "dashboard-title-placeholder": "Dashboard Title",
-    "save-dashboard-button": "Save Changes"
+    "save-dashboard-button": "Save Changes",
+    "delete-chart-button": {
+      "tooltip": "Delete Chart"
+    }
   },
   "dashboard": {
     "okr-toolbar": {

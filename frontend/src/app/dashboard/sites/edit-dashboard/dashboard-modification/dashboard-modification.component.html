@@ -5,20 +5,38 @@
                placeholder="{{'create-dashboard.dashboard-title-placeholder' | translate}}">
       </mat-form-field>
   </span>
-  <!--  <div class="dashboard-charts">-->
-  <!--    <div *ngFor="let chart of dashboard.charts">-->
-  <!--      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>-->
-  <!--    </div>-->
-  <!--  </div>-->
   <div *ngFor="let chart of dashboard.charts">
       <span class="edit-dashboard-title">
         <mat-form-field>
           <input [(ngModel)]="chart.title.text" matInput
                  placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">
         </mat-form-field>
+
+        <!--        <mat-form-field>-->
+        <!--          <mat-select (selectionChange)="chartSelected($event)"-->
+        <!--                      placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">-->
+        <!--            <mat-option *ngFor="let chartType of chart.chart.type" value="{{chartType}}">-->
+        <!--&lt;!&ndash;                    matTooltip="{{chartTypeRecord[chartType] | translate}}" value="{{chartType}}">&ndash;&gt;-->
+        <!--&lt;!&ndash;              {{chartTypeRecord[chartType] | translate}}&ndash;&gt;-->
+        <!--            </mat-option>-->
+        <!--          </mat-select>-->
+        <!--        </mat-form-field>-->
+
+        <!--        <mat-form-field *ngIf="teamIsSelectable">-->
+        <!--          <mat-select [(value)]="newChart.teamIds" multiple-->
+        <!--                      placeholder="{{'create-dashboard.select-teams-placeholder' | translate}}">-->
+        <!--            <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>-->
+        <!--          </mat-select>-->
+        <!--        </mat-form-field>-->
+
+        <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
+                matTooltip="{{'edit-dashboard.delete-chart-button.tooltip' | translate}}">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <!--        <app-chart-options-card (clickedDelete)="deleteChart($event)" [chart]="chart">-->
+
+        <!--        </app-chart-options-card>-->
       </span>
-    <!--    <app-chart-options-card (clickedDelete)="deleteChart($event)" [allTeams$]="teams$"-->
-    <!--                            [chart]="chart"></app-chart-options-card>-->
   </div>
   <div class="button-save-dashboard">
     <button (click)="updateDashboard.emit(dashboard)" mat-stroked-button>

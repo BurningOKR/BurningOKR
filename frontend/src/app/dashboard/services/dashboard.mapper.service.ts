@@ -6,6 +6,7 @@ import { LineChartOptionsDto } from '../model/dto/chart-options/line-chart-optio
 import { PieChartOptionsDto } from '../model/dto/chart-options/pie-chart-options.dto';
 import { BaseChartOptionsDto } from '../model/dto/chart-options/base-chart-options.dto';
 import { ChartMapperService } from './chart.mapper.service';
+import { DashboardCreationDto } from '../model/dto/dashboard-creation.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -61,13 +62,25 @@ export class DashboardMapperService {
     };
   }
 
-  mapUiToDto(dashboard: Dashboard): DashboardDto {
+  //TODO: Dashboard enthält keine Company ID, das Dto schon.
+  mapUiToDto(dashboard: Dashboard): DashboardCreationDto {
     return {
+      companyId: 0,
       id: dashboard.id,
       title: dashboard.title,
-      creator: dashboard.creator,
-      creationDate: dashboard.creationDate,
-      chartDtos: dashboard.charts.map(this.chartMapper.mapEntityToDto),
+      creatorId: +dashboard.creator.id,
+      // creationDate: dashboard.creationDate,
+      chartCreationOptions: dashboard.charts.map(this.chartMapper.mapEntityToDto),
     };
   }
+
+  // mapUiToDto(dashboard: Dashboard): DashboardDto {
+  //   return {
+  //     id: dashboard.id,
+  //     title: dashboard.title,
+  //     creator: dashboard.creator,
+  //     creationDate: dashboard.creationDate,
+  //     chartDtos: dashboard.charts.map(this.chartMapper.mapEntityToDto),
+  //   };
+  // }
 }

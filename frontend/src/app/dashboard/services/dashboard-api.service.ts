@@ -24,9 +24,13 @@ export class DashboardApiService {
     return this.api.postData$<DashboardCreationDto>('dashboards', dashboard);
   }
 
-  postDashboard$(dashboard: DashboardDto): Observable<DashboardDto> {
-    return this.api.postData$<DashboardDto>('dashboards', dashboard);
+  postDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
+    return this.api.postData$<DashboardCreationDto>('dashboards/edit', dashboard);
   }
+
+  // postDashboard$(dashboard: DashboardDto): Observable<DashboardDto> {
+  //   return this.api.postData$<DashboardDto>('dashboards/edit', dashboard);
+  // }
 
   deleteDashboardById$(dashboardId: number) {
     return this.api.deleteData$(`dashboards/${dashboardId}`);
