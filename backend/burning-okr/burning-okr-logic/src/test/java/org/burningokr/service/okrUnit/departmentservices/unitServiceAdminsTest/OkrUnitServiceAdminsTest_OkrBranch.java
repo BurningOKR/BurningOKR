@@ -4,6 +4,7 @@ import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.users.User;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,7 +46,7 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
 
     OkrDepartment actual =
       (OkrDepartment)
-        okrUnitServiceAdmins.createChildUnit(departmentId, department, new LocalUser());
+        okrUnitServiceAdmins.createChildUnit(departmentId, department, new User());
 
     assertNotNull(actual.getOkrTopicDescription());
     assertEquals(department.getName(), actual.getOkrTopicDescription().getName());

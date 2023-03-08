@@ -2,12 +2,16 @@ package org.burningokr.mapper.interfaces;
 
 import java.util.Collection;
 
-public interface DataMapper<M, D> {
-  M mapDtoToEntity(D input);
+public interface DataMapper<Entity, Dto> {
+  Entity mapDtoToEntity(Dto dto);
 
-  D mapEntityToDto(M input);
-  // TODO implement using default methods
-  Collection<M> mapDtosToEntities(Collection<D> input);
+  Dto mapEntityToDto(Entity entity);
 
-  Collection<D> mapEntitiesToDtos(Collection<M> input);
+  default Collection<Entity> mapDtosToEntities(Collection<Dto> dtos) {
+    return dtos.stream().map(this::mapDtoToEntity).toList();
+  }
+
+  default Collection<Dto> mapEntitiesToDtos(Collection<Entity> entities) {
+    return entities.stream().map(this::mapEntityToDto).toList();
+  }
 }

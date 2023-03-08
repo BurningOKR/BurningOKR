@@ -3,7 +3,7 @@ package org.burningokr.service.excel;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
@@ -26,6 +26,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class TeamMemberRowBuilderServiceTest {
 
+  private final long companyId = 2L;
+  private final long departmentId = 1L;
+  private final User IUser1 = mock(User.class);
+  private final UUID guidUser1 = UUID.randomUUID();
+  private final User IUser2 = mock(User.class);
+  private final UUID guidUser2 = UUID.randomUUID();
+  private final User IUser3 = mock(User.class);
+  private final UUID guidUser3 = UUID.randomUUID();
   @InjectMocks
   TeamMemberRowBuilderService teamMemberRowBuilderService;
   @Mock
@@ -37,15 +45,7 @@ public class TeamMemberRowBuilderServiceTest {
   @Mock
   private Messages messages;
   private OkrCompany okrCompany;
-  private long companyId = 2L;
   private OkrDepartment okrDepartment;
-  private long departmentId = 1L;
-  private IUser IUser1 = mock(IUser.class);
-  private UUID guidUser1 = UUID.randomUUID();
-  private IUser IUser2 = mock(IUser.class);
-  private UUID guidUser2 = UUID.randomUUID();
-  private IUser IUser3 = mock(IUser.class);
-  private UUID guidUser3 = UUID.randomUUID();
 
   @BeforeEach
   public void init() {

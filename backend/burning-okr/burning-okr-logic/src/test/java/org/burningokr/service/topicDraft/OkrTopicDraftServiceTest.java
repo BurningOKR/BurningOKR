@@ -4,6 +4,7 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.userhandling.UserService;
@@ -38,8 +39,6 @@ public class OkrTopicDraftServiceTest {
 
   @Mock
   private UserService userService;
-  @Mock
-  private AdminUserService adminUserService;
 
   @InjectMocks
   private OkrTopicDraftService okrTopicDraftService;
@@ -47,7 +46,7 @@ public class OkrTopicDraftServiceTest {
   private OkrTopicDraft okrTopicDraft;
   private OkrTopicDraft okrTopicDraft2;
   private OkrTopicDraft okrTopicDraft3;
-  private IUser currentIUser;
+  private User currentUser;
   private Long okrTopicDraftId = 10L;
   private Long okrTopicDraftId2 = 11L;
   private Long okrTopicDraftId3 = 12L;
@@ -58,12 +57,12 @@ public class OkrTopicDraftServiceTest {
     okrTopicDraft = new OkrTopicDraft();
     okrTopicDraft2 = new OkrTopicDraft();
     okrTopicDraft3 = new OkrTopicDraft();
-    currentIUser = new LocalUser();
+    currentUser = new User();
     currentUserId = new UUID(1L, 1L);
     okrTopicDraft.setId(okrTopicDraftId);
     okrTopicDraft2.setId(okrTopicDraftId2);
     okrTopicDraft3.setId(okrTopicDraftId3);
-    currentIUser.setId(currentUserId);
+    currentUser.setId(currentUserId);
   }
 
   @Test
@@ -88,8 +87,7 @@ public class OkrTopicDraftServiceTest {
     topicDrafts.add(okrTopicDraft2);
     topicDrafts.add(okrTopicDraft3);
 
-    when(userService.getCurrentUser()).thenReturn(currentIUser);
-    when(adminUserService.isCurrentUserAdmin()).thenReturn(false);
+    when(userService.getCurrentUser()).thenReturn(currentUser);
     when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
 
     Collection<OkrTopicDraft> topicDraftsResult = okrTopicDraftService.getAllTopicDrafts();
@@ -110,8 +108,7 @@ public class OkrTopicDraftServiceTest {
     topicDrafts.add(okrTopicDraft2);
     topicDrafts.add(okrTopicDraft3);
 
-    when(userService.getCurrentUser()).thenReturn(currentIUser);
-    when(adminUserService.isCurrentUserAdmin()).thenReturn(true);
+    when(userService.getCurrentUser()).thenReturn(currentUser);
     when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
 
     Collection<OkrTopicDraft> topicDraftsResult = okrTopicDraftService.getAllTopicDrafts();
@@ -132,8 +129,7 @@ public class OkrTopicDraftServiceTest {
     topicDrafts.add(okrTopicDraft2);
     topicDrafts.add(okrTopicDraft3);
 
-    when(userService.getCurrentUser()).thenReturn(currentIUser);
-    when(adminUserService.isCurrentUserAdmin()).thenReturn(false);
+    when(userService.getCurrentUser()).thenReturn(currentUser);
     when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
 
     Collection<OkrTopicDraft> topicDraftsResult = okrTopicDraftService.getAllTopicDrafts();

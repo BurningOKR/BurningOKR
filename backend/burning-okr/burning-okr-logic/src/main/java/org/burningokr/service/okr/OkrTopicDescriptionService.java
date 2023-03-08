@@ -9,6 +9,7 @@ import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -115,7 +116,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    */
   @Transactional
   public void safeDeleteOkrTopicDescription(Long okrTopicDescriptionId, IUser IUser) {
-    long count = (long) getOkrDepartmentsWithTopicDescription(okrTopicDescriptionId).size();
+    long count = getOkrDepartmentsWithTopicDescription(okrTopicDescriptionId).size();
 
     if (count == 0) {
       deleteOkrTopicDescription(okrTopicDescriptionId, IUser);
@@ -138,9 +139,8 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    */
   @Override
   public void onPostDelete(PostDeleteEvent event) {
-    if (event.getEntity() instanceof OkrDepartment) {
-      OkrDepartment department = (OkrDepartment) event.getEntity();
-      safeDeleteOkrTopicDescription(department.getOkrTopicDescription().getId(), new LocalUser());
+    if (event.getEntity() instanceof OkrDepartment department) {
+      safeDeleteOkrTopicDescription(department.getOkrTopicDescription().getId(), new User());
     }
   }
 

@@ -1,41 +1,46 @@
 package org.burningokr.service.userhandling;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.users.IUser;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
   private final UserRepository userRepository;
 
-  Collection<User> findAll() {
+  public List<User> findAll() {
     return userRepository.findAll();
   }
 
-  Collection<User> findAllActive() {
-    return null;
+  public List<User> findAllActive() {
+    return userRepository.findAllByActiveIsTrue();
   }
 
-  Collection<User> findAllInactive() {
-    return null;
+  public List<User> findAllInactive() {
+    return userRepository.findAllByActiveIsFalse();
   }
 
-  User getCurrentUser() {
-    return null;
+  public User getCurrentUser() { // TODO implement
+    throw new NotImplementedException("getCurrentUser in UserService:34");
   }
 
-  IUser findById(UUID userId) {
-    return null;
-  }
-
-  boolean doesUserExist(UUID userId) {
-    return false;
+  public User findById(UUID userId) throws EntityNotFoundException {
+    var databaseUser = userRepository.findById(userId);
+    if (databaseUser.isPresent()) {
+      return databaseUser.get();
+    } else {
+      log.warn("entity with uuid: %s not found".formatted(userId));
+      throw new EntityNotFoundException();
+    }
   }
 }

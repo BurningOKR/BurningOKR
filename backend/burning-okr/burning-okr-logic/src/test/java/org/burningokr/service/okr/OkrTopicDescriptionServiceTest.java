@@ -6,6 +6,7 @@ import jakarta.persistence.EntityTransaction;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -89,7 +90,7 @@ public class OkrTopicDescriptionServiceTest {
       .thenAnswer(invocation -> invocation.getArgument(0));
 
     OkrTopicDescription updatedDescription =
-      okrTopicDescriptionService.updateOkrTopicDescription(okrTopicDescription, new LocalUser());
+      okrTopicDescriptionService.updateOkrTopicDescription(okrTopicDescription, new User());
 
     assertEquals(okrTopicDescription.getInitiatorId(), updatedDescription.getInitiatorId());
     assertEquals(okrTopicDescription.getName(), updatedDescription.getName());
@@ -210,7 +211,7 @@ public class OkrTopicDescriptionServiceTest {
     when(entityManager.getTransaction()).thenReturn(entityTransaction);
 
     okrTopicDescriptionService.safeDeleteOkrTopicDescription(
-      okrTopicDescription.getId(), new LocalUser());
+      okrTopicDescription.getId(), new User());
 
     verify(entityManager).remove(okrTopicDescription);
   }
@@ -232,7 +233,7 @@ public class OkrTopicDescriptionServiceTest {
     when(okrDepartmentRepository.findAll()).thenReturn(okrDepartments);
 
     okrTopicDescriptionService.safeDeleteOkrTopicDescription(
-      okrTopicDescription.getId(), new LocalUser());
+      okrTopicDescription.getId(), new User());
 
     verify(entityManager, never()).remove(any());
   }

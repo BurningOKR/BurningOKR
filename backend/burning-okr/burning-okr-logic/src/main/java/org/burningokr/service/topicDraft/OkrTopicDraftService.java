@@ -31,7 +31,6 @@ public class OkrTopicDraftService {
   private OkrTopicDraftRepository okrTopicDraftRepository;
   private NoteTopicDraftRepository noteTopicDraftRepository;
   private ActivityService activityService;
-  private AdminUserService adminUserService;
 
   public OkrTopicDraft findById(long topicDraftId) {
     return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
