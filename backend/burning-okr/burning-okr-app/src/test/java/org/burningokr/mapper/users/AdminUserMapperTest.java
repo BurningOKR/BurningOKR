@@ -1,7 +1,6 @@
 package org.burningokr.mapper.users;
 
 import org.burningokr.dto.users.AdminUserDto;
-import org.burningokr.model.users.AdminUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

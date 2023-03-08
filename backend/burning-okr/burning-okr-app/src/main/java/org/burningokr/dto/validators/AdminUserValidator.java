@@ -3,8 +3,6 @@ package org.burningokr.dto.validators;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.exceptions.InvalidDtoException;
-import org.burningokr.model.users.AdminUser;
-import org.burningokr.repositories.users.AdminUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

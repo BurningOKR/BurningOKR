@@ -1,9 +1,7 @@
 package org.burningokr.dto.validators;
 
 import org.burningokr.exceptions.InvalidDtoException;
-import org.burningokr.model.users.AdminUser;
 import org.burningokr.model.users.IUser;
-import org.burningokr.repositories.users.AdminUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

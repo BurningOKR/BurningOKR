@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.users.UserDto;
-import org.burningokr.mapper.users.UserMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

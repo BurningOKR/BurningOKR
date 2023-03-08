@@ -4,7 +4,6 @@ import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.LocalUser;
 import org.burningokr.service.exceptions.InvalidDeleteRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

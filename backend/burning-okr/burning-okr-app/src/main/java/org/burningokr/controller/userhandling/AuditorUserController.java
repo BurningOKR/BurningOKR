@@ -2,7 +2,6 @@ package org.burningokr.controller.userhandling;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.service.userhandling.AuditorUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 

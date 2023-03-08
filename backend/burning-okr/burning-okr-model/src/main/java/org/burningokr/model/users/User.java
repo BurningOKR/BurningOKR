@@ -1,37 +1,26 @@
 package org.burningokr.model.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public interface User {
-
-  UUID getId();
-
-  void setId(UUID id);
-
-  String getGivenName();
-
-  void setGivenName(String givenName);
-
-  String getSurname();
-
-  void setSurname(String surname);
-
-  String getMail();
-
-  void setMail(String mail);
-
-  String getJobTitle();
-
-  void setJobTitle(String hobTitle);
-
-  String getDepartment();
-
-  void setDepartment(String department);
-
-  String getPhoto();
-
-  void setPhoto(String photo);
+@Data
+@Entity
+public class User implements IUser {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
+  private String givenName;
+  private String surname;
+  private String mail;
+  private String jobTitle;
+  private String department;
+  private String photo; // Represents the image as String
+  private boolean active;
+  private LocalDateTime createdAt;
 }
