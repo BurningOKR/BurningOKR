@@ -17,6 +17,7 @@ public class AuthorizationService {
   }
 
   public boolean hasManagerPrivilegeForDepartment(Long departmentId) {
+
     return true;
   }
 

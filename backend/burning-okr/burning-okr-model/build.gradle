@@ -3,5 +3,6 @@ bootJar { enabled = false }
 dependencies {
     implementation deps.spring.boot.starter.data
     implementation deps.spring.boot.starter.validation
+    implementation deps.spring.security.core
     implementation deps.jackson.databind
 }

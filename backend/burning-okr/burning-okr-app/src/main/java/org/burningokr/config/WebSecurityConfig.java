@@ -1,6 +1,7 @@
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
+import org.burningokr.service.userhandling.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,7 @@ import java.util.List;
 public class WebSecurityConfig {
 
   private final SystemProperties systemProperties;
+  private final UserService userService;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,11 +58,18 @@ public class WebSecurityConfig {
       .anyRequest()
       .authenticated();
 
+    http.userDetailsService(userService);
+
     http
       .oauth2ResourceServer()
       .jwt();
 
     return http.build();
+  }
+
+  @Bean
+  UserService customUserDetailsService() {
+    return userService;
   }
 
   private CorsConfigurationSource corsConfigurationSource() {

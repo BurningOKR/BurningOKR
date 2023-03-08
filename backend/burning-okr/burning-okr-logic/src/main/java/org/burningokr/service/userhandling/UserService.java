@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService {
+public class UserService implements UserDetailsService {
 
   private final UserRepository userRepository;
 
@@ -42,5 +45,13 @@ public class UserService {
       log.warn("entity with uuid: %s not found".formatted(userId));
       throw new EntityNotFoundException();
     }
+  }
+
+  // Username is the UUID of the User
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    log.info(username);
+    var user = findById(UUID.fromString(username));
+    return user;
   }
 }

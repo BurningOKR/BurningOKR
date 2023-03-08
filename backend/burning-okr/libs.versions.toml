@@ -30,6 +30,9 @@ spring-boot-starter-oauth2ResourceServer = { module = 'org.springframework.boot:
 spring-framework-springContext = { module = 'org.springframework:spring-context' }
 spring-framework-springContextSupport = { module = 'org.springframework:spring-context-support' }
 
+# spring security
+spring-security-core = { module = 'org.springframework.security:spring-security-core' }
+
 # lombok
 lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
 
