@@ -7,7 +7,7 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteObjectiveRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -104,11 +104,11 @@ public class ObjectiveService {
    * Updates an Objective.
    *
    * @param updatedObjective an {@link Objective} object
-   * @param user             an {@link User} object
+   * @param IUser            an {@link IUser} object
    * @return an {@link Objective} object
    */
   @Transactional
-  public Objective updateObjective(Objective updatedObjective, User user) {
+  public Objective updateObjective(Objective updatedObjective, IUser IUser) {
     Objective referencedObjective = findById(updatedObjective.getId());
 
     if (entityCrawlerService.getCycleOfObjective(referencedObjective).getCycleState()
@@ -137,7 +137,7 @@ public class ObjectiveService {
         + "(id:"
         + updatedObjective.getId()
         + ").");
-    activityService.createActivity(user, referencedObjective, Action.EDITED);
+    activityService.createActivity(IUser, referencedObjective, Action.EDITED);
     return referencedObjective;
   }
 
@@ -145,10 +145,10 @@ public class ObjectiveService {
    * Deletes the Objective with the given ID.
    *
    * @param objectiveId a long value
-   * @param user        an {@link User} object
+   * @param IUser       an {@link IUser} object
    */
   @Transactional
-  public void deleteObjectiveById(Long objectiveId, User user) {
+  public void deleteObjectiveById(Long objectiveId, IUser IUser) {
     Objective referencedObjective = objectiveRepository.findByIdOrThrow(objectiveId);
     throwIfCycleForObjectiveIsClosed(referencedObjective);
     for (Objective subObjective : referencedObjective.getSubObjectives()) {
@@ -172,7 +172,7 @@ public class ObjectiveService {
     }
 
     objectiveRepository.deleteById(objectiveId);
-    activityService.createActivity(user, referencedObjective, Action.DELETED);
+    activityService.createActivity(IUser, referencedObjective, Action.DELETED);
   }
 
   /**
@@ -180,12 +180,12 @@ public class ObjectiveService {
    *
    * @param objectiveId a long value
    * @param keyResult   a {@link KeyResult} object
-   * @param user        an {@link User} object
+   * @param IUser       an {@link IUser} object
    * @return a {@link KeyResult} object
    * @throws KeyResultOverflowException if Key Result limit is hit
    */
   @Transactional
-  public KeyResult createKeyResult(Long objectiveId, KeyResult keyResult, User user)
+  public KeyResult createKeyResult(Long objectiveId, KeyResult keyResult, IUser IUser)
     throws KeyResultOverflowException {
     Objective referencedObjective = findById(objectiveId);
     throwIfKeyResultLimitIsHit(referencedObjective);
@@ -202,7 +202,7 @@ public class ObjectiveService {
       keyResult.getMilestones().stream()
         .map(
           milestone ->
-            keyResultMilestoneService.createKeyResultMilestone(id, milestone, user))
+            keyResultMilestoneService.createKeyResultMilestone(id, milestone, IUser))
         .collect(Collectors.toList()));
 
     logger.info(
@@ -213,8 +213,8 @@ public class ObjectiveService {
         + "(id:"
         + objectiveId
         + ").");
-    activityService.createActivity(user, keyResult, Action.CREATED);
-    keyResultHistoryService.createKeyResultHistory(user, keyResult);
+    activityService.createActivity(IUser, keyResult, Action.CREATED);
+    keyResultHistoryService.createKeyResultHistory(IUser, keyResult);
     return keyResult;
   }
 
@@ -223,11 +223,11 @@ public class ObjectiveService {
    *
    * @param unitId       a long value
    * @param sequenceList a {@link Collection} of long values
-   * @param user         an {@link User} object
+   * @param IUser        an {@link IUser} object
    * @throws Exception if Sequence is invalid
    */
   @Transactional
-  public void updateSequence(Long unitId, Collection<Long> sequenceList, User user)
+  public void updateSequence(Long unitId, Collection<Long> sequenceList, IUser IUser)
     throws Exception {
     OkrChildUnit childUnit = unitService.findById(unitId);
     throwIfSequenceInvalid(childUnit, sequenceList);
@@ -240,7 +240,7 @@ public class ObjectiveService {
           int currentOrder = sequenceArray.indexOf(objective.getId());
           objective.setSequence(currentOrder);
           objectiveRepository.save(objective);
-          activityService.createActivity(user, objective, Action.EDITED);
+          activityService.createActivity(IUser, objective, Action.EDITED);
           logger.info("Update sequence of Objective with id " + objective.getId());
         });
   }
@@ -305,12 +305,12 @@ public class ObjectiveService {
    *
    * @param objectiveId   id from objective
    * @param noteObjective the objective
-   * @param user          the user which wants to add the note
+   * @param IUser         the user which wants to add the note
    * @return the created Note
    */
-  public NoteObjective createNote(long objectiveId, NoteObjective noteObjective, User user) {
+  public NoteObjective createNote(long objectiveId, NoteObjective noteObjective, IUser IUser) {
 
-    noteObjective.setUserId(user.getId());
+    noteObjective.setUserId(IUser.getId());
     noteObjective.setDate(LocalDateTime.now());
 
     noteObjective = noteObjectiveRepository.save(noteObjective);
@@ -318,13 +318,13 @@ public class ObjectiveService {
       "Added Note with id "
         + noteObjective.getId()
         + " from User "
-        + user.getGivenName()
+        + IUser.getGivenName()
         + " "
-        + user.getSurname()
+        + IUser.getSurname()
         + " to KeyResult "
         + objectiveId);
 
-    activityService.createActivity(user, noteObjective, Action.CREATED);
+    activityService.createActivity(IUser, noteObjective, Action.CREATED);
 
     return noteObjective;
   }

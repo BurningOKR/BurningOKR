@@ -8,7 +8,7 @@ import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okr.TaskState;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrUnit;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.TaskRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -61,7 +61,7 @@ public class TaskService {
     return this.taskRepository.findByKeyResult(keyResult);
   }
 
-  public Collection<Task> createTask(Task newTask, Long okrUnitId, User user) {
+  public Collection<Task> createTask(Task newTask, Long okrUnitId, IUser IUser) {
     Collection<Task> newOrUpdatedTasks = new ArrayList<>();
     OkrDepartment okrUnit = this.okrDepartmentRepository.findByIdOrThrow(okrUnitId);
     throwIfCycleOfTaskIsNotActive(okrUnit);
@@ -82,14 +82,14 @@ public class TaskService {
       newOrUpdatedTasks.add(firstTaskInList);
     }
 
-    if (user != null) {
-      activityService.createActivity(user, newTask, Action.CREATED);
+    if (IUser != null) {
+      activityService.createActivity(IUser, newTask, Action.CREATED);
     }
     return newOrUpdatedTasks;
   }
 
   @Transactional
-  public Collection<Task> updateTask(Task updatedTask, User user) throws Exception {
+  public Collection<Task> updateTask(Task updatedTask, IUser IUser) throws Exception {
     logger.info("---------update Task--------------");
     Task referencedTask = taskRepository.findByIdOrThrow(updatedTask.getId());
     throwIfCycleOfTaskIsNotActive(referencedTask.getParentTaskBoard().getParentOkrDepartment());
@@ -117,8 +117,8 @@ public class TaskService {
     updatedTasks = (Collection<Task>) taskRepository.saveAll(updatedTasks);
 
     logger.info("Updated Task " + referencedTask.getName() + "(id:" + referencedTask.getId() + ")");
-    if (user != null) {
-      activityService.createActivity(user, updatedTask, Action.EDITED);
+    if (IUser != null) {
+      activityService.createActivity(IUser, updatedTask, Action.EDITED);
     }
     logger.info("End of Update Task");
     return updatedTasks;
@@ -210,7 +210,7 @@ public class TaskService {
     return updatedTasks;
   }
 
-  public Collection<Task> deleteTaskById(long taskId, long unitId, User user) {
+  public Collection<Task> deleteTaskById(long taskId, long unitId, IUser IUser) {
     OkrUnit unit = okrDepartmentRepository.findByIdOrThrow(unitId);
     throwIfCycleOfTaskIsNotActive(unit);
     Collection<Task> updatedTasks = new ArrayList<>();
@@ -234,8 +234,8 @@ public class TaskService {
     }
 
     this.taskRepository.deleteById(taskToDelete.getId());
-    if (user != null) {
-      activityService.createActivity(user, taskToDelete, Action.DELETED);
+    if (IUser != null) {
+      activityService.createActivity(IUser, taskToDelete, Action.DELETED);
     }
     return updatedTasks;
   }

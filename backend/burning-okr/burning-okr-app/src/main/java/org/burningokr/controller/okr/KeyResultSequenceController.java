@@ -1,7 +1,7 @@
 package org.burningokr.controller.okr;
 
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.KeyResultService;
 import org.burningokr.service.security.AuthorizationService;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +29,10 @@ public class KeyResultSequenceController {
   @PreAuthorize("@authorizationService.hasMemberPrivilegeForObjective(#objectiveId)")
   public ResponseEntity updateSequenceOf(
     @PathVariable long objectiveId,
-    @RequestBody Collection<Long> sequenceList, User user
+    @RequestBody Collection<Long> sequenceList, IUser IUser
   )
     throws Exception {
-    keyResultService.updateSequence(objectiveId, sequenceList, user);
+    keyResultService.updateSequence(objectiveId, sequenceList, IUser);
     return ResponseEntity.ok().build();
   }
 }

@@ -16,7 +16,7 @@ import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -125,7 +125,7 @@ public class CompanyController {
    * API Endpoint to add a OkrCompany.
    *
    * @param okrCompanyDto a {@link OkrCompanyDto} object
-   * @param user          an {@link User} object
+   * @param IUser         an {@link IUser} object
    * @return a {@link ResponseEntity} ok with a OkrCompany
    */
   @PostMapping("/companies")
@@ -133,10 +133,10 @@ public class CompanyController {
   public ResponseEntity<OkrCompanyDto> addCompany(
     @Valid
     @RequestBody
-    OkrCompanyDto okrCompanyDto, User user
+    OkrCompanyDto okrCompanyDto, IUser IUser
   ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
-    okrCompany = this.companyService.createCompany(okrCompany, user);
+    okrCompany = this.companyService.createCompany(okrCompany, IUser);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
   }
 
@@ -145,7 +145,7 @@ public class CompanyController {
    *
    * @param companyId        a ong value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
-   * @param user             an {@link User} object
+   * @param IUser            an {@link IUser} object
    * @return a {@link ResponseEntity} ok with a OkrDepartment
    */
   @PostMapping("/companies/{companyId}/departments")
@@ -155,12 +155,12 @@ public class CompanyController {
     @Valid
     @RequestBody
     OkrDepartmentDto okrDepartmentDto,
-    User user
+    IUser IUser
   ) {
     DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper = new OkrDepartmentMapper();
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment.setId(null);
-    okrDepartment = this.companyService.createDepartment(companyId, okrDepartment, user);
+    okrDepartment = this.companyService.createDepartment(companyId, okrDepartment, IUser);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
 
@@ -171,12 +171,12 @@ public class CompanyController {
     @Valid
     @RequestBody
     OkrBranchDto okrBranchDTO,
-    User user
+    IUser IUser
   ) {
 
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
     okrBranch.setId(null);
-    OkrBranch newBranch = companyService.createOkrBranch(companyId, okrBranch, user);
+    OkrBranch newBranch = companyService.createOkrBranch(companyId, okrBranch, IUser);
 
     return ResponseEntity.ok(okrBranchMapper.mapEntityToDto(newBranch));
   }
@@ -186,17 +186,17 @@ public class CompanyController {
    *
    * @param companyId     a long value
    * @param okrCompanyDto a {@link OkrCompanyDto} object
-   * @param user          an {@link User} object
+   * @param IUser         an {@link IUser} object
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
    */
   @PutMapping("/companies/{companyId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> updateCompanyById(
     @PathVariable long companyId,
-    @RequestBody OkrCompanyDto okrCompanyDto, User user
+    @RequestBody OkrCompanyDto okrCompanyDto, IUser IUser
   ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
-    okrCompany = this.companyService.updateCompany(okrCompany, user);
+    okrCompany = this.companyService.updateCompany(okrCompany, IUser);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
   }
 
@@ -204,15 +204,15 @@ public class CompanyController {
    * API Endpoint to delete a OkrCompany and it's history.
    *
    * @param companyId a long value
-   * @param user      an {@link User} object
+   * @param IUser     an {@link IUser} object
    * @return a {@link ResponseEntity} ok
    */
   @DeleteMapping("/companies/{companyId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity deleteCompany(
-    @PathVariable Long companyId, User user
+    @PathVariable Long companyId, IUser IUser
   ) {
-    companyService.deleteCompany(companyId, true, user);
+    companyService.deleteCompany(companyId, true, IUser);
     return ResponseEntity.ok().build();
   }
 }

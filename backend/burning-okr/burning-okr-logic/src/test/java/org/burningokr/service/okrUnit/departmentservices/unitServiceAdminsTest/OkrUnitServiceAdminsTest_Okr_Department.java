@@ -31,7 +31,7 @@ public class OkrUnitServiceAdminsTest_Okr_Department
     when(unitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
     when(unitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
 
-    unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, user);
+    unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, IUser);
 
     assertEquals(updateOkrDepartment.getOkrMasterId(), unit.getOkrMasterId());
   }
@@ -48,7 +48,7 @@ public class OkrUnitServiceAdminsTest_Okr_Department
     when(unitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
     when(unitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
 
-    unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, user);
+    unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, IUser);
 
     assertEquals(updateOkrDepartment.getOkrTopicSponsorId(), unit.getOkrTopicSponsorId());
   }
@@ -65,7 +65,7 @@ public class OkrUnitServiceAdminsTest_Okr_Department
     when(unitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
     when(unitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
 
-    unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, user);
+    unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, IUser);
 
     assertEquals(okrMemberIds, unit.getOkrMemberIds());
   }

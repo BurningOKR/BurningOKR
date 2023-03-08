@@ -10,7 +10,7 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
@@ -34,7 +34,7 @@ public class OkrBranchController {
    *
    * @param unitId           a long value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
-   * @param user             an {@link User} object
+   * @param IUser            an {@link IUser} object
    * @return a {@link ResponseEntity} ok with the added sub-OkrDepartment
    */
   @PostMapping("/branch/{unitId}/department")
@@ -44,14 +44,14 @@ public class OkrBranchController {
     @Valid
     @RequestBody
     OkrDepartmentDto okrDepartmentDto,
-    User user
+    IUser IUser
   )
     throws DuplicateTeamMemberException {
     OkrUnitService<OkrBranch> branchService =
       okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment.setId(null);
-    okrDepartment = (OkrDepartment) branchService.createChildUnit(unitId, okrDepartment, user);
+    okrDepartment = (OkrDepartment) branchService.createChildUnit(unitId, okrDepartment, IUser);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
 
@@ -60,7 +60,7 @@ public class OkrBranchController {
    *
    * @param unitId       a long value
    * @param okrBranchDTO a {@link OkrBranchDto} object
-   * @param user         an {@link User} object
+   * @param IUser        an {@link IUser} object
    * @return a {@link ResponseEntity} ok with the added sub-OKR_BRANCH
    */
   @PostMapping("/branch/{unitId}/branch")
@@ -70,14 +70,14 @@ public class OkrBranchController {
     @Valid
     @RequestBody
     OkrBranchDto okrBranchDTO,
-    User user
+    IUser IUser
   )
     throws DuplicateTeamMemberException {
     OkrUnitService<OkrBranch> branchService =
       okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
     okrBranch.setId(null);
-    okrBranch = (OkrBranch) branchService.createChildUnit(unitId, okrBranch, user);
+    okrBranch = (OkrBranch) branchService.createChildUnit(unitId, okrBranch, IUser);
     return ResponseEntity.ok(okrBranchMapper.mapEntityToDto(okrBranch));
   }
 }

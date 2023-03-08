@@ -2,7 +2,7 @@ package org.burningokr.service.configuration;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.Configuration;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class ConfigurationServiceTest {
   private ActivityService activityService;
 
   @Mock
-  private User mockedUser;
+  private IUser mockedIUser;
 
   @Mock
   private ApplicationEventPublisher applicationEventPublisher;
@@ -102,7 +102,7 @@ public class ConfigurationServiceTest {
     configurationArgument.setValue("3");
     when(configurationRepository.save(configurationArgument)).thenReturn(configurationArgument);
     Configuration actual =
-      configurationService.createConfiguration(configurationArgument, mockedUser);
+      configurationService.createConfiguration(configurationArgument, mockedIUser);
     assertConfigurationsWithoutId(configurationArgument, actual);
   }
 
@@ -112,7 +112,7 @@ public class ConfigurationServiceTest {
     Configuration configuration = new Configuration();
     configuration.setId(42L);
     assertThrows(EntityNotFoundException.class, () -> {
-      configurationService.updateConfigurationById(configuration, mockedUser);
+      configurationService.updateConfigurationById(configuration, mockedIUser);
     });
   }
 
@@ -128,7 +128,7 @@ public class ConfigurationServiceTest {
     configuration.setId(42L);
     configuration.setName("name2");
     configuration.setValue("4");
-    Configuration actual = configurationService.updateConfigurationById(configuration, mockedUser);
+    Configuration actual = configurationService.updateConfigurationById(configuration, mockedIUser);
     assertConfigurations(configuration, actual);
   }
 
@@ -136,7 +136,7 @@ public class ConfigurationServiceTest {
   public void deleteConfigurationById_expectEntityNotFoundException() {
     when(configurationRepository.findByIdOrThrow(42L)).thenThrow(EntityNotFoundException.class);
     assertThrows(EntityNotFoundException.class, () -> {
-      configurationService.deleteConfigurationById(42L, mockedUser);
+      configurationService.deleteConfigurationById(42L, mockedIUser);
     });
   }
 
@@ -148,7 +148,7 @@ public class ConfigurationServiceTest {
     dbConfiguration.setValue("3");
     when(configurationRepository.findByIdOrThrow(dbConfiguration.getId()))
       .thenReturn(dbConfiguration);
-    configurationService.deleteConfigurationById(dbConfiguration.getId(), mockedUser);
+    configurationService.deleteConfigurationById(dbConfiguration.getId(), mockedIUser);
     verify(configurationRepository, times(1)).delete(dbConfiguration);
   }
 

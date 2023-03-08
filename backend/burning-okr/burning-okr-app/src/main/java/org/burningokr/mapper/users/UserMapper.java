@@ -3,7 +3,7 @@ package org.burningokr.mapper.users;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.users.UserDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,54 +13,54 @@ import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
-public class UserMapper implements DataMapper<User, UserDto> {
+public class UserMapper implements DataMapper<IUser, UserDto> {
 
   private final Logger logger = LoggerFactory.getLogger(UserMapper.class);
 
   @Override
-  public User mapDtoToEntity(UserDto dto) {
-    User user = getEmptyUser();
-    user.setGivenName(dto.getGivenName());
-    user.setSurname(dto.getSurname());
-    user.setId(dto.getId());
-    user.setMail(dto.getEmail());
-    user.setDepartment(dto.getDepartment());
-    user.setJobTitle(dto.getJobTitle());
-    user.setPhoto(dto.getPhoto());
+  public IUser mapDtoToEntity(UserDto dto) {
+    IUser IUser = getEmptyUser();
+    IUser.setGivenName(dto.getGivenName());
+    IUser.setSurname(dto.getSurname());
+    IUser.setId(dto.getId());
+    IUser.setMail(dto.getEmail());
+    IUser.setDepartment(dto.getDepartment());
+    IUser.setJobTitle(dto.getJobTitle());
+    IUser.setPhoto(dto.getPhoto());
     logger.info("Mapped UserDto (id: " + dto.getId() + " ) to User");
-    return user;
+    return IUser;
   }
 
   @Override
-  public UserDto mapEntityToDto(User user) {
+  public UserDto mapEntityToDto(IUser IUser) {
     UserDto dto = new UserDto();
-    dto.setGivenName(user.getGivenName());
-    dto.setSurname(user.getSurname());
-    dto.setId(user.getId());
-    dto.setEmail(user.getMail());
-    dto.setJobTitle(user.getJobTitle());
-    dto.setDepartment(user.getDepartment());
-    dto.setPhoto(user.getPhoto());
-    logger.info("Mapped User (id: )" + user.getId() + " ) to UserDto");
+    dto.setGivenName(IUser.getGivenName());
+    dto.setSurname(IUser.getSurname());
+    dto.setId(IUser.getId());
+    dto.setEmail(IUser.getMail());
+    dto.setJobTitle(IUser.getJobTitle());
+    dto.setDepartment(IUser.getDepartment());
+    dto.setPhoto(IUser.getPhoto());
+    logger.info("Mapped User (id: )" + IUser.getId() + " ) to UserDto");
     return dto;
   }
 
   @Override
-  public Collection<User> mapDtosToEntities(Collection<UserDto> userDtos) {
-    Collection<User> users = new ArrayList<>();
-    userDtos.forEach(userDto -> users.add(mapDtoToEntity(userDto)));
+  public Collection<IUser> mapDtosToEntities(Collection<UserDto> userDtos) {
+    Collection<IUser> IUsers = new ArrayList<>();
+    userDtos.forEach(userDto -> IUsers.add(mapDtoToEntity(userDto)));
 
-    return users;
+    return IUsers;
   }
 
   @Override
-  public Collection<UserDto> mapEntitiesToDtos(Collection<User> users) {
+  public Collection<UserDto> mapEntitiesToDtos(Collection<IUser> IUsers) {
     Collection<UserDto> dtos = new ArrayList<>();
-    users.forEach(user -> dtos.add(mapEntityToDto(user)));
+    IUsers.forEach(user -> dtos.add(mapEntityToDto(user)));
     return dtos;
   }
 
-  private User getEmptyUser() {
+  private IUser getEmptyUser() {
     // TODO fix auth
     return null;
   }

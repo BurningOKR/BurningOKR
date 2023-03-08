@@ -5,7 +5,7 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.NoteService;
 import org.burningokr.service.security.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class NoteController {
    *
    * @param noteId  a long value
    * @param noteDto a {@link NoteDto} object
-   * @param user    an {@link User} object
+   * @param IUser   an {@link IUser} object
    * @return a {@link ResponseEntity} ok with a Note
    */
   @PutMapping("/notes/{noteId}")
@@ -61,20 +61,20 @@ public class NoteController {
     @Valid
     @RequestBody
     NoteDto noteDto,
-    User user
+    IUser IUser
   ) {
     Note note = noteMapper.mapDtoToEntity(noteDto);
     note.setId(noteId);
-    note = this.noteService.updateNote(note, user);
+    note = this.noteService.updateNote(note, IUser);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }
 
   @DeleteMapping("/notes/{noteId}")
   @PreAuthorize("@authorizationService.isNoteOwner(#noteId)")
   public ResponseEntity deleteNoteById(
-    @PathVariable Long noteId, User user
+    @PathVariable Long noteId, IUser IUser
   ) {
-    noteService.deleteNote(noteId, user);
+    noteService.deleteNote(noteId, IUser);
     return ResponseEntity.ok().build();
   }
 }

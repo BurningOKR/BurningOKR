@@ -5,7 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
 import org.burningokr.service.ConfigurationChangedEvent;
 import org.burningokr.service.activity.ActivityService;
@@ -54,13 +54,13 @@ public class ConfigurationService {
    * Creates a Configuration.
    *
    * @param configuration a {@link Configuration} object
-   * @param user          an {@link User} object
+   * @param IUser         an {@link IUser} object
    * @return a {@link Configuration} object
    */
-  public Configuration createConfiguration(Configuration configuration, User user) {
+  public Configuration createConfiguration(Configuration configuration, IUser IUser) {
     Configuration result = configurationRepository.save(configuration);
     logger.info("Created configuration " + result.getName() + " (id: " + result.getId() + ")");
-    activityService.createActivity(user, result, Action.CREATED);
+    activityService.createActivity(IUser, result, Action.CREATED);
     return result;
   }
 
@@ -68,10 +68,10 @@ public class ConfigurationService {
    * Updates a Configuration by ID.
    *
    * @param configuration a {@link Configuration} object
-   * @param user          an {@link User} object
+   * @param IUser         an {@link IUser} object
    * @return a {@link Configuration} object
    */
-  public Configuration updateConfigurationById(Configuration configuration, User user) {
+  public Configuration updateConfigurationById(Configuration configuration, IUser IUser) {
     Configuration dbConfiguration = configurationRepository.findByIdOrThrow(configuration.getId());
     dbConfiguration.setValue(configuration.getValue());
     dbConfiguration.setName(configuration.getName());
@@ -81,7 +81,7 @@ public class ConfigurationService {
         + " (id: "
         + dbConfiguration.getId()
         + ")");
-    activityService.createActivity(user, dbConfiguration, Action.EDITED);
+    activityService.createActivity(IUser, dbConfiguration, Action.EDITED);
     publishConfigurationChangedEvent(dbConfiguration);
     return configurationRepository.save(dbConfiguration);
   }
@@ -90,9 +90,9 @@ public class ConfigurationService {
    * Deletes a Configuration by ID.
    *
    * @param configurationId a long value
-   * @param user            an {@link User} object
+   * @param IUser           an {@link IUser} object
    */
-  public void deleteConfigurationById(Long configurationId, User user) {
+  public void deleteConfigurationById(Long configurationId, IUser IUser) {
     Configuration configuration = configurationRepository.findByIdOrThrow(configurationId);
     logger.info(
       "Deleted configuration "
@@ -100,7 +100,7 @@ public class ConfigurationService {
         + " (id: "
         + configuration.getId()
         + ")");
-    activityService.createActivity(user, configuration, Action.DELETED);
+    activityService.createActivity(IUser, configuration, Action.DELETED);
     configurationRepository.delete(configuration);
   }
 

@@ -1,7 +1,7 @@
 package org.burningokr.dto.dashboard;
 
 import lombok.Data;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 
 import java.util.Collection;
 
@@ -9,6 +9,6 @@ import java.util.Collection;
 public class DashboardDto {
   private Long id;
   private String title;
-  private User creator;
+  private IUser creator;
   private Collection<BaseChartOptionsDto> chartDtos;
 }

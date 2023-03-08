@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultMilestoneRepository;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -32,12 +32,12 @@ public class KeyResultMilestoneService {
    *
    * @param keyResultId the id of the KeyResult to create the milestone for
    * @param milestone   the milestone to create
-   * @param user        the user that creates the milestone
+   * @param IUser       the user that creates the milestone
    * @return the created KeyResultMilestone. Use this object for further operations.
    */
   @Transactional
   public KeyResultMilestone createKeyResultMilestone(
-    long keyResultId, KeyResultMilestone milestone, User user
+    long keyResultId, KeyResultMilestone milestone, IUser IUser
   ) {
     KeyResult keyResult = keyResultRepository.findByIdOrThrow(keyResultId);
     milestone.setParentKeyResult(keyResult);
@@ -49,7 +49,7 @@ public class KeyResultMilestoneService {
         + " for KeyResult"
         + keyResult.getId());
 
-    activityService.createActivity(user, referencedMilestone, Action.CREATED);
+    activityService.createActivity(IUser, referencedMilestone, Action.CREATED);
     return referencedMilestone;
   }
 
@@ -57,11 +57,11 @@ public class KeyResultMilestoneService {
    * updates a keyResultMilestone
    *
    * @param milestone the keyResultMilestone to update
-   * @param user      the user that updates the keyResultMilestone
+   * @param IUser     the user that updates the keyResultMilestone
    * @return the updated keyResultMilestone. Use this object for further operations.
    */
   @Transactional
-  public KeyResultMilestone updateKeyResultMilestone(KeyResultMilestone milestone, User user) {
+  public KeyResultMilestone updateKeyResultMilestone(KeyResultMilestone milestone, IUser IUser) {
     KeyResultMilestone referencedMilestone =
       keyResultMilestoneRepository.findByIdOrThrow(milestone.getId());
     referencedMilestone.setName(milestone.getName());
@@ -76,7 +76,7 @@ public class KeyResultMilestoneService {
         + "(id: "
         + referencedMilestone.getId()
         + ")");
-    activityService.createActivity(user, referencedMilestone, Action.EDITED);
+    activityService.createActivity(IUser, referencedMilestone, Action.EDITED);
     return referencedMilestone;
   }
 
@@ -84,10 +84,10 @@ public class KeyResultMilestoneService {
    * deletes a keyResultMilestone
    *
    * @param milestoneId the id of the milestone to delete.
-   * @param user        the user that deletes the keyResultMilestone
+   * @param IUser       the user that deletes the keyResultMilestone
    */
   @Transactional
-  public void deleteKeyResultMilestone(Long milestoneId, User user) {
+  public void deleteKeyResultMilestone(Long milestoneId, IUser IUser) {
     KeyResultMilestone referencedMilestone =
       keyResultMilestoneRepository.findByIdOrThrow(milestoneId);
 
@@ -99,7 +99,7 @@ public class KeyResultMilestoneService {
     }
 
     keyResultMilestoneRepository.deleteById(milestoneId);
-    activityService.createActivity(user, referencedMilestone, Action.DELETED);
+    activityService.createActivity(IUser, referencedMilestone, Action.DELETED);
   }
 
   /**
@@ -108,7 +108,7 @@ public class KeyResultMilestoneService {
    * @param keyResult the Keyresult of which the milestones should be updated
    */
   @Transactional
-  public KeyResult updateMilestones(KeyResult keyResult, User user) {
+  public KeyResult updateMilestones(KeyResult keyResult, IUser IUser) {
     KeyResult oldKeyResult;
 
     if (keyResult.getId() != null) {
@@ -147,15 +147,15 @@ public class KeyResultMilestoneService {
 
     milestonesToCreate =
       milestonesToCreate.stream()
-        .map(milestone -> createKeyResultMilestone(keyResult.getId(), milestone, user))
+        .map(milestone -> createKeyResultMilestone(keyResult.getId(), milestone, IUser))
         .collect(Collectors.toList());
 
     milestonesToUpdate =
       milestonesToUpdate.stream()
-        .map(milestone -> updateKeyResultMilestone(milestone, user))
+        .map(milestone -> updateKeyResultMilestone(milestone, IUser))
         .collect(Collectors.toList());
 
-    milestonesToDelete.forEach(milestone -> deleteKeyResultMilestone(milestone.getId(), user));
+    milestonesToDelete.forEach(milestone -> deleteKeyResultMilestone(milestone.getId(), IUser));
 
     keyResult.setMilestones(
       Stream.concat(milestonesToCreate.stream(), milestonesToUpdate.stream())

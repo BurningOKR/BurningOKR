@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultMilestoneRepository;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -37,7 +37,7 @@ public class KeyResultMilestoneServiceTest {
   private ActivityService activityService;
 
   @Mock
-  private User user;
+  private IUser IUser;
 
   @InjectMocks
   private KeyResultMilestoneService keyResultMilestoneService;
@@ -61,7 +61,7 @@ public class KeyResultMilestoneServiceTest {
     keyResult.setId(10L);
     milestone.setId(12L);
 
-    keyResultMilestoneService.createKeyResultMilestone(10L, milestone, user);
+    keyResultMilestoneService.createKeyResultMilestone(10L, milestone, IUser);
 
     verify(keyResultMilestoneRepository).save(any());
   }
@@ -71,7 +71,7 @@ public class KeyResultMilestoneServiceTest {
     keyResult.setId(10L);
     milestone.setId(12L);
 
-    keyResultMilestoneService.createKeyResultMilestone(10L, milestone, user);
+    keyResultMilestoneService.createKeyResultMilestone(10L, milestone, IUser);
 
     assertEquals(milestone.getParentKeyResult(), keyResult);
   }
@@ -81,9 +81,9 @@ public class KeyResultMilestoneServiceTest {
     keyResult.setId(10L);
     milestone.setId(12L);
 
-    keyResultMilestoneService.createKeyResultMilestone(10L, milestone, user);
+    keyResultMilestoneService.createKeyResultMilestone(10L, milestone, IUser);
 
-    verify(activityService).createActivity(eq(user), eq(milestone), eq(Action.CREATED));
+    verify(activityService).createActivity(eq(IUser), eq(milestone), eq(Action.CREATED));
   }
 
   @Test
@@ -91,7 +91,7 @@ public class KeyResultMilestoneServiceTest {
     when(keyResultRepository.findByIdOrThrow(any(Long.class)))
       .thenThrow(new EntityNotFoundException());
     assertThrows(EntityNotFoundException.class, () -> {
-      keyResultMilestoneService.createKeyResultMilestone(10L, milestone, user);
+      keyResultMilestoneService.createKeyResultMilestone(10L, milestone, IUser);
     });
   }
 
@@ -101,7 +101,7 @@ public class KeyResultMilestoneServiceTest {
     updateMilestone.setName("test");
     updateMilestone.setId(10L);
 
-    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, user);
+    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, IUser);
 
     assertEquals(updateMilestone.getName(), milestone.getName());
   }
@@ -112,7 +112,7 @@ public class KeyResultMilestoneServiceTest {
     updateMilestone.setValue(3L);
     updateMilestone.setId(10L);
 
-    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, user);
+    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, IUser);
 
     assertEquals(updateMilestone.getValue(), milestone.getValue());
   }
@@ -123,7 +123,7 @@ public class KeyResultMilestoneServiceTest {
     updateMilestone.setParentKeyResult(keyResult);
     updateMilestone.setId(10L);
 
-    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, user);
+    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, IUser);
 
     assertEquals(updateMilestone.getParentKeyResult(), milestone.getParentKeyResult());
   }
@@ -133,7 +133,7 @@ public class KeyResultMilestoneServiceTest {
     KeyResultMilestone updateMilestone = new KeyResultMilestone();
     updateMilestone.setId(10L);
 
-    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, user);
+    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, IUser);
 
     verify(keyResultMilestoneRepository).save(any());
   }
@@ -143,9 +143,9 @@ public class KeyResultMilestoneServiceTest {
     KeyResultMilestone updateMilestone = new KeyResultMilestone();
     updateMilestone.setId(10L);
 
-    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, user);
+    keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, IUser);
 
-    verify(activityService).createActivity(eq(user), eq(milestone), eq(Action.EDITED));
+    verify(activityService).createActivity(eq(IUser), eq(milestone), eq(Action.EDITED));
   }
 
   @Test
@@ -156,13 +156,13 @@ public class KeyResultMilestoneServiceTest {
     when(keyResultMilestoneRepository.findByIdOrThrow(anyLong()))
       .thenThrow(new EntityNotFoundException());
     assertThrows(EntityNotFoundException.class, () -> {
-      keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, user);
+      keyResultMilestoneService.updateKeyResultMilestone(updateMilestone, IUser);
     });
   }
 
   @Test
   public void deleteKeyResultMilestone_expectMilestoneIsDeleted() {
-    keyResultMilestoneService.deleteKeyResultMilestone(10L, user);
+    keyResultMilestoneService.deleteKeyResultMilestone(10L, IUser);
 
     verify(keyResultMilestoneRepository).deleteById(anyLong());
   }
@@ -176,7 +176,7 @@ public class KeyResultMilestoneServiceTest {
 
     keyResult.setMilestones(milestoneList);
 
-    keyResultMilestoneService.deleteKeyResultMilestone(10L, user);
+    keyResultMilestoneService.deleteKeyResultMilestone(10L, IUser);
 
     assertTrue(keyResult.getMilestones().isEmpty());
   }
@@ -192,16 +192,16 @@ public class KeyResultMilestoneServiceTest {
 
     keyResult.setMilestones(milestoneList);
 
-    keyResultMilestoneService.deleteKeyResultMilestone(10L, user);
+    keyResultMilestoneService.deleteKeyResultMilestone(10L, IUser);
 
     assertEquals(1, keyResult.getMilestones().size());
   }
 
   @Test
   public void deleteKeyResultMilestone_expectActivityIsCreated() {
-    keyResultMilestoneService.deleteKeyResultMilestone(10L, user);
+    keyResultMilestoneService.deleteKeyResultMilestone(10L, IUser);
 
-    verify(activityService).createActivity(eq(user), eq(milestone), eq(Action.DELETED));
+    verify(activityService).createActivity(eq(IUser), eq(milestone), eq(Action.DELETED));
   }
 
   @Test
@@ -209,7 +209,7 @@ public class KeyResultMilestoneServiceTest {
     when(keyResultMilestoneRepository.findByIdOrThrow(anyLong()))
       .thenThrow(new EntityNotFoundException());
     assertThrows(EntityNotFoundException.class, () -> {
-      keyResultMilestoneService.deleteKeyResultMilestone(10L, user);
+      keyResultMilestoneService.deleteKeyResultMilestone(10L, IUser);
     });
   }
 
@@ -221,7 +221,7 @@ public class KeyResultMilestoneServiceTest {
 
     keyResult.setMilestones(Collections.emptyList());
 
-    KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult, user);
+    KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult, IUser);
 
     assertEquals(Collections.emptyList(), updateKeyResult.getMilestones());
     assertEquals(Collections.emptyList(), keyResult.getMilestones());
@@ -249,7 +249,7 @@ public class KeyResultMilestoneServiceTest {
     existingMilestones.add(milestone3);
     keyResult.setMilestones(existingMilestones);
 
-    KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult, user);
+    KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult, IUser);
 
     assertEquals(Collections.emptyList(), updateKeyResult.getMilestones());
     assertEquals(Collections.emptyList(), testKeyResult.getMilestones());
@@ -270,7 +270,7 @@ public class KeyResultMilestoneServiceTest {
 
     keyResult.setMilestones(Collections.emptyList());
 
-    KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult, user);
+    KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult, IUser);
 
     assertEquals(3, testKeyResult.getMilestones().size());
     verify(activityService, times(3)).createActivity(any(), any(), eq(Action.CREATED));
@@ -305,7 +305,7 @@ public class KeyResultMilestoneServiceTest {
     updateKeyResult.setId(10L);
     updateKeyResult.setMilestones(updateMilestones);
 
-    keyResultMilestoneService.updateMilestones(updateKeyResult, user);
+    keyResultMilestoneService.updateMilestones(updateKeyResult, IUser);
 
     verify(activityService, times(1)).createActivity(any(), any(), eq(Action.CREATED));
     verify(activityService, times(1)).createActivity(any(), any(), eq(Action.EDITED));

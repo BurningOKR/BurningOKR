@@ -3,7 +3,7 @@ package org.burningokr.service.okr;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.histories.KeyResultHistory;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultHistoryRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.junit.jupiter.api.BeforeAll;
@@ -40,7 +40,7 @@ public class KeyResultHistoryServiceTest {
   @Mock
   private ActivityService activityService;
   @Mock
-  private User authorizedUser;
+  private IUser authorizedIUser;
   @InjectMocks
   private KeyResultHistoryService keyResultHistoryService;
 
@@ -103,7 +103,7 @@ public class KeyResultHistoryServiceTest {
     when(keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult))
       .thenReturn(keyResultHistories);
 
-    keyResultHistoryService.updateKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.updateKeyResultHistory(authorizedIUser, keyResult);
 
     verify(keyResultHistoryRepository).save(changedKeyResultHistory);
   }
@@ -117,9 +117,9 @@ public class KeyResultHistoryServiceTest {
     when(keyResultHistoryRepository.save(changedKeyResultHistory))
       .thenReturn(changedKeyResultHistory);
 
-    keyResultHistoryService.updateKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.updateKeyResultHistory(authorizedIUser, keyResult);
 
-    verify(activityService).createActivity(authorizedUser, changedKeyResultHistory, Action.EDITED);
+    verify(activityService).createActivity(authorizedIUser, changedKeyResultHistory, Action.EDITED);
   }
 
   @Test
@@ -131,7 +131,7 @@ public class KeyResultHistoryServiceTest {
     when(keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult))
       .thenReturn(keyResultHistories);
 
-    keyResultHistoryService.updateKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.updateKeyResultHistory(authorizedIUser, keyResult);
 
     verify(keyResultHistoryRepository).save(changedKeyResultHistory);
   }
@@ -142,8 +142,8 @@ public class KeyResultHistoryServiceTest {
     when(keyResultHistoryRepository.save(changedKeyResultHistory))
       .thenReturn(changedKeyResultHistory);
 
-    keyResultHistoryService.createKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.createKeyResultHistory(authorizedIUser, keyResult);
 
-    verify(activityService).createActivity(authorizedUser, changedKeyResultHistory, Action.CREATED);
+    verify(activityService).createActivity(authorizedIUser, changedKeyResultHistory, Action.CREATED);
   }
 }

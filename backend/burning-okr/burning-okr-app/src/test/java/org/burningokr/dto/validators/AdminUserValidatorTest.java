@@ -2,7 +2,7 @@ package org.burningokr.dto.validators;
 
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.users.AdminUser;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,9 +31,9 @@ public class AdminUserValidatorTest {
   @InjectMocks
   AdminUserValidator adminUserValidator;
 
-  private User userToInsert;
+  private IUser IUserToInsert;
   private UUID userToInsertId;
-  private User currentUser;
+  private IUser currentIUser;
   private AdminUser adminUser;
   private UUID currentUserId;
   private UUID existingAdminId;
@@ -44,14 +44,14 @@ public class AdminUserValidatorTest {
     userToInsertId = UUID.randomUUID();
     currentUserId = UUID.randomUUID();
 
-    userToInsert = mock(User.class);
-    currentUser = mock(User.class);
+    IUserToInsert = mock(IUser.class);
+    currentIUser = mock(IUser.class);
     adminUser = new AdminUser();
 
-    when(userToInsert.getId()).thenReturn(userToInsertId);
-    when(currentUser.getId()).thenReturn(currentUserId);
+    when(IUserToInsert.getId()).thenReturn(userToInsertId);
+    when(currentIUser.getId()).thenReturn(currentUserId);
 
-    when(userService.getCurrentUser()).thenReturn(currentUser);
+    when(userService.getCurrentUser()).thenReturn(currentIUser);
     when(userService.doesUserExist(any())).thenReturn(false);
     when(userService.doesUserExist(userToInsertId)).thenReturn(true);
 
@@ -74,8 +74,8 @@ public class AdminUserValidatorTest {
 
   @Test
   public void validateAdminUserOnAdd_existingAdmin_expectedThrow() {
-    when(userToInsert.getId()).thenReturn(existingAdminId);
-    adminUser.setId(userToInsert.getId());
+    when(IUserToInsert.getId()).thenReturn(existingAdminId);
+    adminUser.setId(IUserToInsert.getId());
 
     try {
       adminUserValidator.validateAdminUserOnAdd(adminUser);
@@ -91,7 +91,7 @@ public class AdminUserValidatorTest {
 
   @Test
   public void validateAdminUserOnAdd_existingAdmin_expectedNoThrow() {
-    adminUser.setId(userToInsert.getId());
+    adminUser.setId(IUserToInsert.getId());
     try {
       adminUserValidator.validateAdminUserOnAdd(adminUser);
     } catch (Exception ex) {

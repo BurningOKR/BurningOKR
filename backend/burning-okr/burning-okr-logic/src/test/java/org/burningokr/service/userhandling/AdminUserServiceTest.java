@@ -1,7 +1,7 @@
 package org.burningokr.service.userhandling;
 
 import org.burningokr.model.users.AdminUser;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AdminUserServiceTest {
 
-  private static User userToAdd;
+  private static IUser IUserToAdd;
   private static AdminUser adminUser;
   private static UUID userId;
   @Mock
@@ -42,8 +42,8 @@ public class AdminUserServiceTest {
   @BeforeAll
   public static void init() {
     userId = UUID.randomUUID();
-    userToAdd = mock(User.class);
-    when(userToAdd.getId()).thenReturn(userId);
+    IUserToAdd = mock(IUser.class);
+    when(IUserToAdd.getId()).thenReturn(userId);
     adminUser = new AdminUser();
   }
 
@@ -98,7 +98,7 @@ public class AdminUserServiceTest {
   public void addAdmin_expectedSavedAdminUserCorrectId() {
     ArgumentCaptor<AdminUser> capturedSave = ArgumentCaptor.forClass(AdminUser.class);
 
-    adminUser.setId(userToAdd.getId());
+    adminUser.setId(IUserToAdd.getId());
 
     adminUserService.addAdmin(adminUser);
     verify(adminUserRepository).save(capturedSave.capture());
@@ -110,14 +110,14 @@ public class AdminUserServiceTest {
 
   @Test
   public void addAdmin_expectedReturnFromUserService() {
-    User userToReturn = mock(User.class);
-    adminUser.setId(userToAdd.getId());
+    IUser IUserToReturn = mock(IUser.class);
+    adminUser.setId(IUserToAdd.getId());
 
-    when(userService.findById(userId)).thenReturn(userToReturn);
+    when(userService.findById(userId)).thenReturn(IUserToReturn);
 
-    User actual = adminUserService.addAdmin(adminUser);
+    IUser actual = adminUserService.addAdmin(adminUser);
 
-    assertEquals(userToReturn, actual);
+    assertEquals(IUserToReturn, actual);
   }
 
   @Test

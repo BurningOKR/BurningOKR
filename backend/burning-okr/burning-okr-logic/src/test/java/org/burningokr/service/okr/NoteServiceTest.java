@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.userhandling.UserService;
@@ -47,7 +47,7 @@ public class NoteServiceTest {
   private Note changedNote;
 
   @Mock
-  private User authorizedUser;
+  private IUser authorizedIUser;
 
   @BeforeAll
   public static void init() {
@@ -88,9 +88,9 @@ public class NoteServiceTest {
   public void updateNote_expectedUserNotifications() {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
 
-    noteService.updateNote(changedNote, authorizedUser);
+    noteService.updateNote(changedNote, authorizedIUser);
 
-    verify(activityService).createActivity(authorizedUser, null, Action.EDITED);
+    verify(activityService).createActivity(authorizedIUser, null, Action.EDITED);
   }
 
   @Test
@@ -98,7 +98,7 @@ public class NoteServiceTest {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
 
     ArgumentCaptor<Note> capturedNotes = ArgumentCaptor.forClass(Note.class);
-    noteService.updateNote(changedNote, authorizedUser);
+    noteService.updateNote(changedNote, authorizedIUser);
 
     verify(noteRepository).save(capturedNotes.capture());
     Note capturedNote = capturedNotes.getValue();
@@ -114,15 +114,15 @@ public class NoteServiceTest {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
     when(noteRepository.save(any())).thenReturn(returnedNote);
 
-    ArgumentCaptor<User> capturedUsers = ArgumentCaptor.forClass(User.class);
+    ArgumentCaptor<IUser> capturedUsers = ArgumentCaptor.forClass(IUser.class);
     ArgumentCaptor<Note> capturedNotes = ArgumentCaptor.forClass(Note.class);
     ArgumentCaptor<Action> capturedActions = ArgumentCaptor.forClass(Action.class);
-    noteService.updateNote(changedNote, authorizedUser);
+    noteService.updateNote(changedNote, authorizedIUser);
 
     verify(activityService)
       .createActivity(
         capturedUsers.capture(), capturedNotes.capture(), capturedActions.capture());
-    assertEquals(authorizedUser, capturedUsers.getValue());
+    assertEquals(authorizedIUser, capturedUsers.getValue());
     assertEquals(returnedNote, capturedNotes.getValue());
     assertEquals(Action.EDITED, capturedActions.getValue());
   }
@@ -134,7 +134,7 @@ public class NoteServiceTest {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
     when(noteRepository.save(any())).thenReturn(returnedNote);
 
-    Note actualNote = noteService.updateNote(changedNote, authorizedUser);
+    Note actualNote = noteService.updateNote(changedNote, authorizedIUser);
 
     assertEquals(actualNote, returnedNote);
   }
@@ -143,7 +143,7 @@ public class NoteServiceTest {
   public void deleteNote_expectedDeleteCall() {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
 
-    noteService.deleteNote(originalId, authorizedUser);
+    noteService.deleteNote(originalId, authorizedIUser);
 
     verify(noteRepository).deleteById(originalId);
   }
@@ -152,8 +152,8 @@ public class NoteServiceTest {
   public void deleteNote_expectedActivityCall() {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
 
-    noteService.deleteNote(originalId, authorizedUser);
+    noteService.deleteNote(originalId, authorizedIUser);
 
-    verify(activityService).createActivity(authorizedUser, originalNote, Action.DELETED);
+    verify(activityService).createActivity(authorizedIUser, originalNote, Action.DELETED);
   }
 }

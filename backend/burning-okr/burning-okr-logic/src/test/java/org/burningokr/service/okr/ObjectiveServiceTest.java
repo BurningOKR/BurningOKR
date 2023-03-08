@@ -11,7 +11,7 @@ import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteObjectiveRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -56,7 +56,7 @@ public class ObjectiveServiceTest {
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock
-  private User user;
+  private IUser IUser;
   @Mock
   private KeyResultHistoryService keyResultHistoryService;
 
@@ -107,7 +107,7 @@ public class ObjectiveServiceTest {
   public void createKeyResult_expectsKeyResultIsCreated() throws KeyResultOverflowException {
     keyResult.setId(12L);
 
-    objectiveService.createKeyResult(10L, keyResult, user);
+    objectiveService.createKeyResult(10L, keyResult, IUser);
 
     verifyCreateKeyResult();
   }
@@ -119,7 +119,7 @@ public class ObjectiveServiceTest {
 
     keyResult.setId(12L);
 
-    objectiveService.createKeyResult(expected, keyResult, user);
+    objectiveService.createKeyResult(expected, keyResult, IUser);
 
     assertEquals(expected, keyResult.getParentObjective().getId());
 
@@ -148,7 +148,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(parentObjective);
 
-    objectiveService.createKeyResult(expected, keyResult, user);
+    objectiveService.createKeyResult(expected, keyResult, IUser);
 
     assertEquals(5, otherKeyResult1.getSequence());
     assertEquals(6, otherKeyResult2.getSequence());
@@ -163,7 +163,7 @@ public class ObjectiveServiceTest {
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(closedCycle);
 
     assertThrows(ForbiddenException.class, () -> {
-      objectiveService.createKeyResult(10L, new KeyResult(), user);
+      objectiveService.createKeyResult(10L, new KeyResult(), IUser);
     });
 
   }
@@ -182,7 +182,7 @@ public class ObjectiveServiceTest {
     KeyResult keyResult = new KeyResult();
 
     assertThrows(KeyResultOverflowException.class, () -> {
-      objectiveService.createKeyResult(anyLong(), keyResult, user);
+      objectiveService.createKeyResult(anyLong(), keyResult, IUser);
     });
 
     verifyCreateKeyResult();
@@ -198,7 +198,7 @@ public class ObjectiveServiceTest {
     keyResult.setMilestones(milestoneList);
     keyResult.setId(12L);
 
-    objectiveService.createKeyResult(anyLong(), keyResult, user);
+    objectiveService.createKeyResult(anyLong(), keyResult, IUser);
 
     verifyCreateKeyResult();
     verify(keyResultMilestoneService, times(3)).createKeyResultMilestone(anyLong(), any(), any());
@@ -212,7 +212,7 @@ public class ObjectiveServiceTest {
     keyResult.setMilestones(milestoneList);
     keyResult.setId(12L);
 
-    objectiveService.createKeyResult(anyLong(), keyResult, user);
+    objectiveService.createKeyResult(anyLong(), keyResult, IUser);
 
     verifyCreateKeyResult();
     verify(keyResultMilestoneService, never()).createKeyResultMilestone(anyLong(), any(), any());
@@ -226,7 +226,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    objective = objectiveService.updateObjective(updateObjective, user);
+    objective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertEquals(expectedTestName, objective.getName());
   }
@@ -239,7 +239,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    objective = objectiveService.updateObjective(updateObjective, user);
+    objective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertEquals(expectedDescription, objective.getDescription());
   }
@@ -252,7 +252,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    objective = objectiveService.updateObjective(updateObjective, user);
+    objective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertEquals(expectedRemark, objective.getRemark());
   }
@@ -269,7 +269,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    objective = objectiveService.updateObjective(updateObjective, user);
+    objective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertEquals(expectedTestReview, objective.getReview());
   }
@@ -295,7 +295,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    objective = objectiveService.updateObjective(updateObjective, user);
+    objective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertNull(objective.getParentOkrUnit());
     assertNull(objective.getParentObjective());
@@ -316,7 +316,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    objective = objectiveService.updateObjective(updateObjective, user);
+    objective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertEquals(expected, objective.getContactPersonId());
   }
@@ -332,7 +332,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    objective = objectiveService.updateObjective(updateObjective, user);
+    objective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertEquals(newParentObjective, objective.getParentObjective());
   }
@@ -347,7 +347,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    Objective actualObjective = objectiveService.updateObjective(updateObjective, user);
+    Objective actualObjective = objectiveService.updateObjective(updateObjective, IUser);
 
     assertEquals(newIsActive, actualObjective.isActive());
   }
@@ -356,7 +356,7 @@ public class ObjectiveServiceTest {
   public void test_deleteObjective_ExpectedObjectiveIsDeleted() {
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
 
-    objectiveService.deleteObjectiveById(objectiveId, user);
+    objectiveService.deleteObjectiveById(objectiveId, IUser);
 
     verify(objectiveRepository).deleteById(objectiveId);
   }
@@ -378,7 +378,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objectiveToDelete);
 
-    objectiveService.deleteObjectiveById(objectiveId, user);
+    objectiveService.deleteObjectiveById(objectiveId, IUser);
 
     assertEquals(5, objectiveBelowInSequence.getSequence());
     assertEquals(6, objectiveAboveInSequence.getSequence());
@@ -394,7 +394,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
 
-    objectiveService.deleteObjectiveById(objectiveId, user);
+    objectiveService.deleteObjectiveById(objectiveId, IUser);
 
     verify(objectiveRepository).save(parentObjective);
   }
@@ -403,9 +403,9 @@ public class ObjectiveServiceTest {
   public void test_deleteObjective_ExpectedActivityGotCreated() {
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
 
-    objectiveService.deleteObjectiveById(objectiveId, user);
+    objectiveService.deleteObjectiveById(objectiveId, IUser);
 
-    verify(activityService).createActivity(user, this.objective, Action.DELETED);
+    verify(activityService).createActivity(IUser, this.objective, Action.DELETED);
   }
 
   @Test
@@ -418,7 +418,7 @@ public class ObjectiveServiceTest {
     when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
     assertThrows(Exception.class, () -> {
-      objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
+      objectiveService.updateSequence(okrDepartment.getId(), sequenceList, IUser);
     });
   }
 
@@ -441,7 +441,7 @@ public class ObjectiveServiceTest {
     when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
     assertThrows(Exception.class, () -> {
-      objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
+      objectiveService.updateSequence(okrDepartment.getId(), sequenceList, IUser);
     });
   }
 
@@ -465,7 +465,7 @@ public class ObjectiveServiceTest {
 
     when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
-    objectiveService.updateSequence(okrDepartment.getId(), sequenceList, user);
+    objectiveService.updateSequence(okrDepartment.getId(), sequenceList, IUser);
 
     assertEquals(2, objective0.getSequence());
     assertEquals(0, objective1.getSequence());
@@ -478,7 +478,7 @@ public class ObjectiveServiceTest {
   public void createNote_expect_saveIsCalled() {
 
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
-    objectiveService.createNote(1337L, noteObjective, user);
+    objectiveService.createNote(1337L, noteObjective, IUser);
     verify(noteObjectiveRepository).save(same(noteObjective));
   }
 
@@ -486,8 +486,8 @@ public class ObjectiveServiceTest {
   public void createNote_expect_createActivityIsCalled() {
 
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
-    objectiveService.createNote(1337L, noteObjective, user);
-    verify(activityService).createActivity(same(user), same(noteObjective), any());
+    objectiveService.createNote(1337L, noteObjective, IUser);
+    verify(activityService).createActivity(same(IUser), same(noteObjective), any());
   }
 
   @Test
@@ -495,10 +495,10 @@ public class ObjectiveServiceTest {
 
     UUID expected = new UUID(1337L, 1337L);
 
-    when(user.getId()).thenReturn(expected);
+    when(IUser.getId()).thenReturn(expected);
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
 
-    objectiveService.createNote(1L, noteObjectiveMock, user);
+    objectiveService.createNote(1L, noteObjectiveMock, IUser);
     verify(noteObjectiveMock).setUserId(eq(expected));
   }
 
@@ -506,7 +506,7 @@ public class ObjectiveServiceTest {
   public void createNot_expect_dateIsCalled() {
 
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
-    objectiveService.createNote(1L, noteObjectiveMock, user);
+    objectiveService.createNote(1L, noteObjectiveMock, IUser);
     verify(noteObjectiveMock).setDate(any());
   }
 

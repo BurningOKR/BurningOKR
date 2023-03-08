@@ -17,7 +17,7 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.okr.OkrTopicDescriptionService;
 import org.burningokr.service.okrUnit.CompanyService;
@@ -156,7 +156,7 @@ public class OkrDepartmentController {
    *
    * @param departmentId     a long value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
-   * @param user             an {@link User} object
+   * @param IUser            an {@link IUser} object
    * @return the updated department
    */
   @PutMapping("/departments/{departmentId}")
@@ -166,14 +166,14 @@ public class OkrDepartmentController {
     @Valid
     @RequestBody
     OkrDepartmentDto okrDepartmentDto,
-    User user
+    IUser IUser
   )
     throws DuplicateTeamMemberException {
     OkrUnitService<OkrDepartment> departmentService =
       departmentServicePicker.getRoleServiceForDepartment(departmentId);
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment.setId(departmentId);
-    okrDepartment = departmentService.updateUnit(okrDepartment, user);
+    okrDepartment = departmentService.updateUnit(okrDepartment, IUser);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
 
@@ -182,7 +182,7 @@ public class OkrDepartmentController {
    *
    * @param departmentId           the id of the OkrDepartment
    * @param okrTopicDescriptionDto an {@link OkrTopicDescriptionDto} object
-   * @param user                   an {@link User} object
+   * @param IUser                  an {@link IUser} object
    * @return the updated OkrTopicDescription
    */
   @PutMapping("/departments/{departmentId}/topicdescription")
@@ -192,7 +192,7 @@ public class OkrDepartmentController {
     @Valid
     @RequestBody
     OkrTopicDescriptionDto okrTopicDescriptionDto,
-    User user
+    IUser IUser
   ) {
     OkrUnitService<OkrDepartment> departmentService =
       departmentServicePicker.getRoleServiceForDepartment(departmentId);
@@ -204,7 +204,7 @@ public class OkrDepartmentController {
     updatedOkrTopicDescription.setId(oldOkrTopicDescription.getId());
 
     updatedOkrTopicDescription =
-      okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription, user);
+      okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription, IUser);
 
     return ResponseEntity.ok(okrTopicDescriptionMapper.mapEntityToDto(updatedOkrTopicDescription));
   }
@@ -214,7 +214,7 @@ public class OkrDepartmentController {
    *
    * @param departmentId a long value
    * @param objectiveDto an {@link ObjectiveDto} object
-   * @param user         an {@link User} object
+   * @param IUser        an {@link IUser} object
    * @return a {@link ResponseEntity} ok with the added objective
    */
   @PostMapping("/departments/{departmentId}/objectives")
@@ -224,13 +224,13 @@ public class OkrDepartmentController {
     @Valid
     @RequestBody
     ObjectiveDto objectiveDto,
-    User user
+    IUser IUser
   ) {
     OkrUnitService departmentService =
       departmentServicePicker.getRoleServiceForDepartment(departmentId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
-    objective = departmentService.createObjective(departmentId, objective, user);
+    objective = departmentService.createObjective(departmentId, objective, IUser);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
@@ -238,17 +238,17 @@ public class OkrDepartmentController {
    * API Endpoint to delete a OkrDepartment.
    *
    * @param departmentId a long value
-   * @param user         an {@link User} object
+   * @param IUser        an {@link IUser} object
    * @return a {@link ResponseEntity} ok
    */
   @DeleteMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity deleteDepartment(
-    @PathVariable Long departmentId, User user
+    @PathVariable Long departmentId, IUser IUser
   ) {
     OkrUnitService<OkrDepartment> departmentService =
       departmentServicePicker.getRoleServiceForDepartment(departmentId);
-    departmentService.deleteUnit(departmentId, user);
+    departmentService.deleteUnit(departmentId, IUser);
     return ResponseEntity.ok().build();
   }
 }

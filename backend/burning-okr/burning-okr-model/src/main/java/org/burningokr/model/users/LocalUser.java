@@ -14,7 +14,7 @@ import java.util.UUID;
 @Entity
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LocalUser implements User, Trackable<UUID> {
+public class LocalUser implements IUser, Trackable<UUID> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

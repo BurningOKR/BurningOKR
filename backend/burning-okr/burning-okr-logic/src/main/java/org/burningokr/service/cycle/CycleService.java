@@ -4,7 +4,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.service.okrUnit.CompanyService;
@@ -102,16 +102,16 @@ public class CycleService {
    * Delete the Cycle, if it is not active.
    *
    * @param cycleId a long value
-   * @param user    an {@link User} object
+   * @param IUser   an {@link IUser} object
    * @throws Exception if Cycle is active
    */
   @Transactional
-  public void deleteCycle(Long cycleId, User user) throws Exception {
+  public void deleteCycle(Long cycleId, IUser IUser) throws Exception {
     Cycle cycle = cycleRepository.findByIdOrThrow(cycleId);
     if (cycle.getCycleState() != CycleState.ACTIVE) {
       cycle
         .getCompanies()
-        .forEach(company -> companyService.deleteCompany(company.getId(), false, user));
+        .forEach(company -> companyService.deleteCompany(company.getId(), false, IUser));
       this.logger.info("Deleted (non active) cycle with id " + cycle.getId());
     } else {
       throw new Exception("An active Cycle can not be deleted");

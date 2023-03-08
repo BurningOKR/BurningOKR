@@ -9,7 +9,7 @@ import org.burningokr.dto.validators.AdminUserValidator;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.users.AdminUser;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.userhandling.AdminUserService;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class AdminUserController {
   private final AdminUserService adminUserService;
   private final AdminUserValidator adminUserValidator;
   private final DataMapper<AdminUser, AdminUserDto> adminUserMapper;
-  private final DataMapper<User, UserDto> userMapper;
+  private final DataMapper<IUser, UserDto> userMapper;
 
   /**
    * API Endpoint to check if the current user is an admin.
@@ -53,8 +53,8 @@ public class AdminUserController {
   /**
    * API Endpoint to add an admin.
    *
-   * @param user an {@link User} object
-   * @return a {@link ResponseEntity} ok an {@link User}
+   * @param user an {@link IUser} object
+   * @return a {@link ResponseEntity} ok an {@link IUser}
    * @throws InvalidDtoException if admin user is invalid
    */
   @PostMapping("/admins")

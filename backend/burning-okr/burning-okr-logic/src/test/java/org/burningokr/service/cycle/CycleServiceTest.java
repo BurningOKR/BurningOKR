@@ -5,7 +5,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.service.okrUnitUtil.CyclePreparationCloningService;
@@ -40,7 +40,7 @@ public class CycleServiceTest {
   @Mock
   private CompanyHistoryRepository companyHistoryRepository;
   @Mock
-  private User mockedUser;
+  private IUser mockedIUser;
   @InjectMocks
   private CycleService cycleService;
 
@@ -173,7 +173,7 @@ public class CycleServiceTest {
     Cycle cycle = createDummyCycle("c", 42, 1);
     when(cycleRepository.findByIdOrThrow(anyLong())).thenThrow(new EntityNotFoundException());
     assertThrows(EntityNotFoundException.class, () -> {
-      cycleService.deleteCycle(cycle.getId(), mockedUser);
+      cycleService.deleteCycle(cycle.getId(), mockedIUser);
     });
   }
 
@@ -181,7 +181,7 @@ public class CycleServiceTest {
   public void deleteCycle_expectedToBeDeleted() throws Exception {
     Cycle cycle = createDummyCycle("c", 42, 1);
     when(cycleRepository.findByIdOrThrow(cycle.getId())).thenReturn(cycle);
-    cycleService.deleteCycle(cycle.getId(), mockedUser);
+    cycleService.deleteCycle(cycle.getId(), mockedIUser);
   }
 
   @Test

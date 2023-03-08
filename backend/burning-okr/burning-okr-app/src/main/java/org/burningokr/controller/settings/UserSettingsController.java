@@ -5,7 +5,7 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.settings.UserSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +43,12 @@ public class UserSettingsController {
   /**
    * API Endpoint to get the user settings of an user.
    *
-   * @param user an {@link User} object
+   * @param IUser an {@link IUser} object
    * @return a {@link ResponseEntity} ok with the user settings.
    */
   @GetMapping("/settings")
-  public ResponseEntity<UserSettingsDto> getUserSettings(User user) {
-    UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
+  public ResponseEntity<UserSettingsDto> getUserSettings(IUser IUser) {
+    UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(IUser);
     return ResponseEntity.ok(this.mapper.mapEntityToDto(userSettings));
   }
 
@@ -56,18 +56,18 @@ public class UserSettingsController {
    * API Endpoint to update the user settings.
    *
    * @param userSettingsDto an {@link UserSettingsDto} object
-   * @param user            an {@link User} object
+   * @param IUser           an {@link IUser} object
    * @return a {@link ResponseEntity} ok with the updated user settings
    */
   @PutMapping("/settings")
   public ResponseEntity<UserSettingsDto> updateUserSettingsDto(
     @Valid
     @RequestBody
-    UserSettingsDto userSettingsDto, User user
+    UserSettingsDto userSettingsDto, IUser IUser
   ) {
     UserSettings userSettings = this.mapper.mapDtoToEntity(userSettingsDto);
     return ResponseEntity.ok(
       this.mapper.mapEntityToDto(
-        this.userSettingsService.updateUserSettings(userSettings, user)));
+        this.userSettingsService.updateUserSettings(userSettings, IUser)));
   }
 }

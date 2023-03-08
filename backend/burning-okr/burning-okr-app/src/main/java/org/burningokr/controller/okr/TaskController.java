@@ -5,7 +5,7 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.TaskDto;
 import org.burningokr.mapper.okr.TaskMapper;
 import org.burningokr.model.okr.Task;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +38,10 @@ public class TaskController {
     @Valid
     @RequestBody
     TaskDto taskDto,
-    User user
+    IUser IUser
   ) {
     Task newTask = taskMapper.mapDtoToEntity(taskDto);
-    Collection<Task> createdAndUpdatedTasks = taskService.createTask(newTask, unitId, user);
+    Collection<Task> createdAndUpdatedTasks = taskService.createTask(newTask, unitId, IUser);
 
     return ResponseEntity.ok(taskMapper.mapEntitiesToDtos(createdAndUpdatedTasks));
   }
@@ -53,20 +53,20 @@ public class TaskController {
     @Valid
     @RequestBody
     TaskDto taskDto,
-    User user
+    IUser IUser
   )
     throws Exception {
     Task updatedTask = taskMapper.mapDtoToEntity(taskDto);
-    Collection<Task> updatedTasks = taskService.updateTask(updatedTask, user);
+    Collection<Task> updatedTasks = taskService.updateTask(updatedTask, IUser);
     return ResponseEntity.ok(taskMapper.mapEntitiesToDtos(updatedTasks));
   }
 
   @DeleteMapping("/unit/{unitId}/tasks/{taskId}")
   public ResponseEntity deleteTask(
     @PathVariable long unitId,
-    @PathVariable Long taskId, User user
+    @PathVariable Long taskId, IUser IUser
   ) {
-    this.taskService.deleteTaskById(taskId, unitId, user);
+    this.taskService.deleteTaskById(taskId, unitId, IUser);
     return ResponseEntity.ok().build();
   }
 }

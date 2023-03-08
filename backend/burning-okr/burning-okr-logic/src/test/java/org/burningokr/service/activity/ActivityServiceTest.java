@@ -3,7 +3,7 @@ package org.burningokr.service.activity;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.activity.ActivityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class ActivityServiceTest {
 
   @Mock
   ActivityRepository activityRepository;
-  User user;
+  IUser IUser;
   @InjectMocks
   ActivityService activityService;
   private UUID uuid;
@@ -34,9 +34,9 @@ public class ActivityServiceTest {
   @BeforeEach
   public void init() {
     uuid = UUID.randomUUID();
-    user = mock(User.class);
+    IUser = mock(IUser.class);
 
-    when(user.getId()).thenReturn(uuid);
+    when(IUser.getId()).thenReturn(uuid);
   }
 
   private void testActivityCreation(UUID userId, String userPrincipalName, Action expectedAction) {
@@ -51,7 +51,7 @@ public class ActivityServiceTest {
         + expectedTrackable.getId()
         + ")";
 
-    activityService.createActivity(user, expectedTrackable, expectedAction);
+    activityService.createActivity(IUser, expectedTrackable, expectedAction);
 
     verify(activityRepository).save(capturedActivityArgument.capture());
     Activity capturedActivity = capturedActivityArgument.getValue();
@@ -67,14 +67,14 @@ public class ActivityServiceTest {
   @Test
   public void createActivity_exampleActivity1_expectedCorrectActivitySave() {
     userPrincipalName = "test2";
-    when(user.getMail()).thenReturn(userPrincipalName);
+    when(IUser.getMail()).thenReturn(userPrincipalName);
     testActivityCreation(uuid, userPrincipalName, Action.CREATED);
   }
 
   @Test
   public void createActivity_exampleActivity2_expectedCorrectActivitySave() {
     userPrincipalName = "test4";
-    when(user.getMail()).thenReturn(userPrincipalName);
+    when(IUser.getMail()).thenReturn(userPrincipalName);
     testActivityCreation(uuid, userPrincipalName, Action.DELETED);
   }
 

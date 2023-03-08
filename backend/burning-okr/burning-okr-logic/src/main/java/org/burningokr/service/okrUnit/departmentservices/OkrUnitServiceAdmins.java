@@ -9,7 +9,7 @@ import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrParentUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
@@ -79,7 +79,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
 
   @Override
   @Transactional
-  public T updateUnit(T updatedUnit, User user) {
+  public T updateUnit(T updatedUnit, IUser IUser) {
     T referencedUnit = unitRepository.findByIdOrThrow(updatedUnit.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedUnit);
@@ -104,23 +104,23 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
         + "(id:"
         + referencedUnit.getId()
         + ")");
-    activityService.createActivity(user, referencedUnit, Action.EDITED);
+    activityService.createActivity(IUser, referencedUnit, Action.EDITED);
 
     return referencedUnit;
   }
 
   @Override
-  public void deleteUnit(Long unitId, User user) {
+  public void deleteUnit(Long unitId, IUser IUser) {
     T referencedUnit = unitRepository.findByIdOrThrow(unitId);
 
     throwIfCycleForDepartmentIsClosed(referencedUnit);
 
     if (!(referencedUnit instanceof OkrParentUnit)
       || ((OkrParentUnit) referencedUnit).getOkrChildUnits().isEmpty()) {
-      activityService.createActivity(user, referencedUnit, Action.DELETED);
+      activityService.createActivity(IUser, referencedUnit, Action.DELETED);
       unitRepository.deleteById(unitId);
       logger.info("Deleted OkrDepartment with id: " + unitId);
-      activityService.createActivity(user, referencedUnit, Action.DELETED);
+      activityService.createActivity(IUser, referencedUnit, Action.DELETED);
 
     } else {
       logger.info(
@@ -134,7 +134,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
 
   @Override
   @Transactional
-  public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit subDepartment, User user) {
+  public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit subDepartment, IUser IUser) {
     OkrUnit parentOkrUnit = superUnitRepository.findByIdOrThrow(parentUnitId);
 
     throwIfCycleForDepartmentIsClosed(parentOkrUnit);
@@ -168,7 +168,7 @@ public class OkrUnitServiceAdmins<T extends OkrChildUnit> extends OkrUnitService
         + "(id:"
         + parentUnitId
         + ")");
-    activityService.createActivity(user, subDepartment, Action.CREATED);
+    activityService.createActivity(IUser, subDepartment, Action.CREATED);
     return subDepartment;
   }
 

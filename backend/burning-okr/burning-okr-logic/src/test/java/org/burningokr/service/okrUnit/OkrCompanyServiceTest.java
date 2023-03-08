@@ -15,7 +15,7 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.cycle.BranchHistoryRepository;
 import org.burningokr.repositories.cycle.DepartmentHistoryRepository;
 import org.burningokr.repositories.cycle.TopicDraftHistoryRepository;
@@ -70,7 +70,7 @@ public class OkrCompanyServiceTest {
   @Mock
   private OkrTopicDraftRepository okrTopicDraftRepository;
   @Mock
-  private User user;
+  private IUser IUser;
   @InjectMocks
   private CompanyService companyService;
   @Mock
@@ -93,13 +93,13 @@ public class OkrCompanyServiceTest {
     OkrDepartment okrDepartment = new OkrDepartment();
     TaskBoard taskBoard = new TaskBoard();
 
-    User user = mock(User.class);
+    IUser IUser = mock(IUser.class);
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
-    companyService.createDepartment(companyId, okrDepartment, user);
+    companyService.createDepartment(companyId, okrDepartment, IUser);
 
     assertEquals(okrCompany.getId(), okrDepartment.getParentOkrUnit().getId());
 
@@ -112,12 +112,12 @@ public class OkrCompanyServiceTest {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     OkrDepartment okrDepartment = new OkrDepartment();
-    User user = mock(User.class);
+    IUser IUser = mock(IUser.class);
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(entityCrawlerService.getCycleOfCompany(okrCompany)).thenReturn(closedCycle);
     try {
-      companyService.createDepartment(companyId, okrDepartment, user);
+      companyService.createDepartment(companyId, okrDepartment, IUser);
       fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), ForbiddenException.class);
@@ -130,7 +130,7 @@ public class OkrCompanyServiceTest {
     okrDepartment.setName("test");
     TaskBoard taskBoard = new TaskBoard();
 
-    User user = mock(User.class);
+    IUser IUser = mock(IUser.class);
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
@@ -139,7 +139,7 @@ public class OkrCompanyServiceTest {
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
-    OkrDepartment created = companyService.createDepartment(companyId, okrDepartment, user);
+    OkrDepartment created = companyService.createDepartment(companyId, okrDepartment, IUser);
 
     assertNotNull(created.getOkrTopicDescription());
     assertEquals(okrDepartment.getName(), created.getOkrTopicDescription().getName());
@@ -160,7 +160,7 @@ public class OkrCompanyServiceTest {
     availableStates.add(state1);
     taskBoard.setAvailableStates(availableStates);
 
-    User user = mock(User.class);
+    IUser IUser = mock(IUser.class);
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
@@ -169,7 +169,7 @@ public class OkrCompanyServiceTest {
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
-    OkrDepartment created = companyService.createDepartment(companyId, okrDepartment, user);
+    OkrDepartment created = companyService.createDepartment(companyId, okrDepartment, IUser);
 
     assertNotNull(created.getTaskBoard());
   }
@@ -183,8 +183,8 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(companyRepository.save(any(OkrCompany.class))).thenReturn(updateOkrCompany);
 
-    User user = mock(User.class);
-    okrCompany = companyService.updateCompany(updateOkrCompany, user);
+    IUser IUser = mock(IUser.class);
+    okrCompany = companyService.updateCompany(updateOkrCompany, IUser);
 
     assertEquals(updatedCompanyName, okrCompany.getName());
 
@@ -199,9 +199,9 @@ public class OkrCompanyServiceTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfCompany(any())).thenReturn(closedCycle);
 
-    User user = mock(User.class);
+    IUser IUser = mock(IUser.class);
     try {
-      okrCompany = companyService.updateCompany(updateOkrCompany, user);
+      okrCompany = companyService.updateCompany(updateOkrCompany, IUser);
       fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), ForbiddenException.class);
@@ -216,9 +216,9 @@ public class OkrCompanyServiceTest {
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenThrow(new EntityNotFoundException());
 
-    User user = mock(User.class);
+    IUser IUser = mock(IUser.class);
     try {
-      okrCompany = companyService.updateCompany(updateOkrCompany, user);
+      okrCompany = companyService.updateCompany(updateOkrCompany, IUser);
       fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), EntityNotFoundException.class);
@@ -231,7 +231,7 @@ public class OkrCompanyServiceTest {
   public void deleteCompany_shouldDeleteCompany() {
     when(companyRepository.findByIdOrThrow(companyId)).thenReturn(okrCompany);
 
-    companyService.deleteCompany(companyId, true, user);
+    companyService.deleteCompany(companyId, true, IUser);
 
     verify(companyRepository).deleteById(companyId);
   }
@@ -243,7 +243,7 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(2000L)).thenThrow(EntityNotFoundException.class);
 
     try {
-      companyService.deleteCompany(notExistingCompanyId, true, user);
+      companyService.deleteCompany(notExistingCompanyId, true, IUser);
       fail();
     } catch (Exception ex) {
       assertEquals(ex.getClass(), EntityNotFoundException.class);
@@ -260,7 +260,7 @@ public class OkrCompanyServiceTest {
     OkrTopicDraft topicDraft = new OkrTopicDraft();
 
     assertThrows(ForbiddenException.class, () -> {
-      companyService.createTopicDraft(1L, topicDraft, user);
+      companyService.createTopicDraft(1L, topicDraft, IUser);
     });
   }
 
@@ -271,7 +271,7 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    companyService.createTopicDraft(1L, topicDraft, user);
+    companyService.createTopicDraft(1L, topicDraft, IUser);
 
     verify(okrTopicDraftRepository).save(any());
   }
@@ -283,9 +283,9 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    companyService.createTopicDraft(1L, topicDraft, user);
+    companyService.createTopicDraft(1L, topicDraft, IUser);
 
-    verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
+    verify(activityService).createActivity(eq(IUser), any(), eq(Action.CREATED));
   }
 
   @Test
@@ -295,7 +295,7 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    OkrTopicDraft actual = companyService.createTopicDraft(1L, topicDraft, user);
+    OkrTopicDraft actual = companyService.createTopicDraft(1L, topicDraft, IUser);
 
     assertEquals(actual.getParentUnit(), okrCompany);
   }
@@ -309,7 +309,7 @@ public class OkrCompanyServiceTest {
     when(branchHistoryRepository.save(any())).thenReturn(okrBranchHistory);
     when(unitRepository.save(any())).thenReturn(okrBranch);
 
-    OkrBranch createdOkrBranch = companyService.createOkrBranch(1L, okrBranch, user);
+    OkrBranch createdOkrBranch = companyService.createOkrBranch(1L, okrBranch, IUser);
 
     assertSame(okrBranchHistory, createdOkrBranch.getHistory());
   }
@@ -323,7 +323,7 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
 
     assertThrows(ForbiddenException.class, () -> {
-      companyService.createOkrBranch(1L, okrBranch, user);
+      companyService.createOkrBranch(1L, okrBranch, IUser);
     });
   }
 
@@ -336,7 +336,7 @@ public class OkrCompanyServiceTest {
     when(branchHistoryRepository.save(any())).thenReturn(okrBranchHistory);
     when(unitRepository.save(any())).thenReturn(okrBranch);
 
-    companyService.createOkrBranch(1L, okrBranch, user);
+    companyService.createOkrBranch(1L, okrBranch, IUser);
 
     verify(branchHistoryRepository).save(okrBranchHistory);
   }
@@ -354,7 +354,7 @@ public class OkrCompanyServiceTest {
     when(unitRepository.save(any())).thenReturn(okrDepartment);
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
 
-    OkrDepartment createdOkrDepartment = companyService.createDepartment(1L, okrDepartment, user);
+    OkrDepartment createdOkrDepartment = companyService.createDepartment(1L, okrDepartment, IUser);
 
     assertSame(okrDepartmentHistory, createdOkrDepartment.getHistory());
   }
@@ -390,7 +390,7 @@ public class OkrCompanyServiceTest {
     when(topicDraftHistoryRepository.save(any())).thenReturn(okrTopicDraftHistory);
     when(okrTopicDraftRepository.save(any())).thenReturn(okrTopicDraft);
 
-    OkrTopicDraft createdOkrTopicDraft = companyService.createTopicDraft(1L, okrTopicDraft, user);
+    OkrTopicDraft createdOkrTopicDraft = companyService.createTopicDraft(1L, okrTopicDraft, IUser);
 
     assertSame(okrTopicDraftHistory, createdOkrTopicDraft.getHistory());
   }

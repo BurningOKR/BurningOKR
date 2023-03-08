@@ -3,7 +3,7 @@ package org.burningokr.service.okrUnit.departmentservices;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -29,7 +29,7 @@ public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServi
 
   @Override
   @Transactional
-  public T updateUnit(T updatedUnit, User user) {
+  public T updateUnit(T updatedUnit, IUser IUser) {
     T referencedUnit = unitRepository.findByIdOrThrow(updatedUnit.getId());
 
     throwIfCycleForDepartmentIsClosed(referencedUnit);
@@ -45,7 +45,7 @@ public class OkrUnitServiceManagers<T extends OkrChildUnit> extends OkrUnitServi
           + "(id:"
           + referencedUnit.getId()
           + ")");
-      activityService.createActivity(user, referencedUnit, Action.EDITED);
+      activityService.createActivity(IUser, referencedUnit, Action.EDITED);
     }
 
     return referencedUnit;

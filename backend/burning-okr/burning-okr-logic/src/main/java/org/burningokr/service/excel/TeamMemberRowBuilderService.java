@@ -5,7 +5,7 @@ import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
@@ -60,18 +60,18 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
 //    rows.add(row);
   }
 
-  private String getFullName(User user) {
-    return user.getGivenName() + " " + user.getSurname();
+  private String getFullName(IUser IUser) {
+    return IUser.getGivenName() + " " + IUser.getSurname();
   }
 
-  private String getTeamRoleFromUser(User user, OkrDepartment okrDepartment) {
-    if (user.getId().equals(okrDepartment.getOkrMasterId())) {
+  private String getTeamRoleFromUser(IUser IUser, OkrDepartment okrDepartment) {
+    if (IUser.getId().equals(okrDepartment.getOkrMasterId())) {
       return messages.get("okrmaster");
-    } else if (user.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
+    } else if (IUser.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
       return messages.get("topicsponsor");
     } else {
       for (UUID memberId : okrDepartment.getOkrMemberIds()) {
-        if (user.getId().equals(memberId)) {
+        if (IUser.getId().equals(memberId)) {
           return messages.get("teammember");
         }
       }

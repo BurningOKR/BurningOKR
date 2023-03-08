@@ -5,7 +5,7 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrUnit;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -71,24 +71,24 @@ public class OkrUnitServiceUsers<T extends OkrChildUnit> implements OkrUnitServi
   }
 
   @Override
-  public T updateUnit(T updatedUnit, User user) {
+  public T updateUnit(T updatedUnit, IUser IUser) {
     // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");
     return null;
   }
 
   @Override
-  public void deleteUnit(Long unitId, User user) {
+  public void deleteUnit(Long unitId, IUser IUser) {
     // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");
   }
 
   @Override
-  public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit subDepartment, User user) {
+  public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit subDepartment, IUser IUser) {
     // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");
     return null;
   }
 
   @Override
-  public Objective createObjective(Long unitId, Objective objective, User user) {
+  public Objective createObjective(Long unitId, Objective objective, IUser IUser) {
     // TODO fix auth throw new UnauthorizedUserException("Service method not supported for current user role.");#
     return null;
   }

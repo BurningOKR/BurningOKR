@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
+import org.burningokr.model.users.IUser;
 import org.burningokr.model.users.LocalUser;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.LocalUserRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.DuplicateEmailException;
@@ -26,17 +26,17 @@ public class LocalUserService implements UserService {
   private final ActivityService activityService;
 
   @Override
-  public Collection<User> findAll() {
+  public Collection<IUser> findAll() {
     return Lists.newArrayList(localUserRepository.findAll());
   }
 
   @Override
-  public Collection<User> findAllActive() {
+  public Collection<IUser> findAllActive() {
     return Lists.newArrayList(localUserRepository.findByActive(true));
   }
 
   @Override
-  public Collection<User> findAllInactive() {
+  public Collection<IUser> findAllInactive() {
     return Lists.newArrayList(localUserRepository.findByActive(false));
   }
 
@@ -73,22 +73,22 @@ public class LocalUserService implements UserService {
   /**
    * Create a Local User and send their password.
    *
-   * @param user an {@link User} object
+   * @param IUser an {@link IUser} object
    * @return an {@link LocalUser} object
    */
-  public LocalUser createLocalUser(User user) {
-    return createLocalUser(user, true);
+  public LocalUser createLocalUser(IUser IUser) {
+    return createLocalUser(IUser, true);
   }
 
   /**
    * Create a Local User.
    *
-   * @param user         an {@link User} object
+   * @param IUser        an {@link IUser} object
    * @param sendPassword if set to true a change password email will be sent
    * @return an {@link LocalUser} object
    */
-  public LocalUser createLocalUser(User user, boolean sendPassword) {
-    LocalUser localUser = (LocalUser) user;
+  public LocalUser createLocalUser(IUser IUser, boolean sendPassword) {
+    LocalUser localUser = (LocalUser) IUser;
     localUser.setCreatedAt(LocalDateTime.now());
     LocalUser result;
     try {
@@ -109,12 +109,12 @@ public class LocalUserService implements UserService {
   /**
    * Creates a list of Local Users.
    *
-   * @param users a {@link Collection} of {@link User}
-   * @return a {@link Collection} of {@link User}
+   * @param IUsers a {@link Collection} of {@link IUser}
+   * @return a {@link Collection} of {@link IUser}
    */
-  public Collection<User> bulkCreateLocalUsers(Collection<User> users) {
-    List<User> ret = new ArrayList<>();
-    users.forEach(user -> ret.add(createLocalUser(user)));
+  public Collection<IUser> bulkCreateLocalUsers(Collection<IUser> IUsers) {
+    List<IUser> ret = new ArrayList<>();
+    IUsers.forEach(user -> ret.add(createLocalUser(user)));
 
     return ret;
   }
@@ -123,11 +123,11 @@ public class LocalUserService implements UserService {
    * Update a Local User.
    *
    * @param userId an {@link UUID} object
-   * @param user   an {@link User} object
+   * @param IUser  an {@link IUser} object
    * @return a {@link LocalUser} object
    */
-  public LocalUser updateLocalUser(UUID userId, User user) {
-    LocalUser localUser = (LocalUser) user;
+  public LocalUser updateLocalUser(UUID userId, IUser IUser) {
+    LocalUser localUser = (LocalUser) IUser;
     LocalUser result = localUserRepository.findByIdOrThrow(userId);
     result.setPhoto(localUser.getPhoto());
     result.setGivenName(localUser.getGivenName());

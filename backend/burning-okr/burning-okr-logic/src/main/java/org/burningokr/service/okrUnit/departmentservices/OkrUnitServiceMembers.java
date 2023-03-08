@@ -3,7 +3,7 @@ package org.burningokr.service.okrUnit.departmentservices;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -30,7 +30,7 @@ public class OkrUnitServiceMembers<T extends OkrChildUnit> extends OkrUnitServic
 
   @Override
   @Transactional
-  public Objective createObjective(Long unitId, Objective objective, User user) {
+  public Objective createObjective(Long unitId, Objective objective, IUser IUser) {
     T department = unitRepository.findByIdOrThrow(unitId);
 
     throwIfCycleForDepartmentIsClosed(department);
@@ -55,7 +55,7 @@ public class OkrUnitServiceMembers<T extends OkrChildUnit> extends OkrUnitServic
         + "(id:"
         + unitId
         + ")");
-    activityService.createActivity(user, objective, Action.CREATED);
+    activityService.createActivity(IUser, objective, Action.CREATED);
 
     return objective;
   }

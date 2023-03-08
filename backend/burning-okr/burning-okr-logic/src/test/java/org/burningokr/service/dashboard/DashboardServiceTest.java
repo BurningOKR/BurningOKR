@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.dashboard.ChartCreationOptionsRepository;
 import org.burningokr.repositories.dashboard.DashboardCreationRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -38,7 +38,7 @@ public class DashboardServiceTest {
   @Mock
   private ActivityService activityService;
   @Mock
-  private User authorizedUser;
+  private IUser authorizedIUser;
   @InjectMocks
   private DashboardService dashboardService;
   private DashboardCreation dashboardCreation;
@@ -79,7 +79,7 @@ public class DashboardServiceTest {
   public void deleteDashboard_expectDeleteCall() {
     when(dashboardCreationRepository.findByIdOrThrow(dashboardCreationId)).thenReturn(dashboardCreation);
 
-    dashboardService.deleteDashboard(dashboardCreationId, authorizedUser);
+    dashboardService.deleteDashboard(dashboardCreationId, authorizedIUser);
 
     verify(dashboardCreationRepository).deleteById(dashboardCreationId);
   }
@@ -88,9 +88,9 @@ public class DashboardServiceTest {
   public void deleteDashboard_expectedActivityCall() {
     when(dashboardCreationRepository.findByIdOrThrow(dashboardCreationId)).thenReturn(dashboardCreation);
 
-    dashboardService.deleteDashboard(dashboardCreationId, authorizedUser);
+    dashboardService.deleteDashboard(dashboardCreationId, authorizedIUser);
 
-    verify(activityService).createActivity(authorizedUser, dashboardCreation, Action.DELETED);
+    verify(activityService).createActivity(authorizedIUser, dashboardCreation, Action.DELETED);
   }
 
 }

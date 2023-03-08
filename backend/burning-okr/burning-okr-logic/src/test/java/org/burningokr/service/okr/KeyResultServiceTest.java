@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.*;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
@@ -41,7 +41,7 @@ public class KeyResultServiceTest {
   @Mock
   private KeyResultHistoryService keyResultHistoryService;
   @Mock
-  private User user;
+  private IUser IUser;
   @Mock
   private TaskService taskService;
   @InjectMocks
@@ -65,7 +65,7 @@ public class KeyResultServiceTest {
   public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() throws Exception {
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenThrow(new EntityNotFoundException());
     assertThrows(EntityNotFoundException.class, () -> {
-      keyResultService.deleteKeyResult(keyResultId, user);
+      keyResultService.deleteKeyResult(keyResultId, IUser);
     });
   }
 
@@ -75,7 +75,7 @@ public class KeyResultServiceTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(closedCycle);
     assertThrows(ForbiddenException.class, () -> {
-      keyResultService.deleteKeyResult(10L, user);
+      keyResultService.deleteKeyResult(10L, IUser);
     });
   }
 
@@ -99,7 +99,7 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenReturn(keyResultToDelete);
     when(taskService.findTasksForKeyResult(any(KeyResult.class))).thenReturn(new ArrayList<Task>());
-    keyResultService.deleteKeyResult(10L, user);
+    keyResultService.deleteKeyResult(10L, IUser);
 
     assertEquals(5, keyResultBelowInSequence.getSequence());
     assertEquals(6, keyResultAboveInSequence.getSequence());
@@ -115,7 +115,7 @@ public class KeyResultServiceTest {
     KeyResult updatedKeyResult = new KeyResult();
     updatedKeyResult.setId(10L);
     assertThrows(EntityNotFoundException.class, () -> {
-      keyResultService.updateKeyResult(updatedKeyResult, user);
+      keyResultService.updateKeyResult(updatedKeyResult, IUser);
     });
   }
 
@@ -128,7 +128,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
 
     assertEquals(expectedName, keyResult.getName());
   }
@@ -142,7 +142,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
 
     assertEquals(expectedDescription, keyResult.getDescription());
   }
@@ -156,7 +156,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
 
     assertEquals(expectedStartValue, keyResult.getStartValue());
   }
@@ -170,7 +170,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
 
     assertEquals(expectedCurrentValue, keyResult.getCurrentValue());
   }
@@ -184,7 +184,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
 
     assertEquals(expectedTargetValue, keyResult.getTargetValue());
   }
@@ -198,7 +198,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
 
     assertEquals(expectedUnit, keyResult.getUnit());
   }
@@ -216,7 +216,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResultService.updateKeyResult(updateKeyResult, IUser);
 
     verify(keyResultMilestoneService).updateMilestones(any(), any());
   }
@@ -228,7 +228,7 @@ public class KeyResultServiceTest {
     objective.setKeyResults(new ArrayList<>());
     Collection<Long> sequenceList = Collections.singletonList(1L);
     assertThrows(Exception.class, () -> {
-      keyResultService.updateSequence(objective.getId(), sequenceList, user);
+      keyResultService.updateSequence(objective.getId(), sequenceList, IUser);
     });
   }
 
@@ -249,7 +249,7 @@ public class KeyResultServiceTest {
 
     Collection<Long> sequenceList = Arrays.asList(30L, 20L, 40L);
     assertThrows(Exception.class, () -> {
-      keyResultService.updateSequence(objective.getId(), sequenceList, user);
+      keyResultService.updateSequence(objective.getId(), sequenceList, IUser);
     });
   }
 
@@ -272,7 +272,7 @@ public class KeyResultServiceTest {
 
     when(objectiveService.findById(objective.getId())).thenReturn(objective);
 
-    keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    keyResultService.updateSequence(objective.getId(), sequenceList, IUser);
 
     assertEquals(2, keyResult0.getSequence());
     assertEquals(1, keyResult1.getSequence());

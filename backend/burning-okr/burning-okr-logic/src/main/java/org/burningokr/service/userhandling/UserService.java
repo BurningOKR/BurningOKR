@@ -1,6 +1,6 @@
 package org.burningokr.service.userhandling;
 
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -8,15 +8,15 @@ import java.util.UUID;
 
 @Service
 public interface UserService {
-  Collection<User> findAll();
+  Collection<IUser> findAll();
 
-  Collection<User> findAllActive();
+  Collection<IUser> findAllActive();
 
-  Collection<User> findAllInactive();
+  Collection<IUser> findAllInactive();
 
-  User getCurrentUser();
+  IUser getCurrentUser();
 
-  User findById(UUID userId);
+  IUser findById(UUID userId);
 
   boolean doesUserExist(UUID userId);
 }

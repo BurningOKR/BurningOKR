@@ -8,7 +8,7 @@ import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -65,13 +65,13 @@ public class OkrTopicDraftService {
     return noteTopicDrafts;
   }
 
-  public void deleteTopicDraftById(Long topicDraftId, User user) {
+  public void deleteTopicDraftById(Long topicDraftId, IUser IUser) {
     OkrTopicDraft referencedTopicDraft = okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
     okrTopicDraftRepository.deleteById(topicDraftId);
-    activityService.createActivity(user, referencedTopicDraft, Action.DELETED);
+    activityService.createActivity(IUser, referencedTopicDraft, Action.DELETED);
   }
 
-  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, User user) {
+  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, IUser IUser) {
 
     topicDraft.setParentUnit(null);
     topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
@@ -79,7 +79,7 @@ public class OkrTopicDraftService {
     topicDraft = okrTopicDraftRepository.save(topicDraft);
     logger.info("Created Topic Draft: " + topicDraft.getName());
 
-    activityService.createActivity(user, topicDraft, Action.CREATED);
+    activityService.createActivity(IUser, topicDraft, Action.CREATED);
 
     return topicDraft;
   }
@@ -89,13 +89,13 @@ public class OkrTopicDraftService {
    *
    * @param topicDraftId   a long value
    * @param noteTopicDraft a {@link NoteTopicDraft} object
-   * @param user           an {@link User} object
+   * @param IUser          an {@link IUser} object
    * @return a {@link Note} object
    */
   @Transactional
-  public NoteTopicDraft createNote(long topicDraftId, NoteTopicDraft noteTopicDraft, User user) {
+  public NoteTopicDraft createNote(long topicDraftId, NoteTopicDraft noteTopicDraft, IUser IUser) {
     noteTopicDraft.setId(null);
-    noteTopicDraft.setUserId(user.getId());
+    noteTopicDraft.setUserId(IUser.getId());
     noteTopicDraft.setDate(LocalDateTime.now());
 
     noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);
@@ -103,12 +103,12 @@ public class OkrTopicDraftService {
       "Added Note with id "
         + noteTopicDraft.getId()
         + " from User "
-        + user.getGivenName()
+        + IUser.getGivenName()
         + " "
-        + user.getSurname()
+        + IUser.getSurname()
         + " to KeyResult "
         + topicDraftId);
-    activityService.createActivity(user, noteTopicDraft, Action.CREATED);
+    activityService.createActivity(IUser, noteTopicDraft, Action.CREATED);
 
     return noteTopicDraft;
   }

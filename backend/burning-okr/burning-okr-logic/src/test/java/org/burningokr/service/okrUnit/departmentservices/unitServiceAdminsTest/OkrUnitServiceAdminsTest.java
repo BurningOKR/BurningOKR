@@ -5,7 +5,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.UnitRepository;
@@ -37,7 +37,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
   @Mock
   protected TaskBoardService taskBoardService;
   @Mock
-  protected User user;
+  protected IUser IUser;
   @Mock
   protected EntityCrawlerService entityCrawlerService;
   @Mock
@@ -79,7 +79,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
         });
     when(unitRepository.save(any(getDepartment()))).thenReturn(childUnit);
 
-    okrUnitServiceAdmins.createChildUnit(departmentId, childUnit, user);
+    okrUnitServiceAdmins.createChildUnit(departmentId, childUnit, IUser);
 
     assertEquals(departmentId, childUnit.getParentOkrUnit().getId());
 
@@ -94,7 +94,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
     assertThrows(ForbiddenException.class, () -> {
-      okrUnitServiceAdmins.createChildUnit(10L, createDepartment(), user);
+      okrUnitServiceAdmins.createChildUnit(10L, createDepartment(), IUser);
     });
   }
 
@@ -105,7 +105,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
     assertThrows(ForbiddenException.class, () -> {
-      okrUnitServiceAdmins.updateUnit(createDepartment(), user);
+      okrUnitServiceAdmins.updateUnit(createDepartment(), IUser);
     });
   }
 
@@ -116,7 +116,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
     assertThrows(ForbiddenException.class, () -> {
-      okrUnitServiceAdmins.deleteUnit(10L, user);
+      okrUnitServiceAdmins.deleteUnit(10L, IUser);
     });
   }
 
@@ -127,7 +127,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
 
     when(unitRepository.findByIdOrThrow(any(Long.class))).thenReturn(unit);
 
-    okrUnitServiceAdmins.createObjective(departmentId, objective, user);
+    okrUnitServiceAdmins.createObjective(departmentId, objective, IUser);
 
     assertNotNull(objective.getParentOkrUnit().getId());
     assertEquals(departmentId, objective.getParentOkrUnit().getId());
@@ -143,7 +143,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     when(unitRepository.save(any(getDepartment()))).thenReturn(updatedUnit);
     when(unitRepository.findByIdOrThrow(anyLong())).thenReturn(unit);
 
-    unit = okrUnitServiceAdmins.updateUnit(updatedUnit, user);
+    unit = okrUnitServiceAdmins.updateUnit(updatedUnit, IUser);
 
     assertEquals(updateName, unit.getName());
   }
@@ -157,7 +157,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     when(unitRepository.save(any(getDepartment()))).thenReturn(updateUnit);
     when(unitRepository.findByIdOrThrow(anyLong())).thenReturn(unit);
 
-    unit = okrUnitServiceAdmins.updateUnit(updateUnit, user);
+    unit = okrUnitServiceAdmins.updateUnit(updateUnit, IUser);
 
     assertTrue(unit.isActive());
   }

@@ -3,8 +3,8 @@ package org.burningokr.service.topicDraft;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
+import org.burningokr.model.users.IUser;
 import org.burningokr.model.users.LocalUser;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.userhandling.AdminUserService;
@@ -34,7 +34,7 @@ public class OkrTopicDraftServiceTest {
   @Mock
   private OkrTopicDraftRepository okrTopicDraftRepository;
   @Mock
-  private User user;
+  private IUser IUser;
   @Mock
   private ActivityService activityService;
 
@@ -49,7 +49,7 @@ public class OkrTopicDraftServiceTest {
   private OkrTopicDraft okrTopicDraft;
   private OkrTopicDraft okrTopicDraft2;
   private OkrTopicDraft okrTopicDraft3;
-  private User currentUser;
+  private IUser currentIUser;
   private Long okrTopicDraftId = 10L;
   private Long okrTopicDraftId2 = 11L;
   private Long okrTopicDraftId3 = 12L;
@@ -60,12 +60,12 @@ public class OkrTopicDraftServiceTest {
     okrTopicDraft = new OkrTopicDraft();
     okrTopicDraft2 = new OkrTopicDraft();
     okrTopicDraft3 = new OkrTopicDraft();
-    currentUser = new LocalUser();
+    currentIUser = new LocalUser();
     currentUserId = new UUID(1L, 1L);
     okrTopicDraft.setId(okrTopicDraftId);
     okrTopicDraft2.setId(okrTopicDraftId2);
     okrTopicDraft3.setId(okrTopicDraftId3);
-    currentUser.setId(currentUserId);
+    currentIUser.setId(currentUserId);
   }
 
   @Test
@@ -90,7 +90,7 @@ public class OkrTopicDraftServiceTest {
     topicDrafts.add(okrTopicDraft2);
     topicDrafts.add(okrTopicDraft3);
 
-    when(userService.getCurrentUser()).thenReturn(currentUser);
+    when(userService.getCurrentUser()).thenReturn(currentIUser);
     when(adminUserService.isCurrentUserAdmin()).thenReturn(false);
     when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
 
@@ -112,7 +112,7 @@ public class OkrTopicDraftServiceTest {
     topicDrafts.add(okrTopicDraft2);
     topicDrafts.add(okrTopicDraft3);
 
-    when(userService.getCurrentUser()).thenReturn(currentUser);
+    when(userService.getCurrentUser()).thenReturn(currentIUser);
     when(adminUserService.isCurrentUserAdmin()).thenReturn(true);
     when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
 
@@ -134,7 +134,7 @@ public class OkrTopicDraftServiceTest {
     topicDrafts.add(okrTopicDraft2);
     topicDrafts.add(okrTopicDraft3);
 
-    when(userService.getCurrentUser()).thenReturn(currentUser);
+    when(userService.getCurrentUser()).thenReturn(currentIUser);
     when(adminUserService.isCurrentUserAdmin()).thenReturn(false);
     when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
 
@@ -147,7 +147,7 @@ public class OkrTopicDraftServiceTest {
   public void deleteTopicDraft_expectedTopicDraftIsDeleted() {
     when(okrTopicDraftRepository.findByIdOrThrow(okrTopicDraftId)).thenReturn(okrTopicDraft);
 
-    okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId, user);
+    okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId, IUser);
 
     verify(okrTopicDraftRepository).deleteById(okrTopicDraftId);
   }
@@ -156,9 +156,9 @@ public class OkrTopicDraftServiceTest {
   public void test_deleteObjective_ExpectedActivityGotCreated() {
     when(okrTopicDraftRepository.findByIdOrThrow(okrTopicDraftId)).thenReturn(okrTopicDraft);
 
-    okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId, user);
+    okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId, IUser);
 
-    verify(activityService).createActivity(user, this.okrTopicDraft, Action.DELETED);
+    verify(activityService).createActivity(IUser, this.okrTopicDraft, Action.DELETED);
   }
 
   @Test
@@ -167,7 +167,7 @@ public class OkrTopicDraftServiceTest {
 
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    okrTopicDraftService.createTopicDraft(topicDraft, user);
+    okrTopicDraftService.createTopicDraft(topicDraft, IUser);
 
     verify(okrTopicDraftRepository).save(any());
   }
@@ -178,9 +178,9 @@ public class OkrTopicDraftServiceTest {
 
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    okrTopicDraftService.createTopicDraft(topicDraft, user);
+    okrTopicDraftService.createTopicDraft(topicDraft, IUser);
 
-    verify(activityService).createActivity(eq(user), any(), eq(Action.CREATED));
+    verify(activityService).createActivity(eq(IUser), any(), eq(Action.CREATED));
   }
 
   @Test
@@ -189,7 +189,7 @@ public class OkrTopicDraftServiceTest {
 
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    okrTopicDraftService.createTopicDraft(topicDraft, user);
+    okrTopicDraftService.createTopicDraft(topicDraft, IUser);
     assertNull(topicDraft.getParentUnit());
   }
 
@@ -199,7 +199,7 @@ public class OkrTopicDraftServiceTest {
 
     when(okrTopicDraftRepository.save(any())).thenReturn(topicDraft);
 
-    okrTopicDraftService.createTopicDraft(topicDraft, user);
+    okrTopicDraftService.createTopicDraft(topicDraft, IUser);
     assertEquals(OkrTopicDraftStatusEnum.draft, topicDraft.getCurrentStatus());
   }
 }

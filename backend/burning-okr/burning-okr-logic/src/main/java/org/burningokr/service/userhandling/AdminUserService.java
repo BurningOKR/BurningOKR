@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.users.AdminUser;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.users.AdminUserRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,9 +47,9 @@ public class AdminUserService {
    * Add an Admin User.
    *
    * @param newAdminUser an {@link AdminUser} object
-   * @return an {@link User} object
+   * @return an {@link IUser} object
    */
-  public User addAdmin(AdminUser newAdminUser) {
+  public IUser addAdmin(AdminUser newAdminUser) {
     UUID newAdminUuid = newAdminUser.getId();
     AdminUser newAdmin = new AdminUser();
     newAdmin.setId(newAdminUuid);

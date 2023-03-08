@@ -18,7 +18,7 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.okrUnit.OkrUnitService;
 import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
@@ -126,7 +126,7 @@ public class OkrUnitController {
   @PutMapping(value = "/units/{unitId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<OkrChildUnitDto> updateUnit(
     @PathVariable long unitId,
-    @RequestBody OkrChildUnitDto okrChildUnitDto, User user
+    @RequestBody OkrChildUnitDto okrChildUnitDto, IUser IUser
   ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
       okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
@@ -137,7 +137,7 @@ public class OkrUnitController {
 
     receivedUnit.setId(unitId);
 
-    OkrChildUnit updateUnit = okrUnitService.updateUnit(receivedUnit, user);
+    OkrChildUnit updateUnit = okrUnitService.updateUnit(receivedUnit, IUser);
 
     return ResponseEntity.ok((OkrChildUnitDto) mapper.mapEntityToDto(updateUnit));
   }
@@ -147,7 +147,7 @@ public class OkrUnitController {
    *
    * @param unitId       a long value
    * @param objectiveDto an {@link ObjectiveDto} object
-   * @param user         an {@link User} object
+   * @param IUser        an {@link IUser} object
    * @return a {@link ResponseEntity} ok with the added objective
    */
   @PostMapping("/units/{unitId}/objectives")
@@ -157,23 +157,23 @@ public class OkrUnitController {
     @Valid
     @RequestBody
     ObjectiveDto objectiveDto,
-    User user
+    IUser IUser
   ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
       okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
-    objective = okrUnitService.createObjective(unitId, objective, user);
+    objective = okrUnitService.createObjective(unitId, objective, IUser);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
   @DeleteMapping("/units/{unitId}")
   public ResponseEntity deleteUnit(
-    @PathVariable long unitId, User user
+    @PathVariable long unitId, IUser IUser
   ) {
     OkrUnitService<OkrChildUnit> okrUnitService =
       okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
-    okrUnitService.deleteUnit(unitId, user);
+    okrUnitService.deleteUnit(unitId, IUser);
     return ResponseEntity.ok().build();
   }
 }

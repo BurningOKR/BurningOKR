@@ -63,7 +63,7 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
     when(unitRepository.findByIdOrThrow(anyLong())).thenReturn(okrBranch);
 
     assertThrows(InvalidDeleteRequestException.class, () -> {
-      okrUnitServiceAdmins.deleteUnit(13L, user);
+      okrUnitServiceAdmins.deleteUnit(13L, IUser);
     });
   }
 
@@ -72,7 +72,7 @@ public class OkrUnitServiceAdminsTest_OkrBranch extends OkrUnitServiceAdminsTest
     OkrBranch okrBranch = new OkrBranch();
     okrBranch.setId(1L);
 
-    okrUnitServiceAdmins.deleteUnit(okrBranch.getId(), user);
+    okrUnitServiceAdmins.deleteUnit(okrBranch.getId(), IUser);
 
     verify(unitRepository).deleteById(okrBranch.getId());
     verify(okrTopicDescriptionService, never()).safeDeleteOkrTopicDescription(any(), any());

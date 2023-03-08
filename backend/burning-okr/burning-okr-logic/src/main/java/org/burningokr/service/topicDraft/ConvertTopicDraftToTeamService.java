@@ -7,7 +7,7 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.exceptions.NotApprovedException;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrUnitService;
@@ -25,7 +25,7 @@ public class ConvertTopicDraftToTeamService {
   private final OkrUnitServiceFactory<OkrDepartment> okrDepartmentOkrUnitServiceFactory;
 
   @Transactional
-  public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId, User user) {
+  public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId, IUser IUser) {
     OkrTopicDraft topicDraft = okrTopicDraftService.findById(topicDraftId);
 
     if (!OkrTopicDraftStatusEnum.approved.equals(topicDraft.getCurrentStatus())) {
@@ -33,54 +33,54 @@ public class ConvertTopicDraftToTeamService {
         "TopicDraft has to be approved before it can be converted to a team");
     }
 
-    OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), user);
+    OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), IUser);
     copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
-    okrDepartment = writeOkrDepartmentToDatabase(okrDepartment, user);
-    deleteTopicDraft(topicDraft, user);
+    okrDepartment = writeOkrDepartmentToDatabase(okrDepartment, IUser);
+    deleteTopicDraft(topicDraft, IUser);
 
     return okrDepartment;
   }
 
-  private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, User user) {
+  private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, IUser IUser) {
     String standardLabel = "Team";
 
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setName(name);
     okrDepartment.setLabel(standardLabel);
 
-    return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId, user);
+    return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId, IUser);
   }
 
   private OkrDepartment createOkrDepartmentInDatabase(
-    OkrDepartment okrDepartment, long parentOkrUnitId, User user
+    OkrDepartment okrDepartment, long parentOkrUnitId, IUser IUser
   ) {
     Collection<OkrCompany> okrCompanyCollection = companyService.getAllCompanies();
     if (okrCompanyCollection.stream().anyMatch(company -> company.getId() == parentOkrUnitId)) {
-      return createOkrDepartmentUnderneathCompany(okrDepartment, parentOkrUnitId, user);
+      return createOkrDepartmentUnderneathCompany(okrDepartment, parentOkrUnitId, IUser);
     } else {
-      return createOkrDepartmentUnderneathBranch(okrDepartment, parentOkrUnitId, user);
+      return createOkrDepartmentUnderneathBranch(okrDepartment, parentOkrUnitId, IUser);
     }
   }
 
   private OkrDepartment createOkrDepartmentUnderneathCompany(
-    OkrDepartment okrDepartment, long parentOkrUnitId, User user
+    OkrDepartment okrDepartment, long parentOkrUnitId, IUser IUser
   ) {
-    return companyService.createDepartment(parentOkrUnitId, okrDepartment, user);
+    return companyService.createDepartment(parentOkrUnitId, okrDepartment, IUser);
   }
 
   private OkrDepartment createOkrDepartmentUnderneathBranch(
-    OkrDepartment okrDepartment, long parentOkrUnitId, User user
+    OkrDepartment okrDepartment, long parentOkrUnitId, IUser IUser
   ) {
     OkrUnitService<OkrDepartment> okrDepartmentService =
       okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(parentOkrUnitId);
     return (OkrDepartment)
-      okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, user);
+      okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, IUser);
   }
 
-  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, User user) {
+  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, IUser IUser) {
     OkrUnitService<OkrDepartment> okrDepartmentService =
       okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(okrDepartment.getId());
-    return okrDepartmentService.updateUnit(okrDepartment, user);
+    return okrDepartmentService.updateUnit(okrDepartment, IUser);
   }
 
   private void copyValuesFromOkrTopicDraftToOkrDepartment(
@@ -101,7 +101,7 @@ public class ConvertTopicDraftToTeamService {
     topicDescription.setHandoverPlan(topicDraft.getHandoverPlan());
   }
 
-  private void deleteTopicDraft(OkrTopicDraft topicDraft, User user) {
-    okrTopicDraftService.deleteTopicDraftById(topicDraft.getId(), user);
+  private void deleteTopicDraft(OkrTopicDraft topicDraft, IUser IUser) {
+    okrTopicDraftService.deleteTopicDraftById(topicDraft.getId(), IUser);
   }
 }

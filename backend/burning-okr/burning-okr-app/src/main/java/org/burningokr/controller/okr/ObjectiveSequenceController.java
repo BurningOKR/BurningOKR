@@ -1,7 +1,7 @@
 package org.burningokr.controller.okr;
 
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.ObjectiveService;
 import org.burningokr.service.security.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class ObjectiveSequenceController {
    *
    * @param okrUnitId    a long value
    * @param sequenceList a {@ling Collection} of long values
-   * @param user         an {@link User} object
+   * @param IUser        an {@link IUser} object
    * @return a {@link ResponseEntity} ok
    * @throws Exception if sequence list is invalid
    */
@@ -46,10 +46,10 @@ public class ObjectiveSequenceController {
   @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#okrUnitId)")
   public ResponseEntity updateSequenceOf(
     @PathVariable long okrUnitId,
-    @RequestBody Collection<Long> sequenceList, User user
+    @RequestBody Collection<Long> sequenceList, IUser IUser
   )
     throws Exception {
-    objectiveService.updateSequence(okrUnitId, sequenceList, user);
+    objectiveService.updateSequence(okrUnitId, sequenceList, IUser);
 
     return ResponseEntity.ok().build();
   }
