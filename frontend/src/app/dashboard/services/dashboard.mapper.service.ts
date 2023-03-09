@@ -72,12 +72,11 @@ export class DashboardMapperService {
     };
   }
 
-  //TODO: Dashboard enthält keine Company ID, das Dto schon.
   mapUiToDto(dashboard: Dashboard): DashboardCreationDto {
     return {
-      companyId: dashboard.companyId,
       id: dashboard.id,
       title: dashboard.title,
+      companyId: dashboard.companyId,
       creatorId: +dashboard.creator.id,
       // creationDate: dashboard.creationDate,
       chartCreationOptions: dashboard.charts.map(this.chartMapper.mapEntityToDto),
@@ -88,6 +87,7 @@ export class DashboardMapperService {
   //   return {
   //     id: dashboard.id,
   //     title: dashboard.title,
+  //     companyId: dashboard.companyId,
   //     creator: dashboard.creator,
   //     creationDate: dashboard.creationDate,
   //     chartDtos: dashboard.charts.map(this.chartMapper.mapEntityToDto),

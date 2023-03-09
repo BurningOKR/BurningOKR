@@ -22,7 +22,6 @@ export class EditDashboardComponent implements OnInit {
       switchMap((dashboardId: number) => this.dashboardService.getDashboardById$(dashboardId)),
       filter(dashboard => !!dashboard),
     );
-    this.dashboard$.subscribe(console.log);
   }
 
   updateDashboard(dashboard: Dashboard): void {

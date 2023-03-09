@@ -249,13 +249,13 @@ public class CompanyService {
     return okrDepartment;
   }
 
-  public Collection<OkrDepartment> getDepartmentsOfCompany(Long companyId) {
-    return this.findById(companyId).getOkrChildUnits()
-      .stream()
-      .filter(childUnit -> childUnit instanceof OkrDepartment)
-      .map(childUnitWhichIsInstanceOfOkrDepartment -> (OkrDepartment) childUnitWhichIsInstanceOfOkrDepartment)
-      .collect(Collectors.toList());
-  }
+//  public Collection<OkrDepartment> getDepartmentsOfCompany(Long companyId) {
+//    return this.findById(companyId).getOkrChildUnits()
+//      .stream()
+//      .filter(childUnit -> childUnit instanceof OkrDepartment)
+//      .map(childUnitWhichIsInstanceOfOkrDepartment -> (OkrDepartment) childUnitWhichIsInstanceOfOkrDepartment)
+//      .collect(Collectors.toList());
+//  }
 
   @Transactional
   public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch, User user) {

@@ -47,7 +47,7 @@ public class DashboardController {
   @PostMapping("/dashboards/edit")
   public ResponseEntity<DashboardCreationDto> updateDashboard(@RequestBody DashboardCreationDto dashboardCreationDto, User user) {
     System.out.println("Inside updateDashboard im Backend!");
-    return null;
+    return null; //TODO
 //    DashboardCreation dashboard = dashboardCreationMapper.mapDtoToEntity(dashboardDto);
 //    dashboard = dashboardService.createDashboard(dashboard, user);
 //    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboard));
@@ -64,9 +64,7 @@ public class DashboardController {
     @PathVariable long dashboardId
   ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
-    dashboardCreation.getChartCreationOptions().forEach(cco -> System.out.println("Team IDs of DashboardCreation: " + cco.getTeamIds()));
     DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
-    dashboardDto.getChartDtos().forEach(bcd -> System.out.println("Team IDs of DashboardDto: " + bcd.getSelectedTeamIds()));
     return ResponseEntity.ok(dashboardDto);
   }
 
