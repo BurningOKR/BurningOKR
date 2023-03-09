@@ -198,7 +198,7 @@ public class CompanyController {
   /**
    * API Endpoint to add an Objective to a OkrDepartment.
    *
-   * @param companyId        a ong value
+   * @param companyId        a long value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
    * @param user             an {@link User} object
    * @return a {@link ResponseEntity} ok with a OkrDepartment
@@ -217,6 +217,19 @@ public class CompanyController {
     okrDepartment.setId(null);
     okrDepartment = this.companyService.createDepartment(companyId, okrDepartment, user);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
+  }
+
+  /**
+   * API Endpoint to get the OkrDepartments of OkrCompany
+   * @param companyId a long value
+   * @return a {@link ResponseEntity} ok with a Collection<OkrDepartment>
+   */
+  @GetMapping("/companies/{companyId}/departments")
+  public ResponseEntity<Collection<OkrDepartmentDto>> getDepartmentsOfCompany(
+    @PathVariable long companyId
+  ) {
+    Collection<OkrDepartment> okrDepartments = this.companyService.getDepartmentsOfCompany(companyId);
+    return ResponseEntity.ok(departmentMapper.mapEntitiesToDtos(okrDepartments));
   }
 
   @PostMapping("/companies/{companyId}/branch")
