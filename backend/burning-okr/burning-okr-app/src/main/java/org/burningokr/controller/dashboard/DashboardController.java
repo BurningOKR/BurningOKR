@@ -11,6 +11,7 @@ import org.burningokr.service.dashboard.DashboardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.Collection;
 
 @RequiredArgsConstructor
@@ -64,7 +65,9 @@ public class DashboardController {
     @PathVariable long dashboardId
   ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
+    dashboardCreation.getChartCreationOptions().forEach(cco -> System.out.println("Team IDs of DashboardCreation: " + cco.getTeamIds()));
     DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
+    dashboardDto.getChartDtos().forEach(bcd -> System.out.println("Team IDs of DashboardDto: " + bcd.getTeamIDs()));
     return ResponseEntity.ok(dashboardDto);
   }
 

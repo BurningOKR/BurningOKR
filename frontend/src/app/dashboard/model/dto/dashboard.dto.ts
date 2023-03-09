@@ -4,6 +4,7 @@ import { BaseChartOptionsDto } from './chart-options/base-chart-options.dto';
 export class DashboardDto {
   id: number;
   title: string;
+  companyId: number;
   creator: User;
   chartDtos: BaseChartOptionsDto[];
   creationDate: Date;

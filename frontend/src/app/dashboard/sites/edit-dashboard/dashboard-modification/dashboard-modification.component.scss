@@ -15,3 +15,22 @@
   margin-top: 75px;
   text-align: center;
 }
+
+.edit-chart {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+@media (max-width: 780px) {
+  .edit-chart {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.edit-chart-options {
+  display: flex;
+  flex-direction: column;
+  height: 30VH;
+  width: 300px;
+}

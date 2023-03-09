@@ -4,6 +4,7 @@ import { BaseChartOptions } from './base-chart-options';
 export interface Dashboard {
   id: number;
   title: string;
+  companyId: number;
   creator: User;
   charts: BaseChartOptions[];
   creationDate: Date;

@@ -20,6 +20,9 @@ export class DashboardMapperService {
     const lineChartOptions: LineChartOptionsDto = new LineChartOptionsDto();
     lineChartOptions.chart = chartOptionsDto.chart;
     lineChartOptions.title = chartOptionsDto.title;
+    console.log(`Teams ID before Map: ${chartOptionsDto.teamIds}`);
+    lineChartOptions.teamIds = chartOptionsDto.teamIds;
+    console.log(`Teams ID after Map: ${lineChartOptions.teamIds}`);
     lineChartOptions.xaxisCategories = chartOptionsDto.xaxisCategories;
     lineChartOptions.series = chartOptionsDto.series;
 
@@ -30,6 +33,9 @@ export class DashboardMapperService {
     const pieChartOptions: PieChartOptionsDto = new PieChartOptionsDto();
     pieChartOptions.chart = chartOptionsDto.chart;
     pieChartOptions.title = chartOptionsDto.title;
+    console.log(`Teams ID before Map: ${chartOptionsDto.teamIds}`);
+    pieChartOptions.teamIds = chartOptionsDto.teamIds;
+    console.log(`Teams ID after Map: ${pieChartOptions.teamIds}`);
     pieChartOptions.series = chartOptionsDto.series;
     pieChartOptions.valueLabels = chartOptionsDto.valueLabels;
 
@@ -37,10 +43,14 @@ export class DashboardMapperService {
   }
 
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
+    console.log(dashboardDto.chartDtos.map(chart => {
+      console.log(`Team IDs: ${chart.teamIds}`);
+    }));
 
     return {
       id: dashboardDto.id,
       title: dashboardDto.title,
+      companyId: dashboardDto.companyId,
       creator: dashboardDto.creator,
       charts: dashboardDto.chartDtos.map(chartDto => {
         let chartOptions: BaseChartOptionsDto;
@@ -65,7 +75,7 @@ export class DashboardMapperService {
   //TODO: Dashboard enthält keine Company ID, das Dto schon.
   mapUiToDto(dashboard: Dashboard): DashboardCreationDto {
     return {
-      companyId: 0,
+      companyId: dashboard.companyId,
       id: dashboard.id,
       title: dashboard.title,
       creatorId: +dashboard.creator.id,

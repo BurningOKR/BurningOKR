@@ -6,4 +6,5 @@ import lombok.Data;
 public abstract class BaseChartOptionsDto {
   String title;
   int chart;
+  long[] teamIDs; // NEW
 }

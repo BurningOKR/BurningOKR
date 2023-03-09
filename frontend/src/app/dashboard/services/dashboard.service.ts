@@ -39,6 +39,7 @@ export class DashboardService {
     console.log(`Creation date: ${dashboard.creationDate}`);
     for (const chart of dashboard.charts) {
       console.log(`Chart: ${chart.title.text}`);
+      console.log(`Team IDs: ${chart.teamIds}`);
     }
 
     return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
