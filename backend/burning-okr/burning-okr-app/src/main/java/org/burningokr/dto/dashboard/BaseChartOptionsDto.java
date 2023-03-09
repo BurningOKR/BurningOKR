@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public abstract class BaseChartOptionsDto {
   String title;
-  int chart;
+  int chartType;
   long[] teamIDs; // NEW
 }

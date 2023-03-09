@@ -78,7 +78,7 @@ public class LineChartService {
     }
     lineChartOptionsDto.setTitle(chartCreationOptions.getTitle());
     lineChartOptionsDto.setXAxisCategories(getProgressXAxis(startDate, numberOfDays));
-    lineChartOptionsDto.setChart(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
+    lineChartOptionsDto.setChartType(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
     return lineChartOptionsDto;
   }
 

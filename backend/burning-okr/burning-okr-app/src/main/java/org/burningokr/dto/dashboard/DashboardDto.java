@@ -9,6 +9,7 @@ import java.util.Collection;
 public class DashboardDto {
   private Long id;
   private String title;
+  private Long companyId;
   private User creator;
   private Collection<BaseChartOptionsDto> chartDtos;
 }

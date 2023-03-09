@@ -18,7 +18,7 @@ export class DashboardMapperService {
 
   static mapLineChartOptions(chartOptionsDto: LineChartOptionsDto): LineChartOptionsDto {
     const lineChartOptions: LineChartOptionsDto = new LineChartOptionsDto();
-    lineChartOptions.chart = chartOptionsDto.chart;
+    lineChartOptions.chartType = chartOptionsDto.chartType;
     lineChartOptions.title = chartOptionsDto.title;
     console.log(`Teams ID before Map: ${chartOptionsDto.teamIds}`);
     lineChartOptions.teamIds = chartOptionsDto.teamIds;
@@ -31,7 +31,7 @@ export class DashboardMapperService {
 
   static mapPieChartOptions(chartOptionsDto: PieChartOptionsDto): PieChartOptionsDto {
     const pieChartOptions: PieChartOptionsDto = new PieChartOptionsDto();
-    pieChartOptions.chart = chartOptionsDto.chart;
+    pieChartOptions.chartType = chartOptionsDto.chartType;
     pieChartOptions.title = chartOptionsDto.title;
     console.log(`Teams ID before Map: ${chartOptionsDto.teamIds}`);
     pieChartOptions.teamIds = chartOptionsDto.teamIds;
@@ -54,7 +54,7 @@ export class DashboardMapperService {
       creator: dashboardDto.creator,
       charts: dashboardDto.chartDtos.map(chartDto => {
         let chartOptions: BaseChartOptionsDto;
-        switch (chartDto.chart) {
+        switch (chartDto.chartType) {
           case ChartInformationTypeEnum.LINE_PROGRESS:
             chartOptions = DashboardMapperService.mapLineChartOptions(chartDto as LineChartOptionsDto);
             break;

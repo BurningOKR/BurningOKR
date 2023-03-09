@@ -29,6 +29,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
     DashboardDto dto = new DashboardDto();
     dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
+    dto.setCompanyId(entity.getCompanyId());
     dto.setCreator(userService.findById(entity.getCreatorId()));
 
     Collection<BaseChartOptionsDto> chartOptionsDtos =

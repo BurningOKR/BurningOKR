@@ -16,6 +16,7 @@ export class LineChartOptionsDto extends BaseChartOptionsDto {
         enabled: true,
       },
     };
+    lineChartOptions.chartType = this.chartType;
     lineChartOptions.dataLabels = {
       enabled: false,
     };

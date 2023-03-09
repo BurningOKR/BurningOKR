@@ -8,6 +8,8 @@
 
 <app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>
 
-<app-dashboard-modification (updateDashboard)="updateDashboard($event)" [dashboard]="dashboard$ | async">
+<div *ngIf="(dashboard$ | async) as db">
+  <app-dashboard-modification (updateDashboard)="updateDashboard($event)" [dashboard]="db">
 
-</app-dashboard-modification>
+  </app-dashboard-modification>
+</div>
