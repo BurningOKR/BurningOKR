@@ -111,7 +111,7 @@ function getLineChartOptionsDto(): LineChartOptionsDto {
   lineChartOptionsDto.title = 'Test Line Chart';
   lineChartOptionsDto.series = [{ data: [1, 2], name: 'lineName' }];
   lineChartOptionsDto.xaxisCategories = ['a', 'b'];
-  lineChartOptionsDto.chart = ChartInformationTypeEnum.LINE_PROGRESS;
+  lineChartOptionsDto.chartType = ChartInformationTypeEnum.LINE_PROGRESS;
 
   return lineChartOptionsDto;
 }
@@ -121,7 +121,7 @@ function getPieChartOptionsDto(): PieChartOptionsDto {
   pieChartOptionsDto.title = 'Test Pie Chart';
   pieChartOptionsDto.series = [1, 2, 3, 4, 5];
   pieChartOptionsDto.valueLabels = ['a,b,c,d,e'];
-  pieChartOptionsDto.chart = ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW;
+  pieChartOptionsDto.chartType = ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW;
 
   return pieChartOptionsDto;
 }

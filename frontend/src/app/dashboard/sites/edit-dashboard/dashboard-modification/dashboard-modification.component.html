@@ -1,64 +1,66 @@
-<div *ngIf="dashboard">
-  <span class="edit-dashboard-title">
+<span class="edit-dashboard-title">
       <mat-form-field>
         <input [(ngModel)]="dashboard.title" matInput
                placeholder="{{'create-dashboard.dashboard-title-placeholder' | translate}}">
       </mat-form-field>
   </span>
 
-  <div class="edit-chart">
-    <div *ngFor="let chart of dashboard.charts" class="edit-chart-options">
-      <mat-form-field>
-        <input [(ngModel)]="chart.title.text" matInput
-               placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">
-      </mat-form-field>
+<div class="edit-chart">
+  <div *ngFor="let chart of dashboard.charts" class="edit-chart-options">
+    <mat-form-field>
+      <input [(ngModel)]="chart.title.text" matInput
+             placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">
+    </mat-form-field>
 
-      <!--      <mat-form-field>-->
-      <!--        <mat-select (selectionChange)="chartTypeSelected($event)"-->
-      <!--                    placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">-->
-      <!--          <mat-option *ngFor="let chartType of chart.chart.type"-->
-      <!--                      value="{{chartType}}">-->
+    <!--      <p>{{chart.chart.type}}</p>-->
+    <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
-      <!--          </mat-option>-->
-      <!--        </mat-select>-->
-      <!--      </mat-form-field>-->
-      <mat-form-field>
-        <input [(ngModel)]="chart.chart.type" matInput placeholder="Diagramm Typ">
-        <!--             placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">-->
-      </mat-form-field>
+    <!--            <mat-form-field>-->
+    <!--              <mat-select (selectionChange)="chartTypeSelected($event)"-->
+    <!--                          placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">-->
+    <!--                <mat-option *ngFor="let chartType of chart.chart.type"-->
+    <!--                            value="{{chartType}}">-->
 
-      <!--      <mat-form-field *ngIf="teamIsSelectable">-->
-      <!--        <mat-select [(value)]="chart.teamIds" multiple-->
-      <!--                    placeholder="{{'create-dashboard.select-teams-placeholder' | translate}}">-->
-      <!--          <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>-->
-      <!--        </mat-select>-->
-      <!--      </mat-form-field>-->
+    <!--                </mat-option>-->
+    <!--              </mat-select>-->
+    <!--            </mat-form-field>-->
+    <!--      <mat-form-field>-->
+    <!--        <input [(ngModel)]="chart.chart.type" matInput placeholder="Diagramm Typ">-->
+    <!--        &lt;!&ndash;             placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">&ndash;&gt;-->
+    <!--      </mat-form-field>-->
 
-      <mat-form-field>
-        <input [(ngModel)]="chart.teamIds" matInput placeholder="Team IDs">
-        <!--             placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">-->
-      </mat-form-field>
+    <!--      <mat-form-field *ngIf="teamIsSelectable">-->
+    <!--        <mat-select [(value)]="chart.teamIds" multiple-->
+    <!--                    placeholder="{{'create-dashboard.select-teams-placeholder' | translate}}">-->
+    <!--          <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>-->
+    <!--        </mat-select>-->
+    <!--      </mat-form-field>-->
 
-      <div *ngIf="allTeams$ | async; let teams">
-        {{'chart-options-card.teams' | translate}}
-        <p *ngFor="let team of teams" class="chart-team-list">
-          {{team.name}}</p>
-        <!--        <p *ngIf="!chart.teamIds.length" class="chart-team-list">-->
-        <!--          {{'chart-options-card.company-average' | translate}}-->
-        <!--        </p>-->
-      </div>
+    <mat-form-field>
+      <input [(ngModel)]="chart.teamIds" matInput placeholder="Team IDs">
+      <!--             placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">-->
+    </mat-form-field>
 
-      <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
-              matTooltip="{{'edit-dashboard.delete-chart-button.tooltip' | translate}}">
-        <mat-icon>delete</mat-icon>
-      </button>
+    <div *ngIf="allTeams$ | async; let teams">
+      {{'chart-options-card.teams' | translate}}
+      <p *ngFor="let team of teams" class="chart-team-list">
+        {{team.name}}</p>
+      <!--        <p *ngIf="!chart.teamIds.length" class="chart-team-list">-->
+      <!--          {{'chart-options-card.company-average' | translate}}-->
+      <!--        </p>-->
     </div>
-  </div>
 
-  <div class="button-save-dashboard">
-    <button (click)="updateDashboard.emit(dashboard)" mat-stroked-button>
-      <mat-icon>add_circle_outline</mat-icon>
-      {{'edit-dashboard.save-dashboard-button' | translate}}
+    <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
+            matTooltip="{{'edit-dashboard.delete-chart-button.tooltip' | translate}}">
+      <mat-icon>delete</mat-icon>
     </button>
   </div>
 </div>
+
+<div class="button-save-dashboard">
+  <button (click)="updateDashboard.emit(dashboard)" mat-stroked-button>
+    <mat-icon>add_circle_outline</mat-icon>
+    {{'edit-dashboard.save-dashboard-button' | translate}}
+  </button>
+</div>
+

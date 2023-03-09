@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Dashboard } from '../../model/ui/dashboard';
-import { map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -20,7 +20,9 @@ export class EditDashboardComponent implements OnInit {
     this.dashboard$ = this.activatedRoute.paramMap.pipe(
       map(params => +params.get('dashboardId')),
       switchMap((dashboardId: number) => this.dashboardService.getDashboardById$(dashboardId)),
+      filter(dashboard => !!dashboard),
     );
+    this.dashboard$.subscribe(console.log);
   }
 
   updateDashboard(dashboard: Dashboard): void {

@@ -17,6 +17,7 @@ export class PieChartOptionsDto extends BaseChartOptionsDto {
       width: 400,
       type: 'pie',
     };
+    pieChartOptions.chartType = this.chartType;
     pieChartOptions.labels = this.valueLabels;
     pieChartOptions.responsive = [
       {

@@ -29,7 +29,8 @@ export class DashboardModificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
+    console.log(this.dashboard.title);
+    // this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
   }
 
   // getTeamsOfChart(allTeams: OkrDepartment[]): OkrDepartment[] {
