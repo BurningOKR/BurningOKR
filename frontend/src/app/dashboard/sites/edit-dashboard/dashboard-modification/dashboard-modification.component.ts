@@ -25,8 +25,14 @@ export class DashboardModificationComponent implements OnInit {
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
   }
 
-  teamIsSelectable(chart: BaseChartOptions): boolean {
-    return !!chart.selectedTeamIds;
+  /**
+   * Not all Chart Types can have Teams assigned to them.
+   * For those who can't selectedTeamIds is null.
+   *
+   * @param curr_chart
+   */
+  teamIsSelectable(curr_chart: BaseChartOptions): boolean {
+    return !!curr_chart.selectedTeamIds;
   }
 
   deleteChart(chartToDelete: BaseChartOptions): void {

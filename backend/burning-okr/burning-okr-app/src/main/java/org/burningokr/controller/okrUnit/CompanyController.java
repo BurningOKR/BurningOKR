@@ -219,19 +219,6 @@ public class CompanyController {
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
 
-//  /**
-//   * API Endpoint to get the OkrDepartments of OkrCompany
-//   * @param companyId a long value
-//   * @return a {@link ResponseEntity} ok with a Collection<OkrDepartment>
-//   */
-//  @GetMapping("/companies/{companyId}/departments")
-//  public ResponseEntity<Collection<OkrDepartmentDto>> getDepartmentsOfCompany(
-//    @PathVariable long companyId
-//  ) {
-//    Collection<OkrDepartment> okrDepartments = companyService.getDepartmentsOfCompany(companyId);
-//    return ResponseEntity.ok(departmentMapper.mapEntitiesToDtos(okrDepartments));
-//  }
-
   @PostMapping("/companies/{companyId}/branch")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrBranchDto> addBranchToCompanyById(
