@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,21 +28,17 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
 
   @Override
   public DashboardDto mapEntityToDto(DashboardCreation entity) {
-    DashboardDto dto = new DashboardDto();
-    dto.setId(entity.getId());
-    dto.setTitle(entity.getTitle());
-    dto.setCompanyId(entity.getCompanyId());
-    dto.setCreator(userService.findById(entity.getCreatorId()));
+    Collection<BaseChartOptionsDto> chartOptionsDtos = entity.getChartCreationOptions().stream()
+      .map(chartBuilderService::buildChart)
+      .collect(Collectors.toList());
 
-    Collection<BaseChartOptionsDto> chartOptionsDtos =
-      new ArrayList<>();
-    for (ChartCreationOptions chartCreationOptions : entity.getChartCreationOptions()) {
-      BaseChartOptionsDto test = chartBuilderService.buildChart(chartCreationOptions);
-      chartOptionsDtos.add(test);
-    }
-    dto.setChartDtos(chartOptionsDtos);
-
-    return dto;
+    return DashboardDto.builder()
+      .id(entity.getId())
+      .title(entity.getTitle())
+      .companyId(entity.getCompanyId())
+      .creator(userService.findById(entity.getCreatorId()))
+      .chartDtos(chartOptionsDtos)
+      .build();
   }
 
   @Override

@@ -3,7 +3,7 @@ import { ChartInformationTypeEnum } from '../chart-creation-options.dto';
 export abstract class BaseChartOptionsDto {
   title: string;
   chartType: ChartInformationTypeEnum;
-  teamIds?: number[]; //NEW
+  selectedTeamIds?: number[];
 
   public abstract buildChartOptions();
 }

@@ -1,14 +1,12 @@
 package org.burningokr.service.dashboard;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ArrayUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collection;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChartBuilderService {
@@ -21,15 +19,15 @@ public class ChartBuilderService {
       case PIE_TOPICDRAFTOVERVIEW:
         chartOptionsDto = pieChartService.buildTopicDraftOverviewChart(chartCreationOptions);
         break;
-      default:
+      case LINE_PROGRESS:
         chartOptionsDto = lineChartService.buildProgressChart(chartCreationOptions);
+        chartOptionsDto.setSelectedTeamIds(chartCreationOptions.getTeamIds());
         break;
+      default:
+        log.warn("Unknown enum value encountered while mapping ChartInformationType!");
+        throw new IllegalStateException("Unknown enum value encountered while mapping ChartInformationType!");
     }
 
-    //chartOptionsDto.setUserIDs(chartCreationOptions.getTeamIds().toArray(new Long[0])); //NEW
-    //TODO
-    chartOptionsDto.setTeamIDs(ArrayUtils.toPrimitive(chartCreationOptions.getTeamIds().toArray(new Long[0])));
-    System.out.println("Team IDs as long[]: " + chartOptionsDto.getTeamIDs());
     return chartOptionsDto;
   }
 }

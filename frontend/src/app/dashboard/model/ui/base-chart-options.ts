@@ -6,6 +6,6 @@ export abstract class BaseChartOptions {
   series: ApexAxisChartSeries | ApexNonAxisChartSeries;
   chart: ApexChart;
   chartType: ChartInformationTypeEnum;
-  teamIds?: number[]; //NEW
+  selectedTeamIds?: number[];
   colors = ['#b81f40', '#d1b37b', '#e7795c', '#48b69c', '#479fc0', '#6c548b', '#575756', '#b2b2b2', '#a3bbc8'];
 }

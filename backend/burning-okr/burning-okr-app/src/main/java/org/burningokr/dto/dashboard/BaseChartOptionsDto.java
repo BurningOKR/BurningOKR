@@ -2,9 +2,11 @@ package org.burningokr.dto.dashboard;
 
 import lombok.Data;
 
+import java.util.Collection;
+
 @Data
 public abstract class BaseChartOptionsDto {
   String title;
   int chartType;
-  long[] teamIDs; // NEW
+  Collection<Long> selectedTeamIds;
 }

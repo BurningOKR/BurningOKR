@@ -12,6 +12,7 @@ export class PieChartOptionsDto extends BaseChartOptionsDto {
       text: this.title,
       align: 'left',
     };
+    pieChartOptions.selectedTeamIds = this.selectedTeamIds;
     pieChartOptions.series = this.series;
     pieChartOptions.chart = {
       width: 400,

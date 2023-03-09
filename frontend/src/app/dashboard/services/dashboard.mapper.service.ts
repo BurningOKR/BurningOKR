@@ -20,9 +20,9 @@ export class DashboardMapperService {
     const lineChartOptions: LineChartOptionsDto = new LineChartOptionsDto();
     lineChartOptions.chartType = chartOptionsDto.chartType;
     lineChartOptions.title = chartOptionsDto.title;
-    console.log(`Teams ID before Map: ${chartOptionsDto.teamIds}`);
-    lineChartOptions.teamIds = chartOptionsDto.teamIds;
-    console.log(`Teams ID after Map: ${lineChartOptions.teamIds}`);
+    console.log(`Teams ID before Map: ${chartOptionsDto.selectedTeamIds}`);
+    lineChartOptions.selectedTeamIds = chartOptionsDto.selectedTeamIds;
+    console.log(`Teams ID after Map: ${lineChartOptions.selectedTeamIds}`);
     lineChartOptions.xaxisCategories = chartOptionsDto.xaxisCategories;
     lineChartOptions.series = chartOptionsDto.series;
 
@@ -33,9 +33,9 @@ export class DashboardMapperService {
     const pieChartOptions: PieChartOptionsDto = new PieChartOptionsDto();
     pieChartOptions.chartType = chartOptionsDto.chartType;
     pieChartOptions.title = chartOptionsDto.title;
-    console.log(`Teams ID before Map: ${chartOptionsDto.teamIds}`);
-    pieChartOptions.teamIds = chartOptionsDto.teamIds;
-    console.log(`Teams ID after Map: ${pieChartOptions.teamIds}`);
+    console.log(`Teams ID before Map: ${chartOptionsDto.selectedTeamIds}`);
+    pieChartOptions.selectedTeamIds = chartOptionsDto.selectedTeamIds;
+    console.log(`Teams ID after Map: ${pieChartOptions.selectedTeamIds}`);
     pieChartOptions.series = chartOptionsDto.series;
     pieChartOptions.valueLabels = chartOptionsDto.valueLabels;
 
@@ -44,7 +44,7 @@ export class DashboardMapperService {
 
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
     console.log(dashboardDto.chartDtos.map(chart => {
-      console.log(`Team IDs: ${chart.teamIds}`);
+      console.log(`Team IDs: ${chart.selectedTeamIds}`);
     }));
 
     return {

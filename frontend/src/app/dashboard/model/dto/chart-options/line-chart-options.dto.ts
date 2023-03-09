@@ -7,7 +7,7 @@ export class LineChartOptionsDto extends BaseChartOptionsDto {
 
   buildChartOptions(): LineChartOptions {
     const lineChartOptions: LineChartOptions = new LineChartOptions();
-    lineChartOptions.teamIds = this.teamIds; //NEW
+    lineChartOptions.selectedTeamIds = this.selectedTeamIds;
     lineChartOptions.series = this.series;
     lineChartOptions.chart = {
       height: 350,
