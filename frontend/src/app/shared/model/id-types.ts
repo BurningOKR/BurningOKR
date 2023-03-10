@@ -1,3 +1,4 @@
+export type DashboardId = number;
 export type UserId = string;
 export type CompanyId = number;
 export type ConfigurationId = number;

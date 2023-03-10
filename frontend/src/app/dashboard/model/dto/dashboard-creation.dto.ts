@@ -1,9 +1,10 @@
 import { ChartCreationOptionsDto } from './chart-creation-options.dto';
+import { CompanyId, DashboardId, UserId } from '../../../shared/model/id-types';
 
 export interface DashboardCreationDto {
-  id?: number;
+  id?: DashboardId;
   title: string;
-  creatorId?: number;
-  companyId: number;
+  creatorId?: UserId;
+  companyId: CompanyId;
   chartCreationOptions: ChartCreationOptionsDto[];
 }

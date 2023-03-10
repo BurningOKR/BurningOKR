@@ -25,16 +25,18 @@ describe('Dashboard.MapperService', () => {
   it('should map Dashboard with ONE PieChartOptionsDto', () => {
     const currentDate: Date = new Date();
     const dashboardDto: DashboardDto = {
+      companyId: 0,
       id: 1,
-      creator: getTestUser(),
+      creatorId: getTestUser().id,
       creationDate: currentDate,
       title: 'Some Dashboard',
       chartDtos: [getPieChartOptionsDto()],
     };
 
     const expected: Dashboard = {
+      companyId: 0,
       id: 1,
-      creator: getTestUser(),
+      creatorId: getTestUser().id,
       creationDate: currentDate,
       title: 'Some Dashboard',
       charts: [getPieChartOptionsDto().buildChartOptions()],
@@ -46,16 +48,18 @@ describe('Dashboard.MapperService', () => {
   it('should map Dashboard with ONE LineChartOptionsDto', () => {
     const currentDate: Date = new Date();
     const dashboardDto: DashboardDto = {
+      companyId: 0,
       id: 1,
-      creator: getTestUser(),
+      creatorId: getTestUser().id,
       creationDate: currentDate,
       title: 'Some Dashboard',
       chartDtos: [getLineChartOptionsDto()],
     };
 
     const expected: Dashboard = {
+      companyId: 0,
       id: 1,
-      creator: getTestUser(),
+      creatorId: getTestUser().id,
       creationDate: currentDate,
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDto().buildChartOptions()],
@@ -67,16 +71,18 @@ describe('Dashboard.MapperService', () => {
   it('should map with multiple ChartDtos', () => {
     const currentDate: Date = new Date();
     const dashboardDto: DashboardDto = {
+      companyId: 0,
       id: 1,
-      creator: getTestUser(),
+      creatorId: getTestUser().id,
       creationDate: currentDate,
       title: 'Some Dashboard',
       chartDtos: [getLineChartOptionsDto(), getPieChartOptionsDto()],
     };
 
     const expected: Dashboard = {
+      companyId: 0,
       id: 1,
-      creator: getTestUser(),
+      creatorId: getTestUser().id,
       creationDate: currentDate,
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDto().buildChartOptions(), getPieChartOptionsDto().buildChartOptions()],

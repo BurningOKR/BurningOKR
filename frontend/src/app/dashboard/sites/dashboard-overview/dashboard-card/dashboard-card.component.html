@@ -9,15 +9,14 @@
     <br>
     {{dashboard.title}}
     <br><br>
-    <span class="dashboard-card-created-by">
-        {{'dashboard-card.created-by' | translate}} {{dashboard.creator.surname}} , {{dashboard.creator.givenName}}
+    <span *ngIf="creator$ | async; let creator" class="dashboard-card-created-by">
+        {{'dashboard-card.created-by' | translate}} {{creator.surname}} , {{creator.givenName}}
       </span>
   </div>
 </mat-card>
 
 <mat-menu #menu="matMenu">
   <span matTooltip="{{'dashboard-card.edit-dashboard' | translate}}">
-<!--      <button (click)="editDashboard.next(dashboard)" mat-menu-item>-->
       <button mat-menu-item routerLink="/dashboard/{{dashboard.id}}/edit-dashboard">
         <mat-icon>edit</mat-icon>
         <span>{{'dashboard-card.edit-dashboard' | translate}}</span>

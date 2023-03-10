@@ -1,11 +1,11 @@
-import { User } from '../../../shared/model/api/user';
 import { BaseChartOptionsDto } from './chart-options/base-chart-options.dto';
+import { CompanyId, DashboardId, UserId } from '../../../shared/model/id-types';
 
 export class DashboardDto {
-  id: number;
+  id: DashboardId;
   title: string;
-  companyId: number;
-  creator: User;
+  companyId: CompanyId;
+  creatorId?: UserId;
   chartDtos: BaseChartOptionsDto[];
   creationDate: Date;
 }
