@@ -5,6 +5,7 @@ import lombok.Data;
 import org.burningokr.model.users.User;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -13,5 +14,6 @@ public class DashboardDto {
   private String title;
   private Long companyId;
   private User creator;
+  private UUID creatorId;
   private Collection<BaseChartOptionsDto> chartDtos;
 }

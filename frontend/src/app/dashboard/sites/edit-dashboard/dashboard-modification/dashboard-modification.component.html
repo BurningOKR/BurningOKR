@@ -13,14 +13,6 @@
     </mat-form-field>
 
     <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
-    <!--    <mat-form-field>-->
-    <!--      <mat-select (selectionChange)="chartTypeSelected($event)"-->
-    <!--                  placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">-->
-    <!--        <mat-option *ngFor="let chartType of chart.chart.type"-->
-    <!--                    value="{{chartType}}">-->
-    <!--        </mat-option>-->
-    <!--      </mat-select>-->
-    <!--    </mat-form-field>-->
 
     <mat-form-field *ngIf="teamIsSelectable(chart)">
       <mat-select [(value)]="chart.selectedTeamIds" multiple
@@ -32,6 +24,19 @@
     <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
             matTooltip="{{'edit-dashboard.delete-chart-button.tooltip' | translate}}">
       <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <div>
+    <button (click)="addLineChart()" class="chart-creation-add-button" mat-stroked-button>
+      <mat-icon>add</mat-icon>
+      <!--    {{'create-dashboard.add-chart-button' | translate}}-->
+      New Line Chart
+    </button>
+
+    <button (click)="addPieChart()" class="chart-creation-add-button" mat-stroked-button>
+      <mat-icon>add</mat-icon>
+      <!--    {{'create-dashboard.add-chart-button' | translate}}-->
+      New Pie Chart
     </button>
   </div>
 </div>

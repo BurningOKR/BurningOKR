@@ -2,7 +2,10 @@ import { ApexAxisChartSeries, ApexChart, ApexNonAxisChartSeries, ApexTitleSubtit
 import { ChartInformationTypeEnum } from '../dto/chart-creation-options.dto';
 
 export abstract class BaseChartOptions {
-  title: ApexTitleSubtitle;
+  title: ApexTitleSubtitle = {
+    text: '',
+    align: 'left',
+  };
   series: ApexAxisChartSeries | ApexNonAxisChartSeries;
   chart: ApexChart;
   chartType: ChartInformationTypeEnum;

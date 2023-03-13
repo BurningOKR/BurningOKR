@@ -37,6 +37,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
       .title(entity.getTitle())
       .companyId(entity.getCompanyId())
       .creator(userService.findById(entity.getCreatorId()))
+      .creatorId(entity.getCreatorId())
       .chartDtos(chartOptionsDtos)
       .build();
   }

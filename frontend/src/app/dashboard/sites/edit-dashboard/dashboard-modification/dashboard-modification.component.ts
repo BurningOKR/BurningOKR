@@ -5,6 +5,8 @@ import { BaseChartOptions } from '../../../model/ui/base-chart-options';
 import { Observable } from 'rxjs';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
+import { LineChartOptions } from '../../../model/ui/line-chart-options';
+import { PieChartOptions } from '../../../model/ui/pie-chart-options';
 
 @Component({
   selector: 'app-dashboard-modification',
@@ -17,12 +19,35 @@ export class DashboardModificationComponent implements OnInit {
   @Output() clickedDelete: EventEmitter<ChartCreationOptionsDto> = new EventEmitter<ChartCreationOptionsDto>();
   allTeams$: Observable<OkrDepartment[]>;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
+  newLineChart: BaseChartOptions = new LineChartOptions();
+  newPieChart: BaseChartOptions = new PieChartOptions();
 
   constructor(private readonly departmentService: DepartmentMapper) {
   }
 
   ngOnInit(): void {
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
+  }
+
+  addLineChart(): void {
+    // this.newLineChart.chartType = 0;
+    this.dashboard.charts.push(this.newLineChart);
+    this.resetNewChart();
+  }
+
+  addPieChart(): void {
+    this.newPieChart.title.text = '';
+    // this.newPieChart.chartType = 1;
+    this.dashboard.charts.push(this.newPieChart);
+    this.resetNewChart();
+  }
+
+  private resetNewChart(): void {
+    // this.newChart = {
+    //   title = '',
+    //   chartType: ChartInformationTypeEnum.LINE_PROGRESS,
+    //   teamIds: [],
+    // };
   }
 
   /**
