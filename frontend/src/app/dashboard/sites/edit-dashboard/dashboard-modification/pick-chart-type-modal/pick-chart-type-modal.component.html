@@ -1,0 +1,25 @@
+<div mat-dialog-actions>
+  <div>
+    <!--    <h4>Select Chart Type</h4>-->
+    <mat-form-field appearance="fill">
+      <!--      <mat-label>Favorite food</mat-label>-->
+      <mat-select (selectionChange)="chartSelected($event)"
+                  placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
+        <mat-option *ngFor="let chartType of chartTypes" matTooltip="{{chartTypeRecord[chartType] | translate}}"
+                    value="{{chartType}}">
+          {{chartTypeRecord[chartType] | translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button (click)="onNoClick()" mat-button mat-stroked-button>Cancel</button>
+
+    <button [mat-dialog-close]="selectedType" class="chart-creation-add-button" mat-button mat-stroked-button>
+      <mat-icon>add</mat-icon>
+      <!--    {{'create-dashboard.add-chart-button' | translate}}-->
+      Create Chart
+    </button>
+  </div>
+</div>

@@ -47,9 +47,11 @@ public class DashboardService {
     return dashboardCreation;
   }
 
-//  public DashboardCreation updateDashboard() {
-//
-//  }
+  public DashboardCreation updateDashboard(DashboardCreation dashboardCreation, User user) {
+//    dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
+//    activityService.createActivity(user, dashboardCreation, Action.CREATED);
+    return dashboardCreation;
+  }
 
   public Collection<DashboardCreation> findDashboardsOfCompany(long companyId) {
     return dashboardCreationRepository.findDashboardCreationsByCompanyId(companyId);

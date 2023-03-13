@@ -27,17 +27,22 @@
     </button>
   </div>
   <div>
-    <button (click)="addLineChart()" class="chart-creation-add-button" mat-stroked-button>
+    <button (click)="openDialog()" class="chart-creation-add-button" mat-stroked-button>
       <mat-icon>add</mat-icon>
       <!--    {{'create-dashboard.add-chart-button' | translate}}-->
-      New Line Chart
+      New Chart
     </button>
+    <!--    <button (click)="addLineChart()" class="chart-creation-add-button" mat-stroked-button>-->
+    <!--      <mat-icon>add</mat-icon>-->
+    <!--      &lt;!&ndash;    {{'create-dashboard.add-chart-button' | translate}}&ndash;&gt;-->
+    <!--      New Line Chart-->
+    <!--    </button>-->
 
-    <button (click)="addPieChart()" class="chart-creation-add-button" mat-stroked-button>
-      <mat-icon>add</mat-icon>
-      <!--    {{'create-dashboard.add-chart-button' | translate}}-->
-      New Pie Chart
-    </button>
+    <!--    <button (click)="addPieChart()" class="chart-creation-add-button" mat-stroked-button>-->
+    <!--      <mat-icon>add</mat-icon>-->
+    <!--      &lt;!&ndash;    {{'create-dashboard.add-chart-button' | translate}}&ndash;&gt;-->
+    <!--      New Pie Chart-->
+    <!--    </button>-->
   </div>
 </div>
 
@@ -46,5 +51,6 @@
     <mat-icon>add_circle_outline</mat-icon>
     {{'edit-dashboard.save-dashboard-button' | translate}}
   </button>
+  <!--  <button mat-raised-button (click)="openDialog()">Pick one</button>-->
 </div>
 
