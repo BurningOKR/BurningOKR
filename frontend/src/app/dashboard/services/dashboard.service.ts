@@ -57,6 +57,7 @@ export class DashboardService {
     //   console.log(`Chart: ${chart.title.text}`);
     //   console.log(`Team IDs: ${chart.selectedTeamIds}`);
     // }
+    console.log(dashboard);
 
     return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
   }

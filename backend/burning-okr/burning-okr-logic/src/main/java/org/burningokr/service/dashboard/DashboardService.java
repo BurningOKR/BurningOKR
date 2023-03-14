@@ -48,8 +48,12 @@ public class DashboardService {
   }
 
   public DashboardCreation updateDashboard(DashboardCreation dashboardCreation, User user) {
-//    dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
-//    activityService.createActivity(user, dashboardCreation, Action.CREATED);
+    dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
+    System.out.println("Charts in updateDashboard: " + dashboardCreation.getChartCreationOptions());
+    chartCreationOptionsRepository.saveAll(dashboardCreation.getChartCreationOptions());
+    logger.info("Updated Dashboard: " + dashboardCreation.getTitle());
+    activityService.createActivity(user, dashboardCreation, Action.EDITED);
+//    createChartOptions(dashboardCreation, user);
     return dashboardCreation;
   }
 

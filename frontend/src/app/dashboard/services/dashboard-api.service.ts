@@ -29,6 +29,8 @@ export class DashboardApiService {
   // }
 
   postDashboard$(dashboard: DashboardDto): Observable<DashboardDto> {
+    console.log(dashboard);
+
     return this.api.postData$<DashboardDto>('dashboards/edit', dashboard);
   }
 

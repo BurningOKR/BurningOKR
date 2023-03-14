@@ -38,9 +38,6 @@ export class DashboardMapperService {
   }
 
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
-    console.log(`Creator Id: ${dashboardDto.creatorId}`);
-    // console.log(`Creator: ${  dashboardDto.creator.givenName}`);
-
     return {
       id: dashboardDto.id,
       title: dashboardDto.title,
