@@ -1,4 +1,5 @@
 export type DashboardId = number;
+export type ChartId = number;
 export type UserId = string;
 export type CompanyId = number;
 export type ConfigurationId = number;

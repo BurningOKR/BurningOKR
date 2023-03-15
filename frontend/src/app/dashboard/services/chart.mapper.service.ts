@@ -13,6 +13,7 @@ import { PieChartOptions } from '../model/ui/pie-chart-options';
 export class ChartMapperService {
   private static mapLineChartEntityToDto(lineChartOptions: LineChartOptions): LineChartOptionsDto {
     const lineChartOptionsDto: LineChartOptionsDto = new LineChartOptionsDto();
+    lineChartOptionsDto.id = lineChartOptions.id;
     lineChartOptionsDto.title = lineChartOptions.title.text;
     lineChartOptionsDto.chartType = lineChartOptions.chartType;
     lineChartOptionsDto.selectedTeamIds = lineChartOptions.selectedTeamIds;
@@ -22,6 +23,7 @@ export class ChartMapperService {
 
   private static mapPieChartEntityToDto(pieChartOptions: PieChartOptions): PieChartOptionsDto {
     const pieChartOptionsDto: PieChartOptionsDto = new PieChartOptionsDto();
+    pieChartOptionsDto.id = pieChartOptions.id;
     pieChartOptionsDto.title = pieChartOptions.title.text;
     pieChartOptionsDto.chartType = pieChartOptions.chartType;
     pieChartOptionsDto.selectedTeamIds = pieChartOptions.selectedTeamIds;

@@ -48,15 +48,6 @@ export class DashboardService {
   // }
 
   updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
-    // console.log(`Dashboard: ${dashboard}`);
-    // console.log(`Title: ${dashboard.title}`);
-    // console.log(`ID: ${dashboard.id}`);
-    // console.log(`Creator ID: ${dashboard.creatorId}`);
-    // console.log(`Creation date: ${dashboard.creationDate}`);
-    // for (const chart of dashboard.charts) {
-    //   console.log(`Chart: ${chart.title.text}`);
-    //   console.log(`Team IDs: ${chart.selectedTeamIds}`);
-    // }
     console.log(dashboard);
 
     return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));

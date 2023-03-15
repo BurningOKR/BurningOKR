@@ -1,7 +1,9 @@
 import { ApexAxisChartSeries, ApexChart, ApexNonAxisChartSeries, ApexTitleSubtitle } from 'ng-apexcharts';
 import { ChartInformationTypeEnum } from '../dto/chart-creation-options.dto';
+import { ChartId } from '../../../shared/model/id-types';
 
 export abstract class BaseChartOptions {
+  id: ChartId;
   title: ApexTitleSubtitle = {
     text: '',
     align: 'left',

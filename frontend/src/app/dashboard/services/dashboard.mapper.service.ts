@@ -17,6 +17,7 @@ export class DashboardMapperService {
 
   static mapLineChartOptions(chartOptionsDto: LineChartOptionsDto): LineChartOptionsDto {
     const lineChartOptions: LineChartOptionsDto = new LineChartOptionsDto();
+    lineChartOptions.id = chartOptionsDto.id;
     lineChartOptions.chartType = chartOptionsDto.chartType;
     lineChartOptions.title = chartOptionsDto.title;
     lineChartOptions.selectedTeamIds = chartOptionsDto.selectedTeamIds;
@@ -28,6 +29,7 @@ export class DashboardMapperService {
 
   static mapPieChartOptions(chartOptionsDto: PieChartOptionsDto): PieChartOptionsDto {
     const pieChartOptions: PieChartOptionsDto = new PieChartOptionsDto();
+    pieChartOptions.id = chartOptionsDto.id;
     pieChartOptions.chartType = chartOptionsDto.chartType;
     pieChartOptions.title = chartOptionsDto.title;
     pieChartOptions.selectedTeamIds = chartOptionsDto.selectedTeamIds;
