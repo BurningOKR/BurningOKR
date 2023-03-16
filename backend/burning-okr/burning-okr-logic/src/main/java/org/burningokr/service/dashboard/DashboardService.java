@@ -48,8 +48,21 @@ public class DashboardService {
   }
 
   public DashboardCreation updateDashboard(DashboardCreation dashboardCreation, User user) {
+    System.out.println("Inside updateDashboard im Backend!");
+//    DashboardCreation dashboardCreation_old = this.findDashboardCreationById(dashboardCreation.getId());
+//    for (ChartCreationOptions chart: dashboardCreation_old.getChartCreationOptions()) {
+//      if (!dashboardCreation.getChartCreationOptions().contains(chart)) {
+//        this.deleteChart(chart.getId(), user);
+//      }
+//    }
+
+//    System.out.println("Charts in updateDashboard before Save: " + dashboardCreation.getChartCreationOptions());
+//    chartCreationOptionsRepository.saveAll(dashboardCreation.getChartCreationOptions());
+//    System.out.println("Charts in updateDashboard after Chart Save: " + dashboardCreation.getChartCreationOptions());
+
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
-    System.out.println("Charts in updateDashboard: " + dashboardCreation.getChartCreationOptions());
+    System.out.println("Charts in updateDashboard after Dashboard Save: " + dashboardCreation.getChartCreationOptions());
+
     chartCreationOptionsRepository.saveAll(dashboardCreation.getChartCreationOptions());
     logger.info("Updated Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.EDITED);
@@ -74,5 +87,12 @@ public class DashboardService {
 
     dashboardCreationRepository.deleteById(dashboardCreationToDelete.getId());
     activityService.createActivity(user, dashboardCreationToDelete, Action.DELETED);
+  }
+
+  public void deleteChart(long chartId, User user) {
+    ChartCreationOptions chartCreationOptions = chartCreationOptionsRepository.findByIdOrThrow(chartId);
+
+    chartCreationOptionsRepository.deleteById(chartId);
+//    activityService.createActivity(user, chartCreationOptions, Action.DELETED); //TODO
   }
 }

@@ -19,14 +19,14 @@ public class BaseChartOptionsMapper
   public ChartCreationOptions mapDtoToEntity(BaseChartOptionsDto dto) {
     ChartCreationOptions entity = new ChartCreationOptions();
 
-//    entity.setId(dto.getId());
+    entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
     entity.setChartType(ChartInformationTypeEnum.values()[dto.getChartType()]);
     entity.setTeamIds(dto.getSelectedTeamIds());
 
     log.info(
       "Mapped BaseChartOptionsDto (id:"
-        + dto.getTitle()
+        + dto.getId()
         + ") successful into ChartCreationOption.");
 
     return entity;

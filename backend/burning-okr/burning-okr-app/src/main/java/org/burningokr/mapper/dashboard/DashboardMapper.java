@@ -24,13 +24,16 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
 
   @Override
   public DashboardCreation mapDtoToEntity(DashboardDto dto) {
+    System.out.println("Inside mapDtoToEntity!");
     DashboardCreation entity = new DashboardCreation();
+    System.out.println("Entity Before: " + entity);
     entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
     entity.setCreatorId(dto.getCreatorId());
     entity.setCompanyId(dto.getCompanyId());
     entity.setChartCreationOptions(
       baseChartOptionsMapper.mapDtosToEntities(dto.getChartDtos()));
+    System.out.println("Entity After: " + entity);
 
     log.info(
       "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");

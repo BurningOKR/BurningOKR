@@ -13,14 +13,13 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class PickChartTypeModalComponent {
 
-  selectedType: ChartInformationTypeEnum = ChartInformationTypeEnum.LINE_PROGRESS;
+  selectedType: ChartInformationTypeEnum;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
   chartTypes = Object.keys(ChartInformationTypeEnum).slice(0, Object.keys(ChartInformationTypeEnum).length / 2);
 
-  constructor(
-    public dialogRef: MatDialogRef<PickChartTypeModalComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: ChartInformationTypeEnum
-  ) {
+  // chartTypes = ChartInformationTypeEnum;
+
+  constructor(public dialogRef: MatDialogRef<PickChartTypeModalComponent>) {
   }
 
   chartSelected(change: MatSelectChange): void {

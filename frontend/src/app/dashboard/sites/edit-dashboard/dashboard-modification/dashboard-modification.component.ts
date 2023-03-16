@@ -27,8 +27,6 @@ export class DashboardModificationComponent implements OnInit {
   chartTypeRecord = ChartTypeEnumDropDownRecord;
   newLineChart: BaseChartOptions = new LineChartOptions();
   newPieChart: BaseChartOptions = new PieChartOptions();
-  animal: string;
-  name: string;
 
   constructor(private readonly departmentService: DepartmentMapper, public dialog: MatDialog) {
   }
@@ -65,20 +63,17 @@ export class DashboardModificationComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef: MatDialogRef<PickChartTypeModalComponent, any> = this.dialog.open(PickChartTypeModalComponent, {
+    const dialogRef: MatDialogRef<PickChartTypeModalComponent, string> = this.dialog.open(PickChartTypeModalComponent, {
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(`Result: ${result}`);
+      console.log(typeof result);
       switch (result) {
-        case ChartInformationTypeEnum.LINE_PROGRESS:
-          this.addLineChart();
-          break;
-        case ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW:
-          this.addPieChart();
-          break;
+        case ChartInformationTypeEnum.LINE_PROGRESS.toString():
+          return this.addLineChart();
+        case ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW.toString():
+          return this.addPieChart();
         default:
           return null;
       }

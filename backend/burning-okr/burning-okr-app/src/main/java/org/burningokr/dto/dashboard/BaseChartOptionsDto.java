@@ -14,7 +14,7 @@ import java.util.Collection;
 })
 @Data
 public abstract class BaseChartOptionsDto {
-//  Long id;
+  Long id;
   String title;
   int chartType;
   Collection<Long> selectedTeamIds;

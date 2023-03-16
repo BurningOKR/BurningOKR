@@ -34,6 +34,7 @@ public class PieChartService {
       .toArray().length;
 
     PieChartOptionsDto pieChartOptionsDto = new PieChartOptionsDto();
+    pieChartOptionsDto.setId(chartCreationOptions.getId());
     pieChartOptionsDto.setTitle(chartCreationOptions.getTitle());
     pieChartOptionsDto.setChartType(chartCreationOptions.getChartType().ordinal());
     pieChartOptionsDto.setValueLabels(possibleStates);

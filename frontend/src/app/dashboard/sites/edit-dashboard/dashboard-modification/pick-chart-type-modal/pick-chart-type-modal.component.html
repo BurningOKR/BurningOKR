@@ -6,7 +6,7 @@
       <mat-select (selectionChange)="chartSelected($event)"
                   placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
         <mat-option *ngFor="let chartType of chartTypes" matTooltip="{{chartTypeRecord[chartType] | translate}}"
-                    value="{{chartType}}">
+                    [value]="chartType">
           {{chartTypeRecord[chartType] | translate}}
         </mat-option>
       </mat-select>
@@ -16,7 +16,8 @@
   <div>
     <button (click)="onNoClick()" mat-button mat-stroked-button>Cancel</button>
 
-    <button [mat-dialog-close]="selectedType" class="chart-creation-add-button" mat-button mat-stroked-button>
+    <button [disabled]="!selectedType" [mat-dialog-close]="selectedType" class="chart-creation-add-button" mat-button
+            mat-stroked-button>
       <mat-icon>add</mat-icon>
       <!--    {{'create-dashboard.add-chart-button' | translate}}-->
       Create Chart
