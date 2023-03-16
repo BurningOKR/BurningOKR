@@ -1,17 +1,13 @@
-<div mat-dialog-actions>
-  <div>
-    <!--    <h4>Select Chart Type</h4>-->
-    <mat-form-field appearance="fill">
-      <!--      <mat-label>Favorite food</mat-label>-->
-      <mat-select (selectionChange)="chartSelected($event)"
-                  placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
-        <mat-option *ngFor="let chartType of chartTypes" matTooltip="{{chartTypeRecord[chartType] | translate}}"
-                    [value]="chartType">
-          {{chartTypeRecord[chartType] | translate}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+<div class="pick-chart-type" mat-dialog-actions>
+  <mat-form-field appearance="fill" class="chart-type-form-field">
+    <mat-label>Select Type of New Chart</mat-label>
+    <mat-select (selectionChange)="chartSelected($event)"
+                class="chart-type-select" placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
+      <mat-option *ngFor="let chartType of chartTypes" [value]="chartType" class="chart-type-option">
+        {{chartTypeRecord[chartType] | translate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <div>
     <button (click)="onNoClick()" mat-button mat-stroked-button>Cancel</button>

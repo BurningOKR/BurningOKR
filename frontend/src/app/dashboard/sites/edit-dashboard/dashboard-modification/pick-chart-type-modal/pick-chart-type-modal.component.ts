@@ -16,7 +16,6 @@ export class PickChartTypeModalComponent {
   selectedType: ChartInformationTypeEnum;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
   chartTypes = Object.keys(ChartInformationTypeEnum).slice(0, Object.keys(ChartInformationTypeEnum).length / 2);
-
   // chartTypes = ChartInformationTypeEnum;
 
   constructor(public dialogRef: MatDialogRef<PickChartTypeModalComponent>) {

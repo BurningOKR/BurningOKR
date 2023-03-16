@@ -25,8 +25,6 @@ export class DashboardModificationComponent implements OnInit {
   @Output() clickedDelete: EventEmitter<ChartCreationOptionsDto> = new EventEmitter<ChartCreationOptionsDto>();
   allTeams$: Observable<OkrDepartment[]>;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
-  newLineChart: BaseChartOptions = new LineChartOptions();
-  newPieChart: BaseChartOptions = new PieChartOptions();
 
   constructor(private readonly departmentService: DepartmentMapper, public dialog: MatDialog) {
   }
@@ -50,15 +48,12 @@ export class DashboardModificationComponent implements OnInit {
   }
 
   addLineChart(): void {
-    // this.newLineChart.chartType = 0;
-    this.dashboard.charts.push(this.newLineChart);
+    this.dashboard.charts.push(new LineChartOptions());
     this.resetNewChart();
   }
 
   addPieChart(): void {
-    this.newPieChart.title.text = '';
-    // this.newPieChart.chartType = 1;
-    this.dashboard.charts.push(this.newPieChart);
+    this.dashboard.charts.push(new PieChartOptions());
     this.resetNewChart();
   }
 

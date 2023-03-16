@@ -1,0 +1,23 @@
+.pick-chart-type {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
+}
+
+//@media (max-width: 780px) {
+//  .pick-chart-type {
+//    grid-template-columns: repeat(1, 1fr);
+//  }
+//}
+
+.chart-type-form-field {
+  width: 90%;
+}
+
+.chart-type-select {
+  //max-width: 100px;
+}
+
+.chart-type-option {
+  //max-width: 200px;
+}
