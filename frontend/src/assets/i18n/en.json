@@ -642,7 +642,7 @@
     },
     "return-to-demo-text": "Home",
     "tooltip": {
-      "menue": "Menu"
+      "menu": "Menu"
     },
     "warning": {
       "no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
