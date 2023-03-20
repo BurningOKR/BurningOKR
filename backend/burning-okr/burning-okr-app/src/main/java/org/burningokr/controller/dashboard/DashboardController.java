@@ -50,7 +50,7 @@ public class DashboardController {
   public ResponseEntity<DashboardDto> updateDashboard(@RequestBody DashboardDto dashboardDto, User user) {
     System.out.println("Inside updateDashboard Mapping Point im Backend!");
     for (BaseChartOptionsDto chart: dashboardDto.getChartDtos()) {
-      System.out.println("BaseChartOptionsDto " + chart.getTitle() + " mit ID: " + chart.getId());
+      System.out.println("BaseChartOptionsDto " + chart.getChartType());
     }
     System.out.println("DashboardDto: " + dashboardDto);
     DashboardCreation dashboardCreation = dashboardMapper.mapDtoToEntity(dashboardDto);

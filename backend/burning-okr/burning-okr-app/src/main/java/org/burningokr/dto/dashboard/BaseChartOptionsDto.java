@@ -9,8 +9,8 @@ import java.util.Collection;
 
 @JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "chartType")
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = PieChartOptionsDto.class, name = "1"),
-  @JsonSubTypes.Type(value = LineChartOptionsDto.class, name = "0")
+  @JsonSubTypes.Type(value = LineChartOptionsDto.class, name = "0"),
+  @JsonSubTypes.Type(value = PieChartOptionsDto.class, name = "1")
 })
 @Data
 public abstract class BaseChartOptionsDto {

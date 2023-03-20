@@ -2,6 +2,8 @@ package org.burningokr.mapper.dashboard;
 
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.dashboard.BaseChartOptionsDto;
+import org.burningokr.dto.dashboard.LineChartOptionsDto;
+import org.burningokr.dto.dashboard.PieChartOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
@@ -21,9 +23,17 @@ public class BaseChartOptionsMapper
 
     entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
-    entity.setChartType(ChartInformationTypeEnum.values()[dto.getChartType()]);
+    System.out.println("Chart Type of DTO " + dto.getTitle() + ": " + dto.getChartType());
+//    entity.setChartType(ChartInformationTypeEnum.values()[dto.getChartType()]);
+    if (dto instanceof LineChartOptionsDto) {
+      entity.setChartType(ChartInformationTypeEnum.LINE_PROGRESS);
+    } else if (dto instanceof PieChartOptionsDto) {
+      entity.setChartType(ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW);
+    } else {
+      throw new RuntimeException("Invalid BaseChartOptionsDto");
+    }
+    System.out.println("Chart Type of Entity " + entity.getTitle() + ": " + entity.getChartType());
     entity.setTeamIds(dto.getSelectedTeamIds());
-//    entity.setDashboardCreation(dto.get);
 
     log.info(
       "Mapped BaseChartOptionsDto (id:"
