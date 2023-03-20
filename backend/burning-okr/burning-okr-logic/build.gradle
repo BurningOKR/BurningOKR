@@ -19,6 +19,8 @@ dependencies {
 
     // security
     implementation deps.spring.boot.starter.security
+    implementation deps.spring.boot.starter.security
+    implementation deps.spring.boot.starter.oauth2ResourceServer
 
     // db
     implementation deps.spring.boot.starter.data

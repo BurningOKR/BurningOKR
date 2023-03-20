@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthorizationService {
 
+  private final AuthorizationUserContextService contextService;
+
   public boolean isAdmin() {
+    contextService.getUserFromSecurityContext();
     return true;
   }
 
@@ -48,4 +51,6 @@ public class AuthorizationService {
   public boolean isTopicDraftInitiator(Long topicDraftId) {
     return true;
   }
+
+
 }

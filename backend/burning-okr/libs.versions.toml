@@ -1,6 +1,7 @@
 [versions]
 spring-boot = '3.+'
 spring-framework = '6.+'
+spring-security = '6.+'
 swagger = '2.9.+'
 lombok-plugin = '6.+'
 jakarta-mail = '2.+'
@@ -27,11 +28,12 @@ spring-boot-starter-websocket = { module = 'org.springframework.boot:spring-boot
 spring-boot-starter-oauth2ResourceServer = { module = 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' }
 
 # spring framework
-spring-framework-springContext = { module = 'org.springframework:spring-context' }
-spring-framework-springContextSupport = { module = 'org.springframework:spring-context-support' }
+spring-framework-springContext = { module = 'org.springframework:spring-context', version.ref = 'spring-framework' }
+spring-framework-springContextSupport = { module = 'org.springframework:spring-context-support', version.ref = 'spring-framework' }
 
 # spring security
-spring-security-core = { module = 'org.springframework.security:spring-security-core' }
+spring-security-core = { module = 'org.springframework.security:spring-security-core', version.ref = 'spring-security' }
+spring-security-jose = { module = 'org.springframework.security:spring-security-oauth2-jose ', version.ref = 'spring-security' }
 
 # lombok
 lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
