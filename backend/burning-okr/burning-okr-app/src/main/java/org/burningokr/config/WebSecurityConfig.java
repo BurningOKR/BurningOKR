@@ -1,10 +1,13 @@
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
+import org.burningokr.service.security.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,9 +26,10 @@ import java.util.List;
 public class WebSecurityConfig {
 
   private final SystemProperties systemProperties;
+  private final CustomAuthenticationProvider customAuthenticationProvider;
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
     http.cors().configurationSource(corsConfigurationSource());
 
     // session policy
@@ -60,6 +64,8 @@ public class WebSecurityConfig {
       .oauth2ResourceServer()
       .jwt();
 
+    http.authenticationManager(authManager);
+
     return http.build();
   }
 
@@ -75,5 +81,11 @@ public class WebSecurityConfig {
     source.registerCorsConfiguration("/api/**", configuration);
 
     return source;
+  }
+
+  @Bean
+  public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+    var authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+    return authBuilder.authenticationProvider(customAuthenticationProvider).build();
   }
 }

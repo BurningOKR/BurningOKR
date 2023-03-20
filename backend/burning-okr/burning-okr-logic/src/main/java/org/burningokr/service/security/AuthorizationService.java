@@ -11,7 +11,7 @@ public class AuthorizationService {
   private final AuthorizationUserContextService contextService;
 
   public boolean isAdmin() {
-    contextService.getUserFromSecurityContext();
+    var user = contextService.getUserFromSecurityContext();
     return true;
   }
 

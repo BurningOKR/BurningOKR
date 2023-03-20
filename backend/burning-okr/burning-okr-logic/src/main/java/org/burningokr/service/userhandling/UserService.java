@@ -1,6 +1,5 @@
 package org.burningokr.service.userhandling;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
@@ -9,6 +8,7 @@ import org.burningokr.repositories.users.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,17 +30,15 @@ public class UserService {
     return userRepository.findAllByActiveIsFalse();
   }
 
+  public User updateUser(User user) {
+    return userRepository.save(user);
+  }
+
   public User getCurrentUser() { // TODO implement
     throw new NotImplementedException("getCurrentUser in UserService:34");
   }
 
-  public User findById(UUID userId) throws EntityNotFoundException {
-    var databaseUser = userRepository.findById(userId);
-    if (databaseUser.isPresent()) {
-      return databaseUser.get();
-    } else {
-      log.warn("entity with uuid: %s not found".formatted(userId));
-      throw new EntityNotFoundException();
-    }
+  public Optional<User> findById(UUID userId) {
+    return userRepository.findById(userId);
   }
 }
