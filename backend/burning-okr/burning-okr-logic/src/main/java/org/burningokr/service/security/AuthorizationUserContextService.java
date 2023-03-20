@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
@@ -43,6 +44,9 @@ public class AuthorizationUserContextService {
     } else {
       log.info("user with id: %s not present, registering new user".formatted(userId));
       user = new User();
+      user.setId(userId);
+      user.setActive(true);
+      user.setCreatedAt(LocalDateTime.now());
     }
 
     user.setGivenName(getAttributeFromJwt(userToken, "given_name"));
