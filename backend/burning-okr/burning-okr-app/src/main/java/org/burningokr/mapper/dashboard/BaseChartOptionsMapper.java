@@ -23,6 +23,7 @@ public class BaseChartOptionsMapper
     entity.setTitle(dto.getTitle());
     entity.setChartType(ChartInformationTypeEnum.values()[dto.getChartType()]);
     entity.setTeamIds(dto.getSelectedTeamIds());
+//    entity.setDashboardCreation(dto.get);
 
     log.info(
       "Mapped BaseChartOptionsDto (id:"

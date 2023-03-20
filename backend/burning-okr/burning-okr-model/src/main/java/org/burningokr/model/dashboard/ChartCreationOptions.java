@@ -17,8 +17,10 @@ public class ChartCreationOptions {
 
   private ChartInformationTypeEnum chartType;
 
-  @ManyToOne
-  private DashboardCreation dashboardCreation;
+//  @ManyToOne
+////  @CollectionTable(name = "chart_creation_options")
+//  @JoinColumn(name = "dashboard_creation_id", nullable = false)
+//  private DashboardCreation dashboardCreation;
 
   @ElementCollection
   @CollectionTable(name = "chart_creation_team")

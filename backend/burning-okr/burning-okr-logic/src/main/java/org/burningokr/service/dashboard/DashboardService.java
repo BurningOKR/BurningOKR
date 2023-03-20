@@ -49,21 +49,10 @@ public class DashboardService {
 
   public DashboardCreation updateDashboard(DashboardCreation dashboardCreation, User user) {
     System.out.println("Inside updateDashboard im Backend!");
-//    DashboardCreation dashboardCreation_old = this.findDashboardCreationById(dashboardCreation.getId());
-//    for (ChartCreationOptions chart: dashboardCreation_old.getChartCreationOptions()) {
-//      if (!dashboardCreation.getChartCreationOptions().contains(chart)) {
-//        this.deleteChart(chart.getId(), user);
-//      }
-//    }
-
-//    System.out.println("Charts in updateDashboard before Save: " + dashboardCreation.getChartCreationOptions());
-//    chartCreationOptionsRepository.saveAll(dashboardCreation.getChartCreationOptions());
-//    System.out.println("Charts in updateDashboard after Chart Save: " + dashboardCreation.getChartCreationOptions());
-
+    System.out.println("Charts in updateDashboard before Save: " + dashboardCreation.getChartCreationOptions());
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
     System.out.println("Charts in updateDashboard after Dashboard Save: " + dashboardCreation.getChartCreationOptions());
 
-    chartCreationOptionsRepository.saveAll(dashboardCreation.getChartCreationOptions());
     logger.info("Updated Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.EDITED);
 //    createChartOptions(dashboardCreation, user);
@@ -76,7 +65,7 @@ public class DashboardService {
 
   private void createChartOptions(DashboardCreation dashboardCreation, User user) {
     for (ChartCreationOptions chartCreationOption : dashboardCreation.getChartCreationOptions()) {
-      chartCreationOption.setDashboardCreation(dashboardCreation);
+//      chartCreationOption.setDashboardCreation(dashboardCreation);
       chartCreationOptionsRepository.save(chartCreationOption);
       logger.info("Created ChartCreationOption: " + chartCreationOption.getTitle());
     }

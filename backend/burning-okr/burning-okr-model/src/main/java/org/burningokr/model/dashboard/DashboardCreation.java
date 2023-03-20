@@ -27,7 +27,8 @@ public class DashboardCreation implements Trackable<Long> {
   private Long companyId;
 
   @ToString.Exclude
-  @OneToMany(mappedBy = "dashboardCreation", cascade = CascadeType.REMOVE)
+  @JoinColumn(name = "dashboard_creation_id", nullable = false)
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private Collection<ChartCreationOptions> chartCreationOptions = new ArrayList<>();
 
   @Override

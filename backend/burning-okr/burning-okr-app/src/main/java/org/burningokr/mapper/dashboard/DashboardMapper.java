@@ -44,7 +44,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
   @Override
   public DashboardDto mapEntityToDto(DashboardCreation entity) {
     Collection<BaseChartOptionsDto> chartOptionsDtos = entity.getChartCreationOptions().stream()
-      .map(chartBuilderService::buildChart)
+      .map(chart -> chartBuilderService.buildChart(chart, entity))
       .collect(Collectors.toList());
 
     return DashboardDto.builder()

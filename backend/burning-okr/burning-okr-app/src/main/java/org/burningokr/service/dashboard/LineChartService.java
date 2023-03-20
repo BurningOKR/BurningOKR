@@ -5,6 +5,7 @@ import org.burningokr.dto.dashboard.LineChartLineKeyValues;
 import org.burningokr.dto.dashboard.LineChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
+import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.histories.KeyResultHistory;
@@ -31,7 +32,7 @@ public class LineChartService {
   private final CompanyService companyService;
   private final KeyResultHistoryService keyResultHistoryService;
 
-  public LineChartOptionsDto buildProgressChart(ChartCreationOptions chartCreationOptions) {
+  public LineChartOptionsDto buildProgressChart(ChartCreationOptions chartCreationOptions, DashboardCreation dashboardCreation) {
     LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
     Collection<LineChartLineKeyValues> lineChartLineKeyValuesList = new ArrayList<>();
     Collection<Objective> objectives = new ArrayList<>();
@@ -39,7 +40,7 @@ public class LineChartService {
     Collection<OkrDepartment> teams;
 
     teams = getTeamsForChart(
-      chartCreationOptions.getDashboardCreation().getCompanyId(),
+      dashboardCreation.getCompanyId(),
       chartCreationOptions.getTeamIds()
     );
 

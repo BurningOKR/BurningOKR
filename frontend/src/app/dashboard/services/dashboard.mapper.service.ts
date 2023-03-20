@@ -40,6 +40,8 @@ export class DashboardMapperService {
   }
 
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
+    dashboardDto.chartDtos.forEach(x => console.log(`Id of Chart ${x.title}: ${x.id}`));
+
     return {
       id: dashboardDto.id,
       title: dashboardDto.title,

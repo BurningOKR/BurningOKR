@@ -57,6 +57,7 @@ public class DashboardController {
     System.out.println("Dashboard Creation: " + dashboardCreation);
 //    dashboardCreation.setTitle(dashboardCreationDto.getTitle());
     dashboardCreation = dashboardService.updateDashboard(dashboardCreation, user);
+    System.out.println("Dashboard Creation AFTER save: " + dashboardCreation);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
   }
 
@@ -72,6 +73,7 @@ public class DashboardController {
   ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
     DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
+    dashboardDto.getChartDtos().forEach(x -> System.out.println("ID of Chart " + x.getTitle() + ": " + x.getId()));
     return ResponseEntity.ok(dashboardDto);
   }
 
