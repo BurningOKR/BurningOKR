@@ -40,13 +40,12 @@ export class DashboardMapperService {
   }
 
   mapDtoToUi(dashboardDto: DashboardDto): Dashboard {
-    dashboardDto.chartDtos.forEach(x => console.log(`Id of Chart ${x.title}: ${x.id}`));
+    dashboardDto.chartDtos.forEach(x => console.log(`Type of Chart ${x.title}: ${x.chartType}`));
 
     return {
       id: dashboardDto.id,
       title: dashboardDto.title,
       companyId: dashboardDto.companyId,
-      // creator: dashboardDto.creator,
       creatorId: dashboardDto.creatorId,
       charts: dashboardDto.chartDtos.map(chartDto => {
         let chartOptions: BaseChartOptionsDto;
@@ -68,23 +67,11 @@ export class DashboardMapperService {
     };
   }
 
-  // mapUiToDto(dashboard: Dashboard): DashboardCreationDto {
-  //   return {
-  //     id: dashboard.id,
-  //     title: dashboard.title,
-  //     companyId: dashboard.companyId,
-  //     creatorId: dashboard.creatorId,
-  //     // creationDate: dashboard.creationDate,
-  //     chartCreationOptions: dashboard.charts.map(this.chartMapper.mapEntityToDto),
-  //   };
-  // }
-
   mapUiToDto(dashboard: Dashboard): DashboardDto {
     return {
       id: dashboard.id,
       title: dashboard.title,
       companyId: dashboard.companyId,
-      // creator: dashboard.creator,
       creatorId: dashboard.creatorId,
       creationDate: dashboard.creationDate,
       chartDtos: dashboard.charts.map(this.chartMapper.mapEntityToDto),

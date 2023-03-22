@@ -73,7 +73,7 @@ public class DashboardController {
   ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
     DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
-    dashboardDto.getChartDtos().forEach(x -> System.out.println("ID of Chart " + x.getTitle() + ": " + x.getId()));
+    dashboardDto.getChartDtos().forEach(x -> System.out.println("ID of Chart " + x.getTitle() + ": " + x.getChartType()));
     return ResponseEntity.ok(dashboardDto);
   }
 
