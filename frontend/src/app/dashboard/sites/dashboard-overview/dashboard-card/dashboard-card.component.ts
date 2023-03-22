@@ -3,6 +3,7 @@ import { Dashboard } from '../../../model/ui/dashboard';
 import { UserService } from '../../../../shared/services/helper/user.service';
 import { User } from '../../../../shared/model/api/user';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-card',
@@ -14,10 +15,18 @@ export class DashboardCardComponent implements OnInit {
   @Output() deleteDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
   creator$: Observable<User>;
 
-  constructor(private userMapperService: UserService) {
+  // chosenCycleWithHistoryCompany: CycleWithHistoryCompany;
+
+  constructor(private userMapperService: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.creator$ = this.userMapperService.getUserById$(this.dashboard.creatorId);
+  }
+
+  selectDashboard(dashboard_id: number): void {
+    this.router.navigate(
+      [`dashboard/${dashboard_id}`], { replaceUrl: true },
+    ).catch();
   }
 }

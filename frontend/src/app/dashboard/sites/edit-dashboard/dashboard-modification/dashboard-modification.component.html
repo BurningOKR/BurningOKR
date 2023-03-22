@@ -1,7 +1,7 @@
 <span class="edit-dashboard-title">
       <mat-form-field>
         <input [(ngModel)]="dashboard.title" matInput
-               placeholder="{{'create-dashboard.dashboard-title-placeholder' | translate}}">
+               placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}">
       </mat-form-field>
   </span>
 
@@ -9,38 +9,37 @@
   <div *ngFor="let chart of dashboard.charts" class="edit-chart-options">
     <mat-form-field>
       <input [(ngModel)]="chart.title.text" matInput
-             placeholder="{{'edit-dashboard.chart-title-placeholder' | translate}}">
+             placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
     </mat-form-field>
 
     <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
     <mat-form-field *ngIf="teamIsSelectable(chart)">
       <mat-select [(value)]="chart.selectedTeamIds" multiple
-                  placeholder="{{'create-dashboard.select-teams-placeholder' | translate}}">
+                  placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
         <mat-option *ngFor="let team of allTeams$ | async" [value]="team.id">{{team.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
-            matTooltip="{{'edit-dashboard.delete-chart-button.tooltip' | translate}}">
+            matTooltip="{{'edit-dashboard.tooltip.delete-chart-button' | translate}}">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
   <div>
     <button (click)="openDialog()" class="chart-creation-add-button" mat-stroked-button>
       <mat-icon>add</mat-icon>
-      <!--    {{'create-dashboard.add-chart-button' | translate}}-->
-      New Chart
+      {{'edit-dashboard.button.add-chart' | translate}}
     </button>
     <!--    <button (click)="addLineChart()" class="chart-creation-add-button" mat-stroked-button>-->
     <!--      <mat-icon>add</mat-icon>-->
-    <!--      &lt;!&ndash;    {{'create-dashboard.add-chart-button' | translate}}&ndash;&gt;-->
+    <!--      &lt;!&ndash;    {{'edit-dashboard.button.add-chart' | translate}}&ndash;&gt;-->
     <!--      New Line Chart-->
     <!--    </button>-->
 
     <!--    <button (click)="addPieChart()" class="chart-creation-add-button" mat-stroked-button>-->
     <!--      <mat-icon>add</mat-icon>-->
-    <!--      &lt;!&ndash;    {{'create-dashboard.add-chart-button' | translate}}&ndash;&gt;-->
+    <!--      &lt;!&ndash;    {{'edit-dashboard.button.add-chart' | translate}}&ndash;&gt;-->
     <!--      New Pie Chart-->
     <!--    </button>-->
   </div>
@@ -49,7 +48,7 @@
 <div class="button-save-dashboard">
   <button (click)="updateDashboard.emit(dashboard)" mat-stroked-button>
     <mat-icon>add_circle_outline</mat-icon>
-    {{'edit-dashboard.save-dashboard-button' | translate}}
+    {{'edit-dashboard.button.save-dashboard' | translate}}
   </button>
   <!--  <button mat-raised-button (click)="openDialog()">Pick one</button>-->
 </div>

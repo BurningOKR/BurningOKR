@@ -49,12 +49,10 @@ export class DashboardModificationComponent implements OnInit {
 
   addLineChart(): void {
     this.dashboard.charts.push(new LineChartOptions());
-    this.resetNewChart();
   }
 
   addPieChart(): void {
     this.dashboard.charts.push(new PieChartOptions());
-    this.resetNewChart();
   }
 
   openDialog(): void {
@@ -63,7 +61,6 @@ export class DashboardModificationComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(typeof result);
       switch (result) {
         case ChartInformationTypeEnum.LINE_PROGRESS.toString():
           return this.addLineChart();
@@ -74,14 +71,5 @@ export class DashboardModificationComponent implements OnInit {
       }
     });
   }
-
-  private resetNewChart(): void {
-    // this.newChart = {
-    //   title = '',
-    //   chartType: ChartInformationTypeEnum.LINE_PROGRESS,
-    //   teamIds: [],
-    // };
-  }
-
 }
 

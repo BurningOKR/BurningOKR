@@ -48,10 +48,10 @@ public class DashboardService {
   }
 
   public DashboardCreation updateDashboard(DashboardCreation dashboardCreation, User user) {
-    System.out.println("Inside updateDashboard im Backend!");
-    System.out.println("Charts in updateDashboard before Save: " + dashboardCreation.getChartCreationOptions());
+//    System.out.println("Inside updateDashboard im Backend!");
+//    System.out.println("Charts in updateDashboard before Save: " + dashboardCreation.getChartCreationOptions());
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
-    System.out.println("Charts in updateDashboard after Dashboard Save: " + dashboardCreation.getChartCreationOptions());
+//    System.out.println("Charts in updateDashboard after Dashboard Save: " + dashboardCreation.getChartCreationOptions());
 
     logger.info("Updated Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.EDITED);

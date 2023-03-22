@@ -1,8 +1,8 @@
-<div class="pick-chart-type" mat-dialog-actions>
+<div aria-modal="true" class="pick-chart-type" mat-dialog-actions>
   <mat-form-field appearance="fill" class="chart-type-form-field">
-    <mat-label>Select Type of New Chart</mat-label>
     <mat-select (selectionChange)="chartSelected($event)"
-                class="chart-type-select" placeholder="{{'create-dashboard.type-of-chart-placeholder' | translate}}">
+                aria-label="{{'edit-dashboard.label.select-chart-type' | translate}}" class="chart-type-select"
+                placeholder="{{'edit-dashboard.placeholder.chart-type' | translate}}">
       <mat-option *ngFor="let chartType of chartTypes" [value]="chartType" class="chart-type-option">
         {{chartTypeRecord[chartType] | translate}}
       </mat-option>
@@ -10,13 +10,12 @@
   </mat-form-field>
 
   <div>
-    <button (click)="onNoClick()" mat-button mat-stroked-button>Cancel</button>
+    <button (click)="onNoClick()" mat-button mat-stroked-button>{{'edit-dashboard.button.cancel' | translate}}</button>
 
     <button [disabled]="!selectedType" [mat-dialog-close]="selectedType" class="chart-creation-add-button" mat-button
             mat-stroked-button>
       <mat-icon>add</mat-icon>
-      <!--    {{'create-dashboard.add-chart-button' | translate}}-->
-      Create Chart
+      {{'edit-dashboard.button.add-chart' | translate}}
     </button>
   </div>
 </div>

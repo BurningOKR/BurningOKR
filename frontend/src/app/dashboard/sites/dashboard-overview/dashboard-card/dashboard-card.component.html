@@ -1,5 +1,6 @@
-<mat-card class="dashboard-card" matTooltip="{{dashboard.title}}" role="button"
-          routerLink="/dashboard/{{dashboard.id}}">
+<mat-card (click)="selectDashboard(dashboard.id)" (keydown.enter)="selectDashboard(dashboard.id)" class="dashboard-card" matTooltip="{{dashboard.title}}"
+          role="button" tabindex="0">
+  <!--  routerLink="/dashboard/{{dashboard.id}}"-->
   <div>
     <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="menu" class="dashboard_settings_button"
             mat-icon-button>

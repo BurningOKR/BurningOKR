@@ -48,16 +48,16 @@ public class DashboardController {
    */
   @PostMapping("/dashboards/edit")
   public ResponseEntity<DashboardDto> updateDashboard(@RequestBody DashboardDto dashboardDto, User user) {
-    System.out.println("Inside updateDashboard Mapping Point im Backend!");
-    for (BaseChartOptionsDto chart: dashboardDto.getChartDtos()) {
-      System.out.println("BaseChartOptionsDto " + chart.getChartType());
-    }
-    System.out.println("DashboardDto: " + dashboardDto);
+//    System.out.println("Inside updateDashboard Mapping Point im Backend!");
+//    for (BaseChartOptionsDto chart: dashboardDto.getChartDtos()) {
+//      System.out.println("BaseChartOptionsDto " + chart.getChartType());
+//    }
+//    System.out.println("DashboardDto: " + dashboardDto);
     DashboardCreation dashboardCreation = dashboardMapper.mapDtoToEntity(dashboardDto);
-    System.out.println("Dashboard Creation: " + dashboardCreation);
+//    System.out.println("Dashboard Creation: " + dashboardCreation);
 //    dashboardCreation.setTitle(dashboardCreationDto.getTitle());
     dashboardCreation = dashboardService.updateDashboard(dashboardCreation, user);
-    System.out.println("Dashboard Creation AFTER save: " + dashboardCreation);
+//    System.out.println("Dashboard Creation AFTER save: " + dashboardCreation);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
   }
 
@@ -73,7 +73,7 @@ public class DashboardController {
   ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
     DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
-    dashboardDto.getChartDtos().forEach(x -> System.out.println("ID of Chart " + x.getTitle() + ": " + x.getChartType()));
+//    dashboardDto.getChartDtos().forEach(x -> System.out.println("ID of Chart " + x.getTitle() + ": " + x.getChartType()));
     return ResponseEntity.ok(dashboardDto);
   }
 
