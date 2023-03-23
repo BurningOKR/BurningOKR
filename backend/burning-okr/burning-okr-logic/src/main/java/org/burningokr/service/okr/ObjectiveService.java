@@ -124,7 +124,7 @@ public class ObjectiveService {
 
     referencedObjective = objectiveRepository.save(referencedObjective);
 
-    logger.info(
+    log.info(
       "Updated objective: "
         + updatedObjective.getName()
         + "(id:"
@@ -147,7 +147,7 @@ public class ObjectiveService {
     for (Objective subObjective : referencedObjective.getSubObjectives()) {
       subObjective.setParentObjective(null);
       objectiveRepository.save(subObjective);
-      logger.info(
+      log.info(
         "Removed parent objective from "
           + referencedObjective.getName()
           + "(id:"
@@ -198,7 +198,7 @@ public class ObjectiveService {
             keyResultMilestoneService.createKeyResultMilestone(id, milestone, IUser))
         .collect(Collectors.toList()));
 
-    logger.info(
+    log.info(
       "Created Key Result "
         + keyResult.getName()
         + " in Objective "
@@ -222,7 +222,7 @@ public class ObjectiveService {
   @Transactional
   public void updateSequence(Long unitId, Collection<Long> sequenceList, IUser IUser)
     throws Exception {
-    OkrChildUnit childUnit = unitService.findById(unitId);
+    OkrChildUnit childUnit = okrChildUnitService.findById(unitId);
     throwIfSequenceInvalid(childUnit, sequenceList);
 
     ArrayList<Long> sequenceArray = new ArrayList<>(sequenceList);
@@ -234,7 +234,7 @@ public class ObjectiveService {
           objective.setSequence(currentOrder);
           objectiveRepository.save(objective);
           activityService.createActivity(IUser, objective, Action.EDITED);
-          logger.info("Update sequence of Objective with id " + objective.getId());
+          log.info("Update sequence of Objective with id " + objective.getId());
         });
   }
 
@@ -269,7 +269,7 @@ public class ObjectiveService {
           .getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName())
           .getValue());
     if (objective.getKeyResults().size() >= maxKeyResultsPerObjective) {
-      logger.error(
+      log.error(
         "Can not add more Key Results to Objective: "
           + objective.getName()
           + "(id:"
@@ -307,7 +307,7 @@ public class ObjectiveService {
     noteObjective.setDate(LocalDateTime.now());
 
     noteObjective = noteObjectiveRepository.save(noteObjective);
-    logger.info(
+    log.info(
       "Added Note with id "
         + noteObjective.getId()
         + " from User "

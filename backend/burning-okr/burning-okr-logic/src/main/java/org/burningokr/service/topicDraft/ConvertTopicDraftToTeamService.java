@@ -21,7 +21,7 @@ import java.util.Collection;
 public class ConvertTopicDraftToTeamService {
   private final OkrTopicDraftService okrTopicDraftService;
   private final CompanyService companyService;
-  private final OkrUnitServiceFactory<OkrDepartment> okrDepartmentOkrUnitServiceFactory;
+  private final OkrChildUnitService<OkrDepartment> okrDepartmentService;
 
   @Transactional
   public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId, IUser IUser) {
@@ -34,7 +34,7 @@ public class ConvertTopicDraftToTeamService {
 
     OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), IUser);
     copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
-    okrDepartment = writeOkrDepartmentToDatabase(okrDepartment, IUser);
+    okrDepartment = writeOkrDepartmentToDatabase(okrDepartment);
     deleteTopicDraft(topicDraft, IUser);
 
     return okrDepartment;
@@ -57,7 +57,7 @@ public class ConvertTopicDraftToTeamService {
     if (okrCompanyCollection.stream().anyMatch(company -> company.getId() == parentOkrUnitId)) {
       return createOkrDepartmentUnderneathCompany(okrDepartment, parentOkrUnitId, IUser);
     } else {
-      return createOkrDepartmentUnderneathBranch(okrDepartment, parentOkrUnitId, IUser);
+      return createOkrDepartmentUnderneathBranch(okrDepartment, parentOkrUnitId);
     }
   }
 
@@ -68,18 +68,13 @@ public class ConvertTopicDraftToTeamService {
   }
 
   private OkrDepartment createOkrDepartmentUnderneathBranch(
-    OkrDepartment okrDepartment, long parentOkrUnitId, IUser IUser
+    OkrDepartment okrDepartment, long parentOkrUnitId
   ) {
-    OkrChildUnitService<OkrDepartment> okrDepartmentService =
-      okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(parentOkrUnitId);
-    return (OkrDepartment)
-      okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, IUser);
+    return (OkrDepartment) okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment);
   }
 
-  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, IUser IUser) {
-    OkrChildUnitService<OkrDepartment> okrDepartmentService =
-      okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(okrDepartment.getId());
-    return okrDepartmentService.updateUnit(okrDepartment, IUser);
+  private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment) {
+    return okrDepartmentService.updateUnit(okrDepartment);
   }
 
   private void copyValuesFromOkrTopicDraftToOkrDepartment(

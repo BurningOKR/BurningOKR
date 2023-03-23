@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.*;
+import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteKeyResultRepository;
-import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +29,6 @@ public class KeyResultService {
   private final Logger logger = LoggerFactory.getLogger(KeyResultService.class);
 
   private final KeyResultRepository keyResultRepository;
-  private final NoteRepository noteRepository;
   private final NoteKeyResultRepository noteKeyResultRepository;
   private final ActivityService activityService;
   private final EntityCrawlerService entityCrawlerService;
@@ -35,6 +36,7 @@ public class KeyResultService {
   private final KeyResultMilestoneService keyResultMilestoneService;
   private final KeyResultHistoryService keyResultHistoryService;
   private final TaskService taskService;
+  private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
 
   public KeyResult findById(long keyResultId) {
     return keyResultRepository.findByIdOrThrow(keyResultId);
@@ -161,7 +163,11 @@ public class KeyResultService {
   }
 
   public Collection<KeyResult> findKeyResultsOfUnit(long unitId) {
-    return keyResultRepository.findKeyResultsOfUnit(unitId);
+    var keyResultList = new LinkedList<KeyResult>();
+    okrChildUnitService.findById(unitId)
+      .getObjectives()
+      .forEach(objective -> keyResultList.addAll(objective.getKeyResults()));
+    return keyResultList;
   }
 
 

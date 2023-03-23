@@ -18,7 +18,6 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.KeyResultService;
 import org.burningokr.service.okr.ObjectiveService;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
@@ -130,14 +129,6 @@ public class OkrUnitController {
 
   }
 
-  /**
-   * API Endpoint to add an Objective to a okrUnit.
-   *
-   * @param unitId       a long value
-   * @param objectiveDto an {@link ObjectiveDto} object
-   * @param IUser        an {@link IUser} object
-   * @return a {@link ResponseEntity} ok with the added objective
-   */
   @PostMapping("/units/{unitId}/objectives")
   @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#unitId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
@@ -153,7 +144,7 @@ public class OkrUnitController {
   }
 
   @DeleteMapping("/units/{unitId}")
-  public ResponseEntity deleteUnit(
+  public ResponseEntity<Object> deleteUnit(
     @PathVariable long unitId
   ) {
     okrChildUnitService.deleteChildUnit(unitId);

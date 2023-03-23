@@ -25,12 +25,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OkrTopicDraftService {
-
   private final Logger logger = LoggerFactory.getLogger(OkrTopicDraftService.class);
-
-  private OkrTopicDraftRepository okrTopicDraftRepository;
-  private NoteTopicDraftRepository noteTopicDraftRepository;
-  private ActivityService activityService;
+  private final OkrTopicDraftRepository okrTopicDraftRepository;
+  private final NoteTopicDraftRepository noteTopicDraftRepository;
+  private final ActivityService activityService;
 
   public OkrTopicDraft findById(long topicDraftId) {
     return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
@@ -58,9 +56,7 @@ public class OkrTopicDraftService {
   }
 
   public Collection<NoteTopicDraft> getAllNotesForTopicDraft(long topicDraftId) {
-    Collection<NoteTopicDraft> noteTopicDrafts =
-      noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
-    return noteTopicDrafts;
+    return noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
   }
 
   public void deleteTopicDraftById(Long topicDraftId, IUser IUser) {
