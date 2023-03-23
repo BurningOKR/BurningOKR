@@ -25,5 +25,6 @@ public class User implements IUser {
   private String department;
   private String photo; // Represents the image as String
   private boolean active;
+  private boolean admin;
   private LocalDateTime createdAt;
 }

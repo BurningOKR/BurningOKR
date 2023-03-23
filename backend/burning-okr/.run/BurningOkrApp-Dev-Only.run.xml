@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="BurningOkrApp-Dev-Only" type="SpringBootApplicationConfigurationType"
+                   factoryName="Spring Boot">
+        <option name="ACTIVE_PROFILES" value="local"/>
+        <module name="burning-okr.burning-okr-app.main"/>
+        <option name="SPRING_BOOT_MAIN_CLASS" value="org.burningokr.BurningOkrApp"/>
+        <extension name="coverage">
+            <pattern>
+                <option name="PATTERN" value="org.burningokr.*"/>
+                <option name="ENABLED" value="true"/>
+            </pattern>
+        </extension>
+        <method v="2">
+            <option name="Make" enabled="true"/>
+        </method>
+    </configuration>
+</component>

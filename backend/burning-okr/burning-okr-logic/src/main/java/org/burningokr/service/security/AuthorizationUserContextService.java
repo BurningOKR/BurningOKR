@@ -49,6 +49,7 @@ public class AuthorizationUserContextService {
       user.setCreatedAt(LocalDateTime.now());
     }
 
+    user.setAdmin(userRoles.contains("burning-okr-admin")); // TODO extract role name in env variable
     user.setGivenName(getAttributeFromJwt(userToken, "given_name"));
     user.setSurname(getAttributeFromJwt(userToken, "family_name"));
     user.setMail(getAttributeFromJwt(userToken, "email"));
@@ -70,7 +71,6 @@ public class AuthorizationUserContextService {
     if (!checkIfListContainsStrings(roles)) {
       throw new InvalidTokenException("Not all roles are of type String");
     }
-
 
     roles.forEach(role -> userRoles.add((String) role));
 

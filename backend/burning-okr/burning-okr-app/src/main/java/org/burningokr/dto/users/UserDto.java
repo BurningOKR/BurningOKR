@@ -21,4 +21,5 @@ public class UserDto {
   private String department;
   private String photo;
   private boolean active;
+  private boolean admin;
 }

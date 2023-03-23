@@ -8,6 +8,7 @@ CREATE TABLE "user"
     department VARCHAR(255),
     photo      VARCHAR(255),
     active     BOOLEAN NOT NULL,
+    admin      BOOLEAN NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT pk_user PRIMARY KEY (id)
 );

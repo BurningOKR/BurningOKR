@@ -19,6 +19,7 @@ public class UserMapper implements DataMapper<User, UserDto> {
       .givenName(dto.getGivenName())
       .department(dto.getDepartment())
       .jobTitle(dto.getJobTitle())
+      .admin(dto.isAdmin())
       .build();
   }
 
@@ -33,6 +34,7 @@ public class UserMapper implements DataMapper<User, UserDto> {
       .givenName(entity.getGivenName())
       .department(entity.getDepartment())
       .jobTitle(entity.getJobTitle())
+      .admin(entity.isAdmin())
       .build();
   }
 }
