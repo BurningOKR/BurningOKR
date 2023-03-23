@@ -9,4 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SystemProperties {
   private String apiEndpoint;
+  private String clientId;
+  private String authUrl;
+  private String accessTokenUrl;
 }
