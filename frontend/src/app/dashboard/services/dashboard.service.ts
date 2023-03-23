@@ -33,7 +33,7 @@ export class DashboardService {
   }
 
   updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
-    console.log(dashboard);
+    // console.log(dashboard);
 
     return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
   }

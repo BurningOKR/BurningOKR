@@ -23,8 +23,11 @@ public class BaseChartOptionsMapper
 
     entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
-    System.out.println("Chart Type of DTO " + dto.getTitle() + ": " + dto.getChartType());
+//    System.out.println("Chart Type of DTO " + dto.getTitle() + ": " + dto.getChartType());
 //    entity.setChartType(ChartInformationTypeEnum.values()[dto.getChartType()]);
+
+    // Chart Type von Pie Charts ist aus unbekanntem Grund 0 statt 1
+    // Im Frontend wird 1 ins Json geschrieben, aber im Backend kommt 0 an.
     if (dto instanceof LineChartOptionsDto) {
       entity.setChartType(ChartInformationTypeEnum.LINE_PROGRESS);
     } else if (dto instanceof PieChartOptionsDto) {
@@ -32,7 +35,7 @@ public class BaseChartOptionsMapper
     } else {
       throw new RuntimeException("Invalid BaseChartOptionsDto");
     }
-    System.out.println("Chart Type of Entity " + entity.getTitle() + ": " + entity.getChartType());
+//    System.out.println("Chart Type of Entity " + entity.getTitle() + ": " + entity.getChartType());
     entity.setTeamIds(dto.getSelectedTeamIds());
 
     log.info(

@@ -26,7 +26,11 @@ export class DashboardModificationComponent implements OnInit {
   allTeams$: Observable<OkrDepartment[]>;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
 
-  constructor(private readonly departmentService: DepartmentMapper, public dialog: MatDialog) {
+  constructor(
+    private readonly departmentService: DepartmentMapper,
+    public dialog: MatDialog,
+    // private translate: TranslateService,
+  ) {
   }
 
   ngOnInit(): void {
