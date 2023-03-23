@@ -1,0 +1,13 @@
+name: Release App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-version:
+    runs-on: [self-hosted]
+    steps:
+    - name: Read changelog
+      run: docker compose up --quiet-pull --pull always -d
+      working-directory: /etc/compose-files/burning-okr
+
