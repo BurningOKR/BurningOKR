@@ -54,7 +54,7 @@ public class WebSecurityConfig {
 //        systemProperties.getApiEndpoint() + "/oAuthFrontendDetails",
         "/wsregistry",
         "/actuator/**",
-        systemProperties.getApiEndpoint() + "/companies/**" // TODO open for testing-purposes
+        "/applicationSettings/oidcConfiguration" // TODO open for testing-purposes
       )
       .permitAll()
       .anyRequest()
