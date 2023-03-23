@@ -1,6 +1,9 @@
 name: Release App
 
 on:
+  push:
+    branches:
+      - 'ci/new-deployment'
   workflow_dispatch:
 
 jobs:
