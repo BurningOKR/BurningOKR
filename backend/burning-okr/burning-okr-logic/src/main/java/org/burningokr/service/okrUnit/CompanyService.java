@@ -23,7 +23,7 @@ import org.burningokr.repositories.cycle.*;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskBoardService;
@@ -49,7 +49,7 @@ public class CompanyService {
   private final BranchHistoryRepository branchHistoryRepository;
   private final DepartmentHistoryRepository departmentHistoryRepository;
   private final CompanyRepository companyRepository;
-  private final UnitRepository<OkrChildUnit> unitRepository;
+  private final OkrUnitRepository<OkrChildUnit> okrUnitRepository;
   private final ActivityService activityService;
   private final EntityCrawlerService entityCrawlerService;
   private final OkrTopicDescriptionRepository okrTopicDescriptionRepository;
@@ -229,7 +229,7 @@ public class CompanyService {
     description = okrTopicDescriptionRepository.save(description);
     okrDepartment.setOkrTopicDescription(description);
 
-    okrDepartment = unitRepository.save(okrDepartment);
+    okrDepartment = okrUnitRepository.save(okrDepartment);
 
     TaskBoard taskBoard = taskBoardService.createNewTaskBoardWithDefaultStates();
     okrDepartment.setTaskBoard(taskBoard);
@@ -258,7 +258,7 @@ public class CompanyService {
     okrBranch.setParentOkrUnit(referencedOkrCompany);
     okrBranch.setHistory(createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository));
 
-    okrBranch = unitRepository.save(okrBranch);
+    okrBranch = okrUnitRepository.save(okrBranch);
     logger.info(
       "Created okrBranch: "
         + okrBranch.getName()

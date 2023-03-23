@@ -8,7 +8,6 @@ import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +18,12 @@ import java.util.stream.Collectors;
 @Service
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
 
-  private final OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService;
+  private final OkrChildUnitServiceUsers<OkrChildUnit> okrChildUnitService;
 
   private final CompanyService companyService;
 
   public ObjectiveRowBuilderService(
-    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService,
+    @Qualifier("okrUnitServiceUsers") OkrChildUnitServiceUsers<OkrChildUnit> okrChildUnitService,
     CompanyService companyService
   ) {
     this.okrChildUnitService = okrChildUnitService;

@@ -6,7 +6,6 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ public class TeamMemberRowBuilderServiceTest {
   @Mock
   private UserService userService;
   @Mock
-  private OkrUnitServiceUsers departmentServiceUsers;
+  private OkrChildUnitServiceUsers departmentServiceUsers;
   @Mock
   private CompanyService companyService;
   @Mock

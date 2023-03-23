@@ -10,7 +10,7 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.okr.TaskBoardService;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class CyclePreparationCloningServiceTest {
   private CompanyRepository companyRepository;
 
   @Mock
-  private UnitRepository<OkrChildUnit> subUnitRepository;
+  private OkrUnitRepository<OkrChildUnit> subOkrUnitRepository;
 
   @Mock
   private ObjectiveRepository objectiveRepository;
@@ -199,7 +199,7 @@ public class CyclePreparationCloningServiceTest {
     ArgumentCaptor<Objective> savedObjectiveCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository).save(savedCompanyCaptor.capture());
-    verify(subUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
+    verify(subOkrUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
     verify(objectiveRepository, times(4)).save(savedObjectiveCaptor.capture());
 
     OkrCompany savedOkrCompany = savedCompanyCaptor.getValue();
@@ -288,7 +288,7 @@ public class CyclePreparationCloningServiceTest {
       ArgumentCaptor.forClass(UserSettings.class);
 
     verify(userSettingsRepository, times(1)).save(savedUserSettingsCaptor.capture());
-    verify(subUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
+    verify(subOkrUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
     verify(companyRepository).save(savedCompanyCaptor.capture());
 
     OkrCompany savedOkrCompany = savedCompanyCaptor.getValue();
@@ -356,7 +356,7 @@ public class CyclePreparationCloningServiceTest {
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(okrCompany, cycle);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(subUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
+    verify(subOkrUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrBranch okrBranchCaptured = okrBranchArgumentCaptor.getValue();
@@ -389,7 +389,7 @@ public class CyclePreparationCloningServiceTest {
     ArgumentCaptor<Objective> objectiveArgumentCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(subUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
+    verify(subOkrUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
     verify(objectiveRepository, times(1)).save(objectiveArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
@@ -424,7 +424,7 @@ public class CyclePreparationCloningServiceTest {
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(okrCompany, cycle);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(subUnitRepository, times(2)).save(okrBranchArgumentCaptor.capture());
+    verify(subOkrUnitRepository, times(2)).save(okrBranchArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrBranch okrBranchCaptured = okrBranchArgumentCaptor.getAllValues().get(0);
@@ -463,7 +463,7 @@ public class CyclePreparationCloningServiceTest {
 
     // Twice because it is saved once for the okrBranch and a second time for the
     // okrDepartment.
-    verify(subUnitRepository, times(3)).save(departmentArgumentCaptor.capture());
+    verify(subOkrUnitRepository, times(3)).save(departmentArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrDepartment okrDepartmentCaptured = departmentArgumentCaptor.getValue();

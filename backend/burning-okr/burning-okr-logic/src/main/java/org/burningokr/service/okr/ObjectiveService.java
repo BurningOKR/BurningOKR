@@ -1,5 +1,7 @@
 package org.burningokr.service.okr;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.ConfigurationName;
 import org.burningokr.model.cycles.CycleState;
@@ -15,13 +17,11 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.exceptions.KeyResultOverflowException;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.burningokr.service.security.AuthorizationUserContextService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,10 +31,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class ObjectiveService {
-
-  private final Logger logger = LoggerFactory.getLogger(ObjectiveService.class);
-
   private final ParentService parentService;
   private final ObjectiveRepository objectiveRepository;
   private final KeyResultRepository keyResultRepository;
@@ -42,44 +41,38 @@ public class ObjectiveService {
   private final ActivityService activityService;
   private final EntityCrawlerService entityCrawlerService;
   private final ConfigurationService configurationService;
-  private final OkrUnitServiceUsers<OkrChildUnit> unitService;
+  private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
   private final KeyResultMilestoneService keyResultMilestoneService;
   private final NoteObjectiveRepository noteObjectiveRepository;
+  private final AuthorizationUserContextService userContextService;
 
-  /**
-   * Initialize ObjectiveService.
-   *
-   * @param parentService           a {@link ParentService} object
-   * @param objectiveRepository     an {@link ObjectiveRepository} object
-   * @param keyResultRepository     a {@link KeyResultRepository} object
-   * @param keyResultHistoryService a {@link KeyResultHistoryService} object
-   * @param activityService         an {@link ActivityService} object
-   * @param entityCrawlerService    an {@link EntityCrawlerService} object
-   * @param configurationService    a {@link ConfigurationService} object
-   * @param unitService             a {@link OkrUnitServiceUsers} object
-   */
-  @Autowired
-  public ObjectiveService(
-    ParentService parentService,
-    ObjectiveRepository objectiveRepository,
-    KeyResultRepository keyResultRepository,
-    KeyResultHistoryService keyResultHistoryService, ActivityService activityService,
-    EntityCrawlerService entityCrawlerService,
-    ConfigurationService configurationService,
-    KeyResultMilestoneService keyResultMilestoneService,
-    NoteObjectiveRepository noteObjectiveRepository,
-    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> unitService
-  ) {
-    this.parentService = parentService;
-    this.objectiveRepository = objectiveRepository;
-    this.keyResultRepository = keyResultRepository;
-    this.keyResultHistoryService = keyResultHistoryService;
-    this.activityService = activityService;
-    this.entityCrawlerService = entityCrawlerService;
-    this.configurationService = configurationService;
-    this.unitService = unitService;
-    this.keyResultMilestoneService = keyResultMilestoneService;
-    this.noteObjectiveRepository = noteObjectiveRepository;
+  @PreAuthorize("@DepartmentAuthorizationService.hasMemberPrivilegesForDepartment(#unitId)")
+  public Objective createObjective(Long unitId, Objective objective) {
+    OkrChildUnit objectivesParentOkrChildUnit = okrChildUnitService.findById(unitId);
+
+    okrChildUnitService.throwIfCycleForOkrChildUnitIsClosed(objectivesParentOkrChildUnit);
+
+    objective.setSequence(objectivesParentOkrChildUnit.getObjectives().size());
+    objective.setParentOkrUnit(objectivesParentOkrChildUnit);
+
+    if (objective.hasParentObjective()) {
+      var parentObjective = objectiveRepository.findByIdOrThrow(objective.getParentObjective().getId());
+      parentService.validateParentObjective(objective, parentObjective);
+      objective.setParentObjective(parentObjective);
+    }
+
+    objective = objectiveRepository.save(objective);
+    log.debug("Created Objective: %s (id: %d) into department %s (id: %d)"
+      .formatted(
+        objective.getName(),
+        objective.getId(),
+        objectivesParentOkrChildUnit.getName(),
+        unitId
+      ));
+
+    activityService.createActivity(userContextService.getAuthenticatedUser(), objective, Action.CREATED);
+
+    return objective;
   }
 
   public Objective findById(Long objectiveId) {

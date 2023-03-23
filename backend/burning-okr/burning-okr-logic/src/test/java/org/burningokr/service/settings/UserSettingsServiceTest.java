@@ -11,7 +11,7 @@ import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.okrUnit.OkrUnitService;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +40,7 @@ public class UserSettingsServiceTest {
   private ActivityService activityService;
 
   @Mock
-  private OkrUnitService<OkrDepartment> departmentService;
+  private OkrChildUnitService<OkrDepartment> departmentService;
 
   @Mock
   private CompanyService companyService;

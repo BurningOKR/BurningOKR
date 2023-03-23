@@ -7,8 +7,7 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.exceptions.NotApprovedException;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.okrUnit.OkrUnitService;
-import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +33,7 @@ public class ConvertTopicDraftToTeamServiceTest {
   @Mock
   private OkrUnitServiceFactory<OkrDepartment> okrDepartmentOkrUnitServiceFactory;
   @Mock
-  private OkrUnitService<OkrDepartment> okrDepartmentService;
+  private OkrChildUnitService<OkrDepartment> okrDepartmentService;
   @Mock
   private OkrDepartment okrDepartment;
   @Mock

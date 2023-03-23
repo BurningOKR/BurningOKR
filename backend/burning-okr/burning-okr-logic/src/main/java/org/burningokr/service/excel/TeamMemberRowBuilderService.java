@@ -9,7 +9,6 @@ import org.burningokr.model.users.IUser;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {
-  private final OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers;
+  private final OkrChildUnitServiceUsers<OkrDepartment> departmentServiceUsers;
   private final CompanyService companyService;
   private final Messages messages;
 

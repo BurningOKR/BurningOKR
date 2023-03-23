@@ -9,7 +9,6 @@ import org.burningokr.model.okr.Unit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +28,7 @@ public class ObjectiveRowBuilderServiceTest {
 
   private final long departmentId = 42L;
   @Mock
-  private OkrUnitServiceUsers departmentServiceUsers;
+  private OkrChildUnitServiceUsers departmentServiceUsers;
   @Mock
   private CompanyService companyService;
   @InjectMocks

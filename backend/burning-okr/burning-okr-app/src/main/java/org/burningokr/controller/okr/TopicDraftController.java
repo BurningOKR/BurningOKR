@@ -92,7 +92,6 @@ public class TopicDraftController {
   @PutMapping("/topicDrafts/status/{topicDraftId}")
   @PreAuthorize(
     "@authorizationService.isAdmin()"
-      + "|| @authorizationService.isAuditor()"
       + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)"
   )
   public ResponseEntity updateTopicResultStatusById(

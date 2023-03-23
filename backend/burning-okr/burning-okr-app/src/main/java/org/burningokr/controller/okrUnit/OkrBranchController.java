@@ -12,8 +12,7 @@ import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.IUser;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
-import org.burningokr.service.okrUnit.OkrUnitService;
-import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +46,7 @@ public class OkrBranchController {
     IUser IUser
   )
     throws DuplicateTeamMemberException {
-    OkrUnitService<OkrBranch> branchService =
+    OkrChildUnitService<OkrBranch> branchService =
       okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment.setId(null);
@@ -73,7 +72,7 @@ public class OkrBranchController {
     IUser IUser
   )
     throws DuplicateTeamMemberException {
-    OkrUnitService<OkrBranch> branchService =
+    OkrChildUnitService<OkrBranch> branchService =
       okrBranchOkrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
     okrBranch.setId(null);

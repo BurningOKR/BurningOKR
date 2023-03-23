@@ -160,6 +160,11 @@ public class KeyResultService {
     return referencedNoteKeyResult;
   }
 
+  public Collection<KeyResult> findKeyResultsOfUnit(long unitId) {
+    return keyResultRepository.findKeyResultsOfUnit(unitId);
+  }
+
+
   /**
    * Updates a Sequence.
    *

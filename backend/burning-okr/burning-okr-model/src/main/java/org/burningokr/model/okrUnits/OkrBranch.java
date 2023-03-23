@@ -7,12 +7,14 @@ import jakarta.persistence.OneToMany;
 import lombok.*;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
 
   @OneToMany(
@@ -20,38 +22,11 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
     cascade = CascadeType.REMOVE,
     targetEntity = OkrChildUnit.class
   )
-  @Getter(AccessLevel.NONE)
-  @Setter(AccessLevel.NONE)
   @EqualsAndHashCode.Exclude
-  protected Collection<OkrChildUnit> okrChildUnits = new ArrayList<>();
+  protected Collection<OkrChildUnit> okrChildUnits;
   @ManyToOne
   private OkrBranchHistory history;
 
-  public boolean hasDepartments() {
-    return !okrChildUnits.isEmpty();
-  }
-
-  @Override
-  public Collection<OkrChildUnit> getOkrChildUnits() {
-    return okrChildUnits;
-  }
-
-  @Override
-  public void setOkrChildUnits(Collection<OkrChildUnit> subDepartments) {
-    this.okrChildUnits = subDepartments;
-  }
-
-  /**
-   * Creates a copy of the OkrBranch without relations.
-   *
-   * <p>The values that are copied are:
-   *
-   * <ul>
-   *   <li>Name
-   * </ul>
-   *
-   * @return a copy of the OkrBranch without relations
-   */
   public OkrBranch getCopyWithoutRelations() {
     OkrBranch copy = new OkrBranch();
     copy.setName(this.getName());

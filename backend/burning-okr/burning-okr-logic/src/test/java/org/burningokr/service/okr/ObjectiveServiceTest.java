@@ -19,7 +19,6 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.exceptions.KeyResultOverflowException;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,7 +51,7 @@ public class ObjectiveServiceTest {
   @Mock
   private ParentService parentService;
   @Mock
-  private OkrUnitServiceUsers departmentService;
+  private OkrChildUnitServiceUsers departmentService;
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock

@@ -1,9 +1,7 @@
 package org.burningokr.model.okrUnits;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
@@ -16,6 +14,9 @@ import java.util.UUID;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OkrDepartment extends OkrChildUnit {
 
   private UUID okrMasterId;
@@ -29,11 +30,11 @@ public class OkrDepartment extends OkrChildUnit {
   private Collection<UUID> okrMemberIds = new ArrayList<>();
 
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
-  @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.REMOVE)
+  @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.ALL)
   private TaskBoard taskBoard;
 
   @ManyToOne

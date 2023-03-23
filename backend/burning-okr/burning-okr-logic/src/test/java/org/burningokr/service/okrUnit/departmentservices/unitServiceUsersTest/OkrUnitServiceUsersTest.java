@@ -7,9 +7,9 @@
 //import org.burningokr.model.users.User;
 //import org.burningokr.repositories.okr.ObjectiveRepository;
 //import org.burningokr.repositories.okr.OkrTopicDraftRepository;
-//import org.burningokr.repositories.okrUnit.UnitRepository;
+//import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 //import org.burningokr.service.activity.ActivityService;
-//import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
+//import org.burningokr.service.okrUnit.departmentservices.OkrChildUnitServiceUsers;
 //import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@
 //public abstract class OkrUnitServiceUsersTest<T extends OkrChildUnit> {
 //
 //  @Mock
-//  protected UnitRepository<T> unitRepository;
+//  protected OkrUnitRepository<T> unitRepository;
 //  @Mock
 //  protected ObjectiveRepository objectiveRepository;
 //  @Mock
@@ -32,7 +32,7 @@
 //  @Mock
 //  protected EntityCrawlerService entityCrawlerService;
 //  @InjectMocks
-//  OkrUnitServiceUsers<T> okrUnitServiceUsers;
+//  OkrChildUnitServiceUsers<T> okrUnitServiceUsers;
 //  @Mock
 //  private User user;
 //  private T unit;

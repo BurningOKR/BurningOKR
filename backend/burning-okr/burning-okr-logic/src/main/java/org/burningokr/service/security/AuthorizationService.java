@@ -14,14 +14,6 @@ public class AuthorizationService {
     return contextService.getAuthenticatedUser().isAdmin();
   }
 
-  public boolean isAuditor() {
-    return true;
-  }
-
-  public boolean hasManagerPrivilegeForDepartment(Long departmentId) {
-
-    return true;
-  }
 
   public boolean hasManagerPrivilegeForObjective(Long objectiveId) {
     return true;
@@ -31,9 +23,6 @@ public class AuthorizationService {
     return true;
   }
 
-  public boolean hasMemberPrivilegeForDepartment(Long departmentId) {
-    return true;
-  }
 
   public boolean hasMemberPrivilegeForObjective(Long objectiveId) {
     return true;

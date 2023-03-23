@@ -28,8 +28,8 @@ public class OkrUnitServiceAdminsTest_Okr_Department
     OkrDepartment persistedOkrDepartment = new OkrDepartment();
     unit.setId(departmentId);
 
-    when(unitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
-    when(unitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
+    when(okrUnitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
+    when(okrUnitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
 
     unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, IUser);
 
@@ -45,8 +45,8 @@ public class OkrUnitServiceAdminsTest_Okr_Department
     OkrDepartment persistedOkrDepartment = new OkrDepartment();
     unit.setId(departmentId);
 
-    when(unitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
-    when(unitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
+    when(okrUnitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
+    when(okrUnitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
 
     unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, IUser);
 
@@ -62,8 +62,8 @@ public class OkrUnitServiceAdminsTest_Okr_Department
     updateOkrDepartment.setOkrMemberIds(okrMemberIds);
     OkrDepartment persistedOkrDepartment = new OkrDepartment();
     unit.setId(departmentId);
-    when(unitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
-    when(unitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
+    when(okrUnitRepository.save(any(OkrDepartment.class))).then(returnsFirstArg());
+    when(okrUnitRepository.findByIdOrThrow(departmentId)).thenReturn(persistedOkrDepartment);
 
     unit = okrUnitServiceAdmins.updateUnit(updateOkrDepartment, IUser);
 

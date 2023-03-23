@@ -8,12 +8,11 @@ import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.OkrTopicDescriptionService;
 import org.burningokr.service.okr.TaskBoardService;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceAdmins;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
   protected final Long departmentId = 1337L;
   protected final String departmentName = "Java Academy";
   @Mock
-  protected UnitRepository<T> unitRepository;
+  protected OkrUnitRepository<T> okrUnitRepository;
   @Mock
   protected ObjectiveRepository objectiveRepository;
   @Mock
@@ -47,7 +46,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
   @Mock
   protected OkrTopicDescriptionService okrTopicDescriptionService;
   @InjectMocks
-  protected OkrUnitServiceAdmins<T> okrUnitServiceAdmins;
+  protected OkrChildUnitServiceAdmins<T> okrUnitServiceAdmins;
   protected T unit;
 
   protected abstract T createDepartment();
@@ -69,7 +68,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
   public void createChildUnit_expectesParentIdIsSet() {
     T childUnit = createDepartment();
 
-    when(unitRepository.findByIdOrThrow(any(Long.class)))
+    when(okrUnitRepository.findByIdOrThrow(any(Long.class)))
       .thenAnswer(
         invocation -> {
           if (invocation.getArgument(0).equals(unit.getId())) {
@@ -77,14 +76,14 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
           }
           throw new EntityNotFoundException();
         });
-    when(unitRepository.save(any(getDepartment()))).thenReturn(childUnit);
+    when(okrUnitRepository.save(any(getDepartment()))).thenReturn(childUnit);
 
     okrUnitServiceAdmins.createChildUnit(departmentId, childUnit, IUser);
 
     assertEquals(departmentId, childUnit.getParentOkrUnit().getId());
 
-    verify(unitRepository).findByIdOrThrow(anyLong());
-    verify(unitRepository).save(any(getDepartment()));
+    verify(okrUnitRepository).findByIdOrThrow(anyLong());
+    verify(okrUnitRepository).save(any(getDepartment()));
   }
 
   @Test
@@ -116,7 +115,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     when(entityCrawlerService.getCycleOfUnit(any())).thenReturn(closedCycle);
 
     assertThrows(ForbiddenException.class, () -> {
-      okrUnitServiceAdmins.deleteUnit(10L, IUser);
+      okrUnitServiceAdmins.deleteChildUnit(10L, IUser);
     });
   }
 
@@ -125,7 +124,7 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     Objective objective = new Objective();
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
 
-    when(unitRepository.findByIdOrThrow(any(Long.class))).thenReturn(unit);
+    when(okrUnitRepository.findByIdOrThrow(any(Long.class))).thenReturn(unit);
 
     okrUnitServiceAdmins.createObjective(departmentId, objective, IUser);
 
@@ -140,8 +139,8 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     updatedUnit.setId(departmentId);
     updatedUnit.setName(updateName);
 
-    when(unitRepository.save(any(getDepartment()))).thenReturn(updatedUnit);
-    when(unitRepository.findByIdOrThrow(anyLong())).thenReturn(unit);
+    when(okrUnitRepository.save(any(getDepartment()))).thenReturn(updatedUnit);
+    when(okrUnitRepository.findByIdOrThrow(anyLong())).thenReturn(unit);
 
     unit = okrUnitServiceAdmins.updateUnit(updatedUnit, IUser);
 
@@ -154,8 +153,8 @@ public abstract class OkrUnitServiceAdminsTest<T extends OkrChildUnit> {
     updateUnit.setId(departmentId);
     updateUnit.setActive(true);
 
-    when(unitRepository.save(any(getDepartment()))).thenReturn(updateUnit);
-    when(unitRepository.findByIdOrThrow(anyLong())).thenReturn(unit);
+    when(okrUnitRepository.save(any(getDepartment()))).thenReturn(updateUnit);
+    when(okrUnitRepository.findByIdOrThrow(anyLong())).thenReturn(unit);
 
     unit = okrUnitServiceAdmins.updateUnit(updateUnit, IUser);
 

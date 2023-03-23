@@ -10,8 +10,7 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.IUser;
 import org.burningokr.service.exceptions.NotApprovedException;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.okrUnit.OkrUnitService;
-import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -71,14 +70,14 @@ public class ConvertTopicDraftToTeamService {
   private OkrDepartment createOkrDepartmentUnderneathBranch(
     OkrDepartment okrDepartment, long parentOkrUnitId, IUser IUser
   ) {
-    OkrUnitService<OkrDepartment> okrDepartmentService =
+    OkrChildUnitService<OkrDepartment> okrDepartmentService =
       okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(parentOkrUnitId);
     return (OkrDepartment)
       okrDepartmentService.createChildUnit(parentOkrUnitId, okrDepartment, IUser);
   }
 
   private OkrDepartment writeOkrDepartmentToDatabase(OkrDepartment okrDepartment, IUser IUser) {
-    OkrUnitService<OkrDepartment> okrDepartmentService =
+    OkrChildUnitService<OkrDepartment> okrDepartmentService =
       okrDepartmentOkrUnitServiceFactory.getRoleServiceForDepartment(okrDepartment.getId());
     return okrDepartmentService.updateUnit(okrDepartment, IUser);
   }

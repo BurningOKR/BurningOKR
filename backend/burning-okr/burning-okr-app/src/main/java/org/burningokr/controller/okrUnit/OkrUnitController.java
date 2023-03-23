@@ -2,54 +2,58 @@ package org.burningokr.controller.okrUnit;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.formula.eval.NotImplementedException;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.dto.okrUnit.OkrChildUnitDto;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
-import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.ObjectiveMapper;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
+import org.burningokr.mapper.okrUnit.OkrChildUnitMapper;
 import org.burningokr.mapper.okrUnit.OkrCompanyMapper;
-import org.burningokr.mapper.okrUnit.UnitMapperFactory;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.users.IUser;
-import org.burningokr.service.okrUnit.OkrUnitService;
-import org.burningokr.service.okrUnit.OkrUnitServiceFactory;
+import org.burningokr.service.okr.KeyResultService;
+import org.burningokr.service.okr.ObjectiveService;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @RestApiController
 @RequiredArgsConstructor
+@Slf4j
 public class OkrUnitController {
 
-  private final OkrUnitServiceFactory<OkrChildUnit> okrUnitServiceFactory;
-  private final UnitMapperFactory mapperPicker;
+  private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
+  private final KeyResultService keyResultService;
   private final EntityCrawlerService entityCrawlerService;
   private final OkrBranchSchemaMapper okrBranchSchemaMapper;
   private final ObjectiveMapper objectiveMapper;
   private final OkrCompanyMapper okrCompanyMapper;
-  private final DataMapper<KeyResult, KeyResultDto> keyResultMapper;
+  private final KeyResultMapper keyResultMapper;
+  private final OkrChildUnitMapper okrChildUnitMapper;
+  private final ObjectiveService objectiveService;
+  private final AuthorizationUserContextService userContextService;
 
   @GetMapping("/units/{unitId}")
   public ResponseEntity<OkrChildUnitDto> getUnitByUnitId(
     @PathVariable long unitId
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
-    OkrChildUnit unit = okrUnitService.findById(unitId);
-    DataMapper mapper = mapperPicker.getMapper(unit.getClass());
-    return ResponseEntity.ok((OkrChildUnitDto) mapper.mapEntityToDto(unit));
+    OkrChildUnit unit = okrChildUnitService.findById(unitId);
+    return ResponseEntity.ok(okrChildUnitMapper.mapEntityToDto(unit));
   }
 
   /**
@@ -62,16 +66,12 @@ public class OkrUnitController {
   public ResponseEntity<Collection<OkrUnitSchemaDto>> getDepartmentSchemaOfDepartment(
     @PathVariable long unitId
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
-    OkrChildUnit childUnit = okrUnitService.findById(unitId);
+    OkrChildUnit childUnit = okrChildUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(childUnit);
-    // TODO fix auth (jklein 23.02.2023)
-    throw new NotImplementedException("fix auth");
-//    UUID currentUserId = userService.getCurrentUser().getId();
-//    return ResponseEntity.ok(
-//      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-//        parentOkrCompany.getOkrChildUnits(), currentUserId));
+    UUID currentUserId = userContextService.getAuthenticatedUser().getId();
+    return ResponseEntity.ok(
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        parentOkrCompany.getOkrChildUnits(), currentUserId));
   }
 
   /**
@@ -84,9 +84,7 @@ public class OkrUnitController {
   public ResponseEntity<Collection<ObjectiveDto>> getObjectivesOfUnit(
     @PathVariable long unitId
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
-    Collection<Objective> objectives = okrUnitService.findObjectivesOfUnit(unitId);
+    Collection<Objective> objectives = okrChildUnitService.findObjectivesOfUnit(unitId);
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(objectives));
   }
 
@@ -100,9 +98,7 @@ public class OkrUnitController {
   public ResponseEntity<Collection<KeyResultDto>> getKeyResultsOfUnit(
     @PathVariable long unitId
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
-    Collection<KeyResult> keyResults = okrUnitService.findKeyResultsOfUnit(unitId);
+    Collection<KeyResult> keyResults = keyResultService.findKeyResultsOfUnit(unitId);
     return ResponseEntity.ok(keyResultMapper.mapEntitiesToDtos(keyResults));
   }
 
@@ -116,9 +112,7 @@ public class OkrUnitController {
   public ResponseEntity<OkrCompanyDto> getParentCompanyOfUnit(
     @PathVariable long unitId
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
-    OkrChildUnit unit = okrUnitService.findById(unitId);
+    OkrChildUnit unit = okrChildUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(unit);
     return ResponseEntity.ok(okrCompanyMapper.mapEntityToDto(parentOkrCompany));
   }
@@ -126,20 +120,14 @@ public class OkrUnitController {
   @PutMapping(value = "/units/{unitId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<OkrChildUnitDto> updateUnit(
     @PathVariable long unitId,
-    @RequestBody OkrChildUnitDto okrChildUnitDto, IUser IUser
+    @RequestBody OkrChildUnitDto okrChildUnitDto
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
+    okrChildUnitDto.setOkrUnitId(unitId);
+    OkrChildUnit childUnit = okrChildUnitMapper.mapDtoToEntity(okrChildUnitDto);
 
-    OkrChildUnit childUnit = okrUnitService.findById(unitId);
-    DataMapper mapper = mapperPicker.getMapper(childUnit.getClass());
-    OkrChildUnit receivedUnit = (OkrChildUnit) mapper.mapDtoToEntity(okrChildUnitDto);
+    childUnit = okrChildUnitService.updateUnit(childUnit);
+    return ResponseEntity.ok(okrChildUnitMapper.mapEntityToDto(childUnit));
 
-    receivedUnit.setId(unitId);
-
-    OkrChildUnit updateUnit = okrUnitService.updateUnit(receivedUnit, IUser);
-
-    return ResponseEntity.ok((OkrChildUnitDto) mapper.mapEntityToDto(updateUnit));
   }
 
   /**
@@ -156,24 +144,19 @@ public class OkrUnitController {
     @PathVariable long unitId,
     @Valid
     @RequestBody
-    ObjectiveDto objectiveDto,
-    IUser IUser
+    ObjectiveDto objectiveDto
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
-    objective = okrUnitService.createObjective(unitId, objective, IUser);
+    objective = objectiveService.createObjective(unitId, objective);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
   @DeleteMapping("/units/{unitId}")
   public ResponseEntity deleteUnit(
-    @PathVariable long unitId, IUser IUser
+    @PathVariable long unitId
   ) {
-    OkrUnitService<OkrChildUnit> okrUnitService =
-      okrUnitServiceFactory.getRoleServiceForDepartment(unitId);
-    okrUnitService.deleteUnit(unitId, IUser);
+    okrChildUnitService.deleteChildUnit(unitId);
     return ResponseEntity.ok().build();
   }
 }

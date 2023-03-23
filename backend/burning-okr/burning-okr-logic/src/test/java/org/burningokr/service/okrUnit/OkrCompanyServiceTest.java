@@ -23,7 +23,7 @@ import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskBoardService;
@@ -52,7 +52,7 @@ public class OkrCompanyServiceTest {
   @Mock
   private CompanyRepository companyRepository;
   @Mock
-  private UnitRepository<OkrChildUnit> unitRepository;
+  private OkrUnitRepository<OkrChildUnit> okrUnitRepository;
   @Mock
   private EntityCrawlerService entityCrawlerService;
   @Mock
@@ -95,7 +95,7 @@ public class OkrCompanyServiceTest {
 
     IUser IUser = mock(IUser.class);
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
-    when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
+    when(okrUnitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
     when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
@@ -104,7 +104,7 @@ public class OkrCompanyServiceTest {
     assertEquals(okrCompany.getId(), okrDepartment.getParentOkrUnit().getId());
 
     verify(companyRepository).findByIdOrThrow(any(Long.class));
-    verify(unitRepository).save(any(OkrDepartment.class));
+    verify(okrUnitRepository).save(any(OkrDepartment.class));
   }
 
   @Test
@@ -133,7 +133,7 @@ public class OkrCompanyServiceTest {
     IUser IUser = mock(IUser.class);
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
-    when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
+    when(okrUnitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
     when(okrTopicDescriptionRepository.save(any()))
       .thenAnswer(invocation -> invocation.getArgument(0));
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
@@ -163,7 +163,7 @@ public class OkrCompanyServiceTest {
     IUser IUser = mock(IUser.class);
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
-    when(unitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
+    when(okrUnitRepository.save(any(OkrDepartment.class))).thenReturn(okrDepartment);
     when(okrTopicDescriptionRepository.save(any()))
       .thenAnswer(invocation -> invocation.getArgument(0));
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
@@ -307,7 +307,7 @@ public class OkrCompanyServiceTest {
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(branchHistoryRepository.save(any())).thenReturn(okrBranchHistory);
-    when(unitRepository.save(any())).thenReturn(okrBranch);
+    when(okrUnitRepository.save(any())).thenReturn(okrBranch);
 
     OkrBranch createdOkrBranch = companyService.createOkrBranch(1L, okrBranch, IUser);
 
@@ -334,7 +334,7 @@ public class OkrCompanyServiceTest {
 
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(branchHistoryRepository.save(any())).thenReturn(okrBranchHistory);
-    when(unitRepository.save(any())).thenReturn(okrBranch);
+    when(okrUnitRepository.save(any())).thenReturn(okrBranch);
 
     companyService.createOkrBranch(1L, okrBranch, IUser);
 
@@ -351,7 +351,7 @@ public class OkrCompanyServiceTest {
     when(companyRepository.findByIdOrThrow(anyLong())).thenReturn(okrCompany);
     when(departmentHistoryRepository.save(any())).thenReturn(okrDepartmentHistory);
     when(okrTopicDescriptionRepository.save(any())).thenReturn(okrTopicDescription);
-    when(unitRepository.save(any())).thenReturn(okrDepartment);
+    when(okrUnitRepository.save(any())).thenReturn(okrDepartment);
     when(taskBoardService.createNewTaskBoardWithDefaultStates()).thenReturn(taskBoard);
 
     OkrDepartment createdOkrDepartment = companyService.createDepartment(1L, okrDepartment, IUser);
