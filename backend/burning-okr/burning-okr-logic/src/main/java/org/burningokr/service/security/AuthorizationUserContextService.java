@@ -21,7 +21,13 @@ import java.util.UUID;
 public class AuthorizationUserContextService {
   private final UserService userService;
 
-  public User getUserFromSecurityContext() throws EntityNotFoundException {
+  private void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
+    if (validatedString.equals("")) {
+      throw new InvalidTokenException("%s attribute is empty".formatted(attributeName));
+    }
+  }
+
+  public User getAuthenticatedUser() throws EntityNotFoundException {
     var userToken = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     var userId = UUID.fromString(userToken.getSubject());
 
@@ -35,25 +41,29 @@ public class AuthorizationUserContextService {
 
   public void updateUserFromToken(Jwt userToken) throws InvalidTokenException {
     var userId = UUID.fromString(userToken.getSubject());
-    var userRoles = getRolesFromJwt(userToken); // TODO add Admin-Role to User
+    var userRoles = getRolesFromJwt(userToken);
     var userOptional = userService.findById(userId);
-    User user;
 
-    if (userOptional.isPresent()) {
-      user = userOptional.get();
-    } else {
-      log.info("user with id: %s not present, registering new user".formatted(userId));
-      user = new User();
-      user.setId(userId);
-      user.setActive(true);
-      user.setCreatedAt(LocalDateTime.now());
-    }
+    User user = userOptional.orElseGet(() -> createNewUser(userId));
+    updateUserEntityByTokenValues(userToken, userRoles, user);
+  }
 
+  private void updateUserEntityByTokenValues(Jwt userToken, ArrayList<String> userRoles, User user) {
     user.setAdmin(userRoles.contains("burning-okr-admin")); // TODO extract role name in env variable
     user.setGivenName(getAttributeFromJwt(userToken, "given_name"));
     user.setSurname(getAttributeFromJwt(userToken, "family_name"));
     user.setMail(getAttributeFromJwt(userToken, "email"));
+
     userService.updateUser(user);
+  }
+
+  private User createNewUser(UUID userId) {
+    log.info("user with id: %s not present, registering new user".formatted(userId));
+    User user = new User();
+    user.setId(userId);
+    user.setActive(true);
+    user.setCreatedAt(LocalDateTime.now());
+    return user;
   }
 
   private ArrayList<String> getRolesFromJwt(Jwt userToken) throws InvalidTokenException {
@@ -90,14 +100,17 @@ public class AuthorizationUserContextService {
   }
 
   private String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
+    String validatedString = checkIfObjectIsInstanceOfString(stringObject, attributeName);
+    checkIfStringIsEmpty(attributeName, validatedString);
+
+    return validatedString;
+  }
+
+  private String checkIfObjectIsInstanceOfString(Object stringObject, String attributeName) throws
+    InvalidTokenException {
     if (!(stringObject instanceof String validatedString)) {
       throw new InvalidTokenException("%s attribute is not existent or not a string".formatted(attributeName));
     }
-
-    if (validatedString.equals("")) {
-      throw new InvalidTokenException("%s attribute is empty".formatted(attributeName));
-    }
-
     return validatedString;
   }
 }

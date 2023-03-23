@@ -11,8 +11,7 @@ public class AuthorizationService {
   private final AuthorizationUserContextService contextService;
 
   public boolean isAdmin() {
-    var user = contextService.getUserFromSecurityContext();
-    return true;
+    return contextService.getAuthenticatedUser().isAdmin();
   }
 
   public boolean isAuditor() {
@@ -51,6 +50,4 @@ public class AuthorizationService {
   public boolean isTopicDraftInitiator(Long topicDraftId) {
     return true;
   }
-
-
 }
