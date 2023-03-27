@@ -46,7 +46,7 @@ public class ObjectiveService {
   private final NoteObjectiveRepository noteObjectiveRepository;
   private final AuthorizationUserContextService userContextService;
 
-  @PreAuthorize("@DepartmentAuthorizationService.hasMemberPrivilegesForDepartment(#unitId)")
+  @PreAuthorize("@departmentAuthorizationService.hasMemberPrivilegesForDepartment(#unitId)")
   public Objective createObjective(Long unitId, Objective objective) {
     OkrChildUnit objectivesParentOkrChildUnit = okrChildUnitService.findById(unitId);
 
