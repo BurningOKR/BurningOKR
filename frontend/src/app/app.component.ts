@@ -20,15 +20,12 @@ export class AppComponent {
     private router: Router,
     private OkrTranslationHelper: OkrTranslationHelperService,
   ) {
-    this.authService.configure()
-      .then(() => {
-        this.fetchingService.refetchAll();
-      });
     this.OkrTranslationHelper.initializeTranslationOnStartup();
   }
 
   checkIfUserIsLoggedIn(): boolean {
-    return this.authService.hasValidAccessToken();
+    return true;
+    // return this.authService.hasValidAccessToken();
   }
 
   demoGithubButtonHidden(): boolean {

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
-import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
-import { AuthTypeHandlerFactoryService } from './auth-type-handler/auth-type-handler-factory.service';
-import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 
 @Injectable()
 export class AuthenticationService {
@@ -13,11 +10,11 @@ export class AuthenticationService {
 
   constructor(
     protected oAuthService: OAuthService,
-    private oAuthDetails: OAuthFrontendDetailsService,
-    private authTypeHandlerFactoryService: AuthTypeHandlerFactoryService,
+    // private oAuthDetails: OAuthFrontendDetailsService,
+    // private authTypeHandlerFactoryService: AuthTypeHandlerFactoryService,
   ) {
 
-    this.authTypeHandler = this.authTypeHandlerFactoryService.getAuthTypeHandler();
+    // this.authTypeHandler = this.authTypeHandlerFactoryService.getAuthTypeHandler();
 
   }
 
@@ -28,21 +25,22 @@ export class AuthenticationService {
    * @returns the AuthConfig
    */
   async configure(): Promise<AuthConfig> {
-    const authTypeHandlerBase: AuthTypeHandlerBase = await this.authTypeHandler;
-
-    return new Promise(resolve => {
-      this.oAuthDetails.getAuthConfig$()
-        .subscribe((authConfig: AuthConfig) => {
-          this.oAuthService.configure(authConfig);
-          this.oAuthService.setStorage(localStorage);
-          this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
-          this.oAuthService.redirectUri = `${window.location.origin}`;
-          this.path = location.pathname;
-          authTypeHandlerBase.afterConfigured()
-            .then(() => resolve(authConfig));
-
-        });
-    });
+    return new Promise(() => null);
+    // const authTypeHandlerBase: AuthTypeHandlerBase = await this.authTypeHandler;
+    //
+    // return new Promise(resolve => {
+    //   this.oAuthDetails.getAuthConfig$()
+    //     .subscribe((authConfig: AuthConfig) => {
+    //       this.oAuthService.configure(authConfig);
+    //       this.oAuthService.setStorage(localStorage);
+    //       this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+    //       this.oAuthService.redirectUri = `${window.location.origin}`;
+    //       this.path = location.pathname;
+    //       authTypeHandlerBase.afterConfigured()
+    //         .then(() => resolve(authConfig));
+    //
+    //     });
+    // });
   }
 
   getPath(): string {
@@ -79,7 +77,7 @@ export class AuthenticationService {
    * @returns true when the user has a valid access token. False otherwise.
    */
   hasValidAccessToken(): boolean {
-    return this.oAuthService.hasValidAccessToken();
+    return true; // TODO fix Auth
   }
 
   /**

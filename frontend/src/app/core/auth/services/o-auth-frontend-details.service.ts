@@ -11,7 +11,7 @@ export class OAuthFrontendDetailsService {
   private oAuthFrontendDetails$ = new ReplaySubject<OAuthFrontendDetails>(null);
 
   constructor(private httpClient: HttpClient) {
-    this.reloadOAuthFrontendDetails();
+    // this.reloadOAuthFrontendDetails();
   }
 
   reloadOAuthFrontendDetails(): void {
