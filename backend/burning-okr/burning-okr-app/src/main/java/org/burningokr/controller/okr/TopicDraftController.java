@@ -11,7 +11,6 @@ import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.IUser;
-import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.topicDraft.ConvertTopicDraftToTeamService;
 import org.burningokr.service.topicDraft.OkrTopicDraftService;
 import org.slf4j.Logger;
@@ -29,7 +28,6 @@ public class TopicDraftController {
   private final DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
   private final DataMapper<OkrDepartment, OkrDepartmentDto> okrDepartmentMapper;
   private final DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper;
-  private final AuthorizationService authorizationService;
   private final ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
   private final Logger logger = LoggerFactory.getLogger(TopicDraftController.class);
 
@@ -69,7 +67,7 @@ public class TopicDraftController {
   @PutMapping("/topicDrafts/{topicDraftId}")
   @PreAuthorize(
     "@authorizationService.isAdmin() "
-      + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)"
+      + "|| @topicDraftAuthorizationService.isInitiator(#topicDraftId)"
   )
   public ResponseEntity updateTopicResultById(
     @PathVariable long topicDraftId,
@@ -92,7 +90,7 @@ public class TopicDraftController {
   @PutMapping("/topicDrafts/status/{topicDraftId}")
   @PreAuthorize(
     "@authorizationService.isAdmin()"
-      + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)"
+      + "|| @topicDraftAuthorizationService.isInitiator(#topicDraftId)"
   )
   public ResponseEntity updateTopicResultStatusById(
     @PathVariable long topicDraftId,
@@ -155,7 +153,7 @@ public class TopicDraftController {
   @DeleteMapping("/topicDraft/{topicDraftId}")
   @PreAuthorize(
     "@authorizationService.isAdmin() "
-      + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)"
+      + "|| @topicDraftAuthorizationService.isInitiator(#topicDraftId)"
   )
   public ResponseEntity deleteTopicDraftById(
     @PathVariable Long topicDraftId, IUser IUser

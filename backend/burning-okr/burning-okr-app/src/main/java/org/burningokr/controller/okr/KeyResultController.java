@@ -1,16 +1,16 @@
 package org.burningokr.controller.okr;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.NoteKeyResultDto;
-import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.mapper.okr.KeyResultMapper;
+import org.burningokr.mapper.okr.NoteKeyResultMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.KeyResultService;
-import org.burningokr.service.security.AuthorizationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,34 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestApiController
+@RequiredArgsConstructor
 public class KeyResultController {
 
-  private KeyResultService keyResultService;
-  private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
-  private DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper;
-  private AuthorizationService authorizationService;
+  private final KeyResultService keyResultService;
+  private final KeyResultMapper keyResultMapper;
+  private final NoteKeyResultMapper noteKeyResultMapper;
 
-  /**
-   * Initialize KeyResultController.
-   *
-   * @param keyResultService     a {@link KeyResultService} object
-   * @param keyResultMapper      a {@link DataMapper} object with {@link KeyResult} and {@link
-   *                             KeyResultDto}
-   * @param noteKeyResultMapper
-   * @param authorizationService an {@link AuthorizationService} object
-   */
-  @Autowired
-  public KeyResultController(
-    KeyResultService keyResultService,
-    DataMapper<KeyResult, KeyResultDto> keyResultMapper,
-    DataMapper<NoteKeyResult, NoteKeyResultDto> noteKeyResultMapper,
-    AuthorizationService authorizationService
-  ) {
-    this.keyResultService = keyResultService;
-    this.keyResultMapper = keyResultMapper;
-    this.noteKeyResultMapper = noteKeyResultMapper;
-    this.authorizationService = authorizationService;
-  }
 
   @GetMapping("/keyresults/{keyResultId}")
   public ResponseEntity<KeyResultDto> getKeyResultById(
@@ -72,7 +51,7 @@ public class KeyResultController {
    * @return a {@link ResponseEntity} ok with a Key Result
    */
   @PutMapping("/keyresults/{keyResultId}")
-  @PreAuthorize("@authorizationService.hasMemberPrivilegeForKeyResult(#keyResultId)")
+  @PreAuthorize("@keyResultAuthorizationService.hasMemberPrivilegesForKeyResult(#keyResultId)")
   public ResponseEntity<KeyResultDto> updateKeyResultById(
     @PathVariable long keyResultId,
     @Valid
@@ -120,7 +99,7 @@ public class KeyResultController {
   }
 
   @DeleteMapping("keyresults/{keyResultId}")
-  @PreAuthorize("@authorizationService.hasManagerPrivilegeForKeyResult(#keyResultId)")
+  @PreAuthorize("@keyResultAuthorizationService.hasManagerPrivilegesForKeyResult(#keyResultId)")
   public ResponseEntity deleteKeyResult(
     @PathVariable Long keyResultId, IUser IUser
   )

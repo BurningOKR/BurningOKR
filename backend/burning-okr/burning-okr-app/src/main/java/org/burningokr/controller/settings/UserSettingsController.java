@@ -1,44 +1,24 @@
 package org.burningokr.controller.settings;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.settings.UserSettingsDto;
-import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.mapper.settings.UserSettingsMapper;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.model.users.IUser;
-import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.settings.UserSettingsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestApiController
+@RequiredArgsConstructor
 public class UserSettingsController {
 
-  private UserSettingsService userSettingsService;
-  private DataMapper<UserSettings, UserSettingsDto> mapper;
-  private AuthorizationService authorizationService;
-
-  /**
-   * Initialize UserSettingsController.
-   *
-   * @param userSettingsService  an {@link UserSettingsService} object
-   * @param dataMapper           a {@link DataMapper} object with {@link UserSettings} and {@link
-   *                             UserSettingsDto}
-   * @param authorizationService an {@link AuthorizationService} object
-   */
-  @Autowired
-  public UserSettingsController(
-    UserSettingsService userSettingsService,
-    DataMapper<UserSettings, UserSettingsDto> dataMapper,
-    AuthorizationService authorizationService
-  ) {
-    this.userSettingsService = userSettingsService;
-    this.mapper = dataMapper;
-    this.authorizationService = authorizationService;
-  }
+  private final UserSettingsService userSettingsService;
+  private final UserSettingsMapper mapper;
 
   /**
    * API Endpoint to get the user settings of an user.

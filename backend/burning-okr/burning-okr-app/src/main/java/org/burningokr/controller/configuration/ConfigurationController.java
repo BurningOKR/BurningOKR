@@ -10,7 +10,6 @@ import org.burningokr.model.configuration.Configuration;
 import org.burningokr.model.users.IUser;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.mail.MailService;
-import org.burningokr.service.security.AuthorizationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,6 @@ public class ConfigurationController {
 
   private final ConfigurationService configurationService;
   private final DataMapper<Configuration, ConfigurationDto> dataMapper;
-  private final AuthorizationService authorizationService;
   private final MailService mailService;
 
   @GetMapping("/configurations/hasmail")

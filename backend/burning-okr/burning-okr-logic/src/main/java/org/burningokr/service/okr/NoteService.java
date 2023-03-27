@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteKeyResult;
@@ -7,8 +8,6 @@ import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.NoteKeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class NoteService {
-
-  private final Logger logger = LoggerFactory.getLogger(NoteService.class);
 
   private NoteRepository noteRepository;
   private NoteKeyResultRepository noteKeyResultRepository;
@@ -77,6 +75,6 @@ public class NoteService {
     noteRepository.deleteById(noteId);
 
     activityService.createActivity(IUser, note, Action.DELETED);
-    logger.info("Deleted Note with id " + noteId);
+    log.info("Deleted Note with id " + noteId);
   }
 }

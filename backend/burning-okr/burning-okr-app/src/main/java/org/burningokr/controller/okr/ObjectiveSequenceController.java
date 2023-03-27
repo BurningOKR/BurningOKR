@@ -1,10 +1,9 @@
 package org.burningokr.controller.okr;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.ObjectiveService;
-import org.burningokr.service.security.AuthorizationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,24 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Collection;
 
 @RestApiController
+@RequiredArgsConstructor
 public class ObjectiveSequenceController {
 
-  private ObjectiveService objectiveService;
-  private AuthorizationService authorizationService;
-
-  /**
-   * Initialize ObjectiveSequenceController.
-   *
-   * @param objectiveService     an {@link ObjectiveService} object
-   * @param authorizationService an {@link AuthorizationService} object
-   */
-  @Autowired
-  public ObjectiveSequenceController(
-    ObjectiveService objectiveService, AuthorizationService authorizationService
-  ) {
-    this.objectiveService = objectiveService;
-    this.authorizationService = authorizationService;
-  }
+  private final ObjectiveService objectiveService;
 
   /**
    * API Endpoint to update a Sequence.
@@ -43,7 +28,7 @@ public class ObjectiveSequenceController {
    * @throws Exception if sequence list is invalid
    */
   @PutMapping("/units/{okrUnitId}/objectivesequence")
-  @PreAuthorize("@authorizationService.hasMemberPrivilegeForDepartment(#okrUnitId)")
+  @PreAuthorize("@departmentAuthorizationService.hasMemberPrivilegesForDepartment(#okrUnitId)")
   public ResponseEntity updateSequenceOf(
     @PathVariable long okrUnitId,
     @RequestBody Collection<Long> sequenceList, IUser IUser

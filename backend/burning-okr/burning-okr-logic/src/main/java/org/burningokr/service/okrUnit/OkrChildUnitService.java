@@ -56,7 +56,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     return objectiveRepository.findByUnitAndOrderBySequence(okrUnit);
   }
 
-  @PreAuthorize("@DepartmentAuthorizationService.hasAdminPrivilegesForDepartment(#updatedUnit.getId())")
+  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#updatedUnit.getId())")
   public T updateUnit(T updatedUnit) throws ForbiddenException {
     T referencedUnit = okrUnitRepository.findByIdOrThrow(updatedUnit.getId());
 
@@ -80,7 +80,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     return referencedUnit;
   }
 
-  @PreAuthorize("@DepartmentAuthorizationService.hasAdminPrivilegesForDepartment(#updatedUnit.getId())")
+  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#updatedUnit.getId())")
   public void deleteChildUnit(Long unitId) {
     T referencedUnit = okrUnitRepository.findByIdOrThrow(unitId);
     throwIfCycleForOkrChildUnitIsClosed(referencedUnit);
@@ -90,7 +90,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     activityService.createActivity(userContextService.getAuthenticatedUser(), referencedUnit, Action.DELETED);
   }
 
-  @PreAuthorize("@DepartmentAuthorizationService.hasAdminPrivilegesForDepartment(#updatedUnit.getId())")
+  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#updatedUnit.getId())")
   public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit okrChildUnit) {
     OkrUnit parentOkrUnit = parentOkrUnitRepository.findByIdOrThrow(parentUnitId);
 

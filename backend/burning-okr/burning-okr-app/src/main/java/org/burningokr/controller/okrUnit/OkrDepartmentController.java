@@ -143,7 +143,7 @@ public class OkrDepartmentController {
   }
 
   @PutMapping("/departments/{departmentId}")
-  @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
+  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#departmentId)")
   public ResponseEntity<OkrDepartmentDto> updateDepartment(
     @PathVariable long departmentId,
     @Valid
@@ -166,7 +166,7 @@ public class OkrDepartmentController {
    * @return the updated OkrTopicDescription
    */
   @PutMapping("/departments/{departmentId}/topicdescription")
-  @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
+  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#departmentId)")
   public ResponseEntity<OkrTopicDescriptionDto> updateOkrTopicDescription(
     @PathVariable long departmentId,
     @Valid
@@ -197,7 +197,7 @@ public class OkrDepartmentController {
    * @return a {@link ResponseEntity} ok with the added objective
    */
   @PostMapping("/departments/{departmentId}/objectives")
-  @PreAuthorize("@authorizationService.hasManagerPrivilegeForDepartment(#departmentId)")
+  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#departmentId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
     @PathVariable long departmentId,
     @Valid
