@@ -8,6 +8,7 @@ import { UserSettings } from '../../shared/model/ui/user-settings';
 import { ConfigurationManagerService } from '../settings/configuration-manager.service';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { RouterParams } from '../../../typings';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-landing-page-navigation',
@@ -20,6 +21,7 @@ export class LandingPageNavigationComponent implements OnInit {
     private userSettingsManagerService: UserSettingsManagerService,
     private configurationManagerService: ConfigurationManagerService,
     private router: Router,
+    private oAuthService: OAuthService,
   ) {
   }
 
@@ -33,6 +35,7 @@ export class LandingPageNavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.navigateToUsersDefaultTeam();
+    console.log(this.oAuthService.getAccessToken());
   }
 
   private navigateToUsersDefaultTeam(): void {

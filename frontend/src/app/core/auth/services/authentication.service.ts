@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
+import { authCodeFlowConfig } from '../auth-flow-code-config';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 
 @Injectable()
 export class AuthenticationService {
@@ -41,6 +43,15 @@ export class AuthenticationService {
     //
     //     });
     // });
+  }
+
+  initCodeFlow(): void {
+    console.log('init code flow');
+    this.oAuthService.configure(authCodeFlowConfig);
+    this.oAuthService.setStorage(localStorage);
+    this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
+    this.oAuthService.loadDiscoveryDocumentAndLogin().then(bool => console.log(`Login: ${bool}`));
+    console.log(this.oAuthService.getAccessToken());
   }
 
   getPath(): string {

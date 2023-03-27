@@ -1,0 +1,11 @@
+import { AuthConfig } from 'angular-oauth2-oidc';
+
+export const authCodeFlowConfig: AuthConfig = {
+  issuer: 'http://localhost:8765/realms/burning-okr',
+  redirectUri: `${window.location.origin}`,
+  clientId: 'burning-okr-client',
+  scope: 'openid profile email',
+  showDebugInformation: true,
+  requireHttps: false,
+  responseType: 'code',
+};
