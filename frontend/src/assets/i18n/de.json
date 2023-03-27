@@ -184,6 +184,9 @@
     "label": {
       "select-chart-type": "Wähle Art des Diagramms"
     },
+    "info": {
+      "discard-changes": "Änderungen nicht gespeichert! Änderungen verwerfen?"
+    },
     "line-progress": "Fortschritt - Liniendiagramm",
     "okr-toolbar": {
       "create-dashboard": "Dashboard anlegen",

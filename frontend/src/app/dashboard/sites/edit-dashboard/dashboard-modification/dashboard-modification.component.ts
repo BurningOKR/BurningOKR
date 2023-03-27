@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Dashboard } from '../../../model/ui/dashboard';
 import {
   ChartCreationOptionsDto,
@@ -13,28 +13,48 @@ import { LineChartOptions } from '../../../model/ui/line-chart-options';
 import { PieChartOptions } from '../../../model/ui/pie-chart-options';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PickChartTypeModalComponent } from './pick-chart-type-modal/pick-chart-type-modal.component';
+import { ComponentCanDeactivate } from '../../../../core/auth/guards/can-deactivate.guard';
+import { NgForm } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard-modification',
   templateUrl: './dashboard-modification.component.html',
   styleUrls: ['./dashboard-modification.component.scss'],
 })
-export class DashboardModificationComponent implements OnInit {
+export class DashboardModificationComponent implements OnInit, ComponentCanDeactivate {
   @Input() dashboard: Dashboard;
   @Output() updateDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
   @Output() clickedDelete: EventEmitter<ChartCreationOptionsDto> = new EventEmitter<ChartCreationOptionsDto>();
+  @ViewChild('dbForm', { read: NgForm }) dbForm: NgForm;
   allTeams$: Observable<OkrDepartment[]>;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
 
   constructor(
     private readonly departmentService: DepartmentMapper,
     public dialog: MatDialog,
-    // private translate: TranslateService,
+    private translate: TranslateService,
   ) {
   }
 
   ngOnInit(): void {
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
+  }
+
+  /**
+   * TODO: Selection of teams not yet tracked for changes.
+   */
+  canDeactivate(): boolean {
+    if (this.checkDirty()) {
+      return confirm(this.translate.instant('edit-dashboard.info.discard-changes'));
+      // return confirm('Do you want to discard changes???');
+    }
+
+    return true;
+  }
+
+  checkDirty(): boolean {
+    return this.dbForm.dirty;
   }
 
   /**
@@ -75,5 +95,25 @@ export class DashboardModificationComponent implements OnInit {
       }
     });
   }
+
+  // @HostListener('window:beforeunload', ['$event'])
+  // unloadHandler(event: Event): boolean {
+  //   return false;
+  // }
+
+  dashboardValid(): boolean {
+    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
+  }
+
+  chartsValid(): boolean {
+    for (const chart of this.dashboard.charts) {
+      if (!(chart.title && chart.title.text.trim())) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
 }
 

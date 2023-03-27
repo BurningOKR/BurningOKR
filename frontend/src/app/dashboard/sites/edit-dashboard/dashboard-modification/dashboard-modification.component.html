@@ -1,43 +1,47 @@
-<span class="edit-dashboard-title">
-      <mat-form-field>
-        <input [(ngModel)]="dashboard.title" matInput
-               placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}">
-      </mat-form-field>
+<form #dbForm name="dashboard_form">
+
+  <span class="edit-dashboard-title">
+    <mat-form-field>
+          <input [(ngModel)]="dashboard.title" matInput name="dashboardTitle" placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}"
+                 required>
+        </mat-form-field>
   </span>
 
-<div class="edit-chart">
-  <div *ngFor="let chart of dashboard.charts" class="edit-chart-options">
-    <mat-form-field>
-      <input [(ngModel)]="chart.title.text" matInput
-             placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
-    </mat-form-field>
+  <div class="edit-chart">
+    <div *ngFor="let chart of dashboard.charts" class="edit-chart-options">
+      <mat-form-field>
+        <input [(ngModel)]="chart.title.text" matInput name="chartTitle" placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}"
+               required>
+      </mat-form-field>
 
-    <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
+      <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
-    <mat-form-field *ngIf="teamIsSelectable(chart)">
-      <mat-select [(value)]="chart.selectedTeamIds" multiple
-                  placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
-        <mat-option *ngFor="let team of allTeams$ | async" [value]="team.id">{{team.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field *ngIf="teamIsSelectable(chart)">
+        <mat-select [(value)]="chart.selectedTeamIds" multiple
+                    placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
+          <mat-option *ngFor="let team of allTeams$ | async" [value]="team.id">{{team.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
-            matTooltip="{{'edit-dashboard.tooltip.delete-chart-button' | translate}}">
-      <mat-icon>delete</mat-icon>
+      <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
+              matTooltip="{{'edit-dashboard.tooltip.delete-chart-button' | translate}}">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button (click)="openDialog()" class="chart-creation-add-button" mat-stroked-button>
+        <mat-icon>add</mat-icon>
+        {{'edit-dashboard.button.add-chart' | translate}}
+      </button>
+    </div>
+  </div>
+  <div class="button-save-dashboard">
+    <button (click)="updateDashboard.emit(dashboard)" [disabled]="!dashboardValid()" id="save-changes-button"
+            mat-stroked-button type="submit">
+      <mat-icon>add_circle_outline</mat-icon>
+      {{'edit-dashboard.button.save-dashboard' | translate}}
     </button>
   </div>
-  <div>
-    <button (click)="openDialog()" class="chart-creation-add-button" mat-stroked-button>
-      <mat-icon>add</mat-icon>
-      {{'edit-dashboard.button.add-chart' | translate}}
-    </button>
-  </div>
-</div>
+</form>
 
-<div class="button-save-dashboard">
-  <button (click)="updateDashboard.emit(dashboard)" id="save-changes-button" mat-stroked-button>
-    <mat-icon>add_circle_outline</mat-icon>
-    {{'edit-dashboard.button.save-dashboard' | translate}}
-  </button>
-</div>
 

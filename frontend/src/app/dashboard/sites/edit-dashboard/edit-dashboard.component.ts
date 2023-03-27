@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Dashboard } from '../../model/ui/dashboard';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
+import { ParentComponentCanDeactivate } from '../../../core/auth/guards/can-deactivate.guard';
+import { DashboardModificationComponent } from './dashboard-modification/dashboard-modification.component';
 
 @Component({
   selector: 'app-edit-dashboard',
   templateUrl: './edit-dashboard.component.html',
   styleUrls: ['./edit-dashboard.component.scss'],
 })
-export class EditDashboardComponent implements OnInit {
+export class EditDashboardComponent implements OnInit, ParentComponentCanDeactivate {
+  @ViewChild('childRef') child!: DashboardModificationComponent;
   dashboard$: Observable<Dashboard>;
 
   constructor(private readonly activatedRoute: ActivatedRoute, private readonly dashboardService: DashboardService) {
@@ -25,9 +28,33 @@ export class EditDashboardComponent implements OnInit {
   }
 
   updateDashboard(dashboard: Dashboard): void {
-    this.dashboardService.updateDashboard$(dashboard)
-      .pipe(take(1))
-      .subscribe();
+    if (this.dashboardValid(dashboard)) {
+      this.dashboardService.updateDashboard$(dashboard)
+        .pipe(take(1))
+        .subscribe();
+    }
+  }
+
+  dashboardValid(dashboard: Dashboard): boolean {
+    return this.chartsValid(dashboard) && dashboard.title.trim() && !!dashboard.charts.length;
+  }
+
+  chartsValid(dashboard: Dashboard): boolean {
+    for (const chart of dashboard.charts) {
+      if (!(chart.title && chart.title.text.trim())) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  getChildren(): DashboardModificationComponent {
+    return this.child;
+  }
+
+  canDeactivate(): boolean {
+    return true;
   }
 
 }
