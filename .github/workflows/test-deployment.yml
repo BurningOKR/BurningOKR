@@ -10,7 +10,7 @@ jobs:
   get-version:
     runs-on: [self-hosted]
     steps:
-    - name: Read changelog
+    - name: Update
       run: docker compose up --quiet-pull --pull always -d
-      working-directory: /etc/compose-files/burning-okr
+      working-directory: C:\BurningOKR\b-okr
 
