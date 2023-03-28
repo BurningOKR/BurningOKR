@@ -9,7 +9,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, ${{ inputs.environment }}]
     environment: ${{ inputs.environment }}
     steps:
     - name: Authorize to ghcr.io
