@@ -9,7 +9,8 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, ${{ inputs.environment }}]
+    runs-on: [self-hosted, staging]
+    if: ${{ inputs.environment }} == staging
     environment: ${{ inputs.environment }}
     steps:
     - name: Authorize to ghcr.io
