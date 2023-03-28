@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  deploy:
+  deploy-staging:
     runs-on: [self-hosted, staging]
     if: ${{ inputs.environment }} == staging
     environment: ${{ inputs.environment }}
@@ -22,3 +22,18 @@ jobs:
     - name: Update ${{ inputs.environment }}
       run: ${{ vars.DEPLOYMENT_COMMAND }}
       working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
+
+  deploy-prod:
+    runs-on: [ self-hosted, prod ]
+    if: ${{ inputs.environment }} == prod
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Authorize to ghcr.io
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update ${{ inputs.environment }}
+        run: ${{ vars.DEPLOYMENT_COMMAND }}
+        working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
