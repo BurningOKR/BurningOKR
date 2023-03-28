@@ -1,0 +1,23 @@
+name: Execute Deployment
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: [self-hosted]
+    environment: ${{ inputs.environment }}
+    steps:
+    - name: Authorize to ghcr.io
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Update ${{ inputs.environment }}
+      run: ${{ vars.DEPLOYMENT_COMMAND }}
+      working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}

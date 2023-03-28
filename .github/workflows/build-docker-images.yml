@@ -1,20 +1,30 @@
-name: build docker-dev-images
+name: build docker-images
 
 on:
-#  push:
-#    branches: [development]
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      version-number:
+        required: true
+        type: string
+      version-number-major:
+        required: true
+        type: string
+      version-number-minor:
+        required: true
+        type: string
+      version-number-patch:
+        required: true
+        type: string
+      angular-frontend-container-name:
+        required: true
+        type: string
+      spring-backend-container-name:
+        required: true
+        type: string
+
 
 jobs:
-  get-version-number:
-    runs-on: ubuntu-latest
-    outputs:
-      version-no: ${{ steps.get_version_number.outputs.version_no }}
-    steps:
-    - id: get_version_number
-      run: echo "version_no=$(date +'%y.%m').${{ github.run_number }}" >> $GITHUB_OUTPUT
-
-  build-backend-image-dev:
+  build-spring-backend-image:
     runs-on: ubuntu-latest
     needs: get-version-number
     steps:
@@ -41,9 +51,12 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/burningokr/b-okr-be-dev:latest
-            ghcr.io/burningokr/b-okr-be-dev:${{needs.get-version-number.outputs.version-no}}
-  build-frontend-image-dev:
+            ghcr.io/burningokr/${{ inputs.spring-backend-container-name }}:latest
+            ghcr.io/burningokr/${{ inputs.spring-backend-container-name }}:${{ inputs.version-number }}
+            ghcr.io/burningokr/${{ inputs.spring-backend-container-name }}:${{ inputs.version-number-major }}
+            ghcr.io/burningokr/${{ inputs.spring-backend-container-name }}:${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}
+
+  build-angular-frontend-image:
     runs-on: ubuntu-latest
     needs: get-version-number
     steps:
@@ -73,5 +86,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/burningokr/b-okr-fe-dev:latest
-            ghcr.io/burningokr/b-okr-fe-dev:${{needs.get-version-number.outputs.version-no}}
+            ghcr.io/burningokr/${{ inputs.angular-frontend-container-name }}:latest
+            ghcr.io/burningokr/${{ inputs.angular-frontend-container-name }}:${{ inputs.version-number }}
+            ghcr.io/burningokr/${{ inputs.angular-frontend-container-name }}:${{ inputs.version-number-major }}
+            ghcr.io/burningokr/${{ inputs.angular-frontend-container-name }}:${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}
