@@ -7,10 +7,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-version:
+  deploy:
     runs-on: [self-hosted]
     steps:
+    - name: Authorize to ghcr.io
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Update
       run: docker compose up --quiet-pull --pull always -d
       working-directory: C:\BurningOKR\b-okr
-
