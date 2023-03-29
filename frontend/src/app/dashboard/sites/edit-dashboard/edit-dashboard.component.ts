@@ -4,7 +4,7 @@ import { Dashboard } from '../../model/ui/dashboard';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
-import { ParentComponentCanDeactivate } from '../../../core/auth/guards/can-deactivate.guard';
+import { ComponentCanDeactivate } from '../../../core/auth/guards/can-deactivate.guard';
 import { DashboardModificationComponent } from './dashboard-modification/dashboard-modification.component';
 
 @Component({
@@ -12,8 +12,8 @@ import { DashboardModificationComponent } from './dashboard-modification/dashboa
   templateUrl: './edit-dashboard.component.html',
   styleUrls: ['./edit-dashboard.component.scss'],
 })
-export class EditDashboardComponent implements OnInit, ParentComponentCanDeactivate {
-  @ViewChild('childRef') child!: DashboardModificationComponent;
+export class EditDashboardComponent implements OnInit, ComponentCanDeactivate {
+  @ViewChild('childRef') dashboardModificationComponent!: DashboardModificationComponent;
   dashboard$: Observable<Dashboard>;
 
   constructor(private readonly activatedRoute: ActivatedRoute, private readonly dashboardService: DashboardService) {
@@ -32,6 +32,8 @@ export class EditDashboardComponent implements OnInit, ParentComponentCanDeactiv
       this.dashboardService.updateDashboard$(dashboard)
         .pipe(take(1))
         .subscribe();
+
+      this.dashboardModificationComponent.dbFormGroup.markAsPristine();
     }
   }
 
@@ -49,12 +51,8 @@ export class EditDashboardComponent implements OnInit, ParentComponentCanDeactiv
     return true;
   }
 
-  getChildren(): DashboardModificationComponent {
-    return this.child;
-  }
-
   canDeactivate(): boolean {
-    return true;
+    return this.dashboardModificationComponent.canDeactivate();
   }
 
 }

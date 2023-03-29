@@ -1,23 +1,23 @@
-<form #dbForm name="dashboard_form">
+<form (ngSubmit)="updateDashboard.emit(dashboard)" [formGroup]="dbFormGroup">
 
   <span class="edit-dashboard-title">
     <mat-form-field>
-          <input [(ngModel)]="dashboard.title" matInput name="dashboardTitle" placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}"
-                 required>
-        </mat-form-field>
+          <input [(ngModel)]="dashboard.title" formControlName="fcDashboardTitle" matInput
+                 placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}" required>
+    </mat-form-field>
   </span>
 
   <div class="edit-chart">
     <div *ngFor="let chart of dashboard.charts" class="edit-chart-options">
       <mat-form-field>
-        <input [(ngModel)]="chart.title.text" matInput name="chartTitle" placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}"
-               required>
+        <input [(ngModel)]="chart.title.text" [formControlName]="chartTitleFormControl(chart)" matInput
+               placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}" required>
       </mat-form-field>
 
       <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
       <mat-form-field *ngIf="teamIsSelectable(chart)">
-        <mat-select [(value)]="chart.selectedTeamIds" multiple
+        <mat-select [(value)]="chart.selectedTeamIds" [formControlName]="teamsFormControl(chart)" multiple
                     placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
           <mat-option *ngFor="let team of allTeams$ | async" [value]="team.id">{{team.name}}</mat-option>
         </mat-select>
@@ -36,8 +36,7 @@
     </div>
   </div>
   <div class="button-save-dashboard">
-    <button (click)="updateDashboard.emit(dashboard)" [disabled]="!dashboardValid()" id="save-changes-button"
-            mat-stroked-button type="submit">
+    <button [disabled]="!dashboardValid()" id="save-changes-button" mat-stroked-button type="submit">
       <mat-icon>add_circle_outline</mat-icon>
       {{'edit-dashboard.button.save-dashboard' | translate}}
     </button>

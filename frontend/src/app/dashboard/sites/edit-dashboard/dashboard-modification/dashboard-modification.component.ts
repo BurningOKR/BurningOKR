@@ -1,10 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Dashboard } from '../../../model/ui/dashboard';
-import {
-  ChartCreationOptionsDto,
-  ChartInformationTypeEnum,
-  ChartTypeEnumDropDownRecord,
-} from '../../../model/dto/chart-creation-options.dto';
+import { ChartInformationTypeEnum, ChartTypeEnumDropDownRecord } from '../../../model/dto/chart-creation-options.dto';
 import { BaseChartOptions } from '../../../model/ui/base-chart-options';
 import { Observable } from 'rxjs';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
@@ -14,7 +10,7 @@ import { PieChartOptions } from '../../../model/ui/pie-chart-options';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PickChartTypeModalComponent } from './pick-chart-type-modal/pick-chart-type-modal.component';
 import { ComponentCanDeactivate } from '../../../../core/auth/guards/can-deactivate.guard';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,10 +21,11 @@ import { TranslateService } from '@ngx-translate/core';
 export class DashboardModificationComponent implements OnInit, ComponentCanDeactivate {
   @Input() dashboard: Dashboard;
   @Output() updateDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
-  @Output() clickedDelete: EventEmitter<ChartCreationOptionsDto> = new EventEmitter<ChartCreationOptionsDto>();
-  @ViewChild('dbForm', { read: NgForm }) dbForm: NgForm;
+  // @Output() clickedDelete: EventEmitter<ChartCreationOptionsDto> = new EventEmitter<ChartCreationOptionsDto>();
   allTeams$: Observable<OkrDepartment[]>;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
+  dbFormGroup: FormGroup;
+  tempIdCounter: number = 0;
 
   constructor(
     private readonly departmentService: DepartmentMapper,
@@ -37,24 +34,56 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   ) {
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  unloadHandler(): boolean {
+    return this.canDeactivate();
+  }
+
   ngOnInit(): void {
+    this.dbFormGroup = new FormGroup({
+      fcDashboardTitle: new FormControl(),
+    });
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
   }
 
-  /**
-   * TODO: Selection of teams not yet tracked for changes.
-   */
   canDeactivate(): boolean {
-    if (this.checkDirty()) {
+    if (this.dbFormGroup.dirty) {
       return confirm(this.translate.instant('edit-dashboard.info.discard-changes'));
-      // return confirm('Do you want to discard changes???');
     }
 
     return true;
   }
 
-  checkDirty(): boolean {
-    return this.dbForm.dirty;
+  chartTitleFormControl(chart: BaseChartOptions): string {
+    const formControl: FormControl = new FormControl();
+    formControl.setValue(chart.title.text);
+    const formControlName: string = `Title: ${this.tempIdCounter++}`;
+    this.dbFormGroup.addControl(formControlName, formControl);
+
+    return formControlName;
+  }
+
+  teamsFormControl(chart: BaseChartOptions): string {
+    const formControl: FormControl = new FormControl();
+    formControl.setValue(chart.selectedTeamIds);
+    const formControlName: string = `Teams: ${this.tempIdCounter++}`;
+    this.dbFormGroup.addControl(formControlName, formControl);
+
+    return formControlName;
+  }
+
+  dashboardValid(): boolean {
+    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
+  }
+
+  chartsValid(): boolean {
+    for (const chart of this.dashboard.charts) {
+      if (!(chart.title && chart.title.text.trim())) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /**
@@ -95,25 +124,5 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
       }
     });
   }
-
-  // @HostListener('window:beforeunload', ['$event'])
-  // unloadHandler(event: Event): boolean {
-  //   return false;
-  // }
-
-  dashboardValid(): boolean {
-    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
-  }
-
-  chartsValid(): boolean {
-    for (const chart of this.dashboard.charts) {
-      if (!(chart.title && chart.title.text.trim())) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
 }
 

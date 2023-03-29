@@ -7,7 +7,7 @@ export class PieChartOptions extends BaseChartOptions {
   responsive: ApexResponsive[];
   labels: string[];
   title: ChartTitle = {
-    text: 'Pie-Chart Titel oder so',
+    text: '',
     align: 'left',
   };
   chartType: ChartInformationTypeEnum = ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW;

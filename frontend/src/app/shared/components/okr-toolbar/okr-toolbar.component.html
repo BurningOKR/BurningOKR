@@ -48,7 +48,6 @@
     <app-reset-countdown></app-reset-countdown>
   </button>
 
-
   <!-- show menu settings-->
   <ng-container *ngIf="(isLocalUserbase$ | async) === false && isPlayground === false">
     <button (keydown)="$event.stopPropagation()" *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
