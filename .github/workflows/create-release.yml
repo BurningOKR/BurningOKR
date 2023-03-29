@@ -1,23 +1,22 @@
 name: Release App
 
 on:
-  push:
-    branches: [ master ]
+  workflow_call:
+    inputs:
+      version-number:
+        required: true
+        type: string
 
 jobs:
   get-version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.read-version.outputs.version }}
       changelog: ${{ steps.read-changelog.outputs.changelog }}
 
     steps:
     - uses: actions/checkout@v2
     - name: Remove Windows file endings
       run: vi version.txt -c "set ff=unix" -c ":wq"
-    - name: Read package version
-      id: read-version
-      run: echo version=$(head -n 1 version.txt) >> $GITHUB_OUTPUT
     - name: Read changelog
       id: read-changelog
       run: echo changelog=$(tail -n+3 version.txt) >> $GITHUB_OUTPUT
