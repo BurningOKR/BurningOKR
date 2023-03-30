@@ -14,20 +14,26 @@ export class AuthenticationService {
   ) {
   }
 
-  async configure(): Promise<void> {
-    return new Promise(resolve => {
-      this.oAuthService.configure(authCodeFlowConfig);
-      this.oAuthService.setStorage(localStorage);
-      this.oAuthService.loadDiscoveryDocumentAndLogin().then(t => {
-        console.log(`AuthenticationService - loadDiscoveryDocument: ${t}`);
-        resolve();
-      });
-      console.log('Test');
+  configure() {
+    this.oAuthService.configure(authCodeFlowConfig);
+    this.oAuthService.setupAutomaticSilentRefresh();
+    this.oAuthService.setStorage(localStorage);
+    this.oAuthService.loadDiscoveryDocument().then(t => {
+      console.log('AuthenticationService - loadDiscoveryDocument:');
+      console.log(t);
     });
+    this.oAuthService.events.pipe(
+      filter((e: any) => {
+        return e.type === 'token_received';
+      }),
+    ).subscribe(() => {
+      console.log('New Token received');
+    });
+    console.log('Test');
   }
 
   getAccessToken(): string {
-    return this.oAuthService.getAccessToken();
+    return this.oAuthService.getIdToken();
   }
 
   getPath(): string {
@@ -47,7 +53,7 @@ export class AuthenticationService {
   }
 
   login() {
-    this.oAuthService.initCodeFlow();
+    this.oAuthService.initLoginFlow();
   }
 
   hasValidAccessToken(): boolean {
@@ -58,6 +64,6 @@ export class AuthenticationService {
    * Logs the user out.
    */
   logout(): void {
-    this.oAuthService.logOut();
+    // this.oAuthService.logOut();
   }
 }

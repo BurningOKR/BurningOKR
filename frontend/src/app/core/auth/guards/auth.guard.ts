@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
   // TODO fix auth
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log(`canActivate - Token: ${this.authService.getAccessToken()}`);
-    if (this.authService.hasValidAccessToken()) {
+    if (this.authService.getAccessToken() != null && this.authService.hasValidAccessToken()) {
       console.log('canActivate: Valid Token');
 
       return true;

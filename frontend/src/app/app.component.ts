@@ -21,7 +21,7 @@ export class AppComponent {
     private OkrTranslationHelper: OkrTranslationHelperService,
   ) {
     this.OkrTranslationHelper.initializeTranslationOnStartup();
-    this.authService.configure().then(() => console.log('Initialized OIDC'));
+    this.authService.configure();
   }
 
   checkIfUserIsLoggedIn(): boolean {
