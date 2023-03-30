@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
-import { AuthenticationService } from './core/auth/services/authentication.service';
 import { FetchingService } from './core/services/fetching.service';
 import { OkrTranslationHelperService } from './shared/services/helper/okr-translation-helper.service';
+import { AuthenticationService } from './core/auth/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,7 @@ export class AppComponent {
     private OkrTranslationHelper: OkrTranslationHelperService,
   ) {
     this.OkrTranslationHelper.initializeTranslationOnStartup();
-    this.authService.initCodeFlow();
+    this.authService.configure().then(() => console.log('Initialized OIDC'));
   }
 
   checkIfUserIsLoggedIn(): boolean {

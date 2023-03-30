@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private authService: OAuthService) {
+  constructor(private router: Router, private authService: AuthenticationService) {
 
   }
 
   // TODO fix auth
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log(this.authService.getAccessToken());
+    console.log(`canActivate - Token: ${this.authService.getAccessToken()}`);
     if (this.authService.hasValidAccessToken()) {
-      console.log('Valid Token');
+      console.log('canActivate: Valid Token');
 
       return true;
     }
-    console.log('Invalid Token');
+    console.log('canActivate: Invalid Token');
 
-    this.authService.initLoginFlow();
+    // this.authService.initLoginFlow();
+    this.authService.login();
+
+    return true;
   }
 }

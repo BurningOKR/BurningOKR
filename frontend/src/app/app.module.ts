@@ -40,11 +40,8 @@ import { AdminUserIdsPipe } from './admin/pipes/admin-user-ids.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { loggerConfig } from './config-files/logger-config';
-import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
-import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-handler/local-auth-type-handler.service';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
-import { OAuthInterceptorService } from './core/auth/services/o-auth-interceptor.service';
 import { CoreModule } from './core/core.module';
 import { ErrorInterceptor } from './core/error/error.interceptor';
 import { ErrorModule } from './core/error/error.module';
@@ -121,13 +118,9 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     OAuthFrontendDetailsService,
-
     AuthenticationService,
-    LocalAuthTypeHandlerService,
-    AzureAuthTypeHandlerService,
 
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true },
     {
       provide: LOCALE_ID,
       useValue: currentLanguage,
