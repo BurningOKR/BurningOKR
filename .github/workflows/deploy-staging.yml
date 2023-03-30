@@ -37,7 +37,15 @@ jobs:
 
   deploy-dev:
     needs: build-dev-images
-    uses: ./.github/workflows/execute-deployment.yml
-    with:
-      environment: 'staging'
-    secrets: inherit
+    runs-on: [self-hosted, staging]
+    environment: ${{ inputs.environment }}
+    steps:
+    - name: Authorize to ghcr.io
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Update ${{ inputs.environment }}
+      run: ${{ vars.DEPLOYMENT_COMMAND }}
+      working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
