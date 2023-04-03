@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 public class Activity {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
 
   private LocalDateTime date;

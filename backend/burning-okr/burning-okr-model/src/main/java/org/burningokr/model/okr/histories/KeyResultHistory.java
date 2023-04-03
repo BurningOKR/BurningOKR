@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 public class KeyResultHistory implements Trackable<Long> {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
   @PositiveOrZero
   private long startValue;

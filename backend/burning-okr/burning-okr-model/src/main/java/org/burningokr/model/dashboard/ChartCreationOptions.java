@@ -10,7 +10,7 @@ import java.util.Collection;
 @Data
 public class ChartCreationOptions {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
 
   private String title;

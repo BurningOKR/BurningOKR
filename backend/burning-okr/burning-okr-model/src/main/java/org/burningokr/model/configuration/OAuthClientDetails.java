@@ -1,5 +1,6 @@
 package org.burningokr.model.configuration;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,6 +18,7 @@ public class OAuthClientDetails implements AuthenticationProperties {
   private String authorizedGrantTypes;
   private String webServerRedirectUri;
   private String authorities;
+  @Column(columnDefinition = "varchar(4096)")
   private String additionalInformation;
   private String autoapprove;
 
