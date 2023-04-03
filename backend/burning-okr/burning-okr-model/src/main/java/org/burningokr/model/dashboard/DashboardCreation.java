@@ -14,7 +14,7 @@ import java.util.UUID;
 @Data
 public class DashboardCreation implements Trackable<Long> {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
 
   // Default length: 255

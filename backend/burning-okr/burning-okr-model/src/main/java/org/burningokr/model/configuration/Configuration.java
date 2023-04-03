@@ -12,7 +12,7 @@ import org.burningokr.model.activity.Trackable;
 public class Configuration implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
 
   private String name;

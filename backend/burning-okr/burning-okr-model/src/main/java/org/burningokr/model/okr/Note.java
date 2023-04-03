@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Note implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
 
   @NotNull

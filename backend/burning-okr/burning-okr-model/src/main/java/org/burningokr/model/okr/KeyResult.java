@@ -15,7 +15,7 @@ import java.util.Collection;
 public class KeyResult implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
 
   @ToString.Exclude

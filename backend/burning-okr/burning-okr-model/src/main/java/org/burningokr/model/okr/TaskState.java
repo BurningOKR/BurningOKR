@@ -9,7 +9,7 @@ import org.burningokr.model.activity.Trackable;
 public class TaskState implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
   private Long id;
 
   @Column(length = 255)
