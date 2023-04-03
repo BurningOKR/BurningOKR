@@ -17,7 +17,8 @@ import java.util.Collection;
 public abstract class OkrUnit implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   protected Long id;
 
   @NotNull

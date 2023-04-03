@@ -61,7 +61,7 @@ public class UserSettingsService {
       userSettings.setDefaultTeam(getDefaultTeam(IUser, userSettings.getDefaultOkrCompany()));
       userSettings = userSettingsRepository.save(userSettings);
       activityService.createActivity(IUser, userSettings, Action.CREATED);
-      logger.info(
+      logger.debug(
         "Created User Settings "
           + userSettings.getName()
           + "(id: "
@@ -75,7 +75,7 @@ public class UserSettingsService {
     Collection<OkrCompany> okrCompanyCollection =
       companyService.getAllCompanies().stream()
         .filter(company -> company.getCycle().getCycleState() == CycleState.ACTIVE)
-        .collect(Collectors.toList());
+        .toList();
     if (okrCompanyCollection.size() == 1) {
       return (OkrCompany) okrCompanyCollection.toArray()[0];
     }
@@ -94,14 +94,14 @@ public class UserSettingsService {
     List<OkrDepartment> departmentsWhereUserIsSponsor =
       okrDepartments.stream()
         .filter(department -> isUserSponsorOrOkrMasterInDepartment(IUser, department))
-        .collect(Collectors.toList());
+        .toList();
     if (departmentsWhereUserIsSponsor.size() == 1) {
       return departmentsWhereUserIsSponsor.get(0);
     }
     List<OkrDepartment> departmentsWhereUserIsMember =
       okrDepartments.stream()
         .filter(department -> isUserMemberInDepartment(IUser, department))
-        .collect(Collectors.toList());
+        .toList();
     if (departmentsWhereUserIsMember.size() == 1) {
       return departmentsWhereUserIsMember.get(0);
     }

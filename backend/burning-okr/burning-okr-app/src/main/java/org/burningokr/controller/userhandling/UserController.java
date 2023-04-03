@@ -5,6 +5,7 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.users.UserDto;
 import org.burningokr.mapper.users.UserMapper;
 import org.burningokr.model.users.User;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,10 +21,11 @@ public class UserController {
 
   private final UserMapper userMapper;
   private final UserService userService;
+  private final AuthorizationUserContextService authorizationUserContextService;
 
   @GetMapping("/users/current")
   public ResponseEntity<UserDto> getCurrentUser() {
-    var currentUser = userService.getCurrentUser();
+    var currentUser = authorizationUserContextService.getAuthenticatedUser();
     return ResponseEntity.ok(userMapper.mapEntityToDto(currentUser));
   }
 

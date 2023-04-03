@@ -1,9 +1,6 @@
 package org.burningokr.model.configuration;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 
@@ -12,7 +9,8 @@ import org.burningokr.model.activity.Trackable;
 public class Configuration implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
   private String name;
