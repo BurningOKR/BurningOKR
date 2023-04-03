@@ -37,7 +37,9 @@ export class CurrentUserService implements Fetchable {
   }
 
   isCurrentUserAdmin$(): Observable<boolean> {
-    return this.isAdmin$.asObservable();
+    return this.currentUser$.pipe(
+      map(user => user.admin),
+    );
   }
 
   isCurrentUserAuditor$(): Observable<boolean> {

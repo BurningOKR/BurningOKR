@@ -16,6 +16,8 @@ export class UserSettingsManagerService implements Fetchable {
   }
 
   getUserSettings$(): Observable<UserSettings> {
+    console.log('return user settings');
+
     return this.userSettings$.asObservable();
   }
 

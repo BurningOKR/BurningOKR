@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { registerLocaleData } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
 import localeDeExtra from '@angular/common/locales/extra/de';
@@ -53,6 +53,7 @@ import { SharedModule } from './shared/shared.module';
 import { TopicDraftsModule } from './topic-drafts/topic-drafts.module';
 import { AvatarModule } from 'ngx-avatars';
 import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { OauthInterceptor } from './core/auth/interceptors/oauth.interceptor';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeDe, 'de', localeDeExtra);
@@ -117,6 +118,11 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: OauthInterceptor,
+      multi: true,
+    },
     {
       provide: LOCALE_ID,
       useValue: currentLanguage,

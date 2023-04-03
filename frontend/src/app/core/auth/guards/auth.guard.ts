@@ -1,29 +1,45 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private authService: AuthenticationService) {
+  constructor(private router: Router, private oauthService: OAuthService) {
 
   }
 
-  // TODO fix auth
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log(`canActivate - Token: ${this.authService.getAccessToken()}`);
-    if (this.authService.getAccessToken() != null && this.authService.hasValidAccessToken()) {
-      console.log('canActivate: Valid Token');
-
+  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
+    if (this.oauthService.hasValidAccessToken()) {
       return true;
     }
-    console.log('canActivate: Invalid Token');
 
-    // this.authService.initLoginFlow();
-    this.authService.login();
+    return this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      this.oauthService.setupAutomaticSilentRefresh();
+      const loggedIn: boolean = this.oauthService.hasValidIdToken();
 
-    return true;
+      if (!loggedIn) {
+        // store target path
+        localStorage.setItem('login_redirect', state.url);
+
+        // redirect to idp
+        this.oauthService.initCodeFlow();
+
+        return false;
+      }
+
+      // retreive target path
+      const redirect: string = localStorage.getItem('login_redirect');
+      localStorage.removeItem('login_redirect');
+
+      // redirect to target path or load content
+      return (redirect != null && this.router.parseUrl(redirect)) || true;
+    })
+      .catch(() => {
+        return false;
+      });
+
   }
 }

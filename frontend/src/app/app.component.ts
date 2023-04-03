@@ -25,11 +25,6 @@ export class AppComponent {
   }
 
   checkIfUserIsLoggedIn(): boolean {
-    return true;
-    // return this.authService.hasValidAccessToken();
-  }
-
-  demoGithubButtonHidden(): boolean {
-    return !this.router.url.startsWith('/demo');
+    return this.authService.hasValidAccessToken();
   }
 }

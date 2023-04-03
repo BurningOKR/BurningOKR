@@ -16,7 +16,6 @@ import { NoMailInformationComponent } from './information/no-mail-information/no
 import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topic-drafts.component';
 import { environment } from '../environments/environment';
 import { PlaygroundGuard } from './core/auth/guards/playground.guard';
-import { HelloWorldComponent } from './hello-world/hello-world.component';
 
 const routes: Routes = [
   {
@@ -27,18 +26,18 @@ const routes: Routes = [
     path: 'okr', loadChildren: () => import('./okrview/okrview.module').then(mod => mod.OkrviewModule),
     canActivate: [/*NotInitiliazedGuard,*/ AuthGuard],
   },
-  { path: 'landingpage', component: HelloWorldComponent }, // TODO fix auth
-  { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [ AuthGuard] },
-  { path: 'admin', component: AdminViewComponent, canActivate: [ AuthGuard, AdminRoleGuard] },
+  { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [AuthGuard] }, // TODO fix auth
+  { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, AdminRoleGuard] },
   {
     path: 'cycle-admin/:companyId',
     component: CycleAdminContainerComponent,
-    canActivate: [ AuthGuard, AdminRoleGuard],
+    canActivate: [AuthGuard, AdminRoleGuard],
   },
   {
     path: 'submitted-topic-drafts',
     component: TopicDraftsComponent,
-    canActivate: [ AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(mod => mod.AuthModule),
