@@ -10,14 +10,18 @@ import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
+import org.burningokr.mapper.okrUnit.OkrChildUnitMapper;
 import org.burningokr.mapper.okrUnit.OkrDepartmentMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
+import org.burningokr.model.okrUnits.OkrChildUnitSchema;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.IUser;
 import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +37,8 @@ public class CompanyController {
   private final DataMapper<OkrCompany, OkrCompanyDto> companyMapper;
   private final DataMapper<Cycle, CycleDto> cycleMapper;
   private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
+  private final OkrBranchSchemaMapper okrUnitSchemaMapper;
+  private final AuthorizationUserContextService authorizationUserContextService;
 
   /**
    * API Endpoint to get active Companies.
@@ -114,11 +120,11 @@ public class CompanyController {
     @PathVariable long companyId
   ) {
     OkrCompany okrCompany = this.companyService.findById(companyId);
-    // TODO fix auth (jklein 23.02.2023)
-    throw new NotImplementedException("fix auth");
-//    return ResponseEntity.ok(
-//      okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-//        okrCompany.getOkrChildUnits(), currentUserId));
+    return ResponseEntity.ok(
+      okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        okrCompany.getOkrChildUnits(), authorizationUserContextService.getAuthenticatedUser().getId()
+      )
+    );
   }
 
   /**
