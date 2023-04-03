@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VersionFormComponent } from '../../../core/version-form/version-form.component';
-import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/change-password-dialog/change-password-dialog.component';
 import { Observable, of } from 'rxjs';
 import versions from '../../../../../src/_versions';
 import { CurrentCompanyService } from '../../../okrview/current-company.service';
@@ -71,12 +70,6 @@ export class OkrToolbarComponent implements OnInit {
       .afterClosed()
       .pipe(switchMap(_ => _))
       .subscribe(() => this.okrUnitService.refreshOkrChildUnit());
-  }
-
-  openPasswordChangeForm(): void {
-    this.dialog.open(ChangePasswordDialogComponent, { disableClose: true })
-      .afterClosed()
-      .subscribe();
   }
 
   pickLanguageClicked() {

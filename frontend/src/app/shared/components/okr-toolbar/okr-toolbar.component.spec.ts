@@ -6,7 +6,6 @@ import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { MatDialog } from '@angular/material/dialog';
 import { CurrentUserService } from '../../../core/services/current-user.service';
-import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
 import { ConfigurationService } from '../../../core/settings/configuration.service';
 import { OkrUnitService } from '../../services/mapper/okr-unit.service';
 import { of } from 'rxjs';
@@ -57,7 +56,6 @@ describe('OkrToolbarComponent', () => {
         { provide: CurrentCompanyService, useValue: currentCompanyService },
         { provide: MatDialog, useValue: dialog },
         { provide: CurrentUserService, useValue: currentUserService },
-        { provide: OAuthFrontendDetailsService, useValue: oAuthDetails },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: OkrUnitService, useValue: okrUnitService },
         { provide: Router, useValue: router },

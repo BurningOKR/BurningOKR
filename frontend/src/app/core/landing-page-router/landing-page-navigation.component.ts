@@ -34,7 +34,7 @@ export class LandingPageNavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.navigateToUsersDefaultTeam();
+    // this.navigateToUsersDefaultTeam(); TODO fix auth
     console.log(`LandingPageNavigation - Token: ${this.oAuthService.getAccessToken()}`);
   }
 

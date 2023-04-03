@@ -19,7 +19,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FeedbackButtonComponent } from './feedback/feedback-button/feedback-button.component';
 import { FlexModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
-import { LocalAuthModule } from './auth/local-auth/local-auth.module';
 import { LandingPageNavigationComponent } from './landing-page-router/landing-page-navigation.component';
 import { SettingsFormComponent } from './settings/settings-form/settings-form.component';
 import { UserSettingsComponent } from './settings/settings-form/user-settings/user-settings.component';
@@ -58,7 +57,6 @@ import { PickLanguageComponent } from './settings/pick-language/pick-language.co
     FlexModule,
     RouterModule,
     MatRippleModule,
-    LocalAuthModule,
     MatCheckboxModule,
     TranslateModule,
   ],

@@ -78,10 +78,6 @@
     <mat-icon>account_box</mat-icon>
     <span>{{'okr-toolbar.menu.user-managment-text' | translate}}</span>
   </button>
-  <button (click)="openPasswordChangeForm()" *ngIf="(isLocalUserbase$ | async)" [disabled]="isPlayground" mat-menu-item>
-    <mat-icon>vpn_key</mat-icon>
-    <span>{{'okr-toolbar.menu.change-password-text'| translate}}</span>
-  </button>
   <button [disabled]="isPlayground" [routerLink]="['/auth', 'logout']" mat-menu-item>
     <mat-icon>power_settings_new</mat-icon>
     <span>{{'okr-toolbar.menu.logout-text' | translate}}</span>

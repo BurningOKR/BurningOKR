@@ -1,15 +1,15 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/okr?useSSL=false # I named my database "okr"
-    username: admin # The created user and owner of the created database
-    password: admin # The Password for the new created user
+    url: jdbc:postgresql://localhost:5432/okr?useSSL=false
+    username: admin
+    password: admin
 
   jpa:
     hibernate:
       ddl-auto: none
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect # For postgres
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
   flyway:
@@ -33,28 +33,6 @@ spring:
 
   messages:
     basename: messages
-    pid:
-      file: ./shutdown.pid
-
-## This section is optional.
-## If you want to use an Azure Active Directory for authentication, uncomment this.
-#
-#azure:
-#  ad:
-#    issuer: <Azure issuer>
-#    azureGroups:-
-#      - name: <Azure ad group name>
-#        id: <Azure ad group id>
-#
-#security:
-#  oauth2:
-#    client:
-#      clientId: <OAuth client id>
-#      clientSecret: <OAuth client secret>
-#      accessTokenUri: <OAuth access token url>
-#      userAuthorizationUri: <OAuth use authorization token url>
-#      scope: openid
-#      token-name: access_token
 
 system:
   configuration:

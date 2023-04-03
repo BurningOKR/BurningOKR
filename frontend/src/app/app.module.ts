@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { registerLocaleData } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
 import localeDeExtra from '@angular/common/locales/extra/de';
@@ -41,9 +41,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { loggerConfig } from './config-files/logger-config';
 import { AuthenticationService } from './core/auth/services/authentication.service';
-import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
 import { CoreModule } from './core/core.module';
-import { ErrorInterceptor } from './core/error/error.interceptor';
 import { ErrorModule } from './core/error/error.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -54,6 +52,7 @@ import { OkrviewModule } from './okrview/okrview.module';
 import { SharedModule } from './shared/shared.module';
 import { TopicDraftsModule } from './topic-drafts/topic-drafts.module';
 import { AvatarModule } from 'ngx-avatars';
+import { HelloWorldComponent } from './hello-world/hello-world.component';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeDe, 'de', localeDeExtra);
@@ -70,8 +69,10 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
+    HelloWorldComponent,
   ],
   imports: [
+    OAuthModule.forRoot(),
     AppRoutingModule,
     AvatarModule,
     BrowserAnimationsModule,
@@ -87,12 +88,10 @@ export function createTranslateLoader(http: HttpClient) {
     MatListModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    OAuthModule.forRoot(),
     ReactiveFormsModule,
     SharedModule,
     OkrUnitModule,
     ErrorModule,
-    LoggerModule.forRoot(loggerConfig),
     MatTableModule,
     MatMenuModule,
     MatGridListModule,
@@ -117,10 +116,7 @@ export function createTranslateLoader(http: HttpClient) {
     DashboardModule,
   ],
   providers: [
-    OAuthFrontendDetailsService,
     AuthenticationService,
-
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {
       provide: LOCALE_ID,
       useValue: currentLanguage,

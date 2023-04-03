@@ -16,14 +16,14 @@ export class FetchingService {
   ) {
   }
 
-  refetchAll(): void {
-    FetchingService.fetchingServices.forEach((data: FetchingServiceData) => {
-      if (!data.loginRequired || this.oAuthService.hasValidAccessToken()) {
-        const service: Fetchable = this.injector.get(data.service);
-        service.fetchData();
-      }
-    });
-  }
+  // refetchAll(): void {
+  //   FetchingService.fetchingServices.forEach((data: FetchingServiceData) => {
+  //     if (!data.loginRequired || this.oAuthService.hasValidAccessToken()) {
+  //       const service: Fetchable = this.injector.get(data.service);
+  //       service.fetchData();
+  //     }
+  //   });
+  // }
 
   refetchSingle(fetchableService: TypeOf<Fetchable>): void {
     const service: Fetchable = this.injector.get(fetchableService);
