@@ -6,6 +6,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { AuthenticationService } from '../../../../core/auth/services/authentication.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 describe('DashboardModificationComponent', () => {
   let component: DashboardModificationComponent;
@@ -20,9 +22,11 @@ describe('DashboardModificationComponent', () => {
       declarations: [DashboardModificationComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        { provide: DepartmentMapper, useValue: {} }, //, useClass: DepartmentMapper},
+        { provide: DepartmentMapper }, //, useClass: DepartmentMapper},
         { provide: MatDialog, useValue: {} },
         { provide: TranslateService, useValue: {} },
+        { provide: AuthenticationService },
+        { provide: OAuthService },
         // { provide: DepartmentService}
       ],
     })

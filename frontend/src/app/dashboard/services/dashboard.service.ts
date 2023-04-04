@@ -32,6 +32,10 @@ export class DashboardService {
     return this.dashboardApiService.createDashboard$(dashboard);
   }
 
+  createNewDashboard$(dashboard: Dashboard): Observable<DashboardCreationDto> {
+    return this.dashboardApiService.createDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
+  }
+
   updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
     // console.log(dashboard);
 

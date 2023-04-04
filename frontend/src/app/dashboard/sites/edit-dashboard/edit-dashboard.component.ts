@@ -28,28 +28,33 @@ export class EditDashboardComponent implements OnInit, ComponentCanDeactivate {
   }
 
   updateDashboard(dashboard: Dashboard): void {
-    if (this.dashboardValid(dashboard)) {
-      this.dashboardService.updateDashboard$(dashboard)
-        .pipe(take(1))
-        .subscribe();
+    this.dashboardService.updateDashboard$(dashboard)
+      .pipe(take(1))
+      .subscribe();
 
-      this.dashboardModificationComponent.dbFormGroup.markAsPristine();
-    }
+    this.dashboardModificationComponent.dbFormGroup.markAsPristine();
+    // if (this.dashboardValid(dashboard)) {
+    //   this.dashboardService.updateDashboard$(dashboard)
+    //     .pipe(take(1))
+    //     .subscribe();
+    //
+    //   this.dashboardModificationComponent.dbFormGroup.markAsPristine();
+    // }
   }
 
-  dashboardValid(dashboard: Dashboard): boolean {
-    return this.chartsValid(dashboard) && dashboard.title.trim() && !!dashboard.charts.length;
-  }
-
-  chartsValid(dashboard: Dashboard): boolean {
-    for (const chart of dashboard.charts) {
-      if (!(chart.title && chart.title.text.trim())) {
-        return false;
-      }
-    }
-
-    return true;
-  }
+  // dashboardValid(dashboard: Dashboard): boolean {
+  //   return this.chartsValid(dashboard) && dashboard.title.trim() && !!dashboard.charts.length;
+  // }
+  //
+  // chartsValid(dashboard: Dashboard): boolean {
+  //   for (const chart of dashboard.charts) {
+  //     if (!(chart.title && chart.title.text.trim())) {
+  //       return false;
+  //     }
+  //   }
+  //
+  //   return true;
+  // }
 
   canDeactivate(): boolean {
     return this.dashboardModificationComponent.canDeactivate();

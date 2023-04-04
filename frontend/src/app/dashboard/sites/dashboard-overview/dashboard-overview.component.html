@@ -15,6 +15,13 @@
   </button>
 </div>
 
+<div *ngIf="companyId$ | async; let companyId" class="create-dashboard-button">
+  <button mat-stroked-button routerLink="/companies/{{companyId}}/new-dashboard">
+    <mat-icon>add_circle_outline</mat-icon>
+    WIP {{'dashboard-overview.create-dashboard-button' | translate}}
+  </button>
+</div>
+
 <div class="dashboard-overview-cards d-flex">
   <div *ngFor="let dashboard of (currentCompanyDashboards$| async)">
     <app-dashboard-card (deleteDashboard)="deleteDashboard($event)" [dashboard]="dashboard"></app-dashboard-card>

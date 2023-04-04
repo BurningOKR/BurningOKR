@@ -10,7 +10,7 @@ import { PieChartOptions } from '../../../model/ui/pie-chart-options';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PickChartTypeModalComponent } from './pick-chart-type-modal/pick-chart-type-modal.component';
 import { ComponentCanDeactivate } from '../../../../core/auth/guards/can-deactivate.guard';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -21,16 +21,19 @@ import { TranslateService } from '@ngx-translate/core';
 export class DashboardModificationComponent implements OnInit, ComponentCanDeactivate {
   @Input() dashboard: Dashboard;
   @Output() updateDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
-  // @Output() clickedDelete: EventEmitter<ChartCreationOptionsDto> = new EventEmitter<ChartCreationOptionsDto>();
   allTeams$: Observable<OkrDepartment[]>;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
   dbFormGroup: FormGroup;
-  tempIdCounter: number = 0;
+  // chartFormArray: FormArray;
+  teamFormArray: FormArray;
+
+  // tempIdCounter: number = 0;
 
   constructor(
     private readonly departmentService: DepartmentMapper,
     public dialog: MatDialog,
     private translate: TranslateService,
+    private formBuilder: FormBuilder,
   ) {
   }
 
@@ -39,14 +42,56 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     return this.canDeactivate();
   }
 
+  get charts(): FormArray {
+    return <FormArray>this.dbFormGroup.get('formArrayChartTitles');
+  }
+
+  get chartControls() {
+    return (<FormArray>this.dbFormGroup.get('formArrayChartTitles')).controls;
+  }
+
+  get teamControls() {
+    return (<FormArray>this.dbFormGroup.get('formArrayTeams')).controls;
+  }
+
   ngOnInit(): void {
-    this.dbFormGroup = new FormGroup({
-      fcDashboardTitle: new FormControl(),
+    // this.chartFormArray = new FormArray([]);
+    this.teamFormArray = new FormArray([]);
+
+    this.dbFormGroup = this.formBuilder.group({
+      fcDashboardTitle: new FormControl(this.dashboard.title),
+      formArrayChartTitles: this.formBuilder.array([this.createChartData()]),
+      formArrayTeams: this.teamFormArray,
+      // formArrayChartTitles: new FormArray(this.dashboard.charts.map(chart => {
+      //   return new FormGroup({
+      //     fcChartTitle: new FormControl(chart.title.text),
+      //   });
+      // })),
     });
+    console.log(`Title:${this.dashboard.title}`);
+    // console.log(`Company ID:${  this.dashboard.companyId}`);
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
+
+    for (let chart of this.dashboard.charts) {
+      this.onAddChart();
+    }
+    // this.allTeams$.forEach(x => this.onAddTeam());
+  }
+
+  createChartData(): FormGroup {
+    return this.formBuilder.group({
+      title: [null, [Validators.required]],
+      selectedTeamIds: [null, [Validators.required]],
+    });
+  }
+
+  submitDashboard(): void {
+    this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value;
+    this.updateDashboard.emit(this.dashboard);
   }
 
   canDeactivate(): boolean {
+    console.log(`Title:${this.dashboard.title}`);
     if (this.dbFormGroup.dirty) {
       return confirm(this.translate.instant('edit-dashboard.info.discard-changes'));
     }
@@ -54,26 +99,37 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     return true;
   }
 
-  chartTitleFormControl(chart: BaseChartOptions): string {
-    const formControl: FormControl = new FormControl();
-    formControl.setValue(chart.title.text);
-    const formControlName: string = `Title: ${this.tempIdCounter++}`;
-    this.dbFormGroup.addControl(formControlName, formControl);
-
-    return formControlName;
+  onAddChart() {
+    this.charts.push(this.createChartData());
+    // const control: FormControl = new FormControl(null, [Validators.required]);
+    // (<FormArray>this.dbFormGroup.get('formArrayChartTitles')).push(control);
   }
 
-  teamsFormControl(chart: BaseChartOptions): string {
-    const formControl: FormControl = new FormControl();
-    formControl.setValue(chart.selectedTeamIds);
-    const formControlName: string = `Teams: ${this.tempIdCounter++}`;
-    this.dbFormGroup.addControl(formControlName, formControl);
-
-    return formControlName;
+  onAddTeam() {
+    const control: FormControl = new FormControl(null);
+    (<FormArray>this.dbFormGroup.get('formArrayTeams')).push(control);
   }
+
+  // chartTitleFormControl(chart: BaseChartOptions): string {
+  //   const formControl: FormControl = new FormControl();
+  //   formControl.setValue(chart.title.text);
+  //   const formControlName: string = `Title: ${Math.round(Math.random() * 10000)}`; //this.this.tempIdCounter++
+  //   this.dbFormGroup.addControl(formControlName, formControl);
+  //
+  //   return formControlName;
+  // }
+  //
+  // teamsFormControl(chart: BaseChartOptions): string {
+  //   const formControl: FormControl = new FormControl();
+  //   formControl.setValue(chart.selectedTeamIds);
+  //   const formControlName: string = `Teams: ${Math.round(Math.random() * 10000)}`; //this.this.tempIdCounter++
+  //   this.dbFormGroup.addControl(formControlName, formControl);
+  //
+  //   return formControlName;
+  // }
 
   dashboardValid(): boolean {
-    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
+    return !!this.dashboard.title.trim(); // this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
   }
 
   chartsValid(): boolean {

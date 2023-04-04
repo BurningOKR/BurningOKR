@@ -16,6 +16,8 @@ import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topic-drafts.component';
 import { environment } from '../environments/environment';
 import { PlaygroundGuard } from './core/auth/guards/playground.guard';
+import { NewDashboardComponent } from './dashboard/sites/new-dashboard/new-dashboard/new-dashboard.component';
+import { CanDeactivateGuard } from './core/auth/guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -56,6 +58,12 @@ const routes: Routes = [
     path: 'companies/:companyId/create-dashboard',
     component: CreateDashboardComponent,
     canActivate: [AuthGuard, PlaygroundGuard],
+  },
+  {
+    path: 'companies/:companyId/new-dashboard',
+    component: NewDashboardComponent,
+    canActivate: [AuthGuard, PlaygroundGuard],
+    canDeactivate: [CanDeactivateGuard],
   },
   { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
   { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },

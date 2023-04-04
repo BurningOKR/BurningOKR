@@ -8,7 +8,11 @@ import { EditDashboardComponent } from './sites/edit-dashboard/edit-dashboard.co
 import { CanDeactivateGuard } from '../core/auth/guards/can-deactivate.guard';
 
 const routes: Routes = [
-  { path: ':dashboardId', component: DashboardComponent, canActivate: [AuthGuard, PlaygroundGuard] },
+  {
+    path: ':dashboardId',
+    component: DashboardComponent,
+    canActivate: [AuthGuard, PlaygroundGuard],
+  },
   {
     path: ':dashboardId/edit-dashboard',
     component: EditDashboardComponent,

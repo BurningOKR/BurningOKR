@@ -25,6 +25,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardModificationComponent } from './sites/edit-dashboard/dashboard-modification/dashboard-modification.component';
 import { PickChartTypeModalComponent } from './sites/edit-dashboard/dashboard-modification/pick-chart-type-modal/pick-chart-type-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NewDashboardComponent } from './sites/new-dashboard/new-dashboard/new-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     EditDashboardComponent,
     DashboardModificationComponent,
     PickChartTypeModalComponent,
+    NewDashboardComponent,
   ],
   imports: [
     CommonModule,

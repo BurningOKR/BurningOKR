@@ -1,33 +1,50 @@
-<form (ngSubmit)="updateDashboard.emit(dashboard)" [formGroup]="dbFormGroup">
+<form (ngSubmit)="submitDashboard()" [formGroup]="dbFormGroup">
+  <!--  [formGroup]="dbFormGroup"-->
 
   <span class="edit-dashboard-title">
     <mat-form-field>
-          <input [(ngModel)]="dashboard.title" formControlName="fcDashboardTitle" matInput
-                 placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}" required>
+<!--      formControlName="fcDashboardTitle"-->
+      <input formControlName="fcDashboardTitle" matInput
+             placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}" required>
+      <!--          <input [(ngModel)]="dashboard.title" matInput formControlName="fcDashboardTitle"-->
+      <!--                 placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}" required>-->
     </mat-form-field>
   </span>
 
   <div class="edit-chart">
-    <div *ngFor="let chart of dashboard.charts" class="edit-chart-options">
+    <!--    <div formArrayName="formArrayChartTitles">-->
+    <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options"
+         formArrayName="formArrayChartTitles">
       <mat-form-field>
-        <input [(ngModel)]="chart.title.text" [formControlName]="chartTitleFormControl(chart)" matInput
-               placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}" required>
+        <!--        [formControlName]="chartTitleFormControl(chart)"-->
+        <!--          formControl="{{chartFormArray[i]}}"-->
+        <input [value]="chart.title.text" formControlName="title" matInput
+               placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
       </mat-form-field>
 
       <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
       <mat-form-field *ngIf="teamIsSelectable(chart)">
-        <mat-select [(value)]="chart.selectedTeamIds" [formControlName]="teamsFormControl(chart)" multiple
+        <!--          formArrayName="formArrayTeams"-->
+        <!--        [formControlName]="teamsFormControl(chart)"-->
+        <!--          [formControl]="teamFormArray[i]"-->
+        <mat-select [(value)]="chart.selectedTeamIds" multiple required
                     placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
-          <mat-option *ngFor="let team of allTeams$ | async" [value]="team.id">{{team.name}}</mat-option>
+          <!--            <mat-option *ngFor="let team of teamControls; let ii = index;" [value]="team.id" [formControlName]="ii">{{team.name}}</mat-option>-->
+          <mat-option *ngFor="let team of allTeams$ | async;" [value]="team.id">{{team.name}}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <!--        <div *ngFor="let team of allTeams$ | async; let ii = index">-->
+      <!--          <input type="text" formControlName="{{ii}}" placeholder="{{team.name}}">-->
+      <!--        </div>-->
 
       <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
               matTooltip="{{'edit-dashboard.tooltip.delete-chart-button' | translate}}">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
+    <!--    </div>-->
     <div>
       <button (click)="openDialog()" class="chart-creation-add-button" mat-stroked-button>
         <mat-icon>add</mat-icon>
