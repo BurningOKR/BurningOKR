@@ -52,7 +52,6 @@ import { OkrviewModule } from './okrview/okrview.module';
 import { SharedModule } from './shared/shared.module';
 import { TopicDraftsModule } from './topic-drafts/topic-drafts.module';
 import { AvatarModule } from 'ngx-avatars';
-import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { OauthInterceptor } from './core/auth/interceptors/oauth.interceptor';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
@@ -70,7 +69,6 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     AdminUserIdsPipe,
     NoMailInformationComponent,
-    HelloWorldComponent,
   ],
   imports: [
     OAuthModule.forRoot(),
