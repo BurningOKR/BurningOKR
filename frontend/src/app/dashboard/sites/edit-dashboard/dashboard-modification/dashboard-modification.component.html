@@ -11,11 +11,10 @@
     </mat-form-field>
   </span>
 
-  <div class="edit-chart">
+  <div class="edit-chart" formArrayName="formArrayChartTitles">
     <!--    <div formArrayName="formArrayChartTitles">-->
-    <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options"
-         formArrayName="formArrayChartTitles">
-      <mat-form-field>
+    <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
+      <mat-form-field [formGroupName]="i">
         <!--        [formControlName]="chartTitleFormControl(chart)"-->
         <!--          formControl="{{chartFormArray[i]}}"-->
         <input [value]="chart.title.text" formControlName="title" matInput
@@ -24,11 +23,11 @@
 
       <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
-      <mat-form-field *ngIf="teamIsSelectable(chart)">
+      <mat-form-field *ngIf="teamIsSelectable(chart)" [formGroupName]="i">
         <!--          formArrayName="formArrayTeams"-->
         <!--        [formControlName]="teamsFormControl(chart)"-->
         <!--          [formControl]="teamFormArray[i]"-->
-        <mat-select [(value)]="chart.selectedTeamIds" multiple required
+        <mat-select [(value)]="chart.selectedTeamIds" formControlName="selectedTeamIds" multiple required
                     placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
           <!--            <mat-option *ngFor="let team of teamControls; let ii = index;" [value]="team.id" [formControlName]="ii">{{team.name}}</mat-option>-->
           <mat-option *ngFor="let team of allTeams$ | async;" [value]="team.id">{{team.name}}</mat-option>
