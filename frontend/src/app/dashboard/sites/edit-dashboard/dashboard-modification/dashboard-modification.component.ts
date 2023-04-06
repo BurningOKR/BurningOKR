@@ -59,7 +59,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     this.teamFormArray = new FormArray([]);
 
     this.dbFormGroup = this.formBuilder.group({
-      fcDashboardTitle: new FormControl(this.dashboard.title),
+      fcDashboardTitle: new FormControl(this.dashboard.title, [Validators.required]),
       formArrayChartTitles: this.formBuilder.array([this.createChartData()]),
       formArrayTeams: this.teamFormArray,
       // formArrayChartTitles: new FormArray(this.dashboard.charts.map(chart => {
@@ -68,8 +68,8 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
       //   });
       // })),
     });
-    console.log(`Title:${this.dashboard.title}`);
-    // console.log(`Company ID:${  this.dashboard.companyId}`);
+    console.log(`Title: ${this.dashboard.title}`);
+    // console.log(`Company ID: ${  this.dashboard.companyId}`);
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
 
     for (let chart of this.dashboard.charts) {
@@ -87,11 +87,15 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
 
   submitDashboard(): void {
     this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value;
-    this.updateDashboard.emit(this.dashboard);
+    if (this.dashboardValid()) {
+      this.updateDashboard.emit(this.dashboard);
+    } else {
+      alert(this.translate.instant('edit-dashboard.info.not-valid'));
+    }
   }
 
   canDeactivate(): boolean {
-    console.log(`Title:${this.dashboard.title}`);
+    console.log(`Title: ${this.dashboard.title}`);
     if (this.dbFormGroup.dirty) {
       return confirm(this.translate.instant('edit-dashboard.info.discard-changes'));
     }

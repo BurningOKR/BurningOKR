@@ -5,12 +5,13 @@ import { DepartmentMapper } from '../../../../shared/services/mapper/department.
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { Dashboard } from '../../../model/ui/dashboard';
 import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
 import { ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 
 // const departmentMapperMock: any = {
 //   getDepartmentById$: jest.fn(getDepartmentByIdMock$),
@@ -97,69 +98,102 @@ describe('DashboardModificationComponent', () => {
     fixture = TestBed.createComponent(DashboardModificationComponent);
     component = fixture.componentInstance;
     component.dashboard = testDashboard;
+    // location = TestBed.inject(Location);
     fixture.detectChanges();
   }));
-
-  // beforeEach(() => {
-  //   // fixture = TestBed.createComponent(DashboardModificationComponent);
-  //   // component = fixture.componentInstance;
-  //   // component = TestBed.inject(DashboardModificationComponent);
-  //   // departmentMapperMock.getDepartmentById$.mockReset();
-  //   // departmentMapperMock.getDepartmentById$.mockImplementation(getDepartmentByIdMock$);
-  //   // departmentMapperMock.getAllDepartmentsForCompanyFlatted$.mockReset();
-  //   // departmentMapperMock.getAllDepartmentsForCompanyFlatted$.mockImplementation(getAllDepartmentsForCompanyFlattedMock$);
-  //
-  //   // departmentService.getAllDepartmentsForCompanyFlatted$.mockReset();
-  //   // departmentService.getAllDepartmentsForCompanyFlatted$.mockReturnValue(of([okrTestDepartment1, okrTestDepartment2]));
-  //   //
-  //   // fixture = TestBed.createComponent(DashboardModificationComponent);
-  //   // component = fixture.componentInstance;
-  //   // component.dashboard = testDashboard;
-  //   // fixture.detectChanges();
-  // });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
-  // beforeEach(async () => {
-  //   await TestBed.configureTestingModule({
-  //     imports: [
-  //       HttpClientTestingModule,
-  //       TranslateModule,
-  //     ],
-  //     declarations: [DashboardModificationComponent],
-  //     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  //     providers: [
-  //       { provide: DepartmentMapper }, //, useClass: DepartmentMapper},
-  //       { provide: MatDialog, useValue: {} },
-  //       { provide: TranslateService, useValue: {} },
-  //       { provide: AuthenticationService },
-  //       { provide: OAuthService },
-  //       { provide: DepartmentService}
-  //     ],
-  //   })
-  //     .overrideComponent(DashboardModificationComponent, {})
-  //     .compileComponents();
-  //
-  //   fixture = TestBed.createComponent(DashboardModificationComponent);
-  //   component = fixture.componentInstance;
-  //   component.dashboard = {
-  //     id: 1000,
-  //     title: 'DashboardMock',
-  //     companyId: 1,
-  //     creatorId: '1',
-  //     charts: [],
-  //     creationDate: null,
-  //   };
+  it('form should exist', () => {
+    const form: DebugElement = fixture.debugElement.query(By.css('#dashboard-form'));
+    expect(form).toBeTruthy();
+  });
+
+  it('should call the submitForm method when the signup-form is submitted', () => {
+    const form: DebugElement = fixture.debugElement.query(By.css('#dashboard-form'));
+    const fnc: any = spyOn(component, 'submitDashboard');
+
+    form.triggerEventHandler('ngSubmit', null);
+
+    expect(fnc).toHaveBeenCalled();
+  });
+
+  it('submit button should exist', () => {
+    const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
+    expect(btn).toBeTruthy();
+  });
+
+  it('should submit form when submit button is clicked', () => {
+    const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
+    const fnc: any = spyOn(component, 'submitDashboard');
+
+    (btn.nativeElement as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    expect(fnc).toHaveBeenCalled();
+  });
+
+  // it('should submit form when enter was pressed on submit button', () => {
+  //   const tabKeypress: KeyboardEvent = new KeyboardEvent('keypress', {
+  //     key: '9',
+  //     cancelable: true
+  //   });
+  //   const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
+  //   btn.dispatchEvent(tabKeypress);
   //   fixture.detectChanges();
   // });
+
+  it('submit button should be disabled if dashboard is invalid', () => {
+    const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
+
+    expect(btn.nativeElement.disabled).toBe(!component.dashboardValid());
+  });
+
+  it('dashboard title input exists', () => {
+    const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
+
+    expect(input).toBeTruthy();
+  });
+
+  it('dashboard title is displayed in input', () => {
+    const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
+
+    expect(input.nativeElement.value).toBe(testDashboard.title);
+  });
+
+  it('dashboard title input labeled to fulfill wcag 3.3..2 criteria', () => {
+    const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
+
+    expect(
+      input.nativeElement.hasAttribute('label')
+      || input.nativeElement.hasAttribute('aria-label')
+      || input.nativeElement.hasAttribute('aria-labelledby')
+      || input.nativeElement.hasAttribute('aria-describedby')
+      || input.nativeElement.hasAttribute('placeholder'),
+    ).toBe(true);
+  });
+
+  // it('dashboard title is required', () => {
+  //   // const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
+  //   const ctrl: any = component.registerForm.get('fcDashboardTitle');
+  //
+  //   ctrl.setValue(null);
+  //   fixture.detectChanges();
+  //
+  //   expect(ctrl.invalid).toBeTruthy();
+  // });
+
+  it('chart title is displayed in input', () => {
+    for (const chart of testDashboard.charts) {
+      const input: DebugElement = fixture.debugElement.query(By.css(`#chart-${chart.id}-title`));
+
+      expect(input.nativeElement.value).toBe(chart.title.text);
+    }
+  });
 
   afterEach(() => {
     fixture.destroy();
   });
-
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
 });

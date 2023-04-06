@@ -185,7 +185,8 @@
       "select-chart-type": "Select type of Chart"
     },
     "info": {
-      "discard-changes": "Changes not saved! Discard changes?"
+      "discard-changes": "Changes not saved! Discard changes?",
+      "not-valid": "Dashboard is not Valid! Please make sure that no mandatory fields are empty!"
     },
     "line-progress": "Progress - Linechart",
     "okr-toolbar": {

@@ -1,11 +1,11 @@
-<form (ngSubmit)="submitDashboard()" [formGroup]="dbFormGroup">
+<form (ngSubmit)="submitDashboard()" [formGroup]="dbFormGroup" id="dashboard-form">
   <!--  [formGroup]="dbFormGroup"-->
 
   <span class="edit-dashboard-title">
     <mat-form-field>
 <!--      formControlName="fcDashboardTitle"-->
-      <input formControlName="fcDashboardTitle" matInput
-             placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}" required>
+      <input formControlName="fcDashboardTitle" id="dashboard-title" matInput
+             placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}">
       <!--          <input [(ngModel)]="dashboard.title" matInput formControlName="fcDashboardTitle"-->
       <!--                 placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}" required>-->
     </mat-form-field>
@@ -17,7 +17,7 @@
       <mat-form-field [formGroupName]="i">
         <!--        [formControlName]="chartTitleFormControl(chart)"-->
         <!--          formControl="{{chartFormArray[i]}}"-->
-        <input [value]="chart.title.text" formControlName="title" matInput
+        <input [attr.id]="'chart-' + chart.id + '-title'" [value]="chart.title.text" formControlName="title" matInput
                placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
       </mat-form-field>
 

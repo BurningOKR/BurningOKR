@@ -185,7 +185,8 @@
       "select-chart-type": "Wähle Art des Diagramms"
     },
     "info": {
-      "discard-changes": "Änderungen nicht gespeichert! Änderungen verwerfen?"
+      "discard-changes": "Änderungen nicht gespeichert! Änderungen verwerfen?",
+      "not-valid": "Dashboard nicht valide! Bitte stelle sicher, dass alle Pflichtfelder ausgefüllt sind!"
     },
     "line-progress": "Fortschritt - Liniendiagramm",
     "okr-toolbar": {
