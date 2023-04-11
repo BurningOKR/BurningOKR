@@ -11,7 +11,7 @@
     </mat-form-field>
   </span>
 
-  <div class="edit-chart" formArrayName="formArrayChartTitles">
+  <div class="edit-chart" formArrayName="formArrayCharts">
     <!--    <div formArrayName="formArrayChartTitles">-->
     <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
       <mat-form-field [formGroupName]="i">
@@ -52,7 +52,7 @@
     </div>
   </div>
   <div class="button-save-dashboard">
-    <button [disabled]="!dashboardValid()" id="save-changes-button" mat-stroked-button type="submit">
+    <button id="save-changes-button" mat-stroked-button type="submit">
       <mat-icon>add_circle_outline</mat-icon>
       {{'edit-dashboard.button.save-dashboard' | translate}}
     </button>

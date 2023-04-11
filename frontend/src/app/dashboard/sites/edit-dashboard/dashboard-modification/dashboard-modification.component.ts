@@ -24,10 +24,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   allTeams$: Observable<OkrDepartment[]>;
   chartTypeRecord = ChartTypeEnumDropDownRecord;
   dbFormGroup: FormGroup;
-  // chartFormArray: FormArray;
-  teamFormArray: FormArray;
-
-  // tempIdCounter: number = 0;
+  formArrayCharts: FormArray;
 
   constructor(
     private readonly departmentService: DepartmentMapper,
@@ -43,50 +40,32 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   get charts(): FormArray {
-    return <FormArray>this.dbFormGroup.get('formArrayChartTitles');
-  }
-
-  get chartControls() {
-    return (<FormArray>this.dbFormGroup.get('formArrayChartTitles')).controls;
-  }
-
-  get teamControls() {
-    return (<FormArray>this.dbFormGroup.get('formArrayTeams')).controls;
+    return this.dbFormGroup.get('formArrayCharts') as FormArray;
   }
 
   ngOnInit(): void {
-    // this.chartFormArray = new FormArray([]);
-    this.teamFormArray = new FormArray([]);
+    this.formArrayCharts = new FormArray([]);
 
     this.dbFormGroup = this.formBuilder.group({
       fcDashboardTitle: new FormControl(this.dashboard.title, [Validators.required]),
-      formArrayChartTitles: this.formBuilder.array([this.createChartData()]),
-      formArrayTeams: this.teamFormArray,
-      // formArrayChartTitles: new FormArray(this.dashboard.charts.map(chart => {
-      //   return new FormGroup({
-      //     fcChartTitle: new FormControl(chart.title.text),
-      //   });
-      // })),
+      formArrayCharts: this.formArrayCharts,
     });
     console.log(`Title: ${this.dashboard.title}`);
-    // console.log(`Company ID: ${  this.dashboard.companyId}`);
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
 
-    for (let chart of this.dashboard.charts) {
-      this.onAddChart();
+    for (const chart of this.dashboard.charts) {
+      this.onAddChart(chart);
     }
-    // this.allTeams$.forEach(x => this.onAddTeam());
-  }
-
-  createChartData(): FormGroup {
-    return this.formBuilder.group({
-      title: [null, [Validators.required]],
-      selectedTeamIds: [null, [Validators.required]],
-    });
   }
 
   submitDashboard(): void {
     this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value;
+    const chartsFormArray: FormArray = this.dbFormGroup.get('formArrayCharts') as FormArray;
+    this.dashboard.charts.forEach((chart, index) => {
+      const chartControl: FormControl = chartsFormArray.at(index) as FormControl;
+      chart.title.text = chartControl.get('title').value;
+      chart.selectedTeamIds = chartControl.get('selectedTeamIds').value;
+    });
     if (this.dashboardValid()) {
       this.updateDashboard.emit(this.dashboard);
     } else {
@@ -103,37 +82,8 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     return true;
   }
 
-  onAddChart() {
-    this.charts.push(this.createChartData());
-    // const control: FormControl = new FormControl(null, [Validators.required]);
-    // (<FormArray>this.dbFormGroup.get('formArrayChartTitles')).push(control);
-  }
-
-  onAddTeam() {
-    const control: FormControl = new FormControl(null);
-    (<FormArray>this.dbFormGroup.get('formArrayTeams')).push(control);
-  }
-
-  // chartTitleFormControl(chart: BaseChartOptions): string {
-  //   const formControl: FormControl = new FormControl();
-  //   formControl.setValue(chart.title.text);
-  //   const formControlName: string = `Title: ${Math.round(Math.random() * 10000)}`; //this.this.tempIdCounter++
-  //   this.dbFormGroup.addControl(formControlName, formControl);
-  //
-  //   return formControlName;
-  // }
-  //
-  // teamsFormControl(chart: BaseChartOptions): string {
-  //   const formControl: FormControl = new FormControl();
-  //   formControl.setValue(chart.selectedTeamIds);
-  //   const formControlName: string = `Teams: ${Math.round(Math.random() * 10000)}`; //this.this.tempIdCounter++
-  //   this.dbFormGroup.addControl(formControlName, formControl);
-  //
-  //   return formControlName;
-  // }
-
   dashboardValid(): boolean {
-    return !!this.dashboard.title.trim(); // this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
+    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
   }
 
   chartsValid(): boolean {
@@ -144,6 +94,18 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     }
 
     return true;
+  }
+
+  createChartData(chart: BaseChartOptions): FormGroup {
+    return this.formBuilder.group({
+      id: [chart.id],
+      title: [chart.title.text, [Validators.required]],
+      selectedTeamIds: [chart.selectedTeamIds, [Validators.required]],
+    });
+  }
+
+  onAddChart(chart: BaseChartOptions) {
+    this.charts.push(this.createChartData(chart));
   }
 
   /**
@@ -157,15 +119,22 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   deleteChart(chartToDelete: BaseChartOptions): void {
-    this.dashboard.charts.splice(this.dashboard.charts.indexOf(chartToDelete), 1);
+    const index: number = this.dashboard.charts.indexOf(chartToDelete);
+    const chartsFormArray: FormArray = this.dbFormGroup.get('formArrayCharts') as FormArray;
+    this.dashboard.charts.splice(index, 1);
+    chartsFormArray.removeAt(index);
   }
 
   addLineChart(): void {
-    this.dashboard.charts.push(new LineChartOptions());
+    const newLC: LineChartOptions = new LineChartOptions();
+    this.dashboard.charts.push(newLC);
+    this.onAddChart(newLC);
   }
 
   addPieChart(): void {
-    this.dashboard.charts.push(new PieChartOptions());
+    const newPC: PieChartOptions = new PieChartOptions();
+    this.dashboard.charts.push(newPC);
+    this.onAddChart(newPC);
   }
 
   openDialog(): void {
