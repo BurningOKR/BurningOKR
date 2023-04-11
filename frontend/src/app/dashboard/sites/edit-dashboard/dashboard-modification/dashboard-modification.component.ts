@@ -50,7 +50,6 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
       fcDashboardTitle: new FormControl(this.dashboard.title, [Validators.required]),
       formArrayCharts: this.formArrayCharts,
     });
-    console.log(`Title: ${this.dashboard.title}`);
     this.allTeams$ = this.departmentService.getAllDepartmentsForCompanyFlatted$(this.dashboard.companyId);
 
     for (const chart of this.dashboard.charts) {
@@ -66,6 +65,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
       chart.title.text = chartControl.get('title').value;
       chart.selectedTeamIds = chartControl.get('selectedTeamIds').value;
     });
+
     if (this.dashboardValid()) {
       this.updateDashboard.emit(this.dashboard);
     } else {
@@ -74,7 +74,6 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   canDeactivate(): boolean {
-    console.log(`Title: ${this.dashboard.title}`);
     if (this.dbFormGroup.dirty) {
       return confirm(this.translate.instant('edit-dashboard.info.discard-changes'));
     }
@@ -84,6 +83,10 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
 
   dashboardValid(): boolean {
     return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
+  }
+
+  dbFormValid(): boolean {
+    return this.dbFormGroup.valid;
   }
 
   chartsValid(): boolean {
@@ -100,7 +103,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     return this.formBuilder.group({
       id: [chart.id],
       title: [chart.title.text, [Validators.required]],
-      selectedTeamIds: [chart.selectedTeamIds, [Validators.required]],
+      selectedTeamIds: [chart.selectedTeamIds],
     });
   }
 
