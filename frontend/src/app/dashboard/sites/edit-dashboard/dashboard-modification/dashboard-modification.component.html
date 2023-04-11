@@ -4,21 +4,21 @@
     <mat-form-field>
       <input formControlName="fcDashboardTitle" id="dashboard-title" matInput
              placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}">
-      </mat-form-field>
+    </mat-form-field>
   </span>
 
   <div class="edit-chart" formArrayName="formArrayCharts">
     <!--    <div formArrayName="formArrayChartTitles">-->
     <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
       <mat-form-field [formGroupName]="i">
-        <input [attr.id]="'chart-' + chart.id + '-title'" [value]="chart.title.text" formControlName="title" matInput
+        <input [attr.id]="'chart-' + chart.id + '-title'" formControlName="title" matInput
                placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
       </mat-form-field>
 
       <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
       <mat-form-field *ngIf="teamIsSelectable(chart)" [formGroupName]="i">
-        <mat-select [(value)]="chart.selectedTeamIds" formControlName="selectedTeamIds" multiple required
+        <mat-select formControlName="selectedTeamIds" multiple required
                     placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
           <mat-option *ngFor="let team of allTeams$ | async;" [value]="team.id">{{team.name}}</mat-option>
         </mat-select>

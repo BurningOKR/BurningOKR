@@ -58,16 +58,19 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   submitDashboard(): void {
-    this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value;
-    const chartsFormArray: FormArray = this.dbFormGroup.get('formArrayCharts') as FormArray;
-    this.dashboard.charts.forEach((chart, index) => {
-      const chartControl: FormControl = chartsFormArray.at(index) as FormControl;
-      chart.title.text = chartControl.get('title').value;
-      chart.selectedTeamIds = chartControl.get('selectedTeamIds').value;
-    });
-
-    if (this.dashboardValid()) {
-      this.updateDashboard.emit(this.dashboard);
+    if (this.dbFormValid()) {
+      this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value.toString().trim();
+      const chartsFormArray: FormArray = this.dbFormGroup.get('formArrayCharts') as FormArray;
+      this.dashboard.charts.forEach((chart, index) => {
+        const chartControl: FormControl = chartsFormArray.at(index) as FormControl;
+        chart.title.text = chartControl.get('title').value.toString().trim();
+        chart.selectedTeamIds = chartControl.get('selectedTeamIds').value;
+      });
+      if (this.dashboardValid()) {
+        this.updateDashboard.emit(this.dashboard);
+      } else {
+        alert(this.translate.instant('edit-dashboard.info.not-valid'));
+      }
     } else {
       alert(this.translate.instant('edit-dashboard.info.not-valid'));
     }
@@ -81,12 +84,12 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     return true;
   }
 
-  dashboardValid(): boolean {
-    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
-  }
-
   dbFormValid(): boolean {
     return this.dbFormGroup.valid;
+  }
+
+  dashboardValid(): boolean {
+    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
   }
 
   chartsValid(): boolean {
