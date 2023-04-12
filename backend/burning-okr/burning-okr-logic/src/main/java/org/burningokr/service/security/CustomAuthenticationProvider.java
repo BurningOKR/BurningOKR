@@ -21,10 +21,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    log.debug("authenticate called");
     var jwtAuthenticationProvider = new JwtAuthenticationProvider(jwtDecoder);
     var applicationAuthentication = jwtAuthenticationProvider.authenticate(authentication);
-
     if (applicationAuthentication.isAuthenticated()) {
+      log.debug("update user from jwt called");
       var userToken = (Jwt) applicationAuthentication.getCredentials();
       userContextService.updateUserFromToken(userToken);
     }
