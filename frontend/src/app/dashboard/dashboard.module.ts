@@ -17,7 +17,7 @@ import { ChartRendererComponent } from './chart-renderer/chart-renderer.componen
 import { ChartHostDirective } from './chart-renderer/chart-host.directive';
 import { BaseChartComponent } from './charts/base-chart/base-chart.component';
 import { DashboardOverviewComponent } from './sites/dashboard-overview/dashboard-overview.component';
-import { CreateDashboardComponent } from './sites/create-dashboard/create-dashboard.component';
+// import { CreateDashboardComponent } from './sites/create-dashboard/create-dashboard.component';
 import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-card/dashboard-card.component';
 import { ChartOptionsCardComponent } from './sites/create-dashboard/chart-options-card/chart-options-card.component';
 import { EditDashboardComponent } from './sites/edit-dashboard/edit-dashboard.component';
@@ -36,7 +36,7 @@ import { NewDashboardComponent } from './sites/new-dashboard/new-dashboard/new-d
     ChartHostDirective,
     BaseChartComponent,
     DashboardOverviewComponent,
-    CreateDashboardComponent,
+    // CreateDashboardComponent,
     DashboardCardComponent,
     ChartOptionsCardComponent,
     EditDashboardComponent,

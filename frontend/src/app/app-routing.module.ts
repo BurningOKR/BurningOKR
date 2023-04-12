@@ -7,7 +7,7 @@ import { LandingPageNavigationComponent } from './core/landing-page-router/landi
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
-import { CreateDashboardComponent } from './dashboard/sites/create-dashboard/create-dashboard.component';
+// import { CreateDashboardComponent } from './dashboard/sites/create-dashboard/create-dashboard.component';
 import { DashboardOverviewComponent } from './dashboard/sites/dashboard-overview/dashboard-overview.component';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
@@ -54,11 +54,11 @@ const routes: Routes = [
     component: DashboardOverviewComponent,
     canActivate: [AuthGuard, PlaygroundGuard],
   },
-  {
-    path: 'companies/:companyId/create-dashboard',
-    component: CreateDashboardComponent,
-    canActivate: [AuthGuard, PlaygroundGuard],
-  },
+  // {
+  //   path: 'companies/:companyId/create-dashboard',
+  //   component: CreateDashboardComponent,
+  //   canActivate: [AuthGuard, PlaygroundGuard],
+  // },
   {
     path: 'companies/:companyId/new-dashboard',
     component: NewDashboardComponent,

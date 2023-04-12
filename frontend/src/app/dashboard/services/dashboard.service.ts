@@ -28,18 +28,12 @@ export class DashboardService {
       map(dashboardDto => dashboardDto.map(this.dashboardMapper.mapDtoToUi)));
   }
 
-  createDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
-    console.log('DashboardCreationDto (Before Mapping)');
-    console.log(dashboard);
-
-    return this.dashboardApiService.createDashboard$(dashboard);
-  }
+  // createDashboard$(dashboard: DashboardCreationDto): Observable<DashboardCreationDto> {
+  //   return this.dashboardApiService.createDashboard$(dashboard);
+  // }
 
   createNewDashboard$(dashboard: Dashboard): Observable<DashboardCreationDto> {
-    console.log('Dashboard (Before Mapping)');
-    console.log(dashboard);
-
-    return this.dashboardApiService.createNewDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
+    return this.dashboardApiService.createDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
   }
 
   updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {

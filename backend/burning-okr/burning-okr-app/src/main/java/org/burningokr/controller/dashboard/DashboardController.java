@@ -34,7 +34,9 @@ public class DashboardController {
   public ResponseEntity<DashboardCreationDto> createDashboard(
     @RequestBody DashboardCreationDto dashboardCreationDto, User user
   ) {
+    System.out.println("Dashboard Creation DTO: " + dashboardCreationDto);
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
+    System.out.println("Dashboard Creation: " + dashboardCreation);
     dashboardCreation = dashboardService.createDashboard(dashboardCreation, user);
     return ResponseEntity.ok(dashboardCreationMapper.mapEntityToDto(dashboardCreation));
   }

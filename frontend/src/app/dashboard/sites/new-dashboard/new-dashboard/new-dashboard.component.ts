@@ -40,11 +40,6 @@ export class NewDashboardComponent implements OnInit, ComponentCanDeactivate {
   }
 
   updateDashboard(dashboard: Dashboard): void {
-    console.log(dashboard);
-    dashboard.charts.forEach(chart => console.log(`Title of Chart: ${chart.title.text}`));
-    // this.dashboardService.createNewDashboard$(dashboard)
-    //   .pipe(take(1))
-    //   .subscribe();
     this.dashboardService.createNewDashboard$(dashboard)
       .pipe(
         take(1),
