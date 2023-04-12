@@ -5,7 +5,7 @@
   {{'chart-options-card.teams' | translate}}
   <p *ngFor="let team of getTeamsOfChart(teams)" class="chart-team-list">
     {{team.name}}</p>
-  <p *ngIf="!chart.teamIds.length" class="chart-team-list">
+  <p *ngIf="!chart.selectedTeamIds.length" class="chart-team-list">
     {{'chart-options-card.company-average' | translate}}
   </p>
 </div>

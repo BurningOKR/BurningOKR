@@ -81,12 +81,11 @@ export class DashboardMapperService {
 
   mapUiToCDto(dashboard: Dashboard): DashboardCreationDto {
     return {
-      // id: dashboard.id,
+      id: dashboard.id,
       title: dashboard.title,
       companyId: dashboard.companyId,
       creatorId: dashboard.creatorId,
-      // creationDate: dashboard.creationDate,
-      chartDtos: dashboard.charts.map(this.chartMapper.mapEntityToDto),
-    } as any;
+      chartCreationOptions: dashboard.charts.map(this.chartMapper.mapEntityToDto),
+    };
   }
 }

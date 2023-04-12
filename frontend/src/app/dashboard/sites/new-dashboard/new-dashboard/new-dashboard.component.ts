@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardService } from '../../../services/dashboard.service';
 import { DashboardModificationComponent } from '../../edit-dashboard/dashboard-modification/dashboard-modification.component';
 import { ComponentCanDeactivate } from '../../../../core/auth/guards/can-deactivate.guard';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-dashboard',
@@ -26,7 +27,7 @@ export class NewDashboardComponent implements OnInit, ComponentCanDeactivate {
   ngOnInit(): void {
     console.log(`Company ID: ${+this.activatedRoute.snapshot.paramMap.get('companyId')}`);
     this.newDashboard = {
-      id: 0,
+      id: null,
       title: '',
       charts: [],
       companyId: +this.activatedRoute.snapshot.paramMap.get('companyId'),
@@ -39,15 +40,19 @@ export class NewDashboardComponent implements OnInit, ComponentCanDeactivate {
   }
 
   updateDashboard(dashboard: Dashboard): void {
-    // this.dashboardService.createNewDashboard$(dashboard)
-    //   .pipe(
-    //     take(1),
-    //     map(createdDashboard => createdDashboard.id))
-    //   .subscribe(dashboardId => {
-    //     this.navigateToCreatedDashboard(dashboardId);
-    //   });
     console.log(dashboard);
     dashboard.charts.forEach(chart => console.log(`Title of Chart: ${chart.title.text}`));
+    // this.dashboardService.createNewDashboard$(dashboard)
+    //   .pipe(take(1))
+    //   .subscribe();
+    this.dashboardService.createNewDashboard$(dashboard)
+      .pipe(
+        take(1),
+        map(createdDashboard => createdDashboard.id),
+      )
+      .subscribe(dashboardId => {
+        this.navigateToCreatedDashboard(dashboardId);
+      });
 
     this.dashboardModificationComponent.dbFormGroup.markAsPristine();
   }

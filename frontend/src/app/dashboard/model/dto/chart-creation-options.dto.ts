@@ -2,7 +2,7 @@ export interface ChartCreationOptionsDto {
   chartCreationOptionsId?: number;
   title: string;
   chartType: ChartInformationTypeEnum;
-  teamIds?: number[];
+  selectedTeamIds?: number[];
 }
 
 export enum ChartInformationTypeEnum {

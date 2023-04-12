@@ -102,7 +102,7 @@ export class CreateDashboardComponent implements OnInit {
     this.newChart = {
       title: '',
       chartType: ChartInformationTypeEnum.LINE_PROGRESS,
-      teamIds: [],
+      selectedTeamIds: [],
     };
   }
 

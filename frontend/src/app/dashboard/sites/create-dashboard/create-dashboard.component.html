@@ -42,7 +42,7 @@
       </mat-form-field>
 
       <mat-form-field *ngIf="teamIsSelectable">
-        <mat-select [(value)]="newChart.teamIds" multiple
+        <mat-select [(value)]="newChart.selectedTeamIds" multiple
                     placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
           <mat-option *ngFor="let team of teams$ | async" [value]="team.id">{{team.name}}</mat-option>
         </mat-select>

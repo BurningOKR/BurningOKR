@@ -16,6 +16,6 @@ export class ChartOptionsCardComponent {
   chartTypeRecord = ChartTypeEnumDropDownRecord;
 
   getTeamsOfChart(allTeams: OkrDepartment[]): OkrDepartment[] {
-    return allTeams.filter(team => this.chart.teamIds.includes(team.id));
+    return allTeams.filter(team => this.chart.selectedTeamIds.includes(team.id));
   }
 }
