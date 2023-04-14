@@ -17,15 +17,13 @@ import { ChartRendererComponent } from './chart-renderer/chart-renderer.componen
 import { ChartHostDirective } from './chart-renderer/chart-host.directive';
 import { BaseChartComponent } from './charts/base-chart/base-chart.component';
 import { DashboardOverviewComponent } from './sites/dashboard-overview/dashboard-overview.component';
-// import { CreateDashboardComponent } from './sites/create-dashboard/create-dashboard.component';
 import { DashboardCardComponent } from './sites/dashboard-overview/dashboard-card/dashboard-card.component';
-import { ChartOptionsCardComponent } from './sites/create-dashboard/chart-options-card/chart-options-card.component';
-import { EditDashboardComponent } from './sites/edit-dashboard/edit-dashboard.component';
+import { EditDashboardComponent } from './sites/dashboard-modification/edit-dashboard/edit-dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardModificationComponent } from './sites/edit-dashboard/dashboard-modification/dashboard-modification.component';
-import { PickChartTypeModalComponent } from './sites/edit-dashboard/dashboard-modification/pick-chart-type-modal/pick-chart-type-modal.component';
+import { DashboardModificationComponent } from './sites/dashboard-modification/dashboard-modification.component';
+import { PickChartTypeModalComponent } from './sites/dashboard-modification/pick-chart-type-modal/pick-chart-type-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NewDashboardComponent } from './sites/new-dashboard/new-dashboard/new-dashboard.component';
+import { CreateDashboardComponent } from './sites/dashboard-modification/create-dashboard/create-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -36,13 +34,11 @@ import { NewDashboardComponent } from './sites/new-dashboard/new-dashboard/new-d
     ChartHostDirective,
     BaseChartComponent,
     DashboardOverviewComponent,
-    // CreateDashboardComponent,
     DashboardCardComponent,
-    ChartOptionsCardComponent,
     EditDashboardComponent,
     DashboardModificationComponent,
     PickChartTypeModalComponent,
-    NewDashboardComponent,
+    CreateDashboardComponent,
   ],
   imports: [
     CommonModule,

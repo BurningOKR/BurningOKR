@@ -48,14 +48,10 @@ public class DashboardService {
   }
 
   public DashboardCreation updateDashboard(DashboardCreation dashboardCreation, User user) {
-//    System.out.println("Inside updateDashboard im Backend!");
-//    System.out.println("Charts in updateDashboard before Save: " + dashboardCreation.getChartCreationOptions());
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
-//    System.out.println("Charts in updateDashboard after Dashboard Save: " + dashboardCreation.getChartCreationOptions());
 
     logger.info("Updated Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.EDITED);
-//    createChartOptions(dashboardCreation, user);
     return dashboardCreation;
   }
 
@@ -65,7 +61,6 @@ public class DashboardService {
 
   private void createChartOptions(DashboardCreation dashboardCreation, User user) {
     for (ChartCreationOptions chartCreationOption : dashboardCreation.getChartCreationOptions()) {
-//      chartCreationOption.setDashboardCreation(dashboardCreation);
       chartCreationOptionsRepository.save(chartCreationOption);
       logger.info("Created ChartCreationOption: " + chartCreationOption.getTitle());
     }
@@ -78,10 +73,10 @@ public class DashboardService {
     activityService.createActivity(user, dashboardCreationToDelete, Action.DELETED);
   }
 
-  public void deleteChart(long chartId, User user) {
-    ChartCreationOptions chartCreationOptions = chartCreationOptionsRepository.findByIdOrThrow(chartId);
-
-    chartCreationOptionsRepository.deleteById(chartId);
-//    activityService.createActivity(user, chartCreationOptions, Action.DELETED); //TODO
-  }
+//  public void deleteChart(long chartId, User user) {
+//    ChartCreationOptions chartCreationOptions = chartCreationOptionsRepository.findByIdOrThrow(chartId);
+//
+//    chartCreationOptionsRepository.deleteById(chartId);
+////    activityService.createActivity(user, chartCreationOptions, Action.DELETED); //TODO
+//  }
 }

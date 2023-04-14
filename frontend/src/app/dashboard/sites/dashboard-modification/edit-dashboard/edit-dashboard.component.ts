@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Dashboard } from '../../model/ui/dashboard';
+import { Dashboard } from '../../../model/ui/dashboard';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { DashboardService } from '../../services/dashboard.service';
-import { ComponentCanDeactivate } from '../../../core/auth/guards/can-deactivate.guard';
-import { DashboardModificationComponent } from './dashboard-modification/dashboard-modification.component';
+import { DashboardService } from '../../../services/dashboard.service';
+import { ComponentCanDeactivate } from '../../../../core/auth/guards/can-deactivate.guard';
+import { DashboardModificationComponent } from '../dashboard-modification.component';
 
 @Component({
   selector: 'app-edit-dashboard',

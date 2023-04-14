@@ -3,16 +3,16 @@ import { Dashboard } from '../../../model/ui/dashboard';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardService } from '../../../services/dashboard.service';
-import { DashboardModificationComponent } from '../../edit-dashboard/dashboard-modification/dashboard-modification.component';
+import { DashboardModificationComponent } from '../dashboard-modification.component';
 import { ComponentCanDeactivate } from '../../../../core/auth/guards/can-deactivate.guard';
 import { map, take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-new-dashboard',
-  templateUrl: './new-dashboard.component.html',
-  styleUrls: ['./new-dashboard.component.scss'],
+  selector: 'app-create-dashboard',
+  templateUrl: './create-dashboard.component.html',
+  styleUrls: ['./create-dashboard.component.scss'],
 })
-export class NewDashboardComponent implements OnInit, ComponentCanDeactivate {
+export class CreateDashboardComponent implements OnInit, ComponentCanDeactivate {
   @ViewChild('childRef') dashboardModificationComponent!: DashboardModificationComponent;
   newDashboard: Dashboard;
 
@@ -25,7 +25,6 @@ export class NewDashboardComponent implements OnInit, ComponentCanDeactivate {
   }
 
   ngOnInit(): void {
-    console.log(`Company ID: ${+this.activatedRoute.snapshot.paramMap.get('companyId')}`);
     this.newDashboard = {
       id: null,
       title: '',

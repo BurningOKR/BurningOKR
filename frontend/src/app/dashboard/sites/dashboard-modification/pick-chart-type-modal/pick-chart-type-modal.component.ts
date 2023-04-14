@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {
-  ChartInformationTypeEnum,
-  ChartTypeEnumDropDownRecord,
-} from '../../../../model/dto/chart-creation-options.dto';
+import { ChartInformationTypeEnum, ChartTypeEnumDropDownRecord } from '../../../model/dto/chart-creation-options.dto';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({

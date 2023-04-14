@@ -7,7 +7,6 @@ import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.ChartBuilderService;
-import org.burningokr.service.userhandling.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,21 +18,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DashboardMapper implements DataMapper<DashboardCreation, DashboardDto> {
   private final ChartBuilderService chartBuilderService;
-  private final UserService userService;
   private final BaseChartOptionsMapper baseChartOptionsMapper;
 
   @Override
   public DashboardCreation mapDtoToEntity(DashboardDto dto) {
-//    System.out.println("Inside mapDtoToEntity!");
     DashboardCreation entity = new DashboardCreation();
-//    System.out.println("Entity Before: " + entity);
     entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
     entity.setCreatorId(dto.getCreatorId());
     entity.setCompanyId(dto.getCompanyId());
     entity.setChartCreationOptions(
-      baseChartOptionsMapper.mapDtosToEntities(dto.getChartDtos()));
-//    System.out.println("Entity After: " + entity);
+      baseChartOptionsMapper.mapDtosToEntities(dto.getChartDtos())
+    );
 
     log.info(
       "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
@@ -52,7 +48,6 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
       .title(entity.getTitle())
       .companyId(entity.getCompanyId())
       .creatorId(entity.getCreatorId())
-//      .creator(userService.findById(entity.getCreatorId())
       .chartDtos(chartOptionsDtos)
       .build();
   }

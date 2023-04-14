@@ -11,6 +11,8 @@ import { PieChartOptions } from '../model/ui/pie-chart-options';
   providedIn: 'root',
 })
 export class ChartMapperService {
+
+  //static because "this." throws undefined error. (?)
   private static mapLineChartEntityToDto(lineChartOptions: LineChartOptions): LineChartOptionsDto {
     const lineChartOptionsDto: LineChartOptionsDto = new LineChartOptionsDto();
     lineChartOptionsDto.id = lineChartOptions.id;
@@ -31,7 +33,6 @@ export class ChartMapperService {
     return pieChartOptionsDto;
   }
 
-  //TODO: this. throws undefined error.
   mapEntityToDto(baseChartOptions: BaseChartOptions): BaseChartOptionsDto {
     switch (baseChartOptions.chartType) {
       case ChartInformationTypeEnum.LINE_PROGRESS:

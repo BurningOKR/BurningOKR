@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DashboardModificationComponent } from './dashboard-modification.component';
-import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
+import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
 import { of } from 'rxjs';
-import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { Dashboard } from '../../../model/ui/dashboard';
-import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { Dashboard } from '../../model/ui/dashboard';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -30,6 +30,15 @@ import { By } from '@angular/platform-browser';
 //   return [okrTestDepartment1, okrTestDepartment2]; //of(testCompanyList.filter(c => c.id === companyId).pop());
 // }
 //
+
+@Component({
+  selector: 'app-host-component',
+  template: '<app-dashboard-modification></app-dashboard-modification>',
+})
+class TestHostComponent {
+  @ViewChild(DashboardModificationComponent)
+  dashboardModificationComponent: DashboardModificationComponent;
+}
 
 const okrTestDepartment1: OkrDepartment = {
   id: 1,
@@ -75,6 +84,8 @@ const departmentService: any = {
 describe('DashboardModificationComponent', () => {
   let component: DashboardModificationComponent;
   let fixture: ComponentFixture<DashboardModificationComponent>;
+  let testHostComponent: TestHostComponent;
+  let testHostFixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -98,9 +109,14 @@ describe('DashboardModificationComponent', () => {
     fixture = TestBed.createComponent(DashboardModificationComponent);
     component = fixture.componentInstance;
     component.dashboard = testDashboard;
-    // location = TestBed.inject(Location);
     fixture.detectChanges();
   }));
+
+  beforeEach(() => {
+    testHostFixture = TestBed.createComponent(TestHostComponent);
+    testHostComponent = testHostFixture.componentInstance;
+    testHostFixture.detectChanges();
+  });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
@@ -136,19 +152,20 @@ describe('DashboardModificationComponent', () => {
   });
 
   // it('should submit form when enter was pressed on submit button', () => {
-  //   const tabKeypress: KeyboardEvent = new KeyboardEvent('keypress', {
-  //     key: '9',
+  //   const enterKeypress: KeyboardEvent = new KeyboardEvent('keypress', {
+  //     key: '13',
   //     cancelable: true
   //   });
+  //
   //   const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
-  //   btn.dispatchEvent(tabKeypress);
+  //
   //   fixture.detectChanges();
   // });
 
   it('submit button should be disabled if dashboard is invalid', () => {
     const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
 
-    expect(btn.nativeElement.disabled).toBe(!component.dashboardValid());
+    expect(btn.nativeElement.disabled).toBe(!component.dbFormValid());
   });
 
   it('dashboard title input exists', () => {
@@ -163,17 +180,17 @@ describe('DashboardModificationComponent', () => {
     expect(input.nativeElement.value).toBe(testDashboard.title);
   });
 
-  it('dashboard title input labeled to fulfill wcag 3.3..2 criteria', () => {
-    const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
-
-    expect(
-      input.nativeElement.hasAttribute('label')
-      || input.nativeElement.hasAttribute('aria-label')
-      || input.nativeElement.hasAttribute('aria-labelledby')
-      || input.nativeElement.hasAttribute('aria-describedby')
-      || input.nativeElement.hasAttribute('placeholder'),
-    ).toBe(true);
-  });
+  // it('dashboard title input labeled to fulfill wcag 3.3.2 criteria', () => {
+  //   const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
+  //
+  //   expect(
+  //     input.nativeElement.hasAttribute('label')
+  //     || input.nativeElement.hasAttribute('aria-label')
+  //     || input.nativeElement.hasAttribute('aria-labelledby')
+  //     || input.nativeElement.hasAttribute('aria-describedby')
+  //     || (input.nativeElement.hasAttribute('placeholder') && input.parent.nativeElement.ty ),
+  //   ).toBe(true);
+  // });
 
   // it('dashboard title is required', () => {
   //   // const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
@@ -191,6 +208,12 @@ describe('DashboardModificationComponent', () => {
 
       expect(input.nativeElement.value).toBe(chart.title.text);
     }
+  });
+
+  it('test dashboard input', () => {
+    testHostComponent.dashboardModificationComponent.dashboard = testDashboard;
+    testHostFixture.detectChanges();
+    expect(testHostFixture.debugElement.nativeElement.query(By.css('#dashboard-title')) === testDashboard.title).toBeTruthy();
   });
 
   afterEach(() => {

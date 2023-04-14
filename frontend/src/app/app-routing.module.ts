@@ -7,7 +7,6 @@ import { LandingPageNavigationComponent } from './core/landing-page-router/landi
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
-// import { CreateDashboardComponent } from './dashboard/sites/create-dashboard/create-dashboard.component';
 import { DashboardOverviewComponent } from './dashboard/sites/dashboard-overview/dashboard-overview.component';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
@@ -16,7 +15,7 @@ import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topic-drafts.component';
 import { environment } from '../environments/environment';
 import { PlaygroundGuard } from './core/auth/guards/playground.guard';
-import { NewDashboardComponent } from './dashboard/sites/new-dashboard/new-dashboard/new-dashboard.component';
+import { CreateDashboardComponent } from './dashboard/sites/dashboard-modification/create-dashboard/create-dashboard.component';
 import { CanDeactivateGuard } from './core/auth/guards/can-deactivate.guard';
 
 const routes: Routes = [
@@ -54,14 +53,9 @@ const routes: Routes = [
     component: DashboardOverviewComponent,
     canActivate: [AuthGuard, PlaygroundGuard],
   },
-  // {
-  //   path: 'companies/:companyId/create-dashboard',
-  //   component: CreateDashboardComponent,
-  //   canActivate: [AuthGuard, PlaygroundGuard],
-  // },
   {
-    path: 'companies/:companyId/new-dashboard',
-    component: NewDashboardComponent,
+    path: 'companies/:companyId/create-dashboard',
+    component: CreateDashboardComponent,
     canActivate: [AuthGuard, PlaygroundGuard],
     canDeactivate: [CanDeactivateGuard],
   },

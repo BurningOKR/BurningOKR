@@ -2,11 +2,9 @@ package org.burningokr.controller.dashboard;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.dto.dashboard.creation.DashboardCreationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.model.users.User;
 import org.burningokr.service.dashboard.DashboardService;
@@ -50,16 +48,8 @@ public class DashboardController {
    */
   @PostMapping("/dashboards/edit")
   public ResponseEntity<DashboardDto> updateDashboard(@RequestBody DashboardDto dashboardDto, User user) {
-//    System.out.println("Inside updateDashboard Mapping Point im Backend!");
-//    for (BaseChartOptionsDto chart: dashboardDto.getChartDtos()) {
-//      System.out.println("BaseChartOptionsDto " + chart.getChartType());
-//    }
-//    System.out.println("DashboardDto: " + dashboardDto);
     DashboardCreation dashboardCreation = dashboardMapper.mapDtoToEntity(dashboardDto);
-//    System.out.println("Dashboard Creation: " + dashboardCreation);
-//    dashboardCreation.setTitle(dashboardCreationDto.getTitle());
     dashboardCreation = dashboardService.updateDashboard(dashboardCreation, user);
-//    System.out.println("Dashboard Creation AFTER save: " + dashboardCreation);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
   }
 
@@ -75,7 +65,6 @@ public class DashboardController {
   ) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
     DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
-//    dashboardDto.getChartDtos().forEach(x -> System.out.println("ID of Chart " + x.getTitle() + ": " + x.getChartType()));
     return ResponseEntity.ok(dashboardDto);
   }
 

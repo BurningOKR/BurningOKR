@@ -1,15 +1,15 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { Dashboard } from '../../../model/ui/dashboard';
-import { ChartInformationTypeEnum, ChartTypeEnumDropDownRecord } from '../../../model/dto/chart-creation-options.dto';
-import { BaseChartOptions } from '../../../model/ui/base-chart-options';
+import { Dashboard } from '../../model/ui/dashboard';
+import { ChartInformationTypeEnum, ChartTypeEnumDropDownRecord } from '../../model/dto/chart-creation-options.dto';
+import { BaseChartOptions } from '../../model/ui/base-chart-options';
 import { Observable } from 'rxjs';
-import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
-import { LineChartOptions } from '../../../model/ui/line-chart-options';
-import { PieChartOptions } from '../../../model/ui/pie-chart-options';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
+import { LineChartOptions } from '../../model/ui/line-chart-options';
+import { PieChartOptions } from '../../model/ui/pie-chart-options';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PickChartTypeModalComponent } from './pick-chart-type-modal/pick-chart-type-modal.component';
-import { ComponentCanDeactivate } from '../../../../core/auth/guards/can-deactivate.guard';
+import { ComponentCanDeactivate } from '../../../core/auth/guards/can-deactivate.guard';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -59,11 +59,11 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
 
   submitDashboard(): void {
     if (this.dbFormValid()) {
-      this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value.toString().trim();
+      this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value;
       const chartsFormArray: FormArray = this.dbFormGroup.get('formArrayCharts') as FormArray;
       this.dashboard.charts.forEach((chart, index) => {
         const chartControl: FormControl = chartsFormArray.at(index) as FormControl;
-        chart.title.text = chartControl.get('title').value.toString().trim();
+        chart.title.text = chartControl.get('title').value;
         chart.selectedTeamIds = chartControl.get('selectedTeamIds').value;
       });
       if (this.dashboardValid()) {
