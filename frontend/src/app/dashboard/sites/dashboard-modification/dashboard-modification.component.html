@@ -11,7 +11,7 @@
     <!--    <div formArrayName="formArrayChartTitles">-->
     <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
       <mat-form-field [formGroupName]="i">
-        <input [attr.id]="'chart-' + chart.id + '-title'" formControlName="title" matInput
+        <input [attr.id]="'chart-' + chart.id + '-title'" formControlName="chartTitle" matInput
                placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
       </mat-form-field>
 

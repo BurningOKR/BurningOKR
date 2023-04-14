@@ -36,7 +36,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
 
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(): boolean {
-    return this.canDeactivate();
+    return !this.dbFormDirty();
   }
 
   get charts(): FormArray {
@@ -44,7 +44,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   ngOnInit(): void {
-    this.formArrayCharts = new FormArray([]);
+    this.formArrayCharts = new FormArray([], [Validators.required]);
 
     this.dbFormGroup = this.formBuilder.group({
       fcDashboardTitle: new FormControl(this.dashboard.title, [Validators.required]),
@@ -58,12 +58,13 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   submitDashboard(): void {
+    this.trimForm();
     if (this.dbFormValid()) {
       this.dashboard.title = this.dbFormGroup.get('fcDashboardTitle').value;
       const chartsFormArray: FormArray = this.dbFormGroup.get('formArrayCharts') as FormArray;
       this.dashboard.charts.forEach((chart, index) => {
         const chartControl: FormControl = chartsFormArray.at(index) as FormControl;
-        chart.title.text = chartControl.get('title').value;
+        chart.title.text = chartControl.get('chartTitle').value;
         chart.selectedTeamIds = chartControl.get('selectedTeamIds').value;
       });
       if (this.dashboardValid()) {
@@ -77,11 +78,15 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   canDeactivate(): boolean {
-    if (this.dbFormGroup.dirty) {
+    if (this.dbFormDirty()) {
       return confirm(this.translate.instant('edit-dashboard.info.discard-changes'));
     }
 
     return true;
+  }
+
+  dbFormDirty(): boolean {
+    return this.dbFormGroup.dirty;
   }
 
   dbFormValid(): boolean {
@@ -89,7 +94,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   dashboardValid(): boolean {
-    return this.chartsValid() && this.dashboard.title.trim() && !!this.dashboard.charts.length;
+    return this.chartsValid() && !!this.dashboard.charts.length;
   }
 
   chartsValid(): boolean {
@@ -102,10 +107,15 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     return true;
   }
 
+  trimForm() {
+    this.dbFormGroup.get('fcDashboardTitle').setValue(this.dbFormGroup.get('fcDashboardTitle').value.trim());
+    this.formArrayCharts.controls.forEach(key => key.get('chartTitle').setValue(key.get('chartTitle').value.trim()));
+  }
+
   createChartData(chart: BaseChartOptions): FormGroup {
     return this.formBuilder.group({
       id: [chart.id],
-      title: [chart.title.text, [Validators.required]],
+      chartTitle: [chart.title.text, [Validators.required]],
       selectedTeamIds: [chart.selectedTeamIds],
     });
   }
