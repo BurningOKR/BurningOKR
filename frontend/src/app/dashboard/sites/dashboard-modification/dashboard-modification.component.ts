@@ -67,11 +67,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
         chart.title.text = chartControl.get('chartTitle').value;
         chart.selectedTeamIds = chartControl.get('selectedTeamIds').value;
       });
-      if (this.dashboardValid()) {
-        this.updateDashboard.emit(this.dashboard);
-      } else {
-        alert(this.translate.instant('edit-dashboard.info.not-valid'));
-      }
+      this.updateDashboard.emit(this.dashboard);
     } else {
       alert(this.translate.instant('edit-dashboard.info.not-valid'));
     }
@@ -91,20 +87,6 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
 
   dbFormValid(): boolean {
     return this.dbFormGroup.valid;
-  }
-
-  dashboardValid(): boolean {
-    return this.chartsValid() && !!this.dashboard.charts.length;
-  }
-
-  chartsValid(): boolean {
-    for (const chart of this.dashboard.charts) {
-      if (!(chart.title && chart.title.text.trim())) {
-        return false;
-      }
-    }
-
-    return true;
   }
 
   trimForm() {

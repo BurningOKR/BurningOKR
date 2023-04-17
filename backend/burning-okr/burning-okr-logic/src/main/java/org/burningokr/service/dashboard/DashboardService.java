@@ -72,11 +72,4 @@ public class DashboardService {
     dashboardCreationRepository.deleteById(dashboardCreationToDelete.getId());
     activityService.createActivity(user, dashboardCreationToDelete, Action.DELETED);
   }
-
-//  public void deleteChart(long chartId, User user) {
-//    ChartCreationOptions chartCreationOptions = chartCreationOptionsRepository.findByIdOrThrow(chartId);
-//
-//    chartCreationOptionsRepository.deleteById(chartId);
-////    activityService.createActivity(user, chartCreationOptions, Action.DELETED); //TODO
-//  }
 }
