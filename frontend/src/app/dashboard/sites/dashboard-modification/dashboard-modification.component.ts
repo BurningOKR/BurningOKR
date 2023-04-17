@@ -86,7 +86,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
   }
 
   dbFormValid(): boolean {
-    return this.dbFormGroup.valid;
+    return this.dbFormGroup.get('fcDashboardTitle').valid && this.dbFormGroup.get('formArrayCharts').valid; //this.dbFormGroup.valid;
   }
 
   trimForm() {

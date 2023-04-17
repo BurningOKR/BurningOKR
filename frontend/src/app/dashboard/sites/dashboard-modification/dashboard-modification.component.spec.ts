@@ -5,40 +5,14 @@ import { DepartmentMapper } from '../../../shared/services/mapper/department.map
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { Dashboard } from '../../model/ui/dashboard';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-// const departmentMapperMock: any = {
-//   getDepartmentById$: jest.fn(getDepartmentByIdMock$),
-//   getAllDepartmentsForCompanyFlatted$: jest.fn(getAllDepartmentsForCompanyFlattedMock$)
-// };
-//
-// function getDepartmentByIdMock$(departmentId: OkrUnitId): Observable<OkrDepartment> {
-//   console.log('Hello World!');
-//
-//   return null; //of(testCompanyList.filter(c => c.id === companyId).pop());
-// }
-//
-// function getAllDepartmentsForCompanyFlattedMock$(companyId: CompanyId): Observable<OkrDepartment[]> {
-//   console.log('Hello World!');
-//
-//   return [okrTestDepartment1, okrTestDepartment2]; //of(testCompanyList.filter(c => c.id === companyId).pop());
-// }
-//
-
-@Component({
-  selector: 'app-host-component',
-  template: '<app-dashboard-modification></app-dashboard-modification>',
-})
-class TestHostComponent {
-  @ViewChild(DashboardModificationComponent)
-  dashboardModificationComponent: DashboardModificationComponent;
-}
+import { PieChartOptions } from '../../model/ui/pie-chart-options';
 
 const okrTestDepartment1: OkrDepartment = {
   id: 1,
@@ -84,8 +58,6 @@ const departmentService: any = {
 describe('DashboardModificationComponent', () => {
   let component: DashboardModificationComponent;
   let fixture: ComponentFixture<DashboardModificationComponent>;
-  let testHostComponent: TestHostComponent;
-  let testHostFixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -106,17 +78,14 @@ describe('DashboardModificationComponent', () => {
     departmentService.getAllDepartmentsForCompanyFlatted$.mockReset();
     departmentService.getAllDepartmentsForCompanyFlatted$.mockReturnValue(of([okrTestDepartment1, okrTestDepartment2]));
 
+    testDashboard.charts.push(new PieChartOptions());
+    testDashboard.charts.forEach(chart => chart.title.text = 'Chart Title');
+
     fixture = TestBed.createComponent(DashboardModificationComponent);
     component = fixture.componentInstance;
     component.dashboard = testDashboard;
     fixture.detectChanges();
   }));
-
-  beforeEach(() => {
-    testHostFixture = TestBed.createComponent(TestHostComponent);
-    testHostComponent = testHostFixture.componentInstance;
-    testHostFixture.detectChanges();
-  });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
@@ -151,17 +120,6 @@ describe('DashboardModificationComponent', () => {
     expect(fnc).toHaveBeenCalled();
   });
 
-  // it('should submit form when enter was pressed on submit button', () => {
-  //   const enterKeypress: KeyboardEvent = new KeyboardEvent('keypress', {
-  //     key: '13',
-  //     cancelable: true
-  //   });
-  //
-  //   const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
-  //
-  //   fixture.detectChanges();
-  // });
-
   it('submit button should be disabled if dashboard is invalid', () => {
     const btn: DebugElement = fixture.debugElement.query(By.css('#save-changes-button'));
 
@@ -180,28 +138,6 @@ describe('DashboardModificationComponent', () => {
     expect(input.nativeElement.value).toBe(testDashboard.title);
   });
 
-  // it('dashboard title input labeled to fulfill wcag 3.3.2 criteria', () => {
-  //   const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
-  //
-  //   expect(
-  //     input.nativeElement.hasAttribute('label')
-  //     || input.nativeElement.hasAttribute('aria-label')
-  //     || input.nativeElement.hasAttribute('aria-labelledby')
-  //     || input.nativeElement.hasAttribute('aria-describedby')
-  //     || (input.nativeElement.hasAttribute('placeholder') && input.parent.nativeElement.ty ),
-  //   ).toBe(true);
-  // });
-
-  // it('dashboard title is required', () => {
-  //   // const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
-  //   const ctrl: any = component.registerForm.get('fcDashboardTitle');
-  //
-  //   ctrl.setValue(null);
-  //   fixture.detectChanges();
-  //
-  //   expect(ctrl.invalid).toBeTruthy();
-  // });
-
   it('chart title is displayed in input', () => {
     for (const chart of testDashboard.charts) {
       const input: DebugElement = fixture.debugElement.query(By.css(`#chart-${chart.id}-title`));
@@ -210,10 +146,10 @@ describe('DashboardModificationComponent', () => {
     }
   });
 
-  it('test dashboard input', () => {
-    testHostComponent.dashboardModificationComponent.dashboard = testDashboard;
-    testHostFixture.detectChanges();
-    expect(testHostFixture.debugElement.nativeElement.query(By.css('#dashboard-title')) === testDashboard.title).toBeTruthy();
+  it('expect input to display initial value of dashboard', () => {
+    const input: DebugElement = fixture.debugElement.query(By.css('#dashboard-title'));
+
+    expect(input.nativeElement.value === testDashboard.title).toBeTruthy();
   });
 
   afterEach(() => {
