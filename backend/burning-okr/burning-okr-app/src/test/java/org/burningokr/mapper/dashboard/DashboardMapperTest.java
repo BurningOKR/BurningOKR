@@ -1,6 +1,7 @@
 package org.burningokr.mapper.dashboard;
 
 import org.assertj.core.api.Assertions;
+import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.ChartBuilderService;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,6 +38,7 @@ public class DashboardMapperTest {
     dto.setTitle("expectedTitle");
     dto.setCompanyId(6L);
     dto.setCreatorId(myUUID);
+    dto.setChartDtos(new ArrayList<BaseChartOptionsDto>());
     entity.setId(5L);
     entity.setTitle("expectedTitle");
     entity.setCompanyId(6L);
