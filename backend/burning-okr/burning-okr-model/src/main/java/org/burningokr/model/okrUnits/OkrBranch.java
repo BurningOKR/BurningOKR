@@ -1,9 +1,6 @@
 package org.burningokr.model.okrUnits;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 
@@ -15,6 +12,7 @@ import java.util.Collection;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@DiscriminatorValue(value = "OKR_BRANCH")
 public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
 
   @OneToMany(

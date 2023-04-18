@@ -9,7 +9,8 @@ import java.util.Collection;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "okr_unit_history_type")
 public abstract class OkrUnitHistory<T extends OkrUnit> implements Trackable<Long> {
 
   @Id

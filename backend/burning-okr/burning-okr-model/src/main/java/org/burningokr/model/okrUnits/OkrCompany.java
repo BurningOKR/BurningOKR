@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
-@Table(name = "okr_company")
 @Data
 @EqualsAndHashCode(callSuper = true)
+@DiscriminatorValue(value = "OKR_COMPANY")
 public class OkrCompany extends OkrUnit implements OkrParentUnit {
 
   @ToString.Exclude

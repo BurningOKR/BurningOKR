@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
+@DiscriminatorColumn(name = "okr_unit_type")
 public abstract class OkrUnit implements Trackable<Long> {
 
   @Id

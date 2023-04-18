@@ -15,6 +15,7 @@ import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
+import org.hibernate.event.spi.PostCommitDeleteEventListener;
 import org.hibernate.event.spi.PostDeleteEvent;
 import org.hibernate.event.spi.PostDeleteEventListener;
 import org.hibernate.internal.SessionFactoryImpl;
@@ -29,7 +30,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OkrTopicDescriptionService implements PostDeleteEventListener {
+public class OkrTopicDescriptionService implements PostCommitDeleteEventListener {
 
   private final OkrTopicDescriptionRepository okrTopicDescriptionRepository;
   private final OkrDepartmentRepository okrDepartmentRepository;
@@ -187,5 +188,10 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
       }
       entityManager.close();
     }
+  }
+
+  @Override
+  public void onPostDeleteCommitFailed(PostDeleteEvent event) {
+    // TODO
   }
 }

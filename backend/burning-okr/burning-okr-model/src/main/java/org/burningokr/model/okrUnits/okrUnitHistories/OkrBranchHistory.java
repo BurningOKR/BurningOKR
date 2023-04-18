@@ -1,6 +1,7 @@
 package org.burningokr.model.okrUnits.okrUnitHistories;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.Collection;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@DiscriminatorValue(value = "OKR_BRANCH_HISTORY")
 public class OkrBranchHistory extends OkrUnitHistory<OkrBranch> {
 
   @ToString.Exclude

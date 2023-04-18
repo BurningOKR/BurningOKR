@@ -17,6 +17,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@DiscriminatorValue(value = "OKR_DEPARTMENT")
 public class OkrDepartment extends OkrChildUnit {
 
   private UUID okrMasterId;
