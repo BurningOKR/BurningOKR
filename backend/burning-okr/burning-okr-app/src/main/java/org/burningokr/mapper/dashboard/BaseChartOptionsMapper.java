@@ -1,6 +1,7 @@
 package org.burningokr.mapper.dashboard;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.dto.dashboard.LineChartOptionsDto;
 import org.burningokr.dto.dashboard.PieChartOptionsDto;
@@ -35,7 +36,7 @@ public class BaseChartOptionsMapper
     }
     entity.setTeamIds(dto.getSelectedTeamIds());
 
-    log.info(
+    log.debug(
       "Mapped BaseChartOptionsDto (id:"
         + dto.getId()
         + ") successful into ChartCreationOption.");
@@ -45,7 +46,7 @@ public class BaseChartOptionsMapper
 
   @Override
   public BaseChartOptionsDto mapEntityToDto(ChartCreationOptions input) {
-    return null;
+    throw new NotImplementedException("Mapping Methode von ChartCreationOptions nach BaseChartOptionsDto noch nicht implementiert!");
   }
 
   @Override

@@ -40,7 +40,7 @@ public class DashboardService {
     dashboardCreation.setCreatorId(user.getId());
 
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
-    logger.info("Created Dashboard: " + dashboardCreation.getTitle());
+    logger.debug("Created Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.CREATED);
     createChartOptions(dashboardCreation, user);
 
@@ -50,7 +50,7 @@ public class DashboardService {
   public DashboardCreation updateDashboard(DashboardCreation dashboardCreation, User user) {
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
 
-    logger.info("Updated Dashboard: " + dashboardCreation.getTitle());
+    logger.debug("Updated Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(user, dashboardCreation, Action.EDITED);
     return dashboardCreation;
   }
@@ -62,7 +62,7 @@ public class DashboardService {
   private void createChartOptions(DashboardCreation dashboardCreation, User user) {
     for (ChartCreationOptions chartCreationOption : dashboardCreation.getChartCreationOptions()) {
       chartCreationOptionsRepository.save(chartCreationOption);
-      logger.info("Created ChartCreationOption: " + chartCreationOption.getTitle());
+      logger.debug("Created ChartCreationOption: " + chartCreationOption.getTitle());
     }
   }
 
