@@ -342,6 +342,8 @@
       }
     }},
   "department-tab-taskboard": {
+    "columns": "Spalten",
+    "swimlanes": "Schwimmbahnen",
     "add-button": {
       "create-new-task": "Aufgabe erstellen",
       "tooltip": "Keine WebSocket-Verbindung möglich"

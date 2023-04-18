@@ -9,11 +9,11 @@
     <mat-button-toggle-group #viewgroup="matButtonToggleGroup">
       <mat-button-toggle [checked]="true" aria-label="Text align left" data-i18n="columns:columnView" value="states">
         <mat-icon>view_column</mat-icon>
-        columns
+        {{ 'department-tab-taskboard.columns' | translate }}
       </mat-button-toggle>
       <mat-button-toggle aria-label="Text align center" data-i18n="swimlanes:swimlaneView" value="swimlanes">
         <mat-icon>view_stream</mat-icon>
-        swimlanes
+        {{ 'department-tab-taskboard.swimlanes' | translate }}
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
