@@ -21,6 +21,22 @@ public class DashboardController {
   private final DataMapper<DashboardCreation, DashboardDto> dashboardMapper;
 
 
+//  /**
+//   * API Endpoint to create a DashboardCreation
+//   *
+//   * @param dashboardCreationDto a {@link DashboardCreationDto} object
+//   * @param user                 a {@link User} object
+//   * @return a {@link ResponseEntity} ok with the created DashboardCreation
+//   */
+//  @PostMapping("/dashboards")
+//  public ResponseEntity<DashboardCreationDto> createDashboard(
+//    @RequestBody DashboardCreationDto dashboardCreationDto, User user
+//  ) {
+//    DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
+//    dashboardCreation = dashboardService.createDashboard(dashboardCreation, user);
+//    return ResponseEntity.ok(dashboardCreationMapper.mapEntityToDto(dashboardCreation));
+//  }
+
   /**
    * API Endpoint to create a DashboardCreation
    *
@@ -29,12 +45,12 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok with the created DashboardCreation
    */
   @PostMapping("/dashboards")
-  public ResponseEntity<DashboardCreationDto> createDashboard(
+  public ResponseEntity<DashboardDto> createNewDashboard(
     @RequestBody DashboardCreationDto dashboardCreationDto, User user
   ) {
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
     dashboardCreation = dashboardService.createDashboard(dashboardCreation, user);
-    return ResponseEntity.ok(dashboardCreationMapper.mapEntityToDto(dashboardCreation));
+    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
   }
 
   /**

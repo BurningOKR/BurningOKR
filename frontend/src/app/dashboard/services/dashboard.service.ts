@@ -32,6 +32,10 @@ export class DashboardService {
     return this.dashboardApiService.createDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
   }
 
+  createNewDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
+    return this.dashboardApiService.createNewDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
+  }
+
   updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
     return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
   }

@@ -39,7 +39,7 @@ export class CreateDashboardComponent implements OnInit, ComponentCanDeactivate 
   }
 
   updateDashboard(dashboard: Dashboard): void {
-    this.dashboardService.createDashboard$(dashboard)
+    this.dashboardService.createNewDashboard$(dashboard)
       .pipe(
         take(1),
         map(createdDashboard => createdDashboard.id),
