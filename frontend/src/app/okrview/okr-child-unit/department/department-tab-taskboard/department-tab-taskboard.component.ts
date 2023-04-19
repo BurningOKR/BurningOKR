@@ -14,7 +14,7 @@ import { TaskStateMapper } from '../../../../shared/services/mapper/task-state.m
 import { TaskBoardGeneralHelper } from '../../../../shared/services/helper/task-board/task-board-general-helper';
 import { TaskBoardViewEventService } from '../../../taskboard-services/task-board-view-event.service';
 import { KeyResultMapper } from '../../../../shared/services/mapper/key-result.mapper';
-import { OkrUnitId } from '../../../../shared/model/id-types';
+import { OkrUnitId, UserId } from '../../../../shared/model/id-types';
 import { TaskDto } from '../../../../shared/model/api/task.dto';
 import { ViewTask } from '../../../../shared/model/ui/taskboard/view-task';
 import { ViewTaskState } from '../../../../shared/model/ui/taskboard/view-task-state';
@@ -22,7 +22,7 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData,
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import {User} from '../../../../shared/model/api/user';
+import { User } from '../../../../shared/model/api/user';
 import { RxStompState } from '@stomp/rx-stomp';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -61,6 +61,12 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
     private snackBar: MatSnackBar,
     private translate: TranslateService,
   ) {
+  }
+
+  getUserIds(): UserId[] {
+    const users: User[] = this.monitoringUsers;
+
+    return users.map(user => user.id);
   }
 
   ngOnInit(): void {
