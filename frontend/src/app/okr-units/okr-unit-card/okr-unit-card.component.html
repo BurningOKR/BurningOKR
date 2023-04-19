@@ -1,4 +1,5 @@
-<mat-card (click)="selectCompany()" class="company-card pointing">
+<mat-card (click)="selectCompany()" (keydown.enter)="selectCompany()" class="company-card pointing" role="button"
+          tabindex="0">
   <span>
     <mat-card-title>
       <span>{{company.name}}</span>
@@ -34,7 +35,7 @@
     </mat-card-subtitle>
   </span>
   <mat-card-actions class="item-actions">
-    <!-- Die stopProgation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird -->
+    <!-- Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird -->
     <span [matTooltip]="isCurrentUserAdmin ? '':'Admin Autorität erforderlich'">
     <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin"
             [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button
@@ -49,8 +50,6 @@
       <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
     </button>
   </span>
-
-
   </mat-card-actions>
 
 </mat-card>

@@ -122,20 +122,6 @@
       "only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
     }
   },
-  "create-dashboard": {
-    "add-chart-button": "Diagramm hinzufügen",
-    "add-new-chart-to-dashboard": "Diagramm hinzufügen",
-    "chart-title-placeholder": "Diagramm Titel",
-    "create-dashboard-button": "Dashboard erstellen",
-    "dashboard-title-placeholder": "Dashboard Titel",
-    "line-progress": "Fortschritt - Liniendiagramm",
-    "okr-toolbar": {
-      "create-dashboard": "Dashboard anlegen"
-    },
-    "pie-topicdraft": "Übersicht Themenentwürfe - Kuchendiagramm",
-    "select-teams-placeholder": "Teams auswählen",
-    "type-of-chart-placeholder": "Art des Diagramms"
-  },
   "create-user-init-state-form": {
     "create-your-admin-account": "Administratorenkonto",
     "next": "Weiter",
@@ -179,6 +165,36 @@
     "title": "Zyklus bearbeiten",
     "visibility": "Sichtbarkeit"
   },
+  "edit-dashboard": {
+    "button": {
+      "create-dashboard": "Dashboard erstellen",
+      "save-dashboard": "Änderungen speichern",
+      "add-chart": "Diagramm hinzufügen",
+      "cancel": "Abbrechen"
+    },
+    "tooltip": {
+      "delete-chart-button": "Diagramm löschen"
+    },
+    "placeholder": {
+      "dashboard-title": "Dashboard Titel",
+      "chart-title": "Diagramm Titel",
+      "chart-type": "Art des Diagramms",
+      "select-teams": "Teams auswählen"
+    },
+    "label": {
+      "select-chart-type": "Wähle Art des Diagramms"
+    },
+    "info": {
+      "discard-changes": "Änderungen nicht gespeichert! Änderungen verwerfen?",
+      "not-valid": "Dashboard nicht valide! Bitte stelle sicher, dass alle Pflichtfelder ausgefüllt sind!"
+    },
+    "line-progress": "Fortschritt - Liniendiagramm",
+    "okr-toolbar": {
+      "create-dashboard": "Dashboard anlegen",
+      "edit-dashboard": "Dashboard bearbeiten"
+    },
+    "pie-topicdraft": "Übersicht Themenentwürfe - Kuchendiagramm"
+  },
   "dashboard": {
     "okr-toolbar": {
       "dashboard": "Dashboard"
@@ -186,6 +202,7 @@
   },
   "dashboard-card": {
     "created-by": "Erstellt von: ",
+    "edit-dashboard": "Bearbeiten",
     "delete-dashboard": "Löschen"
   },
   "dashboard-overview": {
@@ -633,7 +650,7 @@
     },
     "return-to-demo-text": "Hauptseite",
     "tooltip": {
-      "menue": "Menü"
+      "menu": "Menü"
     },
     "warning": {
       "no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",

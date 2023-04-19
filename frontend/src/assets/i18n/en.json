@@ -122,20 +122,6 @@
       "only-substructures-allowed": "A team can be created only in structures"
     }
   },
-  "create-dashboard": {
-    "add-chart-button": "Add chart",
-    "add-new-chart-to-dashboard": "Add Chart",
-    "chart-title-placeholder": "Chart Title",
-    "create-dashboard-button": "Create Dashboard",
-    "dashboard-title-placeholder": "Dashboard Title",
-    "line-progress": "Progress - Linechart",
-    "okr-toolbar": {
-      "create-dashboard": "Create Dashboard"
-    },
-    "pie-topicdraft": "Topicdraft overview - Piechart",
-    "select-teams-placeholder": "Select Teams",
-    "type-of-chart-placeholder": "Type of chart"
-  },
   "create-user-init-state-form": {
     "create-your-admin-account": "Create your administrator account",
     "next": "Continue",
@@ -179,6 +165,36 @@
     "title": "Edit cycle",
     "visibility": "Visibility"
   },
+  "edit-dashboard": {
+    "button": {
+      "create-dashboard": "Create Dashboard",
+      "save-dashboard": "Save Changes",
+      "add-chart": "Add Chart",
+      "cancel": "Cancel"
+    },
+    "tooltip": {
+      "delete-chart-button": "Delete Chart"
+    },
+    "placeholder": {
+      "dashboard-title": "Dashboard Titel",
+      "chart-title": "Chart Titel",
+      "chart-type": "Type of Chart",
+      "select-teams": "Select Teams"
+    },
+    "label": {
+      "select-chart-type": "Select type of Chart"
+    },
+    "info": {
+      "discard-changes": "Changes not saved! Discard changes?",
+      "not-valid": "Dashboard is not Valid! Please make sure that no mandatory fields are empty!"
+    },
+    "line-progress": "Progress - Linechart",
+    "okr-toolbar": {
+      "create-dashboard": "Create Dashboard",
+      "edit-dashboard": "Edit Dashboard"
+    },
+    "pie-topicdraft": "Topicdraft overview - Piechart"
+  },
   "dashboard": {
     "okr-toolbar": {
       "dashboard": "Dashboard"
@@ -186,6 +202,7 @@
   },
   "dashboard-card": {
     "created-by": "Created by: ",
+    "edit-dashboard": "Edit",
     "delete-dashboard": "Delete"
   },
   "dashboard-overview": {
@@ -633,7 +650,7 @@
     },
     "return-to-demo-text": "Home",
     "tooltip": {
-      "menue": "Menu"
+      "menu": "Menu"
     },
     "warning": {
       "no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",

@@ -1,7 +1,9 @@
-<mat-card class="dashboard-card" matTooltip="{{dashboard.title}}" routerLink="/dashboard/{{dashboard.id}}">
+<mat-card (click)="selectDashboard(dashboard.id)" (keydown.enter)="selectDashboard(dashboard.id)" class="dashboard-card" matTooltip="{{dashboard.title}}"
+          role="button" tabindex="0">
   <div>
-    <button (click)="$event.stopPropagation();" class="dashboard_settings_button" mat-icon-button>
-      <mat-icon [matMenuTriggerFor]="menu" class="font-32 ">more_vert</mat-icon>
+    <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="menu" class="dashboard_settings_button"
+            mat-icon-button>
+      <mat-icon class="font-32">more_vert</mat-icon>
     </button>
   </div>
   <div class="overflow-ellipsis">
@@ -9,17 +11,23 @@
     <br>
     {{dashboard.title}}
     <br><br>
-    <span class="dashboard-card-created-by">
-        {{'dashboard-card.created-by' | translate}} {{dashboard.creator.surname}} , {{dashboard.creator.givenName}}
+    <span *ngIf="creator$ | async; let creator" class="dashboard-card-created-by">
+        {{'dashboard-card.created-by' | translate}} {{creator.surname}} , {{creator.givenName}}
       </span>
   </div>
 </mat-card>
-
 <mat-menu #menu="matMenu">
+  <span matTooltip="{{'dashboard-card.edit-dashboard' | translate}}">
+      <button (keydown)="$event.stopPropagation()" mat-menu-item
+              routerLink="/dashboard/{{dashboard.id}}/edit-dashboard">
+        <mat-icon>edit</mat-icon>
+        <span>{{'dashboard-card.edit-dashboard' | translate}}</span>
+      </button>
+  </span>
   <span matTooltip="{{'dashboard-card.delete-dashboard' | translate}}">
       <button (click)="deleteDashboard.next(dashboard)" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>{{'dashboard-card.delete-dashboard' | translate}}</span>
       </button>
-    </span>
+  </span>
 </mat-menu>
