@@ -15,8 +15,6 @@ export class DashboardCardComponent implements OnInit {
   @Output() deleteDashboard: EventEmitter<Dashboard> = new EventEmitter<Dashboard>();
   creator$: Observable<User>;
 
-  // chosenCycleWithHistoryCompany: CycleWithHistoryCompany;
-
   constructor(private userMapperService: UserService, private router: Router) {
   }
 

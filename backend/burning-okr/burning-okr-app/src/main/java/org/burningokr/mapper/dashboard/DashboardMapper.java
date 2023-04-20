@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.mapper.interfaces.DataMapper;
-import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.ChartBuilderService;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
       baseChartOptionsMapper.mapDtosToEntities(dto.getChartDtos())
     );
 
-    log.info(
+    log.debug(
       "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
 
     return entity;

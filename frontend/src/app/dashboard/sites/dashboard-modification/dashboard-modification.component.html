@@ -8,7 +8,6 @@
   </span>
 
   <div class="edit-chart" formArrayName="formArrayCharts">
-    <!--    <div formArrayName="formArrayChartTitles">-->
     <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
       <mat-form-field [formGroupName]="i">
         <input [attr.id]="'chart-' + chart.id + '-title'" formControlName="chartTitle" matInput

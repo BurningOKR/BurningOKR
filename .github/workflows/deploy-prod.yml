@@ -43,7 +43,7 @@ jobs:
 #  deploy-prod:
 #    needs: build-prod-images
 #    runs-on: [ self-hosted, prod ]
-#    environment: ${{ inputs.environment }}
+#    environment: prod
 #    steps:
 #      - name: Authorize to ghcr.io
 #        uses: docker/login-action@v2
@@ -51,6 +51,6 @@ jobs:
 #          registry: ghcr.io
 #          username: ${{ github.repository_owner }}
 #          password: ${{ secrets.GITHUB_TOKEN }}
-#      - name: Update ${{ inputs.environment }}
+#      - name: Update prod
 #        run: ${{ vars.DEPLOYMENT_COMMAND }}
 #        working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
