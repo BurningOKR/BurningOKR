@@ -81,7 +81,6 @@ public class LineChartService {
     } else {
       lineChartOptionsDto.setSeries(lineChartLineKeyValuesList);
     }
-
     lineChartOptionsDto.setXAxisCategories(getProgressXAxis(startDate, numberOfDays));
     return lineChartOptionsDto;
   }
