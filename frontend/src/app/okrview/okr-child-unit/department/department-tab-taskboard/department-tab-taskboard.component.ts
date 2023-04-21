@@ -79,7 +79,6 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
           });
           this.clearWebsocketConnectionSubscriptions();
         }
-        // this.monitoringUsers = [];
       }),
       this.stompService.connectionState$.subscribe(observer => {
         if (observer === RxStompState.OPEN && this.tryingToReconnect) {

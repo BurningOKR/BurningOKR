@@ -253,9 +253,7 @@ public class LineChartService {
     LineChartLineKeyValues lineChartLineKeyValuesNoValues = new LineChartLineKeyValues();
     lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
 
-    System.out.println("chartCreationOptions title: " + chartCreationOptions.getTitle());
     lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
-    System.out.println("lineChartLineKeyValuesNoValues name: " + lineChartLineKeyValuesNoValues.getName());
     lineChartLineKeyValuesNoValues.setData(new ArrayList<>(Collections.singletonList(50.0)));
 
     lineChartKeyValuesList.add(lineChartLineKeyValuesNoValues);
