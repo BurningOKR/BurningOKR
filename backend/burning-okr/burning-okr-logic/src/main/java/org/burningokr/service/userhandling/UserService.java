@@ -34,6 +34,7 @@ public class UserService {
     return userRepository.save(user);
   }
 
+  // TODO check again
   public User getCurrentUser() { // TODO remove -> replaced
     throw new NotImplementedException("getCurrentUser in UserService:34");
   }

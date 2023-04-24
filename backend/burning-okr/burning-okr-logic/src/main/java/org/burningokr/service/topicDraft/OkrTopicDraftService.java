@@ -9,9 +9,11 @@ import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ public class OkrTopicDraftService {
   private final OkrTopicDraftRepository okrTopicDraftRepository;
   private final NoteTopicDraftRepository noteTopicDraftRepository;
   private final ActivityService activityService;
+  private final AuthorizationUserContextService authorizationUserContextService;
 
   public OkrTopicDraft findById(long topicDraftId) {
     return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
@@ -46,13 +49,11 @@ public class OkrTopicDraftService {
   }
 
   private boolean shouldUserSeeDraft(OkrTopicDraft draft) {
-    if (!draft.getCurrentStatus().equals(OkrTopicDraftStatusEnum.draft)) {
-      return true;
-    }
-    // TODO fix auth (jklein 23.02.2023)
-//    return (draft.getInitiatorId().equals(userService.getCurrentUser().getId())
-//      || adminUserService.isCurrentUserAdmin());
-    return false;
+    User authenticatedUser = authorizationUserContextService.getAuthenticatedUser();
+
+    return !draft.getCurrentStatus().equals(OkrTopicDraftStatusEnum.draft) ||
+            draft.getInitiatorId().equals(authenticatedUser.getId()) ||
+            authenticatedUser.isAdmin();
   }
 
   public Collection<NoteTopicDraft> getAllNotesForTopicDraft(long topicDraftId) {

@@ -1,5 +1,6 @@
 package org.burningokr.controller.userhandling;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.users.UserDto;
@@ -11,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @RestApiController()
 @RequiredArgsConstructor
@@ -50,11 +53,11 @@ public class UserController {
     return ResponseEntity.ok(userMapper.mapEntitiesToDtos(userCollection));
   }
 
-//  @GetMapping("/users/{userId}") TODO UserOptional
-//  public ResponseEntity<UserDto> getUserById(
-//    @PathVariable UUID userId
-//  ) {
-//    var user = userService.findById(userId);
-//    return ResponseEntity.ok(userMapper.mapEntityToDto(user));
-//  }
+  @GetMapping("/users/{userId}")
+  public ResponseEntity<UserDto> getUserById(
+    @PathVariable UUID userId
+  ) {
+    var user = userService.findById(userId);
+    return ResponseEntity.ok(userMapper.mapEntityToDto(user.orElseThrow(EntityNotFoundException::new)));
+  }
 }
