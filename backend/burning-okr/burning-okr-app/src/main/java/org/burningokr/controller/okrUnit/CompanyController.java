@@ -16,7 +16,6 @@ import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.security.AuthorizationUserContextService;
 import org.springframework.http.ResponseEntity;
@@ -128,7 +127,6 @@ public class CompanyController {
    * API Endpoint to add a OkrCompany.
    *
    * @param okrCompanyDto a {@link OkrCompanyDto} object
-   * @param IUser         an {@link IUser} object
    * @return a {@link ResponseEntity} ok with a OkrCompany
    */
   @PostMapping("/companies")
@@ -160,7 +158,6 @@ public class CompanyController {
   ) {
     DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper = new OkrDepartmentMapper();
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
-    okrDepartment.setId(null);
     okrDepartment = this.companyService.createDepartment(companyId, okrDepartment);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
@@ -173,11 +170,8 @@ public class CompanyController {
     @RequestBody
     OkrBranchDto okrBranchDTO
   ) {
-
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
-    okrBranch.setId(null);
     OkrBranch newBranch = companyService.createOkrBranch(companyId, okrBranch);
-
     return ResponseEntity.ok(okrBranchMapper.mapEntityToDto(newBranch));
   }
 
@@ -203,7 +197,6 @@ public class CompanyController {
    * API Endpoint to delete a OkrCompany and it's history.
    *
    * @param companyId a long value
-   * @param IUser     an {@link IUser} object
    * @return a {@link ResponseEntity} ok
    */
   @DeleteMapping("/companies/{companyId}")

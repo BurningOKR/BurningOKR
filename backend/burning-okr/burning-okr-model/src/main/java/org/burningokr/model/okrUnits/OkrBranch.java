@@ -5,6 +5,7 @@ import lombok.*;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 @Entity
 @Data
@@ -21,7 +22,7 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
     targetEntity = OkrChildUnit.class
   )
   @EqualsAndHashCode.Exclude
-  protected Collection<OkrChildUnit> okrChildUnits;
+  protected Collection<OkrChildUnit> okrChildUnits = new LinkedList<>();
   @ManyToOne
   private OkrBranchHistory history;
 
