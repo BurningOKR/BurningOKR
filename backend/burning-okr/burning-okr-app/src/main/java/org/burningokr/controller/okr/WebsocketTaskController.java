@@ -10,8 +10,6 @@ import org.burningokr.service.okr.TaskService;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
@@ -28,8 +26,7 @@ public class WebsocketTaskController {
   @MessageMapping("unit/{unitId}/tasks/add")
   public void addTask(
     @DestinationVariable long unitId,
-    TaskDto taskDto,
-    @AuthenticationPrincipal Authentication currentUser
+    TaskDto taskDto
   ) {
     log.info(
       String.format(
@@ -46,7 +43,7 @@ public class WebsocketTaskController {
     Task newTask = taskMapper.mapDtoToEntity(taskDto);
     try {
       Collection<TaskDto> createdAndUpdatedTasks =
-        this.taskMapper.mapEntitiesToDtos(taskService.createTask(newTask, unitId, null));
+        this.taskMapper.mapEntitiesToDtos(taskService.createTask(newTask, unitId));
 
       sendNewOrUpdatedTasks(createdAndUpdatedTasks, unitId);
       log.info("Broadcast for added task");
@@ -60,14 +57,13 @@ public class WebsocketTaskController {
   @MessageMapping("unit/{unitId}/tasks/update")
   public void updateTask(
     @DestinationVariable long unitId,
-    TaskDto taskDto,
-    @AuthenticationPrincipal Authentication currentUser
+    TaskDto taskDto
   )
     throws Exception {
     log.info("update Task on Websocket");
     try {
       Task updatedTask = taskMapper.mapDtoToEntity(taskDto);
-      Collection<Task> updatedTasks = taskService.updateTask(updatedTask, null);
+      Collection<Task> updatedTasks = taskService.updateTask(updatedTask);
       Collection<TaskDto> taskDtoList = taskMapper.mapEntitiesToDtos(updatedTasks);
 
       sendNewOrUpdatedTasks(taskDtoList, unitId);
@@ -84,15 +80,14 @@ public class WebsocketTaskController {
   @MessageMapping("unit/{unitId}/tasks/delete")
   public void deleteTask(
     @DestinationVariable long unitId,
-    TaskDto taskDto,
-    @AuthenticationPrincipal Authentication currentUser
+    TaskDto taskDto
   ) {
     log.info("delete Task on Websocket");
 
     try {
       Task taskToDelete = taskMapper.mapDtoToEntity(taskDto);
       Collection<Task> updatedTasks =
-        taskService.deleteTaskById(taskToDelete.getId(), unitId, null);
+        taskService.deleteTaskById(taskToDelete.getId(), unitId);
 
       String deletionUrl = String.format("/topic/unit/%d/tasks/deleted", unitId);
       String updateUrl = String.format("/topic/unit/%d/tasks", unitId);

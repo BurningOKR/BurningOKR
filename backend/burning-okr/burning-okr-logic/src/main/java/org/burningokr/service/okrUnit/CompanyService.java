@@ -17,7 +17,6 @@ import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
-import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.ExtendedRepository;
 import org.burningokr.repositories.cycle.*;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
@@ -111,15 +110,8 @@ public class CompanyService {
     return okrCompany.getOkrChildUnits();
   }
 
-  /**
-   * Creates a OkrCompany.
-   *
-   * @param okrCompany a {@link OkrCompany} object
-   * @param IUser      an {@link IUser} object
-   * @return a {@link OkrCompany} object
-   */
   @Transactional
-  public OkrCompany createCompany(OkrCompany okrCompany, IUser IUser) {
+  public OkrCompany createCompany(OkrCompany okrCompany) {
     Cycle cycle = new Cycle("default");
     cycle.setCycleState(CycleState.ACTIVE);
     cycle.setVisible(true);
@@ -132,7 +124,7 @@ public class CompanyService {
 
     okrCompany = companyRepository.save(okrCompany);
     logger.info("Created OkrCompany " + okrCompany.getName());
-    activityService.createActivity(IUser, okrCompany, Action.CREATED);
+    activityService.createActivity(okrCompany, Action.CREATED);
 
     return okrCompany;
   }
@@ -141,11 +133,10 @@ public class CompanyService {
    * Updates a OkrCompany.
    *
    * @param updatedOkrCompany a {@link OkrCompany} object
-   * @param IUser             an {@link IUser} object
    * @return a {@link OkrCompany} object
    */
   @Transactional
-  public OkrCompany updateCompany(OkrCompany updatedOkrCompany, IUser IUser) {
+  public OkrCompany updateCompany(OkrCompany updatedOkrCompany) {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(updatedOkrCompany.getId());
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
@@ -162,7 +153,7 @@ public class CompanyService {
         + referencedOkrCompany.getId()
         + "), updated name to: +"
         + referencedOkrCompany.getName());
-    activityService.createActivity(IUser, referencedOkrCompany, Action.EDITED);
+    activityService.createActivity(referencedOkrCompany, Action.EDITED);
 
     return referencedOkrCompany;
   }
@@ -172,10 +163,9 @@ public class CompanyService {
    *
    * @param companyId          a long value
    * @param deleteWholeHistory a boolean value
-   * @param IUser              an {@link IUser} object
    */
   @Transactional
-  public void deleteCompany(Long companyId, boolean deleteWholeHistory, IUser IUser) {
+  public void deleteCompany(Long companyId, boolean deleteWholeHistory) {
     OkrCompany okrCompany = findById(companyId);
     Collection<OkrCompany> companiesToDelete = new ArrayList<>();
 
@@ -185,24 +175,24 @@ public class CompanyService {
       companiesToDelete.add(okrCompany);
     }
 
-    deleteCompanyList(companiesToDelete, IUser);
+    deleteCompanyList(companiesToDelete);
   }
 
-  private void deleteCompanyList(Collection<OkrCompany> companiesToDelete, IUser IUser) {
+  private void deleteCompanyList(Collection<OkrCompany> companiesToDelete) {
     for (OkrCompany okrCompanyToDelete : companiesToDelete) {
 
       companyRepository.deleteById(okrCompanyToDelete.getId());
       logger.info("Deleted company with id: " + okrCompanyToDelete.getId());
-      activityService.createActivity(IUser, okrCompanyToDelete, Action.DELETED);
+      activityService.createActivity(okrCompanyToDelete, Action.DELETED);
 
       Cycle cycle = okrCompanyToDelete.getCycle();
       if (cycle != null && cycle.getCompanies() != null && cycle.getCompanies().isEmpty()) {
-        deleteEmptyCycle(cycle, IUser);
+        deleteEmptyCycle(cycle);
       }
 
       OkrUnitHistory<OkrCompany> history = okrCompanyToDelete.getHistory();
       if (history != null && history.getUnits() != null && history.getUnits().isEmpty()) {
-        deleteEmptyHistory(history, IUser);
+        deleteEmptyHistory(history);
       }
     }
   }
@@ -212,11 +202,10 @@ public class CompanyService {
    *
    * @param companyId     a long value
    * @param okrDepartment a {@link OkrDepartment} object
-   * @param IUser         an {@link IUser} object
    * @return a {@link OkrDepartment} object
    */
   @Transactional
-  public OkrDepartment createDepartment(Long companyId, OkrDepartment okrDepartment, IUser IUser) {
+  public OkrDepartment createDepartment(Long companyId, OkrDepartment okrDepartment) {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
@@ -244,13 +233,13 @@ public class CompanyService {
         + "(id:"
         + companyId
         + ")");
-    activityService.createActivity(IUser, okrDepartment, Action.CREATED);
+    activityService.createActivity(okrDepartment, Action.CREATED);
 
     return okrDepartment;
   }
 
   @Transactional
-  public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch, IUser IUser) throws ForbiddenException {
+  public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch) throws ForbiddenException {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
@@ -267,7 +256,7 @@ public class CompanyService {
         + "(id:"
         + companyId
         + ")");
-    activityService.createActivity(IUser, okrBranch, Action.CREATED);
+    activityService.createActivity(okrBranch, Action.CREATED);
 
     return okrBranch;
   }
@@ -288,7 +277,7 @@ public class CompanyService {
     return history;
   }
 
-  public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft, IUser IUser) throws
+  public OkrTopicDraft createTopicDraft(Long companyId, OkrTopicDraft topicDraft) throws
     ForbiddenException {
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
@@ -309,7 +298,7 @@ public class CompanyService {
         + companyId
         + ")");
 
-    activityService.createActivity(IUser, topicDraft, Action.CREATED);
+    activityService.createActivity(topicDraft, Action.CREATED);
 
     return topicDraft;
   }
@@ -322,15 +311,15 @@ public class CompanyService {
     }
   }
 
-  private void deleteEmptyCycle(Cycle cycle, IUser IUser) {
+  private void deleteEmptyCycle(Cycle cycle) {
     cycleRepository.deleteById(cycle.getId());
     logger.info("Deleted cycle with id: " + cycle.getId());
-    activityService.createActivity(IUser, cycle, Action.DELETED);
+    activityService.createActivity(cycle, Action.DELETED);
   }
 
-  private void deleteEmptyHistory(OkrUnitHistory<OkrCompany> history, IUser IUser) {
+  private void deleteEmptyHistory(OkrUnitHistory<OkrCompany> history) {
     companyHistoryRepository.deleteById(history.getId());
     logger.info("Deleted cycle with id: " + history.getId());
-    activityService.createActivity(IUser, history, Action.DELETED);
+    activityService.createActivity(history, Action.DELETED);
   }
 }

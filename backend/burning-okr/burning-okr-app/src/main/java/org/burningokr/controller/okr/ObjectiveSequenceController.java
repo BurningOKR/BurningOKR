@@ -2,7 +2,6 @@ package org.burningokr.controller.okr;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.ObjectiveService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,18 +22,17 @@ public class ObjectiveSequenceController {
    *
    * @param okrUnitId    a long value
    * @param sequenceList a {@ling Collection} of long values
-   * @param IUser        an {@link IUser} object
    * @return a {@link ResponseEntity} ok
    * @throws Exception if sequence list is invalid
    */
   @PutMapping("/units/{okrUnitId}/objectivesequence")
-  @PreAuthorize("@departmentAuthorizationService.hasMemberPrivilegesForDepartment(#okrUnitId)")
+  @PreAuthorize("@childUnitAuthorizationService.hasMemberPrivilegesForChildUnit(#okrUnitId)")
   public ResponseEntity updateSequenceOf(
     @PathVariable long okrUnitId,
-    @RequestBody Collection<Long> sequenceList, IUser IUser
+    @RequestBody Collection<Long> sequenceList
   )
     throws Exception {
-    objectiveService.updateSequence(okrUnitId, sequenceList, IUser);
+    objectiveService.updateSequence(okrUnitId, sequenceList);
 
     return ResponseEntity.ok().build();
   }

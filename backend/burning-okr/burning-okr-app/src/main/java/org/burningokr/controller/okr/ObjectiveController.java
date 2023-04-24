@@ -13,7 +13,6 @@ import org.burningokr.mapper.okr.ObjectiveMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.ObjectiveService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -51,7 +50,6 @@ public class ObjectiveController {
    *
    * @param objectiveId  a long value
    * @param objectiveDto an {@link ObjectiveDto} object
-   * @param IUser        an {@link IUser} object
    * @return a {@link ResponseEntity} ok with an Objective
    */
   @PutMapping("/objectives/{objectiveId}")
@@ -60,12 +58,11 @@ public class ObjectiveController {
     @PathVariable long objectiveId,
     @Valid
     @RequestBody
-    ObjectiveDto objectiveDto,
-    IUser IUser
+    ObjectiveDto objectiveDto
   ) {
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(objectiveId);
-    objective = this.objectiveService.updateObjective(objective, IUser);
+    objective = this.objectiveService.updateObjective(objective);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
@@ -86,28 +83,18 @@ public class ObjectiveController {
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(childObjectives));
   }
 
-  /**
-   * API Endpoint to add Key Result to an Objective.
-   *
-   * @param objectiveId  a long value
-   * @param keyResultDto a {@link KeyResultDto} object
-   * @param IUser        an {@link IUser} object
-   * @return a {@link ResponseEntity} ok with a Key Result
-   * @throws Exception if max Key Results reached or cycle is closed
-   */
   @PostMapping("objectives/{objectiveId}/keyresults")
   @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<KeyResultDto> addKeyResultToObjective(
     @PathVariable long objectiveId,
     @Valid
     @RequestBody
-    KeyResultDto keyResultDto,
-    IUser IUser
+    KeyResultDto keyResultDto
   )
     throws Exception {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult.setId(null);
-    keyResult = objectiveService.createKeyResult(objectiveId, keyResult, IUser);
+    keyResult = objectiveService.createKeyResult(objectiveId, keyResult);
 
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
   }
@@ -115,9 +102,9 @@ public class ObjectiveController {
   @DeleteMapping("/objectives/{objectiveId}")
   @PreAuthorize("@objectiveAuthorizationService.hasManagerPrivilegesForObjective(#objectiveId)")
   public ResponseEntity deleteObjectiveById(
-    @PathVariable Long objectiveId, IUser IUser
+    @PathVariable Long objectiveId
   ) {
-    objectiveService.deleteObjectiveById(objectiveId, IUser);
+    objectiveService.deleteObjectiveById(objectiveId);
     return ResponseEntity.ok().build();
   }
 
@@ -137,13 +124,12 @@ public class ObjectiveController {
     @PathVariable long objectiveId,
     @Valid
     @RequestBody
-    NoteObjectiveDto noteObjectiveDto,
-    IUser IUser
+    NoteObjectiveDto noteObjectiveDto
   ) {
     noteObjectiveDto.setParentObjectiveId(objectiveId);
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
     noteObjective.setId(null);
-    noteObjective = this.objectiveService.createNote(objectiveId, noteObjective, IUser);
+    noteObjective = this.objectiveService.createNote(noteObjective);
     return ResponseEntity.ok(noteObjectiveMapper.mapEntityToDto(noteObjective));
   }
 }

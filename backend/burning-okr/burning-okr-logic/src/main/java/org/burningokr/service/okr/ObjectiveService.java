@@ -9,7 +9,6 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteObjectiveRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -46,7 +45,7 @@ public class ObjectiveService {
   private final NoteObjectiveRepository noteObjectiveRepository;
   private final AuthorizationUserContextService userContextService;
 
-  @PreAuthorize("@departmentAuthorizationService.hasMemberPrivilegesForDepartment(#unitId)")
+  @PreAuthorize("@childUnitAuthorizationService.hasMemberPrivilegesForChildUnit(#unitId)")
   public Objective createObjective(Long unitId, Objective objective) {
     OkrChildUnit objectivesParentOkrChildUnit = okrChildUnitService.findById(unitId);
 
@@ -70,7 +69,7 @@ public class ObjectiveService {
         unitId
       ));
 
-    activityService.createActivity(userContextService.getAuthenticatedUser(), objective, Action.CREATED);
+    activityService.createActivity(objective, Action.CREATED);
 
     return objective;
   }
@@ -97,11 +96,10 @@ public class ObjectiveService {
    * Updates an Objective.
    *
    * @param updatedObjective an {@link Objective} object
-   * @param IUser            an {@link IUser} object
    * @return an {@link Objective} object
    */
   @Transactional
-  public Objective updateObjective(Objective updatedObjective, IUser IUser) {
+  public Objective updateObjective(Objective updatedObjective) {
     Objective referencedObjective = findById(updatedObjective.getId());
 
     if (entityCrawlerService.getCycleOfObjective(referencedObjective).getCycleState()
@@ -130,7 +128,7 @@ public class ObjectiveService {
         + "(id:"
         + updatedObjective.getId()
         + ").");
-    activityService.createActivity(IUser, referencedObjective, Action.EDITED);
+    activityService.createActivity(referencedObjective, Action.EDITED);
     return referencedObjective;
   }
 
@@ -138,10 +136,9 @@ public class ObjectiveService {
    * Deletes the Objective with the given ID.
    *
    * @param objectiveId a long value
-   * @param IUser       an {@link IUser} object
    */
   @Transactional
-  public void deleteObjectiveById(Long objectiveId, IUser IUser) {
+  public void deleteObjectiveById(Long objectiveId) {
     Objective referencedObjective = objectiveRepository.findByIdOrThrow(objectiveId);
     throwIfCycleForObjectiveIsClosed(referencedObjective);
     for (Objective subObjective : referencedObjective.getSubObjectives()) {
@@ -165,20 +162,11 @@ public class ObjectiveService {
     }
 
     objectiveRepository.deleteById(objectiveId);
-    activityService.createActivity(IUser, referencedObjective, Action.DELETED);
+    activityService.createActivity(referencedObjective, Action.DELETED);
   }
 
-  /**
-   * Creates a Key Result of an Objective.
-   *
-   * @param objectiveId a long value
-   * @param keyResult   a {@link KeyResult} object
-   * @param IUser       an {@link IUser} object
-   * @return a {@link KeyResult} object
-   * @throws KeyResultOverflowException if Key Result limit is hit
-   */
   @Transactional
-  public KeyResult createKeyResult(Long objectiveId, KeyResult keyResult, IUser IUser)
+  public KeyResult createKeyResult(Long objectiveId, KeyResult keyResult)
     throws KeyResultOverflowException {
     Objective referencedObjective = findById(objectiveId);
     throwIfKeyResultLimitIsHit(referencedObjective);
@@ -195,7 +183,7 @@ public class ObjectiveService {
       keyResult.getMilestones().stream()
         .map(
           milestone ->
-            keyResultMilestoneService.createKeyResultMilestone(id, milestone, IUser))
+            keyResultMilestoneService.createKeyResultMilestone(id, milestone))
         .collect(Collectors.toList()));
 
     log.info(
@@ -206,8 +194,8 @@ public class ObjectiveService {
         + "(id:"
         + objectiveId
         + ").");
-    activityService.createActivity(IUser, keyResult, Action.CREATED);
-    keyResultHistoryService.createKeyResultHistory(IUser, keyResult);
+    activityService.createActivity(keyResult, Action.CREATED);
+    keyResultHistoryService.createKeyResultHistory(keyResult);
     return keyResult;
   }
 
@@ -216,11 +204,10 @@ public class ObjectiveService {
    *
    * @param unitId       a long value
    * @param sequenceList a {@link Collection} of long values
-   * @param IUser        an {@link IUser} object
    * @throws Exception if Sequence is invalid
    */
   @Transactional
-  public void updateSequence(Long unitId, Collection<Long> sequenceList, IUser IUser)
+  public void updateSequence(Long unitId, Collection<Long> sequenceList)
     throws Exception {
     OkrChildUnit childUnit = okrChildUnitService.findById(unitId);
     throwIfSequenceInvalid(childUnit, sequenceList);
@@ -233,7 +220,7 @@ public class ObjectiveService {
           int currentOrder = sequenceArray.indexOf(objective.getId());
           objective.setSequence(currentOrder);
           objectiveRepository.save(objective);
-          activityService.createActivity(IUser, objective, Action.EDITED);
+          activityService.createActivity(objective, Action.EDITED);
           log.info("Update sequence of Objective with id " + objective.getId());
         });
   }
@@ -293,31 +280,15 @@ public class ObjectiveService {
     }
   }
 
-  /**
-   * creates a note for an objective.
-   *
-   * @param objectiveId   id from objective
-   * @param noteObjective the objective
-   * @param IUser         the user which wants to add the note
-   * @return the created Note
-   */
-  public NoteObjective createNote(long objectiveId, NoteObjective noteObjective, IUser IUser) {
 
-    noteObjective.setUserId(IUser.getId());
+  public NoteObjective createNote(NoteObjective noteObjective) {
+
+    noteObjective.setUserId(userContextService.getAuthenticatedUser().getId());
     noteObjective.setDate(LocalDateTime.now());
 
     noteObjective = noteObjectiveRepository.save(noteObjective);
-    log.info(
-      "Added Note with id "
-        + noteObjective.getId()
-        + " from User "
-        + IUser.getGivenName()
-        + " "
-        + IUser.getSurname()
-        + " to KeyResult "
-        + objectiveId);
 
-    activityService.createActivity(IUser, noteObjective, Action.CREATED);
+    activityService.createActivity(noteObjective, Action.CREATED);
 
     return noteObjective;
   }

@@ -3,15 +3,18 @@ package org.burningokr.service.okr;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.okr.*;
+import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.NoteKeyResult;
+import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.Task;
 import org.burningokr.model.okrUnits.OkrChildUnit;
-import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteKeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -37,6 +40,7 @@ public class KeyResultService {
   private final KeyResultHistoryService keyResultHistoryService;
   private final TaskService taskService;
   private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
+  private final AuthorizationUserContextService userContextService;
 
   public KeyResult findById(long keyResultId) {
     return keyResultRepository.findByIdOrThrow(keyResultId);
@@ -47,15 +51,8 @@ public class KeyResultService {
     return keyResult.getNotes();
   }
 
-  /**
-   * Updates a Key Result and updates or creates a KeyResultHistory.
-   *
-   * @param updatedKeyResult a {@link KeyResult} object
-   * @param IUser            an {@link IUser} object
-   * @return a {@link KeyResult} object
-   */
   @Transactional
-  public KeyResult updateKeyResult(KeyResult updatedKeyResult, IUser IUser) {
+  public KeyResult updateKeyResult(KeyResult updatedKeyResult) {
     KeyResult referencedKeyResult = findById(updatedKeyResult.getId());
     throwIfCycleOfKeyResultIsClosed(referencedKeyResult);
 
@@ -68,11 +65,11 @@ public class KeyResultService {
     referencedKeyResult.setTargetValue(updatedKeyResult.getTargetValue());
     referencedKeyResult.setUnit(updatedKeyResult.getUnit());
 
-    referencedKeyResult = keyResultMilestoneService.updateMilestones(updatedKeyResult, IUser);
+    referencedKeyResult = keyResultMilestoneService.updateMilestones(updatedKeyResult);
 
     referencedKeyResult = keyResultRepository.save(referencedKeyResult);
     if (keyResultProgressChanged) {
-      keyResultHistoryService.updateKeyResultHistory(IUser, referencedKeyResult);
+      keyResultHistoryService.updateKeyResultHistory(referencedKeyResult);
     }
     logger.info(
       "Updated Key Result "
@@ -80,7 +77,7 @@ public class KeyResultService {
         + "(id:"
         + referencedKeyResult.getId()
         + ")");
-    activityService.createActivity(IUser, referencedKeyResult, Action.EDITED);
+    activityService.createActivity(referencedKeyResult, Action.EDITED);
     return referencedKeyResult;
   }
 
@@ -88,10 +85,9 @@ public class KeyResultService {
    * Deletes a Key Result.
    *
    * @param keyResultId a long value
-   * @param IUser       an {@link IUser} object
    */
   @Transactional
-  public void deleteKeyResult(Long keyResultId, IUser IUser) throws Exception {
+  public void deleteKeyResult(Long keyResultId) throws Exception {
 
     KeyResult referencedKeyResult = keyResultRepository.findByIdOrThrow(keyResultId);
     throwIfCycleOfKeyResultIsClosed(referencedKeyResult);
@@ -111,38 +107,22 @@ public class KeyResultService {
     Collection<Task> tasksForKeyResult = taskService.findTasksForKeyResult(referencedKeyResult);
     for (Task task : tasksForKeyResult) {
       task.setAssignedKeyResult(null);
-      taskService.updateTask(task, IUser);
+      taskService.updateTask(task);
     }
 
     keyResultRepository.deleteById(keyResultId);
-    activityService.createActivity(IUser, referencedKeyResult, Action.DELETED);
+    activityService.createActivity(referencedKeyResult, Action.DELETED);
   }
 
-  /**
-   * Creates a Note for a Key Result.
-   *
-   * @param keyResultId   a long value
-   * @param noteKeyResult a {@link NoteKeyResult} object
-   * @param IUser         an {@link IUser} object
-   * @return a {@link Note} object
-   */
   @Transactional
-  public NoteKeyResult createNote(long keyResultId, NoteKeyResult noteKeyResult, IUser IUser) {
+  public NoteKeyResult createNote(NoteKeyResult noteKeyResult) {
     noteKeyResult.setId(null);
-    noteKeyResult.setUserId(IUser.getId());
+    noteKeyResult.setUserId(userContextService.getAuthenticatedUser().getId());
     noteKeyResult.setDate(LocalDateTime.now());
 
     noteKeyResult = noteKeyResultRepository.save(noteKeyResult);
-    logger.info(
-      "Added Note with id "
-        + noteKeyResult.getId()
-        + " from User "
-        + IUser.getGivenName()
-        + " "
-        + IUser.getSurname()
-        + " to KeyResult "
-        + keyResultId);
-    activityService.createActivity(IUser, noteKeyResult, Action.CREATED);
+
+    activityService.createActivity(noteKeyResult, Action.CREATED);
 
     return noteKeyResult;
   }
@@ -176,11 +156,10 @@ public class KeyResultService {
    *
    * @param objectiveId  a long value
    * @param sequenceList a {@link Collection} of long values
-   * @param IUser        an {@link IUser} object
    * @throws Exception if Sequence is invalid
    */
   @Transactional
-  public void updateSequence(Long objectiveId, Collection<Long> sequenceList, IUser IUser)
+  public void updateSequence(Long objectiveId, Collection<Long> sequenceList)
     throws Exception {
     Objective objective = objectiveService.findById(objectiveId);
     throwIfSequenceInvalid(objective, sequenceList);
@@ -193,7 +172,7 @@ public class KeyResultService {
           int currentOrder = sequenceArray.indexOf(keyResult.getId());
           keyResult.setSequence(currentOrder);
           keyResultRepository.save(keyResult);
-          activityService.createActivity(IUser, keyResult, Action.EDITED);
+          activityService.createActivity(keyResult, Action.EDITED);
           logger.info("Update sequence of KeyResult with id " + keyResult.getId());
         });
   }

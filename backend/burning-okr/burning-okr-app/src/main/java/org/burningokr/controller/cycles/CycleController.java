@@ -8,7 +8,6 @@ import org.burningokr.dto.validators.CycleDtoValidator;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.mapper.CycleMapper;
 import org.burningokr.model.cycles.Cycle;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.cycle.CycleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -73,10 +72,10 @@ public class CycleController {
 
   @DeleteMapping("/cycles/{cycleId}")
   public ResponseEntity<Boolean> deleteCycleById(
-    @PathVariable Long cycleId, IUser IUser
+    @PathVariable Long cycleId
   )
     throws Exception {
-    cycleService.deleteCycle(cycleId, IUser);
+    cycleService.deleteCycle(cycleId);
     return ResponseEntity.ok().build();
   }
 }

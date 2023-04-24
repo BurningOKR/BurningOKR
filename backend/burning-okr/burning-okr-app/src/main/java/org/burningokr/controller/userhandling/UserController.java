@@ -10,7 +10,6 @@ import org.burningokr.service.security.AuthorizationUserContextService;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,11 +34,8 @@ public class UserController {
   @GetMapping("/users")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<Collection<UserDto>> getAllUsers(
-    @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
+          @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
   ) {
-
-    var t = SecurityContextHolder.getContext().getAuthentication();
-
     Collection<User> userCollection;
 
     if (activeUsers == null) {
@@ -53,9 +49,23 @@ public class UserController {
     return ResponseEntity.ok(userMapper.mapEntitiesToDtos(userCollection));
   }
 
+  @GetMapping("/admins")
+  @PreAuthorize("@authorizationService.isAdmin()")
+  public ResponseEntity<Collection<UserDto>> getAllAdmins() {
+    Collection<User> adminUserCollection;
+
+    adminUserCollection = userService.findAll();
+
+    return ResponseEntity.ok(userMapper.mapEntitiesToDtos(
+            adminUserCollection.stream()
+                    .filter(User::isAdmin)
+                    .toList()));
+  }
+
+
   @GetMapping("/users/{userId}")
   public ResponseEntity<UserDto> getUserById(
-    @PathVariable UUID userId
+          @PathVariable UUID userId
   ) {
     var user = userService.findById(userId);
     return ResponseEntity.ok(userMapper.mapEntityToDto(user.orElseThrow(EntityNotFoundException::new)));

@@ -4,11 +4,9 @@ import com.google.common.collect.Lists;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
-import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
-import org.burningokr.model.users.IUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
@@ -60,13 +58,13 @@ public class OkrTopicDraftService {
     return noteTopicDraftRepository.findNoteTopicDraftsByParentTopicDraft_Id(topicDraftId);
   }
 
-  public void deleteTopicDraftById(Long topicDraftId, IUser IUser) {
+  public void deleteTopicDraftById(Long topicDraftId) {
     OkrTopicDraft referencedTopicDraft = okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
     okrTopicDraftRepository.deleteById(topicDraftId);
-    activityService.createActivity(IUser, referencedTopicDraft, Action.DELETED);
+    activityService.createActivity(referencedTopicDraft, Action.DELETED);
   }
 
-  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft, IUser IUser) {
+  public OkrTopicDraft createTopicDraft(OkrTopicDraft topicDraft) {
 
     topicDraft.setParentUnit(null);
     topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
@@ -74,36 +72,19 @@ public class OkrTopicDraftService {
     topicDraft = okrTopicDraftRepository.save(topicDraft);
     logger.info("Created Topic Draft: " + topicDraft.getName());
 
-    activityService.createActivity(IUser, topicDraft, Action.CREATED);
+    activityService.createActivity(topicDraft, Action.CREATED);
 
     return topicDraft;
   }
 
-  /**
-   * Creates a Note for a Topic Draft.
-   *
-   * @param topicDraftId   a long value
-   * @param noteTopicDraft a {@link NoteTopicDraft} object
-   * @param IUser          an {@link IUser} object
-   * @return a {@link Note} object
-   */
   @Transactional
-  public NoteTopicDraft createNote(long topicDraftId, NoteTopicDraft noteTopicDraft, IUser IUser) {
+  public NoteTopicDraft createNote(NoteTopicDraft noteTopicDraft) {
     noteTopicDraft.setId(null);
-    noteTopicDraft.setUserId(IUser.getId());
+    noteTopicDraft.setUserId(authorizationUserContextService.getAuthenticatedUser().getId());
     noteTopicDraft.setDate(LocalDateTime.now());
 
     noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);
-    logger.info(
-      "Added Note with id "
-        + noteTopicDraft.getId()
-        + " from User "
-        + IUser.getGivenName()
-        + " "
-        + IUser.getSurname()
-        + " to KeyResult "
-        + topicDraftId);
-    activityService.createActivity(IUser, noteTopicDraft, Action.CREATED);
+    activityService.createActivity(noteTopicDraft, Action.CREATED);
 
     return noteTopicDraft;
   }

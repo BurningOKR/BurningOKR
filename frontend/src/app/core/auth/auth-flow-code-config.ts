@@ -5,7 +5,7 @@ export const authCodeFlowConfig: AuthConfig = {
   redirectUri: `${window.location.origin}`,
   clientId: 'burning-okr-client',
   responseType: 'code',
-  scope: 'openid profile email',
+  scope: 'openid profile email offline_access',
   showDebugInformation: true,
   requireHttps: false,
 };

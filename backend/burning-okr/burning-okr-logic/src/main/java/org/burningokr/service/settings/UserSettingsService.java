@@ -1,6 +1,7 @@
 package org.burningokr.service.settings;
 
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -13,38 +14,19 @@ import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserSettingsService {
 
   private final Logger logger = LoggerFactory.getLogger(UserSettingsService.class);
-  private UserSettingsRepository userSettingsRepository;
-  private ActivityService activityService;
-  private CompanyService companyService;
-
-  /**
-   * Initialize UserSettingsService.
-   *
-   * @param userSettingsRepository an {@link UserSettingsRepository} object
-   * @param activityService        an {@link ActivityService} object
-   * @param companyService         a {@link CompanyService} object
-   */
-  @Autowired
-  public UserSettingsService(
-    UserSettingsRepository userSettingsRepository,
-    ActivityService activityService,
-    CompanyService companyService
-  ) {
-    this.userSettingsRepository = userSettingsRepository;
-    this.activityService = activityService;
-    this.companyService = companyService;
-  }
+  private final UserSettingsRepository userSettingsRepository;
+  private final ActivityService activityService;
+  private final CompanyService companyService;
 
   /**
    * Gets the User Settings of a given User.
@@ -60,7 +42,7 @@ public class UserSettingsService {
       userSettings.setDefaultOkrCompany(getDefaultCompany());
       userSettings.setDefaultTeam(getDefaultTeam(IUser, userSettings.getDefaultOkrCompany()));
       userSettings = userSettingsRepository.save(userSettings);
-      activityService.createActivity(IUser, userSettings, Action.CREATED);
+      activityService.createActivity(userSettings, Action.CREATED);
       logger.debug(
         "Created User Settings "
           + userSettings.getName()
@@ -124,10 +106,9 @@ public class UserSettingsService {
    * Updates the User Settings.
    *
    * @param userSettings an {@link UserSettings} object
-   * @param IUser        an {@link IUser} object
    * @return an {@link UserSettings} object
    */
-  public UserSettings updateUserSettings(UserSettings userSettings, IUser IUser) {
+  public UserSettings updateUserSettings(UserSettings userSettings) {
     UserSettings dbUserSettings = userSettingsRepository.findByIdOrThrow(userSettings.getId());
 
     dbUserSettings.setDefaultOkrCompany(userSettings.getDefaultOkrCompany());

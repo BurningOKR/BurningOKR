@@ -6,7 +6,6 @@ import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.dto.dashboard.creation.DashboardCreationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.dashboard.DashboardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,15 +24,14 @@ public class DashboardController {
    * API Endpoint to create a DashboardCreation
    *
    * @param dashboardCreationDto a {@link DashboardCreationDto} object
-   * @param IUser                a {@link IUser} object
    * @return a {@link ResponseEntity} ok with the created DashboardCreation
    */
   @PostMapping("/dashboards")
   public ResponseEntity<DashboardCreationDto> createDashboard(
-    @RequestBody DashboardCreationDto dashboardCreationDto, IUser IUser
+    @RequestBody DashboardCreationDto dashboardCreationDto
   ) {
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
-    dashboardCreation = dashboardService.createDashboard(dashboardCreation, IUser);
+    dashboardCreation = dashboardService.createDashboard(dashboardCreation);
     return ResponseEntity.ok(dashboardCreationMapper.mapEntityToDto(dashboardCreation));
   }
 
@@ -70,14 +68,13 @@ public class DashboardController {
    * API Endpoint to delete a DashboardCreation
    *
    * @param dashboardId a {@link Long} object
-   * @param IUser       a {@link IUser} object
    * @return a {@link ResponseEntity} ok
    */
   @DeleteMapping("dashboards/{dashboardId}")
   public ResponseEntity deleteDashboard(
-    @PathVariable long dashboardId, IUser IUser
+    @PathVariable long dashboardId
   ) {
-    dashboardService.deleteDashboard(dashboardId, IUser);
+    dashboardService.deleteDashboard(dashboardId);
     return ResponseEntity.ok().build();
   }
 }

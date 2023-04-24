@@ -73,8 +73,8 @@ public class CyclePreparationCloningService {
   }
 
   @Transactional
-  void cloneChildUnitIntoParentUnitForPreparation(
-    OkrChildUnit okrChildUnitToClone, OkrUnit okrUnitToCloneInto
+  public void cloneChildUnitIntoParentUnitForPreparation(
+          OkrChildUnit okrChildUnitToClone, OkrUnit okrUnitToCloneInto
   ) {
     OkrChildUnit copy = okrChildUnitToClone.getCopyWithoutRelations();
 

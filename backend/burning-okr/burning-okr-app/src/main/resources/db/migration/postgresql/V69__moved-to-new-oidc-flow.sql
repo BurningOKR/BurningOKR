@@ -1,48 +1,32 @@
-DROP TABLE aad_user CASCADE;
+CREATE TABLE "user"
+(
+    id         UUID    NOT NULL,
+    given_name VARCHAR,
+    surname    VARCHAR,
+    mail       VARCHAR,
+    job_title  VARCHAR,
+    department VARCHAR,
+    photo      VARCHAR,
+    active     BOOLEAN NOT NULL,
+    admin      BOOLEAN NOT NULL,
+    created_at TIMESTAMP WITHOUT TIME ZONE,
+    CONSTRAINT pk_user PRIMARY KEY (id)
+);
 
+-- Drop unused tables
 DROP TABLE admin_user CASCADE;
-
 DROP TABLE auditor_user CASCADE;
-
-DROP TABLE local_user CASCADE;
-
 DROP TABLE password_token CASCADE;
 
-ALTER TABLE dashboard_creation
-    ALTER COLUMN company_id SET NOT NULL;
+-- migrate aad_user-table
+INSERT INTO "user" (id, given_name, surname, mail, job_title, department, photo, active, admin, created_at)
+    SELECT id, given_name, surname, mail, job_title, department, photo, true, false, LOCALTIMESTAMP FROM aad_user;
 
-ALTER TABLE dashboard_creation
-    ALTER COLUMN creator_id SET NOT NULL;
+-- migrate local_user-table and add deprecated to name for indicating, that local user can't be used anymore and need to
+-- be manually migrated
+INSERT INTO "user" (id, given_name, surname, mail, job_title, department, photo, active, admin, created_at)
+    SELECT id, given_name, surname || ' DEPRECATED', mail, job_title, department, photo, active, false, created_at FROM local_user;
 
-ALTER TABLE key_result_history
-    ALTER COLUMN current_value SET NOT NULL;
-
-ALTER TABLE objective
-    ALTER COLUMN is_active SET NOT NULL;
-
-ALTER TABLE okr_child_unit
-    ALTER COLUMN is_active SET NOT NULL;
-
-ALTER TABLE cycle
-    ALTER COLUMN is_visible SET NOT NULL;
-
-ALTER TABLE key_result_history
-    ALTER COLUMN key_result_id SET NOT NULL;
-
-ALTER TABLE key_result
-    ALTER COLUMN sequence SET NOT NULL;
-
-ALTER TABLE objective
-    ALTER COLUMN sequence SET NOT NULL;
-
-ALTER TABLE key_result_history
-    ALTER COLUMN start_value SET NOT NULL;
-
-ALTER TABLE key_result_history
-    ALTER COLUMN target_value SET NOT NULL;
-
-ALTER TABLE task
-    ALTER COLUMN task_state_id SET NOT NULL;
-
-ALTER TABLE note
-    ALTER COLUMN user_id SET NOT NULL;
+-- Drop old user-tables
+DROP TABLE aad_user CASCADE;
+DROP TABLE local_user CASCADE;

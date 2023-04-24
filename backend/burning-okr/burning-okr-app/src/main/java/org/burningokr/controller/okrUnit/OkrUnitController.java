@@ -130,7 +130,7 @@ public class OkrUnitController {
   }
 
   @PostMapping("/units/{unitId}/objectives")
-  @PreAuthorize("@departmentAuthorizationService.hasMemberPrivilegesForDepartment(#unitId)")
+  @PreAuthorize("@childUnitAuthorizationService.hasMemberPrivilegesForChildUnit(#unitId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
     @PathVariable long unitId,
     @Valid

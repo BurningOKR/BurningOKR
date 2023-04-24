@@ -19,7 +19,6 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.security.AuthorizationUserContextService;
 import org.hibernate.TypeMismatchException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,6 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
   private final ObjectiveRepository objectiveRepository;
   private final EntityCrawlerService entityCrawlerService;
   private final ActivityService activityService;
-  private final AuthorizationUserContextService userContextService;
   private final OkrUnitRepository<OkrUnit> parentOkrUnitRepository;
   private final TaskBoardService taskBoardService;
 
@@ -56,7 +54,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     return objectiveRepository.findByUnitAndOrderBySequence(okrUnit);
   }
 
-  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#updatedUnit.getId())")
+  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#updatedUnit.getId())")
   public T updateUnit(T updatedUnit) throws ForbiddenException {
     T referencedUnit = okrUnitRepository.findByIdOrThrow(updatedUnit.getId());
 
@@ -72,7 +70,6 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     }
 
     activityService.createActivity(
-      userContextService.getAuthenticatedUser(),
       referencedUnit,
       Action.EDITED
     );
@@ -80,17 +77,17 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     return referencedUnit;
   }
 
-  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#updatedUnit.getId())")
+  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#unitId)")
   public void deleteChildUnit(Long unitId) {
     T referencedUnit = okrUnitRepository.findByIdOrThrow(unitId);
     throwIfCycleForOkrChildUnitIsClosed(referencedUnit);
 
     okrUnitRepository.deleteById(unitId);
     log.info("Deleted OkrDepartment (id: %d) and its children".formatted(unitId));
-    activityService.createActivity(userContextService.getAuthenticatedUser(), referencedUnit, Action.DELETED);
+    activityService.createActivity(referencedUnit, Action.DELETED);
   }
 
-  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#updatedUnit.getId())")
+  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#okrChildUnit.getId())")
   public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit okrChildUnit) {
     OkrUnit parentOkrUnit = parentOkrUnitRepository.findByIdOrThrow(parentUnitId);
 
@@ -113,7 +110,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
           okrChildUnit.getParentOkrUnit().getId()
         ));
 
-    activityService.createActivity(userContextService.getAuthenticatedUser(), okrChildUnit, Action.CREATED);
+    activityService.createActivity(okrChildUnit, Action.CREATED);
     return okrChildUnit;
   }
 

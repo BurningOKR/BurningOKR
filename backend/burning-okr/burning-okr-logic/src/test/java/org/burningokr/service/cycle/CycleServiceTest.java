@@ -173,7 +173,7 @@ public class CycleServiceTest {
     Cycle cycle = createDummyCycle("c", 42, 1);
     when(cycleRepository.findByIdOrThrow(anyLong())).thenThrow(new EntityNotFoundException());
     assertThrows(EntityNotFoundException.class, () -> {
-      cycleService.deleteCycle(cycle.getId(), mockedIUser);
+      cycleService.deleteCycle(cycle.getId());
     });
   }
 
@@ -181,7 +181,7 @@ public class CycleServiceTest {
   public void deleteCycle_expectedToBeDeleted() throws Exception {
     Cycle cycle = createDummyCycle("c", 42, 1);
     when(cycleRepository.findByIdOrThrow(cycle.getId())).thenReturn(cycle);
-    cycleService.deleteCycle(cycle.getId(), mockedIUser);
+    cycleService.deleteCycle(cycle.getId());
   }
 
   @Test

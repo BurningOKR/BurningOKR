@@ -16,7 +16,6 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.exceptions.DuplicateTeamMemberException;
 import org.burningokr.service.okr.ObjectiveService;
 import org.burningokr.service.okr.OkrTopicDescriptionService;
@@ -143,7 +142,7 @@ public class OkrDepartmentController {
   }
 
   @PutMapping("/departments/{departmentId}")
-  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#departmentId)")
+  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#departmentId)")
   public ResponseEntity<OkrDepartmentDto> updateDepartment(
     @PathVariable long departmentId,
     @Valid
@@ -162,17 +161,15 @@ public class OkrDepartmentController {
    *
    * @param departmentId           the id of the OkrDepartment
    * @param okrTopicDescriptionDto an {@link OkrTopicDescriptionDto} object
-   * @param IUser                  an {@link IUser} object
    * @return the updated OkrTopicDescription
    */
   @PutMapping("/departments/{departmentId}/topicdescription")
-  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#departmentId)")
+  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#departmentId)")
   public ResponseEntity<OkrTopicDescriptionDto> updateOkrTopicDescription(
     @PathVariable long departmentId,
     @Valid
     @RequestBody
-    OkrTopicDescriptionDto okrTopicDescriptionDto,
-    IUser IUser
+    OkrTopicDescriptionDto okrTopicDescriptionDto
   ) {
 
     OkrDepartment okrDepartment = okrDepartmentService.findById(departmentId);
@@ -183,27 +180,18 @@ public class OkrDepartmentController {
     updatedOkrTopicDescription.setId(oldOkrTopicDescription.getId());
 
     updatedOkrTopicDescription =
-      okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription, IUser);
+      okrTopicDescriptionService.updateOkrTopicDescription(updatedOkrTopicDescription);
 
     return ResponseEntity.ok(okrTopicDescriptionMapper.mapEntityToDto(updatedOkrTopicDescription));
   }
 
-  /**
-   * API Endpoint to add an Objective to a OkrDepartment.
-   *
-   * @param departmentId a long value
-   * @param objectiveDto an {@link ObjectiveDto} object
-   * @param IUser        an {@link IUser} object
-   * @return a {@link ResponseEntity} ok with the added objective
-   */
   @PostMapping("/departments/{departmentId}/objectives")
-  @PreAuthorize("@departmentAuthorizationService.hasManagerPrivilegesForDepartment(#departmentId)")
+  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#departmentId)")
   public ResponseEntity<ObjectiveDto> addObjectiveToDepartment(
     @PathVariable long departmentId,
     @Valid
     @RequestBody
-    ObjectiveDto objectiveDto,
-    IUser IUser
+    ObjectiveDto objectiveDto
   ) {
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(null);
@@ -211,17 +199,10 @@ public class OkrDepartmentController {
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
-  /**
-   * API Endpoint to delete a OkrDepartment.
-   *
-   * @param departmentId a long value
-   * @param IUser        an {@link IUser} object
-   * @return a {@link ResponseEntity} ok
-   */
   @DeleteMapping("/departments/{departmentId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity deleteDepartment(
-    @PathVariable Long departmentId, IUser IUser
+    @PathVariable Long departmentId
   ) {
     okrDepartmentService.deleteChildUnit(departmentId);
     return ResponseEntity.ok().build();

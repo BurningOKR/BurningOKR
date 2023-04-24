@@ -51,7 +51,7 @@ public class ActivityServiceTest {
         + expectedTrackable.getId()
         + ")";
 
-    activityService.createActivity(IUser, expectedTrackable, expectedAction);
+    activityService.createActivity(expectedTrackable, expectedAction);
 
     verify(activityRepository).save(capturedActivityArgument.capture());
     Activity capturedActivity = capturedActivityArgument.getValue();

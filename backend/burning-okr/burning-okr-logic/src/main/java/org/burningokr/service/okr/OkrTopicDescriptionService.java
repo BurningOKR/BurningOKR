@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.IUser;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -17,7 +15,6 @@ import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
 import org.hibernate.event.spi.PostCommitDeleteEventListener;
 import org.hibernate.event.spi.PostDeleteEvent;
-import org.hibernate.event.spi.PostDeleteEventListener;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.persister.entity.EntityPersister;
 import org.slf4j.Logger;
@@ -63,7 +60,7 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
    * @return the updated OkrTopicDescription
    */
   public OkrTopicDescription updateOkrTopicDescription(
-    OkrTopicDescription okrTopicDescription, IUser IUser
+    OkrTopicDescription okrTopicDescription
   ) {
     OkrTopicDescription existing = findById(okrTopicDescription.getId());
 
@@ -83,7 +80,7 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
 
     logger.info(
       "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
-    activityService.createActivity(IUser, existing, Action.EDITED);
+    activityService.createActivity(existing, Action.EDITED);
 
     return existing;
   }
@@ -116,11 +113,11 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
    * @param okrTopicDescriptionId the id of the okrTopicDescription to delete.
    */
   @Transactional
-  public void safeDeleteOkrTopicDescription(Long okrTopicDescriptionId, IUser IUser) {
+  public void safeDeleteOkrTopicDescription(Long okrTopicDescriptionId) {
     long count = getOkrDepartmentsWithTopicDescription(okrTopicDescriptionId).size();
 
     if (count == 0) {
-      deleteOkrTopicDescription(okrTopicDescriptionId, IUser);
+      deleteOkrTopicDescription(okrTopicDescriptionId);
     } else {
       logger.info(
         "OkrTopicDescription with Id "
@@ -141,7 +138,7 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
   @Override
   public void onPostDelete(PostDeleteEvent event) {
     if (event.getEntity() instanceof OkrDepartment department) {
-      safeDeleteOkrTopicDescription(department.getOkrTopicDescription().getId(), new User());
+      safeDeleteOkrTopicDescription(department.getOkrTopicDescription().getId());
     }
   }
 
@@ -158,7 +155,7 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
     return true;
   }
 
-  private void deleteOkrTopicDescription(Long okrTopicDescriptionId, IUser IUser) {
+  private void deleteOkrTopicDescription(Long okrTopicDescriptionId) {
 
     // (R.J. 15.01.2020)
     // For some reason, we cannot use the okrTopicDescriptionRepository
@@ -179,7 +176,7 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
       entityManager.flush();
       transaction.commit();
       logger.info("Deleted OkrTopicDescription with Id " + existing.getId());
-      activityService.createActivity(IUser, existing, Action.DELETED);
+      activityService.createActivity(existing, Action.DELETED);
     } catch (Exception e) {
       logger.error("Unable to delete OkrTopicDescription with Id " + okrTopicDescriptionId);
     } finally {

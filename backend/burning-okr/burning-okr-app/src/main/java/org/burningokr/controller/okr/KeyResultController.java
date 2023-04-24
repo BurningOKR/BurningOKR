@@ -9,7 +9,6 @@ import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.NoteKeyResultMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteKeyResult;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.okr.KeyResultService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,48 +41,30 @@ public class KeyResultController {
     return ResponseEntity.ok(noteKeyResultMapper.mapEntitiesToDtos(noteKeyResults));
   }
 
-  /**
-   * API Endpoint to update a Key Result.
-   *
-   * @param keyResultId  a long value
-   * @param keyResultDto a {@link KeyResultDto} object
-   * @param IUser        an {@link IUser} object
-   * @return a {@link ResponseEntity} ok with a Key Result
-   */
   @PutMapping("/keyresults/{keyResultId}")
   @PreAuthorize("@keyResultAuthorizationService.hasMemberPrivilegesForKeyResult(#keyResultId)")
   public ResponseEntity<KeyResultDto> updateKeyResultById(
     @PathVariable long keyResultId,
     @Valid
     @RequestBody
-    KeyResultDto keyResultDto,
-    IUser IUser
+    KeyResultDto keyResultDto
   ) {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult.setId(keyResultId);
-    keyResult = this.keyResultService.updateKeyResult(keyResult, IUser);
+    keyResult = this.keyResultService.updateKeyResult(keyResult);
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
   }
 
-  /**
-   * API Endpoint to add a Note to a Key Result.
-   *
-   * @param keyResultId      a long value
-   * @param noteKeyResultDto a {@link NoteKeyResultDto} object
-   * @param IUser            an {@link IUser} object
-   * @return a {@link ResponseEntity} ok with a NoteKeyResultDto
-   */
   @PostMapping("/keyresults/{keyResultId}/notes")
   public ResponseEntity<NoteKeyResultDto> addNoteToKeyResult(
     @PathVariable long keyResultId,
     @Valid
     @RequestBody
-    NoteKeyResultDto noteKeyResultDto,
-    IUser IUser
+    NoteKeyResultDto noteKeyResultDto
   ) {
     noteKeyResultDto.setParentKeyResultId(keyResultId);
     NoteKeyResult noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
-    noteKeyResult = this.keyResultService.createNote(keyResultId, noteKeyResult, IUser);
+    noteKeyResult = this.keyResultService.createNote(noteKeyResult);
     return ResponseEntity.ok(noteKeyResultMapper.mapEntityToDto(noteKeyResult));
   }
 
@@ -101,10 +82,10 @@ public class KeyResultController {
   @DeleteMapping("keyresults/{keyResultId}")
   @PreAuthorize("@keyResultAuthorizationService.hasManagerPrivilegesForKeyResult(#keyResultId)")
   public ResponseEntity deleteKeyResult(
-    @PathVariable Long keyResultId, IUser IUser
+    @PathVariable Long keyResultId
   )
     throws Exception {
-    keyResultService.deleteKeyResult(keyResultId, IUser);
+    keyResultService.deleteKeyResult(keyResultId);
     return ResponseEntity.ok().build();
   }
 }

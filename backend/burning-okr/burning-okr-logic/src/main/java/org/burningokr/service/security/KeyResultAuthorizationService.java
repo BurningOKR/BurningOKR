@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class KeyResultAuthorizationService {
 
   private final ObjectiveAuthorizationService objectiveAuthorizationService;
-  private final DepartmentAuthorizationService departmentAuthorizationService;
+  private final ChildUnitAuthorizationService childUnitAuthorizationService;
   private final KeyResultService keyResultService;
   private final AuthorizationUserContextService authorizationUserContextService;
 
@@ -19,7 +19,7 @@ public class KeyResultAuthorizationService {
     OkrUnit parentOkrUnit = keyResultService.findById(keyResultId).getParentObjective().getParentOkrUnit();
 
     if (parentOkrUnit instanceof OkrDepartment) {
-      return departmentAuthorizationService.hasMemberPrivilegesForDepartment(parentOkrUnit.getId());
+      return childUnitAuthorizationService.hasMemberPrivilegesForChildUnit(parentOkrUnit.getId());
     } else {
       return authorizationUserContextService.getAuthenticatedUser().isAdmin();
     }
@@ -29,7 +29,7 @@ public class KeyResultAuthorizationService {
     OkrUnit parentOkrUnit = keyResultService.findById(keyResultId).getParentObjective().getParentOkrUnit();
 
     if (parentOkrUnit instanceof OkrDepartment) {
-      return departmentAuthorizationService.hasManagerPrivilegesForDepartment(parentOkrUnit.getId());
+      return childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(parentOkrUnit.getId());
     } else {
       return authorizationUserContextService.getAuthenticatedUser().isAdmin();
     }

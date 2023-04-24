@@ -7,7 +7,6 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.IUser;
 import org.burningokr.service.exceptions.NotApprovedException;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
@@ -24,7 +23,7 @@ public class ConvertTopicDraftToTeamService {
   private final OkrChildUnitService<OkrDepartment> okrDepartmentService;
 
   @Transactional
-  public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId, IUser IUser) {
+  public OkrDepartment convertTopicDraftToTeam(long topicDraftId, long parentOkrUnitId) {
     OkrTopicDraft topicDraft = okrTopicDraftService.findById(topicDraftId);
 
     if (!OkrTopicDraftStatusEnum.approved.equals(topicDraft.getCurrentStatus())) {
@@ -32,39 +31,39 @@ public class ConvertTopicDraftToTeamService {
         "TopicDraft has to be approved before it can be converted to a team");
     }
 
-    OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName(), IUser);
+    OkrDepartment okrDepartment = createOkrDepartment(parentOkrUnitId, topicDraft.getName());
     copyValuesFromOkrTopicDraftToOkrDepartment(topicDraft, okrDepartment);
     okrDepartment = writeOkrDepartmentToDatabase(okrDepartment);
-    deleteTopicDraft(topicDraft, IUser);
+    deleteTopicDraft(topicDraft);
 
     return okrDepartment;
   }
 
-  private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name, IUser IUser) {
+  private OkrDepartment createOkrDepartment(long parentOkrUnitId, String name) {
     String standardLabel = "Team";
 
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setName(name);
     okrDepartment.setLabel(standardLabel);
 
-    return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId, IUser);
+    return createOkrDepartmentInDatabase(okrDepartment, parentOkrUnitId);
   }
 
   private OkrDepartment createOkrDepartmentInDatabase(
-    OkrDepartment okrDepartment, long parentOkrUnitId, IUser IUser
+    OkrDepartment okrDepartment, long parentOkrUnitId
   ) {
     Collection<OkrCompany> okrCompanyCollection = companyService.getAllCompanies();
     if (okrCompanyCollection.stream().anyMatch(company -> company.getId() == parentOkrUnitId)) {
-      return createOkrDepartmentUnderneathCompany(okrDepartment, parentOkrUnitId, IUser);
+      return createOkrDepartmentUnderneathCompany(okrDepartment, parentOkrUnitId);
     } else {
       return createOkrDepartmentUnderneathBranch(okrDepartment, parentOkrUnitId);
     }
   }
 
   private OkrDepartment createOkrDepartmentUnderneathCompany(
-    OkrDepartment okrDepartment, long parentOkrUnitId, IUser IUser
+    OkrDepartment okrDepartment, long parentOkrUnitId
   ) {
-    return companyService.createDepartment(parentOkrUnitId, okrDepartment, IUser);
+    return companyService.createDepartment(parentOkrUnitId, okrDepartment);
   }
 
   private OkrDepartment createOkrDepartmentUnderneathBranch(
@@ -95,7 +94,7 @@ public class ConvertTopicDraftToTeamService {
     topicDescription.setHandoverPlan(topicDraft.getHandoverPlan());
   }
 
-  private void deleteTopicDraft(OkrTopicDraft topicDraft, IUser IUser) {
-    okrTopicDraftService.deleteTopicDraftById(topicDraft.getId(), IUser);
+  private void deleteTopicDraft(OkrTopicDraft topicDraft) {
+    okrTopicDraftService.deleteTopicDraftById(topicDraft.getId());
   }
 }

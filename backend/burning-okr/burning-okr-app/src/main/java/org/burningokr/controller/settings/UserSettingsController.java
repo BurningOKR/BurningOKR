@@ -33,18 +33,17 @@ public class UserSettingsController {
    * API Endpoint to update the user settings.
    *
    * @param userSettingsDto an {@link UserSettingsDto} object
-   * @param IUser           an {@link IUser} object
    * @return a {@link ResponseEntity} ok with the updated user settings
    */
   @PutMapping("/settings")
   public ResponseEntity<UserSettingsDto> updateUserSettingsDto(
     @Valid
     @RequestBody
-    UserSettingsDto userSettingsDto, IUser IUser
+    UserSettingsDto userSettingsDto
   ) {
     UserSettings userSettings = this.mapper.mapDtoToEntity(userSettingsDto);
     return ResponseEntity.ok(
       this.mapper.mapEntityToDto(
-        this.userSettingsService.updateUserSettings(userSettings, IUser)));
+        this.userSettingsService.updateUserSettings(userSettings)));
   }
 }

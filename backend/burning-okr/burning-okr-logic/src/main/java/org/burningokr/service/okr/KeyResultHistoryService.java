@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.histories.KeyResultHistory;
-import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.okr.KeyResultHistoryRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.springframework.stereotype.Service;
@@ -25,10 +24,9 @@ public class KeyResultHistoryService {
    * otherwise it creates a new one for that day.
    *
    * @param keyResult a {@link KeyResult} object
-   * @param IUser     a {@link IUser} object
    */
   @Transactional
-  public void updateKeyResultHistory(IUser IUser, KeyResult keyResult) {
+  public void updateKeyResultHistory(KeyResult keyResult) {
     KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult)
       .get(0);
 
@@ -37,9 +35,9 @@ public class KeyResultHistoryService {
       keyResultHistory.setCurrentValue(keyResult.getCurrentValue());
       keyResultHistory.setTargetValue(keyResult.getTargetValue());
       KeyResultHistory updatedHistory = keyResultHistoryRepository.save(keyResultHistory);
-      activityService.createActivity(IUser, updatedHistory, Action.EDITED);
+      activityService.createActivity(updatedHistory, Action.EDITED);
     } else {
-      createKeyResultHistory(IUser, keyResult);
+      createKeyResultHistory(keyResult);
     }
   }
 
@@ -47,9 +45,8 @@ public class KeyResultHistoryService {
    * Creates a new KeyResultHistory for a newly created KeyResult
    *
    * @param keyResult a {@link KeyResult} object
-   * @param IUser     a {@link IUser} object
    */
-  public void createKeyResultHistory(IUser IUser, KeyResult keyResult) {
+  public void createKeyResultHistory(KeyResult keyResult) {
     KeyResultHistory newKeyResultHistory = new KeyResultHistory();
     newKeyResultHistory.setKeyResult(keyResult);
     newKeyResultHistory.setDateChanged(LocalDate.now());
@@ -57,7 +54,7 @@ public class KeyResultHistoryService {
     newKeyResultHistory.setCurrentValue(keyResult.getCurrentValue());
     newKeyResultHistory.setTargetValue(keyResult.getTargetValue());
     KeyResultHistory createdHistory = keyResultHistoryRepository.save(newKeyResultHistory);
-    activityService.createActivity(IUser, createdHistory, Action.CREATED);
+    activityService.createActivity(createdHistory, Action.CREATED);
   }
 
   public KeyResultHistory findOldestKeyResultHistoryForKeyResultList(Collection<KeyResult> keyResults) {
