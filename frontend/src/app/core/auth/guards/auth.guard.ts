@@ -17,20 +17,17 @@ export class AuthGuard implements CanActivate {
     }
 
     return this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      this.oauthService.setupAutomaticSilentRefresh();
-      const loggedIn: boolean = this.oauthService.hasValidIdToken();
+      const loggedIn: boolean = this.oauthService.hasValidAccessToken() && this.oauthService.hasValidIdToken();
 
       if (!loggedIn) {
         // store target path
         localStorage.setItem('login_redirect', state.url);
-
         // redirect to idp
         this.oauthService.initCodeFlow();
 
         return false;
       }
-
-      // retreive target path
+      // retrieve target path
       const redirect: string = localStorage.getItem('login_redirect');
       localStorage.removeItem('login_redirect');
 

@@ -21,7 +21,6 @@ export class AppComponent {
     private OkrTranslationHelper: OkrTranslationHelperService,
   ) {
     this.OkrTranslationHelper.initializeTranslationOnStartup();
-    this.authService.configure();
   }
 
   checkIfUserIsLoggedIn(): boolean {

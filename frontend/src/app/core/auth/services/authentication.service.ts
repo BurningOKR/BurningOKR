@@ -9,6 +9,8 @@ export class AuthenticationService {
   constructor(
     private oAuthService: OAuthService,
   ) {
+    this.configure();
+    this.oAuthService.setupAutomaticSilentRefresh();
   }
 
   configure() {
