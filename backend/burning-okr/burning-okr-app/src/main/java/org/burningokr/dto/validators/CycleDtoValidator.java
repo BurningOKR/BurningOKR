@@ -1,5 +1,6 @@
 package org.burningokr.dto.validators;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.cycles.Cycle;
@@ -8,23 +9,17 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CycleDtoValidator {
 
-  private CycleRepository cycleRepository;
-  private CompanyRepository companyRepository;
-
-  @Autowired
-  public CycleDtoValidator(CycleRepository cycleRepository, CompanyRepository companyRepository) {
-    this.cycleRepository = cycleRepository;
-    this.companyRepository = companyRepository;
-  }
+  private final CycleRepository cycleRepository;
+  private final CompanyRepository companyRepository;
 
   public void validateCycleDto(CycleDto cycleDto) throws InvalidDtoException {
     checkForContentExceptions(cycleDto);
@@ -110,6 +105,10 @@ public class CycleDtoValidator {
   private boolean isCycleListFilledWithCyclesWithoutMatchingId(
     List<Cycle> cycleList, Long cycleId
   ) {
+    if (cycleId == null) {
+      return !cycleList.isEmpty();
+    }
+
     return !(cycleList.isEmpty()
       || cycleList.size() == 1 && cycleList.get(0).getId().longValue() == cycleId.longValue());
   }
