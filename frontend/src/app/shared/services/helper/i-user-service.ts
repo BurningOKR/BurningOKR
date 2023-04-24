@@ -11,5 +11,5 @@ export interface IUserService {
 
   deleteAdmin$(adminToDeleteId: string): Observable<boolean>;
 
-  getAdminIds$(): Observable<string[]>;
+  getAdmins$(): Observable<User[]>;
 }
