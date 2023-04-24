@@ -31,14 +31,14 @@ public class OkrDepartment extends OkrChildUnit {
   private Collection<UUID> okrMemberIds = new ArrayList<>();
 
   @ToString.Exclude
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
   @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.ALL)
   private TaskBoard taskBoard;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private OkrDepartmentHistory history;
 
   /**

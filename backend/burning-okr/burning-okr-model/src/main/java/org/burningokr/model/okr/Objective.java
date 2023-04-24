@@ -18,11 +18,11 @@ public class Objective implements Trackable<Long> {
   private Long id;
 
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private OkrUnit parentOkrUnit;
 
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Objective parentObjective;
 
   @Column(length = 255)

@@ -27,7 +27,7 @@ public class Task implements Trackable<Long> {
   @Column(length = 1023)
   private String description;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @NotNull
   @JoinColumn(name = "task_state_id")
   private TaskState taskState;
@@ -36,19 +36,23 @@ public class Task implements Trackable<Long> {
   @CollectionTable(name = "task_user")
   @Column(name = "user_id")
   private Collection<UUID> assignedUserIds = new ArrayList<>();
+
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_task_board_id")
   private TaskBoard parentTaskBoard;
+
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @Nullable
   @JoinColumn(name = "assigned_key_result_id")
   private KeyResult assignedKeyResult;
-  @OneToOne
+
+  @OneToOne(fetch = FetchType.LAZY)
   @Nullable
   @JoinColumn(name = "previous_task_id")
   private Task previousTask;
+
   @Column
   @Version
   private Long version;

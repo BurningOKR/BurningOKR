@@ -17,7 +17,7 @@ public class TaskBoard implements Trackable<Long> {
   @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "parent_unit_id")
   private OkrDepartment parentOkrDepartment;

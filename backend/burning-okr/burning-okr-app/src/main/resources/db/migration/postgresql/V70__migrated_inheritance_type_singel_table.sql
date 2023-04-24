@@ -65,6 +65,13 @@ ALTER TABLE okr_member
 ALTER TABLE okr_member
     DROP CONSTRAINT fk5c2gx62q2posf5ev6d8ctmh71;
 
+-- temp-drop constraints
+alter table objective
+    drop constraint fkiwxcgedb2ey0wpsfoy842amos;
+
+alter table task_board
+    drop constraint fk_taskboard_on_parent_unit;
+
 -- Insert dummy-values
 UPDATE okr_unit_history
 SET okr_unit_history_type = 'OkrUnitHistory'
@@ -91,19 +98,33 @@ CREATE TABLE temp_okr_unit
 );
 
 -- fill temp_okr_unit-table with departments
-INSERT INTO temp_okr_unit (id, label, name, okr_master_id, okr_topic_description_id, history_id, parent_okr_unit_id, is_active, okr_unit_type)
-SELECT ou.id, label, name, od.okr_master_id, od.okr_topic_description_id, od.history_id, ocu.parent_okr_unit_id, ocu.is_active, 'OKR_DEPARTMENT'
-FROM okr_unit ou JOIN okr_child_unit ocu on ou.id = ocu.id JOIN okr_department od on ocu.id = od.id;
+INSERT INTO temp_okr_unit (id, label, name, okr_master_id, okr_topic_description_id, history_id, parent_okr_unit_id,
+                           is_active, okr_unit_type)
+SELECT ou.id,
+       label,
+       name,
+       od.okr_master_id,
+       od.okr_topic_description_id,
+       od.history_id,
+       ocu.parent_okr_unit_id,
+       ocu.is_active,
+       'OKR_DEPARTMENT'
+FROM okr_unit ou
+         JOIN okr_child_unit ocu on ou.id = ocu.id
+         JOIN okr_department od on ocu.id = od.id;
 
 -- fill temp_okr_unit-table with branches
 INSERT INTO temp_okr_unit (id, label, name, history_id, parent_okr_unit_id, is_active, okr_unit_type)
 SELECT ou.id, label, name, ob.history_id, ocu.parent_okr_unit_id, ocu.is_active, 'OKR_BRANCH'
-FROM okr_unit ou JOIN okr_child_unit ocu on ou.id = ocu.id JOIN okr_branch ob on ocu.id = ob.id;
+FROM okr_unit ou
+         JOIN okr_child_unit ocu on ou.id = ocu.id
+         JOIN okr_branch ob on ocu.id = ob.id;
 
 -- fill temp_okr_unit-table with companies
 INSERT INTO temp_okr_unit (id, label, name, cycle_id, history_id, okr_unit_type)
 SELECT ou.id, label, name, oc.cycle_id, oc.history_id, 'OKR_COMPANY'
-FROM okr_unit ou JOIN okr_company oc on ou.id = oc.id;
+FROM okr_unit ou
+         JOIN okr_company oc on ou.id = oc.id;
 
 -- TODO copy values from temp_okr_unit-table to okr_unit-table
 TRUNCATE okr_unit CASCADE;
@@ -113,11 +134,45 @@ SELECT *
 FROM temp_okr_unit;
 
 -- DROP TABLE temp_okr_unit;
+DROP TABLE temp_okr_unit;
 
--- TODO migrate okr_unit_history-table
+-- migrate okr_unit_history-table
+CREATE TABLE okr_unit_history_temp
+(
+    id                    bigint primary key,
+    okr_unit_history_type varchar(31)
+);
 
--- TODO drop unused tables
-/*DROP TABLE okr_branch CASCADE;
+INSERT INTO okr_unit_history_temp (id, okr_unit_history_type)
+SELECT id, okr_unit_history_type_case
+FROM (SELECT ou.okr_unit_type,
+             ouh.id,
+             CASE
+                 WHEN ou.okr_unit_type = 'OKR_DEPARTMENT' THEN 'OKR_DEPARTMENT_HISTORY'
+                 WHEN ou.okr_unit_type = 'OKR_BRANCH' THEN 'OKR_BRANCH_HISTORY'
+                 WHEN ou.okr_unit_type = 'OKR_COMPANY' THEN 'OKR_COMPANY_HISTORY'
+             END okr_unit_history_type_case
+      from okr_unit ou
+               JOIN okr_unit_history ouh on ou.history_id = ouh.id) as oo;
+
+UPDATE okr_unit_history
+SET okr_unit_history_type = okr_unit_history_temp.okr_unit_history_type
+FROM okr_unit_history_temp
+WHERE okr_unit_history_temp.id = okr_unit_history.id;
+
+DROP TABLE okr_unit_history_temp;
+
+-- recreate temp-dropped constraints
+alter table objective
+    add constraint fk_objective_on_parent_okr_unit
+        foreign key (parent_okr_unit_id) references okr_unit;
+
+alter table task_board
+    add constraint fk_taskboard_on_parent_unit
+        foreign key (parent_unit_id) references okr_unit;
+
+-- drop unused tables
+DROP TABLE okr_branch CASCADE;
 
 DROP TABLE okr_branch_history CASCADE;
 
@@ -129,4 +184,4 @@ DROP TABLE okr_company_history CASCADE;
 
 DROP TABLE okr_department CASCADE;
 
-DROP TABLE okr_department_history CASCADE;*/
+DROP TABLE okr_department_history CASCADE;

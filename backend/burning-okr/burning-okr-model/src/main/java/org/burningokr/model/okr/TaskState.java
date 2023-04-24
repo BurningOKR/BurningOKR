@@ -16,7 +16,7 @@ public class TaskState implements Trackable<Long> {
   @Column(length = 255)
   private String title;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_task_board_id")
   private TaskBoard parentTaskBoard;
 
