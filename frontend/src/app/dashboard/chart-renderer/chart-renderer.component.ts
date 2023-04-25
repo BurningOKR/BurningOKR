@@ -45,5 +45,4 @@ export class ChartRendererComponent implements OnInit {
       );
     componentRef.instance.chartOptions = this.chartOptions;
   }
-
 }
