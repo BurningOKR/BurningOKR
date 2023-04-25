@@ -33,7 +33,7 @@ export class ChartRendererComponent implements OnInit {
     if (!componentType) {
       throw new Error(
         `No Mapping from chartOptions ${this.chartOptions.chartOptionsName}
-        to ComponentType found. Did you add the Decorator to the ChartComponent?`,
+        to ComponentType found. Did you add the Decorator to the ChartComponent???`,
       );
     }
 
