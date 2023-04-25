@@ -5,9 +5,9 @@ import { BaseChartComponent } from '../base-chart/base-chart.component';
 
 @Component({
   selector: 'app-basic-line-chart',
-  templateUrl: './basic-line-chart.component.html',
-  styleUrls: ['./basic-line-chart.component.scss'],
+  templateUrl: './line-chart.component.html',
+  styleUrls: ['./line-chart.component.scss'],
 })
 @CustomChartComponent(LineChartOptions)
-export class BasicLineChartComponent extends BaseChartComponent<LineChartOptions> {
+export class LineChartComponent extends BaseChartComponent<LineChartOptions> {
 }
