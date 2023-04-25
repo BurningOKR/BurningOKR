@@ -10,5 +10,6 @@ export class LineChartOptions extends BaseChartOptions {
   options: ApexOptions;
   chartType: ChartInformationTypeEnum = ChartInformationTypeEnum.LINE_PROGRESS;
   selectedTeamIds: number[] = [];
+  chartOptionsName: string = 'LineChartOptions';
 }
 

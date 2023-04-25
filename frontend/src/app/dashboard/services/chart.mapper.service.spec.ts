@@ -26,6 +26,7 @@ describe('ChartMapperService', () => {
       chartType: ChartInformationTypeEnum.LINE_PROGRESS,
       selectedTeamIds: [],
       colors: [],
+      chartOptionsName: '',
 
     };
 
@@ -49,6 +50,7 @@ describe('ChartMapperService', () => {
       chartType: ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW,
       selectedTeamIds: [],
       colors: [],
+      chartOptionsName: '',
 
     };
 
