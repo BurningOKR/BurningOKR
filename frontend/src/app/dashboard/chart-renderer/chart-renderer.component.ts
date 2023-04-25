@@ -27,12 +27,12 @@ export class ChartRendererComponent implements OnInit {
 
   ngOnInit(): void {
     const componentType: ConstructorType<BaseChartOptions> = chartComponentMappings.find(
-      mapping => mapping.chartOptionsType === this.chartOptions.constructor,
+      mapping => mapping.chartOptionsType.name === this.chartOptions.chartOptionsName,
     )?.componentType;
 
     if (!componentType) {
       throw new Error(
-        `No Mapping from chartOptions ${this.chartOptions.constructor.name}
+        `No Mapping from chartOptions ${this.chartOptions.chartOptionsName}
         to ComponentType found. Did you add the Decorator to the ChartComponent?`,
       );
     }

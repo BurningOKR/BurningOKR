@@ -11,4 +11,5 @@ export class PieChartOptions extends BaseChartOptions {
     align: 'left',
   };
   chartType: ChartInformationTypeEnum = ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW;
+  chartOptionsName: string = 'PieChartOptions';
 }
