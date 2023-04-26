@@ -36,8 +36,12 @@ export class DashboardService {
     return this.dashboardApiService.createNewDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
   }
 
-  updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
-    return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
+  // updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
+  //   return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToDto(dashboard));
+  // }
+
+  updateNewDashboard$(dashboard: Dashboard): Observable<DashboardCreationDto> {
+    return this.dashboardApiService.postNewDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
   }
 
   deleteDashboardById$(dashboardId: number): Observable<boolean> {

@@ -28,7 +28,7 @@ export class EditDashboardComponent implements OnInit, ComponentCanDeactivate {
   }
 
   updateDashboard(dashboard: Dashboard): void {
-    this.dashboardService.updateDashboard$(dashboard)
+    this.dashboardService.updateNewDashboard$(dashboard)
       .pipe(take(1))
       .subscribe();
 
