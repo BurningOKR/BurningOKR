@@ -7,10 +7,13 @@ export const chartComponentMappings: {
 }[] = [];
 
 export function CustomChartComponent(chartOptionsType: ConstructorType<BaseChartOptions>) {
+  console.log(`Hello World! chartOptionsType: ${chartOptionsType}`);
+
   return (chartComponentType: ConstructorType<any>): void => {
     chartComponentMappings.push({
       chartOptionsType,
       componentType: chartComponentType,
     });
+    console.log(`(Inside Return) chartComponentType Name: ${chartComponentType.name}`);
   };
 }
