@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './sites/dashboard/dashboard.component';
-import { BasicLineChartComponent } from './charts/basic-line-chart/basic-line-chart.component';
+import { LineChartComponent } from './charts/basic-line-chart/line-chart.component';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { ChartRendererComponent } from './chart-renderer/chart-renderer.component';
 import { ChartHostDirective } from './chart-renderer/chart-host.directive';
@@ -28,7 +28,7 @@ import { CreateDashboardComponent } from './sites/dashboard-modification/create-
 @NgModule({
   declarations: [
     DashboardComponent,
-    BasicLineChartComponent,
+    LineChartComponent,
     PieChartComponent,
     ChartRendererComponent,
     ChartHostDirective,

@@ -29,11 +29,15 @@ export class ChartRendererComponent implements OnInit {
     const componentType: ConstructorType<BaseChartOptions> = chartComponentMappings.find(
       mapping => mapping.chartOptionsType.name === this.chartOptions.chartOptionsName,
     )?.componentType;
-
+    console.log(`Chart Options: ${this.chartOptions}`);
+    console.log(`Chart Options Name: ${this.chartOptions.chartOptionsName}`);
+    chartComponentMappings.forEach(cC => console.log(`chartComponent: ${cC.chartOptionsType}`));
+    chartComponentMappings.forEach(cC => console.log(`chartComponent Name: ${cC.chartOptionsType.name}`));
+    console.log(`Component Type: ${componentType.name}`);
     if (!componentType) {
       throw new Error(
         `No Mapping from chartOptions ${this.chartOptions.chartOptionsName}
-        to ${componentType.name} found. Did you add the Decorator to the ChartComponent???`,
+        to ComponentType found. Did you add the Decorator to the ChartComponent???`,
       );
     }
 
