@@ -1,37 +1,32 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private oauthService: OAuthService) {
+  constructor(private router: Router, private oauthService: OAuthService, private authService: AuthenticationService) {
 
   }
 
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    return this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      const loggedIn: boolean = this.oauthService.hasValidAccessToken() && this.oauthService.hasValidIdToken();
-      if (!loggedIn) {
-        // store target path
-        localStorage.setItem('login_redirect', state.url);
-        // redirect to idp
-        this.oauthService.initCodeFlow();
 
-        return false;
+    if(this.authService.isInitialized() || await this.authService.waitForInitializationToFinish()) {
+      const access: string | boolean = await this.authService.login(state.url);
+
+      if (typeof access === 'string') {
+        return this.router.parseUrl(access);
+      } else {
+        return access;
       }
-      // retrieve target path
-      const redirect: string = localStorage.getItem('login_redirect');
-      localStorage.removeItem('login_redirect');
+    }
 
-      // redirect to target path or load content
-      return (redirect != null && this.router.parseUrl(redirect)) || true;
-    })
-      .catch(() => {
-        return false;
-      });
+  }
 
+  private async delay(): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, 1000));
   }
 }

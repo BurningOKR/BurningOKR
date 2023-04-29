@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
@@ -6,16 +6,17 @@ import { AuthenticationService } from '../services/authentication.service';
 @Injectable()
 export class OauthInterceptor implements HttpInterceptor {
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private injector: Injector) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let extendedRequest: HttpRequest<unknown> = request;
+    const authenticationService: AuthenticationService = this.injector.get(AuthenticationService);
 
-    if (this.authenticationService.hasValidAccessToken() && request.url.startsWith('/api')) {
+    if (authenticationService.hasValidAccessToken() && request.url.startsWith('/api')) {
       const reqHeaders: HttpHeaders = request.headers.set(
           'Authorization',
-          `Bearer ${this.authenticationService.getAccessToken()}`,
+          `Bearer ${authenticationService.getAccessToken()}`,
       );
       extendedRequest = request.clone({ headers: reqHeaders });
     }

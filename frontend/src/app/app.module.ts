@@ -39,7 +39,7 @@ import { AdminViewComponent } from './admin/admin-view.component';
 import { AdminUserIdsPipe } from './admin/pipes/admin-user-ids.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { loggerConfig } from './config-files/logger-config';
+import { loggerConfig } from './config/logger/logger-config';
 import { AuthenticationService } from './core/auth/services/authentication.service';
 import { CoreModule } from './core/core.module';
 import { ErrorModule } from './core/error/error.module';
@@ -120,6 +120,7 @@ export function createTranslateLoader(http: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       useClass: OauthInterceptor,
       multi: true,
+
     },
     {
       provide: LOCALE_ID,

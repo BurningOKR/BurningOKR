@@ -1,35 +1,58 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { authCodeFlowConfig } from '../auth-flow-code-config';
 import { filter, take } from 'rxjs/operators';
 import { FetchingService } from '../../services/fetching.service';
 import { ReplaySubject } from 'rxjs';
+import { OidcConfigurationService } from '../../../config/oidc/oidc-configuration.service';
+import { AuthFlowConfig } from '../../../config/oidc/auth-flow-config';
+import { OidcConfiguration } from '../../../config/oidc/oidc-configuration';
 
+// TODO remove magic strings to config file
 @Injectable()
 export class AuthenticationService {
   path: string;
-  private $isUserLoggedIn: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  finishedInitialisation: Promise<boolean>;
+  private isUserLoggedIn$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  private initialized: boolean = false;
 
   constructor(
     private oAuthService: OAuthService,
     private fetchingService: FetchingService,
+    private oidcConfigurationService: OidcConfigurationService,
     ) {
-    this.$isUserLoggedIn.next(false); // user is not logged in on application start by default
-    this.configure();
+    this.isUserLoggedIn$.next(false); // user is not logged in on application start by default
+    this.finishedInitialisation = new Promise<boolean>(resolve => {
+      this.configure().then(() => {
+        this.initialized = true;
+        resolve(true);
+      });
+    });
   }
 
-  configure() {
-    this.oAuthService.configure(authCodeFlowConfig);
+  async configure(): Promise<void> {
+    const oidcConfiguration: OidcConfiguration = await this.oidcConfigurationService.getOidcConfiguration$();
+
+    this.oAuthService.configure(this.getAuthFlowConfig(oidcConfiguration));
     this.oAuthService.setupAutomaticSilentRefresh();
     this.onFirstTokenExecuteRefetch();
+    this.onTokenFailureSetLoggedInFalse();
+  }
+
+  getAuthFlowConfig(oidcConfig: OidcConfiguration): AuthFlowConfig {
+    return {
+      issuer: oidcConfig.issuerUri,
+      redirectUri: `${window.location.origin}`,
+      clientId: oidcConfig.clientId,
+      responseType: 'code',
+      scope: oidcConfig.scopes.join(' '), // TODO
+      showDebugInformation: true,
+      requireHttps: false, // TODO
+      strictDiscoveryDocumentValidation: oidcConfig.strictDiscoveryDocumentValidation,
+    } as AuthFlowConfig;
   }
 
   getAccessToken(): string {
     return this.oAuthService.getAccessToken();
-  }
-
-  login() {
-    this.oAuthService.initLoginFlow();
   }
 
   hasValidAccessToken(): boolean {
@@ -37,11 +60,44 @@ export class AuthenticationService {
   }
 
   logout(): void {
-    // this.oAuthService.logOut(); TODO fix auth
+    this.oAuthService.logOut();
   }
 
   isUserLoggedIn(): boolean {
     return this.oAuthService.hasValidAccessToken() && this.oAuthService.hasValidIdToken();
+  }
+
+  async waitForInitializationToFinish(): Promise<boolean> {
+    return this.finishedInitialisation;
+  }
+
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
+  async login(url: string): Promise<string | boolean> {
+    await this.oAuthService.loadDiscoveryDocumentAndTryLogin();
+
+    if (!this.isUserLoggedIn()) {
+      this.writeRedirectUrlToLocalStorage(url);
+      this.oAuthService.initCodeFlow();
+
+      return false;
+    }
+
+    // retrieve target path
+    return this.getRedirectUrlFromLocalStorage();
+  }
+
+  private writeRedirectUrlToLocalStorage(redirectUrl: string): void {
+    localStorage.setItem('login_redirect', redirectUrl);
+  }
+
+  private getRedirectUrlFromLocalStorage(): string {
+    const redirect: string = localStorage.getItem('login_redirect');
+    localStorage.removeItem('login_redirect');
+
+    return redirect;
   }
 
   private onFirstTokenExecuteRefetch(): void {
@@ -65,7 +121,7 @@ export class AuthenticationService {
         ])
       )
     ).subscribe(() => {
-      this.$isUserLoggedIn.next(false);
+      this.isUserLoggedIn$.next(false);
     });
   }
 
