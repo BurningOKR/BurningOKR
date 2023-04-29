@@ -105,11 +105,6 @@ public class CompanyService {
     return cycleList;
   }
 
-  public Collection<OkrChildUnit> findChildUnitOfCompany(long companyId) {
-    OkrCompany okrCompany = findById(companyId);
-    return okrCompany.getOkrChildUnits();
-  }
-
   @Transactional
   public OkrCompany createCompany(OkrCompany okrCompany) {
     Cycle cycle = new Cycle("default");

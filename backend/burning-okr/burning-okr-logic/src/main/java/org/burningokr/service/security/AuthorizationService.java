@@ -3,7 +3,6 @@ package org.burningokr.service.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-// TODO fix auth
 @Service
 @RequiredArgsConstructor
 public class AuthorizationService {
