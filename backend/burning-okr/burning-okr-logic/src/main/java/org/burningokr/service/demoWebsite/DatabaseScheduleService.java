@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import lombok.RequiredArgsConstructor;
+import org.burningokr.model.configuration.SystemProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,16 +24,15 @@ import java.util.List;
 public class DatabaseScheduleService {
 
   private final EntityManagerFactory entityManagerFactory;
+  private final SystemProperties systemProperties;
   private final int RATE_IN_MINUTES = 120;
-  @Value("${spring.environment.demo}")
-  private boolean isPlayground;
   @Value("classpath:demoWebsite/DemoWebsiteDefaultData.sql")
   private Resource sqlFile;
   private LocalDateTime nextSchedule = LocalDateTime.now().plusMinutes(RATE_IN_MINUTES);
 
   @Scheduled(fixedRate = RATE_IN_MINUTES * 60 * 1000)
   public void scheduledDeletion() {
-    if (isPlayground) {
+    if (systemProperties.isDemoMode()) {
       String query = getSQLQueries();
       executeSQL(query);
       updateSchedule();

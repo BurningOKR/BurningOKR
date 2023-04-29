@@ -1,6 +1,7 @@
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
+import org.burningokr.model.configuration.SystemProperties;
 import org.burningokr.service.security.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +43,18 @@ public class WebSecurityConfig {
       response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
     });
 
+    setUnauthorizedUriRoutes(http);
+
+    http
+      .oauth2ResourceServer()
+      .jwt();
+
+    http.authenticationManager(authManager);
+
+    return http.build();
+  }
+
+  private void setUnauthorizedUriRoutes(HttpSecurity http) throws Exception {
     http
       .authorizeHttpRequests()
       .requestMatchers(
@@ -51,22 +64,13 @@ public class WebSecurityConfig {
         "/swagger-resources",
         "/swagger-ui.html**",
         "/webjars/**",
-//        systemProperties.getApiEndpoint() + "/oAuthFrontendDetails",
         "/wsregistry",
         "/actuator/**",
-        "/applicationSettings/oidcConfiguration" // TODO open for testing-purposes
+        "/applicationSettings/oidcConfiguration" // TODO try to move to /api
       )
       .permitAll()
       .anyRequest()
       .authenticated();
-
-    http
-      .oauth2ResourceServer()
-      .jwt();
-
-    http.authenticationManager(authManager);
-
-    return http.build();
   }
 
   private CorsConfigurationSource corsConfigurationSource() {
