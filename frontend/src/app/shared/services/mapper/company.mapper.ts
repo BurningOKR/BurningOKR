@@ -84,7 +84,7 @@ export class CompanyMapper {
         mergeMap((companyUnits: CompanyUnit[]) => {
           const cycleUnits$: Observable<CycleUnit>[] = companyUnits.map(company => this.cycleMapperService.getCycleById$(
             company.cycleId));
-
+          
           return forkJoin(cycleUnits$);
         }),
       );

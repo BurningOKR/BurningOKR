@@ -17,10 +17,6 @@ describe('TopicDraftPermissionServiceService', () => {
     return currentUserServiceMock.getCurrentUser$().pipe(map(user => user === mockAdmin));
   });
 
-  currentUserServiceMock.isCurrentUserAuditor$ = jest.fn().mockImplementation(() => {
-    return currentUserServiceMock.getCurrentUser$().pipe(map(user => user === mockAuditor));
-  });
-
   beforeEach(() => {
     setCurrentUserInPermissionService(mockUser);
   });

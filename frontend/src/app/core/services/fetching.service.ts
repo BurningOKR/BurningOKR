@@ -1,7 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Fetchable, FetchingServiceData } from '../../shared/decorators/fetchable.decorator';
 import { TypeOf } from '../../../typings';
-import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root',
@@ -12,14 +11,12 @@ export class FetchingService {
 
   constructor(
     private injector: Injector,
-    private oAuthService: OAuthService,
   ) {
-    this.refetchAll();
   }
 
-  refetchAll(): void {
+  refetchAll(isLoggedIn: boolean): void {
     FetchingService.fetchingServices.forEach((data: FetchingServiceData) => {
-      if (!data.loginRequired || this.oAuthService.hasValidAccessToken()) {
+      if (!data.loginRequired || isLoggedIn) {
         const service: Fetchable = this.injector.get(data.service);
         service.fetchData();
       }

@@ -12,13 +12,8 @@ export class AuthGuard implements CanActivate {
   }
 
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-    if (this.oauthService.hasValidAccessToken()) {
-      return true;
-    }
-
     return this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       const loggedIn: boolean = this.oauthService.hasValidAccessToken() && this.oauthService.hasValidIdToken();
-
       if (!loggedIn) {
         // store target path
         localStorage.setItem('login_redirect', state.url);

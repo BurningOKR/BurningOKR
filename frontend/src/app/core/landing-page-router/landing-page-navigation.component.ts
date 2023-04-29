@@ -8,7 +8,6 @@ import { UserSettings } from '../../shared/model/ui/user-settings';
 import { ConfigurationManagerService } from '../settings/configuration-manager.service';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
 import { RouterParams } from '../../../typings';
-import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-landing-page-navigation',
@@ -21,7 +20,6 @@ export class LandingPageNavigationComponent implements OnInit {
     private userSettingsManagerService: UserSettingsManagerService,
     private configurationManagerService: ConfigurationManagerService,
     private router: Router,
-    private oAuthService: OAuthService,
   ) {
   }
 
@@ -34,17 +32,14 @@ export class LandingPageNavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.navigateToUsersDefaultTeam(); // TODO fix auth
-    console.log(`LandingPageNavigation - Token: ${this.oAuthService.getAccessToken()}`);
+    this.navigateToUsersDefaultTeam();
   }
 
   private navigateToUsersDefaultTeam(): void {
-    console.log('navigate to users default team');
     this.getRouterLink$()
       .pipe(take(1))
       .subscribe(
         (routerLink: RouterParams) => {
-          console.log('subscribe called');
           this.router.navigate(routerLink);
         }, () => this.router.navigate(['/error']));// eslint-disable-line @typescript-eslint/promise-function-async
   }
@@ -53,8 +48,6 @@ export class LandingPageNavigationComponent implements OnInit {
     return this.companyMapperService.getActiveCompanies$()
       .pipe(
         switchMap((uniqueCompanies: CompanyUnit[]) => {
-          console.log('landing-page-navigation - getRouterLink$ ');
-
           if (uniqueCompanies.length === 1) {
             return of(['/okr/companies/', uniqueCompanies[0].id]);
           } else {
@@ -68,13 +61,10 @@ export class LandingPageNavigationComponent implements OnInit {
   }
 
   private getDefaultCompanyAndTeam$(): Observable<RouterParams> {
-    console.log('landing-page-navigation - getDefaultCompanyAndTeam$ ');
-
     return this.userSettingsManagerService.getUserSettings$()
       .pipe(
         filter((userSettings: UserSettings) => !!userSettings),
         map((userSettings: UserSettings) => {
-          console.log('landing-page-navigation - getDefaultCompanyAndTeam');
           if (LandingPageNavigationComponent.userHasNoDefaultTeamButADefaultCompany(userSettings)) {
             return ['/okr/companies/', userSettings.defaultCompanyId];
           } else if (LandingPageNavigationComponent.userHasDefaultTeam(userSettings)) {

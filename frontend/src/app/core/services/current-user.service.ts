@@ -14,7 +14,6 @@ import { UserId } from '../../shared/model/id-types';
 })
 export class CurrentUserService implements Fetchable {
   private isAdmin$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
-  private isAuditor$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   private currentUser$: ReplaySubject<User> = new ReplaySubject<User>(1);
 
   constructor(
@@ -42,25 +41,12 @@ export class CurrentUserService implements Fetchable {
     );
   }
 
-  isCurrentUserAuditor$(): Observable<boolean> {
-    return this.isAuditor$.asObservable();
-  }
-
   fetchData(): void {
     this.userApiService.getCurrentUser$()
       .pipe(take(1))
-      .subscribe((reveived: User) => {
-        this.currentUser$.next(reveived);
-      });
-    this.userApiService.isCurrentUserAdmin$()
-      .pipe(take(1))
-      .subscribe((isAdmin: boolean) => {
-        this.isAdmin$.next(isAdmin);
-      });
-    this.userApiService.isCurrentUserAuditor$()
-      .pipe(take(1))
-      .subscribe((isAuditor: boolean) => {
-        this.isAuditor$.next(isAuditor);
+      .subscribe((receivedUser: User) => {
+        this.currentUser$.next(receivedUser);
+        this.isAdmin$.next(receivedUser.admin);
       });
   }
 }
