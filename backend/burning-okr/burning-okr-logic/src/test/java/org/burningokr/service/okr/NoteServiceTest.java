@@ -88,9 +88,9 @@ public class NoteServiceTest {
   public void updateNote_expectedUserNotifications() {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
 
-    noteService.updateNote(changedNote, authorizedIUser);
+    noteService.updateNote(changedNote);
 
-    verify(activityService).createActivity(authorizedIUser, null, Action.EDITED);
+    verify(activityService).createActivity(null, Action.EDITED);
   }
 
   @Test
@@ -98,7 +98,7 @@ public class NoteServiceTest {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
 
     ArgumentCaptor<Note> capturedNotes = ArgumentCaptor.forClass(Note.class);
-    noteService.updateNote(changedNote, authorizedIUser);
+    noteService.updateNote(changedNote);
 
     verify(noteRepository).save(capturedNotes.capture());
     Note capturedNote = capturedNotes.getValue();
@@ -117,7 +117,7 @@ public class NoteServiceTest {
     ArgumentCaptor<IUser> capturedUsers = ArgumentCaptor.forClass(IUser.class);
     ArgumentCaptor<Note> capturedNotes = ArgumentCaptor.forClass(Note.class);
     ArgumentCaptor<Action> capturedActions = ArgumentCaptor.forClass(Action.class);
-    noteService.updateNote(changedNote, authorizedIUser);
+    noteService.updateNote(changedNote);
 
     verify(activityService)
       .createActivity(

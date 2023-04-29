@@ -45,10 +45,6 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     });
   }
 
-  private Iterable<T> getAllOkrChildUnits() {
-    return okrUnitRepository.findAll();
-  }
-
   public Collection<Objective> findObjectivesOfUnit(long unitId) {
     var okrUnit = findById(unitId);
     return objectiveRepository.findByUnitAndOrderBySequence(okrUnit);
@@ -87,8 +83,9 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     activityService.createActivity(referencedUnit, Action.DELETED);
   }
 
-  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#okrChildUnit.getId())")
+  @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#parentUnitId)")
   public OkrChildUnit createChildUnit(Long parentUnitId, OkrChildUnit okrChildUnit) {
+    okrChildUnit.setId(null);
     OkrUnit parentOkrUnit = parentOkrUnitRepository.findByIdOrThrow(parentUnitId);
 
     throwIfCycleForOkrChildUnitIsClosed(parentOkrUnit);
@@ -116,7 +113,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
 
   private void initializeOkrDepartment(OkrDepartment department) {
     department.setOkrTopicDescription(new OkrTopicDescription(department.getName()));
-    department.setTaskBoard(taskBoardService.createNewTaskBoardWithDefaultStates());
+    department.setTaskBoard(taskBoardService.createNewTaskBoardWithDefaultStates(department));
   }
 
   private void updateOkrBranch(OkrBranch updatedOkrDepartment, OkrBranch databaseOkrBranch) {
@@ -157,42 +154,4 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
         "Cannot modify this resource on a OkrDepartment in a closed cycle.");
     }
   }
-
-//  @EventListener(ConfigurationChangedEvent.class)
-//  public void onConfigurationChangedEvent(ConfigurationChangedEvent event) {
-//    final Configuration changedConfiguration = event.getChangedConfiguration();
-//
-//    if (changedConfiguration.getName().equals(ConfigurationName.TOPIC_SPONSORS_ACTIVATED.getName())
-//      && changedConfiguration.getValue().equals("false")) {
-//      for (OkrUnit unit : getAllOkrDepartments()) {
-//        if (unit instanceof OkrDepartment) {
-//          degradeTopicSponsor((OkrDepartment) unit);
-//        }
-//      }
-//    }
-//  }
-//
-//  private void degradeTopicSponsor(OkrDepartment department) {
-//    moveTopicSponsorToMembers(department);
-//    department.setOkrTopicSponsorId(null);
-//
-//    superOkrUnitRepository.save(department);
-//  }
-//
-//  private void moveTopicSponsorToMembers(OkrDepartment department) {
-//    final Collection<UUID> memberIds = department.getOkrMemberIds();
-//    final UUID topicSponsorId = department.getOkrTopicSponsorId();
-//
-//    if (!memberIds.contains(topicSponsorId)) {
-//      if (memberIds.add(topicSponsorId)) {
-//        department.setOkrMemberIds(memberIds);
-//      } else {
-//        logger.warn(
-//          String.format(
-//            "Couldn't add topic sponsor %s to member of department %d",
-//            topicSponsorId, department.getId()
-//          ));
-//      }
-//    }
-//  }
 }

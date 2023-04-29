@@ -26,10 +26,11 @@ public class TaskBoardService {
   private final TaskService taskService;
   private final TaskRepository taskRepository;
 
-  public TaskBoard createNewTaskBoardWithDefaultStates() {
+  public TaskBoard createNewTaskBoardWithDefaultStates(OkrDepartment parentOkrDepartment) {
     TaskBoard taskBoard = new TaskBoard();
-    Collection<TaskState> states = defaultTaskStateService.getDefaultTaskStatesForNewTaskBoard();
+    Collection<TaskState> states = defaultTaskStateService.getDefaultTaskStatesForNewTaskBoard(taskBoard);
     taskBoard.setAvailableStates(states);
+    taskBoard.setParentOkrDepartment(parentOkrDepartment);
 
     return taskBoard;
   }

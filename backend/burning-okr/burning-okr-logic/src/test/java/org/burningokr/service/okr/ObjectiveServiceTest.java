@@ -106,7 +106,7 @@ public class ObjectiveServiceTest {
   public void createKeyResult_expectsKeyResultIsCreated() throws KeyResultOverflowException {
     keyResult.setId(12L);
 
-    objectiveService.createKeyResult(10L, keyResult, IUser);
+    objectiveService.createKeyResult(10L, keyResult);
 
     verifyCreateKeyResult();
   }
@@ -118,7 +118,7 @@ public class ObjectiveServiceTest {
 
     keyResult.setId(12L);
 
-    objectiveService.createKeyResult(expected, keyResult, IUser);
+    objectiveService.createKeyResult(expected, keyResult);
 
     assertEquals(expected, keyResult.getParentObjective().getId());
 
@@ -147,7 +147,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(parentObjective);
 
-    objectiveService.createKeyResult(expected, keyResult, IUser);
+    objectiveService.createKeyResult(expected, keyResult);
 
     assertEquals(5, otherKeyResult1.getSequence());
     assertEquals(6, otherKeyResult2.getSequence());
@@ -162,7 +162,7 @@ public class ObjectiveServiceTest {
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(closedCycle);
 
     assertThrows(ForbiddenException.class, () -> {
-      objectiveService.createKeyResult(10L, new KeyResult(), IUser);
+      objectiveService.createKeyResult(10L, new KeyResult());
     });
 
   }

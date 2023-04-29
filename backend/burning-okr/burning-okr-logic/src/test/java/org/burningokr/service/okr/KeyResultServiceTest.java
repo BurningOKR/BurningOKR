@@ -65,7 +65,7 @@ public class KeyResultServiceTest {
   public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() throws Exception {
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenThrow(new EntityNotFoundException());
     assertThrows(EntityNotFoundException.class, () -> {
-      keyResultService.deleteKeyResult(keyResultId, IUser);
+      keyResultService.deleteKeyResult(keyResultId);
     });
   }
 
@@ -75,7 +75,7 @@ public class KeyResultServiceTest {
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(closedCycle);
     assertThrows(ForbiddenException.class, () -> {
-      keyResultService.deleteKeyResult(10L, IUser);
+      keyResultService.deleteKeyResult(10L);
     });
   }
 
@@ -99,7 +99,7 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenReturn(keyResultToDelete);
     when(taskService.findTasksForKeyResult(any(KeyResult.class))).thenReturn(new ArrayList<Task>());
-    keyResultService.deleteKeyResult(10L, IUser);
+    keyResultService.deleteKeyResult(10L);
 
     assertEquals(5, keyResultBelowInSequence.getSequence());
     assertEquals(6, keyResultAboveInSequence.getSequence());
@@ -115,7 +115,7 @@ public class KeyResultServiceTest {
     KeyResult updatedKeyResult = new KeyResult();
     updatedKeyResult.setId(10L);
     assertThrows(EntityNotFoundException.class, () -> {
-      keyResultService.updateKeyResult(updatedKeyResult, IUser);
+      keyResultService.updateKeyResult(updatedKeyResult);
     });
   }
 
@@ -128,7 +128,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
     assertEquals(expectedName, keyResult.getName());
   }
@@ -142,7 +142,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
     assertEquals(expectedDescription, keyResult.getDescription());
   }
@@ -156,7 +156,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
     assertEquals(expectedStartValue, keyResult.getStartValue());
   }
@@ -170,7 +170,7 @@ public class KeyResultServiceTest {
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, IUser);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
     assertEquals(expectedCurrentValue, keyResult.getCurrentValue());
   }

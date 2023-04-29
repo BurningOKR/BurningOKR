@@ -219,12 +219,11 @@ public class CompanyService {
     description = okrTopicDescriptionRepository.save(description);
     okrDepartment.setOkrTopicDescription(description);
 
-    okrDepartment = okrUnitRepository.save(okrDepartment);
 
-    TaskBoard taskBoard = taskBoardService.createNewTaskBoardWithDefaultStates();
+    TaskBoard taskBoard = taskBoardService.createNewTaskBoardWithDefaultStates(okrDepartment);
     okrDepartment.setTaskBoard(taskBoard);
-    taskBoard.setParentOkrDepartment(okrDepartment);
-    taskBoardService.saveTaskBoard(taskBoard);
+
+    okrDepartment = okrUnitRepository.save(okrDepartment);
 
     logger.info(
       "Created okrDepartment "

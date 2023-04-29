@@ -26,7 +26,7 @@ public class TaskBoard implements Trackable<Long> {
   @EqualsAndHashCode.Exclude
   private Collection<Task> tasks = new ArrayList<>();
 
-  @OneToMany(mappedBy = "parentTaskBoard", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "parentTaskBoard", cascade = CascadeType.ALL)
   private Collection<TaskState> availableStates = new ArrayList<>();
 
   @Override

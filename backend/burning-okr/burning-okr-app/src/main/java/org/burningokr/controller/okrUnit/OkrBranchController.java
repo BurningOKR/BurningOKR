@@ -35,7 +35,6 @@ public class OkrBranchController {
     throws DuplicateTeamMemberException {
 
     OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
-    okrDepartment.setId(null);
     okrDepartment = (OkrDepartment) okrBranchService.createChildUnit(unitId, okrDepartment);
     return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
   }
