@@ -15,4 +15,20 @@ export class DateMapper {
       return null;
     }
   }
+
+  static mapDateToDateString(date: Date): string {
+    return date ? `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}` : null;
+  }
+
+  static mapDateStringToDate(dateSting: string): Date {
+    let parsedDate: Date = null;
+
+    if (dateSting) {
+      // Date is a Sting with Format yyyy-mm-dd
+      const splitDate: string[] = dateSting.split('-');
+      parsedDate = new Date(Number(splitDate[0]), Number(splitDate[1]), Number(splitDate[2]));
+    }
+
+    return parsedDate;
+  }
 }

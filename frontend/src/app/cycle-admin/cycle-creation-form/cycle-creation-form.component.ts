@@ -83,10 +83,8 @@ export class CycleCreationFormComponent implements OnInit {
     const isVisible: boolean = this.cycleForm.get('isVisible').value;
     const cycle: CycleDto = {
       name: this.cycleForm.get('name').value,
-      plannedStartDate:
-        [Number(startDate.getFullYear()), Number(startDate.getMonth()) + 1, Number(startDate.getDate())],
-      plannedEndDate:
-        [Number(endDate.getFullYear()), Number(endDate.getMonth()) + 1, Number(endDate.getDate())],
+      plannedStartDate: DateMapper.mapDateToDateString(startDate),
+      plannedEndDate: DateMapper.mapDateToDateString(endDate),
       companyIds: [this.formData.company.id],
       cycleState: this.determineCycleState(), isVisible,
     };

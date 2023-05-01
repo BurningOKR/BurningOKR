@@ -157,7 +157,7 @@ export class ApiHttpErrorHandlingService implements OnDestroy {
   }
 
   private logErrorIfUserIsSignedIn(error: HttpErrorResponse): void {
-    if (this.authenticationService.hasValidAccessToken()) {
+    if (this.authenticationService.isUserLoggedIn()) {
       this.logger.error(error);
     }
   }

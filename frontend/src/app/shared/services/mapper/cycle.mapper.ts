@@ -18,10 +18,7 @@ export class CycleMapper {
   constructor(
     private cycleService: CycleApiService,
     private companyApiService: CompanyApiService,
-    private dateMapper: DateMapper
   ) {
-    console.log('Cycle-Mapper: date-mapper');
-    console.log(dateMapper);
   }
 
   getCycleById$(id: CycleId): Observable<CycleUnit> {
@@ -89,8 +86,6 @@ export class CycleMapper {
   }
 
   mapCycleToCycleUnit(cycle: CycleDto): CycleUnit {
-    console.log('Called cycle-mapper: mapCycleToCycleUnit');
-    console.log(this.dateMapper);
     const startDate: Date = DateMapper.mapDateStringToDate(cycle.plannedStartDate);
     const endDate: Date = DateMapper.mapDateStringToDate(cycle.plannedEndDate);
 

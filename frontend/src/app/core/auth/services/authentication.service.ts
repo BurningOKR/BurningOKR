@@ -7,7 +7,7 @@ import { OidcConfigurationService } from '../../../config/oidc/oidc-configuratio
 import { AuthFlowConfig } from '../../../config/oidc/auth-flow-config';
 import { OidcConfiguration } from '../../../config/oidc/oidc-configuration';
 
-// TODO remove magic strings to config file
+// TODO move magic strings to config file
 @Injectable()
 export class AuthenticationService {
   path: string;
@@ -44,19 +44,14 @@ export class AuthenticationService {
       redirectUri: `${window.location.origin}`,
       clientId: oidcConfig.clientId,
       responseType: 'code',
-      scope: oidcConfig.scopes.join(' '), // TODO
-      showDebugInformation: true,
-      requireHttps: false, // TODO
+      scope: oidcConfig.scopes.join(' '),
+      showDebugInformation: true, // TODO remove after azure ad is working
       strictDiscoveryDocumentValidation: oidcConfig.strictDiscoveryDocumentValidation,
     } as AuthFlowConfig;
   }
 
   getAccessToken(): string {
     return this.oAuthService.getAccessToken();
-  }
-
-  hasValidAccessToken(): boolean {
-    return this.oAuthService.hasValidAccessToken(); // TODO fix Auth
   }
 
   logout(): void {

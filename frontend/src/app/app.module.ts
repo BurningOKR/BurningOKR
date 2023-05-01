@@ -53,6 +53,7 @@ import { SharedModule } from './shared/shared.module';
 import { TopicDraftsModule } from './topic-drafts/topic-drafts.module';
 import { AvatarModule } from 'ngx-avatars';
 import { OauthInterceptor } from './core/auth/interceptors/oauth.interceptor';
+import { DateMapper } from './shared/services/mapper/date.mapper';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeDe, 'de', localeDeExtra);
@@ -116,6 +117,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     AuthenticationService,
+    DateMapper,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: OauthInterceptor,

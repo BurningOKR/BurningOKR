@@ -26,6 +26,7 @@ export class AppComponent {
   private init(): void {
     this.OkrTranslationHelper.initializeTranslationOnStartup();
     this.executeInitialFetch();
+    this.userLoggedIn = this.authService.isUserLoggedIn();
   }
 
   private executeInitialFetch(): void {

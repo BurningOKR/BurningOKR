@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class LogPipe implements PipeTransform {
 
   transform(value: any): any {
-    console.log(value);
+    console.log(`Log-Pipe: ${value}`);
     if (value instanceof Observable) {
       value.subscribe(console.log).unsubscribe();
     }

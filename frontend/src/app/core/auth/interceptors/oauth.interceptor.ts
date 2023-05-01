@@ -13,7 +13,7 @@ export class OauthInterceptor implements HttpInterceptor {
     let extendedRequest: HttpRequest<unknown> = request;
     const authenticationService: AuthenticationService = this.injector.get(AuthenticationService);
 
-    if (authenticationService.hasValidAccessToken() && request.url.startsWith('/api')) {
+    if (authenticationService.isUserLoggedIn() && request.url.startsWith('/api')) {
       const reqHeaders: HttpHeaders = request.headers.set(
           'Authorization',
           `Bearer ${authenticationService.getAccessToken()}`,
