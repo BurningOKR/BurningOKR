@@ -11,7 +11,7 @@ import { AuthenticationService } from './core/auth/services/authentication.servi
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  userLoggedIn: boolean = this.authService.hasValidAccessToken();
+  userLoggedIn: boolean = false;
   isPlayground: boolean = environment.playground;
 
   constructor(

@@ -99,54 +99,53 @@ export class ApiHttpErrorHandlingService implements OnDestroy {
   }
 
   private getUnauthorizedErrorHandler$<T>(error: HttpErrorResponse): ErrorObservable<T> {
-    // this.authenticationService.logout();
-    // this.authenticationService.redirectToLoginProvider();
+    this.authenticationService.logout();
 
     return throwError(error);
   }
 
   private showErrorSnackbar(): void {
-    // const snackbar: MatSnackBarRef<SimpleSnackBar> = this.snackbar
-    //   .open(this.oneOrMoreErrorMsg, this.moreDetailsMsg, {
-    //     panelClass: 'api-error-snackbar',
-    //     verticalPosition: 'top',
-    //     duration: 20000,
-    //   });
-    // snackbar.onAction()
-    //   .subscribe(() => {
-    //     this.router.navigate(['error'])
-    //       .catch(err => this.logErrorIfUserIsSignedIn(err));
-    //   });
+    const snackbar: MatSnackBarRef<SimpleSnackBar> = this.snackbar
+      .open(this.oneOrMoreErrorMsg, this.moreDetailsMsg, {
+        panelClass: 'api-error-snackbar',
+        verticalPosition: 'top',
+        duration: 20000,
+      });
+    snackbar.onAction()
+      .subscribe(() => {
+        this.router.navigate(['error'])
+          .catch(err => this.logErrorIfUserIsSignedIn(err));
+      });
   }
 
   private showRetryErrorSnackbar(): void {
-    // const errorCountMsg: string = this.translate.instant('api-http-error-handling.error-counting', {
-    //   errorCount: this.errorSubjects.length,
-    //   pluralAppendix: this.errorSubjects.length > 1 ? this.requestAppendix : '',
-    // });
-    //
-    // const snackbar: MatSnackBarRef<SimpleSnackBar> = this.snackbar
-    //   .open(
-    //     `${this.singleErrorMsg} ${errorCountMsg}.`,
-    //     this.retryMsg,
-    //     {
-    //       panelClass: 'api-error-snackbar',
-    //       verticalPosition: 'top',
-    //       duration: 20000,
-    //     },
-    //   );
-    // snackbar.onAction()
-    //   .subscribe(() => {
-    //     this.retryErrors();
-    //   });
+    const errorCountMsg: string = this.translate.instant('api-http-error-handling.error-counting', {
+      errorCount: this.errorSubjects.length,
+      pluralAppendix: this.errorSubjects.length > 1 ? this.requestAppendix : '',
+    });
+
+    const snackbar: MatSnackBarRef<SimpleSnackBar> = this.snackbar
+      .open(
+        `${this.singleErrorMsg} ${errorCountMsg}.`,
+        this.retryMsg,
+        {
+          panelClass: 'api-error-snackbar',
+          verticalPosition: 'top',
+          duration: 20000,
+        },
+      );
+    snackbar.onAction()
+      .subscribe(() => {
+        this.retryErrors();
+      });
   }
 
   private retryErrors(): void {
-    // this.errorSubjects.forEach((errSubject$: Subject<boolean>) => {
-    //   errSubject$.next(true);
-    //   errSubject$.unsubscribe();
-    // });
-    // this.errorSubjects = [];
+    this.errorSubjects.forEach((errSubject$: Subject<boolean>) => {
+      errSubject$.next(true);
+      errSubject$.unsubscribe();
+    });
+    this.errorSubjects = [];
   }
 
   private isClientResolvableError(error: HttpErrorResponse): boolean {

@@ -19,14 +19,14 @@ export class ErrorComponent implements OnInit {
   constructor(
     private api: ApiHttpService,
     private router: Router,
-    private authentificationService: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private location: Location,
   ) {
     this.errors$ = this.api.getErrors$();
   }
 
   ngOnInit(): void {
-    this.userIsLoggedIn = this.authentificationService.hasValidAccessToken();
+    this.userIsLoggedIn = this.authenticationService.isUserLoggedIn();
 
     this.errors$
       .pipe(

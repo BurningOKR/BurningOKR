@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Consts } from '../../shared/consts';
@@ -22,51 +22,51 @@ export class ApiHttpService {
 
   getData$<T>(path: string, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
-    return this.http.get<T>(Consts.API_URL + path);
-      // .pipe(
-      //   catchError(
-      //     this.errorHandlerService.getErrorHandler(() => this.getData$<T>(path), customErrorHandler),
-      //   ),
-      // );
+    return this.http.get<T>(Consts.API_URL + path)
+      .pipe(
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.getData$<T>(path), customErrorHandler),
+        ),
+      );
   }
 
   postData$<T>(path: string, value: object, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
-    return this.http.post<T>(Consts.API_URL + path, value);
-      // .pipe(
-      //   catchError(
-      //     this.errorHandlerService.getErrorHandler(() => this.postData$<T>(path, value), customErrorHandler),
-      //   ),
-      // );
+    return this.http.post<T>(Consts.API_URL + path, value)
+      .pipe(
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.postData$<T>(path, value), customErrorHandler),
+        ),
+      );
   }
 
   putData$<T>(path: string, value: object, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
-    return this.http.put<T>(Consts.API_URL + path, value);
-      // .pipe(
-      //   catchError(
-      //     this.errorHandlerService.getErrorHandler(() => this.putData$<T>(path, value), customErrorHandler),
-      //   ),
-      // );
+    return this.http.put<T>(Consts.API_URL + path, value)
+      .pipe(
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.putData$<T>(path, value), customErrorHandler),
+        ),
+      );
   }
 
   deleteData$(path: string, customErrorHandler?: ErrorHandlingFunction<boolean>): Observable<boolean> {
     return this.http.delete(Consts.API_URL + path)
       .pipe(
         map((res: string) => res === 'deleted'),
-        // catchError(
-        //   this.errorHandlerService.getErrorHandler(() => this.deleteData$(path), customErrorHandler),
-        // ),
+        catchError(
+          this.errorHandlerService.getErrorHandler(() => this.deleteData$(path), customErrorHandler),
+        ),
       );
   }
 
   patchData$<T>(path: string, value: T, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
-    return this.http.patch<T>(Consts.API_URL + path, value);
-      // .pipe(
-      //   catchError(this.errorHandlerService.getErrorHandler(() => {
-      //       return this.patchData$<T>(path, value);
-      //     }, customErrorHandler,
-      //   )),
-      // );
+    return this.http.patch<T>(Consts.API_URL + path, value)
+      .pipe(
+        catchError(this.errorHandlerService.getErrorHandler(() => {
+            return this.patchData$<T>(path, value);
+          }, customErrorHandler,
+        )),
+      );
   }
 }
