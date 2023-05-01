@@ -25,8 +25,6 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-
-  private final SystemProperties systemProperties;
   private final CustomAuthenticationProvider customAuthenticationProvider;
 
   @Bean
