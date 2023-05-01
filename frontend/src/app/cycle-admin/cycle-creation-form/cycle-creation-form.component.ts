@@ -34,7 +34,6 @@ export class CycleCreationFormComponent implements OnInit {
     private dialogRef: MatDialogRef<CycleCreationFormComponent>,
     private cycleMapper: CycleMapper,
     private companyService: CompanyMapper,
-    private dateMapper: DateMapper,
     private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public formData: CycleDialogData,
   ) {
@@ -72,14 +71,14 @@ export class CycleCreationFormComponent implements OnInit {
   }
 
   isInPreparation(): boolean {
-    const date: Date = this.dateMapper.mapToDate(this.cycleForm.get('startDate').value);
+    const date: Date = DateMapper.mapToDate(this.cycleForm.get('startDate').value);
 
     return date.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
   }
 
   createCycle(): void {
-    const startDate: Date = this.dateMapper.mapToDate(this.cycleForm.get('startDate').value);
-    const endDate: Date = this.dateMapper.mapToDate(this.cycleForm.get('endDate').value);
+    const startDate: Date = DateMapper.mapToDate(this.cycleForm.get('startDate').value);
+    const endDate: Date = DateMapper.mapToDate(this.cycleForm.get('endDate').value);
     const isVisible: boolean = this.cycleForm.get('isVisible').value;
     const cycle: CycleDto = {
       name: this.cycleForm.get('name').value,

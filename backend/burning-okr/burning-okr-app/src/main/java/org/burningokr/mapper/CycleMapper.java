@@ -1,5 +1,7 @@
 package org.burningokr.mapper;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.cycles.Cycle;
@@ -12,9 +14,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class CycleMapper implements DataMapper<Cycle, CycleDto> {
 
-  private final Logger logger = LoggerFactory.getLogger(CycleMapper.class);
+  private final DateMapper dateMapper;
 
   @Override
   public Cycle mapDtoToEntity(CycleDto cycleDto) {
@@ -26,7 +30,7 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
     cycle.setCycleState(cycleDto.getCycleState());
     cycle.setVisible(cycleDto.getIsVisible());
 
-    logger.info("Mapped CycleDto (id:" + cycleDto.getId() + ") to Cycle.");
+    log.debug("Mapped CycleDto (id:" + cycleDto.getId() + ") to Cycle.");
     return cycle;
   }
 
@@ -47,7 +51,7 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
     }
     cycleDto.setCompanyIds(companyIds);
 
-    logger.info("Mapped Cycle (id:" + cycle.getId() + ") to CycleDto.");
+    log.debug("Mapped Cycle (id:" + cycle.getId() + ") to CycleDto.");
     return cycleDto;
   }
 

@@ -55,12 +55,14 @@ public class CycleDtoValidator {
   private void checkForSemanticExceptionsWithOtherCyclesInDatabase(CycleDto cycleDto)
     throws InvalidDtoException {
     String exceptionString = "";
+    var startDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedStartDate());
+    var endDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedEndDate());
 
     OkrCompany targetOkrCompany = companyRepository.findByIdOrThrow(cycleDto.getCompanyId());
     OkrUnitHistory<OkrCompany> targetOkrUnitHistory = targetOkrCompany.getHistory();
 
     if (isDateWithinOtherCycleInCompanyHistory(
-      cycleDto.getId(), cycleDto.getPlannedStartDate(), targetOkrUnitHistory)) {
+      cycleDto.getId(), startDate, targetOkrUnitHistory)) {
       exceptionString +=
         "Cycle planned start can not be inside another cycle of the same company.\n";
     }
@@ -97,7 +99,7 @@ public class CycleDtoValidator {
   ) {
     List<Cycle> collidingCycles =
       cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(
-        okrUnitHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
+        okrUnitHistory, startDate, endDate);
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDto.getId()));
   }

@@ -6,18 +6,11 @@ import * as moment from 'moment';
 })
 export class DateMapper {
 
-  mapToDate(date: Date | moment.Moment): Date {
-    if (moment.isMoment(date)) {
-      return date.toDate();
-    } else if (moment.isDate(date)) {
-      return date;
-    } else {
-      return null;
-    }
-  }
-
   static mapDateToDateString(date: Date): string {
-    return date ? `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}` : null;
+    console.log(date);
+    const parsedDate: Date = this.mapToDate(date);
+
+    return date ? `${parsedDate.getFullYear()}-${parsedDate.getMonth()}-${parsedDate.getDate()}` : null;
   }
 
   static mapDateStringToDate(dateSting: string): Date {
@@ -30,5 +23,15 @@ export class DateMapper {
     }
 
     return parsedDate;
+  }
+
+  static mapToDate(date: Date | moment.Moment): Date {
+    if (moment.isMoment(date)) {
+      return date.toDate();
+    } else if (moment.isDate(date)) {
+      return date;
+    } else {
+      return null;
+    }
   }
 }

@@ -43,7 +43,7 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
     if (input.getCurrentStatus() != null) {
       dto.setCurrentStatus(input.getCurrentStatus().ordinal());
     }
-    dto.setBeginning(input.getBeginning());
+    dto.setBeginning(dateMapper.mapDateToDateString(input.getBeginning()));
     dto.setContributesTo(input.getContributesTo());
     dto.setDelimitation(input.getDelimitation());
     dto.setDependencies(input.getDependencies());
