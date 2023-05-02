@@ -34,8 +34,8 @@ export class ChartRendererComponent implements OnInit {
     console.log(`Length of chartComponentMappings: ${chartComponentMappings.length}`);
     chartComponentMappings.forEach(cC => console.log(`chartComponent: ${cC.chartOptionsType}`));
     chartComponentMappings.forEach(cC => console.log(`chartComponent Name: ${cC.chartOptionsType.name}`));
-    console.log(`ComponentType: ${componentType}`);
-    console.log(`Component Type: ${componentType.name}`);
+    // console.log(`ComponentType: ${componentType}`);
+    // console.log(`Component Type: ${componentType.name}`);
     if (!componentType) {
       throw new Error(
         `No Mapping from chartOptions ${this.chartOptions.chartOptionsName}
