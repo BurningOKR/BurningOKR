@@ -39,6 +39,10 @@ public class LineChartService {
     Collection<KeyResult> keyResults = new ArrayList<>();
     Collection<OkrDepartment> teams;
 
+    lineChartOptionsDto.setId(chartCreationOptions.getId());
+    lineChartOptionsDto.setTitle(chartCreationOptions.getTitle());
+    lineChartOptionsDto.setChartType(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
+
     teams = getTeamsForChart(
       dashboardCreation.getCompanyId(),
       chartCreationOptions.getTeamIds()
@@ -53,7 +57,7 @@ public class LineChartService {
     }
 
     if (keyResults.size() == 0) {
-      return getNoValuesFoundLineChartOptionsDto(chartCreationOptions);
+      return getNoValuesFoundLineChartOptionsDto(chartCreationOptions, lineChartOptionsDto);
     }
 
     LocalDate startDate = keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(keyResults)
@@ -77,10 +81,7 @@ public class LineChartService {
     } else {
       lineChartOptionsDto.setSeries(lineChartLineKeyValuesList);
     }
-    lineChartOptionsDto.setId(chartCreationOptions.getId());
-    lineChartOptionsDto.setTitle(chartCreationOptions.getTitle());
     lineChartOptionsDto.setXAxisCategories(getProgressXAxis(startDate, numberOfDays));
-    lineChartOptionsDto.setChartType(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
     return lineChartOptionsDto;
   }
 
@@ -246,18 +247,18 @@ public class LineChartService {
     return xAxis;
   }
 
-  private LineChartOptionsDto getNoValuesFoundLineChartOptionsDto(ChartCreationOptions chartCreationOptions) {
+  private LineChartOptionsDto getNoValuesFoundLineChartOptionsDto(ChartCreationOptions chartCreationOptions, LineChartOptionsDto lineChartOptionsDto) {
     ArrayList<LineChartLineKeyValues> lineChartKeyValuesList = new ArrayList<>();
 
     LineChartLineKeyValues lineChartLineKeyValuesNoValues = new LineChartLineKeyValues();
+    lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
+
     lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
     lineChartLineKeyValuesNoValues.setData(new ArrayList<>(Collections.singletonList(50.0)));
 
     lineChartKeyValuesList.add(lineChartLineKeyValuesNoValues);
 
-    LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
     lineChartOptionsDto.setSeries(lineChartKeyValuesList);
-
     lineChartOptionsDto.setXAxisCategories(Stream.of("Keine Werte vorhanden").collect(Collectors.toList()));
 
     return lineChartOptionsDto;

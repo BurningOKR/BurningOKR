@@ -342,6 +342,8 @@
       }
     }},
   "department-tab-taskboard": {
+    "columns": "Columns",
+    "swimlanes": "Swimlanes",
     "add-button": {
       "create-new-task": "Create task",
       "tooltip": "WebSocket-Connection is broken"
