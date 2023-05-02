@@ -167,6 +167,7 @@ describe('Dashboard.MapperService', () => {
     };
     expect(service.mapUiToDto(testDb)).toEqual(testDto);
   });
+
 });
 
 function getLineChartOptionsDtoMock2(): LineChartOptionsDto {
