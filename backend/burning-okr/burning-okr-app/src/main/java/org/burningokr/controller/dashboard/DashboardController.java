@@ -39,20 +39,6 @@ public class DashboardController {
   /**
    * API Endpoint to update a DashboardDto by id.
    *
-   * @param dashboardDto a {@link DashboardCreationDto} object
-   * @param user                 a {@link User} object
-   * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
-   */
-  @PostMapping("/dashboards/edit")
-  public ResponseEntity<DashboardDto> updateDashboard(@RequestBody DashboardDto dashboardDto, User user) {
-    DashboardCreation dashboardCreation = dashboardMapper.mapDtoToEntity(dashboardDto);
-    dashboardCreation = dashboardService.updateDashboard(dashboardCreation, user);
-    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
-  }
-
-  /**
-   * API Endpoint to update a DashboardDto by id.
-   *
    * @param dashboardCreationDto a {@link DashboardCreationDto} object
    * @param user                 a {@link User} object
    * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
