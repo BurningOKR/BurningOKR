@@ -66,17 +66,6 @@ export class DashboardMapperService {
     };
   }
 
-  mapUiToDto(dashboard: Dashboard): DashboardDto {
-    return {
-      id: dashboard.id,
-      title: dashboard.title,
-      companyId: dashboard.companyId,
-      creatorId: dashboard.creatorId,
-      creationDate: dashboard.creationDate,
-      chartDtos: dashboard.charts.map(this.chartMapper.mapEntityToDto),
-    };
-  }
-
   mapUiToCDto(dashboard: Dashboard): DashboardCreationDto {
     return {
       id: dashboard.id,

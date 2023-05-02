@@ -9,6 +9,7 @@ import { LineChartOptions } from '../model/ui/line-chart-options';
 import { PieChartOptions } from '../model/ui/pie-chart-options';
 
 import { DashboardMapperService } from './dashboard.mapper.service';
+import { DashboardCreationDto } from '../model/dto/dashboard-creation.dto';
 
 describe('Dashboard.MapperService', () => {
   let service: DashboardMapperService;
@@ -106,13 +107,12 @@ describe('Dashboard.MapperService', () => {
   });
 
   it('should map Dashboard with ONE PieChartOptionsDto', () => {
-    const singlePieTestDto: DashboardDto = {
+    const singlePieTestDto: DashboardCreationDto = {
       companyId: 0,
       id: 1,
       creatorId: getTestUser().id,
-      creationDate: new Date(),
       title: 'Some Dashboard',
-      chartDtos: [getPieChartOptionsDtoMock2()],
+      chartCreationOptions: [getPieChartOptionsDtoMock2()],
     };
 
     const singlePieTestDb: Dashboard = {
@@ -123,17 +123,16 @@ describe('Dashboard.MapperService', () => {
       title: 'Some Dashboard',
       charts: [getPieChartOptionsDtoMock2().buildChartOptions()],
     };
-    expect(service.mapUiToDto(singlePieTestDb)).toEqual(singlePieTestDto);
+    expect(service.mapUiToCDto(singlePieTestDb)).toEqual(singlePieTestDto);
   });
 
   it('should map Dashboard with ONE LineChartOptionsDto', () => {
-    const singleLineTestDto: DashboardDto = {
+    const singleLineTestDto: DashboardCreationDto = {
       companyId: 0,
       id: 1,
       creatorId: getTestUser().id,
-      creationDate: new Date(),
       title: 'Some Dashboard',
-      chartDtos: [getLineChartOptionsDtoMock2()],
+      chartCreationOptions: [getLineChartOptionsDtoMock2()],
     };
 
     const singleLineTestDb: Dashboard = {
@@ -144,17 +143,16 @@ describe('Dashboard.MapperService', () => {
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDtoMock2().buildChartOptions()],
     };
-    expect(service.mapUiToDto(singleLineTestDb)).toEqual(singleLineTestDto);
+    expect(service.mapUiToCDto(singleLineTestDb)).toEqual(singleLineTestDto);
   });
 
   it('should map Dashboard with multiple Charts', () => {
-    const testDto: DashboardDto = {
+    const testDto: DashboardCreationDto = {
       companyId: 0,
       id: 1,
       creatorId: getTestUser().id,
-      creationDate: new Date(),
       title: 'Some Dashboard',
-      chartDtos: [getLineChartOptionsDtoMock2(), getPieChartOptionsDtoMock2()],
+      chartCreationOptions: [getLineChartOptionsDtoMock2(), getPieChartOptionsDtoMock2()],
     };
 
     const testDb: Dashboard = {
@@ -165,7 +163,7 @@ describe('Dashboard.MapperService', () => {
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDtoMock2().buildChartOptions(), getPieChartOptionsDtoMock2().buildChartOptions()],
     };
-    expect(service.mapUiToDto(testDb)).toEqual(testDto);
+    expect(service.mapUiToCDto(testDb)).toEqual(testDto);
   });
 
 });
