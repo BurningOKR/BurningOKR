@@ -37,15 +37,15 @@
   <mat-card-actions class="item-actions">
     <!-- Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird -->
     <span [matTooltip]="isCurrentUserAdmin ? '':'Admin Autorität erforderlich'">
-    <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin"
-            [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button
+    <button (click)="$event.stopPropagation(); editCompany()" (keydown.enter)="$event.stopPropagation();"
+            [disabled]="!isCurrentUserAdmin" [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button
             matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.edit-unit-name' | translate}}">
       <mat-icon>edit</mat-icon>
       <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</span>
     </button>
-    <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"
-            [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button
-            matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.delete-unit' | translate}}">
+    <button (click)="$event.stopPropagation(); deleteCompany()" (keydown.enter)="$event.stopPropagation();"
+            [disabled]="!isCurrentUserAdmin || isPlayground" [matTooltipDisabled]="!this.isCurrentUserAdmin"
+            mat-stroked-button matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.delete-unit' | translate}}">
       <mat-icon>delete</mat-icon>
       <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
     </button>
