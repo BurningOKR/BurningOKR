@@ -49,5 +49,4 @@ export class CreateDashboardComponent implements OnInit, ComponentCanDeactivate 
 
     this.dashboardModificationComponent.dbFormGroup.markAsPristine();
   }
-
 }
