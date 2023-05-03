@@ -123,7 +123,7 @@ describe('Dashboard.MapperService', () => {
       title: 'Some Dashboard',
       charts: [getPieChartOptionsDtoMock2().buildChartOptions()],
     };
-    expect(service.mapUiToCDto(singlePieTestDb)).toEqual(singlePieTestDto);
+    expect(service.mapUiToCreationDto(singlePieTestDb)).toEqual(singlePieTestDto);
   });
 
   it('should map Dashboard with ONE LineChartOptionsDto', () => {
@@ -143,7 +143,7 @@ describe('Dashboard.MapperService', () => {
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDtoMock2().buildChartOptions()],
     };
-    expect(service.mapUiToCDto(singleLineTestDb)).toEqual(singleLineTestDto);
+    expect(service.mapUiToCreationDto(singleLineTestDb)).toEqual(singleLineTestDto);
   });
 
   it('should map Dashboard with multiple Charts', () => {
@@ -163,7 +163,7 @@ describe('Dashboard.MapperService', () => {
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDtoMock2().buildChartOptions(), getPieChartOptionsDtoMock2().buildChartOptions()],
     };
-    expect(service.mapUiToCDto(testDb)).toEqual(testDto);
+    expect(service.mapUiToCreationDto(testDb)).toEqual(testDto);
   });
 
 });

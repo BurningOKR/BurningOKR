@@ -66,7 +66,7 @@ export class DashboardMapperService {
     };
   }
 
-  mapUiToCDto(dashboard: Dashboard): DashboardCreationDto {
+  mapUiToCreationDto(dashboard: Dashboard): DashboardCreationDto {
     return {
       id: dashboard.id,
       title: dashboard.title,
