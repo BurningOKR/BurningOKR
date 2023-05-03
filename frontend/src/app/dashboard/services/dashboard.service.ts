@@ -28,11 +28,11 @@ export class DashboardService {
   }
 
   createDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
-    return this.dashboardApiService.createDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
+    return this.dashboardApiService.createDashboard$(this.dashboardMapper.mapUiToCreationDto(dashboard));
   }
 
   updateDashboard$(dashboard: Dashboard): Observable<DashboardDto> {
-    return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToCDto(dashboard));
+    return this.dashboardApiService.postDashboard$(this.dashboardMapper.mapUiToCreationDto(dashboard));
   }
 
   deleteDashboardById$(dashboardId: number): Observable<boolean> {
