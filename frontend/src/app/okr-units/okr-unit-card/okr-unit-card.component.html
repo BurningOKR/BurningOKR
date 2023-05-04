@@ -1,41 +1,10 @@
-<button (click)="selectCompany()" class="company-card pointing" mat-button>
-  <span>
-    <mat-card-title>
-      <span>{{company.name}}</span>
-      <mat-form-field *ngIf="cyclesWithHistoryCompanies; else spinner" class="number-input history-cycle-input">
-      <mat-select (click)="$event.stopPropagation();" (selectionChange)="onSelectCycle($event)"
-                  [value]="chosenCycleWithHistoryCompany.cycle.id">
-        <mat-select-trigger>
-          {{chosenCycleWithHistoryCompany.cycle.abbreviation}}
-          <br><small>[{{chosenCycleWithHistoryCompany.cycle.startDate | dateFormat: true | async}}
-          - {{chosenCycleWithHistoryCompany.cycle.endDate | dateFormat: true | async}}]</small>
-          <mat-icon *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState === 'CLOSED'"
-                    class="padlock-margin">lock</mat-icon>
-          <mat-icon *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState === 'PREPARATION'" class="padlock-margin">watch_later</mat-icon>
-        </mat-select-trigger>
-        <mat-option (click)="$event.stopPropagation();"
-                    *ngFor="let cycleWithHistoryCompany of cyclesWithHistoryCompanies"
-                    [class.option-inactive-cycle]="cycleWithHistoryCompany.cycle.remainingDaysUntilEnd <= 0"
-                    [value]="cycleWithHistoryCompany.cycle.id" class="option">
-          {{cycleWithHistoryCompany.cycle.abbreviation}}
-          <br><small>[{{cycleWithHistoryCompany.cycle.startDate | dateFormat: true | async}}
-          - {{cycleWithHistoryCompany.cycle.endDate | dateFormat: true | async}}]</small>
-          <mat-icon *ngIf="cycleWithHistoryCompany.cycle.cycleState === 'CLOSED'" class="padlock-margin">lock</mat-icon>
-          <mat-icon *ngIf="cycleWithHistoryCompany.cycle.cycleState === 'PREPARATION'" class="padlock-margin">watch_later</mat-icon>
-        </mat-option>
-      </mat-select>
-      </mat-form-field>
-      <ng-template #spinner>
-        <div class="loader"></div>
-      </ng-template>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <span>{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate}} - {{company.label}}</span>
-    </mat-card-subtitle>
-  </span>
-  <mat-card-actions class="item-actions">
-    <!-- Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird -->
-    <span [matTooltip]="isCurrentUserAdmin ? '':'Admin Autorität erforderlich'">
+<button (click)="selectCompany()" class="my-mat-card company-card" mat-button>
+  <mat-card-title class="my-mat-title">
+    <div>{{company.name}}</div>
+  </mat-card-title>
+  <div class="my-mat-subtitle">{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate}}
+    - {{company.label}}</div>
+  <div class="my-mat-buttons">
     <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin"
             [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button
             matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.edit-unit-name' | translate}}">
@@ -48,7 +17,57 @@
       <mat-icon>delete</mat-icon>
       <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
     </button>
-  </span>
-  </mat-card-actions>
+  </div>
+  <!--  <div>-->
+  <!--    <mat-card-title>-->
+  <!--      <div>{{company.name}}</div>-->
+  <!--        <mat-form-field *ngIf="cyclesWithHistoryCompanies; else spinner" class="number-input history-cycle-input">-->
+  <!--          <mat-select (click)="$event.stopPropagation();" (selectionChange)="onSelectCycle($event)"-->
+  <!--                      [value]="chosenCycleWithHistoryCompany.cycle.id">-->
+  <!--            <mat-select-trigger>-->
+  <!--              {{chosenCycleWithHistoryCompany.cycle.abbreviation}}-->
+  <!--              <br><small>[{{chosenCycleWithHistoryCompany.cycle.startDate | dateFormat: true | async}}-->
+  <!--              - {{chosenCycleWithHistoryCompany.cycle.endDate | dateFormat: true | async}}]</small>-->
+  <!--              <mat-icon *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState === 'CLOSED'"-->
+  <!--                        class="padlock-margin">lock</mat-icon>-->
+  <!--              <mat-icon *ngIf="chosenCycleWithHistoryCompany.cycle.cycleState === 'PREPARATION'" class="padlock-margin">watch_later</mat-icon>-->
+  <!--            </mat-select-trigger>-->
+  <!--            <mat-option (click)="$event.stopPropagation();"-->
+  <!--                        *ngFor="let cycleWithHistoryCompany of cyclesWithHistoryCompanies"-->
+  <!--                        [class.option-inactive-cycle]="cycleWithHistoryCompany.cycle.remainingDaysUntilEnd <= 0"-->
+  <!--                        [value]="cycleWithHistoryCompany.cycle.id" class="option">-->
+  <!--              {{cycleWithHistoryCompany.cycle.abbreviation}}-->
+  <!--              <br><small>[{{cycleWithHistoryCompany.cycle.startDate | dateFormat: true | async}}-->
+  <!--              - {{cycleWithHistoryCompany.cycle.endDate | dateFormat: true | async}}]</small>-->
+  <!--              <mat-icon *ngIf="cycleWithHistoryCompany.cycle.cycleState === 'CLOSED'" class="padlock-margin">lock</mat-icon>-->
+  <!--              <mat-icon *ngIf="cycleWithHistoryCompany.cycle.cycleState === 'PREPARATION'" class="padlock-margin">watch_later</mat-icon>-->
+  <!--            </mat-option>-->
+  <!--          </mat-select>-->
+  <!--        </mat-form-field>-->
+  <!--      <ng-template #spinner>-->
+  <!--        <div class="loader"></div>-->
+  <!--      </ng-template>-->
+  <!--    </mat-card-title>-->
+  <!--    <mat-card-subtitle>-->
+  <!--      <div>{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate}} - {{company.label}}</div>-->
+  <!--    </mat-card-subtitle>-->
+  <!--  </div>-->
+  <!--  <mat-card-actions class="item-actions">-->
+  <!--    &lt;!&ndash; Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird &ndash;&gt;-->
+  <!--    <div [matTooltip]="isCurrentUserAdmin ? '':'Admin Autorität erforderlich'">-->
+  <!--    <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin"-->
+  <!--            [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button-->
+  <!--            matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.edit-unit-name' | translate}}">-->
+  <!--      <mat-icon>edit</mat-icon>-->
+  <!--      <div>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</div>-->
+  <!--    </button>-->
+  <!--    <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"-->
+  <!--            [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button-->
+  <!--            matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.delete-unit' | translate}}">-->
+  <!--      <mat-icon>delete</mat-icon>-->
+  <!--      <div>{{'okr-unit-card.mat-card-actions.delete' | translate}}</div>-->
+  <!--    </button>-->
+  <!--  </div>-->
+  <!--  </mat-card-actions>-->
 
 </button>
