@@ -24,7 +24,7 @@ export class DashboardCardComponent implements OnInit {
 
   selectDashboard(dashboard_id: number): void {
     this.router.navigate(
-      [`dashboard/${dashboard_id}`], { replaceUrl: true },
+      [`dashboard/${dashboard_id}`], { replaceUrl: false },
     ).catch();
   }
 }
