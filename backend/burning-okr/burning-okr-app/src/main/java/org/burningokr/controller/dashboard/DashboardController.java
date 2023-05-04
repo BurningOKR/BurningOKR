@@ -39,7 +39,7 @@ public class DashboardController {
   /**
    * API Endpoint to update a DashboardDto by id.
    *
-   * @param dashboardCreationDto a {@link DashboardCreationDto} object
+   * @param dashboardDto a {@link DashboardDto} object
    * @param user                 a {@link User} object
    * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
    */
