@@ -7,6 +7,16 @@ mat-progress-bar {
   margin: 10px 10px 0 0;
 }
 
+.item-actions button:hover {
+  background-color: #595959;
+  color: #FFFFFF;
+}
+
+.item-actions button:focus {
+  background-color: #595959;
+  color: #FFFFFF;
+}
+
 .circle-image {
   border-radius: 50%;
   height: 70%;
@@ -32,4 +42,20 @@ mat-progress-bar {
 .margin-toolbar {
   margin-top: 15px;
   margin-left: 35px;
+}
+
+.my-mat-button {
+  margin-right: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.my-mat-button:hover {
+  background-color: #595959;
+  color: #FFFFFF;
+}
+
+.my-mat-button:focus {
+  background-color: #595959;
+  color: #FFFFFF;
 }

@@ -5,15 +5,13 @@
   <div class="my-mat-subtitle">{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate}}
     - {{company.label}}</div>
   <div class="my-mat-buttons">
-    <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin"
-            [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button
-            matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.edit-unit-name' | translate}}">
+    <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin" class="my-mat-button"
+            mat-stroked-button>
       <mat-icon>edit</mat-icon>
       <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</span>
     </button>
     <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"
-            [matTooltipDisabled]="!this.isCurrentUserAdmin" mat-stroked-button
-            matTooltip="{{'okr-unit-card.mat-card-actions.tooltip.delete-unit' | translate}}">
+            class="my-mat-button" mat-stroked-button>
       <mat-icon>delete</mat-icon>
       <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
     </button>

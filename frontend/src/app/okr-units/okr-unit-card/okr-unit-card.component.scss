@@ -1,36 +1,40 @@
-.my-mat-card {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  padding: 16px;
-  box-sizing: border-box;
-  border-radius: 4px;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-.my-mat-title {
-  text-align: left;
-  color: #000000;
-  //position: relative;
-}
-
-.my-mat-subtitle {
-  text-align: left;
-  color: #000000;
-  //position: relative;
-}
-
-.my-mat-buttons {
-  text-align: left;
-  //position: relative;
-}
-
 .company-card {
   margin: 35px;
   width: 95%;
   height: 150px;
 }
+
+.my-mat-title {
+  text-align: left;
+  color: #000000;
+}
+
+.my-mat-subtitle {
+  text-align: left;
+  color: #000000;
+}
+
+.my-mat-buttons {
+  text-align: left;
+}
+
+.my-mat-button {
+  background-color: #FFFFFF;
+  margin-right: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.my-mat-button:hover {
+  background-color: #595959;
+  color: #FFFFFF;
+}
+
+.my-mat-button:focus {
+  background-color: #595959;
+  color: #FFFFFF;
+}
+
 
 .company-actions button {
   position: absolute;
