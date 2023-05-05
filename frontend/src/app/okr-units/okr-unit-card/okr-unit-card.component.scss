@@ -35,7 +35,6 @@
   color: #FFFFFF;
 }
 
-
 .company-actions button {
   position: absolute;
   margin: 10px 10px 0 0;
@@ -46,9 +45,9 @@
 }
 
 
-.item-actions button {
-  margin: 10px 10px 0 0;
-}
+//.item-actions button {
+//  margin: 10px 10px 0 0;
+//}
 
 .padlock-margin {
   margin-left: 45px;
@@ -58,8 +57,14 @@
   width: 220px;
   /*margin-top: 8px;*/
   margin-top: -0.84375em;
+  margin-right: 25px;
   font-size: 16px;
   float: right;
+}
+
+.cycle-select {
+  padding: 5px;
+  height: 40px;
 }
 
 small {

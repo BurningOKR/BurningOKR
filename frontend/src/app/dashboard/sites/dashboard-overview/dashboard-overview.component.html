@@ -9,10 +9,8 @@
 <app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>
 
 <div *ngIf="companyId$ | async; let companyId" class="create-dashboard-button">
-  <button mat-stroked-button routerLink="/companies/{{companyId}}/create-dashboard">
-    <mat-icon>add_circle_outline</mat-icon>
-    {{'dashboard-overview.create-dashboard-button' | translate}}
-  </button>
+  <app-add-button (click)="navToDashboardCreation(companyId);"
+                  text="{{'dashboard-overview.create-dashboard-button' | translate}}"></app-add-button>
 </div>
 
 <div class="dashboard-overview-cards d-flex">

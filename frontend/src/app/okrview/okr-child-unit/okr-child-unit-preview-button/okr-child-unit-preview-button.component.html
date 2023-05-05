@@ -1,6 +1,6 @@
 <div *ngIf="childUnit$ | async as childUnit; else loading">
   <button [ngClass]="{ 'inactive-element': !childUnit.isActive }" [routerLink]="['../../departments', unitId]"
-          class="previewButton" mat-raised-button
+          class="my-mat-card previewButton box-shadow" mat-button
           matTooltip="{{ 'okr-child-unit-preview-button.tooltip.show-department' | translate }}">
     <div class="d-flex center">
       <div class="f-1">
