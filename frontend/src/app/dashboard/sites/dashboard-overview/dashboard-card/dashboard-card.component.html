@@ -2,11 +2,11 @@
   <div>
     <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="menu" class="dashboard_settings_button"
             mat-icon-button>
-      <mat-icon class="font-32">more_vert</mat-icon>
+      <mat-icon>more_vert</mat-icon>
     </button>
   </div>
   <div class="overflow-ellipsis">
-    <mat-icon class="dashboard-icon font-32">dashboard</mat-icon>
+    <mat-icon class="dashboard-icon">dashboard</mat-icon>
     <br>
     {{dashboard.title}}
     <br><br>
@@ -17,14 +17,14 @@
 </button>
 
 <mat-menu #menu="matMenu">
-  <span matTooltip="{{'dashboard-card.edit-dashboard' | translate}}">
+  <span>
       <button (keydown)="$event.stopPropagation()" mat-menu-item
               routerLink="/dashboard/{{dashboard.id}}/edit-dashboard">
         <mat-icon>edit</mat-icon>
         <span>{{'dashboard-card.edit-dashboard' | translate}}</span>
       </button>
   </span>
-  <span matTooltip="{{'dashboard-card.delete-dashboard' | translate}}">
+  <span>
       <button (click)="deleteDashboard.next(dashboard)" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>{{'dashboard-card.delete-dashboard' | translate}}</span>

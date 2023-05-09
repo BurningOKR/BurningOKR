@@ -197,6 +197,7 @@
   },
   "dashboard": {
     "okr-toolbar": {
+      "navigate-to-structure-view": "To the structure overview",
       "dashboard": "Dashboard"
     }
   },

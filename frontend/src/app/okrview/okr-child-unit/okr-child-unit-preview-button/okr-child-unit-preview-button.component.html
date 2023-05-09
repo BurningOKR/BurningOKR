@@ -4,7 +4,7 @@
           matTooltip="{{ 'okr-child-unit-preview-button.tooltip.show-department' | translate }}">
     <div class="d-flex center">
       <div class="f-1">
-        <mat-icon class="font-32">{{isOkrBranch(childUnit) ? 'account_tree' : 'group'}}</mat-icon>
+        <mat-icon>{{isOkrBranch(childUnit) ? 'account_tree' : 'group'}}</mat-icon>
       </div>
       <div class="f-5 overflow-ellipsis">
         {{ childUnit.label }}

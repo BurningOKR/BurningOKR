@@ -36,20 +36,22 @@
     <div class="my-mat-subtitle">{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate}}
       - {{company.label}}</div>
   </mat-card-subtitle>
-  <div [matTooltip]="isCurrentUserAdmin ? '' : ('okr-unit-card.mat-card-actions.admin-required' | translate)"
-       class="my-mat-buttons">
-    <!--    Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird-->
-    <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin" class="my-mat-button"
-            mat-stroked-button>
-      <mat-icon>edit</mat-icon>
-      <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</span>
-    </button>
-    <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"
-            class="my-mat-button" mat-stroked-button>
-      <mat-icon>delete</mat-icon>
-      <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
-    </button>
-  </div>
+  <mat-card-actions class="item-actions">
+    <div [matTooltip]="isCurrentUserAdmin ? '' : ('okr-unit-card.mat-card-actions.admin-required' | translate)"
+         class="my-mat-buttons">
+      <!--    Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird-->
+      <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin" class="my-mat-button"
+              mat-stroked-button>
+        <mat-icon>edit</mat-icon>
+        <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</span>
+      </button>
+      <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"
+              class="my-mat-button" mat-stroked-button>
+        <mat-icon>delete</mat-icon>
+        <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
+      </button>
+    </div>
+  </mat-card-actions>
 
   <!--  <mat-card-actions class="item-actions">-->
   <!--    &lt;!&ndash; Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird &ndash;&gt;-->

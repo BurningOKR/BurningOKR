@@ -1,5 +1,6 @@
 <app-okr-toolbar>
-  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
+  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button
+          matTooltip="{{ 'dashboard.okr-toolbar.navigate-to-structure-view' | translate }}">
     <mat-icon>home</mat-icon>
   </button>
   <span>{{'dashboard-overview.okr-toolbar.dashboard-overview' | translate}}</span>
