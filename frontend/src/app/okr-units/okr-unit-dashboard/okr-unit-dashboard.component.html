@@ -4,9 +4,9 @@
   </app-okr-toolbar>
 
   <!-- General Buttons -->
-  <div class="margin-toolbar item-actions">
+  <div>
     <app-add-button (buttonClicked)="addCompany()" [isDisabled]="(isCurrentUserAdmin$ | async) === false"
-                    text="{{'okr-unit-dashboard.add-unit' | translate}}"></app-add-button>
+                    class="add-company-button" text="{{'okr-unit-dashboard.add-unit' | translate}}"></app-add-button>
   </div>
 
   <!-- A card for each company -->

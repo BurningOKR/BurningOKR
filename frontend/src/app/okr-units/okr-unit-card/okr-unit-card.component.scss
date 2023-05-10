@@ -1,18 +1,30 @@
 .company-card {
-  margin-left: 35px;
+  margin-left: 5%;
   margin-top: 35px;
-  width: 95%;
-  max-width: 95%;
-  height: 150px;
+  width: 90%;
+  max-width: 90%;
+  height: auto;
+  padding-bottom: 10px;
   //display: flex;
   //flex-direction: column;
 }
 
-//@media only screen and (max-width: 420px) {
-//  .company-card {
-//    width: 340px;
-//  }
-//}
+@media only screen and (max-width: 420px) {
+  //.divte {
+  //  width: 240px;
+  //}
+  .my-mat-button {
+    display: block;
+  }
+  .my-mat-subtitle {
+    display: block;
+  }
+  .history-cycle-input {
+    display: block;
+    float: left;
+    margin-bottom: 15px;
+  }
+}
 
 .my-mat-title {
   text-align: left;
@@ -29,6 +41,7 @@
 }
 
 .my-mat-button {
+  //color: #000000;
   background-color: #FFFFFF;
   margin-right: 5px;
   position: relative;
