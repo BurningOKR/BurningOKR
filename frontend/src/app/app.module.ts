@@ -63,8 +63,6 @@ registerLocaleData(localeDe, 'de', localeDeExtra);
 
 const currentLanguage: string = 'de';
 
-// (window as any).retain = [ CustomChartComponent ];
-
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -144,9 +142,6 @@ export function createTranslateLoader(http: HttpClient) {
 
   ],
   bootstrap: [AppComponent],
-  // entryComponents: [
-  //   CustomChartComponent
-  // ]
 })
 export class AppModule {
 }

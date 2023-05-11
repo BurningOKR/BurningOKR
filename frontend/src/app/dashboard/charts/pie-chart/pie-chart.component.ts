@@ -3,8 +3,6 @@ import { PieChartOptions } from '../../model/ui/pie-chart-options';
 import { CustomChartComponent } from '../../decorator/chart-component.decorator';
 import { BaseChartComponent } from '../base-chart/base-chart.component';
 
-// (window as any).retain = [ CustomChartComponent ];
-
 @CustomChartComponent(PieChartOptions)
 @Component({
   selector: 'app-pie-chart',
