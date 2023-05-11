@@ -14,7 +14,7 @@ import { TopicDraftMapper } from '../../shared/services/mapper/topic-draft-mappe
 @Component({
   selector: 'app-topic-drafts',
   templateUrl: './topic-drafts.component.html',
-  styleUrls: ['./topic-drafts.component.css'],
+  styleUrls: ['./topic-drafts.component.scss'],
 })
 export class TopicDraftsComponent implements OnInit {
 

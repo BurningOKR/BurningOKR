@@ -27,7 +27,7 @@ interface ImportCsvWarnings {
 @Component({
   selector: 'app-import-csv-dialog',
   templateUrl: './import-csv-dialog.component.html',
-  styleUrls: ['./import-csv-dialog.component.css'],
+  styleUrls: ['./import-csv-dialog.component.scss'],
 })
 export class ImportCsvDialogComponent implements OnInit {
 

@@ -18,7 +18,7 @@ interface TopicDraftCreationFormData {
 @Component({
   selector: 'app-topic-draft-creation-form',
   templateUrl: './topic-draft-creation-form.component.html',
-  styleUrls: ['./topic-draft-creation-form.component.css'],
+  styleUrls: ['./topic-draft-creation-form.component.scss'],
 })
 export class TopicDraftCreationFormComponent implements OnInit {
   topicDraftForm: FormGroup;

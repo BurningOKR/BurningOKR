@@ -16,7 +16,7 @@ import { UserDialogData } from '../user-dialog-data';
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
-  styleUrls: ['./user-dialog.component.css'],
+  styleUrls: ['./user-dialog.component.scss'],
 })
 export class UserDialogComponent implements OnInit, OnDestroy {
   @ViewChild('canvasElement') canvas;
