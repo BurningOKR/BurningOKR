@@ -7,6 +7,7 @@ export const chartComponentMappings: {
 }[] = [];
 
 export function CustomChartComponent(chartOptionsType: ConstructorType<BaseChartOptions>) {
+
   return (chartComponentType: ConstructorType<any>): void => {
     chartComponentMappings.push({
       chartOptionsType,

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-okr-topic-description-form',
   templateUrl: './okr-topic-description-form.component.html',
-  styleUrls: ['./okr-topic-description-form.component.css'],
+  styleUrls: ['./okr-topic-description-form.component.scss'],
 })
 export class OkrTopicDescriptionFormComponent implements OnInit {
 

@@ -1,10 +1,8 @@
 <div *ngIf="topicDrafts[0] !== undefined" class="card-wrapper">
   <div class="card-wrapper-head-wrapper">
-    <div class="card-wrapper-head">
-      <span class="card-wrapper-head-column-info">{{'topic-draft-list.column.submitted' | translate}}</span>
-      <span class="card-wrapper-head-column-info">{{'topic-draft-list.column.start' | translate}}</span>
-      <span class="card-wrapper-head-column-info">{{'topic-draft-list.column.name' | translate}}</span>
-    </div>
+    <span class="card-wrapper-head-column-submitted">{{'topic-draft-list.column.submitted' | translate}}</span>
+    <span class="card-wrapper-head-column-start">{{'topic-draft-list.column.start' | translate}}</span>
+    <span class="card-wrapper-head-column-name">{{'topic-draft-list.column.name' | translate}}</span>
   </div>
   <div *ngFor="let topicDraft of topicDrafts">
     <app-topic-draft-card (editedTopicDraftEvent)="updateEditedTopicDraft($event)"

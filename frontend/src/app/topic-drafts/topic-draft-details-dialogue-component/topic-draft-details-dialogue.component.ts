@@ -17,7 +17,7 @@ export interface SubmittedTopicDraftDetailsFormData {
 @Component({
   selector: 'app-topic-draft-details-dialogue',
   templateUrl: './topic-draft-details-dialogue.component.html',
-  styleUrls: ['./topic-draft-details-dialogue.component.css'],
+  styleUrls: ['./topic-draft-details-dialogue.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 

@@ -911,6 +911,8 @@
   "user-management": {
     "active-table-header": "Active",
     "add-new-user": "Create user",
+    "edit-user-header-popup": "Edit user",
+    "reset-user-password": "Reset password",
     "admin-table-header": "Admin",
     "checkbox": "Show deactivated users",
     "department-table-header": "Department",
@@ -925,7 +927,11 @@
       "go-to-okr-unit-overview": "Go to structure overview",
       "import-users-from-csv": "Import users from CSV"
     },
-    "user-management-toolbar-title": "User administration"
+    "user-management-toolbar-title": "User administration",
+    "deactivate-user-header-popup": "Deactivate user",
+    "deactivate-user-text-popup": "Do you really want to deactivate {{ value }}? The user can no longer use the application after that and will be automatically removed from all teams at the next cycle change.",
+    "reactivate-user-header-popup": "Reactivate user",
+    "reactivate-user-text-popup": "Would you like to reactivate {{ value }}? The user can then use the application to its full extent again."
   },
   "user-minibutton": {
     "loading-user": "Load user...",
