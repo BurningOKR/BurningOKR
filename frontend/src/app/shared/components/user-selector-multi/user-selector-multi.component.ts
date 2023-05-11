@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-user-selector-multi',
   templateUrl: './user-selector-multi.component.html',
-  styleUrls: ['./user-selector-multi.component.css'],
+  styleUrls: ['./user-selector-multi.component.scss'],
 })
 export class UserSelectorMultiComponent implements OnInit {
 

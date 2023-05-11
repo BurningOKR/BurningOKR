@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-taskboard-state-column-view',
   templateUrl: './taskboard-state-column-view.component.html',
-  styleUrls: ['./taskboard-state-column-view.component.css'],
+  styleUrls: ['./taskboard-state-column-view.component.scss'],
 })
 export class TaskboardStateColumnViewComponent extends TaskBoardViewDirective implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
