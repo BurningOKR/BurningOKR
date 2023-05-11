@@ -20,7 +20,6 @@ public class DashboardController {
   private final DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper;
   private final DataMapper<DashboardCreation, DashboardDto> dashboardMapper;
 
-
   /**
    * API Endpoint to create a DashboardCreation
    *
@@ -29,12 +28,12 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok with the created DashboardCreation
    */
   @PostMapping("/dashboards")
-  public ResponseEntity<DashboardCreationDto> createDashboard(
+  public ResponseEntity<DashboardDto> createNewDashboard(
     @RequestBody DashboardCreationDto dashboardCreationDto, User user
   ) {
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
     dashboardCreation = dashboardService.createDashboard(dashboardCreation, user);
-    return ResponseEntity.ok(dashboardCreationMapper.mapEntityToDto(dashboardCreation));
+    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
   }
 
   /**
@@ -44,9 +43,9 @@ public class DashboardController {
    * @param user                 a {@link User} object
    * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
    */
-  @PostMapping("/dashboards/edit")
-  public ResponseEntity<DashboardDto> updateDashboard(@RequestBody DashboardDto dashboardDto, User user) {
-    DashboardCreation dashboardCreation = dashboardMapper.mapDtoToEntity(dashboardDto);
+  @PostMapping("/dashboards/update")
+  public ResponseEntity<DashboardDto> updateNewDashboard(@RequestBody DashboardCreationDto dashboardCreationDto, User user) {
+    DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
     dashboardCreation = dashboardService.updateDashboard(dashboardCreation, user);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
   }

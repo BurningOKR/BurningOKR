@@ -28,9 +28,14 @@ export class EditDashboardComponent implements OnInit, ComponentCanDeactivate {
   }
 
   updateDashboard(dashboard: Dashboard): void {
-    this.dashboardService.updateDashboard$(dashboard)
-      .pipe(take(1))
-      .subscribe();
+    this.dashboardService.createDashboard$(dashboard)
+      .pipe(
+        take(1),
+        map(createdDashboard => createdDashboard.id),
+      )
+      .subscribe(dashboardId => {
+        this.dashboardModificationComponent.navigateToCreatedDashboard(dashboardId);
+      });
 
     this.dashboardModificationComponent.dbFormGroup.markAsPristine();
   }

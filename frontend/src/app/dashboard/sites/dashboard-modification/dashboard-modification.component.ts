@@ -12,6 +12,7 @@ import { PickChartTypeModalComponent } from './pick-chart-type-modal/pick-chart-
 import { ComponentCanDeactivate } from '../../../core/auth/guards/can-deactivate.guard';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-modification',
@@ -31,6 +32,7 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
     public dialog: MatDialog,
     private translate: TranslateService,
     private formBuilder: FormBuilder,
+    private readonly router: Router,
   ) {
   }
 
@@ -150,6 +152,10 @@ export class DashboardModificationComponent implements OnInit, ComponentCanDeact
           return null;
       }
     });
+  }
+
+  navigateToCreatedDashboard(dashboardId: number): void {
+    this.router.navigate([`/dashboard/${dashboardId}`]);
   }
 }
 
