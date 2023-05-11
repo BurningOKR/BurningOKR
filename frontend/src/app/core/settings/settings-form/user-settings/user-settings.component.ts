@@ -13,7 +13,7 @@ import { DepartmentMapper } from '../../../../shared/services/mapper/department.
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.css'],
+  styleUrls: ['./user-settings.component.scss'],
   providers: [{ provide: SettingsForm, useExisting: UserSettingsComponent }],
 })
 export class UserSettingsComponent extends SettingsForm implements OnInit {

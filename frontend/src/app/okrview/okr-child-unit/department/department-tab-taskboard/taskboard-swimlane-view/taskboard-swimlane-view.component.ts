@@ -19,7 +19,7 @@ export interface TaskBoardSwimlaneViewData {
 @Component({
   selector: 'app-taskboard-swimlane-view',
   templateUrl: './taskboard-swimlane-view.component.html',
-  styleUrls: ['./taskboard-swimlane-view.component.css'],
+  styleUrls: ['./taskboard-swimlane-view.component.scss'],
 })
 export class TaskboardSwimlaneViewComponent extends TaskBoardViewDirective implements OnInit, OnDestroy {
   dataEmitter$: Subject<KeyResultStateTaskMap> = new Subject();

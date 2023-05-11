@@ -4,7 +4,7 @@ import { OkrTopicDraft } from '../../shared/model/ui/OrganizationalUnit/okr-topi
 @Component({
   selector: 'app-topic-draft-list',
   templateUrl: './topic-drafts-list.component.html',
-  styleUrls: ['./topic-drafts-list.component.css'],
+  styleUrls: ['./topic-drafts-list.component.scss'],
 })
 export class TopicDraftsListComponent {
   @Input() topicDrafts: OkrTopicDraft[];

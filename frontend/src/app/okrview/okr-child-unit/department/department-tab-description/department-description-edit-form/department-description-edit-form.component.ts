@@ -15,7 +15,7 @@ interface OkrTopicDescriptionFormData {
 @Component({
   selector: 'app-department-description-edit-form',
   templateUrl: './department-description-edit-form.component.html',
-  styleUrls: ['./department-description-edit-form.component.css'],
+  styleUrls: ['./department-description-edit-form.component.scss'],
 })
 export class DepartmentDescriptionEditFormComponent implements OnInit {
   descriptionForm: FormGroup;

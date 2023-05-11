@@ -11,6 +11,12 @@
     display: none;
 }
 
+.topic-draft-create-button {
+    display: flex;
+    padding: 0.5rem 0 0.5rem 0;
+
+}
+
 @media (max-width: 768px) {
     .short-text {
         display: inline-block;
