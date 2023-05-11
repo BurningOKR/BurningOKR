@@ -6,25 +6,6 @@
   height: auto;
   padding-top: 10px;
   padding-bottom: 10px;
-  //display: flex;
-  //flex-direction: column;
-}
-
-@media only screen and (max-width: 420px) {
-  //.divte {
-  //  width: 240px;
-  //}
-  .my-mat-button {
-    display: block;
-  }
-  .my-mat-subtitle {
-    display: block;
-  }
-  .history-cycle-input {
-    display: block;
-    float: left;
-    margin-bottom: 15px;
-  }
 }
 
 .my-mat-title {
@@ -42,7 +23,6 @@
 }
 
 .my-mat-button {
-  //color: #000000;
   background-color: #FFFFFF;
   margin-right: 5px;
   position: relative;
@@ -68,7 +48,6 @@
   cursor: pointer;
 }
 
-
 .item-actions button {
   margin: 10px 10px 0 0;
 }
@@ -79,11 +58,7 @@
 
 .history-cycle-input {
   width: 220px;
-  /*margin-top: 8px;*/
-  margin-top: -2.84375em;
-  margin-right: 25px;
   font-size: 16px;
-  float: right;
 }
 
 .cycle-select {
@@ -116,5 +91,27 @@ small {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .my-mat-button {
+    display: block;
+    max-width: 95%;
+  }
+}
+
+@media only screen and (max-width: 690px) {
+  .history-cycle-input {
+    display: block;
+    max-width: 90%;
+  }
+}
+
+@media only screen and (min-width: 690px) {
+  .history-cycle-input {
+    margin-top: -75px;
+    margin-right: 25px;
+    float: right;
   }
 }
