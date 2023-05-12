@@ -81,7 +81,7 @@ UPDATE okr_unit
 SET okr_unit_type = 'OkrUnit'
 WHERE okr_unit_type IS NULL;
 
--- TODO create temp_okr_unit-table
+-- create temp_okr_unit-table
 CREATE TABLE temp_okr_unit
 (
     id                       bigint primary key,
@@ -126,7 +126,7 @@ SELECT ou.id, label, name, oc.cycle_id, oc.history_id, 'OKR_COMPANY'
 FROM okr_unit ou
          JOIN okr_company oc on ou.id = oc.id;
 
--- TODO copy values from temp_okr_unit-table to okr_unit-table
+-- copy values from temp_okr_unit-table to okr_unit-table
 TRUNCATE okr_unit CASCADE;
 INSERT INTO okr_unit (id, label, name, cycle_id, history_id, is_active, okr_master_id, okr_topic_description_id,
                       okr_topic_sponsor_id, okr_unit_type, parent_okr_unit_id)
