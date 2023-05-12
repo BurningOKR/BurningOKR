@@ -2,7 +2,6 @@ package org.burningokr.dto.okr;
 
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -16,7 +15,7 @@ public class OkrTopicDescriptionDto {
   private String description;
   private String contributesTo;
   private String delimitation;
-  private LocalDate beginning;
+  private String beginning;
   private String dependencies;
   private String resources;
   private String handoverPlan;

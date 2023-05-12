@@ -6,6 +6,7 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.service.userhandling.UserService;
+import org.burningokr.service.util.DateMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,12 +16,13 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDraftDto> {
   private final UserService userService;
+  private final DateMapper dateMapper;
 
   @Override
   public OkrTopicDraft mapDtoToEntity(OkrTopicDraftDto input) {
     OkrTopicDraft entity = new OkrTopicDraft();
     entity.setDescription(input.getDescription());
-    entity.setBeginning(input.getBeginning());
+    entity.setBeginning(dateMapper.mapDateStringToDate(input.getBeginning()));
     entity.setCurrentStatus(OkrTopicDraftStatusEnum.values()[input.getCurrentStatus()]);
     entity.setContributesTo(input.getContributesTo());
     entity.setDelimitation(input.getDelimitation());

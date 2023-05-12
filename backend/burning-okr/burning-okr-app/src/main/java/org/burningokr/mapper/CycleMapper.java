@@ -6,8 +6,7 @@ import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.burningokr.service.util.DateMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
     Cycle cycle = new Cycle();
     cycle.setId(cycleDto.getId());
     cycle.setName(cycleDto.getName());
-    cycle.setPlannedStartDate(cycleDto.getPlannedStartDate());
-    cycle.setPlannedEndDate(cycleDto.getPlannedEndDate());
+    cycle.setPlannedStartDate(dateMapper.mapDateStringToDate(cycleDto.getPlannedStartDate()));
+    cycle.setPlannedEndDate(dateMapper.mapDateStringToDate(cycleDto.getPlannedEndDate()));
     cycle.setCycleState(cycleDto.getCycleState());
     cycle.setVisible(cycleDto.getIsVisible());
 
@@ -40,8 +39,8 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
 
     cycleDto.setId(cycle.getId());
     cycleDto.setName(cycle.getName());
-    cycleDto.setPlannedStartDate(cycle.getPlannedStartDate());
-    cycleDto.setPlannedEndDate(cycle.getPlannedEndDate());
+    cycleDto.setPlannedStartDate(dateMapper.mapDateToDateString(cycle.getPlannedStartDate()));
+    cycleDto.setPlannedEndDate(dateMapper.mapDateToDateString(cycle.getPlannedEndDate()));
     cycleDto.setCycleState(cycle.getCycleState());
     cycleDto.setIsVisible(cycle.isVisible());
 
