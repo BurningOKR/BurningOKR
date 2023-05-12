@@ -26,7 +26,7 @@ import { TopicDraftStatusService } from '../topic-draft-status.service';
 @Component({
   selector: 'app-topic-draft-action-button',
   templateUrl: './topic-draft-action-button.component.html',
-  styleUrls: ['./topic-draft-action-button.component.css'],
+  styleUrls: ['./topic-draft-action-button.component.scss'],
 })
 export class TopicDraftActionButtonComponent implements OnInit {
   @Input() topicDraft: OkrTopicDraft;

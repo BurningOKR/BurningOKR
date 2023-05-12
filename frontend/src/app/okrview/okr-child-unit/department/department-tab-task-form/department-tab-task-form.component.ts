@@ -28,7 +28,7 @@ export interface TaskFormData {
 @Component({
   selector: 'app-department-tab-task-form',
   templateUrl: './department-tab-task-form.component.html',
-  styleUrls: ['./department-tab-task-form.component.css'],
+  styleUrls: ['./department-tab-task-form.component.scss'],
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm: FormGroup;
@@ -63,7 +63,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         value: '',
         disabled: !this.isInteractive,
       }, [Validators.required, Validators.maxLength(255)]),
-      description: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.maxLength(255)]),
+      description: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.maxLength(2000)]),
       assignedUserIds: new FormControl({ value: null, disabled: !this.isInteractive }),
       assignedKeyResultId: new FormControl({ value: null, disabled: !this.isInteractive }),
       taskStateId: new FormControl({

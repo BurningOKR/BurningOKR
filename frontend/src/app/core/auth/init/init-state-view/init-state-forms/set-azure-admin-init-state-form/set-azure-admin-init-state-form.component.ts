@@ -13,7 +13,7 @@ import { FetchingService } from '../../../../../services/fetching.service';
 @Component({
   selector: 'app-set-azure-admin-init-state-form',
   templateUrl: './set-azure-admin-init-state-form.component.html',
-  styleUrls: ['./set-azure-admin-init-state-form.component.css'],
+  styleUrls: ['./set-azure-admin-init-state-form.component.scss'],
 })
 export class SetAzureAdminInitStateFormComponent extends InitStateFormComponent implements OnInit {
 

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { PieChartOptions } from '../../model/ui/pie-chart-options';
 import { BaseChartComponent } from '../base-chart/base-chart.component';
 
+@CustomChartComponent(PieChartOptions)
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',

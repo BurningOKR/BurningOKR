@@ -29,7 +29,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-department-tab-taskboard',
   templateUrl: './department-tab-taskboard.component.html',
-  styleUrls: ['./department-tab-taskboard.component.css'],
+  styleUrls: ['./department-tab-taskboard.component.scss'],
 })
 export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, OnInit {
   @Input() childUnit: OkrChildUnit;

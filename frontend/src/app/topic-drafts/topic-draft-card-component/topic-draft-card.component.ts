@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-topic-draft-card',
   templateUrl: './topic-draft-card.component.html',
-  styleUrls: ['./topic-draft-card.component.css'],
+  styleUrls: ['./topic-draft-card.component.scss'],
 })
 export class TopicDraftCardComponent {
   @Input() topicDraft: OkrTopicDraft;

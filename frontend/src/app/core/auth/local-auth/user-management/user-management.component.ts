@@ -157,10 +157,11 @@ export class UserManagementComponent implements OnInit {
     return {
       width: '500px',
       data: {
-        title: 'Benutzer deaktivieren',
-        message: `Möchten Sie ${user.givenName} ${user.surname} wirklich deaktivieren?
-         Der Benutzer kann die Anwendung danach nicht mehr verwenden
-          und wird beim nächsten Zykluswechsel automatisch aus allen Teams entfernt.`,
+        title: this.translate.instant('user-management.deactivate-user-header-popup'),
+        message: this.translate.instant(
+          'user-management.deactivate-user-text-popup',
+          { value: `${user.givenName} ${user.surname}` },
+        ),
       },
     };
   }
@@ -169,9 +170,11 @@ export class UserManagementComponent implements OnInit {
     return {
       width: '500px',
       data: {
-        title: 'Benutzer reaktivieren',
-        message: `Möchten Sie ${user.givenName} ${user.surname} reaktivieren?
-         Der Benutzer kann die Anwendung danach wieder in vollem Umfang verwenden.`,
+        title: this.translate.instant('user-management.reactivate-user-header-popup'),
+        message: this.translate.instant(
+          'user-management.reactivate-user-text-popup',
+          { value: `${user.givenName} ${user.surname}` },
+        ),
       },
     };
   }
@@ -179,7 +182,7 @@ export class UserManagementComponent implements OnInit {
   getEditDialogData(user: LocalUserManagementUser): { data: UserDialogData } {
     return {
       data: {
-        title: 'Benutzer bearbeiten',
+        title: this.translate.instant('user-management.edit-user-header-popup'),
         user,
       },
     };
@@ -188,7 +191,7 @@ export class UserManagementComponent implements OnInit {
   getResetPasswordDialogData(user: LocalUserManagementUser): { data: UserDialogData } {
     return {
       data: {
-        title: 'Passwort zurücksetzen',
+        title: this.translate.instant('user-management.reset-user-password'),
         user,
       },
     };
@@ -224,7 +227,7 @@ export class UserManagementComponent implements OnInit {
   private getUserCreationDialogData(): { data: UserDialogData } {
     return {
       data: {
-        title: 'Benutzer erstellen',
+        title: this.translate.instant('user-management.add-new-user'),
       },
     };
   }
