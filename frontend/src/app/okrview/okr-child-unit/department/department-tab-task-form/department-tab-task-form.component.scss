@@ -1,7 +1,8 @@
 .mat-cell, .mat-header-cell {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  padding: 2px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 2px;
+    text-align: left;
 }
 .mat-cell.type {
   width: 2%;

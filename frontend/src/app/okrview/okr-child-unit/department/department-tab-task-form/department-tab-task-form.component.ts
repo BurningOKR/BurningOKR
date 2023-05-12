@@ -63,7 +63,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         value: '',
         disabled: !this.isInteractive,
       }, [Validators.required, Validators.maxLength(255)]),
-      description: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.maxLength(255)]),
+      description: new FormControl({ value: '', disabled: !this.isInteractive }, [Validators.maxLength(2000)]),
       assignedUserIds: new FormControl({ value: null, disabled: !this.isInteractive }),
       assignedKeyResultId: new FormControl({ value: null, disabled: !this.isInteractive }),
       taskStateId: new FormControl({
