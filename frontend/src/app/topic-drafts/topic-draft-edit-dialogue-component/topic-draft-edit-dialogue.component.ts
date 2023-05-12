@@ -9,7 +9,7 @@ import { SubmittedTopicDraftDetailsFormData } from '../topic-draft-details-dialo
 @Component({
   selector: 'app-topic-draft-edit-dialogue',
   templateUrl: './topic-draft-edit-dialogue.component.html',
-  styleUrls: ['./topic-draft-edit-dialogue.component.css'],
+  styleUrls: ['./topic-draft-edit-dialogue.component.scss'],
 })
 export class TopicDraftEditDialogueComponent implements OnInit {
 

@@ -58,7 +58,7 @@ export class OkrUnitCardComponent implements OnInit {
 
   selectCompany(): void {
     if (this.chosenCycleWithHistoryCompany) {
-      this.router.navigate([`okr/companies/${this.chosenCycleWithHistoryCompany.company.id}`], { replaceUrl: true })
+      this.router.navigate([`okr/companies/${this.chosenCycleWithHistoryCompany.company.id}`], { replaceUrl: false })
         .catch();
     }
   }

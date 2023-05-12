@@ -11,6 +11,12 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '1.5.3 (05.05.2023)',
+      changes: [
+        'Fix: displaying the current version of the application',
+      ],
+    },
+    {
       version: '1.5.2 (01.03.2023)',
       changes: [
         'Fix: Wrong Ms-Sql Migration',

@@ -15,7 +15,7 @@ export interface TaskBoardSwimlaneDragDropEvent {
 @Component({
   selector: 'app-taskboard-swimlane',
   templateUrl: './taskboard-swimlane.component.html',
-  styleUrls: ['./taskboard-swimlane.component.css'],
+  styleUrls: ['./taskboard-swimlane.component.scss'],
 })
 export class TaskboardSwimlaneComponent implements OnInit, OnDestroy {
   @Input() tasksForStates: StateTaskMap[];

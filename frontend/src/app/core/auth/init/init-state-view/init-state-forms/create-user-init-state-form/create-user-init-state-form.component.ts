@@ -14,7 +14,7 @@ import { PasswordsMatchValidator } from '../../../../../../shared/validators/pas
 @Component({
   selector: 'app-create-user-state-form',
   templateUrl: './create-user-init-state-form.component.html',
-  styleUrls: ['./create-user-init-state-form.component.css'],
+  styleUrls: ['./create-user-init-state-form.component.scss'],
 })
 export class CreateUserInitStateFormComponent extends InitStateFormComponent implements OnInit {
   adminUserForm: FormGroupTyped<AdminUserForm>;

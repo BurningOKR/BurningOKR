@@ -14,7 +14,7 @@ import { InitStateFormComponent } from '../init-state-form/init-state-form.compo
 @Component({
   selector: 'app-set-oauth-client-details-form',
   templateUrl: './set-oauth-client-details-form.component.html',
-  styleUrls: ['./set-oauth-client-details-form.component.css'],
+  styleUrls: ['./set-oauth-client-details-form.component.scss'],
 })
 export class SetOauthClientDetailsFormComponent extends InitStateFormComponent implements OnInit, OnDestroy {
 
