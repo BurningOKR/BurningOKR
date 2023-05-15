@@ -50,49 +50,53 @@
 
   <!-- show menu settings-->
   <ng-container *ngIf="(isLocalUserbase$ | async) === false && isPlayground === false">
-    <button (keydown)="$event.stopPropagation()" *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
+    <button (keydown)="$event.stopPropagation()" *ngIf="isCurrentUserAdmin$ | async" class="menu-items" mat-menu-item
+            routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
       <span>{{'okr-toolbar.menu.admin-panel-text' | translate}}</span>
     </button>
   </ng-container>
-  <button (keydown)="$event.stopPropagation()" mat-menu-item routerLink="/submitted-topic-drafts">
+  <button (keydown)="$event.stopPropagation()" class="menu-items" mat-menu-item routerLink="/submitted-topic-drafts">
     <mat-icon>assignment</mat-icon>
     <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
-  <button *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" [disabled]="isPlayground" mat-menu-item
-          (keydown)="$event.stopPropagation()" routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
+  <button (keydown)="$event.stopPropagation()" *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" [disabled]="isPlayground"
+          class="menu-items" mat-menu-item
+          routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
     <mat-icon>dashboard</mat-icon>
     <span>{{'okr-toolbar.menu.dashboard-overview' | translate}}</span>
   </button>
-  <button (click)="routeToCycleAdminPanel()" *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)"
-          (keydown)="$event.stopPropagation()" mat-menu-item>
+  <button (click)="routeToCycleAdminPanel()" (keydown)="$event.stopPropagation()"
+          *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" class="menu-items"
+          mat-menu-item>
     <mat-icon>history</mat-icon>
     <span>{{'okr-toolbar.menu.cycle-administration-text' | translate}}</span>
   </button>
-  <button (click)="openSettings()" (keydown)="$event.stopPropagation()" [disabled]="isPlayground" mat-menu-item>
+  <button (click)="openSettings()" (keydown)="$event.stopPropagation()" [disabled]="isPlayground" class="menu-items"
+          mat-menu-item>
     <mat-icon>settings_applications</mat-icon>
     <span>{{'okr-toolbar.menu.settings-text' | translate}}</span>
   </button>
-  <button (keydown)="$event.stopPropagation()" *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)" mat-menu-item
-          routerLink="/auth/users">
+  <button (keydown)="$event.stopPropagation()" *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)"
+          class="menu-items" mat-menu-item routerLink="/auth/users">
     <mat-icon>account_box</mat-icon>
     <span>{{'okr-toolbar.menu.user-managment-text' | translate}}</span>
   </button>
-  <button (click)="openPasswordChangeForm()" (keydown)="$event.stopPropagation()" *ngIf="(isLocalUserbase$ | async)" [disabled]="isPlayground"
-          mat-menu-item>
+  <button (click)="openPasswordChangeForm()" (keydown)="$event.stopPropagation()" *ngIf="(isLocalUserbase$ | async)"
+          [disabled]="isPlayground" class="menu-items" mat-menu-item>
     <mat-icon>vpn_key</mat-icon>
     <span>{{'okr-toolbar.menu.change-password-text'| translate}}</span>
   </button>
   <button (keydown)="$event.stopPropagation()" [disabled]="isPlayground" [routerLink]="['/auth', 'logout']"
-          mat-menu-item>
+          class="menu-items" mat-menu-item>
     <mat-icon>power_settings_new</mat-icon>
     <span>{{'okr-toolbar.menu.logout-text' | translate}}</span>
   </button>
-  <button (click)="pickLanguageClicked()" (keydown)="$event.stopPropagation()" mat-menu-item>
+  <button (click)="pickLanguageClicked()" (keydown)="$event.stopPropagation()" class="menu-items" mat-menu-item>
     <mat-icon>language</mat-icon>
     <span>{{'okr-toolbar.menu.language-picker' | translate}}</span>
   </button>
-  <button (click)="openVersionChangelog()" mat-menu-item>
+  <button (click)="openVersionChangelog()" class="menu-items" mat-menu-item>
     <mat-icon>info</mat-icon>
     <span>v{{ versionString }}</span>
   </button>

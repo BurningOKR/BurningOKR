@@ -7,6 +7,16 @@ mat-progress-bar {
   margin: 10px 10px 0 0;
 }
 
+.item-actions button:hover {
+  background-color: #595959;
+  color: #FFFFFF;
+}
+
+.item-actions button:focus {
+  background-color: #595959;
+  color: #FFFFFF;
+}
+
 .circle-image {
   border-radius: 50%;
   height: 70%;
@@ -24,12 +34,13 @@ mat-progress-bar {
   right: 0;
 }
 
-.company-card {
-  margin: 35px;
-  cursor: pointer;
-}
-
 .margin-toolbar {
   margin-top: 15px;
   margin-left: 35px;
+}
+
+.add-company-button {
+  margin-left: 5%;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }

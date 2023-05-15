@@ -197,6 +197,7 @@
   },
   "dashboard": {
     "okr-toolbar": {
+      "navigate-to-structure-view": "Zur Strukturübersicht",
       "dashboard": "Dashboard"
     }
   },
@@ -680,6 +681,7 @@
     "mat-card-actions": {
       "delete": "Struktur löschen ",
       "edit-name": "Namen bearbeiten",
+      "admin-required": "Admin Autorität erforderlich",
       "tooltip": {
         "delete-unit": "Struktur löschen",
         "edit-unit-name": "Namen der Struktur bearbeiten"

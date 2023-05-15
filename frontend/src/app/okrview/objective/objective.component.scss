@@ -1,6 +1,18 @@
 @use '@angular/material' as mat;
 @import '../../../styles/themes/bag-theme';
 
+.my-panel {
+  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+//.my-panel:hover {
+//  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.54), 0 3px 2px -2px rgba(0, 0, 0, 0.52), 0 1px 6px 0 rgba(0, 0, 0, 0.52);
+//}
+//
+//.my-panel:focus {
+//  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.54), 0 3px 2px -2px rgba(0, 0, 0, 0.52), 0 1px 6px 0 rgba(0, 0, 0, 0.52);
+//}
+
 .mat-expansion-panel-header {
   background-color: mat.get-color-from-palette($md-primary, 500) !important;
   color: mat.get-contrast-color-from-palette($md-primary, 500);

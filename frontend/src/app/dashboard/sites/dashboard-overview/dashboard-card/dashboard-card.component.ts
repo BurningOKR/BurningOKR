@@ -4,6 +4,7 @@ import { UserService } from '../../../../shared/services/helper/user.service';
 import { User } from '../../../../shared/model/api/user';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { DashboardId } from '../../../../shared/model/id-types';
 
 @Component({
   selector: 'app-dashboard-card',
@@ -22,7 +23,7 @@ export class DashboardCardComponent implements OnInit {
     this.creator$ = this.userMapperService.getUserById$(this.dashboard.creatorId);
   }
 
-  selectDashboard(dashboard_id: number): void {
+  selectDashboard(dashboard_id: DashboardId): void {
     this.router.navigate(
       [`dashboard/${dashboard_id}`], { replaceUrl: false },
     ).catch();

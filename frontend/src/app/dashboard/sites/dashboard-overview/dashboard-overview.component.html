@@ -1,5 +1,6 @@
 <app-okr-toolbar>
-  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button>
+  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button
+          matTooltip="{{ 'dashboard.okr-toolbar.navigate-to-structure-view' | translate }}">
     <mat-icon>home</mat-icon>
   </button>
   <span>{{'dashboard-overview.okr-toolbar.dashboard-overview' | translate}}</span>
@@ -9,10 +10,8 @@
 <app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>
 
 <div *ngIf="companyId$ | async; let companyId" class="create-dashboard-button">
-  <button mat-stroked-button routerLink="/companies/{{companyId}}/create-dashboard">
-    <mat-icon>add_circle_outline</mat-icon>
-    {{'dashboard-overview.create-dashboard-button' | translate}}
-  </button>
+  <app-add-button (click)="navToDashboardCreation(companyId);"
+                  text="{{'dashboard-overview.create-dashboard-button' | translate}}"></app-add-button>
 </div>
 
 <div class="dashboard-overview-cards d-flex">
