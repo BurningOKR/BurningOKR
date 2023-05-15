@@ -1,12 +1,12 @@
 CREATE TABLE [user]
 (
     id         uniqueidentifier NOT NULL,
-    given_name VARCHAR,
-    surname    VARCHAR,
-    mail       VARCHAR,
-    job_title  VARCHAR,
-    department VARCHAR,
-    photo      VARCHAR,
+    given_name VARCHAR(255),
+    surname    VARCHAR(255),
+    mail       VARCHAR(255),
+    job_title  VARCHAR(255),
+    department VARCHAR(255),
+    photo      VARCHAR(255),
     active     BIT              NOT NULL,
     admin      BIT              NOT NULL,
     created_at date default CURRENT_TIMESTAMP,
@@ -135,8 +135,8 @@ Go
 CREATE TABLE temp_okr_unit
 (
     id                       bigint primary key,
-    label                    varchar,
-    name                     varchar,
+    label                    varchar(255),
+    name                     varchar(255),
     cycle_id                 bigint,
     history_id               bigint,
     is_active                BIT,
