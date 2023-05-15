@@ -8,7 +8,7 @@ jakarta-mail = '2.+'
 jackson = '2.+'
 postgres = '42.+'
 flyway = '9.+'
-mssql = '12.+'
+mssql = '10.+'
 apache-poi = '5.+'
 guava = '31.+'
 springdoc = '2.+'
@@ -55,6 +55,7 @@ springdoc-starter-webmvcUi = { module = 'org.springdoc:springdoc-openapi-starter
 db-postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }
 db-mssql = { module = 'com.microsoft.sqlserver:mssql-jdbc', version.ref = 'mssql' }
 db-flyway = { module = 'org.flywaydb:flyway-core', version.ref = 'flyway' }
+db-flyway-mssql = { module = 'org.flywaydb:flyway-sqlserver', version.ref = 'flyway' }
 
 # apache poi
 apache-poi = { module = 'org.apache.poi:poi', version.ref = 'apache-poi' }
