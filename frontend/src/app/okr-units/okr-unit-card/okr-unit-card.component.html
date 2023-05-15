@@ -1,10 +1,7 @@
 <button (click)="selectCompany()" class="my-mat-card company-card box-shadow" mat-button>
-  <mat-card-title class="my-mat-title">
-    <div id="companyId">{{company.name}}</div>
-  </mat-card-title>
-  <mat-card-subtitle class="my-mat-subtitle">
-    <div>{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate}} - {{company.label}}</div>
-  </mat-card-subtitle>
+  <div class="my-mat-title" id="companyId">{{company.name}}</div>
+  <div class="my-mat-subtitle">{{'okr-unit-card.mat-card-subtitle.unit-structure' | translate}}
+    - {{company.label}}</div>
   <mat-form-field *ngIf="cyclesWithHistoryCompanies; else spinner" class="number-input history-cycle-input">
     <mat-select (click)="$event.stopPropagation();" (selectionChange)="onSelectCycle($event)"
                 *ngIf="cyclesWithHistoryCompanies; else spinner" [value]="chosenCycleWithHistoryCompany.cycle.id"
@@ -35,20 +32,18 @@
   <ng-template #spinner>
     <div class="loader"></div>
   </ng-template>
-  <mat-card-actions class="item-actions">
-    <div [matTooltip]="isCurrentUserAdmin ? '' : ('okr-unit-card.mat-card-actions.admin-required' | translate)"
-         class="my-mat-buttons">
-      <!--    Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird-->
-      <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin" class="my-mat-button"
-              mat-stroked-button>
-        <mat-icon>edit</mat-icon>
-        <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</span>
-      </button>
-      <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"
-              class="my-mat-button" mat-stroked-button>
-        <mat-icon>delete</mat-icon>
-        <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
-      </button>
-    </div>
-  </mat-card-actions>
+  <div [matTooltip]="isCurrentUserAdmin ? '' : ('okr-unit-card.mat-card-actions.admin-required' | translate)"
+       class="my-mat-buttons">
+    <!--    Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird-->
+    <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin" class="my-mat-button"
+            mat-stroked-button>
+      <mat-icon>edit</mat-icon>
+      <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</span>
+    </button>
+    <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"
+            class="my-mat-button" mat-stroked-button>
+      <mat-icon>delete</mat-icon>
+      <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
+    </button>
+  </div>
 </button>

@@ -11,20 +11,27 @@
 .my-mat-title {
   text-align: left;
   color: #000000;
+  display: block;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .my-mat-subtitle {
   text-align: left;
-  color: #000000;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .my-mat-buttons {
   text-align: left;
+  margin-top: 16px;
 }
 
 .my-mat-button {
   background-color: #FFFFFF;
-  margin-right: 5px;
   position: relative;
   z-index: 1;
 }
@@ -110,7 +117,7 @@ small {
 
 @media only screen and (min-width: 690px) {
   .history-cycle-input {
-    margin-top: -75px;
+    margin-top: -45px;
     margin-right: 25px;
     float: right;
   }
