@@ -148,5 +148,6 @@ export function createTranslateLoader(http: HttpClient) {
   //   CustomChartComponent
   // ]
 })
+
 export class AppModule {
 }

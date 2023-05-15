@@ -5,13 +5,14 @@ import {
   ComponentRef,
   Input,
   OnInit,
-  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
+
 import { BaseChartOptions } from '../model/ui/base-chart-options';
 import { BaseChartComponent } from '../charts/base-chart/base-chart.component';
-import { chartComponentMappings } from '../decorator/chart-component.decorator';
 import { ConstructorType } from '../decorator/constructor.type';
-import { ChartHostDirective } from './chart-host.directive';
+import { ChartInformationTypeEnum } from '../model/dto/chart-creation-options.dto';
+import { LineChartComponent } from '../charts/basic-line-chart/line-chart.component';
 
 @Component({
   selector: 'app-chart-renderer',
@@ -20,26 +21,29 @@ import { ChartHostDirective } from './chart-host.directive';
 })
 export class ChartRendererComponent implements OnInit {
   @Input() chartOptions!: BaseChartOptions;
-  @ViewChild(ChartHostDirective, { static: true }) chartHost!: ChartHostDirective;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnInit(): void {
-    const componentType: ConstructorType<BaseChartOptions> = chartComponentMappings.find(
-      mapping => mapping.chartOptionsType.name === this.chartOptions.chartOptionsName,
-    )?.componentType;
-    if (!componentType) {
-      throw new Error(
-        `No Mapping from chartOptions ${this.chartOptions.chartOptionsName}
-        to ComponentType found. Did you add the Decorator to the ChartComponent???`,
-      );
+    let componentType: ConstructorType<any> = BaseChartComponent;
+    switch (this.chartOptions.chartType) {
+      case ChartInformationTypeEnum.LINE_PROGRESS:
+        componentType = LineChartComponent;
+        break;
+      case ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW:
+        componentType = LineChartComponent;
+        break;
+      default:
+        throw new Error(
+          'Cannot Render Chart. Unknown Chart Type!',
+        );
     }
 
     const componentFactory: ComponentFactory<any> = this.componentFactoryResolver.resolveComponentFactory(componentType);
 
     const componentRef: ComponentRef<BaseChartComponent<BaseChartOptions>> =
-      this.chartHost.viewContainerRef.createComponent<BaseChartComponent<BaseChartOptions>>(
+      this.viewContainerRef.createComponent<BaseChartComponent<BaseChartOptions>>(
         componentFactory,
       );
     componentRef.instance.chartOptions = this.chartOptions;
