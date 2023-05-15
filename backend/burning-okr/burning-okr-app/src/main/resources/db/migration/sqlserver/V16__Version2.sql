@@ -1,4 +1,4 @@
-CREATE TABLE "user"
+CREATE TABLE [user]
 (
     id         uniqueidentifier NOT NULL,
     given_name VARCHAR,
@@ -7,19 +7,22 @@ CREATE TABLE "user"
     job_title  VARCHAR,
     department VARCHAR,
     photo      VARCHAR,
-    active     BIT          NOT NULL,
-    admin      BIT          NOT NULL,
+    active     BIT              NOT NULL,
+    admin      BIT              NOT NULL,
     created_at date default CURRENT_TIMESTAMP,
     CONSTRAINT pk_user PRIMARY KEY (id)
 );
+Go
 
 -- Drop unused tables
 DROP TABLE admin_user;
 DROP TABLE auditor_user;
 DROP TABLE password_token;
 
+GO
+
 -- migrate aad_user-table
-INSERT INTO "user" (id, given_name, surname, mail, job_title, department, photo, active, admin, created_at)
+INSERT INTO [user] (id, given_name, surname, mail, job_title, department, photo, active, admin, created_at)
 SELECT id,
        given_name,
        surname,
@@ -27,22 +30,32 @@ SELECT id,
        job_title,
        department,
        photo,
-       true,
-       false,
-       LOCALTIMESTAMP
+       1,
+       0,
+       CURRENT_TIMESTAMP
 FROM aad_user;
+Go
 
 -- migrate local_user-table and add deprecated to name for indicating, that local user can't be used anymore and need to
 -- be manually migrated
-INSERT INTO "user" (id, given_name, surname, mail, job_title, department, photo, active, admin, created_at)
-SELECT id, given_name, surname + ' DEPRECATED', mail, job_title, department, photo, active, false, created_at
+INSERT INTO [user] (id, given_name, surname, mail, job_title, department, photo, active, admin, created_at)
+SELECT id,
+       given_name,
+       surname + ' DEPRECATED',
+       mail,
+       job_title,
+       department,
+       photo,
+       active,
+       0,
+       created_at
 FROM local_user;
+Go
 
 -- Drop old user-tables
 DROP TABLE aad_user;
 DROP TABLE local_user;
-
-
+Go
 
 
 -----------
@@ -71,6 +84,7 @@ ALTER TABLE okr_unit
 
 ALTER TABLE okr_unit
     ADD parent_okr_unit_id BIGINT;
+Go
 
 ALTER TABLE okr_unit
     ADD CONSTRAINT fk_okrunit_on_cycle FOREIGN KEY (cycle_id) REFERENCES cycle (id);
@@ -86,40 +100,26 @@ ALTER TABLE okr_unit
 
 ALTER TABLE okr_unit_history
     ADD okr_unit_history_type VARCHAR(31);
-
--- Migrate task_board table
-ALTER TABLE task_board
-    ADD CONSTRAINT fk_taskboard_on_parent_unit FOREIGN KEY (parent_unit_id) REFERENCES okr_unit (id);
-
-ALTER TABLE task_board
-    DROP CONSTRAINT task_board_parent_unit_fkey;
+Go
 
 -- Migrate user_settings table
 ALTER TABLE user_settings
-    DROP CONSTRAINT default_company_fkey;
+    DROP CONSTRAINT user_settings_company_fkey;
 
 ALTER TABLE user_settings
-    DROP CONSTRAINT default_team_fkey;
+    DROP CONSTRAINT user_settings_team_fkey;
 
 ALTER TABLE user_settings
     ADD CONSTRAINT fk_usersettings_on_defaultokrcompany FOREIGN KEY (default_okr_company_id) REFERENCES okr_unit (id);
 
 ALTER TABLE user_settings
     ADD CONSTRAINT fk_usersettings_on_defaultteam FOREIGN KEY (default_team_id) REFERENCES okr_unit (id);
-
--- Migrate okr_member table
-ALTER TABLE okr_member
-    ADD CONSTRAINT fk_okr_member_on_okr_department FOREIGN KEY (okr_department_id) REFERENCES okr_unit (id);
-
-ALTER TABLE okr_member
-    DROP CONSTRAINT fk5c2gx62q2posf5ev6d8ctmh71;
+Go
 
 -- temp-drop constraints
 alter table objective
-    drop constraint fkiwxcgedb2ey0wpsfoy842amos;
-
-alter table task_board
-    drop constraint fk_taskboard_on_parent_unit;
+    drop constraint objective_okr_unit_fkey;
+Go
 
 -- Insert dummy-values
 UPDATE okr_unit_history
@@ -129,8 +129,9 @@ WHERE okr_unit_history_type IS NULL;
 UPDATE okr_unit
 SET okr_unit_type = 'OkrUnit'
 WHERE okr_unit_type IS NULL;
+Go
 
--- TODO create temp_okr_unit-table
+-- create temp_okr_unit-table
 CREATE TABLE temp_okr_unit
 (
     id                       bigint primary key,
@@ -142,9 +143,10 @@ CREATE TABLE temp_okr_unit
     okr_master_id            uniqueidentifier,
     okr_topic_description_id bigint,
     okr_topic_sponsor_id     uniqueidentifier,
-    okr_unit_type            varchar,
+    okr_unit_type            varchar(31),
     parent_okr_unit_id       bigint
 );
+Go
 
 -- fill temp_okr_unit-table with departments
 INSERT INTO temp_okr_unit (id, label, name, okr_master_id, okr_topic_description_id, history_id, parent_okr_unit_id,
@@ -161,6 +163,7 @@ SELECT ou.id,
 FROM okr_unit ou
          JOIN okr_child_unit ocu on ou.id = ocu.id
          JOIN okr_department od on ocu.id = od.id;
+Go
 
 -- fill temp_okr_unit-table with branches
 INSERT INTO temp_okr_unit (id, label, name, history_id, parent_okr_unit_id, is_active, okr_unit_type)
@@ -168,22 +171,74 @@ SELECT ou.id, label, name, ob.history_id, ocu.parent_okr_unit_id, ocu.is_active,
 FROM okr_unit ou
          JOIN okr_child_unit ocu on ou.id = ocu.id
          JOIN okr_branch ob on ocu.id = ob.id;
+Go
 
 -- fill temp_okr_unit-table with companies
 INSERT INTO temp_okr_unit (id, label, name, cycle_id, history_id, okr_unit_type)
 SELECT ou.id, label, name, oc.cycle_id, oc.history_id, 'OKR_COMPANY'
 FROM okr_unit ou
          JOIN okr_company oc on ou.id = oc.id;
+Go
 
--- TODO copy values from temp_okr_unit-table to okr_unit-table
-TRUNCATE okr_unit CASCADE;
+-- drop unused tables
+DROP TABLE okr_branch;
+Go
+
+DROP TABLE okr_branch_history;
+Go
+
+DROP TABLE okr_company;
+Go
+
+DROP TABLE okr_company_history;
+Go
+
+-- drop constraints pointing on child_unit and drop okr_child_unit
+ALTER TABLE okr_department
+    DROP CONSTRAINT department_okr_child_unit_fkey;
+Go
+
+DROP TABLE okr_child_unit;
+Go
+
+-- drop constraints pointing on okr_department and drop okr_department
+ALTER TABLE okr_member
+    DROP CONSTRAINT okr_member_department_fkey;
+Go
+
+ALTER TABLE task_board
+    DROP CONSTRAINT task_board_parent_unit_fkey;
+Go
+
+DROP TABLE okr_department;
+Go
+
+-- drop constraints pointing on okr_department_history and drop okr_department_history
+DROP TABLE okr_department_history;
+Go
+
+-- drop constraints pointing to okr_unit
+ALTER TABLE okr_topic_draft
+    DROP CONSTRAINT fk_topic_draft_parent_unit_id;
+ALTER TABLE user_settings
+    DROP CONSTRAINT fk_usersettings_on_defaultokrcompany;
+ALTER TABLE user_settings
+    DROP CONSTRAINT fk_usersettings_on_defaultteam;
+Go
+
+-- copy values from temp_okr_unit-table to okr_unit-table
+TRUNCATE table okr_unit;
+Go
+
 INSERT INTO okr_unit (id, label, name, cycle_id, history_id, is_active, okr_master_id, okr_topic_description_id,
                       okr_topic_sponsor_id, okr_unit_type, parent_okr_unit_id)
 SELECT *
 FROM temp_okr_unit;
+Go
 
 -- DROP TABLE temp_okr_unit;
 DROP TABLE temp_okr_unit;
+Go
 
 -- migrate okr_unit_history-table
 CREATE TABLE okr_unit_history_temp
@@ -191,6 +246,7 @@ CREATE TABLE okr_unit_history_temp
     id                    bigint primary key,
     okr_unit_history_type varchar(31)
 );
+Go
 
 INSERT INTO okr_unit_history_temp (id, okr_unit_history_type)
 SELECT id, okr_unit_history_type_case
@@ -203,76 +259,84 @@ FROM (SELECT ou.okr_unit_type,
                  END okr_unit_history_type_case
       from okr_unit ou
                JOIN okr_unit_history ouh on ou.history_id = ouh.id) as oo;
+Go
 
 UPDATE okr_unit_history
 SET okr_unit_history_type = okr_unit_history_temp.okr_unit_history_type
 FROM okr_unit_history_temp
 WHERE okr_unit_history_temp.id = okr_unit_history.id;
+Go
 
 DROP TABLE okr_unit_history_temp;
+Go
+
+-- Migrate task_board table
+ALTER TABLE task_board
+    ADD CONSTRAINT fk_taskboard_on_parent_unit FOREIGN KEY (parent_unit_id) REFERENCES okr_unit (id);
+Go
+
+-- Migrate okr_member table
+ALTER TABLE okr_member
+    ADD CONSTRAINT fk_okr_member_on_okr_department FOREIGN KEY (okr_department_id) REFERENCES okr_unit (id);
+Go
 
 -- recreate temp-dropped constraints
 alter table objective
     add constraint fk_objective_on_parent_okr_unit
         foreign key (parent_okr_unit_id) references okr_unit;
+Go
 
-alter table task_board
-    add constraint fk_taskboard_on_parent_unit
+ALTER TABLE okr_topic_draft
+    ADD CONSTRAINT fk_topic_draft_on_parent_unit_id
         foreign key (parent_unit_id) references okr_unit;
+Go
 
--- drop unused tables
-DROP TABLE okr_branch;
+ALTER TABLE user_settings
+    ADD CONSTRAINT fk_user_settings_on_default_company
+        foreign key (default_okr_company_id) references okr_unit;
+Go
 
-DROP TABLE okr_branch_history;
-
-DROP TABLE okr_child_unit;
-
-DROP TABLE okr_company;
-
-DROP TABLE okr_company_history;
-
-DROP TABLE okr_department;
-
-DROP TABLE okr_department_history;
-
-
+ALTER TABLE user_settings
+    ADD CONSTRAINT fk_user_settings_on_default_team
+        foreign key (default_team_id) references okr_unit;
+Go
 
 -------------
 -- General missing constraints
 ALTER TABLE dashboard_creation
-    ALTER COLUMN company_id SET NOT NULL;
+    ALTER COLUMN company_id bigint NOT NULL;
 
 ALTER TABLE dashboard_creation
-    ALTER COLUMN creator_id SET NOT NULL;
+    ALTER COLUMN creator_id uniqueidentifier NOT NULL;
 
 ALTER TABLE key_result_history
-    ALTER COLUMN current_value SET NOT NULL;
+    ALTER COLUMN current_value bigint NOT NULL;
 
 ALTER TABLE objective
-    ALTER COLUMN is_active SET NOT NULL;
+    ALTER COLUMN is_active bit NOT NULL;
 
 ALTER TABLE cycle
-    ALTER COLUMN is_visible SET NOT NULL;
+    ALTER COLUMN is_visible bit NOT NULL;
 
 ALTER TABLE key_result_history
-    ALTER COLUMN key_result_id SET NOT NULL;
+    ALTER COLUMN key_result_id bigint NOT NULL;
 
 ALTER TABLE key_result
-    ALTER COLUMN sequence SET NOT NULL;
+    ALTER COLUMN sequence int NOT NULL;
 
 ALTER TABLE objective
-    ALTER COLUMN sequence SET NOT NULL;
+    ALTER COLUMN sequence int NOT NULL;
 
 ALTER TABLE key_result_history
-    ALTER COLUMN start_value SET NOT NULL;
+    ALTER COLUMN start_value bigint NOT NULL;
 
 ALTER TABLE key_result_history
-    ALTER COLUMN target_value SET NOT NULL;
+    ALTER COLUMN target_value bigint NOT NULL;
 
 ALTER TABLE task
-    ALTER COLUMN task_state_id SET NOT NULL;
+    ALTER COLUMN task_state_id bigint NOT NULL;
 
 ALTER TABLE note
-    ALTER COLUMN user_id SET NOT NULL;
-
+    ALTER COLUMN user_id uniqueidentifier NOT NULL;
+Go
 -- TODO constraints to user-table
