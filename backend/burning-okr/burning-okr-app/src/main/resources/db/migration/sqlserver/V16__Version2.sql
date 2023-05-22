@@ -6,7 +6,7 @@ CREATE TABLE [user]
     mail       VARCHAR(255),
     job_title  VARCHAR(255),
     department VARCHAR(255),
-    photo      VARCHAR(255),
+    photo      TEXT,
     active     BIT              NOT NULL,
     admin      BIT              NOT NULL,
     created_at date default CURRENT_TIMESTAMP,
