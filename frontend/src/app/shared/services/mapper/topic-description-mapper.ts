@@ -19,6 +19,8 @@ export class TopicDescriptionMapper {
   }
 
   mapTopicDescriptionDto(description: OkrTopicDescriptionDto): OkrTopicDescription {
+    console.log('Mapping!');
+
     return new OkrTopicDescription(
       description.id,
       description.name,

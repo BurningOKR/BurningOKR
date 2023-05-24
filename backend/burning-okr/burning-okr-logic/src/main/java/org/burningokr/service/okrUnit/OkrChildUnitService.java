@@ -39,6 +39,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
   private final TaskBoardService taskBoardService;
 
   public T findById(long unitId) {
+    System.out.println("findByID");
     return okrUnitRepository.findById(unitId).orElseThrow(() -> {
       log.warn("Could not find OkrUnit with id %d".formatted(unitId));
       return new EntityNotFoundException();
@@ -47,6 +48,10 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
 
   public Collection<Objective> findObjectivesOfUnit(long unitId) {
     var okrUnit = findById(unitId);
+    System.out.println("okrUnit: ");
+    System.out.println(okrUnit.getName());
+    System.out.println(okrUnit.getId());
+//    System.out.println(okrUnit.toString());
     return objectiveRepository.findByUnitAndOrderBySequence(okrUnit);
   }
 
