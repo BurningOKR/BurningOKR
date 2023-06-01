@@ -28,6 +28,7 @@ public class OkrCompany extends OkrUnit implements OkrParentUnit {
   )
   @EqualsAndHashCode.Exclude
   private Collection<OkrChildUnit> okrChildUnits = new ArrayList<>();
+
   @ManyToOne
   private OkrCompanyHistory history;
 

@@ -27,6 +27,7 @@ public class Task implements Trackable<Long> {
   @Column(length = 1023)
   private String description;
 
+  @ToString.Exclude
   @OneToOne(fetch = FetchType.LAZY)
   @NotNull
   @JoinColumn(name = "task_state_id")

@@ -2,6 +2,7 @@ package org.burningokr.model.okr;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 
 @Entity
@@ -16,6 +17,7 @@ public class TaskState implements Trackable<Long> {
   @Column(length = 255)
   private String title;
 
+  @ToString.Exclude
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_task_board_id")
   private TaskBoard parentTaskBoard;

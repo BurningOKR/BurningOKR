@@ -38,6 +38,7 @@ public class OkrDepartment extends OkrChildUnit {
   @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.ALL)
   private TaskBoard taskBoard;
 
+  @ToString.Exclude
   @ManyToOne(fetch = FetchType.LAZY)
   private OkrDepartmentHistory history;
 

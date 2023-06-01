@@ -3,6 +3,7 @@ package org.burningokr.model.okr;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrDepartment;
 
@@ -17,6 +18,7 @@ public class TaskBoard implements Trackable<Long> {
   @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
+  @ToString.Exclude
   @OneToOne(fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "parent_unit_id")
