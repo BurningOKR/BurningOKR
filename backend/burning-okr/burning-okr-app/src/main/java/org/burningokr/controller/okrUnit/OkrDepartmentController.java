@@ -120,7 +120,6 @@ public class OkrDepartmentController {
   ) {
     OkrDepartment department = okrDepartmentService.findById(departmentId);
     OkrTopicDescription topicDescription = department.getOkrTopicDescription();
-
     OkrTopicDescriptionDto dto = okrTopicDescriptionMapper.mapEntityToDto(topicDescription);
 
     return ResponseEntity.ok(dto);

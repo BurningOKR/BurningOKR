@@ -38,8 +38,13 @@ public class OkrDepartment extends OkrChildUnit {
   @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.ALL)
   private TaskBoard taskBoard;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
+  @JoinColumn(name = "history_department")
   private OkrDepartmentHistory history;
+
+//  @ManyToOne(cascade = CascadeType.REMOVE)
+//  @JoinColumn(name = "okr_department_history_id")
+//  private OkrDepartmentHistory okrDepartmentHistory;
 
   /**
    * Creates a copy of the OkrDepartment without relations.

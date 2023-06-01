@@ -24,6 +24,7 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
   @EqualsAndHashCode.Exclude
   protected Collection<OkrChildUnit> okrChildUnits = new LinkedList<>();
   @ManyToOne
+  @JoinColumn(name = "history_branch")
   private OkrBranchHistory history;
 
   public OkrBranch getCopyWithoutRelations() {

@@ -20,7 +20,7 @@ public class OkrBranchHistory extends OkrUnitHistory<OkrBranch> {
 
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @OneToMany(mappedBy = "history", cascade = CascadeType.REMOVE, targetEntity = OkrBranch.class)
+  @OneToMany(mappedBy = "history_branch", cascade = CascadeType.REMOVE, targetEntity = OkrBranch.class)
   private Collection<OkrBranch> units = new ArrayList<>();
 
   @Override
