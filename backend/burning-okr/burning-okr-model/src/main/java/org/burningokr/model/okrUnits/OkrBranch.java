@@ -26,14 +26,14 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
   @ManyToOne
   @JoinColumn(name = "history_branch_id")
 //  private OkrBranchHistory history;
-  private OkrBranchHistory history_branch;
+  private OkrBranchHistory branchHistory;
 
   public OkrBranch getCopyWithoutRelations() {
     OkrBranch copy = new OkrBranch();
     copy.setName(this.getName());
     copy.setLabel(this.getLabel());
     copy.setActive(this.isActive);
-    copy.setHistory_branch(this.getHistory_branch());
+    copy.setBranchHistory(this.getBranchHistory());
     return copy;
   }
 }

@@ -40,7 +40,7 @@ public class OkrDepartment extends OkrChildUnit {
 
   @ManyToOne
   @JoinColumn(name = "history_department_id")
-  private OkrDepartmentHistory history_department;
+  private OkrDepartmentHistory departmentHistory;
 
 //  @ManyToOne(cascade = CascadeType.REMOVE)
 //  @JoinColumn(name = "okr_department_history_id")
@@ -73,7 +73,7 @@ public class OkrDepartment extends OkrChildUnit {
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
     copy.setOkrTopicDescription(this.getOkrTopicDescription());
-    copy.setHistory_department(this.getHistory_department());
+    copy.setDepartmentHistory(this.getDepartmentHistory());
     return copy;
   }
 }
