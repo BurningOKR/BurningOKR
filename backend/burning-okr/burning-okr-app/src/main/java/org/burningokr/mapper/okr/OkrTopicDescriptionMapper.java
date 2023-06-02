@@ -42,7 +42,9 @@ public class OkrTopicDescriptionMapper
     OkrTopicDescriptionDto dto = new OkrTopicDescriptionDto();
 
     dto.setDescription(input.getDescription());
-    dto.setBeginning(dateMapper.mapDateToDateString(input.getBeginning()));
+    if (input.getBeginning() != null) {
+      dto.setBeginning(dateMapper.mapDateToDateString(input.getBeginning()));
+    }
     dto.setContributesTo(input.getContributesTo());
     dto.setDelimitation(input.getDelimitation());
     dto.setDependencies(input.getDependencies());
