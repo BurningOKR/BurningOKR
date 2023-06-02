@@ -24,7 +24,7 @@ public class OkrBranchTest {
     OkrBranchHistory history = new OkrBranchHistory();
     history.setUnits(Collections.singleton(original));
 
-    original.setHistory(history);
+    original.setBranchHistory(history);
 
     parentBranch = new OkrBranch();
     parentBranch.setId(5L);
@@ -79,6 +79,6 @@ public class OkrBranchTest {
   public void getCopyWithoutRelation_ExpectHistoryToBeEquals() {
     OkrBranch copy = original.getCopyWithoutRelations();
 
-    assertSame(original.getHistory(), copy.getHistory());
+    assertSame(original.getBranchHistory(), copy.getBranchHistory());
   }
 }
