@@ -22,7 +22,9 @@ public class OkrTopicDescriptionMapper
     OkrTopicDescription entity = new OkrTopicDescription();
 
     entity.setDescription(input.getDescription());
-    entity.setBeginning(dateMapper.mapDateStringToDate(input.getBeginning()));
+    if (input.getBeginning() != null) {
+      entity.setBeginning(dateMapper.mapDateStringToDate(input.getBeginning()));
+    }
     entity.setContributesTo(input.getContributesTo());
     entity.setDelimitation(input.getDelimitation());
     entity.setDependencies(input.getDependencies());
@@ -42,7 +44,9 @@ public class OkrTopicDescriptionMapper
     OkrTopicDescriptionDto dto = new OkrTopicDescriptionDto();
 
     dto.setDescription(input.getDescription());
-    dto.setBeginning(dateMapper.mapDateToDateString(input.getBeginning()));
+    if (input.getBeginning() != null) {
+      dto.setBeginning(dateMapper.mapDateToDateString(input.getBeginning()));
+    }
     dto.setContributesTo(input.getContributesTo());
     dto.setDelimitation(input.getDelimitation());
     dto.setDependencies(input.getDependencies());

@@ -38,8 +38,9 @@ public class OkrDepartment extends OkrChildUnit {
   @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.ALL)
   private TaskBoard taskBoard;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private OkrDepartmentHistory history;
+  @ManyToOne
+  @JoinColumn(name = "department_history_id")
+  private OkrDepartmentHistory departmentHistory;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
@@ -68,7 +69,7 @@ public class OkrDepartment extends OkrChildUnit {
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
     copy.setOkrTopicDescription(this.getOkrTopicDescription());
-    copy.setHistory(this.getHistory());
+    copy.setDepartmentHistory(this.getDepartmentHistory());
     return copy;
   }
 }

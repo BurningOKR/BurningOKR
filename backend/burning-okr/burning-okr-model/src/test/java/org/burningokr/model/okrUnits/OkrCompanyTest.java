@@ -35,7 +35,7 @@ public class OkrCompanyTest {
     expectedOkrCompany = new OkrCompany();
     expectedOkrCompany.setId(originalId);
     expectedOkrCompany.setCycle(originalCycle);
-    expectedOkrCompany.setHistory(originalHistory);
+    expectedOkrCompany.setCompanyHistory(originalHistory);
     expectedOkrCompany.setName(originalName);
     expectedOkrCompany.setLabel(originalLabel);
     expectedOkrCompany.setOkrChildUnits(originalDepartments);

@@ -87,7 +87,7 @@ public class CompanyService {
 
   public Collection<OkrCompany> findCompanyHistoryByCompanyId(long companyId) {
     OkrCompany okrCompany = findById(companyId);
-    return okrCompany.getHistory().getUnits();
+    return okrCompany.getCompanyHistory().getUnits();
   }
 
   /**
@@ -99,7 +99,7 @@ public class CompanyService {
   public Collection<Cycle> findCycleListByCompanyId(long companyId) {
     OkrCompany okrCompany = findById(companyId);
     ArrayList<Cycle> cycleList = new ArrayList<>();
-    for (OkrCompany currentOkrCompany : okrCompany.getHistory().getUnits()) {
+    for (OkrCompany currentOkrCompany : okrCompany.getCompanyHistory().getUnits()) {
       cycleList.add(currentOkrCompany.getCycle());
     }
     return cycleList;
@@ -115,7 +115,7 @@ public class CompanyService {
 
     OkrCompanyHistory history = new OkrCompanyHistory();
     companyHistoryRepository.save(history);
-    okrCompany.setHistory(history);
+    okrCompany.setCompanyHistory(history);
 
     okrCompany = companyRepository.save(okrCompany);
     logger.info("Created OkrCompany " + okrCompany.getName());
@@ -164,8 +164,8 @@ public class CompanyService {
     OkrCompany okrCompany = findById(companyId);
     Collection<OkrCompany> companiesToDelete = new ArrayList<>();
 
-    if (deleteWholeHistory && okrCompany.getHistory() != null) {
-      companiesToDelete = okrCompany.getHistory().getUnits();
+    if (deleteWholeHistory && okrCompany.getCompanyHistory() != null) {
+      companiesToDelete = okrCompany.getCompanyHistory().getUnits();
     } else {
       companiesToDelete.add(okrCompany);
     }
@@ -185,7 +185,7 @@ public class CompanyService {
         deleteEmptyCycle(cycle);
       }
 
-      OkrUnitHistory<OkrCompany> history = okrCompanyToDelete.getHistory();
+      OkrUnitHistory<OkrCompany> history = okrCompanyToDelete.getCompanyHistory();
       if (history != null && history.getUnits() != null && history.getUnits().isEmpty()) {
         deleteEmptyHistory(history);
       }
@@ -207,7 +207,7 @@ public class CompanyService {
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     okrDepartment.setParentOkrUnit(referencedOkrCompany);
-    okrDepartment.setHistory(
+    okrDepartment.setDepartmentHistory(
       createHistory(okrDepartment, new OkrDepartmentHistory(), departmentHistoryRepository));
 
     OkrTopicDescription description = new OkrTopicDescription(okrDepartment.getName());
@@ -241,7 +241,7 @@ public class CompanyService {
     throwIfCompanyInClosedCycle(referencedOkrCompany);
 
     okrBranch.setParentOkrUnit(referencedOkrCompany);
-    okrBranch.setHistory(createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository));
+    okrBranch.setBranchHistory(createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository));
 
     okrBranch = okrUnitRepository.save(okrBranch);
     logger.info(

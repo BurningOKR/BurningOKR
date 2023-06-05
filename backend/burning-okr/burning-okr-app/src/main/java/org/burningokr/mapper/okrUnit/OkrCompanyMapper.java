@@ -42,7 +42,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
       history = new OkrCompanyHistory();
       history.setId(okrCompanyDto.getHistoryId());
     }
-    okrCompany.setHistory(history);
+    okrCompany.setCompanyHistory(history);
 
     logger.info("Mapped OkrCompanyDto (id:" + okrCompanyDto.getOkrUnitId() + ") to OkrCompany.");
     return okrCompany;
@@ -56,7 +56,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
     okrCompanyDto.setUnitName(okrCompany.getName());
     okrCompanyDto.setLabel(okrCompany.getLabel());
     okrCompanyDto.setCycleId(okrCompany.getCycle().getId());
-    okrCompanyDto.setHistoryId(okrCompany.getHistory().getId());
+    okrCompanyDto.setHistoryId(okrCompany.getCompanyHistory().getId());
 
     Collection<Long> departmentIds = new ArrayList<>();
     for (OkrChildUnit okrChildUnit : okrCompany.getOkrChildUnits()) {

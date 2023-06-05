@@ -17,7 +17,7 @@ import java.util.Collection;
 @DiscriminatorValue(value = "OKR_DEPARTMENT_HISTORY")
 public class OkrDepartmentHistory extends OkrUnitHistory<OkrDepartment> {
 
-  @OneToMany(mappedBy = "history", cascade = CascadeType.REMOVE, targetEntity = OkrDepartment.class)
+  @OneToMany(mappedBy = "departmentHistory", cascade = CascadeType.REMOVE, targetEntity = OkrDepartment.class)
   private Collection<OkrDepartment> units = new ArrayList<>();
 
   @Override

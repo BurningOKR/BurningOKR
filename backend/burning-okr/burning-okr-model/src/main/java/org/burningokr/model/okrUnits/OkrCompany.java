@@ -29,7 +29,8 @@ public class OkrCompany extends OkrUnit implements OkrParentUnit {
   @EqualsAndHashCode.Exclude
   private Collection<OkrChildUnit> okrChildUnits = new ArrayList<>();
   @ManyToOne
-  private OkrCompanyHistory history;
+  @JoinColumn(name = "company_history_id")
+  private OkrCompanyHistory companyHistory;
 
   public boolean hasDepartments() {
     return !okrChildUnits.isEmpty();
@@ -60,7 +61,7 @@ public class OkrCompany extends OkrUnit implements OkrParentUnit {
    */
   public OkrCompany getCopyWithoutRelations() {
     OkrCompany copy = new OkrCompany();
-    copy.setHistory(this.getHistory());
+    copy.setCompanyHistory(this.getCompanyHistory());
     copy.setName(this.getName());
     copy.setLabel(this.getLabel());
     return copy;

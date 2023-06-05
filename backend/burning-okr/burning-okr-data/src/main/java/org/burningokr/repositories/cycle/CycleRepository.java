@@ -16,7 +16,7 @@ public interface CycleRepository extends ExtendedRepository<Cycle, Long> {
   @Query(
     "SELECT c FROM Cycle c "
       + "JOIN c.companies a "
-      + "WHERE a.history = ?1 "
+      + "WHERE a.companyHistory = ?1 "
       + "AND ?2 BETWEEN c.plannedStartDate AND c.plannedEndDate"
   )
   List<Cycle> findByCompanyHistoryAndDateBetweenPlannedTimeRange(
@@ -26,7 +26,7 @@ public interface CycleRepository extends ExtendedRepository<Cycle, Long> {
   @Query(
     "SELECT c FROM Cycle c "
       + "JOIN c.companies a "
-      + "WHERE a.history = ?1 "
+      + "WHERE a.companyHistory = ?1 "
       + "AND c.plannedStartDate > ?2 "
       + "AND c.plannedEndDate < ?3"
   )
@@ -37,7 +37,7 @@ public interface CycleRepository extends ExtendedRepository<Cycle, Long> {
   @Query(
     "SELECT c from Cycle c "
       + "JOIN c.companies a "
-      + "WHERE a.history = ?1 "
+      + "WHERE a.companyHistory = ?1 "
       + "AND c.plannedStartDate <= ?2 "
       + "AND c.cycleState <> ?3 "
       + "ORDER BY c.plannedEndDate DESC"

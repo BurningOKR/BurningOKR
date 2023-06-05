@@ -24,14 +24,15 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
   @EqualsAndHashCode.Exclude
   protected Collection<OkrChildUnit> okrChildUnits = new LinkedList<>();
   @ManyToOne
-  private OkrBranchHistory history;
+  @JoinColumn(name = "branch_history_id")
+  private OkrBranchHistory branchHistory;
 
   public OkrBranch getCopyWithoutRelations() {
     OkrBranch copy = new OkrBranch();
     copy.setName(this.getName());
     copy.setLabel(this.getLabel());
     copy.setActive(this.isActive);
-    copy.setHistory(this.getHistory());
+    copy.setBranchHistory(this.getBranchHistory());
     return copy;
   }
 }

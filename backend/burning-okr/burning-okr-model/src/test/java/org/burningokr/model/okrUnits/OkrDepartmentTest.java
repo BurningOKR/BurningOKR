@@ -58,7 +58,7 @@ public class OkrDepartmentTest {
 
     OkrDepartmentHistory history = new OkrDepartmentHistory();
     history.setUnits(Collections.singleton(expectedOkrDepartment));
-    expectedOkrDepartment.setHistory(history);
+    expectedOkrDepartment.setDepartmentHistory(history);
 
     okrBranch = new OkrBranch();
     okrBranch.setOkrChildUnits(Collections.singleton(expectedOkrDepartment));
@@ -122,6 +122,6 @@ public class OkrDepartmentTest {
   public void getCopyWithoutRelations_expectHistoriesAreEqual() {
     OkrDepartment actualDepartment = expectedOkrDepartment.getCopyWithoutRelations();
 
-    assertSame(expectedOkrDepartment.getHistory(), actualDepartment.getHistory());
+    assertSame(expectedOkrDepartment.getDepartmentHistory(), actualDepartment.getDepartmentHistory());
   }
 }
