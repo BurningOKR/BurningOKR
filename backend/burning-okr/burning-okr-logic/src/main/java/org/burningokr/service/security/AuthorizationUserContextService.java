@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Slf4j
 public class AuthorizationUserContextService {
   private final UserService userService;
+  private final HashMap<UUID, User> userHashMap = new HashMap<>();
 
   private void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
     if (validatedString.equals("")) {
@@ -35,25 +37,34 @@ public class AuthorizationUserContextService {
 
     return userOptional.orElseThrow(() -> {
       log.error("user with uuid: %s is not present in the database".formatted(userId));
-      throw new EntityNotFoundException();
+      return new EntityNotFoundException();
     });
   }
 
   public void updateUserFromToken(Jwt userToken) throws InvalidTokenException {
     var userId = UUID.fromString(userToken.getSubject());
     var userRoles = getRolesFromJwt(userToken);
-    var userOptional = userService.findById(userId);
 
-    User user = userOptional.orElseGet(() -> createNewUser(userId));
-    updateUserEntityByTokenValues(userToken, userRoles, user);
+    User user = userHashMap.get(userId);
+
+    if (user == null) {
+      var userOptional = userService.findById(userId);
+      user = userOptional.orElseGet(() -> createNewUser(userId));
+    }
+
+    if (!user.equals(userHashMap.get(userId))) {
+      updateUserEntityByTokenValues(userToken, userRoles, user);
+    }
   }
 
-  private void updateUserEntityByTokenValues(Jwt userToken, ArrayList<String> userRoles, User user) {
-    user.setAdmin(userRoles.contains("burning-okr-admin")); // TODO extract role name in env variable
+  public void updateUserEntityByTokenValues(Jwt userToken, ArrayList<String> userRoles, User user) {
+    log.info("updateUserEntityByTokenValues called");
+    user.setAdmin(userRoles.contains("burning-okr-admin")); // TODO Auth: extract role name in env variable
     user.setGivenName(getAttributeFromJwt(userToken, "given_name"));
     user.setSurname(getAttributeFromJwt(userToken, "family_name"));
     user.setMail(getAttributeFromJwt(userToken, "email"));
 
+    userHashMap.put(user.getId(), user);
     userService.updateUser(user);
   }
 

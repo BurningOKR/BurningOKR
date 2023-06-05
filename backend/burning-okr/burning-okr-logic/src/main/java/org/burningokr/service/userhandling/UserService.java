@@ -30,7 +30,7 @@ public class UserService {
     return userRepository.findAllByActiveIsFalse();
   }
 
-  public User updateUser(User user) {
+  public synchronized User updateUser(User user) {
     return userRepository.save(user);
   }
 
