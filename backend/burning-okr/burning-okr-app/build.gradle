@@ -34,6 +34,7 @@ dependencies {
     implementation deps.db.postgres
     implementation deps.db.mssql
     implementation deps.db.flyway.mssql
+    implementation deps.db.hibernate.envers
 
     // websockets
     implementation deps.spring.boot.starter.websocket

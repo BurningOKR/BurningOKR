@@ -5,4 +5,5 @@ dependencies {
     implementation deps.spring.boot.starter.validation
     implementation deps.spring.security.core
     implementation deps.jackson.databind
+    implementation deps.db.hibernate.envers
 }

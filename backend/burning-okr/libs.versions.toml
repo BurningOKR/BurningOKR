@@ -2,6 +2,7 @@
 spring-boot = '3.+'
 spring-framework = '6.+'
 spring-security = '6.+'
+hibernate = '6.+'
 swagger = '2.9.+'
 lombok-plugin = '6.+'
 jakarta-mail = '2.+'
@@ -56,6 +57,7 @@ db-postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }
 db-mssql = { module = 'com.microsoft.sqlserver:mssql-jdbc', version.ref = 'mssql' }
 db-flyway = { module = 'org.flywaydb:flyway-core', version.ref = 'flyway' }
 db-flyway-mssql = { module = 'org.flywaydb:flyway-sqlserver', version.ref = 'flyway' }
+db-hibernate-envers = { module = 'org.hibernate.orm:hibernate-envers', version.ref = 'hibernate' }
 
 # apache poi
 apache-poi = { module = 'org.apache.poi:poi', version.ref = 'apache-poi' }
