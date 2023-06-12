@@ -17,4 +17,5 @@ public class SystemProperties {
   private List<String> scopes;
   private boolean strictDiscoveryDocumentValidation;
   private boolean demoMode = false;
+  private String provider;
 }
