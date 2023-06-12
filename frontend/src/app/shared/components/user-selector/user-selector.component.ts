@@ -6,7 +6,7 @@ import { User } from '../../model/api/user';
 @Component({
   selector: 'app-user-selector',
   templateUrl: './user-selector.component.html',
-  styleUrls: ['./user-selector.component.css'],
+  styleUrls: ['./user-selector.component.scss'],
 })
 export class UserSelectorComponent implements OnInit {
 

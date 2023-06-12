@@ -1,14 +1,21 @@
 package org.burningokr.dto.dashboard;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.burningokr.model.users.IUser;
+import lombok.NoArgsConstructor;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DashboardDto {
   private Long id;
   private String title;
-  private IUser creator;
+  private Long companyId;
+  private UUID creatorId;
   private Collection<BaseChartOptionsDto> chartDtos;
 }

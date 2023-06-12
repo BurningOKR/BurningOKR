@@ -32,7 +32,7 @@
       </span>
 
       <button [matMenuTriggerFor]="menu" class="icon-spacer-large menuIcon" mat-icon-button
-              matTooltip="{{'okr-toolbar.tooltip.menue' | translate}}">
+              matTooltip="{{'okr-toolbar.tooltip.menu' | translate}}">
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>
@@ -48,33 +48,37 @@
     <app-reset-countdown></app-reset-countdown>
   </button>
 
-
   <!-- show menu settings-->
   <ng-container *ngIf="(isLocalUserbase$ | async) === false && isPlayground === false">
-    <button *ngIf="isCurrentUserAdmin$ | async" mat-menu-item routerLink="/admin">
+    <button (keydown)="$event.stopPropagation()" *ngIf="isCurrentUserAdmin$ | async" class="menu-items" mat-menu-item
+            routerLink="/admin">
       <mat-icon>edit_attributes</mat-icon>
       <span>{{'okr-toolbar.menu.admin-panel-text' | translate}}</span>
     </button>
   </ng-container>
-  <button mat-menu-item routerLink="/submitted-topic-drafts">
+  <button (keydown)="$event.stopPropagation()" class="menu-items" mat-menu-item routerLink="/submitted-topic-drafts">
     <mat-icon>assignment</mat-icon>
     <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
-  <button *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" [disabled]="isPlayground" mat-menu-item
+  <button (keydown)="$event.stopPropagation()" *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" [disabled]="isPlayground"
+          class="menu-items" mat-menu-item
           routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
     <mat-icon>dashboard</mat-icon>
     <span>{{'okr-toolbar.menu.dashboard-overview' | translate}}</span>
   </button>
-  <button (click)="routeToCycleAdminPanel()" *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)"
+  <button (click)="routeToCycleAdminPanel()" (keydown)="$event.stopPropagation()"
+          *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" class="menu-items"
           mat-menu-item>
     <mat-icon>history</mat-icon>
     <span>{{'okr-toolbar.menu.cycle-administration-text' | translate}}</span>
   </button>
-  <button (click)="openSettings()" [disabled]="isPlayground" mat-menu-item>
+  <button (click)="openSettings()" (keydown)="$event.stopPropagation()" [disabled]="isPlayground" class="menu-items"
+          mat-menu-item>
     <mat-icon>settings_applications</mat-icon>
     <span>{{'okr-toolbar.menu.settings-text' | translate}}</span>
   </button>
-  <button *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)" mat-menu-item routerLink="/auth/users">
+  <button (keydown)="$event.stopPropagation()" *ngIf="(isLocalUserbase$ | async) && (isCurrentUserAdmin$ | async)"
+          class="menu-items" mat-menu-item routerLink="/auth/users">
     <mat-icon>account_box</mat-icon>
     <span>{{'okr-toolbar.menu.user-managment-text' | translate}}</span>
   </button>
@@ -82,11 +86,11 @@
     <mat-icon>power_settings_new</mat-icon>
     <span>{{'okr-toolbar.menu.logout-text' | translate}}</span>
   </button>
-  <button (click)="pickLanguageClicked()" mat-menu-item>
+  <button (click)="pickLanguageClicked()" (keydown)="$event.stopPropagation()" class="menu-items" mat-menu-item>
     <mat-icon>language</mat-icon>
     <span>{{'okr-toolbar.menu.language-picker' | translate}}</span>
   </button>
-  <button (click)="openVersionChangelog()" mat-menu-item>
+  <button (click)="openVersionChangelog()" class="menu-items" mat-menu-item>
     <mat-icon>info</mat-icon>
     <span>v{{ versionString }}</span>
   </button>

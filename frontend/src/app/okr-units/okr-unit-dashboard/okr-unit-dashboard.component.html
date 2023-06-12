@@ -4,7 +4,7 @@
   </app-okr-toolbar>
 
   <!-- General Buttons -->
-  <div class="margin-toolbar item-actions">
+  <div class="add-company-button">
     <app-add-button (buttonClicked)="addCompany()" [isDisabled]="(isCurrentUserAdmin$ | async) === false"
                     text="{{'okr-unit-dashboard.add-unit' | translate}}"></app-add-button>
   </div>

@@ -1,0 +1,36 @@
+.edit-dashboard-title {
+  display: flex;
+  justify-content: center;
+  text-align-last: center;
+  font-size: large;
+  font-weight: bolder;
+  margin: 10px 10px 20px 10px;
+
+  mat-form-field {
+    width: 50VW;
+  }
+}
+
+.button-save-dashboard {
+  margin: 75px;
+  text-align: center;
+}
+
+.edit-chart {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+@media (max-width: 780px) {
+  .edit-chart {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.edit-chart-options {
+  display: flex;
+  flex-direction: column;
+  height: 30VH;
+  width: 300px;
+}

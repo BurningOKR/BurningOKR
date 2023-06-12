@@ -6,6 +6,7 @@ import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.dto.dashboard.creation.DashboardCreationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
+import org.burningokr.model.users.User;
 import org.burningokr.service.dashboard.DashboardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,6 @@ public class DashboardController {
   private final DataMapper<DashboardCreation, DashboardCreationDto> dashboardCreationMapper;
   private final DataMapper<DashboardCreation, DashboardDto> dashboardMapper;
 
-
   /**
    * API Endpoint to create a DashboardCreation
    *
@@ -27,12 +27,26 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok with the created DashboardCreation
    */
   @PostMapping("/dashboards")
-  public ResponseEntity<DashboardCreationDto> createDashboard(
+  public ResponseEntity<DashboardDto> createNewDashboard(
     @RequestBody DashboardCreationDto dashboardCreationDto
   ) {
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
     dashboardCreation = dashboardService.createDashboard(dashboardCreation);
-    return ResponseEntity.ok(dashboardCreationMapper.mapEntityToDto(dashboardCreation));
+    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
+  }
+
+  /**
+   * API Endpoint to update a DashboardDto by id.
+   *
+   * @param dashboardCreationDto a {@link DashboardCreationDto} object
+   * @param user                 a {@link User} object
+   * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
+   */
+  @PostMapping("/dashboards/update")
+  public ResponseEntity<DashboardDto> updateNewDashboard(@RequestBody DashboardCreationDto dashboardCreationDto, User user) {
+    DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
+    dashboardCreation = dashboardService.updateDashboard(dashboardCreation, user);
+    return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
   }
 
   /**

@@ -1,10 +1,10 @@
 <div *ngIf="childUnit$ | async as childUnit; else loading">
   <button [ngClass]="{ 'inactive-element': !childUnit.isActive }" [routerLink]="['../../departments', unitId]"
-          class="previewButton" mat-raised-button
+          class="my-mat-card previewButton box-shadow" mat-button
           matTooltip="{{ 'okr-child-unit-preview-button.tooltip.show-department' | translate }}">
     <div class="d-flex center">
       <div class="f-1">
-        <mat-icon class="font-32">{{isOkrBranch(childUnit) ? 'account_tree' : 'group'}}</mat-icon>
+        <mat-icon>{{isOkrBranch(childUnit) ? 'account_tree' : 'group'}}</mat-icon>
       </div>
       <div class="f-5 overflow-ellipsis">
         {{ childUnit.label }}

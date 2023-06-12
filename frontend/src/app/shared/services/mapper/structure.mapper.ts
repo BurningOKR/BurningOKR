@@ -30,7 +30,7 @@ export class StructureMapper {
   }
 
   private mapDtoToCompanyUnitStructure(structureDto: StructureDto): Structure {
-    if (structureDto.substructure.length === 0) {
+    if (!structureDto.substructure) {
       return;
     }
 

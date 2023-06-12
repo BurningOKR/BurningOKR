@@ -1,0 +1,51 @@
+.taskboards-switch-buttons {
+    margin-left: 1em;
+    margin-bottom: 1em;
+    justify-content: center;
+}
+
+.taskboard-button-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.my-mat-button-toggle {
+    position: relative;
+    z-index: 1;
+}
+
+/*.my-mat-button-toggle:hover {*/
+/*    background-color: #595959;*/
+/*    color: #FFFFFF;*/
+/*}*/
+
+/*.my-mat-button-toggle:focus {*/
+/*    background-color: #595959;*/
+/*    color: #FFFFFF;*/
+/*}*/
+
+.my-mat-button-toggle.mat-button-toggle-checked {
+    /*background-color: #949494;*/
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+    /*border: 1px solid rgba(0, 0, 0, 1.0);*/
+}
+
+/*.my-mat-button-toggle.mat-button-toggle-checked:hover {*/
+/*    background-color: #949494;*/
+/*    color: #000000;*/
+/*}*/
+
+/*.my-mat-button-toggle.mat-button-toggle-checked:focus {*/
+/*    background-color: #949494;*/
+/*    color: #000000;*/
+/*}*/
+
+/*.my-mat-button-toggle:active {*/
+/*    !*background-color: #000000;*!*/
+/*    !*color: #FFFFFF;*!*/
+/*    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);*/
+/*    border: 1px solid rgba(0, 0, 0, 0.2);*/
+/*}*/
+

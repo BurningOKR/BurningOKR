@@ -5,6 +5,7 @@ import org.burningokr.dto.dashboard.LineChartLineKeyValues;
 import org.burningokr.dto.dashboard.LineChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
+import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.histories.KeyResultHistory;
@@ -31,15 +32,19 @@ public class LineChartService {
   private final CompanyService companyService;
   private final KeyResultHistoryService keyResultHistoryService;
 
-  public LineChartOptionsDto buildProgressChart(ChartCreationOptions chartCreationOptions) {
+  public LineChartOptionsDto buildProgressChart(ChartCreationOptions chartCreationOptions, DashboardCreation dashboardCreation) {
     LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
     Collection<LineChartLineKeyValues> lineChartLineKeyValuesList = new ArrayList<>();
     Collection<Objective> objectives = new ArrayList<>();
     Collection<KeyResult> keyResults = new ArrayList<>();
     Collection<OkrDepartment> teams;
 
+    lineChartOptionsDto.setId(chartCreationOptions.getId());
+    lineChartOptionsDto.setTitle(chartCreationOptions.getTitle());
+    lineChartOptionsDto.setChartType(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
+
     teams = getTeamsForChart(
-      chartCreationOptions.getDashboardCreation().getCompanyId(),
+      dashboardCreation.getCompanyId(),
       chartCreationOptions.getTeamIds()
     );
 
@@ -52,7 +57,7 @@ public class LineChartService {
     }
 
     if (keyResults.size() == 0) {
-      return getNoValuesFoundLineChartOptionsDto(chartCreationOptions);
+      return getNoValuesFoundLineChartOptionsDto(chartCreationOptions, lineChartOptionsDto);
     }
 
     LocalDate startDate = keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(keyResults)
@@ -76,9 +81,7 @@ public class LineChartService {
     } else {
       lineChartOptionsDto.setSeries(lineChartLineKeyValuesList);
     }
-    lineChartOptionsDto.setTitle(chartCreationOptions.getTitle());
     lineChartOptionsDto.setXAxisCategories(getProgressXAxis(startDate, numberOfDays));
-    lineChartOptionsDto.setChart(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
     return lineChartOptionsDto;
   }
 
@@ -244,18 +247,18 @@ public class LineChartService {
     return xAxis;
   }
 
-  private LineChartOptionsDto getNoValuesFoundLineChartOptionsDto(ChartCreationOptions chartCreationOptions) {
+  private LineChartOptionsDto getNoValuesFoundLineChartOptionsDto(ChartCreationOptions chartCreationOptions, LineChartOptionsDto lineChartOptionsDto) {
     ArrayList<LineChartLineKeyValues> lineChartKeyValuesList = new ArrayList<>();
 
     LineChartLineKeyValues lineChartLineKeyValuesNoValues = new LineChartLineKeyValues();
+    lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
+
     lineChartLineKeyValuesNoValues.setName(chartCreationOptions.getTitle());
     lineChartLineKeyValuesNoValues.setData(new ArrayList<>(Collections.singletonList(50.0)));
 
     lineChartKeyValuesList.add(lineChartLineKeyValuesNoValues);
 
-    LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
     lineChartOptionsDto.setSeries(lineChartKeyValuesList);
-
     lineChartOptionsDto.setXAxisCategories(Stream.of("Keine Werte vorhanden").collect(Collectors.toList()));
 
     return lineChartOptionsDto;

@@ -1,0 +1,32 @@
+.taskboard-swimlane .mat-expansion-panel-body {
+  padding: 0 !important;
+
+}
+
+.swimlane-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+}
+
+.swimlane-task-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.swimlane-item {
+    width: 100%;
+    margin: 2px;
+    border: 1px solid green;
+}
+
+@media (max-width: 1550px) {
+    .swimlane-content {
+        justify-content: initial;
+        overflow-x: auto;
+    }
+}

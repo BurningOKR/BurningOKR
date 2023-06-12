@@ -1,5 +1,6 @@
 package org.burningokr.mapper.dashboard;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
+@Slf4j
 public class ChartCreationOptionsMapper
   implements DataMapper<ChartCreationOptions, ChartCreationOptionsDto> {
 
@@ -23,9 +25,9 @@ public class ChartCreationOptionsMapper
     entity.setId(dto.getId());
     entity.setTitle(dto.getTitle());
     entity.setChartType(dto.getChartType());
-    entity.setTeamIds(dto.getTeamIds());
+    entity.setTeamIds(dto.getSelectedTeamIds());
 
-    logger.info(
+    log.debug(
       "Mapped ChartCreationOptionsDto (id:"
         + dto.getId()
         + ") successful into ChartCreationOption.");
@@ -40,9 +42,9 @@ public class ChartCreationOptionsMapper
     dto.setId(entity.getId());
     dto.setTitle(entity.getTitle());
     dto.setChartType(entity.getChartType());
-    dto.setTeamIds(entity.getTeamIds());
+    dto.setSelectedTeamIds(entity.getTeamIds());
 
-    logger.info(
+    log.debug(
       "Mapped ChartCreationOptions (id:"
         + entity.getId()
         + ") successful into ChartCreationOptionsDto.");

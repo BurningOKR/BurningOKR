@@ -6,7 +6,7 @@ import { ContextRole } from '../../shared/model/ui/context-role';
 @Component({
   selector: 'app-add-child-unit-button',
   templateUrl: './add-child-unit-button.component.html',
-  styleUrls: ['./add-child-unit-button.component.css'],
+  styleUrls: ['./add-child-unit-button.component.scss'],
 })
 export class AddChildUnitButtonComponent {
 

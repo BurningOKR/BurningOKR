@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { merge, Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap } from 'rxjs/operators';
 import { Dashboard } from '../../model/ui/dashboard';
 import { DashboardService } from '../../services/dashboard.service';
+import { CompanyId } from '../../../shared/model/id-types';
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -19,6 +20,7 @@ export class DashboardOverviewComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly dashboardService: DashboardService,
+    private router: Router,
   ) {
   }
 
@@ -40,5 +42,11 @@ export class DashboardOverviewComponent implements OnInit {
 
   deleteDashboard(dashboard: Dashboard) {
     this.deleteTrigger$.next(dashboard);
+  }
+
+  navToDashboardCreation(company_id: CompanyId): void {
+    this.router.navigate(
+      [`companies/${company_id}/create-dashboard`], { replaceUrl: false },
+    ).catch();
   }
 }

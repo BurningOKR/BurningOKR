@@ -7,13 +7,13 @@ import { CompanyUnit } from '../../../../shared/model/ui/OrganizationalUnit/comp
 import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { CompanyMapper } from '../../../../shared/services/mapper/company.mapper';
 import { filter, switchMap, take } from 'rxjs/operators';
-import { UserSettingsManagerService } from '../../../services/user-settings-manager.service';
+import { UserSettingsService } from '../../../services/user-settings.service';
 import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
 
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.css'],
+  styleUrls: ['./user-settings.component.scss'],
   providers: [{ provide: SettingsForm, useExisting: UserSettingsComponent }],
 })
 export class UserSettingsComponent extends SettingsForm implements OnInit {
@@ -26,7 +26,7 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
 
   constructor(
     private companyService: CompanyMapper,
-    private userSettingsManager: UserSettingsManagerService,
+    private userSettingsService: UserSettingsService,
     private departmentService: DepartmentMapper,
   ) {
     super();
@@ -41,14 +41,14 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
   }
 
   createUpdate$(): Observable<any> {
-    return this.userSettingsManager.getUserSettings$()
+    return this.userSettingsService.getUserSettings$()
       .pipe(
         take(1),
         switchMap((userSettings: UserSettings) => {
           userSettings.defaultCompanyId = this.userSettingsForm.get('defaultCompanyId').value;
           userSettings.defaultTeamId = this.userSettingsForm.get('defaultTeamId').value;
 
-          return this.userSettingsManager.updateUserSettings$(userSettings);
+          return this.userSettingsService.updateUserSettings$(userSettings);
         }),
       );
   }
@@ -59,7 +59,7 @@ export class UserSettingsComponent extends SettingsForm implements OnInit {
   }
 
   private initUserSettingsForm(): void {
-    this.userSettingsManager.getUserSettings$()
+    this.userSettingsService.getUserSettings$()
       .pipe(filter(value => !!value), take(1))
       .subscribe((userSettings: UserSettings) => {
         this.userSettingsForm = new FormGroup({

@@ -1,7 +1,7 @@
 <mat-expansion-panel (closed)="isPanelOpen = false" (opened)="isPanelOpen = true" [hideToggle]="true"
                      class="margin-expansion-panel">
   <!-- Objective Header -->
-  <mat-expansion-panel-header [collapsedHeight]="'100%'" [expandedHeight]="'100%'" class="no-padding">
+  <mat-expansion-panel-header [collapsedHeight]="'100%'" [expandedHeight]="'100%'" class="no-padding my-panel">
     <div [ngClass]="{'objective-inactive': !objective.isActive}" class="header-padding flex-nowrap f-1">
       <!-- Drag handle by parediv contained here -->
       <ng-content></ng-content>

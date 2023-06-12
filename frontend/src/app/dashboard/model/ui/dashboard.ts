@@ -1,10 +1,11 @@
-import { User } from '../../../shared/model/api/user';
 import { BaseChartOptions } from './base-chart-options';
+import { CompanyId, DashboardId, UserId } from '../../../shared/model/id-types';
 
 export interface Dashboard {
-  id: number;
+  id: DashboardId;
   title: string;
-  creator: User;
+  companyId: CompanyId;
+  creatorId?: UserId;
   charts: BaseChartOptions[];
   creationDate: Date;
 }

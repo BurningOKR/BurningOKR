@@ -1,8 +1,11 @@
 import { ChartInformationTypeEnum } from '../chart-creation-options.dto';
+import { ChartId } from '../../../../shared/model/id-types';
 
 export abstract class BaseChartOptionsDto {
+  id: ChartId;
   title: string;
-  chart: ChartInformationTypeEnum;
+  chartType: ChartInformationTypeEnum;
+  selectedTeamIds?: number[];
 
   public abstract buildChartOptions();
 }

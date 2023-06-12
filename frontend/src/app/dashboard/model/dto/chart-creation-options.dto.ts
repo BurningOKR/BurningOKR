@@ -2,7 +2,7 @@ export interface ChartCreationOptionsDto {
   chartCreationOptionsId?: number;
   title: string;
   chartType: ChartInformationTypeEnum;
-  teamIds?: number[];
+  selectedTeamIds?: number[];
 }
 
 export enum ChartInformationTypeEnum {
@@ -11,7 +11,7 @@ export enum ChartInformationTypeEnum {
 }
 
 export const ChartTypeEnumDropDownRecord: Record<ChartInformationTypeEnum, string> = {
-  [ChartInformationTypeEnum.LINE_PROGRESS]: 'create-dashboard.line-progress',
-  [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'create-dashboard.pie-topicdraft',
+  [ChartInformationTypeEnum.LINE_PROGRESS]: 'edit-dashboard.line-progress',
+  [ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW]: 'edit-dashboard.pie-topicdraft',
 };
 
