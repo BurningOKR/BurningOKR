@@ -40,12 +40,12 @@ public class AuthorizationUserContextService {
       case "keycloak":
         yield UUID.fromString(userToken.getSubject());
       default:
-        throw new RuntimeException("Unexpected value: " + systemProperties.getProvider());
+        throw new RuntimeException("Unexpected value for oidc provider: " + systemProperties.getProvider());
     };
 
     var user = userHashMap.get(userId);
     if (user == null) {
-      throw new RuntimeException("user could not be found in hashmap");
+      throw new EntityNotFoundException("user could not be found in hashmap");
     }
 
     return user;

@@ -28,7 +28,7 @@ public class KeyResultHistoryService {
   @Transactional
   public void updateKeyResultHistory(KeyResult keyResult) {
     KeyResultHistory keyResultHistory = keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult)
-      .get(0);
+            .get(0); // TODO (C.K.): check if null check is necessary
 
     if (keyResultHistory.getDateChanged().equals(LocalDate.now())) {
       keyResultHistory.setStartValue(keyResult.getStartValue());
