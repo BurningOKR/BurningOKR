@@ -22,7 +22,6 @@ public class TaskState implements Trackable<Long> {
   @ToString.Exclude
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_task_board_id")
-  @ToString.Exclude
   private TaskBoard parentTaskBoard;
 
   @Override
