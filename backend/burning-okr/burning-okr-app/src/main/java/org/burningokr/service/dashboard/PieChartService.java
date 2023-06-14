@@ -34,13 +34,14 @@ public class PieChartService {
       .toArray().length;
 
     PieChartOptionsDto pieChartOptionsDto = new PieChartOptionsDto();
+    pieChartOptionsDto.setId(chartCreationOptions.getId());
     pieChartOptionsDto.setTitle(chartCreationOptions.getTitle());
-    pieChartOptionsDto.setChart(chartCreationOptions.getChartType().ordinal());
+    pieChartOptionsDto.setChartType(chartCreationOptions.getChartType().ordinal());
     pieChartOptionsDto.setValueLabels(possibleStates);
 
     pieChartOptionsDto.setValueLabels(possibleStates);
     pieChartOptionsDto.setSeries(stateCount);
-    pieChartOptionsDto.setChart(ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW.ordinal());
+    pieChartOptionsDto.setChartType(ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW.ordinal());
 
     return pieChartOptionsDto;
   }

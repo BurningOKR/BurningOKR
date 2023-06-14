@@ -48,7 +48,7 @@ export class TopicDraftMapper {
     topicDraftDto.description = topicDraft.description;
     topicDraftDto.contributesTo = topicDraft.contributesTo;
     topicDraftDto.delimitation = topicDraft.delimitation;
-    DateMapper.mapDateToDateString(topicDraft.beginning);
+    topicDraftDto.beginning = DateMapper.mapDateToDateString(topicDraft.beginning);
     topicDraftDto.dependencies = topicDraft.dependencies;
     topicDraftDto.resources = topicDraft.resources;
     topicDraftDto.handoverPlan = topicDraft.handoverPlan;
@@ -57,6 +57,8 @@ export class TopicDraftMapper {
   }
 
   postTopicDraft$(topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
+    console.log(topicDraft);
+
     return this.topicDraftApiService.postTopicDraft$(this.mapTopicDraft(topicDraft))
       .pipe(map(this.mapTopicDraftDto));
   }

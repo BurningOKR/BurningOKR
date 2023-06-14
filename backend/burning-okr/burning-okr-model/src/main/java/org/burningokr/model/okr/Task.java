@@ -2,9 +2,12 @@ package org.burningokr.model.okr;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
+import org.hibernate.envers.Audited;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
@@ -13,6 +16,8 @@ import java.util.UUID;
 
 @Entity
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Task implements Trackable<Long> {
 
   @Id
@@ -22,20 +27,24 @@ public class Task implements Trackable<Long> {
 
   @Column(length = 255)
   @NotNull
+  @Audited
   private String title;
 
   @Column(length = 1023)
+  @Audited
   private String description;
 
   @ToString.Exclude
   @OneToOne(fetch = FetchType.LAZY)
   @NotNull
   @JoinColumn(name = "task_state_id")
+  @Audited
   private TaskState taskState;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "task_user")
   @Column(name = "user_id")
+  @Audited
   private Collection<UUID> assignedUserIds = new ArrayList<>();
 
   @ToString.Exclude
@@ -47,6 +56,7 @@ public class Task implements Trackable<Long> {
   @ManyToOne(fetch = FetchType.LAZY)
   @Nullable
   @JoinColumn(name = "assigned_key_result_id")
+  @Audited
   private KeyResult assignedKeyResult;
 
   @OneToOne(fetch = FetchType.LAZY)

@@ -1,0 +1,16 @@
+<app-okr-toolbar>
+  <button [routerLink]="['/companies']" class="navbar-item" mat-icon-button
+          matTooltip="{{'main-view.tooltip.go-to-structure-view' | translate}}">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>{{'edit-dashboard.okr-toolbar.edit-dashboard' | translate}}</span>
+  <span class="fill-space"></span>
+</app-okr-toolbar>
+
+<app-additional-info-bar [text]="'dashboard-overview.wip-info-text' | translate"></app-additional-info-bar>
+
+<div *ngIf="newDashboard">
+  <app-dashboard-modification #childRef (updateDashboard)="updateDashboard($event)" [dashboard]="newDashboard">
+
+  </app-dashboard-modification>
+</div>

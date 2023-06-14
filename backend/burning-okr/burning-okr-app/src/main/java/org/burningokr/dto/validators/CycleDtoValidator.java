@@ -63,7 +63,7 @@ public class CycleDtoValidator {
     var endDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedEndDate());
 
     OkrCompany targetOkrCompany = companyRepository.findByIdOrThrow(cycleDto.getCompanyId());
-    OkrUnitHistory<OkrCompany> targetOkrUnitHistory = targetOkrCompany.getHistory();
+    OkrUnitHistory<OkrCompany> targetOkrUnitHistory = targetOkrCompany.getCompanyHistory();
 
     if (isDateWithinOtherCycleInCompanyHistory(
       cycleDto.getId(), startDate, targetOkrUnitHistory)) {

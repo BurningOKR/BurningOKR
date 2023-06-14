@@ -144,7 +144,7 @@ public class CompanyController {
   /**
    * API Endpoint to add an Objective to a OkrDepartment.
    *
-   * @param companyId        a ong value
+   * @param companyId        a long value
    * @param okrDepartmentDto a {@link OkrDepartmentDto} object
    * @return a {@link ResponseEntity} ok with a OkrDepartment
    */

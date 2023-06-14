@@ -10,5 +10,5 @@ public class ChartCreationOptionsDto {
   private Long id;
   private String title;
   private ChartInformationTypeEnum chartType;
-  private Collection<Long> teamIds;
+  private Collection<Long> selectedTeamIds;
 }

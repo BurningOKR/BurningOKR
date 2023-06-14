@@ -31,10 +31,18 @@ public class DashboardService {
     dashboardCreation.setCreatorId(authorizationUserContextService.getAuthenticatedUser().getId());
 
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
-    logger.info("Created Dashboard: " + dashboardCreation.getTitle());
+    logger.debug("Created Dashboard: " + dashboardCreation.getTitle());
     activityService.createActivity(dashboardCreation, Action.CREATED);
     createChartOptions(dashboardCreation);
 
+    return dashboardCreation;
+  }
+
+  public DashboardCreation updateDashboard(DashboardCreation dashboardCreation) {
+    dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
+
+    logger.debug("Updated Dashboard: " + dashboardCreation.getTitle());
+    activityService.createActivity(dashboardCreation, Action.EDITED);
     return dashboardCreation;
   }
 
@@ -44,9 +52,8 @@ public class DashboardService {
 
   private void createChartOptions(DashboardCreation dashboardCreation) {
     for (ChartCreationOptions chartCreationOption : dashboardCreation.getChartCreationOptions()) {
-      chartCreationOption.setDashboardCreation(dashboardCreation);
       chartCreationOptionsRepository.save(chartCreationOption);
-      logger.info("Created ChartCreationOption: " + chartCreationOption.getTitle());
+      logger.debug("Created ChartCreationOption: " + chartCreationOption.getTitle());
     }
   }
 

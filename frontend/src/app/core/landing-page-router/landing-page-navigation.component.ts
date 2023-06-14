@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { UserSettingsManagerService } from '../services/user-settings-manager.service';
+import { UserSettingsService } from '../services/user-settings.service';
 import { UserSettings } from '../../shared/model/ui/user-settings';
 import { ConfigurationManagerService } from '../settings/configuration-manager.service';
 import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
@@ -17,7 +17,7 @@ import { RouterParams } from '../../../typings';
 export class LandingPageNavigationComponent implements OnInit {
   constructor(
     private companyMapperService: CompanyMapper,
-    private userSettingsManagerService: UserSettingsManagerService,
+    private userSettingsService: UserSettingsService,
     private configurationManagerService: ConfigurationManagerService,
     private router: Router,
   ) {
@@ -61,7 +61,7 @@ export class LandingPageNavigationComponent implements OnInit {
   }
 
   private getDefaultCompanyAndTeam$(): Observable<RouterParams> {
-    return this.userSettingsManagerService.getUserSettings$()
+    return this.userSettingsService.getUserSettings$()
       .pipe(
         filter((userSettings: UserSettings) => !!userSettings),
         map((userSettings: UserSettings) => {

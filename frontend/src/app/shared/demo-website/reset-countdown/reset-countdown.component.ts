@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-reset-countdown',
   templateUrl: './reset-countdown.component.html',
-  styleUrls: ['./reset-countdown.component.css'],
+  styleUrls: ['./reset-countdown.component.scss'],
 })
 export class ResetCountdownComponent implements OnInit {
 

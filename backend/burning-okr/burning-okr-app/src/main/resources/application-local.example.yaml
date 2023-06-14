@@ -8,6 +8,7 @@ spring:
     hibernate:
       ddl-auto: none
     properties:
+      org.hibernate.envers.revision_listener: org.burningokr.service.revision.RevisionListener
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true

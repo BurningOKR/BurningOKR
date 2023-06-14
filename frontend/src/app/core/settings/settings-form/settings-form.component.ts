@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-settings-form',
   templateUrl: './settings-form.component.html',
-  styleUrls: ['./settings-form.component.css'],
+  styleUrls: ['./settings-form.component.scss'],
 })
 export class SettingsFormComponent implements OnInit {
 
