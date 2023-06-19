@@ -6,7 +6,6 @@ import org.burningokr.service.WebsocketUserService;
 import org.burningokr.service.monitoring.MonitorService;
 import org.burningokr.service.monitoring.MonitoredObject;
 import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -32,24 +31,22 @@ public abstract class WebsocketSubscribeController {
   private final UserMapper userMapper;
   private final MonitorService monitorService;
   private final UserService userService;
-  private final String sendUrl;
+  private final String sendUrl = "/topic/unit/%d/tasks/users";
 
-  @Autowired
   public WebsocketSubscribeController(
-      SimpMessagingTemplate simpMessagingTemplate,
-      SimpUserRegistry simpUserRegistry,
-      UserService userService,
-      WebsocketUserService websocketUserService,
-      UserMapper userMapper,
-      MonitorService monitorService,
-      String sendUrl) {
+          SimpMessagingTemplate simpMessagingTemplate,
+          SimpUserRegistry simpUserRegistry,
+          UserService userService,
+          WebsocketUserService websocketUserService,
+          UserMapper userMapper,
+          MonitorService monitorService
+  ) {
     this.simpMessagingTemplate = simpMessagingTemplate;
     this.simpUserRegistry = simpUserRegistry;
     this.websocketUserService = websocketUserService;
     this.userMapper = userMapper;
     this.monitorService = monitorService;
     this.userService = userService;
-    this.sendUrl = sendUrl;
   }
 
   @EventListener

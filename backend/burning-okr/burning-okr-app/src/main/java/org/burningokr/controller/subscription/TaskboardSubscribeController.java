@@ -19,7 +19,6 @@ public class TaskboardSubscribeController extends WebsocketSubscribeController {
 
   private static final Pattern URL_TO_ID_PATTERN =
       Pattern.compile("^/topic/unit/(\\d+)/tasks/users$");
-  private static final String SEND_URL = "/topic/unit/%d/tasks/users";
   private static final MonitoredObjectType MONITORED_OBJECT_TYPE = MonitoredObjectType.TASKBOARD;
 
   @Autowired
@@ -31,13 +30,13 @@ public class TaskboardSubscribeController extends WebsocketSubscribeController {
       UserMapper userMapper,
       MonitorService monitorService) {
     super(
-        simpMessagingTemplate,
-        simpUserRegistry,
-        userService,
-        websocketUserService,
-        userMapper,
-        monitorService,
-        SEND_URL);
+            simpMessagingTemplate,
+            simpUserRegistry,
+            userService,
+            websocketUserService,
+            userMapper,
+            monitorService
+    );
   }
 
   public MonitoredObject getMonitoredObject(String subscribeUrl) {
