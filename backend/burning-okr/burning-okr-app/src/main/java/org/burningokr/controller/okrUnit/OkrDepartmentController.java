@@ -118,9 +118,7 @@ public class OkrDepartmentController {
   public ResponseEntity<OkrTopicDescriptionDto> getTopicDescriptionOfDepartment(
     @PathVariable long departmentId
   ) {
-    System.out.println("Getter!");
     OkrDepartment department = okrDepartmentService.findById(departmentId);
-    System.out.println("Department!");
     OkrTopicDescription topicDescription = department.getOkrTopicDescription();
     OkrTopicDescriptionDto dto = okrTopicDescriptionMapper.mapEntityToDto(topicDescription);
 
