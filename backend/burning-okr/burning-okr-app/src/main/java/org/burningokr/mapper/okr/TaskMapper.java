@@ -19,13 +19,13 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
   private final Logger logger = LoggerFactory.getLogger(TaskMapper.class);
 
   public Task mapDtoToEntity(TaskDto taskDto) {
-    logger.info(
+    logger.debug(
       String.format(
         "mapDtoToEntity dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d, previousTaskId: %d}",
         taskDto.getId(),
         taskDto.getTitle(),
         taskDto.getDescription(),
-        String.valueOf(taskDto.getAssignedUserIds()),
+        taskDto.getAssignedUserIds(),
         taskDto.getAssignedKeyResultId(),
         taskDto.getParentTaskBoardId(),
         taskDto.getTaskStateId(),
@@ -117,7 +117,7 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
   }
 
   private Collection<UUID> copyUUIDList(Collection<UUID> list) {
-    ArrayList copy = new ArrayList<UUID>();
+    ArrayList<UUID> copy = new ArrayList<>();
     for (UUID userId : list) {
       UUID copyID = new UUID(userId.getMostSignificantBits(), userId.getLeastSignificantBits());
       copy.add(copyID);

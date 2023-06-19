@@ -1,98 +1,61 @@
-buildscript {
-    ext {
-        swaggerVersion = '2.9.2'
-        lombokVersion = '1.18.4'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
-
 group = 'org.burningokr'
-
-if (project.hasProperty('projVersion')) {
-    version = project.projVersion
-} else {
-    version = '1.0.0'
-}
-
-bootRun.systemProperties = System.properties
 
 bootWar {
     enabled = true
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
 
 war {
     enabled = true
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
-
-repositories {
-    mavenCentral()
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
-    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-
     implementation project(':burning-okr-model')
     implementation project(':burning-okr-data')
     implementation project(':burning-okr-logic')
-    runtime project(':burning-okr-data')
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
+    // util
+    implementation deps.spring.boot.starter.validation
+    providedRuntime deps.spring.boot.starter.tomcat
+    implementation deps.spring.boot.starter.data // Used to handle Exceptions and Import/Export files
+    implementation deps.apache.poi //  Java API To Access Microsoft Format Files
 
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+    // logging and monitoring
+    implementation deps.spring.boot.starter.actuator
 
-    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    // security
+    implementation deps.spring.boot.starter.security
+    implementation deps.spring.boot.starter.oauth2ResourceServer
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.0.RELEASE'
-    implementation group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.1.0.RELEASE'
-    implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth', version: '2.4.0.RELEASE'
-    implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.0.RELEASE'
+    // db
+    implementation deps.db.flyway
+    implementation deps.db.postgres
+    implementation deps.db.mssql
+    implementation deps.db.flyway.mssql
+    implementation deps.db.hibernate.envers
 
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.4'
+    // websockets
+    implementation deps.spring.boot.starter.websocket
 
-    implementation group: 'org.flywaydb', name: 'flyway-core'
+    // swagger TODO upgrade to newest version
+    implementation deps.swagger.swagger2
+    implementation deps.swagger.ui
 
-    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
-
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.0'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-
-    compile "no.fiken.oss.junixsocket:junixsocket-common:1.0.2"
-    compile "no.fiken.oss.junixsocket:junixsocket-native-common:1.0.2"
-
-    compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc'
+    // annotation processors
+    annotationProcessor deps.spring.boot.configurationProcessor
 }
 
 springBoot {
     buildInfo()
 }
 
-configurations {
-    providedRuntime
-    all {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+// used to access the Version of the Application inside the Application (Mainly for Startup-Screen)
+if (project.hasProperty('projVersion')) {
+    version = project.projVersion
+} else {
+    version = '1.0.0'
 }
+
+bootRun.systemProperties = System.properties as Map<String, ?>

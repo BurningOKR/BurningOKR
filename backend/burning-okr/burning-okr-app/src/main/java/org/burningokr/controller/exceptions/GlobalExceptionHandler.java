@@ -1,5 +1,7 @@
 package org.burningokr.controller.exceptions;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.service.exceptions.*;
 import org.slf4j.Logger;
@@ -11,51 +13,9 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
   private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-  /**
-   * Global handler for AzureUserFetchExceptions.
-   *
-   * @param request HttpServletRequest
-   * @param ex      AzureUserFetchException
-   * @return a ResponseEntity with HttpStatus Bad Request
-   */
-  @ExceptionHandler(AzureUserFetchException.class)
-  public ResponseEntity handleAzureUserFetchException(
-    HttpServletRequest request, AzureUserFetchException ex
-  ) {
-    ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "UserList could not be fetched from Azure -> HTTP 500 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
-  }
-
-  /**
-   * Global handler for AzureAPiException.
-   *
-   * @param request HttpServletRequest
-   * @param ex      AzureUserFetchException
-   * @return a ResponseEntity with HttpStatus Bad Request
-   */
-  @ExceptionHandler(AzureApiException.class)
-  public ResponseEntity handleAzureApiException(
-    HttpServletRequest request, AzureUserFetchException ex
-  ) {
-    ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "Error while calling azure api -> HTTP 500 response - ID: " + errorInformation.getErrorId(),
-      ex
-    );
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
-  }
 
   /**
    * Global handler for JpaObjectRetrivalFailureExecption.

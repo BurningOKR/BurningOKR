@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable({
@@ -7,15 +8,25 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private authService: AuthenticationService) {
+  constructor(private router: Router, private oauthService: OAuthService, private authService: AuthenticationService) {
 
   }
 
-  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    if (this.authService.hasValidAccessToken()) {
-      return true;
+  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
+
+    if(this.authService.isInitialized() || await this.authService.waitForInitializationToFinish()) {
+      const access: string | boolean = await this.authService.login(state.url);
+
+      if (typeof access === 'string') {
+        return this.router.parseUrl(access);
+      } else {
+        return access;
+      }
     }
 
-    return this.authService.redirectToLoginProvider();
+  }
+
+  private async delay(): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, 1000));
   }
 }

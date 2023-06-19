@@ -19,6 +19,8 @@ export class TopicDescriptionMapper {
   }
 
   mapTopicDescriptionDto(description: OkrTopicDescriptionDto): OkrTopicDescription {
+    console.log('Mapping!');
+
     return new OkrTopicDescription(
       description.id,
       description.name,
@@ -28,9 +30,7 @@ export class TopicDescriptionMapper {
       description.description,
       description.contributesTo,
       description.delimitation,
-      description.beginning ?
-        new Date(description.beginning[0], description.beginning[1] - 1, description.beginning[2]) :
-        null,
+      DateMapper.mapDateStringToDate(description.beginning),
       description.dependencies,
       description.resources,
       description.handoverPlan,
@@ -39,7 +39,6 @@ export class TopicDescriptionMapper {
 
   mapTopicDescription(description: OkrTopicDescription): OkrTopicDescriptionDto {
     const descriptionDto: OkrTopicDescriptionDto = new OkrTopicDescriptionDto();
-    const beginning: Date = this.dateMapper.mapToDate(description.beginning);
     descriptionDto.id = description.id;
     descriptionDto.name = description.name;
     descriptionDto.initiatorId = description.initiatorId;
@@ -48,11 +47,7 @@ export class TopicDescriptionMapper {
     descriptionDto.description = description.description;
     descriptionDto.contributesTo = description.contributesTo;
     descriptionDto.delimitation = description.delimitation;
-    descriptionDto.beginning = beginning ? [
-      Number(beginning.getFullYear()),
-      Number(beginning.getMonth()) + 1,
-      Number(beginning.getDate()),
-    ] : null;
+    descriptionDto.beginning = DateMapper.mapDateToDateString(description.beginning);
     descriptionDto.dependencies = description.dependencies;
     descriptionDto.resources = description.resources;
     descriptionDto.handoverPlan = description.handoverPlan;

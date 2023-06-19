@@ -5,8 +5,8 @@ export interface CycleDto {
   id?: CycleId;
   name: string; // required length > 0
   companyIds: number[]; // required
-  plannedStartDate: number[]; // required
-  plannedEndDate: number[]; // required
+  plannedStartDate: string; // required
+  plannedEndDate: string; // required
   cycleState: CycleState;
   isVisible: boolean;
 }

@@ -1,5 +1,9 @@
-dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"
+bootJar { enabled = false }
 
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+dependencies {
+    implementation deps.spring.boot.starter.data
+    implementation deps.spring.boot.starter.validation
+    implementation deps.spring.security.core
+    implementation deps.jackson.databind
+    implementation deps.db.hibernate.envers
 }

@@ -1,91 +1,134 @@
 import { Injectable } from '@angular/core';
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
-import { OAuthFrontendDetailsService } from './o-auth-frontend-details.service';
-import { AuthTypeHandlerBase } from './auth-type-handler/auth-type-handler-base';
-import { AuthTypeHandlerFactoryService } from './auth-type-handler/auth-type-handler-factory.service';
-import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { filter, take } from 'rxjs/operators';
+import { FetchingService } from '../../services/fetching.service';
+import { ReplaySubject } from 'rxjs';
+import { OidcConfigurationService } from '../../../config/oidc/oidc-configuration.service';
+import { AuthFlowConfig } from '../../../config/oidc/auth-flow-config';
+import { OidcConfiguration } from '../../../config/oidc/oidc-configuration';
 
+// TODO move magic strings to config file
 @Injectable()
 export class AuthenticationService {
-
-  authTypeHandler: Promise<AuthTypeHandlerBase>;
   path: string;
+  finishedInitialisation: Promise<boolean>;
+  private isUserLoggedIn$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  private initialized: boolean = false;
 
   constructor(
-    protected oAuthService: OAuthService,
-    private oAuthDetails: OAuthFrontendDetailsService,
-    private authTypeHandlerFactoryService: AuthTypeHandlerFactoryService,
-  ) {
-
-    this.authTypeHandler = this.authTypeHandlerFactoryService.getAuthTypeHandler();
-
-  }
-
-  /**
-   * Configures the AuthenticationService with the OAuthDetails from the backend.
-   * Should be called at application startup.
-   *
-   * @returns the AuthConfig
-   */
-  async configure(): Promise<AuthConfig> {
-    const authTypeHandlerBase: AuthTypeHandlerBase = await this.authTypeHandler;
-
-    return new Promise(resolve => {
-      this.oAuthDetails.getAuthConfig$()
-        .subscribe((authConfig: AuthConfig) => {
-          this.oAuthService.configure(authConfig);
-          this.oAuthService.setStorage(localStorage);
-          this.oAuthService.tokenValidationHandler = new JwksValidationHandler();
-          this.oAuthService.redirectUri = `${window.location.origin}`;
-          this.path = location.pathname;
-          authTypeHandlerBase.afterConfigured()
-            .then(() => resolve(authConfig));
-
-        });
+    private oAuthService: OAuthService,
+    private fetchingService: FetchingService,
+    private oidcConfigurationService: OidcConfigurationService,
+    ) {
+    this.isUserLoggedIn$.next(false); // user is not logged in on application start by default
+    this.finishedInitialisation = new Promise<boolean>(resolve => {
+      this.configure().then(() => {
+        this.initialized = true;
+        resolve(true);
+      });
     });
   }
 
-  getPath(): string {
-    return this.path;
+  async configure(): Promise<void> {
+    const oidcConfiguration: OidcConfiguration = await this.oidcConfigurationService.getOidcConfiguration$();
+
+    this.oAuthService.configure(this.getAuthFlowConfig(oidcConfiguration));
+    this.oAuthService.setupAutomaticSilentRefresh();
+    this.onFirstTokenExecuteRefetch();
+    this.onTokenFailureSetLoggedInFalse();
   }
 
-  /**
-   * Checks wether the user is logged in.
-   * The user will be redirected to the login page of the current AuthenticationHandler, when they are not logged in.
-   *
-   * @returns true when the user is logged. False otherwise.
-   */
-  async redirectToLoginProvider(): Promise<boolean> {
-    const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
-
-    return authTypeHandler.startLoginProcedure();
+  getAuthFlowConfig(oidcConfig: OidcConfiguration): AuthFlowConfig {
+    return {
+      issuer: oidcConfig.issuerUri,
+      redirectUri: `${window.location.origin}`,
+      clientId: oidcConfig.clientId,
+      responseType: 'code',
+      scope: oidcConfig.scopes.join(' '),
+      showDebugInformation: true, // TODO remove after azure ad is working
+      strictDiscoveryDocumentValidation: oidcConfig.strictDiscoveryDocumentValidation,
+    } as AuthFlowConfig;
   }
 
-  /**
-   * Logs the user in with the current AuthenticationService.
-   *
-   * @param email The email of the user
-   * @param password The password of the user
-   */
-  async login(email?: string, password?: string): Promise<any> {
-    const authTypeHandler: AuthTypeHandlerBase = await this.authTypeHandler;
-
-    return authTypeHandler.login(email, password);
+  getAccessToken(): string {
+    return this.oAuthService.getAccessToken();
   }
 
-  /**
-   * Checks wether the user has a valid access token
-   *
-   * @returns true when the user has a valid access token. False otherwise.
-   */
-  hasValidAccessToken(): boolean {
-    return this.oAuthService.hasValidAccessToken();
-  }
-
-  /**
-   * Logs the user out.
-   */
   logout(): void {
     this.oAuthService.logOut();
+  }
+
+  isUserLoggedIn(): boolean {
+    return this.oAuthService.hasValidAccessToken() && this.oAuthService.hasValidIdToken();
+  }
+
+  async waitForInitializationToFinish(): Promise<boolean> {
+    return this.finishedInitialisation;
+  }
+
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
+  async login(url: string): Promise<string | boolean> {
+    await this.oAuthService.loadDiscoveryDocumentAndTryLogin();
+
+    if (!this.isUserLoggedIn()) {
+      this.writeRedirectUrlToLocalStorage(url);
+      this.oAuthService.initCodeFlow();
+
+      return false;
+    }
+
+    // retrieve target path
+    return this.getRedirectUrlFromLocalStorage();
+  }
+
+  private writeRedirectUrlToLocalStorage(redirectUrl: string): void {
+    localStorage.setItem('login_redirect', redirectUrl);
+  }
+
+  private getRedirectUrlFromLocalStorage(): string {
+    const redirect: string = localStorage.getItem('login_redirect');
+    localStorage.removeItem('login_redirect');
+
+    return redirect;
+  }
+
+  private onFirstTokenExecuteRefetch(): void {
+    this.oAuthService.events.pipe(
+      filter(event => event.type === 'token_received'),
+      take(1),
+    ).subscribe(() => {
+        this.fetchingService.refetchAll(this.isUserLoggedIn());
+    });
+  }
+
+  private onTokenFailureSetLoggedInFalse(): void {
+    this.oAuthService.events.pipe(
+      filter(event => this.matchesAnyString(event.type, [
+        'user_profile_load_error',
+        'discovery_document_load_error',
+        'discovery_document_validation_error',
+        'token_error',
+        'session_error',
+        'logout',
+        ])
+      )
+    ).subscribe(() => {
+      this.isUserLoggedIn$.next(false);
+    });
+  }
+
+  // TODO setLoggedIn after successful re-login
+
+  private matchesAnyString(string: string, matchers: string[]): boolean {
+    matchers.forEach(matcher => {
+      if (string === matcher) {
+        return true;
+      }
+    });
+
+    return false;
   }
 }

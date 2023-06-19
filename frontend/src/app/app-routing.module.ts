@@ -11,7 +11,6 @@ import { DashboardOverviewComponent } from './dashboard/sites/dashboard-overview
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
-import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topic-drafts.component';
 import { environment } from '../environments/environment';
 import { PlaygroundGuard } from './core/auth/guards/playground.guard';
@@ -25,20 +24,20 @@ const routes: Routes = [
   },
   {
     path: 'okr', loadChildren: () => import('./okrview/okrview.module').then(mod => mod.OkrviewModule),
-    canActivate: [NotInitiliazedGuard, AuthGuard],
+    canActivate: [/*NotInitiliazedGuard,*/ AuthGuard],
   },
-  { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
-  { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
-  { path: 'admin', component: AdminViewComponent, canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard] },
+  { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [AuthGuard] }, // TODO fix auth
+  { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, AdminRoleGuard] },
   {
     path: 'cycle-admin/:companyId',
     component: CycleAdminContainerComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard],
+    canActivate: [AuthGuard, AdminRoleGuard],
   },
   {
     path: 'submitted-topic-drafts',
     component: TopicDraftsComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(mod => mod.AuthModule),

@@ -1,11 +1,12 @@
 package org.burningokr.model.okrUnits;
 
-import lombok.*;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @EqualsAndHashCode(callSuper = true)
 public abstract class OkrChildUnit extends OkrUnit implements OkrChildUnitSchema {
@@ -14,18 +15,7 @@ public abstract class OkrChildUnit extends OkrUnit implements OkrChildUnitSchema
   @EqualsAndHashCode.Exclude
   protected OkrUnit parentOkrUnit;
 
-  @Column
-  @Getter(AccessLevel.NONE)
-  @Setter(AccessLevel.NONE)
   protected boolean isActive;
-
-  public boolean isActive() {
-    return isActive;
-  }
-
-  public void setActive(boolean isActive) {
-    this.isActive = isActive;
-  }
 
   public abstract OkrChildUnit getCopyWithoutRelations();
 }

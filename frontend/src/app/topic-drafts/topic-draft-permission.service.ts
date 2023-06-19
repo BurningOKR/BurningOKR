@@ -10,7 +10,6 @@ import { take } from 'rxjs/operators';
 export class TopicDraftPermissionService {
 
   private isAdmin: boolean;
-  private isAuditor: boolean;
   private currentUser: User;
 
   constructor(private currentUserService: CurrentUserService) {
@@ -22,8 +21,6 @@ export class TopicDraftPermissionService {
       .subscribe(user => this.currentUser = user);
     this.currentUserService.isCurrentUserAdmin$().pipe(take(1))
       .subscribe(isAdmin => this.isAdmin = isAdmin);
-    this.currentUserService.isCurrentUserAuditor$().pipe(take(1))
-      .subscribe(isAuditor => this.isAuditor = isAuditor);
   }
 
   hasCurrentUserDeletePermissions(topicDraft: OkrTopicDraft): boolean {
@@ -31,7 +28,7 @@ export class TopicDraftPermissionService {
   }
 
   hasCurrentUserApprovingPermissions(): boolean {
-    return this.isAdmin || this.isAuditor;
+    return this.isAdmin;
   }
 
   hasCurrentUserSubmissionPermissions(topicDraft: OkrTopicDraft): boolean {

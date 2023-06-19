@@ -9,7 +9,7 @@ import org.burningokr.model.settings.UserSettings;
 import org.burningokr.repositories.okr.ObjectiveRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
-import org.burningokr.repositories.okrUnit.UnitRepository;
+import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
@@ -31,7 +31,7 @@ public class CyclePreparationCloningService {
 
   private final Logger logger = LoggerFactory.getLogger(CyclePreparationCloningService.class);
   private final CompanyRepository companyRepository;
-  private final UnitRepository<OkrChildUnit> subUnitRepository;
+  private final OkrUnitRepository<OkrChildUnit> subOkrUnitRepository;
   private final OkrDepartmentRepository okrDepartmentRepository;
   private final ObjectiveRepository objectiveRepository;
   private final UserSettingsRepository userSettingsRepository;
@@ -73,8 +73,8 @@ public class CyclePreparationCloningService {
   }
 
   @Transactional
-  void cloneChildUnitIntoParentUnitForPreparation(
-    OkrChildUnit okrChildUnitToClone, OkrUnit okrUnitToCloneInto
+  public void cloneChildUnitIntoParentUnitForPreparation(
+          OkrChildUnit okrChildUnitToClone, OkrUnit okrUnitToCloneInto
   ) {
     OkrChildUnit copy = okrChildUnitToClone.getCopyWithoutRelations();
 
@@ -83,7 +83,7 @@ public class CyclePreparationCloningService {
       ((OkrParentUnit) okrUnitToCloneInto).getOkrChildUnits().add(copy);
     }
 
-    subUnitRepository.save(copy);
+    subOkrUnitRepository.save(copy);
 
     if (okrChildUnitToClone instanceof OkrDepartment) {
       this.logOkrDepartment((OkrDepartment) copy);
@@ -93,7 +93,7 @@ public class CyclePreparationCloningService {
           (OkrDepartment) copy, ((OkrDepartment) okrChildUnitToClone).getTaskBoard());
       taskBoardService.saveTaskBoard(newTaskBoard);
 
-      subUnitRepository.save(copy);
+      subOkrUnitRepository.save(copy);
     }
 
     this.logger.info("cloneChildUnitIntoParentUnitForPreparation - after taskboard");

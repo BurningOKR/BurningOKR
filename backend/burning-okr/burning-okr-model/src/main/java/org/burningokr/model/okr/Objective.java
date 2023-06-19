@@ -1,10 +1,10 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrUnit;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,15 +13,16 @@ import java.util.Collection;
 public class Objective implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private OkrUnit parentOkrUnit;
 
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Objective parentObjective;
 
   @Column(length = 255)

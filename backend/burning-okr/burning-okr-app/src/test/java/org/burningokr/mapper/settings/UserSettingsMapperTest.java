@@ -4,13 +4,14 @@ import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserSettingsMapperTest {
 
@@ -18,7 +19,7 @@ public class UserSettingsMapperTest {
   private UserSettingsDto dto;
   private UserSettingsMapper mapper;
 
-  @Before
+  @BeforeEach
   public void before() {
     this.entity = new UserSettings();
     this.dto = new UserSettingsDto();
@@ -32,14 +33,14 @@ public class UserSettingsMapperTest {
 
     this.entity = this.mapper.mapDtoToEntity(dto);
 
-    Assert.assertEquals(id, this.entity.getId());
+    assertEquals(id, this.entity.getId());
   }
 
   @Test
   public void test_mapDtoToEntity_ExpectCompanyIsNullIfThereIsNoCompanyId() {
     this.entity = this.mapper.mapDtoToEntity(dto);
 
-    Assert.assertNull(this.entity.getDefaultOkrCompany());
+    assertNull(this.entity.getDefaultOkrCompany());
   }
 
   @Test
@@ -49,14 +50,14 @@ public class UserSettingsMapperTest {
 
     this.entity = this.mapper.mapDtoToEntity(dto);
 
-    Assert.assertEquals(defaultCompanyId, this.entity.getDefaultOkrCompany().getId());
+    assertEquals(defaultCompanyId, this.entity.getDefaultOkrCompany().getId());
   }
 
   @Test
   public void test_mapDtoToEntity_ExpectTeamIsNullIfThereIsNoTeamId() {
     this.entity = this.mapper.mapDtoToEntity(dto);
 
-    Assert.assertNull(this.entity.getDefaultTeam());
+    assertNull(this.entity.getDefaultTeam());
   }
 
   @Test
@@ -66,7 +67,7 @@ public class UserSettingsMapperTest {
 
     this.entity = this.mapper.mapDtoToEntity(dto);
 
-    Assert.assertEquals(defaultTeamId, this.entity.getDefaultTeam().getId());
+    assertEquals(defaultTeamId, this.entity.getDefaultTeam().getId());
   }
 
   @Test
@@ -76,7 +77,7 @@ public class UserSettingsMapperTest {
 
     this.dto = this.mapper.mapEntityToDto(entity);
 
-    Assert.assertEquals(id, this.dto.getId());
+    assertEquals(id, this.dto.getId());
   }
 
   @Test
@@ -88,7 +89,7 @@ public class UserSettingsMapperTest {
 
     this.dto = this.mapper.mapEntityToDto(entity);
 
-    Assert.assertEquals(companyId, this.dto.getDefaultCompanyId());
+    assertEquals(companyId, this.dto.getDefaultCompanyId());
   }
 
   @Test
@@ -100,20 +101,20 @@ public class UserSettingsMapperTest {
 
     this.dto = this.mapper.mapEntityToDto(entity);
 
-    Assert.assertEquals(defaultTeamId, this.dto.getDefaultTeamId());
+    assertEquals(defaultTeamId, this.dto.getDefaultTeamId());
   }
 
   @Test
   public void test_mapEntitiesToDtos_ExpectEmptyList() {
     Collection<UserSettings> entities = new ArrayList<>();
     Collection<UserSettingsDto> dtos = this.mapper.mapEntitiesToDtos(entities);
-    Assert.assertTrue(dtos.isEmpty());
+    assertTrue(dtos.isEmpty());
   }
 
   @Test
   public void test_mapEntitiesToDtos_ExpectListIsMappedWithTwoElements() {
     Collection<UserSettings> entities = Arrays.asList(new UserSettings(), new UserSettings());
     Collection<UserSettingsDto> dtos = mapper.mapEntitiesToDtos(entities);
-    Assert.assertEquals(2, dtos.size());
+    assertEquals(2, dtos.size());
   }
 }

@@ -1,11 +1,12 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrDepartment;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,10 +14,12 @@ import java.util.Collection;
 @Data
 public class TaskBoard implements Trackable<Long> {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
-  @OneToOne
+  @ToString.Exclude
+  @OneToOne(fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   @JoinColumn(name = "parent_unit_id")
   private OkrDepartment parentOkrDepartment;
@@ -25,7 +28,8 @@ public class TaskBoard implements Trackable<Long> {
   @EqualsAndHashCode.Exclude
   private Collection<Task> tasks = new ArrayList<>();
 
-  @OneToMany(mappedBy = "parentTaskBoard", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "parentTaskBoard", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
   private Collection<TaskState> availableStates = new ArrayList<>();
 
   @Override

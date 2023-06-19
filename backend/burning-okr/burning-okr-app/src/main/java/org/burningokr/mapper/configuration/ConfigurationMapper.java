@@ -7,9 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 @Service
 public class ConfigurationMapper implements DataMapper<Configuration, ConfigurationDto> {
 
@@ -35,22 +32,5 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configurationDto.setType(configuration.getType());
     logger.info("Mapped Configuration (id: )" + configuration.getId() + ") to ConfigurationDto");
     return configurationDto;
-  }
-
-  @Override
-  public Collection<Configuration> mapDtosToEntities(Collection<ConfigurationDto> input) {
-    Collection<Configuration> configurations = new ArrayList<>();
-    input.forEach(configurationDto -> configurations.add(mapDtoToEntity(configurationDto)));
-    return configurations;
-  }
-
-  @Override
-  public Collection<ConfigurationDto> mapEntitiesToDtos(Collection<Configuration> configurations) {
-    Collection<ConfigurationDto> configurationDtos = new ArrayList<>();
-    for (Configuration configuration : configurations) {
-      ConfigurationDto configurationDto = mapEntityToDto(configuration);
-      configurationDtos.add(configurationDto);
-    }
-    return configurationDtos;
   }
 }

@@ -1,37 +1,30 @@
 package org.burningokr.model.users;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public interface User {
-
-  UUID getId();
-
-  void setId(UUID id);
-
-  String getGivenName();
-
-  void setGivenName(String givenName);
-
-  String getSurname();
-
-  void setSurname(String surname);
-
-  String getMail();
-
-  void setMail(String mail);
-
-  String getJobTitle();
-
-  void setJobTitle(String hobTitle);
-
-  String getDepartment();
-
-  void setDepartment(String department);
-
-  String getPhoto();
-
-  void setPhoto(String photo);
+@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements IUser {
+  @Id
+  private UUID id;
+  private String givenName;
+  private String surname;
+  private String mail;
+  private String jobTitle;
+  private String department;
+  private String photo; // Represents the image as String
+  private boolean active;
+  private boolean admin;
+  private LocalDateTime createdAt;
 }

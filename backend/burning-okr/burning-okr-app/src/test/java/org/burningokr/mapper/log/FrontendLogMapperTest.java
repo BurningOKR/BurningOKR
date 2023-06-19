@@ -3,14 +3,15 @@ package org.burningokr.mapper.log;
 import org.burningokr.dto.log.FrontendLogDto;
 import org.burningokr.model.log.FrontendLog;
 import org.burningokr.model.log.FrontendLogLevel;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FrontendLogMapperTest {
 
@@ -18,7 +19,7 @@ public class FrontendLogMapperTest {
   private FrontendLogDto frontendLogDto;
   private FrontendLogMapper frontendLogMapper;
 
-  @Before
+  @BeforeEach
   public void setup() {
     this.frontendLog = new FrontendLog();
     this.frontendLogDto = new FrontendLogDto();
@@ -59,23 +60,23 @@ public class FrontendLogMapperTest {
 
     Collection<FrontendLogDto> frontendLogDtos = frontendLogMapper.mapEntitiesToDtos(frontendLogs);
 
-    Assert.assertEquals(frontendLogs.size(), frontendLogDtos.size());
+    assertEquals(frontendLogs.size(), frontendLogDtos.size());
     assertFrontendLogWithDto(frontendLog1, (FrontendLogDto) frontendLogDtos.toArray()[0]);
     assertFrontendLogWithDto(frontendLog2, (FrontendLogDto) frontendLogDtos.toArray()[1]);
   }
 
   private void assertFrontendLogWithDto(FrontendLog frontendLog, FrontendLogDto frontendLogDto) {
-    Assert.assertEquals(frontendLog.getId(), frontendLogDto.getId());
-    Assert.assertEquals(
+    assertEquals(frontendLog.getId(), frontendLogDto.getId());
+    assertEquals(
       frontendLog.getLevel(),
       FrontendLogLevel.getLevelByIdentifier(frontendLogDto.getLevel()).name()
     );
-    Assert.assertEquals(
+    assertEquals(
       frontendLog.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
       frontendLogDto.getTimestamp()
     );
-    Assert.assertEquals(frontendLog.getFileName(), frontendLogDto.getFileName());
-    Assert.assertEquals(frontendLog.getLineNumber(), frontendLogDto.getLineNumber());
-    Assert.assertEquals(frontendLog.getMessage(), frontendLogDto.getMessage());
+    assertEquals(frontendLog.getFileName(), frontendLogDto.getFileName());
+    assertEquals(frontendLog.getLineNumber(), frontendLogDto.getLineNumber());
+    assertEquals(frontendLog.getMessage(), frontendLogDto.getMessage());
   }
 }

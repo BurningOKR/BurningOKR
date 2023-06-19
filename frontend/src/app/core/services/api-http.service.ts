@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Consts } from '../../shared/consts';
@@ -10,15 +10,10 @@ import { ApiHttpErrorHandlingService, ErrorHandlingFunction } from './api-http-e
 })
 export class ApiHttpService {
 
-  private httpOptions: object;
-
   constructor(
     private http: HttpClient,
     private errorHandlerService: ApiHttpErrorHandlingService,
   ) {
-    this.httpOptions = {
-      headers: new HttpHeaders({}),
-    };
   }
 
   getErrors$(): Observable<HttpErrorResponse[]> {
@@ -27,7 +22,7 @@ export class ApiHttpService {
 
   getData$<T>(path: string, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
-    return this.http.get<T>(Consts.API_URL + path, this.httpOptions)
+    return this.http.get<T>(Consts.API_URL + path)
       .pipe(
         catchError(
           this.errorHandlerService.getErrorHandler(() => this.getData$<T>(path), customErrorHandler),
@@ -37,7 +32,7 @@ export class ApiHttpService {
 
   postData$<T>(path: string, value: object, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
-    return this.http.post<T>(Consts.API_URL + path, value, this.httpOptions)
+    return this.http.post<T>(Consts.API_URL + path, value)
       .pipe(
         catchError(
           this.errorHandlerService.getErrorHandler(() => this.postData$<T>(path, value), customErrorHandler),
@@ -46,7 +41,7 @@ export class ApiHttpService {
   }
 
   putData$<T>(path: string, value: object, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
-    return this.http.put<T>(Consts.API_URL + path, value, this.httpOptions)
+    return this.http.put<T>(Consts.API_URL + path, value)
       .pipe(
         catchError(
           this.errorHandlerService.getErrorHandler(() => this.putData$<T>(path, value), customErrorHandler),
@@ -55,7 +50,7 @@ export class ApiHttpService {
   }
 
   deleteData$(path: string, customErrorHandler?: ErrorHandlingFunction<boolean>): Observable<boolean> {
-    return this.http.delete(Consts.API_URL + path, this.httpOptions)
+    return this.http.delete(Consts.API_URL + path)
       .pipe(
         map((res: string) => res === 'deleted'),
         catchError(
@@ -66,7 +61,7 @@ export class ApiHttpService {
 
   patchData$<T>(path: string, value: T, customErrorHandler?: ErrorHandlingFunction<T>): Observable<T> {
 
-    return this.http.patch<T>(Consts.API_URL + path, value, this.httpOptions)
+    return this.http.patch<T>(Consts.API_URL + path, value)
       .pipe(
         catchError(this.errorHandlerService.getErrorHandler(() => {
             return this.patchData$<T>(path, value);

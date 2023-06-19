@@ -4,12 +4,14 @@ import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OkrDepartmentHelperTest {
 
@@ -24,10 +26,10 @@ public class OkrDepartmentHelperTest {
 
     Collection<OkrChildUnit> actualDepartments = BranchHelper.collectChildUnits(okrCompany);
 
-    Assert.assertEquals(3, actualDepartments.size());
-    Assert.assertEquals(okrDepartment, actualDepartments.toArray()[0]);
-    Assert.assertEquals(okrBranch, actualDepartments.toArray()[1]);
-    Assert.assertEquals(okrDepartment2, actualDepartments.toArray()[2]);
+    assertEquals(3, actualDepartments.size());
+    assertEquals(okrDepartment, actualDepartments.toArray()[0]);
+    assertEquals(okrBranch, actualDepartments.toArray()[1]);
+    assertEquals(okrDepartment2, actualDepartments.toArray()[2]);
   }
 
   @Test
@@ -41,9 +43,9 @@ public class OkrDepartmentHelperTest {
 
     Collection<OkrDepartment> actualOkrDepartments = BranchHelper.collectDepartments(okrCompany);
 
-    Assert.assertEquals(2, actualOkrDepartments.size());
-    Assert.assertEquals(okrDepartment, actualOkrDepartments.toArray()[0]);
-    Assert.assertEquals(okrDepartment2, actualOkrDepartments.toArray()[1]);
+    assertEquals(2, actualOkrDepartments.size());
+    assertEquals(okrDepartment, actualOkrDepartments.toArray()[0]);
+    assertEquals(okrDepartment2, actualOkrDepartments.toArray()[1]);
   }
 
   @Test
@@ -52,6 +54,6 @@ public class OkrDepartmentHelperTest {
 
     Collection<OkrChildUnit> actualDepartments = BranchHelper.collectChildUnits(okrCompany);
 
-    Assert.assertTrue(actualDepartments.isEmpty());
+    assertTrue(actualDepartments.isEmpty());
   }
 }

@@ -2,7 +2,7 @@ package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.service.security.UserFromContextService;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -11,7 +11,6 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,10 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class WebsocketAuthenticationChannelInterceptor implements ChannelInterceptor {
+  private final AuthorizationUserContextService authorizationUserContextService;
 
   public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
-
-  private final ResourceServerTokenServices resourceServerTokenServices;
 
   @Override
   public Message<?> preSend(Message<?> message, MessageChannel channel) {
@@ -49,7 +47,7 @@ public class WebsocketAuthenticationChannelInterceptor implements ChannelInterce
           .getSessionAttributes()
           .put(
             WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY,
-            UserFromContextService.extractUserIdFromSecurityContext()
+                  authorizationUserContextService.getAuthenticatedUser().getId()
           );
       } else {
         log.info("User could not be identified");
@@ -62,7 +60,7 @@ public class WebsocketAuthenticationChannelInterceptor implements ChannelInterce
   }
 
   private Authentication getAuthentication(String token) {
-    return resourceServerTokenServices.loadAuthentication(token);
+    return null; //resourceServerTokenServices.loadAuthentication(token);
   }
 
   private String getBearerToken(StompHeaderAccessor accessor) {

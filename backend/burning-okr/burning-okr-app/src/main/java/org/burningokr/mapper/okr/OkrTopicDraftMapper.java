@@ -6,6 +6,7 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.service.userhandling.UserService;
+import org.burningokr.service.util.DateMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,14 +15,14 @@ import java.util.Collection;
 @Service
 @RequiredArgsConstructor
 public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDraftDto> {
-
   private final UserService userService;
+  private final DateMapper dateMapper;
 
   @Override
   public OkrTopicDraft mapDtoToEntity(OkrTopicDraftDto input) {
     OkrTopicDraft entity = new OkrTopicDraft();
     entity.setDescription(input.getDescription());
-    entity.setBeginning(input.getBeginning());
+    entity.setBeginning(dateMapper.mapDateStringToDate(input.getBeginning()));
     entity.setCurrentStatus(OkrTopicDraftStatusEnum.values()[input.getCurrentStatus()]);
     entity.setContributesTo(input.getContributesTo());
     entity.setDelimitation(input.getDelimitation());
@@ -40,11 +41,11 @@ public class OkrTopicDraftMapper implements DataMapper<OkrTopicDraft, OkrTopicDr
   public OkrTopicDraftDto mapEntityToDto(OkrTopicDraft input) {
     OkrTopicDraftDto dto = new OkrTopicDraftDto();
     dto.setDescription(input.getDescription());
-    dto.setInitiator(userService.findById(input.getInitiatorId()));
+    dto.setInitiator(userService.findById(input.getInitiatorId()).orElseThrow());
     if (input.getCurrentStatus() != null) {
       dto.setCurrentStatus(input.getCurrentStatus().ordinal());
     }
-    dto.setBeginning(input.getBeginning());
+    dto.setBeginning(dateMapper.mapDateToDateString(input.getBeginning()));
     dto.setContributesTo(input.getContributesTo());
     dto.setDelimitation(input.getDelimitation());
     dto.setDependencies(input.getDependencies());

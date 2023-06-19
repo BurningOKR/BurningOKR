@@ -1,1 +1,2 @@
-rootProject.name = 'okr-tool'
+project.name = "burning-okr-model"
+rootProject.name = 'burning-okr'

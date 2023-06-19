@@ -1,16 +1,16 @@
 package org.burningokr.service.excel;
 
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
+import org.burningokr.model.users.IUser;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
 import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,33 +18,12 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class TeamMemberRowBuilderService implements RowBuilderService<TeamMemberRow> {
-
-  private final UserService userService;
-  private final OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers;
+  private final OkrChildUnitService<OkrDepartment> departmentServiceUsers;
   private final CompanyService companyService;
   private final Messages messages;
-
-  /**
-   * Initializes TeamMemberRowBuilderService.
-   *
-   * @param userService            an {@link UserService} object
-   * @param departmentServiceUsers a {@link OkrUnitServiceUsers} object
-   * @param companyService         a {@link CompanyService} object
-   * @param messages               a {@link Messages} object
-   */
-  @Autowired
-  public TeamMemberRowBuilderService(
-    UserService userService,
-    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrDepartment> departmentServiceUsers,
-    CompanyService companyService,
-    Messages messages
-  ) {
-    this.userService = userService;
-    this.departmentServiceUsers = departmentServiceUsers;
-    this.companyService = companyService;
-    this.messages = messages;
-  }
+  private final UserService userService;
 
   @Override
   public Collection<TeamMemberRow> generateForOkrChildUnit(long departmentId) {
@@ -57,11 +36,10 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   ) {
     Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
 
-    if (okrDepartment.getOkrMasterId() != null && !(okrDepartment.getOkrMasterId() == null)) {
+    if (okrDepartment.getOkrMasterId() != null) {
       addUserToList(okrDepartment.getOkrMasterId(), okrDepartment, teamMemberRows);
     }
-    if (okrDepartment.getOkrTopicSponsorId() != null
-      && !(okrDepartment.getOkrTopicSponsorId() == null)) {
+    if (okrDepartment.getOkrTopicSponsorId() != null) {
       addUserToList(okrDepartment.getOkrTopicSponsorId(), okrDepartment, teamMemberRows);
     }
     okrDepartment
@@ -72,9 +50,10 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
   }
 
   private void addUserToList(
-    UUID guidUser, OkrDepartment okrDepartment, Collection<TeamMemberRow> rows
+    UUID userId, OkrDepartment okrDepartment, Collection<TeamMemberRow> rows
   ) {
-    User user = userService.findById(guidUser);
+    var user = userService.findById(userId).orElseThrow(EntityNotFoundException::new);
+
     String role = getTeamRoleFromUser(user, okrDepartment);
 
     TeamMemberRow row =
@@ -82,18 +61,18 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
     rows.add(row);
   }
 
-  private String getFullName(User user) {
-    return user.getGivenName() + " " + user.getSurname();
+  private String getFullName(IUser IUser) {
+    return IUser.getGivenName() + " " + IUser.getSurname();
   }
 
-  private String getTeamRoleFromUser(User user, OkrDepartment okrDepartment) {
-    if (user.getId().equals(okrDepartment.getOkrMasterId())) {
+  private String getTeamRoleFromUser(IUser IUser, OkrDepartment okrDepartment) {
+    if (IUser.getId().equals(okrDepartment.getOkrMasterId())) {
       return messages.get("okrmaster");
-    } else if (user.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
+    } else if (IUser.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
       return messages.get("topicsponsor");
     } else {
       for (UUID memberId : okrDepartment.getOkrMemberIds()) {
-        if (user.getId().equals(memberId)) {
+        if (IUser.getId().equals(memberId)) {
           return messages.get("teammember");
         }
       }

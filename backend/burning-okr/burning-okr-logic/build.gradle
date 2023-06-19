@@ -1,14 +1,28 @@
-repositories {
-    jcenter()
-}
+bootJar { enabled = false }
 
 dependencies {
-    compile project(':burning-okr-model')
-    compile project(':burning-okr-data')
+    implementation project(':burning-okr-model')
+    implementation project(':burning-okr-data')
+    testImplementation project(':burning-okr-data')
 
-    testCompile project(':burning-okr-data')
+    // util
+    implementation deps.jackson.databind
+    implementation deps.spring.boot.starter.validation
+    implementation deps.apache.poiOoxml //  Java API To Access Microsoft Format Files
+    implementation deps.apache.poi //  Java API To Access Microsoft Format Files
+    implementation deps.guava // google java util classes etc
 
-    compile 'org.apache.poi:poi-ooxml:3.9'
-    compile 'org.apache.poi:poi:3.9'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.1.0.RELEASE'
+    // mail
+    implementation deps.spring.framework.springContextSupport
+    implementation deps.jakarta.mail
+    implementation deps.spring.boot.starter.thymeleaf
+
+    // security
+    implementation deps.spring.boot.starter.security
+    implementation deps.spring.boot.starter.security
+    implementation deps.spring.boot.starter.oauth2ResourceServer
+
+    // db
+    implementation deps.spring.boot.starter.data
+    implementation deps.db.hibernate.envers
 }

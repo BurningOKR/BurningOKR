@@ -1,33 +1,26 @@
 package org.burningokr.service.okr;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.histories.KeyResultHistory;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultHistoryRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class KeyResultHistoryServiceTest {
-  @Mock private KeyResultHistoryRepository keyResultHistoryRepository;
-  @Mock private ActivityService activityService;
-
-  @Mock private User authorizedUser;
-
-  @InjectMocks private KeyResultHistoryService keyResultHistoryService;
-
   private static long keyResultHistoryId;
   private static long keyResultId;
   private static long originalStartValue;
@@ -38,12 +31,17 @@ public class KeyResultHistoryServiceTest {
   private static long changedTargetValue;
   private static LocalDate dateChangedToday;
   private static LocalDate dateChangedYesterday;
-
   private static KeyResult keyResult;
   private static KeyResultHistory originalKeyResultHistory;
   private static KeyResultHistory changedKeyResultHistory;
+  @Mock
+  private KeyResultHistoryRepository keyResultHistoryRepository;
+  @Mock
+  private ActivityService activityService;
+  @InjectMocks
+  private KeyResultHistoryService keyResultHistoryService;
 
-  @BeforeClass
+  @BeforeAll
   public static void Init() {
     keyResultHistoryId = 100L;
     keyResultId = 200L;
@@ -57,7 +55,7 @@ public class KeyResultHistoryServiceTest {
     dateChangedYesterday = LocalDate.now().minusDays(1);
   }
 
-  @Before
+  @BeforeEach
   public void Refresh() {
     keyResult = createKeyResult();
     originalKeyResultHistory = createOriginalKeyResultHistory();
@@ -100,9 +98,9 @@ public class KeyResultHistoryServiceTest {
     ArrayList<KeyResultHistory> keyResultHistories = new ArrayList<>();
     keyResultHistories.add(originalKeyResultHistory);
     when(keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult))
-        .thenReturn(keyResultHistories);
+      .thenReturn(keyResultHistories);
 
-    keyResultHistoryService.updateKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.updateKeyResultHistory(keyResult);
 
     verify(keyResultHistoryRepository).save(changedKeyResultHistory);
   }
@@ -112,13 +110,13 @@ public class KeyResultHistoryServiceTest {
     ArrayList<KeyResultHistory> keyResultHistories = new ArrayList<>();
     keyResultHistories.add(originalKeyResultHistory);
     when(keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult))
-        .thenReturn(keyResultHistories);
+      .thenReturn(keyResultHistories);
     when(keyResultHistoryRepository.save(changedKeyResultHistory))
-        .thenReturn(changedKeyResultHistory);
+      .thenReturn(changedKeyResultHistory);
 
-    keyResultHistoryService.updateKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.updateKeyResultHistory(keyResult);
 
-    verify(activityService).createActivity(authorizedUser, changedKeyResultHistory, Action.EDITED);
+    verify(activityService).createActivity(changedKeyResultHistory, Action.EDITED);
   }
 
   @Test
@@ -128,9 +126,9 @@ public class KeyResultHistoryServiceTest {
     ArrayList<KeyResultHistory> keyResultHistories = new ArrayList<>();
     keyResultHistories.add(originalKeyResultHistory);
     when(keyResultHistoryRepository.findByKeyResultOrderByDateChangedAsc(keyResult))
-        .thenReturn(keyResultHistories);
+      .thenReturn(keyResultHistories);
 
-    keyResultHistoryService.updateKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.updateKeyResultHistory(keyResult);
 
     verify(keyResultHistoryRepository).save(changedKeyResultHistory);
   }
@@ -139,10 +137,10 @@ public class KeyResultHistoryServiceTest {
   public void createKeyResultHistory_expectedActivityCall() {
     changedKeyResultHistory.setId(null);
     when(keyResultHistoryRepository.save(changedKeyResultHistory))
-        .thenReturn(changedKeyResultHistory);
+      .thenReturn(changedKeyResultHistory);
 
-    keyResultHistoryService.createKeyResultHistory(authorizedUser, keyResult);
+    keyResultHistoryService.createKeyResultHistory(keyResult);
 
-    verify(activityService).createActivity(authorizedUser, changedKeyResultHistory, Action.CREATED);
+    verify(activityService).createActivity(changedKeyResultHistory, Action.CREATED);
   }
 }

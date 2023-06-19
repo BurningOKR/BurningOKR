@@ -6,23 +6,20 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.service.okrUnitUtil.ParentService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParentServiceTest {
 
   OkrCompany treeOkrCompany;
@@ -41,7 +38,7 @@ public class ParentServiceTest {
   @InjectMocks
   private ParentService parentService;
 
-  @Before
+  @BeforeEach
   public void reset() {
     parentService = new ParentService();
     buildTestCompany();
@@ -78,13 +75,9 @@ public class ParentServiceTest {
     Objective testObjective = new Objective();
     try {
       mockParentService.validateParentObjective(testObjective, testObjective);
-      Assert.fail();
+      fail();
     } catch (Exception ex) {
-      assertThat(
-        "Should only throw IllegalArgumentException.",
-        ex,
-        instanceOf(IllegalArgumentException.class)
-      );
+      assertEquals(ex.getClass(), IllegalArgumentException.class);
     }
 
     verify(mockParentService).isParentObjectiveLegal(any(Objective.class), any(Objective.class));
@@ -117,7 +110,7 @@ public class ParentServiceTest {
     Objective testObjective = new Objective();
     OkrUnit testParentOkrUnit = new OkrDepartment();
     testObjective.setParentOkrUnit(testParentOkrUnit);
-    Assert.assertFalse(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
+    assertFalse(mockParentService.isParentObjectiveLegal(testObjective, testObjective));
 
     verify(mockParentService).isUnitAChildUnit(any(OkrUnit.class), any(OkrUnit.class));
   }
@@ -139,22 +132,22 @@ public class ParentServiceTest {
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjD1_expectsFalse() {
-    Assert.assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD1));
+    assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD1));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjD22_expectsFalse() {
-    Assert.assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD221));
+    assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD221));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToOrigin_expectsFalse() {
-    Assert.assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeOrigin));
+    assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeOrigin));
   }
 
   @Test
   public void test_isParentObjectiveLegal_OriginToObjD221_expectsFalse() {
-    Assert.assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD221));
+    assertFalse(parentService.isParentObjectiveLegal(treeOrigin, treeObjectiveD221));
   }
 
   private void buildTestCompany() {

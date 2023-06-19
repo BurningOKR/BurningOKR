@@ -41,7 +41,7 @@ export class UserApiService {
     return this.api.getData$('auditors/self');
   }
 
-  getAdminIds$(): Observable<string[]> {
+  getAdmins$(): Observable<User[]> {
     return this.api.getData$('admins');
   }
 

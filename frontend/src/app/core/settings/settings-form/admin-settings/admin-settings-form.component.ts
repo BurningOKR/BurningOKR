@@ -9,7 +9,6 @@ import {
   ConfirmationDialogData,
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Configuration } from '../../../../shared/model/ui/configuration';
-import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
 import { CurrentUserService } from '../../../services/current-user.service';
 import { ConfigurationManagerService } from '../../configuration-manager.service';
 import { SettingsForm } from '../settings-form';
@@ -49,7 +48,6 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
     private currentUserService: CurrentUserService,
     private dialog: MatDialog,
     private translate: TranslateService,
-    private oAuthDetails: OAuthFrontendDetailsService,
   ) {
     super();
   }
@@ -135,8 +133,8 @@ export class AdminSettingsFormComponent extends SettingsForm implements OnInit, 
         });
       }));
 
-    this.isAzure$ = this.oAuthDetails.isAzureAuthType$()
-      .pipe(take(1));
+    // this.isAzure$ = this.oAuthDetails.isAzureAuthType$()
+    //   .pipe(take(1));
   }
 
   private mapConfigurationValueToBooleanIfTypeIsCheckbox(configuration: Configuration): string | boolean {

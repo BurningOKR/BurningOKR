@@ -1,18 +1,20 @@
 package org.burningokr.service.okr;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.LocalUser;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDescriptionRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
+import org.hibernate.event.spi.PostCommitDeleteEventListener;
 import org.hibernate.event.spi.PostDeleteEvent;
-import org.hibernate.event.spi.PostDeleteEventListener;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.persister.entity.EntityPersister;
 import org.slf4j.Logger;
@@ -20,16 +22,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OkrTopicDescriptionService implements PostDeleteEventListener {
+public class OkrTopicDescriptionService implements PostCommitDeleteEventListener {
 
   private final OkrTopicDescriptionRepository okrTopicDescriptionRepository;
   private final OkrDepartmentRepository okrDepartmentRepository;
@@ -62,7 +60,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @return the updated OkrTopicDescription
    */
   public OkrTopicDescription updateOkrTopicDescription(
-    OkrTopicDescription okrTopicDescription, User user
+    OkrTopicDescription okrTopicDescription
   ) {
     OkrTopicDescription existing = findById(okrTopicDescription.getId());
 
@@ -82,7 +80,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
 
     logger.info(
       "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
-    activityService.createActivity(user, existing, Action.EDITED);
+    activityService.createActivity(existing, Action.EDITED);
 
     return existing;
   }
@@ -115,11 +113,11 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @param okrTopicDescriptionId the id of the okrTopicDescription to delete.
    */
   @Transactional
-  public void safeDeleteOkrTopicDescription(Long okrTopicDescriptionId, User user) {
-    long count = (long) getOkrDepartmentsWithTopicDescription(okrTopicDescriptionId).size();
+  public void safeDeleteOkrTopicDescription(Long okrTopicDescriptionId) {
+    long count = getOkrDepartmentsWithTopicDescription(okrTopicDescriptionId).size();
 
     if (count == 0) {
-      deleteOkrTopicDescription(okrTopicDescriptionId, user);
+      deleteOkrTopicDescription(okrTopicDescriptionId);
     } else {
       logger.info(
         "OkrTopicDescription with Id "
@@ -139,11 +137,12 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    */
   @Override
   public void onPostDelete(PostDeleteEvent event) {
-    if (event.getEntity() instanceof OkrDepartment) {
-      OkrDepartment department = (OkrDepartment) event.getEntity();
-      safeDeleteOkrTopicDescription(department.getOkrTopicDescription().getId(), new LocalUser());
+    if (event.getEntity() instanceof OkrDepartment department) {
+      safeDeleteOkrTopicDescription(department.getOkrTopicDescription().getId());
     }
   }
+
+  // TODO check if TopicDrafts are deleted after a cascading deletion, deprecated method try to remove
 
   /**
    * This method must return true, otherwise the onPostDelete method will not be called.
@@ -152,22 +151,11 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
    * @return true
    */
   @Override
-  public boolean requiresPostCommitHanding(EntityPersister entityPersister) {
+  public boolean requiresPostCommitHandling(EntityPersister entityPersister) {
     return true;
   }
 
-  /**
-   * This method must return true, otherwise the onPostDelete method will not be called.
-   *
-   * @param persister an {@link EntityPersister}
-   * @return true
-   */
-  @Override
-  public boolean requiresPostCommitHandling(EntityPersister persister) {
-    return true;
-  }
-
-  private void deleteOkrTopicDescription(Long okrTopicDescriptionId, User user) {
+  private void deleteOkrTopicDescription(Long okrTopicDescriptionId) {
 
     // (R.J. 15.01.2020)
     // For some reason, we cannot use the okrTopicDescriptionRepository
@@ -188,7 +176,7 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
       entityManager.flush();
       transaction.commit();
       logger.info("Deleted OkrTopicDescription with Id " + existing.getId());
-      activityService.createActivity(user, existing, Action.DELETED);
+      activityService.createActivity(existing, Action.DELETED);
     } catch (Exception e) {
       logger.error("Unable to delete OkrTopicDescription with Id " + okrTopicDescriptionId);
     } finally {
@@ -197,5 +185,10 @@ public class OkrTopicDescriptionService implements PostDeleteEventListener {
       }
       entityManager.close();
     }
+  }
+
+  @Override
+  public void onPostDeleteCommitFailed(PostDeleteEvent event) {
+    // TODO
   }
 }

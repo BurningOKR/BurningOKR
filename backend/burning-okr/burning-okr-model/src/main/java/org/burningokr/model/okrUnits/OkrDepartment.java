@@ -1,13 +1,11 @@
 package org.burningokr.model.okrUnits;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrDepartmentHistory;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +14,10 @@ import java.util.UUID;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@DiscriminatorValue(value = "OKR_DEPARTMENT")
 public class OkrDepartment extends OkrChildUnit {
 
   private UUID okrMasterId;
@@ -29,15 +31,16 @@ public class OkrDepartment extends OkrChildUnit {
   private Collection<UUID> okrMemberIds = new ArrayList<>();
 
   @ToString.Exclude
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @EqualsAndHashCode.Exclude
   private OkrTopicDescription okrTopicDescription;
 
-  @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.REMOVE)
+  @OneToOne(mappedBy = "parentOkrDepartment", cascade = CascadeType.ALL)
   private TaskBoard taskBoard;
 
   @ManyToOne
-  private OkrDepartmentHistory history;
+  @JoinColumn(name = "department_history_id")
+  private OkrDepartmentHistory departmentHistory;
 
   /**
    * Creates a copy of the OkrDepartment without relations.
@@ -66,7 +69,7 @@ public class OkrDepartment extends OkrChildUnit {
     List<UUID> okrMembersIds = new ArrayList<>(this.getOkrMemberIds());
     copy.setOkrMemberIds(okrMembersIds);
     copy.setOkrTopicDescription(this.getOkrTopicDescription());
-    copy.setHistory(this.getHistory());
+    copy.setDepartmentHistory(this.getDepartmentHistory());
     return copy;
   }
 }

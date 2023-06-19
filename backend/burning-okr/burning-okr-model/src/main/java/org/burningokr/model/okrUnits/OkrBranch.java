@@ -1,18 +1,19 @@
 package org.burningokr.model.okrUnits;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@DiscriminatorValue(value = "OKR_BRANCH")
 public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
 
   @OneToMany(
@@ -20,44 +21,18 @@ public class OkrBranch extends OkrChildUnit implements OkrParentUnit {
     cascade = CascadeType.REMOVE,
     targetEntity = OkrChildUnit.class
   )
-  @Getter(AccessLevel.NONE)
-  @Setter(AccessLevel.NONE)
   @EqualsAndHashCode.Exclude
-  protected Collection<OkrChildUnit> okrChildUnits = new ArrayList<>();
+  protected Collection<OkrChildUnit> okrChildUnits = new LinkedList<>();
   @ManyToOne
-  private OkrBranchHistory history;
+  @JoinColumn(name = "branch_history_id")
+  private OkrBranchHistory branchHistory;
 
-  public boolean hasDepartments() {
-    return !okrChildUnits.isEmpty();
-  }
-
-  @Override
-  public Collection<OkrChildUnit> getOkrChildUnits() {
-    return okrChildUnits;
-  }
-
-  @Override
-  public void setOkrChildUnits(Collection<OkrChildUnit> subDepartments) {
-    this.okrChildUnits = subDepartments;
-  }
-
-  /**
-   * Creates a copy of the OkrBranch without relations.
-   *
-   * <p>The values that are copied are:
-   *
-   * <ul>
-   *   <li>Name
-   * </ul>
-   *
-   * @return a copy of the OkrBranch without relations
-   */
   public OkrBranch getCopyWithoutRelations() {
     OkrBranch copy = new OkrBranch();
     copy.setName(this.getName());
     copy.setLabel(this.getLabel());
     copy.setActive(this.isActive);
-    copy.setHistory(this.getHistory());
+    copy.setBranchHistory(this.getBranchHistory());
     return copy;
   }
 }

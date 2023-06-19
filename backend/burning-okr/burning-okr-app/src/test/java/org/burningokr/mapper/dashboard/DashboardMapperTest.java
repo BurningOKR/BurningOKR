@@ -1,22 +1,22 @@
 package org.burningokr.mapper.dashboard;
 
-import org.assertj.core.api.Assertions;
 import org.burningokr.dto.dashboard.BaseChartOptionsDto;
 import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.ChartBuilderService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
 public class DashboardMapperTest {
 
   private DashboardCreation entity;
@@ -28,7 +28,7 @@ public class DashboardMapperTest {
   @InjectMocks
   private DashboardMapper mapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     entity = new DashboardCreation();
     dto = new DashboardDto();
@@ -48,12 +48,12 @@ public class DashboardMapperTest {
   @Test
   public void test_mapDtoToEntity() {
     DashboardCreation mapped_entity = mapper.mapDtoToEntity(dto);
-    Assert.assertEquals(entity, mapped_entity);
+    assertEquals(entity, mapped_entity);
   }
 
   @Test
   public void test_mapEntityToDto() {
     DashboardDto mapped_dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(dto, mapped_dto);
+    assertEquals(dto, mapped_dto);
   }
 }

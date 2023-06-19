@@ -1,60 +1,33 @@
 package org.burningokr.controller.okr;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.KeyResultDto;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteObjectiveDto;
 import org.burningokr.dto.okr.ObjectiveDto;
-import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.mapper.okr.KeyResultMapper;
+import org.burningokr.mapper.okr.NoteObjectiveMapper;
+import org.burningokr.mapper.okr.ObjectiveMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
-import org.burningokr.model.users.User;
 import org.burningokr.service.okr.ObjectiveService;
-import org.burningokr.service.security.AuthorizationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
 
 @RestApiController
+@RequiredArgsConstructor
 public class ObjectiveController {
 
-  private ObjectiveService objectiveService;
-  private DataMapper<Objective, ObjectiveDto> objectiveMapper;
-  private DataMapper<KeyResult, KeyResultDto> keyResultMapper;
-  private DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper;
-  private AuthorizationService authorizationService;
-
-  /**
-   * Initialize ObjectiveController.
-   *
-   * @param objectiveService     an {@link ObjectiveService} object
-   * @param objectiveMapper      a {@link DataMapper} object with {@link Objective} and {@link
-   *                             ObjectiveDto}
-   * @param keyResultMapper      a {@link DataMapper} object with {@link KeyResult} and {@link
-   *                             KeyResultDto}
-   * @param noteObjectiveMapper  a {@link DataMapper} object with {@link NoteObjective} and {@link
-   *                             NoteObjectiveDto}
-   * @param authorizationService an {@link AuthorizationService} object
-   */
-  @Autowired
-  public ObjectiveController(
-    ObjectiveService objectiveService,
-    DataMapper<Objective, ObjectiveDto> objectiveMapper,
-    DataMapper<KeyResult, KeyResultDto> keyResultMapper,
-    DataMapper<NoteObjective, NoteObjectiveDto> noteObjectiveMapper,
-    AuthorizationService authorizationService
-  ) {
-    this.objectiveService = objectiveService;
-    this.objectiveMapper = objectiveMapper;
-    this.keyResultMapper = keyResultMapper;
-    this.noteObjectiveMapper = noteObjectiveMapper;
-    this.authorizationService = authorizationService;
-  }
+  private final ObjectiveService objectiveService;
+  private final ObjectiveMapper objectiveMapper;
+  private final KeyResultMapper keyResultMapper;
+  private final NoteObjectiveMapper noteObjectiveMapper;
 
   @GetMapping("/objectives/{objectiveId}")
   public ResponseEntity<ObjectiveDto> getObjectiveById(
@@ -77,21 +50,19 @@ public class ObjectiveController {
    *
    * @param objectiveId  a long value
    * @param objectiveDto an {@link ObjectiveDto} object
-   * @param user         an {@link User} object
    * @return a {@link ResponseEntity} ok with an Objective
    */
   @PutMapping("/objectives/{objectiveId}")
-  @PreAuthorize("@authorizationService.hasMemberPrivilegeForObjective(#objectiveId)")
+  @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<ObjectiveDto> updateObjectiveById(
     @PathVariable long objectiveId,
     @Valid
     @RequestBody
-    ObjectiveDto objectiveDto,
-    User user
+    ObjectiveDto objectiveDto
   ) {
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(objectiveId);
-    objective = this.objectiveService.updateObjective(objective, user);
+    objective = this.objectiveService.updateObjective(objective);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
@@ -112,38 +83,28 @@ public class ObjectiveController {
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(childObjectives));
   }
 
-  /**
-   * API Endpoint to add Key Result to an Objective.
-   *
-   * @param objectiveId  a long value
-   * @param keyResultDto a {@link KeyResultDto} object
-   * @param user         an {@link User} object
-   * @return a {@link ResponseEntity} ok with a Key Result
-   * @throws Exception if max Key Results reached or cycle is closed
-   */
   @PostMapping("objectives/{objectiveId}/keyresults")
-  @PreAuthorize("@authorizationService.hasMemberPrivilegeForObjective(#objectiveId)")
+  @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<KeyResultDto> addKeyResultToObjective(
     @PathVariable long objectiveId,
     @Valid
     @RequestBody
-    KeyResultDto keyResultDto,
-    User user
+    KeyResultDto keyResultDto
   )
     throws Exception {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult.setId(null);
-    keyResult = objectiveService.createKeyResult(objectiveId, keyResult, user);
+    keyResult = objectiveService.createKeyResult(objectiveId, keyResult);
 
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
   }
 
   @DeleteMapping("/objectives/{objectiveId}")
-  @PreAuthorize("@authorizationService.hasManagerPrivilegeForObjective(#objectiveId)")
+  @PreAuthorize("@objectiveAuthorizationService.hasManagerPrivilegesForObjective(#objectiveId)")
   public ResponseEntity deleteObjectiveById(
-    @PathVariable Long objectiveId, User user
+    @PathVariable Long objectiveId
   ) {
-    objectiveService.deleteObjectiveById(objectiveId, user);
+    objectiveService.deleteObjectiveById(objectiveId);
     return ResponseEntity.ok().build();
   }
 
@@ -163,13 +124,12 @@ public class ObjectiveController {
     @PathVariable long objectiveId,
     @Valid
     @RequestBody
-    NoteObjectiveDto noteObjectiveDto,
-    User user
+    NoteObjectiveDto noteObjectiveDto
   ) {
     noteObjectiveDto.setParentObjectiveId(objectiveId);
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
     noteObjective.setId(null);
-    noteObjective = this.objectiveService.createNote(objectiveId, noteObjective, user);
+    noteObjective = this.objectiveService.createNote(noteObjective);
     return ResponseEntity.ok(noteObjectiveMapper.mapEntityToDto(noteObjective));
   }
 }

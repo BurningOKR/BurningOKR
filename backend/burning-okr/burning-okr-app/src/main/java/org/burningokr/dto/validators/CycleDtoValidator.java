@@ -1,5 +1,6 @@
 package org.burningokr.dto.validators;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.model.cycles.Cycle;
@@ -8,23 +9,19 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.burningokr.service.util.DateMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CycleDtoValidator {
 
-  private CycleRepository cycleRepository;
-  private CompanyRepository companyRepository;
-
-  @Autowired
-  public CycleDtoValidator(CycleRepository cycleRepository, CompanyRepository companyRepository) {
-    this.cycleRepository = cycleRepository;
-    this.companyRepository = companyRepository;
-  }
+  private final CycleRepository cycleRepository;
+  private final CompanyRepository companyRepository;
+  private final DateMapper dateMapper;
 
   public void validateCycleDto(CycleDto cycleDto) throws InvalidDtoException {
     checkForContentExceptions(cycleDto);
@@ -33,20 +30,22 @@ public class CycleDtoValidator {
 
   private void checkForContentExceptions(CycleDto cycleDto) throws InvalidDtoException {
     String exceptionString = "";
+    var startDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedStartDate());
+    var endDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedEndDate());
 
     if (cycleDto.getName().isEmpty()) {
       exceptionString += "Cycle name can not be empty.\n";
     }
-    if (!cycleDto.getPlannedStartDate().isBefore(cycleDto.getPlannedEndDate())) {
+    if (!startDate.isBefore(endDate)) {
       exceptionString += "Cycle planned end date has to be AFTER planned start date.\n";
     }
     if (cycleDto.getCycleState() == CycleState.ACTIVE
-      && cycleDto.getPlannedStartDate().isAfter(LocalDate.now())) {
+      && startDate.isAfter(LocalDate.now())) {
       exceptionString +=
         "Cycle with ACTIVE state but planned start date in the future can not be created.\n";
     }
     if (cycleDto.getCycleState() == CycleState.PREPARATION
-      && cycleDto.getPlannedStartDate().isBefore(LocalDate.now())) {
+      && startDate.isBefore(LocalDate.now())) {
       exceptionString +=
         "Cycle with PREPARATION state but planned start date in the past can not be created.\n";
     }
@@ -60,17 +59,19 @@ public class CycleDtoValidator {
   private void checkForSemanticExceptionsWithOtherCyclesInDatabase(CycleDto cycleDto)
     throws InvalidDtoException {
     String exceptionString = "";
+    var startDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedStartDate());
+    var endDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedEndDate());
 
     OkrCompany targetOkrCompany = companyRepository.findByIdOrThrow(cycleDto.getCompanyId());
-    OkrUnitHistory<OkrCompany> targetOkrUnitHistory = targetOkrCompany.getHistory();
+    OkrUnitHistory<OkrCompany> targetOkrUnitHistory = targetOkrCompany.getCompanyHistory();
 
     if (isDateWithinOtherCycleInCompanyHistory(
-      cycleDto.getId(), cycleDto.getPlannedStartDate(), targetOkrUnitHistory)) {
+      cycleDto.getId(), startDate, targetOkrUnitHistory)) {
       exceptionString +=
         "Cycle planned start can not be inside another cycle of the same company.\n";
     }
     if (isDateWithinOtherCycleInCompanyHistory(
-      cycleDto.getId(), cycleDto.getPlannedEndDate(), targetOkrUnitHistory)) {
+      cycleDto.getId(), endDate, targetOkrUnitHistory)) {
       exceptionString += "Cycle planned end can not be inside another cycle of the same company.\n";
     }
     if (isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
@@ -100,9 +101,12 @@ public class CycleDtoValidator {
   private boolean isCycleDtoDateRangeEnvelopingOtherCycleDateRangeInCompanyHistory(
     CycleDto cycleDto, OkrUnitHistory<OkrCompany> okrUnitHistory
   ) {
+    var startDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedStartDate());
+    var endDate = dateMapper.mapDateStringToDate(cycleDto.getPlannedEndDate());
+
     List<Cycle> collidingCycles =
       cycleRepository.findByCompanyHistoryAndPlannedTimeRangeBetweenDates(
-        okrUnitHistory, cycleDto.getPlannedStartDate(), cycleDto.getPlannedEndDate());
+        okrUnitHistory, startDate, endDate);
 
     return (isCycleListFilledWithCyclesWithoutMatchingId(collidingCycles, cycleDto.getId()));
   }
@@ -110,6 +114,10 @@ public class CycleDtoValidator {
   private boolean isCycleListFilledWithCyclesWithoutMatchingId(
     List<Cycle> cycleList, Long cycleId
   ) {
+    if (cycleId == null) {
+      return !cycleList.isEmpty();
+    }
+
     return !(cycleList.isEmpty()
       || cycleList.size() == 1 && cycleList.get(0).getId().longValue() == cycleId.longValue());
   }

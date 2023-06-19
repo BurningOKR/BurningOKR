@@ -18,20 +18,19 @@ public class WebsocketUserService {
     this.userService = userService;
   }
 
+  // TODO (C.K.): Session Attributes are empty
   public User findByAccessor(StompHeaderAccessor stompHeaderAccessor) {
     Map<String, Object> sessionAttributes = stompHeaderAccessor.getSessionAttributes();
     if (!sessionAttributes.containsKey(
             WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY)
-        || sessionAttributes
-                .get(WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY)
-                .getClass()
+            || sessionAttributes
+            .get(WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY)
+            .getClass()
             != UserId.class) {
       throw new RuntimeException("StompHeaderAccessor does not contain (valid) userId.");
     }
-    UserId userId =
-        (UserId)
-            sessionAttributes.get(
-                WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY);
-    return userService.findById(userId.getUserId());
+    UserId userId = (UserId) sessionAttributes.get(
+            WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY);
+    return userService.findById(userId.getUserId()).orElseThrow();
   }
 }

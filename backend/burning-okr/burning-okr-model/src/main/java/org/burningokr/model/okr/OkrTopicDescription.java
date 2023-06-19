@@ -1,9 +1,9 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
@@ -14,7 +14,8 @@ import java.util.UUID;
 public class OkrTopicDescription implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
   @Column(length = 255)

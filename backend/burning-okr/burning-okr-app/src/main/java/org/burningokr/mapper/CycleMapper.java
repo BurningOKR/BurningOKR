@@ -1,32 +1,35 @@
 package org.burningokr.mapper;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.burningokr.service.util.DateMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class CycleMapper implements DataMapper<Cycle, CycleDto> {
 
-  private final Logger logger = LoggerFactory.getLogger(CycleMapper.class);
+  private final DateMapper dateMapper;
 
   @Override
   public Cycle mapDtoToEntity(CycleDto cycleDto) {
     Cycle cycle = new Cycle();
     cycle.setId(cycleDto.getId());
     cycle.setName(cycleDto.getName());
-    cycle.setPlannedStartDate(cycleDto.getPlannedStartDate());
-    cycle.setPlannedEndDate(cycleDto.getPlannedEndDate());
+    cycle.setPlannedStartDate(dateMapper.mapDateStringToDate(cycleDto.getPlannedStartDate()));
+    cycle.setPlannedEndDate(dateMapper.mapDateStringToDate(cycleDto.getPlannedEndDate()));
     cycle.setCycleState(cycleDto.getCycleState());
     cycle.setVisible(cycleDto.getIsVisible());
 
-    logger.info("Mapped CycleDto (id:" + cycleDto.getId() + ") to Cycle.");
+    log.debug("Mapped CycleDto (id:" + cycleDto.getId() + ") to Cycle.");
     return cycle;
   }
 
@@ -36,8 +39,8 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
 
     cycleDto.setId(cycle.getId());
     cycleDto.setName(cycle.getName());
-    cycleDto.setPlannedStartDate(cycle.getPlannedStartDate());
-    cycleDto.setPlannedEndDate(cycle.getPlannedEndDate());
+    cycleDto.setPlannedStartDate(dateMapper.mapDateToDateString(cycle.getPlannedStartDate()));
+    cycleDto.setPlannedEndDate(dateMapper.mapDateToDateString(cycle.getPlannedEndDate()));
     cycleDto.setCycleState(cycle.getCycleState());
     cycleDto.setIsVisible(cycle.isVisible());
 
@@ -47,7 +50,7 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
     }
     cycleDto.setCompanyIds(companyIds);
 
-    logger.info("Mapped Cycle (id:" + cycle.getId() + ") to CycleDto.");
+    log.debug("Mapped Cycle (id:" + cycle.getId() + ") to CycleDto.");
     return cycleDto;
   }
 
