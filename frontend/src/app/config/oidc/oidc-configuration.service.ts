@@ -12,7 +12,7 @@ export class OidcConfigurationService {
     //      ^                                                                |
     //      |                                                                |
     //      -----------------------------------------------------------------
-    const response: Response = await fetch(`http://${window.location.origin}/applicationSettings/oidcConfiguration`);
+    const response: Response = await fetch(`${window.location.origin}/applicationSettings/oidcConfiguration`);
 
     return response.json();
   }
