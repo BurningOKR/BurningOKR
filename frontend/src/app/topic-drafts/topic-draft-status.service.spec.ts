@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 
 describe('TopicDraftStatusService', () => {
   let topicDraftStatusService: TopicDraftStatusService;
-  const topicDraftMapperMock: TopicDraftMapper = new TopicDraftMapper(undefined, undefined);
+  const topicDraftMapperMock: TopicDraftMapper = new TopicDraftMapper(undefined);
   topicDraftMapperMock.updateTopicDraftStatus$ = jest.fn().mockReturnValue(of(undefined));
   let testTopicDraft: OkrTopicDraft;
 
