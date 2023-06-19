@@ -145,13 +145,13 @@ CREATE TABLE okr_unit_history_temp
 
 INSERT INTO okr_unit_history_temp (id, okr_unit_history_type)
 SELECT id, okr_unit_history_type_case
-FROM (SELECT ou.okr_unit_type,
-             ouh.id,
-             CASE
-                 WHEN ou.okr_unit_type = 'OKR_DEPARTMENT' THEN 'OKR_DEPARTMENT_HISTORY'
-                 WHEN ou.okr_unit_type = 'OKR_BRANCH' THEN 'OKR_BRANCH_HISTORY'
-                 WHEN ou.okr_unit_type = 'OKR_COMPANY' THEN 'OKR_COMPANY_HISTORY'
-             END okr_unit_history_type_case
+FROM (SELECT DISTINCT ou.okr_unit_type,
+                      ouh.id,
+                      CASE
+                          WHEN ou.okr_unit_type = 'OKR_DEPARTMENT' THEN 'OKR_DEPARTMENT_HISTORY'
+                          WHEN ou.okr_unit_type = 'OKR_BRANCH' THEN 'OKR_BRANCH_HISTORY'
+                          WHEN ou.okr_unit_type = 'OKR_COMPANY' THEN 'OKR_COMPANY_HISTORY'
+                          END okr_unit_history_type_case
       from okr_unit ou
                JOIN okr_unit_history ouh on ou.history_id = ouh.id) as oo;
 
