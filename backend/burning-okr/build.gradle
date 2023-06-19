@@ -33,7 +33,7 @@ subprojects {
     }
 
     test {
-//        useJUnitPlatform() // TODO enable again
+        useJUnitPlatform() // TODO enable again
     }
 
     // shows more information about violations (C.K.: keep for more insights!)

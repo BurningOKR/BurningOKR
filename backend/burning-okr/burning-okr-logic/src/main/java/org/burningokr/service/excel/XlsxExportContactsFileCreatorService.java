@@ -16,7 +16,6 @@ public class XlsxExportContactsFileCreatorService {
   private final Collection<String> headlines;
   private final TeamMemberRowBuilderService teamMemberRowBuilderService;
   private final GenericXlsxFileCreatorService<TeamMemberRow> genericXlsxFileCreatorService;
-  private final Messages messages;
   private final Logger logger = LoggerFactory.getLogger(XlsxExportContactsFileCreatorService.class);
 
   /**
@@ -33,7 +32,6 @@ public class XlsxExportContactsFileCreatorService {
   ) {
     this.teamMemberRowBuilderService = teamMemberRowBuilderService;
     this.genericXlsxFileCreatorService = genericXlsxFileCreatorService;
-    this.messages = messages;
     this.headlines =
       Arrays.asList(
         messages.get("team"),

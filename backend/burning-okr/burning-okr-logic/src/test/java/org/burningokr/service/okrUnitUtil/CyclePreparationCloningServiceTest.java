@@ -74,9 +74,6 @@ public class CyclePreparationCloningServiceTest {
     Collection<OkrCompany> companysToAdd = createCompanyList(amountOfAdditions);
     CyclePreparationCloningService cyclePreparationCloningService1 =
       spy(cyclePreparationCloningService);
-    doNothing()
-      .when(cyclePreparationCloningService1)
-      .cloneCompanyIntoCycleForPreparation(any(), any());
 
     cyclePreparationCloningService1.cloneCompanyListIntoCycleForPreparation(
       companysToAdd, exampleCycle);
@@ -463,7 +460,7 @@ public class CyclePreparationCloningServiceTest {
 
     // Twice because it is saved once for the okrBranch and a second time for the
     // okrDepartment.
-    verify(subOkrUnitRepository, times(3)).save(departmentArgumentCaptor.capture());
+    verify(subOkrUnitRepository, times(2)).save(departmentArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrDepartment okrDepartmentCaptured = departmentArgumentCaptor.getValue();

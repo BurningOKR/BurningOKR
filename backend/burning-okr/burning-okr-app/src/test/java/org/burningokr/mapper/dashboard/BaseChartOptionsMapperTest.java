@@ -1,23 +1,21 @@
 package org.burningokr.mapper.dashboard;
 
 import org.burningokr.dto.dashboard.BaseChartOptionsDto;
-import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.dto.dashboard.LineChartOptionsDto;
 import org.burningokr.dto.dashboard.PieChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
-import org.burningokr.model.dashboard.DashboardCreation;
-import org.burningokr.service.dashboard.ChartBuilderService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@ExtendWith(MockitoExtension.class)
 public class BaseChartOptionsMapperTest {
   private BaseChartOptionsMapper mapper;
   private ChartCreationOptions entityLine;
@@ -25,7 +23,7 @@ public class BaseChartOptionsMapperTest {
   private BaseChartOptionsDto dtoLine;
   private BaseChartOptionsDto dtoPie;
 
-  @Before
+  @BeforeEach
   public void init() {
     entityLine = new ChartCreationOptions();
     entityPie = new ChartCreationOptions();
@@ -57,12 +55,13 @@ public class BaseChartOptionsMapperTest {
   @Test
   public void test_mapDtoToEntity_line() {
     ChartCreationOptions mapped_entity = mapper.mapDtoToEntity(dtoLine);
-    Assert.assertEquals(entityLine, mapped_entity);
+    assertEquals(entityLine, mapped_entity);
   }
+
   @Test
   public void test_mapDtoToEntity_pie() {
     ChartCreationOptions mapped_entity = mapper.mapDtoToEntity(dtoPie);
-    Assert.assertEquals(entityPie, mapped_entity);
+    assertEquals(entityPie, mapped_entity);
   }
 
 }

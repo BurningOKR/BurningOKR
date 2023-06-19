@@ -43,10 +43,6 @@ public class XlsxDataExportFileCreatorServiceTest {
   public void before() throws IllegalAccessException {
     objectiveRowCollection = new ArrayList<>();
     this.workbook = new XSSFWorkbook();
-    when(objectiveRowBuilderService.generateForOkrChildUnit(departmentId))
-      .thenReturn(objectiveRowCollection);
-    when(objectiveRowBuilderService.generateForCompany(companyId))
-      .thenReturn(objectiveRowCollection);
     when(genericXlsxFileCreatorService.createWorkbook(
       anyCollection(), anyCollection(), anyString()))
       .thenReturn(workbook);
