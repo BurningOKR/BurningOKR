@@ -1,6 +1,4 @@
-// TODO: fix tests
-test.skip('temp', () => 1);
-/*import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminViewComponent } from './admin-view.component';
@@ -19,6 +17,7 @@ describe('AdminViewComponent', () => {
   const userService: any = {
     getCurrentUser$: jest.fn(),
     getAdminIds$: jest.fn(),
+    getAdmins$: jest.fn(),
     getUsers$: jest.fn(),
   };
   const currentUserService: any = {
@@ -55,6 +54,7 @@ describe('AdminViewComponent', () => {
     userService.getCurrentUser$.mockReturnValue(of(currentUserMock));
     userService.getAdminIds$.mockReturnValue(of([adminList]));
     userService.getUsers$.mockReturnValue(of([currentUserMock, anotherUserMock]));
+    userService.getAdmins$.mockReturnValue(of([]));
     currentUserService.getCurrentUser$.mockReturnValue(of(currentUserMock));
 
     TestBed.configureTestingModule({
@@ -80,4 +80,4 @@ describe('AdminViewComponent', () => {
     expect(component)
       .toBeTruthy();
   });
-});*/
+});
