@@ -1,3 +1,6 @@
+@use '@angular/material' as mat;
+@import '../../../styles/themes/bag-theme.scss';
+
 .company-card {
   margin-left: 5%;
   margin-bottom: 35px;
@@ -33,16 +36,17 @@
 .my-mat-button {
   background-color: #FFFFFF;
   position: relative;
+  margin-right: 16px;
   z-index: 1;
 }
 
 .my-mat-button:hover {
-  background-color: #595959;
+  background-color: mat.get-color-from-palette($md-primary, 500) !important;;
   color: #FFFFFF;
 }
 
 .my-mat-button:focus {
-  background-color: #595959;
+  background-color: mat.get-color-from-palette($md-primary, 500) !important;;
   color: #FFFFFF;
 }
 
