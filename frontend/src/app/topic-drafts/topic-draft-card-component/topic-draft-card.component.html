@@ -1,15 +1,13 @@
-<mat-card (click)="viewTopicDraft()" class="topic-draft-card">
-  <div class="card-head-wrapper">
-    <div class="card-head-info-wrapper">
-      <span class="card-head-info">{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</span>
-      <span class="card-head-info">{{topicDraft.beginning | dateFormat | async}}</span>
-      <span class="card-head-info card-head-info-name" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
-    </div>
-    <div (click)="$event.stopPropagation();" class="card-head-button-wrapper">
-      <app-topic-draft-action-button (editedTopicDraftEvent)="notifyWrapperOfEditing($event)"
-                                     (topicDraftDeletedEvent)="notifyWrapperOfDeletion()" [topicDraft]="topicDraft"
-                                     class="topic-draft-option-button"></app-topic-draft-action-button>
-    </div>
-    <app-status-dot [state]="topicDraft.currentStatus" class="right-upper-corner"></app-status-dot>
+<button (click)="viewTopicDraft()" class="my-mat-card topic-draft-card box-shadow" mat-button>
+  <div class="topic-draft-content-wrapper">
+    <span class="topic-draft-content">{{topicDraft.initiator.givenName}} {{topicDraft.initiator.surname}}</span>
+    <span class="topic-draft-content">{{topicDraft.beginning | dateFormat | async}}</span>
+    <span class="topic-draft-content" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
+    <span (click)="$event.stopPropagation();" class="topic-draft-options-wrapper">
+          <app-topic-draft-action-button (editedTopicDraftEvent)="notifyWrapperOfEditing($event)"
+                                         (topicDraftDeletedEvent)="notifyWrapperOfDeletion()" [topicDraft]="topicDraft">
+          </app-topic-draft-action-button>
+      </span>
   </div>
-</mat-card>
+  <app-status-dot [state]="topicDraft.currentStatus" class="topic-draft-status-icon"></app-status-dot>
+</button>

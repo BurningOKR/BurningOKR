@@ -17,56 +17,17 @@
   font-weight: lighter;
 }
 
-.dashboard_settings_button {
-  //float: right;
+.dashboard-settings_button {
   cursor: pointer;
   border: none;
   background-color: transparent;
   border-radius: 50%;
 }
 
-.dashboard_settings_button:active {
+.dashboard-settings_button:active {
   background-color: #696969;
 }
-
-//.dashboard_settings_button:hover {
-//  background-color: #863dff;
-//}
-//
-//.dashboard_settings_button:focus {
-//  background-color: #863dff;
-//}
 
 .dashboard-icon {
   margin-top: 2px;
 }
-
-
-//my-mat-icon-button {
-//  display: inline-flex;
-//  align-items: center;
-//  justify-content: center;
-//  position: relative;
-//  padding: 0;
-//  border: none;
-//  background-color: transparent;
-//  color: inherit;
-//  font-size: 24px;
-//  width: 40px;
-//  height: 40px;
-//  cursor: pointer;
-//  outline: none;
-//}
-//
-//my-mat-icon-button:hover {
-//  background-color: rgba(0, 0, 0, 0.04);
-//}
-//
-//my-mat-icon-button:active {
-//  background-color: rgba(0, 0, 0, 0.12);
-//}
-//
-//my-mat-icon-button:focus {
-//  outline: none;
-//  background-color: rgba(0, 0, 0, 0.04);
-//}
