@@ -2,20 +2,20 @@
 @import '../../styles/themes/bag-theme.scss';
 
 .my-mat-button {
-  color: #595959;
+  color: #FFFFFF;
   position: relative;
   display: inline-flex;
   margin-top: 8px;
   z-index: 1;
   overflow: hidden;
-}
 
-.my-mat-button:hover {
-  background-color: mat.get-color-from-palette($md-primary, 500) !important;
-  color: #FFFFFF;
-}
+  &:hover {
+    background-color: mat.get-color-from-palette($md-primary, 500) !important;
+    color: #FFFFFF;
+  }
 
-.my-mat-button:focus {
-  background-color: mat.get-color-from-palette($md-primary, 500) !important;
-  color: #FFFFFF;
+  &:focus {
+    background-color: mat.get-color-from-palette($md-primary, 500) !important;
+    color: #FFFFFF;
+  }
 }

@@ -28,19 +28,18 @@
         <mat-icon>delete</mat-icon>
       </button>
     </div>
-    <div>
-      <button (click)="openDialog()" class="chart-creation-add-button" mat-stroked-button type="button">
-        <mat-icon>add</mat-icon>
-        {{'edit-dashboard.button.add-chart' | translate}}
-      </button>
-    </div>
   </div>
-  <div class="button-save-dashboard">
-    <button [disabled]="!dbFormValid()" id="save-changes-button" mat-stroked-button type="submit">
+
+  <div class="button-save-chart-wrapper">
+    <button (click)="openDialog()" class="chart-creation-add-button" mat-stroked-button type="button">
+      <mat-icon>add</mat-icon>
+      {{'edit-dashboard.button.add-chart' | translate}}
+      <!--      <app-add-button (click)="openDialog()" class="chart-creation-add-button" -->
+      <!--                      text="{{'edit-dashboard.button.add-chart' | translate}}"></app-add-button>-->
+    </button>
+    <button [disabled]="!dbFormValid()" class="save-changes-button" mat-stroked-button type="submit">
       <mat-icon>add_circle_outline</mat-icon>
       {{'edit-dashboard.button.save-dashboard' | translate}}
     </button>
   </div>
 </form>
-
-

@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-@import '../../../styles/themes/bag-theme.scss';
+//@use '@angular/material' as mat;
+//@import '../../../styles/themes/bag-theme.scss';
 
 .company-card {
   margin-left: 5%;
@@ -36,22 +36,6 @@
   text-align: left;
   margin-top: 16px;
 }
-
-//.my-mat-button {
-//  background-color: #FFFFFF;
-//  position: relative;
-//  z-index: 1;
-//}
-//
-//.my-mat-button:hover {
-//  background-color: mat.get-color-from-palette($md-primary, 500) !important;;
-//  color: #FFFFFF;
-//}
-//
-//.my-mat-button:focus {
-//  background-color: mat.get-color-from-palette($md-primary, 500) !important;;
-//  color: #FFFFFF;
-//}
 
 .company-actions button {
   position: absolute;

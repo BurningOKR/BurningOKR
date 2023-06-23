@@ -11,9 +11,20 @@
   }
 }
 
-.button-save-dashboard {
-  margin: 75px;
-  text-align: center;
+.button-save-chart-wrapper {
+  margin: 40px 0 20px 19%;
+}
+
+.chart-creation-add-button {
+  margin: 0 0 0 5px;
+}
+
+.save-changes-button {
+  margin: 15px 0 0 5px;
+}
+
+@media only screen and (max-width: 600px) {
+
 }
 
 .edit-chart {

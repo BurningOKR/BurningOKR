@@ -1,5 +1,5 @@
-<button (click)="selectDashboard(dashboard.id)" class="dashboard-card my-mat-button box-shadow" mat-button>
-  <div>
+<button (click)="selectDashboard(dashboard.id)" class="dashboard-card my-mat-card box-shadow" mat-button>
+  <div class="dashboard-card-settings-button-wrapper">
     <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="menu" class="dashboard-settings-button"
             mat-icon-button>
       <mat-icon>more_vert</mat-icon>

@@ -5,6 +5,7 @@
     <span class="topic-draft-content" title="{{topicDraft.name}}">{{topicDraft.name}}</span>
     <span (click)="$event.stopPropagation();" class="topic-draft-options-wrapper">
           <app-topic-draft-action-button (editedTopicDraftEvent)="notifyWrapperOfEditing($event)"
+                                         class="topic-draft-options-button"
                                          (topicDraftDeletedEvent)="notifyWrapperOfDeletion()" [topicDraft]="topicDraft">
           </app-topic-draft-action-button>
       </span>

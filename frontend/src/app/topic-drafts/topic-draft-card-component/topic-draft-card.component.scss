@@ -5,16 +5,20 @@
   max-width: 100%;
   height: auto;
   padding: 10px 0 10px 20px;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
 }
 
 .topic-draft-options-wrapper {
   width: 25%;
   text-align: right;
-  margin-right: 1%;
+  //margin-right: 1%;
 }
 
-.topic-draft-card:hover {
-  background-color: #f0f0f0;
+.topic-draft-options-button {
+  margin-right: 5%;
 }
 
 .card-head-wrapper {
