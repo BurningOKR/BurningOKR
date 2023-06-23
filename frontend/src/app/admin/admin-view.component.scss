@@ -4,15 +4,29 @@
   max-width: 800px;
 }
 
-.center {
-  width: 600px;
-  margin: 10px auto;
-}
+
 
 .main-div {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .center {
+    width: 600px;
+    margin: 10px auto;
+
+    mat-card-title {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+
+      padding-left: 1rem;
+    }
+
+    mat-list-item {
+      padding: .5rem 0;
+    }
+  }
 }
 
 .list-left {
