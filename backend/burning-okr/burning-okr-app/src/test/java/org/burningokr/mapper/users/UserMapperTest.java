@@ -83,7 +83,7 @@ public class UserMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDto_shouldMapCorrectly() {
+  public void mapEntityToDto_shouldMapEntityToDto() {
     //Arrange
     UserDto expected = userDto1;
 
@@ -95,7 +95,7 @@ public class UserMapperTest {
   }
 
   @Test
-  public void test_mapEntitiesToDtos_shouldMapCorrectly() {
+  public void mapEntitiesToDtos_shouldMapEntitiesToDtos() {
     //Arrange
     Collection<User> users = Arrays.asList(user1, user2);
     Collection<UserDto> expected = Arrays.asList(userDto1, userDto2);
@@ -108,7 +108,7 @@ public class UserMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_shouldMapCorrectly() {
+  public void mapDtoToEntity_shouldMapDtoToEntity() {
     //Arrange
     User expected = user1;
     expected.setCreatedAt(null);
@@ -121,7 +121,7 @@ public class UserMapperTest {
   }
 
   @Test
-  public void test_mapDtosToEntities_shouldMapCorrectly() {
+  public void mapDtosToEntities_shouldMapDtosToEntities() {
     //Arrange
     Collection<UserDto> userDtos = Arrays.asList(userDto1, userDto2);
     Collection<User> expected = Arrays.asList(user1, user2);

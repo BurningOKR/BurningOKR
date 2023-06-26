@@ -15,143 +15,143 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserSettingsMapperTest {
 
-  private UserSettings entity;
-  private UserSettingsDto dto;
-  private UserSettingsMapper mapper;
+  private UserSettings userSettings;
+  private UserSettingsDto userSettingsDto;
+  private UserSettingsMapper userSettingsMapper;
 
   @BeforeEach
   public void before() {
-    this.entity = new UserSettings();
-    this.dto = new UserSettingsDto();
-    this.mapper = new UserSettingsMapper();
+    this.userSettings = new UserSettings();
+    this.userSettingsDto = new UserSettingsDto();
+    this.userSettingsMapper = new UserSettingsMapper();
   }
 
   @Test
-  public void test_mapEntityToDto_expectIdIsMapped() {
+  public void mapEntityToDto_shouldMapId() {
     //Arrange
     Long id = 42L;
-    this.entity.setId(id);
+    this.userSettings.setId(id);
 
     //Act
-    this.dto = this.mapper.mapEntityToDto(entity);
+    this.userSettingsDto = this.userSettingsMapper.mapEntityToDto(userSettings);
 
     //Assert
-    assertEquals(id, this.dto.getId());
+    assertEquals(id, this.userSettingsDto.getId());
   }
 
   @Test
-  public void test_mapEntityToDto_expectDefaultCompanyIsMapped() {
+  public void mapEntityToDto_shouldMapCompanyId() {
     //Arrange
     Long companyId = 40L;
     OkrCompany okrCompany = new OkrCompany();
     okrCompany.setId(companyId);
-    this.entity.setDefaultOkrCompany(okrCompany);
+    this.userSettings.setDefaultOkrCompany(okrCompany);
 
     //Act
-    this.dto = this.mapper.mapEntityToDto(entity);
+    this.userSettingsDto = this.userSettingsMapper.mapEntityToDto(userSettings);
 
     //Assert
-    assertEquals(companyId, this.dto.getDefaultCompanyId());
+    assertEquals(companyId, this.userSettingsDto.getDefaultCompanyId());
   }
 
   @Test
-  public void test_mapEntityToDto_expectDefaultTeamIsMapped() {
+  public void mapEntityToDto_shouldMapDefaultTeamId() {
     //Arrange
     Long defaultTeamId = 100L;
     OkrDepartment defaultTeam = new OkrDepartment();
     defaultTeam.setId(defaultTeamId);
-    this.entity.setDefaultTeam(defaultTeam);
+    this.userSettings.setDefaultTeam(defaultTeam);
 
     //Act
-    this.dto = this.mapper.mapEntityToDto(entity);
+    this.userSettingsDto = this.userSettingsMapper.mapEntityToDto(userSettings);
 
     //Assert
-    assertEquals(defaultTeamId, this.dto.getDefaultTeamId());
+    assertEquals(defaultTeamId, this.userSettingsDto.getDefaultTeamId());
   }
 
   @Test
-  public void test_mapEntitiesToDtos_expectEmptyList() {
+  public void mapEntitiesToDtos_shouldHaveAnEmptyListOfElements() {
     //Arrange
-    Collection<UserSettings> entities = new ArrayList<>();
+    Collection<UserSettings> userSettingsList = new ArrayList<>();
 
     //Act
-    Collection<UserSettingsDto> dtos = this.mapper.mapEntitiesToDtos(entities);
+    Collection<UserSettingsDto> userSettingsDtoList = this.userSettingsMapper.mapEntitiesToDtos(userSettingsList);
 
     //Assert
-    assertTrue(dtos.isEmpty());
+    assertTrue(userSettingsDtoList.isEmpty());
   }
 
   @Test
-  public void test_mapEntitiesToDtos_expectListIsMappedWithTwoElements() {
+  public void mapEntitiesToDtos_shouldMapListWithTwoElements() {
     //Arrange
-    Collection<UserSettings> entities = Arrays.asList(new UserSettings(), new UserSettings());
+    Collection<UserSettings> userSettingsList = Arrays.asList(new UserSettings(), new UserSettings());
 
     //Act
-    Collection<UserSettingsDto> dtos = mapper.mapEntitiesToDtos(entities);
+    Collection<UserSettingsDto> userSettingsDtoList = userSettingsMapper.mapEntitiesToDtos(userSettingsList);
 
     //Assert
-    assertEquals(2, dtos.size());
+    assertEquals(2, userSettingsDtoList.size());
   }
 
   @Test
-  public void test_mapDtoToEntity_expectIdIsMapped() {
+  public void mapDtoToEntity_shouldMapUserSettingsId() {
     //Arrange
     Long id = 42L;
-    this.dto.setId(id);
+    this.userSettingsDto.setId(id);
 
     //Act
-    this.entity = this.mapper.mapDtoToEntity(dto);
+    this.userSettings = this.userSettingsMapper.mapDtoToEntity(userSettingsDto);
 
     //Assert
-    assertEquals(id, this.entity.getId());
+    assertEquals(id, this.userSettings.getId());
   }
 
   @Test
-  public void test_mapDtoToEntity_expectCompanyIsNullIfThereIsNoCompanyId() {
+  public void mapDtoToEntity_shouldSetDefaultOkrCompanyNullWhenCompanyIdIsNull() {
     //Arrange
 
     //Act
-    this.entity = this.mapper.mapDtoToEntity(dto);
+    this.userSettings = this.userSettingsMapper.mapDtoToEntity(userSettingsDto);
 
     //Assert
-    assertNull(this.entity.getDefaultOkrCompany());
+    assertNull(this.userSettings.getDefaultOkrCompany());
   }
 
   @Test
-  public void test_mapDtoToEntity_expectDefaultCompanyIsMapped() {
+  public void mapDtoToEntity_shouldMapUserSettingsDefaultOkrCompanyId() {
     //Arrange
     Long defaultCompanyId = 50L;
-    this.dto.setDefaultCompanyId(defaultCompanyId);
+    this.userSettingsDto.setDefaultCompanyId(defaultCompanyId);
 
     //Act
-    this.entity = this.mapper.mapDtoToEntity(dto);
+    this.userSettings = this.userSettingsMapper.mapDtoToEntity(userSettingsDto);
 
     //Assert
-    assertEquals(defaultCompanyId, this.entity.getDefaultOkrCompany().getId());
+    assertEquals(defaultCompanyId, this.userSettings.getDefaultOkrCompany().getId());
   }
 
   @Test
-  public void test_mapDtoToEntity_expectTeamIsNullIfThereIsNoTeamId() {
+  public void mapDtoToEntity_shouldSetDefaultTeamNullWhenTeamIdIsNull() {
     //Arrange
 
     //Act
-    this.entity = this.mapper.mapDtoToEntity(dto);
+    this.userSettings = this.userSettingsMapper.mapDtoToEntity(userSettingsDto);
 
     //Assert
-    assertNull(this.entity.getDefaultTeam());
+    assertNull(this.userSettings.getDefaultTeam());
   }
 
   @Test
-  public void test_mapDtoToEntity_expectDefaultTeamIsMapped() {
+  public void mapDtoToEntity_shouldMapUserSettingsDefaultTeamId() {
     //Arrange
     Long defaultTeamId = 40L;
-    this.dto.setDefaultTeamId(defaultTeamId);
+    this.userSettingsDto.setDefaultTeamId(defaultTeamId);
 
     //Act
-    this.entity = this.mapper.mapDtoToEntity(dto);
+    this.userSettings = this.userSettingsMapper.mapDtoToEntity(userSettingsDto);
 
     //Assert
-    assertEquals(defaultTeamId, this.entity.getDefaultTeam().getId());
+    assertEquals(defaultTeamId, this.userSettings.getDefaultTeam().getId());
   }
 
 }

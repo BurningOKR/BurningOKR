@@ -30,184 +30,228 @@ public class OkrDepartmentMapperTest {
     this.okrDepartmentMapper = new OkrDepartmentMapper();
   }
 
-  // region Tests EntitiyToDto
   @Test
-  public void test_mapEntityToDto_expects_idIsMapped() {
+  public void mapEntityToDto_shouldMapId() {
     Long expected = 4L;
     okrDepartment.setId(expected);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(expected, okrDepartmentDto.getOkrUnitId());
   }
 
   @Test
-  public void test_mapEntityToDto_expects_nameIsMapped() {
+  public void mapEntityToDto_shouldMapName() {
     String expected = "test";
     okrDepartment.setName(expected);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(expected, okrDepartmentDto.getUnitName());
   }
 
   @Test
-  public void test_mapEntityToDto_expects_LabelIsMapped() {
+  public void mapEntityToDto_shouldMapLabel() {
     String expected = "test246";
     okrDepartment.setLabel(expected);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(expected, okrDepartmentDto.getLabel());
   }
 
   @Test
-  public void mapEntityToDto_parentIsDepartment_expectedParentDepartmentIsMapped() {
+  public void mapEntityToDto_shouldMapParrentDepartment() {
     Long expected = 8L;
     OkrDepartment parentOkrDepartment = new OkrDepartment();
     parentOkrDepartment.setId(expected);
     okrDepartment.setParentOkrUnit(parentOkrDepartment);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(expected, okrDepartmentDto.getParentUnitId());
     assertFalse(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test
-  public void mapEntityToDto_parentIsOkrBranch_expectIsParentUnitABranchIsMapped() {
+  public void mapEntityToDto_shouldMap() {
     OkrBranch parentOkrBranch = new OkrBranch();
     okrDepartment.setParentOkrUnit(parentOkrBranch);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertTrue(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test
-  public void mapEntityToDto_parentIsOkrCompany_expectIsParentUnitABranchIsMapped() {
+  public void mapEntityToDto_shouldMapOkrParentUnit() {
     OkrCompany company = new OkrCompany();
     okrDepartment.setParentOkrUnit(company);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertFalse(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test
-  public void mapEntityToDto_parentIsCompany_expectedParentCompanyIsMapped() {
+  public void mapEntityToDto_shouldMapOkrDepartmentParentUnitId() {
     Long expected = 10L;
     OkrCompany okrCompany = new OkrCompany();
     okrCompany.setId(expected);
     okrDepartment.setParentOkrUnit(okrCompany);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(expected, okrDepartmentDto.getParentUnitId());
     assertFalse(okrDepartmentDto.getIsParentUnitABranch());
   }
 
   @Test
-  public void test_mapEntityToDto_expects_objectivesSizeIsEqual6() {
+  public void mapEntityToDto_shouldMapObjectiveSize() {
     int expected = 6;
-    Collection<Objective> objectives = new ArrayList<>();
-    for (int i = 1; i <= expected; i++) {
-      objectives.add(new Objective());
-    }
+    Collection<Objective> objectives = new ArrayList<>() {
+      {
+        new Objective();
+        new Objective();
+        new Objective();
+        new Objective();
+        new Objective();
+        new Objective();
+      }
+    };
     okrDepartment.setObjectives(objectives);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(expected, okrDepartmentDto.getObjectiveIds().size());
   }
 
   @Test
-  public void test_mapEntityToDto_expects_okrMasterIdIsMapped() {
+  public void mapEntityToDto_shouldMapOkrMasterId() {
     UUID okrMasterUuid = UUID.randomUUID();
     okrDepartment.setOkrMasterId(okrMasterUuid);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(okrMasterUuid, okrDepartmentDto.getOkrMasterId());
   }
 
   @Test
-  public void test_mapEntityToDto_expects_okrTopicSponsorIdIsMapped() {
+  public void mapEntityToDto_shouldMapOkrTopicSponsorId() {
     UUID okrTopicSponsorUuid = UUID.randomUUID();
     okrDepartment.setOkrTopicSponsorId(okrTopicSponsorUuid);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(okrTopicSponsorUuid, okrDepartmentDto.getOkrTopicSponsorId());
   }
 
   @Test
-  public void test_mapEntityToDto_expects_okrMemberIdsAreMapped() {
-    Collection<UUID> okrMemberIds = new ArrayList<>();
-    okrMemberIds.add(UUID.randomUUID());
-    okrMemberIds.add(UUID.randomUUID());
-    okrMemberIds.add(UUID.randomUUID());
+  public void mapEntityToDto_shouldMapMultipleOkrMemberIds() {
+    Collection<UUID> okrMemberIds = new ArrayList<>(){
+      {
+        add(UUID.randomUUID());
+        add(UUID.randomUUID());
+        add(UUID.randomUUID());
+      }
+    };
     okrDepartment.setOkrMemberIds(okrMemberIds);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertEquals(okrMemberIds, okrDepartmentDto.getOkrMemberIds());
   }
 
   @Test
-  public void test_mapEntityToDto_expects_isActiveIsMapped() {
+  public void mapEntityToDto_shouldMapIsActive() {
     okrDepartment.setActive(true);
+
     okrDepartmentDto = okrDepartmentMapper.mapEntityToDto(okrDepartment);
+
     assertTrue(okrDepartmentDto.getIsActive());
   }
-  // endregion
 
-  // region Tests DtoToEntity
   @Test
-  public void test_mapDtoToEntity_expects_idIsMapped() {
+  public void mapDtoToEntity_shouldMapOkrUnitId() {
     Long expected = 4L;
     okrDepartmentDto.setOkrUnitId(expected);
+
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertEquals(expected, okrDepartment.getId());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_nameIsMapped() {
+  public void mapDtoToEntity_shouldMapUnitName() {
     String expected = "test";
     okrDepartmentDto.setUnitName(expected);
+
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertEquals(expected, okrDepartment.getName());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_labelIsMapped() {
+  public void mapDtoToEntity_shouldMapLabel() {
     String expected = "test25M";
     okrDepartmentDto.setLabel(expected);
+
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertEquals(expected, okrDepartment.getLabel());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_expectsParentIsNull() {
+  public void mapDtoToEntity_shouldMapDtoToEntityWithParentOkrUnitNull() {
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertNull(okrDepartment.getParentOkrUnit());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_objectivesSizeNotNull() {
+  public void mapDtoToEntity_shouldMapDtoToEntityObjectivesSizeNotNull() {
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertNotNull(okrDepartment.getObjectives());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_OkrMasterIdIsMapped() {
+  public void mapDtoToEntity_shouldMapOkrMasterId() {
     UUID okrMasterUuid = UUID.randomUUID();
     okrDepartmentDto.setOkrMasterId(okrMasterUuid);
+
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertEquals(okrMasterUuid, okrDepartment.getOkrMasterId());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_OkrTopicSponsorIdIsMapped() {
+  public void mapDtoToEntity_shouldMapOkrTopicSponsorId() {
     UUID okrTopicSponsorUuid = UUID.randomUUID();
     okrDepartmentDto.setOkrTopicSponsorId(okrTopicSponsorUuid);
+
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertEquals(okrTopicSponsorUuid, okrDepartment.getOkrTopicSponsorId());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_okrMemberIdsAreMapped() {
+  public void mapDtoToEntity_shouldMapOkrMemberIds() {
     Collection<UUID> okrMembersUuids =
       Arrays.asList(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
     okrDepartmentDto.setOkrMemberIds(okrMembersUuids);
+
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertEquals(okrMembersUuids, okrDepartment.getOkrMemberIds());
   }
 
   @Test
-  public void test_mapDtoToEntity_expects_isActiveIsMapped() {
+  public void mapDtoToEntity_shouldMapIsActive() {
     okrDepartmentDto.setIsActive(true);
+
     okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
+
     assertTrue(okrDepartment.isActive());
   }
-  // endregion
-
 }
