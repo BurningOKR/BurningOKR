@@ -53,24 +53,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     config.setApplicationDestinationPrefixes("/ws");
   }
 
-  /*@Bean
-  AuthorizationManager<Message<?>> authorizationManager(MessageMatcherDelegatingAuthorizationManager.Builder messages) {
-    messages
-      .nullDestMatcher()
-      .permitAll()
-      .simpTypeMatchers(SimpMessageType.CONNECT)
-      .authenticated()
-      .simpTypeMatchers(SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT)
-      .authenticated()
-      .simpDestMatchers("/ws/**")
-      .authenticated()
-      .simpSubscribeDestMatchers("/topic/**")
-      .authenticated()
-      .anyMessage()
-      .denyAll();
-    return messages.build();
-  }*/
-
   @Override
   public void configureClientInboundChannel(ChannelRegistration registration) {
     registration.interceptors(
