@@ -15,64 +15,65 @@ import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO (F. L. 26.06.2023) Refactor tests (name, etc.)
 public class OkrCompanyMapperTest {
 
-    private OkrCompany okrCompany;
-    private OkrCompanyDto okrCompanyDto;
-    private OkrCompanyMapper okrCompanyMapper;
+    private OkrCompany company;
+    private OkrCompanyDto companyDto;
+    private OkrCompanyMapper companyMapper;
 
     @BeforeEach
     public void reset() {
-        this.okrCompany = new OkrCompany();
-        this.okrCompanyDto = new OkrCompanyDto();
-        this.okrCompanyMapper = new OkrCompanyMapper();
+        this.company = new OkrCompany();
+        this.companyDto = new OkrCompanyDto();
+        this.companyMapper = new OkrCompanyMapper();
 
         Cycle cycle = new Cycle();
         cycle.setId(14L);
-        okrCompany.setCycle(cycle);
+        company.setCycle(cycle);
 
         OkrCompanyHistory history = new OkrCompanyHistory();
         history.setId(24L);
-        okrCompany.setCompanyHistory(history);
+        company.setCompanyHistory(history);
     }
 
     @Test
     public void test_mapEntityToDto_expects_idIsMapped() {
         //Arrange
         Long expected = 5L;
-        okrCompany.setId(expected);
+        company.setId(expected);
 
         //Act
-        okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);
+        companyDto = companyMapper.mapEntityToDto(company);
 
         //Assert
-        assertEquals(expected, okrCompanyDto.getOkrUnitId());
+        assertEquals(expected, companyDto.getOkrUnitId());
     }
 
     @Test
     public void test_mapEntityToDto_expects_nameIsMapped() {
         //Arrange
         String expected = "test";
-        okrCompany.setName(expected);
+        company.setName(expected);
 
         //Act
-        okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);
+        companyDto = companyMapper.mapEntityToDto(company);
 
         //Assert
-        assertEquals(expected, okrCompanyDto.getUnitName());
+        assertEquals(expected, companyDto.getUnitName());
     }
 
     @Test
     public void test_mapEntityToDto_expects_labelIsMapped() {
         //Arrange
         String expected = "t1e2s3t";
-        okrCompany.setLabel(expected);
+        company.setLabel(expected);
 
         //Act
-        okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);
+        companyDto = companyMapper.mapEntityToDto(company);
 
         //Assert
-        assertEquals(expected, okrCompanyDto.getLabel());
+        assertEquals(expected, companyDto.getLabel());
     }
 
     @Test
@@ -87,13 +88,13 @@ public class OkrCompanyMapperTest {
                 add(new OkrDepartment());
             }
         };
-        okrCompany.setOkrChildUnits(departments);
+        company.setOkrChildUnits(departments);
 
         //Act
-        okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);
+        companyDto = companyMapper.mapEntityToDto(company);
 
         //Assert
-        assertEquals(expected, okrCompanyDto.getOkrChildUnitIds().size());
+        assertEquals(expected, companyDto.getOkrChildUnitIds().size());
     }
 
     @Test
@@ -108,13 +109,13 @@ public class OkrCompanyMapperTest {
                 add(new Objective());
             }
         };
-        okrCompany.setObjectives(objectives);
+        company.setObjectives(objectives);
 
         //Act
-        okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);
+        companyDto = companyMapper.mapEntityToDto(company);
 
         //Assert
-        assertEquals(expected, okrCompanyDto.getObjectiveIds().size());
+        assertEquals(expected, companyDto.getObjectiveIds().size());
     }
 
     @Test
@@ -123,13 +124,13 @@ public class OkrCompanyMapperTest {
         Long expected = 14L;
         Cycle cycle = new Cycle();
         cycle.setId(expected);
-        okrCompany.setCycle(cycle);
+        company.setCycle(cycle);
 
         //Act
-        okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);
+        companyDto = companyMapper.mapEntityToDto(company);
 
         //Assert
-        assertEquals(expected, okrCompanyDto.getCycleId());
+        assertEquals(expected, companyDto.getCycleId());
     }
 
     @Test
@@ -138,13 +139,13 @@ public class OkrCompanyMapperTest {
         Long expected = 27L;
         OkrCompanyHistory history = new OkrCompanyHistory();
         history.setId(expected);
-        okrCompany.setCompanyHistory(history);
+        company.setCompanyHistory(history);
 
         //Act
-        okrCompanyDto = okrCompanyMapper.mapEntityToDto(okrCompany);
+        companyDto = companyMapper.mapEntityToDto(company);
 
         //Assert
-        assertEquals(expected, okrCompanyDto.getHistoryId());
+        assertEquals(expected, companyDto.getHistoryId());
     }
 
     //
@@ -153,39 +154,39 @@ public class OkrCompanyMapperTest {
     public void test_mapDtoToEntity_expects_idIsMapped() {
         //Arrange
         Long expected = 5L;
-        okrCompanyDto.setOkrUnitId(expected);
+        companyDto.setOkrUnitId(expected);
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertEquals(expected, okrCompany.getId());
+        assertEquals(expected, company.getId());
     }
 
     @Test
     public void test_mapDtoToEntity_expects_nameIsMapped() {
         //Arrange
         String expected = "test";
-        okrCompanyDto.setUnitName(expected);
+        companyDto.setUnitName(expected);
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertEquals(expected, okrCompany.getName());
+        assertEquals(expected, company.getName());
     }
 
     @Test
     public void test_mapDtoToEntity_expects_labelIsMapped() {
         //Arrange
         String expected = "test2503";
-        okrCompanyDto.setLabel(expected);
+        companyDto.setLabel(expected);
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertEquals(expected, okrCompany.getLabel());
+        assertEquals(expected, company.getLabel());
     }
 
     @Test
@@ -193,10 +194,10 @@ public class OkrCompanyMapperTest {
         //Arrange
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertNotNull(okrCompany.getOkrChildUnits());
+        assertNotNull(company.getOkrChildUnits());
     }
 
     @Test
@@ -204,59 +205,59 @@ public class OkrCompanyMapperTest {
         //Arrange
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertNotNull(okrCompany.getObjectives());
+        assertNotNull(company.getObjectives());
     }
 
     @Test
     public void test_mapDtoToEntity_expects_cycleIdIsMappedNotNull() {
         //Arrange
         Long expected = 14L;
-        okrCompanyDto.setCycleId(expected);
+        companyDto.setCycleId(expected);
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertEquals(expected, okrCompany.getCycle().getId());
+        assertEquals(expected, company.getCycle().getId());
     }
 
     @Test
     public void test_mapDtoToEntity_expects_cycleIdIsMappedNull() {
         //Arrange
-        okrCompanyDto.setCycleId(null);
+        companyDto.setCycleId(null);
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertNull(okrCompany.getCycle());
+        assertNull(company.getCycle());
     }
 
     @Test
     public void test_mapDtoToEntity_expects_historyIdIsMappedNotNull() {
         //Arrange
         Long expected = 24L;
-        okrCompanyDto.setHistoryId(expected);
+        companyDto.setHistoryId(expected);
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertEquals(expected, okrCompany.getCompanyHistory().getId());
+        assertEquals(expected, company.getCompanyHistory().getId());
     }
 
     @Test
     public void test_mapDtoToEntity_expects_historyIdIsMappedNull() {
         //Arrange
-        okrCompanyDto.setHistoryId(null);
+        companyDto.setHistoryId(null);
 
         //Act
-        okrCompany = okrCompanyMapper.mapDtoToEntity(okrCompanyDto);
+        company = companyMapper.mapDtoToEntity(companyDto);
 
         //Assert
-        assertNull(okrCompany.getCompanyHistory());
+        assertNull(company.getCompanyHistory());
     }
 }
