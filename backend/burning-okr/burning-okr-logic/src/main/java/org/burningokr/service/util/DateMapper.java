@@ -11,8 +11,4 @@ public class DateMapper {
 
     return LocalDate.of(Integer.parseInt(splitString[0]), Integer.parseInt(splitString[1]), Integer.parseInt(splitString[2]));
   }
-
-  public String mapDateToDateString(LocalDate localDate) {
-    return "%d-%d-%d".formatted(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
-  }
 }
