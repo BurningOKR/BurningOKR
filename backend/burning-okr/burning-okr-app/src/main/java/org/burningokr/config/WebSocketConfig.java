@@ -110,7 +110,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     List<String> tokenList = accessor.getNativeHeader("Authorization");
     if (tokenList == null || tokenList.isEmpty()) return "";
 
-    return tokenList.get(0).split(" ")[1];
+    return tokenList.get(0).split("\\s")[1];
   }
 
   @Bean
