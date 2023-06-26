@@ -31,6 +31,7 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
         taskDto.getTaskStateId(),
         taskDto.getPreviousTaskId()
       ));
+
     Task taskEntity = new Task();
 
     taskEntity.setId(taskDto.getId());
@@ -125,8 +126,8 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
     return copy;
   }
 
-  private void logDTOList(Collection<TaskDto> taskList) {
 
+  private void logDTOList(Collection<TaskDto> taskList) {
     StringBuilder result = new StringBuilder("Log DTO List\n");
     for (TaskDto task : taskList) {
       result.append("--------------\n");
