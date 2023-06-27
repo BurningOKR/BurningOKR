@@ -111,12 +111,12 @@ public class OkrDepartmentMapperTest {
     int expected = 6;
     Collection<Objective> objectives = new ArrayList<>() {
       {
-        new Objective();
-        new Objective();
-        new Objective();
-        new Objective();
-        new Objective();
-        new Objective();
+        add(new Objective());
+        add(new Objective());
+        add(new Objective());
+        add(new Objective());
+        add(new Objective());
+        add(new Objective());
       }
     };
     department.setObjectives(objectives);

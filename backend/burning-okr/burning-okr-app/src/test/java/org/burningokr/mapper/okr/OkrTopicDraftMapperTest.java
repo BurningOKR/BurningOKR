@@ -32,9 +32,6 @@ public class OkrTopicDraftMapperTest {
   private UserService userService;
 
   @Mock
-  private DateMapper dateMapper;
-
-  @Mock
   private User user;
 
   private OkrTopicDraft topicDraft;
@@ -43,6 +40,7 @@ public class OkrTopicDraftMapperTest {
 
   @BeforeEach
   public void setUp() {
+    DateMapper dateMapper = new DateMapper();
     topicDraft = new OkrTopicDraft();
     topicDraftDto = new OkrTopicDraftDto();
     topicDraftMapper = new OkrTopicDraftMapper(userService, dateMapper);
@@ -285,16 +283,16 @@ public class OkrTopicDraftMapperTest {
     assertEquals(expected, actual.getDelimitation());
   }
 
-  //TODO (F. L. 26.06.2023) fix this test
-//  @Test
-//  public void mapDtoToEntity_shouldMapBeginning() {
-//    LocalDate expected = LocalDate.of(2020, 3, 1);
-//    topicDraftDto.setBeginning(expected.toString());
-//
-//    OkrTopicDraft actual = topicDraftMapper.mapDtoToEntity(topicDraftDto);
-//
-//    assertEquals(expected, actual.getBeginning());
-//  }
+
+  @Test
+  public void mapDtoToEntity_shouldMapBeginning() {
+    LocalDate expected = LocalDate.of(2020, 3, 1);
+    topicDraftDto.setBeginning(expected.toString());
+
+    OkrTopicDraft actual = topicDraftMapper.mapDtoToEntity(topicDraftDto);
+
+    assertEquals(expected, actual.getBeginning());
+  }
 
   @Test
   public void mapDtoToEntity_shouldMapDependencies() {
