@@ -6,4 +6,5 @@ dependencies {
     implementation deps.spring.security.core
     implementation deps.jackson.databind
     implementation deps.db.hibernate.envers
+    testImplementation project(path: ':burning-okr-logic')
 }
