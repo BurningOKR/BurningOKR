@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TaskTest {
   private Task originalTask;
   private Task expectedTask;
+  private Task emptyTask;
 
   @BeforeEach
   public void init() {
@@ -22,6 +23,8 @@ public class TaskTest {
     TaskBoard taskBoard = new TaskBoard();
     Task prevTask = new Task();
     Collection<UUID> userIds = new ArrayList<>();
+    UUID userId1 = new UUID(1L, 1L);
+    userIds.add(userId1);
     KeyResult keyResult = new KeyResult();
 
     originalTask = new Task();
@@ -35,6 +38,43 @@ public class TaskTest {
     originalTask.setAssignedKeyResult(keyResult);
     originalTask.setVersion(1L);
     expectedTask = originalTask;
+
+    emptyTask = new Task();
+  }
+
+  @Test
+  public void hasAssignedUserIds_shouldNotBeEmpty() {
+   assertTrue(originalTask.hasAssignedUserIds());
+  }
+
+  @Test
+  public void hasAssignedUserIds_shouldBeEmpty() {
+    assertFalse(emptyTask.hasAssignedUserIds());
+  }
+
+  @Test
+  public void hasAssignedKeyResult_shouldBeTrue() {
+    assertTrue(originalTask.hasAssignedKeyResult());
+  }
+
+  @Test
+  public void hasAssignedKeyResult_shouldBeFalse() {
+    assertFalse(emptyTask.hasAssignedKeyResult());
+  }
+
+  @Test
+  public void hasPreviousTask_shouldBeTrue() {
+    assertTrue(originalTask.hasPreviousTask());
+  }
+
+  @Test
+  public void hasPreviousTask_shouldBeFalse() {
+    assertFalse(emptyTask.hasPreviousTask());
+  }
+
+  @Test
+  public void copyTask_shouldNotBeNull() {
+    assertNotNull(originalTask.copyWithNoRelations());
   }
 
   @Test
