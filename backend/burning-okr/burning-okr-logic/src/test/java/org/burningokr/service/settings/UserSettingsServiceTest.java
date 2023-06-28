@@ -9,6 +9,7 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.model.users.IUser;
 import org.burningokr.repositories.settings.UserSettingsRepository;
+import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,8 @@ public class UserSettingsServiceTest {
   private UserSettingsRepository userSettingsRepository;
   @Mock
   private CompanyService companyService;
+  @Mock
+  private ActivityService activityservice;
   @InjectMocks
   private UserSettingsService userSettingsService;
   private static final UUID userId = UUID.randomUUID();
