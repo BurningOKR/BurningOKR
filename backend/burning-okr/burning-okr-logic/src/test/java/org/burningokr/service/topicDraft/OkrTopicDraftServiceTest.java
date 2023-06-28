@@ -42,17 +42,12 @@ public class OkrTopicDraftServiceTest {
   @InjectMocks
   private OkrTopicDraftService okrTopicDraftService;
 
-  private OkrTopicDraft okrTopicDraft;
-  private OkrTopicDraft okrTopicDraft2;
-  private OkrTopicDraft okrTopicDraft3;
-  private User currentUser;
-
   @BeforeEach
   public void setUp() {
-    okrTopicDraft = new OkrTopicDraft();
-    okrTopicDraft2 = new OkrTopicDraft();
-    okrTopicDraft3 = new OkrTopicDraft();
-    currentUser = new User();
+    OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
+    OkrTopicDraft okrTopicDraft2 = new OkrTopicDraft();
+    OkrTopicDraft okrTopicDraft3 = new OkrTopicDraft();
+    User currentUser = new User();
     UUID currentUserId = new UUID(1L, 1L);
     Long okrTopicDraftId = 10L;
     okrTopicDraft.setId(okrTopicDraftId);
@@ -73,6 +68,7 @@ public class OkrTopicDraftServiceTest {
   }
 
 //TODO (F. L. 27.06.2023) add tests
+//
 //  @Test
 //  public void getAllTopicDrafts_shouldReturnOnlyTopicDraftsWithStatusNoDraft() {
 //    okrTopicDraft.setInitiatorId(UUID.randomUUID());
@@ -146,6 +142,7 @@ public class OkrTopicDraftServiceTest {
   @Test
   public void deleteTopicDraft_shouldDeleteTopicDraft() {
     Long okrTopicDraftId = 12L;
+    OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
     when(okrTopicDraftRepository.findByIdOrThrow(okrTopicDraftId)).thenReturn(okrTopicDraft);
 
     okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId);
@@ -156,11 +153,12 @@ public class OkrTopicDraftServiceTest {
   @Test
   public void deleteTopicDraft_shouldCreateActivity() {
     Long okrTopicDraftId = 12L;
+    OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
     when(okrTopicDraftRepository.findByIdOrThrow(okrTopicDraftId)).thenReturn(okrTopicDraft);
 
     okrTopicDraftService.deleteTopicDraftById(okrTopicDraftId);
 
-    verify(activityService).createActivity(this.okrTopicDraft, Action.DELETED);
+    verify(activityService).createActivity(okrTopicDraft, Action.DELETED);
   }
 
   @Test
