@@ -3,6 +3,7 @@ import * as FileSaver from 'file-saver';
 import { Subscription } from 'rxjs';
 import { ExcelFileService } from './excel-file.service';
 import { OkrUnitId } from '../../shared/model/id-types';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class ExcelMapper {
 
   downloadExcelFileForOkrChildUnit(okrChildUnitId: OkrUnitId): Subscription {
     return this.excelFileService.downloadExcelFileForOkrChildUnit$(okrChildUnitId)
+      .pipe(take(1))
       .subscribe(data => {
         const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr.xlsx');
@@ -25,6 +27,7 @@ export class ExcelMapper {
 
   downloadExcelFileForCompany(companyId: number): Subscription {
     return this.excelFileService.downloadExcelFileCompany$(companyId)
+      .pipe(take(1))
       .subscribe(data => {
         const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr.xlsx');
@@ -33,6 +36,7 @@ export class ExcelMapper {
 
   downloadExcelEmailFileForOkrTeam(departmentId: OkrUnitId): Subscription {
     return this.excelFileService.downloadExcelEmailFileForOkrTeam$(departmentId)
+      .pipe(take(1))
       .subscribe(data => {
         const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr-member.xlsx');
@@ -41,6 +45,7 @@ export class ExcelMapper {
 
   downloadExcelEmailFileForCompany(companyId: number): Subscription {
     return this.excelFileService.downloadExcelEmailFileForCompany$(companyId)
+      .pipe(take(1))
       .subscribe(data => {
         const blob: Blob = new Blob([data], { type: this.blobType });
         FileSaver.saveAs(blob, 'okr-member.xlsx');

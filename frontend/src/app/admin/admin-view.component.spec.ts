@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Router } from '@angular/router';
 import { AdminViewComponent } from './admin-view.component';
 import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
@@ -23,7 +22,6 @@ describe('AdminViewComponent', () => {
   const currentUserService: any = {
     getCurrentUser$: jest.fn(),
   };
-  const router: any = {};
 
   const currentUserMock: User = {
     id: 'testId',
@@ -67,7 +65,6 @@ describe('AdminViewComponent', () => {
           provide: CurrentUserService,
           useValue: currentUserService,
         },
-        { provide: Router, useValue: router },
       ],
     })
       .compileComponents();

@@ -39,8 +39,8 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
 
     cycleDto.setId(cycle.getId());
     cycleDto.setName(cycle.getName());
-    cycleDto.setPlannedStartDate(dateMapper.mapDateToDateString(cycle.getPlannedStartDate()));
-    cycleDto.setPlannedEndDate(dateMapper.mapDateToDateString(cycle.getPlannedEndDate()));
+    cycleDto.setPlannedStartDate(cycle.getPlannedStartDate().toString());
+    cycleDto.setPlannedEndDate(cycle.getPlannedEndDate().toString());
     cycleDto.setCycleState(cycle.getCycleState());
     cycleDto.setIsVisible(cycle.isVisible());
 

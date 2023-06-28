@@ -31,15 +31,4 @@ public class OkrTopicDraftHistory implements Trackable<Long> {
     units.add(unit);
   }
 
-  public Collection<OkrTopicDraft> getUnits() {
-    return units;
-  }
-
-  public void clearUnits() {
-    units.clear();
-  }
-
-  public void removeUnit(OkrTopicDraft unit) {
-    units.remove(unit);
-  }
 }

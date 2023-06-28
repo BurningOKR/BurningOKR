@@ -24,41 +24,46 @@ public class OkrBranchSchemaMapperTest {
   @InjectMocks
   private OkrBranchSchemaMapper okrBranchSchemaMapper;
 
-  private OkrBranch department1;
-  private OkrBranch department2;
-  private OkrBranch department3;
-  private OkrDepartment okrDepartment4;
-  private OkrDepartment okrDepartment5;
-  private OkrDepartment okrDepartment6;
+  private OkrBranch okrBranch1;
+  private OkrBranch okrBranch2;
+  private OkrBranch okrBranch3;
+  private OkrDepartment okrDepartment1;
+  private OkrDepartment okrDepartment2;
+  private OkrDepartment okrDepartment3;
 
   private UUID currentUserId;
 
   @BeforeEach
   public void setUp() {
-    department1 = new OkrBranch();
-    department1.setId(10L);
-    department1.setName("department1test");
-    department1.setActive(true);
-    department2 = new OkrBranch();
-    department2.setId(20L);
-    department2.setName("department2test");
-    department2.setActive(false);
-    department3 = new OkrBranch();
-    department3.setId(30L);
-    department3.setName("department3Test");
-    department3.setActive(true);
-    okrDepartment4 = new OkrDepartment();
-    okrDepartment4.setId(40L);
-    okrDepartment4.setName("department4Test");
-    okrDepartment4.setActive(false);
-    okrDepartment5 = new OkrDepartment();
-    okrDepartment5.setId(50L);
-    okrDepartment5.setName("department5Test");
-    okrDepartment5.setActive(false);
-    okrDepartment6 = new OkrDepartment();
-    okrDepartment6.setId(60L);
-    okrDepartment6.setName("department6Test");
-    okrDepartment6.setActive(false);
+    okrBranch1 = new OkrBranch();
+    okrBranch1.setId(10L);
+    okrBranch1.setName("department1test");
+    okrBranch1.setActive(true);
+
+    okrBranch2 = new OkrBranch();
+    okrBranch2.setId(20L);
+    okrBranch2.setName("department2test");
+    okrBranch2.setActive(false);
+
+    okrBranch3 = new OkrBranch();
+    okrBranch3.setId(30L);
+    okrBranch3.setName("department3Test");
+    okrBranch3.setActive(true);
+
+    okrDepartment1 = new OkrDepartment();
+    okrDepartment1.setId(40L);
+    okrDepartment1.setName("department4Test");
+    okrDepartment1.setActive(false);
+
+    okrDepartment2 = new OkrDepartment();
+    okrDepartment2.setId(50L);
+    okrDepartment2.setName("department5Test");
+    okrDepartment2.setActive(false);
+
+    okrDepartment3 = new OkrDepartment();
+    okrDepartment3.setId(60L);
+    okrDepartment3.setName("department6Test");
+    okrDepartment3.setActive(false);
 
     currentUserId = UUID.randomUUID();
   }
@@ -74,57 +79,58 @@ public class OkrBranchSchemaMapperTest {
   }
 
   @Test
-  public void mapDepartmentListToOkrDepartmentList_noDepartments_expectedEmptyList() {
-    ArrayList<OkrDepartment> emptyList = new ArrayList<>();
+  public void mapDepartmentListToOkrDepartmentList_shouldExpectEmptyListWhenDepartmentsAreNull() {
+    ArrayList<OkrDepartment> departmentList = new ArrayList<>();
+    int expected = 0;
 
     Collection<OkrUnitSchemaDto> actual =
-      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(emptyList, currentUserId);
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(departmentList, currentUserId);
 
-    assertEquals(0, actual.size());
+    assertEquals(expected, actual.size());
   }
 
   @Test
-  public void mapDepartmentListToDepartmentList_oneDepartment_expectedCorrectlyMappedDto() {
+  public void childUnitListToChildUnitSchemaList_shouldMapOkrBranchToOkrUnitSchemaDto() {
     ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
-    departmentList.add(department1);
-
-    Collection<OkrUnitSchemaDto> actual =
-      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-        departmentList, currentUserId);
-
-    assertEquals(1, actual.size());
-    for (OkrUnitSchemaDto dto : actual) {
-      assertEquals(department1.getId(), dto.getId());
-      assertEquals(department1.getName(), dto.getName());
-      assertEquals(department1.getOkrChildUnits().size(), dto.getSubDepartments().size());
-      assertEquals(OkrDepartmentDtoRole.USER, dto.getUserRole());
-      assertFalse(dto.getIsTeam());
-    }
-  }
-
-  @Test
-  public void mapDepartmentListToDepartmentList_oneDepartment_expectedCorrectlyMappedDto_Team() {
-    ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
-    departmentList.add(okrDepartment4);
+    departmentList.add(okrBranch1);
 
     Collection<OkrUnitSchemaDto> actual =
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
         departmentList, currentUserId);
 
     assertEquals(1, actual.size());
-    for (OkrUnitSchemaDto dto : actual) {
-      assertEquals(okrDepartment4.getId(), dto.getId());
-      assertEquals(okrDepartment4.getName(), dto.getName());
-      assertEquals(OkrDepartmentDtoRole.USER, dto.getUserRole());
-      assertTrue(dto.getIsTeam());
+    for (OkrUnitSchemaDto okrUnitSchemaDto : actual) {
+      assertEquals(okrBranch1.getId(), okrUnitSchemaDto.getId());
+      assertEquals(okrBranch1.getName(), okrUnitSchemaDto.getName());
+      assertEquals(okrBranch1.getOkrChildUnits().size(), okrUnitSchemaDto.getSubDepartments().size());
+      assertEquals(OkrDepartmentDtoRole.USER, okrUnitSchemaDto.getUserRole());
+      assertFalse(okrUnitSchemaDto.getIsTeam());
     }
   }
 
   @Test
-  public void mapDepartmentListToDepartmentList_twoDepartments_expectedCorrectIds() {
+  public void childUnitListToChildUnitSchemaList_shouldMapOkrDepartmentToOkrUnitSchemaDto() {
     ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
-    departmentList.add(department1);
-    departmentList.add(department2);
+    departmentList.add(okrDepartment1);
+
+    Collection<OkrUnitSchemaDto> actual =
+      okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+        departmentList, currentUserId);
+
+    assertEquals(1, actual.size());
+    for (OkrUnitSchemaDto okrUnitSchemaDto : actual) {
+      assertEquals(okrDepartment1.getId(), okrUnitSchemaDto.getId());
+      assertEquals(okrDepartment1.getName(), okrUnitSchemaDto.getName());
+      assertEquals(OkrDepartmentDtoRole.USER, okrUnitSchemaDto.getUserRole());
+      assertTrue(okrUnitSchemaDto.getIsTeam());
+    }
+  }
+
+  @Test
+  public void mapOkrChildUnitListToOkrChildUnitSchemaList_shouldMapTwoDepartmentsWithCorrectIds() {
+    ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
+    departmentList.add(okrBranch1);
+    departmentList.add(okrBranch2);
 
     Collection<OkrUnitSchemaDto> actual =
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
@@ -133,9 +139,9 @@ public class OkrBranchSchemaMapperTest {
     OkrUnitSchemaDto dto1 = null;
     OkrUnitSchemaDto dto2 = null;
     for (OkrUnitSchemaDto dto : actual) {
-      if (dto.getId().equals(department1.getId())) {
+      if (dto.getId().equals(okrBranch1.getId())) {
         dto1 = dto;
-      } else if (dto.getId().equals(department2.getId())) {
+      } else if (dto.getId().equals(okrBranch2.getId())) {
         dto2 = dto;
       }
     }
@@ -146,10 +152,10 @@ public class OkrBranchSchemaMapperTest {
   }
 
   @Test
-  public void mapDepartmentListToDepartmentList_twoDepartments_expectedIsActiveCorrect() {
+  public void mapOkrChildUnitListToOkrChildUnitSchemaList_shouldMapIsActiveOfTwoDepartments() {
     ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
-    departmentList.add(department1);
-    departmentList.add(department2);
+    departmentList.add(okrBranch1);
+    departmentList.add(okrBranch2);
 
     Collection<OkrUnitSchemaDto> actual =
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
@@ -158,9 +164,9 @@ public class OkrBranchSchemaMapperTest {
     OkrUnitSchemaDto dto1 = null;
     OkrUnitSchemaDto dto2 = null;
     for (OkrUnitSchemaDto dto : actual) {
-      if (dto.getId().equals(department1.getId())) {
+      if (dto.getId().equals(okrBranch1.getId())) {
         dto1 = dto;
-      } else if (dto.getId().equals(department2.getId())) {
+      } else if (dto.getId().equals(okrBranch2.getId())) {
         dto2 = dto;
       }
     }
@@ -174,14 +180,14 @@ public class OkrBranchSchemaMapperTest {
   }
 
   @Test
-  public void mapDepartmentListToDepartmentList_threeDepartments_expectedCorrectRoles() {
-    okrDepartment5.setOkrMasterId(currentUserId);
-    okrDepartment6.getOkrMemberIds().add(currentUserId);
+  public void mapOkrChildUnitListToOkrChildUnitSchemaList_shouldMapOkrDepartmentDtoRolesOfThreeDepartments() {
+    okrDepartment2.setOkrMasterId(currentUserId);
+    okrDepartment3.getOkrMemberIds().add(currentUserId);
 
     ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
-    departmentList.add(okrDepartment4);
-    departmentList.add(okrDepartment5);
-    departmentList.add(okrDepartment6);
+    departmentList.add(okrDepartment1);
+    departmentList.add(okrDepartment2);
+    departmentList.add(okrDepartment3);
 
     Collection<OkrUnitSchemaDto> actual =
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
@@ -191,11 +197,11 @@ public class OkrBranchSchemaMapperTest {
     OkrUnitSchemaDto dto5 = null;
     OkrUnitSchemaDto dto6 = null;
     for (OkrUnitSchemaDto dto : actual) {
-      if (dto.getId().equals(okrDepartment4.getId())) {
+      if (dto.getId().equals(okrDepartment1.getId())) {
         dto4 = dto;
-      } else if (dto.getId().equals(okrDepartment5.getId())) {
+      } else if (dto.getId().equals(okrDepartment2.getId())) {
         dto5 = dto;
-      } else if (dto.getId().equals(okrDepartment6.getId())) {
+      } else if (dto.getId().equals(okrDepartment3.getId())) {
         dto6 = dto;
       }
     }
@@ -207,10 +213,10 @@ public class OkrBranchSchemaMapperTest {
   }
 
   @Test
-  public void mapDepartmentListToDepartmentList_oneChildDepartment_expectedCorrectIds() {
+  public void mapOkrChildUnitListToOkrChildUnitSchemaList_shouldMapIdsOfChildDepartment() {
     ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
-    departmentList.add(department1);
-    attachDepartmentToDepartment(department1, department2);
+    departmentList.add(okrBranch1);
+    attachDepartmentToDepartment(okrBranch1, okrBranch2);
 
     Collection<OkrUnitSchemaDto> actual =
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
@@ -220,17 +226,17 @@ public class OkrBranchSchemaMapperTest {
     for (OkrUnitSchemaDto dto : actual) {
       assertEquals(1, dto.getSubDepartments().size());
       for (OkrUnitSchemaDto innerDto : dto.getSubDepartments()) {
-        assertEquals(department2.getId(), innerDto.getId());
+        assertEquals(okrBranch2.getId(), innerDto.getId());
       }
     }
   }
 
   @Test
-  public void mapDepartmentListToDepartmentList_twoChildDepartments_expectedCorrectIds() {
+  public void mapOkrChildUnitListToOkrChildUnitSchemaList_shouldMapIdsOfTwoChildDepartments() {
     ArrayList<OkrChildUnit> departmentList = new ArrayList<>();
-    departmentList.add(department1);
-    attachDepartmentToDepartment(department1, department2);
-    attachDepartmentToDepartment(department1, department3);
+    departmentList.add(okrBranch1);
+    attachDepartmentToDepartment(okrBranch1, okrBranch2);
+    attachDepartmentToDepartment(okrBranch1, okrBranch3);
 
     Collection<OkrUnitSchemaDto> actual =
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
@@ -242,9 +248,9 @@ public class OkrBranchSchemaMapperTest {
       OkrUnitSchemaDto dto2 = null;
       OkrUnitSchemaDto dto3 = null;
       for (OkrUnitSchemaDto dto : outerDto.getSubDepartments()) {
-        if (dto.getId().equals(department2.getId())) {
+        if (dto.getId().equals(okrBranch2.getId())) {
           dto2 = dto;
-        } else if (dto.getId().equals(department3.getId())) {
+        } else if (dto.getId().equals(okrBranch3.getId())) {
           dto3 = dto;
         }
       }

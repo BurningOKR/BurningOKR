@@ -49,8 +49,7 @@ describe('LogoutComponent', () => {
       .toBeTruthy();
   });
 
-  // TODO: fix tests
-  /*it('should route on local mode', () => {
+  xit('should route on local mode', () => {
     oAuthDetailsMock.getAuthType$
       .mockReturnValueOnce(of(Consts.AUTHTYPE_LOCAL));
     fixture = TestBed.createComponent(LogoutComponent);
@@ -58,7 +57,7 @@ describe('LogoutComponent', () => {
     fixture.detectChanges();
     expect(routerMock.navigate)
       .toHaveBeenCalled();
-  });*/
+  });
 
   it('should not route on aad mode', () => {
     oAuthDetailsMock.getAuthType$
@@ -72,5 +71,4 @@ describe('LogoutComponent', () => {
       .toHaveBeenCalled();
   });
 
-})
-;
+});

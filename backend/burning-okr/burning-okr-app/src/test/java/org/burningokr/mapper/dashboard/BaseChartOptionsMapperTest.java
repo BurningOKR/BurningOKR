@@ -17,51 +17,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class BaseChartOptionsMapperTest {
-  private BaseChartOptionsMapper mapper;
-  private ChartCreationOptions entityLine;
-  private ChartCreationOptions entityPie;
-  private BaseChartOptionsDto dtoLine;
-  private BaseChartOptionsDto dtoPie;
+  private BaseChartOptionsMapper baseChartOptionsMapper;
+  private ChartCreationOptions chartCreationOptionsLine;
+  private ChartCreationOptions chartCreationOptionsPie;
+  private BaseChartOptionsDto baseChartOptionsDtoLine;
+  private BaseChartOptionsDto baseChartOptionsDtoPie;
 
   @BeforeEach
   public void init() {
-    entityLine = new ChartCreationOptions();
-    entityPie = new ChartCreationOptions();
-    dtoLine = new LineChartOptionsDto();
-    dtoPie = new PieChartOptionsDto();
-    mapper = new BaseChartOptionsMapper();
+    chartCreationOptionsLine = new ChartCreationOptions();
+    chartCreationOptionsPie = new ChartCreationOptions();
+    baseChartOptionsDtoLine = new LineChartOptionsDto();
+    baseChartOptionsDtoPie = new PieChartOptionsDto();
+    baseChartOptionsMapper = new BaseChartOptionsMapper();
 
-    dtoLine.setId(5L);
-    dtoLine.setTitle("expectedTitle");
-    dtoLine.setChartType(0);
-    dtoLine.setSelectedTeamIds(new ArrayList<Long>());
+    baseChartOptionsDtoLine.setId(5L);
+    baseChartOptionsDtoLine.setTitle("expectedTitle");
+    baseChartOptionsDtoLine.setChartType(0);
+    baseChartOptionsDtoLine.setSelectedTeamIds(new ArrayList<>());
 
-    dtoPie.setId(5L);
-    dtoPie.setTitle("expectedTitle");
-    dtoPie.setChartType(1);
-    dtoPie.setSelectedTeamIds(new ArrayList<Long>());
+    baseChartOptionsDtoPie.setId(5L);
+    baseChartOptionsDtoPie.setTitle("expectedTitle");
+    baseChartOptionsDtoPie.setChartType(1);
+    baseChartOptionsDtoPie.setSelectedTeamIds(new ArrayList<>());
 
-    entityLine.setId(5L);
-    entityLine.setTitle("expectedTitle");
-    entityLine.setChartType(ChartInformationTypeEnum.LINE_PROGRESS);
-    entityLine.setTeamIds(new ArrayList<Long>());
+    chartCreationOptionsLine.setId(5L);
+    chartCreationOptionsLine.setTitle("expectedTitle");
+    chartCreationOptionsLine.setChartType(ChartInformationTypeEnum.LINE_PROGRESS);
+    chartCreationOptionsLine.setTeamIds(new ArrayList<>());
 
-    entityPie.setId(5L);
-    entityPie.setTitle("expectedTitle");
-    entityPie.setChartType(ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW);
-    entityPie.setTeamIds(new ArrayList<Long>());
+    chartCreationOptionsPie.setId(5L);
+    chartCreationOptionsPie.setTitle("expectedTitle");
+    chartCreationOptionsPie.setChartType(ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW);
+    chartCreationOptionsPie.setTeamIds(new ArrayList<>());
   }
 
   @Test
   public void test_mapDtoToEntity_line() {
-    ChartCreationOptions mapped_entity = mapper.mapDtoToEntity(dtoLine);
-    assertEquals(entityLine, mapped_entity);
+    ChartCreationOptions mapped_entity = baseChartOptionsMapper.mapDtoToEntity(baseChartOptionsDtoLine);
+    assertEquals(chartCreationOptionsLine, mapped_entity);
   }
 
   @Test
   public void test_mapDtoToEntity_pie() {
-    ChartCreationOptions mapped_entity = mapper.mapDtoToEntity(dtoPie);
-    assertEquals(entityPie, mapped_entity);
+    ChartCreationOptions mapped_entity = baseChartOptionsMapper.mapDtoToEntity(baseChartOptionsDtoPie);
+    assertEquals(chartCreationOptionsPie, mapped_entity);
   }
 
 }
