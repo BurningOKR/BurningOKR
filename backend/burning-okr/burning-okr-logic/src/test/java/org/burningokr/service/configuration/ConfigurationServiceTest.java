@@ -3,11 +3,13 @@ package org.burningokr.service.configuration;
 import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.Configuration;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
+import org.burningokr.service.activity.ActivityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +24,12 @@ public class ConfigurationServiceTest {
 
   @Mock
   private ConfigurationRepository configurationRepository;
+
+  @Mock
+  private ActivityService activityService;
+
+  @Mock
+  private ApplicationEventPublisher applicationEventPublisher;
 
   @InjectMocks
   private ConfigurationService configurationService;
