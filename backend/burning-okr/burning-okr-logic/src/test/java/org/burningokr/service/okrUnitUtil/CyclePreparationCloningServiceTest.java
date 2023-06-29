@@ -33,7 +33,7 @@ public class CyclePreparationCloningServiceTest {
   private CompanyRepository companyRepository;
 
   @Mock
-  private OkrUnitRepository<OkrChildUnit> subOkrUnitRepository;
+  private OkrUnitRepository<OkrChildUnit> childUnitRepository;
 
   @Mock
   private ObjectiveRepository objectiveRepository;
@@ -46,27 +46,27 @@ public class CyclePreparationCloningServiceTest {
 
   @InjectMocks
   private CyclePreparationCloningService cyclePreparationCloningService;
-  private Collection<OkrCompany> unwrappedOkrCompanyList;
-  private OkrCompany unwrappedOkrCompany;
+  private Collection<OkrCompany> unwrappedCompanyList;
+  private OkrCompany unwrappedCompany;
   private Collection<Objective> unwrappedObjectiveList1;
   private Objective unwrappedObjective1;
   private Objective unwrappedChildObjective1;
-  private Collection<OkrChildUnit> unwrappedOkrChildUnitList;
-  private OkrChildUnit unwrappedOkrChildUnit;
+  private Collection<OkrChildUnit> unwrappedChildUnitList;
+  private OkrChildUnit unwrappedChildUnit;
   private Collection<Objective> unwrappedObjectiveList2;
   private Objective unwrappedObjective2;
   private Objective unwrappedChildObjective2;
 
   private Collection<OkrCompany> createCompanyList(int amountOfElements) {
-    Collection<OkrCompany> okrCompanyList = new ArrayList<>();
+    Collection<OkrCompany> companyList = new ArrayList<>();
 
     for (int i = 0; i < amountOfElements; i++) {
       OkrCompany okrCompanyToAdd = new OkrCompany();
       okrCompanyToAdd.setId((long) i);
-      okrCompanyList.add(okrCompanyToAdd);
+      companyList.add(okrCompanyToAdd);
     }
 
-    return okrCompanyList;
+    return companyList;
   }
 
   private void cloneCompanyListIntoCycle_TestAmountOfNewElements(int amountOfAdditions) {
@@ -99,18 +99,18 @@ public class CyclePreparationCloningServiceTest {
 
   private void unwrapCycleContents(Cycle cycleToUnwrap) {
     // Cycle layer
-    unwrappedOkrCompanyList = cycleToUnwrap.getCompanies();
-    for (OkrCompany x : unwrappedOkrCompanyList) {
-      unwrappedOkrCompany = x;
+    unwrappedCompanyList = cycleToUnwrap.getCompanies();
+    for (OkrCompany x : unwrappedCompanyList) {
+      unwrappedCompany = x;
     }
     // OkrCompany layer
-    unwrappedObjectiveList1 = unwrappedOkrCompany.getObjectives();
-    unwrappedOkrChildUnitList = unwrappedOkrCompany.getOkrChildUnits();
-    for (OkrChildUnit x : unwrappedOkrChildUnitList) {
-      unwrappedOkrChildUnit = x;
+    unwrappedObjectiveList1 = unwrappedCompany.getObjectives();
+    unwrappedChildUnitList = unwrappedCompany.getOkrChildUnits();
+    for (OkrChildUnit x : unwrappedChildUnitList) {
+      unwrappedChildUnit = x;
     }
     // OkrDepartment layer
-    unwrappedObjectiveList2 = unwrappedOkrChildUnit.getObjectives();
+    unwrappedObjectiveList2 = unwrappedChildUnit.getObjectives();
     // Objectives layer
     Collection<Objective> tempUnwrappedObjectivesList = new ArrayList<>();
     tempUnwrappedObjectivesList.addAll(unwrappedObjectiveList1);
@@ -142,17 +142,17 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany okrCompanyToClone = testingCycleStructure.createTestingCompanyRelationship();
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(
-      okrCompanyToClone, cycleToCloneInto);
+            okrCompanyToClone, cycleToCloneInto);
 
     unwrapCycleContents(cycleToCloneInto);
     // The unwrap method working to set the following references is a proof of functional child
     // relationships
-    assertEquals(1, unwrappedOkrCompanyList.size());
-    assertEquals(1, unwrappedOkrChildUnitList.size());
+    assertEquals(1, unwrappedCompanyList.size());
+    assertEquals(1, unwrappedChildUnitList.size());
     assertEquals(2, unwrappedObjectiveList1.size());
     assertEquals(2, unwrappedObjectiveList2.size());
-    assertNotNull(unwrappedOkrCompany);
-    assertNotNull(unwrappedOkrChildUnit);
+    assertNotNull(unwrappedCompany);
+    assertNotNull(unwrappedChildUnit);
     assertNotNull(unwrappedObjective1);
     assertNotNull(unwrappedObjective2);
     assertNotNull(unwrappedChildObjective1);
@@ -166,16 +166,16 @@ public class CyclePreparationCloningServiceTest {
     OkrCompany okrCompanyToClone = testingCycleStructure.createTestingCompanyRelationship();
 
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(
-      okrCompanyToClone, cycleToCloneInto);
+            okrCompanyToClone, cycleToCloneInto);
 
     unwrapCycleContents(cycleToCloneInto);
     // CyclePreparationCloningService properly sets up parent relations
-    assertEquals(cycleToCloneInto, unwrappedOkrCompany.getCycle());
-    assertEquals(unwrappedOkrCompany, unwrappedOkrChildUnit.getParentOkrUnit());
-    assertEquals(unwrappedOkrCompany, unwrappedObjective1.getParentOkrUnit());
-    assertEquals(unwrappedOkrCompany, unwrappedChildObjective1.getParentOkrUnit());
-    assertEquals(unwrappedOkrChildUnit, unwrappedObjective2.getParentOkrUnit());
-    assertEquals(unwrappedOkrChildUnit, unwrappedChildObjective2.getParentOkrUnit());
+    assertEquals(cycleToCloneInto, unwrappedCompany.getCycle());
+    assertEquals(unwrappedCompany, unwrappedChildUnit.getParentOkrUnit());
+    assertEquals(unwrappedCompany, unwrappedObjective1.getParentOkrUnit());
+    assertEquals(unwrappedCompany, unwrappedChildObjective1.getParentOkrUnit());
+    assertEquals(unwrappedChildUnit, unwrappedObjective2.getParentOkrUnit());
+    assertEquals(unwrappedChildUnit, unwrappedChildObjective2.getParentOkrUnit());
     assertEquals(unwrappedObjective1, unwrappedChildObjective1.getParentObjective());
     assertEquals(unwrappedObjective2, unwrappedChildObjective2.getParentObjective());
   }
@@ -196,7 +196,7 @@ public class CyclePreparationCloningServiceTest {
     ArgumentCaptor<Objective> savedObjectiveCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository).save(savedCompanyCaptor.capture());
-    verify(subOkrUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
+    verify(childUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
     verify(objectiveRepository, times(4)).save(savedObjectiveCaptor.capture());
 
     OkrCompany savedOkrCompany = savedCompanyCaptor.getValue();
@@ -207,8 +207,8 @@ public class CyclePreparationCloningServiceTest {
     Objective savedObjective2 = savedObjectives.get(2);
     Objective savedChildObjective2 = savedObjectives.get(3);
 
-    assertEquals(unwrappedOkrCompany, savedOkrCompany);
-    assertEquals(unwrappedOkrChildUnit, savedOkrDepartment);
+    assertEquals(unwrappedCompany, savedOkrCompany);
+    assertEquals(unwrappedChildUnit, savedOkrDepartment);
     assertEquals(unwrappedObjective1, savedObjective1);
     assertEquals(unwrappedObjective2, savedObjective2);
     assertEquals(unwrappedChildObjective1, savedChildObjective1);
@@ -285,7 +285,7 @@ public class CyclePreparationCloningServiceTest {
       ArgumentCaptor.forClass(UserSettings.class);
 
     verify(userSettingsRepository, times(1)).save(savedUserSettingsCaptor.capture());
-    verify(subOkrUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
+    verify(childUnitRepository, times(2)).save(savedDepartmentCaptor.capture());
     verify(companyRepository).save(savedCompanyCaptor.capture());
 
     OkrCompany savedOkrCompany = savedCompanyCaptor.getValue();
@@ -353,7 +353,7 @@ public class CyclePreparationCloningServiceTest {
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(okrCompany, cycle);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(subOkrUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
+    verify(childUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrBranch okrBranchCaptured = okrBranchArgumentCaptor.getValue();
@@ -386,7 +386,7 @@ public class CyclePreparationCloningServiceTest {
     ArgumentCaptor<Objective> objectiveArgumentCaptor = ArgumentCaptor.forClass(Objective.class);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(subOkrUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
+    verify(childUnitRepository, times(1)).save(okrBranchArgumentCaptor.capture());
     verify(objectiveRepository, times(1)).save(objectiveArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
@@ -421,7 +421,7 @@ public class CyclePreparationCloningServiceTest {
     cyclePreparationCloningService.cloneCompanyIntoCycleForPreparation(okrCompany, cycle);
 
     verify(companyRepository, times(1)).save(companyCaptor.capture());
-    verify(subOkrUnitRepository, times(2)).save(okrBranchArgumentCaptor.capture());
+    verify(childUnitRepository, times(2)).save(okrBranchArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrBranch okrBranchCaptured = okrBranchArgumentCaptor.getAllValues().get(0);
@@ -460,7 +460,7 @@ public class CyclePreparationCloningServiceTest {
 
     // Twice because it is saved once for the okrBranch and a second time for the
     // okrDepartment.
-    verify(subOkrUnitRepository, times(2)).save(departmentArgumentCaptor.capture());
+    verify(childUnitRepository, times(2)).save(departmentArgumentCaptor.capture());
 
     OkrCompany okrCompanyCaptured = companyCaptor.getValue();
     OkrDepartment okrDepartmentCaptured = departmentArgumentCaptor.getValue();
