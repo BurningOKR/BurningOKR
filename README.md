@@ -2,7 +2,7 @@
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
 <p align="center">
-<a href="http://www.burningokr.org" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation (de)</a> | <a href="https://burning-okr.gitbook.io/burningokr/v/en/" target="_blank">documentation (en) </a></p>
+<a href="https://burning-okr.org/" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation (de)</a> | <a href="https://burning-okr.gitbook.io/burningokr/v/en/" target="_blank">documentation (en) </a></p>
 <br/><br/><br/>
 
 # BurningOKR
@@ -12,13 +12,16 @@ BurningOKR has been developed as a web application with an Angular Frontend and 
 
 ## Quick start (familiar with Docker)
 When you have Docker and Docker-Compose installed you can proceed with the next steps, otherwise please install Docker and Docker-Compose first.  
-You can use our [docker-compose-prod.yml](/docker/docker-compose-prod.yml) file for easy use and compatibility!  
-1. Download the [docker-compose-prod.yml](/docker/docker-compose-prod.yml) file
+You can use our docker-compose file for easy use and compatibility!  
+1. Download the [TODO update][docker-compose-prod.yml](/docker/docker-compose-prod.yml) file
+
+[TODO is 2 - 5 still needed?] 
 2. Download [backend.env.sample](/docker/backend.env.sample) file and rename it to backend.env
 3. Download [postgres.env.sample](/docker/postgres.env.sample) file and rename it to postgres.env
 4. Now fill in your configurations in the two downloaded .env-files
 5. Hint: When you don't want to use Azure or a SMTP-Mailserver just comment these parts in the .env-files out and they won't be used. For more information read the full docs.
-6. After that you are good to go and you can run `docker-compose -f docker-compose-prod.yml up` in the directory where the previously downloaded files are saved. Hint: When you want to reuse the console windows add a `-d` to the compose command to run in detached mode!
+
+6. After that you are good to go and you can run `docker compose -f docker-compose-prod.yml up` in the directory where the previously downloaded files are saved. Hint: When you want to reuse the console windows add a `-d` to the compose command to run in detached mode!
 
 ## Installation
 You can install BurningOKR using the following technologies.
@@ -31,8 +34,8 @@ We are already working on a faster and easier installation process, so stay tune
 ### Checklist
 0. Please follow our [Code Guidelines](/CODE_GUIDELINES.md) and [General information about implementations](/docs/developer_readme.md)
    0.1 You may also read the [Frontend-Readme](/frontend/README.md)
-1. Install [PostgreSQL](/docs/postgres_install.md) or [MSSQL](/docs/mssql_install.md)
-2. Install JDK 8. The Open JDK 8 can be downloaded [here](https://adoptopenjdk.net/upstream.html).
+1. Install [PostgreSQL](/docs/postgres_install.md) 9.5.14 or higher or [MSSQL](/docs/mssql_install.md)
+2. Install JDK 17. The Open JDK 17 can be downloaded [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
 3. Install the (!) LTS Version of node & npm [here](https://nodejs.org/en/download/)
 4. Download the following [Batch-Script](/docs/scripts/SetupBurningOKR_windows.bat) and put it in the folder, where you want the project to be. Execute the script.  
 Or execute the following command:  
