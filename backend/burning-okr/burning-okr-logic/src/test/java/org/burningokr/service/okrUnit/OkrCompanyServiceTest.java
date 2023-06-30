@@ -105,7 +105,7 @@ public class OkrCompanyServiceTest {
   }
 
   @Test
-  public void createDepartment_shouldThrowForbiddenWhenCycleOfDepartmentIsClosed() {
+  public void createDepartment_shouldThrowForbiddenExceptionWhenCycleOfDepartmentIsClosed() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     OkrDepartment department = new OkrDepartment();
@@ -184,7 +184,7 @@ public class OkrCompanyServiceTest {
   }
 
   @Test
-  public void updateCompany_shouldThrowForbiddenWhenCycleOfDepartmentIsClosed() {
+  public void updateCompany_shouldThrowForbiddenExceptionWhenCycleOfDepartmentIsClosed() {
     OkrCompany updateCompany = new OkrCompany();
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
