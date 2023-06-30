@@ -29,11 +29,15 @@ public class MailService {
    * @throws MessagingException if email can't be send
    */
   public void sendMail(Mail mail) throws MessagingException {
-    if (javaMailSender.isPresent()) {
+    if (hasMailConfigured()) {
       checkAndInitializeCollections(mail);
 
       MimeMessage message = createMimeMessage(mail);
-      javaMailSender.get().send(message);
+      if (message != null) {
+        javaMailSender.get().send(message);
+      } else {
+        throw new NullPointerException("No message to be send. Mail Message is null!");
+      }
     }
   }
 
@@ -57,7 +61,7 @@ public class MailService {
   }
 
   private MimeMessage createMimeMessage(Mail mail) throws MessagingException {
-    if (javaMailSender.isPresent()) {
+    if (hasMailConfigured()) {
       MimeMessage message = javaMailSender.get().createMimeMessage();
       MimeMessageHelper helper =
         new MimeMessageHelper(

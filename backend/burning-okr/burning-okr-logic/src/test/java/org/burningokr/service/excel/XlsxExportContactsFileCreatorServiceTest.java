@@ -33,14 +33,12 @@ public class XlsxExportContactsFileCreatorServiceTest {
   @InjectMocks
   private XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService;
 
-  private Collection<TeamMemberRow> teamMemberRows;
-  private long departmentId = 42L;
-  private long companyId = 44L;
+  private final long departmentId = 42L;
   private Workbook workbook;
 
   @BeforeEach
   public void init() throws IllegalAccessException {
-    teamMemberRows = new ArrayList<>();
+    Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
     this.workbook = new XSSFWorkbook();
     when(teamMemberRowBuilderService.generateForOkrChildUnit(departmentId))
       .thenReturn(teamMemberRows);
@@ -59,11 +57,16 @@ public class XlsxExportContactsFileCreatorServiceTest {
 
 // TODO fix test
 
-//  @Test
-//  public void createFileForOkrTeam_shouldReturnExcelWithJustHeaderRowIfTeamMemberRowIsEmpty()
-//    throws IllegalAccessException {
+  @Test
+  public void createFileForCompany_shouldReturnExcelWithJustHeaderRowIfTeamMemberRowIsEmpty()
+    throws IllegalAccessException {
+    long companyId = 44L;
+    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
+    assertEquals(this.workbook, workbook);
+    verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
+//    long companyId = 44L;
 //    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
 //    assertEquals(this.workbook, workbook);
 //    verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
-//  }
+  }
 }
