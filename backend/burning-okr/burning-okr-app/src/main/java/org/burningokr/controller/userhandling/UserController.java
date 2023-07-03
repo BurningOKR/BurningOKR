@@ -32,7 +32,6 @@ public class UserController {
   }
 
   @GetMapping("/users")
-  @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<Collection<UserDto>> getAllUsers(
           @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
   ) {
