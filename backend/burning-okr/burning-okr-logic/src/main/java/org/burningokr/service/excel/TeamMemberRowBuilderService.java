@@ -61,18 +61,18 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
     rows.add(row);
   }
 
-  private String getFullName(User IUser) {
-    return IUser.getGivenName() + " " + IUser.getSurname();
+  private String getFullName(User user) {
+    return user.getGivenName() + " " + user.getSurname();
   }
 
-  private String getTeamRoleFromUser(User IUser, OkrDepartment okrDepartment) {
-    if (IUser.getId().equals(okrDepartment.getOkrMasterId())) {
+  private String getTeamRoleFromUser(User user, OkrDepartment okrDepartment) {
+    if (user.getId().equals(okrDepartment.getOkrMasterId())) {
       return messages.get("okrmaster");
-    } else if (IUser.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
+    } else if (user.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
       return messages.get("topicsponsor");
     } else {
       for (UUID memberId : okrDepartment.getOkrMemberIds()) {
-        if (IUser.getId().equals(memberId)) {
+        if (user.getId().equals(memberId)) {
           return messages.get("teammember");
         }
       }
