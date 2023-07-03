@@ -33,15 +33,13 @@ public class XlsxExportContactsFileCreatorServiceTest {
   @InjectMocks
   private XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService;
 
-  private final long departmentId = 42L;
   private Workbook workbook;
+  private Collection<TeamMemberRow> teamMemberRows;
 
   @BeforeEach
   public void init() throws IllegalAccessException {
-    Collection<TeamMemberRow> teamMemberRows = new ArrayList<>();
+    teamMemberRows = new ArrayList<>();
     this.workbook = new XSSFWorkbook();
-    when(teamMemberRowBuilderService.generateForOkrChildUnit(departmentId))
-      .thenReturn(teamMemberRows);
     when(genericXlsxFileCreatorService.createWorkbook(
       anyCollection(), anyCollection(), anyString()))
       .thenReturn(workbook);
@@ -50,12 +48,13 @@ public class XlsxExportContactsFileCreatorServiceTest {
   @Test
   public void createFileForOkrTeam_shouldReturnWorkbookWhichIsReturnedByGenericFileCreatorService()
     throws IllegalAccessException {
+    long departmentId = 42L;
+    when(teamMemberRowBuilderService.generateForOkrChildUnit(departmentId))
+      .thenReturn(teamMemberRows);
     Workbook workbook = xlsxExportContactsFileCreatorService.createFileForOkrTeam(departmentId);
     assertEquals(this.workbook, workbook);
     verify(teamMemberRowBuilderService, times(1)).generateForOkrChildUnit(departmentId);
   }
-
-// TODO fix test
 
   @Test
   public void createFileForCompany_shouldReturnExcelWithJustHeaderRowIfTeamMemberRowIsEmpty()
@@ -64,9 +63,5 @@ public class XlsxExportContactsFileCreatorServiceTest {
     Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
     assertEquals(this.workbook, workbook);
     verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
-//    long companyId = 44L;
-//    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
-//    assertEquals(this.workbook, workbook);
-//    verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
   }
 }
