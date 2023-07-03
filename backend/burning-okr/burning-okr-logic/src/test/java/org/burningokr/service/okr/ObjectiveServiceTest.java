@@ -11,7 +11,7 @@ import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteObjectiveRepository;
 import org.burningokr.repositories.okr.ObjectiveRepository;
@@ -57,7 +57,7 @@ public class ObjectiveServiceTest {
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock
-  private IUser IUser;
+  private User user;
   @Mock
   private KeyResultHistoryService keyResultHistoryService;
 

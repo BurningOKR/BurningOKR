@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.userhandling.UserService;
@@ -46,7 +46,7 @@ public class NoteServiceTest {
   private Note changedNote;
 
   @Mock
-  private IUser authorizedIUser;
+  private User authorizedIUser;
 
   @BeforeAll
   public static void init() {

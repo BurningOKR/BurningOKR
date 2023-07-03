@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements IUser {
+public class User {
   @Id
   private UUID id;
   private String givenName;

@@ -3,7 +3,6 @@ package org.burningokr.service.topicDraft;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
-import org.burningokr.model.users.IUser;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
@@ -32,7 +31,7 @@ public class OkrTopicDraftServiceTest {
   @Mock
   private OkrTopicDraftRepository okrTopicDraftRepository;
   @Mock
-  private IUser IUser;
+  private User user;
   @Mock
   private ActivityService activityService;
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.service.messages.Messages;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
@@ -61,11 +61,11 @@ public class TeamMemberRowBuilderService implements RowBuilderService<TeamMember
     rows.add(row);
   }
 
-  private String getFullName(IUser IUser) {
+  private String getFullName(User IUser) {
     return IUser.getGivenName() + " " + IUser.getSurname();
   }
 
-  private String getTeamRoleFromUser(IUser IUser, OkrDepartment okrDepartment) {
+  private String getTeamRoleFromUser(User IUser, OkrDepartment okrDepartment) {
     if (IUser.getId().equals(okrDepartment.getOkrMasterId())) {
       return messages.get("okrmaster");
     } else if (IUser.getId().equals(okrDepartment.getOkrTopicSponsorId())) {
