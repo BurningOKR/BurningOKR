@@ -83,7 +83,7 @@ public class MailService {
   }
 
   private String[] convertToArray(Collection<String> collection) {
-    return collection.isEmpty() ? new String[0] : (String[]) collection.toArray();
+    return collection.isEmpty() ? new String[0] : collection.toArray(new String[0]);
   }
 
   private String getHtmlBodyFromTemplate(Mail mail) {
