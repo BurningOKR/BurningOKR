@@ -1,86 +1,87 @@
 .topic-draft-card {
-    max-width: 1600px;
-    margin-bottom: 0.9rem;
-    cursor: pointer;
-}
+  margin-bottom: 15px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  padding: 10px 0 10px 20px;
 
-.topic-draft-option-button {
-    margin: 5px;
-}
-
-#topic-draft-option-button {
-    margin: 5px;
-    position: absolute;
-    right: 0;
-}
-
-.topic-draft-card:hover {
+  &:hover {
     background-color: #f0f0f0;
+  }
+}
+
+.topic-draft-options-wrapper {
+  width: 25%;
+  text-align: right;
+  //margin-right: 1%;
+}
+
+.topic-draft-options-button {
+  margin-right: 5%;
 }
 
 .card-head-wrapper {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-.card-head-info-wrapper {
-    width: 80%;
-    max-width: 1100px;
-    margin-top: auto;
-    margin-bottom: auto;
-    display: flex;
-    justify-content: space-between;
+.topic-draft-content-wrapper {
+  display: flex;
+  justify-content: flex-start;
 }
 
-.card-head-info {
-    width: 30%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    margin-right: 20px;
+.topic-draft-content {
+  width: 25%;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .card-head-info-name {
-    width: 40%;
+  width: 40%;
 }
 
-.right-upper-corner {
-    height: 12px;
-    width: 12px;
-    position: absolute;
-    right: 8px;
-    top: 8px;
+.topic-draft-status-icon {
+  //right: 0;
+  height: 12px;
+  max-height: 12px;
+  width: 12px;
+  max-width: 12px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
 }
 
 @media (max-width: 768px) {
-    .topic-draft-card {
-        min-height: 150px;
-    }
+  .topic-draft-card {
+    min-height: 150px;
+  }
 
-    .card-head-wrapper {
-        min-height: 150px;
-        height: 100%;
-    }
+  .card-head-wrapper {
+    min-height: 150px;
+    height: 100%;
+  }
 
-    .card-head-info {
-        min-width: 200px;
-        margin-bottom: 15px;
-        width: auto;
-    }
+  .topic-draft-content {
+    min-width: 200px;
+    margin-bottom: 15px;
+    width: auto;
+  }
 
-    .card-head-info:last-child {
-        margin-bottom: 0;
-    }
+  .topic-draft-content:last-child {
+    margin-bottom: 0;
+  }
 
-    .card-head-info-wrapper {
-        flex-direction: column;
-        margin-right: 10px;
-        margin-top: auto;
-        margin-bottom: auto;
-    }
+  .topic-draft-content-wrapper {
+    flex-direction: column;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
 
-    .card-head-button-wrapper {
-        display: flex;
-        align-items: center;
-    }
+  .topic-draft-options-wrapper {
+    display: flex;
+    align-items: center;
+  }
 }

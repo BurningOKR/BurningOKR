@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -29,121 +28,125 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ConvertTopicDraftToTeamServiceTest {
 
-    @Mock
-    private OkrTopicDraftService topicDraftService;
-    @Mock
-    private CompanyService companyService;
-    @Mock
-    private OkrChildUnitService<OkrDepartment> departmentService;
-    @Mock
-    private OkrDepartment department;
-    @Mock
-    private OkrTopicDescription topicDescription;
+  @Mock
+  private OkrTopicDraftService topicDraftService;
+  @Mock
+  private CompanyService companyService;
+  @Mock
+  private OkrChildUnitService<OkrDepartment> departmentService;
+  @Mock
+  private OkrDepartment department;
+  @Mock
+  private OkrTopicDescription topicDescription;
 
-    @InjectMocks
-    private ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
+  @InjectMocks
+  private ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
 
-    private OkrTopicDraft draftTopicDraft;
-    private OkrTopicDraft submittedTopicDraft;
-    private OkrTopicDraft approvedTopicDraft;
-    private OkrTopicDraft rejectedTopicDraft;
+  private OkrTopicDraft draftTopicDraft;
+  private OkrTopicDraft submittedTopicDraft;
+  private OkrTopicDraft approvedTopicDraft;
+  private OkrTopicDraft rejectedTopicDraft;
 
-    @BeforeEach
-    public void setUp() {
-        draftTopicDraft = new OkrTopicDraft();
-        draftTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
-        draftTopicDraft.setInitiatorId(UUID.randomUUID());
-        draftTopicDraft.setStartTeam(new ArrayList<>());
+  @BeforeEach
+  public void setUp() {
+    draftTopicDraft = new OkrTopicDraft();
+    draftTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
+    draftTopicDraft.setInitiatorId(UUID.randomUUID());
+    draftTopicDraft.setStartTeam(new ArrayList<>());
 
-        submittedTopicDraft = new OkrTopicDraft();
-        submittedTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
-        submittedTopicDraft.setInitiatorId(UUID.randomUUID());
-        submittedTopicDraft.setStartTeam(new ArrayList<>());
+    submittedTopicDraft = new OkrTopicDraft();
+    submittedTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
+    submittedTopicDraft.setInitiatorId(UUID.randomUUID());
+    submittedTopicDraft.setStartTeam(new ArrayList<>());
 
-        approvedTopicDraft = new OkrTopicDraft();
-        approvedTopicDraft.setId(0L);
-        approvedTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.approved);
-        approvedTopicDraft.setInitiatorId(UUID.randomUUID());
-        approvedTopicDraft.setStartTeam(new ArrayList<>());
+    approvedTopicDraft = new OkrTopicDraft();
+    approvedTopicDraft.setId(0L);
+    approvedTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.approved);
+    approvedTopicDraft.setInitiatorId(UUID.randomUUID());
+    approvedTopicDraft.setStartTeam(new ArrayList<>());
 
-        rejectedTopicDraft = new OkrTopicDraft();
-        rejectedTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.rejected);
-        rejectedTopicDraft.setInitiatorId(UUID.randomUUID());
-        rejectedTopicDraft.setStartTeam(new ArrayList<>());
+    rejectedTopicDraft = new OkrTopicDraft();
+    rejectedTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.rejected);
+    rejectedTopicDraft.setInitiatorId(UUID.randomUUID());
+    rejectedTopicDraft.setStartTeam(new ArrayList<>());
+  }
 
+  @Test
+  public void convertTopicDraftToTeam_shouldThrowIfTheTopicDraftIsDraft() {
+    when(topicDraftService.findById(anyLong())).thenReturn(draftTopicDraft);
 
-        Mockito.lenient().when(companyService.createDepartment(anyLong(), any())).thenReturn(department);
-        Mockito.lenient().when(departmentService.createChildUnit(anyLong(), any())).thenReturn(department);
-        Mockito.lenient().when(department.getOkrTopicDescription()).thenReturn(topicDescription);
-    }
+    assertThrows(NotApprovedException.class, () -> convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0));
+  }
 
-    @Test
-    public void convertTopicDraftToTeam_shouldThrowIfTheTopicDraftIsDraft() {
-        when(topicDraftService.findById(anyLong())).thenReturn(draftTopicDraft);
+  @Test
+  public void convertTopicDraftToTeam_shouldThrowIfTheTopicDraftIsSubmitted() {
+    when(topicDraftService.findById(anyLong())).thenReturn(submittedTopicDraft);
 
-        assertThrows(NotApprovedException.class, () -> convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0));
-    }
+    assertThrows(NotApprovedException.class, () -> convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0));
+  }
 
-    @Test
-    public void convertTopicDraftToTeam_shouldThrowIfTheTopicDraftIsSubmitted() {
-        when(topicDraftService.findById(anyLong())).thenReturn(submittedTopicDraft);
+  @Test
+  public void convertTopicDraftToTeam_shouldThrowIfTheTopicDraftIsRejected() {
+    when(topicDraftService.findById(anyLong())).thenReturn(rejectedTopicDraft);
 
-        assertThrows(NotApprovedException.class, () -> convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0));
-    }
+    assertThrows(NotApprovedException.class, () -> convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0));
+  }
 
-    @Test
-    public void convertTopicDraftToTeam_shouldThrowIfTheTopicDraftIsRejected() {
-        when(topicDraftService.findById(anyLong())).thenReturn(rejectedTopicDraft);
+  @Test
+  public void convertTopicDraftToTeam_shouldCallDeleteOperation() {
+    when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
+    when(companyService.getAllCompanies()).thenReturn(new ArrayList<>());
+    when(departmentService.createChildUnit(anyLong(), any())).thenReturn(department);
+    when(department.getOkrTopicDescription()).thenReturn(topicDescription);
 
-        assertThrows(NotApprovedException.class, () -> convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0));
-    }
+    convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
 
-    @Test
-    public void convertTopicDraftToTeam_shouldCallDeleteOperation() {
-        when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
-        when(companyService.getAllCompanies()).thenReturn(new ArrayList<>());
+    verify(topicDraftService).deleteTopicDraftById(anyLong());
+  }
 
-        convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
+  @Test
+  public void createDepartmentInDatabase_shouldSelectCompanyServiceWhenGivenACompanyId() {
+    when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
+    when(department.getOkrTopicDescription()).thenReturn(topicDescription);
+    when(companyService.createDepartment(anyLong(), any())).thenReturn(department);
 
-        verify(topicDraftService).deleteTopicDraftById(anyLong());
-    }
+    Collection<OkrCompany> companyList = new ArrayList<>();
+    OkrCompany okrCompany = new OkrCompany();
+    okrCompany.setId(0L);
+    companyList.add(okrCompany);
+    when(companyService.getAllCompanies()).thenReturn(companyList);
 
-    @Test
-    public void createDepartmentInDatabase_shouldSelectCompanyServiceWhenGivenACompanyId() {
-        when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
-        Collection<OkrCompany> companyList = new ArrayList<>();
-        OkrCompany okrCompany = new OkrCompany();
-        okrCompany.setId(0L);
-        companyList.add(okrCompany);
-        when(companyService.getAllCompanies()).thenReturn(companyList);
+    convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
 
-        convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
+    verify(companyService).createDepartment(anyLong(), any());
+  }
 
-        verify(companyService).createDepartment(anyLong(), any());
-    }
+  @Test
+  public void createCreateChildUnitInDatabase_shouldSelectDepartmentServiceWhenNotGivenACompanyId() {
+    when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
+    when(companyService.getAllCompanies()).thenReturn(new ArrayList<>());
+    when(departmentService.createChildUnit(anyLong(), any())).thenReturn(department);
+    when(department.getOkrTopicDescription()).thenReturn(topicDescription);
 
-    @Test
-    public void createCreateChildUnitInDatabase_shouldSelectDepartmentServiceWhenNotGivenACompanyId() {
-        when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
-        when(companyService.getAllCompanies()).thenReturn(new ArrayList<>());
+    convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
 
-        convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
+    verify(departmentService).createChildUnit(anyLong(), any());
+  }
 
-        verify(departmentService).createChildUnit(anyLong(), any());
-    }
+  @Test
+  public void createDepartmentInDatabase_shouldCallAllRequiredMethods() {
+    when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
+    when(companyService.getAllCompanies()).thenReturn(new ArrayList<>());
+    when(departmentService.createChildUnit(anyLong(), any())).thenReturn(department);
+    when(department.getOkrTopicDescription()).thenReturn(topicDescription);
 
-    @Test
-    public void createDepartmentInDatabase_shouldCallAllRequiredMethods() {
-        when(topicDraftService.findById(anyLong())).thenReturn(approvedTopicDraft);
-        when(companyService.getAllCompanies()).thenReturn(new ArrayList<>());
+    convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
 
-        convertTopicDraftToTeamService.convertTopicDraftToTeam(0, 0);
-
-        verify(departmentService).createChildUnit(anyLong(), any());
-        verify(departmentService).createChildUnit(anyLong(), any());
-        verify(companyService).getAllCompanies();
-        verify(departmentService).updateUnit(any());
-        verify(topicDraftService).deleteTopicDraftById(anyLong());
-        verify(department).getOkrTopicDescription();
-    }
+    verify(departmentService).createChildUnit(anyLong(), any());
+    verify(departmentService).createChildUnit(anyLong(), any());
+    verify(companyService).getAllCompanies();
+    verify(departmentService).updateUnit(any());
+    verify(topicDraftService).deleteTopicDraftById(anyLong());
+    verify(department).getOkrTopicDescription();
+  }
 }

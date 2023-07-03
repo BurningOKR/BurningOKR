@@ -6,7 +6,7 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.userhandling.UserService;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,10 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -34,27 +34,42 @@ public class OkrTopicDraftServiceTest {
   private User user;
   @Mock
   private ActivityService activityService;
-
   @Mock
-  private UserService userService;
-
+  private AuthorizationUserContextService authorizationUserContextService;
   @InjectMocks
   private OkrTopicDraftService okrTopicDraftService;
 
+  private OkrTopicDraft okrTopicDraft;
+  private OkrTopicDraft okrTopicDraft2;
+  private OkrTopicDraft okrTopicDraft3;
+  private User currentUser;
+
   @BeforeEach
   public void setUp() {
-    OkrTopicDraft okrTopicDraft = new OkrTopicDraft();
-    OkrTopicDraft okrTopicDraft2 = new OkrTopicDraft();
-    OkrTopicDraft okrTopicDraft3 = new OkrTopicDraft();
-    User currentUser = new User();
-    UUID currentUserId = new UUID(1L, 1L);
+    okrTopicDraft = new OkrTopicDraft();
+    okrTopicDraft2 = new OkrTopicDraft();
+    okrTopicDraft3 = new OkrTopicDraft();
     Long okrTopicDraftId = 10L;
     okrTopicDraft.setId(okrTopicDraftId);
     Long okrTopicDraftId2 = 11L;
     okrTopicDraft2.setId(okrTopicDraftId2);
     Long okrTopicDraftId3 = 12L;
     okrTopicDraft3.setId(okrTopicDraftId3);
+
+    currentUser = new User();
+    UUID currentUserId = new UUID(1L, 1L);
     currentUser.setId(currentUserId);
+  }
+
+  @Test
+  public void findById_shouldReturnTopicDraftWithCorrectId() {
+    long topicDraftIdToFind = 10L;
+    OkrTopicDraft expected = new OkrTopicDraft();
+    when(okrTopicDraftRepository.findByIdOrThrow(topicDraftIdToFind)).thenReturn(expected);
+
+    OkrTopicDraft actual = okrTopicDraftService.findById(topicDraftIdToFind);
+
+    assertSame(expected, actual);
   }
 
   @Test
@@ -66,30 +81,30 @@ public class OkrTopicDraftServiceTest {
     assertEquals(0, topicDrafts.size());
   }
 
-//TODO (F. L. 27.06.2023) add tests
-//
-//  @Test
-//  public void getAllTopicDrafts_shouldReturnOnlyTopicDraftsWithStatusNoDraft() {
-//    okrTopicDraft.setInitiatorId(UUID.randomUUID());
-//    okrTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
-//    okrTopicDraft2.setInitiatorId(UUID.randomUUID());
-//    okrTopicDraft2.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
-//    okrTopicDraft3.setInitiatorId(UUID.randomUUID());
-//    okrTopicDraft3.setCurrentStatus(OkrTopicDraftStatusEnum.approved);
-//    List<OkrTopicDraft> topicDrafts = new ArrayList<>() {
-//      {
-//        add(okrTopicDraft);
-//        add(okrTopicDraft2);
-//        add(okrTopicDraft3);
-//      }
-//    };
-//    when(userService.getCurrentUser()).thenReturn(currentUser);
-//    when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
-//
-//    Collection<OkrTopicDraft> topicDraftsResult = okrTopicDraftService.getAllTopicDrafts();
-//
-//    assertEquals(2, topicDraftsResult.size());
-//  }
+  @Test
+  public void getAllTopicDrafts_shouldReturnOnlyTopicDraftsWithStatusNoDraftForCurrentUser() {
+    okrTopicDraft.setInitiatorId(UUID.randomUUID());
+    okrTopicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
+    okrTopicDraft2.setInitiatorId(UUID.randomUUID());
+    okrTopicDraft2.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
+    okrTopicDraft3.setInitiatorId(UUID.randomUUID());
+    okrTopicDraft3.setCurrentStatus(OkrTopicDraftStatusEnum.approved);
+    List<OkrTopicDraft> topicDrafts = new ArrayList<>() {
+      {
+        add(okrTopicDraft);
+        add(okrTopicDraft2);
+        add(okrTopicDraft3);
+      }
+    };
+    when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
+    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
+
+    Collection<OkrTopicDraft> topicDraftsResult = okrTopicDraftService.getAllTopicDrafts();
+
+    assertEquals(2, topicDraftsResult.size());
+  }
+
+  //TODO (F. L. 03.07.2023) add tests
 //  @Test
 //  public void getAllTopicDrafts_shouldReturnAllTopicDraftsBecauseUserIsAdmin() {
 //    okrTopicDraft.setInitiatorId(UUID.randomUUID());

@@ -1,11 +1,28 @@
+.dashboard-charts-wrapper {
+  margin: 0 10vw 0 10vw;
+}
+
 .dashboard-charts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 780px) {
   .dashboard-charts {
-    grid-template-columns: repeat(1, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.dashboard-chart-item {
+  min-width: 400px;
+}
+
+::ng-deep {
+  .apexcharts-title-text {
+    font-weight: normal;
   }
 }
 
@@ -13,7 +30,7 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  font-size: large;
-  font-weight: bolder;
+  font-size: x-large;
   margin: 10px 10px 20px 10px;
+  font-family: Roboto, Helvetica Neue, sans-serif;
 }

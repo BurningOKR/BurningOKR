@@ -1,69 +1,67 @@
 <div class="tab-limited-width margin-auto">
-  Hello World
   <div class="tab-headline text-center">{{ 'department-tab-description.description' | translate }}</div>
-  <!--  <div *ngIf="description$ | async; let description; else loading">-->
   <div *ngIf="description$ | async as description; else loading">
-    <!--    <span class="tab-subtitle description-title">{{ 'department-tab-description.topic' | translate }}</span>-->
-    <!--    {{description.name}}-->
-    <!--    <br>-->
-    <!--    <span class="tab-subtitle description-title">{{ 'department-tab-description.beginning' | translate }}</span>-->
-    <!--    {{description.beginning | dateFormat | async}}-->
-    <!--    <div class="tab-subtitle description-title">{{ 'department-tab-description.description' | translate }}:</div>-->
-    <!--    <pre class="description-text">{{description.description}}</pre>-->
-    <!--    <div class="tab-subtitle description-title">{{ 'department-tab-description.to' | translate }}</div>-->
-    <!--    <pre class="description-text">{{description.contributesTo}}</pre>-->
-    <!--    <div class="tab-subtitle description-title">{{ 'department-tab-description.delimitation' | translate }}</div>-->
-    <!--    <pre class="description-text">{{description.delimitation}}</pre>-->
-    <!--    <div class="tab-subtitle description-title">{{ 'department-tab-description.dependencies' | translate }}</div>-->
-    <!--    <pre class="description-text">{{description.dependencies}}</pre>-->
-    <!--    <div class="tab-subtitle description-title">{{ 'department-tab-description.resources' | translate }}</div>-->
-    <!--    <pre class="description-text">{{description.resources}}</pre>-->
-    <!--    <div class="tab-subtitle description-title">{{ 'department-tab-description.handover-plan' | translate }}</div>-->
-    <!--    <pre class="description-text">{{description.handoverPlan}}</pre>-->
+    <span class="tab-subtitle description-title">{{ 'department-tab-description.topic' | translate }}</span>
+    {{description.name}}
+    <br>
+    <span class="tab-subtitle description-title">{{ 'department-tab-description.beginning' | translate }}</span>
+    {{description.beginning | dateFormat | async}}
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.description' | translate }}:</div>
+    <pre class="description-text">{{description.description}}</pre>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.to' | translate }}</div>
+    <pre class="description-text">{{description.contributesTo}}</pre>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.delimitation' | translate }}</div>
+    <pre class="description-text">{{description.delimitation}}</pre>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.dependencies' | translate }}</div>
+    <pre class="description-text">{{description.dependencies}}</pre>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.resources' | translate }}</div>
+    <pre class="description-text">{{description.resources}}</pre>
+    <div class="tab-subtitle description-title">{{ 'department-tab-description.handover-plan' | translate }}</div>
+    <pre class="description-text">{{description.handoverPlan}}</pre>
 
-    <!--    &lt;!&ndash; User &ndash;&gt;-->
-    <!--    <div class="flex-wrap-spreadinner">-->
-    <!--      <div *ngIf="description.initiatorId !== null">-->
-    <!--        <br>-->
-    <!--        <mat-divider></mat-divider>-->
-    <!--        <br>-->
-    <!--        <div class="tab-subtitle">{{ 'department-tab-description.initiator' | translate }}</div>-->
-    <!--        <app-user-minibutton [canBeRemoved]="false" [userId]="description.initiatorId"></app-user-minibutton>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div *ngIf="description.startTeam.length !== 0">-->
-    <!--      <br>-->
-    <!--      <mat-divider></mat-divider>-->
-    <!--      <br>-->
-    <!--      <div class="tab-subtitle">{{ 'department-tab-description.startteam' | translate }}</div>-->
-    <!--      <div class="flex-wrap-spreadinner">-->
-    <!--        <div *ngFor="let currentuser of description.startTeam">-->
-    <!--          <app-user-minibutton [canBeRemoved]="false" [userId]="currentuser"></app-user-minibutton>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
+    <!-- User -->
+    <div class="flex-wrap-spreadinner">
+      <div *ngIf="description.initiatorId !== null">
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <div class="tab-subtitle">{{ 'department-tab-description.initiator' | translate }}</div>
+        <app-user-minibutton [canBeRemoved]="false" [userId]="description.initiatorId"></app-user-minibutton>
+      </div>
+    </div>
+    <div *ngIf="description.startTeam.length !== 0">
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <div class="tab-subtitle">{{ 'department-tab-description.startteam' | translate }}</div>
+      <div class="flex-wrap-spreadinner">
+        <div *ngFor="let currentuser of description.startTeam">
+          <app-user-minibutton [canBeRemoved]="false" [userId]="currentuser"></app-user-minibutton>
+        </div>
+      </div>
+    </div>
 
-    <!--    <div *ngIf="description.stakeholders.length !== 0">-->
-    <!--      <br>-->
-    <!--      <mat-divider></mat-divider>-->
-    <!--      <br>-->
-    <!--      <div class="tab-subtitle">{{ 'department-tab-description.stakeholder' | translate }}</div>-->
-    <!--      <div class="flex-wrap-spreadinner">-->
-    <!--        <div *ngFor="let currentuser of description.stakeholders">-->
-    <!--          <app-user-minibutton [canBeRemoved]="false" [userId]="currentuser"></app-user-minibutton>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <br><br>-->
-    <!--    <div class="text-center mb-10">-->
-    <!--      <span [matTooltipDisabled]="canEdit"-->
-    <!--            matTooltip="{{ 'department-tab-description.tooltip.no-edit-rights' | translate }}">-->
-    <!--        <button (click)="openDialog(description)" [disabled]="!canEdit" color="primary" mat-raised-button>-->
-    <!--        <mat-icon>edit</mat-icon>-->
-    <!--        <span>{{ 'department-tab-description.edit-description' | translate }}</span>-->
-    <!--      </button>-->
-    <!--      </span>-->
-    <!--    </div>-->
+    <div *ngIf="description.stakeholders.length !== 0">
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <div class="tab-subtitle">{{ 'department-tab-description.stakeholder' | translate }}</div>
+      <div class="flex-wrap-spreadinner">
+        <div *ngFor="let currentuser of description.stakeholders">
+          <app-user-minibutton [canBeRemoved]="false" [userId]="currentuser"></app-user-minibutton>
+        </div>
+      </div>
+    </div>
+    <br><br>
+    <div class="text-center mb-10">
+          <span [matTooltipDisabled]="canEdit"
+                matTooltip="{{ 'department-tab-description.tooltip.no-edit-rights' | translate }}">
+            <button (click)="openDialog(description)" [disabled]="!canEdit" class="my-mat-button" mat-stroked-button>
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'department-tab-description.edit-description' | translate }}</span>
+            </button>
+          </span>
+    </div>
   </div>
 </div>
 

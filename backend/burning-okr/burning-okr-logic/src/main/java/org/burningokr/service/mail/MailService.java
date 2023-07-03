@@ -33,7 +33,11 @@ public class MailService {
       checkAndInitializeCollections(mail);
 
       MimeMessage message = createMimeMessage(mail);
-      javaMailSender.get().send(message);
+      if (message != null) {
+        javaMailSender.get().send(message);
+      } else {
+        throw new NullPointerException("No message to be send. Mail Message is null!");
+      }
     }
   }
 
