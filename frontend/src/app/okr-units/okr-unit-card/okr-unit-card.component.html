@@ -33,7 +33,7 @@
     <div class="loader"></div>
   </ng-template>
   <div [matTooltip]="isCurrentUserAdmin ? '' : ('okr-unit-card.mat-card-actions.admin-required' | translate)"
-       class="my-mat-buttons">
+       class="card-buttons">
     <!--    Die stopPropagation() werden benötigt, damit das Click Event der Card nicht ausgeführt wird wenn ein Button o.Ä. angeklickt wird-->
     <button (click)="$event.stopPropagation(); editCompany()" [disabled]="!isCurrentUserAdmin" class="my-mat-button"
             mat-stroked-button>
@@ -41,7 +41,7 @@
       <span>{{'okr-unit-card.mat-card-actions.edit-name' | translate}}</span>
     </button>
     <button (click)="$event.stopPropagation(); deleteCompany()" [disabled]="!isCurrentUserAdmin || isPlayground"
-            class="my-mat-button" mat-stroked-button>
+            class="my-mat-button delete-unit-card" mat-stroked-button>
       <mat-icon>delete</mat-icon>
       <span>{{'okr-unit-card.mat-card-actions.delete' | translate}}</span>
     </button>
