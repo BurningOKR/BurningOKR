@@ -29,7 +29,7 @@ public class MailService {
    * @throws MessagingException if email can't be send
    */
   public void sendMail(Mail mail) throws MessagingException {
-    if (hasMailConfigured()) {
+    if (javaMailSender.isPresent()) {
       checkAndInitializeCollections(mail);
 
       MimeMessage message = createMimeMessage(mail);
@@ -61,7 +61,7 @@ public class MailService {
   }
 
   private MimeMessage createMimeMessage(Mail mail) throws MessagingException {
-    if (hasMailConfigured()) {
+    if (javaMailSender.isPresent()) {
       MimeMessage message = javaMailSender.get().createMimeMessage();
       MimeMessageHelper helper =
         new MimeMessageHelper(
