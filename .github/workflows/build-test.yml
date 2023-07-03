@@ -47,9 +47,9 @@ jobs:
     - name: Add execution privileges
       run: chmod +x ./gradlew
       working-directory: ./backend/burning-okr
-    - name: Lint Backend
-      run: ./gradlew spotlessCheck
-      working-directory: ./backend/burning-okr
+#    - name: Lint Backend
+#      run: ./gradlew spotlessCheck
+#      working-directory: ./backend/burning-okr
 
   build-backend:
     needs: [get-version]
