@@ -21,6 +21,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,16 +31,11 @@ public class NoteServiceTest {
   private static Long originalId;
   private static UUID originalUserId;
   private static String originalText;
-  private static KeyResult originalParentKeyResult;
-  private static Long changedId;
-  private static UUID changedUserId;
   private static String changedText;
   @Mock
   private NoteRepository noteRepository;
   @Mock
   private ActivityService activityService;
-  @Mock
-  private UserService userService;
   @InjectMocks
   private NoteService noteService;
   private Note originalNote;
@@ -51,12 +47,9 @@ public class NoteServiceTest {
   @BeforeAll
   public static void init() {
     originalId = 100L;
-    changedId = 200L;
     originalUserId = UUID.randomUUID();
-    changedUserId = UUID.randomUUID();
     originalText = "OriginalText";
     changedText = "ChangedText";
-    originalParentKeyResult = new KeyResult();
   }
 
   @BeforeEach
@@ -106,54 +99,50 @@ public class NoteServiceTest {
     assertEquals(originalUserId, capturedNote.getUserId());
   }
 
-  // TODO fix
-//  @Test
-//  public void updateNote_expectedCreatedActivity() {
-//    Note returnedNote = new Note();
-//
-//    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
-//    when(noteRepository.save(any())).thenReturn(returnedNote);
-//
-//    ArgumentCaptor<IUser> capturedUsers = ArgumentCaptor.forClass(IUser.class);
-//    ArgumentCaptor<Note> capturedNotes = ArgumentCaptor.forClass(Note.class);
-//    ArgumentCaptor<Action> capturedActions = ArgumentCaptor.forClass(Action.class);
-//    noteService.updateNote(changedNote);
-//
-//    verify(activityService)
-//      .createActivity(
-//        capturedUsers.capture(), capturedNotes.capture(), capturedActions.capture());
-//    assertEquals(authorizedIUser, capturedUsers.getValue());
-//    assertEquals(returnedNote, capturedNotes.getValue());
-//    assertEquals(Action.EDITED, capturedActions.getValue());
-//  }
-//
-//  @Test
-//  public void updateNote_expectedCorrectReturn() {
-//    Note returnedNote = new Note();
-//
-//    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
-//    when(noteRepository.save(any())).thenReturn(returnedNote);
-//
-//    Note actualNote = noteService.updateNote(changedNote, authorizedIUser);
-//
-//    assertEquals(actualNote, returnedNote);
-//  }
-//
-//  @Test
-//  public void deleteNote_expectedDeleteCall() {
-//    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
-//
-//    noteService.deleteNote(originalId, authorizedIUser);
-//
-//    verify(noteRepository).deleteById(originalId);
-//  }
-//
-//  @Test
-//  public void deleteNote_expectedActivityCall() {
-//    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
-//
-//    noteService.deleteNote(originalId, authorizedIUser);
-//
-//    verify(activityService).createActivity(authorizedIUser, originalNote, Action.DELETED);
-//  }
+  @Test
+  public void updateNote_expectedCreatedActivity() {
+    Note returnedNote = new Note();
+
+    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
+    when(noteRepository.save(any())).thenReturn(returnedNote);
+
+    ArgumentCaptor<Note> capturedNotes = ArgumentCaptor.forClass(Note.class);
+    ArgumentCaptor<Action> capturedActions = ArgumentCaptor.forClass(Action.class);
+    noteService.updateNote(changedNote);
+
+    verify(activityService)
+      .createActivity(capturedNotes.capture(), capturedActions.capture());
+    assertEquals(returnedNote, capturedNotes.getValue());
+    assertEquals(Action.EDITED, capturedActions.getValue());
+  }
+
+  @Test
+  public void updateNote_expectedCorrectReturn() {
+    Note returnedNote = new Note();
+
+    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
+    when(noteRepository.save(any())).thenReturn(returnedNote);
+
+    Note actualNote = noteService.updateNote(changedNote);
+
+    assertEquals(actualNote, returnedNote);
+  }
+
+  @Test
+  public void deleteNote_expectedDeleteCall() {
+    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
+
+    noteService.deleteNote(originalId);
+
+    verify(noteRepository).deleteById(originalId);
+  }
+
+  @Test
+  public void deleteNote_expectedActivityCall() {
+    when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
+
+    noteService.deleteNote(originalId);
+
+    verify(activityService).createActivity(originalNote, Action.DELETED);
+  }
 }

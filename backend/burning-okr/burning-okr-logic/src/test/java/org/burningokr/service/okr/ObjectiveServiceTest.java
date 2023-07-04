@@ -9,6 +9,7 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
 import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.users.User;
@@ -22,6 +23,7 @@ import org.burningokr.service.exceptions.KeyResultOverflowException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
+import org.burningokr.service.security.AuthorizationUserContextService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,33 +41,28 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ObjectiveServiceTest {
-
   @Mock
-  ConfigurationService configurationService;
+  private ParentService parentService;
   @Mock
   private ObjectiveRepository objectiveRepository;
   @Mock
   private KeyResultRepository keyResultRepository;
   @Mock
+  private KeyResultHistoryService keyResultHistoryService;
+  @Mock
   private ActivityService activityService;
   @Mock
   private EntityCrawlerService entityCrawlerService;
   @Mock
-  private ParentService parentService;
+  private ConfigurationService configurationService;
   @Mock
   private OkrChildUnitService departmentService;
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock
-  private User user;
-  @Mock
-  private KeyResultHistoryService keyResultHistoryService;
-
-  @Mock
   private NoteObjectiveRepository noteObjectiveRepository;
-
   @Mock
-  private NoteObjective noteObjectiveMock;
+  private AuthorizationUserContextService authUserContextService;
 
   @InjectMocks
   private ObjectiveService objectiveService;
@@ -164,24 +161,23 @@ public class ObjectiveServiceTest {
 
   }
 
-  //TODO (F. L. 30.06.2023) WIP add tests
-//  @Test()
-//  public void
-//  createKeyResult_shouldThrowKeyResultOverflowExceptionBecauseOfMaximumNumberOfKeyResultsReached() {
-//    int maxKeyResultsPerObjective = 7;
-//
-//    for (int i = 0; i < maxKeyResultsPerObjective; i++) {
-//      objective.getKeyResults().add(new KeyResult());
-//    }
-//
-//    KeyResult keyResult = new KeyResult();
-//
-//    assertThrows(KeyResultOverflowException.class, () -> {
-//      objectiveService.createKeyResult(anyLong(), keyResult);
-//    });
-//
-//    verifyCreateKeyResult();
-//  }
+  @Test()
+  public void
+  createKeyResult_shouldThrowKeyResultOverflowExceptionBecauseOfMaximumNumberOfKeyResultsReached() {
+    int maxKeyResultsPerObjective = 7;
+
+    for (int i = 0; i < maxKeyResultsPerObjective; i++) {
+      objective.getKeyResults().add(new KeyResult());
+    }
+
+    KeyResult keyResult = new KeyResult();
+
+    assertThrows(KeyResultOverflowException.class, () -> {
+      objectiveService.createKeyResult(anyLong(), keyResult);
+    });
+
+    verify(objectiveRepository).findByIdOrThrow(anyLong());
+  }
 
   @Test
   public void createKeyResult_shouldSaveAllKeyResultMilestones() throws KeyResultOverflowException {
@@ -463,54 +459,55 @@ public class ObjectiveServiceTest {
     assertEquals(1, objective2.getSequence());
   }
 
-  // note (comment) tests
+  @Test
+  public void createNote_expect_saveIsCalled() {
+    when(authUserContextService.getAuthenticatedUser()).thenReturn(new User());
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    objectiveService.createNote(noteObjective);
+    verify(noteObjectiveRepository).save(same(noteObjective));
+  }
 
-//  @Test
-//  public void createNote_expect_saveIsCalled() {
-//
-//    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
-//    objectiveService.createNote(1337L, noteObjective, IUser);
-//    verify(noteObjectiveRepository).save(same(noteObjective));
-//  }
-//
-//  @Test
-//  public void createNote_expect_createActivityIsCalled() {
-//
-//    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
-//    objectiveService.createNote(1337L, noteObjective, IUser);
-//    verify(activityService).createActivity(same(IUser), same(noteObjective), any());
-//  }
-//
-//  @Test
-//  public void createNote_expect_userIdIsSet() {
-//
-//    UUID expected = new UUID(1337L, 1337L);
-//
-//    when(IUser.getId()).thenReturn(expected);
-//    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
-//
-//    objectiveService.createNote(1L, noteObjectiveMock, IUser);
-//    verify(noteObjectiveMock).setUserId(eq(expected));
-//  }
-//
-//  @Test
-//  public void createNot_expect_dateIsCalled() {
-//
-//    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
-//    objectiveService.createNote(1L, noteObjectiveMock, IUser);
-//    verify(noteObjectiveMock).setDate(any());
-//  }
+  @Test
+  public void createNote_expect_createActivityIsCalled() {
+    when(authUserContextService.getAuthenticatedUser()).thenReturn(new User());
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    objectiveService.createNote(noteObjective);
+    verify(activityService).createActivity(same(noteObjective), any());
+  }
+
+  @Test
+  public void createNote_expect_userIdIsSet() {
+    NoteObjective noteObjectiveMock = mock(NoteObjective.class);
+    UUID expected = new UUID(1337L, 1337L);
+    User authUser = new User();
+    authUser.setId(expected);
+    when(authUserContextService.getAuthenticatedUser()).thenReturn(authUser);
+
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
+
+    objectiveService.createNote(noteObjectiveMock);
+    verify(noteObjectiveMock).setUserId(eq(expected));
+  }
+
+  @Test
+  public void createNot_expect_dateIsCalled() {
+    NoteObjective noteObjectiveMock = mock(NoteObjective.class);
+    when(authUserContextService.getAuthenticatedUser()).thenReturn(new User());
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
+    objectiveService.createNote(noteObjectiveMock);
+    verify(noteObjectiveMock).setDate(any());
+  }
 
   @Test
   public void updateNote_expect_userIdIsSet() {
-
+    NoteObjective noteObjectiveMock = mock(NoteObjective.class);
     UUID expected = new UUID(1337L, 1337L);
 
     NoteObjective updatedNoteObjective = new NoteObjective();
     updatedNoteObjective.setUserId(expected);
 
     when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
-    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
 
     objectiveService.updateNote(updatedNoteObjective);
     verify(noteObjectiveMock).setUserId(same(expected));
@@ -518,14 +515,14 @@ public class ObjectiveServiceTest {
 
   @Test
   public void updateNote_expect_textIsSet() {
-
+    NoteObjective noteObjectiveMock = mock(NoteObjective.class);
     String expected = "test";
 
     NoteObjective updatedNoteObjective = new NoteObjective();
     updatedNoteObjective.setText(expected);
 
     when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
-    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
 
     objectiveService.updateNote(updatedNoteObjective);
     verify(noteObjectiveMock).setText(same(expected));
@@ -533,14 +530,14 @@ public class ObjectiveServiceTest {
 
   @Test
   public void updateNote_expect_dateIsSet() {
-
+    NoteObjective noteObjectiveMock = mock(NoteObjective.class);
     LocalDateTime expected = LocalDateTime.now();
 
     NoteObjective updatedNoteObjective = new NoteObjective();
     updatedNoteObjective.setDate(expected);
 
     when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
-    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
 
     objectiveService.updateNote(updatedNoteObjective);
     verify(noteObjectiveMock).setDate(same(expected));
@@ -548,14 +545,14 @@ public class ObjectiveServiceTest {
 
   @Test
   public void updateNote_expect_parentObjectiveIsSet() {
-
+    NoteObjective noteObjectiveMock = mock(NoteObjective.class);
     Objective expected = new Objective();
 
     NoteObjective updatedNoteObjective = new NoteObjective();
     updatedNoteObjective.setParentObjective(expected);
 
     when(noteObjectiveRepository.findByIdOrThrow(any())).thenReturn(noteObjectiveMock);
-    when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
+    when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
 
     objectiveService.updateNote(updatedNoteObjective);
     verify(noteObjectiveMock).setParentObjective(same(expected));

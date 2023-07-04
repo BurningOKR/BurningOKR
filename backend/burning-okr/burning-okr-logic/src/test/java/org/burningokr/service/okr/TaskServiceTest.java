@@ -11,6 +11,7 @@ import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,6 @@ public class TaskServiceTest {
   private Collection<Task> notFinishedTasks;
   private Collection<TaskState> copiedStates;
   private TaskBoard copiedTaskBoard;
-//  @Mock
-  private TaskService taskService;
 
   @Mock
   private TaskRepository taskRepository;
@@ -38,13 +37,13 @@ public class TaskServiceTest {
   @Mock
   private EntityCrawlerService entityCrawlerService;
 
+  @InjectMocks
+  private TaskService taskService;
+
   private final Task taskMock = new Task();
-  private Task expectedTask = new Task();
 
   @BeforeEach
   public void init() {
-    taskService = new TaskService(taskRepository, okrDepartmentRepository, activityService, entityCrawlerService);
-
     notFinishedTasks = new ArrayList<>();
     copiedStates = new ArrayList<>();
 

@@ -29,24 +29,14 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class OkrTopicDescriptionServiceTest {
-
   @Mock
   private OkrTopicDescriptionRepository topicDescriptionRepository;
-
   @Mock
   private ActivityService activityService;
-
   @Mock
   private OkrDepartmentRepository departmentRepository;
-
   @Mock
   private EntityManagerFactory entityManagerFactory;
-
-  @Mock
-  private EntityManager entityManager;
-
-  @Mock
-  private EntityTransaction entityTransaction;
 
   @InjectMocks
   private OkrTopicDescriptionService topicDescriptionService;
@@ -203,6 +193,8 @@ public class OkrTopicDescriptionServiceTest {
 
   @Test
   public void safeDeleteOkrTopicDescription_shouldDeleteOkrTopicDescription() {
+    EntityManager entityManager = mock(EntityManager.class);
+    EntityTransaction entityTransaction = mock(EntityTransaction.class);
     when(departmentRepository.findAll()).thenReturn(new ArrayList<>());
     when(entityManager.find(OkrTopicDescription.class, topicDescription.getId()))
             .thenReturn(topicDescription);
@@ -217,6 +209,7 @@ public class OkrTopicDescriptionServiceTest {
 
   @Test
   public void safeDeleteOkrTopicDescription_shouldNotDeleteWhenThereAreOtherDepartmentsReferencing() {
+    EntityManager entityManager = mock(EntityManager.class);
     OkrDepartment department1 = new OkrDepartment();
     department1.setOkrTopicDescription(topicDescription);
     OkrDepartment department2 = new OkrDepartment();
@@ -239,6 +232,7 @@ public class OkrTopicDescriptionServiceTest {
 
   @Test
   public void onPostDelete_shouldDoNothingWhenItIsNotAnOkrDepartment() {
+    EntityManager entityManager = mock(EntityManager.class);
     PostDeleteEvent postDeleteEvent = new PostDeleteEvent(new OkrBranch(), null, null, null, null);
     topicDescriptionService.onPostDelete(postDeleteEvent);
 
@@ -247,6 +241,8 @@ public class OkrTopicDescriptionServiceTest {
 
   @Test
   public void onPostDelete_shouldDeleteWhenItIsAnOkrDepartment() {
+    EntityManager entityManager = mock(EntityManager.class);
+    EntityTransaction entityTransaction = mock(EntityTransaction.class);
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setOkrTopicDescription(topicDescription);
 
@@ -265,6 +261,7 @@ public class OkrTopicDescriptionServiceTest {
 
   @Test
   public void onPostDelete_shouldNotDeleteWhenThereAreOtherDepartmentsReferencing() {
+    EntityManager entityManager = mock(EntityManager.class);
     OkrDepartment okrDepartment = new OkrDepartment();
     okrDepartment.setOkrTopicDescription(topicDescription);
 
