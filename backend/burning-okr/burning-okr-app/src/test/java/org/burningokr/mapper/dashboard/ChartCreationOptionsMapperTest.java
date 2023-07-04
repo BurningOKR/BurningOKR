@@ -75,7 +75,15 @@ public class ChartCreationOptionsMapperTest {
 
     @Test
     public void mapDtosToEntities_shouldMapDtosToEntites() {
-        //wip add test
+        Collection<ChartCreationOptionsDto> chartCreationOptionsDto = new ArrayList<>() {
+            {
+                add(new ChartCreationOptionsDto());
+                add(new ChartCreationOptionsDto());
+                add(new ChartCreationOptionsDto());
+            }
+        };
+        Collection<ChartCreationOptions> actual = chartCreationOptionsMapper.mapDtosToEntities(chartCreationOptionsDto);
+        assertEquals(3, actual.size());
     }
 
     @Test
@@ -126,7 +134,14 @@ public class ChartCreationOptionsMapperTest {
 
     @Test
     public void mapEntitiesToDtos_shouldMapEntitiesToDtos() {
-        //wip add test
+        Collection<ChartCreationOptions> chartCreationOptions = new ArrayList<>() {
+            {
+                add(new ChartCreationOptions());
+                add(new ChartCreationOptions());
+                add(new ChartCreationOptions());
+            }
+        };
+        Collection<ChartCreationOptionsDto> actual = chartCreationOptionsMapper.mapEntitiesToDtos(chartCreationOptions);
+        assertEquals(3, actual.size());
     }
-
 }
