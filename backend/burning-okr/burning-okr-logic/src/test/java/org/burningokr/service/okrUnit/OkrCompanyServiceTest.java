@@ -47,7 +47,6 @@ import static org.mockito.Mockito.*;
 public class OkrCompanyServiceTest {
 
   private final Long companyId = 1337L;
-  private final String companyName = "Brockhaus AG";
   private final String updatedCompanyName = "BAG";
   @Mock
   private CompanyRepository companyRepository;
@@ -79,7 +78,7 @@ public class OkrCompanyServiceTest {
   public void setUp() {
     company = new OkrCompany();
     company.setId(companyId);
-    company.setName(companyName);
+    company.setName("Brockhaus AG");
 
     Cycle activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
@@ -158,8 +157,6 @@ public class OkrCompanyServiceTest {
     when(topicDescriptionRepository.save(any()))
             .thenAnswer(invocation -> invocation.getArgument(0));
     when(taskBoardService.createNewTaskBoardWithDefaultStates(department)).thenReturn(taskBoard);
-    //TODO (F. L. 28.06.2023) is this needed?
-    //when(taskBoardService.saveTaskBoard(any())).thenReturn(taskBoard);
 
     OkrDepartment created = companyService.createDepartment(companyId, department);
 

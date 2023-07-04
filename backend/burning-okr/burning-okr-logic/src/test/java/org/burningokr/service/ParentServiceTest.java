@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -174,7 +174,7 @@ public class ParentServiceTest {
     treeObjectiveD2.setParentOkrUnit(treeDepartment2);
 
     treeDepartment22 = new OkrBranch();
-    treeDepartment2.setOkrChildUnits(Arrays.asList(treeDepartment22));
+    treeDepartment2.setOkrChildUnits(List.of(treeDepartment22));
     treeDepartment22.setParentOkrUnit(treeDepartment2);
 
     treeObjectiveD22 = new Objective();
@@ -182,7 +182,7 @@ public class ParentServiceTest {
     treeObjectiveD22.setParentOkrUnit(treeDepartment22);
 
     treeOkrDepartment221 = new OkrDepartment();
-    treeDepartment22.setOkrChildUnits(Arrays.asList(treeOkrDepartment221));
+    treeDepartment22.setOkrChildUnits(List.of(treeOkrDepartment221));
     treeOkrDepartment221.setParentOkrUnit(treeDepartment22);
 
     treeObjectiveD221 = new Objective();

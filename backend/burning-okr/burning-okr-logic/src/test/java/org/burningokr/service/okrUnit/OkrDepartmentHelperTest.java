@@ -1,9 +1,10 @@
-package org.burningokr.service.okrUnit.departmentservices;
+package org.burningokr.service.okrUnit;
 
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

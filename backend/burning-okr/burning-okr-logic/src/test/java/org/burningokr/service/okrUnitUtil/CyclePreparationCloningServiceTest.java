@@ -117,20 +117,11 @@ public class CyclePreparationCloningServiceTest {
     tempUnwrappedObjectivesList.addAll(unwrappedObjectiveList2);
     for (Objective x : tempUnwrappedObjectivesList) {
       switch (x.getName()) {
-        case "exampleObjective1":
-          unwrappedObjective1 = x;
-          break;
-        case "exampleObjective2":
-          unwrappedObjective2 = x;
-          break;
-        case "exampleChildObjective1":
-          unwrappedChildObjective1 = x;
-          break;
-        case "exampleChildObjective2":
-          unwrappedChildObjective2 = x;
-          break;
-        default:
-          fail("Cycle unwrap failed");
+        case "exampleObjective1" -> unwrappedObjective1 = x;
+        case "exampleObjective2" -> unwrappedObjective2 = x;
+        case "exampleChildObjective1" -> unwrappedChildObjective1 = x;
+        case "exampleChildObjective2" -> unwrappedChildObjective2 = x;
+        default -> fail("Cycle unwrap failed");
       }
     }
   }
