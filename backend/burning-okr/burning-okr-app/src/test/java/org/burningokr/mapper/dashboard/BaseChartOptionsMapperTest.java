@@ -1,8 +1,8 @@
 package org.burningokr.mapper.dashboard;
 
-import org.burningokr.dto.dashboard.BaseChartOptionsDto;
-import org.burningokr.dto.dashboard.LineChartOptionsDto;
-import org.burningokr.dto.dashboard.PieChartOptionsDto;
+import org.burningokr.model.dashboard.BaseChartOptionsDto;
+import org.burningokr.model.dashboard.LineChartOptionsDto;
+import org.burningokr.model.dashboard.PieChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
 import org.junit.jupiter.api.BeforeEach;

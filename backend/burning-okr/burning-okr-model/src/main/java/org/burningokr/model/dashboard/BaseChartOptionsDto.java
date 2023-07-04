@@ -1,9 +1,8 @@
-package org.burningokr.dto.dashboard;
+package org.burningokr.model.dashboard;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
-import org.burningokr.model.dashboard.ChartInformationTypeEnum;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package org.burningokr.dto.dashboard;
+package org.burningokr.model.dashboard;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

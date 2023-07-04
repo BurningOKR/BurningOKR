@@ -1,4 +1,4 @@
-package org.burningokr.dto.dashboard.creation;
+package org.burningokr.model.dashboard.creation;
 
 import lombok.Data;
 

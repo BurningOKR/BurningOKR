@@ -1,6 +1,6 @@
 package org.burningokr.mapper.dashboard;
 
-import org.burningokr.dto.dashboard.DashboardDto;
+import org.burningokr.model.dashboard.DashboardDto;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.ChartBuilderService;
 import org.junit.jupiter.api.BeforeEach;

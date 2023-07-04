@@ -2,9 +2,9 @@ package org.burningokr.mapper.dashboard;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
-import org.burningokr.dto.dashboard.BaseChartOptionsDto;
-import org.burningokr.dto.dashboard.LineChartOptionsDto;
-import org.burningokr.dto.dashboard.PieChartOptionsDto;
+import org.burningokr.model.dashboard.BaseChartOptionsDto;
+import org.burningokr.model.dashboard.LineChartOptionsDto;
+import org.burningokr.model.dashboard.PieChartOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;

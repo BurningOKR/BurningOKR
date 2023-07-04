@@ -1,4 +1,4 @@
-package org.burningokr.dto.dashboard;
+package org.burningokr.model.dashboard;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

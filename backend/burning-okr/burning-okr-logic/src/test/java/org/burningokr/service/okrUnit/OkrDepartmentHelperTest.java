@@ -7,9 +7,7 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,6 +45,57 @@ public class OkrDepartmentHelperTest {
     assertEquals(2, actualDepartments.size());
     assertEquals(department, actualDepartments.toArray()[0]);
     assertEquals(department2, actualDepartments.toArray()[1]);
+  }
+
+  @Test
+  public void collectDepartmentsWithFilter_shouldShouldReturnNonFilteredList() {
+    OkrCompany company = new OkrCompany();
+    OkrDepartment department = new OkrDepartment();
+    department.setId(10L);
+    OkrBranch branch = new OkrBranch();
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setId(20L);
+    company.setOkrChildUnits(Arrays.asList(department, branch));
+    branch.setOkrChildUnits(Collections.singletonList(department2));
+
+    Collection<OkrDepartment> actualDepartments = BranchHelper.collectDepartments(new ArrayList<Long>(), company);
+
+    assertEquals(2, actualDepartments.size());
+    assertEquals(department, actualDepartments.toArray()[0]);
+    assertEquals(department2, actualDepartments.toArray()[1]);
+  }
+
+  @Test
+  public void collectDepartmentsWithFilter_shouldShouldReturnFilteredList() {
+    OkrCompany company = new OkrCompany();
+    OkrDepartment department = new OkrDepartment();
+    department.setId(10L);
+    OkrBranch branch = new OkrBranch();
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setId(20L);
+    company.setOkrChildUnits(Arrays.asList(department, branch));
+    branch.setOkrChildUnits(Collections.singletonList(department2));
+
+    Collection<OkrDepartment> actualDepartments = BranchHelper.collectDepartments(List.of(10L), company);
+
+    assertEquals(1, actualDepartments.size());
+    assertEquals(department, actualDepartments.toArray()[0]);
+  }
+
+  @Test
+  public void collectDepartmentsWithFilter_shouldShouldReturnEmptyFilteredList() {
+    OkrCompany company = new OkrCompany();
+    OkrDepartment department = new OkrDepartment();
+    department.setId(10L);
+    OkrBranch branch = new OkrBranch();
+    OkrDepartment department2 = new OkrDepartment();
+    department2.setId(20L);
+    company.setOkrChildUnits(Arrays.asList(department, branch));
+    branch.setOkrChildUnits(Collections.singletonList(department2));
+
+    Collection<OkrDepartment> actualDepartments = BranchHelper.collectDepartments(List.of(5L), company);
+
+    assertEquals(0, actualDepartments.size());
   }
 
   @Test

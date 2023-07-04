@@ -1,7 +1,7 @@
 package org.burningokr.service.dashboard;
 
 import lombok.RequiredArgsConstructor;
-import org.burningokr.dto.dashboard.PieChartOptionsDto;
+import org.burningokr.model.dashboard.PieChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;

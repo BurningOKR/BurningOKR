@@ -1,7 +1,7 @@
 package org.burningokr.mapper.dashboard;
 
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
+import org.burningokr.model.dashboard.creation.ChartCreationOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.slf4j.Logger;

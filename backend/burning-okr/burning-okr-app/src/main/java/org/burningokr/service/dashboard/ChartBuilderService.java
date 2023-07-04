@@ -2,7 +2,7 @@ package org.burningokr.service.dashboard;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.dto.dashboard.BaseChartOptionsDto;
+import org.burningokr.model.dashboard.BaseChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.springframework.stereotype.Service;
