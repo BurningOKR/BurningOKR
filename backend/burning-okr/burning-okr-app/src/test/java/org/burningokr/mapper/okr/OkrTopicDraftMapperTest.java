@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -24,6 +23,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class OkrTopicDraftMapperTest {
@@ -44,11 +44,12 @@ public class OkrTopicDraftMapperTest {
     topicDraft = new OkrTopicDraft();
     topicDraftDto = new OkrTopicDraftDto();
     topicDraftMapper = new OkrTopicDraftMapper(userService, dateMapper);
-    Mockito.lenient().when(userService.findById(any())).thenReturn(Optional.of(user));
+
   }
 
   @Test
   public void mapEntityToDto_shouldMapId() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     long expected = 10L;
     topicDraft.setId(expected);
 
@@ -59,6 +60,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapName() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     String expected = "test";
     topicDraft.setName(expected);
 
@@ -69,6 +71,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapInitiatorId() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     UUID expected = UUID.randomUUID();
     topicDraft.setInitiatorId(expected);
 
@@ -79,6 +82,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapDescription() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     String expected = "testAcceptanceCriteria";
     topicDraft.setDescription(expected);
 
@@ -89,6 +93,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapContributesTo() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     String expected = "testContributesTo";
     topicDraft.setContributesTo(expected);
 
@@ -99,6 +104,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void test_mapEntityToDto_shouldMapDelimitation() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     String expected = "testDelimitation";
     topicDraft.setDelimitation(expected);
 
@@ -109,6 +115,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapBeginningDate() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     LocalDate expected = LocalDate.of(2020, 3, 1);
     topicDraft.setBeginning(expected);
 
@@ -119,6 +126,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapDependencies() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     String expected = "testDependencies";
     topicDraft.setDependencies(expected);
 
@@ -129,6 +137,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapResources() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     String expected = "testResources";
     topicDraft.setResources(expected);
 
@@ -139,6 +148,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapHandoverPlan() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     String expected = "testHandoverPlan";
     topicDraft.setHandoverPlan(expected);
 
@@ -149,6 +159,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapStartTeam() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     UUID member1 = UUID.randomUUID();
     UUID member2 = UUID.randomUUID();
     UUID member3 = UUID.randomUUID();
@@ -170,6 +181,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapStakeholders() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     UUID member1 = UUID.randomUUID();
     UUID member2 = UUID.randomUUID();
     UUID member3 = UUID.randomUUID();
@@ -191,6 +203,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapParentUnit() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     OkrUnit expected = new OkrBranch();
     expected.setId(15L);
     topicDraft.setParentUnit(expected);
@@ -202,6 +215,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldCheckIfIsInitiatorIsSet() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     OkrTopicDraftDto actual = topicDraftMapper.mapEntityToDto(topicDraft);
 
     assertSame(user, actual.getInitiator());
@@ -209,6 +223,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldVerifyFindById() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     topicDraftMapper.mapEntityToDto(topicDraft);
 
     verify(userService).findById(any());
@@ -216,6 +231,7 @@ public class OkrTopicDraftMapperTest {
 
   @Test
   public void mapEntityToDto_shouldMapCurrentStatus() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
     topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
 
     OkrTopicDraftDto mappedDto = topicDraftMapper.mapEntityToDto(topicDraft);
