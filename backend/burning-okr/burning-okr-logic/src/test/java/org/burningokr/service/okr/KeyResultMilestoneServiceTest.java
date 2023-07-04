@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -46,15 +45,12 @@ public class KeyResultMilestoneServiceTest {
   public void setUp() {
     keyResult = new KeyResult();
     milestone = new KeyResultMilestone();
-
-    Mockito.lenient().when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
-    Mockito.lenient().when(keyResultRepository.findById(anyLong())).thenReturn(Optional.of(keyResult));
-    Mockito.lenient().when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
-    Mockito.lenient().when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
   }
 
   @Test
   public void createKeyResultMilestone_shouldCreateMilestone() {
+    when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
     keyResult.setId(10L);
     milestone.setId(12L);
 
@@ -65,6 +61,8 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void createKeyResultMilestone_shouldCheckIfParentKeyResultIsSet() {
+    when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
     keyResult.setId(10L);
     milestone.setId(12L);
 
@@ -75,6 +73,8 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void createKeyResultMilestone_shouldCreateActivity() {
+    when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
     keyResult.setId(10L);
     milestone.setId(12L);
 
@@ -92,6 +92,8 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void updateKeyResultMilestone_shouldUpdateName() {
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     KeyResultMilestone updateMilestone = new KeyResultMilestone();
     updateMilestone.setName("test");
     updateMilestone.setId(10L);
@@ -103,6 +105,8 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void updateKeyResultMilestone_shouldUpdateValue() {
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     KeyResultMilestone updateMilestone = new KeyResultMilestone();
     updateMilestone.setValue(3L);
     updateMilestone.setId(10L);
@@ -114,6 +118,8 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void updateKeyResultMilestone_shouldUpdateParentKeyResult() {
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     KeyResultMilestone updateMilestone = new KeyResultMilestone();
     updateMilestone.setParentKeyResult(keyResult);
     updateMilestone.setId(10L);
@@ -125,6 +131,8 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void updateKeyResultMilestone_shouldSaveMilestone() {
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     KeyResultMilestone updateMilestone = new KeyResultMilestone();
     updateMilestone.setId(10L);
 
@@ -135,6 +143,8 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void updateKeyResultMilestone_shouldCreateActivity() {
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     KeyResultMilestone updateMilestone = new KeyResultMilestone();
     updateMilestone.setId(10L);
 
@@ -155,6 +165,7 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void deleteKeyResultMilestone_shouldDeleteMilestone() {
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     keyResultMilestoneService.deleteKeyResultMilestone(10L);
 
     verify(keyResultMilestoneRepository).deleteById(anyLong());
@@ -162,6 +173,7 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void deleteKeyResultMilestone_shouldRemoveMilestoneFromParentKeyResultsMilestoneList() {
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     milestone.setParentKeyResult(keyResult);
 
     List<KeyResultMilestone> milestoneList = new ArrayList<>();
@@ -176,6 +188,7 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void deleteKeyResultMilestone_shouldRemoveSingleMilestoneFromParentKeyResultsMilestoneList() {
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     milestone.setParentKeyResult(keyResult);
 
     List<KeyResultMilestone> milestoneList = new ArrayList<>();
@@ -191,6 +204,7 @@ public class KeyResultMilestoneServiceTest {
 
   @Test
   public void deleteKeyResultMilestone_shouldCreateActivity() {
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     keyResultMilestoneService.deleteKeyResultMilestone(10L);
 
     verify(activityService).createActivity(eq(milestone), eq(Action.DELETED));
@@ -237,6 +251,8 @@ public class KeyResultMilestoneServiceTest {
     existingMilestones.add(milestone1);
     existingMilestones.add(milestone2);
     existingMilestones.add(milestone3);
+    when(keyResultRepository.findById(anyLong())).thenReturn(Optional.of(keyResult));
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     keyResult.setMilestones(existingMilestones);
 
     KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult);
@@ -258,6 +274,8 @@ public class KeyResultMilestoneServiceTest {
     updateKeyResult.setMilestones(existingMilestones);
     updateKeyResult.setId(10L);
 
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
+    when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     keyResult.setMilestones(Collections.emptyList());
 
     KeyResult testKeyResult = keyResultMilestoneService.updateMilestones(updateKeyResult);
@@ -272,6 +290,7 @@ public class KeyResultMilestoneServiceTest {
     KeyResultMilestone milestone2 = new KeyResultMilestone();
     KeyResultMilestone milestone2updated = new KeyResultMilestone();
     KeyResultMilestone milestone3 = new KeyResultMilestone();
+    when(keyResultRepository.findById(anyLong())).thenReturn(Optional.of(keyResult));
     milestone1.setParentKeyResult(keyResult);
     milestone2.setId(2L);
     milestone2.setValue(10L);
@@ -289,6 +308,9 @@ public class KeyResultMilestoneServiceTest {
     updateMilestones.add(milestone1);
     updateMilestones.add(milestone2updated);
 
+    when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
+    when(keyResultMilestoneRepository.save(any())).thenReturn(milestone);
+    when(keyResultMilestoneRepository.findByIdOrThrow(anyLong())).thenReturn(milestone);
     keyResult.setMilestones(existingMilestones);
 
     KeyResult updateKeyResult = new KeyResult();

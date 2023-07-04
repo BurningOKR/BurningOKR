@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -56,7 +55,7 @@ public class ObjectiveServiceTest {
   @Mock
   private ConfigurationService configurationService;
   @Mock
-  private OkrChildUnitService departmentService;
+  private OkrChildUnitService<OkrChildUnit> departmentService;
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock
@@ -67,11 +66,13 @@ public class ObjectiveServiceTest {
   @InjectMocks
   private ObjectiveService objectiveService;
 
-  private Long objectiveId = 1337L;
+  private final Long objectiveId = 1337L;
   private Objective objective;
   private Objective updateObjective;
   private KeyResult keyResult;
   private NoteObjective noteObjective;
+  private Configuration maxKeyResultsConfiguration;
+  private Cycle activeCycle;
 
   @BeforeEach
   public void reset() {
@@ -85,22 +86,25 @@ public class ObjectiveServiceTest {
     this.noteObjective = new NoteObjective();
 
     this.keyResult = new KeyResult();
-    Mockito.lenient().when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
-    Mockito.lenient().when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
 
-    Configuration maxKeyResultsConfiguration = new Configuration();
+
+    maxKeyResultsConfiguration = new Configuration();
     maxKeyResultsConfiguration.setName(ConfigurationName.MAX_KEY_RESULTS.getName());
     maxKeyResultsConfiguration.setValue("7");
-    Mockito.lenient().when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
-      .thenReturn(maxKeyResultsConfiguration);
 
-    Cycle activeCycle = new Cycle();
+
+    activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
-    Mockito.lenient().when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
+
   }
 
   @Test
   public void createKeyResult_shouldCreateKeyResult() throws KeyResultOverflowException {
+    when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
+    when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
+            .thenReturn(maxKeyResultsConfiguration);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
     keyResult.setId(12L);
 
     objectiveService.createKeyResult(10L, keyResult);
@@ -110,6 +114,11 @@ public class ObjectiveServiceTest {
 
   @Test
   public void createKeyResult_shouldSetParentId() throws KeyResultOverflowException {
+    when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
+    when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
+            .thenReturn(maxKeyResultsConfiguration);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
     Long expected = 18L;
     objective.setId(expected);
 
@@ -125,6 +134,12 @@ public class ObjectiveServiceTest {
   @Test
   public void createKeyResult_shouldGetSequenceOfOtherObjectives()
     throws KeyResultOverflowException {
+    when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
+    when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
+            .thenReturn(maxKeyResultsConfiguration);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
+
     Long expected = 18L;
     objective.setId(expected);
 
@@ -153,6 +168,9 @@ public class ObjectiveServiceTest {
 
   @Test()
   public void createKeyResult_shouldThrowForbiddenExceptionWhenCycleOfObjectiveIsClosed() {
+    when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
+    when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
+            .thenReturn(maxKeyResultsConfiguration);
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(closedCycle);
@@ -164,6 +182,9 @@ public class ObjectiveServiceTest {
   @Test()
   public void
   createKeyResult_shouldThrowKeyResultOverflowExceptionBecauseOfMaximumNumberOfKeyResultsReached() {
+    when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
+    when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
+            .thenReturn(maxKeyResultsConfiguration);
     int maxKeyResultsPerObjective = 7;
 
     for (int i = 0; i < maxKeyResultsPerObjective; i++) {
@@ -172,15 +193,18 @@ public class ObjectiveServiceTest {
 
     KeyResult keyResult = new KeyResult();
 
-    assertThrows(KeyResultOverflowException.class, () -> {
-      objectiveService.createKeyResult(anyLong(), keyResult);
-    });
+    assertThrows(KeyResultOverflowException.class, () -> objectiveService.createKeyResult(anyLong(), keyResult));
 
     verify(objectiveRepository).findByIdOrThrow(anyLong());
   }
 
   @Test
   public void createKeyResult_shouldSaveAllKeyResultMilestones() throws KeyResultOverflowException {
+    when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
+    when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
+            .thenReturn(maxKeyResultsConfiguration);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
     List<KeyResultMilestone> milestoneList = new ArrayList<>();
     milestoneList.add(new KeyResultMilestone());
     milestoneList.add(new KeyResultMilestone());
@@ -198,8 +222,13 @@ public class ObjectiveServiceTest {
   @Test
   public void createKeyResult_shouldNotSaveMilestonesWhenThereAreNoMilestones()
     throws KeyResultOverflowException {
-    List<KeyResultMilestone> milestoneList = new ArrayList<>();
+    when(objectiveRepository.findByIdOrThrow(any(Long.class))).thenReturn(objective);
+    when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(configurationService.getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName()))
+            .thenReturn(maxKeyResultsConfiguration);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
+    List<KeyResultMilestone> milestoneList = new ArrayList<>();
     keyResult.setMilestones(milestoneList);
     keyResult.setId(12L);
 
@@ -216,6 +245,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objective = objectiveService.updateObjective(updateObjective);
 
@@ -229,6 +259,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objective = objectiveService.updateObjective(updateObjective);
 
@@ -242,6 +273,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objective = objectiveService.updateObjective(updateObjective);
 
@@ -306,6 +338,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objective = objectiveService.updateObjective(updateObjective);
 
@@ -322,6 +355,7 @@ public class ObjectiveServiceTest {
     when(objectiveRepository.findByIdOrThrow(newParentObjectiveId)).thenReturn(newParentObjective);
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objective = objectiveService.updateObjective(updateObjective);
 
@@ -337,6 +371,7 @@ public class ObjectiveServiceTest {
 
     when(objectiveRepository.findByIdOrThrow(anyLong())).thenReturn(objective);
     when(objectiveRepository.save(any(Objective.class))).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     Objective actualObjective = objectiveService.updateObjective(updateObjective);
 
@@ -346,6 +381,7 @@ public class ObjectiveServiceTest {
   @Test
   public void test_deleteObjective_ExpectedObjectiveIsDeleted() {
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objectiveService.deleteObjectiveById(objectiveId);
 
@@ -368,6 +404,7 @@ public class ObjectiveServiceTest {
     parentOkrDepartment.setObjectives(otherObjectives);
 
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objectiveToDelete);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objectiveService.deleteObjectiveById(objectiveId);
 
@@ -384,6 +421,7 @@ public class ObjectiveServiceTest {
     parentObjective.setParentObjective(this.objective);
 
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objectiveService.deleteObjectiveById(objectiveId);
 
@@ -393,6 +431,7 @@ public class ObjectiveServiceTest {
   @Test
   public void test_deleteObjective_ExpectedActivityGotCreated() {
     when(objectiveRepository.findByIdOrThrow(objectiveId)).thenReturn(objective);
+    when(entityCrawlerService.getCycleOfObjective(any())).thenReturn(activeCycle);
 
     objectiveService.deleteObjectiveById(objectiveId);
 

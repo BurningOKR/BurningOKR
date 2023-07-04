@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
@@ -49,6 +48,7 @@ public class KeyResultServiceTest {
   private KeyResultService keyResultService;
   private KeyResult keyResult;
   private KeyResult updateKeyResult;
+  private Cycle activeCycle;
 
   @BeforeEach
   public void setUp() {
@@ -56,10 +56,8 @@ public class KeyResultServiceTest {
     keyResult.setId(keyResultId);
     updateKeyResult = new KeyResult();
 
-    Cycle activeCycle = new Cycle();
+    activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
-    Mockito.lenient().when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
-    Mockito.lenient().when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
   }
 
   @Test
@@ -96,6 +94,7 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenReturn(keyResultToDelete);
     when(taskService.findTasksForKeyResult(any(KeyResult.class))).thenReturn(new ArrayList<>());
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
     keyResultService.deleteKeyResult(10L);
 
     assertEquals(5, keyResultBelowInSequence.getSequence());
@@ -116,12 +115,14 @@ public class KeyResultServiceTest {
 
   @Test
   public void updateKeyResult_shouldUpdateName() {
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
     String expectedName = "Test-Name";
     updateKeyResult.setId(keyResultId);
     updateKeyResult.setName(expectedName);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
@@ -136,6 +137,8 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
@@ -150,6 +153,8 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
@@ -164,6 +169,8 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
@@ -178,6 +185,8 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
@@ -192,6 +201,8 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
     keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
@@ -210,6 +221,8 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
     keyResultService.updateKeyResult(updateKeyResult);
 
