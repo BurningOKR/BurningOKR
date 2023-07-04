@@ -46,7 +46,7 @@ public class BaseChartOptionsMapper
 
   @Override
   public BaseChartOptionsDto mapEntityToDto(ChartCreationOptions input) {
-    throw new NotImplementedException("Mapping Methode von ChartCreationOptions nach BaseChartOptionsDto noch nicht implementiert!");
+    throw new NotImplementedException("mapEntityToDto Methode von ChartCreationOptions nach BaseChartOptionsDto noch nicht implementiert!");
   }
 
   @Override
@@ -60,6 +60,6 @@ public class BaseChartOptionsMapper
 
   @Override
   public Collection<BaseChartOptionsDto> mapEntitiesToDtos(Collection<ChartCreationOptions> input) {
-    return null;
+    throw new NotImplementedException("mapEntitiesToDtos Methode von ChartCreationOptions nach BaseChartOptionsDto noch nicht implementiert!");
   }
 }

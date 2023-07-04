@@ -11,8 +11,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -53,15 +55,65 @@ public class BaseChartOptionsMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_line() {
+  public void mapDtoToEntity_shouldMapChartCreationOptionsLine() {
     ChartCreationOptions mapped_entity = baseChartOptionsMapper.mapDtoToEntity(baseChartOptionsDtoLine);
     assertEquals(chartCreationOptionsLine, mapped_entity);
   }
 
   @Test
-  public void test_mapDtoToEntity_pie() {
+  public void mapDtoToEntity_shouldMapChartCreationOptionsPie() {
     ChartCreationOptions mapped_entity = baseChartOptionsMapper.mapDtoToEntity(baseChartOptionsDtoPie);
     assertEquals(chartCreationOptionsPie, mapped_entity);
   }
 
+  @Test
+  public void mapDtoToEntity_shouldThrowRuntimeException() throws RuntimeException {
+    BaseChartOptionsDto errorChatOptionsDto = new ErrorChatOptionsDto();
+    RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> baseChartOptionsMapper.mapDtoToEntity(errorChatOptionsDto));
+    assertEquals("Invalid BaseChartOptionsDto", runtimeException.getMessage());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapChartCreationOptionsLine() {
+    Collection<BaseChartOptionsDto> baseChartOptionsDtos = new ArrayList<>() {
+      {
+        add(new LineChartOptionsDto());
+        add(new LineChartOptionsDto());
+        add(new LineChartOptionsDto());
+      }
+    };
+    Collection<ChartCreationOptions> actual = baseChartOptionsMapper.mapDtosToEntities(baseChartOptionsDtos);
+    assertEquals(3, actual.size());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapChartCreationOptionsPie() {
+    Collection<BaseChartOptionsDto> pieChartOptionsDto = new ArrayList<>() {
+      {
+        add(new PieChartOptionsDto());
+        add(new PieChartOptionsDto());
+        add(new PieChartOptionsDto());
+      }
+    };
+    Collection<ChartCreationOptions> actual = baseChartOptionsMapper.mapDtosToEntities(pieChartOptionsDto);
+    assertEquals(3, actual.size());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapChartCreationOptionsPiesAndLines() {
+    Collection<BaseChartOptionsDto> baseChartOptionsDto = new ArrayList<>() {
+      {
+        add(new PieChartOptionsDto());
+        add(new LineChartOptionsDto());
+        add(new PieChartOptionsDto());
+        add(new LineChartOptionsDto());
+      }
+    };
+    Collection<ChartCreationOptions> actual = baseChartOptionsMapper.mapDtosToEntities(baseChartOptionsDto);
+    assertEquals(4, actual.size());
+  }
+
+  private class ErrorChatOptionsDto extends BaseChartOptionsDto {
+
+  }
 }
