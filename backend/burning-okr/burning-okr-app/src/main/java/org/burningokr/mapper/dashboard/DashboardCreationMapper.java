@@ -1,12 +1,11 @@
 package org.burningokr.mapper.dashboard;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
 import org.burningokr.dto.dashboard.creation.DashboardCreationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +13,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
-public class DashboardCreationMapper
-  implements DataMapper<DashboardCreation, DashboardCreationDto> {
-  private final Logger logger = LoggerFactory.getLogger(DashboardCreationMapper.class);
-  private DataMapper<ChartCreationOptions, ChartCreationOptionsDto> chartCreationMapper;
+@Slf4j
+public class DashboardCreationMapper implements DataMapper<DashboardCreation, DashboardCreationDto> {
+  private DataMapper<ChartCreationOptions, ChartCreationOptionsDto> chartCreationOptionsMapper;
 
   @Autowired
   public DashboardCreationMapper(
-    DataMapper<ChartCreationOptions, ChartCreationOptionsDto> chartCreationMapper
+    DataMapper<ChartCreationOptions, ChartCreationOptionsDto> chartCreationOptionsMapper
   ) {
-    this.chartCreationMapper = chartCreationMapper;
+    this.chartCreationOptionsMapper = chartCreationOptionsMapper;
   }
 
   @Override
@@ -34,9 +32,9 @@ public class DashboardCreationMapper
     entity.setCreatorId(dto.getCreatorId());
     entity.setCompanyId(dto.getCompanyId());
     entity.setChartCreationOptions(
-      chartCreationMapper.mapDtosToEntities(dto.getChartCreationOptions()));
+      chartCreationOptionsMapper.mapDtosToEntities(dto.getChartCreationOptions()));
 
-    logger.info(
+    log.info(
       "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
 
     return entity;
@@ -50,9 +48,9 @@ public class DashboardCreationMapper
     dto.setCreatorId(entity.getCreatorId());
     dto.setCompanyId(entity.getCompanyId());
     dto.setChartCreationOptions(
-      chartCreationMapper.mapEntitiesToDtos(entity.getChartCreationOptions()));
+      chartCreationOptionsMapper.mapEntitiesToDtos(entity.getChartCreationOptions()));
 
-    logger.info(
+    log.info(
       "Mapped DashboardCreation (id:"
         + entity.getId()
         + ") successful into DashboardCreationDto.");
