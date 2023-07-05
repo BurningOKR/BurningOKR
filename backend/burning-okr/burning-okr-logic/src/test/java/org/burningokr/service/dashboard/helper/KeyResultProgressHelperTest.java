@@ -32,9 +32,8 @@ public class KeyResultProgressHelperTest {
 
     assertEquals(10, result.size());
 
-    for(int i = 0; i < result.size(); i++)
-    {
-      assertNull(result.get(i));
+    for (Double aDouble : result) {
+      assertNull(aDouble);
     }
   }
 
@@ -52,6 +51,22 @@ public class KeyResultProgressHelperTest {
 
     assertEquals(1, result.size());
     assertEquals(100, result.get(0));
+  }
+
+  @Test()
+  public void getKeyResultProgressOfKeyResult_shouldNotThrowDivisionByZeroException() {
+    KeyResult keyResult = KeyResultBuilder.Create(10, 10, 10)
+            .AddHistory(10, 10, 10L, LocalDate.of(2023, 7, 4))
+            .Build();
+
+    LocalDate startDate = LocalDate.of(2023, 7, 4);
+    long numberOfDays = 1;
+
+
+    ArrayList<Double> result = ProgressHelper.getKeyResultProgressOfKeyResult(keyResult, startDate, numberOfDays);
+
+    assertEquals(1, result.size());
+    assertEquals(0, result.get(0));
   }
 
   @Test()

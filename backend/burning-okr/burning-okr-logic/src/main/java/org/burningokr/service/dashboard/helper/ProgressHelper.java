@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Comparator;
 
 public class ProgressHelper {
-
   public static LineChartLineKeyValues getProgressForCompany(
           Collection<LineChartLineKeyValues> teamProgressLineChartValueList,
           long numberOfDays
@@ -46,30 +45,13 @@ public class ProgressHelper {
   public static ArrayList<Double> getProgressForTeam(OkrChildUnit okrDepartment, LocalDate startDate, long numberOfDays) {
     ArrayList<Double> teamProgress = new ArrayList<>();
     ArrayList<ArrayList<Double>> objectiveProgressLists = new ArrayList<>();
-    ArrayList<Objective> objectives = new ArrayList<Objective>(okrDepartment.getObjectives());
+    ArrayList<Objective> objectives = new ArrayList<>(okrDepartment.getObjectives());
 
     for (Objective objective : objectives) {
       objectiveProgressLists.add(getProgressForObjective(objective, startDate, numberOfDays));
     }
 
-    for (int i = 0; i < numberOfDays; i++) {
-      double currentDayValue = 0;
-      int numberOfObjectives = 0;
-
-      for (ArrayList<Double> objectiveProgressList : objectiveProgressLists) {
-        if (objectiveProgressList.get(i) != null) {
-          currentDayValue += objectiveProgressList.get(i);
-          numberOfObjectives++;
-        }
-      }
-      if (numberOfObjectives > 0) {
-        currentDayValue = currentDayValue / numberOfObjectives;
-        teamProgress.add(currentDayValue);
-      } else {
-        teamProgress.add(null); // Adding null to later filter out when objectives didn't have progress yet (Meaning no Key-Result) in later calculations
-      }
-    }
-    return teamProgress;
+    return getDoubles(numberOfDays, teamProgress, objectiveProgressLists);
   }
 
   public static ArrayList<Double> getProgressForObjective(Objective objective, LocalDate startDate, long numberOfDays) {
@@ -81,24 +63,7 @@ public class ProgressHelper {
       keyResultsProgressLists.add(getKeyResultProgressOfKeyResult(keyResult, startDate, numberOfDays));
     }
 
-    for (int i = 0; i < numberOfDays; i++) {
-      double currentDayValue = 0;
-      int numberOfKeyResults = 0;
-
-      for (ArrayList<Double> keyResultProgressList : keyResultsProgressLists) {
-        if (keyResultProgressList.get(i) != null) {
-          currentDayValue += keyResultProgressList.get(i);
-          numberOfKeyResults++;
-        }
-      }
-      if (numberOfKeyResults > 0) {
-        currentDayValue = currentDayValue / numberOfKeyResults;
-        objectiveProgress.add(currentDayValue);
-      } else {
-        objectiveProgress.add(null); // Adding null to later filter out when objectives didn't have progress yet (Meaning no Key-Result) in later calculations
-      }
-    }
-    return objectiveProgress;
+    return getDoubles(numberOfDays, objectiveProgress, keyResultsProgressLists);
   }
 
   /**
@@ -143,6 +108,28 @@ public class ProgressHelper {
       }
       currentDate = currentDate.plusDays(1);
     }
+
     return keyResultProgress;
+  }
+
+  private static ArrayList<Double> getDoubles(long numberOfDays, ArrayList<Double> teamProgress, ArrayList<ArrayList<Double>> objectiveProgressLists) {
+    for (int i = 0; i < numberOfDays; i++) {
+      double currentDayValue = 0;
+      int numberOfObjectives = 0;
+
+      for (ArrayList<Double> objectiveProgressList : objectiveProgressLists) {
+        if (objectiveProgressList.get(i) != null) {
+          currentDayValue += objectiveProgressList.get(i);
+          numberOfObjectives++;
+        }
+      }
+      if (numberOfObjectives > 0) {
+        currentDayValue = currentDayValue / numberOfObjectives;
+        teamProgress.add(currentDayValue);
+      } else {
+        teamProgress.add(null); // Adding null to later filter out when objectives didn't have progress yet (Meaning no Key-Result) in later calculations
+      }
+    }
+    return teamProgress;
   }
 }
