@@ -1,11 +1,10 @@
 package org.burningokr.service.dashboard;
 
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.dashboard.LineChartLineKeyValues;
-import org.burningokr.model.dashboard.LineChartOptionsDto;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.ChartInformationTypeEnum;
-import org.burningokr.model.dashboard.DashboardCreation;
+import org.burningokr.model.dashboard.LineChartLineKeyValues;
+import org.burningokr.model.dashboard.LineChartOptionsDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -18,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,7 +29,8 @@ public class LineChartService {
   private final CompanyService companyService;
   private final KeyResultHistoryService keyResultHistoryService;
 
-  public LineChartOptionsDto buildProgressChart(ChartCreationOptions chartCreationOptions, DashboardCreation dashboardCreation) {
+  //TODO: Björn Merschmeier - 05.07.2023 - Fabio: Macht das Sinn das hier nach Flow Design/IOSP umzustrukturieren?
+  public LineChartOptionsDto buildProgressChart(ChartCreationOptions chartCreationOptions, Long companyId) {
     LineChartOptionsDto lineChartOptionsDto = new LineChartOptionsDto();
     Collection<LineChartLineKeyValues> lineChartLineKeyValuesList = new ArrayList<>();
     Collection<Objective> objectives = new ArrayList<>();
@@ -40,7 +42,7 @@ public class LineChartService {
     lineChartOptionsDto.setChartType(ChartInformationTypeEnum.LINE_PROGRESS.ordinal());
 
     teams = getDepartments(
-      dashboardCreation.getCompanyId(),
+      companyId,
       chartCreationOptions.getTeamIds()
     );
 

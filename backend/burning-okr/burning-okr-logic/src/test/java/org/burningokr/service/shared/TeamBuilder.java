@@ -20,6 +20,14 @@ public class TeamBuilder {
   {
     return new TeamBuilder(new OkrDepartment());
   }
+
+  public static TeamBuilder CreateDepartment(long id)
+  {
+    OkrChildUnit department = new OkrDepartment();
+    department.setId(id);
+    return new TeamBuilder(department);
+  }
+
   public static TeamBuilder CreateBranch()
   {
     return new TeamBuilder(new OkrBranch());
