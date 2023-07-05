@@ -27,7 +27,7 @@ public class FrontendLogMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntityShouldMapCorrectly() {
+  public void mapDtoToEntity_shouldMapCorrectly() {
     frontendLogDto.setId(1L);
     frontendLogDto.setLevel(String.valueOf(FrontendLogLevel.INFO.getLevelId()));
     frontendLogDto.setTimestamp("2019-11-21T09:35:05");
@@ -39,10 +39,25 @@ public class FrontendLogMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDtoShouldMapCorrectly() {
+  public void mapDtosToEntities_shouldMapCorrectly() {
+    FrontendLogDto frontendLogDto1 =
+            new FrontendLogDto(1L, String.valueOf(FrontendLogLevel.INFO.getLevelId()), "2019-11-21T09:35:05", "main.ts", "5", "Failed to build file");
+    FrontendLogDto frontendLogDto2 =
+            new FrontendLogDto(2L, String.valueOf(FrontendLogLevel.ERROR.getLevelId()), "2020-11-22T03:36:05", "main.ts", "4", "Joining new entry");
+    Collection<FrontendLogDto> frontendLogDtos = Arrays.asList(frontendLogDto1, frontendLogDto2);
+
+    Collection<FrontendLog> frontendLogs = frontendLogMapper.mapDtosToEntities(frontendLogDtos);
+
+    assertEquals(frontendLogs.size(), frontendLogDtos.size());
+    assertFrontendDtoWithLog(frontendLogDto1, (FrontendLog) frontendLogs.toArray()[0]);
+    assertFrontendDtoWithLog(frontendLogDto2, (FrontendLog) frontendLogs.toArray()[1]);
+  }
+
+  @Test
+  public void mapEntityToDto_shouldMapEntityToDtoCorrectly() {
     frontendLog.setId(1L);
     frontendLog.setLevel(FrontendLogLevel.INFO.name());
-    frontendLog.setTimestamp(LocalDateTime.now());
+    frontendLog.setTimestamp(LocalDateTime.of(2018, 3, 14, 15, 56, 0));
     frontendLog.setFileName("main.ts");
     frontendLog.setLineNumber("1");
     frontendLog.setMessage("Test message");
@@ -51,11 +66,11 @@ public class FrontendLogMapperTest {
   }
 
   @Test
-  public void test_mapEntitiesToDtosShouldMapCorrectly() {
+  public void mapEntitiesToDtos_shouldMapDtosToEntitiesCorrectly() {
     FrontendLog frontendLog1 =
-      new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
+      new FrontendLog(1L, "ERROR", LocalDateTime.of(2018, 3, 14, 15, 56, 0), "main.ts", "5", "Failed to build file");
     FrontendLog frontendLog2 =
-      new FrontendLog(2L, "DEBUG", LocalDateTime.now(), "main.ts", "4", "Joining new entry");
+      new FrontendLog(2L, "DEBUG", LocalDateTime.of(2018, 3, 14, 15, 56, 1), "main.ts", "4", "Joining new entry");
     Collection<FrontendLog> frontendLogs = Arrays.asList(frontendLog1, frontendLog2);
 
     Collection<FrontendLogDto> frontendLogDtos = frontendLogMapper.mapEntitiesToDtos(frontendLogs);
@@ -64,6 +79,8 @@ public class FrontendLogMapperTest {
     assertFrontendLogWithDto(frontendLog1, (FrontendLogDto) frontendLogDtos.toArray()[0]);
     assertFrontendLogWithDto(frontendLog2, (FrontendLogDto) frontendLogDtos.toArray()[1]);
   }
+
+
 
   private void assertFrontendLogWithDto(FrontendLog frontendLog, FrontendLogDto frontendLogDto) {
     assertEquals(frontendLog.getId(), frontendLogDto.getId());
@@ -78,5 +95,21 @@ public class FrontendLogMapperTest {
     assertEquals(frontendLog.getFileName(), frontendLogDto.getFileName());
     assertEquals(frontendLog.getLineNumber(), frontendLogDto.getLineNumber());
     assertEquals(frontendLog.getMessage(), frontendLogDto.getMessage());
+  }
+
+  private void assertFrontendDtoWithLog(FrontendLogDto frontendLogDto, FrontendLog frontendLog) {
+    assertEquals(frontendLogDto.getId(), frontendLog.getId());
+    assertEquals(
+            FrontendLogLevel.getLevelByIdentifier(frontendLogDto.getLevel()).name(),
+            frontendLog.getLevel()
+    );
+    assertEquals(
+            frontendLogDto.getTimestamp(),
+            frontendLog.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+
+    );
+    assertEquals(frontendLogDto.getFileName(), frontendLog.getFileName());
+    assertEquals(frontendLogDto.getLineNumber(), frontendLog.getLineNumber());
+    assertEquals(frontendLogDto.getMessage(), frontendLog.getMessage());
   }
 }
