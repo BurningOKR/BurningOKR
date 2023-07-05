@@ -172,6 +172,19 @@ public class OkrDepartmentMapperTest {
   }
 
   @Test
+  public void mapEntitiesToDtos_shouldMapDepartmentEntitiesToDtos() {
+    Collection<OkrDepartment> expected = new ArrayList<>() {
+      {
+        add(department);
+        add(department);
+      }
+    };
+    Collection<OkrDepartmentDto> actual = departmentMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getOkrMasterId(), actual.stream().findFirst().orElseThrow().getOkrMasterId());
+  }
+
+  @Test
   public void mapDtoToEntity_shouldMapUnitId() {
     Long expected = 4L;
     departmentDto.setOkrUnitId(expected);
@@ -253,5 +266,18 @@ public class OkrDepartmentMapperTest {
     department = departmentMapper.mapDtoToEntity(departmentDto);
 
     assertTrue(department.isActive());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapDepartmentDtosToEntities() {
+    Collection<OkrDepartmentDto> expected = new ArrayList<>() {
+      {
+        add(departmentDto);
+        add(departmentDto);
+      }
+    };
+    Collection<OkrDepartment> actual = departmentMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getOkrMasterId(), actual.stream().findFirst().orElseThrow().getOkrMasterId());
   }
 }

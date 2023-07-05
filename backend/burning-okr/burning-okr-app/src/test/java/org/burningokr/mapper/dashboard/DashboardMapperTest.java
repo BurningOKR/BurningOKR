@@ -52,6 +52,7 @@ public class DashboardMapperTest {
 
   @Test
   public void mapDtosToEntities_shouldMapDashboardDtosToEntities() {
+    dashboardDto.setId(12L);
     Collection<DashboardDto> expected = new ArrayList<>() {
       {
         add(dashboardDto);
@@ -60,7 +61,7 @@ public class DashboardMapperTest {
     };
     Collection<DashboardCreation> actual = dashboardMapper.mapDtosToEntities(expected);
     assertEquals(expected.size(), actual.size());
-    assertEquals(expected.stream().findFirst().get().getId(), actual.stream().findFirst().get().getId());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
   }
 
   @Test
@@ -71,6 +72,7 @@ public class DashboardMapperTest {
 
   @Test
   public void mapEntitiesToDtos_shouldMapDashboardEntitiesToDtos() {
+    dashboardCreation.setId(12L);
     Collection<DashboardCreation> expected = new ArrayList<>() {
       {
         add(dashboardCreation);
@@ -79,6 +81,6 @@ public class DashboardMapperTest {
     };
     Collection<DashboardDto> actual = dashboardMapper.mapEntitiesToDtos(expected);
     assertEquals(expected.size(), actual.size());
-    assertEquals(expected.stream().findFirst().get().getId(), actual.stream().findFirst().get().getId());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
   }
 }
