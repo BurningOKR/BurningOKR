@@ -1,4 +1,4 @@
-package org.burningokr.mapper;
+package org.burningokr.mapper.cycle;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

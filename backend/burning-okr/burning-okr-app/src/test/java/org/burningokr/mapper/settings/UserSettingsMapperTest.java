@@ -154,4 +154,28 @@ public class UserSettingsMapperTest {
     assertEquals(defaultTeamId, this.userSettings.getDefaultTeam().getId());
   }
 
+  @Test
+  public void mapDtosToEntities_shouldHaveAnEmptyListOfElements() {
+    //Arrange
+    Collection<UserSettingsDto> userSettingsDtos = new ArrayList<>();
+
+    //Act
+    Collection<UserSettings> userSettings = this.userSettingsMapper.mapDtosToEntities(userSettingsDtos);
+
+    //Assert
+    assertTrue(userSettings.isEmpty());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapListWithTwoElements() {
+    //Arrange
+    Collection<UserSettingsDto> userSettingsDtos = Arrays.asList(new UserSettingsDto(), new UserSettingsDto());
+
+    //Act
+    Collection<UserSettings> userSettings = userSettingsMapper.mapDtosToEntities(userSettingsDtos);
+
+    //Assert
+    assertEquals(2, userSettings.size());
+  }
+
 }

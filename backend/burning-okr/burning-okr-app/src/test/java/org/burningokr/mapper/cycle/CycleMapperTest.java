@@ -1,7 +1,6 @@
 package org.burningokr.mapper.cycle;
 
 import org.burningokr.dto.cycle.CycleDto;
-import org.burningokr.mapper.CycleMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -157,6 +156,20 @@ public class CycleMapperTest {
   }
 
   @Test
+  public void mapEntitiesToDtos_shouldMapCycleEntitiesToDtos() {
+    cycle.setId(12L);
+    Collection<Cycle> expected = new ArrayList<>() {
+      {
+        add(cycle);
+        add(cycle);
+      }
+    };
+    Collection<CycleDto> actual = cycleMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
+  }
+
+  @Test
   public void mapDtoToEntity_shouldMapId() {
     cycle = cycleMapper.mapDtoToEntity(cycleDto);
 
@@ -231,5 +244,19 @@ public class CycleMapperTest {
     Cycle cycle = cycleMapper.mapDtoToEntity(cycleDto);
 
     assertEquals(cycleDto.getIsVisible(), cycle.isVisible());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapCycleDtosToEntities() {
+    cycleDto.setId(12L);
+    Collection<CycleDto> expected = new ArrayList<>() {
+      {
+        add(cycleDto);
+        add(cycleDto);
+      }
+    };
+    Collection<Cycle> actual = cycleMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
   }
 }
