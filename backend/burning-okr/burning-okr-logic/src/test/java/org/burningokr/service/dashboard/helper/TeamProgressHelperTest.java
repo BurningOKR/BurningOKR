@@ -42,9 +42,8 @@ public class TeamProgressHelperTest {
 
     assertEquals(10, result.size());
 
-    for(int i = 0; i < result.size(); i++)
-    {
-      assertNull(result.get(i));
+    for (Double aDouble : result) {
+      assertNull(aDouble);
     }
   }
 
@@ -193,9 +192,9 @@ public class TeamProgressHelperTest {
 
     assertEquals(5, result.size());
     assertEquals(50, result.get(0));
-    assertEquals(100, result.get(1));
-    assertEquals(75, result.get(2));
-    assertEquals(100, result.get(3));
+    assertEquals(75, result.get(1));
+    assertEquals(62.5, result.get(2));
+    assertEquals(75, result.get(3));
     assertEquals(100, result.get(4));
   }
 
@@ -223,9 +222,9 @@ public class TeamProgressHelperTest {
 
     assertEquals(5, result.size());
     assertEquals(50, result.get(0));
-    assertEquals(100, result.get(1));
-    assertEquals(75, result.get(2));
-    assertEquals(100, result.get(3));
+    assertEquals(75, result.get(1));
+    assertEquals(62.5, result.get(2));
+    assertEquals(75, result.get(3));
     assertEquals(100, result.get(4));
   }
 }

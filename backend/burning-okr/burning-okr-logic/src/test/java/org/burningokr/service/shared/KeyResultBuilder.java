@@ -23,43 +23,54 @@ public class KeyResultBuilder {
   {
     return new KeyResultBuilder().SetTarget(target).SetCurrent(current);
   }
+  public static KeyResultBuilder Create(long target, long current, long start)
+  {
+    return new KeyResultBuilder().SetTarget(target).SetCurrent(current).SetStart(start);
+  }
 
 
   public KeyResultBuilder AddHistory(long targetValue, long currentValue, LocalDate date)
   {
+    return AddHistory(targetValue, currentValue, null, date);
+  }
+
+  public KeyResultBuilder AddHistory(long targetValue, long currentValue, Long startValue, LocalDate date) {
     KeyResultHistory keyResultHistory = new KeyResultHistory();
     keyResultHistory.setDateChanged(date);
     keyResultHistory.setTargetValue(targetValue);
     keyResultHistory.setCurrentValue(currentValue);
 
+    if(startValue != null) {
+      keyResultHistory.setStartValue(startValue);
+    }
+
     Collection<KeyResultHistory> keyResultHistoryForKeyResult = currentKeyResult.getKeyResultHistory();
 
-    if(keyResultHistoryForKeyResult == null)
-    {
+    if(keyResultHistoryForKeyResult == null) {
       currentKeyResult.setKeyResultHistory(List.of(keyResultHistory));
-    }
-    else
-    {
+    } else {
       keyResultHistoryForKeyResult.add(keyResultHistory);
     }
 
     return this;
   }
 
-  public KeyResultBuilder SetTarget(long targetValue)
-  {
+  public KeyResultBuilder SetTarget(long targetValue) {
     currentKeyResult.setTargetValue(targetValue);
     return this;
   }
 
-  public KeyResultBuilder SetCurrent(long currentValue)
-  {
+  public KeyResultBuilder SetCurrent(long currentValue) {
     currentKeyResult.setCurrentValue(currentValue);
     return this;
   }
 
-  public KeyResult Build()
-  {
+  public KeyResultBuilder SetStart(long startValue) {
+    currentKeyResult.setStartValue(startValue);
+    return this;
+  }
+
+  public KeyResult Build() {
     return currentKeyResult;
   }
 }
