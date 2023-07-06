@@ -12,31 +12,45 @@
 }
 
 .button-save-chart-wrapper {
-  margin: 40px 0 20px 19%;
+  margin: 50px 0 0 19%;
 }
 
 .chart-creation-add-button {
-  margin: 0 0 0 5px;
-}
-
-.save-changes-button {
-  margin: 15px 0 0 5px;
+  margin: 0 8px 0 0;
 }
 
 @media only screen and (max-width: 600px) {
 
 }
 
-.edit-chart {
+.edit-dashboard-content {
+  display: flex;
+  justify-content: center; /* Horizontally center the inner divs */
+  align-items: center; /* Vertically center the inner divs */
+  //flex-direction: column; /* Display inner divs in a column */
+  //column-gap: 250px;
+  //flex-wrap: wrap;
+}
+
+.edit-charts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
+  grid-column-gap: 5%;
+  //justify-items: center;
+  margin: 0 0 50px 0;
 }
 
 @media (max-width: 780px) {
-  .edit-chart {
+  .edit-charts {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+.edit-charts-buttons {
+  display: flex;
+  justify-content: center; /* Horizontally center the inner divs */
+  align-items: center; /* Vertically center the inner divs */
+  //flex-direction: column; /* Display inner divs in a column */
 }
 
 .edit-chart-options {

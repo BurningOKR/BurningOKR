@@ -7,35 +7,36 @@
     </mat-form-field>
   </span>
 
-  <div class="edit-chart" formArrayName="formArrayCharts">
-    <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
-      <mat-form-field [formGroupName]="i">
-        <input [attr.id]="'chart-' + chart.id + '-title'" formControlName="chartTitle" matInput
-               placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
-      </mat-form-field>
+  <div class="edit-dashboard-content">
+    <div class="edit-charts" formArrayName="formArrayCharts">
+      <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
+        <mat-form-field [formGroupName]="i">
+          <input [attr.id]="'chart-' + chart.id + '-title'" formControlName="chartTitle" matInput
+                 placeholder="{{'edit-dashboard.placeholder.chart-title' | translate}}">
+        </mat-form-field>
 
-      <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
+        <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
-      <mat-form-field *ngIf="teamIsSelectable(chart)" [formGroupName]="i">
-        <mat-select formControlName="selectedTeamIds" multiple required
-                    placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}">
-          <mat-option *ngFor="let team of allTeams$ | async;" [value]="team.id">{{team.name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field *ngIf="teamIsSelectable(chart)" [formGroupName]="i">
+          <mat-select formControlName="selectedTeamIds" multiple placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}"
+                      required>
+            <mat-option *ngFor="let team of allTeams$ | async;" [value]="team.id">{{team.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
-              matTooltip="{{'edit-dashboard.tooltip.delete-chart-button' | translate}}">
-        <mat-icon>delete</mat-icon>
-      </button>
+        <button (click)="deleteChart(chart)" color="primary" mat-icon-button mat-mini-fab
+                matTooltip="{{'edit-dashboard.tooltip.delete-chart-button' | translate}}">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
-
-  <div class="button-save-chart-wrapper">
+  <div class="edit-charts-buttons">
     <app-add-button (click)="openDialog()" class="chart-creation-add-button"
                     text="{{'edit-dashboard.button.add-chart' | translate}}"></app-add-button>
-    <button [disabled]="!dbFormValid()" class="my-mat-button save-changes-button" id="save-changes-button"
-            mat-stroked-button type="submit">
+    <button [disabled]="!dbFormValid()" class="my-mat-button" id="save-changes-button" mat-stroked-button type="submit">
       {{'edit-dashboard.button.save-dashboard' | translate}}
     </button>
   </div>
+
 </form>

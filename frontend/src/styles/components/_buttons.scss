@@ -10,12 +10,16 @@
   overflow: hidden;
 
   &:hover {
-    background-color: mat.get-color-from-palette($md-primary, 500) !important;
-    color: #FFFFFF;
+    &:enabled {
+      background-color: mat.get-color-from-palette($md-primary, 500) !important;
+      color: #FFFFFF;
+    }
   }
 
   &:focus {
-    background-color: mat.get-color-from-palette($md-primary, 500) !important;
-    color: #FFFFFF;
+    &:enabled {
+      background-color: mat.get-color-from-palette($md-primary, 500) !important;
+      color: #FFFFFF;
+    }
   }
 }
