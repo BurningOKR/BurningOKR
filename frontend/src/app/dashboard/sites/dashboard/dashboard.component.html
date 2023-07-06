@@ -12,9 +12,11 @@
   <span class="dashboard-title">
     {{dashboard.title}}
   </span>
-  <div class="dashboard-charts">
-    <div *ngFor="let chart of dashboard.charts">
-      <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>
+  <div class="dashboard-charts-wrapper">
+    <div class="dashboard-charts">
+      <div *ngFor="let chart of dashboard.charts" class="dashboard-chart-item">
+        <app-chart-renderer [chartOptions]="chart"></app-chart-renderer>
+      </div>
     </div>
   </div>
 </div>

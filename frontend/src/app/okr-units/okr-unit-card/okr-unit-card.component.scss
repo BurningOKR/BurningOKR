@@ -1,3 +1,6 @@
+//@use '@angular/material' as mat;
+//@import '../../../styles/themes/bag-theme.scss';
+
 .company-card {
   margin-left: 5%;
   margin-bottom: 35px;
@@ -6,6 +9,10 @@
   height: auto;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.delete-unit-card {
+  margin: 0 0 0 5px;
 }
 
 .my-mat-title {
@@ -25,25 +32,9 @@
   color: rgba(0, 0, 0, 0.54);
 }
 
-.my-mat-buttons {
+.card-buttons {
   text-align: left;
   margin-top: 16px;
-}
-
-.my-mat-button {
-  background-color: #FFFFFF;
-  position: relative;
-  z-index: 1;
-}
-
-.my-mat-button:hover {
-  background-color: #595959;
-  color: #FFFFFF;
-}
-
-.my-mat-button:focus {
-  background-color: #595959;
-  color: #FFFFFF;
 }
 
 .company-actions button {

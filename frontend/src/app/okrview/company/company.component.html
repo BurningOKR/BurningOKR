@@ -39,19 +39,18 @@
 
         <div class="flex-nowrap-center">
           <div class="tab-limited-width">
-            <!-- Tab title and add subdepartments buton-->
-            <div class="flex-nowrap">
-              <div class="f-3">
-                <div class="tab-headline">{{'company.substructures' | translate}}</div>
-              </div>
-              <div class="icon-spacer f-1">
-                <app-add-child-unit-button (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)"
-                                           (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)"
-                                           [cycleClosed]="companyView.cycle.isCycleClosed()"
-                                           [topicSubject]="companyView.company"
-                                           [userRole]="currentUserRole$ | async"></app-add-child-unit-button>
-              </div>
+            <!-- Tab title and add subdepartments button-->
+            <div class="tab-substructure-button">
+              <app-add-child-unit-button (clickedAddSubBranch)="clickedAddSubBranch(companyView.company)"
+                                         (clickedAddSubDepartment)="clickedAddSubDepartment(companyView.company)"
+                                         [cycleClosed]="companyView.cycle.isCycleClosed()"
+                                         [topicSubject]="companyView.company" [userRole]="currentUserRole$ | async"
+                                         class="substructure-button"></app-add-child-unit-button>
             </div>
+            <div class="flex-nowrap">
+              <div class="tab-headline">{{'company.substructures' | translate}}</div>
+            </div>
+
             <!-- Subdepartments -->
             <div *ngIf="companyView.company.okrChildUnitIds.length === 0"
                  class="tab-subtitle">{{'company.no-child-units' | translate}}</div>

@@ -8,7 +8,7 @@ lombok-plugin = '6.+'
 jakarta-mail = '2.+'
 jackson = '2.+'
 postgres = '42.+'
-flyway = '9.19.+'
+flyway = '9.19.4'
 mssql = '10.+'
 apache-poi = '5.+'
 guava = '31.+'
@@ -35,7 +35,6 @@ spring-framework-springContextSupport = { module = 'org.springframework:spring-c
 # spring security
 spring-security-core = { module = 'org.springframework.security:spring-security-core', version.ref = 'spring-security' }
 spring-security-jose = { module = 'org.springframework.security:spring-security-oauth2-jose ', version.ref = 'spring-security' }
-spring-security-messaging = { module = 'org.springframework.security:spring-security-messaging', version.ref = 'spring-security' }
 
 # lombok
 lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
