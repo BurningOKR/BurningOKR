@@ -15,7 +15,6 @@ import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO (F. L. 26.06.2023) Refactor tests (name, etc.)
 public class OkrCompanyMapperTest {
 
     private OkrCompany company;
@@ -38,7 +37,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapEntityToDto_expects_idIsMapped() {
+    public void mapEntityToDto_shouldMapId() {
         //Arrange
         Long expected = 5L;
         company.setId(expected);
@@ -51,7 +50,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapEntityToDto_expects_nameIsMapped() {
+    public void mapEntityToDto_shouldMapName() {
         //Arrange
         String expected = "test";
         company.setName(expected);
@@ -64,7 +63,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapEntityToDto_expects_labelIsMapped() {
+    public void mapEntityToDto_shouldMapLabel() {
         //Arrange
         String expected = "t1e2s3t";
         company.setLabel(expected);
@@ -77,7 +76,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapEntityToDto_expects_departmentsSizeIsEqual4() {
+    public void mapEntityToDto_shouldMapDepartmentsSize() {
         //Arrange
         int expected = 4;
         Collection<OkrChildUnit> departments = new ArrayList<>() {
@@ -98,7 +97,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapEntityToDto_expects_objectiveSizeIsEqual() {
+    public void mapEntityToDto_shouldMapObjectiveSize() {
         //Arrange
         int expected = 4;
         Collection<Objective> objectives = new ArrayList<>() {
@@ -119,7 +118,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapEntityToDto_expects_cycleIsMapped() {
+    public void mapEntityToDto_shouldMapCycle() {
         //Arrange
         Long expected = 14L;
         Cycle cycle = new Cycle();
@@ -134,7 +133,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapEntityToDto_expects_historyIsMapped() {
+    public void mapEntityToDto_shouldMapHistory() {
         //Arrange
         Long expected = 27L;
         OkrCompanyHistory history = new OkrCompanyHistory();
@@ -148,10 +147,24 @@ public class OkrCompanyMapperTest {
         assertEquals(expected, companyDto.getHistoryId());
     }
 
+    @Test
+    public void mapEntitiesToDtos_shouldMapCompanyEntitiesToDtos() {
+        company.setId(12L);
+        Collection<OkrCompany> expected = new ArrayList<>() {
+            {
+                add(company);
+                add(company);
+            }
+        };
+        Collection<OkrCompanyDto> actual = companyMapper.mapEntitiesToDtos(expected);
+        assertEquals(expected.size(), actual.size());
+        assertEquals(expected.stream().findFirst().orElseThrow().getCycle().getId(), actual.stream().findFirst().orElseThrow().getCycleId());
+    }
+
     //
 
     @Test
-    public void test_mapDtoToEntity_expects_idIsMapped() {
+    public void mapDtoToEntity_shouldMapId() {
         //Arrange
         Long expected = 5L;
         companyDto.setOkrUnitId(expected);
@@ -164,7 +177,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_nameIsMapped() {
+    public void mapDtoToEntity_shouldMapName() {
         //Arrange
         String expected = "test";
         companyDto.setUnitName(expected);
@@ -177,7 +190,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_labelIsMapped() {
+    public void mapDtoToEntity_shouldMapLabel() {
         //Arrange
         String expected = "test2503";
         companyDto.setLabel(expected);
@@ -190,7 +203,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_departmentsNotNull() {
+    public void mapDtoToEntity_shouldMapDepartments() {
         //Arrange
 
         //Act
@@ -201,7 +214,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_objectivesNotNull() {
+    public void mapDtoToEntity_shouldMapObjectives() {
         //Arrange
 
         //Act
@@ -212,7 +225,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_cycleIdIsMappedNotNull() {
+    public void mapDtoToEntity_shouldMapCycleId() {
         //Arrange
         Long expected = 14L;
         companyDto.setCycleId(expected);
@@ -225,7 +238,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_cycleIdIsMappedNull() {
+    public void mapDtoToEntity_shouldMapCycleIdNull() {
         //Arrange
         companyDto.setCycleId(null);
 
@@ -237,7 +250,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_historyIdIsMappedNotNull() {
+    public void mapDtoToEntity_shouldMapHistoryId() {
         //Arrange
         Long expected = 24L;
         companyDto.setHistoryId(expected);
@@ -250,7 +263,7 @@ public class OkrCompanyMapperTest {
     }
 
     @Test
-    public void test_mapDtoToEntity_expects_historyIdIsMappedNull() {
+    public void mapDtoToEntity_shouldMapHistoryIdNull() {
         //Arrange
         companyDto.setHistoryId(null);
 
@@ -259,5 +272,19 @@ public class OkrCompanyMapperTest {
 
         //Assert
         assertNull(company.getCompanyHistory());
+    }
+
+    @Test
+    public void mapDtosToEntities_shouldMapCompanyDtosToEntities() {
+        companyDto.setCycleId(12L);
+        Collection<OkrCompanyDto> expected = new ArrayList<>() {
+            {
+                add(companyDto);
+                add(companyDto);
+            }
+        };
+        Collection<OkrCompany> actual = companyMapper.mapDtosToEntities(expected);
+        assertEquals(expected.size(), actual.size());
+        assertEquals(expected.stream().findFirst().orElseThrow().getCycleId(), actual.stream().findFirst().orElseThrow().getCycle().getId());
     }
 }

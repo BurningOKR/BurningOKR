@@ -6,7 +6,7 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.dto.validators.CycleDtoValidator;
 import org.burningokr.exceptions.InvalidDtoException;
-import org.burningokr.mapper.CycleMapper;
+import org.burningokr.mapper.cycle.CycleMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.service.cycle.CycleService;
 import org.springframework.http.ResponseEntity;

@@ -27,11 +27,10 @@ public class ChartBuilderServiceTest {
   public void buildChart_shouldBuildNonEmptyPieChart() {
     ChartCreationOptions chartCreationOptions = new ChartCreationOptions();
     chartCreationOptions.setChartType(ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW);
-    DashboardCreation dashboardCreation = new DashboardCreation();
     PieChartOptionsDto expected = getPieChartOptions();
     when(pieChartService.buildTopicDraftOverviewChart(chartCreationOptions)).thenReturn(expected);
     
-    BaseChartOptionsDto result = chartBuilderService.buildChart(chartCreationOptions, dashboardCreation);
+    BaseChartOptionsDto result = chartBuilderService.buildChart(chartCreationOptions, 10L);
 
     assertNotNull(result);
     assertSame(expected, result);
@@ -43,11 +42,10 @@ public class ChartBuilderServiceTest {
     chartCreationOptions.setChartType(ChartInformationTypeEnum.LINE_PROGRESS);
     Collection<Long> teamIds = List.of(10L, 20L);
     chartCreationOptions.setTeamIds(teamIds);
-    DashboardCreation dashboardCreation = new DashboardCreation();
     LineChartOptionsDto expected = getLineChartOptions();
-    when(lineChartService.buildProgressChart(chartCreationOptions, dashboardCreation)).thenReturn(expected);
+    when(lineChartService.buildProgressChart(chartCreationOptions, 10L)).thenReturn(expected);
 
-    BaseChartOptionsDto result = chartBuilderService.buildChart(chartCreationOptions, dashboardCreation);
+    BaseChartOptionsDto result = chartBuilderService.buildChart(chartCreationOptions, 10L);
 
     assertNotNull(result);
     assertSame(expected, result);
