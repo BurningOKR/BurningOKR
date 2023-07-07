@@ -1,64 +1,61 @@
-.edit-dashboard-title {
-  display: flex;
-  justify-content: center;
-  text-align-last: center;
-  font-size: large;
-  font-weight: bolder;
-  margin: 10px 10px 20px 10px;
-
-  mat-form-field {
-    width: 50VW;
-  }
-}
-
 .edit-dashboard-content {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.edit-dashboard-title {
+  text-align-last: center;
+  font-size: large;
+  font-weight: bolder;
+  margin: 20px 0 20px 0;
+
+  mat-form-field {
+    width: 300px;
+  }
 }
 
 .edit-charts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 5%;
-}
-
-.edit-charts-buttons {
-  margin: 20px 0;
-
-  display: flex;
+  width: 300px;
   justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: 10%;
 
-  overflow: hidden;
-
-  height: auto;
+  &:last-child {
+    grid-column-gap: 0;
+  }
 }
 
 .edit-chart-options {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  //width: 300px;
 
   button {
     margin-bottom: 10px;
   }
 }
 
-.button-save-chart-wrapper {
-  margin: 50px 0 0 19%;
+.edit-charts-buttons {
+  margin: 20px 0 0 0;
+  height: auto;
 }
 
 .chart-creation-add-button {
-  margin: 0 8px 0 0;
+  margin: 0 10px 0 0;
 }
 
 @media (max-width: 780px) {
   .edit-charts {
     grid-template-columns: repeat(1, 1fr);
   }
+  .edit-chart-options {
+    margin: 20px 0 20px 0;
+  }
 }
 
-@media only screen and (max-width: 600px) {
-
-}
+//@media only screen and (max-width: 600px) {
+//
+//}

@@ -1,13 +1,14 @@
 <form (ngSubmit)="submitDashboard()" [formGroup]="dbFormGroup" id="dashboard-form">
 
-  <span class="edit-dashboard-title">
-    <mat-form-field>
-      <input formControlName="fcDashboardTitle" id="dashboard-title" matInput
-             placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}">
-    </mat-form-field>
-  </span>
-
   <div class="edit-dashboard-content">
+
+    <div class="edit-dashboard-title">
+      <mat-form-field>
+        <input formControlName="fcDashboardTitle" id="dashboard-title" matInput
+               placeholder="{{'edit-dashboard.placeholder.dashboard-title' | translate}}">
+      </mat-form-field>
+    </div>
+
     <div class="edit-charts" formArrayName="formArrayCharts">
 
       <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
@@ -32,14 +33,16 @@
       </div>
 
     </div>
-  </div>
 
-  <div class="edit-charts-buttons">
-    <app-add-button (click)="openDialog()" class="chart-creation-add-button"
-                    text="{{'edit-dashboard.button.add-chart' | translate}}"></app-add-button>
-    <button [disabled]="!dbFormValid()" class="my-mat-button" id="save-changes-button" mat-stroked-button type="submit">
-      {{'edit-dashboard.button.save-dashboard' | translate}}
-    </button>
+    <div class="edit-charts-buttons">
+      <app-add-button (click)="openDialog()" class="chart-creation-add-button"
+                      text="{{'edit-dashboard.button.add-chart' | translate}}"></app-add-button>
+      <button [disabled]="!dbFormValid()" class="my-mat-button" id="save-changes-button" mat-stroked-button
+              type="submit">
+        {{'edit-dashboard.button.save-dashboard' | translate}}
+      </button>
+    </div>
+
   </div>
 
 </form>
