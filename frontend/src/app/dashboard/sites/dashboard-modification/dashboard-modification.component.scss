@@ -28,16 +28,27 @@
   justify-content: center; /* Horizontally center the inner divs */
   align-items: center; /* Vertically center the inner divs */
   //flex-direction: column; /* Display inner divs in a column */
+
   //column-gap: 250px;
+
+  overflow: hidden;
+
   //flex-wrap: wrap;
+  //flex-shrink: 0;
+  //min-width: 0;
+  //min-height: 0;
+
+  //height: auto;
 }
 
 .edit-charts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 5%;
+
   //justify-items: center;
-  margin: 0 0 50px 0;
+
+  //margin: 0 0 50px 0;
 }
 
 @media (max-width: 780px) {
@@ -51,6 +62,10 @@
   justify-content: center; /* Horizontally center the inner divs */
   align-items: center; /* Vertically center the inner divs */
   //flex-direction: column; /* Display inner divs in a column */
+
+  overflow: hidden;
+
+  height: auto;
 }
 
 .edit-chart-options {
