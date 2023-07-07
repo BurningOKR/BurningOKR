@@ -17,6 +17,8 @@ public class TaskTest {
   private Task expectedTask;
   private Task emptyTask;
 
+  private String taskTitle;
+
   @BeforeEach
   public void init() {
     TaskState taskState = new TaskState();
@@ -27,9 +29,11 @@ public class TaskTest {
     userIds.add(userId1);
     KeyResult keyResult = new KeyResult();
 
+    taskTitle = "Task Title";
+
     originalTask = new Task();
     originalTask.setId(100L);
-    originalTask.setTitle("Task Title");
+    originalTask.setTitle(taskTitle);
     originalTask.setDescription("Task Description");
     originalTask.setTaskState(taskState);
     originalTask.setParentTaskBoard(taskBoard);
@@ -40,6 +44,11 @@ public class TaskTest {
     expectedTask = originalTask;
 
     emptyTask = new Task();
+  }
+
+  @Test
+  public void getName_shouldReturnTitle() {
+    assertEquals(taskTitle, originalTask.getTitle());
   }
 
   @Test
