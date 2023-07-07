@@ -9,6 +9,7 @@
 
   <div class="edit-dashboard-content">
     <div class="edit-charts" formArrayName="formArrayCharts">
+
       <div *ngFor="let chart of dashboard.charts; let i = index;" class="edit-chart-options">
         <mat-form-field [formGroupName]="i">
           <input [attr.id]="'chart-' + chart.id + '-title'" formControlName="chartTitle" matInput
@@ -29,6 +30,7 @@
           <mat-icon>delete</mat-icon>
         </button>
       </div>
+
     </div>
   </div>
 

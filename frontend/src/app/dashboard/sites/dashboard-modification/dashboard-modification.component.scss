@@ -11,59 +11,24 @@
   }
 }
 
-.button-save-chart-wrapper {
-  margin: 50px 0 0 19%;
-}
-
-.chart-creation-add-button {
-  margin: 0 8px 0 0;
-}
-
-@media only screen and (max-width: 600px) {
-
-}
-
 .edit-dashboard-content {
   display: flex;
-  justify-content: center; /* Horizontally center the inner divs */
-  align-items: center; /* Vertically center the inner divs */
-  //flex-direction: column; /* Display inner divs in a column */
-
-  //column-gap: 250px;
-
-  overflow: hidden;
-
-  //flex-wrap: wrap;
-  //flex-shrink: 0;
-  //min-width: 0;
-  //min-height: 0;
-
-  //height: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .edit-charts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 5%;
-
-  //justify-items: center;
-
-  //margin: 0 0 50px 0;
-}
-
-@media (max-width: 780px) {
-  .edit-charts {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }
 
 .edit-charts-buttons {
   margin: 20px 0;
 
   display: flex;
-  justify-content: center; /* Horizontally center the inner divs */
-  align-items: center; /* Vertically center the inner divs */
-  //flex-direction: column; /* Display inner divs in a column */
+  justify-content: center;
+  align-items: center;
 
   overflow: hidden;
 
@@ -78,4 +43,22 @@
   button {
     margin-bottom: 10px;
   }
+}
+
+.button-save-chart-wrapper {
+  margin: 50px 0 0 19%;
+}
+
+.chart-creation-add-button {
+  margin: 0 8px 0 0;
+}
+
+@media (max-width: 780px) {
+  .edit-charts {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+
 }
