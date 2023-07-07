@@ -2,8 +2,10 @@ package org.burningokr.service.dashboard.helper;
 
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.histories.KeyResultHistory;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.service.shared.KeyResultBuilder;
+import org.burningokr.service.shared.KeyResultHistoryBuilder;
 import org.burningokr.service.shared.ObjectiveBuilder;
 import org.burningokr.service.shared.TeamBuilder;
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class TeamProgressHelperTest {
   @Test()
   public void getProgressForTeam_shouldCalculateForNoDays() {
-    KeyResult keyResult = KeyResultBuilder.Create().Build();
+    KeyResult keyResult = new KeyResultBuilder().Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
   
@@ -32,7 +34,7 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculate0PercentPerDay() {
-    KeyResult keyResult = KeyResultBuilder.Create().Build();
+    KeyResult keyResult = new KeyResultBuilder().Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
     LocalDate startDate = LocalDate.of(2023, 7, 4);
@@ -49,8 +51,10 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculate100Percent() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 4))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 4)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
@@ -67,9 +71,12 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculate50Then100Percent() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 5))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 5)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
@@ -85,13 +92,18 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculate50Then100PercentBecauseOfTwoKeyResults() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 5))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 5)).Build();
+    KeyResultHistory keyResultHistory3 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory4 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.of(2023, 7, 5)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
-    KeyResult keyResult2 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.of(2023, 7, 4))
-            .AddHistory(20, 20, LocalDate.of(2023, 7, 5))
+    KeyResult keyResult2 = new KeyResultBuilder().SetCurrent(20).SetTarget(20)
+            .AddHistory(keyResultHistory3)
+            .AddHistory(keyResultHistory4)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).AddKeyResult(keyResult2).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
@@ -107,13 +119,18 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculateCorrectPercentOfTwoKeyResultsDifferentDays() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 5))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 5)).Build();
+    KeyResultHistory keyResultHistory3 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.of(2023, 7, 6)).Build();
+    KeyResultHistory keyResultHistory4 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.of(2023, 7, 7)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
-    KeyResult keyResult2 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.of(2023, 7, 6))
-            .AddHistory(20, 20, LocalDate.of(2023, 7, 7))
+    KeyResult keyResult2 = new KeyResultBuilder().SetCurrent(20).SetTarget(20)
+            .AddHistory(keyResultHistory3)
+            .AddHistory(keyResultHistory4)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).AddKeyResult(keyResult2).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
@@ -131,8 +148,10 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldOutputAllBeforeStartDate00() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
@@ -149,10 +168,12 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculateSpaceInBetweenHistories() {
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 7)).Build();
 
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 7))
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).Build();
     OkrChildUnit team = TeamBuilder.CreateDepartment().AddObjective(objective).Build();
@@ -170,17 +191,24 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculateCorrectPercentOfThreeKeyResultsInTwoObjectivesDifferentDays() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 5))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 5)).Build();
+    KeyResultHistory keyResultHistory3 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.of(2023, 7, 6)).Build();
+    KeyResultHistory keyResultHistory4 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.of(2023, 7, 7)).Build();
+    KeyResultHistory keyResultHistory5 = new KeyResultHistoryBuilder().SetBaseInformation(20, 40, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory6 = new KeyResultHistoryBuilder().SetBaseInformation(40, 40, null, LocalDate.of(2023, 7, 8)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
-    KeyResult keyResult2 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.of(2023, 7, 6))
-            .AddHistory(20, 20, LocalDate.of(2023, 7, 7))
+    KeyResult keyResult2 = new KeyResultBuilder().SetCurrent(20).SetTarget(20)
+            .AddHistory(keyResultHistory3)
+            .AddHistory(keyResultHistory4)
             .Build();
-    KeyResult keyResult3 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(40, 20, LocalDate.of(2023, 7, 4))
-            .AddHistory(40, 40, LocalDate.of(2023, 7, 8))
+    KeyResult keyResult3 = new KeyResultBuilder().SetCurrent(20).SetTarget(20)
+            .AddHistory(keyResultHistory5)
+            .AddHistory(keyResultHistory6)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).AddKeyResult(keyResult2).Build();
     Objective objective2 = ObjectiveBuilder.Create().AddKeyResult(keyResult3).Build();
@@ -200,17 +228,24 @@ public class TeamProgressHelperTest {
 
   @Test()
   public void getProgressForTeam_shouldCalculateSameAsBeforeButWithBranch() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 5))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 5)).Build();
+    KeyResultHistory keyResultHistory3 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.of(2023, 7, 6)).Build();
+    KeyResultHistory keyResultHistory4 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.of(2023, 7, 7)).Build();
+    KeyResultHistory keyResultHistory5 = new KeyResultHistoryBuilder().SetBaseInformation(20, 40, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory6 = new KeyResultHistoryBuilder().SetBaseInformation(40, 40, null, LocalDate.of(2023, 7, 8)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
-    KeyResult keyResult2 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.of(2023, 7, 6))
-            .AddHistory(20, 20, LocalDate.of(2023, 7, 7))
+    KeyResult keyResult2 = new KeyResultBuilder().SetCurrent(20).SetTarget(20)
+            .AddHistory(keyResultHistory3)
+            .AddHistory(keyResultHistory4)
             .Build();
-    KeyResult keyResult3 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(40, 20, LocalDate.of(2023, 7, 4))
-            .AddHistory(40, 40, LocalDate.of(2023, 7, 8))
+    KeyResult keyResult3 = new KeyResultBuilder().SetCurrent(20).SetTarget(20)
+            .AddHistory(keyResultHistory5)
+            .AddHistory(keyResultHistory6)
             .Build();
     Objective objective = ObjectiveBuilder.Create().AddKeyResult(keyResult).AddKeyResult(keyResult2).Build();
     Objective objective2 = ObjectiveBuilder.Create().AddKeyResult(keyResult3).Build();

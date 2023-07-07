@@ -11,7 +11,7 @@ import java.util.List;
 public class TeamBuilder {
   OkrChildUnit currentTeam;
 
-  private TeamBuilder(OkrChildUnit input)
+  public TeamBuilder(OkrChildUnit input)
   {
     this.currentTeam = input;
   }

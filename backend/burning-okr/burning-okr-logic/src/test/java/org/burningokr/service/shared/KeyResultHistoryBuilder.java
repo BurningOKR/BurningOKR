@@ -7,14 +7,9 @@ import java.time.LocalDate;
 public class KeyResultHistoryBuilder {
   KeyResultHistory currentKeyResultHistory;
 
-  private KeyResultHistoryBuilder()
+  public KeyResultHistoryBuilder()
   {
     this.currentKeyResultHistory = new KeyResultHistory();
-  }
-
-  public static KeyResultHistoryBuilder Create()
-  {
-    return new KeyResultHistoryBuilder();
   }
 
   public KeyResultHistoryBuilder SetBaseInformation(long currentValue, long targetValue, Long startValue, LocalDate date) {
@@ -28,10 +23,6 @@ public class KeyResultHistoryBuilder {
     }
 
     return this;
-  }
-
-  public KeyResultHistoryBuilder SetBaseInformation(long currentValue, long targetValue, Long startValue, int year, int month, int day) {
-    return SetBaseInformation(currentValue, targetValue, startValue, LocalDate.of(year, month, day));
   }
 
   public KeyResultHistory Build() {

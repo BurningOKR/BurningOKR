@@ -1,7 +1,9 @@
 package org.burningokr.service.dashboard.helper;
 
 import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.histories.KeyResultHistory;
 import org.burningokr.service.shared.KeyResultBuilder;
+import org.burningokr.service.shared.KeyResultHistoryBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -39,8 +41,10 @@ public class KeyResultProgressHelperTest {
 
   @Test()
   public void getKeyResultProgressOfKeyResult_shouldCalculate100Percent() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-                                          .AddHistory(10, 10, LocalDate.of(2023, 7, 4))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 4)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+                                          .AddHistory(keyResultHistory1)
                                           .Build();
 
     LocalDate startDate = LocalDate.of(2023, 7, 4);
@@ -55,8 +59,10 @@ public class KeyResultProgressHelperTest {
 
   @Test()
   public void getKeyResultProgressOfKeyResult_shouldNotThrowDivisionByZeroException() {
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10, 10)
-            .AddHistory(10, 10, 10L, LocalDate.of(2023, 7, 4))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, 10L, LocalDate.of(2023, 7, 4)).Build();
+
+    KeyResult keyResult = new KeyResultBuilder().SetStart(10).SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
             .Build();
 
     LocalDate startDate = LocalDate.of(2023, 7, 4);
@@ -71,10 +77,12 @@ public class KeyResultProgressHelperTest {
 
   @Test()
   public void getKeyResultProgressOfKeyResult_shouldCalculate50Then100Percent() {
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 5)).Build();
 
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 5))
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
     LocalDate startDate = LocalDate.of(2023, 7, 4);
     long numberOfDays = 2;
@@ -88,9 +96,10 @@ public class KeyResultProgressHelperTest {
 
   @Test()
   public void getKeyResultProgressOfKeyResult_shouldOutputAllBeforeStartDate00() {
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
 
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
             .Build();
     LocalDate startDate = LocalDate.of(2023, 7, 2);
     long numberOfDays = 3;
@@ -105,10 +114,11 @@ public class KeyResultProgressHelperTest {
 
   @Test()
   public void getKeyResultProgressOfKeyResult_shouldCalculateSpaceInBetweenHistories() {
-
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.of(2023, 7, 4))
-            .AddHistory(10, 10, LocalDate.of(2023, 7, 7))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.of(2023, 7, 4)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.of(2023, 7, 7)).Build();
+    KeyResult keyResult = new KeyResultBuilder().SetCurrent(10).SetTarget(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
     LocalDate startDate = LocalDate.of(2023, 7, 4);
     long numberOfDays = 4;

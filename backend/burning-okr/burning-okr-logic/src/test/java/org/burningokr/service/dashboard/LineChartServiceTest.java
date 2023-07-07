@@ -6,14 +6,12 @@ import org.burningokr.model.dashboard.LineChartLineKeyValues;
 import org.burningokr.model.dashboard.LineChartOptionsDto;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.histories.KeyResultHistory;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okr.KeyResultHistoryService;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.shared.CompanyBuilder;
-import org.burningokr.service.shared.KeyResultBuilder;
-import org.burningokr.service.shared.ObjectiveBuilder;
-import org.burningokr.service.shared.TeamBuilder;
+import org.burningokr.service.shared.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -47,23 +45,32 @@ public class LineChartServiceTest {
     chartCreationOptions.setTeamIds(teamIds);
     chartCreationOptions.setTitle("TestTitle");
     long companyId = 11L;
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.now().minusDays(5))
-            .AddHistory(10, 10, LocalDate.now().minusDays(4))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.now().minusDays(5)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.now().minusDays(4)).Build();
+    KeyResultHistory keyResultHistory3 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.now().minusDays(3)).Build();
+    KeyResultHistory keyResultHistory4 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.now().minusDays(2)).Build();
+    KeyResultHistory keyResultHistory5 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.now().minusDays(2)).Build();
+    KeyResultHistory keyResultHistory6 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.now().minusDays(1)).Build();
+    KeyResult keyResult = new KeyResultBuilder()
+            .SetTarget(10).SetCurrent(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
-    KeyResult keyResult2 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.now().minusDays(3))
-            .AddHistory(20, 20, LocalDate.now().minusDays(2))
+    KeyResult keyResult2 = new KeyResultBuilder()
+            .SetTarget(20).SetCurrent(20)
+            .AddHistory(keyResultHistory3)
+            .AddHistory(keyResultHistory4)
             .Build();
-    KeyResult keyResult3 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.now().minusDays(2))
-            .AddHistory(20, 20, LocalDate.now().minusDays(1))
+    KeyResult keyResult3 = new KeyResultBuilder()
+            .SetTarget(20).SetCurrent(20)
+            .AddHistory(keyResultHistory5)
+            .AddHistory(keyResultHistory6)
             .Build();
     Objective objective1 = ObjectiveBuilder.Create().AddKeyResult(keyResult).AddKeyResult(keyResult2).Build();
     Objective objective2 = ObjectiveBuilder.Create().AddKeyResult(keyResult3).Build();
     OkrChildUnit team1 = TeamBuilder.CreateDepartment(10L).AddObjective(objective1).Build();
     OkrChildUnit team2 = TeamBuilder.CreateDepartment(20L).AddObjective(objective2).Build();
-    OkrCompany company = CompanyBuilder.Create().AddChildUnits(team1).AddChildUnits(team2).Build();
+    OkrCompany company = new CompanyBuilder().AddChildUnits(team1).AddChildUnits(team2).Build();
     when(keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(any())).thenReturn(keyResult.getKeyResultHistory().stream().toList().get(0));
     when(companyService.findById(companyId)).thenReturn(company);
 
@@ -98,19 +105,25 @@ public class LineChartServiceTest {
     chartCreationOptions.setTeamIds(teamIds);
     chartCreationOptions.setTitle("TestTitle");
     long companyId = 11L;
-    KeyResult keyResult2 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.now().minusDays(3))
-            .AddHistory(20, 20, LocalDate.now().minusDays(2))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.now().minusDays(3)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.now().minusDays(2)).Build();
+    KeyResultHistory keyResultHistory3 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.now().minusDays(2)).Build();
+    KeyResultHistory keyResultHistory4 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.now().minusDays(1)).Build();
+    KeyResult keyResult2 = new KeyResultBuilder()
+            .SetTarget(20).SetCurrent(20)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
-    KeyResult keyResult3 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.now().minusDays(2))
-            .AddHistory(20, 20, LocalDate.now().minusDays(1))
+    KeyResult keyResult3 = new KeyResultBuilder()
+            .SetTarget(20).SetCurrent(20)
+            .AddHistory(keyResultHistory3)
+            .AddHistory(keyResultHistory4)
             .Build();
     Objective objective1 = ObjectiveBuilder.Create().AddKeyResult(keyResult2).Build();
     Objective objective2 = ObjectiveBuilder.Create().AddKeyResult(keyResult3).Build();
     OkrChildUnit team1 = TeamBuilder.CreateDepartment(10L).AddObjective(objective1).Build();
     OkrChildUnit team2 = TeamBuilder.CreateDepartment(20L).AddObjective(objective2).Build();
-    OkrCompany company = CompanyBuilder.Create().AddChildUnits(team1).AddChildUnits(team2).Build();
+    OkrCompany company = new CompanyBuilder().AddChildUnits(team1).AddChildUnits(team2).Build();
     when(keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(any())).thenReturn(keyResult2.getKeyResultHistory().stream().toList().get(0));
     when(companyService.findById(companyId)).thenReturn(company);
 
@@ -135,23 +148,32 @@ public class LineChartServiceTest {
     chartCreationOptions.setTeamIds(teamIds);
     chartCreationOptions.setTitle("TestTitle");
     long companyId = 11L;
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.now().minusDays(5))
-            .AddHistory(10, 10, LocalDate.now().minusDays(4))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.now().minusDays(5)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.now().minusDays(4)).Build();
+    KeyResultHistory keyResultHistory3 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.now().minusDays(3)).Build();
+    KeyResultHistory keyResultHistory4 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.now().minusDays(2)).Build();
+    KeyResultHistory keyResultHistory5 = new KeyResultHistoryBuilder().SetBaseInformation(10, 20, null, LocalDate.now().minusDays(2)).Build();
+    KeyResultHistory keyResultHistory6 = new KeyResultHistoryBuilder().SetBaseInformation(20, 20, null, LocalDate.now().minusDays(1)).Build();
+    KeyResult keyResult = new KeyResultBuilder()
+            .SetTarget(10).SetCurrent(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
-    KeyResult keyResult2 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.now().minusDays(3))
-            .AddHistory(20, 20, LocalDate.now().minusDays(2))
+    KeyResult keyResult2 = new KeyResultBuilder()
+            .SetTarget(20).SetCurrent(20)
+            .AddHistory(keyResultHistory3)
+            .AddHistory(keyResultHistory4)
             .Build();
-    KeyResult keyResult3 = KeyResultBuilder.Create(20, 20)
-            .AddHistory(20, 10, LocalDate.now().minusDays(2))
-            .AddHistory(20, 20, LocalDate.now().minusDays(1))
+    KeyResult keyResult3 = new KeyResultBuilder()
+            .SetTarget(20).SetCurrent(20)
+            .AddHistory(keyResultHistory5)
+            .AddHistory(keyResultHistory6)
             .Build();
     Objective objective1 = ObjectiveBuilder.Create().AddKeyResult(keyResult).AddKeyResult(keyResult2).Build();
     Objective objective2 = ObjectiveBuilder.Create().AddKeyResult(keyResult3).Build();
     OkrChildUnit team1 = TeamBuilder.CreateDepartment(10L).AddObjective(objective1).Build();
     OkrChildUnit team2 = TeamBuilder.CreateDepartment(20L).AddObjective(objective2).Build();
-    OkrCompany company = CompanyBuilder.Create().AddChildUnits(team1).AddChildUnits(team2).Build();
+    OkrCompany company = new CompanyBuilder().AddChildUnits(team1).AddChildUnits(team2).Build();
     when(keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(any())).thenReturn(keyResult.getKeyResultHistory().stream().toList().get(0));
     when(companyService.findById(companyId)).thenReturn(company);
 
@@ -178,13 +200,16 @@ public class LineChartServiceTest {
     chartCreationOptions.setTeamIds(teamIds);
     chartCreationOptions.setTitle("TestTitle");
     long companyId = 11L;
-    KeyResult keyResult = KeyResultBuilder.Create(10, 10)
-            .AddHistory(10, 5, LocalDate.now().minusDays(5))
-            .AddHistory(10, 10, LocalDate.now().minusDays(4))
+    KeyResultHistory keyResultHistory1 = new KeyResultHistoryBuilder().SetBaseInformation(5, 10, null, LocalDate.now().minusDays(5)).Build();
+    KeyResultHistory keyResultHistory2 = new KeyResultHistoryBuilder().SetBaseInformation(10, 10, null, LocalDate.now().minusDays(4)).Build();
+    KeyResult keyResult = new KeyResultBuilder()
+            .SetTarget(10).SetCurrent(10)
+            .AddHistory(keyResultHistory1)
+            .AddHistory(keyResultHistory2)
             .Build();
     Objective objective1 = ObjectiveBuilder.Create().AddKeyResult(keyResult).Build();
     OkrChildUnit team1 = TeamBuilder.CreateDepartment(10L).AddObjective(objective1).Build();
-    OkrCompany company = CompanyBuilder.Create().AddChildUnits(team1).Build();
+    OkrCompany company = new CompanyBuilder().AddChildUnits(team1).Build();
     when(keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(any())).thenReturn(keyResult.getKeyResultHistory().stream().toList().get(0));
     when(companyService.findById(companyId)).thenReturn(company);
 
@@ -214,7 +239,7 @@ public class LineChartServiceTest {
     Objective objective2 = ObjectiveBuilder.Create().Build();
     OkrChildUnit team1 = TeamBuilder.CreateDepartment(10L).AddObjective(objective1).Build();
     OkrChildUnit team2 = TeamBuilder.CreateDepartment(20L).AddObjective(objective2).Build();
-    OkrCompany company = CompanyBuilder.Create().AddChildUnits(team1).AddChildUnits(team2).Build();
+    OkrCompany company = new CompanyBuilder().AddChildUnits(team1).AddChildUnits(team2).Build();
     when(companyService.findById(companyId)).thenReturn(company);
 
     LineChartOptionsDto result = lineChartService.buildProgressChart(chartCreationOptions, companyId);

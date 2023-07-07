@@ -9,13 +9,9 @@ import java.util.List;
 public class CompanyBuilder {
   OkrCompany currentCompany;
 
-  private CompanyBuilder()
+  public CompanyBuilder()
   {
     this.currentCompany = new OkrCompany();
-  }
-
-  public static CompanyBuilder Create() {
-    return new CompanyBuilder();
   }
 
   public CompanyBuilder AddChildUnits(OkrChildUnit childUnitToAdd)
