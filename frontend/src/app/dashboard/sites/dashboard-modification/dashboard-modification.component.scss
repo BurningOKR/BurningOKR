@@ -58,6 +58,8 @@
 }
 
 .edit-charts-buttons {
+  margin: 20px 0;
+
   display: flex;
   justify-content: center; /* Horizontally center the inner divs */
   align-items: center; /* Vertically center the inner divs */
@@ -71,6 +73,9 @@
 .edit-chart-options {
   display: flex;
   flex-direction: column;
-  height: 30VH;
   width: 300px;
+
+  button {
+    margin-bottom: 10px;
+  }
 }
