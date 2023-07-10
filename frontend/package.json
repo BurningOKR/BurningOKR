@@ -11,6 +11,7 @@
     "start-prod": "npm run start -- --configuration production",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "ng build",
     "build-prod": "npm run build -- --output-hashing=all --configuration production",
     "build-demo": "npm run build -- --output-hashing=all --configuration demo",

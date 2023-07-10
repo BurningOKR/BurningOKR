@@ -1,7 +1,4 @@
-// TODO: fix test
-test.skip('temp', () => 1);
-
-/*import { UserService } from './user.service';
+import { UserService } from './user.service';
 import { User } from '../../model/api/user';
 import { Observable, of } from 'rxjs';
 import { AdminUser } from '../../model/api/admin-user';
@@ -26,6 +23,7 @@ describe('UserService', () => {
     jobTitle: 'testTitle',
     photo: 'photoString',
     active: true,
+    admin: false,
   };
   const mockUser2: User = {
     id: '654321',
@@ -36,6 +34,7 @@ describe('UserService', () => {
     jobTitle: 'testTitle2',
     photo: 'photoString2',
     active: true,
+    admin: false,
   };
 
   const mockUser3: User = {
@@ -47,6 +46,7 @@ describe('UserService', () => {
     jobTitle: 'testTitle3',
     photo: 'photoString3',
     active: false,
+    admin: false,
   };
 
   beforeEach(() => {
@@ -186,7 +186,7 @@ describe('UserService', () => {
       user.department,
       user.photo,
       user.active,
+      user.admin,
     );
   }
-
-});*/
+});

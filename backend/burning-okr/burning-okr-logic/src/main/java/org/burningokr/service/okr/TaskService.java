@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import jakarta.validation.constraints.NotNull;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -282,22 +284,34 @@ public class TaskService {
     this.logger.info(text);
   }
 
-  public Collection<Task> copyTasksAndBindToNewCopyOfTaskStatesListAndTaskBoard(
+  public Collection<Task> copyTasks(
     Collection<Task> notFinishedTasks,
     Collection<TaskState> copiedStates,
     TaskBoard copiedTaskBoard
   ) {
     Collection<Task> copiedTasks = new ArrayList<>();
     for (Task oldTask : notFinishedTasks) {
-      Task copiedTask = oldTask.copyWithNoRelations();
-      copiedTask.setParentTaskBoard(copiedTaskBoard);
-      for (TaskState newState : copiedStates) {
-        if (copiedTask.getTaskState().getTitle().equals(newState.getTitle())) {
-          copiedTask.setTaskState(newState);
-        }
-      }
-      copiedTasks.add(copiedTask);
+      copiedTasks.add(this.copyTask(oldTask, copiedStates, copiedTaskBoard));
     }
     return copiedTasks;
+  }
+
+  public void setStateFromStatesCollection(@NotNull Task task, Collection<TaskState> states) {
+    Optional<TaskState> result = states.stream()
+      .filter(state -> task.getTaskState().getTitle().equals(state.getTitle()))
+      .findFirst();
+
+    result.ifPresent(task::setTaskState);
+  }
+
+  public Task copyTask(
+    Task oldTask,
+    Collection<TaskState> copiedStates,
+    TaskBoard copiedTaskBoard
+  ) {
+    Task copiedTask = oldTask.copyWithNoRelations();
+    copiedTask.setParentTaskBoard(copiedTaskBoard);
+    this.setStateFromStatesCollection(copiedTask, copiedStates);
+    return copiedTask;
   }
 }

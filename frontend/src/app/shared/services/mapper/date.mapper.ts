@@ -7,7 +7,6 @@ import * as moment from 'moment';
 export class DateMapper {
 
   static mapDateToDateString(date: Date): string {
-    console.log(date);
     const parsedDate: Date = this.mapToDate(date);
 
     return date ? `${parsedDate.getFullYear()}-${parsedDate.getMonth()}-${parsedDate.getDate()}` : null;
