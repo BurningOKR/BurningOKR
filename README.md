@@ -1,8 +1,5 @@
-
 <p align="center"><img src="/docs/ci/Logo_burningOKR_RGB_web.png" width="35%" height="35%" alt="Burning OKR"/></p>
 
-<p align="center">
-<a href="https://burning-okr.org/" target="_blank">home</a> | <a href="https://burning-okr.gitbook.io/burningokr" target="_blank">documentation (de)</a> | <a href="https://burning-okr.gitbook.io/burningokr/v/en/" target="_blank">documentation (en) </a></p>
 <br/><br/><br/>
 
 # BurningOKR
@@ -14,10 +11,8 @@ BurningOKR has been developed as a web application with an Angular Frontend and 
 When you have Docker and Docker-Compose installed you can proceed with the next steps, otherwise please install Docker and Docker-Compose first.  
 You can use our docker-compose file for easy use and compatibility!  
 1. Download the [TODO update][docker-compose-prod.yml](/docker/docker-compose-prod.yml) file
-
-[TODO is 2 - 5 still needed?] 
-2. Download [backend.env.sample](/docker/backend.env.sample) file and rename it to backend.env
-3. Download [postgres.env.sample](/docker/postgres.env.sample) file and rename it to postgres.env
+2. Download [TODO update][backend.env.sample](/docker/backend.env.sample) file and rename it to backend.env
+3. Download [TODO update][postgres.env.sample](/docker/postgres.env.sample) file and rename it to postgres.env
 4. Now fill in your configurations in the two downloaded .env-files
 5. Hint: When you don't want to use Azure or a SMTP-Mailserver just comment these parts in the .env-files out and they won't be used. For more information read the full docs.
 
@@ -26,7 +21,8 @@ You can use our docker-compose file for easy use and compatibility!
 ## Installation
 You can install BurningOKR using the following technologies.
 - Docker [Tutorial](/docker/README.md) *(Recommended for beginners)*
-- Tomcat [Tutorial](/docs/tomcat_install.md)
+
+// [TODO important?]- Tomcat [Tutorial](/docs/tomcat_install.md)
 
 ## Getting started with the development
 We are already working on a faster and easier installation process, so stay tuned.
@@ -50,7 +46,7 @@ The following tasks will be done by the script:
    5. Install Dependencies (in the frontend folder) `npm install`
    6. Install Postgres (optional via Docker) 
 
-5. Open the frontend-folder and the backend-folder in seperate windows in your IDE. (We recommend IntelliJ, VS Code should also do the trick)
+5. Open the frontend-folder and the backend-folder in seperate windows in your IDE. (We recommend IntelliJ)
 6. [Configure](/docs/configure.md) the backend.
 7. Start the frontend with `npm start`
 8. Start the backend with the gradle `Start backend` configuration. 
@@ -86,7 +82,7 @@ The backend project uses [Project Lombok](https://projectlombok.org). To use Pro
 If PostgresSQL has already been successfully installed and configured in the previous step, the Spring Boot application can now be started.
 
 To start the application without IntelliJ, switch to backend/burning-okr and run `./gradlew bootRun --scan --scan -Dspring.profiles.active=local`. On some UNIX systems there might be some issues with gradle regarding finding the JDK.
-If some weird exceptions occur, try running `export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home` (replace the path with the actual path of your JDK). Then, restart your shell or run `source ~/.bash_profile`.
+If some weird exceptions occur, try running `export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk<version>.jdk/Contents/Home` (replace the path with the actual path of your JDK). Then, restart your shell or run `source ~/.bash_profile`.
 
 The REST interfaces are listed under `localhost:8080/swagger-ui.html` and can be called there.
 
@@ -103,10 +99,10 @@ With `ng build` the frontend can be built.
 
 
 * **I get a _entityManagerFactory Persistence Exception_ / error on instancing entityManagerFactory when starting the backend**<br>
-  Please make sure to use JDK8 on Tomcat.
+  Please make sure to use JDK17 on Tomcat.
   You can check the JDK Version on `localhost:8080/manager`. Then you can log in with the tomcat user for the gui.
   It should look like this
-  ![tomcat-jdk](./docs/images/tomcat-jdk.png)
+  //TODO raus damit ![tomcat-jdk](./docs/images/tomcat-jdk.png)
 
 
 * **I can't log in into the tomcat manager gui**
@@ -115,6 +111,7 @@ With `ng build` the frontend can be built.
   Start by editing the `tomcat-users.xml` file.
   Then add the following lines above `</tomcat-users>` (at the bottom of the file)
     ```xml
+    <tomcat-users>
         <role rolename="manager-gui"/>
         <role rolename="admin-gui"/>
         <user username="username" password="password" roles="manager-gui,admin-gui"/>
@@ -133,22 +130,11 @@ Thank you to all the people and bots who already contributed to BurningOKR!
 
 Made with [contributors-img](https://contrib.rocks).
 
-<br/>
-
-## User Documentation
-
-The current user documentation is available at https://burning-okr.gitbook.io/burningokr
-
-
 ## Contact
-<br/>
 
 You can write an [E-Mail](mailto:burningokr@brockhaus-ag.de) or mention our Twitter account [@BurningOKR](https://twitter.com/BurningOkr).
 
-<br/>
-
 ## License
-<br/>
 
 BurningOKR was initially developed as part of a training project at [BROCKHAUS AG](http://brockhaus-ag.de) in Lünen.
 
