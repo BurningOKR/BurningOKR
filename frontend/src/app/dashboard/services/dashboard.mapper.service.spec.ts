@@ -46,11 +46,13 @@ describe('Dashboard.MapperService', () => {
   });*/
 
   it('should map DashboardDto with ONE LineChartOptionsDto', () => {
+    const date: Date = new Date();
+
     const singleLineTestDto: DashboardDto = {
       companyId: 0,
       id: 1,
       creatorId: getTestUser().id,
-      creationDate: new Date(),
+      creationDate: date,
       title: 'Some Dashboard',
       chartDtos: [getLineChartOptionsDtoMock()],
     };
@@ -59,7 +61,7 @@ describe('Dashboard.MapperService', () => {
       companyId: 0,
       id: 1,
       creatorId: getTestUser().id,
-      creationDate: new Date(),
+      creationDate: date,
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDtoMock().buildChartOptions()],
     };

@@ -72,5 +72,4 @@ describe('LogoutComponent', () => {
       .toHaveBeenCalled();
   });
 
-})
-;
+});
