@@ -19,6 +19,7 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
+import org.hibernate.Hibernate;
 import org.hibernate.TypeMismatchException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -38,11 +39,12 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
   private final OkrUnitRepository<OkrUnit> parentOkrUnitRepository;
   private final TaskBoardService taskBoardService;
 
+  // TODO (C.K.): refactor. this can not be the solution
   public T findById(long unitId) {
-    return okrUnitRepository.findById(unitId).orElseThrow(() -> {
+    return (T) Hibernate.unproxy(okrUnitRepository.findById(unitId).orElseThrow(() -> {
       log.warn("Could not find OkrUnit with id %d".formatted(unitId));
       return new EntityNotFoundException();
-    });
+    }));
   }
 
   public Collection<Objective> findObjectivesOfUnit(long unitId) {
