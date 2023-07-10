@@ -1,9 +1,11 @@
 package org.burningokr.service.topicDraft;
 
 import org.burningokr.model.activity.Action;
+import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraftStatusEnum;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.security.AuthorizationUserContextService;
@@ -14,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,11 +34,11 @@ public class OkrTopicDraftServiceTest {
   @Mock
   private OkrTopicDraftRepository okrTopicDraftRepository;
   @Mock
-  private User user;
-  @Mock
   private ActivityService activityService;
   @Mock
   private AuthorizationUserContextService authorizationUserContextService;
+  @Mock
+  private NoteTopicDraftRepository noteTopicDraftRepository;
   @InjectMocks
   private OkrTopicDraftService okrTopicDraftService;
 
@@ -43,6 +46,7 @@ public class OkrTopicDraftServiceTest {
   private OkrTopicDraft okrTopicDraft2;
   private OkrTopicDraft okrTopicDraft3;
   private User currentUser;
+  private NoteTopicDraft noteTopicDraft;
 
   @BeforeEach
   public void setUp() {
@@ -59,6 +63,13 @@ public class OkrTopicDraftServiceTest {
     currentUser = new User();
     UUID currentUserId = new UUID(1L, 1L);
     currentUser.setId(currentUserId);
+
+    noteTopicDraft = new NoteTopicDraft();
+    noteTopicDraft.setId(100L);
+    noteTopicDraft.setText("Text");
+    noteTopicDraft.setUserId(UUID.randomUUID());
+    noteTopicDraft.setDate(LocalDateTime.now());
+    noteTopicDraft.setParentTopicDraft(okrTopicDraft);
   }
 
   @Test
@@ -212,5 +223,18 @@ public class OkrTopicDraftServiceTest {
 
     okrTopicDraftService.createTopicDraft(topicDraft);
     assertEquals(OkrTopicDraftStatusEnum.draft, topicDraft.getCurrentStatus());
+  }
+
+  @Test void createNote_shouldSaveNote() {
+    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
+    okrTopicDraftService.createNote(noteTopicDraft);
+    verify(noteTopicDraftRepository).save(noteTopicDraft);
+  }
+
+  @Test void createNote_shouldCreateAndReturnNewNote() {
+    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
+    when(noteTopicDraftRepository.save(noteTopicDraft)).thenReturn(noteTopicDraft);
+
+    assertEquals(noteTopicDraft, okrTopicDraftService.createNote(noteTopicDraft));
   }
 }
