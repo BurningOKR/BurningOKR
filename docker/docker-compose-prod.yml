@@ -1,9 +1,11 @@
 version: "3"
+name: "burning-okr"
 
 services:
   db:
-    image: postgres:9.6.16
+    image: postgres:15.3
     container_name: burning-okr-postgres
+    restart: unless-stopped
     env_file:
       - postgres.env
     volumes:
@@ -13,6 +15,7 @@ services:
   backend:
     image: ghcr.io/burningokr/b-okr-backend:latest
     container_name: burning-okr-backend
+    restart: unless-stopped
     env_file:
       - backend.env
     depends_on:
@@ -23,10 +26,11 @@ services:
   frontend:
     image: ghcr.io/burningokr/b-okr-frontend:latest
     container_name: burning-okr-frontend
+    restart: unless-stopped
     depends_on:
       - backend
     ports:
-      - 4200:80
+      - "4200:80"
     networks:
       - b-okr-frontend-network
 
