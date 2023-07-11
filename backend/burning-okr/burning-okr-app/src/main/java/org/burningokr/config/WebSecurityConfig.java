@@ -43,9 +43,7 @@ public class WebSecurityConfig {
 
     setUnauthorizedUriRoutes(http);
 
-    http
-      .oauth2ResourceServer()
-      .jwt();
+    http.oauth2ResourceServer().jwt();
 
     http.authenticationManager(authManager);
 

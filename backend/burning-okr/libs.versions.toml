@@ -35,6 +35,7 @@ spring-framework-springContextSupport = { module = 'org.springframework:spring-c
 # spring security
 spring-security-core = { module = 'org.springframework.security:spring-security-core', version.ref = 'spring-security' }
 spring-security-jose = { module = 'org.springframework.security:spring-security-oauth2-jose ', version.ref = 'spring-security' }
+spring-security-messaging = { module = 'org.springframework.security:spring-security-messaging', version.ref = 'spring-security' }
 
 # lombok
 lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }

@@ -4,11 +4,11 @@ import org.burningokr.model.users.User;
 import org.burningokr.service.WebsocketUserService;
 import org.burningokr.service.monitoring.MonitorService;
 import org.burningokr.service.monitoring.MonitoredObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.user.SimpSubscription;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
@@ -30,12 +30,16 @@ public abstract class WebsocketSubscribeController {
   private final MonitorService monitorService;
   private final String sendUrl = "/topic/unit/%d/tasks/users";
 
+  //  private final WebSocketSecurityConfig secConf;
+  @Autowired
   public WebsocketSubscribeController(
-          SimpMessagingTemplate simpMessagingTemplate,
-          SimpUserRegistry simpUserRegistry,
-          WebsocketUserService websocketUserService,
-          MonitorService monitorService
+      SimpMessagingTemplate simpMessagingTemplate,
+      SimpUserRegistry simpUserRegistry,
+      WebsocketUserService websocketUserService,
+      MonitorService monitorService
+//      WebSocketSecurityConfig securityConfig
   ) {
+//    this.secConf = securityConfig;
     this.simpMessagingTemplate = simpMessagingTemplate;
     this.simpUserRegistry = simpUserRegistry;
     this.websocketUserService = websocketUserService;
@@ -49,7 +53,6 @@ public abstract class WebsocketSubscribeController {
 
   @EventListener
   public void handleSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
-
     StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
     MonitoredObject monitoredObject = getMonitoredObject(stompHeaderAccessor.getDestination());
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
@@ -64,15 +67,6 @@ public abstract class WebsocketSubscribeController {
   }
 
   private void handleRemove(Message<byte[]> message, Set<SimpSubscription> matchingSubscriptions) {
-    try {
-
-      if (message == null) {
-        throw new RuntimeException("Message is null");
-
-      }
-    }catch (Exception e) {
-      e.printStackTrace();
-    }
     StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(message);
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
     for (SimpSubscription simpSubscription : matchingSubscriptions) {
@@ -104,9 +98,9 @@ public abstract class WebsocketSubscribeController {
   private Set<SimpSubscription> findMatchingSubscriptionsBySessionId(StompHeaderAccessor stompHeaderAccessor) {
     return simpUserRegistry.findSubscriptions(
         possibleSubscription -> possibleSubscription
-                    .getSession()
-                    .getId()
-                    .equals(stompHeaderAccessor.getSessionId())
+            .getSession()
+            .getId()
+            .equals(stompHeaderAccessor.getSessionId())
     );
   }
 

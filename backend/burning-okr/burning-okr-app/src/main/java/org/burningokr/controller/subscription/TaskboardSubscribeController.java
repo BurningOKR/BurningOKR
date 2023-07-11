@@ -15,22 +15,12 @@ import java.util.regex.Pattern;
 @Controller
 public class TaskboardSubscribeController extends WebsocketSubscribeController {
 
-  private static final Pattern URL_TO_ID_PATTERN =
-      Pattern.compile("^/topic/unit/(\\d+)/tasks/users$");
+  private static final Pattern URL_TO_ID_PATTERN = Pattern.compile("^/topic/unit/(\\d+)/tasks/users$");
   private static final MonitoredObjectType MONITORED_OBJECT_TYPE = MonitoredObjectType.TASKBOARD;
 
   @Autowired
-  public TaskboardSubscribeController(
-      SimpMessagingTemplate simpMessagingTemplate,
-      SimpUserRegistry simpUserRegistry,
-      WebsocketUserService websocketUserService,
-      MonitorService monitorService) {
-    super(
-            simpMessagingTemplate,
-            simpUserRegistry,
-            websocketUserService,
-            monitorService
-    );
+  public TaskboardSubscribeController(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, WebsocketUserService websocketUserService, MonitorService monitorService) {
+    super(simpMessagingTemplate, simpUserRegistry, websocketUserService, monitorService);
   }
 
   public MonitoredObject getMonitoredObject(String subscribeUrl) {
