@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    frontend:
+        image: 'burning-okr:1.0.0-frontend'
+        build: '../frontend/.'
+        container_name: 'burning-okr-frontend'
+        depends_on:
+            - backend
+        ports:
+            - 4200:80
+        networks:
+            - frontend-network
+    backend:
+        image: 'burning-okr:1.0.0-backend'
+        build: '../backend/.'
+        container_name: 'burning-okr-backend'
+        env_file:
+            - backend.env.sample
+        depends_on:
+            - okr-db
+        networks:
+            - frontend-network
+            - backend-network
+    okr-db:
+        image: 'postgres:9.6.16'
+        container_name: 'burning-okr-postgres-1'
+        env_file:
+            - postgres.env.sample
+        ports:
+            - 54032:5432
+        volumes: 
+            - pgdata:/var/lib/postgresql/data
+        networks:
+            - backend-network
+
+volumes:
+    pgdata:
+
+networks:
+    frontend-network:
+    backend-network:
