@@ -29,7 +29,7 @@ When you want to contribute to BurningOKR or develop something for yourself plea
 
 - **I have BurningOKR running in a Tomcat, should i migrate to Docker?**  
   Yes you should. We will only support the docker images. When you want to use Tomcat you
-  can do so but we will offer no support.
+  can do so, but we will offer no support.
 
 - **I get some errors with npm install (python2, node-sass, node-gyp):**  
   Use the LTS version of node, not the current! <https://nodejs.org/en/download/>
