@@ -1,5 +1,6 @@
 package org.burningokr.service.log;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.log.FrontendLog;
 import org.burningokr.repositories.log.FrontendLoggerRepository;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,7 +24,7 @@ public class FrontendLoggerServiceTest {
   private FrontendLoggerService frontendLoggerService;
 
   @Test
-  public void test_findByIdShouldFindCorrectly() {
+  public void findById_shouldFindCorrectly() {
     FrontendLog expectedFrontendLog =
       new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
     when(frontendLoggerRepository.findByIdOrThrow(expectedFrontendLog.getId()))
@@ -34,20 +35,17 @@ public class FrontendLoggerServiceTest {
     assertEquals(expectedFrontendLog, frontendLog);
   }
 
-// TODO fix test
-//  @Test()
-//  public void test_findByIdShouldThrowNullPointerException() {
-//    FrontendLog expectedFrontendLog =
-//      new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
-//    when(frontendLoggerRepository.findByIdOrThrow(expectedFrontendLog.getId()))
-//      .thenThrow(NullPointerException.class);
-//    assertThrows(EntityNotFoundException.class, () -> {
-//      frontendLoggerService.findById(expectedFrontendLog.getId());
-//    });
-//  }
+  @Test()
+  public void findById_shouldThrowNullPointerException() {
+    FrontendLog expectedFrontendLog =
+      new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
+    when(frontendLoggerRepository.findByIdOrThrow(expectedFrontendLog.getId()))
+      .thenThrow(NullPointerException.class);
+    assertThrows(NullPointerException.class, () -> frontendLoggerService.findById(expectedFrontendLog.getId()));
+  }
 
   @Test
-  public void test_createFrontendLogShouldSaveCorrectly() {
+  public void createFrontendLog_shouldSaveCorrectly() {
     FrontendLog expectedFrontendLog =
       new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
     when(this.frontendLoggerRepository.save(expectedFrontendLog)).thenReturn(expectedFrontendLog);

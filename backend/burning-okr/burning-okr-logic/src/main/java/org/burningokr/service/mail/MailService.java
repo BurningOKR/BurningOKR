@@ -33,7 +33,11 @@ public class MailService {
       checkAndInitializeCollections(mail);
 
       MimeMessage message = createMimeMessage(mail);
-      javaMailSender.get().send(message);
+      if (message != null) {
+        javaMailSender.get().send(message);
+      } else {
+        throw new NullPointerException("No message to be send. Mail Message is null!");
+      }
     }
   }
 
@@ -79,7 +83,7 @@ public class MailService {
   }
 
   private String[] convertToArray(Collection<String> collection) {
-    return collection.isEmpty() ? new String[0] : (String[]) collection.toArray();
+    return collection.isEmpty() ? new String[0] : collection.toArray(new String[0]);
   }
 
   private String getHtmlBodyFromTemplate(Mail mail) {

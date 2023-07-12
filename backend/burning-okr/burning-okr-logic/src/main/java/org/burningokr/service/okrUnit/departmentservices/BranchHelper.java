@@ -5,10 +5,7 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrParentUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BranchHelper {
@@ -59,6 +56,20 @@ public class BranchHelper {
         })
       .filter(Objects::nonNull)
       .collect(Collectors.toList());
+  }
+
+  public static Collection<OkrDepartment> collectDepartments(Collection<Long> teamIds, OkrCompany company) {
+    ArrayList<OkrDepartment> allTeamsOfCompany = new ArrayList<OkrDepartment>(collectDepartments(company));
+    List<OkrDepartment> result;
+
+    if (teamIds.size() == 0) {
+      result = allTeamsOfCompany;
+    }
+    else {
+      result = allTeamsOfCompany.stream().filter(x -> teamIds.stream().anyMatch(y -> y.equals(x.getId()))).collect(Collectors.toList());
+    }
+
+    return result;
   }
 
   public static Collection<OkrChildUnit> collectChildUnits(OkrChildUnit okrChildUnit) {

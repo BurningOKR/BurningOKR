@@ -1,13 +1,10 @@
-// TODO: fix tests
-test.skip('temp', () => 1);
-/*import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SettingsFormComponent } from './settings-form.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AdminSettingsFormComponent } from './admin-settings/admin-settings-form.component';
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CompanyMapper } from '../../../shared/services/mapper/company.mapper';
 import { UserSettingsService } from '../../services/user-settings.service';
@@ -72,7 +69,6 @@ describe('SettingsFormComponent', () => {
         { provide: ConfigurationManagerService, useValue: configurationManagerService },
         { provide: CurrentUserService, useValue: currentUserService },
         { provide: MatDialog, useValue: dialog },
-        { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsService },
         { provide: MatDialogRef, useValue: dialogRef },
       ],
     })
@@ -104,4 +100,4 @@ describe('SettingsFormComponent', () => {
     expect(component)
       .toBeTruthy();
   });
-});*/
+});

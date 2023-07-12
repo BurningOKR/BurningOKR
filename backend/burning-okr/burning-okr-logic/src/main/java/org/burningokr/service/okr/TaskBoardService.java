@@ -74,7 +74,7 @@ public class TaskBoardService {
 
     Collection<Task> notFinishedTasks = this.findUnfinishedTasks(taskBoardToCopy);
     copiedTaskBoard.setTasks(
-      taskService.copyTasksAndBindToNewCopyOfTaskStatesListAndTaskBoard(
+      taskService.copyTasks(
         notFinishedTasks, copiedStates, copiedTaskBoard));
     taskRepository.saveAll(copiedTaskBoard.getTasks());
     updatePreviousTaskOfSavedCopiedTasks(copiedTaskBoard.getTasks());

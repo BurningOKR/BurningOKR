@@ -20,13 +20,13 @@ import static org.mockito.Mockito.when;
 public class UserSettingsOnOkrCompanyDeleteServiceTest {
 
   @Mock
-  UserSettingsRepository userSettingsRepository;
+  private UserSettingsRepository userSettingsRepository;
 
   @InjectMocks
-  UserSettingsOnCompanyDeleteService userSettingsOnCompanyDeleteService;
+  private UserSettingsOnCompanyDeleteService userSettingsOnCompanyDeleteService;
 
-  private OkrCompany okrCompany1 = new OkrCompany();
-  private OkrCompany okrCompany2 = new OkrCompany();
+  private final OkrCompany okrCompany1 = new OkrCompany();
+  private final OkrCompany okrCompany2 = new OkrCompany();
 
   @BeforeEach
   public void setup() {

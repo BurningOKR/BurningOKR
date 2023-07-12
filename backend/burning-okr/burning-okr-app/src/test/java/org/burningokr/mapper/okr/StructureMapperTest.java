@@ -7,23 +7,35 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//TODO (F. L. 26.06.2023) add Tests
 public class StructureMapperTest {
 
-  private StructureMapper mapper;
-  private OkrCompany company1;
+  private StructureMapper structureMapper;
+  private OkrCompany company;
 
   @BeforeEach
   public void setUp() {
-    mapper = new StructureMapper();
-    company1 = new OkrCompany();
+    structureMapper = new StructureMapper();
+    company = new OkrCompany();
   }
 
   @Test
-  public void test_mapCompanyToDto_expected_name_Company1() {
-    company1.setName("Company1");
+  public void mapCompanyToStructureDto_shouldMapId() {
+    long expected = 1L;
+    company.setId(expected);
 
-    StructureDto actual = mapper.mapCompanyToStructureDto(company1);
+    StructureDto actual = structureMapper.mapCompanyToStructureDto(company);
 
-    assertEquals("Company1", actual.getUnitName());
+    assertEquals(expected, actual.getOkrUnitId());
+  }
+
+  @Test
+  public void mapCompanyToStructureDto_shouldMapName() {
+    String expected = "Company1";
+    company.setName(expected);
+
+    StructureDto actual = structureMapper.mapCompanyToStructureDto(company);
+
+    assertEquals(expected, actual.getUnitName());
   }
 }

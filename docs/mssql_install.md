@@ -1,34 +1,35 @@
 # Install and Setup Microsoft SQL Server
+
 ## Windows
 
-1. Download Microsoft SQL Server: https://www.microsoft.com/de-de/sql-server/sql-server-downloads
+1. Download Microsoft SQL Server: <https://www.microsoft.com/de-de/sql-server/sql-server-downloads>
     - You will need a license for production workloads.
     - You can use SQL Server Express for development purposes.
     - You can find more information on Microsofts website.
-    
+
 2. Install Microsoft SQL Server using the installer. Select **Basic Installation**
-   
+
    After the installer has finished, you will see the following Screen. Do not close it yet.
-   
+
    ![SQL_Server_Install_Overview](./images/sqlserver_install_overview.PNG)
-   
+
 3. Click on `Install SSMS`. Your Web Browser will open.
 4. On the Website, click on `Download SQL Server Management Studio (SSMS)`. Your Download will start.
 5. Run the downloaded setup and click on `Install`. You can close all windows when the installation is complete.
 6. Open `Microsoft SQL Server Management Studio` (SSMS).
     1. SSMS will prompt you to connect to a Server on startup. Do not change any values an click on connect.
        This will connect you to the local SQL Server instance that was installed earlier.
-       
+
        ![SQL_Server_Connect_Window](./images/ssms_connect_to_server.PNG)
     2. On the left is the `Object Explorer`. Expand the entries so that it looks like this:
-       
+
        ![SQL_Server_Object_Explorer](./images/ssms_object_explorer.PNG)
-        
+
     3. Change the `Server Authentication Mode`.
         1. Right click on the Root-Node of the `Object Explorer` and select `properties`.
         2. On the left select `Security`
         3. Under `Server authentication` select `SQL Server and Windows Authentication mode`. It should look something like this:
-        ![SQL_SERVER_AUTHENTICATION_MODE](./images/ssms_change_server_authentication.png)   
+        ![SQL_SERVER_AUTHENTICATION_MODE](./images/ssms_change_server_authentication.png)
 
     4. Create a new Login by right clicking `Logins` in the `Object Explorer` and selecting `New Login...`.
         1. Set a meaningful `Login Name`. For Example `BurningOKR_User`.
@@ -39,11 +40,11 @@
     5. Create a new Database by right clickng `Databases` in the `Object Explorer` and selecting `New Database...`
         1. Set a meaningful `Database name`. For Example `okr`
         2. Click on `...` next to `Owner`. A new Window opens. Click on `Browse...`. A new Window Opens. Select the Login, that was created earlier.
-           
+
            ![SQL_Server_Create_Database](./images/ssms_create_database.PNG)
         3. Click on `Ok` in every open window.
     6. You can now close `Microsoft SQL Server Management Studio`.
-7. Open `SQL Server Configuration Manager` 
+7. Open `SQL Server Configuration Manager`
 (Windows-Key + R and enter `compmgmt.msc` -> Expand `Services and Applications` -> Expand `SQL Server Configuration Manager`)
     1. Click on `SQL Server Network Configuration`.
     2. Click on `Protocols for SQLEXPRESS`.

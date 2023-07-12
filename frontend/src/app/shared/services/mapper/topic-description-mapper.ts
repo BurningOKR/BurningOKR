@@ -13,14 +13,11 @@ import { DateMapper } from './date.mapper';
 
 export class TopicDescriptionMapper {
   constructor(
-    private topicDescriptionApiService: TopicDescriptionApiService,
-    private dateMapper: DateMapper,
+    private topicDescriptionApiService: TopicDescriptionApiService
   ) {
   }
 
   mapTopicDescriptionDto(description: OkrTopicDescriptionDto): OkrTopicDescription {
-    console.log('Mapping!');
-
     return new OkrTopicDescription(
       description.id,
       description.name,

@@ -12,11 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ObjectiveTest {
 
   private String originalName;
-  private long originalId;
-  private OkrDepartment originalOkrDepartment;
   private String originalDescription;
   private String originalRemark;
-  private Objective originalObjective;
+  private Objective emptyObjective;
   private String originalContactPerson;
 
   private Objective expectedObjective;
@@ -24,11 +22,11 @@ public class ObjectiveTest {
   @BeforeEach
   public void init() {
     originalName = "originalName";
-    originalId = 100L;
+    long originalId = 100L;
     originalRemark = "originalRemark";
-    originalOkrDepartment = new OkrDepartment();
+    OkrDepartment originalOkrDepartment = new OkrDepartment();
     originalDescription = "originalDescription";
-    originalObjective = new Objective();
+    Objective originalObjective = new Objective();
     originalContactPerson = "originalContactPerson";
 
     expectedObjective = new Objective();
@@ -40,6 +38,44 @@ public class ObjectiveTest {
     expectedObjective.setName(originalName);
     expectedObjective.setRemark(originalRemark);
     expectedObjective.setActive(true);
+
+    emptyObjective = new Objective();
+  }
+
+  @Test
+  public void hasParentObjective_shouldBeTrue() {
+    assertTrue(expectedObjective.hasParentObjective());
+  }
+
+  @Test
+  public void hasParentObjective_shouldBeFalse() {
+    assertFalse(emptyObjective.hasParentObjective());
+  }
+
+  @Test
+  public void hasContactPerson_shouldBeTrue() {
+    assertTrue(expectedObjective.hasContactPerson());
+  }
+
+  @Test
+  public void hasContactPerson_shouldBeFalse() {
+    assertFalse(emptyObjective.hasContactPerson());
+  }
+
+  @Test
+  public void isActive_shouldBeTrue() {
+    assertTrue(expectedObjective.isActive());
+  }
+
+  @Test
+  public void isActive_shouldBeFalse() {
+    assertFalse(emptyObjective.isActive());
+  }
+
+  @Test
+  public void setActive_shouldBeTrue() {
+    emptyObjective.setActive(true);
+    assertTrue(emptyObjective.isActive());
   }
 
   @Test
