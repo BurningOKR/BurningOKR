@@ -28,18 +28,15 @@ public abstract class WebsocketSubscribeController {
   private final SimpUserRegistry simpUserRegistry;
   private final WebsocketUserService websocketUserService;
   private final MonitorService monitorService;
-  private final String sendUrl = "/topic/unit/%d/tasks/users";
+  private final static String SEND_URL = "/topic/unit/%d/tasks/users";
 
-  //  private final WebSocketSecurityConfig secConf;
   @Autowired
   public WebsocketSubscribeController(
       SimpMessagingTemplate simpMessagingTemplate,
       SimpUserRegistry simpUserRegistry,
       WebsocketUserService websocketUserService,
       MonitorService monitorService
-//      WebSocketSecurityConfig securityConfig
   ) {
-//    this.secConf = securityConfig;
     this.simpMessagingTemplate = simpMessagingTemplate;
     this.simpUserRegistry = simpUserRegistry;
     this.websocketUserService = websocketUserService;
@@ -54,11 +51,13 @@ public abstract class WebsocketSubscribeController {
   @EventListener
   public void handleSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
     StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
-    MonitoredObject monitoredObject = getMonitoredObject(stompHeaderAccessor.getDestination());
+    String destination = stompHeaderAccessor.getDestination();
+    MonitoredObject monitoredObject = getMonitoredObject(destination);
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
-    if (monitorService.addUser(monitoredObject, user)) {
+    if (monitorService.hasUser(user.getId())) {
       sendUserIdList(monitoredObject);
     }
+    monitorService.addUser(monitoredObject, user);
   }
 
   @EventListener
@@ -67,14 +66,16 @@ public abstract class WebsocketSubscribeController {
   }
 
   private void handleRemove(Message<byte[]> message, Set<SimpSubscription> matchingSubscriptions) {
+
     StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(message);
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
     for (SimpSubscription simpSubscription : matchingSubscriptions) {
       String destinationUrl = simpSubscription.getDestination();
       MonitoredObject monitoredObject = getMonitoredObject(destinationUrl);
-      if (monitorService.removeUser(monitoredObject, user)) {
-        sendUserIdList(monitoredObject);
+      if (monitorService.hasUser(user.getId())) {
+        monitorService.removeUser(monitoredObject, user);
       }
+      sendUserIdList(monitoredObject);
     }
   }
 
@@ -107,7 +108,7 @@ public abstract class WebsocketSubscribeController {
   public abstract MonitoredObject getMonitoredObject(String subscribeUrl);
 
   public void sendUserIdList(MonitoredObject watchedObject) {
-    String usersUrl = String.format(sendUrl, watchedObject.getId());
+    String usersUrl = String.format(SEND_URL, watchedObject.getId());
     List<UUID> userIdList = monitorService.getUserIdList(watchedObject);
     simpMessagingTemplate.convertAndSend(usersUrl, userIdList);
   }

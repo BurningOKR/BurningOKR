@@ -14,6 +14,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.SimpleTimeZone;
+import java.util.UUID;
 
 @Service
 public class WebsocketUserService {
@@ -24,7 +25,6 @@ public class WebsocketUserService {
     this.userService = userService;
   }
 
-  // TODO (C.K.): Session Attributes are empty
   public User findByAccessor(StompHeaderAccessor stompHeaderAccessor) {
     Map<String, Object> sessionAttributes = stompHeaderAccessor.getSessionAttributes();
     if (sessionAttributes == null || !sessionAttributes.containsKey(WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY)) {
