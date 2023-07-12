@@ -18,7 +18,12 @@ You can use our docker-compose file for easy use and compatibility!
 3. Download [postgres.env.sample](/docker/postgres.env.sample) file and **rename** it to postgres.env
 4. Now fill in your configurations in the two downloaded .env-files
 5. Hint: When you don't want to use Azure or a SMTP-Mailserver just comment these parts in the .env-files out and they won't be used. For more information read the [development docs](/docs/development.md).
-6. After that you are good to go and you can run `docker compose -f docker-compose-prod.yml up` in the directory where the previously downloaded files are saved. Hint: When you want to reuse the console window add a `-d` to the compose command to run in detached mode.
+6. After that you are good to go and you can run `docker compose -f docker-compose-prod.yml up` in the directory where the previously downloaded files are saved.
+   Hint: When you want to reuse the console window add a `-d` to the compose command to run in detached mode.
+
+## Development
+
+When you want to contribute to BurningOKR or develop something for yourself please refer to the [development readme](/docs/development.md).
 
 ## FAQ
 
