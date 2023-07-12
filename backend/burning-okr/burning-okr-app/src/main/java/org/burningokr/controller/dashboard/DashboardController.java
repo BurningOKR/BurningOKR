@@ -2,8 +2,8 @@ package org.burningokr.controller.dashboard;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
-import org.burningokr.dto.dashboard.DashboardDto;
-import org.burningokr.dto.dashboard.creation.DashboardCreationDto;
+import org.burningokr.model.dashboard.DashboardDto;
+import org.burningokr.model.dashboard.creation.DashboardCreationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.service.dashboard.DashboardService;

@@ -32,3 +32,5 @@ shutdown.pid
 /burning-okr-app/src/main/resources/application-local.yml
 /burning-okr-app/src/main/resources/application-local-azure.yml
 /burning-okr-app/logs/
+/burning-okr-app/src/main/resources/application-local.yml
+/burning-okr-app/src/main/resources/application-local-azure.yml

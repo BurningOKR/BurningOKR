@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+@import '../../styles/themes/bag-theme.scss';
+
+.my-mat-button {
+  color: #FFFFFF;
+  position: relative;
+  display: inline-flex;
+  margin-top: 8px;
+  z-index: 1;
+  overflow: hidden;
+
+  &:hover {
+    background-color: mat.get-color-from-palette($md-primary, 500) !important;
+    color: #FFFFFF;
+  }
+
+  &:focus {
+    background-color: mat.get-color-from-palette($md-primary, 500) !important;
+    color: #FFFFFF;
+  }
+}

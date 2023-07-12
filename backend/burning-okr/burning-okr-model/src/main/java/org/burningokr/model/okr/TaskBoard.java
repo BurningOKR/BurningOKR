@@ -42,17 +42,4 @@ public class TaskBoard implements Trackable<Long> {
     return id;
   }
 
-  public TaskBoard getCopyWithCopiedTasksWhichNotFinished() {
-    TaskBoard copiedTaskboard = new TaskBoard();
-    Collection<TaskState> copiedAvailableStates = new ArrayList<>();
-    for (TaskState state : this.getAvailableStates()) {
-      TaskState copiedState = state.copy();
-      copiedState.setParentTaskBoard(copiedTaskboard);
-      copiedAvailableStates.add(copiedState);
-    }
-
-    copiedTaskboard.setAvailableStates(copiedAvailableStates);
-
-    return copiedTaskboard;
-  }
 }

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +29,7 @@ public class NoteKeyResultMapperTest {
 
   // region DtoToEntity-Tests
   @Test
-  public void test_mapDtoToEntity_expectsIdIsMapped() {
+  public void mapDtoToEntity_shouldMapId() {
     Long expected = 249L;
     noteKeyResultDto.setNoteId(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
@@ -35,7 +37,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_expectsTextIsMapped() {
+  public void mapDtoToEntity_shouldMapText() {
     String expected = "An example for a text";
     noteKeyResultDto.setNoteBody(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
@@ -43,7 +45,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_expectsDateIsMapped() {
+  public void mapDtoToEntity_shouldMapDate() {
     LocalDateTime expected = LocalDateTime.now();
     noteKeyResultDto.setDate(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
@@ -51,7 +53,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_expectsUserIdIsMapped() {
+  public void mapDtoToEntity_shouldMapUserId() {
     UUID expected = UUID.randomUUID();
     noteKeyResultDto.setUserId(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
@@ -59,7 +61,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_expectsParentKeyResultIdIsMapped() {
+  public void mapDtoToEntity_shouldMapParentKeyResultId() {
     Long expected = 234L;
     noteKeyResultDto.setParentKeyResultId(expected);
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
@@ -67,15 +69,29 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapDtoToEntity_expectsParentKeyResultIdIsNull() {
+  public void mapDtoToEntity_shouldMapParentKeyResultIdThatIsNull() {
     noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
     assertNull(noteKeyResult.getParentKeyResult());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapNoteKeyResultDtosToEntities() {
+    noteKeyResultDto.setNoteId(12L);
+    Collection<NoteKeyResultDto> expected = new ArrayList<>() {
+      {
+        add(noteKeyResultDto);
+        add(noteKeyResultDto);
+      }
+    };
+    Collection<NoteKeyResult> actual = noteKeyResultMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getNoteId(), actual.stream().findFirst().orElseThrow().getId());
   }
   // endregion
 
   // region EntityToDto-Tests
   @Test
-  public void test_mapEntityToDto_expectsNoteIdIsMapped() {
+  public void mapEntityToDto_shouldMapNoteId() {
     Long expected = 1234L;
     noteKeyResult.setId(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
@@ -83,7 +99,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDto_expectsNoteBodyIsMapped() {
+  public void mapEntityToDto_shouldMapNoteBody() {
     String expected = "An example";
     noteKeyResult.setText(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
@@ -91,7 +107,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDto_expectsDateIsMapped() {
+  public void mapEntityToDto_shouldMapDate() {
     LocalDateTime expected = LocalDateTime.now();
     noteKeyResult.setDate(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
@@ -99,7 +115,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDto_expectsUserIdIsMapped() {
+  public void mapEntityToDto_shouldMapUserId() {
     UUID expected = UUID.randomUUID();
     noteKeyResult.setUserId(expected);
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
@@ -107,7 +123,7 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDto_expectsParentKeyResultIsMapped() {
+  public void mapEntityToDto_shouldMapParentKeyResult() {
     KeyResult expected = new KeyResult();
     expected.setId(34L);
     noteKeyResult.setParentKeyResult(expected);
@@ -116,9 +132,23 @@ public class NoteKeyResultMapperTest {
   }
 
   @Test
-  public void test_mapEntityToDto_expectsParentKeyResultIsNull() {
+  public void mapEntityToDto_shouldMapParentKeyResultThatIsNull() {
     noteKeyResultDto = noteKeyResultMapper.mapEntityToDto(noteKeyResult);
     assertNull(noteKeyResultDto.getParentKeyResultId());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldMapNoteKeyResultEntitiesToDtos() {
+    noteKeyResult.setId(12L);
+    Collection<NoteKeyResult> expected = new ArrayList<>() {
+      {
+        add(noteKeyResult);
+        add(noteKeyResult);
+      }
+    };
+    Collection<NoteKeyResultDto> actual = noteKeyResultMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getNoteId());
   }
   // endregion
 }

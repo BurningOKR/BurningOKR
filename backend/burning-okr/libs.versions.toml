@@ -5,10 +5,10 @@ spring-security = '6.+'
 hibernate = '6.+'
 swagger = '2.9.+'
 lombok-plugin = '6.+'
-jakarta-mail = '2.+'
+jakarta-mail = '2.0.+'
 jackson = '2.+'
 postgres = '42.+'
-flyway = '9.+'
+flyway = '9.19.4'
 mssql = '10.+'
 apache-poi = '5.+'
 guava = '31.+'
@@ -40,7 +40,7 @@ spring-security-jose = { module = 'org.springframework.security:spring-security-
 lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
 
 # mail
-jakarta-mail = { module = 'jakarta.mail:jakarta.mail-api', version.ref = 'jakarta-mail' }
+jakarta-mail = { module = 'org.eclipse.angus:angus-mail', version.ref = 'jakarta-mail' }
 
 # jackson
 jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }

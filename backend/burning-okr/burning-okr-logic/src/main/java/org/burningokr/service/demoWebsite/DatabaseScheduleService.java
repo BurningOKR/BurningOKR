@@ -66,7 +66,7 @@ public class DatabaseScheduleService {
       transaction.begin();
       entityManager.createNativeQuery(sql).executeUpdate();
       transaction.commit();
-    } catch (Exception e) {
+    } catch (Exception ignored) {
 
     } finally {
       if (entityManager != null && entityManager.isOpen()) {

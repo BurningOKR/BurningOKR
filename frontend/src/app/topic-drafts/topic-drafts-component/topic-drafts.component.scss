@@ -1,32 +1,33 @@
 .content-wrapper {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .content {
-    width: 80%;
+  width: 90%;
+  max-width: 90%;
+  margin: 0 5% 0 5%;
 }
 
 .short-text {
-    display: none;
+  display: none;
 }
 
 .topic-draft-create-button {
-    display: flex;
-    padding: 0.5rem 0 0.5rem 0;
-
+  display: flex;
+  padding: 10px 0 20px 0;
 }
 
 @media (max-width: 768px) {
-    .short-text {
-        display: inline-block;
-    }
+  .short-text {
+    display: inline-block;
+  }
 
-    .full-text {
-        display: none;
-    }
+  .full-text {
+    display: none;
+  }
 
-    #topic-drafts-page-topic {
-        font-size: medium;
-    }
+  #topic-drafts-page-topic {
+    font-size: medium;
+  }
 }

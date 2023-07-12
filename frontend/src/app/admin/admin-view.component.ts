@@ -131,12 +131,8 @@ export class AdminViewComponent implements OnInit {
   }
 
   private getAdminUsers$(): void {
-      this.userService.getAdmins$().subscribe(adminUsers => this.adminUsers$.next(adminUsers));
-  }
-
-  private getAdminUsers(users: User[], adminStrings: string[]): any[] {
-    return users.filter(user => {
-      return adminStrings.indexOf(user.id) !== -1;
-    });
+    this.userService.getAdmins$()
+      .pipe(take(1))
+      .subscribe(adminUsers => this.adminUsers$.next(adminUsers));
   }
 }

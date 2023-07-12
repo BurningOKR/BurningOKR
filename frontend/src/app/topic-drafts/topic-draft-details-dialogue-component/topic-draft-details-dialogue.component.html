@@ -104,35 +104,36 @@
         </mat-form-field>
       </div>
 
-      <mat-expansion-panel class="mb-20 mt-10 padding-user-list">
-        <mat-expansion-panel-header class="pt-10 pb-10">
+      <mat-expansion-panel class="mb-20 mt-10">
+        <mat-expansion-panel-header>
           <mat-panel-title>
-            <div class="topic-details-subheading">{{'topic-draft-details-dialogue.field.start-team' | translate}}</div>
+            <div class="my-panel-header-text">{{'topic-draft-details-dialogue.field.start-team' | translate}}</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let user of topicDraft.startTeam">
           <app-user-minibutton [canBeRemoved]="false" [userId]="user"
                                class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
-        <span *ngIf="topicDraft.startTeam.length === 0"
-              class="zero-team-member-information">{{'topic-draft-details-dialogue.field.no-team-members' | translate}}</span>
+        <span *ngIf="topicDraft.startTeam.length === 0" class="zero-team-member-information">
+          {{'topic-draft-details-dialogue.field.no-team-members' | translate}}
+        </span>
       </mat-expansion-panel>
 
-      <mat-expansion-panel class="mb-10 mt-10 padding-user-list">
-        <mat-expansion-panel-header class="pt-10 pb-10">
+      <mat-expansion-panel class="mb-20 mt-10">
+        <mat-expansion-panel-header>
           <mat-panel-title>
             <div
-              class="topic-details-subheading">{{'topic-draft-details-dialogue.field.stakeholder-team' | translate}}</div>
+              class="my-panel-header-text">{{'topic-draft-details-dialogue.field.stakeholder-team' | translate}}</div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let user of topicDraft.stakeholders">
           <app-user-minibutton [canBeRemoved]="false" [userId]="user"
                                class="margin-user-list responsive-hidden-display"></app-user-minibutton>
         </div>
-        <span *ngIf="topicDraft.stakeholders.length === 0"
-              class="zero-team-member-information">{{'topic-draft-details-dialogue.field.no-team-members' | translate}}</span>
+        <span *ngIf="topicDraft.stakeholders.length === 0" class="zero-team-member-information">
+          {{'topic-draft-details-dialogue.field.no-team-members' | translate}}
+        </span>
       </mat-expansion-panel>
-
     </div>
   </form>
 </mat-dialog-content>

@@ -33,17 +33,13 @@ public class XlsxExportContactsFileCreatorServiceTest {
   @InjectMocks
   private XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService;
 
-  private Collection<TeamMemberRow> teamMemberRows;
-  private long departmentId = 42L;
-  private long companyId = 44L;
   private Workbook workbook;
+  private Collection<TeamMemberRow> teamMemberRows;
 
   @BeforeEach
   public void init() throws IllegalAccessException {
     teamMemberRows = new ArrayList<>();
     this.workbook = new XSSFWorkbook();
-    when(teamMemberRowBuilderService.generateForOkrChildUnit(departmentId))
-      .thenReturn(teamMemberRows);
     when(genericXlsxFileCreatorService.createWorkbook(
       anyCollection(), anyCollection(), anyString()))
       .thenReturn(workbook);
@@ -52,18 +48,20 @@ public class XlsxExportContactsFileCreatorServiceTest {
   @Test
   public void createFileForOkrTeam_shouldReturnWorkbookWhichIsReturnedByGenericFileCreatorService()
     throws IllegalAccessException {
+    long departmentId = 42L;
+    when(teamMemberRowBuilderService.generateForOkrChildUnit(departmentId))
+      .thenReturn(teamMemberRows);
     Workbook workbook = xlsxExportContactsFileCreatorService.createFileForOkrTeam(departmentId);
     assertEquals(this.workbook, workbook);
     verify(teamMemberRowBuilderService, times(1)).generateForOkrChildUnit(departmentId);
   }
 
-// TODO fix test
-
-//  @Test
-//  public void createFileForOkrTeam_shouldReturnExcelWithJustHeaderRowIfTeamMemberRowIsEmpty()
-//    throws IllegalAccessException {
-//    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
-//    assertEquals(this.workbook, workbook);
-//    verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
-//  }
+  @Test
+  public void createFileForCompany_shouldReturnExcelWithJustHeaderRowIfTeamMemberRowIsEmpty()
+    throws IllegalAccessException {
+    long companyId = 44L;
+    Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
+    assertEquals(this.workbook, workbook);
+    verify(teamMemberRowBuilderService, times(1)).generateForCompany(companyId);
+  }
 }

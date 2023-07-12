@@ -1,6 +1,4 @@
-// TODO: fix tests
-test.skip('temp', () => 1);
-/*import { TopicDescriptionMapper } from './topic-description-mapper';
+import { TopicDescriptionMapper } from './topic-description-mapper';
 import { TestBed } from '@angular/core/testing';
 import { OkrTopicDescriptionDto } from '../../model/api/OkrUnit/okr-topic-description.dto';
 import { TopicDescriptionApiService } from '../api/topic-description-api.service';
@@ -37,7 +35,7 @@ describe('TopicDescriptionMapper', () => {
       description: 'description',
       contributesTo: 'Contributes To',
       delimitation: 'Delimination',
-      beginning: [2021, 2, 1],
+      beginning: '2021-01-01',
       dependencies: 'Dependencies',
       resources: 'Resources',
       handoverPlan: 'Handover Plan',
@@ -92,24 +90,26 @@ describe('TopicDescriptionMapper', () => {
   it('putTopicDescription$ should map description to descriptionDto', done => {
     service = TestBed.inject(TopicDescriptionMapper);
 
+    const expected: OkrTopicDescriptionDto = {
+      id: 1,
+      beginning: '2021-1-1',
+      contributesTo: 'Contributes To',
+      delimitation: 'Delimination',
+      dependencies: 'Dependencies',
+      description: 'description',
+      handoverPlan: 'Handover Plan',
+      initiatorId: '2',
+      name: 'DescriptionName',
+      resources: 'Resources',
+      stakeholders: ['3', '4'],
+      startTeam: ['2', '3', '4'],
+    };
+
     service.putTopicDescription$(1, description)
       .subscribe(() => {
         expect(topicDescriptionApiServiceMock.putTopicDescription$)
-          .toHaveBeenCalledWith(1, {
-            id: 1,
-            name: 'DescriptionName',
-            initiatorId: '2',
-            startTeam: ['2', '3', '4'],
-            stakeholders: ['3', '4'],
-            description: 'description',
-            contributesTo: 'Contributes To',
-            delimitation: 'Delimination',
-            beginning: [2021, 2, 1],
-            dependencies: 'Dependencies',
-            resources: 'Resources',
-            handoverPlan: 'Handover Plan',
-          });
+          .toHaveBeenCalledWith(1, expected);
         done();
       });
   });
-});*/
+});
