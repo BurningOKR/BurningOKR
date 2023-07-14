@@ -1,7 +1,5 @@
 package org.burningokr.service.monitoring;
 
-import jakarta.validation.constraints.Null;
-import lombok.NonNull;
 import org.burningokr.model.users.User;
 import org.springframework.stereotype.Service;
 
@@ -10,29 +8,35 @@ import java.util.*;
 @Service
 public class MonitorService {
 
-  private final Map<MonitoredObject, List<UUID>> monitoringUsers = Collections.synchronizedMap(new HashMap<>());
+  Map<MonitoredObject, List<UUID>> monitoringUsers = Collections.synchronizedMap(new HashMap<>());
 
-  public void addUser(MonitoredObject monitoredObject, @NonNull User user) {
-    if (monitoredObject == null) return;
+  public boolean addUser(MonitoredObject monitoredObject, User user) {
+    if (monitoredObject == null) return false;
+
     if (!monitoringUsers.containsKey(monitoredObject)) {
       monitoringUsers.put(monitoredObject, Collections.synchronizedList(new LinkedList<UUID>()));
     }
+    List<UUID> currentMonitoredUsers = monitoringUsers.get(monitoredObject);
+    boolean newUser = !monitoringUsers.get(monitoredObject).contains(user.getId()); // TODO (C.K.): check why
+    currentMonitoredUsers.add(user.getId());
 
-    monitoringUsers.get(monitoredObject).add(user.getId());
+    // TODO: Rückgabe von newUser, aber muss aktuell immer raus, sonst erhält unter gewissen Umständen
+    //  der Benutzer in einem weiteren Tab die Liste nicht. (MV)
+    return true;
   }
 
-  public void removeUser(MonitoredObject monitoredObject, @NonNull User user) {
-    if (monitoredObject == null) return;
-    if (!monitoringUsers.containsKey(monitoredObject)) return;
+  public boolean removeUser(MonitoredObject monitoredObject, User user) {
+    if (monitoredObject == null) return false;
+
+    List<UUID> userList = monitoringUsers.get(monitoredObject);
+    if (userList == null) return false;
 
     monitoringUsers.get(monitoredObject).remove(user.getId());
+    return !monitoringUsers.get(monitoredObject).contains(user.getId());
   }
 
   public List<UUID> getUserIdList(MonitoredObject monitoredObject) {
     return monitoringUsers.getOrDefault(monitoredObject, new LinkedList<UUID>());
   }
 
-  public boolean hasUser(@NonNull UUID uuid) {
-    return monitoringUsers.values().stream().toList().stream().anyMatch(uuid::equals);
-  }
 }

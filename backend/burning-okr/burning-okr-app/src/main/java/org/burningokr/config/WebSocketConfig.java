@@ -40,7 +40,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
 
   @Autowired
-  private JwtDecoder jwtDecoder;
+  JwtDecoder jwtDecoder;
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {

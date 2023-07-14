@@ -3,7 +3,6 @@ package org.burningokr.model.monitoring;
 import lombok.Getter;
 import lombok.ToString;
 import org.burningokr.model.users.User;
-import org.springframework.security.core.parameters.P;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -11,8 +10,7 @@ import java.util.UUID;
 @ToString
 public class UserId {
 
-  @Getter
-  private final UUID userId;
+  @Getter private final UUID userId;
 
   public UserId(User user) {
     this.userId = user.getId();
@@ -22,9 +20,7 @@ public class UserId {
     this.userId = UUID.fromString(userId);
   }
 
-  public UserId(UUID userId) {
-    this.userId = userId;
-  }
+  public UserId(UUID userId) { this.userId = userId; }
 
   @Override
   public boolean equals(Object o) {

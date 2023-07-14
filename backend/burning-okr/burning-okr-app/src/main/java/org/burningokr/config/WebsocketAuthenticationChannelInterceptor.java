@@ -1,6 +1,5 @@
 package org.burningokr.config;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.exceptions.AuthorizationHeaderException;
@@ -31,7 +30,7 @@ public class WebsocketAuthenticationChannelInterceptor implements ChannelInterce
   private JwtDecoder jwtDecoder;
 
   @Override
-  public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
+  public Message<?> preSend(Message<?> message, MessageChannel channel) {
     StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
     if (isConnectionAttempt(accessor)) {
