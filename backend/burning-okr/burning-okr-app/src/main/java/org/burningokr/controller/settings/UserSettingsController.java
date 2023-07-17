@@ -6,7 +6,7 @@ import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.mapper.settings.UserSettingsMapper;
 import org.burningokr.model.settings.UserSettings;
-import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.service.security.AuthorizationUserContextService;
 import org.burningokr.service.settings.UserSettingsService;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class UserSettingsController {
 
   @GetMapping("/settings")
   public ResponseEntity<UserSettingsDto> getUserSettings() {
-    IUser user = authorizationUserContextService.getAuthenticatedUser();
+    User user = authorizationUserContextService.getAuthenticatedUser();
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
     return ResponseEntity.ok(this.mapper.mapEntityToDto(userSettings));
   }

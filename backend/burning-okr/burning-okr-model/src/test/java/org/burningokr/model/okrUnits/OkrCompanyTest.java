@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +22,8 @@ public class OkrCompanyTest {
   private String originalName;
   private String originalLabel;
   private ArrayList<OkrChildUnit> originalDepartments;
+
+  private Collection<OkrChildUnit> subDepartments;
 
   @BeforeEach
   public void init() {
@@ -39,6 +42,15 @@ public class OkrCompanyTest {
     expectedOkrCompany.setName(originalName);
     expectedOkrCompany.setLabel(originalLabel);
     expectedOkrCompany.setOkrChildUnits(originalDepartments);
+
+    subDepartments = new ArrayList<>();
+    subDepartments.add(new OkrDepartment());
+  }
+
+  @Test
+  public void setOkrChildUnits_shouldSetOkrChildUnits() {
+    expectedOkrCompany.setOkrChildUnits(subDepartments);
+    assertEquals(subDepartments, expectedOkrCompany.getOkrChildUnits());
   }
 
   @Test

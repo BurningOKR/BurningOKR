@@ -3,6 +3,7 @@ package org.burningokr.service.topicDraft;
 import com.google.common.collect.Lists;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
@@ -12,8 +13,6 @@ import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.security.AuthorizationUserContextService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,8 +23,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OkrTopicDraftService {
-  private final Logger logger = LoggerFactory.getLogger(OkrTopicDraftService.class);
   private final OkrTopicDraftRepository okrTopicDraftRepository;
   private final NoteTopicDraftRepository noteTopicDraftRepository;
   private final ActivityService activityService;
@@ -70,7 +69,7 @@ public class OkrTopicDraftService {
     topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
-    logger.info("Created Topic Draft: " + topicDraft.getName());
+    log.info("Created Topic Draft: " + topicDraft.getName());
 
     activityService.createActivity(topicDraft, Action.CREATED);
 

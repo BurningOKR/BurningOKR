@@ -5,7 +5,7 @@ import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
-import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.service.okrUnitUtil.CyclePreparationCloningService;
@@ -40,7 +40,7 @@ public class CycleServiceTest {
   @Mock
   private CompanyHistoryRepository companyHistoryRepository;
   @Mock
-  private IUser mockedIUser;
+  private User mockedIUser;
   @InjectMocks
   private CycleService cycleService;
 

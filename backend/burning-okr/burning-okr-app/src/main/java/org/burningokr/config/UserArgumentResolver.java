@@ -2,7 +2,7 @@ package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
-import org.burningokr.model.users.IUser;
+import org.burningokr.model.users.User;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -15,11 +15,11 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
-    return IUser.class.equals(parameter.getParameterType());
+    return User.class.equals(parameter.getParameterType());
   }
 
   @Override
-  public IUser resolveArgument(
+  public User resolveArgument(
     @NonNull MethodParameter parameter,
     ModelAndViewContainer mavContainer,
     @NonNull NativeWebRequest webRequest,

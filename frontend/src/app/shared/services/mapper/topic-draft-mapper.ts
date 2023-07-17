@@ -57,8 +57,6 @@ export class TopicDraftMapper {
   }
 
   postTopicDraft$(topicDraft: OkrTopicDraft): Observable<OkrTopicDraft> {
-    console.log(topicDraft);
-
     return this.topicDraftApiService.postTopicDraft$(this.mapTopicDraft(topicDraft))
       .pipe(map(this.mapTopicDraftDto));
   }

@@ -2,10 +2,10 @@ package org.burningokr.mapper.dashboard;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.dto.dashboard.BaseChartOptionsDto;
-import org.burningokr.dto.dashboard.DashboardDto;
 import org.burningokr.mapper.interfaces.DataMapper;
+import org.burningokr.model.dashboard.BaseChartOptionsDto;
 import org.burningokr.model.dashboard.DashboardCreation;
+import org.burningokr.model.dashboard.DashboardDto;
 import org.burningokr.service.dashboard.ChartBuilderService;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
   @Override
   public DashboardDto mapEntityToDto(DashboardCreation entity) {
     Collection<BaseChartOptionsDto> chartOptionsDtos = entity.getChartCreationOptions().stream()
-      .map(chart -> chartBuilderService.buildChart(chart, entity))
+      .map(chart -> chartBuilderService.buildChart(chart, entity.getCompanyId()))
       .collect(Collectors.toList());
 
     return DashboardDto.builder()
@@ -54,7 +54,11 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
 
   @Override
   public Collection<DashboardCreation> mapDtosToEntities(Collection<DashboardDto> dtos) {
-    return null;
+    Collection<DashboardCreation> entities = new ArrayList<>();
+    for (DashboardDto dto : dtos) {
+      entities.add(mapDtoToEntity(dto));
+    }
+    return entities;
   }
 
   @Override

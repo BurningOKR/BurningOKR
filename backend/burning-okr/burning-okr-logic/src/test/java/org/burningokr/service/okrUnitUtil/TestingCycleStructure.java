@@ -118,16 +118,4 @@ public class TestingCycleStructure {
 
     return exampleOkrCompany;
   }
-
-  public Cycle createTestingCycleRelationship() {
-    createTestingCompanyRelationship();
-
-    ArrayList<OkrCompany> companies = new ArrayList<>();
-    companies.add(exampleOkrCompany);
-
-    exampleCycle.setCompanies(companies);
-    exampleOkrCompany.setCycle(exampleCycle);
-
-    return exampleCycle;
-  }
 }

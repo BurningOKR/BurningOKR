@@ -1,11 +1,12 @@
 [versions]
 spring-boot = '3.+'
-spring-framework = '6.+'
+spring-framework-context = '6.0.10' # TODO (C.K.): check on next version if working again
+spring-framework-context-support = '6.0.10'
 spring-security = '6.+'
 hibernate = '6.+'
 swagger = '2.9.+'
 lombok-plugin = '6.+'
-jakarta-mail = '2.+'
+jakarta-mail = '2.0.+'
 jackson = '2.+'
 postgres = '42.+'
 flyway = '9.19.4'
@@ -29,18 +30,19 @@ spring-boot-starter-websocket = { module = 'org.springframework.boot:spring-boot
 spring-boot-starter-oauth2ResourceServer = { module = 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' }
 
 # spring framework
-spring-framework-springContext = { module = 'org.springframework:spring-context', version.ref = 'spring-framework' }
-spring-framework-springContextSupport = { module = 'org.springframework:spring-context-support', version.ref = 'spring-framework' }
+spring-framework-springContext = { module = 'org.springframework:spring-context', version.ref = 'spring-framework-context' }
+spring-framework-springContextSupport = { module = 'org.springframework:spring-context-support', version.ref = 'spring-framework-context-support' }
 
 # spring security
 spring-security-core = { module = 'org.springframework.security:spring-security-core', version.ref = 'spring-security' }
 spring-security-jose = { module = 'org.springframework.security:spring-security-oauth2-jose ', version.ref = 'spring-security' }
+spring-security-messaging = { module = 'org.springframework.security:spring-security-messaging', version.ref = 'spring-security' }
 
 # lombok
 lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
 
 # mail
-jakarta-mail = { module = 'jakarta.mail:jakarta.mail-api', version.ref = 'jakarta-mail' }
+jakarta-mail = { module = 'org.eclipse.angus:angus-mail', version.ref = 'jakarta-mail' }
 
 # jackson
 jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }

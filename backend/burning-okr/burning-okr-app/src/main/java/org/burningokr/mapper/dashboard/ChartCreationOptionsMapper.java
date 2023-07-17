@@ -1,11 +1,9 @@
 package org.burningokr.mapper.dashboard;
 
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.dto.dashboard.creation.ChartCreationOptionsDto;
+import org.burningokr.model.dashboard.creation.ChartCreationOptionsDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,8 +13,6 @@ import java.util.Collection;
 @Slf4j
 public class ChartCreationOptionsMapper
   implements DataMapper<ChartCreationOptions, ChartCreationOptionsDto> {
-
-  private final Logger logger = LoggerFactory.getLogger(ChartCreationOptionsMapper.class);
 
   @Override
   public ChartCreationOptions mapDtoToEntity(ChartCreationOptionsDto dto) {

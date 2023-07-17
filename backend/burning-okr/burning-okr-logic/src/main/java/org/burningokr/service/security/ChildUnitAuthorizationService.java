@@ -3,8 +3,11 @@ package org.burningokr.service.security;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.users.User;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +31,13 @@ public class ChildUnitAuthorizationService {
   }
 
   public boolean hasMemberPrivilegesForChildUnit(Long childUnitId) {
-    var childUnit = childUnitService.findById(childUnitId);
-    var authenticatedUser = userContextService.getAuthenticatedUser();
+    OkrChildUnit childUnit = childUnitService.findById(childUnitId);
+    User authenticatedUser = userContextService.getAuthenticatedUser();
     boolean isMember = false;
 
     if (childUnit instanceof OkrDepartment department) {
-      isMember = department.getOkrMemberIds().contains(authenticatedUser.getId());
+      UUID authenticatedUserId = authenticatedUser.getId();
+      isMember = department.getOkrMemberIds().contains(authenticatedUserId) || department.getOkrMasterId().equals(authenticatedUserId);
     }
 
     return isMember || authenticatedUser.isAdmin();
