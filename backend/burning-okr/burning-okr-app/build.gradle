@@ -30,12 +30,12 @@ dependencies {
   implementation deps.spring.boot.starter.oauth2ResourceServer
   implementation deps.spring.security.messaging
 
-    // db
-    implementation deps.db.flyway
-    implementation deps.db.postgres
-    implementation deps.db.mssql
-    implementation deps.db.flyway.mssql
-    implementation deps.db.hibernate.envers
+  // db
+  implementation deps.db.flyway
+  implementation deps.db.postgres
+  implementation deps.db.mssql
+  implementation deps.db.flyway.mssql
+  implementation deps.db.hibernate.envers
 
   // websockets
   implementation deps.spring.boot.starter.websocket
