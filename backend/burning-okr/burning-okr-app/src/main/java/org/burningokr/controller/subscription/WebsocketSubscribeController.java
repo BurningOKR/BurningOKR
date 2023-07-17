@@ -1,11 +1,10 @@
 package org.burningokr.controller.subscription;
 
-import org.burningokr.mapper.users.UserMapper;
 import org.burningokr.model.users.User;
 import org.burningokr.service.WebsocketUserService;
 import org.burningokr.service.monitoring.MonitorService;
 import org.burningokr.service.monitoring.MonitoredObject;
-import org.burningokr.service.userhandling.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -28,25 +27,23 @@ public abstract class WebsocketSubscribeController {
   private final SimpMessagingTemplate simpMessagingTemplate;
   private final SimpUserRegistry simpUserRegistry;
   private final WebsocketUserService websocketUserService;
-  private final UserMapper userMapper;
   private final MonitorService monitorService;
-  private final UserService userService;
   private final String sendUrl = "/topic/unit/%d/tasks/users";
 
+  //  private final WebSocketSecurityConfig secConf;
+  @Autowired
   public WebsocketSubscribeController(
-          SimpMessagingTemplate simpMessagingTemplate,
-          SimpUserRegistry simpUserRegistry,
-          UserService userService,
-          WebsocketUserService websocketUserService,
-          UserMapper userMapper,
-          MonitorService monitorService
+      SimpMessagingTemplate simpMessagingTemplate,
+      SimpUserRegistry simpUserRegistry,
+      WebsocketUserService websocketUserService,
+      MonitorService monitorService
+//      WebSocketSecurityConfig securityConfig
   ) {
+//    this.secConf = securityConfig;
     this.simpMessagingTemplate = simpMessagingTemplate;
     this.simpUserRegistry = simpUserRegistry;
     this.websocketUserService = websocketUserService;
-    this.userMapper = userMapper;
     this.monitorService = monitorService;
-    this.userService = userService;
   }
 
   @EventListener
@@ -60,13 +57,13 @@ public abstract class WebsocketSubscribeController {
     MonitoredObject monitoredObject = getMonitoredObject(stompHeaderAccessor.getDestination());
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
     if (monitorService.addUser(monitoredObject, user)) {
-      sendUserList(monitoredObject);
+      sendUserIdList(monitoredObject);
     }
   }
 
   @EventListener
   public void handleUnsubscribeEvent(SessionUnsubscribeEvent event) {
-    handleRemove(event.getMessage(), findMatchingSubscriptions(event));
+    handleRemove(event.getMessage(), findMatchingSubscriptionsBySubscriptionId(event));
   }
 
   private void handleRemove(Message<byte[]> message, Set<SimpSubscription> matchingSubscriptions) {
@@ -76,21 +73,21 @@ public abstract class WebsocketSubscribeController {
       String destinationUrl = simpSubscription.getDestination();
       MonitoredObject monitoredObject = getMonitoredObject(destinationUrl);
       if (monitorService.removeUser(monitoredObject, user)) {
-        sendUserList(monitoredObject);
+        sendUserIdList(monitoredObject);
       }
     }
   }
 
   private Set<SimpSubscription> findMatchingSubscriptions(
       SessionDisconnectEvent sessionDisconnectEvent) {
-    return findMatchingSubscriptions(StompHeaderAccessor.wrap(sessionDisconnectEvent.getMessage()));
+    return findMatchingSubscriptionsBySessionId(StompHeaderAccessor.wrap(sessionDisconnectEvent.getMessage()));
   }
 
-  private Set<SimpSubscription> findMatchingSubscriptions(
+  private Set<SimpSubscription> findMatchingSubscriptionsBySubscriptionId(
       SessionUnsubscribeEvent sessionUnsubscribeEvent) {
     StompHeaderAccessor stompHeaderAccessor =
         StompHeaderAccessor.wrap(sessionUnsubscribeEvent.getMessage());
-    Set<SimpSubscription> allSubscriptions = findMatchingSubscriptions(stompHeaderAccessor);
+    Set<SimpSubscription> allSubscriptions = findMatchingSubscriptionsBySessionId(stompHeaderAccessor);
     return allSubscriptions.stream()
         .filter(
             possibleSubscription ->
@@ -98,20 +95,20 @@ public abstract class WebsocketSubscribeController {
         .collect(Collectors.toSet());
   }
 
-  private Set<SimpSubscription> findMatchingSubscriptions(StompHeaderAccessor stompHeaderAccessor) {
+  private Set<SimpSubscription> findMatchingSubscriptionsBySessionId(StompHeaderAccessor stompHeaderAccessor) {
     return simpUserRegistry.findSubscriptions(
-        possibleSubscription ->
-            possibleSubscription.getSession().getId().equals(stompHeaderAccessor.getSessionId()));
+        possibleSubscription -> possibleSubscription
+            .getSession()
+            .getId()
+            .equals(stompHeaderAccessor.getSessionId())
+    );
   }
 
   public abstract MonitoredObject getMonitoredObject(String subscribeUrl);
 
-  public void sendUserList(MonitoredObject watchedObject) {
+  public void sendUserIdList(MonitoredObject watchedObject) {
     String usersUrl = String.format(sendUrl, watchedObject.getId());
-    List<UUID> userList =
-        monitorService.getUserSet(watchedObject).stream()
-            .map(u -> u.getUserId())
-            .collect(Collectors.toList());
-    simpMessagingTemplate.convertAndSend(usersUrl, userList);
+    List<UUID> userIdList = monitorService.getUserIdList(watchedObject);
+    simpMessagingTemplate.convertAndSend(usersUrl, userIdList);
   }
 }

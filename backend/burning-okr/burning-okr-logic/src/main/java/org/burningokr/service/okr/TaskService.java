@@ -135,8 +135,10 @@ public class TaskService {
     }
 
     if (newVersion.hasAssignedUserIds()) {
+      System.out.print("Am i here?");
       taskToSave.setAssignedUserIds(newVersion.getAssignedUserIds());
     } else {
+      System.out.println("dude i am null");
       taskToSave.setAssignedUserIds(null);
     }
 
