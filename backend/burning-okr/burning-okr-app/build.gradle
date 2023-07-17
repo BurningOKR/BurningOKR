@@ -2,60 +2,61 @@ apply plugin: 'war'
 group = 'org.burningokr'
 
 bootWar {
-    enabled = true
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+  enabled = true
+  duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
 
 war {
-    enabled = true
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+  enabled = true
+  duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
 
 dependencies {
-    implementation project(':burning-okr-model')
-    implementation project(':burning-okr-data')
-    implementation project(':burning-okr-logic')
+  implementation project(':burning-okr-model')
+  implementation project(':burning-okr-data')
+  implementation project(':burning-okr-logic')
 
-    // util
-    implementation deps.spring.boot.starter.validation
-    providedRuntime deps.spring.boot.starter.tomcat
-    implementation deps.spring.boot.starter.data // Used to handle Exceptions and Import/Export files
-    implementation deps.apache.poi //  Java API To Access Microsoft Format Files
+  // util
+  implementation deps.spring.boot.starter.validation
+  providedRuntime deps.spring.boot.starter.tomcat
+  implementation deps.spring.boot.starter.data // Used to handle Exceptions and Import/Export files
+  implementation deps.apache.poi //  Java API To Access Microsoft Format Files
 
-    // logging and monitoring
-    implementation deps.spring.boot.starter.actuator
+  // logging and monitoring
+  implementation deps.spring.boot.starter.actuator
 
-    // security
-    implementation deps.spring.boot.starter.security
-    implementation deps.spring.boot.starter.oauth2ResourceServer
+  // security
+  implementation deps.spring.boot.starter.security
+  implementation deps.spring.boot.starter.oauth2ResourceServer
+  implementation deps.spring.security.messaging
 
-    // db
-    implementation deps.db.flyway
-    implementation deps.db.postgres
-    implementation deps.db.mssql
-    implementation deps.db.flyway.mssql
-    implementation deps.db.hibernate.envers
+  // db
+  implementation deps.db.flyway
+  implementation deps.db.postgres
+  implementation deps.db.mssql
+  implementation deps.db.flyway.mssql
+  implementation deps.db.hibernate.envers
 
-    // websockets
-    implementation deps.spring.boot.starter.websocket
+  // websockets
+  implementation deps.spring.boot.starter.websocket
 
-    // swagger TODO upgrade to newest version
-    implementation deps.swagger.swagger2
-    implementation deps.swagger.ui
+  // swagger TODO upgrade to newest version
+  implementation deps.swagger.swagger2
+  implementation deps.swagger.ui
 
-    // annotation processors
-    annotationProcessor deps.spring.boot.configurationProcessor
+  // annotation processors
+  annotationProcessor deps.spring.boot.configurationProcessor
 }
 
 springBoot {
-    buildInfo()
+  buildInfo()
 }
 
 // used to access the Version of the Application inside the Application (Mainly for Startup-Screen)
 if (project.hasProperty('projVersion')) {
-    version = project.projVersion
+  version = project.projVersion
 } else {
-    version = '1.0.0'
+  version = '1.0.0'
 }
 
 bootRun.systemProperties = System.properties as Map<String, ?>
