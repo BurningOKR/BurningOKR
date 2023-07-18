@@ -88,7 +88,6 @@ public class OkrTopicDraftServiceTest {
   public void getAllTopicDrafts_shouldReturnEmptyCollectionWhenThereAreNoTopicDrafts() {
     currentUser.setAdmin(true);
     when(okrTopicDraftRepository.findAll()).thenReturn(new ArrayList<>());
-    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
 
     Collection<OkrTopicDraft> topicDrafts = okrTopicDraftService.getAllTopicDrafts();
 
