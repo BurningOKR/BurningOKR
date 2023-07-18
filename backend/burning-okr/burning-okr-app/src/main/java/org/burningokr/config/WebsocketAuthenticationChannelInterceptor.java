@@ -1,11 +1,9 @@
 package org.burningokr.config;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.exceptions.AuthorizationHeaderException;
-import org.burningokr.service.security.AuthorizationUserContextService;
-import org.burningokr.service.security.CustomAuthenticationProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -20,22 +18,24 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class WebsocketAuthenticationChannelInterceptor implements ChannelInterceptor {
   public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
-  @Autowired
-  private JwtDecoder jwtDecoder;
+
+  private final JwtDecoder jwtDecoder;
+  private final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
   @Override
-  public Message<?> preSend(Message<?> message, MessageChannel channel) {
+  public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
     StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
     if (isConnectionAttempt(accessor)) {
       try {
-        tryAuthentication(accessor);
+        tryToAuthenticate(accessor);
       } catch (AuthorizationHeaderException ex) {
         log.warn(ex.getMessage());
       }
@@ -44,17 +44,20 @@ public class WebsocketAuthenticationChannelInterceptor implements ChannelInterce
     return message;
   }
 
-  private void tryAuthentication(StompHeaderAccessor accessor) throws AuthorizationHeaderException {
-    String bearerToken = getBearerToken(accessor);
-    Authentication authByService = getAuthentication(bearerToken);
+  private boolean isAuthenticated(@NonNull final Authentication current) {
+    return this.authentication.isAuthenticated() && current.isAuthenticated()
+        && this.authentication.getName().equals(current.getName());
+  }
 
-    if (authByService == null) {
-      log.info("User could not be identified");
-    }
+  private void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
+    final String bearerToken = getBearerToken(header);
+    final Authentication currentAuth = getAuthentication(bearerToken);
 
-    accessor.setUser(authByService);
-    SecurityContextHolder.getContext().setAuthentication(authByService);
-    accessor.getSessionAttributes().put(WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY, authByService.getName());
+    if (isAuthenticated(currentAuth)) return;
+
+    header.setUser(currentAuth);
+    Objects.requireNonNull(header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY, currentAuth.getName()));
+    SecurityContextHolder.getContext().setAuthentication(currentAuth);
   }
 
   /**

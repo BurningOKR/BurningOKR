@@ -51,7 +51,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   public void configureMessageBroker(MessageBrokerRegistry config) {
     long[] heartbeats = {10000L, 10000L};
     config.enableSimpleBroker("/topic").setTaskScheduler(heartBeatScheduler()).setHeartbeatValue(heartbeats);
-    config.setApplicationDestinationPrefixes("/app");
+    config.setApplicationDestinationPrefixes("/ws");
   }
 
   @Override
@@ -94,7 +94,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
     Authentication authentication = converter.convert(jwt);
     SecurityContextHolder.getContext().setAuthentication(authentication);
-
     return authentication;
   }
 
