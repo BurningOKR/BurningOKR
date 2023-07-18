@@ -18,7 +18,7 @@
 //        .permitAll()
 //        .simpTypeMatchers(SimpMessageType.CONNECT)
 //        .authenticated()
-//        .simpTypeMatchers(SimpMessageType.SUBSCRIBE, SimpMessageType.CONNECT)
+//        .simpTypeMatchers(SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT)
 //        .authenticated()
 //        .simpDestMatchers("/ws/**")
 //        .authenticated()

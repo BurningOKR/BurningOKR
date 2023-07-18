@@ -28,7 +28,6 @@ public abstract class WebsocketSubscribeController {
   private final SimpUserRegistry simpUserRegistry;
   private final WebsocketUserService websocketUserService;
   private final MonitorService monitorService;
-  private final String sendUrl = "/topic/unit/%d/tasks/users";
 
   @Autowired
   public WebsocketSubscribeController(
@@ -112,6 +111,7 @@ public abstract class WebsocketSubscribeController {
   public abstract MonitoredObject getMonitoredObject(String subscribeUrl);
 
   public void sendUserIdList(MonitoredObject watchedObject) {
+    String sendUrl = "/topic/unit/%d/tasks/users";
     String usersUrl = String.format(sendUrl, watchedObject.getId());
     List<UUID> userIdList = monitorService.getUserIdList(watchedObject);
     simpMessagingTemplate.convertAndSend(usersUrl, userIdList);

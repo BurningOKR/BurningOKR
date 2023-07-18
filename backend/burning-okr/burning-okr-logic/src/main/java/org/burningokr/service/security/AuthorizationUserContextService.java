@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.configuration.SystemProperties;
 import org.burningokr.model.users.User;
 import org.burningokr.service.userhandling.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class AuthorizationUserContextService {
   private final SystemProperties systemProperties;
   private final HashMap<UUID, User> userHashMap = new HashMap<>();
 
+
   private void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
     if (validatedString.equals("")) {
       throw new InvalidTokenException("%s attribute is empty".formatted(attributeName));
@@ -32,23 +34,28 @@ public class AuthorizationUserContextService {
   }
 
   public User getAuthenticatedUser() throws EntityNotFoundException {
-    var userToken = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-    var userId = switch (systemProperties.getProvider()) {
-      case "azureAD":
-        yield getUserIdFromAzureAdToken(userToken);
-      case "keycloak":
-        yield UUID.fromString(userToken.getSubject());
-      default:
-        throw new RuntimeException("Unexpected value for oidc provider: " + systemProperties.getProvider());
-    };
+      if (auth == null) {
+        throw new RuntimeException("Authentication is null and cannot invoke user");
+      }
 
-    var user = userHashMap.get(userId);
-    if (user == null) {
-      throw new EntityNotFoundException("user could not be found in hashmap");
-    }
+      var userToken = (Jwt) auth.getPrincipal();
+      var userId = switch (systemProperties.getProvider()) {
+        case "azureAD":
+          yield getUserIdFromAzureAdToken(userToken);
+        case "keycloak":
+          yield UUID.fromString(userToken.getSubject());
+        default:
+          throw new RuntimeException("Unexpected value for oidc provider: " + systemProperties.getProvider());
+      };
 
-    return user;
+      var user = userHashMap.get(userId);
+      if (user == null) {
+        throw new EntityNotFoundException("user could not be found in hashmap");
+      }
+
+      return user;
   }
 
   public void updateUserFromToken(Jwt userToken) throws InvalidTokenException {
@@ -77,14 +84,14 @@ public class AuthorizationUserContextService {
     var mail = getAttributeFromJwt(userToken, "preferred_username");
 
     return User.builder()
-            .id(userId)
-            .givenName(givenName)
-            .surname(surname)
-            .mail(mail)
-            .admin(userRoles.contains(systemProperties.getOidcAdminGroupName()))
-            .active(true)
-            .createdAt(LocalDateTime.now())
-            .build();
+        .id(userId)
+        .givenName(givenName)
+        .surname(surname)
+        .mail(mail)
+        .admin(userRoles.contains(systemProperties.getOidcAdminGroupName()))
+        .active(true)
+        .createdAt(LocalDateTime.now())
+        .build();
   }
 
   private String[] getGivenNameAndSurNameFromAzureAdToken(Jwt userToken) {
@@ -97,22 +104,22 @@ public class AuthorizationUserContextService {
     var userRoles = getRolesFromKeycloakToken(userToken);
 
     return User.builder()
-            .id(userId)
-            .admin(userRoles.contains(systemProperties.getOidcAdminGroupName()))
-            .active(true)
-            .givenName(getAttributeFromJwt(userToken, "given_name"))
-            .surname(getAttributeFromJwt(userToken, "family_name"))
-            .mail(getAttributeFromJwt(userToken, "email"))
-            .createdAt(LocalDateTime.now())
-            .build();
+        .id(userId)
+        .admin(userRoles.contains(systemProperties.getOidcAdminGroupName()))
+        .active(true)
+        .givenName(getAttributeFromJwt(userToken, "given_name"))
+        .surname(getAttributeFromJwt(userToken, "family_name"))
+        .mail(getAttributeFromJwt(userToken, "email"))
+        .createdAt(LocalDateTime.now())
+        .build();
   }
 
   private boolean isCachedUserEqualToTokenUser(User cachedUser, User tokenUser) {
     return cachedUser.getId().equals(tokenUser.getId()) &&
-            cachedUser.getMail().equals(tokenUser.getMail()) &&
-            cachedUser.getGivenName().equals(tokenUser.getGivenName()) &&
-            cachedUser.getSurname().equals(tokenUser.getSurname()) &&
-            cachedUser.isAdmin() == tokenUser.isAdmin();
+        cachedUser.getMail().equals(tokenUser.getMail()) &&
+        cachedUser.getGivenName().equals(tokenUser.getGivenName()) &&
+        cachedUser.getSurname().equals(tokenUser.getSurname()) &&
+        cachedUser.isAdmin() == tokenUser.isAdmin();
   }
 
   private UUID getUserIdFromAzureAdToken(Jwt jwt) {
@@ -191,7 +198,7 @@ public class AuthorizationUserContextService {
   }
 
   private String checkIfObjectIsInstanceOfString(Object stringObject, String attributeName) throws
-    InvalidTokenException {
+      InvalidTokenException {
     if (!(stringObject instanceof String validatedString)) {
       throw new InvalidTokenException("%s attribute is not existent or not a string".formatted(attributeName));
     }

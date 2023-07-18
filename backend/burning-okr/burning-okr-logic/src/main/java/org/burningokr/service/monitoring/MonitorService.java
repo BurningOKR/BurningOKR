@@ -27,7 +27,6 @@ public class MonitorService {
   }
 
   public boolean hasUser(@NonNull UUID uuid) {
-    System.out.println("does my uuid match: " + (monitoringUsers.values().stream().anyMatch(list -> list.contains(uuid))));
     return monitoringUsers.values().stream().anyMatch(list -> list.contains(uuid));
   }
 }

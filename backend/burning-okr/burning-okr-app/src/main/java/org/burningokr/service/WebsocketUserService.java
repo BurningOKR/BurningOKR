@@ -1,6 +1,6 @@
 package org.burningokr.service;
 
-import org.burningokr.config.WebsocketAuthenticationChannelInterceptor;
+import org.burningokr.config.WebSocketConfig;
 import org.burningokr.model.monitoring.UserId;
 import org.burningokr.model.users.User;
 import org.burningokr.service.userhandling.UserService;
@@ -21,10 +21,10 @@ public class WebsocketUserService {
 
   public User findByAccessor(StompHeaderAccessor stompHeaderAccessor) {
     Map<String, Object> sessionAttributes = stompHeaderAccessor.getSessionAttributes();
-    if (sessionAttributes == null || !sessionAttributes.containsKey(WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY)) {
+    if (sessionAttributes == null || !sessionAttributes.containsKey(WebSocketConfig.USER_SESSION_ATTRIBUTE_KEY)) {
       throw new RuntimeException("StompHeaderAccessor does not contain (valid) userId.");
     }
-    UserId userId = new UserId(sessionAttributes.get(WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY).toString());
+    UserId userId = new UserId(sessionAttributes.get(WebSocketConfig.USER_SESSION_ATTRIBUTE_KEY).toString());
     return userService.findById(userId.getUserId()).orElseThrow();
   }
 }

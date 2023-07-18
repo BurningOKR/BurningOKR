@@ -2,9 +2,9 @@ package org.burningokr.config;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.burningokr.exceptions.AuthorizationHeaderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +30,6 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 import java.util.List;
-import java.util.Objects;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -39,8 +38,11 @@ import java.util.Objects;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
 
-  @Autowired
-  JwtDecoder jwtDecoder;
+  private Authentication authentication;
+
+  private final JwtDecoder jwtDecoder;
+  public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
+  private static final String WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY = "Authorization";
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -56,52 +58,60 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
   @Override
   public void configureClientInboundChannel(@NonNull ChannelRegistration registration) {
-    try {
-      registration.interceptors(new ChannelInterceptor() {
-        @Override
-        public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
-          try {
-            StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-            if (accessor == null) {
-              throw new NullPointerException("StompHeaderAccessor is null");
-            }
+    registration.interceptors(new ChannelInterceptor() {
+      @Override
+      public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
+        final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+        if (accessor == null) throw new NullPointerException("StompHeaderAccessor is null");
 
-            if (!StompCommand.CONNECT.equals(accessor.getCommand())) {
-              return message;
-            }
+        if (!isConnectionAttempt(accessor)) return message;
 
-            final String accessToken = getToken(accessor);
-            final Authentication authentication = getAuthentication(accessToken);
-
-            if (!authentication.isAuthenticated()) return message;
-
-            accessor.setUser(authentication);
-            Objects.requireNonNull(accessor.getSessionAttributes()).put(WebsocketAuthenticationChannelInterceptor.USER_SESSION_ATTRIBUTE_KEY, authentication.getName());
-          } catch (Exception e) {
-            logger.info(e.getMessage());
-          }
-          return message;
+        try {
+          tryToAuthenticate(accessor);
+        } catch (AuthorizationHeaderException e) {
+          logger.info(e.getMessage());
         }
-      });
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+        return message;
+      }
+    });
   }
 
-  private Authentication getAuthentication(String token) {
+  private void getAuthentication(String token) {
     if (token == null || token.isEmpty()) throw new NullPointerException("Token is either null or is empty");
     Jwt jwt = jwtDecoder.decode(token);
     JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-    Authentication authentication = converter.convert(jwt);
+    this.authentication = converter.convert(jwt);
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    return authentication;
   }
 
-  private String getToken(StompHeaderAccessor accessor) {
-    List<String> tokenList = accessor.getNativeHeader("Authorization");
-    if (tokenList == null || tokenList.isEmpty()) return "";
+  private String getBearerToken(@NonNull StompHeaderAccessor header) {
+    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) return "";
+    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    return nativeHeader != null && !nativeHeader.isEmpty() ? nativeHeader.get(0).split(":")[1] : "";
+  }
 
-    return tokenList.get(0).split(":")[1];
+  private boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
+    return StompCommand.CONNECT.equals(accessor.getCommand());
+  }
+
+//  private boolean isAuthenticated(@NonNull final Authentication current) {
+//    return this.authentication.isAuthenticated() && current.isAuthenticated()
+//        && this.authentication.getName().equals(current.getName());
+//  }
+
+  private void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
+    final String bearerToken = getBearerToken(header);
+    getAuthentication(bearerToken);
+
+    if (!this.authentication.isAuthenticated()) {
+      logger.warn("User could not be authenticated...");
+      return;
+    }
+
+    header.setUser(this.authentication);
+
+    if (header.getSessionAttributes() == null) throw new RuntimeException("Session Attributes are null");
+    header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY, this.authentication.getName());
   }
 
   @Bean

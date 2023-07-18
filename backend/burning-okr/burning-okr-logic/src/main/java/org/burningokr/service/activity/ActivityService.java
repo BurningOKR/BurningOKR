@@ -1,6 +1,5 @@
 package org.burningokr.service.activity;
 
-import lombok.RequiredArgsConstructor;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
@@ -31,7 +30,7 @@ public class ActivityService {
    * @param <T>    generic Type extends Trackable Long
    */
 
-  //FIXME: activity is not created, to update the task in the taskboard
+  //FIXME: (C.C.) activity is not created, to update the task in the taskboard
   public <T extends Trackable<?>> void createActivity(T t, Action action) {
     User authenticatedUser = authorizationUserContextService.getAuthenticatedUser();
     Activity activity = new Activity();
