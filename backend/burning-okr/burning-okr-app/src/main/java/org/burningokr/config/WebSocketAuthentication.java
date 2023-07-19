@@ -3,6 +3,7 @@ package org.burningokr.config;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.exceptions.AuthorizationHeaderException;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import java.util.List;
 
 @RequiredArgsConstructor
+@Configuration
 public class WebSocketAuthentication {
 
   private Authentication authentication;
@@ -46,7 +48,11 @@ public class WebSocketAuthentication {
     final String bearerToken = getBearerToken(header);
     final Authentication currentAuth = decodeToken(bearerToken);
 
-    if (isAuthenticated(currentAuth)) return;
+    if (isAuthenticated(currentAuth)) {
+      System.out.println("i am i here?");
+      return;
+    }
+
 
 //    if (this.authentication.isAuthenticated()) {
 //      logger.warn("User has been successful authenticated");

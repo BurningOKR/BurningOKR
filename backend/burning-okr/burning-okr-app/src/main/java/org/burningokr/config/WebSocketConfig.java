@@ -30,7 +30,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
 
-  private WebSocketAuthentication socketAuth;
+  private final WebSocketAuthentication socketAuth;
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -59,12 +59,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         } catch (AuthorizationHeaderException e) {
           logger.info(e.getMessage());
         }
+        System.out.println("WebSocketConfig Class: " + message);
         return message;
       }
     });
   }
 
-@Bean
+  @Bean
   @Qualifier("heartBeatScheduler")
   public TaskScheduler heartBeatScheduler() {
     return new ThreadPoolTaskScheduler();

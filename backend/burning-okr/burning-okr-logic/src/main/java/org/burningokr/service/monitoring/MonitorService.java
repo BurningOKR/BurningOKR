@@ -19,6 +19,9 @@ public class MonitorService {
 
   public void removeUser(@NonNull MonitoredObject monitoredObject, @NonNull User user) {
     if (!monitoringUsers.containsKey(monitoredObject)) return;
+
+    System.out.println("removing user...");
+
     monitoringUsers.get(monitoredObject).remove(user.getId());
   }
 
@@ -27,6 +30,7 @@ public class MonitorService {
   }
 
   public boolean hasUser(@NonNull UUID uuid) {
+    System.out.println("Has User? :" + (monitoringUsers.values().stream().anyMatch(list -> list.contains(uuid))));
     return monitoringUsers.values().stream().anyMatch(list -> list.contains(uuid));
   }
 }
