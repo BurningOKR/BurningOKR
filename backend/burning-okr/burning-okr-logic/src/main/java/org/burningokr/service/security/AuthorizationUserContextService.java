@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.configuration.SystemProperties;
 import org.burningokr.model.users.User;
 import org.burningokr.service.userhandling.UserService;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -34,28 +33,22 @@ public class AuthorizationUserContextService {
   }
 
   public User getAuthenticatedUser() throws EntityNotFoundException {
-      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    var userToken = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    var userId = switch (systemProperties.getProvider()) {
+      case "azureAD":
+        yield getUserIdFromAzureAdToken(userToken);
+      case "keycloak":
+        yield UUID.fromString(userToken.getSubject());
+      default:
+        throw new RuntimeException("Unexpected value for oidc provider: " + systemProperties.getProvider());
+    };
 
-      if (auth == null) {
-        throw new RuntimeException("Authentication is null and cannot invoke user");
-      }
+    var user = userHashMap.get(userId);
+    if (user == null) {
+      throw new EntityNotFoundException("user could not be found in hashmap");
+    }
 
-      var userToken = (Jwt) auth.getPrincipal();
-      var userId = switch (systemProperties.getProvider()) {
-        case "azureAD":
-          yield getUserIdFromAzureAdToken(userToken);
-        case "keycloak":
-          yield UUID.fromString(userToken.getSubject());
-        default:
-          throw new RuntimeException("Unexpected value for oidc provider: " + systemProperties.getProvider());
-      };
-
-      var user = userHashMap.get(userId);
-      if (user == null) {
-        throw new EntityNotFoundException("user could not be found in hashmap");
-      }
-
-      return user;
+    return user;
   }
 
   public void updateUserFromToken(Jwt userToken) throws InvalidTokenException {

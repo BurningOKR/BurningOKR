@@ -48,7 +48,7 @@ public class WebsocketTaskController {
       sendNewOrUpdatedTasks(createdAndUpdatedTasks, unitId);
       log.info("Broadcast for added task");
     } catch (ForbiddenException ex) {
-      log.error(ex.getMessage());
+      log.error(ex.getMessage()); //FIXME: refactor for better log messages (do it for all logs)
       log.info("want to add a task in a not active cycle");
       sendDeletedTasks(taskDto, unitId);
     }
