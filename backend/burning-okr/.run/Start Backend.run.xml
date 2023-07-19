@@ -30,6 +30,7 @@
             </extension>
         </EXTENSION>
         <DebugAllEnabled>false</DebugAllEnabled>
+        <ForceTestExec>false</ForceTestExec>
         <method v="2"/>
     </configuration>
 </component>

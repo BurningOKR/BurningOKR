@@ -3,8 +3,6 @@ package org.burningokr.config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.exceptions.AuthorizationHeaderException;
-import org.burningokr.service.security.AuthorizationUserContextService;
-import org.burningokr.service.security.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;

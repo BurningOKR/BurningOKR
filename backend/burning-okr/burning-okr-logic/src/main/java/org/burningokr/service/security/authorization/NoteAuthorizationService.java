@@ -1,4 +1,4 @@
-package org.burningokr.service.security;
+package org.burningokr.service.security.authorization;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

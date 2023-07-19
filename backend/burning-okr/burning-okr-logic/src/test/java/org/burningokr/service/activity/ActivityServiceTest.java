@@ -5,7 +5,7 @@ import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.activity.ActivityRepository;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextServiceKeycloak;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -27,7 +27,7 @@ public class ActivityServiceTest {
   @Mock
   ActivityRepository activityRepository;
   @Mock
-  AuthorizationUserContextService authUserContextService;
+  AuthenticationUserContextServiceKeycloak authUserContextService;
 
   @InjectMocks
   ActivityService activityService;

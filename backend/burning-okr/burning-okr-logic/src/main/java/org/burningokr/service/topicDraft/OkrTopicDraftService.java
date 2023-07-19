@@ -12,7 +12,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,7 +28,7 @@ public class OkrTopicDraftService {
   private final OkrTopicDraftRepository okrTopicDraftRepository;
   private final NoteTopicDraftRepository noteTopicDraftRepository;
   private final ActivityService activityService;
-  private final AuthorizationUserContextService authorizationUserContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   public OkrTopicDraft findById(long topicDraftId) {
     return okrTopicDraftRepository.findByIdOrThrow(topicDraftId);
@@ -46,7 +46,7 @@ public class OkrTopicDraftService {
   }
 
   private boolean shouldUserSeeDraft(OkrTopicDraft draft) {
-    User authenticatedUser = authorizationUserContextService.getAuthenticatedUser();
+    User authenticatedUser = authenticationUserContextService.getAuthenticatedUser();
 
     return !draft.getCurrentStatus().equals(OkrTopicDraftStatusEnum.draft) ||
             draft.getInitiatorId().equals(authenticatedUser.getId()) ||
@@ -79,7 +79,7 @@ public class OkrTopicDraftService {
   @Transactional
   public NoteTopicDraft createNote(NoteTopicDraft noteTopicDraft) {
     noteTopicDraft.setId(null);
-    noteTopicDraft.setUserId(authorizationUserContextService.getAuthenticatedUser().getId());
+    noteTopicDraft.setUserId(authenticationUserContextService.getAuthenticatedUser().getId());
     noteTopicDraft.setDate(LocalDateTime.now());
 
     noteTopicDraft = noteTopicDraftRepository.save(noteTopicDraft);

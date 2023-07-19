@@ -1,9 +1,8 @@
-package org.burningokr.service.security;
+package org.burningokr.service.security.authorization;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
   private final JwtDecoder jwtDecoder;
-  private final AuthorizationUserContextService userContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -29,7 +28,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     if (applicationAuthentication.isAuthenticated()) {
       log.debug("update user from jwt called");
       var userToken = (Jwt) applicationAuthentication.getCredentials();
-      userContextService.updateUserFromToken(userToken);
+      authenticationUserContextService.updateUserFromToken(userToken);
     }
 
     return applicationAuthentication;

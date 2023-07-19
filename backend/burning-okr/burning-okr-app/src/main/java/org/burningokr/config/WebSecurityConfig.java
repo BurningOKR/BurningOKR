@@ -1,8 +1,7 @@
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.configuration.SystemProperties;
-import org.burningokr.service.security.CustomAuthenticationProvider;
+import org.burningokr.service.security.authorization.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;

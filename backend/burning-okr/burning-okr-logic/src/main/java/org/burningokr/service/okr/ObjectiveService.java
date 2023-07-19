@@ -19,7 +19,7 @@ import org.burningokr.service.exceptions.KeyResultOverflowException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +43,7 @@ public class ObjectiveService {
   private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
   private final KeyResultMilestoneService keyResultMilestoneService;
   private final NoteObjectiveRepository noteObjectiveRepository;
-  private final AuthorizationUserContextService userContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   @PreAuthorize("@childUnitAuthorizationService.hasMemberPrivilegesForChildUnit(#unitId)")
   public Objective createObjective(Long unitId, Objective objective) {
@@ -283,7 +283,7 @@ public class ObjectiveService {
 
   public NoteObjective createNote(NoteObjective noteObjective) {
 
-    noteObjective.setUserId(userContextService.getAuthenticatedUser().getId());
+    noteObjective.setUserId(authenticationUserContextService.getAuthenticatedUser().getId());
     noteObjective.setDate(LocalDateTime.now());
 
     noteObjective = noteObjectiveRepository.save(noteObjective);
