@@ -32,7 +32,7 @@ export class ChartRendererComponent implements OnInit {
         componentType = LineChartComponent;
         break;
       case ChartInformationTypeEnum.PIE_TOPICDRAFTOVERVIEW:
-        componentType = LineChartComponent;
+        componentType = LineChartComponent; //TODO: Warum ist hier auch LineChartComponent? - Daniel Jonas
         break;
       default:
         throw new Error(
