@@ -41,7 +41,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   public void configureMessageBroker(MessageBrokerRegistry config) {
     long[] heartbeats = {10000L, 10000L};
     config.enableSimpleBroker("/topic").setTaskScheduler(heartBeatScheduler()).setHeartbeatValue(heartbeats);
-    config.setApplicationDestinationPrefixes("/app");
+    config.setApplicationDestinationPrefixes("/ws");
   }
 
   @Override
@@ -52,14 +52,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
         if (accessor == null) throw new NullPointerException("StompHeaderAccessor is null");
 
-        if (!socketAuth.isConnectionAttempt(accessor)) return message;
-
+        if (!socketAuth.isConnectionAttempt(accessor)) {
+          return message;
+        }
         try {
           socketAuth.tryToAuthenticate(accessor);
-        } catch (AuthorizationHeaderException e) {
-          logger.info(e.getMessage());
+        } catch (AuthorizationHeaderException exception) {
+          logger.error("Authorization Header Exception in WebSocketConfig => ", exception);
         }
-        System.out.println("WebSocketConfig Class: " + message);
         return message;
       }
     });

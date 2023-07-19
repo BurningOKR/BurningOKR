@@ -202,8 +202,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
         .pipe(
           map(wsReply => {
             const users: User[] = JSON.parse(wsReply.body);
-            console.log(users);
-            
+
             return users;
           })
         )

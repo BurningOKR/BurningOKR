@@ -18,6 +18,7 @@ public class UserId {
 
   public UserId(String userId) {
     this.userId = UUID.fromString(userId);
+    System.out.println("id: " + userId);
   }
 
   public UserId(UUID userId) { this.userId = userId; }

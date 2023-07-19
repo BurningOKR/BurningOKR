@@ -18,7 +18,6 @@ import java.util.List;
 @Configuration
 public class WebSocketAuthentication {
 
-  private Authentication authentication;
   private final JwtDecoder jwtDecoder;
   public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
   private static final String WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY = "Authorization";
@@ -32,37 +31,23 @@ public class WebSocketAuthentication {
   private String getBearerToken(@NonNull StompHeaderAccessor header) {
     if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) return "";
     final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
-    return nativeHeader != null && !nativeHeader.isEmpty() ? nativeHeader.get(0).split(":")[1] : "";
+    return nativeHeader != null && !nativeHeader.isEmpty() ? nativeHeader.get(0).split("\\s")[1] : "";
   }
 
   protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
     return StompCommand.CONNECT.equals(accessor.getCommand());
   }
 
-  private boolean isAuthenticated(@NonNull final Authentication current) {
-    return this.authentication.isAuthenticated() && current.isAuthenticated()
-        && this.authentication.getName().equals(current.getName());
-  }
-
   protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
     final String bearerToken = getBearerToken(header);
-    final Authentication currentAuth = decodeToken(bearerToken);
+    final Authentication authentication = decodeToken(bearerToken);
 
-    if (isAuthenticated(currentAuth)) {
-      System.out.println("i am i here?");
-      return;
-    }
+    if (!authentication.isAuthenticated()) return;
 
-
-//    if (this.authentication.isAuthenticated()) {
-//      logger.warn("User has been successful authenticated");
-//      return;
-//    }
-
-    header.setUser(this.authentication);
-    this.authentication = currentAuth;
-    SecurityContextHolder.getContext().setAuthentication(this.authentication);
+    header.setUser(authentication);
+    System.out.println("Current Auth Attribute has uuid as => " + authentication.getName());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
     if (header.getSessionAttributes() == null) throw new RuntimeException("Session Attributes are null");
-    header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY, this.authentication.getName());
+    header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY, authentication.getName());
   }
 }
