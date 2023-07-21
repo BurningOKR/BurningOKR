@@ -12,6 +12,7 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.repositories.okr.NoteObjectiveRepository;
@@ -55,7 +56,7 @@ public class ObjectiveServiceTest {
   @Mock
   private ConfigurationService configurationService;
   @Mock
-  private OkrChildUnitService<OkrChildUnit> departmentService;
+  private OkrChildUnitService<OkrChildUnit> okrChildUnitService;
   @Mock
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock
@@ -75,8 +76,7 @@ public class ObjectiveServiceTest {
   private Cycle activeCycle;
 
   @BeforeEach
-  public void reset() {
-
+  public void setUp() {
     this.objective = new Objective();
     objective.setId(objectiveId);
 
@@ -95,6 +95,26 @@ public class ObjectiveServiceTest {
 
     activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
+
+  }
+
+  @Test
+  public void createObjective_shouldCreateObjective() {
+    OkrDepartment okrDepartment = new OkrDepartment();
+    okrDepartment.setId(111L);
+    Objective parentObjective = new Objective();
+    parentObjective.setId(666L);
+    objective.setName("An Objective");
+    objective.setParentObjective(parentObjective);
+    when(okrChildUnitService.findById(any(Long.class))).thenReturn(okrDepartment);
+    doNothing().when(okrChildUnitService).throwIfCycleForOkrChildUnitIsClosed(any(OkrUnit.class));
+    when(objectiveRepository.save(any())).thenReturn(objective);
+
+    objectiveService.createObjective(10L, objective);
+
+    verify(objectiveRepository).findByIdOrThrow(anyLong());
+    verify(objectiveRepository).save(any(Objective.class));
+    verify(activityService).createActivity(any(Objective.class), eq(Action.CREATED));
 
   }
 
@@ -445,7 +465,7 @@ public class ObjectiveServiceTest {
     okrDepartment.setObjectives(new ArrayList<>());
     Collection<Long> sequenceList = Collections.singletonList(1L);
 
-    when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
+    when(okrChildUnitService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
     assertThrows(Exception.class, () -> objectiveService.updateSequence(okrDepartment.getId(), sequenceList));
   }
@@ -466,7 +486,7 @@ public class ObjectiveServiceTest {
 
     Collection<Long> sequenceList = Arrays.asList(20L, 30L, 40L);
 
-    when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
+    when(okrChildUnitService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
     assertThrows(Exception.class, () -> objectiveService.updateSequence(okrDepartment.getId(), sequenceList));
   }
@@ -489,7 +509,7 @@ public class ObjectiveServiceTest {
 
     Collection<Long> sequenceList = Arrays.asList(20L, 30L, 10L);
 
-    when(departmentService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
+    when(okrChildUnitService.findById(okrDepartment.getId())).thenReturn(okrDepartment);
 
     objectiveService.updateSequence(okrDepartment.getId(), sequenceList);
 

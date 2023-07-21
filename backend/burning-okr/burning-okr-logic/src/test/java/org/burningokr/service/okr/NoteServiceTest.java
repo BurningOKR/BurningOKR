@@ -2,12 +2,9 @@ package org.burningokr.service.okr;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
-import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Note;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.userhandling.UserService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,9 +38,6 @@ public class NoteServiceTest {
   private Note originalNote;
   private Note changedNote;
 
-  @Mock
-  private User authorizedIUser;
-
   @BeforeAll
   public static void init() {
     originalId = 100L;
@@ -53,7 +47,7 @@ public class NoteServiceTest {
   }
 
   @BeforeEach
-  public void refresh() {
+  public void setUp() {
     originalNote = createOriginalNote();
     changedNote = createOriginalNote();
     changedNote.setText(changedText);
@@ -70,9 +64,7 @@ public class NoteServiceTest {
   @Test
   public void findById_expectedNotFoundException() {
     when(noteRepository.findByIdOrThrow(originalId)).thenThrow(new EntityNotFoundException());
-    assertThrows(EntityNotFoundException.class, () -> {
-      noteService.findById(originalId);
-    });
+    assertThrows(EntityNotFoundException.class, () -> noteService.findById(originalId));
 
   }
 
