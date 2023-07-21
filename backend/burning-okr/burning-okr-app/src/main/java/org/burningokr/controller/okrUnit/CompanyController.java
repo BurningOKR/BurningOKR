@@ -16,8 +16,8 @@ import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.okrUnit.CompanyService;
-import org.burningokr.service.security.AuthorizationUserContextService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class CompanyController {
   private final DataMapper<Cycle, CycleDto> cycleMapper;
   private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
   private final OkrBranchSchemaMapper okrUnitSchemaMapper;
-  private final AuthorizationUserContextService authorizationUserContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   /**
    * API Endpoint to get active Companies.
@@ -118,7 +118,7 @@ public class CompanyController {
     OkrCompany okrCompany = this.companyService.findById(companyId);
     return ResponseEntity.ok(
       okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-        okrCompany.getOkrChildUnits(), authorizationUserContextService.getAuthenticatedUser().getId()
+        okrCompany.getOkrChildUnits(), authenticationUserContextService.getAuthenticatedUser().getId()
       )
     );
   }

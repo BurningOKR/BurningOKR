@@ -14,7 +14,7 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class KeyResultService {
   private final KeyResultHistoryService keyResultHistoryService;
   private final TaskService taskService;
   private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
-  private final AuthorizationUserContextService userContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   public KeyResult findById(long keyResultId) {
     return keyResultRepository.findByIdOrThrow(keyResultId);
@@ -117,7 +117,7 @@ public class KeyResultService {
   @Transactional
   public NoteKeyResult createNote(NoteKeyResult noteKeyResult) {
     noteKeyResult.setId(null);
-    noteKeyResult.setUserId(userContextService.getAuthenticatedUser().getId());
+    noteKeyResult.setUserId(authenticationUserContextService.getAuthenticatedUser().getId());
     noteKeyResult.setDate(LocalDateTime.now());
 
     noteKeyResult = noteKeyResultRepository.save(noteKeyResult);

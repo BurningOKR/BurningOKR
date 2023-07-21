@@ -1,7 +1,8 @@
-package org.burningokr.service.security;
+package org.burningokr.service.security.authorization;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.topicDraft.OkrTopicDraftService;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Service;
 public class TopicDraftAuthorizationService {
 
   private final OkrTopicDraftService topicDraftService;
-  private AuthorizationUserContextService authorizationUserContextService;
+  private AuthenticationUserContextService authenticationUserContextService;
 
   public boolean isInitiator(Long topicDraftId) {
     OkrTopicDraft topicDraft = topicDraftService.findById(topicDraftId);
-    return authorizationUserContextService.getAuthenticatedUser().getId() == topicDraft.getInitiatorId();
+    return authenticationUserContextService.getAuthenticatedUser().getId() == topicDraft.getInitiatorId();
   }
 }

@@ -8,7 +8,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ public class OkrTopicDraftServiceTest {
   @Mock
   private ActivityService activityService;
   @Mock
-  private AuthorizationUserContextService authorizationUserContextService;
+  private AuthenticationUserContextService authenticationUserContextService;
   @Mock
   private NoteTopicDraftRepository noteTopicDraftRepository;
   @InjectMocks
@@ -108,7 +108,7 @@ public class OkrTopicDraftServiceTest {
       }
     };
     when(okrTopicDraftService.getAllTopicDrafts()).thenReturn(topicDrafts);
-    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
 
     Collection<OkrTopicDraft> topicDraftsResult = okrTopicDraftService.getAllTopicDrafts();
 
@@ -226,13 +226,13 @@ public class OkrTopicDraftServiceTest {
   }
 
   @Test void createNote_shouldSaveNote() {
-    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
     okrTopicDraftService.createNote(noteTopicDraft);
     verify(noteTopicDraftRepository).save(noteTopicDraft);
   }
 
   @Test void createNote_shouldCreateAndReturnNewNote() {
-    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(currentUser);
     when(noteTopicDraftRepository.save(noteTopicDraft)).thenReturn(noteTopicDraft);
 
     assertEquals(noteTopicDraft, okrTopicDraftService.createNote(noteTopicDraft));

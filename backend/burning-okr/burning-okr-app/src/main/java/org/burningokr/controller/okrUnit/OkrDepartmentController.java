@@ -23,7 +23,7 @@ import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +44,7 @@ public class OkrDepartmentController {
   private final CompanyService companyService;
   private final EntityCrawlerService entityCrawlerService;
   private final OkrChildUnitService<OkrDepartment> okrDepartmentService;
-  private final AuthorizationUserContextService userContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   /**
    * API Endpoint to get a OkrDepartment by it's ID.
@@ -73,7 +73,7 @@ public class OkrDepartmentController {
     OkrDepartment okrDepartment = okrDepartmentService.findById(departmentId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(okrDepartment);
 
-    UUID currentUserId = userContextService.getAuthenticatedUser().getId();
+    UUID currentUserId = authenticationUserContextService.getAuthenticatedUser().getId();
     return ResponseEntity.ok(
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
         parentOkrCompany.getOkrChildUnits(), currentUserId));

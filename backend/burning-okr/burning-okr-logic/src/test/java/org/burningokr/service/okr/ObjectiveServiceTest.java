@@ -23,7 +23,7 @@ import org.burningokr.service.exceptions.KeyResultOverflowException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,7 +61,7 @@ public class ObjectiveServiceTest {
   @Mock
   private NoteObjectiveRepository noteObjectiveRepository;
   @Mock
-  private AuthorizationUserContextService authUserContextService;
+  private AuthenticationUserContextService authenticationUserContextService;
 
   @InjectMocks
   private ObjectiveService objectiveService;
@@ -500,7 +500,7 @@ public class ObjectiveServiceTest {
 
   @Test
   public void createNote_expect_saveIsCalled() {
-    when(authUserContextService.getAuthenticatedUser()).thenReturn(new User());
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(new User());
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
     objectiveService.createNote(noteObjective);
     verify(noteObjectiveRepository).save(same(noteObjective));
@@ -508,7 +508,7 @@ public class ObjectiveServiceTest {
 
   @Test
   public void createNote_expect_createActivityIsCalled() {
-    when(authUserContextService.getAuthenticatedUser()).thenReturn(new User());
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(new User());
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjective);
     objectiveService.createNote(noteObjective);
     verify(activityService).createActivity(same(noteObjective), any());
@@ -520,7 +520,7 @@ public class ObjectiveServiceTest {
     UUID expected = new UUID(1337L, 1337L);
     User authUser = new User();
     authUser.setId(expected);
-    when(authUserContextService.getAuthenticatedUser()).thenReturn(authUser);
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(authUser);
 
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
 
@@ -531,7 +531,7 @@ public class ObjectiveServiceTest {
   @Test
   public void createNot_expect_dateIsCalled() {
     NoteObjective noteObjectiveMock = mock(NoteObjective.class);
-    when(authUserContextService.getAuthenticatedUser()).thenReturn(new User());
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(new User());
     when(noteObjectiveRepository.save(any())).thenReturn(noteObjectiveMock);
     objectiveService.createNote(noteObjectiveMock);
     verify(noteObjectiveMock).setDate(any());

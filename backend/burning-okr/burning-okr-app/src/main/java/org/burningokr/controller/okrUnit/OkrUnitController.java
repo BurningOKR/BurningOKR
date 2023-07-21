@@ -22,7 +22,7 @@ import org.burningokr.service.okr.KeyResultService;
 import org.burningokr.service.okr.ObjectiveService;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,7 +45,7 @@ public class OkrUnitController {
   private final KeyResultMapper keyResultMapper;
   private final OkrChildUnitMapper okrChildUnitMapper;
   private final ObjectiveService objectiveService;
-  private final AuthorizationUserContextService userContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   @GetMapping("/units/{unitId}")
   public ResponseEntity<OkrChildUnitDto> getUnitByUnitId(
@@ -67,7 +67,7 @@ public class OkrUnitController {
   ) {
     OkrChildUnit childUnit = okrChildUnitService.findById(unitId);
     OkrCompany parentOkrCompany = entityCrawlerService.getCompanyOfUnit(childUnit);
-    UUID currentUserId = userContextService.getAuthenticatedUser().getId();
+    UUID currentUserId = authenticationUserContextService.getAuthenticatedUser().getId();
     return ResponseEntity.ok(
       okrBranchSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
         parentOkrCompany.getOkrChildUnits(), currentUserId));

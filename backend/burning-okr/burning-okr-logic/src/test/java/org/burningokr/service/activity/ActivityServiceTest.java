@@ -5,7 +5,7 @@ import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.activity.ActivityRepository;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -27,7 +27,7 @@ public class ActivityServiceTest {
   @Mock
   ActivityRepository activityRepository;
   @Mock
-  AuthorizationUserContextService authUserContextService;
+  AuthenticationUserContextService authenticationUserContextService;
 
   @InjectMocks
   ActivityService activityService;
@@ -41,7 +41,7 @@ public class ActivityServiceTest {
     user.setMail(userPrincipalName);
     user.setId(uuid);
 
-    when(authUserContextService.getAuthenticatedUser()).thenReturn(user);
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(user);
 
     testActivityCreation(uuid, userPrincipalName, Action.CREATED);
   }
@@ -55,7 +55,7 @@ public class ActivityServiceTest {
     user.setMail(userPrincipalName);
     user.setId(uuid);
 
-    when(authUserContextService.getAuthenticatedUser()).thenReturn(user);
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(user);
 
     testActivityCreation(uuid, userPrincipalName, Action.DELETED);
   }

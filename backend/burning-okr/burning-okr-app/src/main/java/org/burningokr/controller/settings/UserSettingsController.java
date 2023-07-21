@@ -7,7 +7,7 @@ import org.burningokr.dto.settings.UserSettingsDto;
 import org.burningokr.mapper.settings.UserSettingsMapper;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.model.users.User;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.settings.UserSettingsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +20,11 @@ public class UserSettingsController {
 
   private final UserSettingsService userSettingsService;
   private final UserSettingsMapper mapper;
-  private final AuthorizationUserContextService authorizationUserContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   @GetMapping("/settings")
   public ResponseEntity<UserSettingsDto> getUserSettings() {
-    User user = authorizationUserContextService.getAuthenticatedUser();
+    User user = authenticationUserContextService.getAuthenticatedUser();
     UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
     return ResponseEntity.ok(this.mapper.mapEntityToDto(userSettings));
   }
@@ -37,13 +37,13 @@ public class UserSettingsController {
    */
   @PutMapping("/settings")
   public ResponseEntity<UserSettingsDto> updateUserSettingsDto(
-    @Valid
-    @RequestBody
-    UserSettingsDto userSettingsDto
+      @Valid
+      @RequestBody
+      UserSettingsDto userSettingsDto
   ) {
     UserSettings userSettings = this.mapper.mapDtoToEntity(userSettingsDto);
     return ResponseEntity.ok(
-      this.mapper.mapEntityToDto(
-        this.userSettingsService.updateUserSettings(userSettings)));
+        this.mapper.mapEntityToDto(
+            this.userSettingsService.updateUserSettings(userSettings)));
   }
 }
