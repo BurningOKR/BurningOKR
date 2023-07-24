@@ -30,14 +30,11 @@ public class MailService {
    */
   public void sendMail(Mail mail) throws MessagingException {
     if (javaMailSender.isPresent()) {
+      JavaMailSender mailSender = javaMailSender.get();
       checkAndInitializeCollections(mail);
 
-      MimeMessage message = createMimeMessage(mail);
-      if (message != null) {
-        javaMailSender.get().send(message);
-      } else {
-        throw new NullPointerException("No message to be send. Mail Message is null!");
-      }
+      MimeMessage message = createMimeMessage(mailSender, mail);
+      mailSender.send(message);
     }
   }
 
@@ -60,26 +57,22 @@ public class MailService {
     }
   }
 
-  private MimeMessage createMimeMessage(Mail mail) throws MessagingException {
-    if (javaMailSender.isPresent()) {
-      MimeMessage message = javaMailSender.get().createMimeMessage();
-      MimeMessageHelper helper =
-        new MimeMessageHelper(
-          message,
-          MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-          StandardCharsets.UTF_8.name()
-        );
+  private MimeMessage createMimeMessage(JavaMailSender mailSender, Mail mail) throws MessagingException {
+    MimeMessage message = mailSender.createMimeMessage();
+    MimeMessageHelper helper =
+      new MimeMessageHelper(
+        message,
+        MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+        StandardCharsets.UTF_8.name()
+      );
 
-      helper.setTo(convertToArray(mail.getTo()));
-      helper.setCc(convertToArray(mail.getCc()));
-      helper.setBcc(convertToArray(mail.getBcc()));
-      helper.setText(getHtmlBodyFromTemplate(mail), true);
-      helper.setSubject(mail.getSubject());
-      helper.setFrom(mail.getFrom());
-      return message;
-    } else {
-      return null;
-    }
+    helper.setTo(convertToArray(mail.getTo()));
+    helper.setCc(convertToArray(mail.getCc()));
+    helper.setBcc(convertToArray(mail.getBcc()));
+    helper.setText(getHtmlBodyFromTemplate(mail), true);
+    helper.setSubject(mail.getSubject());
+    helper.setFrom(mail.getFrom());
+    return message;
   }
 
   private String[] convertToArray(Collection<String> collection) {

@@ -3,6 +3,8 @@ package org.burningokr.service.okr;
 import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
+import org.burningokr.model.okr.NoteKeyResult;
+import org.burningokr.repositories.okr.NoteKeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,10 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -33,6 +35,8 @@ public class NoteServiceTest {
   private NoteRepository noteRepository;
   @Mock
   private ActivityService activityService;
+  @Mock
+  private NoteKeyResultRepository noteKeyResultRepository;
   @InjectMocks
   private NoteService noteService;
   private Note originalNote;
@@ -69,12 +73,32 @@ public class NoteServiceTest {
   }
 
   @Test
+  public void findByIdExtendedRepositories_shouldReturnNullWhenNoResult() {
+    when(noteKeyResultRepository.findById(10L)).thenReturn(Optional.empty());
+
+    Note result = noteService.findByIdExtendedRepositories(10L);
+
+    assertNull(result);
+  }
+
+  @Test
+  public void findByIdExtendedRepositories_shouldReturnNoteKeyResultOfOptionalIfPresent() {
+    NoteKeyResult note = new NoteKeyResult();
+    when(noteKeyResultRepository.findById(10L)).thenReturn(Optional.of(note));
+
+    Note result = noteService.findByIdExtendedRepositories(10L);
+
+    assertSame(note, result);
+  }
+
+  @Test
   public void updateNote_expectedUserNotifications() {
     when(noteRepository.findByIdOrThrow(originalId)).thenReturn(originalNote);
+    when(noteRepository.save(originalNote)).thenReturn(originalNote);
 
     noteService.updateNote(changedNote);
 
-    verify(activityService).createActivity(null, Action.EDITED);
+    verify(activityService).createActivity(originalNote, Action.EDITED);
   }
 
   @Test

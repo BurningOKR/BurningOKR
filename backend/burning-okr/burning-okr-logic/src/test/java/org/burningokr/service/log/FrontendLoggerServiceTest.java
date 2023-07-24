@@ -1,6 +1,5 @@
 package org.burningokr.service.log;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.log.FrontendLog;
 import org.burningokr.repositories.log.FrontendLoggerRepository;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,7 +50,7 @@ public class FrontendLoggerServiceTest {
       new FrontendLog(1L, "ERROR", LocalDateTime.now(), "main.ts", "5", "Failed to build file");
     when(this.frontendLoggerRepository.save(expectedFrontendLog)).thenReturn(expectedFrontendLog);
 
-    FrontendLog frontendLog = frontendLoggerRepository.save(expectedFrontendLog);
+    FrontendLog frontendLog = frontendLoggerService.createFrontendLog(expectedFrontendLog);
 
     assertEquals(frontendLog, expectedFrontendLog);
   }
