@@ -65,7 +65,7 @@ alter table task_user_aud
 
 BEGIN;
 
--- New revision for initial auditions
+-- New fieldRevision for initial auditions
 -- INSERT INTO revision_information (id, timestamp) VALUES (nextval('hibernate_sequence'), extract(epoch from now()) * 1000);
 INSERT INTO revision_information (id, date) SELECT (NEXT VALUE FOR hibernate_sequence), CAST(GETDATE() AS Date);
 

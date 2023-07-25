@@ -3,7 +3,7 @@ package org.burningokr.controller.okr;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.RevisionDto;
 import org.burningokr.mapper.okr.RevisionMapper;
-import org.burningokr.model.okr.Revision;
+import org.burningokr.model.okr.FieldRevision;
 import org.burningokr.model.okr.Task;
 import org.burningokr.service.okr.RevisionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class RevisionController {
 
   @GetMapping("/tasks/revisions/{taskId}")
   public ResponseEntity<Collection<RevisionDto>> getTaskRevisions(@PathVariable long taskId) {
-    Collection<Revision> revisionCollection = revisionService.getRevisions(taskId, Task.class);
-    Collection<RevisionDto> revisionDtos = revisionMapper.mapEntitiesToDtos(revisionCollection);
+    Collection<FieldRevision> fieldRevisionCollection = revisionService.getRevisions(taskId, Task.class);
+    Collection<RevisionDto> revisionDtos = revisionMapper.mapEntitiesToDtos(fieldRevisionCollection);
     return ResponseEntity.ok(revisionDtos);
   }
 
