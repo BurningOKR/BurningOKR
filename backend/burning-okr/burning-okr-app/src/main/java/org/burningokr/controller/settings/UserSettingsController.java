@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserSettingsController {
 
   private final UserSettingsService userSettingsService;
-  private final UserSettingsMapper mapper;
-  private final AuthenticationUserContextService authenticationUserContextService;
+    private final UserSettingsMapper mapper;
+    private final AuthenticationUserContextService authenticationUserContextService;
 
   @GetMapping("/settings")
   public ResponseEntity<UserSettingsDto> getUserSettings() {
-    User user = authenticationUserContextService.getAuthenticatedUser();
-    UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
+      User user = authenticationUserContextService.getAuthenticatedUser();
+      UserSettings userSettings = this.userSettingsService.getUserSettingsByUser(user);
     return ResponseEntity.ok(this.mapper.mapEntityToDto(userSettings));
   }
 
@@ -37,13 +37,13 @@ public class UserSettingsController {
    */
   @PutMapping("/settings")
   public ResponseEntity<UserSettingsDto> updateUserSettingsDto(
-      @Valid
-      @RequestBody
-      UserSettingsDto userSettingsDto
+    @Valid
+    @RequestBody
+    UserSettingsDto userSettingsDto
   ) {
     UserSettings userSettings = this.mapper.mapDtoToEntity(userSettingsDto);
     return ResponseEntity.ok(
-        this.mapper.mapEntityToDto(
-            this.userSettingsService.updateUserSettings(userSettings)));
+      this.mapper.mapEntityToDto(
+        this.userSettingsService.updateUserSettings(userSettings)));
   }
 }

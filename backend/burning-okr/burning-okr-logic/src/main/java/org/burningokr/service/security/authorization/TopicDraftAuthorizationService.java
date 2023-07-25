@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TopicDraftAuthorizationService {
 
-  private final OkrTopicDraftService topicDraftService;
-  private AuthenticationUserContextService authenticationUserContextService;
+    private final OkrTopicDraftService topicDraftService;
+    private AuthenticationUserContextService authenticationUserContextService;
 
   public boolean isInitiator(Long topicDraftId) {
     OkrTopicDraft topicDraft = topicDraftService.findById(topicDraftId);
-    return authenticationUserContextService.getAuthenticatedUser().getId() == topicDraft.getInitiatorId();
+      return authenticationUserContextService.getAuthenticatedUser().getId() == topicDraft.getInitiatorId();
   }
 }

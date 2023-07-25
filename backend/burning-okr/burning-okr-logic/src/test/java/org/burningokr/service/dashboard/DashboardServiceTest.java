@@ -8,7 +8,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.dashboard.ChartCreationOptionsRepository;
 import org.burningokr.repositories.dashboard.DashboardCreationRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextServiceKeycloak;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ public class DashboardServiceTest {
   @Mock
   private ActivityService activityService;
   @Mock
-  private AuthenticationUserContextService authenticationUserContextService;
+  private AuthenticationUserContextServiceKeycloak authorizationUserContextService;
   @InjectMocks
   private DashboardService dashboardService;
   private DashboardCreation dashboardCreation;
@@ -99,7 +99,7 @@ public class DashboardServiceTest {
 
   @Test
   public void createDashboard_shouldCallActivity() {
-    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(userMock);
+    when(authorizationUserContextService.getAuthenticatedUser()).thenReturn(userMock);
     when(dashboardCreationRepository.save(dashboardCreation)).thenReturn(dashboardCreation);
 
     dashboardService.createDashboard(dashboardCreation);

@@ -16,8 +16,8 @@ import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -118,7 +118,7 @@ public class CompanyController {
     OkrCompany okrCompany = this.companyService.findById(companyId);
     return ResponseEntity.ok(
       okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-        okrCompany.getOkrChildUnits(), authenticationUserContextService.getAuthenticatedUser().getId()
+              okrCompany.getOkrChildUnits(), authenticationUserContextService.getAuthenticatedUser().getId()
       )
     );
   }
