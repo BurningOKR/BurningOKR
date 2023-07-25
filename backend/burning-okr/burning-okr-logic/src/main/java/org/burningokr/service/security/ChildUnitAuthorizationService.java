@@ -37,7 +37,10 @@ public class ChildUnitAuthorizationService {
 
     if (childUnit instanceof OkrDepartment department) {
       UUID authenticatedUserId = authenticatedUser.getId();
-      isMember = department.getOkrMemberIds().contains(authenticatedUserId) || department.getOkrMasterId().equals(authenticatedUserId);
+      isMember = department.getOkrMemberIds().contains(authenticatedUserId);
+      if (!isMember && department.getOkrMasterId() != null) {
+        isMember = department.getOkrMasterId().equals(authenticatedUserId);
+      }
     }
 
     return isMember || authenticatedUser.isAdmin();
