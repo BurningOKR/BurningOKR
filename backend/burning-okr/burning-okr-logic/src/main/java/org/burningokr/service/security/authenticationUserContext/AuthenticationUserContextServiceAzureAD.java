@@ -1,7 +1,7 @@
 package org.burningokr.service.security.authenticationUserContext;
 
 import org.burningokr.model.configuration.SystemProperties;
-import org.burningokr.service.security.InvalidTokenException;
+import org.burningokr.service.security.authorization.InvalidTokenException;
 import org.burningokr.service.userhandling.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
