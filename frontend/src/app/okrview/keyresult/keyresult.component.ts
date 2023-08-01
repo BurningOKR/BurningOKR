@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
 import { TranslateService } from '@ngx-translate/core';
@@ -55,15 +55,9 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  unloadHandler(): boolean {
-    this.ngOnDestroy();
-
-    return true;
-  }
-
   ngOnInit(): void {
     this.updateIsKeyResultSliderInverted();
+    window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {
