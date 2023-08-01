@@ -15,6 +15,13 @@
                   </button>
                 </div>
 
+                <div class="avatar-spacer">
+                  <span *ngIf="okrChildUnit$ | async as okrChildUnit"
+                        [matTooltip]="childUnit.name">
+                      <app-child-unit-avatar [name]="childUnit.name" class="icon-spacer-large profileIcon" size="40"></app-child-unit-avatar>
+                  </span>
+                </div>
+
                 <div class="flex-wrap-spreadinner f-1 flex-department-title">
                   <div class="department-flex overflow-ellipsis">
                     <div class="department-title overflow-ellipsis">{{ childUnit.name }}</div>

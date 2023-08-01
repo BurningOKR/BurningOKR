@@ -41,6 +41,7 @@ import { LogPipe } from './pipes/log.pipe';
 import { AddButtonComponent } from './components/add-button/add-button.component';
 import { AdditionalInfoBarComponent } from './components/additional-info-bar/additional-info-bar.component';
 import { DateMapper } from './services/mapper/date.mapper';
+import { ChildUnitAvatarComponent } from './components/child-unit-avatar/child-unit-avatar.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { DateMapper } from './services/mapper/date.mapper';
     LogPipe,
     AddButtonComponent,
     AdditionalInfoBarComponent,
+    ChildUnitAvatarComponent,
   ],
   entryComponents: [
     ConfirmationDialogComponent,
@@ -114,6 +116,7 @@ import { DateMapper } from './services/mapper/date.mapper';
     LogPipe,
     AddButtonComponent,
     AdditionalInfoBarComponent,
+    ChildUnitAvatarComponent,
   ],
   providers: [
     DateMapper,
