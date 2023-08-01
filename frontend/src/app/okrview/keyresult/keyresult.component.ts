@@ -57,6 +57,7 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateIsKeyResultSliderInverted();
+    window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {
