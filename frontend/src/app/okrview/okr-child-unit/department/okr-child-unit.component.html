@@ -16,8 +16,8 @@
                 </div>
 
                 <div class="avatar-spacer" *ngIf="childUnit.type === unitType.DEPARTMENT">
-                  <span *ngIf="okrChildUnit$ | async as okrChildUnit" [matTooltip]="childUnit.name">
-                      <app-child-unit-avatar [name]="childUnit.name" class="icon-spacer-large profileIcon" size="40"></app-child-unit-avatar>
+                  <span [matTooltip]="childUnit.name">
+                      <app-child-unit-avatar [okrChildUnit]="childUnit" class="icon-spacer-large profileIcon" size="40"></app-child-unit-avatar>
                   </span>
                 </div>
 

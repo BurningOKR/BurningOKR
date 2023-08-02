@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 
 @Component({
   selector: 'app-child-unit-avatar',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 })
 export class ChildUnitAvatarComponent implements OnChanges {
 
-  @Input() name: string;
+  @Input() okrChildUnit: OkrChildUnit;
   @Input() size = 64;
   @Input() bgColor = '';
   @Input() clickable = false;
@@ -20,8 +21,8 @@ export class ChildUnitAvatarComponent implements OnChanges {
     setTimeout(() => this.render = true);
   }
 
-  buildInitialsForUserAvatar(name: string): string {
-    const nameSplit: string[] = name.split(' ', 3);
+  buildInitialsForUserAvatar(okrChildUnit: OkrChildUnit): string {
+    const nameSplit: string[] = okrChildUnit.name.split(' ', 3);
 
     if (nameSplit.length >= 2) {
       return `${nameSplit[0].charAt(0)} ${nameSplit[1].charAt(0)}`;
