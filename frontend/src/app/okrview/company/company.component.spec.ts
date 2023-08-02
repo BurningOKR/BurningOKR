@@ -1,26 +1,26 @@
 /* eslint-disable */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CompanyComponent } from './company.component';
-import { MaterialTestingModule } from '../../testing/material-testing.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CurrentOkrviewService } from '../current-okrview.service';
-import { CurrentOkrUnitSchemaService } from '../current-okr-unit-schema.service';
-import { CurrentCycleService } from '../current-cycle.service';
-import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { OkrChildUnitRoleService } from '../../shared/services/helper/okr-child-unit-role.service';
-import { ExcelMapper } from '../excel-file/excel.mapper';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
-import { CycleState, CycleUnit } from '../../shared/model/ui/cycle-unit';
-import { OkrUnitRole, OkrUnitSchema } from '../../shared/model/ui/okr-unit-schema';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
-import { ContextRole } from '../../shared/model/ui/context-role';
-import { Component, Input } from '@angular/core';
-import { AddChildUnitButtonComponent } from '../add-child-unit-button/add-child-unit-button.component';
-import { SharedModule } from '../../shared/shared.module';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {CompanyComponent} from './company.component';
+import {MaterialTestingModule} from '../../testing/material-testing.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {CurrentOkrviewService} from '../current-okrview.service';
+import {CurrentOkrUnitSchemaService} from '../current-okr-unit-schema.service';
+import {CurrentCycleService} from '../current-cycle.service';
+import {CompanyMapper} from '../../shared/services/mapper/company.mapper';
+import {OkrChildUnitRoleService} from '../../shared/services/helper/okr-child-unit-role.service';
+import {ExcelMapper} from '../excel-file/excel.mapper';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {of} from 'rxjs';
+import {CycleState, CycleUnit} from '../../shared/model/ui/cycle-unit';
+import {OkrUnitRole, OkrUnitSchema} from '../../shared/model/ui/okr-unit-schema';
+import {ActivatedRoute, convertToParamMap} from '@angular/router';
+import {CompanyUnit} from '../../shared/model/ui/OrganizationalUnit/company-unit';
+import {ContextRole} from '../../shared/model/ui/context-role';
+import {Component, Input} from '@angular/core';
+import {AddChildUnitButtonComponent} from '../add-child-unit-button/add-child-unit-button.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @Component({
   selector: 'app-okr-child-unit-preview-button',
@@ -118,6 +118,7 @@ describe('CompanyComponent', () => {
     company = {
       id: 10,
       name: 'TestComapy',
+      photo: 'base64',
       objectives: [],
       okrChildUnitIds: [],
       cycleId: 1,

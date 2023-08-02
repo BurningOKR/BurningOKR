@@ -1,18 +1,18 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { DashboardModificationComponent } from './dashboard-modification.component';
-import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
-import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { Dashboard } from '../../model/ui/dashboard';
-import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
-import { ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { PieChartOptions } from '../../model/ui/pie-chart-options';
+import {DashboardModificationComponent} from './dashboard-modification.component';
+import {DepartmentMapper} from '../../../shared/services/mapper/department.mapper';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {MatDialog} from '@angular/material/dialog';
+import {TranslateModule} from '@ngx-translate/core';
+import {CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
+import {of} from 'rxjs';
+import {OkrDepartment} from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import {Dashboard} from '../../model/ui/dashboard';
+import {UnitType} from '../../../shared/model/api/OkrUnit/unit-type.enum';
+import {ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
+import {PieChartOptions} from '../../model/ui/pie-chart-options';
 
 const okrTestDepartment1: OkrDepartment = {
   id: 1,
@@ -20,6 +20,7 @@ const okrTestDepartment1: OkrDepartment = {
   isParentUnitABranch: false,
   label: 'department',
   name: 'test1',
+  photo: 'base64',
   objectives: [],
   okrMasterId: '',
   okrMemberIds: [],
@@ -34,6 +35,7 @@ const okrTestDepartment2: OkrDepartment = {
   isParentUnitABranch: false,
   label: 'department',
   name: 'test2',
+  photo: 'base64',
   objectives: [],
   okrMasterId: '',
   okrMemberIds: [],

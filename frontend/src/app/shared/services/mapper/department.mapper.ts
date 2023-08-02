@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
-import { DepartmentApiService } from '../api/department-api.service';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
-import { CompanyId, OkrUnitId } from '../../model/id-types';
-import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {OkrDepartment} from '../../model/ui/OrganizationalUnit/okr-department';
+import {DepartmentApiService} from '../api/department-api.service';
+import {OkrDepartmentDto} from '../../model/api/OkrUnit/okr-department.dto';
+import {CompanyId, OkrUnitId} from '../../model/id-types';
+import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,7 @@ export class DepartmentMapper {
       type: UnitType.DEPARTMENT,
       id: department.okrUnitId,
       name: department.unitName,
+      photo: department.photo,
       objectives: department.objectiveIds,
       parentUnitId: department.parentUnitId,
       label: department.label,
@@ -35,6 +36,7 @@ export class DepartmentMapper {
       __okrUnitType: UnitType.DEPARTMENT,
       okrUnitId: department.id,
       unitName: department.name,
+      photo: department.photo,
       label: department.label,
       isActive: department.isActive,
       parentUnitId: department.parentUnitId,

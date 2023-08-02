@@ -1,19 +1,19 @@
-import { TestBed } from '@angular/core/testing';
-import { CompanyApiService } from '../../shared/services/api/company-api.service';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { OkrUnitCardComponent } from './okr-unit-card.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CycleMapper } from '../../shared/services/mapper/cycle.mapper';
-import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
-import { MatDialog } from '@angular/material/dialog';
-import { CurrentUserService } from '../../core/services/current-user.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
-import { DeleteDialogData } from '../../shared/model/ui/delete-dialog-data';
-import { MaterialTestingModule } from '../../testing/material-testing.module';
-import { TranslateService } from '@ngx-translate/core';
-import { DateFormatPipe } from '../../shared/pipes/date-format.pipe';
+import {TestBed} from '@angular/core/testing';
+import {CompanyApiService} from '../../shared/services/api/company-api.service';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
+import {OkrUnitCardComponent} from './okr-unit-card.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CycleMapper} from '../../shared/services/mapper/cycle.mapper';
+import {CompanyMapper} from '../../shared/services/mapper/company.mapper';
+import {MatDialog} from '@angular/material/dialog';
+import {CurrentUserService} from '../../core/services/current-user.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {CompanyUnit} from '../../shared/model/ui/OrganizationalUnit/company-unit';
+import {DeleteDialogData} from '../../shared/model/ui/delete-dialog-data';
+import {MaterialTestingModule} from '../../testing/material-testing.module';
+import {TranslateService} from '@ngx-translate/core';
+import {DateFormatPipe} from '../../shared/pipes/date-format.pipe';
 
 describe('OkrUnitCardComponent', () => {
 
@@ -67,6 +67,7 @@ describe('OkrUnitCardComponent', () => {
     component.company = {
       id: 7331,
       name: 'correctCompanyWithArticle',
+      photo: 'base64',
       okrChildUnitIds: [],
       objectives: [],
       cycleId: 0,
@@ -100,6 +101,7 @@ describe('OkrUnitCardComponent', () => {
     component.company = {
       id: 7331,
       name: 'correctCompanyWithArticle',
+      photo: 'base64',
       okrChildUnitIds: [123, 234, 345, 45],
       objectives: [],
       cycleId: 0,

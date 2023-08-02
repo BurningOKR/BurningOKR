@@ -1,21 +1,21 @@
 /* eslint-disable */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DepartmentTabTeamComponent } from './department-tab-team.component';
-import { MaterialTestingModule } from '../../../../testing/material-testing.module';
-import { CurrentUserService } from '../../../../core/services/current-user.service';
-import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
-import { ConfigurationManagerService } from '../../../../core/settings/configuration-manager.service';
-import { MatDialog } from '@angular/material/dialog';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CurrentOkrUnitSchemaService } from '../../../current-okr-unit-schema.service';
-import { CycleState, CycleUnit } from '../../../../shared/model/ui/cycle-unit';
-import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { ContextRole } from '../../../../shared/model/ui/context-role';
-import { of } from 'rxjs';
-import { Configuration } from '../../../../shared/model/ui/configuration';
-import { User } from '../../../../shared/model/api/user';
-import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {DepartmentTabTeamComponent} from './department-tab-team.component';
+import {MaterialTestingModule} from '../../../../testing/material-testing.module';
+import {CurrentUserService} from '../../../../core/services/current-user.service';
+import {DepartmentMapper} from '../../../../shared/services/mapper/department.mapper';
+import {ConfigurationManagerService} from '../../../../core/settings/configuration-manager.service';
+import {MatDialog} from '@angular/material/dialog';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {CurrentOkrUnitSchemaService} from '../../../current-okr-unit-schema.service';
+import {CycleState, CycleUnit} from '../../../../shared/model/ui/cycle-unit';
+import {OkrDepartment} from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
+import {ContextRole} from '../../../../shared/model/ui/context-role';
+import {of} from 'rxjs';
+import {Configuration} from '../../../../shared/model/ui/configuration';
+import {User} from '../../../../shared/model/api/user';
+import {UnitType} from '../../../../shared/model/api/OkrUnit/unit-type.enum';
 
 const currentUserServiceMock: any = {
   getCurrentUser$: jest.fn(),
@@ -90,6 +90,7 @@ describe('DepartmentTabTeamComponent', () => {
     department = {
       id: 2,
       name: 'testDepartment',
+      photo: 'base64',
       objectives: [],
       parentUnitId: 0,
       label: 'label',

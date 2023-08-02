@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { OkrToolbarComponent } from './okr-toolbar.component';
-import { CurrentCompanyService } from '../../../okrview/current-company.service';
-import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
-import { MaterialTestingModule } from '../../../testing/material-testing.module';
-import { MatDialog } from '@angular/material/dialog';
-import { CurrentUserService } from '../../../core/services/current-user.service';
-import { ConfigurationService } from '../../../core/settings/configuration.service';
-import { OkrUnitService } from '../../services/mapper/okr-unit.service';
-import { of } from 'rxjs';
-import { Router } from '@angular/router';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {OkrToolbarComponent} from './okr-toolbar.component';
+import {CurrentCompanyService} from '../../../okrview/current-company.service';
+import {CompanyUnit} from '../../model/ui/OrganizationalUnit/company-unit';
+import {MaterialTestingModule} from '../../../testing/material-testing.module';
+import {MatDialog} from '@angular/material/dialog';
+import {CurrentUserService} from '../../../core/services/current-user.service';
+import {ConfigurationService} from '../../../core/settings/configuration.service';
+import {OkrUnitService} from '../../services/mapper/okr-unit.service';
+import {of} from 'rxjs';
+import {Router} from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
 
 describe('OkrToolbarComponent', () => {
   let component: any;
@@ -19,6 +19,7 @@ describe('OkrToolbarComponent', () => {
   const currentCompanyMock: CompanyUnit = {
     id: 1,
     name: '',
+    photo: 'base64',
     okrChildUnitIds: null,
     objectives: null,
     cycleId: 0,

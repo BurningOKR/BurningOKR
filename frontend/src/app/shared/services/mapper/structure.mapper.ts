@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { StructureApiService } from '../api/structure-api.service';
-import { Observable } from 'rxjs';
-import { Structure } from '../../model/ui/OrganizationalUnit/structure';
-import { StructureDto } from '../../model/api/OkrUnit/structure.dto';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {StructureApiService} from '../api/structure-api.service';
+import {Observable} from 'rxjs';
+import {Structure} from '../../model/ui/OrganizationalUnit/structure';
+import {StructureDto} from '../../model/api/OkrUnit/structure.dto';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +37,7 @@ export class StructureMapper {
     return {
       id: structureDto.okrUnitId,
       name: structureDto.unitName,
+      photo: structureDto.photo,
       label: structureDto.label,
       objectives: structureDto.objectiveIds,
       substructures: this.mapDtosToStructureArray(structureDto.substructure),

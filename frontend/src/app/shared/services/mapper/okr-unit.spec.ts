@@ -1,14 +1,14 @@
-import { TestBed } from '@angular/core/testing';
-import { OkrUnitService } from './okr-unit.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { OkrUnitApiService } from '../api/okr-unit-api.service';
-import { of } from 'rxjs';
-import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
-import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
-import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
-import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
-import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
-import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
+import {TestBed} from '@angular/core/testing';
+import {OkrUnitService} from './okr-unit.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {OkrUnitApiService} from '../api/okr-unit-api.service';
+import {of} from 'rxjs';
+import {OkrDepartmentDto} from '../../model/api/OkrUnit/okr-department.dto';
+import {OkrDepartment} from '../../model/ui/OrganizationalUnit/okr-department';
+import {OkrChildUnit} from '../../model/ui/OrganizationalUnit/okr-child-unit';
+import {OkrBranchDto} from '../../model/api/OkrUnit/okr-branch.dto';
+import {OkrBranch} from '../../model/ui/OrganizationalUnit/okr-branch';
+import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
 
 const okrUnitApiService: any = {
   getOkrChildUnitById$: jest.fn(),
@@ -39,6 +39,7 @@ describe('OkrUnitService', () => {
     departmentDto = {
       okrUnitId: 1,
       unitName: 'testName',
+      photo: 'base64',
       label: 'test',
       isActive: true,
       objectiveIds: [1, 2, 3],
@@ -53,6 +54,7 @@ describe('OkrUnitService', () => {
     departmentUnit = {
       id: 1,
       name: 'testName',
+      photo: 'base64',
       label: 'test',
       isActive: true,
       objectives: [1, 2, 3],
@@ -68,6 +70,7 @@ describe('OkrUnitService', () => {
       __okrUnitType: UnitType.BRANCH,
       okrUnitId: 2,
       unitName: 'testName2',
+      photo: 'base64',
       label: 'testLabel',
       isActive: true,
       okrChildUnitIds: [1],
@@ -80,6 +83,7 @@ describe('OkrUnitService', () => {
       type: UnitType.BRANCH,
       id: 2,
       name: 'testName2',
+      photo: 'base64',
       label: 'testLabel',
       isActive: true,
       okrChildUnitIds: [1],

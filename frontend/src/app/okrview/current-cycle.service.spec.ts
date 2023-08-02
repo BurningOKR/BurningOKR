@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CurrentCycleService } from './current-cycle.service';
-import { CycleMapper } from '../shared/services/mapper/cycle.mapper';
-import { CurrentCompanyService } from './current-company.service';
-import { of } from 'rxjs';
-import { CompanyUnit } from '../shared/model/ui/OrganizationalUnit/company-unit';
-import { CycleState, CycleUnit } from '../shared/model/ui/cycle-unit';
+import {CurrentCycleService} from './current-cycle.service';
+import {CycleMapper} from '../shared/services/mapper/cycle.mapper';
+import {CurrentCompanyService} from './current-company.service';
+import {of} from 'rxjs';
+import {CompanyUnit} from '../shared/model/ui/OrganizationalUnit/company-unit';
+import {CycleState, CycleUnit} from '../shared/model/ui/cycle-unit';
 
 const currentCompanyServiceMock: any = {
   getCurrentCompany$: jest.fn(),
@@ -21,6 +21,7 @@ const currentCompanyMock: CompanyUnit = {
   cycleId: 2,
   label: 'test',
   name: 'testCompany',
+  photo: 'base64',
   objectives: [],
 };
 

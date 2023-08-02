@@ -1,15 +1,15 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NEVER } from 'rxjs';
-import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
-import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
-import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
-import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {DepartmentMapper} from '../../../shared/services/mapper/department.mapper';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {NEVER} from 'rxjs';
+import {OkrDepartment} from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import {UnitType} from '../../../shared/model/api/OkrUnit/unit-type.enum';
+import {OkrChildUnit} from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import {OkrUnitService} from '../../../shared/services/mapper/okr-unit.service';
+import {OkrBranch} from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import {OkrBranchMapper} from '../../../shared/services/mapper/okr-branch-mapper.service';
+import {TranslateService} from '@ngx-translate/core';
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -93,6 +93,7 @@ export class OkrChildUnitFormComponent {
       parentUnitId: undefined,
       objectives: [],
       name: formData.name,
+      photo: formData.photo,
       label: formData.label,
       isActive: formData.isActive,
       isParentUnitABranch: false,

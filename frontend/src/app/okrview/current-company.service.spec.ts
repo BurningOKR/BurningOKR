@@ -1,10 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CurrentCompanyService } from './current-company.service';
-import { CompanyMapper } from '../shared/services/mapper/company.mapper';
-import { CompanyUnit } from '../shared/model/ui/OrganizationalUnit/company-unit';
-import { Observable, of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {CurrentCompanyService} from './current-company.service';
+import {CompanyMapper} from '../shared/services/mapper/company.mapper';
+import {CompanyUnit} from '../shared/model/ui/OrganizationalUnit/company-unit';
+import {Observable, of} from 'rxjs';
+import {take} from 'rxjs/operators';
 
 const companyMapperMock: any = {
   getCompanyById$: jest.fn(getCompanyByIdMock$),
@@ -25,6 +25,7 @@ const testCompany: CompanyUnit = {
   cycleId: 1,
   label: '',
   name: '',
+  photo: '',
   objectives: [],
 };
 const testCompany2: CompanyUnit = {
@@ -33,6 +34,7 @@ const testCompany2: CompanyUnit = {
   cycleId: 1,
   label: '',
   name: '',
+  photo: '',
   objectives: [],
 };
 const testCompanyList: CompanyUnit[] = [testCompany, testCompany2];

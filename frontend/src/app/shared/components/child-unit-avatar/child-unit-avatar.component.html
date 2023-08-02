@@ -3,12 +3,9 @@
                [bgColor]="bgColor"
                [name]="buildInitialsForUserAvatar(okrChildUnit)"
                [size]="size"
-               [src]=""
-               [style.cursor]=""
-               [value]=""
+               [src]="okrChildUnit.photo ? 'data:image/jpg;base64,' + okrChildUnit.photo : ''"
+               [style.cursor]="clickable ? 'pointer' : ''"
+               [value]="'📁'"
   >
   </ngx-avatars>
 </ng-container>
-
-<!--    [src]="user.photo ? 'data:image/jpg;base64,' + user.photo : ''"   -->
-<!--    [style.cursor]="clickable ? 'pointer' : ''" [value]="'📁'"   -->
