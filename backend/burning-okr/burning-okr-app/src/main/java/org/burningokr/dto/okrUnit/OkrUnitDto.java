@@ -16,6 +16,8 @@ public abstract class OkrUnitDto {
   @Size(min = 1)
   protected String unitName;
 
+  protected String photo; // Represents the image as String
+
   @NotNull
   @Size(min = 1)
   protected String label;
