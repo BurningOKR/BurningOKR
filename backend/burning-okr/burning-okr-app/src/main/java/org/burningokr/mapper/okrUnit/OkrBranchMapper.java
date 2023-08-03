@@ -15,6 +15,7 @@ public class OkrBranchMapper implements DataMapper<OkrBranch, OkrBranchDto> {
     OkrBranch entity = new OkrBranch();
     entity.setId(dto.getOkrUnitId());
     entity.setName(dto.getUnitName());
+    entity.setPhoto(dto.getPhoto());
     entity.setLabel(dto.getLabel());
     entity.setActive(dto.getIsActive());
     return entity;
@@ -25,6 +26,7 @@ public class OkrBranchMapper implements DataMapper<OkrBranch, OkrBranchDto> {
     OkrBranchDto dto = new OkrBranchDto();
     dto.setOkrUnitId(entity.getId());
     dto.setUnitName(entity.getName());
+    dto.setPhoto(entity.getPhoto());
     dto.setIsActive(entity.isActive());
     dto.setLabel(entity.getLabel());
     dto.setParentUnitId(

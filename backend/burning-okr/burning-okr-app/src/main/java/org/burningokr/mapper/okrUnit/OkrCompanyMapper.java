@@ -25,6 +25,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
 
     okrCompany.setId(okrCompanyDto.getOkrUnitId());
     okrCompany.setName(okrCompanyDto.getUnitName());
+    okrCompany.setPhoto(okrCompanyDto.getPhoto());
     okrCompany.setLabel(okrCompanyDto.getLabel());
 
     okrCompany.setOkrChildUnits(new ArrayList<>());
@@ -54,6 +55,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
 
     okrCompanyDto.setOkrUnitId(okrCompany.getId());
     okrCompanyDto.setUnitName(okrCompany.getName());
+    okrCompanyDto.setPhoto(okrCompany.getPhoto());
     okrCompanyDto.setLabel(okrCompany.getLabel());
     okrCompanyDto.setCycleId(okrCompany.getCycle().getId());
     okrCompanyDto.setHistoryId(okrCompany.getCompanyHistory().getId());

@@ -19,6 +19,7 @@ public class StructureMapper {
     StructureDto structureDto = new StructureDto();
     structureDto.setOkrUnitId(input.getId());
     structureDto.setUnitName(input.getName());
+    structureDto.setPhoto(input.getPhoto());
     structureDto.setSubstructure(
       mapChildUnitsToStructureDtos(BranchHelper.collectDirectChildUnits(input)));
     return structureDto;
@@ -39,6 +40,7 @@ public class StructureMapper {
     StructureDto structureDto = new StructureDto();
     structureDto.setOkrUnitId(input.getId());
     structureDto.setUnitName(input.getName());
+    structureDto.setPhoto(input.getPhoto());
     Collection<OkrChildUnit> childUnits = BranchHelper.collectChildUnitsWithoutSelf(input);
     if (!childUnits.isEmpty()) {
       structureDto.setSubstructure(mapChildUnitsToStructureDtos(childUnits));
