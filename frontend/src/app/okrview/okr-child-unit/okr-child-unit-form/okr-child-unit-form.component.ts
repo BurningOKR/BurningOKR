@@ -1,15 +1,15 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DepartmentMapper} from '../../../shared/services/mapper/department.mapper';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NEVER} from 'rxjs';
-import {OkrDepartment} from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import {UnitType} from '../../../shared/model/api/OkrUnit/unit-type.enum';
-import {OkrChildUnit} from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
-import {OkrUnitService} from '../../../shared/services/mapper/okr-unit.service';
-import {OkrBranch} from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
-import {OkrBranchMapper} from '../../../shared/services/mapper/okr-branch-mapper.service';
-import {TranslateService} from '@ngx-translate/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NEVER } from 'rxjs';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
+import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
+import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
+import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -27,7 +27,9 @@ export class OkrChildUnitFormComponent {
   okrChildUnit: OkrChildUnit;
   childUnitForm: FormGroup;
   title: string;
-  unitType = UnitType;
+  UnitType = UnitType;
+  file: File;
+  imageBase64: string;
 
   constructor(
     private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
@@ -64,6 +66,19 @@ export class OkrChildUnitFormComponent {
     this.title = this.formData.childUnit ? saveText : createText;
   }
 
+  onChange(event) {
+    this.file = event.target.files[0];
+    const reader: FileReader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = ()=> {
+
+      const base64String: string = reader.result.toString();
+      const tempArray: string[] = base64String.split(',');
+      this.imageBase64 = tempArray[1];
+      console.log(this.imageBase64);
+    };
+  }
+
   closeDialog(): void {
     this.dialogRef.close(NEVER);
   }
@@ -81,6 +96,8 @@ export class OkrChildUnitFormComponent {
     childUnit.name = this.childUnitForm.get('name').value;
     childUnit.label = this.childUnitForm.get('label').value;
     childUnit.isActive = this.childUnitForm.get('isActive').value;
+    console.log(this.imageBase64);
+    childUnit.photo = this.imageBase64;
 
     this.dialogRef.close(this.okrUnitService.putOkrChildUnit$(childUnit));
   }
@@ -149,4 +166,6 @@ export class OkrChildUnitFormComponent {
 
     }
   }
+
+
 }

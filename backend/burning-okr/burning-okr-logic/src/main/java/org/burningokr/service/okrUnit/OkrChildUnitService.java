@@ -134,6 +134,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
 
   private void updateOkrDepartment(OkrDepartment updatedOkrDepartment, OkrDepartment databaseOkrDepartment) {
     databaseOkrDepartment.setName(updatedOkrDepartment.getName());
+    databaseOkrDepartment.setPhoto(updatedOkrDepartment.getPhoto());
     databaseOkrDepartment.setLabel(updatedOkrDepartment.getLabel());
     databaseOkrDepartment.setActive(updatedOkrDepartment.isActive());
     databaseOkrDepartment.setOkrMasterId(updatedOkrDepartment.getOkrMasterId());

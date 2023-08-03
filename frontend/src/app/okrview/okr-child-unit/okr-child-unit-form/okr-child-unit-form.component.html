@@ -19,4 +19,6 @@
     <mat-slide-toggle class="col-l-6 toggle-fix" formControlName="isActive">
       <span>{{ 'okr-child-unit-form.header' | translate }}</span></mat-slide-toggle>
   </form>
+
+  <input *ngIf="okrChildUnit.type === UnitType.DEPARTMENT" (change)="onChange($event)" type="file" id="img" name="img" accept="image/*" >
 </app-dialog-component>
