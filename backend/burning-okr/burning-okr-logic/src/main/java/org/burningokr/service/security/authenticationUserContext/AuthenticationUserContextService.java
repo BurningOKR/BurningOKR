@@ -92,10 +92,10 @@ public abstract class AuthenticationUserContextService {
   }
 
   protected String getAttributeFromJwt(Jwt userToken, String attributeName) throws InvalidTokenException {
-    return validateString(userToken.getClaims().get(attributeName), attributeName);
+    return validateString(userToken.getClaims().get(attributeName), attributeName); // TODO no claims in azure ad token present
   }
 
-  private String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
+  protected String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
     String validatedString = checkIfObjectIsInstanceOfString(stringObject, attributeName);
     checkIfStringIsEmpty(attributeName, validatedString);
 
@@ -105,7 +105,7 @@ public abstract class AuthenticationUserContextService {
   private String checkIfObjectIsInstanceOfString(Object stringObject, String attributeName) throws
       InvalidTokenException {
     if (!(stringObject instanceof String validatedString)) {
-      throw new InvalidTokenException("%s attribute is not existent or not a string".formatted(attributeName));
+      throw new InvalidTokenException("%s value is not existent or not a string".formatted(attributeName));
     }
     return validatedString;
   }
