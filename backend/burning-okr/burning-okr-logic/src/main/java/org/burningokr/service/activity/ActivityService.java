@@ -29,7 +29,6 @@ public class ActivityService {
 
   //FIXME: (C.C.) activity is not created, to update the task in the taskboard
   public <T extends Trackable<?>> void createActivity(T t, Action action) {
-    log.info("create activity C.K.");
     User authenticatedUser = authenticationUserContextService.getAuthenticatedUser();
     Activity activity = new Activity();
     activity.setUserId(authenticatedUser.getId() + " (" + authenticatedUser.getMail() + ")");

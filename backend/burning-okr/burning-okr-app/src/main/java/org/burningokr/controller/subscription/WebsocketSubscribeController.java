@@ -70,7 +70,6 @@ public abstract class WebsocketSubscribeController {
 
   private void handleRemove(Message<byte[]> message, Set<SimpSubscription> matchingSubscriptions) {
     StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(message);
-    System.out.println("StompHeader Remove => " + stompHeaderAccessor);
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
     for (SimpSubscription simpSubscription : matchingSubscriptions) {
       String destinationUrl = simpSubscription.getDestination();

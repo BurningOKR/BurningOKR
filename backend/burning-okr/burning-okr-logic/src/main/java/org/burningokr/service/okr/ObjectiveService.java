@@ -122,7 +122,7 @@ public class ObjectiveService {
 
     referencedObjective = objectiveRepository.save(referencedObjective);
 
-    log.info(
+    log.debug(
         "Updated objective: "
             + updatedObjective.getName()
             + "(id:"
@@ -144,7 +144,7 @@ public class ObjectiveService {
     for (Objective subObjective : referencedObjective.getSubObjectives()) {
       subObjective.setParentObjective(null);
       objectiveRepository.save(subObjective);
-      log.info(
+      log.debug(
           "Removed parent objective from "
               + referencedObjective.getName()
               + "(id:"
@@ -186,7 +186,7 @@ public class ObjectiveService {
                     keyResultMilestoneService.createKeyResultMilestone(id, milestone))
             .collect(Collectors.toList()));
 
-    log.info(
+    log.debug(
         "Created Key Result "
             + keyResult.getName()
             + " in Objective "
@@ -221,7 +221,7 @@ public class ObjectiveService {
               objective.setSequence(currentOrder);
               objectiveRepository.save(objective);
               activityService.createActivity(objective, Action.EDITED);
-              log.info("Update sequence of Objective with id " + objective.getId());
+              log.debug("Update sequence of Objective with id " + objective.getId());
             });
   }
 

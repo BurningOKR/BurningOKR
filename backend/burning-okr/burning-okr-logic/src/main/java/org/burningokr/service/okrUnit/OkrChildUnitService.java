@@ -81,7 +81,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     throwIfCycleForOkrChildUnitIsClosed(referencedUnit);
 
     okrUnitRepository.deleteById(unitId);
-    log.info("Deleted OkrDepartment (id: %d) and its children".formatted(unitId));
+    log.debug("Deleted OkrDepartment (id: %d) and its children".formatted(unitId));
     activityService.createActivity(referencedUnit, Action.DELETED);
   }
 

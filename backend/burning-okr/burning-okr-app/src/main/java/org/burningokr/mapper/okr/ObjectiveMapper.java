@@ -51,7 +51,7 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     objective.setSubObjectives(new ArrayList<>());
     objective.setKeyResults(new ArrayList<>());
 
-    logger.info("Mapped ObjectiveDto (id:" + objectiveDto.getId() + ") successful into Objective.");
+    logger.debug("Mapped ObjectiveDto (id:" + objectiveDto.getId() + ") successful into Objective.");
     return objective;
   }
 
@@ -91,7 +91,7 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     }
     objectiveDto.setNoteIds(noteIds);
 
-    logger.info("Mapped Objective (id:" + objective.getId() + ") successful into ObjectiveDto.");
+    logger.debug("Mapped Objective (id:" + objective.getId() + ") successful into ObjectiveDto.");
     return objectiveDto;
   }
 

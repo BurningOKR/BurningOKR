@@ -69,7 +69,7 @@ public class OkrTopicDraftService {
     topicDraft.setCurrentStatus(OkrTopicDraftStatusEnum.draft);
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
-    log.info("Created Topic Draft: " + topicDraft.getName());
+    log.debug("Created Topic Draft: " + topicDraft.getName());
 
     activityService.createActivity(topicDraft, Action.CREATED);
 

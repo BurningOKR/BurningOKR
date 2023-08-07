@@ -75,9 +75,8 @@ public class WebSocketAuthentication {
     if (!authentication.isAuthenticated()) return;
 
     header.setUser(authentication);
-    System.out.println("Current Auth Attribute has uuid as => " + authentication.getName());
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    log.info("set auth after receiving jwt via websocket connection");
+    log.debug("set auth after receiving jwt via websocket connection");
     if (header.getSessionAttributes() == null) throw new RuntimeException("Session Attributes are null");
     header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY,
         authenticationUserContextService.getAuthenticatedUser().getId());

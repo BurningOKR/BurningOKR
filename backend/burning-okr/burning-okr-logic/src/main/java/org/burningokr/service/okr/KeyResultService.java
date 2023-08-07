@@ -71,12 +71,12 @@ public class KeyResultService {
     if (keyResultProgressChanged) {
       keyResultHistoryService.updateKeyResultHistory(referencedKeyResult);
     }
-    logger.info(
-      "Updated Key Result "
-        + referencedKeyResult.getName()
-        + "(id:"
-        + referencedKeyResult.getId()
-        + ")");
+    logger.debug(
+        "Updated Key Result "
+            + referencedKeyResult.getName()
+            + "(id:"
+            + referencedKeyResult.getId()
+            + ")");
     activityService.createActivity(referencedKeyResult, Action.EDITED);
     return referencedKeyResult;
   }
@@ -173,7 +173,7 @@ public class KeyResultService {
           keyResult.setSequence(currentOrder);
           keyResultRepository.save(keyResult);
           activityService.createActivity(keyResult, Action.EDITED);
-          logger.info("Update sequence of KeyResult with id " + keyResult.getId());
+          logger.debug("Update sequence of KeyResult with id " + keyResult.getId());
         });
   }
 

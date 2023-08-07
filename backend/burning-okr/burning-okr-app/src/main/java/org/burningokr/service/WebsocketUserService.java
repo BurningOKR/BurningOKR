@@ -21,7 +21,6 @@ public class WebsocketUserService {
 
   public User findByAccessor(StompHeaderAccessor stompHeaderAccessor) {
     Map<String, Object> sessionAttributes = stompHeaderAccessor.getSessionAttributes();
-    System.out.println("findByAccessor: attributes => " + sessionAttributes);
     if (sessionAttributes == null || !sessionAttributes.containsKey(WebSocketAuthentication.USER_SESSION_ATTRIBUTE_KEY)) {
       throw new RuntimeException("StompHeaderAccessor does not contain (valid) userId.");
     }

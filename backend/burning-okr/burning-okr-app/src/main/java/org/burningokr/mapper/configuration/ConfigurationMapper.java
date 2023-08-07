@@ -19,7 +19,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configuration.setName(configurationDto.getName());
     configuration.setValue(configurationDto.getValue());
     configuration.setType(configurationDto.getType());
-    logger.info("Mapped ConfigurationDto (id: )" + configurationDto.getId() + ") to Configuration");
+    logger.debug("Mapped ConfigurationDto (id: )" + configurationDto.getId() + ") to Configuration");
     return configuration;
   }
 
@@ -30,7 +30,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configurationDto.setName(configuration.getName());
     configurationDto.setValue(configuration.getValue());
     configurationDto.setType(configuration.getType());
-    logger.info("Mapped Configuration (id: )" + configuration.getId() + ") to ConfigurationDto");
+    logger.debug("Mapped Configuration (id: )" + configuration.getId() + ") to ConfigurationDto");
     return configurationDto;
   }
 }
