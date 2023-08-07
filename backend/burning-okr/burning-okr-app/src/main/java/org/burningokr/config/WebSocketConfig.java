@@ -52,13 +52,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
         if (accessor == null) throw new NullPointerException("StompHeaderAccessor is null");
 
-        if (!socketAuth.isConnectionAttempt(accessor)) {
+        if (!socketAuth.isConnectionAttempt(accessor)) { // TODO check if secure because no check for auth before sending
           return message;
         }
         try {
           socketAuth.tryToAuthenticate(accessor);
         } catch (AuthorizationHeaderException exception) {
-          logger.error("Authorization Header Exception in WebSocketConfig => ", exception);
+          logger.error("Authorization Header Exception in WebSocketConfig: ", exception);
         }
         return message;
       }

@@ -10,6 +10,8 @@ import org.burningokr.service.okr.TaskService;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
@@ -26,8 +28,10 @@ public class WebsocketTaskController {
   @MessageMapping("unit/{unitId}/tasks/add")
   public void addTask(
       @DestinationVariable long unitId,
-      TaskDto taskDto
+      TaskDto taskDto,
+      Authentication authentication
   ) {
+    SecurityContextHolder.getContext().setAuthentication(authentication);
     log.info(
         String.format(
             "Websocket add Task dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d}",
@@ -55,7 +59,8 @@ public class WebsocketTaskController {
   }
 
   @MessageMapping("unit/{unitId}/tasks/update")
-  public void updateTask(@DestinationVariable long unitId, TaskDto taskDto) throws Exception {
+  public void updateTask(@DestinationVariable long unitId, TaskDto taskDto, Authentication authentication) throws Exception {
+    SecurityContextHolder.getContext().setAuthentication(authentication);
     log.info("update Task on Websocket");
     try {
       Task updatedTask = taskMapper.mapDtoToEntity(taskDto);
@@ -74,9 +79,9 @@ public class WebsocketTaskController {
   }
 
   @MessageMapping("unit/{unitId}/tasks/delete")
-  public void deleteTask(@DestinationVariable long unitId, TaskDto taskDto) {
+  public void deleteTask(@DestinationVariable long unitId, TaskDto taskDto, Authentication authentication) {
     log.info("delete Task on Websocket");
-
+    SecurityContextHolder.getContext().setAuthentication(authentication);
     try {
       Task taskToDelete = taskMapper.mapDtoToEntity(taskDto);
       Collection<Task> updatedTasks =

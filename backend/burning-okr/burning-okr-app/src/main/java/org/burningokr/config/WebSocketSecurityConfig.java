@@ -14,16 +14,10 @@
 //  @Bean
 //  AuthorizationManager<Message<?>> authorizationManager(MessageMatcherDelegatingAuthorizationManager.Builder messages) {
 //    messages
-//        .nullDestMatcher()
-//        .permitAll()
-//        .simpTypeMatchers(SimpMessageType.CONNECT)
-//        .authenticated()
-//        .simpTypeMatchers(SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT)
-//        .authenticated()
-//        .simpDestMatchers("/ws/**")
-//        .authenticated()
-//        .simpSubscribeDestMatchers("/topic/**")
-//        .authenticated()
+////        .nullDestMatcher()
+////        .authenticated()
+////        .simpTypeMatchers(SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT)
+////        .authenticated()
 //        .anyMessage()
 //        .denyAll();
 //

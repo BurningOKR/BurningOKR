@@ -1,6 +1,7 @@
 package org.burningokr.service.activity;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.activity.Activity;
 import org.burningokr.model.activity.Trackable;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ActivityService {
   private final ActivityRepository activityRepository;
   private final AuthenticationUserContextService authenticationUserContextService;
@@ -27,6 +29,7 @@ public class ActivityService {
 
   //FIXME: (C.C.) activity is not created, to update the task in the taskboard
   public <T extends Trackable<?>> void createActivity(T t, Action action) {
+    log.info("create activity C.K.");
     User authenticatedUser = authenticationUserContextService.getAuthenticatedUser();
     Activity activity = new Activity();
     activity.setUserId(authenticatedUser.getId() + " (" + authenticatedUser.getMail() + ")");
