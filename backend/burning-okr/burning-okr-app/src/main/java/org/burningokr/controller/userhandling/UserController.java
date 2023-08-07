@@ -27,7 +27,6 @@ import java.util.Collection;
 @Validated
 @Slf4j
 public class UserController {
-
   private final UserMapper userMapper;
   private final UserService userService;
   private final AuthenticationUserContextService authenticationUserContextService;
@@ -40,7 +39,7 @@ public class UserController {
 
   @GetMapping("/users")
   public ResponseEntity<Collection<UserDto>> getAllUsers(
-          @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
+      @RequestParam(value = "activeUsers", required = false) Boolean activeUsers
   ) {
     Collection<User> userCollection;
 
@@ -63,11 +62,10 @@ public class UserController {
     adminUserCollection = userService.findAll();
 
     return ResponseEntity.ok(userMapper.mapEntitiesToDtos(
-            adminUserCollection.stream()
-                    .filter(User::isAdmin)
-                    .toList()));
+        adminUserCollection.stream()
+            .filter(User::isAdmin)
+            .toList()));
   }
-
 
   @GetMapping("/users/{userId}")
   public ResponseEntity<UserDto> getUserById(
