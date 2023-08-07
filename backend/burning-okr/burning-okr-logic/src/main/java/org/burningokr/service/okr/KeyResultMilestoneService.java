@@ -41,11 +41,11 @@ public class KeyResultMilestoneService {
     milestone.setParentKeyResult(keyResult);
 
     KeyResultMilestone referencedMilestone = keyResultMilestoneRepository.save(milestone);
-    logger.info(
-      "Created KeyResultMilestone with id "
-        + referencedMilestone.getId()
-        + " for KeyResult"
-        + keyResult.getId());
+    logger.debug(
+        "Created KeyResultMilestone with id "
+            + referencedMilestone.getId()
+            + " for KeyResult"
+            + keyResult.getId());
 
     activityService.createActivity(referencedMilestone, Action.CREATED);
     return referencedMilestone;
@@ -67,12 +67,12 @@ public class KeyResultMilestoneService {
 
     referencedMilestone = keyResultMilestoneRepository.save(referencedMilestone);
 
-    logger.info(
-      "Updated KeyResultMilestone "
-        + referencedMilestone.getName()
-        + "(id: "
-        + referencedMilestone.getId()
-        + ")");
+    logger.debug(
+        "Updated KeyResultMilestone "
+            + referencedMilestone.getName()
+            + "(id: "
+            + referencedMilestone.getId()
+            + ")");
     activityService.createActivity(referencedMilestone, Action.EDITED);
     return referencedMilestone;
   }

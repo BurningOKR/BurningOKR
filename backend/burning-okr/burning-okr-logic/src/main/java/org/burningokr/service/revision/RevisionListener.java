@@ -2,20 +2,20 @@ package org.burningokr.service.revision;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.revision.RevisionInformation;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.hibernate.envers.EntityTrackingRevisionListener;
 import org.hibernate.envers.RevisionType;
 
 @RequiredArgsConstructor
 public class RevisionListener
         implements org.hibernate.envers.RevisionListener, EntityTrackingRevisionListener {
-  private final AuthorizationUserContextService authorizationUserContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   @Override
   public void newRevision(Object revisionEntity) {
     RevisionInformation r = (RevisionInformation) revisionEntity;
     // TODO Workaround entfernen nach Spring Upgrade (wegen fehlender DI). (MV)
-    r.setUserId(authorizationUserContextService.getAuthenticatedUser().getId());
+    r.setUserId(authenticationUserContextService.getAuthenticatedUser().getId());
   }
 
   @Override

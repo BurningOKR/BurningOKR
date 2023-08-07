@@ -96,7 +96,7 @@ public class CyclePreparationCloningService {
       subOkrUnitRepository.save(copy);
     }
 
-    this.logger.info("cloneChildUnitIntoParentUnitForPreparation - after taskboard");
+    this.logger.debug("cloneChildUnitIntoParentUnitForPreparation - after taskboard");
     cloneObjectiveListIntoOkrUnitForPreparation(okrChildUnitToClone.getObjectives(), copy);
 
     if (okrChildUnitToClone instanceof OkrParentUnit) {
@@ -160,6 +160,6 @@ public class CyclePreparationCloningService {
   }
 
   private void logOkrDepartment(OkrDepartment okrDepartment) {
-    this.logger.info("Id" + okrDepartment.getId() + " Name: " + okrDepartment.getName());
+    this.logger.debug("Id" + okrDepartment.getId() + " Name: " + okrDepartment.getName());
   }
 }
