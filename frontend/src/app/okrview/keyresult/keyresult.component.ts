@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap, take } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap, take, takeUntil } from 'rxjs/operators';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData,
@@ -46,6 +46,8 @@ export class KeyresultComponent implements OnInit, OnDestroy {
   // We dynamically populate this as sliders are used
   private sliderChangeSubject$: Subject<number>;
 
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private matDialog: MatDialog,
     private keyResultMapperService: KeyResultMapper,
@@ -55,9 +57,12 @@ export class KeyresultComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateIsKeyResultSliderInverted();
+    window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
     this.subscriptions.forEach(sub => sub.unsubscribe());
     this.subscriptions = [];
   }
@@ -186,6 +191,7 @@ export class KeyresultComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.sliderChangeSubject$
           .pipe(
+            takeUntil(this.destroy$),
             debounceTime(this.timeInMsToWaitUntilPushingSliderChanges),
             distinctUntilChanged(),
           )
