@@ -31,6 +31,6 @@ public class AuthenticationUserContextServiceAzureAD extends AuthenticationUserC
 
   @Override
   protected ArrayList<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
-    return new ArrayList<>(); // TODO (C.K.): implement when field name is known
+    return new ArrayList<>(); // TODO (C.K. 07.8.2023): implement when field name is known
   }
 }

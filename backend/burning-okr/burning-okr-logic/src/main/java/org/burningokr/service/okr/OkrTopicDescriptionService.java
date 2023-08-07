@@ -189,6 +189,6 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
 
   @Override
   public void onPostDeleteCommitFailed(PostDeleteEvent event) {
-    // TODO
+    // TODO (C.K. 07.08.2023): create error handling
   }
 }

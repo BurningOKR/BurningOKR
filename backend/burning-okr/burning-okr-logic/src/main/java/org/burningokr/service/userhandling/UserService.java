@@ -2,7 +2,6 @@ package org.burningokr.service.userhandling;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.burningokr.model.users.User;
 import org.burningokr.repositories.users.UserRepository;
 import org.springframework.stereotype.Service;
@@ -32,11 +31,6 @@ public class UserService {
 
   public synchronized User updateUser(User user) {
     return userRepository.save(user);
-  }
-
-  // TODO check again
-  public User getCurrentUser() { // TODO remove -> replaced
-    throw new NotImplementedException("getCurrentUser in UserService:34");
   }
 
   public Optional<User> findById(UUID userId) {
