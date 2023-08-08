@@ -31,8 +31,7 @@ public class DashboardMapper implements DataMapper<DashboardCreation, DashboardD
       baseChartOptionsMapper.mapDtosToEntities(dto.getChartDtos())
     );
 
-    log.debug(
-      "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
+    log.debug("Mapped DashboardCreationDto (id: %d) successful into DashboardCreation.".formatted(dto.getId()));
 
     return entity;
   }
