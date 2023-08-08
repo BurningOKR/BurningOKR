@@ -11,10 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -41,7 +38,7 @@ public abstract class AuthenticationUserContextService {
 
   protected abstract UUID getUserIdFromToken(Jwt token);
 
-  protected abstract ArrayList<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException;
+  protected abstract List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException;
 
   protected void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
     if (validatedString.equals("")) {
@@ -95,7 +92,7 @@ public abstract class AuthenticationUserContextService {
     return validateString(userToken.getClaims().get(attributeName), attributeName);
   }
 
-  private String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
+  protected String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
     String validatedString = checkIfObjectIsInstanceOfString(stringObject, attributeName);
     checkIfStringIsEmpty(attributeName, validatedString);
 
@@ -105,7 +102,7 @@ public abstract class AuthenticationUserContextService {
   private String checkIfObjectIsInstanceOfString(Object stringObject, String attributeName) throws
       InvalidTokenException {
     if (!(stringObject instanceof String validatedString)) {
-      throw new InvalidTokenException("%s attribute is not existent or not a string".formatted(attributeName));
+      throw new InvalidTokenException("%s value is not existent or not a string".formatted(attributeName));
     }
     return validatedString;
   }

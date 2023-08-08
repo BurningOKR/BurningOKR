@@ -41,7 +41,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   viewDataEmitter$: BehaviorSubject<ViewTaskBoardEvent> = new BehaviorSubject(null);
 
   viewData: ViewTaskBoardEvent = new ViewTaskBoardEvent();
-  monitoringUsers: User[] = [];
+  monitoringUsers: UserId[] = [];
 
   eventSubscriptions: Subscription[] = [];
   websocketSubcriptions: Subscription[] = [];
@@ -64,7 +64,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
   }
 
   getUserIds(): UserId[] {
-    return this.monitoringUsers.map(user => user.id);
+    return this.monitoringUsers;
   }
 
   ngOnInit(): void {
@@ -201,7 +201,7 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
       this.stompService.watch({destination: `/topic/unit/${this.childUnit.id}/tasks/users`})
         .pipe(
           map(wsReply => {
-            const users: User[] = JSON.parse(wsReply.body);
+            const users: UserId[] = JSON.parse(wsReply.body);
 
             return users;
           })
