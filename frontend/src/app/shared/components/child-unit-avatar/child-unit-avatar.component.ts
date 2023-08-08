@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
 
 @Component({
@@ -11,8 +11,6 @@ export class ChildUnitAvatarComponent implements OnChanges {
   @Input() okrChildUnit: OkrChildUnit;
   @Input() size = 64;
   @Input() bgColor = '';
-  @Input() clickable = false;
-  @Output() clickOnAvatar: EventEmitter<any> = new EventEmitter<any>();
 
   render: boolean = true;
 

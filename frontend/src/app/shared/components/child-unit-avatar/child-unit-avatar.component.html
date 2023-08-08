@@ -1,10 +1,8 @@
 <ng-container *ngIf="render">
-  <ngx-avatars (clickOnAvatar)="clickOnAvatar.emit($event)"
-               [bgColor]="bgColor"
+  <ngx-avatars [bgColor]="bgColor"
                [name]="buildInitialsForUserAvatar(okrChildUnit)"
                [size]="size"
                [src]="okrChildUnit.photo ? 'data:image/jpg;base64,' + okrChildUnit.photo : ''"
-               [style.cursor]="clickable ? 'pointer' : ''"
                [value]="'📁'"
   >
   </ngx-avatars>
