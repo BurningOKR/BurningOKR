@@ -1,11 +1,11 @@
 package org.burningokr.mapper.dashboard;
 
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.model.dashboard.creation.ChartCreationOptionsDto;
-import org.burningokr.model.dashboard.creation.DashboardCreationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.dashboard.ChartCreationOptions;
 import org.burningokr.model.dashboard.DashboardCreation;
+import org.burningokr.model.dashboard.creation.ChartCreationOptionsDto;
+import org.burningokr.model.dashboard.creation.DashboardCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +34,8 @@ public class DashboardCreationMapper implements DataMapper<DashboardCreation, Da
     entity.setChartCreationOptions(
       chartCreationOptionsMapper.mapDtosToEntities(dto.getChartCreationOptions()));
 
-    log.info(
-      "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
+    log.debug(
+        "Mapped DashboardCreationDto (id:" + dto.getId() + ") successful into DashboardCreation.");
 
     return entity;
   }
@@ -50,10 +50,10 @@ public class DashboardCreationMapper implements DataMapper<DashboardCreation, Da
     dto.setChartCreationOptions(
       chartCreationOptionsMapper.mapEntitiesToDtos(entity.getChartCreationOptions()));
 
-    log.info(
-      "Mapped DashboardCreation (id:"
-        + entity.getId()
-        + ") successful into DashboardCreationDto.");
+    log.debug(
+        "Mapped DashboardCreation (id:"
+            + entity.getId()
+            + ") successful into DashboardCreationDto.");
 
     return dto;
   }

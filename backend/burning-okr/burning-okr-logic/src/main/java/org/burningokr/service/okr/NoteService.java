@@ -72,6 +72,6 @@ public class NoteService {
     noteRepository.deleteById(noteId);
 
     activityService.createActivity(note, Action.DELETED);
-    log.info("Deleted Note with id " + noteId);
+    log.debug("Deleted Note with id " + noteId);
   }
 }

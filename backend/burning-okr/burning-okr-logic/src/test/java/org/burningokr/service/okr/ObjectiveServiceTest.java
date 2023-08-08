@@ -23,7 +23,7 @@ import org.burningokr.service.exceptions.KeyResultOverflowException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextServiceKeycloak;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,7 +61,7 @@ public class ObjectiveServiceTest {
   @Mock
   private NoteObjectiveRepository noteObjectiveRepository;
   @Mock
-  private AuthorizationUserContextService authUserContextService;
+  private AuthenticationUserContextServiceKeycloak authUserContextService;
 
   @InjectMocks
   private ObjectiveService objectiveService;

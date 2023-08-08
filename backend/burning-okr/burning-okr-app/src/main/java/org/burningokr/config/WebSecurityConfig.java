@@ -1,8 +1,7 @@
 package org.burningokr.config;
 
 import lombok.RequiredArgsConstructor;
-import org.burningokr.model.configuration.SystemProperties;
-import org.burningokr.service.security.CustomAuthenticationProvider;
+import org.burningokr.service.security.authenticationUserContext.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +11,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -29,46 +30,36 @@ public class WebSecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
-    http.cors().configurationSource(corsConfigurationSource());
-
-    // session policy
-    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-    http.csrf().disable(); // TODO check if needed
-
-    http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+    http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+    http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    http.csrf(AbstractHttpConfigurer::disable); // TODO check if needed
+    http.exceptionHandling(exception -> exception.authenticationEntryPoint((request, response, authException) -> {
       response.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Restricted Content\"");
       response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
-    });
+    }));
 
     setUnauthorizedUriRoutes(http);
-
-    http
-      .oauth2ResourceServer()
-      .jwt();
-
+    http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
     http.authenticationManager(authManager);
 
     return http.build();
   }
 
   private void setUnauthorizedUriRoutes(HttpSecurity http) throws Exception {
-    http
-      .authorizeHttpRequests()
-      .requestMatchers(
-        "/v2/api-docs/**",
-        "/swagger-resources/configuration/ui",
-        "/swagger-resources/configuration/security",
-        "/swagger-resources",
-        "/swagger-ui.html**",
-        "/webjars/**",
-        "/wsregistry",
-        "/actuator/**",
-        "/applicationSettings/oidcConfiguration" // TODO try to move to /api
-      )
-      .permitAll()
-      .anyRequest()
-      .authenticated();
+    http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry.requestMatchers(
+            "/v2/api-docs/**",
+            "/swagger-resources/configuration/ui",
+            "/swagger-resources/configuration/security",
+            "/swagger-resources",
+            "/swagger-ui.html**",
+            "/webjars/**",
+            "/wsregistry",
+            "/actuator/**",
+            "/applicationSettings/oidcConfiguration" // TODO try to move to /api
+        )
+        .permitAll()
+        .anyRequest()
+        .authenticated());
   }
 
   private CorsConfigurationSource corsConfigurationSource() {

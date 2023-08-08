@@ -31,6 +31,7 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
         taskDto.getTaskStateId(),
         taskDto.getPreviousTaskId()
       ));
+
     Task taskEntity = new Task();
 
     taskEntity.setId(taskDto.getId());
@@ -92,12 +93,12 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
       taskDto.setAssignedKeyResultId(taskEntity.getAssignedKeyResult().getId());
     }
 
-    logger.info(
-      "mapEntityToDto (id:"
-        + taskDto.getId()
-        + " assigned Key Result id: "
-        + taskDto.getAssignedKeyResultId()
-        + ") successful into TaskDto.");
+    logger.debug(
+        "mapEntityToDto (id:"
+            + taskDto.getId()
+            + " assigned Key Result id: "
+            + taskDto.getAssignedKeyResultId()
+            + ") successful into TaskDto.");
     return taskDto;
   }
 
@@ -125,8 +126,8 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
     return copy;
   }
 
-  private void logDTOList(Collection<TaskDto> taskList) {
 
+  private void logDTOList(Collection<TaskDto> taskList) {
     StringBuilder result = new StringBuilder("Log DTO List\n");
     for (TaskDto task : taskList) {
       result.append("--------------\n");
@@ -143,6 +144,6 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
         .append("\n");
       result.append("Version: ").append(task.getVersion()).append("\n");
     }
-    logger.info(result.toString());
+    logger.debug(result.toString());
   }
 }

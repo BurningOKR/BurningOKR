@@ -74,9 +74,9 @@ public class TaskService {
     newTask = taskRepository.save(newTask);
 
     newOrUpdatedTasks.add(newTask);
-    logger.info("Created Task " + newTask.getName());
+    logger.debug("Created Task " + newTask.getName());
 
-    logger.info("First task in list is null: " + (firstTaskInList == null ? "true" : "false"));
+    logger.debug("First task in list is null: " + (firstTaskInList == null ? "true" : "false"));
     if (firstTaskInList != null) {
       firstTaskInList.setPreviousTask(newTask);
       firstTaskInList = taskRepository.save(firstTaskInList);
@@ -90,36 +90,36 @@ public class TaskService {
 
   @Transactional
   public Collection<Task> updateTask(Task updatedTask) throws Exception {
-    logger.info("---------update Task--------------");
+    logger.debug("updating Task in transaction");
     Task referencedTask = taskRepository.findByIdOrThrow(updatedTask.getId());
     throwIfCycleOfTaskIsNotActive(referencedTask.getParentTaskBoard().getParentOkrDepartment());
 
-    logger.info("updated Task: ");
+    logger.debug("updated Task: ");
     this.logTask(updatedTask);
-    logger.info("old Task");
+    logger.debug("old Task");
     this.logTask(referencedTask);
 
     Collection<Task> updatedTasks = new ArrayList<>();
 
     if (hasPositionChanged(updatedTask, referencedTask)) {
-      logger.info(
-        "update Task -> wurde in eine andere Spalte verschoben: " + updatedTask.getName());
+      logger.debug(
+          "update Task -> wurde in eine andere Spalte verschoben: " + updatedTask.getName());
       updatedTasks.addAll(updateTaskWithPositioning(updatedTask, referencedTask));
     } else {
       // es wurden nur Attributwerte geändert
-      logger.info("update Task -> nur Attributwerte geändert: " + updatedTask.getName());
+      logger.debug("update Task -> nur Attributwerte geändert: " + updatedTask.getName());
       updateTaskWithoutPositioning(updatedTask, referencedTask);
 
       updatedTasks.add(referencedTask);
     }
 
-    logger.info("update Task -> Speichern ");
+    logger.debug("update Task -> Speichern ");
     updatedTasks = (Collection<Task>) taskRepository.saveAll(updatedTasks);
 
-    logger.info("Updated Task " + referencedTask.getName() + "(id:" + referencedTask.getId() + ")");
+    logger.debug("Updated Task " + referencedTask.getName() + "(id:" + referencedTask.getId() + ")");
     activityService.createActivity(updatedTask, Action.EDITED);
 
-    logger.info("End of Update Task");
+    logger.debug("End of Update Task");
     return updatedTasks;
   }
 
@@ -149,7 +149,7 @@ public class TaskService {
 
     Task newPreviousTask;
 
-    logger.info("updateTaskWithPositioning - Validation");
+    logger.debug("updateTaskWithPositioning - Validation");
     TaskValidator taskValidator = new TaskValidator();
     newPreviousTask = taskValidator.validateTask(newVersion, taskRepository);
 
@@ -157,7 +157,7 @@ public class TaskService {
     // gegeben sind nun der neue Vorgänger und der neue Nachfolger
     Task newNextTask;
     if (newPreviousTask != null) {
-      logger.info("new precessor exists");
+      logger.debug("new precessor exists");
       logTask(newPreviousTask);
       newNextTask =
         taskRepository.findByPreviousTask(
@@ -166,16 +166,16 @@ public class TaskService {
           newPreviousTask.getParentTaskBoard()
         );
     } else {
-      logger.info("no new precessor");
+      logger.debug("no new precessor");
       newNextTask =
-        taskRepository.findFirstTaskOfList(
-          newVersion.getParentTaskBoard(), newVersion.getTaskState());
+          taskRepository.findFirstTaskOfList(
+              newVersion.getParentTaskBoard(), newVersion.getTaskState());
     }
 
     Task nextTaskOfOldVersion = null;
     // alter nachfolger
     if (oldVersion != null) {
-      logger.info("update old successor - old version: ");
+      logger.debug("update old successor - old version: ");
       logTask(oldVersion);
 
       nextTaskOfOldVersion =
@@ -184,16 +184,16 @@ public class TaskService {
     }
 
     if (newNextTask != null) {
-      logger.info("update new successor");
+      logger.debug("update new successor");
       newNextTask.setPreviousTask(oldVersion);
       logTask(newNextTask);
       updatedTasks.add(newNextTask);
     } else {
-      logger.info("no new successor");
+      logger.debug("no new successor");
     }
 
     if (nextTaskOfOldVersion != null) {
-      logger.info("update old successor");
+      logger.debug("update old successor");
       nextTaskOfOldVersion.setPreviousTask(oldVersion.getPreviousTask());
       logTask(nextTaskOfOldVersion);
       updatedTasks.add(nextTaskOfOldVersion);
@@ -281,7 +281,7 @@ public class TaskService {
         task.getParentTaskBoard().getId(),
         task.getVersion()
       );
-    this.logger.info(text);
+    this.logger.debug(text);
   }
 
   public Collection<Task> copyTasks(

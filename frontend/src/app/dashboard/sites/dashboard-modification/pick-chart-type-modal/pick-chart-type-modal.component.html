@@ -10,12 +10,10 @@
   </mat-form-field>
 
   <div>
-    <button (click)="onNoClick()" mat-button mat-stroked-button>{{'edit-dashboard.button.cancel' | translate}}</button>
+    <button (click)="onNoClick()" class="my-mat-button pick-chart-type-cancel"
+            mat-stroked-button>{{'edit-dashboard.button.cancel' | translate}}</button>
 
-    <button [disabled]="!selectedType" [mat-dialog-close]="selectedType" class="chart-creation-add-button" mat-button
-            mat-stroked-button>
-      <mat-icon>add</mat-icon>
-      {{'edit-dashboard.button.add-chart' | translate}}
-    </button>
+    <app-add-button [isDisabled]="!selectedType" [mat-dialog-close]="selectedType"
+                    text="{{'edit-dashboard.button.add-chart' | translate}}"></app-add-button>
   </div>
 </div>
