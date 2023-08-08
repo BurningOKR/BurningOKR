@@ -14,7 +14,7 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class KeyResultService {
   private final KeyResultHistoryService keyResultHistoryService;
   private final TaskService taskService;
   private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
-  private final AuthorizationUserContextService userContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   public KeyResult findById(long keyResultId) {
     return keyResultRepository.findByIdOrThrow(keyResultId);
@@ -71,12 +71,12 @@ public class KeyResultService {
     if (keyResultProgressChanged) {
       keyResultHistoryService.updateKeyResultHistory(referencedKeyResult);
     }
-    logger.info(
-      "Updated Key Result "
-        + referencedKeyResult.getName()
-        + "(id:"
-        + referencedKeyResult.getId()
-        + ")");
+    logger.debug(
+        "Updated Key Result "
+            + referencedKeyResult.getName()
+            + "(id:"
+            + referencedKeyResult.getId()
+            + ")");
     activityService.createActivity(referencedKeyResult, Action.EDITED);
     return referencedKeyResult;
   }
@@ -117,7 +117,7 @@ public class KeyResultService {
   @Transactional
   public NoteKeyResult createNote(NoteKeyResult noteKeyResult) {
     noteKeyResult.setId(null);
-    noteKeyResult.setUserId(userContextService.getAuthenticatedUser().getId());
+    noteKeyResult.setUserId(authenticationUserContextService.getAuthenticatedUser().getId());
     noteKeyResult.setDate(LocalDateTime.now());
 
     noteKeyResult = noteKeyResultRepository.save(noteKeyResult);
@@ -173,7 +173,7 @@ public class KeyResultService {
           keyResult.setSequence(currentOrder);
           keyResultRepository.save(keyResult);
           activityService.createActivity(keyResult, Action.EDITED);
-          logger.info("Update sequence of KeyResult with id " + keyResult.getId());
+          logger.debug("Update sequence of KeyResult with id " + keyResult.getId());
         });
   }
 

@@ -7,7 +7,7 @@ import org.burningokr.model.dashboard.DashboardCreation;
 import org.burningokr.repositories.dashboard.ChartCreationOptionsRepository;
 import org.burningokr.repositories.dashboard.DashboardCreationRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,14 +21,14 @@ public class DashboardService {
   private final ChartCreationOptionsRepository chartCreationOptionsRepository;
   private final ActivityService activityService;
   private final Logger logger = LoggerFactory.getLogger(DashboardService.class);
-  private final AuthorizationUserContextService authorizationUserContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   public DashboardCreation findDashboardCreationById(long dashboardId) {
     return dashboardCreationRepository.findByIdOrThrow(dashboardId);
   }
 
   public DashboardCreation createDashboard(DashboardCreation dashboardCreation) {
-    dashboardCreation.setCreatorId(authorizationUserContextService.getAuthenticatedUser().getId());
+    dashboardCreation.setCreatorId(authenticationUserContextService.getAuthenticatedUser().getId());
 
     dashboardCreation = dashboardCreationRepository.save(dashboardCreation);
     logger.debug("Created Dashboard: " + dashboardCreation.getTitle());

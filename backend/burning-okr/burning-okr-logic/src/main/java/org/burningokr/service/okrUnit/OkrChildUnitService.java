@@ -39,7 +39,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
   private final OkrUnitRepository<OkrUnit> parentOkrUnitRepository;
   private final TaskBoardService taskBoardService;
 
-  // TODO (C.K.): refactor. this can not be the solution
+  // TODO (C.K. 07.08.2023): refactor. this can not be the solution
   public T findById(long unitId) {
     return (T) Hibernate.unproxy(okrUnitRepository.findById(unitId).orElseThrow(() -> {
       log.warn("Could not find OkrUnit with id %d".formatted(unitId));
@@ -81,7 +81,7 @@ public class OkrChildUnitService<T extends OkrChildUnit> {
     throwIfCycleForOkrChildUnitIsClosed(referencedUnit);
 
     okrUnitRepository.deleteById(unitId);
-    log.info("Deleted OkrDepartment (id: %d) and its children".formatted(unitId));
+    log.debug("Deleted OkrDepartment (id: %d) and its children".formatted(unitId));
     activityService.createActivity(referencedUnit, Action.DELETED);
   }
 

@@ -46,7 +46,7 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
     keyResult.setMilestones(
       keyResultMilestoneMapper.mapDtosToEntities(keyResultDto.getKeyResultMilestoneDtos()));
 
-    logger.info("Mapped KeyResultDto (id:" + keyResultDto.getNoteIds() + ") to KeyResult.");
+    logger.debug("Mapped KeyResultDto (id:" + keyResultDto.getNoteIds() + ") to KeyResult.");
     return keyResult;
   }
 
@@ -74,7 +74,7 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
     keyResultDto.setKeyResultMilestoneDtos(
       keyResultMilestoneMapper.mapEntitiesToDtos(keyResult.getMilestones()));
 
-    logger.info("Mapped KeyResult (id:" + keyResult.getId() + ") to KeyResultDto.");
+    logger.debug("Mapped KeyResult (id:" + keyResult.getId() + ") to KeyResultDto.");
     return keyResultDto;
   }
 

@@ -78,8 +78,8 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
 
     existing = okrTopicDescriptionRepository.save(existing);
 
-    logger.info(
-      "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
+    logger.debug(
+        "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
     activityService.createActivity(existing, Action.EDITED);
 
     return existing;
@@ -119,12 +119,12 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
     if (count == 0) {
       deleteOkrTopicDescription(okrTopicDescriptionId);
     } else {
-      logger.info(
-        "OkrTopicDescription with Id "
-          + okrTopicDescriptionId
-          + " was not deleted, because it is referenced by"
-          + count
-          + " departments.");
+      logger.debug(
+          "OkrTopicDescription with Id "
+              + okrTopicDescriptionId
+              + " was not deleted, because it is referenced by"
+              + count
+              + " departments.");
     }
   }
 
@@ -175,7 +175,7 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
       entityManager.remove(existing);
       entityManager.flush();
       transaction.commit();
-      logger.info("Deleted OkrTopicDescription with Id " + existing.getId());
+      logger.debug("Deleted OkrTopicDescription with Id " + existing.getId());
       activityService.createActivity(existing, Action.DELETED);
     } catch (Exception e) {
       logger.error("Unable to delete OkrTopicDescription with Id " + okrTopicDescriptionId);
@@ -189,6 +189,6 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
 
   @Override
   public void onPostDeleteCommitFailed(PostDeleteEvent event) {
-    // TODO
+    // TODO (C.K. 07.08.2023): create error handling
   }
 }

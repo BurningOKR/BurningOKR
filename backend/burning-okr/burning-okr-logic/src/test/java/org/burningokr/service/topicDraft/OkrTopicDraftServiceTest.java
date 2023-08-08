@@ -8,7 +8,7 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteTopicDraftRepository;
 import org.burningokr.repositories.okr.OkrTopicDraftRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextServiceKeycloak;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ public class OkrTopicDraftServiceTest {
   @Mock
   private ActivityService activityService;
   @Mock
-  private AuthorizationUserContextService authorizationUserContextService;
+  private AuthenticationUserContextServiceKeycloak authorizationUserContextService;
   @Mock
   private NoteTopicDraftRepository noteTopicDraftRepository;
   @InjectMocks

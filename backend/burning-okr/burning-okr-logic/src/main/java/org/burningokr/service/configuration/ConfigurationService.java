@@ -57,7 +57,7 @@ public class ConfigurationService {
    */
   public Configuration createConfiguration(Configuration configuration) {
     Configuration result = configurationRepository.save(configuration);
-    logger.info("Created configuration " + result.getName() + " (id: " + result.getId() + ")");
+    logger.debug("Created configuration " + result.getName() + " (id: " + result.getId() + ")");
     activityService.createActivity(result, Action.CREATED);
     return result;
   }
@@ -72,12 +72,12 @@ public class ConfigurationService {
     Configuration dbConfiguration = configurationRepository.findByIdOrThrow(configuration.getId());
     dbConfiguration.setValue(configuration.getValue());
     dbConfiguration.setName(configuration.getName());
-    logger.info(
-      "Updated configuration "
-        + dbConfiguration.getName()
-        + " (id: "
-        + dbConfiguration.getId()
-        + ")");
+    logger.debug(
+        "Updated configuration "
+            + dbConfiguration.getName()
+            + " (id: "
+            + dbConfiguration.getId()
+            + ")");
     activityService.createActivity(dbConfiguration, Action.EDITED);
     publishConfigurationChangedEvent(dbConfiguration);
     return configurationRepository.save(dbConfiguration);
@@ -90,12 +90,12 @@ public class ConfigurationService {
    */
   public void deleteConfigurationById(Long configurationId) {
     Configuration configuration = configurationRepository.findByIdOrThrow(configurationId);
-    logger.info(
-      "Deleted configuration "
-        + configuration.getName()
-        + " (id: "
-        + configuration.getId()
-        + ")");
+    logger.debug(
+        "Deleted configuration "
+            + configuration.getName()
+            + " (id: "
+            + configuration.getId()
+            + ")");
     activityService.createActivity(configuration, Action.DELETED);
     configurationRepository.delete(configuration);
   }

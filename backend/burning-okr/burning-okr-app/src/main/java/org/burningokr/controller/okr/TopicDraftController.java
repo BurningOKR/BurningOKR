@@ -157,8 +157,8 @@ public class TopicDraftController {
     @RequestParam(name = "topicDraftId") long topicDraftId,
     @RequestParam(name = "okrUnitId") long okrUnitId
   ) {
-    logger.info(
-      "Converting Topic-Draft " + topicDraftId + " to new Department underneath " + okrUnitId);
+    logger.debug(
+        "Converting Topic-Draft " + topicDraftId + " to new Department underneath " + okrUnitId);
     OkrDepartmentDto okrDepartmentDto =
       okrDepartmentMapper.mapEntityToDto(
         convertTopicDraftToTeamService.convertTopicDraftToTeam(topicDraftId, okrUnitId));
