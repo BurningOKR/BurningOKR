@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @ConditionalOnProperty(value = "system.configuration.provider", havingValue = "keycloak")
@@ -27,7 +28,7 @@ public class AuthenticationUserContextServiceKeycloak extends AuthenticationUser
   }
 
   @Override
-  protected ArrayList<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
+  protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
     var realmsMap = (LinkedTreeMap<?, ?>) userToken.getClaims().get("realm_access");
     var userRoles = new ArrayList<String>();
 
