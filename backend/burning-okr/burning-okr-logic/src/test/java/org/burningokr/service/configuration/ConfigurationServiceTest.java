@@ -70,7 +70,7 @@ public class ConfigurationServiceTest {
 
   @Test()
   public void getConfigurationByName_expectException() {
-    when(configurationRepository.findByName("name")).thenThrow(EntityNotFoundException.class);
+    doReturn(Optional.empty()).when(configurationRepository).findByName("name");
     assertThrows(EntityNotFoundException.class, () -> configurationService.getConfigurationByName("name"));
   }
 
