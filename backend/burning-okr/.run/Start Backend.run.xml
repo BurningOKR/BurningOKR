@@ -13,7 +13,7 @@
                     <option value="bootRun"/>
                 </list>
             </option>
-            <option name="vmOptions" value="-Dspring.profiles.active=local-azure"/>
+            <option name="vmOptions" value="-Dspring.profiles.active=local"/>
         </ExternalSystemSettings>
         <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
         <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
