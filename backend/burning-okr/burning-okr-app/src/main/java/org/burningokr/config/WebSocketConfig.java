@@ -2,9 +2,6 @@ package org.burningokr.config;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.burningokr.exceptions.AuthorizationHeaderException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +25,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-  private final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
 
   private final WebSocketAuthentication socketAuth;
 
@@ -52,14 +48,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
         if (accessor == null) throw new NullPointerException("StompHeaderAccessor is null");
 
-        if (!socketAuth.isConnectionAttempt(accessor)) { // TODO check if secure because no check for auth before sending
-          return message;
-        }
-        try {
+        if (socketAuth.isConnectionAttempt(accessor)) {
           socketAuth.tryToAuthenticate(accessor);
-        } catch (AuthorizationHeaderException exception) {
-          logger.error("Authorization Header Exception in WebSocketConfig: ", exception);
         }
+
         return message;
       }
     });
