@@ -224,7 +224,7 @@ public class ObjectiveService {
       objectiveIdList.add(currentObjective.getId());
     }
 
-    while (objectiveIdList.size() != 0) {
+    while (!objectiveIdList.isEmpty()) {
       int currentId = objectiveIdList.size() - 1;
       if (sequenceList.contains(objectiveIdList.get(currentId))) {
         objectiveIdList.remove(currentId);
