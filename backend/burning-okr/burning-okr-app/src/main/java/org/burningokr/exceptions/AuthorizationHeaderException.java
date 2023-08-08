@@ -1,10 +1,6 @@
 package org.burningokr.exceptions;
 
-public class AuthorizationHeaderException extends Exception {
-    public AuthorizationHeaderException() {
-
-    }
-
+public class AuthorizationHeaderException extends RuntimeException {
     public AuthorizationHeaderException(String message) {
         super(message);
     }

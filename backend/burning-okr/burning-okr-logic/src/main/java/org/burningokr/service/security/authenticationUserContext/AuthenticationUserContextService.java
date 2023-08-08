@@ -89,7 +89,7 @@ public abstract class AuthenticationUserContextService {
   }
 
   protected String getAttributeFromJwt(Jwt userToken, String attributeName) throws InvalidTokenException {
-    return validateString(userToken.getClaims().get(attributeName), attributeName); // TODO no claims in azure ad token present
+    return validateString(userToken.getClaims().get(attributeName), attributeName);
   }
 
   protected String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
