@@ -28,7 +28,6 @@ export class OkrChildUnitFormComponent {
   childUnitForm: FormGroup;
   title: string;
   UnitType = UnitType;
-  file: File;
   imageBase64: string;
 
   constructor(
@@ -37,7 +36,7 @@ export class OkrChildUnitFormComponent {
     private departmentMapper: DepartmentMapper,
     private okrBranchMapper: OkrBranchMapper,
     private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData,
+    @Inject(MAT_DIALOG_DATA) protected formData: OkrChildUnitFormData,
   ) {
     this.childUnitForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -67,15 +66,14 @@ export class OkrChildUnitFormComponent {
   }
 
   onChange(event) {
-    this.file = event.target.files[0];
+    const file: File = event.target.files[0];
     const reader: FileReader = new FileReader();
-    reader.readAsDataURL(this.file);
+    reader.readAsDataURL(file);
     reader.onload = ()=> {
 
       const base64String: string = reader.result.toString();
       const tempArray: string[] = base64String.split(',');
       this.imageBase64 = tempArray[1];
-      console.log(this.imageBase64);
     };
   }
 
@@ -96,7 +94,6 @@ export class OkrChildUnitFormComponent {
     childUnit.name = this.childUnitForm.get('name').value;
     childUnit.label = this.childUnitForm.get('label').value;
     childUnit.isActive = this.childUnitForm.get('isActive').value;
-    console.log(this.imageBase64);
     childUnit.photo = this.imageBase64;
 
     this.dialogRef.close(this.okrUnitService.putOkrChildUnit$(childUnit));

@@ -20,5 +20,7 @@
       <span>{{ 'okr-child-unit-form.header' | translate }}</span></mat-slide-toggle>
   </form>
 
+  <div *ngIf="formData.childUnit">
   <input *ngIf="okrChildUnit.type === UnitType.DEPARTMENT" (change)="onChange($event)" type="file" id="img" name="img" accept="image/*" >
+  </div>
 </app-dialog-component>
