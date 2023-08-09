@@ -22,5 +22,7 @@
 
   <div *ngIf="formData.childUnit">
     <input *ngIf="okrChildUnit.type === UnitType.DEPARTMENT" (change)="onChange($event)" type="file" id="img" name="img" accept="image/*" >
+    <button (click)="deleteAvatar()" [disabled]="okrChildUnit.photo === null" color="primary" mat-button>
+      <span> Bild Löschen </span></button>
   </div>
 </app-dialog-component>

@@ -77,6 +77,11 @@ export class OkrChildUnitFormComponent {
     };
   }
 
+  deleteAvatar() {
+    const childUnit: OkrChildUnit | undefined = this.formData.childUnit;
+    childUnit.photo = null;
+  }
+
   closeDialog(): void {
     this.dialogRef.close(NEVER);
   }
