@@ -1,13 +1,14 @@
 <app-dialog-component (okEmitter)="saveDepartment()" [formGroup]="childUnitForm" [title]="title">
   <form [formGroup]="childUnitForm" class="form">
+
     <mat-form-field class="name">
       <input cdkTextareaAutosize formControlName="name" matInput
              placeholder="{{ 'okr-child-unit-form.name-*' | translate }}" type="text">
       <mat-error>
         <app-form-error [control]="childUnitForm.get('name').invalid"></app-form-error>
       </mat-error>
-
     </mat-form-field>
+
     <mat-form-field class="name">
       <input cdkTextareaAutosize formControlName="label" matInput
              placeholder="{{ 'okr-child-unit-form.description' | translate }}" type="text">
@@ -16,13 +17,24 @@
       </mat-error>
     </mat-form-field>
 
+    <div *ngIf="formData.childUnit" class="upload-wrapper">
+      <label class="upload-text">
+        <span>Upload</span>
+        <input *ngIf="okrChildUnit.type === UnitType.DEPARTMENT" (change)="onChange($event)" type="file" id="img"
+               name="img" accept="image/*">
+      </label>
+      <button (click)="deleteAvatar()" [disabled]="okrChildUnit.photo === null" color="primary" mat-button>
+        <span> Bild Löschen </span>
+      </button>
+
+    </div>
+
     <mat-slide-toggle class="col-l-6 toggle" formControlName="isActive">
-      <span>{{ 'okr-child-unit-form.header' | translate }}</span></mat-slide-toggle>
+      <span>{{ 'okr-child-unit-form.header' | translate }}</span>
+    </mat-slide-toggle>
+
+
   </form>
 
-  <div *ngIf="formData.childUnit">
-    <input *ngIf="okrChildUnit.type === UnitType.DEPARTMENT" (change)="onChange($event)" type="file" id="img" name="img" accept="image/*" >
-    <button (click)="deleteAvatar()" [disabled]="okrChildUnit.photo === null" color="primary" mat-button>
-      <span> Bild Löschen </span></button>
-  </div>
+
 </app-dialog-component>
