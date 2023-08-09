@@ -1,5 +1,5 @@
 <app-dialog-component (okEmitter)="saveDepartment()" [formGroup]="childUnitForm" [title]="title">
-  <form [formGroup]="childUnitForm">
+  <form [formGroup]="childUnitForm" class="form">
     <mat-form-field class="name">
       <input cdkTextareaAutosize formControlName="name" matInput
              placeholder="{{ 'okr-child-unit-form.name-*' | translate }}" type="text">
@@ -16,7 +16,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-slide-toggle class="col-l-6 toggle-fix" formControlName="isActive">
+    <mat-slide-toggle class="col-l-6 toggle" formControlName="isActive">
       <span>{{ 'okr-child-unit-form.header' | translate }}</span></mat-slide-toggle>
   </form>
 

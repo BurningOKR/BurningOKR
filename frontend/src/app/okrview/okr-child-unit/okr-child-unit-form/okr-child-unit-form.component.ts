@@ -69,7 +69,7 @@ export class OkrChildUnitFormComponent {
     const file: File = event.target.files[0];
     const reader: FileReader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = ()=> {
+    reader.onload = () => {
 
       const base64String: string = reader.result.toString();
       const tempArray: string[] = base64String.split(',');
@@ -94,7 +94,9 @@ export class OkrChildUnitFormComponent {
     childUnit.name = this.childUnitForm.get('name').value;
     childUnit.label = this.childUnitForm.get('label').value;
     childUnit.isActive = this.childUnitForm.get('isActive').value;
-    childUnit.photo = this.imageBase64;
+    if (this.imageBase64 != null) {
+      childUnit.photo = this.imageBase64;
+    }
 
     this.dialogRef.close(this.okrUnitService.putOkrChildUnit$(childUnit));
   }
