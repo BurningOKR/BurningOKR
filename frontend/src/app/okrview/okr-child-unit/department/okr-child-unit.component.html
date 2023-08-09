@@ -8,7 +8,7 @@
                       class="small-padding card-margin card-size">
 
               <div class="flex-wrap inner-padding">
-                <div class="icon-spacer-large">
+                <div class="arrow-up">
                   <button (click)="moveToParentUnit(childUnit)" class="changePositionButton" mat-icon-button
                           matTooltip="Zu der übergeordneten Struktur">
                     <mat-icon>arrow_upward</mat-icon>
@@ -17,11 +17,11 @@
 
                 <div class="avatar-spacer" *ngIf="childUnit.type === unitType.DEPARTMENT">
                   <span>
-                    <app-child-unit-avatar [okrChildUnit]="childUnit" class="icon-spacer-large profileIcon" size="40"></app-child-unit-avatar>
+                    <app-child-unit-avatar [okrChildUnit]="childUnit" class="icon-spacer-large" size="40"></app-child-unit-avatar>
                   </span>
                 </div>
 
-                <div class="flex-wrap-spreadinner f-1 flex-department-title">
+                <div class="f-1 flex-department-title">
                   <div class="department-flex overflow-ellipsis">
                     <div class="department-title overflow-ellipsis">{{ childUnit.name }}</div>
                     <div class="department-subtitle overflow-ellipsis"> {{ childUnit.label }}</div>

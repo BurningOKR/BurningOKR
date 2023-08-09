@@ -24,6 +24,10 @@ mat-form-field.name {
 
 }
 
+.upload-button {
+  color: mat-color($md-primary, 700);
+}
+
 #img {
   display: none;
 }

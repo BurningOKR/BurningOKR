@@ -27,7 +27,13 @@
 }
 
 .avatar-spacer {
-  margin-right: 20px;
+  margin-right: 25px;
+}
+
+.arrow-up {
+  text-align: center;
+  min-width: 40px;
+  margin-right: 15px;
 }
 
 .department-title {
@@ -52,8 +58,8 @@
 }
 
 @media only screen and (max-width: 500px) {
-  .changePositionButton {
-    right: 20px;
+  .avatar-spacer {
+    min-width: 40px;
   }
 }
 
