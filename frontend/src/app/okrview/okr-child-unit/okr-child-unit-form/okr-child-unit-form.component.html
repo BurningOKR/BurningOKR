@@ -19,12 +19,12 @@
 
     <div *ngIf="formData.childUnit" class="upload-wrapper">
       <label class="upload-text">
-        <span>Upload</span>
+        <span>{{ 'okr-child-unit-form.image.upload' | translate }}</span>
         <input *ngIf="okrChildUnit.type === UnitType.DEPARTMENT" (change)="onChange($event)" type="file" id="img"
-               name="img" accept="image/*">
+               name="img" accept="image/*"/>
       </label>
       <button (click)="deleteAvatar()" [disabled]="okrChildUnit.photo === null" class="upload-button" mat-button>
-        <span> Bild Löschen </span>
+        <span>{{ 'okr-child-unit-form.image.delete' | translate }}</span>
       </button>
 
     </div>
