@@ -11,10 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -41,7 +38,7 @@ public abstract class AuthenticationUserContextService {
 
   protected abstract UUID getUserIdFromToken(Jwt token);
 
-  protected abstract ArrayList<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException;
+  protected abstract List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException;
 
   protected void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
     if (validatedString.equals("")) {
@@ -92,7 +89,7 @@ public abstract class AuthenticationUserContextService {
   }
 
   protected String getAttributeFromJwt(Jwt userToken, String attributeName) throws InvalidTokenException {
-    return validateString(userToken.getClaims().get(attributeName), attributeName); // TODO no claims in azure ad token present
+    return validateString(userToken.getClaims().get(attributeName), attributeName);
   }
 
   protected String validateString(Object stringObject, String attributeName) throws InvalidTokenException {

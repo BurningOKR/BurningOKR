@@ -69,10 +69,9 @@ public class WebSocketAuthentication {
 
   protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
     final String bearerToken = getBearerToken(header);
-    // TODO CK
     final Authentication authentication = decodeToken(bearerToken);
 
-    if (!authentication.isAuthenticated()) return;
+    if (!authentication.isAuthenticated()) throw new AuthorizationHeaderException("user is not authenticated");
 
     header.setUser(authentication);
     SecurityContextHolder.getContext().setAuthentication(authentication);
