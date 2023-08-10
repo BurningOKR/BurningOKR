@@ -3,7 +3,7 @@ package org.burningokr.mapper.okr;
 import org.burningokr.dto.okr.RevisionDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.users.UserMapper;
-import org.burningokr.model.okr.Revision;
+import org.burningokr.model.okr.FieldRevision;
 import org.burningokr.model.okr.RevisionValueType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +13,19 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Service
-public class RevisionMapper implements DataMapper<Revision, RevisionDto> {
-
-  private final UserMapper userMapper;
+public class RevisionMapper implements DataMapper<FieldRevision, RevisionDto> {
 
   @Autowired
-  public RevisionMapper(UserMapper userMapper) {
-    this.userMapper = userMapper;
+  public RevisionMapper() {
   }
 
   @Override
-  public Revision mapDtoToEntity(RevisionDto input) {
+  public FieldRevision mapDtoToEntity(RevisionDto input) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public RevisionDto mapEntityToDto(Revision input) {
+  public RevisionDto mapEntityToDto(FieldRevision input) {
     RevisionDto revisionDto = new RevisionDto();
     revisionDto.setDate(input.getDate());
     if (input.getUser() != null) {
@@ -49,12 +46,12 @@ public class RevisionMapper implements DataMapper<Revision, RevisionDto> {
   }
 
   @Override
-  public Collection<Revision> mapDtosToEntities(Collection<RevisionDto> input) {
+  public Collection<FieldRevision> mapDtosToEntities(Collection<RevisionDto> input) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public Collection<RevisionDto> mapEntitiesToDtos(Collection<Revision> input) {
+  public Collection<RevisionDto> mapEntitiesToDtos(Collection<FieldRevision> input) {
     return input.stream().map(this::mapEntityToDto).collect(Collectors.toList());
   }
 

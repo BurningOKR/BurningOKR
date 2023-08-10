@@ -18,7 +18,6 @@ import java.util.Map;
 public class FeedbackService {
 
   private final MailService mailService;
-  private final ContactPersonConfiguration contactPersonConfiguration;
   private final ConfigurationService configurationService;
 
   /**

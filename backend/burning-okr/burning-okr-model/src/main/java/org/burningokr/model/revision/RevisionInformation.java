@@ -12,7 +12,7 @@ import java.util.UUID;
 @Entity
 @Data
 @RevisionEntity
-public class RevisionInformation implements IRevisionInformation {
+public class RevisionInformation {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")

@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Revision {
+public class FieldRevision {
 
   private Date date;
 

@@ -65,7 +65,7 @@ create table "revision_information" (
 
 BEGIN;
 
--- New revision for initial auditions
+-- New fieldRevision for initial auditions
 -- INSERT INTO revision_information (id, timestamp) VALUES (nextval('hibernate_sequence'), extract(epoch from now()) * 1000);
 INSERT INTO revision_information (id, date) VALUES (nextval('hibernate_sequence'), now()::timestamp);
 
