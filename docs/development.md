@@ -4,6 +4,9 @@
 
 When you want to use BurningOKR in your company please refer to [this documentation](../README.md). **This page is only for development purposes!**
 
+You can use Keycloak for the Development, by reading the following [documentation](keycloak_development_install.md) **(Optional)**
+
+
 ## Getting started with the development
 
 We are already working on a faster and easier installation process, so stay tuned.
