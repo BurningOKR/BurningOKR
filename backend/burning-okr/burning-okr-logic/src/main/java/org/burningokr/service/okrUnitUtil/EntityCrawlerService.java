@@ -29,7 +29,6 @@ public class EntityCrawlerService {
     if (departmentToCheck instanceof OkrCompany) {
       return this.getCycleOfCompany((OkrCompany) departmentToCheck);
     } else {
-      // TODO rewrite in not recursive way
       return this.getCycleOfUnit(((OkrChildUnit) departmentToCheck).getParentOkrUnit());
     }
   }

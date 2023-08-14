@@ -32,8 +32,8 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
 
     okrDepartment.setObjectives(new ArrayList<>());
 
-    logger.info(
-      "Mapped OkrDepartmentDto (id:" + okrDepartmentDto.getOkrUnitId() + ") to OkrDepartment.");
+    logger.debug(
+        "Mapped OkrDepartmentDto (id:" + okrDepartmentDto.getOkrUnitId() + ") to OkrDepartment.");
     return okrDepartment;
   }
 
@@ -58,7 +58,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
     okrDepartmentDto.setOkrTopicSponsorId(okrDepartment.getOkrTopicSponsorId());
     okrDepartmentDto.setOkrMemberIds(okrDepartment.getOkrMemberIds());
 
-    logger.info("Mapped OkrDepartment (id:" + okrDepartment.getId() + ") to OkrDepartmentDto.");
+    logger.debug("Mapped OkrDepartment (id:" + okrDepartment.getId() + ") to OkrDepartmentDto.");
     return okrDepartmentDto;
   }
 

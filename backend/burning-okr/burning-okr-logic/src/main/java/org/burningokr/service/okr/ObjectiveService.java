@@ -19,7 +19,7 @@ import org.burningokr.service.exceptions.KeyResultOverflowException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.okrUnitUtil.ParentService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +43,7 @@ public class ObjectiveService {
   private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
   private final KeyResultMilestoneService keyResultMilestoneService;
   private final NoteObjectiveRepository noteObjectiveRepository;
-  private final AuthorizationUserContextService userContextService;
+  private final AuthenticationUserContextService authenticationUserContextService;
 
   @PreAuthorize("@childUnitAuthorizationService.hasMemberPrivilegesForChildUnit(#unitId)")
   public Objective createObjective(Long unitId, Objective objective) {
@@ -62,12 +62,12 @@ public class ObjectiveService {
 
     objective = objectiveRepository.save(objective);
     log.debug("Created Objective: %s (id: %d) into department %s (id: %d)"
-      .formatted(
-        objective.getName(),
-        objective.getId(),
-        objectivesParentOkrChildUnit.getName(),
-        unitId
-      ));
+        .formatted(
+            objective.getName(),
+            objective.getId(),
+            objectivesParentOkrChildUnit.getName(),
+            unitId
+        ));
 
     activityService.createActivity(objective, Action.CREATED);
 
@@ -103,7 +103,7 @@ public class ObjectiveService {
     Objective referencedObjective = findById(updatedObjective.getId());
 
     if (entityCrawlerService.getCycleOfObjective(referencedObjective).getCycleState()
-      == CycleState.CLOSED) {
+        == CycleState.CLOSED) {
       referencedObjective.setReview(updatedObjective.getReview());
     } else {
       referencedObjective.setName(updatedObjective.getName());
@@ -122,12 +122,12 @@ public class ObjectiveService {
 
     referencedObjective = objectiveRepository.save(referencedObjective);
 
-    log.info(
-      "Updated objective: "
-        + updatedObjective.getName()
-        + "(id:"
-        + updatedObjective.getId()
-        + ").");
+    log.debug(
+        "Updated objective: "
+            + updatedObjective.getName()
+            + "(id:"
+            + updatedObjective.getId()
+            + ").");
     activityService.createActivity(referencedObjective, Action.EDITED);
     return referencedObjective;
   }
@@ -144,12 +144,12 @@ public class ObjectiveService {
     for (Objective subObjective : referencedObjective.getSubObjectives()) {
       subObjective.setParentObjective(null);
       objectiveRepository.save(subObjective);
-      log.info(
-        "Removed parent objective from "
-          + referencedObjective.getName()
-          + "(id:"
-          + referencedObjective.getId()
-          + ").");
+      log.debug(
+          "Removed parent objective from "
+              + referencedObjective.getName()
+              + "(id:"
+              + referencedObjective.getId()
+              + ").");
     }
 
     if (referencedObjective.getParentOkrUnit() != null) {
@@ -167,7 +167,7 @@ public class ObjectiveService {
 
   @Transactional
   public KeyResult createKeyResult(Long objectiveId, KeyResult keyResult)
-    throws KeyResultOverflowException {
+      throws KeyResultOverflowException {
     Objective referencedObjective = findById(objectiveId);
     throwIfKeyResultLimitIsHit(referencedObjective);
     throwIfCycleForObjectiveIsClosed(referencedObjective);
@@ -180,20 +180,20 @@ public class ObjectiveService {
 
     long id = keyResult.getId();
     keyResult.setMilestones(
-      keyResult.getMilestones().stream()
-        .map(
-          milestone ->
-            keyResultMilestoneService.createKeyResultMilestone(id, milestone))
-        .collect(Collectors.toList()));
+        keyResult.getMilestones().stream()
+            .map(
+                milestone ->
+                    keyResultMilestoneService.createKeyResultMilestone(id, milestone))
+            .collect(Collectors.toList()));
 
-    log.info(
-      "Created Key Result "
-        + keyResult.getName()
-        + " in Objective "
-        + referencedObjective.getName()
-        + "(id:"
-        + objectiveId
-        + ").");
+    log.debug(
+        "Created Key Result "
+            + keyResult.getName()
+            + " in Objective "
+            + referencedObjective.getName()
+            + "(id:"
+            + objectiveId
+            + ").");
     activityService.createActivity(keyResult, Action.CREATED);
     keyResultHistoryService.createKeyResultHistory(keyResult);
     return keyResult;
@@ -208,30 +208,30 @@ public class ObjectiveService {
    */
   @Transactional
   public void updateSequence(Long unitId, Collection<Long> sequenceList)
-    throws Exception {
+      throws Exception {
     OkrChildUnit childUnit = okrChildUnitService.findById(unitId);
     throwIfSequenceInvalid(childUnit, sequenceList);
 
     ArrayList<Long> sequenceArray = new ArrayList<>(sequenceList);
     childUnit
-      .getObjectives()
-      .forEach(
-        objective -> {
-          int currentOrder = sequenceArray.indexOf(objective.getId());
-          objective.setSequence(currentOrder);
-          objectiveRepository.save(objective);
-          activityService.createActivity(objective, Action.EDITED);
-          log.info("Update sequence of Objective with id " + objective.getId());
-        });
+        .getObjectives()
+        .forEach(
+            objective -> {
+              int currentOrder = sequenceArray.indexOf(objective.getId());
+              objective.setSequence(currentOrder);
+              objectiveRepository.save(objective);
+              activityService.createActivity(objective, Action.EDITED);
+              log.debug("Update sequence of Objective with id " + objective.getId());
+            });
   }
 
   private void throwIfSequenceInvalid(OkrChildUnit childUnit, Collection<Long> sequenceList)
-    throws Exception {
+      throws Exception {
     Collection<Objective> objectiveList = childUnit.getObjectives();
 
     if (objectiveList.size() != sequenceList.size()) {
       throw new IllegalArgumentException(
-        "Size of Objective List and Sequence List has to be equal");
+          "Size of Objective List and Sequence List has to be equal");
     }
 
     ArrayList<Long> objectiveIdList = new ArrayList<>();
@@ -251,31 +251,31 @@ public class ObjectiveService {
 
   private void throwIfKeyResultLimitIsHit(Objective objective) throws KeyResultOverflowException {
     float maxKeyResultsPerObjective =
-      Float.parseFloat(
-        this.configurationService
-          .getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName())
-          .getValue());
+        Float.parseFloat(
+            this.configurationService
+                .getConfigurationByName(ConfigurationName.MAX_KEY_RESULTS.getName())
+                .getValue());
     if (objective.getKeyResults().size() >= maxKeyResultsPerObjective) {
       log.error(
-        "Can not add more Key Results to Objective: "
-          + objective.getName()
-          + "(id:"
-          + objective.getId()
-          + ")."
-          + " Max number of Key Results in one Objective is: "
-          + maxKeyResultsPerObjective);
+          "Can not add more Key Results to Objective: "
+              + objective.getName()
+              + "(id:"
+              + objective.getId()
+              + ")."
+              + " Max number of Key Results in one Objective is: "
+              + maxKeyResultsPerObjective);
       throw new KeyResultOverflowException(
-        "No more Key Results can be appended to Objective with id "
-          + objective.getId()
-          + ". Max value of Key Results are "
-          + maxKeyResultsPerObjective
-          + ".");
+          "No more Key Results can be appended to Objective with id "
+              + objective.getId()
+              + ". Max value of Key Results are "
+              + maxKeyResultsPerObjective
+              + ".");
     }
   }
 
   private void throwIfCycleForObjectiveIsClosed(Objective objectiveToCheck) {
     if (entityCrawlerService.getCycleOfObjective(objectiveToCheck).getCycleState()
-      == CycleState.CLOSED) {
+        == CycleState.CLOSED) {
       throw new ForbiddenException("Cannot modify this resource on a Objective in a closed cycle.");
     }
   }
@@ -283,7 +283,7 @@ public class ObjectiveService {
 
   public NoteObjective createNote(NoteObjective noteObjective) {
 
-    noteObjective.setUserId(userContextService.getAuthenticatedUser().getId());
+    noteObjective.setUserId(authenticationUserContextService.getAuthenticatedUser().getId());
     noteObjective.setDate(LocalDateTime.now());
 
     noteObjective = noteObjectiveRepository.save(noteObjective);
@@ -296,7 +296,7 @@ public class ObjectiveService {
   @Transactional
   public NoteObjective updateNote(NoteObjective updatedNoteObjective) {
     NoteObjective referencedNoteObjective =
-      noteObjectiveRepository.findByIdOrThrow(updatedNoteObjective.getId());
+        noteObjectiveRepository.findByIdOrThrow(updatedNoteObjective.getId());
 
     referencedNoteObjective.setUserId(updatedNoteObjective.getUserId());
     referencedNoteObjective.setText(updatedNoteObjective.getText());

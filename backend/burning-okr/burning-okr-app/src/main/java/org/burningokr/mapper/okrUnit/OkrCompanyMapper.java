@@ -44,7 +44,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
     }
     okrCompany.setCompanyHistory(history);
 
-    logger.info("Mapped OkrCompanyDto (id:" + okrCompanyDto.getOkrUnitId() + ") to OkrCompany.");
+    logger.debug("Mapped OkrCompanyDto (id:" + okrCompanyDto.getOkrUnitId() + ") to OkrCompany.");
     return okrCompany;
   }
 
@@ -70,7 +70,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
     }
     okrCompanyDto.setObjectiveIds(objectiveIds);
 
-    logger.info("Mapped OkrCompany (id:" + okrCompany.getId() + ") to OkrCompanyDto.");
+    logger.debug("Mapped OkrCompany (id:" + okrCompany.getId() + ") to OkrCompanyDto.");
     return okrCompanyDto;
   }
 

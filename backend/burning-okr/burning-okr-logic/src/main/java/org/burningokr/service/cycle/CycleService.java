@@ -86,7 +86,7 @@ public class CycleService {
 
     updateReferencedCycle(updatedCycle, referencedCycle);
 
-    logger.info("Updated cycle with id: " + referencedCycle.getId());
+    logger.debug("Updated cycle with id: " + referencedCycle.getId());
     return cycleRepository.save(referencedCycle);
   }
 
@@ -108,9 +108,9 @@ public class CycleService {
     Cycle cycle = cycleRepository.findByIdOrThrow(cycleId);
     if (cycle.getCycleState() != CycleState.ACTIVE) {
       cycle
-        .getCompanies()
-        .forEach(company -> companyService.deleteCompany(company.getId(), false));
-      this.logger.info("Deleted (non active) cycle with id " + cycle.getId());
+          .getCompanies()
+          .forEach(company -> companyService.deleteCompany(company.getId(), false));
+      this.logger.debug("Deleted (non active) cycle with id " + cycle.getId());
     } else {
       throw new Exception("An active Cycle can not be deleted");
     }
@@ -148,16 +148,16 @@ public class CycleService {
     cyclePreparationCloningService.cloneCompanyListIntoCycleForPreparation(
       oldCycle.getCompanies(), newCycle);
 
-    logger.info(
-      "Replaced Cycle: "
-        + oldCycle.getName()
-        + "(id:"
-        + oldCycle.getId()
-        + " with new Cycle:"
-        + newCycle.getName()
-        + "(id:"
-        + newCycle.getId()
-        + ")");
+    logger.debug(
+        "Replaced Cycle: "
+            + oldCycle.getName()
+            + "(id:"
+            + oldCycle.getId()
+            + " with new Cycle:"
+            + newCycle.getName()
+            + "(id:"
+            + newCycle.getId()
+            + ")");
     return newCycle;
   }
 
@@ -166,16 +166,16 @@ public class CycleService {
     cycle = cycleRepository.save(cycle);
     cyclePreparationCloningService.cloneCompanyListIntoCycleForPreparation(
       cycleToClone.getCompanies(), cycle);
-    logger.info(
-      "Cloned Cycle: "
-        + cycleToClone.getName()
-        + "(id:"
-        + cycleToClone.getId()
-        + " for use as new Cycle:"
-        + cycle.getName()
-        + "(id:"
-        + cycle.getId()
-        + ")");
+    logger.debug(
+        "Cloned Cycle: "
+            + cycleToClone.getName()
+            + "(id:"
+            + cycleToClone.getId()
+            + " for use as new Cycle:"
+            + cycle.getName()
+            + "(id:"
+            + cycle.getId()
+            + ")");
     return cycle;
   }
 
@@ -253,24 +253,24 @@ public class CycleService {
   private Cycle setCycleStateToActiveAndSave(Cycle cycleToActivate) {
     cycleToActivate.setCycleState(CycleState.ACTIVE);
     cycleToActivate.setFactualStartDate(LocalDate.now());
-    logger.info(
-      "Set Cycle State to ACTIVE: "
-        + cycleToActivate.getName()
-        + "(id:"
-        + cycleToActivate.getId()
-        + " )");
+    logger.debug(
+        "Set Cycle State to ACTIVE: "
+            + cycleToActivate.getName()
+            + "(id:"
+            + cycleToActivate.getId()
+            + " )");
     return cycleRepository.save(cycleToActivate);
   }
 
   private Cycle setCycleStateToClosedAndSave(Cycle cycleToClose) {
     cycleToClose.setCycleState(CycleState.CLOSED);
     cycleToClose.setFactualEndDate(LocalDate.now());
-    logger.info(
-      "Set Cycle State to CLOSED: "
-        + cycleToClose.getName()
-        + "(id:"
-        + cycleToClose.getId()
-        + " )");
+    logger.debug(
+        "Set Cycle State to CLOSED: "
+            + cycleToClose.getName()
+            + "(id:"
+            + cycleToClose.getId()
+            + " )");
     return cycleRepository.save(cycleToClose);
   }
 }

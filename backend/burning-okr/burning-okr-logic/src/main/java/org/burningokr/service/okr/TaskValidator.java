@@ -21,7 +21,7 @@ public class TaskValidator {
     }
 
     Task newTask = taskRepository.findByIdOrThrow(task.getPreviousTask().getId());
-    logger.info("Validation - previous and current task have different ids");
+    logger.debug("Validation - previous and current task have different ids");
     if (!(task.getTaskState().getId().equals(newTask.getTaskState().getId()))) {
       throw new Exception("Aufgaben sind in unterschiedlichen Spalten/Zuständen");
     }

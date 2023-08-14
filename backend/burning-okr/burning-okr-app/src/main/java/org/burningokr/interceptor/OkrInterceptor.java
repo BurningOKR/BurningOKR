@@ -20,13 +20,13 @@ public class OkrInterceptor implements HandlerInterceptor {
   ) {
     HttpServletRequest requestWrapperObject = new ContentCachingRequestWrapper(request);
 
-    logger.info(
-      "Incoming "
-        + requestWrapperObject.getMethod()
-        + " request on: "
-        + requestWrapperObject.getRequestURL()
-        + " with User-Agent: "
-        + requestWrapperObject.getHeader("User-Agent"));
+    logger.debug(
+        "Incoming "
+            + requestWrapperObject.getMethod()
+            + " request on: "
+            + requestWrapperObject.getRequestURL()
+            + " with User-Agent: "
+            + requestWrapperObject.getHeader("User-Agent"));
 
     return true;
   }
@@ -40,6 +40,6 @@ public class OkrInterceptor implements HandlerInterceptor {
   ) {
     HttpServletResponse responseWrapperObject = new ContentCachingResponseWrapper(response);
 
-    logger.info("Sending Response.");
+    logger.debug("Sending Response.");
   }
 }

@@ -118,7 +118,7 @@ public class CompanyService {
     okrCompany.setCompanyHistory(history);
 
     okrCompany = companyRepository.save(okrCompany);
-    logger.info("Created OkrCompany " + okrCompany.getName());
+    logger.debug("Created OkrCompany " + okrCompany.getName());
     activityService.createActivity(okrCompany, Action.CREATED);
 
     return okrCompany;
@@ -141,13 +141,13 @@ public class CompanyService {
     referencedOkrCompany.setLabel(updatedOkrCompany.getLabel());
 
     referencedOkrCompany = companyRepository.save(referencedOkrCompany);
-    logger.info(
-      "Updated OkrCompany "
-        + oldName
-        + " (id: "
-        + referencedOkrCompany.getId()
-        + "), updated name to: +"
-        + referencedOkrCompany.getName());
+    logger.debug(
+        "Updated OkrCompany "
+            + oldName
+            + " (id: "
+            + referencedOkrCompany.getId()
+            + "), updated name to: +"
+            + referencedOkrCompany.getName());
     activityService.createActivity(referencedOkrCompany, Action.EDITED);
 
     return referencedOkrCompany;
@@ -177,7 +177,7 @@ public class CompanyService {
     for (OkrCompany okrCompanyToDelete : companiesToDelete) {
 
       companyRepository.deleteById(okrCompanyToDelete.getId());
-      logger.info("Deleted company with id: " + okrCompanyToDelete.getId());
+      logger.debug("Deleted company with id: " + okrCompanyToDelete.getId());
       activityService.createActivity(okrCompanyToDelete, Action.DELETED);
 
       Cycle cycle = okrCompanyToDelete.getCycle();
@@ -220,14 +220,14 @@ public class CompanyService {
 
     okrDepartment = okrUnitRepository.save(okrDepartment);
 
-    logger.info(
-      "Created okrDepartment "
-        + okrDepartment.getName()
-        + " into company: "
-        + referencedOkrCompany.getName()
-        + "(id:"
-        + companyId
-        + ")");
+    logger.debug(
+        "Created okrDepartment "
+            + okrDepartment.getName()
+            + " into company: "
+            + referencedOkrCompany.getName()
+            + "(id:"
+            + companyId
+            + ")");
     activityService.createActivity(okrDepartment, Action.CREATED);
 
     return okrDepartment;
@@ -244,14 +244,14 @@ public class CompanyService {
     okrBranch.setBranchHistory(createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository));
 
     okrBranch = okrUnitRepository.save(okrBranch);
-    logger.info(
-      "Created okrBranch: "
-        + okrBranch.getName()
-        + " into OkrCompany "
-        + referencedOkrCompany.getName()
-        + "(id:"
-        + companyId
-        + ")");
+    logger.debug(
+        "Created okrBranch: "
+            + okrBranch.getName()
+            + " into OkrCompany "
+            + referencedOkrCompany.getName()
+            + "(id:"
+            + companyId
+            + ")");
     activityService.createActivity(okrBranch, Action.CREATED);
 
     return okrBranch;
@@ -285,14 +285,14 @@ public class CompanyService {
         topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
-    logger.info(
-      "Created Topic Draft: "
-        + topicDraft.getName()
-        + " into department "
-        + referencedOkrCompany.getName()
-        + "(id:"
-        + companyId
-        + ")");
+    logger.debug(
+        "Created Topic Draft: "
+            + topicDraft.getName()
+            + " into department "
+            + referencedOkrCompany.getName()
+            + "(id:"
+            + companyId
+            + ")");
 
     activityService.createActivity(topicDraft, Action.CREATED);
 
@@ -309,13 +309,13 @@ public class CompanyService {
 
   private void deleteEmptyCycle(Cycle cycle) {
     cycleRepository.deleteById(cycle.getId());
-    logger.info("Deleted cycle with id: " + cycle.getId());
+    logger.debug("Deleted cycle with id: " + cycle.getId());
     activityService.createActivity(cycle, Action.DELETED);
   }
 
   private void deleteEmptyHistory(OkrUnitHistory<OkrCompany> history) {
     companyHistoryRepository.deleteById(history.getId());
-    logger.info("Deleted cycle with id: " + history.getId());
+    logger.debug("Deleted cycle with id: " + history.getId());
     activityService.createActivity(history, Action.DELETED);
   }
 }
