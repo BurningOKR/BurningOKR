@@ -3,6 +3,7 @@ package org.burningokr.dto.okrUnit;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.burningokr.annotation.validation.Base64Image;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +17,7 @@ public abstract class OkrUnitDto {
   @Size(min = 1)
   protected String unitName;
 
+  @Base64Image
   protected String photo; // Represents the image as String
 
   @NotNull

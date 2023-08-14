@@ -119,9 +119,11 @@ public class OkrUnitController {
   @PutMapping(value = "/units/{unitId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<OkrChildUnitDto> updateUnit(
     @PathVariable long unitId,
-    @RequestBody OkrChildUnitDto okrChildUnitDto
+    @RequestBody @Valid OkrChildUnitDto okrChildUnitDto
   ) {
+
     okrChildUnitDto.setOkrUnitId(unitId);
+
     OkrChildUnit childUnit = okrChildUnitMapper.mapDtoToEntity(okrChildUnitDto);
 
     childUnit = okrChildUnitService.updateUnit(childUnit);
