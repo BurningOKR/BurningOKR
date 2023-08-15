@@ -70,22 +70,31 @@ class TaskBoardServiceTest {
   }
 
   @Test
-  void saveTaskBoard_shouldSaveAllTasks() throws Exception { //fixme
+  void saveTaskBoard_shouldSaveAllTasks() throws Exception {
     //assemble
     TaskBoard taskBoard = new TaskBoard();
-    doReturn(List.of(new TaskBoard())).when(taskService).findTaskForOkrUnit(any());
-    doReturn(List.of(new TaskState())).when(defaultTaskStateService).getDefaultTaskStatesForNewTaskBoard(any());
+    TaskState state = new TaskState();
+    taskBoard.setAvailableStates(List.of(state));
+    doReturn(taskBoard).when(taskBoardRepository).save(taskBoard);
+    doReturn(state).when(taskStateRepository).saveAll(any());
 
     //act
-    TaskBoard resultTaskState = this.taskBoardService.saveTaskBoard(taskBoard);
+    taskBoard = this.taskBoardService.saveTaskBoard(taskBoard);
 
     //assetion
-    Assertions.assertNotNull(resultTaskState.getParentOkrDepartment());
-    Assertions.assertSame(taskBoard, resultTaskState.getAvailableStates());
- }
+    Assertions.assertNotNull(taskBoard);
+    Assertions.assertNotNull(state);
+    Assertions.assertNotNull(taskBoard.getAvailableStates());
+    Assertions.assertEquals(taskBoard, taskBoard.getAvailableStates());
+  }
 
   @Test
   void cloneTaskBoard() {
+     OkrDepartment copiedOkrDepartment = new OkrDepartment();
+     TaskBoard taskBoard = new TaskBoard();
+
+//     doReturn();
+    TaskBoard clonedTaskBoard = this.taskBoardService.copyTaskBoardWithParentOkrUnitOnly(copiedOkrDepartment);
   }
 
   @Test

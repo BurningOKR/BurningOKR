@@ -33,7 +33,7 @@ public class TaskBoardService {
   }
 
   public TaskBoard copyTaskBoardWithParentOkrUnitOnly(
-    OkrDepartment okrDepartment
+      OkrDepartment okrDepartment
   ) {
     TaskBoard copiedTaskboard = new TaskBoard();
     copiedTaskboard.setParentOkrDepartment(okrDepartment);
@@ -50,13 +50,8 @@ public class TaskBoardService {
     }
 
     taskBoard = taskBoardRepository.save(taskBoard);
-
-    for (TaskState state : taskStateRepository.saveAll(states)) {
-      states.add(state);
-    }
-
-    taskBoard.setAvailableStates(states);
-    return taskBoardRepository.save(taskBoard);
+    taskStateRepository.saveAll(states);
+    return taskBoard;
   }
 
   @Transactional
@@ -66,16 +61,16 @@ public class TaskBoardService {
     this.taskBoardRepository.save(copiedTaskBoard);
 
     Collection<TaskState> copiedStates =
-      this.copyTaskStateListAndSetTaskBoard(
-        taskBoardToCopy.getAvailableStates(), copiedTaskBoard);
+        this.copyTaskStateListAndSetTaskBoard(
+            taskBoardToCopy.getAvailableStates(), copiedTaskBoard);
     taskStateRepository.saveAll(copiedStates);
     copiedTaskBoard.setAvailableStates(copiedStates);
     this.taskBoardRepository.save(copiedTaskBoard);
 
     Collection<Task> notFinishedTasks = this.findUnfinishedTasks(taskBoardToCopy);
     copiedTaskBoard.setTasks(
-      taskService.copyTasks(
-        notFinishedTasks, copiedStates, copiedTaskBoard));
+        taskService.copyTasks(
+            notFinishedTasks, copiedStates, copiedTaskBoard));
     taskRepository.saveAll(copiedTaskBoard.getTasks());
     updatePreviousTaskOfSavedCopiedTasks(copiedTaskBoard.getTasks());
     taskRepository.saveAll(copiedTaskBoard.getTasks());
@@ -89,7 +84,7 @@ public class TaskBoardService {
     for (Task copiedTask : copiedTasks) {
       for (Task forPreviousTask : copiedTasks) {
         if (copiedTask.hasPreviousTask()
-          && copiedTask.getPreviousTask().getTitle().equals(forPreviousTask.getTitle())) {
+            && copiedTask.getPreviousTask().getTitle().equals(forPreviousTask.getTitle())) {
           copiedTask.setPreviousTask(forPreviousTask);
         }
       }
@@ -99,7 +94,7 @@ public class TaskBoardService {
   }
 
   public Collection<TaskState> copyTaskStateListAndSetTaskBoard(
-    Collection<TaskState> statesToCopy, TaskBoard parentTaskBoard
+      Collection<TaskState> statesToCopy, TaskBoard parentTaskBoard
   ) {
     Collection<TaskState> copiedAvailableStates = new ArrayList<>();
     for (TaskState state : statesToCopy) {
