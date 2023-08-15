@@ -1,29 +1,32 @@
 package org.burningokr.service.okr;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
-import org.burningokr.model.okr.*;
-import org.burningokr.model.users.User;
+import org.burningokr.model.okr.KeyResult;
+import org.burningokr.model.okr.KeyResultMilestone;
+import org.burningokr.model.okr.Objective;
+import org.burningokr.model.okr.Unit;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class KeyResultServiceTest {
 
   private final Long keyResultId = 1337L;
@@ -40,51 +43,47 @@ public class KeyResultServiceTest {
   @Mock
   private KeyResultHistoryService keyResultHistoryService;
   @Mock
-  private User user;
-  @Mock
   private TaskService taskService;
   @InjectMocks
   private KeyResultService keyResultService;
   private KeyResult keyResult;
   private KeyResult updateKeyResult;
+  private Cycle activeCycle;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     keyResult = new KeyResult();
     keyResult.setId(keyResultId);
     updateKeyResult = new KeyResult();
 
-    Cycle activeCycle = new Cycle();
+    activeCycle = new Cycle();
     activeCycle.setCycleState(CycleState.ACTIVE);
-    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
-    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult), any())).thenReturn(updateKeyResult);
-  }
-
-  @Test(expected = EntityNotFoundException.class)
-  public void deleteKeyResult_expectsEntityNotFoundExceptionIsThrown() throws Exception {
-    when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenThrow(new EntityNotFoundException());
-    keyResultService.deleteKeyResult(keyResultId, user);
-  }
-
-  @Test(expected = ForbiddenException.class)
-  public void deleteKeyResult_cycleOfKeyResultIsClosed_expectedForbiddenThrow() throws Exception {
-    Cycle closedCycle = new Cycle();
-    closedCycle.setCycleState(CycleState.CLOSED);
-    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(closedCycle);
-
-    keyResultService.deleteKeyResult(10L, user);
   }
 
   @Test
-  public void deleteKeyResult_expectedOtherKeyResultsSequenceAdjusted() throws Exception {
+  public void deleteKeyResult_shouldThrowEntityNotFoundException() {
+    when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenThrow(new EntityNotFoundException());
+    assertThrows(EntityNotFoundException.class, () -> keyResultService.deleteKeyResult(keyResultId));
+  }
+
+  @Test
+  public void deleteKeyResult_shouldThrowForbiddenExceptionWhenCycleOfKeyResultIsClosed() {
+    Cycle closedCycle = new Cycle();
+    closedCycle.setCycleState(CycleState.CLOSED);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(closedCycle);
+    assertThrows(ForbiddenException.class, () -> keyResultService.deleteKeyResult(10L));
+  }
+
+  @Test
+  public void deleteKeyResult_shouldAdjustSequenceOtherKeyResults() throws Exception {
     Objective parentObjective = new Objective();
     KeyResult keyResultBelowInSequence = new KeyResult();
     KeyResult keyResultToDelete = new KeyResult();
     KeyResult keyResultAboveInSequence = new KeyResult();
     Collection<KeyResult> keyResultList = Arrays.asList(
-      keyResultAboveInSequence,
-      keyResultBelowInSequence,
-      keyResultToDelete
+            keyResultAboveInSequence,
+            keyResultBelowInSequence,
+            keyResultToDelete
     );
     parentObjective.setKeyResults(keyResultList);
 
@@ -94,15 +93,16 @@ public class KeyResultServiceTest {
     keyResultToDelete.setParentObjective(parentObjective);
 
     when(keyResultRepository.findByIdOrThrow(any(Long.class))).thenReturn(keyResultToDelete);
-    when(taskService.findTasksForKeyResult(any(KeyResult.class))).thenReturn(new ArrayList<Task>());
-    keyResultService.deleteKeyResult(10L, user);
+    when(taskService.findTasksForKeyResult(any(KeyResult.class))).thenReturn(new ArrayList<>());
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    keyResultService.deleteKeyResult(10L);
 
-    Assert.assertEquals(5, keyResultBelowInSequence.getSequence());
-    Assert.assertEquals(6, keyResultAboveInSequence.getSequence());
+    assertEquals(5, keyResultBelowInSequence.getSequence());
+    assertEquals(6, keyResultAboveInSequence.getSequence());
   }
 
-  @Test(expected = ForbiddenException.class)
-  public void updateKeyResult_cycleOfKeyResultIsClosed_expectedForbiddenThrow() {
+  @Test
+  public void updateKeyResult_shouldThrowForbiddenExceptionWhenCycleOfKeyResultIsClosed() {
     Cycle closedCycle = new Cycle();
     closedCycle.setCycleState(CycleState.CLOSED);
     when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(closedCycle);
@@ -110,95 +110,107 @@ public class KeyResultServiceTest {
 
     KeyResult updatedKeyResult = new KeyResult();
     updatedKeyResult.setId(10L);
-    keyResultService.updateKeyResult(updatedKeyResult, user);
+    assertThrows(ForbiddenException.class, () -> keyResultService.updateKeyResult(updatedKeyResult));
   }
 
   @Test
-  public void updateKeyResult_expectsNameIsUpdated() {
+  public void updateKeyResult_shouldUpdateName() {
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
     String expectedName = "Test-Name";
     updateKeyResult.setId(keyResultId);
     updateKeyResult.setName(expectedName);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
-    Assert.assertEquals(expectedName, keyResult.getName());
+    assertEquals(expectedName, keyResult.getName());
   }
 
   @Test
-  public void updateKeyResult_expectsDescriptionIsUpdated() {
+  public void updateKeyResult_shouldUpdateDescription() {
     String expectedDescription = "Test-Description";
     updateKeyResult.setId(keyResultId);
     updateKeyResult.setDescription(expectedDescription);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
-    Assert.assertEquals(expectedDescription, keyResult.getDescription());
+    assertEquals(expectedDescription, keyResult.getDescription());
   }
 
   @Test
-  public void updateKeyResult_expectsStartValueIsUpdated() {
+  public void updateKeyResult_shouldUpdateStartValue() {
     final long expectedStartValue = 1337L;
     updateKeyResult.setId(keyResultId);
     updateKeyResult.setStartValue(1337);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
-    Assert.assertEquals(expectedStartValue, keyResult.getStartValue());
+    assertEquals(expectedStartValue, keyResult.getStartValue());
   }
 
   @Test
-  public void updateKeyResult_expectsCurrentValueIsUpdated() {
+  public void updateKeyResult_shouldUpdateCurrentValue() {
     final long expectedCurrentValue = 1337L;
     updateKeyResult.setId(keyResultId);
     updateKeyResult.setCurrentValue(1337);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
-    Assert.assertEquals(expectedCurrentValue, keyResult.getCurrentValue());
+    assertEquals(expectedCurrentValue, keyResult.getCurrentValue());
   }
 
   @Test
-  public void updateKeyResult_expectsTargetValueIsUpdated() {
+  public void updateKeyResult_shouldUpdateTargetValue() {
     final long expectedTargetValue = 1337L;
     updateKeyResult.setId(keyResultId);
     updateKeyResult.setTargetValue(1337);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
-    Assert.assertEquals(expectedTargetValue, keyResult.getTargetValue());
+    assertEquals(expectedTargetValue, keyResult.getTargetValue());
   }
 
   @Test
-  public void updateKeyResult_expectsUnitIsUpdated() {
+  public void updateKeyResult_shouldUpdateUnit() {
     Unit expectedUnit = Unit.EURO;
     updateKeyResult.setId(keyResultId);
     updateKeyResult.setUnit(expectedUnit);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
-    keyResult = keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResult = keyResultService.updateKeyResult(updateKeyResult);
 
-    Assert.assertEquals(expectedUnit, keyResult.getUnit());
+    assertEquals(expectedUnit, keyResult.getUnit());
   }
 
   @Test
-  public void updateKeyResult_expectsMilestonesAreUpdated() {
+  public void updateKeyResult_shouldUpdateMilestones() {
     List<KeyResultMilestone> milestones = new ArrayList<>();
     milestones.add(new KeyResultMilestone());
     milestones.add(new KeyResultMilestone());
@@ -209,24 +221,25 @@ public class KeyResultServiceTest {
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
+    when(entityCrawlerService.getCycleOfKeyResult(any())).thenReturn(activeCycle);
+    when(keyResultMilestoneService.updateMilestones(eq(updateKeyResult))).thenReturn(updateKeyResult);
 
-    keyResultService.updateKeyResult(updateKeyResult, user);
+    keyResultService.updateKeyResult(updateKeyResult);
 
-    verify(keyResultMilestoneService).updateMilestones(any(), any());
+    verify(keyResultMilestoneService).updateMilestones(any());
   }
 
-  @Test(expected = Exception.class)
-  public void updateSequence_NonEqualSizes_expectException() throws Exception {
+  @Test
+  public void updateSequence_shouldThrowExceptionWhenSequenceAreNonEqualSizes() {
     Objective objective = new Objective();
     objective.setId(42L);
     objective.setKeyResults(new ArrayList<>());
     Collection<Long> sequenceList = Collections.singletonList(1L);
-
-    keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    assertThrows(Exception.class, () -> keyResultService.updateSequence(objective.getId(), sequenceList));
   }
 
-  @Test(expected = Exception.class)
-  public void updateSequence_WrongObjectiveIdsInSequence_expectException() throws Exception {
+  @Test
+  public void updateSequence_shouldThrowExceptionWhenWrongObjectiveIdsAreInSequence() {
     Objective objective = new Objective();
     objective.setId(40L);
     KeyResult keyResult0 = new KeyResult();
@@ -241,12 +254,11 @@ public class KeyResultServiceTest {
     objective.setKeyResults(Arrays.asList(keyResult0, keyResult1, keyResult2));
 
     Collection<Long> sequenceList = Arrays.asList(30L, 20L, 40L);
-
-    keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    assertThrows(Exception.class, () -> keyResultService.updateSequence(objective.getId(), sequenceList));
   }
 
   @Test
-  public void updateSequence_expectKeyResultsHaveNewSequence() throws Exception {
+  public void updateSequence_shouldCreateNewSequenceForKeyResults() throws Exception {
     Objective objective = new Objective();
     objective.setId(40L);
     KeyResult keyResult0 = new KeyResult();
@@ -264,10 +276,10 @@ public class KeyResultServiceTest {
 
     when(objectiveService.findById(objective.getId())).thenReturn(objective);
 
-    keyResultService.updateSequence(objective.getId(), sequenceList, user);
+    keyResultService.updateSequence(objective.getId(), sequenceList);
 
-    Assert.assertEquals(2, keyResult0.getSequence());
-    Assert.assertEquals(1, keyResult1.getSequence());
-    Assert.assertEquals(0, keyResult2.getSequence());
+    assertEquals(2, keyResult0.getSequence());
+    assertEquals(1, keyResult1.getSequence());
+    assertEquals(0, keyResult2.getSequence());
   }
 }

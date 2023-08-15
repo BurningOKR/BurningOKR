@@ -1,33 +1,32 @@
 package org.burningokr.model.okr;
 
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
 public class ObjectiveTest {
 
   private String originalName;
-  private long originalId;
-  private OkrDepartment originalOkrDepartment;
   private String originalDescription;
   private String originalRemark;
-  private Objective originalObjective;
+  private Objective emptyObjective;
   private String originalContactPerson;
 
   private Objective expectedObjective;
 
-  @Before
+  @BeforeEach
   public void init() {
     originalName = "originalName";
-    originalId = 100L;
+    long originalId = 100L;
     originalRemark = "originalRemark";
-    originalOkrDepartment = new OkrDepartment();
+    OkrDepartment originalOkrDepartment = new OkrDepartment();
     originalDescription = "originalDescription";
-    originalObjective = new Objective();
+    Objective originalObjective = new Objective();
     originalContactPerson = "originalContactPerson";
 
     expectedObjective = new Objective();
@@ -39,45 +38,83 @@ public class ObjectiveTest {
     expectedObjective.setName(originalName);
     expectedObjective.setRemark(originalRemark);
     expectedObjective.setActive(true);
+
+    emptyObjective = new Objective();
+  }
+
+  @Test
+  public void hasParentObjective_shouldBeTrue() {
+    assertTrue(expectedObjective.hasParentObjective());
+  }
+
+  @Test
+  public void hasParentObjective_shouldBeFalse() {
+    assertFalse(emptyObjective.hasParentObjective());
+  }
+
+  @Test
+  public void hasContactPerson_shouldBeTrue() {
+    assertTrue(expectedObjective.hasContactPerson());
+  }
+
+  @Test
+  public void hasContactPerson_shouldBeFalse() {
+    assertFalse(emptyObjective.hasContactPerson());
+  }
+
+  @Test
+  public void isActive_shouldBeTrue() {
+    assertTrue(expectedObjective.isActive());
+  }
+
+  @Test
+  public void isActive_shouldBeFalse() {
+    assertFalse(emptyObjective.isActive());
+  }
+
+  @Test
+  public void setActive_shouldBeTrue() {
+    emptyObjective.setActive(true);
+    assertTrue(emptyObjective.isActive());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNotNull() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNotNull(actualObjective);
+    assertNotNull(actualObjective);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCopyNotOriginal() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedObjective, actualObjective);
+    assertNotEquals(expectedObjective, actualObjective);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedIdNotCopied() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedObjective.getId(), actualObjective.getId());
+    assertNotEquals(expectedObjective.getId(), actualObjective.getId());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCorrectCopiedInformation() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertEquals(originalContactPerson, actualObjective.getContactPersonId());
-    Assert.assertEquals(originalDescription, actualObjective.getDescription());
-    Assert.assertEquals(originalName, actualObjective.getName());
-    Assert.assertEquals(originalRemark, actualObjective.getRemark());
-    Assert.assertTrue(actualObjective.isActive());
+    assertEquals(originalContactPerson, actualObjective.getContactPersonId());
+    assertEquals(originalDescription, actualObjective.getDescription());
+    assertEquals(originalName, actualObjective.getName());
+    assertEquals(originalRemark, actualObjective.getRemark());
+    assertTrue(actualObjective.isActive());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNoRelations() {
     Objective actualObjective = expectedObjective.getCopyWithoutRelations();
 
-    Assert.assertNull(actualObjective.getParentObjective());
-    Assert.assertNull(actualObjective.getParentOkrUnit());
+    assertNull(actualObjective.getParentObjective());
+    assertNull(actualObjective.getParentOkrUnit());
   }
 }

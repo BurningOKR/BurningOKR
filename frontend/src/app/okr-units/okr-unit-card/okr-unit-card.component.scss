@@ -1,5 +1,45 @@
+//@use '@angular/material' as mat;
+//@import '../../../styles/themes/bag-theme.scss';
+
 .company-card {
-  margin: 35px;
+  margin-left: 5%;
+  margin-bottom: 35px;
+  width: 90%;
+  max-width: 90%;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.delete-unit-card {
+  margin: 0 0 0 5px;
+}
+
+.my-mat-title {
+  text-align: left;
+  color: #000000;
+  display: block;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.my-mat-subtitle {
+  text-align: left;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.card-buttons {
+  text-align: left;
+  margin-top: 16px;
+}
+
+.company-actions button {
+  position: absolute;
+  margin: 10px 10px 0 0;
 }
 
 .pointing {
@@ -16,10 +56,12 @@
 
 .history-cycle-input {
   width: 220px;
-  /*margin-top: 8px;*/
-  margin-top: -0.84375em;
   font-size: 16px;
-  float: right;
+}
+
+.cycle-select {
+  padding: 5px;
+  height: 40px;
 }
 
 small {
@@ -47,5 +89,27 @@ small {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .my-mat-button {
+    display: block;
+    max-width: 95%;
+  }
+}
+
+@media only screen and (max-width: 690px) {
+  .history-cycle-input {
+    display: block;
+    max-width: 90%;
+  }
+}
+
+@media only screen and (min-width: 690px) {
+  .history-cycle-input {
+    margin-top: -45px;
+    margin-right: 25px;
+    float: right;
   }
 }

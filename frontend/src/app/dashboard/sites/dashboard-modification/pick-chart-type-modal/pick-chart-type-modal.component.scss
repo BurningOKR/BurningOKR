@@ -1,0 +1,13 @@
+.pick-chart-type {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
+}
+
+.chart-type-form-field {
+  width: 90%;
+}
+
+.pick-chart-type-cancel {
+  margin: 0 8px 0 0;
+}

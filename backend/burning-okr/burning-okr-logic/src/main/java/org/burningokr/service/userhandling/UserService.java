@@ -1,22 +1,39 @@
 package org.burningokr.service.userhandling;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.users.User;
+import org.burningokr.repositories.users.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public interface UserService {
-  Collection<User> findAll();
+@RequiredArgsConstructor
+@Slf4j
+public class UserService {
 
-  Collection<User> findAllActive();
+  private final UserRepository userRepository;
 
-  Collection<User> findAllInactive();
+  public List<User> findAll() {
+    return userRepository.findAll();
+  }
 
-  User getCurrentUser();
+  public List<User> findAllActive() {
+    return userRepository.findAllByActiveIsTrue();
+  }
 
-  User findById(UUID userId);
+  public List<User> findAllInactive() {
+    return userRepository.findAllByActiveIsFalse();
+  }
 
-  boolean doesUserExist(UUID userId);
+  public synchronized User updateUser(User user) {
+    return userRepository.save(user);
+  }
+
+  public Optional<User> findById(UUID userId) {
+    return userRepository.findById(userId);
+  }
 }

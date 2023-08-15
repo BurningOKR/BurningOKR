@@ -5,10 +5,9 @@ import { AdminSettingsFormComponent } from './admin-settings/admin-settings-form
 import { MaterialTestingModule } from '../../../testing/material-testing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { OAuthFrontendDetailsService } from '../../auth/services/o-auth-frontend-details.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CompanyMapper } from '../../../shared/services/mapper/company.mapper';
-import { UserSettingsManagerService } from '../../services/user-settings-manager.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { ConfigurationManagerService } from '../configuration-manager.service';
 import { CurrentUserService } from '../../services/current-user.service';
@@ -20,7 +19,7 @@ const companyService: any = {
   getActiveCompanies$: jest.fn(),
 };
 
-const userSettingsManager: any = {
+const userSettingsService: any = {
   getUserSettings$: jest.fn(),
 };
 
@@ -65,12 +64,11 @@ describe('SettingsFormComponent', () => {
       ],
       providers: [
         { provide: CompanyMapper, useValue: companyService },
-        { provide: UserSettingsManagerService, useValue: userSettingsManager },
+        { provide: UserSettingsService, useValue: userSettingsService },
         { provide: DepartmentMapper, useValue: departmentService },
         { provide: ConfigurationManagerService, useValue: configurationManagerService },
         { provide: CurrentUserService, useValue: currentUserService },
         { provide: MatDialog, useValue: dialog },
-        { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsService },
         { provide: MatDialogRef, useValue: dialogRef },
       ],
     })
@@ -81,8 +79,8 @@ describe('SettingsFormComponent', () => {
     currentUserService.isCurrentUserAdmin$.mockReset();
     currentUserService.isCurrentUserAdmin$.mockReturnValue(of(false));
 
-    userSettingsManager.getUserSettings$.mockReset();
-    userSettingsManager.getUserSettings$.mockReturnValue(of(userSettings));
+    userSettingsService.getUserSettings$.mockReset();
+    userSettingsService.getUserSettings$.mockReturnValue(of(userSettings));
 
     companyService.getActiveCompanies$.mockReset();
     companyService.getActiveCompanies$.mockReturnValue(of([]));

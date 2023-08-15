@@ -79,7 +79,7 @@ export class UserService implements IUserService {
     return this.userApiService.getUsers$();
   }
 
-  getAdminIds$(): Observable<string[]> {
-    return this.userApiService.getAdminIds$();
+  getAdmins$(): Observable<User[]> {
+    return this.userApiService.getAdmins$();
   }
 }

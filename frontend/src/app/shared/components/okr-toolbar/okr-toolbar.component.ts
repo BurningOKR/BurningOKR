@@ -5,10 +5,8 @@ import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VersionFormComponent } from '../../../core/version-form/version-form.component';
-import { ChangePasswordDialogComponent } from '../../../core/auth/local-auth/change-password-dialog/change-password-dialog.component';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import versions from '../../../../../src/_versions';
-import { OAuthFrontendDetailsService } from '../../../core/auth/services/o-auth-frontend-details.service';
 import { CurrentCompanyService } from '../../../okrview/current-company.service';
 import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
 import { ConfigurationService } from '../../../core/settings/configuration.service';
@@ -36,12 +34,13 @@ export class OkrToolbarComponent implements OnInit {
     private dialog: MatDialog,
     private currentUserService: CurrentUserService,
     private currentCompanyService: CurrentCompanyService,
-    private oAuthDetails: OAuthFrontendDetailsService,
+    // private oAuthDetails: OAuthFrontendDetailsService,
     private configurationService: ConfigurationService,
     private okrUnitService: OkrUnitService,
   ) {
-    this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$()
-      .pipe(take(1));
+    this.isLocalUserbase$ = of(false);
+    // this.isLocalUserbase$ = this.oAuthDetails.isLocalAuthType$() TODO fix auth
+    //   .pipe(take(1));
 
     this.hasMailConfigured$ = this.configurationService.getHasMailConfigured$();
   }
@@ -71,12 +70,6 @@ export class OkrToolbarComponent implements OnInit {
       .afterClosed()
       .pipe(switchMap(_ => _))
       .subscribe(() => this.okrUnitService.refreshOkrChildUnit());
-  }
-
-  openPasswordChangeForm(): void {
-    this.dialog.open(ChangePasswordDialogComponent, { disableClose: true })
-      .afterClosed()
-      .subscribe();
   }
 
   pickLanguageClicked() {

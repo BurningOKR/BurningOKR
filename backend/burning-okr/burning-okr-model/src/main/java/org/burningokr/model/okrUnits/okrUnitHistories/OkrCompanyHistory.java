@@ -1,21 +1,23 @@
 package org.burningokr.model.okrUnits.okrUnitHistories;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.okrUnits.OkrCompany;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@DiscriminatorValue(value = "OKR_COMPANY_HISTORY")
 public class OkrCompanyHistory extends OkrUnitHistory<OkrCompany> {
 
-  @OneToMany(mappedBy = "history", cascade = CascadeType.REMOVE, targetEntity = OkrCompany.class)
+  @OneToMany(mappedBy = "companyHistory", cascade = CascadeType.REMOVE, targetEntity = OkrCompany.class)
   private Collection<OkrCompany> units = new ArrayList<>();
 
   @Override

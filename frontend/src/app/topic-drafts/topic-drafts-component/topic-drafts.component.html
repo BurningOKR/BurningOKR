@@ -10,10 +10,8 @@
 
 <div class="content-wrapper">
   <div class="content">
-    <app-topic-draft-list [topicDrafts]="rowData.data"></app-topic-draft-list>
-    <app-add-button (buttonClicked)="clickedAddTopicDraft()" class="right"
+    <app-add-button (buttonClicked)="clickedAddTopicDraft()" class="topic-draft-create-button"
                     text="{{'topic-drafts.add-topic-draft-button' | translate}}"></app-add-button>
+    <app-topic-draft-list [topicDrafts]="rowData.data"></app-topic-draft-list>
   </div>
 </div>
-
-

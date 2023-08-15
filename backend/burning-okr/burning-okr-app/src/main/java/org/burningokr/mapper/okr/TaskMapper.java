@@ -1,36 +1,35 @@
 package org.burningokr.mapper.okr;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.okr.TaskDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Task;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okr.TaskState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
-
+@Slf4j
 @Service
 public class TaskMapper implements DataMapper<Task, TaskDto> {
-  private final Logger logger = LoggerFactory.getLogger(TaskMapper.class);
 
   public Task mapDtoToEntity(TaskDto taskDto) {
-    logger.info(
+    log.debug(
       String.format(
         "mapDtoToEntity dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d, previousTaskId: %d}",
         taskDto.getId(),
         taskDto.getTitle(),
         taskDto.getDescription(),
-        String.valueOf(taskDto.getAssignedUserIds()),
+        taskDto.getAssignedUserIds(),
         taskDto.getAssignedKeyResultId(),
         taskDto.getParentTaskBoardId(),
         taskDto.getTaskStateId(),
         taskDto.getPreviousTaskId()
       ));
+
     Task taskEntity = new Task();
 
     taskEntity.setId(taskDto.getId());
@@ -92,12 +91,11 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
       taskDto.setAssignedKeyResultId(taskEntity.getAssignedKeyResult().getId());
     }
 
-    logger.info(
-      "mapEntityToDto (id:"
-        + taskDto.getId()
-        + " assigned Key Result id: "
-        + taskDto.getAssignedKeyResultId()
-        + ") successful into TaskDto.");
+    log.debug(
+      String.format(
+        "Method TaskMapper.mapEntityToDto successfully assigned Key Result id %d to TaskDto (id: %d).",
+        taskDto.getAssignedKeyResultId(),
+        taskDto.getId()));
     return taskDto;
   }
 
@@ -117,7 +115,7 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
   }
 
   private Collection<UUID> copyUUIDList(Collection<UUID> list) {
-    ArrayList copy = new ArrayList<UUID>();
+    ArrayList<UUID> copy = new ArrayList<>();
     for (UUID userId : list) {
       UUID copyID = new UUID(userId.getMostSignificantBits(), userId.getLeastSignificantBits());
       copy.add(copyID);
@@ -125,8 +123,8 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
     return copy;
   }
 
-  private void logDTOList(Collection<TaskDto> taskList) {
 
+  private void logDTOList(Collection<TaskDto> taskList) {
     StringBuilder result = new StringBuilder("Log DTO List\n");
     for (TaskDto task : taskList) {
       result.append("--------------\n");
@@ -139,10 +137,10 @@ public class TaskMapper implements DataMapper<Task, TaskDto> {
       result.append("parent TaskBoard Id: ").append(task.getParentTaskBoardId()).append("\n");
       result
         .append("My Assigned User Ids: ")
-        .append(String.valueOf(task.getAssignedUserIds()))
+        .append(task.getAssignedUserIds())
         .append("\n");
       result.append("Version: ").append(task.getVersion()).append("\n");
     }
-    logger.info(result.toString());
+    log.debug(result.toString());
   }
 }

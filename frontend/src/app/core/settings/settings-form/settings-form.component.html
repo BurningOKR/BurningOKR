@@ -3,7 +3,6 @@
 </h1>
 
 <mat-dialog-content>
-
   <mat-tab-group dynamicHeight>
     <mat-tab label="{{ 'settings-form.settings' | translate }}">
       <app-user-settings (valid)="userSettingsValid = $event"></app-user-settings>
@@ -13,13 +12,10 @@
       <app-admin-settings (valid)="adminSettingsValid = $event"></app-admin-settings>
     </mat-tab>
   </mat-tab-group>
-
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button (click)="onSave()"
-          [disabled]="!userSettingsValid || (adminSettingsValid && isCurrentUserAdmin$ | async) === false"
-          color="primary" mat-button>
+  <button (click)="onSave()" [disabled]="!(userSettingsValid && adminSettingsValid)" color="primary" mat-button>
     <span>{{ 'settings-form.save' | translate }}</span></button>
   <button (click)="closeDialog()" color="warn" mat-button>
     <span>{{ 'settings-form.cancel-button-text' | translate }}</span></button>

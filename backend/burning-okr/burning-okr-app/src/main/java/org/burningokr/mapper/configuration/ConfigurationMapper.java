@@ -1,19 +1,14 @@
 package org.burningokr.mapper.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+@Slf4j
 @Service
 public class ConfigurationMapper implements DataMapper<Configuration, ConfigurationDto> {
-
-  private final Logger logger = LoggerFactory.getLogger(ConfigurationMapper.class);
 
   @Override
   public Configuration mapDtoToEntity(ConfigurationDto configurationDto) {
@@ -22,7 +17,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configuration.setName(configurationDto.getName());
     configuration.setValue(configurationDto.getValue());
     configuration.setType(configurationDto.getType());
-    logger.info("Mapped ConfigurationDto (id: )" + configurationDto.getId() + ") to Configuration");
+    log.debug("Mapped ConfigurationDto (id: %d) to Configuration".formatted(configurationDto.getId()));
     return configuration;
   }
 
@@ -33,24 +28,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configurationDto.setName(configuration.getName());
     configurationDto.setValue(configuration.getValue());
     configurationDto.setType(configuration.getType());
-    logger.info("Mapped Configuration (id: )" + configuration.getId() + ") to ConfigurationDto");
+    log.debug("Mapped Configuration (id: %d) to ConfigurationDto".formatted(configuration.getId()));
     return configurationDto;
-  }
-
-  @Override
-  public Collection<Configuration> mapDtosToEntities(Collection<ConfigurationDto> input) {
-    Collection<Configuration> configurations = new ArrayList<>();
-    input.forEach(configurationDto -> configurations.add(mapDtoToEntity(configurationDto)));
-    return configurations;
-  }
-
-  @Override
-  public Collection<ConfigurationDto> mapEntitiesToDtos(Collection<Configuration> configurations) {
-    Collection<ConfigurationDto> configurationDtos = new ArrayList<>();
-    for (Configuration configuration : configurations) {
-      ConfigurationDto configurationDto = mapEntityToDto(configuration);
-      configurationDtos.add(configurationDto);
-    }
-    return configurationDtos;
   }
 }

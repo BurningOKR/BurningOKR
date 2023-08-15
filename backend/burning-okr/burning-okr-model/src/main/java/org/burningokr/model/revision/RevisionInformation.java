@@ -1,13 +1,11 @@
 package org.burningokr.model.revision;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,9 +14,14 @@ import java.util.UUID;
 @RevisionEntity
 public class RevisionInformation implements IRevisionInformation {
 
-  @Id @GeneratedValue @RevisionNumber private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
+  @RevisionNumber
+  private long id;
 
-  @RevisionTimestamp private Date date;
+  @RevisionTimestamp
+  private Date date;
 
   private UUID userId;
 }

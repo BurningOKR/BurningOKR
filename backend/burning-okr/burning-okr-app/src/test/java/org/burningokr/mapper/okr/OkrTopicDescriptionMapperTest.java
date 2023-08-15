@@ -2,8 +2,9 @@ package org.burningokr.mapper.okr;
 
 import org.burningokr.dto.okr.OkrTopicDescriptionDto;
 import org.burningokr.model.okr.OkrTopicDescription;
-import org.junit.Before;
-import org.junit.Test;
+import org.burningokr.service.util.DateMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,293 +12,338 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OkrTopicDescriptionMapperTest {
 
-  private OkrTopicDescription description;
-  private OkrTopicDescriptionDto descriptionDto;
-  private OkrTopicDescriptionMapper mapper;
+  private OkrTopicDescription topicDescription;
+  private OkrTopicDescriptionDto topicDescriptionDto;
+  private OkrTopicDescriptionMapper topicDescriptionMapper;
 
-  @Before
+  @BeforeEach
   public void setUp() {
-    description = new OkrTopicDescription();
-    descriptionDto = new OkrTopicDescriptionDto();
-    mapper = new OkrTopicDescriptionMapper();
-  }
-
-  // Entity To Dto
-
-  @Test
-  public void test_mapEntityToDto_expect_id_ismapped() {
-    description.setId(10l);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
-    assertEquals(10L, actual.getId().longValue());
+    DateMapper dateMapper = new DateMapper();
+    topicDescription = new OkrTopicDescription();
+    topicDescriptionDto = new OkrTopicDescriptionDto();
+    topicDescriptionMapper = new OkrTopicDescriptionMapper(dateMapper);
   }
 
   @Test
-  public void test_mapEntityToDto_expect_name_ismapped() {
+  public void mapEntityToDto_shouldMapId() {
+    long expected = 10L;
+    topicDescription.setId(expected);
+
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
+    assertEquals(expected, actual.getId().longValue());
+  }
+
+  @Test
+  public void mapEntityToDto_shouldMapExpected() {
     String expected = "test";
+    topicDescription.setName(expected);
 
-    description.setName(expected);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertEquals(expected, actual.getName());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_initiatorId_ismapped() {
-    UUID initiatorId = UUID.randomUUID();
+  public void mapEntityToDto_shouldMapInitiatorId() {
+    UUID expected = UUID.randomUUID();
+    topicDescription.setInitiatorId(expected);
 
-    description.setInitiatorId(initiatorId);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
-    assertEquals(initiatorId, actual.getInitiatorId());
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
+    assertEquals(expected, actual.getInitiatorId());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_acceptanceCriteria_ismapped() {
+  public void mapEntityToDto_shouldMapAcceptanceCriteria() {
     String expected = "testAcceptanceCriteria";
+    topicDescription.setDescription(expected);
 
-    description.setDescription(expected);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertEquals(expected, actual.getDescription());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_contributesTo_ismapped() {
+  public void mapEntityToDto_shouldMapContributesTo() {
     String expected = "testContributesTo";
+    topicDescription.setContributesTo(expected);
 
-    description.setContributesTo(expected);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertEquals(expected, actual.getContributesTo());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_delimitation_ismapped() {
+  public void mapEntityToDto_shouldMapDelimitation() {
     String expected = "testDelimitation";
+    topicDescription.setDelimitation(expected);
 
-    description.setDelimitation(expected);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertEquals(expected, actual.getDelimitation());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_beginning_ismapped() {
-    LocalDate beginning = LocalDate.of(2020, 3, 1);
+  public void mapEntityToDto_shouldMapBeginning() {
+    LocalDate expected = LocalDate.of(2020, 3, 1);
+    topicDescription.setBeginning(expected);
 
-    description.setBeginning(beginning);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
-    assertEquals(beginning, actual.getBeginning());
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
+    assertEquals(expected.toString(), actual.getBeginning());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_dependencies_ismapped() {
+  public void mapEntityToDto_shouldMapDependencies() {
     String expected = "testDependencies";
+    topicDescription.setDependencies(expected);
 
-    description.setDependencies(expected);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertEquals(expected, actual.getDependencies());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_resources_ismapped() {
+  public void mapEntityToDto_shouldMapResources() {
     String expected = "testResources";
+    topicDescription.setResources(expected);
 
-    description.setResources(expected);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertEquals(expected, actual.getResources());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_handoverPlan_ismapped() {
+  public void mapEntityToDto_shouldMapHandoverPlan() {
     String expected = "testHandoverPlan";
+    topicDescription.setHandoverPlan(expected);
 
-    description.setHandoverPlan(expected);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertEquals(expected, actual.getHandoverPlan());
   }
 
   @Test
-  public void test_mapEntityToDto_expect_startTeam_ismapped() {
+  public void mapEntityToDto_shouldMapStartTeam() {
     UUID member1 = UUID.randomUUID();
     UUID member2 = UUID.randomUUID();
     UUID member3 = UUID.randomUUID();
 
-    List<UUID> members = new ArrayList<UUID>();
-    members.add(member1);
-    members.add(member2);
-    members.add(member3);
+    List<UUID> members = new ArrayList<>() {
+      {
+        add(member1);
+        add(member2);
+        add(member3);
+      }
+    };
+    topicDescription.setStartTeam(members);
 
-    description.setStartTeam(members);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertTrue(actual.getStartTeam().contains(member1));
     assertTrue(actual.getStartTeam().contains(member2));
     assertTrue(actual.getStartTeam().contains(member3));
   }
 
   @Test
-  public void test_mapEntityToDto_expect_stakeholders_ismapped() {
+  public void mapEntityToDto_shouldMapStakeholders() {
     UUID member1 = UUID.randomUUID();
     UUID member2 = UUID.randomUUID();
     UUID member3 = UUID.randomUUID();
 
-    List<UUID> members = new ArrayList<UUID>();
-    members.add(member1);
-    members.add(member2);
-    members.add(member3);
+    List<UUID> members = new ArrayList<>() {
+      {
+        add(member1);
+        add(member2);
+        add(member3);
+      }
+    };
+    topicDescription.setStakeholders(members);
 
-    description.setStakeholders(members);
-    OkrTopicDescriptionDto actual = mapper.mapEntityToDto(description);
+    OkrTopicDescriptionDto actual = topicDescriptionMapper.mapEntityToDto(topicDescription);
+
     assertTrue(actual.getStakeholders().contains(member1));
     assertTrue(actual.getStakeholders().contains(member2));
     assertTrue(actual.getStakeholders().contains(member3));
   }
 
-  // Dto to Entity
-
   @Test
-  public void test_mapDtoToEntity_expect_id_ismapped() {
-    descriptionDto.setId(10l);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
-    assertEquals(10L, actual.getId().longValue());
+  public void mapDtoToEntity_shouldMapId() {
+    long expected = 10L;
+    topicDescriptionDto.setId(expected);
+
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
+    assertEquals(expected, actual.getId().longValue());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_name_ismapped() {
+  public void mapDtoToEntity_shouldMapName() {
     String expected = "test";
+    topicDescriptionDto.setName(expected);
 
-    descriptionDto.setName(expected);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
     assertEquals(expected, actual.getName());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_initiatorId_ismapped() {
-    UUID initiatorId = UUID.randomUUID();
+  public void mapDtoToEntity_shouldMapInitiatorId() {
+    UUID expected = UUID.randomUUID();
+    topicDescriptionDto.setInitiatorId(expected);
 
-    descriptionDto.setInitiatorId(initiatorId);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
-    assertEquals(initiatorId, actual.getInitiatorId());
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
+    assertEquals(expected, actual.getInitiatorId());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_acceptanceCriteria_ismapped() {
+  public void mapDtoToEntity__shouldMapDescription() {
     String expected = "testAcceptanceCriteria";
+    topicDescriptionDto.setDescription(expected);
 
-    descriptionDto.setDescription(expected);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
     assertEquals(expected, actual.getDescription());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_contributesTo_ismapped() {
+  public void mapDtoToEntity_shouldMapContributesTo() {
     String expected = "testContributesTo";
+    topicDescriptionDto.setContributesTo(expected);
 
-    descriptionDto.setContributesTo(expected);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
     assertEquals(expected, actual.getContributesTo());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_delimitation_ismapped() {
+  public void mapDtoToEntity__shouldMapDelimitation() {
     String expected = "testDelimitation";
+    topicDescriptionDto.setDelimitation(expected);
 
-    descriptionDto.setDelimitation(expected);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
     assertEquals(expected, actual.getDelimitation());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_beginning_ismapped() {
-    LocalDate beginning = LocalDate.of(2020, 3, 1);
+  public void mapDtoToEntity_shouldMapBeginning() {
+    LocalDate expected = LocalDate.of(2020, 3, 1);
+    topicDescriptionDto.setBeginning(expected.toString());
 
-    descriptionDto.setBeginning(beginning);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
-    assertEquals(beginning, actual.getBeginning());
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
+    assertEquals(expected, actual.getBeginning());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_dependencies_ismapped() {
+  public void mapDtoToEntity_shouldMapDependencies() {
     String expected = "testDependencies";
+    topicDescriptionDto.setDependencies(expected);
 
-    descriptionDto.setDependencies(expected);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
     assertEquals(expected, actual.getDependencies());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_resources_ismapped() {
+  public void mapDtoToEntity_shouldMapResources() {
     String expected = "testResources";
+    topicDescriptionDto.setResources(expected);
 
-    descriptionDto.setResources(expected);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
     assertEquals(expected, actual.getResources());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_handoverPlan_ismapped() {
+  public void mapDtoToEntity_shouldMapHandoverPlan() {
     String expected = "testHandoverPlan";
+    topicDescriptionDto.setHandoverPlan(expected);
 
-    descriptionDto.setHandoverPlan(expected);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
+
     assertEquals(expected, actual.getHandoverPlan());
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_startTeam_ismapped() {
+  public void mapDtoToEntity_shouldMapStartTeam() {
     UUID member1 = UUID.randomUUID();
     UUID member2 = UUID.randomUUID();
     UUID member3 = UUID.randomUUID();
+    List<UUID> members = new ArrayList<>() {
+      {
+        add(member1);
+        add(member2);
+        add(member3);
+      }
+    };
+    topicDescriptionDto.setStartTeam(members);
 
-    List<UUID> members = new ArrayList<UUID>();
-    members.add(member1);
-    members.add(member2);
-    members.add(member3);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
 
-    descriptionDto.setStartTeam(members);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
     assertTrue(actual.getStartTeam().contains(member1));
     assertTrue(actual.getStartTeam().contains(member2));
     assertTrue(actual.getStartTeam().contains(member3));
   }
 
   @Test
-  public void test_mapDtoToEntity_expect_stakeholders_ismapped() {
+  public void mapDtoToEntity_shouldMapStakeholders() {
     UUID member1 = UUID.randomUUID();
     UUID member2 = UUID.randomUUID();
     UUID member3 = UUID.randomUUID();
+    List<UUID> members = new ArrayList<>() {
+      {
+        add(member1);
+        add(member2);
+        add(member3);
+      }
+    };
+    topicDescriptionDto.setStakeholders(members);
 
-    List<UUID> members = new ArrayList<UUID>();
-    members.add(member1);
-    members.add(member2);
-    members.add(member3);
+    OkrTopicDescription actual = topicDescriptionMapper.mapDtoToEntity(topicDescriptionDto);
 
-    descriptionDto.setStakeholders(members);
-    OkrTopicDescription actual = mapper.mapDtoToEntity(descriptionDto);
     assertTrue(actual.getStakeholders().contains(member1));
     assertTrue(actual.getStakeholders().contains(member2));
     assertTrue(actual.getStakeholders().contains(member3));
   }
 
   @Test
-  public void test_mapEntitiesToDto() {
-    List<OkrTopicDescription> descriptions = new ArrayList<>();
-    descriptions.add(new OkrTopicDescription());
-    descriptions.add(new OkrTopicDescription());
-    descriptions.add(new OkrTopicDescription());
+  public void mapEntitiesToDto_shouldMapDescriptionsArray() {
+    int expected = 3;
+    List<OkrTopicDescription> topicDescription = new ArrayList<>() {
+      {
+        add(new OkrTopicDescription());
+        add(new OkrTopicDescription());
+        add(new OkrTopicDescription());
+      }
+    };
 
-    Collection<OkrTopicDescriptionDto> dtos = mapper.mapEntitiesToDtos(descriptions);
-    assertEquals(3, (long) dtos.size());
+    Collection<OkrTopicDescriptionDto> actual = topicDescriptionMapper.mapEntitiesToDtos(topicDescription);
+
+    assertEquals(expected, actual.size());
   }
 
   @Test
-  public void test_mapDtosToEntities() {
-    List<OkrTopicDescriptionDto> descriptionDtos = new ArrayList<>();
-    descriptionDtos.add(new OkrTopicDescriptionDto());
-    descriptionDtos.add(new OkrTopicDescriptionDto());
-    descriptionDtos.add(new OkrTopicDescriptionDto());
+  public void mapDtosToEntities_shouldMapDescriptionsArray() {
+    int expected = 3;
+    List<OkrTopicDescriptionDto> topicDescriptionDtos = new ArrayList<>() {
+      {
+        add(new OkrTopicDescriptionDto());
+        add(new OkrTopicDescriptionDto());
+        add(new OkrTopicDescriptionDto());
+      }
+    };
 
-    Collection<OkrTopicDescription> entities = mapper.mapDtosToEntities(descriptionDtos);
-    assertEquals(3, (long) entities.size());
+    Collection<OkrTopicDescription> actual = topicDescriptionMapper.mapDtosToEntities(topicDescriptionDtos);
+
+    assertEquals(expected, actual.size());
   }
 }

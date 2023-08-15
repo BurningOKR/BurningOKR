@@ -1,10 +1,10 @@
 package org.burningokr.model.log;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 public class FrontendLog {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
   private String level;

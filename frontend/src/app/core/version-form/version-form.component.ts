@@ -11,6 +11,22 @@ import { ChangeLog } from '../../shared/model/ui/change-log';
 export class VersionFormComponent {
   versionChanges: ChangeLog[] = [
     {
+      version: '2.0.0 (15.08.2023)',
+      changes: [
+        'Breaking Changes: removed local auth',
+        'Feature: added Keycloak support and switched to OIDC',
+        'Updated Spring Boot to version 3.X',
+        'Updated Gradle to version 7.X',
+        'Updated Java to JDK 17',
+      ],
+    },
+    {
+      version: '1.5.3 (05.05.2023)',
+      changes: [
+        'Fix: displaying the current version of the application',
+      ],
+    },
+    {
       version: '1.5.2 (01.03.2023)',
       changes: [
         'Fix: Wrong Ms-Sql Migration',

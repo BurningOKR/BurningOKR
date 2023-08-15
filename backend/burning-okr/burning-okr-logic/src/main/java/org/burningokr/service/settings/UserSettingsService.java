@@ -1,6 +1,8 @@
 package org.burningokr.service.settings;
 
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -11,40 +13,19 @@ import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserSettingsService {
 
-  private final Logger logger = LoggerFactory.getLogger(UserSettingsService.class);
-  private UserSettingsRepository userSettingsRepository;
-  private ActivityService activityService;
-  private CompanyService companyService;
-
-  /**
-   * Initialize UserSettingsService.
-   *
-   * @param userSettingsRepository an {@link UserSettingsRepository} object
-   * @param activityService        an {@link ActivityService} object
-   * @param companyService         a {@link CompanyService} object
-   */
-  @Autowired
-  public UserSettingsService(
-    UserSettingsRepository userSettingsRepository,
-    ActivityService activityService,
-    CompanyService companyService
-  ) {
-    this.userSettingsRepository = userSettingsRepository;
-    this.activityService = activityService;
-    this.companyService = companyService;
-  }
+  private final UserSettingsRepository userSettingsRepository;
+  private final ActivityService activityService;
+  private final CompanyService companyService;
 
   /**
    * Gets the User Settings of a given User.
@@ -60,13 +41,8 @@ public class UserSettingsService {
       userSettings.setDefaultOkrCompany(getDefaultCompany());
       userSettings.setDefaultTeam(getDefaultTeam(user, userSettings.getDefaultOkrCompany()));
       userSettings = userSettingsRepository.save(userSettings);
-      activityService.createActivity(user, userSettings, Action.CREATED);
-      logger.info(
-        "Created User Settings "
-          + userSettings.getName()
-          + "(id: "
-          + userSettings.getId()
-          + ") ");
+      activityService.createActivity(userSettings, Action.CREATED);
+      log.debug("Created User Settings %s (id: %d).".formatted(userSettings.getName(), userSettings.getId()));
     }
     return userSettings;
   }
@@ -75,7 +51,7 @@ public class UserSettingsService {
     Collection<OkrCompany> okrCompanyCollection =
       companyService.getAllCompanies().stream()
         .filter(company -> company.getCycle().getCycleState() == CycleState.ACTIVE)
-        .collect(Collectors.toList());
+        .toList();
     if (okrCompanyCollection.size() == 1) {
       return (OkrCompany) okrCompanyCollection.toArray()[0];
     }
@@ -94,14 +70,14 @@ public class UserSettingsService {
     List<OkrDepartment> departmentsWhereUserIsSponsor =
       okrDepartments.stream()
         .filter(department -> isUserSponsorOrOkrMasterInDepartment(user, department))
-        .collect(Collectors.toList());
+        .toList();
     if (departmentsWhereUserIsSponsor.size() == 1) {
       return departmentsWhereUserIsSponsor.get(0);
     }
     List<OkrDepartment> departmentsWhereUserIsMember =
       okrDepartments.stream()
         .filter(department -> isUserMemberInDepartment(user, department))
-        .collect(Collectors.toList());
+        .toList();
     if (departmentsWhereUserIsMember.size() == 1) {
       return departmentsWhereUserIsMember.get(0);
     }
@@ -124,10 +100,9 @@ public class UserSettingsService {
    * Updates the User Settings.
    *
    * @param userSettings an {@link UserSettings} object
-   * @param user         an {@link User} object
    * @return an {@link UserSettings} object
    */
-  public UserSettings updateUserSettings(UserSettings userSettings, User user) {
+  public UserSettings updateUserSettings(UserSettings userSettings) {
     UserSettings dbUserSettings = userSettingsRepository.findByIdOrThrow(userSettings.getId());
 
     dbUserSettings.setDefaultOkrCompany(userSettings.getDefaultOkrCompany());

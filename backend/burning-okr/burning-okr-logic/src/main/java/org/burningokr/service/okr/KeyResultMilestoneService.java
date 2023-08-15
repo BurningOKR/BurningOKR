@@ -1,15 +1,13 @@
 package org.burningokr.service.okr;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.KeyResultMilestoneRepository;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +15,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class KeyResultMilestoneService {
@@ -25,31 +24,25 @@ public class KeyResultMilestoneService {
   private final KeyResultRepository keyResultRepository;
   private final ActivityService activityService;
 
-  private final Logger logger = LoggerFactory.getLogger(KeyResultMilestoneService.class);
 
   /**
    * Creates a new KeyResultMilestone for a KeyResult
    *
    * @param keyResultId the id of the KeyResult to create the milestone for
    * @param milestone   the milestone to create
-   * @param user        the user that creates the milestone
    * @return the created KeyResultMilestone. Use this object for further operations.
    */
   @Transactional
   public KeyResultMilestone createKeyResultMilestone(
-    long keyResultId, KeyResultMilestone milestone, User user
+    long keyResultId, KeyResultMilestone milestone
   ) {
     KeyResult keyResult = keyResultRepository.findByIdOrThrow(keyResultId);
     milestone.setParentKeyResult(keyResult);
 
     KeyResultMilestone referencedMilestone = keyResultMilestoneRepository.save(milestone);
-    logger.info(
-      "Created KeyResultMilestone with id "
-        + referencedMilestone.getId()
-        + " for KeyResult"
-        + keyResult.getId());
+    log.debug("Created KeyResultMilestone with id %d for KeyResult %s (id: %d).".formatted(referencedMilestone.getId(), keyResult.getName(), keyResult.getId()));
 
-    activityService.createActivity(user, referencedMilestone, Action.CREATED);
+    activityService.createActivity(referencedMilestone, Action.CREATED);
     return referencedMilestone;
   }
 
@@ -57,11 +50,10 @@ public class KeyResultMilestoneService {
    * updates a keyResultMilestone
    *
    * @param milestone the keyResultMilestone to update
-   * @param user      the user that updates the keyResultMilestone
    * @return the updated keyResultMilestone. Use this object for further operations.
    */
   @Transactional
-  public KeyResultMilestone updateKeyResultMilestone(KeyResultMilestone milestone, User user) {
+  public KeyResultMilestone updateKeyResultMilestone(KeyResultMilestone milestone) {
     KeyResultMilestone referencedMilestone =
       keyResultMilestoneRepository.findByIdOrThrow(milestone.getId());
     referencedMilestone.setName(milestone.getName());
@@ -70,13 +62,12 @@ public class KeyResultMilestoneService {
 
     referencedMilestone = keyResultMilestoneRepository.save(referencedMilestone);
 
-    logger.info(
-      "Updated KeyResultMilestone "
-        + referencedMilestone.getName()
-        + "(id: "
-        + referencedMilestone.getId()
-        + ")");
-    activityService.createActivity(user, referencedMilestone, Action.EDITED);
+    log.debug("Updated KeyResultMilestone %s (id: %d)"
+            + referencedMilestone.getName()
+            + "(id: "
+            + referencedMilestone.getId()
+            + ")");
+    activityService.createActivity(referencedMilestone, Action.EDITED);
     return referencedMilestone;
   }
 
@@ -84,10 +75,9 @@ public class KeyResultMilestoneService {
    * deletes a keyResultMilestone
    *
    * @param milestoneId the id of the milestone to delete.
-   * @param user        the user that deletes the keyResultMilestone
    */
   @Transactional
-  public void deleteKeyResultMilestone(Long milestoneId, User user) {
+  public void deleteKeyResultMilestone(Long milestoneId) {
     KeyResultMilestone referencedMilestone =
       keyResultMilestoneRepository.findByIdOrThrow(milestoneId);
 
@@ -99,7 +89,7 @@ public class KeyResultMilestoneService {
     }
 
     keyResultMilestoneRepository.deleteById(milestoneId);
-    activityService.createActivity(user, referencedMilestone, Action.DELETED);
+    activityService.createActivity(referencedMilestone, Action.DELETED);
   }
 
   /**
@@ -108,7 +98,7 @@ public class KeyResultMilestoneService {
    * @param keyResult the Keyresult of which the milestones should be updated
    */
   @Transactional
-  public KeyResult updateMilestones(KeyResult keyResult, User user) {
+  public KeyResult updateMilestones(KeyResult keyResult) {
     KeyResult oldKeyResult;
 
     if (keyResult.getId() != null) {
@@ -126,7 +116,7 @@ public class KeyResultMilestoneService {
               .noneMatch(
                 existingMilestone ->
                   milestone.getId().equals(existingMilestone.getId())))
-        .collect(Collectors.toList());
+        .toList();
 
     // Find all milestones that exist in the oldKeyResult and in the keyResult.
     Collection<KeyResultMilestone> milestonesToUpdate =
@@ -147,15 +137,15 @@ public class KeyResultMilestoneService {
 
     milestonesToCreate =
       milestonesToCreate.stream()
-        .map(milestone -> createKeyResultMilestone(keyResult.getId(), milestone, user))
+        .map(milestone -> createKeyResultMilestone(keyResult.getId(), milestone))
         .collect(Collectors.toList());
 
     milestonesToUpdate =
       milestonesToUpdate.stream()
-        .map(milestone -> updateKeyResultMilestone(milestone, user))
+        .map(this::updateKeyResultMilestone)
         .collect(Collectors.toList());
 
-    milestonesToDelete.forEach(milestone -> deleteKeyResultMilestone(milestone.getId(), user));
+    milestonesToDelete.forEach(milestone -> deleteKeyResultMilestone(milestone.getId()));
 
     keyResult.setMilestones(
       Stream.concat(milestonesToCreate.stream(), milestonesToUpdate.stream())

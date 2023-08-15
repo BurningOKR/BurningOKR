@@ -122,20 +122,6 @@
       "only-substructures-allowed": "Ein Team kann nur in Strukturen erstellt werden"
     }
   },
-  "create-dashboard": {
-    "add-chart-button": "Diagramm hinzufügen",
-    "add-new-chart-to-dashboard": "Diagramm hinzufügen",
-    "chart-title-placeholder": "Diagramm Titel",
-    "create-dashboard-button": "Dashboard erstellen",
-    "dashboard-title-placeholder": "Dashboard Titel",
-    "line-progress": "Fortschritt - Liniendiagramm",
-    "okr-toolbar": {
-      "create-dashboard": "Dashboard anlegen"
-    },
-    "pie-topicdraft": "Übersicht Themenentwürfe - Kuchendiagramm",
-    "select-teams-placeholder": "Teams auswählen",
-    "type-of-chart-placeholder": "Art des Diagramms"
-  },
   "create-user-init-state-form": {
     "create-your-admin-account": "Administratorenkonto",
     "next": "Weiter",
@@ -179,13 +165,45 @@
     "title": "Zyklus bearbeiten",
     "visibility": "Sichtbarkeit"
   },
+  "edit-dashboard": {
+    "button": {
+      "create-dashboard": "Dashboard erstellen",
+      "save-dashboard": "Änderungen speichern",
+      "add-chart": "Diagramm hinzufügen",
+      "cancel": "Abbrechen"
+    },
+    "tooltip": {
+      "delete-chart-button": "Diagramm löschen"
+    },
+    "placeholder": {
+      "dashboard-title": "Dashboard Titel",
+      "chart-title": "Diagramm Titel",
+      "chart-type": "Art des Diagramms",
+      "select-teams": "Teams auswählen"
+    },
+    "label": {
+      "select-chart-type": "Wähle Art des Diagramms"
+    },
+    "info": {
+      "discard-changes": "Änderungen nicht gespeichert! Änderungen verwerfen?",
+      "not-valid": "Dashboard nicht valide! Bitte stelle sicher, dass alle Pflichtfelder ausgefüllt sind!"
+    },
+    "line-progress": "Fortschritt - Liniendiagramm",
+    "okr-toolbar": {
+      "create-dashboard": "Dashboard anlegen",
+      "edit-dashboard": "Dashboard bearbeiten"
+    },
+    "pie-topicdraft": "Übersicht Themenentwürfe - Kuchendiagramm"
+  },
   "dashboard": {
     "okr-toolbar": {
+      "navigate-to-structure-view": "Zur Strukturübersicht",
       "dashboard": "Dashboard"
     }
   },
   "dashboard-card": {
     "created-by": "Erstellt von: ",
+    "edit-dashboard": "Bearbeiten",
     "delete-dashboard": "Löschen"
   },
   "dashboard-overview": {
@@ -325,6 +343,8 @@
       }
     }},
   "department-tab-taskboard": {
+    "columns": "Spalten",
+    "swimlanes": "Schwimmbahnen",
     "add-button": {
       "create-new-task": "Aufgabe erstellen",
       "tooltip": "Keine WebSocket-Verbindung möglich"
@@ -633,7 +653,7 @@
     },
     "return-to-demo-text": "Hauptseite",
     "tooltip": {
-      "menue": "Menü"
+      "menu": "Menü"
     },
     "warning": {
       "no-smtp-link": "Dies kann die Nutzbarkeit der <br class=\"hidden-l-up\">Anwendung stark einschränken.",
@@ -661,6 +681,7 @@
     "mat-card-actions": {
       "delete": "Struktur löschen ",
       "edit-name": "Namen bearbeiten",
+      "admin-required": "Admin Autorität erforderlich",
       "tooltip": {
         "delete-unit": "Struktur löschen",
         "edit-unit-name": "Namen der Struktur bearbeiten"
@@ -890,6 +911,8 @@
   "user-management": {
     "active-table-header": "Aktiv",
     "add-new-user": "Benutzer erstellen",
+    "edit-user-header-popup": "Benutzer bearbeiten",
+    "reset-user-password": "Passwort zurücksetzen",
     "admin-table-header": "Admin",
     "checkbox": "Deaktivierte Benutzer anzeigen",
     "department-table-header": "Abteilung ",
@@ -904,7 +927,11 @@
       "go-to-okr-unit-overview": "Zur Strukturübersicht",
       "import-users-from-csv": "Benutzer aus CSV importieren"
     },
-    "user-management-toolbar-title": "Benutzerverwaltung"
+    "user-management-toolbar-title": "Benutzerverwaltung",
+    "deactivate-user-header-popup": "Benutzer deaktivieren",
+    "deactivate-user-text-popup": "Möchten Sie {{ value }} wirklich deaktivieren? Der Benutzer kann die Anwendung danach nicht mehr verwenden und wird beim nächsten Zykluswechsel automatisch aus allen Teams entfernt.",
+    "reactivate-user-header-popup": "Benutzer reaktivieren",
+    "reactivate-user-text-popup": "Möchten Sie {{ value }} reaktivieren? Der Benutzer kann die Anwendung danach wieder in vollem Umfang verwenden."
   },
   "user-minibutton": {
     "loading-user": "Lade Benutzer...",

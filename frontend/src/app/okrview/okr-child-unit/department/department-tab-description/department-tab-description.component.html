@@ -54,13 +54,13 @@
     </div>
     <br><br>
     <div class="text-center mb-10">
-      <span [matTooltipDisabled]="canEdit"
-            matTooltip="{{ 'department-tab-description.tooltip.no-edit-rights' | translate }}">
-        <button (click)="openDialog(description)" [disabled]="!canEdit" color="primary" mat-raised-button>
-        <mat-icon>edit</mat-icon>
-        <span>{{ 'department-tab-description.edit-description' | translate }}</span>
-      </button>
-      </span>
+          <span [matTooltipDisabled]="canEdit"
+                matTooltip="{{ 'department-tab-description.tooltip.no-edit-rights' | translate }}">
+            <button (click)="openDialog(description)" [disabled]="!canEdit" class="my-mat-button" mat-stroked-button>
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'department-tab-description.edit-description' | translate }}</span>
+            </button>
+          </span>
     </div>
   </div>
 </div>

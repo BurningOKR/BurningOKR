@@ -2,15 +2,17 @@ package org.burningokr.model.okrUnits;
 
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
 public class OkrCompanyTest {
 
   private long originalId;
@@ -21,7 +23,9 @@ public class OkrCompanyTest {
   private String originalLabel;
   private ArrayList<OkrChildUnit> originalDepartments;
 
-  @Before
+  private Collection<OkrChildUnit> subDepartments;
+
+  @BeforeEach
   public void init() {
     originalCycle = new Cycle();
     originalHistory = new OkrCompanyHistory();
@@ -34,46 +38,55 @@ public class OkrCompanyTest {
     expectedOkrCompany = new OkrCompany();
     expectedOkrCompany.setId(originalId);
     expectedOkrCompany.setCycle(originalCycle);
-    expectedOkrCompany.setHistory(originalHistory);
+    expectedOkrCompany.setCompanyHistory(originalHistory);
     expectedOkrCompany.setName(originalName);
     expectedOkrCompany.setLabel(originalLabel);
     expectedOkrCompany.setOkrChildUnits(originalDepartments);
+
+    subDepartments = new ArrayList<>();
+    subDepartments.add(new OkrDepartment());
+  }
+
+  @Test
+  public void setOkrChildUnits_shouldSetOkrChildUnits() {
+    expectedOkrCompany.setOkrChildUnits(subDepartments);
+    assertEquals(subDepartments, expectedOkrCompany.getOkrChildUnits());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNotNull() {
     OkrCompany actualOkrCompany = expectedOkrCompany.getCopyWithoutRelations();
 
-    Assert.assertNotNull(actualOkrCompany);
+    assertNotNull(actualOkrCompany);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCopyNotOriginal() {
     OkrCompany actualOkrCompany = expectedOkrCompany.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedOkrCompany, actualOkrCompany);
+    assertNotEquals(expectedOkrCompany, actualOkrCompany);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedIdNotCopied() {
     OkrCompany actualOkrCompany = expectedOkrCompany.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(expectedOkrCompany.getId(), actualOkrCompany.getId());
+    assertNotEquals(expectedOkrCompany.getId(), actualOkrCompany.getId());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedCorrectCopiedInformation() {
     OkrCompany actualOkrCompany = expectedOkrCompany.getCopyWithoutRelations();
 
-    Assert.assertEquals(originalName, actualOkrCompany.getName());
-    Assert.assertEquals(originalLabel, actualOkrCompany.getLabel());
+    assertEquals(originalName, actualOkrCompany.getName());
+    assertEquals(originalLabel, actualOkrCompany.getLabel());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNoRelations() {
     OkrCompany actualOkrCompany = expectedOkrCompany.getCopyWithoutRelations();
 
-    Assert.assertNull(actualOkrCompany.getCycle());
-    Assert.assertEquals(0, actualOkrCompany.getOkrChildUnits().size());
+    assertNull(actualOkrCompany.getCycle());
+    assertEquals(0, actualOkrCompany.getOkrChildUnits().size());
   }
 }

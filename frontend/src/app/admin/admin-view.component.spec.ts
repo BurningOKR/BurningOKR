@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Router } from '@angular/router';
 import { AdminViewComponent } from './admin-view.component';
 import { UserService } from '../shared/services/helper/user.service';
 import { CurrentUserService } from '../core/services/current-user.service';
@@ -17,12 +16,12 @@ describe('AdminViewComponent', () => {
   const userService: any = {
     getCurrentUser$: jest.fn(),
     getAdminIds$: jest.fn(),
+    getAdmins$: jest.fn(),
     getUsers$: jest.fn(),
   };
   const currentUserService: any = {
     getCurrentUser$: jest.fn(),
   };
-  const router: any = {};
 
   const currentUserMock: User = {
     id: 'testId',
@@ -32,6 +31,7 @@ describe('AdminViewComponent', () => {
     department: 'testDepartment',
     email: 'testEmail',
     photo: 'testPhoto',
+    admin: false,
     active: true,
   };
   const anotherUserMock: User = {
@@ -42,6 +42,7 @@ describe('AdminViewComponent', () => {
     department: 'anotherTestDepartment',
     email: 'anotherTestEmail',
     photo: 'anotherTestPhoto',
+    admin: false,
     active: true,
   };
 
@@ -51,6 +52,7 @@ describe('AdminViewComponent', () => {
     userService.getCurrentUser$.mockReturnValue(of(currentUserMock));
     userService.getAdminIds$.mockReturnValue(of([adminList]));
     userService.getUsers$.mockReturnValue(of([currentUserMock, anotherUserMock]));
+    userService.getAdmins$.mockReturnValue(of([]));
     currentUserService.getCurrentUser$.mockReturnValue(of(currentUserMock));
 
     TestBed.configureTestingModule({
@@ -63,7 +65,6 @@ describe('AdminViewComponent', () => {
           provide: CurrentUserService,
           useValue: currentUserService,
         },
-        { provide: Router, useValue: router },
       ],
     })
       .compileComponents();

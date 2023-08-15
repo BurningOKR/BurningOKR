@@ -2,7 +2,8 @@
   <div [ngClass]="isSelectedStructure()? 'selected-child-unit':!schema.isActive? 'inactive-element-stronger' : '' "
        class="flex-nowrap">
     <button (click)="selectStructure()" [ngClass]="!schema.isActive? 'font-italic' : '' "
-            [routerLink]="['./departments/'+schema.id] " class="entry-title flex-nowrap" mat-button>
+            [routerLink]="['./departments/'+schema.id] " class="entry-title flex-nowrap box-shadow structure-name"
+            mat-button>
       <div class="flex-nowrap">
         <mat-icon *ngIf="isUnitSubstructure()" class="icon-spacer"
                   matTooltip="{{ 'navigation-list-entry.tooltip.is-substructure' | translate }}">

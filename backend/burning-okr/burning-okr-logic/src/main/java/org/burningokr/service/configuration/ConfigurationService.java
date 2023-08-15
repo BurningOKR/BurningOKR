@@ -1,27 +1,24 @@
 package org.burningokr.service.configuration;
 
 import com.google.common.collect.Lists;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.configuration.Configuration;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.configuration.ConfigurationRepository;
 import org.burningokr.service.ConfigurationChangedEvent;
 import org.burningokr.service.activity.ActivityService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ConfigurationService {
-
-  private final Logger logger = LoggerFactory.getLogger(ConfigurationService.class);
 
   private final ConfigurationRepository configurationRepository;
   private final ActivityService activityService;
@@ -54,13 +51,12 @@ public class ConfigurationService {
    * Creates a Configuration.
    *
    * @param configuration a {@link Configuration} object
-   * @param user          an {@link User} object
    * @return a {@link Configuration} object
    */
-  public Configuration createConfiguration(Configuration configuration, User user) {
+  public Configuration createConfiguration(Configuration configuration) {
     Configuration result = configurationRepository.save(configuration);
-    logger.info("Created configuration " + result.getName() + " (id: " + result.getId() + ")");
-    activityService.createActivity(user, result, Action.CREATED);
+    log.debug("Created configuration %s (id: %d.)".formatted(result.getName(), result.getId()));
+    activityService.createActivity(result, Action.CREATED);
     return result;
   }
 
@@ -68,20 +64,14 @@ public class ConfigurationService {
    * Updates a Configuration by ID.
    *
    * @param configuration a {@link Configuration} object
-   * @param user          an {@link User} object
    * @return a {@link Configuration} object
    */
-  public Configuration updateConfigurationById(Configuration configuration, User user) {
+  public Configuration updateConfigurationById(Configuration configuration) {
     Configuration dbConfiguration = configurationRepository.findByIdOrThrow(configuration.getId());
     dbConfiguration.setValue(configuration.getValue());
     dbConfiguration.setName(configuration.getName());
-    logger.info(
-      "Updated configuration "
-        + dbConfiguration.getName()
-        + " (id: "
-        + dbConfiguration.getId()
-        + ")");
-    activityService.createActivity(user, dbConfiguration, Action.EDITED);
+    log.debug("Updated configuration %s (id: %d.)".formatted(dbConfiguration.getName(), dbConfiguration.getId()));
+    activityService.createActivity(dbConfiguration, Action.EDITED);
     publishConfigurationChangedEvent(dbConfiguration);
     return configurationRepository.save(dbConfiguration);
   }
@@ -90,17 +80,11 @@ public class ConfigurationService {
    * Deletes a Configuration by ID.
    *
    * @param configurationId a long value
-   * @param user            an {@link User} object
    */
-  public void deleteConfigurationById(Long configurationId, User user) {
+  public void deleteConfigurationById(Long configurationId) {
     Configuration configuration = configurationRepository.findByIdOrThrow(configurationId);
-    logger.info(
-      "Deleted configuration "
-        + configuration.getName()
-        + " (id: "
-        + configuration.getId()
-        + ")");
-    activityService.createActivity(user, configuration, Action.DELETED);
+    log.debug("Deleted configuration %s (id: %d.)".formatted(configuration.getName(), configuration.getId()));
+    activityService.createActivity(configuration, Action.DELETED);
     configurationRepository.delete(configuration);
   }
 

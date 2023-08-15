@@ -40,6 +40,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
 import { LogPipe } from './pipes/log.pipe';
 import { AddButtonComponent } from './components/add-button/add-button.component';
 import { AdditionalInfoBarComponent } from './components/additional-info-bar/additional-info-bar.component';
+import { DateMapper } from './services/mapper/date.mapper';
 
 @NgModule({
   declarations: [
@@ -91,29 +92,32 @@ import { AdditionalInfoBarComponent } from './components/additional-info-bar/add
     NgxMatSelectSearchModule,
     TranslateModule,
   ],
-    exports: [
-        UserAutocompleteInputComponent,
-        UserMinibuttonComponent,
-        LoadingSpinnerComponent,
-        MatButtonModule,
-        DialogComponent,
-        UserAvatarComponent,
-        OkrToolbarBareComponent,
-        OkrToolbarComponent,
-        CapsLockDirective,
-        NonLoggedInCardComponent,
-        FormErrorComponent,
-        ResetCountdownComponent,
-        MilestoneSliderWrapperComponent,
-        StatusDotComponent,
-        CallbackFilterPipe,
-        UserSelectorMultiComponent,
-        UserSelectorComponent,
-        DateFormatPipe,
-        LogPipe,
-        AddButtonComponent,
-        AdditionalInfoBarComponent,
-    ],
+  exports: [
+    UserAutocompleteInputComponent,
+    UserMinibuttonComponent,
+    LoadingSpinnerComponent,
+    MatButtonModule,
+    DialogComponent,
+    UserAvatarComponent,
+    OkrToolbarBareComponent,
+    OkrToolbarComponent,
+    CapsLockDirective,
+    NonLoggedInCardComponent,
+    FormErrorComponent,
+    ResetCountdownComponent,
+    MilestoneSliderWrapperComponent,
+    StatusDotComponent,
+    CallbackFilterPipe,
+    UserSelectorMultiComponent,
+    UserSelectorComponent,
+    DateFormatPipe,
+    LogPipe,
+    AddButtonComponent,
+    AdditionalInfoBarComponent,
+  ],
+  providers: [
+    DateMapper,
+  ]
 })
 export class SharedModule {
 }

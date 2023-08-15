@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
-import { AuthenticationService } from './core/auth/services/authentication.service';
 import { FetchingService } from './core/services/fetching.service';
 import { OkrTranslationHelperService } from './shared/services/helper/okr-translation-helper.service';
+import { AuthenticationService } from './core/auth/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { OkrTranslationHelperService } from './shared/services/helper/okr-transl
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  userLoggedIn: boolean = this.authService.hasValidAccessToken();
+  userLoggedIn: boolean = false;
   isPlayground: boolean = environment.playground;
 
   constructor(
@@ -20,18 +20,16 @@ export class AppComponent {
     private router: Router,
     private OkrTranslationHelper: OkrTranslationHelperService,
   ) {
-    this.authService.configure()
-      .then(() => {
-        this.fetchingService.refetchAll();
-      });
+    this.init();
+  }
+
+  private init(): void {
     this.OkrTranslationHelper.initializeTranslationOnStartup();
+    this.executeInitialFetch();
+    this.userLoggedIn = this.authService.isUserLoggedIn();
   }
 
-  checkIfUserIsLoggedIn(): boolean {
-    return this.authService.hasValidAccessToken();
-  }
-
-  demoGithubButtonHidden(): boolean {
-    return !this.router.url.startsWith('/demo');
+  private executeInitialFetch(): void {
+    this.fetchingService.refetchAll(this.authService.isUserLoggedIn());
   }
 }

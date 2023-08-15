@@ -1,11 +1,11 @@
 package org.burningokr.model.settings;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -13,7 +13,8 @@ import java.util.UUID;
 public class UserSettings implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
   private UUID userId;

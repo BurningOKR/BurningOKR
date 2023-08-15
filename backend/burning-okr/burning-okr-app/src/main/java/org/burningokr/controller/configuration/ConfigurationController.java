@@ -1,20 +1,18 @@
 package org.burningokr.controller.configuration;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.annotation.TurnOff;
 import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.Configuration;
-import org.burningokr.model.users.User;
 import org.burningokr.service.configuration.ConfigurationService;
 import org.burningokr.service.mail.MailService;
-import org.burningokr.service.security.AuthorizationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
 
 @RestApiController
@@ -23,7 +21,6 @@ public class ConfigurationController {
 
   private final ConfigurationService configurationService;
   private final DataMapper<Configuration, ConfigurationDto> dataMapper;
-  private final AuthorizationService authorizationService;
   private final MailService mailService;
 
   @GetMapping("/configurations/hasmail")
@@ -57,7 +54,6 @@ public class ConfigurationController {
    * API Endpoint to add Configuration.
    *
    * @param configurationDto a {@link ConfigurationDto} object
-   * @param user             an {@link User} object
    * @return
    */
   @PostMapping("/configurations")
@@ -66,11 +62,11 @@ public class ConfigurationController {
   public ResponseEntity<ConfigurationDto> createConfiguration(
     @Valid
     @RequestBody
-    ConfigurationDto configurationDto, User user
+    ConfigurationDto configurationDto
   ) {
     Configuration requestConfigurationEntity = dataMapper.mapDtoToEntity(configurationDto);
     Configuration responseConfigurationEntity =
-      configurationService.createConfiguration(requestConfigurationEntity, user);
+      configurationService.createConfiguration(requestConfigurationEntity);
     return ResponseEntity.ok().body(dataMapper.mapEntityToDto(responseConfigurationEntity));
   }
 
@@ -79,7 +75,6 @@ public class ConfigurationController {
    *
    * @param configurationId  a long value
    * @param configurationDto a {@link ConfigurationDto} object
-   * @param user             an {@link User} object
    * @return a {@link ResponseEntity} ok with a Configuration
    */
   @PutMapping("/configurations/{configurationId}")
@@ -89,12 +84,11 @@ public class ConfigurationController {
     @PathVariable Long configurationId,
     @Valid
     @RequestBody
-    ConfigurationDto configurationDto,
-    User user
+    ConfigurationDto configurationDto
   ) {
     Configuration requestConfigurationEntity = dataMapper.mapDtoToEntity(configurationDto);
     Configuration responseConfigurationEntity =
-      configurationService.updateConfigurationById(requestConfigurationEntity, user);
+      configurationService.updateConfigurationById(requestConfigurationEntity);
     return ResponseEntity.ok().body(dataMapper.mapEntityToDto(responseConfigurationEntity));
   }
 
@@ -102,9 +96,9 @@ public class ConfigurationController {
   @TurnOff
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity deleteConfigurationById(
-    @PathVariable Long configurationId, User user
+    @PathVariable Long configurationId
   ) {
-    configurationService.deleteConfigurationById(configurationId, user);
+    configurationService.deleteConfigurationById(configurationId);
     return ResponseEntity.ok().build();
   }
 }

@@ -2,13 +2,15 @@ package org.burningokr.mapper.configuration;
 
 import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.model.configuration.Configuration;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConfigurationMapperTest {
 
@@ -16,7 +18,7 @@ public class ConfigurationMapperTest {
   private ConfigurationDto configurationDto;
   private ConfigurationMapper configurationMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     this.configuration = new Configuration();
     this.configurationDto = new ConfigurationDto();
@@ -28,7 +30,7 @@ public class ConfigurationMapperTest {
     Long expectedId = 42L;
     configurationDto.setId(expectedId);
     configuration = configurationMapper.mapDtoToEntity(configurationDto);
-    Assert.assertEquals(expectedId, configuration.getId());
+    assertEquals(expectedId, configuration.getId());
   }
 
   @Test
@@ -36,7 +38,7 @@ public class ConfigurationMapperTest {
     String expectedName = "name";
     configurationDto.setName(expectedName);
     configuration = configurationMapper.mapDtoToEntity(configurationDto);
-    Assert.assertEquals(expectedName, configuration.getName());
+    assertEquals(expectedName, configuration.getName());
   }
 
   @Test
@@ -44,7 +46,7 @@ public class ConfigurationMapperTest {
     String expectedValue = "3";
     configurationDto.setValue(expectedValue);
     configuration = configurationMapper.mapDtoToEntity(configurationDto);
-    Assert.assertEquals(expectedValue, configuration.getValue());
+    assertEquals(expectedValue, configuration.getValue());
   }
 
   @Test
@@ -52,7 +54,7 @@ public class ConfigurationMapperTest {
     String expectedType = "number";
     configurationDto.setType(expectedType);
     configuration = configurationMapper.mapDtoToEntity(configurationDto);
-    Assert.assertEquals(expectedType, configuration.getType());
+    assertEquals(expectedType, configuration.getType());
   }
 
   @Test
@@ -60,7 +62,7 @@ public class ConfigurationMapperTest {
     Long expectedId = 44L;
     configuration.setId(expectedId);
     configurationDto = configurationMapper.mapEntityToDto(configuration);
-    Assert.assertEquals(expectedId, configurationDto.getId());
+    assertEquals(expectedId, configurationDto.getId());
   }
 
   @Test
@@ -68,7 +70,7 @@ public class ConfigurationMapperTest {
     String expectName = "name2";
     configuration.setName(expectName);
     configurationDto = configurationMapper.mapEntityToDto(configuration);
-    Assert.assertEquals(expectName, configurationDto.getName());
+    assertEquals(expectName, configurationDto.getName());
   }
 
   @Test
@@ -76,7 +78,7 @@ public class ConfigurationMapperTest {
     String expectedValue = "4.3";
     configuration.setValue(expectedValue);
     configurationDto = configurationMapper.mapEntityToDto(configuration);
-    Assert.assertEquals(expectedValue, configurationDto.getValue());
+    assertEquals(expectedValue, configurationDto.getValue());
   }
 
   @Test
@@ -84,7 +86,7 @@ public class ConfigurationMapperTest {
     String expectedType = "text";
     configuration.setType(expectedType);
     configurationDto = configurationMapper.mapEntityToDto(configuration);
-    Assert.assertEquals(expectedType, configurationDto.getType());
+    assertEquals(expectedType, configurationDto.getType());
   }
 
   @Test
@@ -92,7 +94,7 @@ public class ConfigurationMapperTest {
     Collection<Configuration> configurations = new ArrayList<>();
     Collection<ConfigurationDto> configurationDtos =
       configurationMapper.mapEntitiesToDtos(configurations);
-    Assert.assertTrue(configurationDtos.isEmpty());
+    assertTrue(configurationDtos.isEmpty());
   }
 
   @Test
@@ -101,6 +103,6 @@ public class ConfigurationMapperTest {
       Arrays.asList(new Configuration(), new Configuration());
     Collection<ConfigurationDto> configurationDtos =
       configurationMapper.mapEntitiesToDtos(configurations);
-    Assert.assertEquals(configurations.size(), configurationDtos.size());
+    assertEquals(configurations.size(), configurationDtos.size());
   }
 }

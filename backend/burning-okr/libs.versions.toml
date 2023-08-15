@@ -1,0 +1,69 @@
+[versions]
+spring-boot = '3.+'
+spring-framework-context = '6.0.10' # TODO (C.K.): check on next version if working again
+spring-framework-context-support = '6.0.10'
+spring-security = '6.+'
+hibernate = '6.+'
+swagger = '2.9.+'
+lombok-plugin = '6.+'
+jakarta-mail = '2.0.+'
+jackson = '2.+'
+postgres = '42.+'
+flyway = '9.19.4'
+mssql = '10.+'
+apache-poi = '5.+'
+guava = '31.+'
+springdoc = '2.+'
+
+[libraries]
+# spring booot
+spring-boot-plugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'spring-boot' }
+spring-boot-configurationProcessor = { module = 'org.springframework.boot:spring-boot-configuration-processor' }
+spring-boot-starter-test = { module = 'org.springframework.boot:spring-boot-starter-test' }
+spring-boot-starter-validation = { module = 'org.springframework.boot:spring-boot-starter-validation' }
+spring-boot-starter-actuator = { module = 'org.springframework.boot:spring-boot-starter-actuator' }
+spring-boot-starter-security = { module = 'org.springframework.boot:spring-boot-starter-security' }
+spring-boot-starter-tomcat = { module = 'org.springframework.boot:spring-boot-starter-tomcat' }
+spring-boot-starter-data = { module = 'org.springframework.boot:spring-boot-starter-data-jpa' }
+spring-boot-starter-thymeleaf = { module = 'org.springframework.boot:spring-boot-starter-thymeleaf' }
+spring-boot-starter-websocket = { module = 'org.springframework.boot:spring-boot-starter-websocket' }
+spring-boot-starter-oauth2ResourceServer = { module = 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' }
+
+# spring framework
+spring-framework-springContext = { module = 'org.springframework:spring-context', version.ref = 'spring-framework-context' }
+spring-framework-springContextSupport = { module = 'org.springframework:spring-context-support', version.ref = 'spring-framework-context-support' }
+
+# spring security
+spring-security-core = { module = 'org.springframework.security:spring-security-core', version.ref = 'spring-security' }
+spring-security-jose = { module = 'org.springframework.security:spring-security-oauth2-jose ', version.ref = 'spring-security' }
+spring-security-messaging = { module = 'org.springframework.security:spring-security-messaging', version.ref = 'spring-security' }
+
+# lombok
+lombok-plugin = { module = 'io.freefair.gradle:lombok-plugin', version.ref = 'lombok-plugin' }
+
+# mail
+jakarta-mail = { module = 'org.eclipse.angus:angus-mail', version.ref = 'jakarta-mail' }
+
+# jackson
+jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }
+
+# swagger
+swagger-swagger2 = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
+swagger-ui = { module = 'io.springfox:springfox-swagger-ui', version.ref = 'swagger' }
+
+# swagger - springdoc
+springdoc-starter-webmvcUi = { module = 'org.springdoc:springdoc-openapi-starter-webmvc-ui' }
+
+# db
+db-postgres = { module = 'org.postgresql:postgresql', version.ref = 'postgres' }
+db-mssql = { module = 'com.microsoft.sqlserver:mssql-jdbc', version.ref = 'mssql' }
+db-flyway = { module = 'org.flywaydb:flyway-core', version.ref = 'flyway' }
+db-flyway-mssql = { module = 'org.flywaydb:flyway-sqlserver', version.ref = 'flyway' }
+db-hibernate-envers = { module = 'org.hibernate.orm:hibernate-envers', version.ref = 'hibernate' }
+
+# apache poi
+apache-poi = { module = 'org.apache.poi:poi', version.ref = 'apache-poi' }
+apache-poiOoxml = { module = 'org.apache.poi:poi-ooxml', version.ref = 'apache-poi' }
+
+# guava
+guava = { module = 'com.google.guava:guava', version.ref = 'guava' }

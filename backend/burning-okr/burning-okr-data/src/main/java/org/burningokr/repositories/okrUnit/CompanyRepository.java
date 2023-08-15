@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CompanyRepository extends ExtendedRepository<OkrCompany, Long> {
-  List<OkrCompany> findByHistory(OkrUnitHistory<OkrCompany> okrUnitHistory);
+  List<OkrCompany> findByCompanyHistory(OkrUnitHistory<OkrCompany> okrUnitHistory);
 }

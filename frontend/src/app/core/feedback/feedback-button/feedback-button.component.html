@@ -11,7 +11,7 @@
 <ng-template #demoOff>
   <div class="fab-container">
     <button (click)="openFeedbackPopup()" [disabled]="(hasMail$ | async) === false" mat-fab
-            matTooltip="{{'feedback-button.button-icon.tooltip' | translate}}">
+            class="feedback-button box-shadow" matTooltip="{{'feedback-button.button-icon.tooltip' | translate}}">
       <mat-icon>
         contact_mail
       </mat-icon>

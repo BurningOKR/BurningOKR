@@ -39,14 +39,9 @@ import { AdminViewComponent } from './admin/admin-view.component';
 import { AdminUserIdsPipe } from './admin/pipes/admin-user-ids.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { loggerConfig } from './config-files/logger-config';
-import { AzureAuthTypeHandlerService } from './core/auth/services/auth-type-handler/azure-auth-type-handler.service';
-import { LocalAuthTypeHandlerService } from './core/auth/services/auth-type-handler/local-auth-type-handler.service';
+import { loggerConfig } from './config/logger/logger-config';
 import { AuthenticationService } from './core/auth/services/authentication.service';
-import { OAuthFrontendDetailsService } from './core/auth/services/o-auth-frontend-details.service';
-import { OAuthInterceptorService } from './core/auth/services/o-auth-interceptor.service';
 import { CoreModule } from './core/core.module';
-import { ErrorInterceptor } from './core/error/error.interceptor';
 import { ErrorModule } from './core/error/error.module';
 import { CycleAdminModule } from './cycle-admin/cycle-admin.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -57,16 +52,21 @@ import { OkrviewModule } from './okrview/okrview.module';
 import { SharedModule } from './shared/shared.module';
 import { TopicDraftsModule } from './topic-drafts/topic-drafts.module';
 import { AvatarModule } from 'ngx-avatars';
+import { OauthInterceptor } from './core/auth/interceptors/oauth.interceptor';
+import { DateMapper } from './shared/services/mapper/date.mapper';
 
 registerLocaleData(localeEn, 'en', localeEnExtra);
 registerLocaleData(localeDe, 'de', localeDeExtra);
 
 const currentLanguage: string = 'de';
 
+// (window as any).retain = [ CustomChartComponent ];
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AdminViewComponent,
@@ -75,6 +75,7 @@ export function createTranslateLoader(http: HttpClient) {
     NoMailInformationComponent,
   ],
   imports: [
+    OAuthModule.forRoot(),
     AppRoutingModule,
     AvatarModule,
     BrowserAnimationsModule,
@@ -90,12 +91,10 @@ export function createTranslateLoader(http: HttpClient) {
     MatListModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    OAuthModule.forRoot(),
     ReactiveFormsModule,
     SharedModule,
     OkrUnitModule,
     ErrorModule,
-    LoggerModule.forRoot(loggerConfig),
     MatTableModule,
     MatMenuModule,
     MatGridListModule,
@@ -120,14 +119,14 @@ export function createTranslateLoader(http: HttpClient) {
     DashboardModule,
   ],
   providers: [
-    OAuthFrontendDetailsService,
-
     AuthenticationService,
-    LocalAuthTypeHandlerService,
-    AzureAuthTypeHandlerService,
+    DateMapper,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: OauthInterceptor,
+      multi: true,
 
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptorService, multi: true },
+    },
     {
       provide: LOCALE_ID,
       useValue: currentLanguage,
@@ -141,6 +140,10 @@ export function createTranslateLoader(http: HttpClient) {
 
   ],
   bootstrap: [AppComponent],
+  // entryComponents: [
+  //   CustomChartComponent
+  // ]
 })
+
 export class AppModule {
 }

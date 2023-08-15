@@ -1,16 +1,14 @@
 package org.burningokr.service.cycle;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrUnitHistory;
-import org.burningokr.model.users.User;
 import org.burningokr.repositories.cycle.CompanyHistoryRepository;
 import org.burningokr.repositories.cycle.CycleRepository;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnitUtil.CyclePreparationCloningService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -25,11 +23,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
 @EnableScheduling
 @Service
 public class CycleService {
 
-  private final Logger logger = LoggerFactory.getLogger(CycleService.class);
   private final String threeInTheMorningCronExpr = "0 0 3 * * ?";
 
   private CyclePreparationCloningService cyclePreparationCloningService;
@@ -87,7 +85,7 @@ public class CycleService {
 
     updateReferencedCycle(updatedCycle, referencedCycle);
 
-    logger.info("Updated cycle with id: " + referencedCycle.getId());
+    log.debug("Updated cycle with id: %d.".formatted(referencedCycle.getId()));
     return cycleRepository.save(referencedCycle);
   }
 
@@ -102,17 +100,16 @@ public class CycleService {
    * Delete the Cycle, if it is not active.
    *
    * @param cycleId a long value
-   * @param user    an {@link User} object
    * @throws Exception if Cycle is active
    */
   @Transactional
-  public void deleteCycle(Long cycleId, User user) throws Exception {
+  public void deleteCycle(Long cycleId) throws Exception {
     Cycle cycle = cycleRepository.findByIdOrThrow(cycleId);
     if (cycle.getCycleState() != CycleState.ACTIVE) {
       cycle
-        .getCompanies()
-        .forEach(company -> companyService.deleteCompany(company.getId(), false, user));
-      this.logger.info("Deleted (non active) cycle with id " + cycle.getId());
+          .getCompanies()
+          .forEach(company -> companyService.deleteCompany(company.getId(), false));
+      log.debug("Deleted (non active) cycle with id %d.".formatted(cycle.getId()));
     } else {
       throw new Exception("An active Cycle can not be deleted");
     }
@@ -150,16 +147,14 @@ public class CycleService {
     cyclePreparationCloningService.cloneCompanyListIntoCycleForPreparation(
       oldCycle.getCompanies(), newCycle);
 
-    logger.info(
-      "Replaced Cycle: "
-        + oldCycle.getName()
-        + "(id:"
-        + oldCycle.getId()
-        + " with new Cycle:"
-        + newCycle.getName()
-        + "(id:"
-        + newCycle.getId()
-        + ")");
+    log.debug(
+        String.format(
+          "Replaced cycle '%s' (id: %d) with new cycle '%s' (id: %d).",
+          oldCycle.getName(),
+          oldCycle.getId(),
+          newCycle.getName(),
+          newCycle.getId()
+        ));
     return newCycle;
   }
 
@@ -168,16 +163,13 @@ public class CycleService {
     cycle = cycleRepository.save(cycle);
     cyclePreparationCloningService.cloneCompanyListIntoCycleForPreparation(
       cycleToClone.getCompanies(), cycle);
-    logger.info(
-      "Cloned Cycle: "
-        + cycleToClone.getName()
-        + "(id:"
-        + cycleToClone.getId()
-        + " for use as new Cycle:"
-        + cycle.getName()
-        + "(id:"
-        + cycle.getId()
-        + ")");
+    log.debug(
+      String.format(
+        "Cloned cycle '%s' (id: %d) for use as new cycle '%s' (id: %d).",
+        cycleToClone.getName(),
+        cycleToClone.getId(),
+        cycle.getName(),
+        cycle.getId()));
     return cycle;
   }
 
@@ -186,10 +178,10 @@ public class CycleService {
    */
   @EventListener(ApplicationReadyEvent.class)
   public void applicationStartCycleProcessing() {
-    logger.info(
-      "{0}: Application startup detected, processing automatic cycle switch if necessary.",
-      CycleService.class.getName()
-    );
+    log.info(
+      String.format(
+      "%s: Application startup detected, processing automatic cycle switch if necessary.",
+      CycleService.class.getName()));
     processAutomaticCycleSwitch();
   }
 
@@ -198,10 +190,10 @@ public class CycleService {
    */
   @Scheduled(cron = threeInTheMorningCronExpr)
   public void dailyCycleProcessing() {
-    logger.info(
-      "{0}: 3 in the morning detected, processing automatic cycle switch if necessary.",
-      CycleService.class.getName()
-    );
+    log.info(
+      String.format(
+        "%s: 3 in the morning detected, processing automatic cycle switch if necessary.",
+        CycleService.class.getName()));
     processAutomaticCycleSwitch();
   }
 
@@ -211,7 +203,7 @@ public class CycleService {
     setCyclesToUpdateStates(cyclesToCycleSwitch);
   }
 
-  // Suppress Warning for LineLength, since Method Name is to long
+  // Suppress Warning for LineLength, since Method Name is too long
   @SuppressWarnings("checkstyle:linelength")
   private HashMap<Boolean, ArrayList<Cycle>> getCyclesDueForCycleStateSwitch() {
     HashMap<Boolean, ArrayList<Cycle>> cyclesToUpdate = new HashMap<>();
@@ -255,24 +247,16 @@ public class CycleService {
   private Cycle setCycleStateToActiveAndSave(Cycle cycleToActivate) {
     cycleToActivate.setCycleState(CycleState.ACTIVE);
     cycleToActivate.setFactualStartDate(LocalDate.now());
-    logger.info(
-      "Set Cycle State to ACTIVE: "
-        + cycleToActivate.getName()
-        + "(id:"
-        + cycleToActivate.getId()
-        + " )");
+    log.debug(
+      "Set state of cycle %s (id: %d) to ACTIVE.".formatted(cycleToActivate.getName(), cycleToActivate.getId()));
     return cycleRepository.save(cycleToActivate);
   }
 
   private Cycle setCycleStateToClosedAndSave(Cycle cycleToClose) {
     cycleToClose.setCycleState(CycleState.CLOSED);
     cycleToClose.setFactualEndDate(LocalDate.now());
-    logger.info(
-      "Set Cycle State to CLOSED: "
-        + cycleToClose.getName()
-        + "(id:"
-        + cycleToClose.getId()
-        + " )");
+    log.debug(
+      "Set state of cycle %s (id: %d) to CLOSED.".formatted(cycleToClose.getName(), cycleToClose.getId()));
     return cycleRepository.save(cycleToClose);
   }
 }

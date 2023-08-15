@@ -1,6 +1,8 @@
 package org.burningokr.controller.okr;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.NoteTopicDraftDto;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
@@ -9,19 +11,15 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.model.users.User;
-import org.burningokr.service.security.AuthorizationService;
 import org.burningokr.service.topicDraft.ConvertTopicDraftToTeamService;
 import org.burningokr.service.topicDraft.OkrTopicDraftService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
 
+@Slf4j
 @RestApiController
 @RequiredArgsConstructor
 public class TopicDraftController {
@@ -29,9 +27,7 @@ public class TopicDraftController {
   private final DataMapper<OkrTopicDraft, OkrTopicDraftDto> okrTopicDraftMapper;
   private final DataMapper<OkrDepartment, OkrDepartmentDto> okrDepartmentMapper;
   private final DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper;
-  private final AuthorizationService authorizationService;
   private final ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
-  private final Logger logger = LoggerFactory.getLogger(TopicDraftController.class);
 
   /**
    * API Endpoint to get all TopicDrafts.
@@ -69,7 +65,7 @@ public class TopicDraftController {
   @PutMapping("/topicDrafts/{topicDraftId}")
   @PreAuthorize(
     "@authorizationService.isAdmin() "
-      + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)"
+      + "|| @topicDraftAuthorizationService.isInitiator(#topicDraftId)"
   )
   public ResponseEntity updateTopicResultById(
     @PathVariable long topicDraftId,
@@ -92,8 +88,7 @@ public class TopicDraftController {
   @PutMapping("/topicDrafts/status/{topicDraftId}")
   @PreAuthorize(
     "@authorizationService.isAdmin()"
-      + "|| @authorizationService.isAuditor()"
-      + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)"
+      + "|| @topicDraftAuthorizationService.isInitiator(#topicDraftId)"
   )
   public ResponseEntity updateTopicResultStatusById(
     @PathVariable long topicDraftId,
@@ -106,42 +101,27 @@ public class TopicDraftController {
     return ResponseEntity.ok().build();
   }
 
-  /**
-   * API Endpoint to add a Note to a Topic Draft.
-   *
-   * @param topicDraftId      a long value
-   * @param noteTopicDraftDto a {@link NoteTopicDraftDto} object
-   * @param user              an {@link User} object
-   * @return a {@link ResponseEntity} ok with a NoteTopicDraftDto
-   */
+
   @PostMapping("/topicDrafts/{topicDraftId}/notes")
   public ResponseEntity<NoteTopicDraftDto> addNoteToTopicDraft(
     @PathVariable long topicDraftId,
     @Valid
     @RequestBody
-    NoteTopicDraftDto noteTopicDraftDto,
-    User user
+    NoteTopicDraftDto noteTopicDraftDto
   ) {
     noteTopicDraftDto.setParentTopicDraftId(topicDraftId);
     NoteTopicDraft noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
     noteTopicDraft.setId(null);
-    noteTopicDraft = this.okrTopicDraftService.createNote(topicDraftId, noteTopicDraft, user);
+    noteTopicDraft = this.okrTopicDraftService.createNote(noteTopicDraft);
     return ResponseEntity.ok(noteTopicDraftMapper.mapEntityToDto(noteTopicDraft));
   }
 
-  /**
-   * API Endpoint to add a TopicDraft to an existing Okr Branch
-   *
-   * @param topicDraftDto a {@link OkrTopicDraftDto} object
-   * @param user          an {@link User} object
-   * @return a {@link ResponseEntity} ok with the added topicdraft
-   */
   @PostMapping("/topicDrafts/create")
   public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraft(
-    @RequestBody OkrTopicDraftDto topicDraftDto, User user
+    @RequestBody OkrTopicDraftDto topicDraftDto
   ) {
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
-    OkrTopicDraft newOkrTopicDraft = okrTopicDraftService.createTopicDraft(topicDraft, user);
+    OkrTopicDraft newOkrTopicDraft = okrTopicDraftService.createTopicDraft(topicDraft);
     OkrTopicDraftDto newOkrTopicDraftDto = okrTopicDraftMapper.mapEntityToDto(newOkrTopicDraft);
     return ResponseEntity.ok(newOkrTopicDraftDto);
   }
@@ -150,18 +130,17 @@ public class TopicDraftController {
    * API Endpoint to delete a Topic Draft.
    *
    * @param topicDraftId a long value
-   * @param user         a {@link User} object
    * @return a {@link ResponseEntity} ok with a Topic Draft
    */
   @DeleteMapping("/topicDraft/{topicDraftId}")
   @PreAuthorize(
     "@authorizationService.isAdmin() "
-      + "|| @authorizationService.isTopicDraftInitiator(#topicDraftId)"
+      + "|| @topicDraftAuthorizationService.isInitiator(#topicDraftId)"
   )
   public ResponseEntity deleteTopicDraftById(
-    @PathVariable Long topicDraftId, User user
+    @PathVariable Long topicDraftId
   ) {
-    okrTopicDraftService.deleteTopicDraftById(topicDraftId, user);
+    okrTopicDraftService.deleteTopicDraftById(topicDraftId);
     return ResponseEntity.ok().build();
   }
 
@@ -175,14 +154,12 @@ public class TopicDraftController {
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrDepartmentDto> convertTopicDraftToTeam(
     @RequestParam(name = "topicDraftId") long topicDraftId,
-    @RequestParam(name = "okrUnitId") long okrUnitId,
-    User user
+    @RequestParam(name = "okrUnitId") long okrUnitId
   ) {
-    logger.info(
-      "Converting Topic-Draft " + topicDraftId + " to new Department underneath " + okrUnitId);
+    log.debug("Converting Topic-Draft with id %d to new Department underneath %d".formatted(topicDraftId, okrUnitId));
     OkrDepartmentDto okrDepartmentDto =
       okrDepartmentMapper.mapEntityToDto(
-        convertTopicDraftToTeamService.convertTopicDraftToTeam(topicDraftId, okrUnitId, user));
+        convertTopicDraftToTeamService.convertTopicDraftToTeam(topicDraftId, okrUnitId));
     return ResponseEntity.ok(okrDepartmentDto);
   }
 }

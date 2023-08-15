@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { OkrTranslationHelperService } from '../services/helper/okr-translation-helper.service';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Pipe({
   name: 'dateFormat',
@@ -15,6 +15,11 @@ export class DateFormatPipe implements PipeTransform {
   }
 
   transform(date: Date, monthString?: boolean): Observable<string> {
+    // date might be null
+    if (!date) {
+      return of('');
+    }
+
     return monthString ? this.getDateWithMonthString$(date) : this.getLocalDateString$(date);
   }
 

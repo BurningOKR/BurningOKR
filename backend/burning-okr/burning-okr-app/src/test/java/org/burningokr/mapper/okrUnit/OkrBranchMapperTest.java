@@ -6,41 +6,44 @@ import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+
+//TODO (F. L. 26.06.2023) Refactor tests (name, etc.)
 public class OkrBranchMapperTest {
 
-  private OkrBranch entity;
-  private OkrBranchDto dto;
-  private OkrBranchMapper mapper;
+  private OkrBranch okrBranch;
+  private OkrBranchDto okrBranchDto;
+  private OkrBranchMapper okrBranchMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
-    entity = new OkrBranch();
-    dto = new OkrBranchDto();
-    mapper = new OkrBranchMapper();
+    okrBranch = new OkrBranch();
+    okrBranchDto = new OkrBranchDto();
+    okrBranchMapper = new OkrBranchMapper();
   }
 
   @Test
   public void test_mapEntityToDto_expectIdIsMapped() {
     Long expectedId = 5L;
-    entity.setId(expectedId);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedId, dto.getOkrUnitId());
+    okrBranch.setId(expectedId);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertEquals(expectedId, okrBranchDto.getOkrUnitId());
   }
 
   @Test
   public void test_mapEntityToDto_expectNameIsMapped() {
     String expectedName = "myNameIs";
-    entity.setName(expectedName);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedName, dto.getUnitName());
+    okrBranch.setName(expectedName);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertEquals(expectedName, okrBranchDto.getUnitName());
   }
 
   @Test
@@ -48,9 +51,9 @@ public class OkrBranchMapperTest {
     Long expectedParentUnitId = 42L;
     OkrDepartment parentUnit = new OkrDepartment();
     parentUnit.setId(expectedParentUnitId);
-    entity.setParentOkrUnit(parentUnit);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedParentUnitId, dto.getParentUnitId());
+    okrBranch.setParentOkrUnit(parentUnit);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertEquals(expectedParentUnitId, okrBranchDto.getParentUnitId());
   }
 
   @Test
@@ -62,13 +65,13 @@ public class OkrBranchMapperTest {
       okrDepartment.setId((long) i);
       departments.add(okrDepartment);
     }
-    entity.setOkrChildUnits(departments);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedDepartmentCount, dto.getOkrChildUnitIds().size());
-    Assert.assertEquals(1L, dto.getOkrChildUnitIds().toArray()[0]);
-    Assert.assertEquals(2L, dto.getOkrChildUnitIds().toArray()[1]);
-    Assert.assertEquals(3L, dto.getOkrChildUnitIds().toArray()[2]);
-    Assert.assertEquals(4L, dto.getOkrChildUnitIds().toArray()[3]);
+    okrBranch.setOkrChildUnits(departments);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertEquals(expectedDepartmentCount, okrBranchDto.getOkrChildUnitIds().size());
+    assertEquals(1L, okrBranchDto.getOkrChildUnitIds().toArray()[0]);
+    assertEquals(2L, okrBranchDto.getOkrChildUnitIds().toArray()[1]);
+    assertEquals(3L, okrBranchDto.getOkrChildUnitIds().toArray()[2]);
+    assertEquals(4L, okrBranchDto.getOkrChildUnitIds().toArray()[3]);
   }
 
   @Test
@@ -80,97 +83,97 @@ public class OkrBranchMapperTest {
       objective.setId((long) i);
       objectives.add(objective);
     }
-    entity.setObjectives(objectives);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertEquals(expectedObjectiveCount, dto.getObjectiveIds().size());
-    Assert.assertEquals(1L, dto.getObjectiveIds().toArray()[0]);
-    Assert.assertEquals(2L, dto.getObjectiveIds().toArray()[1]);
-    Assert.assertEquals(3L, dto.getObjectiveIds().toArray()[2]);
+    okrBranch.setObjectives(objectives);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertEquals(expectedObjectiveCount, okrBranchDto.getObjectiveIds().size());
+    assertEquals(1L, okrBranchDto.getObjectiveIds().toArray()[0]);
+    assertEquals(2L, okrBranchDto.getObjectiveIds().toArray()[1]);
+    assertEquals(3L, okrBranchDto.getObjectiveIds().toArray()[2]);
   }
 
   @Test
   public void test_mapEntityToDto_parentIsOkrBranch_expectIsParentUnitABranchIsMapped() {
     OkrBranch branch2 = new OkrBranch();
-    entity.setParentOkrUnit(branch2);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertTrue(dto.getIsParentUnitABranch());
+    okrBranch.setParentOkrUnit(branch2);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertTrue(okrBranchDto.getIsParentUnitABranch());
   }
 
   @Test
   public void test_mapEntityToDto_parentIsNotOkrBranch_expectIsParentUnitABranchIsMapped() {
     OkrCompany company = new OkrCompany();
-    entity.setParentOkrUnit(company);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertFalse(dto.getIsParentUnitABranch());
+    okrBranch.setParentOkrUnit(company);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertFalse(okrBranchDto.getIsParentUnitABranch());
   }
 
   @Test
   public void test_mapEntityToDto_parentIsNotExistent_expectIsParentUnitABranchIsMapped() {
-    entity.setParentOkrUnit(null);
-    dto = mapper.mapEntityToDto(entity);
-    Assert.assertFalse(dto.getIsParentUnitABranch());
+    okrBranch.setParentOkrUnit(null);
+    okrBranchDto = okrBranchMapper.mapEntityToDto(okrBranch);
+    assertFalse(okrBranchDto.getIsParentUnitABranch());
   }
 
   @Test
   public void test_mapDtoToEntity_expectIdIsMapped() {
     Long expectId = 4L;
-    dto.setOkrUnitId(expectId);
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertEquals(expectId, entity.getId());
+    okrBranchDto.setOkrUnitId(expectId);
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertEquals(expectId, okrBranch.getId());
   }
 
   @Test
   public void test_mapDtoToEntity_expectNameIsMapped() {
     String expectedName = "myNameIS";
-    dto.setUnitName(expectedName);
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertEquals(expectedName, entity.getName());
+    okrBranchDto.setUnitName(expectedName);
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertEquals(expectedName, okrBranch.getName());
   }
 
   @Test
   public void test_mapDtoToEntity_expectParentUnitIsNull() {
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertNull(entity.getParentOkrUnit());
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertNull(okrBranch.getParentOkrUnit());
   }
 
   @Test
   public void test_mapDtoToEntity_expectParentUnitIsNull2() {
-    dto.setParentUnitId(12L);
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertNull(entity.getParentOkrUnit());
+    okrBranchDto.setParentUnitId(12L);
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertNull(okrBranch.getParentOkrUnit());
   }
 
   @Test
   public void test_mapDtoToEntity_expectObjectiveListEmpty() {
-    dto.setObjectiveIds(Arrays.asList(1L, 2L));
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getObjectives().isEmpty());
+    okrBranchDto.setObjectiveIds(Arrays.asList(1L, 2L));
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertTrue(okrBranch.getObjectives().isEmpty());
   }
 
   @Test
   public void test_mapDtoToEntity_expectObjectiveListEmpty2() {
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getObjectives().isEmpty());
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertTrue(okrBranch.getObjectives().isEmpty());
   }
 
   @Test
   public void test_mapDtoToEntity_expectDepartmentListEmpty() {
-    dto.setOkrChildUnitIds(Arrays.asList(1L, 2L));
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getOkrChildUnits().isEmpty());
+    okrBranchDto.setOkrChildUnitIds(Arrays.asList(1L, 2L));
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertTrue(okrBranch.getOkrChildUnits().isEmpty());
   }
 
   @Test
   public void test_mapDtoToEntity_expectDepartmentListEmpty2() {
-    entity = mapper.mapDtoToEntity(dto);
-    Assert.assertTrue(entity.getOkrChildUnits().isEmpty());
+    okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDto);
+    assertTrue(okrBranch.getOkrChildUnits().isEmpty());
   }
 
   @Test
   public void test_mapEntitiesToDots_expectAllAreMapped() {
     Collection<OkrBranch> entities =
       Arrays.asList(new OkrBranch(), new OkrBranch(), new OkrBranch());
-    Collection<OkrBranchDto> dtos = mapper.mapEntitiesToDtos(entities);
-    Assert.assertEquals(entities.size(), dtos.size());
+    Collection<OkrBranchDto> dtos = okrBranchMapper.mapEntitiesToDtos(entities);
+    assertEquals(entities.size(), dtos.size());
   }
 }

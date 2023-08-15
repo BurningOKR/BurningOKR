@@ -1,40 +1,32 @@
 package org.burningokr.config;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.messaging.simp.SimpMessageType;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.support.ChannelInterceptor;
+import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
-import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-import javax.naming.AuthenticationException;
-import java.util.List;
-
-@Configuration
 @EnableWebSocketMessageBroker
-@EnableWebSecurity
 @RequiredArgsConstructor
+@Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-  private WebsocketAuthenticationChannelInterceptor websocketAuthenticationChannelInterceptor;
-
-  @Autowired
-  public WebSocketConfig(
-      WebsocketAuthenticationChannelInterceptor websocketAuthenticationChannelInterceptor) {
-    this.websocketAuthenticationChannelInterceptor = websocketAuthenticationChannelInterceptor;
-  }
+  private final WebSocketAuthentication socketAuth;
 
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -43,40 +35,26 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
-    long[] heartbeats = {10000l, 10000l};
-    config
-      .enableSimpleBroker("/topic")
-      .setTaskScheduler(heartBeatScheduler())
-      .setHeartbeatValue(heartbeats);
+    long[] heartbeats = {10000L, 10000L};
+    config.enableSimpleBroker("/topic").setTaskScheduler(heartBeatScheduler()).setHeartbeatValue(heartbeats);
     config.setApplicationDestinationPrefixes("/ws");
   }
 
   @Override
-  protected void configureInbound(MessageSecurityMetadataSourceRegistry message) {
-    message
-      .nullDestMatcher()
-      .permitAll()
-      .simpTypeMatchers(SimpMessageType.CONNECT)
-      .authenticated()
-      .simpTypeMatchers(SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT)
-      .authenticated()
-      .simpDestMatchers("/ws/**")
-      .authenticated()
-      .simpSubscribeDestMatchers("/topic/**")
-      .authenticated()
-      .anyMessage()
-      .denyAll();
-  }
+  public void configureClientInboundChannel(@NonNull ChannelRegistration registration) {
+    registration.interceptors(new ChannelInterceptor() {
+      @Override
+      public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
+        final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+        if (accessor == null) throw new NullPointerException("StompHeaderAccessor is null");
 
-  @Override
-  protected boolean sameOriginDisabled() {
-    return true;
-  }
+        if (socketAuth.isConnectionAttempt(accessor)) {
+          socketAuth.tryToAuthenticate(accessor);
+        }
 
-  @Override
-  public void customizeClientInboundChannel(ChannelRegistration registration) {
-    registration.interceptors(
-      websocketAuthenticationChannelInterceptor);
+        return message;
+      }
+    });
   }
 
   @Bean

@@ -12,7 +12,6 @@ import { DateMapper } from './date.mapper';
 export class TopicDraftMapper {
   constructor(
     private topicDraftApiService: TopicDraftApiService,
-    private dateMapper: DateMapper,
   ) {
   }
 
@@ -29,9 +28,7 @@ export class TopicDraftMapper {
       topicDraft.description,
       topicDraft.contributesTo,
       topicDraft.delimitation,
-      topicDraft.beginning ?
-        new Date(topicDraft.beginning[0], topicDraft.beginning[1] - 1, topicDraft.beginning[2]) :
-        null,
+      DateMapper.mapDateStringToDate(topicDraft.beginning),
       topicDraft.dependencies,
       topicDraft.resources,
       topicDraft.handoverPlan,
@@ -40,7 +37,6 @@ export class TopicDraftMapper {
 
   mapTopicDraft(topicDraft: OkrTopicDraft): OkrTopicDraftDto {
     const topicDraftDto: OkrTopicDraftDto = new OkrTopicDraftDto();
-    const beginning: Date = this.dateMapper.mapToDate(topicDraft.beginning);
 
     topicDraftDto.id = topicDraft.id;
     topicDraftDto.okrParentUnitId = topicDraft.okrParentUnitId;
@@ -52,11 +48,7 @@ export class TopicDraftMapper {
     topicDraftDto.description = topicDraft.description;
     topicDraftDto.contributesTo = topicDraft.contributesTo;
     topicDraftDto.delimitation = topicDraft.delimitation;
-    topicDraftDto.beginning = beginning ? [
-      Number(beginning.getFullYear()),
-      Number(beginning.getMonth()) + 1,
-      Number(beginning.getDate()),
-    ] : null;
+    topicDraftDto.beginning = DateMapper.mapDateToDateString(topicDraft.beginning);
     topicDraftDto.dependencies = topicDraft.dependencies;
     topicDraftDto.resources = topicDraft.resources;
     topicDraftDto.handoverPlan = topicDraft.handoverPlan;

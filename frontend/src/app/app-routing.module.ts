@@ -7,16 +7,15 @@ import { LandingPageNavigationComponent } from './core/landing-page-router/landi
 import { AdminRoleGuard } from './admin/admin-role-guard';
 import { CycleAdminContainerComponent } from './cycle-admin/cycle-admin-container/cycle-admin-container.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
-import { CreateDashboardComponent } from './dashboard/sites/create-dashboard/create-dashboard.component';
 import { DashboardOverviewComponent } from './dashboard/sites/dashboard-overview/dashboard-overview.component';
-import { DashboardComponent } from './dashboard/sites/dashboard/dashboard.component';
 import { OkrUnitDashboardComponent } from './okr-units/okr-unit-dashboard/okr-unit-dashboard.component';
 import { ErrorComponent } from './core/error/error.component';
 import { NoMailInformationComponent } from './information/no-mail-information/no-mail-information.component';
-import { NotInitiliazedGuard } from './core/auth/init/not-initiliazed.guard';
 import { TopicDraftsComponent } from './topic-drafts/topic-drafts-component/topic-drafts.component';
 import { environment } from '../environments/environment';
 import { PlaygroundGuard } from './core/auth/guards/playground.guard';
+import { CreateDashboardComponent } from './dashboard/sites/dashboard-modification/create-dashboard/create-dashboard.component';
+import { CanDeactivateGuard } from './core/auth/guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -25,26 +24,29 @@ const routes: Routes = [
   },
   {
     path: 'okr', loadChildren: () => import('./okrview/okrview.module').then(mod => mod.OkrviewModule),
-    canActivate: [NotInitiliazedGuard, AuthGuard],
+    canActivate: [/*NotInitiliazedGuard,*/ AuthGuard],
   },
-  { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
-  { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [NotInitiliazedGuard, AuthGuard] },
-  { path: 'admin', component: AdminViewComponent, canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard] },
+  { path: 'landingpage', component: LandingPageNavigationComponent, canActivate: [AuthGuard] }, // TODO fix auth
+  { path: 'companies', component: OkrUnitDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminViewComponent, canActivate: [AuthGuard, AdminRoleGuard] },
   {
     path: 'cycle-admin/:companyId',
     component: CycleAdminContainerComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard, AdminRoleGuard],
+    canActivate: [AuthGuard, AdminRoleGuard],
   },
   {
     path: 'submitted-topic-drafts',
     component: TopicDraftsComponent,
-    canActivate: [NotInitiliazedGuard, AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(mod => mod.AuthModule),
   },
   { path: 'error', component: ErrorComponent },
   { path: 'noMailInformation', component: NoMailInformationComponent },
+  {
+    path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
+  },
   {
     path: 'companies/:companyId/dashboard-overview',
     component: DashboardOverviewComponent,
@@ -54,8 +56,8 @@ const routes: Routes = [
     path: 'companies/:companyId/create-dashboard',
     component: CreateDashboardComponent,
     canActivate: [AuthGuard, PlaygroundGuard],
+    canDeactivate: [CanDeactivateGuard],
   },
-  { path: 'dashboard/:dashboardId', component: DashboardComponent, canActivate: [AuthGuard, PlaygroundGuard] },
   { path: '', redirectTo: environment.playground ? 'demo' : 'landingpage', pathMatch: 'full' },
   { path: '**', redirectTo: environment.playground ? 'landingpage' : '' },
 ];

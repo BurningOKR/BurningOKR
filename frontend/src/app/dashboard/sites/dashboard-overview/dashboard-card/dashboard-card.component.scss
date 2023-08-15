@@ -17,8 +17,19 @@
   font-weight: lighter;
 }
 
-.dashboard_settings_button {
-  float: right;
+.dashboard-settings-button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.dashboard-settings-button:active {
+  background-color: #696969;
+}
+
+.dashboard-card-settings-button-wrapper {
+  text-align: right;
 }
 
 .dashboard-icon {

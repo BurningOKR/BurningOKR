@@ -4,31 +4,31 @@ import org.assertj.core.util.Lists;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.settings.UserSettings;
 import org.burningokr.repositories.settings.UserSettingsRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserSettingsOnOkrCompanyDeleteServiceTest {
 
   @Mock
-  UserSettingsRepository userSettingsRepository;
+  private UserSettingsRepository userSettingsRepository;
 
   @InjectMocks
-  UserSettingsOnCompanyDeleteService userSettingsOnCompanyDeleteService;
+  private UserSettingsOnCompanyDeleteService userSettingsOnCompanyDeleteService;
 
-  private OkrCompany okrCompany1 = new OkrCompany();
-  private OkrCompany okrCompany2 = new OkrCompany();
+  private final OkrCompany okrCompany1 = new OkrCompany();
+  private final OkrCompany okrCompany2 = new OkrCompany();
 
-  @Before
+  @BeforeEach
   public void setup() {
     okrCompany1.setId(1L);
     okrCompany2.setId(2L);

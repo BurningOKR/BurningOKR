@@ -122,20 +122,6 @@
       "only-substructures-allowed": "A team can be created only in structures"
     }
   },
-  "create-dashboard": {
-    "add-chart-button": "Add chart",
-    "add-new-chart-to-dashboard": "Add Chart",
-    "chart-title-placeholder": "Chart Title",
-    "create-dashboard-button": "Create Dashboard",
-    "dashboard-title-placeholder": "Dashboard Title",
-    "line-progress": "Progress - Linechart",
-    "okr-toolbar": {
-      "create-dashboard": "Create Dashboard"
-    },
-    "pie-topicdraft": "Topicdraft overview - Piechart",
-    "select-teams-placeholder": "Select Teams",
-    "type-of-chart-placeholder": "Type of chart"
-  },
   "create-user-init-state-form": {
     "create-your-admin-account": "Create your administrator account",
     "next": "Continue",
@@ -179,13 +165,45 @@
     "title": "Edit cycle",
     "visibility": "Visibility"
   },
+  "edit-dashboard": {
+    "button": {
+      "create-dashboard": "Create Dashboard",
+      "save-dashboard": "Save Changes",
+      "add-chart": "Add Chart",
+      "cancel": "Cancel"
+    },
+    "tooltip": {
+      "delete-chart-button": "Delete Chart"
+    },
+    "placeholder": {
+      "dashboard-title": "Dashboard Titel",
+      "chart-title": "Chart Titel",
+      "chart-type": "Type of Chart",
+      "select-teams": "Select Teams"
+    },
+    "label": {
+      "select-chart-type": "Select type of Chart"
+    },
+    "info": {
+      "discard-changes": "Changes not saved! Discard changes?",
+      "not-valid": "Dashboard is not Valid! Please make sure that no mandatory fields are empty!"
+    },
+    "line-progress": "Progress - Linechart",
+    "okr-toolbar": {
+      "create-dashboard": "Create Dashboard",
+      "edit-dashboard": "Edit Dashboard"
+    },
+    "pie-topicdraft": "Topicdraft overview - Piechart"
+  },
   "dashboard": {
     "okr-toolbar": {
+      "navigate-to-structure-view": "To the structure overview",
       "dashboard": "Dashboard"
     }
   },
   "dashboard-card": {
     "created-by": "Created by: ",
+    "edit-dashboard": "Edit",
     "delete-dashboard": "Delete"
   },
   "dashboard-overview": {
@@ -325,6 +343,8 @@
       }
     }},
   "department-tab-taskboard": {
+    "columns": "Columns",
+    "swimlanes": "Swimlanes",
     "add-button": {
       "create-new-task": "Create task",
       "tooltip": "WebSocket-Connection is broken"
@@ -633,7 +653,7 @@
     },
     "return-to-demo-text": "Home",
     "tooltip": {
-      "menue": "Menu"
+      "menu": "Menu"
     },
     "warning": {
       "no-smtp-link": "This can severely limit the usability of the <br class=\"hidden-l-up\">application.",
@@ -661,6 +681,7 @@
     "mat-card-actions": {
       "delete": "Delete structure",
       "edit-name": "Edit name",
+      "admin-required": "Admin authority required",
       "tooltip": {
         "delete-unit": "Delete structure",
         "edit-unit-name": "Edit the name of the structure"
@@ -890,6 +911,8 @@
   "user-management": {
     "active-table-header": "Active",
     "add-new-user": "Create user",
+    "edit-user-header-popup": "Edit user",
+    "reset-user-password": "Reset password",
     "admin-table-header": "Admin",
     "checkbox": "Show deactivated users",
     "department-table-header": "Department",
@@ -904,7 +927,11 @@
       "go-to-okr-unit-overview": "Go to structure overview",
       "import-users-from-csv": "Import users from CSV"
     },
-    "user-management-toolbar-title": "User administration"
+    "user-management-toolbar-title": "User administration",
+    "deactivate-user-header-popup": "Deactivate user",
+    "deactivate-user-text-popup": "Do you really want to deactivate {{ value }}? The user can no longer use the application after that and will be automatically removed from all teams at the next cycle change.",
+    "reactivate-user-header-popup": "Reactivate user",
+    "reactivate-user-text-popup": "Would you like to reactivate {{ value }}? The user can then use the application to its full extent again."
   },
   "user-minibutton": {
     "loading-user": "Load user...",

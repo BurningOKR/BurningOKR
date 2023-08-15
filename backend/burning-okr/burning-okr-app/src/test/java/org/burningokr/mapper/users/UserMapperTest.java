@@ -1,29 +1,22 @@
 package org.burningokr.mapper.users;
 
 import org.burningokr.dto.users.UserDto;
-import org.burningokr.model.users.AadUser;
-import org.burningokr.model.users.LocalUser;
 import org.burningokr.model.users.User;
-import org.burningokr.service.environment.AppEnvironment;
-import org.burningokr.service.environment.AuthModes;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserMapperTest {
   private static User user1;
   private static User user2;
@@ -31,115 +24,114 @@ public class UserMapperTest {
   private static UserDto userDto1;
   private static UserDto userDto2;
 
-  @Mock
-  public AppEnvironment appEnvironment;
-
   @InjectMocks
   public UserMapper userMapper;
 
-  @BeforeClass
+  @BeforeAll
   public static void initClass() {
-    user1 = mock(User.class);
-    when(user1.getId()).thenReturn(UUID.randomUUID());
-    when(user1.getMail()).thenReturn("example@company.com");
-    when(user1.getGivenName()).thenReturn("Name");
-    when(user1.getSurname()).thenReturn("Surname");
-    when(user1.getDepartment()).thenReturn("OkrDepartment");
-    when(user1.getJobTitle()).thenReturn("JobTitle");
-    when(user1.getPhoto()).thenReturn("Photo");
-    user2 = mock(User.class);
-    when(user2.getId()).thenReturn(UUID.randomUUID());
-    when(user2.getMail()).thenReturn("example2@company.com");
-    when(user2.getGivenName()).thenReturn("Name2");
-    when(user2.getSurname()).thenReturn("Surname2");
-    when(user2.getDepartment()).thenReturn("Department2");
-    when(user2.getJobTitle()).thenReturn("JobTitle2");
-    when(user2.getPhoto()).thenReturn("Photo2");
+    LocalDateTime localDateTime = LocalDate.of(2022, 12, 2).atStartOfDay();
+    LocalDateTime localDateTime2 = LocalDate.of(2023, 5, 3).atStartOfDay();
+
+    UUID uuid = UUID.randomUUID();
+    UUID uuid2 = UUID.randomUUID();
+
+    user1 = new User();
+    user1.setId(uuid);
+    user1.setGivenName("Name");
+    user1.setSurname("Surname");
+    user1.setMail("example@company.com");
+    user1.setJobTitle("JobTitle");
+    user1.setDepartment("OkrDepartment");
+    user1.setPhoto("Photo");
+    user1.setActive(true);
+    user1.setAdmin(true);
+    user1.setCreatedAt(localDateTime);
 
     userDto1 = new UserDto();
-    userDto1.setId(UUID.randomUUID());
-    userDto1.setEmail("example@company.com");
+    userDto1.setId(uuid);
     userDto1.setGivenName("Name");
     userDto1.setSurname("Surname");
-    userDto1.setDepartment("OkrDepartment");
+    userDto1.setMail("example@company.com");
     userDto1.setJobTitle("JobTitle");
+    userDto1.setDepartment("OkrDepartment");
     userDto1.setPhoto("Photo");
+    userDto1.setActive(true);
+    userDto1.setAdmin(true);
+
+    user2 = new User();
+    user2.setId(uuid2);
+    user2.setGivenName("Name2");
+    user2.setSurname("Surname2");
+    user2.setMail("example2@company.com");
+    user2.setJobTitle("JobTitle2");
+    user2.setDepartment("OkrDepartment2");
+    user2.setPhoto("Photo2");
+    user2.setActive(false);
+    user2.setAdmin(false);
+    user2.setCreatedAt(localDateTime2);
+
     userDto2 = new UserDto();
-    userDto2.setId(UUID.randomUUID());
-    userDto2.setGivenName("Given Name");
-    userDto2.setSurname("Surname 2");
-    userDto2.setEmail("mail@example.com");
-    userDto2.setDepartment("Department2");
+    userDto2.setId(uuid2);
+    userDto2.setGivenName("Name2");
+    userDto2.setSurname("Surname2");
+    userDto2.setMail("example2@company.com");
     userDto2.setJobTitle("JobTitle2");
+    userDto2.setDepartment("OkrDepartment2");
     userDto2.setPhoto("Photo2");
+    userDto2.setActive(false);
+    userDto2.setAdmin(false);
   }
 
   @Test
-  public void test_mapDtoToEntity_aadUser_ShouldMapCorrectly() {
-    when(appEnvironment.getAuthMode()).thenReturn(AuthModes.AZURE);
-    User user = userMapper.mapDtoToEntity(userDto1);
-    Assert.assertThat(user, instanceOf(AadUser.class));
-    assertDtoWithUser(userDto1, user);
+  public void mapEntityToDto_shouldMapEntityToDto() {
+    //Arrange
+    UserDto expected = userDto1;
+
+    //Act
+    UserDto actual = userMapper.mapEntityToDto(user1);
+
+    //Assert
+    assertEquals(expected, actual);
   }
 
   @Test
-  public void test_mapDtoToEntity_localUser_ShouldMapCorrectly() {
-    when(appEnvironment.getAuthMode()).thenReturn(AuthModes.LOCAL);
-    User user = userMapper.mapDtoToEntity(userDto1);
-    Assert.assertThat(user, instanceOf(LocalUser.class));
-    assertDtoWithUser(userDto1, user);
-  }
-
-  @Test
-  public void test_mapEntityToDtoShouldMapCorrectly() {
-    userDto1 = userMapper.mapEntityToDto(user1);
-    assertUserWithDto(user1, userDto1);
-  }
-
-  @Test
-  public void test_mapEntitiesToDtos() {
+  public void mapEntitiesToDtos_shouldMapEntitiesToDtos() {
+    //Arrange
     Collection<User> users = Arrays.asList(user1, user2);
-    Collection<UserDto> dtos = userMapper.mapEntitiesToDtos(users);
-    Assert.assertEquals(2, users.size());
-    Assert.assertEquals(users.size(), dtos.size());
-    Iterator<User> userIt = users.iterator();
-    Iterator<UserDto> dtoIt = dtos.iterator();
-    while (userIt.hasNext() && dtoIt.hasNext()) {
-      assertUserWithDto(userIt.next(), dtoIt.next());
-    }
+    Collection<UserDto> expected = Arrays.asList(userDto1, userDto2);
+
+    //Act
+    Collection<UserDto> actual = userMapper.mapEntitiesToDtos(users);
+
+    //Assert
+    assertEquals(expected, actual);
   }
 
   @Test
-  public void test_mapDtosToEntities() {
-    when(appEnvironment.getAuthMode()).thenReturn(AuthModes.AZURE);
-    Collection<UserDto> dtos = Arrays.asList(userDto1, userDto2);
-    Collection<User> users = userMapper.mapDtosToEntities(dtos);
-    Assert.assertEquals(2, dtos.size());
-    Assert.assertEquals(dtos.size(), users.size());
-    Iterator<UserDto> dtoIt = dtos.iterator();
-    Iterator<User> userIt = users.iterator();
-    while (dtoIt.hasNext() && userIt.hasNext()) {
-      assertDtoWithUser(dtoIt.next(), userIt.next());
-    }
+  public void mapDtoToEntity_shouldMapDtoToEntity() {
+    //Arrange
+    User expected = user1;
+    expected.setCreatedAt(null);
+
+    //Act
+    User actual = userMapper.mapDtoToEntity(userDto1);
+
+    //Assert
+    assertEquals(expected, actual);
   }
 
-  private void assertDtoWithUser(UserDto expected, User actual) {
-    Assert.assertEquals(expected.getId(), actual.getId());
-    Assert.assertEquals(expected.getEmail(), actual.getMail());
-    Assert.assertEquals(expected.getGivenName(), actual.getGivenName());
-    Assert.assertEquals(expected.getSurname(), actual.getSurname());
-    Assert.assertEquals(expected.getDepartment(), actual.getDepartment());
-    Assert.assertEquals(expected.getJobTitle(), actual.getJobTitle());
-    Assert.assertEquals(expected.getPhoto(), actual.getPhoto());
+  @Test
+  public void mapDtosToEntities_shouldMapDtosToEntities() {
+    //Arrange
+    Collection<UserDto> userDtos = Arrays.asList(userDto1, userDto2);
+    Collection<User> expected = Arrays.asList(user1, user2);
+    expected.forEach(user -> user.setCreatedAt(null));
+
+    //Act
+    Collection<User> actual = userMapper.mapDtosToEntities(userDtos);
+
+    //Assert
+    assertEquals(expected, actual);
   }
 
-  private void assertUserWithDto(User expected, UserDto actual) {
-    Assert.assertEquals(expected.getId(), actual.getId());
-    Assert.assertEquals(expected.getMail(), actual.getEmail());
-    Assert.assertEquals(expected.getGivenName(), actual.getGivenName());
-    Assert.assertEquals(expected.getSurname(), actual.getSurname());
-    Assert.assertEquals(expected.getDepartment(), actual.getDepartment());
-    Assert.assertEquals(expected.getJobTitle(), actual.getJobTitle());
-    Assert.assertEquals(expected.getPhoto(), actual.getPhoto());
-  }
 }

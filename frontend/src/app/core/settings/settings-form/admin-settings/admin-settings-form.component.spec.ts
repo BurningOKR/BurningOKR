@@ -4,7 +4,6 @@ import { ConfigurationManagerService } from '../../configuration-manager.service
 import { CurrentUserService } from '../../../services/current-user.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { OAuthFrontendDetailsService } from '../../../auth/services/o-auth-frontend-details.service';
 import { of } from 'rxjs';
 import { Configuration } from '../../../../shared/model/ui/configuration';
 import { AbstractControl } from '@angular/forms';
@@ -78,7 +77,6 @@ describe('AdminSettingsForm', () => {
           { provide: ConfigurationManagerService, useValue: configurationManagerServiceStub },
           { provide: CurrentUserService, useValue: currentUserServiceStub },
           { provide: MatDialogRef, useValue: {} },
-          { provide: OAuthFrontendDetailsService, useValue: oAuthFrontendDetailsServiceStub },
           { provide: MatDialog, useValue: dialog },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],

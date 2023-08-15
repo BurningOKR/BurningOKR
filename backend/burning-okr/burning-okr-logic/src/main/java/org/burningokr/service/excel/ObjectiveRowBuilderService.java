@@ -1,5 +1,6 @@
 package org.burningokr.service.excel;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.excel.ObjectiveRow;
 import org.burningokr.model.excel.PercentageCellValue;
 import org.burningokr.model.okr.KeyResult;
@@ -7,9 +8,8 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okrUnit.CompanyService;
+import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.burningokr.service.okrUnit.departmentservices.OkrUnitServiceUsers;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,19 +17,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ObjectiveRowBuilderService implements RowBuilderService<ObjectiveRow> {
-
-  private final OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService;
-
+  private final OkrChildUnitService<OkrChildUnit> okrChildUnitService;
   private final CompanyService companyService;
-
-  public ObjectiveRowBuilderService(
-    @Qualifier("okrUnitServiceUsers") OkrUnitServiceUsers<OkrChildUnit> okrChildUnitService,
-    CompanyService companyService
-  ) {
-    this.okrChildUnitService = okrChildUnitService;
-    this.companyService = companyService;
-  }
 
   @Override
   public Collection<ObjectiveRow> generateForOkrChildUnit(long okrUnitId) {

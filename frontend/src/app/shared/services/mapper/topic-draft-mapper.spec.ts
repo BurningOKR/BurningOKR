@@ -49,7 +49,7 @@ describe('TopicDraftMapper', () => {
       description: 'Acceptance Criteria',
       contributesTo: 'Contributes to',
       delimitation: 'Delimitation',
-      beginning: [2021, 2, 1],
+      beginning: '2021-01-01',
       dependencies: 'Dependencies',
       resources: 'Resources',
       handoverPlan: 'Handover plan',

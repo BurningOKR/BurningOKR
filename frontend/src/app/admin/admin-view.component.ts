@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { CurrentUserService } from '../core/services/current-user.service';
@@ -131,24 +131,8 @@ export class AdminViewComponent implements OnInit {
   }
 
   private getAdminUsers$(): void {
-    combineLatest([
-      this.userService.getUsers$(),
-      this.userService.getAdminIds$()],
-    )
-      .pipe(
-        take(1),
-        map(([users, adminStrings]: [User[], string[]]) => {
-          return this.getAdminUsers(users, adminStrings);
-        }),
-      )
-      .subscribe((users: User[]) => {
-        this.adminUsers$.next(users);
-      });
-  }
-
-  private getAdminUsers(users: User[], adminStrings: string[]): any[] {
-    return users.filter(user => {
-      return adminStrings.indexOf(user.id) !== -1;
-    });
+    this.userService.getAdmins$()
+      .pipe(take(1))
+      .subscribe(adminUsers => this.adminUsers$.next(adminUsers));
   }
 }

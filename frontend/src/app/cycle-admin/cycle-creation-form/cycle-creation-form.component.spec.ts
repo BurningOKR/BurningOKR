@@ -7,7 +7,7 @@ describe('CycleCreationFormComponent', () => {
   const eventMock: any = { value: null };
 
   beforeEach(() => {
-    component = new CycleCreationFormComponent(null, null, null, null, null, null);
+    component = new CycleCreationFormComponent(null, null, null, null, null);
   });
 
   it('should set FirstAvailableDate to the correct Date after Changing the Date', () => {

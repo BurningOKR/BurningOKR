@@ -1,18 +1,13 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import lombok.ToString;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okr.histories.KeyResultHistory;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,7 +16,8 @@ import java.util.Collection;
 public class KeyResult implements Trackable<Long> {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")
+  @SequenceGenerator(name = "hibernate_sequence_generator", sequenceName = "hibernate_sequence", allocationSize = 1)
   private Long id;
 
   @ToString.Exclude

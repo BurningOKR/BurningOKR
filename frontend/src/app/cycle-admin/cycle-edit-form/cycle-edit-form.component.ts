@@ -30,7 +30,6 @@ export class CycleEditFormComponent {
     private dialogRef: MatDialogRef<CycleEditFormComponent>,
     private cycleMapper: CycleMapper,
     private companyMapper: CompanyMapper,
-    private dateMapper: DateMapper,
     @Inject(MAT_DIALOG_DATA) private formData: CycleEditFormData,
   ) {
     this.loadCyclesWithHistoryCompanyInForm();
@@ -53,8 +52,8 @@ export class CycleEditFormComponent {
     const cycle: CycleUnit = this.formData.cycle;
 
     cycle.name = this.cycleForm.get('name').value;
-    cycle.startDate = this.dateMapper.mapToDate(this.cycleForm.get('startDate').value);
-    cycle.endDate = this.dateMapper.mapToDate(this.cycleForm.get('endDate').value);
+    cycle.startDate = DateMapper.mapToDate(this.cycleForm.get('startDate').value);
+    cycle.endDate = DateMapper.mapToDate(this.cycleForm.get('endDate').value);
     cycle.isVisible = this.cycleForm.get('isVisible').value;
 
     this.dialogRef.close(this.cycleMapper.putCycle$(cycle));

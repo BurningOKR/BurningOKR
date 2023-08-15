@@ -1,5 +1,6 @@
 package org.burningokr.model.okr.okrTopicDraft;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -7,9 +8,8 @@ import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okr.histories.OkrTopicDraftHistory;
 import org.burningokr.model.okrUnits.OkrUnit;
+import org.springframework.lang.Nullable;
 
-import javax.annotation.Nullable;
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 

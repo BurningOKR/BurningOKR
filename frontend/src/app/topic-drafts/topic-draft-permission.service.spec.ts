@@ -17,10 +17,6 @@ describe('TopicDraftPermissionServiceService', () => {
     return currentUserServiceMock.getCurrentUser$().pipe(map(user => user === mockAdmin));
   });
 
-  currentUserServiceMock.isCurrentUserAuditor$ = jest.fn().mockImplementation(() => {
-    return currentUserServiceMock.getCurrentUser$().pipe(map(user => user === mockAuditor));
-  });
-
   beforeEach(() => {
     setCurrentUserInPermissionService(mockUser);
   });
@@ -33,7 +29,6 @@ describe('TopicDraftPermissionServiceService', () => {
   it('should get the normal user permissions', () => {
     expect(topicDraftPermissionService).toBeTruthy();
     expect((topicDraftPermissionService as any).isAdmin).toBe(false);
-    expect((topicDraftPermissionService as any).isAuditor).toBe(false);
     expect((topicDraftPermissionService as any).currentUser).toEqual(mockUser);
   });
 
@@ -41,7 +36,6 @@ describe('TopicDraftPermissionServiceService', () => {
     setCurrentUserInPermissionService(mockAdmin);
     expect(topicDraftPermissionService).toBeTruthy();
     expect((topicDraftPermissionService as any).isAdmin).toBe(true);
-    expect((topicDraftPermissionService as any).isAuditor).toBe(false);
     expect((topicDraftPermissionService as any).currentUser).toEqual(mockAdmin);
   });
 
@@ -49,7 +43,6 @@ describe('TopicDraftPermissionServiceService', () => {
     setCurrentUserInPermissionService(mockAuditor);
     expect(topicDraftPermissionService).toBeTruthy();
     expect((topicDraftPermissionService as any).isAdmin).toBe(false);
-    expect((topicDraftPermissionService as any).isAuditor).toBe(true);
     expect((topicDraftPermissionService as any).currentUser).toEqual(mockAuditor);
   });
 
@@ -75,7 +68,7 @@ describe('TopicDraftPermissionServiceService', () => {
 
   it('should get if the CurrentUser can approve', () => {
     expect(topicDraftPermissionService.hasCurrentUserApprovingPermissions()).toBe(false);
-    setCurrentUserInPermissionService(mockAuditor);
+    setCurrentUserInPermissionService(mockAdmin);
     expect(topicDraftPermissionService.hasCurrentUserApprovingPermissions()).toBe(true);
     setCurrentUserInPermissionService(mockAdmin);
     expect(topicDraftPermissionService.hasCurrentUserApprovingPermissions()).toBe(true);

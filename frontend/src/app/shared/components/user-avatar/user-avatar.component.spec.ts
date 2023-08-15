@@ -21,6 +21,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -36,6 +37,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -47,6 +49,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -58,6 +61,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -75,6 +79,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -86,6 +91,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -102,6 +108,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -113,6 +120,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -129,6 +137,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 
@@ -140,6 +149,7 @@ describe('UserAvatarComponent', () => {
       jobTitle: '',
       department: '',
       photo: '',
+      admin: false,
       active: true,
     };
 

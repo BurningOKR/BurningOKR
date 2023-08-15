@@ -6,6 +6,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { CompanyApiService } from '../api/company-api.service';
 import { CompanyId, CycleId } from '../../model/id-types';
 import { CycleDto } from '../../model/api/cycle.dto';
+import { DateMapper } from './date.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,10 @@ export class CycleMapper {
 
   cycles: { [key: number]: ReplaySubject<CycleUnit> } = {};
 
-  constructor(private cycleService: CycleApiService, private companyApiService: CompanyApiService) {
+  constructor(
+    private cycleService: CycleApiService,
+    private companyApiService: CompanyApiService,
+  ) {
   }
 
   getCycleById$(id: CycleId): Observable<CycleUnit> {
@@ -82,12 +86,8 @@ export class CycleMapper {
   }
 
   mapCycleToCycleUnit(cycle: CycleDto): CycleUnit {
-    const startDate: Date = new Date(
-      cycle.plannedStartDate[0],
-      cycle.plannedStartDate[1] - 1,
-      cycle.plannedStartDate[2],
-    );
-    const endDate: Date = new Date(cycle.plannedEndDate[0], cycle.plannedEndDate[1] - 1, cycle.plannedEndDate[2]);
+    const startDate: Date = DateMapper.mapDateStringToDate(cycle.plannedStartDate);
+    const endDate: Date = DateMapper.mapDateStringToDate(cycle.plannedEndDate);
 
     return new CycleUnit(
       cycle.id,
@@ -101,12 +101,8 @@ export class CycleMapper {
   }
 
   mapCycleUnitToCycle(cycleUnit: CycleUnit): CycleDto {
-    const startDate: number[] = [Number(cycleUnit.startDate.getFullYear()),
-      Number(cycleUnit.startDate.getMonth()) + 1,
-      Number(cycleUnit.startDate.getDate())];
-    const endDate: number[] = [Number(cycleUnit.endDate.getFullYear()),
-      Number(cycleUnit.endDate.getMonth()) + 1,
-      Number(cycleUnit.endDate.getDate())];
+    const startDate: string = DateMapper.mapDateToDateString(cycleUnit.startDate);
+    const endDate: string = DateMapper.mapDateToDateString(cycleUnit.endDate);
 
     return {
       plannedStartDate: startDate,

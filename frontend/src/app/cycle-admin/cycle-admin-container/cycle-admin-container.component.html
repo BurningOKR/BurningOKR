@@ -10,7 +10,7 @@
   <span>{{ 'cycle-admin-container.administration' | translate }}</span>
   <span class="fill-space"></span>
 </app-okr-toolbar>
-<div class="margin-toolbar item-actions">
+<div class="margin-toolbar item-actions" *ngIf="company">
   <h1> {{ company.name }}</h1>
   <app-add-button (buttonClicked)="createCycle()"
                   text="{{ 'cycle-admin-container.create-new-cycle' | translate }}"></app-add-button>

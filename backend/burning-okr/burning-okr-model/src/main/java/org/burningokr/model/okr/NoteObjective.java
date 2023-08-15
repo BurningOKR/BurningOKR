@@ -1,10 +1,9 @@
 package org.burningokr.model.okr;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 
 @Entity
 @Data

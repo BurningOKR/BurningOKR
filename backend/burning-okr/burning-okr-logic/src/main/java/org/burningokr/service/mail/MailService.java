@@ -1,5 +1,7 @@
 package org.burningokr.service.mail;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.model.mail.Mail;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +33,11 @@ public class MailService {
       checkAndInitializeCollections(mail);
 
       MimeMessage message = createMimeMessage(mail);
-      javaMailSender.get().send(message);
+      if (message != null) {
+        javaMailSender.get().send(message);
+      } else {
+        throw new NullPointerException("No message to be send. Mail Message is null!");
+      }
     }
   }
 
@@ -79,7 +83,7 @@ public class MailService {
   }
 
   private String[] convertToArray(Collection<String> collection) {
-    return collection.isEmpty() ? new String[0] : (String[]) collection.toArray();
+    return collection.isEmpty() ? new String[0] : collection.toArray(new String[0]);
   }
 
   private String getHtmlBodyFromTemplate(Mail mail) {

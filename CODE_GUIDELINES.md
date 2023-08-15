@@ -1,24 +1,33 @@
 # Code Guidelines
-##General
-###Tests
+
+## General
+
+### Tests
+
 All future code contributed has to be covered by unit tests.
 
 ### Commit Messages
+
 We try to structure our commit messages according to [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/).
 
 We recommend the [conventional commit plugin](https://plugins.jetbrains.com/plugin/13389-conventional-commit) for IntelliJ.
 
 ### Comments
+
 When you create a comment with a todo, you have to do it in this form:
-```
+
+```java
 // TODO (F.L. 25.06.20): <Your Todo message>
 ```
+
 ``F.`` and ``L.`` stand for the first letters of your first and last name.
 
 ## Frontend
+
 ### TS-Lint
+
 This project uses [ts-lint](https://palantir.github.io/tslint/) to enforce most of the code guidelines. You have to follow these rules in order to contribute.
-We recommend using a tslint plugin for your IDE. Intellij comes prebundled with a tslint plugin.
+We recommend using a tslint plugin for your IDE. IntelliJ comes bundled with a tslint plugin.
 
 If your IDE does not support ts-lint, use the command ``ng lint`` to find any ts-lint errors.
 
@@ -27,6 +36,7 @@ If your IDE does not support ts-lint, use the command ``ng lint`` to find any ts
 - Type definition: a type definition looks like this: ``export type ExampleType = string;``
 
 ### General Code Guidelines
+
 We will only cover code guidelines, which are not enforced by ts-lint here:
 
 | 👍Do | 👎Don't |
@@ -39,19 +49,25 @@ We will only cover code guidelines, which are not enforced by ts-lint here:
 | Add component scoped or service scoped type definitions in the same file, as the class that depends on it. | Add component scoped or service scoped type definitions in the typings.d.ts file. |
 
 ### Architecture
+
 If your component or service is used in...
+
 - ... every module, declare it in the core module.
 - ... some modules, declare it in the shared module.
 - ... one module, declare it in this module.
 
 ## Backend
+
 ### Spotless
+
 We use [Spottless](https://github.com/diffplug/spotless/blob/master/plugin-gradle/README.md) to apply the [Google Java Styling](https://google.github.io/styleguide/javaguide.html) guidelines.
 
-We can only accept pull requests if Spotless can't find any formatting errors. So please make sure to run ```spotlessApply``` before commiting.
+We can only accept pull requests if Spotless can't find any formatting errors. So please make sure to run ```spotlessApply``` before committing.
 
 ### Migration Scripts
+
 When you create a migration script, which...
+
 - ...drops tables,
 - ...drops columns,
 - ...deletes data,

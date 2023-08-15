@@ -1,11 +1,12 @@
 package org.burningokr.model.okrUnits;
 
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrBranchHistory;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OkrBranchTest {
 
@@ -13,7 +14,7 @@ public class OkrBranchTest {
   private OkrBranch parentBranch;
   private OkrBranch childBranch;
 
-  @Before
+  @BeforeEach
   public void init() {
     original = new OkrBranch();
     original.setId(4L);
@@ -23,7 +24,7 @@ public class OkrBranchTest {
     OkrBranchHistory history = new OkrBranchHistory();
     history.setUnits(Collections.singleton(original));
 
-    original.setHistory(history);
+    original.setBranchHistory(history);
 
     parentBranch = new OkrBranch();
     parentBranch.setId(5L);
@@ -38,46 +39,46 @@ public class OkrBranchTest {
   @Test
   public void getCopyWithoutRelation_ExpectNotToBeNull() {
     OkrBranch copy = original.getCopyWithoutRelations();
-    Assert.assertNotNull(copy);
+    assertNotNull(copy);
   }
 
   @Test
   public void getCopyWithoutRelations_expectedIdNotCopied() {
     OkrBranch copy = original.getCopyWithoutRelations();
 
-    Assert.assertNotEquals(original.getId(), copy.getId());
+    assertNotEquals(original.getId(), copy.getId());
   }
 
   @Test
   public void getCopyWithoutRelation_ExpectNameToBeEquals() {
     OkrBranch copy = original.getCopyWithoutRelations();
-    Assert.assertEquals(original.getName(), copy.getName());
+    assertEquals(original.getName(), copy.getName());
   }
 
   @Test
   public void getCopyWithoutRelation_ExpectLabelToBeEquals() {
     OkrBranch copy = original.getCopyWithoutRelations();
-    Assert.assertEquals(original.getLabel(), copy.getLabel());
+    assertEquals(original.getLabel(), copy.getLabel());
   }
 
   @Test
   public void getCopyWithoutRelation_ExpectIsActiveToBeEquals() {
     OkrBranch copy = original.getCopyWithoutRelations();
-    Assert.assertEquals(original.isActive(), copy.isActive());
+    assertEquals(original.isActive(), copy.isActive());
   }
 
   @Test
   public void getCopyWithoutRelations_expectedNoRelations() {
     OkrBranch copy = original.getCopyWithoutRelations();
 
-    Assert.assertNull(copy.getParentOkrUnit());
-    Assert.assertEquals(0, copy.getOkrChildUnits().size());
+    assertNull(copy.getParentOkrUnit());
+    assertEquals(0, copy.getOkrChildUnits().size());
   }
 
   @Test
   public void getCopyWithoutRelation_ExpectHistoryToBeEquals() {
     OkrBranch copy = original.getCopyWithoutRelations();
 
-    Assert.assertSame(original.getHistory(), copy.getHistory());
+    assertSame(original.getBranchHistory(), copy.getBranchHistory());
   }
 }

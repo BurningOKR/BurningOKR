@@ -1,0 +1,53 @@
+.edit-dashboard-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.edit-dashboard-title {
+  text-align-last: center;
+  font-size: large;
+  font-weight: bolder;
+  margin: 20px 0 20px 0;
+
+  mat-form-field {
+    width: 300px;
+  }
+}
+
+.edit-charts {
+  width: 700px;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
+.edit-chart-options {
+  display: flex;
+  flex-direction: column;
+  padding: 0 25px 0 25px;
+  max-width: 350px;
+
+  button {
+    margin-bottom: 10px;
+  }
+}
+
+.edit-charts-buttons {
+  margin: 20px 0 20px 0;
+  height: auto;
+}
+
+.chart-creation-add-button {
+  margin: 0 10px 0 0;
+}
+
+@media (max-width: 700px) {
+  .edit-charts {
+    grid-template-columns: repeat(1, auto);
+  }
+  .edit-chart-options {
+    margin: 20px 0 20px 0;
+  }
+}

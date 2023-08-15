@@ -1,19 +1,16 @@
 package org.burningokr.interceptor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+@Slf4j
 @Component
-public class OkrInterceptor extends HandlerInterceptorAdapter {
-
-  private final Logger logger = LoggerFactory.getLogger(OkrInterceptor.class);
+public class OkrInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(
@@ -21,13 +18,12 @@ public class OkrInterceptor extends HandlerInterceptorAdapter {
   ) {
     HttpServletRequest requestWrapperObject = new ContentCachingRequestWrapper(request);
 
-    logger.info(
-      "Incoming "
-        + requestWrapperObject.getMethod()
-        + " request on: "
-        + requestWrapperObject.getRequestURL()
-        + " with User-Agent: "
-        + requestWrapperObject.getHeader("User-Agent"));
+    log.debug(
+      String.format(
+        "Incoming %s request on: %s with User-Agent: %s",
+        requestWrapperObject.getMethod(),
+        requestWrapperObject.getRequestURL(),
+        requestWrapperObject.getHeader("User-Agent")));
 
     return true;
   }
@@ -41,6 +37,6 @@ public class OkrInterceptor extends HandlerInterceptorAdapter {
   ) {
     HttpServletResponse responseWrapperObject = new ContentCachingResponseWrapper(response);
 
-    logger.info("Sending Response.");
+    log.debug("Sending Response.");
   }
 }

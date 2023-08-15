@@ -9,7 +9,7 @@ export class OkrTopicDescriptionDto {
   description: string;
   contributesTo: string;
   delimitation: string;
-  beginning: number[];
+  beginning: string;
   dependencies: string;
   resources: string;
   handoverPlan: string;

@@ -8,8 +8,6 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.repositories.okr.TaskBoardRepository;
 import org.burningokr.repositories.okr.TaskRepository;
 import org.burningokr.repositories.okr.TaskStateRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,23 +17,23 @@ import java.util.Collection;
 @Service
 @RequiredArgsConstructor
 public class TaskBoardService {
-  private final Logger logger = LoggerFactory.getLogger(TaskBoardService.class);
   private final TaskBoardRepository taskBoardRepository;
   private final DefaultTaskStateService defaultTaskStateService;
   private final TaskStateRepository taskStateRepository;
   private final TaskService taskService;
   private final TaskRepository taskRepository;
 
-  public TaskBoard createNewTaskBoardWithDefaultStates() {
+  public TaskBoard createNewTaskBoardWithDefaultStates(OkrDepartment parentOkrDepartment) {
     TaskBoard taskBoard = new TaskBoard();
-    Collection<TaskState> states = defaultTaskStateService.getDefaultTaskStatesForNewTaskBoard();
+    Collection<TaskState> states = defaultTaskStateService.getDefaultTaskStatesForNewTaskBoard(taskBoard);
     taskBoard.setAvailableStates(states);
+    taskBoard.setParentOkrDepartment(parentOkrDepartment);
 
     return taskBoard;
   }
 
   public TaskBoard copyTaskBoardWithParentOkrUnitOnly(
-    TaskBoard taskBoardToCopy, OkrDepartment okrDepartment
+    OkrDepartment okrDepartment
   ) {
     TaskBoard copiedTaskboard = new TaskBoard();
     copiedTaskboard.setParentOkrDepartment(okrDepartment);
@@ -64,7 +62,7 @@ public class TaskBoardService {
   @Transactional
   public TaskBoard cloneTaskBoard(OkrDepartment copy, TaskBoard taskBoardToCopy) {
 
-    TaskBoard copiedTaskBoard = this.copyTaskBoardWithParentOkrUnitOnly(taskBoardToCopy, copy);
+    TaskBoard copiedTaskBoard = this.copyTaskBoardWithParentOkrUnitOnly(copy);
     this.taskBoardRepository.save(copiedTaskBoard);
 
     Collection<TaskState> copiedStates =
@@ -76,7 +74,7 @@ public class TaskBoardService {
 
     Collection<Task> notFinishedTasks = this.findUnfinishedTasks(taskBoardToCopy);
     copiedTaskBoard.setTasks(
-      taskService.copyTasksAndBindToNewCopyOfTaskStatesListAndTaskBoard(
+      taskService.copyTasks(
         notFinishedTasks, copiedStates, copiedTaskBoard));
     taskRepository.saveAll(copiedTaskBoard.getTasks());
     updatePreviousTaskOfSavedCopiedTasks(copiedTaskBoard.getTasks());
@@ -127,16 +125,6 @@ public class TaskBoardService {
 
   public Collection<Task> findUnfinishedTasks(TaskBoard taskBoard) {
     TaskState finishedState = findFinishedState(taskBoard.getAvailableStates());
-    Collection<Task> notFinishedTasks =
-      taskRepository.findNotFinishedTasksByTaskBoard(taskBoard, finishedState);
-    return notFinishedTasks;
-  }
-
-  public void logTaskBoard(TaskBoard taskBoard) {
-    this.logger.info(
-      "id: "
-        + taskBoard.getId()
-        + "parentDepartment: "
-        + taskBoard.getParentOkrDepartment().getId());
+    return taskRepository.findNotFinishedTasksByTaskBoard(taskBoard, finishedState);
   }
 }

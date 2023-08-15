@@ -1,14 +1,13 @@
 package org.burningokr.dto.cycle;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.burningokr.model.cycles.CycleState;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,10 +21,10 @@ public class CycleDto {
   private String name;
 
   @NotNull
-  private LocalDate plannedStartDate;
+  private String plannedStartDate;
 
   @NotNull
-  private LocalDate plannedEndDate;
+  private String plannedEndDate;
 
   private CycleState cycleState = CycleState.PREPARATION;
   private Collection<Long> companyIds = new ArrayList<>();

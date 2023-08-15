@@ -9,6 +9,7 @@ export class User {
   email: string;
   photo: string;
   active: boolean;
+  admin: boolean;
 
   constructor(
     id: UserId = '',
@@ -19,6 +20,7 @@ export class User {
     department: string = '',
     photo: string = '',
     active: boolean = true,
+    admin: boolean = false,
   ) {
     this.id = id;
     this.givenName = givenName;
@@ -28,5 +30,6 @@ export class User {
     this.email = email.toLowerCase();
     this.photo = photo;
     this.active = active;
+    this.admin = admin;
   }
 }

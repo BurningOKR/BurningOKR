@@ -3,17 +3,15 @@ package org.burningokr.mapper.initialisation;
 import org.burningokr.dto.initialisation.InitStateDto;
 import org.burningokr.model.initialisation.InitState;
 import org.burningokr.model.initialisation.InitStateName;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class InitStateMapperTest {
 
@@ -21,7 +19,7 @@ public class InitStateMapperTest {
   private InitStateDto initStateDto;
   private InitStateMapper initStateMapper;
 
-  @Before
+  @BeforeEach
   public void init() {
     this.initState = new InitState();
     this.initStateDto = new InitStateDto();
@@ -77,7 +75,7 @@ public class InitStateMapperTest {
       assertEquals(initState1.getInitState(), firstInitStateDto.get().getInitState());
       assertEquals(initState2.getInitState(), secondInitStateDto.get().getInitState());
     } else {
-      Assert.fail();
+      fail();
     }
   }
 
@@ -109,7 +107,7 @@ public class InitStateMapperTest {
       assertEquals(initStateDto1.getInitState(), firstInitState.get().getInitState());
       assertEquals(initStateDto2.getInitState(), secondInitState.get().getInitState());
     } else {
-      Assert.fail();
+      fail();
     }
   }
 }

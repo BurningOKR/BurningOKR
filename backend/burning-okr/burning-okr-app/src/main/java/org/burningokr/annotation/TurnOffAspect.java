@@ -8,7 +8,7 @@ import org.burningokr.service.exceptions.ForbiddenException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
-@ConditionalOnExpression("${spring.environment.demo}")
+@ConditionalOnExpression("${system.configuration.demo-mode}")
 @Aspect
 @Component
 public class TurnOffAspect {

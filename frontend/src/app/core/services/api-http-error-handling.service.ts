@@ -100,7 +100,6 @@ export class ApiHttpErrorHandlingService implements OnDestroy {
 
   private getUnauthorizedErrorHandler$<T>(error: HttpErrorResponse): ErrorObservable<T> {
     this.authenticationService.logout();
-    this.authenticationService.redirectToLoginProvider();
 
     return throwError(error);
   }
@@ -158,7 +157,7 @@ export class ApiHttpErrorHandlingService implements OnDestroy {
   }
 
   private logErrorIfUserIsSignedIn(error: HttpErrorResponse): void {
-    if (this.authenticationService.hasValidAccessToken()) {
+    if (this.authenticationService.isUserLoggedIn()) {
       this.logger.error(error);
     }
   }
