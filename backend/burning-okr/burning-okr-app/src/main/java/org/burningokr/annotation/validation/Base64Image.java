@@ -10,10 +10,11 @@ import java.lang.annotation.*;
 @Target( { ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Base64Image {
-    int maxSizeMB = 2;
-    String errorMessage = "Image encoded as base64 string is too large. Maximal size allowed is " + maxSizeMB + " MB";
+    float maxSizeMB() default 2;
 
-    String message() default errorMessage;
+    boolean nullable() default true;
+
+    String message() default "Image encoded as base64 string is too large or null. Maximum size allowed is {maxSizeMB} MB."; // Use the attribute in the message
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
