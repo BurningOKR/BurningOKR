@@ -3,7 +3,7 @@ name: Deploy Prod
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   get-version-number:
