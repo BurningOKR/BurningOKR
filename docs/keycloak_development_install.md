@@ -1,6 +1,8 @@
 # Install Keycloak
-# <span style="color:#E52B50">!!Disclaimer!!</span>
-**This README document is provided for <span style="color:#E52B50">DEVELOPMENT USE ONLY!</span>**
+
+# <span style="color:#E52B50">Disclaimer</span>
+
+**This README document is provided for DEVELOPMENT USE ONLY!**
 
 **The content provided in this Readme file is intended solely for development and informational purposes. It is designed to guide developers and technical users in understanding and implementing the features and functionalities of the described software. <span style=color:#E52B50>This document does not constitute official product documentation and should not be considered exhaustive or definitive.</span>**
 
@@ -12,13 +14,13 @@
 
 **By reading this Readme document, <span style="color:#E52B50">you acknowledge and agree to the terms of this disclaimer</span>. If you do not agree with these terms, we advise you to refrain from using or relying on the information provided within this document for development purposes.</span>**
 
-
 ## Overview
 
-Welcome to the Keycloak Readme! 
+Welcome to the Keycloak Readme!
 This document provides a high-level overview of Keycloak, an open-source identity and access management solution developed by Red Hat. Keycloak simplifies the process of securing applications and services by offering a centralized authentication and authorization platform.
 
 ## What is Keycloak?
+
 Keycloak is a robust and extensible Identity and Access Management (IAM) system that helps organizations manage user identities, authentication, and authorization in a secure and user-friendly manner. It serves as a comprehensive solution for handling user authentication, single sign-on (SSO), and authorization, enabling developers to focus on building applications while delegating user management concerns to Keycloak.
 
 ## Getting started
