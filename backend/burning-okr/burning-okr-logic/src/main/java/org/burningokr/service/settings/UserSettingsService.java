@@ -2,6 +2,7 @@ package org.burningokr.service.settings;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -12,18 +13,16 @@ import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserSettingsService {
 
-  private final Logger logger = LoggerFactory.getLogger(UserSettingsService.class);
   private final UserSettingsRepository userSettingsRepository;
   private final ActivityService activityService;
   private final CompanyService companyService;
@@ -43,12 +42,7 @@ public class UserSettingsService {
       userSettings.setDefaultTeam(getDefaultTeam(user, userSettings.getDefaultOkrCompany()));
       userSettings = userSettingsRepository.save(userSettings);
       activityService.createActivity(userSettings, Action.CREATED);
-      logger.debug(
-        "Created User Settings "
-          + userSettings.getName()
-          + "(id: "
-          + userSettings.getId()
-          + ") ");
+      log.debug("Created User Settings %s (id: %d).".formatted(userSettings.getName(), userSettings.getId()));
     }
     return userSettings;
   }

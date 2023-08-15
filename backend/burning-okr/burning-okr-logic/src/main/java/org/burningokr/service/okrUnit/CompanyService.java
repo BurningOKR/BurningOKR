@@ -2,6 +2,7 @@ package org.burningokr.service.okrUnit;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
@@ -27,8 +28,6 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,11 +36,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
-
-  private final Logger logger = LoggerFactory.getLogger(CompanyService.class);
 
   private final CycleRepository cycleRepository;
   private final CompanyHistoryRepository companyHistoryRepository;
@@ -118,7 +117,7 @@ public class CompanyService {
     okrCompany.setCompanyHistory(history);
 
     okrCompany = companyRepository.save(okrCompany);
-    logger.debug("Created OkrCompany " + okrCompany.getName());
+    log.debug("Created OkrCompany " + okrCompany.getName());
     activityService.createActivity(okrCompany, Action.CREATED);
 
     return okrCompany;
@@ -141,13 +140,13 @@ public class CompanyService {
     referencedOkrCompany.setLabel(updatedOkrCompany.getLabel());
 
     referencedOkrCompany = companyRepository.save(referencedOkrCompany);
-    logger.debug(
-        "Updated OkrCompany "
-            + oldName
-            + " (id: "
-            + referencedOkrCompany.getId()
-            + "), updated name to: +"
-            + referencedOkrCompany.getName());
+    log.debug(
+      String.format(
+        "Updated OkrCompany %s (id: %d). Updated name to: %s.",
+        oldName,
+        referencedOkrCompany.getId(),
+        referencedOkrCompany.getName())
+    );
     activityService.createActivity(referencedOkrCompany, Action.EDITED);
 
     return referencedOkrCompany;
@@ -177,7 +176,7 @@ public class CompanyService {
     for (OkrCompany okrCompanyToDelete : companiesToDelete) {
 
       companyRepository.deleteById(okrCompanyToDelete.getId());
-      logger.debug("Deleted company with id: " + okrCompanyToDelete.getId());
+      log.debug("Deleted OkrCompany with id: " + okrCompanyToDelete.getId());
       activityService.createActivity(okrCompanyToDelete, Action.DELETED);
 
       Cycle cycle = okrCompanyToDelete.getCycle();
@@ -220,14 +219,12 @@ public class CompanyService {
 
     okrDepartment = okrUnitRepository.save(okrDepartment);
 
-    logger.debug(
-        "Created okrDepartment "
-            + okrDepartment.getName()
-            + " into company: "
-            + referencedOkrCompany.getName()
-            + "(id:"
-            + companyId
-            + ")");
+    log.debug(
+      String.format(
+        "Created OkrDepartment %s for OkrCompany %s (id: %d)",
+        okrDepartment.getName(),
+        referencedOkrCompany.getName(),
+        companyId));
     activityService.createActivity(okrDepartment, Action.CREATED);
 
     return okrDepartment;
@@ -244,14 +241,12 @@ public class CompanyService {
     okrBranch.setBranchHistory(createHistory(okrBranch, new OkrBranchHistory(), branchHistoryRepository));
 
     okrBranch = okrUnitRepository.save(okrBranch);
-    logger.debug(
-        "Created okrBranch: "
-            + okrBranch.getName()
-            + " into OkrCompany "
-            + referencedOkrCompany.getName()
-            + "(id:"
-            + companyId
-            + ")");
+    log.debug(
+      String.format(
+        "Created OkrBranch %s for OkrCompany %s (id: %d)",
+        okrBranch.getName(),
+        referencedOkrCompany.getName(),
+        companyId));
     activityService.createActivity(okrBranch, Action.CREATED);
 
     return okrBranch;
@@ -285,14 +280,12 @@ public class CompanyService {
         topicDraft, new OkrTopicDraftHistory(), topicDraftHistoryRepository));
 
     topicDraft = okrTopicDraftRepository.save(topicDraft);
-    logger.debug(
-        "Created Topic Draft: "
-            + topicDraft.getName()
-            + " into department "
-            + referencedOkrCompany.getName()
-            + "(id:"
-            + companyId
-            + ")");
+    log.debug(
+      String.format(
+        "Created TopicDraft %s for OkrCompany %s (id: %d)",
+        topicDraft.getName(),
+        referencedOkrCompany.getName(),
+        companyId));
 
     activityService.createActivity(topicDraft, Action.CREATED);
 
@@ -309,13 +302,13 @@ public class CompanyService {
 
   private void deleteEmptyCycle(Cycle cycle) {
     cycleRepository.deleteById(cycle.getId());
-    logger.debug("Deleted cycle with id: " + cycle.getId());
+    log.debug("Deleted cycle with id %s.".formatted(cycle.getId()));
     activityService.createActivity(cycle, Action.DELETED);
   }
 
   private void deleteEmptyHistory(OkrUnitHistory<OkrCompany> history) {
     companyHistoryRepository.deleteById(history.getId());
-    logger.debug("Deleted cycle with id: " + history.getId());
+    log.debug("Deleted cycle with id %s".formatted(history.getId()));
     activityService.createActivity(history, Action.DELETED);
   }
 }

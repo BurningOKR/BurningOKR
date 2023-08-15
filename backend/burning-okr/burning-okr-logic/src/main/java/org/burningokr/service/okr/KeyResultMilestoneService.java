@@ -1,14 +1,13 @@
 package org.burningokr.service.okr;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.KeyResultMilestone;
 import org.burningokr.repositories.okr.KeyResultMilestoneRepository;
 import org.burningokr.repositories.okr.KeyResultRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +15,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class KeyResultMilestoneService {
@@ -24,7 +24,6 @@ public class KeyResultMilestoneService {
   private final KeyResultRepository keyResultRepository;
   private final ActivityService activityService;
 
-  private final Logger logger = LoggerFactory.getLogger(KeyResultMilestoneService.class);
 
   /**
    * Creates a new KeyResultMilestone for a KeyResult
@@ -41,11 +40,7 @@ public class KeyResultMilestoneService {
     milestone.setParentKeyResult(keyResult);
 
     KeyResultMilestone referencedMilestone = keyResultMilestoneRepository.save(milestone);
-    logger.debug(
-        "Created KeyResultMilestone with id "
-            + referencedMilestone.getId()
-            + " for KeyResult"
-            + keyResult.getId());
+    log.debug("Created KeyResultMilestone with id %d for KeyResult %s (id: %d).".formatted(referencedMilestone.getId(), keyResult.getName(), keyResult.getId()));
 
     activityService.createActivity(referencedMilestone, Action.CREATED);
     return referencedMilestone;
@@ -67,8 +62,7 @@ public class KeyResultMilestoneService {
 
     referencedMilestone = keyResultMilestoneRepository.save(referencedMilestone);
 
-    logger.debug(
-        "Updated KeyResultMilestone "
+    log.debug("Updated KeyResultMilestone %s (id: %d)"
             + referencedMilestone.getName()
             + "(id: "
             + referencedMilestone.getId()

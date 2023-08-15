@@ -2,6 +2,7 @@ package org.burningokr.controller.okr;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.dto.okr.NoteTopicDraftDto;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
@@ -12,14 +13,13 @@ import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.topicDraft.ConvertTopicDraftToTeamService;
 import org.burningokr.service.topicDraft.OkrTopicDraftService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@Slf4j
 @RestApiController
 @RequiredArgsConstructor
 public class TopicDraftController {
@@ -28,7 +28,6 @@ public class TopicDraftController {
   private final DataMapper<OkrDepartment, OkrDepartmentDto> okrDepartmentMapper;
   private final DataMapper<NoteTopicDraft, NoteTopicDraftDto> noteTopicDraftMapper;
   private final ConvertTopicDraftToTeamService convertTopicDraftToTeamService;
-  private final Logger logger = LoggerFactory.getLogger(TopicDraftController.class);
 
   /**
    * API Endpoint to get all TopicDrafts.
@@ -157,8 +156,7 @@ public class TopicDraftController {
     @RequestParam(name = "topicDraftId") long topicDraftId,
     @RequestParam(name = "okrUnitId") long okrUnitId
   ) {
-    logger.debug(
-        "Converting Topic-Draft " + topicDraftId + " to new Department underneath " + okrUnitId);
+    log.debug("Converting Topic-Draft with id %d to new Department underneath %d".formatted(topicDraftId, okrUnitId));
     OkrDepartmentDto okrDepartmentDto =
       okrDepartmentMapper.mapEntityToDto(
         convertTopicDraftToTeamService.convertTopicDraftToTeam(topicDraftId, okrUnitId));

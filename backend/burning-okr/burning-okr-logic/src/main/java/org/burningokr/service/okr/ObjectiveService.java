@@ -122,12 +122,9 @@ public class ObjectiveService {
 
     referencedObjective = objectiveRepository.save(referencedObjective);
 
-    log.debug(
-        "Updated objective: "
-            + updatedObjective.getName()
-            + "(id:"
-            + updatedObjective.getId()
-            + ").");
+
+    log.debug("Updated objective: %s (id: %d)".formatted(updatedObjective.getName(), updatedObjective.getId()));
+
     activityService.createActivity(referencedObjective, Action.EDITED);
     return referencedObjective;
   }
@@ -144,12 +141,7 @@ public class ObjectiveService {
     for (Objective subObjective : referencedObjective.getSubObjectives()) {
       subObjective.setParentObjective(null);
       objectiveRepository.save(subObjective);
-      log.debug(
-          "Removed parent objective from "
-              + referencedObjective.getName()
-              + "(id:"
-              + referencedObjective.getId()
-              + ").");
+      log.debug("Removed parent objective from %s (id: %d)".formatted(referencedObjective.getName(), referencedObjective.getId()));
     }
 
     if (referencedObjective.getParentOkrUnit() != null) {
@@ -186,14 +178,7 @@ public class ObjectiveService {
                     keyResultMilestoneService.createKeyResultMilestone(id, milestone))
             .collect(Collectors.toList()));
 
-    log.debug(
-        "Created Key Result "
-            + keyResult.getName()
-            + " in Objective "
-            + referencedObjective.getName()
-            + "(id:"
-            + objectiveId
-            + ").");
+    log.debug("Created Key Result %s in Objective %s (id: %d)".formatted(keyResult.getName(), referencedObjective.getName(), objectiveId));
     activityService.createActivity(keyResult, Action.CREATED);
     keyResultHistoryService.createKeyResultHistory(keyResult);
     return keyResult;
@@ -239,7 +224,7 @@ public class ObjectiveService {
       objectiveIdList.add(currentObjective.getId());
     }
 
-    while (objectiveIdList.size() != 0) {
+    while (!objectiveIdList.isEmpty()) {
       int currentId = objectiveIdList.size() - 1;
       if (sequenceList.contains(objectiveIdList.get(currentId))) {
         objectiveIdList.remove(currentId);
@@ -257,19 +242,11 @@ public class ObjectiveService {
                 .getValue());
     if (objective.getKeyResults().size() >= maxKeyResultsPerObjective) {
       log.error(
-          "Can not add more Key Results to Objective: "
-              + objective.getName()
-              + "(id:"
-              + objective.getId()
-              + ")."
-              + " Max number of Key Results in one Objective is: "
-              + maxKeyResultsPerObjective);
+          "Can not add more Key Results to Objective: %s (id: %d). Max number of Key Results in one Objective is: %f."
+                  .formatted(objective.getName(), objective.getId(), maxKeyResultsPerObjective));
       throw new KeyResultOverflowException(
-          "No more Key Results can be appended to Objective with id "
-              + objective.getId()
-              + ". Max value of Key Results are "
-              + maxKeyResultsPerObjective
-              + ".");
+          "No more Key Results can be appended to Objective with id %d. Max value of Key Results are %f."
+                  .formatted(objective.getId(), maxKeyResultsPerObjective));
     }
   }
 
