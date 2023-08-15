@@ -23,10 +23,7 @@ public class ChartCreationOptionsMapper
     entity.setChartType(dto.getChartType());
     entity.setTeamIds(dto.getSelectedTeamIds());
 
-    log.debug(
-      "Mapped ChartCreationOptionsDto (id:"
-        + dto.getId()
-        + ") successful into ChartCreationOption.");
+    log.debug("Mapped ChartCreationOptionsDto (id: %d) successful into ChartCreationOption.".formatted(dto.getId()));
 
     return entity;
   }
@@ -40,10 +37,7 @@ public class ChartCreationOptionsMapper
     dto.setChartType(entity.getChartType());
     dto.setSelectedTeamIds(entity.getTeamIds());
 
-    log.debug(
-      "Mapped ChartCreationOptions (id:"
-        + entity.getId()
-        + ") successful into ChartCreationOptionsDto.");
+    log.debug("Mapped ChartCreationOptions (id: %d) successful into ChartCreationOptionsDto.".formatted(entity.getId()));
 
     return dto;
   }

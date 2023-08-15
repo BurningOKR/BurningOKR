@@ -1,15 +1,14 @@
 package org.burningokr.service.okr;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.okr.Task;
 import org.burningokr.repositories.okr.TaskRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class TaskValidator {
-  private final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
   /**
-   * Checks, whether a task is self-referencing or if its predecessor is located in another collumn
+   * Checks, whether a task is self-referencing or if its predecessor is located in another column
    * or has a different state
    */
   public Task validateTask(Task task, TaskRepository taskRepository) throws Exception {
@@ -17,15 +16,15 @@ public class TaskValidator {
       return null;
     }
     if (task.getPreviousTask().getId().equals(task.getId())) {
-      throw new Exception("Aufgabe ist sein eigener Vorgänger");
+      throw new Exception("Task is its own predecessor.");
     }
 
-    Task newTask = taskRepository.findByIdOrThrow(task.getPreviousTask().getId());
-    logger.debug("Validation - previous and current task have different ids");
-    if (!(task.getTaskState().getId().equals(newTask.getTaskState().getId()))) {
-      throw new Exception("Aufgaben sind in unterschiedlichen Spalten/Zuständen");
+    Task prevTask = taskRepository.findByIdOrThrow(task.getPreviousTask().getId());
+    log.debug("Validation - Previous and current task have different ids");
+    if (!(task.getTaskState().getId().equals(prevTask.getTaskState().getId()))) {
+      throw new Exception("Tasks are in different states");
     }
 
-    return newTask;
+    return prevTask;
   }
 }

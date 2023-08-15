@@ -1,6 +1,7 @@
 package org.burningokr.service.okr;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
@@ -15,8 +16,6 @@ import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +24,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class KeyResultService {
-
-  private final Logger logger = LoggerFactory.getLogger(KeyResultService.class);
 
   private final KeyResultRepository keyResultRepository;
   private final NoteKeyResultRepository noteKeyResultRepository;
@@ -71,12 +69,7 @@ public class KeyResultService {
     if (keyResultProgressChanged) {
       keyResultHistoryService.updateKeyResultHistory(referencedKeyResult);
     }
-    logger.debug(
-        "Updated Key Result "
-            + referencedKeyResult.getName()
-            + "(id:"
-            + referencedKeyResult.getId()
-            + ")");
+    log.debug("Updated Key Result %s (id: %d).".formatted(referencedKeyResult.getName(), referencedKeyResult.getId()));
     activityService.createActivity(referencedKeyResult, Action.EDITED);
     return referencedKeyResult;
   }
@@ -173,7 +166,7 @@ public class KeyResultService {
           keyResult.setSequence(currentOrder);
           keyResultRepository.save(keyResult);
           activityService.createActivity(keyResult, Action.EDITED);
-          logger.debug("Update sequence of KeyResult with id " + keyResult.getId());
+          log.debug("Update sequence of KeyResult with id %d.".formatted(keyResult.getId()));
         });
   }
 

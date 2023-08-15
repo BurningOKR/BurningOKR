@@ -1,6 +1,7 @@
 package org.burningokr.service.okr;
 
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.okr.Revision;
 import org.burningokr.model.okr.RevisionValueType;
 import org.burningokr.model.revision.IRevisionInformation;
@@ -11,8 +12,6 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +21,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class RevisionService<R extends IRevisionInformation> {
 
@@ -32,7 +32,6 @@ public class RevisionService<R extends IRevisionInformation> {
   }
 
   private EntityManager entityManager;
-  private final Logger logger = LoggerFactory.getLogger(RevisionService.class);
 
   @Autowired
   public RevisionService(UserService userService, EntityManager entityManager) {
@@ -117,7 +116,7 @@ public class RevisionService<R extends IRevisionInformation> {
         }
       }
 
-      // Validate, that the value has visibly changed, otherwise discard (e. g. NULL -> empty
+      // Validate, that the value has visibly changed, otherwise discard (e.g. NULL -> empty
       // string)
       if (!Objects.equals(revision.getOldValue(), revision.getNewValue())) {
         revisionList.add(revision);
@@ -213,13 +212,12 @@ public class RevisionService<R extends IRevisionInformation> {
 
       // Abfangen von Fehlern (Aufruf scheitert, nicht gefunden, ..)
     } catch (Exception e) {
-      logger.error(
-          "Error finding / calling the getter for '"
-              + fieldToRetrieve.getName()
-              + "' on "
-              + objectWithFields
-              + " --> "
-              + e);
+      log.error(
+        String.format(
+          "Error finding/calling getter for field '%s' on %s --> %s",
+          fieldToRetrieve.getName(),
+          objectWithFields,
+          e));
     }
 
     return fieldValue;
