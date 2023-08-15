@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: get_version_number
-        run: echo version=$(head -n 1 version.txt) >> $GITHUB_OUTPUT
+        run: echo version_no=$(head -n 1 version.txt) >> $GITHUB_OUTPUT
       - id: get_major_version_number
         run: echo "version_no_major=$(cut -d '.' -f 1 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
       - id: get_minor_version_number
