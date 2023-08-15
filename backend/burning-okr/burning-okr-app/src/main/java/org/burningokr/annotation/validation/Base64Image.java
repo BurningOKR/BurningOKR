@@ -14,7 +14,7 @@ public @interface Base64Image {
 
     boolean nullable() default true;
 
-    String message() default "Image encoded as base64 string is too large or null. Maximum size allowed is {maxSizeMB} MB."; // Use the attribute in the message
+    String message() default "Image encoded as base64 string is too large or null. Maximum size allowed is {maxSizeMB} MB.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
