@@ -14,7 +14,7 @@ import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnit.OkrChildUnitService;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.burningokr.service.security.AuthorizationUserContextService;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,8 +39,6 @@ public class KeyResultServiceTest {
   @Mock
   private NoteKeyResultRepository noteKeyResultRepository;
   @Mock
-  private AuthorizationUserContextService userContextService;
-  @Mock
   private EntityCrawlerService entityCrawlerService;
   @Mock
   private ActivityService activityService;
@@ -50,6 +48,8 @@ public class KeyResultServiceTest {
   private KeyResultMilestoneService keyResultMilestoneService;
   @Mock
   private KeyResultHistoryService keyResultHistoryService;
+  @Mock
+  private AuthenticationUserContextService authenticationUserContextService;
   @Mock
   private OkrChildUnitService okrChildUnitService;
   @Mock
@@ -412,7 +412,7 @@ public class KeyResultServiceTest {
     User myUser = new User();
     UUID myUserId = new UUID(8, 10);
     myUser.setId(myUserId);
-    when(userContextService.getAuthenticatedUser()).thenReturn(myUser);
+    when(authenticationUserContextService.getAuthenticatedUser()).thenReturn(myUser);
     when(noteKeyResultRepository.save(noteKeyResult)).thenReturn(noteKeyResult);
 
     keyResultService.createNote(noteKeyResult);
