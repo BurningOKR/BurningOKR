@@ -1,16 +1,15 @@
 package org.burningokr.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class StartupLoggerService {
-  private final Logger logger = LoggerFactory.getLogger("Startup");
   @Autowired
   private BuildProperties buildProperties;
 
@@ -30,6 +29,6 @@ public class StartupLoggerService {
         .append("                                 |___/                      \n")
         .append("Version: v{}")
         .toString();
-    logger.info(burning_okr_message, buildProperties.getVersion());
+    log.info(burning_okr_message, buildProperties.getVersion());
   }
 }

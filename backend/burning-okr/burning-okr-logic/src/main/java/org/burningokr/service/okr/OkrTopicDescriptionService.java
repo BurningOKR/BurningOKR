@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.OkrTopicDescription;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -17,14 +18,13 @@ import org.hibernate.event.spi.PostCommitDeleteEventListener;
 import org.hibernate.event.spi.PostDeleteEvent;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.persister.entity.EntityPersister;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OkrTopicDescriptionService implements PostCommitDeleteEventListener {
@@ -33,7 +33,6 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
   private final OkrDepartmentRepository okrDepartmentRepository;
   private final ActivityService activityService;
   private final EntityManagerFactory entityManagerFactory;
-  private final Logger logger = LoggerFactory.getLogger(OkrTopicDescriptionService.class);
 
   @PostConstruct
   private void init() {
@@ -62,27 +61,26 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
   public OkrTopicDescription updateOkrTopicDescription(
     OkrTopicDescription okrTopicDescription
   ) {
-    OkrTopicDescription existing = findById(okrTopicDescription.getId());
+    OkrTopicDescription description = findById(okrTopicDescription.getId());
 
-    existing.setName(okrTopicDescription.getName());
-    existing.setStakeholders(okrTopicDescription.getStakeholders());
-    existing.setStartTeam(okrTopicDescription.getStartTeam());
-    existing.setHandoverPlan(okrTopicDescription.getHandoverPlan());
-    existing.setResources(okrTopicDescription.getResources());
-    existing.setDependencies(okrTopicDescription.getDependencies());
-    existing.setBeginning(okrTopicDescription.getBeginning());
-    existing.setDelimitation(okrTopicDescription.getDelimitation());
-    existing.setContributesTo(okrTopicDescription.getContributesTo());
-    existing.setDescription(okrTopicDescription.getDescription());
-    existing.setInitiatorId(okrTopicDescription.getInitiatorId());
+    description.setName(okrTopicDescription.getName());
+    description.setStakeholders(okrTopicDescription.getStakeholders());
+    description.setStartTeam(okrTopicDescription.getStartTeam());
+    description.setHandoverPlan(okrTopicDescription.getHandoverPlan());
+    description.setResources(okrTopicDescription.getResources());
+    description.setDependencies(okrTopicDescription.getDependencies());
+    description.setBeginning(okrTopicDescription.getBeginning());
+    description.setDelimitation(okrTopicDescription.getDelimitation());
+    description.setContributesTo(okrTopicDescription.getContributesTo());
+    description.setDescription(okrTopicDescription.getDescription());
+    description.setInitiatorId(okrTopicDescription.getInitiatorId());
 
-    existing = okrTopicDescriptionRepository.save(existing);
+    description = okrTopicDescriptionRepository.save(description);
 
-    logger.debug(
-        "Updated OkrTopicDescription " + existing.getName() + "(id:" + existing.getId() + ")");
-    activityService.createActivity(existing, Action.EDITED);
+    log.debug("Updated OkrTopicDescription %s (id: %d).".formatted(description.getName(), description.getId()));
+    activityService.createActivity(description, Action.EDITED);
 
-    return existing;
+    return description;
   }
 
   /**
@@ -119,12 +117,11 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
     if (count == 0) {
       deleteOkrTopicDescription(okrTopicDescriptionId);
     } else {
-      logger.debug(
-          "OkrTopicDescription with Id "
-              + okrTopicDescriptionId
-              + " was not deleted, because it is referenced by"
-              + count
-              + " departments.");
+      log.debug(
+        String.format(
+          "OkrTopicDescription with id %d was not deleted because it is referenced by %d departments.",
+          okrTopicDescriptionId,
+          count));
     }
   }
 
@@ -175,10 +172,10 @@ public class OkrTopicDescriptionService implements PostCommitDeleteEventListener
       entityManager.remove(existing);
       entityManager.flush();
       transaction.commit();
-      logger.debug("Deleted OkrTopicDescription with Id " + existing.getId());
+      log.debug("Deleted OkrTopicDescription with id %d.".formatted(existing.getId()));
       activityService.createActivity(existing, Action.DELETED);
     } catch (Exception e) {
-      logger.error("Unable to delete OkrTopicDescription with Id " + okrTopicDescriptionId);
+      log.error("Unable to delete OkrTopicDescription with id %d.".formatted(okrTopicDescriptionId));
     } finally {
       if (transaction.isActive()) {
         transaction.rollback();

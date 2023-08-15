@@ -1,22 +1,20 @@
 package org.burningokr.service.excel;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.burningokr.model.excel.TeamMemberRow;
 import org.burningokr.service.messages.Messages;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
-
+@Slf4j
 @Service
 public class XlsxExportContactsFileCreatorService {
 
   private final Collection<String> headlines;
   private final TeamMemberRowBuilderService teamMemberRowBuilderService;
   private final GenericXlsxFileCreatorService<TeamMemberRow> genericXlsxFileCreatorService;
-  private final Logger logger = LoggerFactory.getLogger(XlsxExportContactsFileCreatorService.class);
 
   /**
    * Initializes XlsxExportEmailFileCreatorService.
@@ -55,8 +53,7 @@ public class XlsxExportContactsFileCreatorService {
     Workbook workbook =
       genericXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, "okr-members");
 
-    logger.info(
-      "Created excel file with member information about okr team with ID: " + departmentId);
+    log.info("Created excel file with member information about okr team with id %d.".formatted(departmentId));
 
     return workbook;
   }
@@ -75,7 +72,7 @@ public class XlsxExportContactsFileCreatorService {
     Workbook workbook =
       genericXlsxFileCreatorService.createWorkbook(teamMemberRows, headlines, "okr-members");
 
-    logger.info("Created excel file with member information about company with ID: " + companyId);
+    log.info("Created excel file with member information about company with id %d.".formatted(companyId));
 
     return workbook;
   }

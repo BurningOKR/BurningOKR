@@ -1,6 +1,7 @@
 package org.burningokr.service.okrUnitUtil;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.TaskBoard;
@@ -13,8 +14,6 @@ import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 import org.burningokr.repositories.settings.UserSettingsRepository;
 import org.burningokr.service.okr.TaskBoardService;
 import org.burningokr.service.okrUnit.departmentservices.BranchHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -24,19 +23,19 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Collection;
 import java.util.HashMap;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CyclePreparationCloningService {
 
-  private final Logger logger = LoggerFactory.getLogger(CyclePreparationCloningService.class);
   private final CompanyRepository companyRepository;
   private final OkrUnitRepository<OkrChildUnit> subOkrUnitRepository;
   private final OkrDepartmentRepository okrDepartmentRepository;
   private final ObjectiveRepository objectiveRepository;
   private final UserSettingsRepository userSettingsRepository;
   private final TaskBoardService taskBoardService;
-  private HashMap<Objective, Objective> clonedObjectives = new HashMap<>();
+  private final HashMap<Objective, Objective> clonedObjectives = new HashMap<>();
 
   public void cloneCompanyListIntoCycleForPreparation(
     Collection<OkrCompany> companiesToClone, Cycle cycleToCloneInto
@@ -96,7 +95,7 @@ public class CyclePreparationCloningService {
       subOkrUnitRepository.save(copy);
     }
 
-    this.logger.debug("cloneChildUnitIntoParentUnitForPreparation - after taskboard");
+    log.debug("cloneChildUnitIntoParentUnitForPreparation - after taskboard");
     cloneObjectiveListIntoOkrUnitForPreparation(okrChildUnitToClone.getObjectives(), copy);
 
     if (okrChildUnitToClone instanceof OkrParentUnit) {
@@ -160,6 +159,6 @@ public class CyclePreparationCloningService {
   }
 
   private void logOkrDepartment(OkrDepartment okrDepartment) {
-    this.logger.debug("Id" + okrDepartment.getId() + " Name: " + okrDepartment.getName());
+    log.debug("ID: %d, Name: %s".formatted(okrDepartment.getId(), okrDepartment.getName()));
   }
 }

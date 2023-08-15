@@ -2,6 +2,7 @@ package org.burningokr.controller.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.exceptions.InvalidDtoException;
 import org.burningokr.service.exceptions.*;
 import org.slf4j.Logger;
@@ -21,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
   /**
    * Global handler for JpaObjectRetrivalFailureExecption.
@@ -37,10 +38,11 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, EntityNotFoundException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "EntityNotFoundException handler executed -> HTTP 404 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
+    log.error(
+      String.format(
+        "EntityNotFoundException handler executed -> HTTP 404 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
     ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorInformation);
   }
@@ -57,10 +59,11 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, EntityNotFoundException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "EntityNotFoundException handler executed -> HTTP 404 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
+    log.error(
+      String.format(
+        "EntityNotFoundException handler executed -> HTTP 404 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
     ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorInformation);
   }
@@ -77,11 +80,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, IllegalArgumentException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "IllegalArgumentException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "IllegalArgumentException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -97,11 +101,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, InvalidDeleteRequestException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "IllegalArgumentException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "IllegalArgumentException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -117,11 +122,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, InvalidDtoException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "InvalidDtoException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "InvalidDtoException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -137,11 +143,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, InvalidEmailAddressException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "InvalidEmailAddressException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "InvalidEmailAddressException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -157,11 +164,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, KeyResultOverflowException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "KeyResultOverflowException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "KeyResultOverflowException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -177,11 +185,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, PutIdConflictException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "PutIdConflictException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "PutIdConflictException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -197,11 +206,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "AccessDeniedException handler executed -> HTTP 403 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "AccessDeniedException handler executed -> HTTP 403 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorInformation);
   }
 
@@ -217,11 +227,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "UnauthorizedToChangeNoteException handler executed -> HTTP 500 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "UnauthorizedToChangeNoteException handler executed -> HTTP 500 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorInformation);
   }
 
@@ -237,11 +248,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "MissingAnnotationException handler excecuted -> HTTP 500 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "MissingAnnotationException handler executed -> HTTP 500 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorInformation);
   }
 
@@ -257,11 +269,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "IdDeviationException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "IdDeviationException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -275,11 +288,12 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(ForbiddenException.class)
   public ResponseEntity handleForbiddenException(HttpServletRequest request, RuntimeException ex) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "ForbiddenException handler executed -> HTTP 403 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "ForbiddenException handler executed -> HTTP 403 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorInformation);
   }
 
@@ -295,11 +309,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, SendingMailFailedException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "SendingMailFailedException handler executed -> HTTP 500 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "SendingMailFailedException handler executed -> HTTP 500 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorInformation);
   }
 
@@ -313,11 +328,12 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(RuntimeException.class)
   public ResponseEntity handleRuntimeExeption(HttpServletRequest request, RuntimeException ex) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "RuntimeException handler executed -> HTTP 500 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "RuntimeException handler executed -> HTTP 500 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorInformation);
   }
 
@@ -333,11 +349,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, InvalidInitStateException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "InvalidInitStateException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "InvalidInitStateException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -353,11 +370,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, DuplicateTeamMemberException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "DuplicateTeamMemberException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "DuplicateTeamMemberException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 
@@ -373,11 +391,12 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, DuplicateEmailException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    logger.error(
-      "DuplicateEmailException handler executed -> HTTP 400 response - ID: "
-        + errorInformation.getErrorId(),
-      ex
-    );
+    log.error(
+      String.format(
+        "DuplicateEmailException handler executed -> HTTP 400 response - ID: %s, %s",
+        errorInformation.getErrorId(),
+        ex)
+    ); // <- ex im log, für stacktrace
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorInformation);
   }
 

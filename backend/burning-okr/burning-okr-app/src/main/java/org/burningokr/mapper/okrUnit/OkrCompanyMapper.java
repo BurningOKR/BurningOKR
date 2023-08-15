@@ -1,5 +1,6 @@
 package org.burningokr.mapper.okrUnit;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.okrUnit.OkrCompanyDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.cycles.Cycle;
@@ -7,17 +8,14 @@ import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.okrUnitHistories.OkrCompanyHistory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Slf4j
 @Service
 public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
-
-  private final Logger logger = LoggerFactory.getLogger(OkrCompanyMapper.class);
 
   @Override
   public OkrCompany mapDtoToEntity(OkrCompanyDto okrCompanyDto) {
@@ -45,7 +43,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
     }
     okrCompany.setCompanyHistory(history);
 
-    logger.debug("Mapped OkrCompanyDto (id:" + okrCompanyDto.getOkrUnitId() + ") to OkrCompany.");
+    log.debug("Mapped OkrCompanyDto (id: %d) to OkrCompany.".formatted(okrCompanyDto.getOkrUnitId()));
     return okrCompany;
   }
 
@@ -72,7 +70,7 @@ public class OkrCompanyMapper implements DataMapper<OkrCompany, OkrCompanyDto> {
     }
     okrCompanyDto.setObjectiveIds(objectiveIds);
 
-    logger.debug("Mapped OkrCompany (id:" + okrCompany.getId() + ") to OkrCompanyDto.");
+    log.debug("Mapped OkrCompany (id: %d) to OkrCompanyDto.".formatted(okrCompany.getId()));
     return okrCompanyDto;
   }
 

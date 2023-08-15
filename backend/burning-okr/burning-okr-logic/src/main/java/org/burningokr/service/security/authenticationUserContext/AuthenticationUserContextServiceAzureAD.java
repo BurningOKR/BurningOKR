@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @ConditionalOnProperty(value = "system.configuration.provider", havingValue = "azureAD")
@@ -35,8 +36,16 @@ public class AuthenticationUserContextServiceAzureAD extends AuthenticationUserC
   }
 
   @Override
-  protected ArrayList<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
-    return new ArrayList<>(); // TODO (C.K. 07.8.2023): implement when field name is known
+  protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
+    var userRoles = (ArrayList<?>) userToken.getClaims().get("roles");
+
+    if (userRoles == null) {
+      return new ArrayList<>();
+    } else if (!checkIfListContainsStrings(userRoles)) {
+      throw new InvalidTokenException("Not all roles are of type String");
+    }
+
+    return userRoles.stream().map(role -> (String) role).toList();
   }
 
   /*
@@ -57,6 +66,6 @@ public class AuthenticationUserContextServiceAzureAD extends AuthenticationUserC
       }
     }
 
-    return validateString(userToken.getClaims().get(attributeName), attributeName); // TODO no claims in azure ad token present
+    return validateString(userToken.getClaims().get(attributeName), attributeName);
   }
 }

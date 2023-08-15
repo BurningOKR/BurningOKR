@@ -29,7 +29,7 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
     cycle.setCycleState(cycleDto.getCycleState());
     cycle.setVisible(cycleDto.getIsVisible());
 
-    log.debug("Mapped CycleDto (id:" + cycleDto.getId() + ") to Cycle.");
+    log.debug("Mapped CycleDto (id: %d) to Cycle.".formatted(cycleDto.getId()));
     return cycle;
   }
 
@@ -50,7 +50,7 @@ public class CycleMapper implements DataMapper<Cycle, CycleDto> {
     }
     cycleDto.setCompanyIds(companyIds);
 
-    log.debug("Mapped Cycle (id:" + cycle.getId() + ") to CycleDto.");
+    log.debug("Mapped Cycle (id: %d) to CycleDto.".formatted(cycleDto.getId()));
     return cycleDto;
   }
 

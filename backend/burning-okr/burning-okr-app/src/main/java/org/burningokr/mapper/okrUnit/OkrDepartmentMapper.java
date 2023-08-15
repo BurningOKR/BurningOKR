@@ -1,21 +1,20 @@
 package org.burningokr.mapper.okrUnit;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Slf4j
 @Service
 public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartmentDto> {
 
-  private final Logger logger = LoggerFactory.getLogger(OkrDepartmentMapper.class);
 
   @Override
   public OkrDepartment mapDtoToEntity(OkrDepartmentDto okrDepartmentDto) {
@@ -33,8 +32,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
 
     okrDepartment.setObjectives(new ArrayList<>());
 
-    logger.debug(
-        "Mapped OkrDepartmentDto (id:" + okrDepartmentDto.getOkrUnitId() + ") to OkrDepartment.");
+    log.debug("Mapped OkrDepartmentDto (id: %d) to OkrDepartment.".formatted(okrDepartmentDto.getOkrUnitId()));
     return okrDepartment;
   }
 
@@ -60,7 +58,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
     okrDepartmentDto.setOkrTopicSponsorId(okrDepartment.getOkrTopicSponsorId());
     okrDepartmentDto.setOkrMemberIds(okrDepartment.getOkrMemberIds());
 
-    logger.debug("Mapped OkrDepartment (id:" + okrDepartment.getId() + ") to OkrDepartmentDto.");
+    log.debug("Mapped OkrDepartment (id: %d) to OkrDepartmentDto.".formatted(okrDepartment.getId()));
     return okrDepartmentDto;
   }
 
