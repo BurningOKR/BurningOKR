@@ -39,6 +39,8 @@ jobs:
   create-release:
     needs: get-version-number
     uses: ./.github/workflows/create-release.yml
+    with:
+      version-number: ${{ needs.get-version-number.outputs.version-no }}
 
 #  deploy-prod:
 #    needs: build-prod-images
