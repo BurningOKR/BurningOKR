@@ -50,13 +50,8 @@ public class TaskBoardService {
     }
 
     taskBoard = taskBoardRepository.save(taskBoard);
-
-    for (TaskState state : taskStateRepository.saveAll(states)) {
-      states.add(state);
-    }
-
-    taskBoard.setAvailableStates(states);
-    return taskBoardRepository.save(taskBoard);
+    taskStateRepository.saveAll(states);
+    return taskBoard;
   }
 
   @Transactional
