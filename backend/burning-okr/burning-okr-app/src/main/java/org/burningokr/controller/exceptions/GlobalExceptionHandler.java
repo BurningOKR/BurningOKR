@@ -384,11 +384,19 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Map<String, List<String>>> handleValidationErrors(MethodArgumentNotValidException ex) {
     List<String> errors = ex.getBindingResult().getFieldErrors()
-            .stream().map(FieldError::getDefaultMessage).collect(Collectors.toList());
-    return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+            .stream().map(this::constructErrorMessage).collect(Collectors.toList());
+    return new ResponseEntity<>(createErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
   }
 
-  private Map<String, List<String>> getErrorsMap(List<String> errors) {
+  private String constructErrorMessage(FieldError error) {
+    return String.format(
+      "Regarding field '%s.%s': %s",
+      error.getObjectName(),
+      error.getField(),
+      error.getDefaultMessage());
+  }
+
+  private Map<String, List<String>> createErrorsMap(List<String> errors) {
     Map<String, List<String>> errorResponse = new HashMap<>();
     errorResponse.put("errors", errors);
     return errorResponse;
