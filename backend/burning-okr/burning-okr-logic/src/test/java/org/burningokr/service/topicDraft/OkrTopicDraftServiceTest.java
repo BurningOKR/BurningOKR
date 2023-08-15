@@ -292,6 +292,35 @@ public class OkrTopicDraftServiceTest {
     //Assert
     verify(okrTopicDraftRepositoryMock).save(okrTopicDraftMock);
     assertEquals(okrTopicDraftMock2, okrTopicDraftMock);
+    assertEquals(okrTopicDraftMock2.getBeginning(), okrTopicDraftMock.getBeginning());
+    assertEquals(okrTopicDraftMock2.getContributesTo(), okrTopicDraftMock.getContributesTo());
+    assertEquals(okrTopicDraftMock2.getCurrentStatus(), okrTopicDraftMock.getCurrentStatus());
+    assertEquals(okrTopicDraftMock2.getDelimitation(), okrTopicDraftMock.getDelimitation());
+    assertEquals(okrTopicDraftMock2.getDependencies(), okrTopicDraftMock.getDependencies());
+    assertEquals(okrTopicDraftMock2.getHandoverPlan(), okrTopicDraftMock.getHandoverPlan());
+    assertEquals(okrTopicDraftMock2.getName(), okrTopicDraftMock.getName());
+    assertEquals(okrTopicDraftMock2.getParentUnit(), okrTopicDraftMock.getParentUnit());
+    assertEquals(okrTopicDraftMock2.getResources(), okrTopicDraftMock.getResources());
+    assertEquals(okrTopicDraftMock2.getStakeholders(), okrTopicDraftMock.getStakeholders());
+    assertEquals(okrTopicDraftMock2.getStartTeam(), okrTopicDraftMock.getStartTeam());
   }
+  @Test
+  public void updateOkrTopicDraftStatus_shouldUpdate() {
+    //Arrange
+    okrTopicDraftMock2.setCurrentStatus(OkrTopicDraftStatusEnum.submitted);
+
+    doReturn(okrTopicDraftMock).when(okrTopicDraftRepositoryMock).findByIdOrThrow(okrTopicDraftMock.getId());
+    doReturn(okrTopicDraftMock).when(okrTopicDraftRepositoryMock).save(okrTopicDraftMock);
+
+
+    //Act
+    okrTopicDraftService.updateOkrTopicDraftStatus(okrTopicDraftMock.getId(), okrTopicDraftMock2);
+
+    //Assert
+    verify(okrTopicDraftRepositoryMock).save(okrTopicDraftMock);
+    assertEquals(okrTopicDraftMock2, okrTopicDraftMock);
+    assertEquals(okrTopicDraftMock2.getCurrentStatus(), okrTopicDraftMock.getCurrentStatus());
+  }
+
 
 }
