@@ -1,3 +1,7 @@
-1.5.2
+2.0.0
 
-- Fix: Wrong Ms-Sql Migration
+- Breaking Changes: removed local auth
+- Feature: added Keycloak support and switched to OIDC
+- Updated Spring Boot to version 3.X
+- Updated Gradle to version 7.X
+- Updated Java to JDK 17
