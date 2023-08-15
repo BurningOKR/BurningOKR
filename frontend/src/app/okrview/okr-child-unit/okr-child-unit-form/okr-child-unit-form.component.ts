@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NEVER } from 'rxjs';
+import { NEVER, Observable } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
@@ -10,6 +10,8 @@ import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DownsampleUploadedImageService } from '../../../shared/services/helper/downsample-uploaded-image.service';
+import { switchMap } from 'rxjs/operators';
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -28,7 +30,7 @@ export class OkrChildUnitFormComponent {
   childUnitForm: FormGroup;
   title: string;
   UnitType = UnitType;
-  imageBase64: string;
+  imageFile: File;
 
   constructor(
     private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
@@ -36,6 +38,7 @@ export class OkrChildUnitFormComponent {
     private departmentMapper: DepartmentMapper,
     private okrBranchMapper: OkrBranchMapper,
     private translate: TranslateService,
+    private downsampleUploadedImageService: DownsampleUploadedImageService,
     @Inject(MAT_DIALOG_DATA) protected formData: OkrChildUnitFormData,
   ) {
     this.childUnitForm = new FormGroup({
@@ -66,46 +69,7 @@ export class OkrChildUnitFormComponent {
   }
 
   onChange(event) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      console.log(file.size);
-      const reader: FileReader = new FileReader();
-      reader.onload = e => {
-        // Create an <img> element to load and process the image
-        const imgElement: HTMLImageElement = document.createElement('img');
-        imgElement.src = e.target.result as string;
-        imgElement.onload = () => {
-          //When the image is loaded, downsample it by a factor of 4 (0.25)
-          this.downsampleImage(imgElement, 0.25);
-        };
-      };
-      // Read the file as a data URL
-      reader.readAsDataURL(file);
-    }
-  }
-
-  downsampleImage(originalImage: HTMLImageElement, scaleFactor: number): void {
-    // Create a canvas element and get its 2D context
-    const canvas: HTMLCanvasElement = document.createElement('canvas');
-    const context: CanvasRenderingContext2D = canvas.getContext('2d');
-    // Set the canvas dimensions based on the desired scale factor
-    canvas.width = originalImage.width * scaleFactor;
-    canvas.height = originalImage.height * scaleFactor;
-    // Draw the original image onto the canvas, scaling it down
-    context.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
-    // Convert the canvas content to a downsized data URL (JPEG format here)
-    // Now you can use the downsized data URL as needed
-    // For example, you can display it in an <img> element
-
-    //const downsampledDataURL: string = canvas.toDataURL('image/jpeg');
-    // const imgElement: HTMLImageElement = document.createElement('img');
-    // imgElement.src = downsampledDataURL;
-    // document.body.appendChild(imgElement);
-
-    const base64String: string = canvas.toDataURL('image/jpeg');
-    const tempArray: string[] = base64String.split(',');
-    this.imageBase64 = tempArray[1];
+    this.imageFile = event.target.files[0];
   }
 
   deleteAvatar() {
@@ -130,11 +94,20 @@ export class OkrChildUnitFormComponent {
     childUnit.name = this.childUnitForm.get('name').value;
     childUnit.label = this.childUnitForm.get('label').value;
     childUnit.isActive = this.childUnitForm.get('isActive').value;
-    if (this.imageBase64 != null) {
-      childUnit.photo = this.imageBase64;
-    }
 
-    this.dialogRef.close(this.okrUnitService.putOkrChildUnit$(childUnit));
+    let childUnit$: Observable<OkrChildUnit>;
+
+    if (this.imageFile != null) {
+      childUnit$ = this.downsampleUploadedImageService.uploadImage(this.imageFile).pipe(switchMap(base64ImageString => {
+        childUnit.photo = base64ImageString;
+
+        return this.okrUnitService.putOkrChildUnit$(childUnit);
+      }));
+    } else {
+      childUnit$ = this.okrUnitService.putOkrChildUnit$(childUnit);
+    }
+    console.log(childUnit$);
+    this.dialogRef.close(childUnit$);
   }
 
   createChildUnit(): void {
