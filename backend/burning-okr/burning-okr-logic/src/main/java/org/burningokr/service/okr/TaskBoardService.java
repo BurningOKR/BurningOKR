@@ -42,15 +42,12 @@ public class TaskBoardService {
 
   @Transactional
   public TaskBoard saveTaskBoard(TaskBoard taskBoard) {
-    Collection<TaskState> states = new ArrayList<>();
-
     for (TaskState state : taskBoard.getAvailableStates()) {
       state.setParentTaskBoard(taskBoard);
-      states.add(state);
     }
 
     taskBoard = taskBoardRepository.save(taskBoard);
-    taskStateRepository.saveAll(states);
+    taskStateRepository.saveAll(taskBoard.getAvailableStates());
     return taskBoard;
   }
 
@@ -118,7 +115,7 @@ public class TaskBoardService {
     return result;
   }
 
-  public Collection<Task> findUnfinishedTasks(TaskBoard taskBoard) {
+  private Collection<Task> findUnfinishedTasks(TaskBoard taskBoard) {
     TaskState finishedState = findFinishedState(taskBoard.getAvailableStates());
     return taskRepository.findNotFinishedTasksByTaskBoard(taskBoard, finishedState);
   }

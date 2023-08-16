@@ -10,11 +10,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -70,43 +71,98 @@ class TaskBoardServiceTest {
   }
 
   @Test
-  void saveTaskBoard_shouldSaveAllTasks() throws Exception {
+  void saveTaskBoard_shouldSaveTaskboardAndAllTasks() {
     //assemble
-    TaskBoard taskBoard = new TaskBoard();
     TaskState state = new TaskState();
-    taskBoard.setAvailableStates(List.of(state));
+    TaskBoard taskBoard = new TaskBoard();
+    Collection<TaskState> states = List.of(state);
+    taskBoard.setAvailableStates(states);
+
     doReturn(taskBoard).when(taskBoardRepository).save(taskBoard);
-    doReturn(state).when(taskStateRepository).saveAll(any());
+    doReturn(states).when(taskStateRepository).saveAll(states);
 
     //act
-    taskBoard = this.taskBoardService.saveTaskBoard(taskBoard);
+    TaskBoard resultTaskBoard = this.taskBoardService.saveTaskBoard(taskBoard);
 
-    //assetion
+    //assert
     Assertions.assertNotNull(taskBoard);
-    Assertions.assertNotNull(state);
-    Assertions.assertNotNull(taskBoard.getAvailableStates());
-    Assertions.assertEquals(taskBoard, taskBoard.getAvailableStates());
+    Assertions.assertEquals(states.size(), resultTaskBoard.getAvailableStates().size());
+    Assertions.assertSame(taskBoard, resultTaskBoard);
+    Assertions.assertSame(state, taskBoard.getAvailableStates().stream().findFirst().get());
+
+    InOrder inOrder = Mockito.inOrder(taskBoardRepository, taskStateRepository);
+    inOrder.verify(taskBoardRepository).save(taskBoard);
+    inOrder.verify(taskStateRepository).saveAll(taskBoard.getAvailableStates());
+  }
+
+//  @Test
+//  void cloneTaskBoard() {
+//    //assemble
+//
+//    doReturn(new ArrayList<>()).when(this.taskBoardService).findFinishedState(any());
+//    doReturn(null).when(this.taskStateRepository).saveAll(any());
+//    doReturn(null).when(this.taskBoardRepository).save(any());
+//    doReturn(null).when(this.taskService).save(any());
+//    //act
+//
+//    //assert
+////     OkrDepartment copiedOkrDepartment = new OkrDepartment();
+////     TaskBoard taskBoard = new TaskBoard();
+////
+//////     doReturn();
+////    TaskBoard clonedTaskBoard = this.taskBoardService.copyTaskBoardWithParentOkrUnitOnly(copiedOkrDepartment);
+//  }
+
+  @Test
+  void copyTaskStateListAndSetTaskBoard_shouldReturnListOfCopiedTaskStates() {
+    //assemble
+    TaskBoard taskBoard = new TaskBoard();
+    TaskState state1 = new TaskState();
+    TaskState state2 = new TaskState();
+    Collection<TaskState> states = List.of(state1,state2);
+
+
+    //act
+    Collection<TaskState> result = this.taskBoardService.copyTaskStateListAndSetTaskBoard(states, taskBoard);
+
+    //assert
+    Assertions.assertNotNull(result);
+    Assertions.assertEquals(states.size(),result.size());
+    Assertions.assertFalse(result.stream().anyMatch(s -> s == state1));
+    Assertions.assertFalse(result.stream().anyMatch(s -> s == state2));
+    Assertions.assertTrue(result.stream().allMatch(s -> s.getParentTaskBoard() == taskBoard));
+
   }
 
   @Test
-  void cloneTaskBoard() {
-     OkrDepartment copiedOkrDepartment = new OkrDepartment();
-     TaskBoard taskBoard = new TaskBoard();
+  void findFinishedState_shouldReturnState() {
+    //assemble
+    TaskState taskState = new TaskState();
+    taskState.setTitle("Finished");
+    Collection<TaskState> states = List.of(taskState);
 
-//     doReturn();
-    TaskBoard clonedTaskBoard = this.taskBoardService.copyTaskBoardWithParentOkrUnitOnly(copiedOkrDepartment);
+    //act
+    TaskState result = this.taskBoardService.findFinishedState(states);
+
+    //assert
+    Assertions.assertNotNull(result);
+    Assertions.assertSame(taskState, result);
+    Assertions.assertEquals(taskState, result);
   }
 
   @Test
-  void copyTaskStateListAndSetTaskBoard() {
+  void findFinishedState_shouldReturnNull() {
+    //assemble
+    TaskState taskState = new TaskState();
+    taskState.setTitle("Not Finished");
+    Collection<TaskState> states = List.of(taskState);
+
+    //act
+    TaskState result = this.taskBoardService.findFinishedState(states);
+
+    //assert
+    Assertions.assertNull(result);
   }
 
-  @Test
-  void findFinishedState() {
-  }
-
-  @Test
-  void findUnfinishedTasks() {
-  }
 }
 
