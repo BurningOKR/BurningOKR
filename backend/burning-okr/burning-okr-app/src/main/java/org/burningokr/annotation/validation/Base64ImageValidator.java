@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 public class Base64ImageValidator implements
         ConstraintValidator<Base64Image, String> {
 
-    private boolean nullable;
-    private float maxSizeB;
+    public boolean nullable;
+    public float maxSizeB;
     private final Pattern base64FormatPattern
       = Pattern.compile("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}={2})$");
 
@@ -32,11 +32,11 @@ public class Base64ImageValidator implements
     }
   }
 
-    private boolean isValidBase64String(String base64String) {
+    public boolean isValidBase64String(String base64String) {
         return this.base64FormatPattern.matcher(base64String).matches();
     }
 
-    private boolean encodedImgHasValidSize(String base64String) {
+    public boolean encodedImgHasValidSize(String base64String) {
         float approxImgSizeInByte = this.approximateImageSize(base64String);
         boolean approximateIsReasonable = approxImgSizeInByte <= 1.2 * this.maxSizeB;
         if(approximateIsReasonable) {
