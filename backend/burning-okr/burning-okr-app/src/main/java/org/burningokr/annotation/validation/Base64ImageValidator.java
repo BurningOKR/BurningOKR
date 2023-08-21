@@ -18,7 +18,7 @@ public class Base64ImageValidator implements
   public void initialize(Base64Image constraintAnnotation) {
     ConstraintValidator.super.initialize(constraintAnnotation);
     this.nullable = constraintAnnotation.nullable();
-    this.maxSizeB = constraintAnnotation.maxSizeMB() * 1000000;
+    this.maxSizeB = constraintAnnotation.maxSizeMB() * 1024 * 1024;
   }
 
   @Override

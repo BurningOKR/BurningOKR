@@ -1,12 +1,8 @@
 package org.burningokr.annotation.validation;
 
-import com.google.common.base.Verify;
-import org.hibernate.sql.results.graph.AssemblerCreationState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Base64;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -18,6 +14,21 @@ class Base64ImageValidatorTest {
   @BeforeEach
   void setUp() {
     validator = spy(new Base64ImageValidator());
+  }
+
+  @Test
+  void initialize() {
+    //assemble
+    Base64Image constraintAnnotationMock = mock(Base64Image.class);
+    doReturn(true).when(constraintAnnotationMock).nullable();
+    doReturn(1f).when(constraintAnnotationMock).maxSizeMB();
+
+    //act
+    this.validator.initialize(constraintAnnotationMock);
+
+    //assert
+    Assertions.assertTrue(this.validator.nullable);
+    Assertions.assertEquals(1024*1024, this.validator.maxSizeB);
   }
 
   @Test
@@ -137,22 +148,34 @@ class Base64ImageValidatorTest {
   }
 
   @Test
-  void encodedImgHasValidSize(){
+  void encodedImageHasValidSize_shouldReturnTrueOnValidApproximateSizeAndValidActualSize(){
     //assemble
+    String input = "base64dummy";
+    this.validator.maxSizeB = 100;
+    //mock class method calls
+    float barelyReasonableSize = 100 * 1.19f;
+    doReturn(barelyReasonableSize).when(this.validator).approximateImageSize(input);
+    int validActualSize = (int) this.validator.maxSizeB;
+    doReturn(validActualSize).when(this.validator).getImageSizeInByte(input);
 
     //act
+    boolean result = this.validator.encodedImgHasValidSize(input);
 
     //assert
+    Assertions.assertTrue(result);
+    verify(this.validator).getImageSizeInByte(input);
   }
 
   @Test
-  void encodedImgHasValidSize_shouldReturnFalseOnTooLargeImage() {
+  void encodedImageHasValidSize_shouldReturnFalseOnValidApproximateSizeButInvalidActualSize(){
     //assemble
-    //size of img 2624b
-    String input = "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";
-    this.validator.maxSizeB = 2623; //size in byte
-    float barlyReasonbleSize = 1.19f * this.validator.maxSizeB;
-    doReturn(barlyReasonbleSize).when(this.validator).approximateImageSize(input);
+    String input = "base64dummy";
+    this.validator.maxSizeB = 100;
+    //mock class method calls
+    float barelyReasonableSize = 100 * 1.19f;
+    doReturn(barelyReasonableSize).when(this.validator).approximateImageSize(input);
+    int invalidActualSize = (int) (this.validator.maxSizeB + 1);
+    doReturn(invalidActualSize).when(this.validator).getImageSizeInByte(input);
 
     //act
     boolean result = this.validator.encodedImgHasValidSize(input);
@@ -162,18 +185,36 @@ class Base64ImageValidatorTest {
     verify(this.validator).getImageSizeInByte(input);
   }
 
-//  @Test
-//  void encodedImgHasValidSize_shouldReturnFalseOnTooLargeImage() {
-//    //assemble
-//    //size of img 2624b
-//    String input = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wgARCADIAMgDASIAAhEBAxEB/8QAGwABAAMBAQEBAAAAAAAAAAAAAAMFBwYIBAL/xAAbAQEAAgMBAQAAAAAAAAAAAAAABAcCAwUGAf/aAAwDAQACEAMQAAAB72H9QEqISohKiEqISoh3PfZ/oBlvnP0T5sjWF9T5WvvfU+UfU+UfU+UfU+UbxBPBNp8AAAADt9Az/QDKvNnpPzZGsMNXfAAAA3iCeCdToAnIF8KFfChXwudA4/sDKvNnqjEI/uuGdy19zhnc8u2VwxkAAbxBPBOp0Bd0l2a4AAAAAB5d9ReXdXos5EawAAN4gngnU6Au6S7NcAAAAAA8u+ovLur0WciNYAAG8QTwTqdAXdJdmuAAAAAAZ3oj5vx5sLGbjzYRjzYRh8E8GfLAXdJdmuAAAAAAcv1GWF04Ed84Ed84ETwTwAC7pLs1wAAAAADLNTyw5sAAE8E8AAu6S7NcAAAAAAyzU8sObAABPBPAALuk+k25lg1Nlg1Nlg1Nlg1Nlg1Nlg1PLFMfIAACeCeAAAAAAAAAAAAAngngAAAAAAAAAAAAJ4AAAAAAAAAAAAA//8QAJhAAAAMHAwUBAAAAAAAAAAAAAAMEAgUWIDAzNQYTFAEHFRdANv/aAAgBAQABBQI4xvd3WxutjdbG62N1sbrY3WxutjdbG62N1saaa6tGDuI20W5OUcOUcOUcOUcOUcOUcOUcOUcOUcOUcDr1PTF0dx8FSOvU9MXR3HwVI69T0xdHcfBUjr1PTF0dx8FSOvSEktqDPBrR4NaPBrR4NaPBrR4NaHEgPRtjWrrUvZ1QQ+hBD6EEPoQQ+gvd6h1qJTr0jlydXX36OU69I5cnV19+jlOvSOXJ1dffo5Tr0jlydXX36OU69I5cnVfWi076XetUY9aox61Rj1qjHrVGDr0jlyfxnXpHLk6q999EKiJ+gifoIn6CJ+gifoDr0jlydXUGSlOvSOXJ1dQZKU69I5cnV1BkpTr0jlydXUGSlOvSOXJ1dQZKU69I5cnV1BkpTr0hB7SY2IFgiBYIgWCIFgiBYIgWCIFgiBYIgWCIFgiBYIgWCIFgUqW1Zsp176Dr30HXvoOvfQde+j//xAAnEQABAQYFBAMAAAAAAAAAAAABAAIDBAUSURUwNFNxERSB0SBgkf/aAAgBAwEBPwH5yQAwnkqkWVIsqRZUiypFsiR6Tyc2TxLl1C0ttgHrdd7DbrP6ExEOXppdtgnnNkWqPHrNkWqPHrNcv3kO1W6PQrFIzcWKRm4sUjNz65//xAAdEQABBAMBAQAAAAAAAAAAAAABABIwMQIDESBg/9oACAECAQE/Afedy7LlzB6mlcMuypdlSkdTQmhNHzn/xAAyEAAAAwUFBQgDAQEAAAAAAAAAAQIDIDJxkjAzNIGxEBEScpEEE0B0oaKj0SExUSJh/9oACAEBAAY/Al/6P9/0Rq6iNXURq6iNXURq6iNXURq6iNXURq6iNXURq6hvvMz/AAWxkaVGk+/L9SUL1dQvV1C9XUL1dQvV1C9XUL1dQvV1C9XUL1dQXM7RvItjLzCdFWa5naN5FsZeYToqzXM7RvItjLzCdFWa5naN5FsZeYToqzXM3SZsy4ln+iFz7iFz7iFz7iFz7iFz7iFz7iDU2yODeRbvyWxmx7Iz71oTYlbuIi/G4/6MF8qPsYL5UfYwXyo+xgvlR9g2HaWfdtSLfw7yPR5czdYZ6WzTkTo8uZusM9LZpyJ0eXM3WGels05E6PLmbrDPS2acidHlzN1hnpbK7U0btUKMiLcncMU39Bim/oMU39Bim/oMU39AuZusM9PCLmbrDPS2Nl3PH/3iGHOsYc6xhzrGHOsYc6wuZusM9LZXKTy5m6wz0tlcpPLmbrDPS2Vyk8uZusM9LZXKTy5m6wz0tlcpPLmbrDPS2Vyk8uZupaIiSIk0iJNIiTSIk0iJNIiTSIk0iJNIiTSIk0iJNIiTSIk0jvGkTy5n4lcz8SuZ+JXM/Ermfif/xAAmEAAABQMEAgMBAQAAAAAAAAAAAVHw8REgMEChsdEhMRBBYZGB/9oACAEBAAE/ISS/+yiQCQCQCQCQCQCQCQCQCQCQD96yOv2fxTJDqegpcJcJcJcJcJcJcJcJcJcHZcjMp5aTsuRmU8tJ2XIzKeWk7LkZlPLSdltXckIq/wBD/eH+8P8AeH+8P94f7xS8inlV/h/Fbin6kXWpiUrUUUUaZaDekP15MZXOy27rk0lzstu65NJc7LbuuTSXOy27rk0lzstu65M1Dm96PBfpCK6iK6iK6iK6iK6h2W3dcmkdlt3XJmNIagiOij3/AIHzoPnQfOg+dB86Dstu65MzClzstu65MzClzstu65MzClzstu65MzClzstu65MzClzstu65MzClzstp3ZF6jMq/VBAhAhAhAhAhAhAhAhAhAhAhAhAgfzCM5EXgqXOy6l2XUuy6l2XUuy6n/9oADAMBAAIAAwAAABDTzzzzzS400001TzzzzxTz/wD/AP8A9TzzzzxTX/3/AP8A1PPPPPPPPKf/AP8AU88888888p//AP1PPPPPPPPLDTTVPPPPPPPPPPPPFPPPPPPPPPPPPFPPPPPPPPPPPPFPOPPPPPPPPPPFPPPPPPPPPPPPFPPPPPPPPPPPPHPPPPPPPPPPPPP/xAAkEQABAwIFBQEAAAAAAAAAAAABAGGRETAxobHR8CAhQVFgwf/aAAgBAwEBPxDrCCRwCZQmUJlCZQmUWMHhhdFKvOxAGCVxL9XnoVABMA3c91us91usCEpUek6gbJ1A2TqBt85//8QAHBEBAQEBAAIDAAAAAAAAAAAAAQARYSAhQFBg/9oACAECAQE/EPNt1tbW1tfirNhcZD2n06gMbnc7n+c//8QAIxAAAQQCAgIDAQEAAAAAAAAAAQARUfBAwSAxIfEQQXFhMP/aAAgBAQABPxAZAYAwBM/qqW1UtqpbVS2qltVLaqW1UtqpbVS2qltD8CGX2fp8E3co026nH4Fb9q37Vv2rftW/at+1b9q37Vv2rftU0smICppZMQFTSyYgKmlkxAVNLi4cJHQAJPkgOgfvm++++++6RceSBL9jd/fx1daJGDA78Tv54zTTTdJjOIHLsA/vKmlk2yqaWTbKppZNsqmlk2yqaWHbKiQNkNA+Q8vHjx48U0sm3TSw7Z1w3x7HZnL1hfWF9YX1hfWFppZNsimlk2yKaWTbIppZNsimlk2yKaWTbIppcT1EJagci8fhP+xRRRRRRRRRRRRRB+kjBgGHgcqaWTTSyaaWTTSyaaWT/9k=";
-//    this.validator.maxSizeB = 2623; //size in byte
-//
-//    //act
-//    boolean result = this.validator.encodedImgHasValidSize(input);
-//
-//    //assert
-//    Assertions.assertFalse(result);
-//    verify(this.validator).getImageSizeInByte(input);
-//  }
+  @Test
+  void encodedImageHasValidSize_shouldReturnFalseOnInvalidApproximateSize(){
+    //assemble
+    String input = "base64dummy";
+    this.validator.maxSizeB = 100;
+    //mock class method calls
+    float barelyUnreasonableSize = 100 * 1.21f;
+    doReturn(barelyUnreasonableSize).when(this.validator).approximateImageSize(input);
+
+    //act
+    boolean result = this.validator.encodedImgHasValidSize(input);
+
+    //assert
+    Assertions.assertFalse(result);
+    verify(this.validator, never()).getImageSizeInByte(input);
+  }
+
+  @Test
+  void getImageSizeInByte_shouldReturn2624Bytes() {
+    //assemble
+    //size of encoded image is 2624B
+    String input = "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";
+    int expected = 2624;
+
+    //act
+    int actual = this.validator.getImageSizeInByte(input);
+
+    //assert
+    Assertions.assertEquals(expected, actual);
+  }
+
+
 }
