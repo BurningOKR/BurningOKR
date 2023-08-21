@@ -1,5 +1,6 @@
 package org.burningokr.mapper.okr;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.KeyResult;
@@ -7,17 +8,14 @@ import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.model.okrUnits.OkrUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Slf4j
 @Service
 public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
-
-  private final Logger logger = LoggerFactory.getLogger(ObjectiveMapper.class);
 
   @Override
   public Objective mapDtoToEntity(ObjectiveDto objectiveDto) {
@@ -51,7 +49,7 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     objective.setSubObjectives(new ArrayList<>());
     objective.setKeyResults(new ArrayList<>());
 
-    logger.debug("Mapped ObjectiveDto (id:" + objectiveDto.getId() + ") successful into Objective.");
+    log.debug("Mapped ObjectiveDto (id: %d) to Objective.".formatted(objectiveDto.getId()));
     return objective;
   }
 
@@ -91,7 +89,7 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
     }
     objectiveDto.setNoteIds(noteIds);
 
-    logger.debug("Mapped Objective (id:" + objective.getId() + ") successful into ObjectiveDto.");
+    log.debug("Mapped Objective (id: %d) to ObjectiveDto.".formatted(objective.getId()));
     return objectiveDto;
   }
 

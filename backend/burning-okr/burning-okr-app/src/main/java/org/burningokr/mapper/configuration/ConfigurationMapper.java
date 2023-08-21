@@ -1,16 +1,14 @@
 package org.burningokr.mapper.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.dto.configuration.ConfigurationDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.configuration.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class ConfigurationMapper implements DataMapper<Configuration, ConfigurationDto> {
-
-  private final Logger logger = LoggerFactory.getLogger(ConfigurationMapper.class);
 
   @Override
   public Configuration mapDtoToEntity(ConfigurationDto configurationDto) {
@@ -19,7 +17,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configuration.setName(configurationDto.getName());
     configuration.setValue(configurationDto.getValue());
     configuration.setType(configurationDto.getType());
-    logger.debug("Mapped ConfigurationDto (id: %d) to Configuration".formatted(configurationDto.getId()));
+    log.debug("Mapped ConfigurationDto (id: %d) to Configuration".formatted(configurationDto.getId()));
     return configuration;
   }
 
@@ -30,7 +28,7 @@ public class ConfigurationMapper implements DataMapper<Configuration, Configurat
     configurationDto.setName(configuration.getName());
     configurationDto.setValue(configuration.getValue());
     configurationDto.setType(configuration.getType());
-    logger.debug("Mapped Configuration (id: %d) to ConfigurationDto".formatted(configuration.getId()));
+    log.debug("Mapped Configuration (id: %d) to ConfigurationDto".formatted(configuration.getId()));
     return configurationDto;
   }
 }

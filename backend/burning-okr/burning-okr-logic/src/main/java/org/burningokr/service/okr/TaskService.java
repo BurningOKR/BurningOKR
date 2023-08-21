@@ -1,6 +1,7 @@
 package org.burningokr.service.okr;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
@@ -14,8 +15,6 @@ import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
 import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +23,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class TaskService {
-  private final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
   private final TaskRepository taskRepository;
 
@@ -74,9 +73,9 @@ public class TaskService {
     newTask = taskRepository.save(newTask);
 
     newOrUpdatedTasks.add(newTask);
-    logger.debug("Created Task " + newTask.getName());
+    log.debug("Created task " + newTask.getName());
 
-    logger.debug("First task in list is null: " + (firstTaskInList == null ? "true" : "false"));
+    log.debug("First task in list is null: " + (firstTaskInList == null ? "true" : "false"));
     if (firstTaskInList != null) {
       firstTaskInList.setPreviousTask(newTask);
       firstTaskInList = taskRepository.save(firstTaskInList);
@@ -90,36 +89,34 @@ public class TaskService {
 
   @Transactional
   public Collection<Task> updateTask(Task updatedTask) throws Exception {
-    logger.debug("updating Task in transaction");
+    log.debug("Updating task in transaction");
     Task referencedTask = taskRepository.findByIdOrThrow(updatedTask.getId());
     throwIfCycleOfTaskIsNotActive(referencedTask.getParentTaskBoard().getParentOkrDepartment());
 
-    logger.debug("updated Task: ");
+    log.debug("Updated task: ");
     this.logTask(updatedTask);
-    logger.debug("old Task");
+    log.debug("Old task");
     this.logTask(referencedTask);
 
     Collection<Task> updatedTasks = new ArrayList<>();
 
     if (hasPositionChanged(updatedTask, referencedTask)) {
-      logger.debug(
-          "update Task -> wurde in eine andere Spalte verschoben: " + updatedTask.getName());
+      log.debug("Update task -> has been moved to column: " + updatedTask.getName());
       updatedTasks.addAll(updateTaskWithPositioning(updatedTask, referencedTask));
     } else {
-      // es wurden nur Attributwerte geändert
-      logger.debug("update Task -> nur Attributwerte geändert: " + updatedTask.getName());
+      log.debug("Update task -> field values changed: " + updatedTask.getName());
       updateTaskWithoutPositioning(updatedTask, referencedTask);
 
       updatedTasks.add(referencedTask);
     }
 
-    logger.debug("update Task -> Speichern ");
+    log.debug("Update task -> persist changes");
     updatedTasks = (Collection<Task>) taskRepository.saveAll(updatedTasks);
 
-    logger.debug("Updated Task " + referencedTask.getName() + "(id:" + referencedTask.getId() + ")");
+    log.debug("Updated task %s (id: %d)".formatted(referencedTask.getName(), referencedTask.getId()));
     activityService.createActivity(updatedTask, Action.EDITED);
 
-    logger.debug("End of Update Task");
+    log.debug("Finished updating");
     return updatedTasks;
   }
 
@@ -149,7 +146,7 @@ public class TaskService {
 
     Task newPreviousTask;
 
-    logger.debug("updateTaskWithPositioning - Validation");
+    log.debug("updateTaskWithPositioning - Validation");
     TaskValidator taskValidator = new TaskValidator();
     newPreviousTask = taskValidator.validateTask(newVersion, taskRepository);
 
@@ -157,7 +154,7 @@ public class TaskService {
     // gegeben sind nun der neue Vorgänger und der neue Nachfolger
     Task newNextTask;
     if (newPreviousTask != null) {
-      logger.debug("new precessor exists");
+      log.debug("New predecessor exists");
       logTask(newPreviousTask);
       newNextTask =
         taskRepository.findByPreviousTask(
@@ -166,7 +163,7 @@ public class TaskService {
           newPreviousTask.getParentTaskBoard()
         );
     } else {
-      logger.debug("no new precessor");
+      log.debug("No new predecessor");
       newNextTask =
           taskRepository.findFirstTaskOfList(
               newVersion.getParentTaskBoard(), newVersion.getTaskState());
@@ -175,7 +172,7 @@ public class TaskService {
     Task nextTaskOfOldVersion = null;
     // alter nachfolger
     if (oldVersion != null) {
-      logger.debug("update old successor - old version: ");
+      log.debug("Update old successor - old version: ");
       logTask(oldVersion);
 
       nextTaskOfOldVersion =
@@ -184,16 +181,16 @@ public class TaskService {
     }
 
     if (newNextTask != null) {
-      logger.debug("update new successor");
+      log.debug("Update new successor");
       newNextTask.setPreviousTask(oldVersion);
       logTask(newNextTask);
       updatedTasks.add(newNextTask);
     } else {
-      logger.debug("no new successor");
+      log.debug("No new successor");
     }
 
     if (nextTaskOfOldVersion != null) {
-      logger.debug("update old successor");
+      log.debug("Update old successor");
       nextTaskOfOldVersion.setPreviousTask(oldVersion.getPreviousTask());
       logTask(nextTaskOfOldVersion);
       updatedTasks.add(nextTaskOfOldVersion);
@@ -261,7 +258,7 @@ public class TaskService {
 
   private void throwIfCycleOfTaskIsNotActive(OkrUnit unit) {
     if (entityCrawlerService.getCycleOfUnit(unit).getCycleState() == CycleState.CLOSED) {
-      throw new ForbiddenException("Cannot modify this Task in a closed cycle.");
+      throw new ForbiddenException("Cannot modify task because it belongs to a closed cycle.");
     }
   }
 
@@ -270,7 +267,7 @@ public class TaskService {
       task.hasAssignedKeyResult() ? task.getAssignedKeyResult().getId().toString() : "null";
     String previousTaskId =
       task.hasPreviousTask() ? task.getPreviousTask().getId().toString() : "null";
-    String text =
+    log.debug(
       String.format(
         "-----\nid: %s, title: %s, taskState: %s, keyresult: %s, previousTask: %s, parentTaskboard: %s, version: %s\n---------",
         task.getId(),
@@ -280,8 +277,7 @@ public class TaskService {
         previousTaskId,
         task.getParentTaskBoard().getId(),
         task.getVersion()
-      );
-    this.logger.debug(text);
+      ));
   }
 
   public Collection<Task> copyTasks(

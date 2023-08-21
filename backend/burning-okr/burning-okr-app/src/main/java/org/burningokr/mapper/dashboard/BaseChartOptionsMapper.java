@@ -36,17 +36,14 @@ public class BaseChartOptionsMapper
     }
     entity.setTeamIds(dto.getSelectedTeamIds());
 
-    log.debug(
-      "Mapped BaseChartOptionsDto (id:"
-        + dto.getId()
-        + ") successful into ChartCreationOption.");
+    log.debug("Mapped BaseChartOptionsDto (id: %d) successful into ChartCreationOption.".formatted(dto.getId()));
 
     return entity;
   }
 
   @Override
   public BaseChartOptionsDto mapEntityToDto(ChartCreationOptions input) {
-    throw new NotImplementedException("mapEntityToDto Methode von ChartCreationOptions nach BaseChartOptionsDto noch nicht implementiert!");
+    throw new NotImplementedException("Logic for mapping ChartCreationOptions to BaseChartOptionsDto has not been implemented!");
   }
 
   @Override
@@ -60,6 +57,6 @@ public class BaseChartOptionsMapper
 
   @Override
   public Collection<BaseChartOptionsDto> mapEntitiesToDtos(Collection<ChartCreationOptions> input) {
-    throw new NotImplementedException("mapEntitiesToDtos Methode von ChartCreationOptions nach BaseChartOptionsDto noch nicht implementiert!");
+    throw new NotImplementedException("Logic for mapping  Collection<ChartCreationOptions> to Collection<BaseChartOptionsDto> has not been implemented!");
   }
 }

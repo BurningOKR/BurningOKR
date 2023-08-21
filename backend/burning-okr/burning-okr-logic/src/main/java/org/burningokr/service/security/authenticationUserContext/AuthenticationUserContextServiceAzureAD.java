@@ -39,7 +39,9 @@ public class AuthenticationUserContextServiceAzureAD extends AuthenticationUserC
   protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
     var userRoles = (ArrayList<?>) userToken.getClaims().get("roles");
 
-    if (userRoles == null || !checkIfListContainsStrings(userRoles)) {
+    if (userRoles == null) {
+      return new ArrayList<>();
+    } else if (!checkIfListContainsStrings(userRoles)) {
       throw new InvalidTokenException("Not all roles are of type String");
     }
 
