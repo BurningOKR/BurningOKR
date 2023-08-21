@@ -70,6 +70,11 @@ export class OkrChildUnitFormComponent {
 
   onChange(event) {
     this.imageFile = event.target.files[0];
+    if (this.imageFile[0] != null || this.imageFile[0] !== undefined) {
+      if (this.imageFile[0].size > 1048576 * 25) {
+        this.imageFile = null;
+      }
+    }
   }
 
   deleteAvatar() {
@@ -106,7 +111,6 @@ export class OkrChildUnitFormComponent {
     } else {
       childUnit$ = this.okrUnitService.putOkrChildUnit$(childUnit);
     }
-    console.log(childUnit$);
     this.dialogRef.close(childUnit$);
   }
 
