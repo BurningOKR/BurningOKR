@@ -37,7 +37,9 @@ jobs:
     secrets: inherit
 
   create-release:
-    needs: get-version-number
+    needs: 
+      - get-version-number
+      - build-prod-images
     uses: ./.github/workflows/create-release.yml
     with:
       version-number: ${{ needs.get-version-number.outputs.version-no }}
