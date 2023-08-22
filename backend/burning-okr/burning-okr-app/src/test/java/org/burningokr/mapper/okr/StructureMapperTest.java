@@ -49,4 +49,27 @@ public class StructureMapperTest {
 
     assertEquals(expected, actual.getUnitName());
   }
+
+  @Test
+  public void mapCompaniesToStructureDtos_shouldMapCompaniesToStructureDtos() {
+    company.setId(12L);
+    Collection<OkrCompany> expected = new ArrayList<>() {
+      {
+        add(company);
+        add(company);
+      }
+    };
+    Collection<StructureDto> actual = structureMapper.mapCompaniesToStructureDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getOkrUnitId());
+
+  }
+
+  @Test
+  public void mapCompaniesToStructureDtos_shouldHandleEmptyList() {
+    Collection<OkrCompany> expected = new ArrayList<>() {};
+    Collection<StructureDto> actual = structureMapper.mapCompaniesToStructureDtos(expected);
+    assertEquals(expected.size(), actual.size());
+
+  }
 }
