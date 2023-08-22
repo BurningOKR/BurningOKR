@@ -27,11 +27,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 1.8
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         distribution: corretto
-        java-version: 8
+        java-version: 17
     - name: Add execution privileges
       run: chmod +x ./gradlew
       working-directory: ./backend/burning-okr
@@ -39,10 +39,10 @@ jobs:
       run: ./gradlew check
       working-directory: ./backend/burning-okr
     - name: Build jar
-      run: ./gradlew -PprojVersion="${{needs.get-version.outputs.version}}" bootJar
+      run: ./gradlew -PprojVersion="${{inputs.version-number}}" bootJar
       working-directory: ./backend/burning-okr
     - name: Build war
-      run: ./gradlew -PprojVersion="${{needs.get-version.outputs.version}}" bootWar
+      run: ./gradlew -PprojVersion="${{inputs.version-number}}" bootWar
       working-directory: ./backend/burning-okr
     - name: Npm Setup
       uses: actions/setup-node@v3
@@ -52,7 +52,7 @@ jobs:
       run: npm install
       working-directory: ./frontend
     - name: Npm version
-      run: npm version ${{needs.get-version.outputs.version}} --allow-same-version
+      run: npm version ${{inputs.version-number}} --allow-same-version
       working-directory: ./frontend
     - name: Npm Build
       run: npm run build-prod
@@ -74,8 +74,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{needs.get-version.outputs.version}}
-        release_name: Release ${{needs.get-version.outputs.version}}
+        tag_name: ${{inputs.version-number}}
+        release_name: Release ${{inputs.version-number}}
         body: ${{needs.get-version.outputs.changelog}}
         draft: false
         prerelease: true
@@ -86,8 +86,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{needs.get-version.outputs.version}}.jar
-        asset_name: burning-okr-app-${{needs.get-version.outputs.version}}.jar
+        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{inputs.version-number}}.jar
+        asset_name: burning-okr-app-${{inputs.version-number}}.jar
         asset_content_type: application/jar
     - name: Upload Release War
       id: upload-release-war
@@ -96,8 +96,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{needs.get-version.outputs.version}}.war
-        asset_name: burning-okr-app-${{needs.get-version.outputs.version}}.war
+        asset_path: ./backend/burning-okr/burning-okr-app/build/libs/burning-okr-app-${{inputs.version-number}}.war
+        asset_name: burning-okr-app-${{inputs.version-number}}.war
         asset_content_type: application/war
     - name: Upload Release Frontend Zip
       id: upload-release-frontend-zip
