@@ -1,21 +1,21 @@
 /* eslint-disable */
 
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {OkrChildUnitOverviewTabComponent} from './okr-child-unit-overview-tab.component';
-import {MaterialTestingModule} from '../../../testing/material-testing.module';
-import {ObjectiveViewMapper} from '../../../shared/services/mapper/objective-view.mapper';
-import {OkrUnitService} from '../../../shared/services/mapper/okr-unit.service';
-import {MatDialog} from '@angular/material/dialog';
-import {CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
-import {RouterTestingModule} from '@angular/router/testing';
-import {OkrDepartment} from '../../../shared/model/ui/OrganizationalUnit/okr-department';
-import {of} from 'rxjs';
-import {ContextRole} from '../../../shared/model/ui/context-role';
-import {CycleState, CycleUnit} from '../../../shared/model/ui/cycle-unit';
-import {ViewObjective} from '../../../shared/model/ui/view-objective';
-import {Component, Input} from '@angular/core';
-import {SharedModule} from '../../../shared/shared.module';
-import {UnitType} from '../../../shared/model/api/OkrUnit/unit-type.enum';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { OkrChildUnitOverviewTabComponent } from './okr-child-unit-overview-tab.component';
+import { MaterialTestingModule } from '../../../testing/material-testing.module';
+import { ObjectiveViewMapper } from '../../../shared/services/mapper/objective-view.mapper';
+import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { RouterTestingModule } from '@angular/router/testing';
+import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { of } from 'rxjs';
+import { ContextRole } from '../../../shared/model/ui/context-role';
+import { CycleState, CycleUnit } from '../../../shared/model/ui/cycle-unit';
+import { ViewObjective } from '../../../shared/model/ui/view-objective';
+import { Component, Input } from '@angular/core';
+import { SharedModule } from '../../../shared/shared.module';
+import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 
 @Component({
   selector: 'app-objective',

@@ -1,8 +1,8 @@
-import {ConvertTopicDraftToTeamService} from './convert-topic-draft-to-team.service';
-import {Observable, of, ReplaySubject} from 'rxjs';
-import {OkrDepartment} from '../../shared/model/ui/OrganizationalUnit/okr-department';
-import {Structure} from '../../shared/model/ui/OrganizationalUnit/structure';
-import {UnitType} from '../../shared/model/api/OkrUnit/unit-type.enum';
+import { ConvertTopicDraftToTeamService } from './convert-topic-draft-to-team.service';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { OkrDepartment } from '../../shared/model/ui/OrganizationalUnit/okr-department';
+import { Structure } from '../../shared/model/ui/OrganizationalUnit/structure';
+import { UnitType } from '../../shared/model/api/OkrUnit/unit-type.enum';
 
 describe('ConvertTopicDraftToTeamService', () => {
   let convertTopicDraftToTeamService: ConvertTopicDraftToTeamService;
@@ -12,7 +12,7 @@ describe('ConvertTopicDraftToTeamService', () => {
     convertTopicDraftToTeam$: convertTopicDraftToDepartmentMock$,
   };
 
-  const mockStructure1: Structure = getMockStructure(1, 'MockStructure1', 'MockPhoto1','MockLabel1');
+  const mockStructure1: Structure = getMockStructure(1, 'MockStructure1', 'MockPhoto1', 'MockLabel1');
 
   beforeEach(() => {
     convertTopicDraftToTeamService = new ConvertTopicDraftToTeamService(topicDraftApiServiceMock);

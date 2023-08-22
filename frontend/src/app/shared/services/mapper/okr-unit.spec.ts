@@ -1,14 +1,14 @@
-import {TestBed} from '@angular/core/testing';
-import {OkrUnitService} from './okr-unit.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {OkrUnitApiService} from '../api/okr-unit-api.service';
-import {of} from 'rxjs';
-import {OkrDepartmentDto} from '../../model/api/OkrUnit/okr-department.dto';
-import {OkrDepartment} from '../../model/ui/OrganizationalUnit/okr-department';
-import {OkrChildUnit} from '../../model/ui/OrganizationalUnit/okr-child-unit';
-import {OkrBranchDto} from '../../model/api/OkrUnit/okr-branch.dto';
-import {OkrBranch} from '../../model/ui/OrganizationalUnit/okr-branch';
-import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
+import { TestBed } from '@angular/core/testing';
+import { OkrUnitService } from './okr-unit.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { OkrUnitApiService } from '../api/okr-unit-api.service';
+import { of } from 'rxjs';
+import { OkrDepartmentDto } from '../../model/api/OkrUnit/okr-department.dto';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
+import { OkrChildUnit } from '../../model/ui/OrganizationalUnit/okr-child-unit';
+import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
+import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 const okrUnitApiService: any = {
   getOkrChildUnitById$: jest.fn(),

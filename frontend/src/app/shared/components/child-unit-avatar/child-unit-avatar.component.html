@@ -1,9 +1,5 @@
 <ng-container *ngIf="render">
-  <ngx-avatars [bgColor]="bgColor"
-               [name]="buildInitialsForUserAvatar(okrChildUnit)"
-               [size]="size"
+  <ngx-avatars [bgColor]="bgColor" [name]="buildInitialsForUserAvatar(okrChildUnit)" [size]="size"
                [src]="okrChildUnit.photo ? 'data:image/jpg;base64,' + okrChildUnit.photo : ''"
-               [value]="'📁'"
-  >
-  </ngx-avatars>
+               [value]="'📁'"></ngx-avatars>
 </ng-container>

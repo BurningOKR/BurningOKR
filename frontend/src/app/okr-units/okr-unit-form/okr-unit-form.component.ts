@@ -1,12 +1,12 @@
-import {Component, Inject} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TranslateService} from '@ngx-translate/core';
-import {DialogComponent} from '../../shared/components/dialog-component/dialog.component';
-import {CompanyDto} from '../../shared/model/api/OkrUnit/company.dto';
-import {CompanyUnit} from '../../shared/model/ui/OrganizationalUnit/company-unit';
-import {ValidationErrorService} from '../../shared/services/helper/validation-error.service';
-import {CompanyMapper} from '../../shared/services/mapper/company.mapper';
+import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { DialogComponent } from '../../shared/components/dialog-component/dialog.component';
+import { CompanyDto } from '../../shared/model/api/OkrUnit/company.dto';
+import { CompanyUnit } from '../../shared/model/ui/OrganizationalUnit/company-unit';
+import { ValidationErrorService } from '../../shared/services/helper/validation-error.service';
+import { CompanyMapper } from '../../shared/services/mapper/company.mapper';
 
 interface CompanyFormData {
   company?: CompanyUnit;
@@ -59,7 +59,12 @@ export class OkrUnitFormComponent {
       this.dialogRef.close(this.companyMapper.putCompany$(company));
     } else {
       const formData: CompanyUnit = this.companyForm.getRawValue();
-      const newCompany: CompanyDto = { unitName: formData.name, photo: formData.photo, cycleId: formData.cycleId, label: formData.label };
+      const newCompany: CompanyDto = {
+        unitName: formData.name,
+        photo: formData.photo,
+        cycleId: formData.cycleId,
+        label: formData.label,
+      };
       this.dialogRef.close(this.companyMapper.postCompany$(newCompany));
     }
   }

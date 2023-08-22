@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {OkrBranchApiService} from '../api/okr-branch-api.service';
-import {Observable} from 'rxjs';
-import {OkrBranch} from '../../model/ui/OrganizationalUnit/okr-branch';
-import {map} from 'rxjs/operators';
-import {OkrBranchDto} from '../../model/api/OkrUnit/okr-branch.dto';
-import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
-import {OkrUnitId} from '../../model/id-types';
+import { Injectable } from '@angular/core';
+import { OkrBranchApiService } from '../api/okr-branch-api.service';
+import { Observable } from 'rxjs';
+import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
+import { map } from 'rxjs/operators';
+import { OkrBranchDto } from '../../model/api/OkrUnit/okr-branch.dto';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
+import { OkrUnitId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root',

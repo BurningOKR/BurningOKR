@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {forkJoin, Observable} from 'rxjs';
-import {mergeMap} from 'rxjs/internal/operators';
-import {map} from 'rxjs/operators';
-import {CompanyDto} from '../../model/api/OkrUnit/company.dto';
-import {CycleUnit} from '../../model/ui/cycle-unit';
-import {CycleWithHistoryCompany} from '../../model/ui/cycle-with-history-company';
-import {CompanyUnit} from '../../model/ui/OrganizationalUnit/company-unit';
-import {CompanyApiService} from '../api/company-api.service';
-import {CycleMapper} from './cycle.mapper';
-import {DepartmentApiService} from '../api/department-api.service';
-import {OkrUnitApiService} from '../api/okr-unit-api.service';
-import {OkrUnitId} from '../../model/id-types';
+import { Injectable } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/internal/operators';
+import { map } from 'rxjs/operators';
+import { CompanyDto } from '../../model/api/OkrUnit/company.dto';
+import { CycleUnit } from '../../model/ui/cycle-unit';
+import { CycleWithHistoryCompany } from '../../model/ui/cycle-with-history-company';
+import { CompanyUnit } from '../../model/ui/OrganizationalUnit/company-unit';
+import { CompanyApiService } from '../api/company-api.service';
+import { CycleMapper } from './cycle.mapper';
+import { DepartmentApiService } from '../api/department-api.service';
+import { OkrUnitApiService } from '../api/okr-unit-api.service';
+import { OkrUnitId } from '../../model/id-types';
 
 @Injectable({
   providedIn: 'root',

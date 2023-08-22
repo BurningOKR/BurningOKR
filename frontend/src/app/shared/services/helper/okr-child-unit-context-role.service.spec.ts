@@ -1,13 +1,13 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {OkrChildUnitRoleService} from './okr-child-unit-role.service';
-import {CurrentUserService} from '../../../core/services/current-user.service';
-import {of} from 'rxjs';
-import {ContextRole} from '../../model/ui/context-role';
-import {User} from '../../model/api/user';
-import {OkrDepartment} from '../../model/ui/OrganizationalUnit/okr-department';
-import {OkrBranch} from '../../model/ui/OrganizationalUnit/okr-branch';
-import {UnitType} from '../../model/api/OkrUnit/unit-type.enum';
+import { OkrChildUnitRoleService } from './okr-child-unit-role.service';
+import { CurrentUserService } from '../../../core/services/current-user.service';
+import { of } from 'rxjs';
+import { ContextRole } from '../../model/ui/context-role';
+import { User } from '../../model/api/user';
+import { OkrDepartment } from '../../model/ui/OrganizationalUnit/okr-department';
+import { OkrBranch } from '../../model/ui/OrganizationalUnit/okr-branch';
+import { UnitType } from '../../model/api/OkrUnit/unit-type.enum';
 
 const currentUserService: any = {
   isCurrentUserAdmin$: jest.fn(),

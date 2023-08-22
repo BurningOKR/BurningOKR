@@ -1,4 +1,4 @@
-import {ObjectiveId, OkrUnitId} from '../../id-types';
+import { ObjectiveId, OkrUnitId } from '../../id-types';
 
 export interface OkrUnitDto {
   okrUnitId?: OkrUnitId;

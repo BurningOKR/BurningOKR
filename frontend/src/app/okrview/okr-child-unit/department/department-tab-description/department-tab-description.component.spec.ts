@@ -1,20 +1,18 @@
 /* eslint-disable */
 
-import {DepartmentTabDescriptionComponent} from './department-tab-description.component';
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {SharedModule} from '../../../../shared/shared.module';
-import {MaterialTestingModule} from '../../../../testing/material-testing.module';
-import {TopicDescriptionMapper} from '../../../../shared/services/mapper/topic-description-mapper';
-import {MatDialog} from '@angular/material/dialog';
-import {OkrDepartment} from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
-import {OkrTopicDescription} from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
-import {of} from 'rxjs';
-import {ContextRole} from '../../../../shared/model/ui/context-role';
-import {
-  DepartmentDescriptionEditFormComponent
-} from './department-description-edit-form/department-description-edit-form.component';
-import {OkrTranslationHelperService} from '../../../../shared/services/helper/okr-translation-helper.service';
-import {UnitType} from '../../../../shared/model/api/OkrUnit/unit-type.enum';
+import { DepartmentTabDescriptionComponent } from './department-tab-description.component';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { SharedModule } from '../../../../shared/shared.module';
+import { MaterialTestingModule } from '../../../../testing/material-testing.module';
+import { TopicDescriptionMapper } from '../../../../shared/services/mapper/topic-description-mapper';
+import { MatDialog } from '@angular/material/dialog';
+import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { OkrTopicDescription } from '../../../../shared/model/ui/OrganizationalUnit/okr-topic-description';
+import { of } from 'rxjs';
+import { ContextRole } from '../../../../shared/model/ui/context-role';
+import { DepartmentDescriptionEditFormComponent } from './department-description-edit-form/department-description-edit-form.component';
+import { OkrTranslationHelperService } from '../../../../shared/services/helper/okr-translation-helper.service';
+import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
 
 describe('DepartmentTabDescription', () => {
   let component: DepartmentTabDescriptionComponent;

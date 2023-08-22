@@ -15,8 +15,8 @@ export class OauthInterceptor implements HttpInterceptor {
 
     if (authenticationService.isUserLoggedIn() && request.url.startsWith('/api')) {
       const reqHeaders: HttpHeaders = request.headers.set(
-          'Authorization',
-          `Bearer ${authenticationService.getAccessToken()}`,
+        'Authorization',
+        `Bearer ${authenticationService.getAccessToken()}`,
       );
       extendedRequest = request.clone({ headers: reqHeaders });
     }

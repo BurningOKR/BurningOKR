@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
 
-    if(this.authService.isInitialized() || await this.authService.waitForInitializationToFinish()) {
+    if (this.authService.isInitialized() || await this.authService.waitForInitializationToFinish()) {
       const access: string | boolean = await this.authService.login(state.url);
 
       if (typeof access === 'string') {
@@ -24,9 +24,5 @@ export class AuthGuard implements CanActivate {
       }
     }
 
-  }
-
-  private async delay(): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, 1000));
   }
 }

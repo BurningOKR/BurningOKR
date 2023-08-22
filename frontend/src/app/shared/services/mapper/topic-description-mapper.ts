@@ -13,7 +13,7 @@ import { DateMapper } from './date.mapper';
 
 export class TopicDescriptionMapper {
   constructor(
-    private topicDescriptionApiService: TopicDescriptionApiService
+    private topicDescriptionApiService: TopicDescriptionApiService,
   ) {
   }
 

@@ -1,16 +1,16 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {UserSettingsComponent} from './user-settings.component';
-import {MaterialTestingModule} from '../../../../testing/material-testing.module';
-import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CompanyMapper} from '../../../../shared/services/mapper/company.mapper';
-import {UserSettingsService} from '../../../services/user-settings.service';
-import {DepartmentMapper} from '../../../../shared/services/mapper/department.mapper';
-import {of} from 'rxjs';
-import {UserSettings} from '../../../../shared/model/ui/user-settings';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {OkrDepartment} from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
-import {UnitType} from '../../../../shared/model/api/OkrUnit/unit-type.enum';
+import { UserSettingsComponent } from './user-settings.component';
+import { MaterialTestingModule } from '../../../../testing/material-testing.module';
+import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompanyMapper } from '../../../../shared/services/mapper/company.mapper';
+import { UserSettingsService } from '../../../services/user-settings.service';
+import { DepartmentMapper } from '../../../../shared/services/mapper/department.mapper';
+import { of } from 'rxjs';
+import { UserSettings } from '../../../../shared/model/ui/user-settings';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OkrDepartment } from '../../../../shared/model/ui/OrganizationalUnit/okr-department';
+import { UnitType } from '../../../../shared/model/api/OkrUnit/unit-type.enum';
 
 const companyService: any = {
   getActiveCompanies$: jest.fn(),

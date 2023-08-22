@@ -120,7 +120,7 @@ import { ChildUnitAvatarComponent } from './components/child-unit-avatar/child-u
   ],
   providers: [
     DateMapper,
-  ]
+  ],
 })
 export class SharedModule {
 }
