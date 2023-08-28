@@ -16,7 +16,8 @@ public class StompHeaderInterceptor implements ChannelInterceptor {
   @Override
   public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
     final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-    if (accessor == null) throw new NullPointerException("StompHeaderAccessor is null");
+    if (accessor == null)
+      throw new NullPointerException("StompHeaderAccessor is null");
 
     if (this.socketAuth.isConnectionAttempt(accessor)) {
       this.socketAuth.tryToAuthenticate(accessor);
