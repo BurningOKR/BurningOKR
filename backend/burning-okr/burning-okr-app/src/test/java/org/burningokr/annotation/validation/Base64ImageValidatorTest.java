@@ -216,5 +216,18 @@ class Base64ImageValidatorTest {
     Assertions.assertEquals(expected, actual);
   }
 
+  @Test
+  void approximateImageSize_shouldReturn1() {
+    //assemble
+    String inputWithLength4 = "word";
+    float expected = 1;
+
+    //act
+    float actual = this.validator.approximateImageSize(inputWithLength4);
+
+    //assert
+    Assertions.assertEquals(expected, actual);
+
+  }
 
 }
