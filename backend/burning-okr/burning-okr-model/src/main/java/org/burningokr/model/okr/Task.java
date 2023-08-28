@@ -2,10 +2,7 @@ package org.burningokr.model.okr;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.hibernate.envers.Audited;
 import org.springframework.lang.Nullable;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Data
 @AllArgsConstructor
+@Builder
 @RequiredArgsConstructor
 public class Task implements Trackable<Long> {
 

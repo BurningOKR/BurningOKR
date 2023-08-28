@@ -77,7 +77,7 @@ public class TaskBoardService {
     return copiedTaskBoard;
   }
 
-  private Collection<Task> updatePreviousTaskOfSavedCopiedTasks(Collection<Task> copiedTasks) {
+  public Collection<Task> updatePreviousTaskOfSavedCopiedTasks(Collection<Task> copiedTasks) {
     for (Task copiedTask : copiedTasks) {
       for (Task forPreviousTask : copiedTasks) {
         if (copiedTask.hasPreviousTask()
@@ -115,7 +115,7 @@ public class TaskBoardService {
     return result;
   }
 
-  private Collection<Task> findUnfinishedTasks(TaskBoard taskBoard) {
+  public Collection<Task> findUnfinishedTasks(TaskBoard taskBoard) {
     TaskState finishedState = findFinishedState(taskBoard.getAvailableStates());
     return taskRepository.findNotFinishedTasksByTaskBoard(taskBoard, finishedState);
   }

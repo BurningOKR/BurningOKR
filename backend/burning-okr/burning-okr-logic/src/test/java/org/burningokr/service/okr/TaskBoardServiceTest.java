@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import org.burningokr.model.okr.Task;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okr.TaskState;
 import org.burningokr.model.okrUnits.OkrDepartment;
@@ -20,7 +21,9 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 @ExtendWith(MockitoExtension.class)
 class TaskBoardServiceTest {
@@ -113,13 +116,56 @@ class TaskBoardServiceTest {
 ////    TaskBoard clonedTaskBoard = this.taskBoardService.copyTaskBoardWithParentOkrUnitOnly(copiedOkrDepartment);
 //  }
 
+
+  @Test
+  void cloneTaskBoard_shouldDuplicateTaskBoard_setDepartment_copyTaskStates_copyUnfinishedTasks_setParentTaskboardOfCopiedStatesAndTasks() {
+    //assemble
+    this.taskBoardService = spy(this.taskBoardService);
+    OkrDepartment inputDepartment = new OkrDepartment();
+
+    TaskState taskState1 = TaskState.builder().id(1L).title("Test").build();
+    TaskState taskState2 = TaskState.builder().id(2L).title("Test").build();
+    Collection<TaskState> taskStates = List.of(taskState1, taskState2);
+    TaskBoard inputTaskBoard = TaskBoard.builder().availableStates(taskStates).build();
+    Task unfinishedInputTask = Task.builder().title("unfinished task").parentTaskBoard(inputTaskBoard).build();
+
+    TaskState copiedState1 = TaskState.builder().id(100L).title("Test").build();
+    TaskState copiedState2 = TaskState.builder().id(200L).title("Test").build();
+    Collection<TaskState> copiedStates = List.of(copiedState1, copiedState2);
+    TaskBoard copiedInputBoard = TaskBoard.builder().parentOkrDepartment(inputDepartment).build();
+    copiedState1.setParentTaskBoard(copiedInputBoard);
+    copiedState2.setParentTaskBoard(copiedInputBoard);
+    Task copiedUnfinishedInputTask = Task.builder().title("unfinished task").parentTaskBoard(copiedInputBoard).build();
+
+
+    /////////
+    doReturn(copiedInputBoard).when(this.taskBoardService).copyTaskBoardWithParentOkrUnitOnly(inputDepartment);
+    doReturn(copiedStates).when(this.taskBoardService).copyTaskStateListAndSetTaskBoard(inputTaskBoard.getAvailableStates(), copiedInputBoard);
+    doReturn(null).when(this.taskStateRepository).saveAll(copiedStates);
+    doReturn(null).when(this.taskBoardRepository).save(copiedInputBoard);
+    doReturn(List.of(unfinishedInputTask)).when(this.taskBoardService).findUnfinishedTasks(inputTaskBoard);
+    doReturn(List.of(copiedUnfinishedInputTask)).when(this.taskService).copyTasks(List.of(unfinishedInputTask), copiedStates, copiedInputBoard);
+    doReturn(null).when(this.taskRepository).saveAll(List.of(unfinishedInputTask));
+    doReturn(copiedInputBoard.getTasks()).when(this.taskBoardService).updatePreviousTaskOfSavedCopiedTasks(List.of(unfinishedInputTask));
+
+    //act
+    TaskBoard result = this.taskBoardService.cloneTaskBoard(inputDepartment, inputTaskBoard);
+
+    //assert
+    Assertions.assertNotSame(inputTaskBoard, result);
+    Assertions.assertSame(inputDepartment, result.getParentOkrDepartment());
+    Assertions.assertTrue(taskStates.stream().noneMatch(t -> result.getAvailableStates().contains(t)));
+    Assertions.assertTrue(taskStates.stream().allMatch(t -> result.getAvailableStates().stream().anyMatch(t::equals)));
+    // todo lazevedo 28.08.23 Fix asserts for TaskState equality
+  }
+
   @Test
   void copyTaskStateListAndSetTaskBoard_shouldReturnListOfCopiedTaskStates() {
     //assemble
     TaskBoard taskBoard = new TaskBoard();
     TaskState state1 = new TaskState();
     TaskState state2 = new TaskState();
-    Collection<TaskState> states = List.of(state1,state2);
+    Collection<TaskState> states = List.of(state1, state2);
 
 
     //act
@@ -127,7 +173,7 @@ class TaskBoardServiceTest {
 
     //assert
     Assertions.assertNotNull(result);
-    Assertions.assertEquals(states.size(),result.size());
+    Assertions.assertEquals(states.size(), result.size());
     Assertions.assertFalse(result.stream().anyMatch(s -> s == state1));
     Assertions.assertFalse(result.stream().anyMatch(s -> s == state2));
     Assertions.assertTrue(result.stream().allMatch(s -> s.getParentTaskBoard() == taskBoard));
