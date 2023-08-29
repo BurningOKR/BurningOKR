@@ -2,10 +2,22 @@
 
 ## What are the changes? A quick overview
 
-BurningOKR introduced some big changes in version 2. Local auth got replaced by Keycloak or AzureAD
-and dependencies are now up-to-date. Our Backend is now running the latest Spring Boot version (3.X.X) and we updated our Java version to 17. Gradle also got an update to version 7.X. With these changes the development process for new features and the rework process for older ones
-got more easy for us, and you, if you want to contribute.  
-But on the downside we had to make some breaking changes. Local auth got removed from the project due to it's deprecation and got replaced by state of the art OIDC, which is much more simple to use for us as developers and you as users/admins. By using a well known standard we can ensure that future BurningOKR releases can reuse the current implementations. We also decided to remove the Tomcat support and to replace it with something much more convenient: docker containers! We believe that docker containers are a great way to support multi arch and ensure that BurningOKR can run without issues because it comes bundled with everything you need. We also added docker support for older versions and the feedback was great so far.  
+BurningOKR introduced some big changes in version 2:
+
+- Local auth got replaced by Keycloak or AzureAD
+and dependencies are now up-to-date.
+- Our Backend is now running the latest Spring Boot version (3.X.X) and we updated our Java version to 17.
+- Gradle also got an update to version 7.X.
+
+With these changes the development process for new features and the rework process for older ones
+got more easy for us, and you, if you want to contribute.
+
+But on the downside we had to make some breaking changes:
+
+- Local auth got removed from the project due to it's deprecation and got replaced by state of the art OIDC, which is much more simple to use for us as developers and you as users/admins. By using a well known standard we can ensure that future BurningOKR releases can reuse the current implementations.
+- We also decided to remove the Tomcat support and to replace it with something much more convenient: docker containers! We believe that docker containers are a great way to support multi arch and ensure that BurningOKR can run without issues because it comes bundled with everything you need.
+- We also added docker support for older versions and the feedback was great so far.
+
 Thank you for your support and stay tuned for more new things in the future!
 
 ## Migration process from local auth (not relevant if you used AzureAD)
