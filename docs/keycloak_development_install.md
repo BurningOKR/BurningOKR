@@ -60,7 +60,7 @@ services:
 
 ### Create Realm and Realm admin role
 
-1. Create a new realm named `burning-ok`. ![create realm](./images/keycloak/keycloak_create_realm.png) ![create realm details](./images/keycloak/create_realm_details.png)
+1. Create a new realm named `burning-okr`. ![create realm](./images/keycloak/keycloak_create_realm.png) ![create realm details](./images/keycloak/create_realm_details.png)
 2. Add a new `Realm Role` named `burning-okr-admin`. This role will be assigned to admin users. ![create admin Realm Role](./images/keycloak/create_admin_realm_role.png)
 
 ### Add new client to Realm
