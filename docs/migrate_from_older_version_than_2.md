@@ -28,8 +28,9 @@ Keycloak is our replacement for local auth, if you want to self host your auth p
 
 1. Please make sure you are using the latest non 2.0 version of BurningOKR (1.5.2).
 2. Only when you want to use Keycloak as your login provider: [install and configure Keycloak](./keycloak_development_install.md).
-3. At this point please check that you have: Keycloak configured and running, BurningOKR version 1.5.2 up and running.
-4. Stop you BurningOKR docker compose stack.
-5. Backup your database and update to postgres 15 if you are using an old version of postgres. TODO: a guide will be added
-
-TODO: not finished
+3. At this point please check that you have: Keycloak and BurningOKR version 1.5.2 configured and running.
+4. Stop your BurningOKR docker compose stack.
+5. Backup your database and update to postgres 15, if you are using an old version of postgres. A guide can be found [here](https://www.cloudytuts.com/tutorials/docker/how-to-upgrade-postgresql-in-docker-and-kubernetes/).
+6. Make sure to use a new volume for your postgres15 instance and not the old one from the previous postgres instance.
+7. You can now use the [new docker compose](../docker/README.md) to start the BurningOKR stack. Make sure to map the correct volume for your postgres15 instance. The volume you need to map is the one you inserted your existing data in while upgrading your postgres version in step 5 and 6.
+8. When you start the docker compose stack migrations will be applied and all local auth users will be set to DEPRECATED. The DEPRECATED users will stay in teams etc and you need to replace them with the new users manually. For doing so you need to create user accounts in your keycloak instance and the users have to login at least once into BurningOKR. The user is present in the BurningOKR database after the first login. After that the admin can replace the DEPRECATED user account in teams etc with the new one.
