@@ -19,9 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 
@@ -35,6 +35,8 @@ class TaskBoardServiceTest {
   private TaskBoardRepository taskBoardRepository;
   @Mock
   private DefaultTaskStateService defaultTaskStateService;
+  @Mock
+  private TaskStateService taskStateService;
   @Mock
   private TaskStateRepository taskStateRepository;
   @Mock
@@ -98,24 +100,6 @@ class TaskBoardServiceTest {
     inOrder.verify(taskStateRepository).saveAll(taskBoard.getAvailableStates());
   }
 
-//  @Test
-//  void cloneTaskBoard() {
-//    //assemble
-//
-//    doReturn(new ArrayList<>()).when(this.taskBoardService).findFinishedState(any());
-//    doReturn(null).when(this.taskStateRepository).saveAll(any());
-//    doReturn(null).when(this.taskBoardRepository).save(any());
-//    doReturn(null).when(this.taskService).save(any());
-//    //act
-//
-//    //assert
-////     OkrDepartment copiedOkrDepartment = new OkrDepartment();
-////     TaskBoard taskBoard = new TaskBoard();
-////
-//////     doReturn();
-////    TaskBoard clonedTaskBoard = this.taskBoardService.copyTaskBoardWithParentOkrUnitOnly(copiedOkrDepartment);
-//  }
-
 
   @Test
   void cloneTaskBoard_shouldDuplicateTaskBoard_setDepartment_copyTaskStates_copyUnfinishedTasks_setParentTaskboardOfCopiedStatesAndTasks() {
@@ -139,11 +123,11 @@ class TaskBoardServiceTest {
 
 
     doReturn(copiedInputBoard).when(this.taskBoardService).copyTaskBoardWithParentOkrUnitOnly(inputDepartment);
-    doReturn(copiedStates).when(this.taskBoardService).copyTaskStateListAndSetTaskBoard(inputTaskBoard.getAvailableStates(), copiedInputBoard);
+    doReturn(copiedStates).when(this.taskStateService).copyTaskStates(copiedInputBoard);
     doReturn(null).when(this.taskStateRepository).saveAll(copiedStates);
     doReturn(null).when(this.taskBoardRepository).save(copiedInputBoard);
     doReturn(List.of(unfinishedInputTask)).when(this.taskBoardService).findUnfinishedTasks(inputTaskBoard);
-    doReturn(List.of(copiedUnfinishedInputTask)).when(this.taskService).copyTasks(List.of(unfinishedInputTask), copiedStates, copiedInputBoard);
+    doReturn(List.of(copiedUnfinishedInputTask)).when(this.taskService).copyTasksAndSetNewStates(List.of(unfinishedInputTask), copiedStates, copiedInputBoard);
     doReturn(null).when(this.taskRepository).saveAll(List.of(unfinishedInputTask));
     doReturn(copiedInputBoard.getTasks()).when(this.taskBoardService).updatePreviousTaskOfSavedCopiedTasks(List.of(unfinishedInputTask));
 
@@ -212,6 +196,32 @@ class TaskBoardServiceTest {
 
     //assert
     Assertions.assertNull(result);
+  }
+
+  @Test
+  void updatePreviousTaskOfSavedCopiedTasks_shouldSetPredecessorTaskCorrectly() {
+    //assemble
+    Task oldPredecessor = Task.builder().id(1L).title("pred").build();
+
+    Task copiedPredecessor = Task.builder().id(1L).title("pred").build();
+    Task copiedSuccessor = Task.builder().id(2L).title("succ").previousTask(oldPredecessor).build();
+    Collection<Task> copiedTasks = List.of(copiedPredecessor, copiedSuccessor);
+
+    //act
+    Collection<Task> result = this.taskBoardService.updatePreviousTaskOfSavedCopiedTasks(copiedTasks);
+
+    //assert
+    Assertions.assertEquals(2, result.size());
+
+    Optional<Task> succOptional = result.stream().filter(t->t.getTitle().equals(copiedSuccessor.getTitle())).findFirst();
+    Assertions.assertTrue(succOptional.isPresent());
+    Task succ = succOptional.get();
+    Assertions.assertEquals(copiedPredecessor, succ.getPreviousTask());
+
+    Optional<Task> predOptional = result.stream().filter(t->t.getTitle().equals(copiedPredecessor.getTitle())).findFirst();
+    Assertions.assertTrue(predOptional.isPresent());
+    Task pred = predOptional.get();
+    Assertions.assertEquals(copiedPredecessor, pred);
   }
 
 }

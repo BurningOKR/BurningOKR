@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class TaskBoardService {
   private final TaskBoardRepository taskBoardRepository;
   private final DefaultTaskStateService defaultTaskStateService;
+  private final TaskStateService taskStateService;
   private final TaskStateRepository taskStateRepository;
   private final TaskService taskService;
   private final TaskRepository taskRepository;
@@ -57,17 +59,14 @@ public class TaskBoardService {
     TaskBoard copiedTaskBoard = this.copyTaskBoardWithParentOkrUnitOnly(copy);
     this.taskBoardRepository.save(copiedTaskBoard);
 
-    Collection<TaskState> copiedStates =
-        this.copyTaskStateListAndSetTaskBoard(
-            taskBoardToCopy.getAvailableStates(), copiedTaskBoard);
+    Collection<TaskState> copiedStates = this.taskStateService.copyTaskStates(taskBoardToCopy);
+    copiedStates.forEach(s -> s.setParentTaskBoard(copiedTaskBoard));
     taskStateRepository.saveAll(copiedStates);
     copiedTaskBoard.setAvailableStates(copiedStates);
     this.taskBoardRepository.save(copiedTaskBoard);
 
     Collection<Task> notFinishedTasks = this.findUnfinishedTasks(taskBoardToCopy);
-    copiedTaskBoard.setTasks(
-        taskService.copyTasks(
-            notFinishedTasks, copiedStates, copiedTaskBoard));
+    copiedTaskBoard.setTasks(taskService.copyTasksAndSetNewStates(notFinishedTasks, copiedStates, copiedTaskBoard));
     taskRepository.saveAll(copiedTaskBoard.getTasks());
     updatePreviousTaskOfSavedCopiedTasks(copiedTaskBoard.getTasks());
     taskRepository.saveAll(copiedTaskBoard.getTasks());

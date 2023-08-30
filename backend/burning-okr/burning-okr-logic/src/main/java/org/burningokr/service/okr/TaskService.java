@@ -280,7 +280,7 @@ public class TaskService {
       ));
   }
 
-  public Collection<Task> copyTasks(
+  public Collection<Task> copyTasksAndSetNewStates(
     Collection<Task> notFinishedTasks,
     Collection<TaskState> copiedStates,
     TaskBoard copiedTaskBoard
