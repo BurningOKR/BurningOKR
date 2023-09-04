@@ -1,12 +1,18 @@
 package org.burningokr.service.okr;
 
+import org.burningokr.model.activity.Action;
+import org.burningokr.model.cycles.Cycle;
+import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Task;
 import org.burningokr.model.okr.TaskBoard;
 import org.burningokr.model.okr.TaskState;
+import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrUnit;
 import org.burningokr.repositories.okr.TaskRepository;
 import org.burningokr.repositories.okrUnit.OkrDepartmentRepository;
 import org.burningokr.service.activity.ActivityService;
+import org.burningokr.service.exceptions.ForbiddenException;
 import org.burningokr.service.okrUnitUtil.EntityCrawlerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,12 +20,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TaskServiceTest {
@@ -37,6 +45,7 @@ public class TaskServiceTest {
   private EntityCrawlerService entityCrawlerService;
 
   @InjectMocks
+  @Spy
   private TaskService taskService;
 
   private final Task taskMock = new Task();
@@ -211,5 +220,188 @@ public class TaskServiceTest {
 
     Assertions.assertSame(newStateMatchingOriginal2, task2.getTaskState());
     Assertions.assertSame(taskBoard, task2.getParentTaskBoard());
+  }
+
+  @Test
+  void deleteTaskById_shouldThrowForbiddenException() {
+    //assemble
+    long inputTaskId = 1L;
+    long inputUnitId = 2L;
+
+    OkrUnit unitMock = mock(OkrDepartment.class);
+    doReturn(unitMock).when(this.okrDepartmentRepository).findByIdOrThrow(inputUnitId);
+
+    Cycle closedCycleMock = mock(Cycle.class);
+    doReturn(CycleState.CLOSED).when(closedCycleMock).getCycleState();
+    doReturn(closedCycleMock).when(this.entityCrawlerService).getCycleOfUnit(unitMock);
+
+    //act + assert
+    ForbiddenException exception = Assertions.assertThrows(
+      ForbiddenException.class,
+      () -> this.taskService.deleteTaskById(inputTaskId, inputUnitId)
+    );
+
+    Assertions.assertEquals("Cannot modify task because it belongs to a closed cycle.", exception.getMessage());
+  }
+
+  @Test
+  void deleteTaskById_shouldDeleteTaskWithoutPreviousOrNextTask() {
+    //assemble
+    long inputTaskId = 1L;
+    long inputUnitId = 2L;
+
+    OkrUnit unitMock = mock(OkrDepartment.class);
+    doReturn(unitMock).when(this.okrDepartmentRepository).findByIdOrThrow(inputUnitId);
+
+    Cycle activeCycleMock = mock(Cycle.class);
+    doReturn(CycleState.PREPARATION).when(activeCycleMock).getCycleState();
+    doReturn(activeCycleMock).when(this.entityCrawlerService).getCycleOfUnit(unitMock);
+
+    Task taskToDelete = new Task();
+    taskToDelete.setId(1L);
+    doReturn(taskToDelete).when(this.taskRepository).findByIdOrThrow(inputTaskId);
+    doReturn(null).when(this.taskRepository)
+      .findByPreviousTask(eq(taskToDelete), nullable(TaskState.class), nullable(TaskBoard.class));
+
+    doNothing().when(this.taskRepository).deleteById(taskToDelete.getId());
+    doNothing().when(this.activityService).createActivity(taskToDelete, Action.DELETED);
+
+    //act
+    Collection<Task> results = this.taskService.deleteTaskById(inputTaskId, inputUnitId);
+
+    //assert
+    Assertions.assertEquals(0, results.size());
+    verify(this.taskRepository, times(0)).save(any());
+    verify(this.taskRepository).deleteById(taskToDelete.getId());
+  }
+
+  @Test
+  void deleteTaskById_shouldDeleteTaskWithPreviousTask() {
+    //assemble
+    long inputTaskId = 1L;
+    long inputUnitId = 2L;
+
+    OkrUnit unitMock = mock(OkrDepartment.class);
+    doReturn(unitMock).when(this.okrDepartmentRepository).findByIdOrThrow(inputUnitId);
+
+    Cycle activeCycleMock = mock(Cycle.class);
+    doReturn(CycleState.PREPARATION).when(activeCycleMock).getCycleState();
+    doReturn(activeCycleMock).when(this.entityCrawlerService).getCycleOfUnit(unitMock);
+
+    Task prevTask = new Task();
+    Task taskToDelete = new Task();
+    taskToDelete.setId(1L);
+    taskToDelete.setPreviousTask(prevTask);
+    doReturn(taskToDelete).when(this.taskRepository).findByIdOrThrow(inputTaskId);
+    doReturn(taskToDelete).when(this.taskRepository).save(taskToDelete);
+    doReturn(null).when(this.taskRepository)
+      .findByPreviousTask(eq(taskToDelete), nullable(TaskState.class), nullable(TaskBoard.class));
+
+    doNothing().when(this.taskRepository).deleteById(taskToDelete.getId());
+    doNothing().when(this.activityService).createActivity(taskToDelete, Action.DELETED);
+
+    //act
+    Collection<Task> results = this.taskService.deleteTaskById(inputTaskId, inputUnitId);
+
+    //assert
+    Assertions.assertEquals(1, results.size());
+    Task resultingTask = results.stream().findFirst().orElse(null);
+    Assertions.assertSame(prevTask, resultingTask);
+
+    verify(this.taskRepository, times(1)).save(taskToDelete);
+    verify(this.taskRepository).deleteById(taskToDelete.getId());
+    verify(this.activityService).createActivity(taskToDelete, Action.DELETED);
+  }
+
+  @Test
+  void deleteTaskById_shouldDeleteTaskWithSuccessorTask() {
+    //assemble
+    long inputTaskId = 1L;
+    long inputUnitId = 2L;
+
+    OkrUnit unitMock = mock(OkrDepartment.class);
+    doReturn(unitMock).when(this.okrDepartmentRepository).findByIdOrThrow(inputUnitId);
+
+    Cycle activeCycleMock = mock(Cycle.class);
+    doReturn(CycleState.PREPARATION).when(activeCycleMock).getCycleState();
+    doReturn(activeCycleMock).when(this.entityCrawlerService).getCycleOfUnit(unitMock);
+
+    Task succTask = new Task();
+    Task taskToDelete = new Task();
+    taskToDelete.setId(1L);
+    succTask.setPreviousTask(taskToDelete);
+
+    doReturn(taskToDelete).when(this.taskRepository).findByIdOrThrow(inputTaskId);
+    doReturn(succTask).when(this.taskRepository)
+      .findByPreviousTask(taskToDelete, taskToDelete.getTaskState(), taskToDelete.getParentTaskBoard());
+    doReturn(succTask).when(this.taskRepository).save(succTask);
+
+    doNothing().when(this.taskRepository).deleteById(taskToDelete.getId());
+    doNothing().when(this.activityService).createActivity(taskToDelete, Action.DELETED);
+
+    //act
+    Collection<Task> results = this.taskService.deleteTaskById(inputTaskId, inputUnitId);
+
+    //assert
+    Assertions.assertEquals(1, results.size());
+    Task resultingTask = results.stream().findFirst().orElse(null);
+    Assertions.assertSame(succTask, resultingTask);
+    Assertions.assertNull(succTask.getPreviousTask());
+
+    verify(this.taskRepository, times(1)).save(succTask);
+    verify(this.taskRepository).deleteById(taskToDelete.getId());
+    verify(this.activityService).createActivity(taskToDelete, Action.DELETED);
+  }
+
+
+  @Test
+  void deleteTaskById_shouldDeleteTaskWithPreviousAndSuccessorTask() {
+    //assemble
+    long inputTaskId = 1L;
+    long inputUnitId = 2L;
+
+    OkrUnit unitMock = mock(OkrDepartment.class);
+    doReturn(unitMock).when(this.okrDepartmentRepository).findByIdOrThrow(inputUnitId);
+
+    Cycle activeCycleMock = mock(Cycle.class);
+    doReturn(CycleState.PREPARATION).when(activeCycleMock).getCycleState();
+    doReturn(activeCycleMock).when(this.entityCrawlerService).getCycleOfUnit(unitMock);
+
+    Task prevTask = new Task();
+    prevTask.setTitle("Previous Task");
+    Task taskToDelete = new Task();
+    taskToDelete.setPreviousTask(prevTask);
+    taskToDelete.setId(1L);
+    Task succTask = new Task();
+    succTask.setPreviousTask(taskToDelete);
+    succTask.setTitle("Successor Task");
+
+    doReturn(taskToDelete).when(this.taskRepository).findByIdOrThrow(inputTaskId);
+    doReturn(taskToDelete).when(this.taskRepository).save(taskToDelete);
+    doReturn(succTask).when(this.taskRepository)
+      .findByPreviousTask(taskToDelete, taskToDelete.getTaskState(), taskToDelete.getParentTaskBoard());
+    doReturn(succTask).when(this.taskRepository).save(succTask);
+
+    doNothing().when(this.taskRepository).deleteById(taskToDelete.getId());
+    doNothing().when(this.activityService).createActivity(taskToDelete, Action.DELETED);
+
+    //act
+    Collection<Task> results = this.taskService.deleteTaskById(inputTaskId, inputUnitId);
+
+    //assert
+    Assertions.assertEquals(2, results.size());
+    Task resultingPrevTask = results.stream().filter(t -> t.getTitle().equals("Previous Task")).findFirst().orElse(null);
+    Task resultingSuccTask = results.stream().filter(t -> t.getTitle().equals("Successor Task")).findFirst().orElse(null);
+
+    Assertions.assertSame(prevTask, resultingPrevTask);
+
+    Assertions.assertSame(succTask, resultingSuccTask);
+    Assertions.assertEquals(resultingPrevTask, succTask.getPreviousTask());
+
+    verify(this.taskRepository, times(2)).save(any());
+    verify(this.taskRepository, times(1)).save(succTask);
+    verify(this.taskRepository, times(1)).save(taskToDelete);
+    verify(this.taskRepository).deleteById(taskToDelete.getId());
+    verify(this.activityService).createActivity(taskToDelete, Action.DELETED);
   }
 }

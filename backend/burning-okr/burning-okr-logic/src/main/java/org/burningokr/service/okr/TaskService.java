@@ -208,7 +208,7 @@ public class TaskService {
 
   public Collection<Task> deleteTaskById(long taskId, long unitId) {
     OkrUnit unit = okrDepartmentRepository.findByIdOrThrow(unitId);
-    throwIfCycleOfTaskIsNotActive(unit);
+    this.throwIfCycleOfTaskIsNotActive(unit);
     Collection<Task> updatedTasks = new ArrayList<>();
 
     Task taskToDelete = this.taskRepository.findByIdOrThrow(taskId);
@@ -230,9 +230,15 @@ public class TaskService {
     }
 
     this.taskRepository.deleteById(taskToDelete.getId());
-    activityService.createActivity(taskToDelete, Action.DELETED);
+    this.activityService.createActivity(taskToDelete, Action.DELETED);
 
     return updatedTasks;
+  }
+
+  private void throwIfCycleOfTaskIsNotActive(OkrUnit unit) {
+    if (entityCrawlerService.getCycleOfUnit(unit).getCycleState() == CycleState.CLOSED) {
+      throw new ForbiddenException("Cannot modify task because it belongs to a closed cycle.");
+    }
   }
 
   private boolean hasPositionChanged(Task updatedTask, Task oldTask) {
@@ -254,30 +260,6 @@ public class TaskService {
       result = updatedPreviousTaskId != oldPreviousTaskId;
     }
     return result;
-  }
-
-  private void throwIfCycleOfTaskIsNotActive(OkrUnit unit) {
-    if (entityCrawlerService.getCycleOfUnit(unit).getCycleState() == CycleState.CLOSED) {
-      throw new ForbiddenException("Cannot modify task because it belongs to a closed cycle.");
-    }
-  }
-
-  private void logTask(Task task) {
-    String keyresultId =
-      task.hasAssignedKeyResult() ? task.getAssignedKeyResult().getId().toString() : "null";
-    String previousTaskId =
-      task.hasPreviousTask() ? task.getPreviousTask().getId().toString() : "null";
-    log.debug(
-      String.format(
-        "-----\nid: %s, title: %s, taskState: %s, keyresult: %s, previousTask: %s, parentTaskboard: %s, version: %s\n---------",
-        task.getId(),
-        task.getTitle(),
-        task.getTaskState().getId(),
-        keyresultId,
-        previousTaskId,
-        task.getParentTaskBoard().getId(),
-        task.getVersion()
-      ));
   }
 
   public Collection<Task> copyTasksAndSetNewStates(
@@ -309,5 +291,24 @@ public class TaskService {
     copiedTask.setParentTaskBoard(copiedTaskBoard);
     this.setStateFromStatesCollection(copiedTask, copiedStates);
     return copiedTask;
+  }
+
+
+  private void logTask(Task task) {
+    String keyresultId =
+      task.hasAssignedKeyResult() ? task.getAssignedKeyResult().getId().toString() : "null";
+    String previousTaskId =
+      task.hasPreviousTask() ? task.getPreviousTask().getId().toString() : "null";
+    log.debug(
+      String.format(
+        "-----\nid: %s, title: %s, taskState: %s, keyresult: %s, previousTask: %s, parentTaskboard: %s, version: %s\n---------",
+        task.getId(),
+        task.getTitle(),
+        task.getTaskState().getId(),
+        keyresultId,
+        previousTaskId,
+        task.getParentTaskBoard().getId(),
+        task.getVersion()
+      ));
   }
 }
