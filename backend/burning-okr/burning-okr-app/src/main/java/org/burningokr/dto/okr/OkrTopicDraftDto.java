@@ -3,6 +3,7 @@ package org.burningokr.dto.okr;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.burningokr.model.users.User;
+import org.jetbrains.annotations.NotNull;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

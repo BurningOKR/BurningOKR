@@ -118,7 +118,7 @@ public class TopicDraftController {
 
   @PostMapping("/topicDrafts/create")
   public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraft(
-    @RequestBody OkrTopicDraftDto topicDraftDto
+    @RequestBody @Valid OkrTopicDraftDto topicDraftDto
   ) {
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
     OkrTopicDraft newOkrTopicDraft = okrTopicDraftService.createTopicDraft(topicDraft);

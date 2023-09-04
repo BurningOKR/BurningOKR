@@ -26,29 +26,20 @@ public class KeyResultController {
 
 
   @GetMapping("/keyresults/{keyResultId}")
-  public ResponseEntity<KeyResultDto> getKeyResultById(
-    @PathVariable Long keyResultId
-  ) {
+  public ResponseEntity<KeyResultDto> getKeyResultById(@PathVariable Long keyResultId) {
     KeyResult keyResult = keyResultService.findById(keyResultId);
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
   }
 
   @GetMapping("/keyresults/{keyResultId}/notes")
-  public ResponseEntity<Collection<NoteKeyResultDto>> getNotesOfKeyResult(
-    @PathVariable long keyResultId
-  ) {
+  public ResponseEntity<Collection<NoteKeyResultDto>> getNotesOfKeyResult(@PathVariable long keyResultId) {
     Collection<NoteKeyResult> noteKeyResults = keyResultService.findNotesOfKeyResult(keyResultId);
     return ResponseEntity.ok(noteKeyResultMapper.mapEntitiesToDtos(noteKeyResults));
   }
 
   @PutMapping("/keyresults/{keyResultId}")
   @PreAuthorize("@keyResultAuthorizationService.hasMemberPrivilegesForKeyResult(#keyResultId)")
-  public ResponseEntity<KeyResultDto> updateKeyResultById(
-    @PathVariable long keyResultId,
-    @Valid
-    @RequestBody
-    KeyResultDto keyResultDto
-  ) {
+  public ResponseEntity<KeyResultDto> updateKeyResultById(@PathVariable long keyResultId, @Valid @RequestBody KeyResultDto keyResultDto) {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult.setId(keyResultId);
     keyResult = this.keyResultService.updateKeyResult(keyResult);
@@ -56,12 +47,7 @@ public class KeyResultController {
   }
 
   @PostMapping("/keyresults/{keyResultId}/notes")
-  public ResponseEntity<NoteKeyResultDto> addNoteToKeyResult(
-    @PathVariable long keyResultId,
-    @Valid
-    @RequestBody
-    NoteKeyResultDto noteKeyResultDto
-  ) {
+  public ResponseEntity<NoteKeyResultDto> addNoteToKeyResult(@PathVariable long keyResultId, @Valid @RequestBody NoteKeyResultDto noteKeyResultDto) {
     noteKeyResultDto.setParentKeyResultId(keyResultId);
     NoteKeyResult noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
     noteKeyResult = this.keyResultService.createNote(noteKeyResult);
@@ -69,11 +55,7 @@ public class KeyResultController {
   }
 
   @PutMapping("/keyresults/notes")
-  public ResponseEntity<NoteKeyResultDto> updateNoteKeyResult(
-    @Valid
-    @RequestBody
-    NoteKeyResultDto noteKeyResultDto
-  ) {
+  public ResponseEntity<NoteKeyResultDto> updateNoteKeyResult(@Valid @RequestBody NoteKeyResultDto noteKeyResultDto) {
     NoteKeyResult noteKeyResult = noteKeyResultMapper.mapDtoToEntity(noteKeyResultDto);
     this.keyResultService.updateNote(noteKeyResult);
     return ResponseEntity.ok().build();
@@ -81,10 +63,7 @@ public class KeyResultController {
 
   @DeleteMapping("keyresults/{keyResultId}")
   @PreAuthorize("@keyResultAuthorizationService.hasManagerPrivilegesForKeyResult(#keyResultId)")
-  public ResponseEntity deleteKeyResult(
-    @PathVariable Long keyResultId
-  )
-    throws Exception {
+  public ResponseEntity deleteKeyResult(@PathVariable Long keyResultId) throws Exception {
     keyResultService.deleteKeyResult(keyResultId);
     return ResponseEntity.ok().build();
   }

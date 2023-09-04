@@ -17,13 +17,13 @@ public class CycleDto {
   private Long id;
 
   @NotNull
-  @Size(min = 1)
+  @Size(min = 1, message = "The name of the Cycle may not be longer than 255 characters. ")
   private String name;
 
-  @NotNull
+  @NotNull(message = "Planned Start Date must not overlap or be older with the default starting date.")
   private String plannedStartDate;
 
-  @NotNull
+  @NotNull(message = "Planned End Date must not overlap with the default ending date.")
   private String plannedEndDate;
 
   private CycleState cycleState = CycleState.PREPARATION;

@@ -33,13 +33,7 @@ public class CycleCloneController {
    */
   @PostMapping("/clonecycle/{cycleId}")
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity<CycleDto> cloneCycleFromCycleId(
-    @PathVariable long cycleId,
-    @RequestBody
-    @Valid
-    CycleDto cycleDto
-  )
-    throws InvalidDtoException {
+  public ResponseEntity<CycleDto> cloneCycleFromCycleId(@PathVariable long cycleId, @RequestBody @Valid CycleDto cycleDto) throws InvalidDtoException {
     cycleDtoValidator.validateCycleDto(cycleDto);
     Cycle newCycle = cycleMapper.mapDtoToEntity(cycleDto);
     newCycle.setId(null);

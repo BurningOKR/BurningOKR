@@ -17,11 +17,11 @@ public class ConfigurationDto {
   private Long id;
 
   @NotNull
-  @Size(max = 255)
+  @Size(max = 255, message = "The name of the Configuration may not be longer than 255 characters")
   private String name;
 
   @NotNull
-  @Size(max = 255)
+  @Size(max = 255, message = "The value of the Configuration may not be longer than 255 characters")
   private String value;
 
   private String type;

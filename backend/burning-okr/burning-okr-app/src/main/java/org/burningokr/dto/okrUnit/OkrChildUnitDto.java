@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Data
 @JsonTypeInfo(
   use = JsonTypeInfo.Id.NAME,

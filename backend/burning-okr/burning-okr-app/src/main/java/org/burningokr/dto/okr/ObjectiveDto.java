@@ -20,7 +20,8 @@ public class ObjectiveDto {
 
   private Long parentObjectiveId;
 
-  @Size(max = 255, message = "The title of an objective may not be longer than 255 characters.")
+  @NotNull
+//  @Size(max = 255, message = "The title of an objective may not be longer than 255 characters.")
   private String title;
 
   @Size(
@@ -64,7 +65,4 @@ public class ObjectiveDto {
     return parentObjectiveId != null;
   }
 
-  public boolean hasContactPersonId() {
-    return contactPersonId != null;
-  }
 }

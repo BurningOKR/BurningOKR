@@ -1,5 +1,6 @@
 package org.burningokr.dto.okrUnit;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

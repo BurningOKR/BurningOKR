@@ -18,6 +18,7 @@ dependencies {
 
   // util
   implementation deps.spring.boot.starter.validation
+  implementation 'org.jetbrains:annotations:24.0.0'
   providedRuntime deps.spring.boot.starter.tomcat
   implementation deps.spring.boot.starter.data // Used to handle Exceptions and Import/Export files
   implementation deps.apache.poi //  Java API To Access Microsoft Format Files

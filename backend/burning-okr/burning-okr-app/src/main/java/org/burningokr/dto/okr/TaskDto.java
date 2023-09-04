@@ -33,10 +33,6 @@ public class TaskDto {
   private Long previousTaskId;
   private Long version;
 
-  public boolean hasAssignedUsers() {
-    return assignedUserIds.isEmpty();
-  }
-
   public boolean hasAssignedKeyResult() {
     return assignedKeyResultId != null;
   }
