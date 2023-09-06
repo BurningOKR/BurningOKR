@@ -235,7 +235,7 @@ public class TaskService {
     return updatedTasks;
   }
 
-  private void throwIfCycleOfTaskIsNotActive(OkrUnit unit) {
+  public void throwIfCycleOfTaskIsNotActive(OkrUnit unit) {
     if (entityCrawlerService.getCycleOfUnit(unit).getCycleState() == CycleState.CLOSED) {
       throw new ForbiddenException("Cannot modify task because it belongs to a closed cycle.");
     }

@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -223,28 +224,6 @@ public class TaskServiceTest {
   }
 
   @Test
-  void deleteTaskById_shouldThrowForbiddenException() {
-    //assemble
-    long inputTaskId = 1L;
-    long inputUnitId = 2L;
-
-    OkrUnit unitMock = mock(OkrDepartment.class);
-    doReturn(unitMock).when(this.okrDepartmentRepository).findByIdOrThrow(inputUnitId);
-
-    Cycle closedCycleMock = mock(Cycle.class);
-    doReturn(CycleState.CLOSED).when(closedCycleMock).getCycleState();
-    doReturn(closedCycleMock).when(this.entityCrawlerService).getCycleOfUnit(unitMock);
-
-    //act + assert
-    ForbiddenException exception = Assertions.assertThrows(
-      ForbiddenException.class,
-      () -> this.taskService.deleteTaskById(inputTaskId, inputUnitId)
-    );
-
-    Assertions.assertEquals("Cannot modify task because it belongs to a closed cycle.", exception.getMessage());
-  }
-
-  @Test
   void deleteTaskById_shouldDeleteTaskWithoutPreviousOrNextTask() {
     //assemble
     long inputTaskId = 1L;
@@ -403,5 +382,149 @@ public class TaskServiceTest {
     verify(this.taskRepository, times(1)).save(taskToDelete);
     verify(this.taskRepository).deleteById(taskToDelete.getId());
     verify(this.activityService).createActivity(taskToDelete, Action.DELETED);
+  }
+
+  @Test
+  void createTask_shouldSaveTheVeryFirstTaskOfABoard() {
+    //assemble
+    Task invalidPrevTask = spy(Task.class);
+    Task taskToCreate = spy(new Task());
+    taskToCreate.setPreviousTask(invalidPrevTask); //expected to be set to null
+    Long inputOkrUnitId = 1L;
+
+    TaskBoard board = new TaskBoard();
+    OkrDepartment unit = new OkrDepartment();
+    unit.setTaskBoard(board);
+
+    doReturn(unit).when(this.okrDepartmentRepository).findByIdOrThrow(inputOkrUnitId);
+    doNothing().when(this.taskService).throwIfCycleOfTaskIsNotActive(unit);
+    doReturn(null).when(this.taskRepository).findFirstTaskOfList(board, null);
+    doReturn(taskToCreate).when(this.taskRepository).save(taskToCreate);
+
+    //act
+    Collection<Task> result = this.taskService.createTask(taskToCreate, inputOkrUnitId);
+
+    //assert
+    Assertions.assertEquals(1, result.size());
+    Task resTask = result.stream().findFirst().orElse(null);
+    Assertions.assertNotNull(resTask);
+    Assertions.assertSame(taskToCreate, resTask);
+    Assertions.assertNull(resTask.getPreviousTask());
+    Assertions.assertSame(board, resTask.getParentTaskBoard());
+
+    ArgumentCaptor<Task> taskCaptor = ArgumentCaptor.forClass(Task.class);
+    verify(this.taskRepository).save(taskCaptor.capture());
+    Assertions.assertSame(resTask, taskCaptor.getValue());
+    Assertions.assertNull(taskCaptor.getValue().getPreviousTask());
+    Assertions.assertEquals(board, taskCaptor.getValue().getParentTaskBoard());
+  }
+
+  @Test
+  void createTask_shouldSaveSecondTaskOfABoard() {
+    //assemble
+    Task existingTask = spy(Task.class);
+    existingTask.setTitle("existing task");
+    Task taskToCreate = spy(Task.class);
+    taskToCreate.setTitle("task to create");
+    Long inputOkrUnitId = 1L;
+
+    TaskBoard board = new TaskBoard();
+    OkrDepartment unit = new OkrDepartment();
+    unit.setTaskBoard(board);
+
+    doReturn(unit).when(this.okrDepartmentRepository).findByIdOrThrow(inputOkrUnitId);
+    doNothing().when(this.taskService).throwIfCycleOfTaskIsNotActive(unit);
+    doReturn(existingTask).when(this.taskRepository).findFirstTaskOfList(board, null);
+    doReturn(existingTask).when(this.taskRepository).save(existingTask);
+    doReturn(taskToCreate).when(this.taskRepository).save(taskToCreate);
+
+    //act
+    Collection<Task> result = this.taskService.createTask(taskToCreate, inputOkrUnitId);
+
+    //assert
+    Assertions.assertEquals(2, result.size());
+    Task resCreatedTask = result.stream().filter(t->t.getTitle().equals(taskToCreate.getTitle())).findFirst().orElse(null);
+    Assertions.assertNotNull(resCreatedTask);
+    Assertions.assertSame(taskToCreate, resCreatedTask);
+    Assertions.assertNull(resCreatedTask.getPreviousTask());
+    Assertions.assertSame(board, resCreatedTask.getParentTaskBoard());
+
+    Task resExistingTask = result.stream().filter(t->t.getTitle().equals(existingTask.getTitle())).findFirst().orElse(null);
+    Assertions.assertNotNull(resExistingTask);
+    Assertions.assertSame(existingTask, resExistingTask);
+    Assertions.assertSame(resCreatedTask, resExistingTask.getPreviousTask());
+
+
+    ArgumentCaptor<Task> tasksCaptor = ArgumentCaptor.forClass(Task.class);
+    verify(this.taskRepository, times(2)).save(tasksCaptor.capture());
+
+    Task capturedCreatedTask = tasksCaptor.getAllValues().get(0);
+    Task capturedExistingTask = tasksCaptor.getAllValues().get(1);
+
+    Assertions.assertSame(resCreatedTask, capturedCreatedTask);
+    Assertions.assertEquals(resCreatedTask, capturedCreatedTask);
+    Assertions.assertEquals(resCreatedTask.getParentTaskBoard(), capturedCreatedTask.getParentTaskBoard());
+    Assertions.assertNull(capturedCreatedTask.getPreviousTask());
+
+    Assertions.assertSame(resExistingTask, capturedExistingTask);
+    Assertions.assertEquals(resExistingTask, capturedExistingTask);
+    Assertions.assertEquals(resCreatedTask, capturedExistingTask.getPreviousTask());
+
+    verifyNoMoreInteractions(this.taskRepository);
+  }
+
+  @Test
+  void createTask_shouldCreateActivity() {
+    //assemble
+    Task taskToCreate = spy(new Task());
+    Long inputOkrUnitId = 1L;
+
+    TaskBoard board = new TaskBoard();
+    OkrDepartment unit = new OkrDepartment();
+    unit.setTaskBoard(board);
+
+    doReturn(unit).when(this.okrDepartmentRepository).findByIdOrThrow(inputOkrUnitId);
+    doNothing().when(this.taskService).throwIfCycleOfTaskIsNotActive(unit);
+    doReturn(null).when(this.taskRepository).findFirstTaskOfList(board, null);
+    doReturn(taskToCreate).when(this.taskRepository).save(taskToCreate);
+
+    //act
+    this.taskService.createTask(taskToCreate, inputOkrUnitId);
+
+    //assert
+    verify(this.activityService).createActivity(taskToCreate, Action.CREATED);
+  }
+
+  @Test
+  void throwIfCycleOfTaskIsNotActive_shouldNotThrowForbiddenException(){
+    //assemble
+    OkrUnit unit = new OkrDepartment();
+    Cycle cycle = new Cycle();
+    cycle.setCycleState(CycleState.ACTIVE);
+
+    doReturn(cycle).when(this.entityCrawlerService).getCycleOfUnit(unit);
+
+    //act + assert
+    Assertions.assertDoesNotThrow(
+      () -> this.taskService.throwIfCycleOfTaskIsNotActive(unit)
+    );
+  }
+
+  @Test
+  void throwIfCycleOfTaskIsNotActive_shouldThrowForbiddenException() {
+    //assemble
+    OkrUnit unit = new OkrDepartment();
+    Cycle cycle = new Cycle();
+    cycle.setCycleState(CycleState.CLOSED);
+
+    doReturn(cycle).when(this.entityCrawlerService).getCycleOfUnit(unit);
+
+    //act + assert
+    ForbiddenException exception = Assertions.assertThrows(
+      ForbiddenException.class,
+      () -> this.taskService.throwIfCycleOfTaskIsNotActive(unit)
+    );
+
+    Assertions.assertEquals("Cannot modify task because it belongs to a closed cycle.", exception.getMessage());
   }
 }
