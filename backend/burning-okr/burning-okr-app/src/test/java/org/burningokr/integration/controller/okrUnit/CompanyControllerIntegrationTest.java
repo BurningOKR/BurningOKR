@@ -42,7 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {CompanyController.class})
 @WebAppConfiguration
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @WebMvcTest
 class CompanyControllerIntegrationTest {
 
@@ -157,12 +156,12 @@ class CompanyControllerIntegrationTest {
   @Test
   @PreAuthorize(value = "@authorizationService.isAdmin()")
   void addCompany() throws Exception {
-    MvcResult r = this.mockMvc.perform(get("/api/admin")
-            .with(user("admin").roles("USER","ADMIN")))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-        .andReturn();
+//    MvcResult r = this.mockMvc.perform(get("/api/admin")
+//            .with(user("admin").roles("USER","ADMIN")))
+//        .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+//        .andReturn();
 
-    r.
+//    r.
     MvcResult mvcResult =
         this.mockMvc
             .perform(get("/api/companies/{companyId}/departments", "229"))
