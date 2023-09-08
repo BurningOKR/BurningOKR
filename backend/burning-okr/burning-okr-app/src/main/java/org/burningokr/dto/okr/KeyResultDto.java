@@ -3,12 +3,18 @@ package org.burningokr.dto.okr;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okr.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+//@Data/
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class KeyResultDto {
 

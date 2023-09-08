@@ -2,7 +2,9 @@ package org.burningokr.dto.okr;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class NoteDto {
 
   private Long noteId;
@@ -28,6 +32,4 @@ public class NoteDto {
     this.noteBody = noteDto.getNoteBody();
     this.date = noteDto.getDate();
   }
-
-  public NoteDto() {}
 }
