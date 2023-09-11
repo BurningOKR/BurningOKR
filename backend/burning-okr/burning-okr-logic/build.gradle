@@ -7,6 +7,8 @@ dependencies {
 
     // util
     implementation deps.jackson.databind
+    implementation deps.jackson.annotations
+    implementation deps.jackson.datatype
     implementation deps.spring.boot.starter.validation
     implementation deps.apache.poiOoxml //  Java API To Access Microsoft Format Files
     implementation deps.apache.poi //  Java API To Access Microsoft Format Files

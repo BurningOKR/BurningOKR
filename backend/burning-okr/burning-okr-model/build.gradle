@@ -5,6 +5,8 @@ dependencies {
     implementation deps.spring.boot.starter.validation
     implementation deps.spring.security.core
     implementation deps.jackson.databind
+    implementation deps.jackson.annotations
+    implementation deps.jackson.datatype
     implementation deps.db.hibernate.envers
     testImplementation project(path: ':burning-okr-logic')
 }
