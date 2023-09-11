@@ -41,7 +41,7 @@ public abstract class AuthenticationUserContextService {
   protected abstract List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException;
 
   protected void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
-    if (validatedString.equals("")) {
+    if (validatedString.isEmpty()) {
       throw new InvalidTokenException("%s attribute is empty".formatted(attributeName));
     }
   }
@@ -77,6 +77,7 @@ public abstract class AuthenticationUserContextService {
   }
 
   protected boolean isCachedUserEqualToTokenUser(User cachedUser, User tokenUser) {
+    // TODO lazevedo 11.09.23 Why not use User.equals?
     return cachedUser.getId().equals(tokenUser.getId()) &&
         cachedUser.getMail().equals(tokenUser.getMail()) &&
         cachedUser.getGivenName().equals(tokenUser.getGivenName()) &&
