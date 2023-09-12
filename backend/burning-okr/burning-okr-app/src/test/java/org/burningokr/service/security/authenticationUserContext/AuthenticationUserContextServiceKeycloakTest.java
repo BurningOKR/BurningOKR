@@ -13,7 +13,10 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.oauth2.jwt.Jwt;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -66,7 +69,7 @@ class AuthenticationUserContextServiceKeycloakTest {
     //assemble
     Jwt jwtMock = mock(Jwt.class);
     Map<String, Object> realmsMap = new LinkedTreeMap<>();
-    List<String> roles = new ArrayList<>(List.of("Admin", "CEO", "God Imperator"));
+    List<String> roles = List.of("Admin", "CEO", "God Imperator");
     realmsMap.put("roles", roles);
     Map<String, Object> jwtClaimsWithRealms = new HashMap<>();
     jwtClaimsWithRealms.put("realm_access", realmsMap);
@@ -110,7 +113,7 @@ class AuthenticationUserContextServiceKeycloakTest {
     //assemble
     Jwt jwtMock = mock(Jwt.class);
     Map<String, Object> realmsMap = new LinkedTreeMap<>();
-    List<String> roles = List.of();
+    Object roles = new Object();
     realmsMap.put("roles", roles);
     Map<String, Object> jwtClaimsWithRealms = new HashMap<>();
     jwtClaimsWithRealms.put("realm_access", realmsMap);
@@ -123,7 +126,7 @@ class AuthenticationUserContextServiceKeycloakTest {
     });
 
     //assert
-    Assertions.assertEquals("roles-list is not of type ArrayList", exc.getMessage());
+    Assertions.assertEquals("Value of key 'roles' is not of type Collection", exc.getMessage());
   }
 
   @Test
@@ -131,7 +134,7 @@ class AuthenticationUserContextServiceKeycloakTest {
     //assemble
     Jwt jwtMock = mock(Jwt.class);
     Map<String, Object> realmsMap = new LinkedTreeMap<>();
-    List<Object> roles = new ArrayList<>(List.of("Hello", 42));
+    List<Object> roles = List.of("Hello", 42);
     realmsMap.put("roles", roles);
     Map<String, Object> jwtClaimsWithRealms = new HashMap<>();
     jwtClaimsWithRealms.put("realm_access", realmsMap);

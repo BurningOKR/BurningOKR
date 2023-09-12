@@ -32,8 +32,6 @@ class AuthenticationUserContextServiceTest {
   SystemProperties systemPropertiesMock;
 
 
-
-
   @BeforeEach
   void setUp() {
     this.authenticationService = spy(new AuthenticationServiceTestImpl(
@@ -590,7 +588,6 @@ class AuthenticationUserContextServiceTest {
     //assert
     Assertions.assertFalse(result);
   }
-
 
 
   private static class AuthenticationServiceTestImpl extends AuthenticationUserContextService {

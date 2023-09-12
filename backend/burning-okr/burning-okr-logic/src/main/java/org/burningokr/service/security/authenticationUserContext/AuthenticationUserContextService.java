@@ -114,7 +114,7 @@ public abstract class AuthenticationUserContextService {
     }
   }
 
-  protected boolean checkIfListContainsStrings(ArrayList<?> list) {
+  protected boolean checkIfListContainsStrings(Collection<?> list) {
     return list.stream().allMatch(key -> key instanceof String);
   }
 }
