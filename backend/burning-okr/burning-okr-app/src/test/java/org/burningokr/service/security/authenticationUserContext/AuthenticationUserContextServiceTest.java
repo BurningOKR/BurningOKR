@@ -14,10 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -116,13 +113,11 @@ class AuthenticationUserContextServiceTest {
     doReturn(userRoles).when(this.authenticationService).getRolesFromToken(jwtMock);
     doReturn("AdminRoleName").when(this.systemPropertiesMock).getOidcAdminGroupName();
 
-    String givenName = "givenName";
-    String surname = "surname";
-    String mail = "mail";
-
-    doReturn(givenName).when(this.authenticationService).getAttributeFromJwt(jwtMock, this.authenticationService.GIVEN_NAME_IDENTIFIER);
-    doReturn(surname).when(this.authenticationService).getAttributeFromJwt(jwtMock, this.authenticationService.FAMILY_NAME_IDENTIFIER);
-    doReturn(mail).when(this.authenticationService).getAttributeFromJwt(jwtMock, this.authenticationService.EMAIL_IDENTIFIER);
+    Map<String, Object> jwtClaims = new HashMap<>();
+    jwtClaims.put(this.authenticationService.GIVEN_NAME_IDENTIFIER, "John");
+    jwtClaims.put(this.authenticationService.FAMILY_NAME_IDENTIFIER, "Doe");
+    jwtClaims.put(this.authenticationService.EMAIL_IDENTIFIER, "email");
+    doReturn(jwtClaims).when(jwtMock).getClaims();
 
     //act
     User result = this.authenticationService.getUserFromToken(jwtMock);
@@ -134,9 +129,9 @@ class AuthenticationUserContextServiceTest {
     Assertions.assertNotNull(result);
     Assertions.assertEquals(dummyUUID, result.getId());
     assertTrue(result.isActive());
-    Assertions.assertEquals(givenName, result.getGivenName());
-    Assertions.assertEquals(surname, result.getSurname());
-    Assertions.assertEquals(mail, result.getMail());
+    Assertions.assertEquals("John", result.getGivenName());
+    Assertions.assertEquals("Doe", result.getSurname());
+    Assertions.assertEquals("email", result.getMail());
 
     Assertions.assertTrue(result.getCreatedAt().isAfter(startRange));
     Assertions.assertTrue(result.getCreatedAt().isBefore(endRange));
@@ -447,6 +442,61 @@ class AuthenticationUserContextServiceTest {
     Assertions.assertFalse(result);
   }
 
+
+  @Test
+  void getAttributeFromJwt_shouldThrowInvalidTokenException_whenObjectIsNotAString() {
+    //assemble
+    Jwt jwtMock = mock(Jwt.class);
+    Map<String, Object> jwtClaims = new HashMap<>();
+    String attributeName = "key";
+    int intValue = 42;
+    jwtClaims.put(attributeName, intValue);
+    doReturn(jwtClaims).when(jwtMock).getClaims();
+
+    //act
+    InvalidTokenException exc = Assertions.assertThrows(InvalidTokenException.class, () -> {
+      this.authenticationService.getAttributeFromJwt(jwtMock, attributeName);
+    });
+
+    //assert
+    Assertions.assertEquals("key value is not existent or not a string", exc.getMessage());
+  }
+
+  @Test
+  void getAttributeFromJwt_shouldThrowInvalidTokenException_whenObjectIsEmptyString() {
+    //assemble
+    Jwt jwtMock = mock(Jwt.class);
+    Map<String, Object> jwtClaims = new HashMap<>();
+    String attributeName = "key";
+    String emptyStringValue = "";
+    jwtClaims.put(attributeName, emptyStringValue);
+    doReturn(jwtClaims).when(jwtMock).getClaims();
+
+    //act
+    InvalidTokenException exc = Assertions.assertThrows(InvalidTokenException.class, () -> {
+      this.authenticationService.getAttributeFromJwt(jwtMock, attributeName);
+    });
+
+    //assert
+    Assertions.assertEquals("key attribute is empty", exc.getMessage());
+  }
+
+  @Test
+  void getAttributeFromJwt_shouldReturnValidatedString() {
+    ///assemble
+    Jwt jwtMock = mock(Jwt.class);
+    Map<String, Object> jwtClaims = new HashMap<>();
+    String attributeName = "key";
+    String stringValue = "Hello World";
+    jwtClaims.put(attributeName, stringValue);
+    doReturn(jwtClaims).when(jwtMock).getClaims();
+
+    //act
+    String result = this.authenticationService.getAttributeFromJwt(jwtMock, attributeName);
+
+    //assert
+    Assertions.assertEquals(stringValue, result);
+  }
 
   @Test
   void validateString_shouldThrowInvalidTokenException_whenObjectIsNotAString() {
