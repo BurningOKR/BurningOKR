@@ -268,7 +268,7 @@ class AuthenticationUserContextServiceTest {
       .build();
 
     //act + assert
-    Assertions.assertTrue(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
+    assertTrue(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
   }
 
   @Test
@@ -297,7 +297,7 @@ class AuthenticationUserContextServiceTest {
       .build();
 
     //act + assert
-    Assertions.assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
+    assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
   }
 
   @Test
@@ -326,7 +326,7 @@ class AuthenticationUserContextServiceTest {
       .build();
 
     //act + assert
-    Assertions.assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
+    assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
   }
 
   @Test
@@ -355,7 +355,7 @@ class AuthenticationUserContextServiceTest {
       .build();
 
     //act + assert
-    Assertions.assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
+    assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
   }
 
   @Test
@@ -384,7 +384,7 @@ class AuthenticationUserContextServiceTest {
       .build();
 
     //act + assert
-    Assertions.assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
+    assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
   }
 
   @Test
@@ -413,7 +413,7 @@ class AuthenticationUserContextServiceTest {
       .build();
 
     //act + assert
-    Assertions.assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
+    assertFalse(this.authenticationService.isCachedUserEqualToTokenUser(cachedUser, tokenUser));
   }
 
   @Test
