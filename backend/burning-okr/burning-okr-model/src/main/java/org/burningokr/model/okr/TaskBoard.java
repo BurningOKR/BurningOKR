@@ -1,9 +1,7 @@
 package org.burningokr.model.okr;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.burningokr.model.okrUnits.OkrDepartment;
 
@@ -12,6 +10,9 @@ import java.util.Collection;
 
 @Entity
 @Data
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class TaskBoard implements Trackable<Long> {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence_generator")

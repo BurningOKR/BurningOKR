@@ -167,6 +167,27 @@ public class ObjectiveMapperTest {
     objectiveDto = objectiveMapper.mapEntityToDto(objective);
     assertEquals(expected, objectiveDto.getReview());
   }
+
+  @Test
+  public void mapEntitiesToDtos_shouldMapNoteEntitiesToDtos() {
+    objective.setId(12L);
+    Collection<Objective> expected = new ArrayList<>() {
+      {
+        add(objective);
+        add(objective);
+      }
+    };
+    Collection<ObjectiveDto> actual = objectiveMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldHandleEmptyList() {
+    Collection<Objective> expected = new ArrayList<>() {};
+    Collection<ObjectiveDto> actual = objectiveMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+  }
   // endregion
 
   // region Tests DtoToEntity
@@ -279,6 +300,27 @@ public class ObjectiveMapperTest {
     objectiveDto.setReview(expected);
     objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     assertEquals(expected, objective.getReview());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapNoteDtosToEntities() {
+    objectiveDto.setId(12L);
+    Collection<ObjectiveDto> expected = new ArrayList<>() {
+      {
+        add(objectiveDto);
+        add(objectiveDto);
+      }
+    };
+    Collection<Objective> actual = objectiveMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldHandleEmptyList() {
+    Collection<ObjectiveDto> expected = new ArrayList<>() {};
+    Collection<Objective> actual = objectiveMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
   }
   // endregion
 }

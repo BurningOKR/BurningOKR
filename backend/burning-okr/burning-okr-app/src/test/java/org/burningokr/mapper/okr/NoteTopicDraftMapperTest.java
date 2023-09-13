@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -71,6 +73,27 @@ public class NoteTopicDraftMapperTest {
     noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
     assertNull(noteTopicDraft.getParentTopicDraft());
   }
+
+  @Test
+  public void mapDtosToEntities_shouldMapNoteDtosToEntities() {
+    noteTopicDraftDto.setNoteId(12L);
+    Collection<NoteTopicDraftDto> expected = new ArrayList<>() {
+      {
+        add(noteTopicDraftDto);
+        add(noteTopicDraftDto);
+      }
+    };
+    Collection<NoteTopicDraft> actual = noteTopicDraftMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getNoteId(), actual.stream().findFirst().orElseThrow().getId());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldHandleEmptyList() {
+    Collection<NoteTopicDraftDto> expected = new ArrayList<>() {};
+    Collection<NoteTopicDraft> actual = noteTopicDraftMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+  }
   // endregion
 
   // region EntityToDto-Tests
@@ -119,6 +142,27 @@ public class NoteTopicDraftMapperTest {
   public void test_mapEntityToDto_expectsParentTopicDraftIsNull() {
     noteTopicDraftDto = noteTopicDraftMapper.mapEntityToDto(noteTopicDraft);
     assertNull(noteTopicDraft.getParentTopicDraft());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldMapNoteEntitiesToDtos() {
+    noteTopicDraft.setId(12L);
+    Collection<NoteTopicDraft> expected = new ArrayList<>() {
+      {
+        add(noteTopicDraft);
+        add(noteTopicDraft);
+      }
+    };
+    Collection<NoteTopicDraftDto> actual = noteTopicDraftMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getNoteId());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldHandleEmptyList() {
+    Collection<NoteTopicDraft> expected = new ArrayList<>() {};
+    Collection<NoteTopicDraftDto> actual = noteTopicDraftMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
   }
   // endregion
 }
