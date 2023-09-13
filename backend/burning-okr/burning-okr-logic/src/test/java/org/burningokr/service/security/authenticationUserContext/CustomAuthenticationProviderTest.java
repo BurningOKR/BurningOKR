@@ -133,6 +133,18 @@ class CustomAuthenticationProviderTest {
   }
 
   @Test
+  void supports_shouldReturnTrue_whenClassIsSubclassOfBearerTokenAuthenticationToken() {
+    //assemble
+    Class<BearerTokenAuthenticationTokenTestImpl> tokenClass = BearerTokenAuthenticationTokenTestImpl.class;
+
+    //act
+    boolean result = this.customAuthenticationProvider.supports(tokenClass);
+
+    //assert
+    Assertions.assertTrue(result);
+  }
+
+  @Test
   void supports_shouldReturnFalse() {
     //assemble
     Class<Object> objectTokenClass = Object.class;
@@ -142,5 +154,12 @@ class CustomAuthenticationProviderTest {
 
     //assert
     Assertions.assertFalse(result);
+  }
+
+  private static class BearerTokenAuthenticationTokenTestImpl extends BearerTokenAuthenticationToken {
+
+    public BearerTokenAuthenticationTokenTestImpl(String token) {
+      super(token);
+    }
   }
 }
