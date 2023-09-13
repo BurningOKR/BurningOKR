@@ -7,7 +7,7 @@ services:
     container_name: burning-okr-postgres
     restart: unless-stopped
     env_file:
-      - postgres.env.sample
+      - postgres.env
     volumes:
       - b-okr-pgdata:/var/lib/postgresql/data
     networks:
@@ -17,7 +17,7 @@ services:
     container_name: burning-okr-backend
     restart: unless-stopped
     env_file:
-      - backend.env.sample
+      - backend.env
     depends_on:
       - db
     networks:

@@ -2,7 +2,7 @@
 
 <br/><br/><br/>
 
-# BurningOKR
+# BurningOKR 2.0
 
 Burning OKR is our vision to help consistently establish focus and alignment around company goals and embed transparency into the corporate culture.
 
@@ -20,6 +20,10 @@ You can use our docker-compose file for easy use and compatibility!
 5. Hint: When you don't want to use Azure or a SMTP-Mailserver just comment these parts in the .env-files out and they won't be used. For more information read the [development docs](/docs/development.md).
 6. After that you are good to go and you can run `docker compose -f docker-compose-prod.yml up` in the directory where the previously downloaded files are saved.
    Hint: When you want to reuse the console window add a `-d` to the compose command to run in detached mode.
+
+## BREAKING CHANGES: migrate from version < 2.0.0
+
+Version 2 introduced breaking changes, like removing the local auth and replacing it with Keycloak. For migrating older versions than 2.0.0 please follow this [link to the migration guide](/docs/migrate_from_older_version_than_2.md).
 
 ## Development
 
