@@ -2,7 +2,6 @@ package org.burningokr.service.security.authenticationUserContext;
 
 import org.burningokr.model.users.User;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,10 +33,6 @@ class CustomAuthenticationProviderTest {
   JwtDecoder jwtDecoderMock;
 
 
-  @BeforeEach
-  void setUp() {
-  }
-
   @Test
   void authenticate_shouldReturnBurningOkrAuthentication() {
     //assemble
@@ -51,9 +46,9 @@ class CustomAuthenticationProviderTest {
 
       Jwt jwtMock = mock(Jwt.class);
       doReturn(jwtMock).when(authenticationMock).getCredentials();
-      doReturn(false).when(authenticationMock).isAuthenticated();
       User userMock = mock(User.class);
       doReturn(userMock).when(this.authenticationUserContextServiceMock).getUserFromToken(jwtMock);
+      doReturn(false).when(authenticationMock).isAuthenticated();
 
       //act
       Authentication result = this.customAuthenticationProvider.authenticate(authenticationMock);
@@ -82,9 +77,9 @@ class CustomAuthenticationProviderTest {
 
       Jwt jwtMock = mock(Jwt.class);
       doReturn(jwtMock).when(authenticationMock).getCredentials();
-      doReturn(true).when(authenticationMock).isAuthenticated();
       User userMock = mock(User.class);
       doReturn(userMock).when(this.authenticationUserContextServiceMock).getUserFromToken(jwtMock);
+      doReturn(true).when(authenticationMock).isAuthenticated();
       doNothing().when(this.authenticationUserContextServiceMock).updateCachedAndDatabaseUser(userMock);
 
       //act
