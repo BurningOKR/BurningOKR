@@ -44,10 +44,10 @@ class CustomAuthenticationProviderTest {
     Authentication authenticationMock = mock(Authentication.class);
 
     //mock constructor of JwtAuthenticationProvider
-    try (MockedConstruction<JwtAuthenticationProvider> mocked = mockConstruction(JwtAuthenticationProvider.class,
-      (mock, context) -> {
-        when(mock.authenticate(authenticationMock)).thenReturn(authenticationMock);
-      })) {
+    try (MockedConstruction<JwtAuthenticationProvider> ignored =
+           mockConstruction(
+             JwtAuthenticationProvider.class,
+             (mock, context) -> when(mock.authenticate(authenticationMock)).thenReturn(authenticationMock))) {
 
       Jwt jwtMock = mock(Jwt.class);
       doReturn(jwtMock).when(authenticationMock).getCredentials();
@@ -75,10 +75,10 @@ class CustomAuthenticationProviderTest {
     Authentication authenticationMock = mock(Authentication.class);
 
     //mock constructor of JwtAuthenticationProvider
-    try (MockedConstruction<JwtAuthenticationProvider> mocked = mockConstruction(JwtAuthenticationProvider.class,
-      (mock, context) -> {
-        when(mock.authenticate(authenticationMock)).thenReturn(authenticationMock);
-      })) {
+    try (MockedConstruction<JwtAuthenticationProvider> ignored =
+           mockConstruction(
+             JwtAuthenticationProvider.class,
+             (mock, context) -> when(mock.authenticate(authenticationMock)).thenReturn(authenticationMock))) {
 
       Jwt jwtMock = mock(Jwt.class);
       doReturn(jwtMock).when(authenticationMock).getCredentials();
@@ -108,15 +108,15 @@ class CustomAuthenticationProviderTest {
     Authentication authenticationMock = mock(Authentication.class);
 
     //mock constructor of JwtAuthenticationProvider
-    try (MockedConstruction<JwtAuthenticationProvider> mocked = mockConstruction(JwtAuthenticationProvider.class,
-      (mock, context) -> {
-        doThrow(InvalidBearerTokenException.class).when(mock).authenticate(authenticationMock);
-      })) {
+    try (MockedConstruction<JwtAuthenticationProvider> ignored =
+           mockConstruction(
+             JwtAuthenticationProvider.class,
+             (mock, context) -> doThrow(InvalidBearerTokenException.class).when(mock).authenticate(authenticationMock))) {
 
       //act + assert
-      Assertions.assertThrows(AuthenticationException.class, () -> {
-        this.customAuthenticationProvider.authenticate(authenticationMock);
-      });
+      Assertions.assertThrows(
+        AuthenticationException.class,
+        () -> this.customAuthenticationProvider.authenticate(authenticationMock));
     }
   }
 
