@@ -1,6 +1,5 @@
 package org.burningokr.service.security.authenticationUserContext;
 
-import com.nimbusds.jose.shaded.gson.internal.LinkedTreeMap;
 import org.burningokr.model.configuration.SystemProperties;
 import org.burningokr.service.security.authorization.InvalidTokenException;
 import org.burningokr.service.userhandling.UserService;
@@ -9,9 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @ConditionalOnProperty(value = "system.configuration.provider", havingValue = "keycloak")
 @Service
@@ -29,7 +26,7 @@ public class AuthenticationUserContextServiceKeycloak extends AuthenticationUser
 
   @Override
   protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
-    var realmsMap = (LinkedTreeMap<?, ?>) userToken.getClaims().get("realm_access");
+    var realmsMap = (Map<?, ?>) userToken.getClaims().get("realm_access");
     var userRoles = new ArrayList<String>();
 
     if (realmsMap != null) {
@@ -37,8 +34,8 @@ public class AuthenticationUserContextServiceKeycloak extends AuthenticationUser
         throw new InvalidTokenException("Not all realm-access keys are of type String");
       }
 
-      if (!(realmsMap.get("roles") instanceof ArrayList<?> roles)) {
-        throw new InvalidTokenException("roles-list is not of type ArrayList");
+      if (!(realmsMap.get("roles") instanceof Collection<?> roles)) {
+        throw new InvalidTokenException("Value of key 'roles' is not of type Collection");
       }
 
       if (!checkIfListContainsStrings(roles)) {

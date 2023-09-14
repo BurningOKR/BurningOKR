@@ -1,7 +1,6 @@
-package org.burningokr.unit.mapper.okr;
+package org.burningokr.mapper.okr;
 
 import org.burningokr.dto.okr.StructureDto;
-import org.burningokr.mapper.okr.StructureMapper;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrChildUnit;
 import org.burningokr.model.okrUnits.OkrCompany;
@@ -49,5 +48,28 @@ public class StructureMapperTest {
     StructureDto actual = structureMapper.mapCompanyToStructureDto(company);
 
     assertEquals(expected, actual.getUnitName());
+  }
+
+  @Test
+  public void mapCompaniesToStructureDtos_shouldMapCompaniesToStructureDtos() {
+    company.setId(12L);
+    Collection<OkrCompany> expected = new ArrayList<>() {
+      {
+        add(company);
+        add(company);
+      }
+    };
+    Collection<StructureDto> actual = structureMapper.mapCompaniesToStructureDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getOkrUnitId());
+
+  }
+
+  @Test
+  public void mapCompaniesToStructureDtos_shouldHandleEmptyList() {
+    Collection<OkrCompany> expected = new ArrayList<>() {};
+    Collection<StructureDto> actual = structureMapper.mapCompaniesToStructureDtos(expected);
+    assertEquals(expected.size(), actual.size());
+
   }
 }

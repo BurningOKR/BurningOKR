@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -106,5 +108,47 @@ public class NoteObjectiveMapperTest {
     noteObjective.setParentObjective(expected);
     noteObjectiveDto = noteObjectiveMapper.mapEntityToDto(noteObjective);
     assertEquals(expected.getId(), noteObjectiveDto.getParentObjectiveId());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapNoteDtosToEntities() {
+    noteObjectiveDto.setNoteId(12L);
+    Collection<NoteObjectiveDto> expected = new ArrayList<>() {
+      {
+        add(noteObjectiveDto);
+        add(noteObjectiveDto);
+      }
+    };
+    Collection<NoteObjective> actual = noteObjectiveMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getNoteId(), actual.stream().findFirst().orElseThrow().getId());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldHandleEmptyList() {
+    Collection<NoteObjectiveDto> expected = new ArrayList<>() {};
+    Collection<NoteObjective> actual = noteObjectiveMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldMapNoteEntitiesToDtos() {
+    noteObjective.setId(12L);
+    Collection<NoteObjective> expected = new ArrayList<>() {
+      {
+        add(noteObjective);
+        add(noteObjective);
+      }
+    };
+    Collection<NoteObjectiveDto> actual = noteObjectiveMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getNoteId());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldHandleEmptyList() {
+    Collection<NoteObjective> expected = new ArrayList<>() {};
+    Collection<NoteObjectiveDto> actual = noteObjectiveMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
   }
 }

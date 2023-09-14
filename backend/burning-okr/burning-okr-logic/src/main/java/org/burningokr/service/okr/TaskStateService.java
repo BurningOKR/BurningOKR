@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskStateService {
-  private TaskStateRepository taskStateRepository;
-  private OkrDepartmentRepository okrDepartmentRepository;
+  private final TaskStateRepository taskStateRepository;
+  private final OkrDepartmentRepository okrDepartmentRepository;
 
   @Autowired
   public TaskStateService(
@@ -29,5 +30,9 @@ public class TaskStateService {
   public Collection<TaskState> findTaskStatesForUnitId(long unitId) {
     TaskBoard taskboard = okrDepartmentRepository.findById(unitId).get().getTaskBoard();
     return this.taskStateRepository.findByTaskBoard(taskboard);
+  }
+
+  public Collection<TaskState> copyTaskStates(TaskBoard taskBoardToCopy) {
+    return taskBoardToCopy.getAvailableStates().stream().map(TaskState::copy).collect(Collectors.toList());
   }
 }

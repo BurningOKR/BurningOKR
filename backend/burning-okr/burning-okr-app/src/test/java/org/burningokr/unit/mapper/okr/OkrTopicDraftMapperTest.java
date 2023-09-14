@@ -16,10 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -400,5 +397,49 @@ public class OkrTopicDraftMapperTest {
     OkrTopicDraft mappedTopicDraft = topicDraftMapper.mapDtoToEntity(topicDraftDto);
 
     assertEquals(topicDraftDto.getCurrentStatus(), mappedTopicDraft.getCurrentStatus().ordinal());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldMapNoteDtosToEntities() {
+    topicDraftDto.setId(12L);
+    Collection<OkrTopicDraftDto> expected = new ArrayList<>() {
+      {
+        add(topicDraftDto);
+        add(topicDraftDto);
+      }
+    };
+    Collection<OkrTopicDraft> actual = topicDraftMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
+  }
+
+  @Test
+  public void mapDtosToEntities_shouldHandleEmptyList() {
+    Collection<OkrTopicDraftDto> expected = new ArrayList<>() {};
+    Collection<OkrTopicDraft> actual = topicDraftMapper.mapDtosToEntities(expected);
+    assertEquals(expected.size(), actual.size());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldMapNoteEntitiesToDtos() {
+    when(userService.findById(any())).thenReturn(Optional.of(user));
+
+    topicDraft.setId(12L);
+    Collection<OkrTopicDraft> expected = new ArrayList<>() {
+      {
+        add(topicDraft);
+        add(topicDraft);
+      }
+    };
+    Collection<OkrTopicDraftDto> actual = topicDraftMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
+    assertEquals(expected.stream().findFirst().orElseThrow().getId(), actual.stream().findFirst().orElseThrow().getId());
+  }
+
+  @Test
+  public void mapEntitiesToDtos_shouldHandleEmptyList() {
+    Collection<OkrTopicDraft> expected = new ArrayList<>() {};
+    Collection<OkrTopicDraftDto> actual = topicDraftMapper.mapEntitiesToDtos(expected);
+    assertEquals(expected.size(), actual.size());
   }
 }
