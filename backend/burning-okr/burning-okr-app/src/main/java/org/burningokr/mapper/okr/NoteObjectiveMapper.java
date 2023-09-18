@@ -1,17 +1,20 @@
 package org.burningokr.mapper.okr;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Note;
 import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
+@RequiredArgsConstructor
 public class NoteObjectiveMapper extends NoteAbstractMapper
   implements DataMapper<NoteObjective, NoteObjectiveDto> {
 

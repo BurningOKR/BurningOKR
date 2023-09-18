@@ -70,7 +70,7 @@ class KeyResultControllerIntegrationTest {
     Assertions.assertNotNull(context.getBean(KeyResultController.class));
   }
 
-  @Test
+ @Test
   void getKeyResultById() throws Exception {
     MvcResult result = this.mockMvc
         .perform(get("/api/keyresults/{keyResultId}", 280))
@@ -85,9 +85,6 @@ class KeyResultControllerIntegrationTest {
 
   @Test
   void getNotesOfKeyResult() throws Exception {
-    //find all possible keyresults from a departement dynamically from database and save it's id as string
-
-
     MvcResult result = this.mockMvc
         .perform(get("/api/keyresults/{keyresultId}/notes", 280))
         .andDo(print())

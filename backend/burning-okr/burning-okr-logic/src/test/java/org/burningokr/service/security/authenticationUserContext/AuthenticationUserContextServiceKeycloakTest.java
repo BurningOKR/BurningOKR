@@ -1,7 +1,8 @@
-package org.burningokr.service.security.authenticationUserContext;
+package org.burningokr.unit.service.security.authenticationUserContext;
 
 import com.nimbusds.jose.shaded.gson.internal.LinkedTreeMap;
 import org.burningokr.model.configuration.SystemProperties;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextServiceKeycloak;
 import org.burningokr.service.security.authorization.InvalidTokenException;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.jupiter.api.Assertions;

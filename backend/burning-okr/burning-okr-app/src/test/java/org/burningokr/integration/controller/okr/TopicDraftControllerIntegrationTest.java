@@ -81,7 +81,7 @@ class TopicDraftControllerIntegrationTest {
 
     Assertions.assertNotNull(servletContext);
     Assertions.assertTrue(servletContext instanceof MockServletContext);
-    Assertions.assertNotNull(applicationContext.getBean(KeyResultSequenceController.class));
+    Assertions.assertNotNull(applicationContext.getBean(TopicDraftController.class));
   }
 
   @Test

@@ -31,12 +31,12 @@ public class AuthenticationUserContextServiceAzureAD extends AuthenticationUserC
   }
 
   @Override
-  protected UUID getUserIdFromToken(Jwt token) {
+  public UUID getUserIdFromToken(Jwt token) {
     return UUID.fromString((String) token.getClaims().get("oid"));
   }
 
   @Override
-  protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
+  public List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
     var userRoles = (ArrayList<?>) userToken.getClaims().get("roles");
 
     if (userRoles == null) {
@@ -54,7 +54,7 @@ public class AuthenticationUserContextServiceAzureAD extends AuthenticationUserC
    * (format: "<last_name>, <first_name>") gets seperated and returned.
    */
   @Override
-  protected String getAttributeFromJwt(Jwt userToken, String attributeName) throws InvalidTokenException {
+  public String getAttributeFromJwt(Jwt userToken, String attributeName) throws InvalidTokenException {
     switch (attributeName) {
       case PARSE_FIRST_NAME_COMMAND -> {
         var nameClaimValue = userToken.getClaims().get(NAME_CLAIM_KEY);

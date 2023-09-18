@@ -1,5 +1,7 @@
-package org.burningokr.config;
+package org.burningokr.unit.config;
 
+import org.burningokr.config.StompHeaderInterceptor;
+import org.burningokr.config.WebSocketAuthentication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

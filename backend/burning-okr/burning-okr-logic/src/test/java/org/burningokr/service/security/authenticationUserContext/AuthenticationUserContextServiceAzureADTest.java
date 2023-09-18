@@ -1,6 +1,7 @@
-package org.burningokr.service.security.authenticationUserContext;
+package org.burningokr.unit.service.security.authenticationUserContext;
 
 import org.burningokr.model.configuration.SystemProperties;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextServiceAzureAD;
 import org.burningokr.service.security.authorization.InvalidTokenException;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -22,13 +23,13 @@ class AuthenticationUserContextServiceAzureADTest {
 
   @InjectMocks
   @Spy
-  AuthenticationUserContextServiceAzureAD authenticationServiceAD;
+  private AuthenticationUserContextServiceAzureAD authenticationServiceAD;
 
   @Mock
-  UserService userServiceMock;
+  private UserService userServiceMock;
 
   @Mock
-  SystemProperties systemPropertiesMock;
+  private SystemProperties systemPropertiesMock;
 
 
   @Test

@@ -1,8 +1,9 @@
-package org.burningokr.service.security.authenticationUserContext;
+package org.burningokr.unit.service.security.authenticationUserContext;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.SystemProperties;
 import org.burningokr.model.users.User;
+import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.security.authorization.InvalidTokenException;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -47,7 +48,7 @@ class AuthenticationUserContextServiceTest {
     //assemble
     UUID dummyUUID = UUID.randomUUID();
     User userMock = mock(User.class);
-    authenticationService.userHashMap.put(dummyUUID, userMock);
+    authenticationService.getUserHashMap().put(dummyUUID, userMock);
 
     doReturn(dummyUUID).when(this.authenticationService).getUserIdFromContext();
 
@@ -597,12 +598,12 @@ class AuthenticationUserContextServiceTest {
     }
 
     @Override
-    protected UUID getUserIdFromToken(Jwt token) {
+    public UUID getUserIdFromToken(Jwt token) {
       return null;
     }
 
     @Override
-    protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
+    public List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
       return null;
     }
   }

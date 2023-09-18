@@ -63,11 +63,11 @@ public class WebSocketAuthentication {
     return nativeHeader != null && !nativeHeader.isEmpty() ? nativeHeader.get(0).split("\\s")[1] : "";
   }
 
-  protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
+  public boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
     return StompCommand.CONNECT.equals(accessor.getCommand());
   }
 
-  protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
+  public void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
     final String bearerToken = getBearerToken(header);
     final Authentication authentication = decodeToken(bearerToken);
 
