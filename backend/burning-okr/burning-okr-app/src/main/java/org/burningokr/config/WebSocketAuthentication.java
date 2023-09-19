@@ -25,15 +25,41 @@ import java.util.List;
 public class WebSocketAuthentication {
 
   private final JwtDecoder jwtDecoder;
+
+  private final JwtAuthenticationConverter jwtAuthenticationConverter;
   public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
   private static final String WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY = "Authorization";
 
   private final AuthenticationUserContextService authenticationUserContextService;
 
+  protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
+    return StompCommand.CONNECT.equals(accessor.getCommand());
+  }
+
+  protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
+    final String bearerToken = getBearerToken(header);
+    final Authentication authentication = decodeToken(bearerToken);
+
+    if (!authentication.isAuthenticated()) throw new AuthorizationHeaderException("User is not authenticated");
+
+    header.setUser(authentication);
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    log.debug("set auth after receiving jwt via websocket connection");
+    if (header.getSessionAttributes() == null) throw new RuntimeException("Session attributes are null");
+    header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY,
+      authenticationUserContextService.getAuthenticatedUser().getId());
+  }
+
+  private String getBearerToken(@NonNull StompHeaderAccessor header) {
+    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) return "";
+    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    return nativeHeader != null && !nativeHeader.isEmpty() ? nativeHeader.get(0).split("\\s")[1] : "";
+  }
+
   private Authentication decodeToken(@NonNull String token) {
-    if (token.isEmpty()) throw new NullPointerException("Token is either null or is empty");
+    if (token.isEmpty()) throw new NullPointerException("Token is empty");
     Jwt jwt = jwtDecoder.decode(token); // TODO CK refactor when working
-    AbstractAuthenticationToken abstractAuthenticationToken = new JwtAuthenticationConverter().convert(jwt);
+    AbstractAuthenticationToken abstractAuthenticationToken = this.jwtAuthenticationConverter.convert(jwt);
 
     // new
     User userFromToken = authenticationUserContextService.getUserFromToken(jwt);
@@ -55,29 +81,5 @@ public class WebSocketAuthentication {
     burningOkrAuthentication.setAuthenticated(authentication.isAuthenticated());
 
     return burningOkrAuthentication;
-  }
-
-  private String getBearerToken(@NonNull StompHeaderAccessor header) {
-    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) return "";
-    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
-    return nativeHeader != null && !nativeHeader.isEmpty() ? nativeHeader.get(0).split("\\s")[1] : "";
-  }
-
-  protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
-    return StompCommand.CONNECT.equals(accessor.getCommand());
-  }
-
-  protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
-    final String bearerToken = getBearerToken(header);
-    final Authentication authentication = decodeToken(bearerToken);
-
-    if (!authentication.isAuthenticated()) throw new AuthorizationHeaderException("user is not authenticated");
-
-    header.setUser(authentication);
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    log.debug("set auth after receiving jwt via websocket connection");
-    if (header.getSessionAttributes() == null) throw new RuntimeException("Session Attributes are null");
-    header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY,
-        authenticationUserContextService.getAuthenticatedUser().getId());
   }
 }
