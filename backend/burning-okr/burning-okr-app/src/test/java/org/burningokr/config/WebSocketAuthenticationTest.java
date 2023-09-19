@@ -3,7 +3,6 @@ package org.burningokr.config;
 import org.burningokr.exceptions.AuthorizationHeaderException;
 import org.burningokr.model.users.User;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
-import org.hibernate.annotations.OnDelete;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,14 +18,12 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,49 +72,65 @@ class WebSocketAuthenticationTest {
   }
 
   @Test
-  void tryToAuthenticate_shouldThrowNullPointerException_whenStompHeaderHasNoNativeHeader() {
+  void tryToAuthenticate_shouldThrowIllegalArgumentException_whenStompHeaderHasNoNativeHeader() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
     doReturn(false).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
 
     //act + assert
-    NullPointerException exc = Assertions.assertThrows(NullPointerException.class, () ->
+    IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
       this.webSocketAuthentication.tryToAuthenticate(stompHeaderAccessorMock));
 
     //assert
-    Assertions.assertEquals("Token is empty", exc.getMessage());
+    Assertions.assertEquals("Key 'Authorization' is missing in stomp header", exc.getMessage());
     verifyNoMoreInteractions(this.authenticationUserContextServiceMock, this.jwtAuthenticationConverterMock);
   }
 
   @Test
-  void tryToAuthenticate_shouldThrowNullPointerException_whenHeaderIsNull() {
+  void tryToAuthenticate_shouldThrowIllegalArgumentException_whenHeaderIsNull() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
     doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
     doReturn(null).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
 
     //act + assert
-    NullPointerException exc = Assertions.assertThrows(NullPointerException.class, () ->
+    IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
       this.webSocketAuthentication.tryToAuthenticate(stompHeaderAccessorMock));
 
     //assert
-    Assertions.assertEquals("Token is empty", exc.getMessage());
+    Assertions.assertEquals("Value of key 'Authorization' in stomp header is null or empty", exc.getMessage());
     verifyNoMoreInteractions(this.authenticationUserContextServiceMock, this.jwtAuthenticationConverterMock);
   }
 
   @Test
-  void tryToAuthenticate_shouldThrowNullPointerException_whenHeaderIsEmpty() {
+  void tryToAuthenticate_shouldThrowIllegalArgumentException_whenHeaderIsEmpty() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
     doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
     doReturn(List.of()).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
 
     //act + assert
-    NullPointerException exc = Assertions.assertThrows(NullPointerException.class, () ->
+    IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
       this.webSocketAuthentication.tryToAuthenticate(stompHeaderAccessorMock));
 
     //assert
-    Assertions.assertEquals("Token is empty", exc.getMessage());
+    Assertions.assertEquals("Value of key 'Authorization' in stomp header is null or empty", exc.getMessage());
+    verifyNoMoreInteractions(this.authenticationUserContextServiceMock, this.jwtAuthenticationConverterMock);
+  }
+
+  @Test
+  void tryToAuthenticate_shouldThrowIllegalArgumentException_whenTokenStringIsMalformed() {
+    //assemble
+    StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
+    doReturn(List.of("dummyTokenStringWithoutPrecedingBearer")).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
+
+    //act + assert
+    IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
+      this.webSocketAuthentication.tryToAuthenticate(stompHeaderAccessorMock));
+
+    //assert
+    Assertions.assertEquals("Authorization token in header is malformed. Expected structure: Bearer {token}", exc.getMessage());
     verifyNoMoreInteractions(this.authenticationUserContextServiceMock, this.jwtAuthenticationConverterMock);
   }
 
