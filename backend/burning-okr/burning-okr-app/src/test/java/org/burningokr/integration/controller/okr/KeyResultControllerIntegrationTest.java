@@ -163,5 +163,4 @@ class KeyResultControllerIntegrationTest {
     Assertions.assertNotNull(mvcResult);
     Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
   }
-
 }
