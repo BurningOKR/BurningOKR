@@ -75,7 +75,7 @@ class WebSocketAuthenticationTest {
   void tryToAuthenticate_shouldThrowIllegalArgumentException_whenStompHeaderHasNoNativeHeader() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-    doReturn(false).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
+    doReturn(false).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     //act + assert
     IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -90,8 +90,8 @@ class WebSocketAuthenticationTest {
   void tryToAuthenticate_shouldThrowIllegalArgumentException_whenHeaderIsNull() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
-    doReturn(null).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    doReturn(null).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     //act + assert
     IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -106,8 +106,8 @@ class WebSocketAuthenticationTest {
   void tryToAuthenticate_shouldThrowIllegalArgumentException_whenHeaderIsEmpty() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
-    doReturn(List.of()).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    doReturn(List.of()).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     //act + assert
     IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -122,8 +122,8 @@ class WebSocketAuthenticationTest {
   void tryToAuthenticate_shouldThrowIllegalArgumentException_whenTokenStringIsMalformed() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
-    doReturn(List.of("dummyTokenStringWithoutPrecedingBearer")).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    doReturn(List.of("dummyTokenStringWithoutPrecedingBearer")).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     //act + assert
     IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -138,8 +138,8 @@ class WebSocketAuthenticationTest {
   void tryToAuthenticate_shouldThrowAuthorizationHeaderException_whenIsNotAuthenticated() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
-    doReturn(List.of("Bearer dummyBearerTokenString")).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    doReturn(List.of("Bearer dummyBearerTokenString")).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     Jwt jwtMock = mock(Jwt.class);
     doReturn(jwtMock).when(this.jwtDecoderMock).decode("dummyBearerTokenString");
@@ -164,8 +164,8 @@ class WebSocketAuthenticationTest {
   void tryToAuthenticate_shouldThrowRuntimeException_whenHeaderSessionAttributesAreNull() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
-    doReturn(List.of("Bearer dummyBearerTokenString")).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    doReturn(List.of("Bearer dummyBearerTokenString")).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     Jwt jwtMock = mock(Jwt.class);
     doReturn(jwtMock).when(this.jwtDecoderMock).decode("dummyBearerTokenString");
@@ -195,8 +195,8 @@ class WebSocketAuthenticationTest {
   void tryToAuthenticate_shouldSetCorrectHeaderAttributes() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader("Authorization");
-    doReturn(List.of("Bearer dummyBearerTokenString")).when(stompHeaderAccessorMock).getNativeHeader("Authorization");
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    doReturn(List.of("Bearer dummyBearerTokenString")).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     Jwt jwtMock = mock(Jwt.class);
     doReturn(jwtMock).when(this.jwtDecoderMock).decode("dummyBearerTokenString");
@@ -227,7 +227,7 @@ class WebSocketAuthenticationTest {
     verify(stompHeaderAccessorMock).setUser(authenticationArgumentCaptor.capture());
     Assertions.assertTrue(authenticationArgumentCaptor.getValue().isAuthenticated());
     Assertions.assertSame(userMock, authenticationArgumentCaptor.getValue().getPrincipal());
-    Assertions.assertEquals(userID, headerSessionAttributesMap.get("userId"));
+    Assertions.assertEquals(userID, headerSessionAttributesMap.get(WebSocketAuthentication.USER_SESSION_ATTRIBUTE_KEY));
 
     verifyNoMoreInteractions(this.authenticationUserContextServiceMock, this.jwtAuthenticationConverterMock);
   }

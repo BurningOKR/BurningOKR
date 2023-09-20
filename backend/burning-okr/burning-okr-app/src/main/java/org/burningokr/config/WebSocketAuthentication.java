@@ -28,7 +28,7 @@ public class WebSocketAuthentication {
 
   private final JwtAuthenticationConverter jwtAuthenticationConverter;
   public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
-  private static final String WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY = "Authorization";
+  public static final String WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY = "Authorization";
 
   private final AuthenticationUserContextService authenticationUserContextService;
 
