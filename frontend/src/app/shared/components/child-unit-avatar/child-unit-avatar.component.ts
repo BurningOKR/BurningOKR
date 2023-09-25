@@ -24,16 +24,16 @@ export class ChildUnitAvatarComponent implements OnChanges {
 
     if (nameSplit.length >= 2) {
       return `${nameSplit[0].charAt(0)} ${nameSplit[1].charAt(0)}`;
-    } else if (nameSplit.length === 1) {
-      if (nameSplit[0].length >= 1) {
+    }
+
+    if (nameSplit.length === 1) {
+      if (nameSplit[0].length >= 2) {
         return `${nameSplit[0].charAt(0)} ${nameSplit[0].charAt(1)}`;
       } else {
         return `${nameSplit[0].charAt(0)}`;
       }
-
-    } else {
-      return null;
     }
-  }
 
+    return null;
+  }
 }
