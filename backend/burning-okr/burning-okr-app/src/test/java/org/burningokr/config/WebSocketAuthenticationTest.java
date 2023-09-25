@@ -119,11 +119,27 @@ class WebSocketAuthenticationTest {
   }
 
   @Test
-  void tryToAuthenticate_shouldThrowIllegalArgumentException_whenTokenStringIsMalformed() {
+  void tryToAuthenticate_shouldThrowIllegalArgumentException_whenTokenStringContainsOnlyOneWord() {
     //assemble
     StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
     doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
     doReturn(List.of("dummyTokenStringWithoutPrecedingBearer")).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+
+    //act + assert
+    IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->
+      this.webSocketAuthentication.tryToAuthenticate(stompHeaderAccessorMock));
+
+    //assert
+    Assertions.assertEquals("Authorization token in header is malformed. Expected structure: Bearer {token}", exc.getMessage());
+    verifyNoMoreInteractions(this.authenticationUserContextServiceMock, this.jwtAuthenticationConverterMock);
+  }
+
+  @Test
+  void tryToAuthenticate_shouldThrowIllegalArgumentException_whenTokenStringContainsTooManyWords() {
+    //assemble
+    StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
+    doReturn(true).when(stompHeaderAccessorMock).containsNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    doReturn(List.of("Bearer token something")).when(stompHeaderAccessorMock).getNativeHeader(WebSocketAuthentication.WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
 
     //act + assert
     IllegalArgumentException exc = Assertions.assertThrows(IllegalArgumentException.class, () ->

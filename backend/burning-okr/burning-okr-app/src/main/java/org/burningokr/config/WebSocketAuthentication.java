@@ -70,7 +70,7 @@ public class WebSocketAuthentication {
 
   private String extractTokenFromHeaderValue(String value) {
     String[] words = value.split("\\s");
-    if(words.length < 2) throw new IllegalArgumentException("Authorization token in header is malformed. Expected structure: Bearer {token}");
+    if(words.length != 2) throw new IllegalArgumentException("Authorization token in header is malformed. Expected structure: Bearer {token}");
     return words[1];
   }
 
