@@ -177,8 +177,6 @@ class WebSocketAuthenticationTest {
     User userMock = mock(User.class);
     doReturn(userMock).when(this.authenticationUserContextServiceMock).getUserFromToken(jwtMock);
 
-    doNothing().when(this.authenticationUserContextServiceMock).updateCachedAndDatabaseUser(userMock);
-
     doReturn(null).when(stompHeaderAccessorMock).getSessionAttributes();
 
     //act + assert
@@ -209,8 +207,6 @@ class WebSocketAuthenticationTest {
     UUID userID = UUID.randomUUID();
     doReturn(userMock).when(this.authenticationUserContextServiceMock).getUserFromToken(jwtMock);
     doReturn(userID).when(userMock).getId();
-
-    doNothing().when(this.authenticationUserContextServiceMock).updateCachedAndDatabaseUser(userMock);
 
     Map<String, Object> headerSessionAttributesMap = new HashMap<>();
     doReturn(headerSessionAttributesMap).when(stompHeaderAccessorMock).getSessionAttributes();
