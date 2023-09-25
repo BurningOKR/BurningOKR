@@ -1,13 +1,15 @@
 package org.burningokr.model.okr;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.burningokr.model.activity.Trackable;
 import org.hibernate.envers.Audited;
 
 @Entity
 @Data
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class TaskState implements Trackable<Long> {
 
   @Id

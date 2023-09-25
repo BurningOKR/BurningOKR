@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class TaskBoardService {
   private final TaskBoardRepository taskBoardRepository;
   private final DefaultTaskStateService defaultTaskStateService;
+  private final TaskStateService taskStateService;
   private final TaskStateRepository taskStateRepository;
   private final TaskService taskService;
   private final TaskRepository taskRepository;
@@ -33,7 +35,7 @@ public class TaskBoardService {
   }
 
   public TaskBoard copyTaskBoardWithParentOkrUnitOnly(
-    OkrDepartment okrDepartment
+      OkrDepartment okrDepartment
   ) {
     TaskBoard copiedTaskboard = new TaskBoard();
     copiedTaskboard.setParentOkrDepartment(okrDepartment);
@@ -42,21 +44,13 @@ public class TaskBoardService {
 
   @Transactional
   public TaskBoard saveTaskBoard(TaskBoard taskBoard) {
-    Collection<TaskState> states = new ArrayList<>();
-
     for (TaskState state : taskBoard.getAvailableStates()) {
       state.setParentTaskBoard(taskBoard);
-      states.add(state);
     }
 
     taskBoard = taskBoardRepository.save(taskBoard);
-
-    for (TaskState state : taskStateRepository.saveAll(states)) {
-      states.add(state);
-    }
-
-    taskBoard.setAvailableStates(states);
-    return taskBoardRepository.save(taskBoard);
+    taskStateRepository.saveAll(taskBoard.getAvailableStates());
+    return taskBoard;
   }
 
   @Transactional
@@ -65,17 +59,14 @@ public class TaskBoardService {
     TaskBoard copiedTaskBoard = this.copyTaskBoardWithParentOkrUnitOnly(copy);
     this.taskBoardRepository.save(copiedTaskBoard);
 
-    Collection<TaskState> copiedStates =
-      this.copyTaskStateListAndSetTaskBoard(
-        taskBoardToCopy.getAvailableStates(), copiedTaskBoard);
+    Collection<TaskState> copiedStates = this.taskStateService.copyTaskStates(taskBoardToCopy);
+    copiedStates.forEach(s -> s.setParentTaskBoard(copiedTaskBoard));
     taskStateRepository.saveAll(copiedStates);
     copiedTaskBoard.setAvailableStates(copiedStates);
     this.taskBoardRepository.save(copiedTaskBoard);
 
     Collection<Task> notFinishedTasks = this.findUnfinishedTasks(taskBoardToCopy);
-    copiedTaskBoard.setTasks(
-      taskService.copyTasks(
-        notFinishedTasks, copiedStates, copiedTaskBoard));
+    copiedTaskBoard.setTasks(taskService.copyTasksAndSetNewStates(notFinishedTasks, copiedStates, copiedTaskBoard));
     taskRepository.saveAll(copiedTaskBoard.getTasks());
     updatePreviousTaskOfSavedCopiedTasks(copiedTaskBoard.getTasks());
     taskRepository.saveAll(copiedTaskBoard.getTasks());
@@ -85,11 +76,11 @@ public class TaskBoardService {
     return copiedTaskBoard;
   }
 
-  private Collection<Task> updatePreviousTaskOfSavedCopiedTasks(Collection<Task> copiedTasks) {
+  public Collection<Task> updatePreviousTaskOfSavedCopiedTasks(Collection<Task> copiedTasks) {
     for (Task copiedTask : copiedTasks) {
       for (Task forPreviousTask : copiedTasks) {
         if (copiedTask.hasPreviousTask()
-          && copiedTask.getPreviousTask().getTitle().equals(forPreviousTask.getTitle())) {
+            && copiedTask.getPreviousTask().getTitle().equals(forPreviousTask.getTitle())) {
           copiedTask.setPreviousTask(forPreviousTask);
         }
       }
@@ -99,7 +90,7 @@ public class TaskBoardService {
   }
 
   public Collection<TaskState> copyTaskStateListAndSetTaskBoard(
-    Collection<TaskState> statesToCopy, TaskBoard parentTaskBoard
+      Collection<TaskState> statesToCopy, TaskBoard parentTaskBoard
   ) {
     Collection<TaskState> copiedAvailableStates = new ArrayList<>();
     for (TaskState state : statesToCopy) {

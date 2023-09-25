@@ -42,19 +42,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
   @Override
   public void configureClientInboundChannel(@NonNull ChannelRegistration registration) {
-    registration.interceptors(new ChannelInterceptor() {
-      @Override
-      public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
-        final StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-        if (accessor == null) throw new NullPointerException("StompHeaderAccessor is null");
-
-        if (socketAuth.isConnectionAttempt(accessor)) {
-          socketAuth.tryToAuthenticate(accessor);
-        }
-
-        return message;
-      }
-    });
+    registration.interceptors(new StompHeaderInterceptor(this.socketAuth));
   }
 
   @Bean

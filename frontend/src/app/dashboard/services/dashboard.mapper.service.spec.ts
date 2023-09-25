@@ -23,36 +23,35 @@ describe('Dashboard.MapperService', () => {
     expect(service).toBeTruthy();
   });
 
-  // TODO: fix test
-  /*it('should map DashboardDto with ONE PieChartOptionsDto', () => {
-   const singlePieTestDto: DashboardDto = {
-   companyId: 0,
-   id: 1,
-   creatorId: getTestUser().id,
-   creationDate: new Date(),
-   title: 'Some Dashboard',
-   chartDtos: [getPieChartOptionsDtoMock()],
-   };
+  it('should map DashboardDto with ONE PieChartOptionsDto', () => {
+    const creationDate: Date = new Date();
+    const singlePieTestDto: DashboardDto = {
+      companyId: 0,
+      id: 1,
+      creatorId: getTestUser().id,
+      creationDate,
+      title: 'Some Dashboard',
+      chartDtos: [getPieChartOptionsDtoMock()],
+    };
 
-   const singlePieTestDb: Dashboard = {
-   companyId: 0,
-   id: 1,
-   creatorId: getTestUser().id,
-   creationDate: new Date(),
-   title: 'Some Dashboard',
-   charts: [getPieChartOptionsDtoMock().buildChartOptions()],
-   };
-   expect(service.mapDtoToUi(singlePieTestDto)).toEqual(singlePieTestDb);
-   });*/
+    const singlePieTestDb: Dashboard = {
+      companyId: 0,
+      id: 1,
+      creatorId: getTestUser().id,
+      creationDate,
+      title: 'Some Dashboard',
+      charts: [getPieChartOptionsDtoMock().buildChartOptions()],
+    };
+    expect(service.mapDtoToUi(singlePieTestDto)).toEqual(singlePieTestDb);
+  });
 
   it('should map DashboardDto with ONE LineChartOptionsDto', () => {
-    const date: Date = new Date();
-
+    const creationDate: Date = new Date();
     const singleLineTestDto: DashboardDto = {
       companyId: 0,
       id: 1,
       creatorId: getTestUser().id,
-      creationDate: date,
+      creationDate,
       title: 'Some Dashboard',
       chartDtos: [getLineChartOptionsDtoMock()],
     };
@@ -61,34 +60,34 @@ describe('Dashboard.MapperService', () => {
       companyId: 0,
       id: 1,
       creatorId: getTestUser().id,
-      creationDate: date,
+      creationDate,
       title: 'Some Dashboard',
       charts: [getLineChartOptionsDtoMock().buildChartOptions()],
     };
     expect(service.mapDtoToUi(singleLineTestDto)).toEqual(singleLineTestDb);
   });
 
-  // TODO: fix tests
-  /*it('should map DashboardDto with multiple ChartDtos', () => {
-   const testDto: DashboardDto = {
-   companyId: 0,
-   id: 1,
-   creatorId: getTestUser().id,
-   creationDate: new Date(),
-   title: 'Some Dashboard',
-   chartDtos: [getLineChartOptionsDtoMock(), getPieChartOptionsDtoMock()],
-   };
+  it('should map DashboardDto with multiple ChartDtos', () => {
+    const creationDate: Date = new Date();
+    const testDto: DashboardDto = {
+      companyId: 0,
+      id: 1,
+      creatorId: getTestUser().id,
+      creationDate,
+      title: 'Some Dashboard',
+      chartDtos: [getLineChartOptionsDtoMock(), getPieChartOptionsDtoMock()],
+    };
 
-   const testDb: Dashboard = {
-   companyId: 0,
-   id: 1,
-   creatorId: getTestUser().id,
-   creationDate: new Date(),
-   title: 'Some Dashboard',
-   charts: [getLineChartOptionsDtoMock().buildChartOptions(), getPieChartOptionsDtoMock().buildChartOptions()],
-   };
-   expect(service.mapDtoToUi(testDto)).toEqual(testDb);
-   });*/
+    const testDb: Dashboard = {
+      companyId: 0,
+      id: 1,
+      creatorId: getTestUser().id,
+      creationDate,
+      title: 'Some Dashboard',
+      charts: [getLineChartOptionsDtoMock().buildChartOptions(), getPieChartOptionsDtoMock().buildChartOptions()],
+    };
+    expect(service.mapDtoToUi(testDto)).toEqual(testDb);
+  });
 
   it('should build pieChartOptions with correct values', () => {
     const pieChartOptionsDto: PieChartOptionsDto = getPieChartOptionsDtoMock();

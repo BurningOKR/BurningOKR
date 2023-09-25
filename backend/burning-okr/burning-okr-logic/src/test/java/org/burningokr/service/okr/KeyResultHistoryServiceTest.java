@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -142,5 +143,16 @@ public class KeyResultHistoryServiceTest {
     keyResultHistoryService.createKeyResultHistory(keyResult);
 
     verify(activityService).createActivity(changedKeyResultHistory, Action.CREATED);
+  }
+
+  @Test
+  public void findOldestKeyResultHistoryForKeyResultList_shouldCallRepoWithLastEntry() {
+    ArrayList<KeyResult> keyResults = new ArrayList<>();
+    KeyResultHistory keyResultHistory = new KeyResultHistory();
+    when(keyResultHistoryRepository.findTopByKeyResultInOrderByDateChangedAsc(keyResults)).thenReturn(keyResultHistory);
+
+    KeyResultHistory result = keyResultHistoryService.findOldestKeyResultHistoryForKeyResultList(keyResults);
+
+    assertSame(keyResultHistory, result);
   }
 }
