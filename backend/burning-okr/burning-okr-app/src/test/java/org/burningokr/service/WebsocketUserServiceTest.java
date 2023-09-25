@@ -59,8 +59,8 @@ class WebsocketUserServiceTest {
     //assemble
     StompHeaderAccessor headerAccessorMock = mock(StompHeaderAccessor.class);
     Map<String, Object> sessionAttributesMap = new HashMap<>();
-    String userId = UUID.randomUUID().toString();
-    sessionAttributesMap.put(WebSocketAuthentication.USER_SESSION_ATTRIBUTE_KEY, userId);
+    UUID userId = UUID.randomUUID();
+    sessionAttributesMap.put(WebSocketAuthentication.USER_SESSION_ATTRIBUTE_KEY, userId.toString());
     doReturn(sessionAttributesMap).when(headerAccessorMock).getSessionAttributes();
 
     doReturn(Optional.empty()).when(this.userServiceMock).findById(any(UUID.class));
@@ -70,9 +70,7 @@ class WebsocketUserServiceTest {
       this.websocketUserService.findByAccessor(headerAccessorMock)
     );
 
-    ArgumentCaptor<UUID> uuidArgumentCaptor = ArgumentCaptor.forClass(UUID.class);
-    verify(this.userServiceMock).findById(uuidArgumentCaptor.capture());
-    Assertions.assertEquals(userId, uuidArgumentCaptor.getValue().toString());
+    verify(this.userServiceMock).findById(userId);
   }
 
   @Test
@@ -80,19 +78,19 @@ class WebsocketUserServiceTest {
     //assemble
     StompHeaderAccessor headerAccessorMock = mock(StompHeaderAccessor.class);
     Map<String, Object> sessionAttributesMap = new HashMap<>();
-    String userId = UUID.randomUUID().toString();
-    sessionAttributesMap.put(WebSocketAuthentication.USER_SESSION_ATTRIBUTE_KEY, userId);
+    UUID userId = UUID.randomUUID();
+    sessionAttributesMap.put(WebSocketAuthentication.USER_SESSION_ATTRIBUTE_KEY, userId.toString());
     doReturn(sessionAttributesMap).when(headerAccessorMock).getSessionAttributes();
 
     User userMock = mock(User.class);
     ArgumentCaptor<UUID> uuidArgumentCaptor = ArgumentCaptor.forClass(UUID.class);
     doReturn(Optional.of(userMock)).when(this.userServiceMock).findById(uuidArgumentCaptor.capture());
 
-    //act + assert
+    //act
     User result = this.websocketUserService.findByAccessor(headerAccessorMock);
 
     //assert
-    Assertions.assertEquals(userId, uuidArgumentCaptor.getValue().toString());
+    Assertions.assertEquals(userId, uuidArgumentCaptor.getValue());
     Assertions.assertEquals(result, userMock);
   }
 
