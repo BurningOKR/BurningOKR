@@ -16,14 +16,13 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
 public abstract class WebsocketSubscribeController {
 
+  public static final String UNIT_TASKS_USERS_UTL = "/topic/unit/%d/tasks/users";
   private final SimpMessagingTemplate simpMessagingTemplate;
   private final SimpUserRegistry simpUserRegistry;
   private final WebsocketUserService websocketUserService;
@@ -31,10 +30,10 @@ public abstract class WebsocketSubscribeController {
 
   @Autowired
   public WebsocketSubscribeController(
-      SimpMessagingTemplate simpMessagingTemplate,
-      SimpUserRegistry simpUserRegistry,
-      WebsocketUserService websocketUserService,
-      MonitorService monitorService
+    SimpMessagingTemplate simpMessagingTemplate,
+    SimpUserRegistry simpUserRegistry,
+    WebsocketUserService websocketUserService,
+    MonitorService monitorService
   ) {
     this.simpMessagingTemplate = simpMessagingTemplate;
     this.simpUserRegistry = simpUserRegistry;
@@ -47,20 +46,8 @@ public abstract class WebsocketSubscribeController {
     handleRemove(event.getMessage(), findMatchingSubscriptions(event));
   }
 
-  @EventListener
-  public void handleSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
-    StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
-    final String headerDestination = stompHeaderAccessor.getDestination();
-    if (!headerDestination.endsWith("users")) {
-      return;
-    }
-
-    MonitoredObject monitoredObject = getMonitoredObject(stompHeaderAccessor.getDestination());
-    User user = websocketUserService.findByAccessor(stompHeaderAccessor);
-    if (!monitorService.hasUser(user.getId())) {
-      monitorService.addUser(monitoredObject, user);
-    }
-    sendUserIdList(monitoredObject);
+  protected static boolean isStompHeaderAccessorDestinationEndingWithUsers(StompHeaderAccessor stompHeaderAccessor) {
+    return stompHeaderAccessor.getDestination() != null && stompHeaderAccessor.getDestination().endsWith("users");
   }
 
   @EventListener
@@ -68,7 +55,27 @@ public abstract class WebsocketSubscribeController {
     handleRemove(event.getMessage(), findMatchingSubscriptionsBySubscriptionId(event));
   }
 
-  private void handleRemove(Message<byte[]> message, Set<SimpSubscription> matchingSubscriptions) {
+  @EventListener
+  public void handleSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
+    StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
+
+    if (!isStompHeaderAccessorDestinationEndingWithUsers(stompHeaderAccessor)) return;
+
+    MonitoredObject monitoredObject = getMonitoredObject(stompHeaderAccessor.getDestination());
+    addUserAsWatcherForMonitoredObject(stompHeaderAccessor, monitoredObject);
+    sendListOfUsersWhichAreMonitoringObject(monitoredObject);
+  }
+
+  protected void addUserAsWatcherForMonitoredObject(
+    StompHeaderAccessor stompHeaderAccessor,
+    MonitoredObject monitoredObject
+  ) {
+    User user = websocketUserService.findByAccessor(stompHeaderAccessor);
+
+    if (!monitorService.hasUser(user.getId())) monitorService.addUserAsWatcherForMonitoredObject(monitoredObject, user);
+  }
+
+  protected void handleRemove(Message<byte[]> message, Set<SimpSubscription> matchingSubscriptions) {
     StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(message);
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
     for (SimpSubscription simpSubscription : matchingSubscriptions) {
@@ -77,43 +84,46 @@ public abstract class WebsocketSubscribeController {
       if (!monitorService.hasUser(user.getId())) {
         continue;
       }
-      monitorService.removeUser(monitoredObject, user);
-      sendUserIdList(monitoredObject);
+      monitorService.removeUserAsWatcherForMonitoredObject(monitoredObject, user);
+      sendListOfUsersWhichAreMonitoringObject(monitoredObject);
     }
   }
 
-  private Set<SimpSubscription> findMatchingSubscriptions(
-      SessionDisconnectEvent sessionDisconnectEvent) {
+  protected Set<SimpSubscription> findMatchingSubscriptions(
+    SessionDisconnectEvent sessionDisconnectEvent
+  ) {
     return findMatchingSubscriptionsBySessionId(StompHeaderAccessor.wrap(sessionDisconnectEvent.getMessage()));
   }
 
   private Set<SimpSubscription> findMatchingSubscriptionsBySubscriptionId(
-      SessionUnsubscribeEvent sessionUnsubscribeEvent) {
+    SessionUnsubscribeEvent sessionUnsubscribeEvent
+  ) {
     StompHeaderAccessor stompHeaderAccessor =
-        StompHeaderAccessor.wrap(sessionUnsubscribeEvent.getMessage());
+      StompHeaderAccessor.wrap(sessionUnsubscribeEvent.getMessage());
     Set<SimpSubscription> allSubscriptions = findMatchingSubscriptionsBySessionId(stompHeaderAccessor);
     return allSubscriptions.stream()
-        .filter(
-            possibleSubscription ->
-                possibleSubscription.getId().equals(stompHeaderAccessor.getSubscriptionId()))
-        .collect(Collectors.toSet());
+      .filter(
+        possibleSubscription ->
+          possibleSubscription.getId().equals(stompHeaderAccessor.getSubscriptionId()))
+      .collect(Collectors.toSet());
   }
 
   private Set<SimpSubscription> findMatchingSubscriptionsBySessionId(StompHeaderAccessor stompHeaderAccessor) {
     return simpUserRegistry.findSubscriptions(
-        possibleSubscription -> possibleSubscription
-            .getSession()
-            .getId()
-            .equals(stompHeaderAccessor.getSessionId())
+      possibleSubscription -> possibleSubscription
+        .getSession()
+        .getId()
+        .equals(stompHeaderAccessor.getSessionId())
+    );
+  }
+
+  public void sendListOfUsersWhichAreMonitoringObject(MonitoredObject monitoredObject) {
+    String usersUrl = UNIT_TASKS_USERS_UTL.formatted(monitoredObject.getId());
+    simpMessagingTemplate.convertAndSend(
+      usersUrl,
+      monitorService.getUserIdsWhichAreMonitoringObject(monitoredObject)
     );
   }
 
   public abstract MonitoredObject getMonitoredObject(String subscribeUrl);
-
-  public void sendUserIdList(MonitoredObject watchedObject) {
-    String sendUrl = "/topic/unit/%d/tasks/users";
-    String usersUrl = String.format(sendUrl, watchedObject.getId());
-    List<UUID> userIdList = monitorService.getUserIdList(watchedObject);
-    simpMessagingTemplate.convertAndSend(usersUrl, userIdList);
-  }
 }
