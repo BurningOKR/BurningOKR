@@ -1,4 +1,4 @@
-package org.burningokr.controller.subscription;
+package org.burningokr.controller.websocket.taskboard;
 
 import lombok.RequiredArgsConstructor;
 import org.burningokr.service.websocket.taskboard.TaskboardSubscribeService;
