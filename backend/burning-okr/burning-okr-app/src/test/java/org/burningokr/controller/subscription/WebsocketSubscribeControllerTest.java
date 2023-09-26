@@ -2,6 +2,7 @@ package org.burningokr.controller.subscription;
 
 import org.burningokr.service.WebsocketUserService;
 import org.burningokr.service.monitoring.MonitorService;
+import org.burningokr.service.monitoring.MonitoredObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -34,10 +35,10 @@ class WebsocketSubscribeControllerTest {
   @Mock
   private MonitorService monitorService;
 
-  // using inheritor of WebSocketSubscribeController for testing because the class itself is static
+  // using inheritor of WebSocketSubscribeController for testing because the class itself is abstract
   @InjectMocks
   @Spy
-  private TaskboardSubscribeController taskboardSubscribeController;
+  private WebsocketSubscribeControllerTestImpl websocketSubscribeController;
 
   @Test
   void handleDisconnectEvent_shouldCallHandleRemoveMethod() {
@@ -46,13 +47,13 @@ class WebsocketSubscribeControllerTest {
     Set<SimpSubscription> set = new HashSet<>();
 
     doReturn(null).when(sessionDisconnectEvent).getMessage();
-    doReturn(set).when(taskboardSubscribeController).findMatchingSubscriptions(any());
+    doReturn(set).when(websocketSubscribeController).findMatchingSubscriptions(any());
 
     // ACT
-    taskboardSubscribeController.handleDisconnectEvent(sessionDisconnectEvent);
+    websocketSubscribeController.handleDisconnectEvent(sessionDisconnectEvent);
 
     // ASSERT
-    verify(taskboardSubscribeController).handleRemove(sessionDisconnectEvent.getMessage(), set);
+    verify(websocketSubscribeController).handleRemove(sessionDisconnectEvent.getMessage(), set);
   }
 
   @Test
@@ -73,14 +74,26 @@ class WebsocketSubscribeControllerTest {
         .thenReturn(false);
 
       // ACT
-      taskboardSubscribeController.handleSubscribeEvent(sessionSubscribeEventMock);
+      websocketSubscribeController.handleSubscribeEvent(sessionSubscribeEventMock);
 
       // ASSERT
-      verify(taskboardSubscribeController, times(0)).getMonitoredObject(any());
-      verify(taskboardSubscribeController, times(0)).addUserAsWatcherForMonitoredObject(any(), any());
-      verify(taskboardSubscribeController, times(0)).sendListOfUsersWhichAreMonitoringObject(any());
+      verify(websocketSubscribeController, times(0)).getMonitoredObject(any());
+      verify(websocketSubscribeController, times(0)).addUserAsWatcherForMonitoredObject(any(), any());
+      verify(websocketSubscribeController, times(0)).sendListOfUsersWhichAreMonitoringObject(any());
 
       assertEquals(stompHeaderAccessorMock, accessorArgumentCaptor.getValue());
+    }
+  }
+
+  private static class WebsocketSubscribeControllerTestImpl extends WebsocketSubscribeController {
+
+    public WebsocketSubscribeControllerTestImpl(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, WebsocketUserService websocketUserService, MonitorService monitorService) {
+      super(simpMessagingTemplate, simpUserRegistry, websocketUserService, monitorService);
+    }
+
+    @Override
+    public MonitoredObject getMonitoredObject(String subscribeUrl) {
+      return null;
     }
   }
 }
