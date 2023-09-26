@@ -38,7 +38,7 @@ dependencies {
   implementation deps.db.hibernate.envers
 
   // websockets
-  implementation deps.spring.boot.starter.websocket // TODO (C.K.): check if can be removed after refactor
+  implementation deps.spring.boot.starter.websocket
 
   // swagger TODO upgrade to newest version
   implementation deps.swagger.swagger2
