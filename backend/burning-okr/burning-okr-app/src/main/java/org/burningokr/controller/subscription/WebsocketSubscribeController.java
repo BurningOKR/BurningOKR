@@ -46,10 +46,6 @@ public abstract class WebsocketSubscribeController {
     handleRemove(event.getMessage(), findMatchingSubscriptions(event));
   }
 
-  protected boolean isStompHeaderAccessorDestinationEndingWithUsers(StompHeaderAccessor stompHeaderAccessor) {
-    return stompHeaderAccessor.getDestination() != null && stompHeaderAccessor.getDestination().endsWith("users");
-  }
-
   @EventListener
   public void handleUnsubscribeEvent(SessionUnsubscribeEvent event) {
     handleRemove(event.getMessage(), findMatchingSubscriptionsBySubscriptionId(event));
@@ -57,17 +53,21 @@ public abstract class WebsocketSubscribeController {
 
   @EventListener
   public void handleSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
-    StompHeaderAccessor stompHeaderAccessor = this.wrap(subscribeEvent);
+    StompHeaderAccessor stompHeaderAccessor = this.createStompHeaderAccessorFromMessage(subscribeEvent.getMessage());
 
     if (!isStompHeaderAccessorDestinationEndingWithUsers(stompHeaderAccessor)) return;
 
-    MonitoredObject monitoredObject = getMonitoredObject(stompHeaderAccessor.getDestination());
+    MonitoredObject monitoredObject = getMonitoredObjectBySubscribeUrl(stompHeaderAccessor.getDestination());
     addUserAsWatcherForMonitoredObject(stompHeaderAccessor, monitoredObject);
     sendListOfUsersWhichAreMonitoringObject(monitoredObject);
   }
 
-  protected StompHeaderAccessor wrap(SessionSubscribeEvent subscribeEvent) {
-    return StompHeaderAccessor.wrap(subscribeEvent.getMessage());
+  protected boolean isStompHeaderAccessorDestinationEndingWithUsers(StompHeaderAccessor stompHeaderAccessor) {
+    return stompHeaderAccessor.getDestination() != null && stompHeaderAccessor.getDestination().endsWith("users");
+  }
+
+  protected StompHeaderAccessor createStompHeaderAccessorFromMessage(Message<byte[]> message) {
+    return StompHeaderAccessor.wrap(message);
   }
 
 
@@ -77,20 +77,19 @@ public abstract class WebsocketSubscribeController {
   ) {
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
 
-    if (!monitorService.hasUser(user.getId())) monitorService.addUserAsWatcherForMonitoredObject(monitoredObject, user);
+    if (!monitorService.hasUser(user)) monitorService.addUserAsWatcherForMonitoredObject(monitoredObject, user);
   }
 
   protected void handleRemove(Message<byte[]> message, Set<SimpSubscription> matchingSubscriptions) {
-    StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(message);
+    StompHeaderAccessor stompHeaderAccessor = createStompHeaderAccessorFromMessage(message);
     User user = websocketUserService.findByAccessor(stompHeaderAccessor);
     for (SimpSubscription simpSubscription : matchingSubscriptions) {
-      String destinationUrl = simpSubscription.getDestination();
-      MonitoredObject monitoredObject = getMonitoredObject(destinationUrl);
-      if (!monitorService.hasUser(user.getId())) {
-        continue;
+      MonitoredObject monitoredObject = getMonitoredObjectBySubscribeUrl(simpSubscription.getDestination());
+
+      if (monitorService.hasUser(user)) {
+        monitorService.removeUserAsWatcherForMonitoredObject(monitoredObject, user);
+        sendListOfUsersWhichAreMonitoringObject(monitoredObject);
       }
-      monitorService.removeUserAsWatcherForMonitoredObject(monitoredObject, user);
-      sendListOfUsersWhichAreMonitoringObject(monitoredObject);
     }
   }
 
@@ -130,5 +129,5 @@ public abstract class WebsocketSubscribeController {
     );
   }
 
-  public abstract MonitoredObject getMonitoredObject(String subscribeUrl);
+  public abstract MonitoredObject getMonitoredObjectBySubscribeUrl(String subscribeUrl);
 }
