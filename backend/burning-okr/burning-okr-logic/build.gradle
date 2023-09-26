@@ -24,4 +24,7 @@ dependencies {
     // db
     implementation deps.spring.boot.starter.data
     implementation deps.db.hibernate.envers
+
+    // websockets
+    implementation deps.spring.boot.starter.websocket
 }
