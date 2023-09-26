@@ -1,4 +1,4 @@
-package org.burningokr.service.monitoring;
+package org.burningokr.service.websocket.monitoring;
 
 import lombok.NonNull;
 import org.burningokr.model.users.User;
