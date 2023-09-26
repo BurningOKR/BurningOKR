@@ -61,10 +61,17 @@ public class WebSocketAuthentication {
   }
 
   private String getBearerToken(@NonNull StompHeaderAccessor header) {
-    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) throw new IllegalArgumentException("Key '%s' is missing in stomp header".formatted(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
-    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) {
+      throw new IllegalArgumentException("Key '%s' is missing in stomp header".formatted(
+        WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    }
 
-    if(nativeHeader == null || nativeHeader.isEmpty()) throw new IllegalArgumentException("Value of key '%s' in stomp header is null or empty".formatted(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    if (nativeHeader == null || nativeHeader.isEmpty()) {
+      throw new IllegalArgumentException("Value of key '%s' in stomp header is null or empty".formatted(
+        WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    }
+
     return extractTokenFromHeaderValue(nativeHeader.get(0));
   }
 

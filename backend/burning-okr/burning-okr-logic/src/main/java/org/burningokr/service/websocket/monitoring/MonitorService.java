@@ -11,13 +11,13 @@ public class MonitorService {
 
   private final Map<MonitoredObject, List<UUID>> monitoringUsers = Collections.synchronizedMap(new HashMap<>());
 
-  public void addUserAsWatcherForMonitoredObject(@NonNull MonitoredObject monitoredObject, User user) {
+  public void addUserAsSubscriberForMonitoredObject(@NonNull MonitoredObject monitoredObject, User user) {
     if (monitoringUsers.containsKey(monitoredObject)) return;
     monitoringUsers.put(monitoredObject, Collections.synchronizedList(new LinkedList<>()));
     monitoringUsers.get(monitoredObject).add(user.getId());
   }
 
-  public void removeUserAsWatcherForMonitoredObject(@NonNull MonitoredObject monitoredObject, @NonNull User user) {
+  public void removeUserAsSubscriberForMonitoredObject(@NonNull MonitoredObject monitoredObject, @NonNull User user) {
     if (!monitoringUsers.containsKey(monitoredObject)) return;
     monitoringUsers.get(monitoredObject).remove(user.getId());
   }
@@ -25,11 +25,11 @@ public class MonitorService {
   /**
    * returns a list of user ids which are actively monitoring an object
    */
-  public List<UUID> getUserIdsWhichAreMonitoringObject(MonitoredObject monitoredObject) {
+  public List<UUID> getUserIdsWhichAreSubscribedToObject(MonitoredObject monitoredObject) {
     return monitoringUsers.getOrDefault(monitoredObject, new LinkedList<>());
   }
 
-  public boolean hasUser(@NonNull User user) {
+  public boolean isUserSubscriberForAnyObject(@NonNull User user) {
     return monitoringUsers.values().stream().anyMatch(list -> list.contains(user.getId()));
   }
 }

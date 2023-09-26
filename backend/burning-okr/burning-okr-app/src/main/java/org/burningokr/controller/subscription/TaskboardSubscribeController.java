@@ -1,34 +1,30 @@
 package org.burningokr.controller.subscription;
 
-import org.burningokr.service.WebsocketUserService;
-import org.burningokr.service.monitoring.MonitorService;
-import org.burningokr.service.monitoring.MonitoredObject;
-import org.burningokr.service.monitoring.MonitoredObjectType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.user.SimpUserRegistry;
+import lombok.RequiredArgsConstructor;
+import org.burningokr.service.websocket.taskboard.TaskboardSubscribeService;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.web.socket.messaging.SessionSubscribeEvent;
+import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
 
 @Controller
-public class TaskboardSubscribeController extends WebsocketSubscribeController {
+@RequiredArgsConstructor
+public class TaskboardSubscribeController {
+  private final TaskboardSubscribeService taskboardSubscribeService;
 
-  private static final Pattern URL_TO_ID_PATTERN = Pattern.compile("^/topic/unit/(\\d+)/tasks/users$");
-  private static final MonitoredObjectType MONITORED_OBJECT_TYPE = MonitoredObjectType.TASKBOARD;
-
-  @Autowired
-  public TaskboardSubscribeController(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, WebsocketUserService websocketUserService, MonitorService monitorService) {
-    super(simpMessagingTemplate, simpUserRegistry, websocketUserService, monitorService);
+  @EventListener
+  public void handleDisconnectEvent(SessionDisconnectEvent sessionDisconnectEvent) {
+    taskboardSubscribeService.handleDisconnect(sessionDisconnectEvent);
   }
 
-  public MonitoredObject getMonitoredObjectBySubscribeUrl(String subscribeUrl) {
-    Matcher matcher = URL_TO_ID_PATTERN.matcher(subscribeUrl);
-    if (matcher.find()) {
-      Long unitId = Long.valueOf(matcher.group(1));
-      return new MonitoredObject(MONITORED_OBJECT_TYPE, unitId);
-    }
-    throw new IllegalArgumentException("Invalid unit id in passed subscribe url %s".formatted(subscribeUrl));
+  @EventListener
+  public void handleUnsubscribeEvent(SessionUnsubscribeEvent event) {
+    taskboardSubscribeService.handleUnsubscribe(event);
+  }
+
+  @EventListener
+  public void handleSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
+    taskboardSubscribeService.handleSubscribe(subscribeEvent.getMessage());
   }
 }
