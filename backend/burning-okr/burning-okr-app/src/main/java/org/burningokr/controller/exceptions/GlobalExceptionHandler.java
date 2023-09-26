@@ -339,7 +339,7 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, InvalidInitStateException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    log.error(
+    log.warn(
       String.format(
         "InvalidInitStateException handler executed -> HTTP 400 response - ID: %s, %s",
         errorInformation.getErrorId(),
@@ -360,7 +360,7 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, DuplicateTeamMemberException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    log.error(
+    log.warn(
       String.format(
         "DuplicateTeamMemberException handler executed -> HTTP 400 response - ID: %s, %s",
         errorInformation.getErrorId(),
@@ -381,7 +381,7 @@ public class GlobalExceptionHandler {
     HttpServletRequest request, DuplicateEmailException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
-    log.error(
+    log.warn(
       String.format(
         "DuplicateEmailException handler executed -> HTTP 400 response - ID: %s, %s",
         errorInformation.getErrorId(),

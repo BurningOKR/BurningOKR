@@ -23,13 +23,12 @@ public class TaskboardSubscribeController extends WebsocketSubscribeController {
     super(simpMessagingTemplate, simpUserRegistry, websocketUserService, monitorService);
   }
 
-  public MonitoredObject getMonitoredObject(String subscribeUrl) {
+  public MonitoredObject getMonitoredObjectBySubscribeUrl(String subscribeUrl) {
     Matcher matcher = URL_TO_ID_PATTERN.matcher(subscribeUrl);
     if (matcher.find()) {
-      Long departmentId = Long.valueOf(matcher.group(1));
-      return new MonitoredObject(MONITORED_OBJECT_TYPE, departmentId);
-    } else {
-      return null;
+      Long unitId = Long.valueOf(matcher.group(1));
+      return new MonitoredObject(MONITORED_OBJECT_TYPE, unitId);
     }
+    throw new IllegalArgumentException("Invalid unit id in passed subscribe url %s".formatted(subscribeUrl));
   }
 }

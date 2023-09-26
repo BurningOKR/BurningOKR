@@ -29,7 +29,7 @@ public class MonitorService {
     return monitoringUsers.getOrDefault(monitoredObject, new LinkedList<>());
   }
 
-  public boolean hasUser(@NonNull UUID uuid) {
-    return monitoringUsers.values().stream().anyMatch(list -> list.contains(uuid));
+  public boolean hasUser(@NonNull User user) {
+    return monitoringUsers.values().stream().anyMatch(list -> list.contains(user.getId()));
   }
 }
