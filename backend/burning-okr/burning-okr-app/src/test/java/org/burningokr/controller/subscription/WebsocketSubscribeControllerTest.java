@@ -5,7 +5,10 @@ import org.burningokr.service.monitoring.MonitorService;
 import org.burningokr.service.monitoring.MonitoredObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -58,31 +61,25 @@ class WebsocketSubscribeControllerTest {
 
   @Test
   void handleSubscribeEvent_shouldReturn_whenHeaderDestinationEndsWithUsers() {
-    try (
-      MockedStatic<StompHeaderAccessor> stompHeaderAccessorMockedStatic = mockStatic(StompHeaderAccessor.class);
-      MockedStatic<WebsocketSubscribeController> websocketSubscribeControllerMockedStatic = mockStatic(
-        WebsocketSubscribeController.class)
-    ) {
-      // DESCRIBE
-      SessionSubscribeEvent sessionSubscribeEventMock = mock(SessionSubscribeEvent.class);
-      StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
-      ArgumentCaptor<StompHeaderAccessor> accessorArgumentCaptor = ArgumentCaptor.forClass(StompHeaderAccessor.class);
+    // DESCRIBE
+    SessionSubscribeEvent inputSessionSubscribeEventMock = mock(SessionSubscribeEvent.class);
 
-      stompHeaderAccessorMockedStatic.when(() -> StompHeaderAccessor.wrap(any())).thenReturn(stompHeaderAccessorMock);
-      websocketSubscribeControllerMockedStatic.when(() ->
-          WebsocketSubscribeController.isStompHeaderAccessorDestinationEndingWithUsers(accessorArgumentCaptor.capture()))
-        .thenReturn(false);
+    StompHeaderAccessor stompHeaderAccessorMock = mock(StompHeaderAccessor.class);
+    ArgumentCaptor<StompHeaderAccessor> accessorArgumentCaptor = ArgumentCaptor.forClass(StompHeaderAccessor.class);
 
-      // ACT
-      websocketSubscribeController.handleSubscribeEvent(sessionSubscribeEventMock);
+    doReturn(stompHeaderAccessorMock).when(this.websocketSubscribeController).wrap(any());
+    doReturn(false).when(
+      this.websocketSubscribeController).isStompHeaderAccessorDestinationEndingWithUsers(accessorArgumentCaptor.capture());
 
-      // ASSERT
-      verify(websocketSubscribeController, times(0)).getMonitoredObject(any());
-      verify(websocketSubscribeController, times(0)).addUserAsWatcherForMonitoredObject(any(), any());
-      verify(websocketSubscribeController, times(0)).sendListOfUsersWhichAreMonitoringObject(any());
+    // ACT
+    websocketSubscribeController.handleSubscribeEvent(inputSessionSubscribeEventMock);
 
-      assertEquals(stompHeaderAccessorMock, accessorArgumentCaptor.getValue());
-    }
+    // ASSERT
+    verify(websocketSubscribeController, times(0)).getMonitoredObject(any());
+    verify(websocketSubscribeController, times(0)).addUserAsWatcherForMonitoredObject(any(), any());
+    verify(websocketSubscribeController, times(0)).sendListOfUsersWhichAreMonitoringObject(any());
+
+    assertEquals(stompHeaderAccessorMock, accessorArgumentCaptor.getValue());
   }
 
   private static class WebsocketSubscribeControllerTestImpl extends WebsocketSubscribeController {

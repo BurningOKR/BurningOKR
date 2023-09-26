@@ -46,7 +46,7 @@ public abstract class WebsocketSubscribeController {
     handleRemove(event.getMessage(), findMatchingSubscriptions(event));
   }
 
-  protected static boolean isStompHeaderAccessorDestinationEndingWithUsers(StompHeaderAccessor stompHeaderAccessor) {
+  protected boolean isStompHeaderAccessorDestinationEndingWithUsers(StompHeaderAccessor stompHeaderAccessor) {
     return stompHeaderAccessor.getDestination() != null && stompHeaderAccessor.getDestination().endsWith("users");
   }
 
@@ -57,7 +57,7 @@ public abstract class WebsocketSubscribeController {
 
   @EventListener
   public void handleSubscribeEvent(SessionSubscribeEvent subscribeEvent) {
-    StompHeaderAccessor stompHeaderAccessor = StompHeaderAccessor.wrap(subscribeEvent.getMessage());
+    StompHeaderAccessor stompHeaderAccessor = this.wrap(subscribeEvent);
 
     if (!isStompHeaderAccessorDestinationEndingWithUsers(stompHeaderAccessor)) return;
 
@@ -65,6 +65,11 @@ public abstract class WebsocketSubscribeController {
     addUserAsWatcherForMonitoredObject(stompHeaderAccessor, monitoredObject);
     sendListOfUsersWhichAreMonitoringObject(monitoredObject);
   }
+
+  protected StompHeaderAccessor wrap(SessionSubscribeEvent subscribeEvent) {
+    return StompHeaderAccessor.wrap(subscribeEvent.getMessage());
+  }
+
 
   protected void addUserAsWatcherForMonitoredObject(
     StompHeaderAccessor stompHeaderAccessor,
