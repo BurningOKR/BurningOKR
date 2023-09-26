@@ -1,9 +1,11 @@
-package org.burningokr.controller.exceptions;
+package org.burningokr.exceptions.handler;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.exceptions.InvalidDtoException;
+import org.burningokr.exceptions.PutIdConflictException;
+import org.burningokr.model.errorHandling.ErrorInformation;
 import org.burningokr.service.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +19,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
   /**
-   * Global handler for JpaObjectRetrivalFailureExecption.
+   * Global handler for JpaObjectRetrievalFailureException.
    *
-   * @param request HttpServletRequest
-   * @param ex      EntityNotFoundException
    * @return a ResponseEntity with HttpStatus Not Found
    */
   @ExceptionHandler(JpaObjectRetrievalFailureException.class)
-  public ResponseEntity handleJpaObjectRetrievalFailure(
+  public ResponseEntity<ErrorInformation> handleJpaObjectRetrievalFailure(
     HttpServletRequest request, EntityNotFoundException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -40,12 +40,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for EntityNotFoundException.
    *
-   * @param request HttpServletRequest
-   * @param ex      EntityNotFoundException
    * @return a ResponseEntity with HttpStatus Not Found
    */
   @ExceptionHandler(EntityNotFoundException.class)
-  public ResponseEntity handleNotFoundException(
+  public ResponseEntity<ErrorInformation> handleNotFoundException(
     HttpServletRequest request, EntityNotFoundException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -61,12 +59,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for IllegalArgumentException.
    *
-   * @param request HttpServletRequest
-   * @param ex      IllegalArgumentException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity handleIllegalArgumentExeption(
+  public ResponseEntity<ErrorInformation> handleIllegalArgumentException(
     HttpServletRequest request, IllegalArgumentException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -82,12 +78,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for InvalidDeleteRequestException.
    *
-   * @param request HttpServletRequest
-   * @param ex      InvalidDeleteRequestException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(InvalidDeleteRequestException.class)
-  public ResponseEntity handleInvalidDeleteRequestExeption(
+  public ResponseEntity<ErrorInformation> handleInvalidDeleteRequestException(
     HttpServletRequest request, InvalidDeleteRequestException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -103,12 +97,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for InvalidDtoException.
    *
-   * @param request HttpServletRequest
-   * @param ex      InvalidDtoException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(InvalidDtoException.class)
-  public ResponseEntity handleInvalidDtoException(
+  public ResponseEntity<ErrorInformation> handleInvalidDtoException(
     HttpServletRequest request, InvalidDtoException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -124,12 +116,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for InvalidEmailAddressException.
    *
-   * @param request HttpServletRequest
-   * @param ex      InvalidEmailAddressException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(InvalidEmailAddressException.class)
-  public ResponseEntity handleInvalidEmailAdressException(
+  public ResponseEntity<ErrorInformation> handleInvalidEmailAddressException(
     HttpServletRequest request, InvalidEmailAddressException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -145,12 +135,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for KeyResultOverflowException.
    *
-   * @param request HttpServletRequest
-   * @param ex      KeyResultOverflowException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(KeyResultOverflowException.class)
-  public ResponseEntity handleKeyRessultOverflowExeption(
+  public ResponseEntity<ErrorInformation> handleKeyResultOverflowException(
     HttpServletRequest request, KeyResultOverflowException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -166,12 +154,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for PutIdConflictException.
    *
-   * @param request HttpServletRequest
-   * @param ex      PutIdConflictException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(PutIdConflictException.class)
-  public ResponseEntity handlePutIdConflictException(
+  public ResponseEntity<ErrorInformation> handlePutIdConflictException(
     HttpServletRequest request, PutIdConflictException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -187,12 +173,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for AccessDeniedException.
    *
-   * @param request HttpServletRequest
-   * @param ex      RuntimeException
    * @return a ResponseEntity with HttpStatus Unauthorized
    */
   @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity handleUnauthorizedAccessException(
+  public ResponseEntity<ErrorInformation> handleUnauthorizedAccessException(
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -208,12 +192,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for UnauthorizedToChangeNoteException.
    *
-   * @param request HttpServletRequest
-   * @param ex      RuntimeException
    * @return a ResponseEntity with HttpStatus Internal Server Error
    */
   @ExceptionHandler(UnauthorizedToChangeNoteException.class)
-  public ResponseEntity handleUnauthorizedToChangeNoteException(
+  public ResponseEntity<ErrorInformation> handleUnauthorizedToChangeNoteException(
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -229,12 +211,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for MissingAnnotationException.
    *
-   * @param request HttpServletRequest
-   * @param ex      RuntimeException
    * @return a ResponseEntity with HttpStatus Internal Server Error
    */
   @ExceptionHandler(MissingAnnotationException.class)
-  public ResponseEntity handleMissingAnnotationException(
+  public ResponseEntity<ErrorInformation> handleMissingAnnotationException(
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -250,12 +230,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for IdDeviationException.
    *
-   * @param request HttpServletRequest
-   * @param ex      RuntimeException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(IdDeviationException.class)
-  public ResponseEntity handleIdDeviationException(
+  public ResponseEntity<ErrorInformation> handleIdDeviationException(
     HttpServletRequest request, RuntimeException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -271,12 +249,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for ForbiddenException.
    *
-   * @param request HttpServletRequest
-   * @param ex      RuntimeException
    * @return a ResponseEntity with HttpStatus Forbidden
    */
   @ExceptionHandler(ForbiddenException.class)
-  public ResponseEntity handleForbiddenException(HttpServletRequest request, RuntimeException ex) {
+  public ResponseEntity<ErrorInformation> handleForbiddenException(HttpServletRequest request, RuntimeException ex) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
     log.error(
       String.format(
@@ -290,12 +266,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for SendingMailFailedException.
    *
-   * @param request HttpServletRequest
-   * @param ex      SendingMailFailedException
    * @return a ResponseEntity with HttpStatus Internal Server Error
    */
   @ExceptionHandler(SendingMailFailedException.class)
-  public ResponseEntity handleSendingMailFailedException(
+  public ResponseEntity<ErrorInformation> handleSendingMailFailedException(
     HttpServletRequest request, SendingMailFailedException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -311,12 +285,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for RuntimeException.
    *
-   * @param request HttpServletRequest
-   * @param ex      RuntimeException
    * @return a ResponseEntity with HttpStatus Internal Server Error
    */
   @ExceptionHandler(RuntimeException.class)
-  public ResponseEntity handleRuntimeExeption(HttpServletRequest request, RuntimeException ex) {
+  public ResponseEntity<ErrorInformation> handleRuntimeException(HttpServletRequest request, RuntimeException ex) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
     log.error(
       String.format(
@@ -330,12 +302,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for InvalidInitStateException.
    *
-   * @param request HttpServletRequest
-   * @param ex      InvalidInitStateException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(InvalidInitStateException.class)
-  public ResponseEntity handleInvalidInitStateException(
+  public ResponseEntity<ErrorInformation> handleInvalidInitStateException(
     HttpServletRequest request, InvalidInitStateException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -351,12 +321,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for DuplicateTeamMemberException.
    *
-   * @param request HttpServletRequest
-   * @param ex      DuplicateTeamMemberException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(DuplicateTeamMemberException.class)
-  public ResponseEntity handleDuplicateTeamMemberException(
+  public ResponseEntity<ErrorInformation> handleDuplicateTeamMemberException(
     HttpServletRequest request, DuplicateTeamMemberException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
@@ -372,12 +340,10 @@ public class GlobalExceptionHandler {
   /**
    * Global handler for DuplicateEmailException.
    *
-   * @param request HttpServletRequest
-   * @param ex      DuplicateEmailException
    * @return a ResponseEntity with HttpStatus Bad Request
    */
   @ExceptionHandler(DuplicateEmailException.class)
-  public ResponseEntity handleDuplicateEmailException(
+  public ResponseEntity<ErrorInformation> handleDuplicateEmailException(
     HttpServletRequest request, DuplicateEmailException ex
   ) {
     ErrorInformation errorInformation = new ErrorInformation(ex.getMessage());
