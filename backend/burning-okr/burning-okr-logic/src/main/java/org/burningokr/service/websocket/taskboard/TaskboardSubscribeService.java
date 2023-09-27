@@ -29,6 +29,7 @@ public class TaskboardSubscribeService {
   // used for extracting the unit id from the destination attribute of a message
   private static final Pattern URL_TO_ID_PATTERN = Pattern.compile("^/topic/unit/(\\d+)/tasks/users$");
   private static final MonitoredObjectType MONITORED_OBJECT_TYPE = MonitoredObjectType.TASKBOARD;
+
   private final WebsocketUserService websocketUserService;
   private final MonitorService monitorService;
   private final SimpMessagingTemplate simpMessagingTemplate;
