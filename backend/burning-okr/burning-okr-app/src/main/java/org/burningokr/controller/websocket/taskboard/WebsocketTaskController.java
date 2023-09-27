@@ -1,4 +1,4 @@
-package org.burningokr.controller.okr;
+package org.burningokr.controller.websocket.taskboard;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
