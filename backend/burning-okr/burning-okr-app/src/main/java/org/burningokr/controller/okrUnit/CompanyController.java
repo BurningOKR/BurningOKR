@@ -20,6 +20,7 @@ import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class CompanyController {
   private final DataMapper<OkrCompany, OkrCompanyDto> companyMapper;
   private final DataMapper<Cycle, CycleDto> cycleMapper;
   private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
+  private final DataMapper<OkrDepartment, OkrDepartmentDto> okrDepartmentMapper;
   private final OkrBranchSchemaMapper okrUnitSchemaMapper;
   private final AuthenticationUserContextService authenticationUserContextService;
 
@@ -134,6 +136,7 @@ public class CompanyController {
   @PostMapping("/companies")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> addCompany(
+      @Valid
       @RequestBody
       OkrCompanyDto okrCompanyDto
   ) {
@@ -156,10 +159,9 @@ public class CompanyController {
       @RequestBody
       OkrDepartmentDto okrDepartmentDto
   ) {
-    DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper = new OkrDepartmentMapper();
-    OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
+    OkrDepartment okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment = this.companyService.createDepartment(companyId, okrDepartment);
-    return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
+    return ResponseEntity.ok(okrDepartmentMapper.mapEntityToDto(okrDepartment));
   }
 
   @PostMapping("/companies/{companyId}/branch")
@@ -182,7 +184,7 @@ public class CompanyController {
    * @param okrCompanyDto a {@link OkrCompanyDto} object
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
    */
-  @PutMapping("/companies/{companyId}")
+  @PutMapping(value = "/companies/{companyId}", produces = MediaType.APPLICATION_JSON_VALUE)
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> updateCompanyById(
       @PathVariable long companyId,

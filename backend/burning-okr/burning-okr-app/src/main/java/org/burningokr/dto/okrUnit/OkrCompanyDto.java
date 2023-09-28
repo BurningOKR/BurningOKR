@@ -1,6 +1,7 @@
 package org.burningokr.dto.okrUnit;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,10 +14,10 @@ import java.util.Collection;
 @Data
 @RequiredArgsConstructor
 public class OkrCompanyDto extends OkrUnitDto {
-  @NotNull
+  @Positive
   private Long cycleId;
 
   private Collection<Long> okrChildUnitIds = new ArrayList<>();
-  @NotNull
+  @Positive
   private Long historyId;
 }

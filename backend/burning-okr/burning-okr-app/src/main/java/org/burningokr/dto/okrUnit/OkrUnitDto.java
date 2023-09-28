@@ -12,11 +12,9 @@ public abstract class OkrUnitDto {
 
   protected Long OkrUnitId;
 
-  @NotNull
   @Size(min = 1)
   protected String unitName;
 
-  @NotNull
   @Size(min = 1)
   protected String label;
 

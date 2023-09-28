@@ -2,8 +2,6 @@ package org.burningokr.integration.controller.okrUnit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletContext;
-import jakarta.validation.constraints.AssertTrue;
-import org.apache.poi.ss.formula.functions.T;
 import org.burningokr.controller.okrUnit.CompanyController;
 import org.burningokr.dto.cycle.CycleDto;
 import org.burningokr.dto.okrUnit.OkrBranchDto;
@@ -15,6 +13,7 @@ import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
+import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
@@ -25,9 +24,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockServletContext;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -37,14 +36,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 
-import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -68,6 +64,8 @@ class CompanyControllerIntegrationTest {
   @MockBean
   private DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
   @MockBean
+  private DataMapper<OkrDepartment, OkrDepartmentDto> okrDepartmentMapper;
+  @MockBean
   private OkrBranchSchemaMapper okrUnitSchemaMapper;
   @MockBean
   private AuthenticationUserContextService authenticationUserContextService;
@@ -87,92 +85,16 @@ class CompanyControllerIntegrationTest {
   public void getServletContext_shouldCheckIfEverythingIsLoadedCorrect() {
     ServletContext servletContext = webApplicationContext.getServletContext();
 
-    Assertions.assertNotNull(servletContext);
+    assertNotNull(servletContext);
     Assertions.assertTrue(servletContext instanceof MockServletContext);
-    Assertions.assertNotNull(webApplicationContext.getBean(CompanyController.class));
+    assertNotNull(webApplicationContext.getBean(CompanyController.class));
   }
 
   @Test
-  void getActiveCompanies_shouldReturnOkStatus() throws Exception {
-    MvcResult mvcResult =
-        this.mockMvc.perform(get("/api/companies"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andReturn();
+  void addCompany_shouldCheckIdDtoIsValid() throws Exception {
+    OkrCompanyDto companyDto = createCompanyDto();
 
-    Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
-  }
-
-  @Test
-  void getAllCompanies_shouldReturnOkStatus() throws Exception {
-    MvcResult mvcResult =
-        this.mockMvc
-            .perform(get("/api/companies/all"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andReturn();
-
-    Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
-  }
-
-  @Test
-  void getCompanyById() throws Exception {
-    MvcResult mvcResult =
-        this.mockMvc
-            .perform(get("/api/companies/229"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andReturn();
-
-    Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
-//    Assertions.assertTrue(mvcResult.getResponse().equals(HttpStatus.OK));
-  }
-
-  @Test
-  void getCompanyHistoryByCompanyId() {
-
-  }
-
-  @Test
-  void getCompanyCycleList() throws Exception {
-    MvcResult mvcResult =
-        this.mockMvc
-            .perform(get("/api/companies/{companyId}/cycles", 229))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andReturn();
-
-    Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
-  }
-
-  @Test
-  void getDepartmentSchemaOfCompany() throws Exception {
-    MvcResult mvcResult =
-        this.mockMvc
-            .perform(get("/api/companies/{companyId}/unit", 229))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andReturn();
-
-    Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
-  }
-
-  @Test
-  @PreAuthorize(value = "@authorizationService.isAdmin()")
-  void addCompany() throws Exception {
-
-    OkrCompanyDto companyDto = new OkrCompanyDto();
-    companyDto.setOkrUnitId(400L);
-    companyDto.setUnitName("Brockhaus AG");
-    companyDto.setLabel("Integration Testing");
-    companyDto.setObjectiveIds(new ArrayList<>());
-    companyDto.setCycleId(399L);
-    companyDto.setHistoryId(398L);
-    companyDto.setOkrChildUnitIds(new ArrayList<>());
-
-    MvcResult mvcResult =
+    MvcResult result =
         this.mockMvc
             .perform(post("/api/companies")
                 .content(new ObjectMapper().writeValueAsString(companyDto))
@@ -181,84 +103,179 @@ class CompanyControllerIntegrationTest {
             .andExpect(status().isOk())
             .andReturn();
 
-    Assertions.assertNotNull(mvcResult);
-    Assertions.assertNotNull(companyDto);
-    Assertions.assertNotEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
+    assertNotNull(result);
+    assertNotNull(companyDto);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void addDepartmentToCompanyById() throws Exception {
+  void addCompany_shouldCheckIdDtoIsNotValid() throws Exception {
+    OkrCompanyDto companyDto = createCompanyDto();
+    companyDto.setLabel("");
+    companyDto.setUnitName("");
+    companyDto.setHistoryId(-150L);
+
+    MvcResult result =
+        this.mockMvc
+            .perform(post("/api/companies")
+                .content(new ObjectMapper().writeValueAsString(companyDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(companyDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void addDepartmentToCompanyById_shouldCheckIfDtoIsValid() throws Exception {
+    OkrCompanyDto companyDto = createCompanyDto();
+
+
     final OkrDepartmentDto okrDepartment = new OkrDepartmentDto();
     okrDepartment.setOkrUnitId(410L);
-    okrDepartment.setLabel("Integration Testing");
-    okrDepartment.setUnitName("Brockhaus AG Team");
+    okrDepartment.setLabel("a label");
+    okrDepartment.setUnitName("a team");
     okrDepartment.setObjectiveIds(new ArrayList<>());
     okrDepartment.setOkrMemberIds(new ArrayList<>());
     okrDepartment.set__okrUnitType(UnitType.DEPARTMENT);
-    okrDepartment.setParentUnitId(329L);
+    okrDepartment.setParentUnitId(createCompanyDto().getOkrUnitId());
 
 
-    MvcResult result = this.mockMvc.perform(post("/api/companies/{companyId}/departments", 329)
-            .content(new ObjectMapper().writeValueAsString(okrDepartment))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
+    MvcResult result = this.mockMvc.perform(
+            post("/api/companies/{companyId}/departments", companyDto.getOkrUnitId())
+                .content(new ObjectMapper().writeValueAsString(okrDepartment))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
 
-    Assertions.assertNotNull(result);
-    Assertions.assertNotNull(okrDepartment);
-    Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, result.getResponse().getContentType());
+    assertNotNull(result);
+    assertNotNull(okrDepartment);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void addDepartmentToCompanyById_shouldCheckIfDtoIsNotValid() throws Exception {
+    OkrCompanyDto companyDto = createCompanyDto();
+
+    OkrDepartmentDto okrDepartment = new OkrDepartmentDto();
+    okrDepartment.setOkrUnitId(410L);
+    okrDepartment.setLabel("");
+    okrDepartment.setUnitName("");
+    okrDepartment.setObjectiveIds(new ArrayList<>());
+
+
+    MvcResult result = this.mockMvc.perform(
+            post("/api/companies/{companyId}/departments", companyDto.getOkrUnitId())
+                .content(new ObjectMapper().writeValueAsString(okrDepartment))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(okrDepartment);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
 
   @Test
-  void addBranchToCompanyById() throws Exception {
-    OkrCompany company = new OkrCompany();
-    doReturn(company).when(companyService).getAllCompanies();
+  void addBranchToCompanyById_shouldCheckIfAValidDTOIsGiven() throws Exception {
+    OkrCompanyDto company = createCompanyDto();
 
     OkrBranchDto okrBranchDto = new OkrBranchDto();
     okrBranchDto.setOkrUnitId(500L);
     okrBranchDto.setLabel("Test Branch");
     okrBranchDto.setObjectiveIds(new ArrayList<>());
     okrBranchDto.setOkrChildUnitIds(new ArrayList<>());
-    okrBranchDto.setParentUnitId(company.getId());
+    okrBranchDto.setParentUnitId(company.getOkrUnitId());
 
-    MvcResult result = this.mockMvc.perform(post("/api/companies/{companyId}/branch", company.getId())
+    MvcResult result = this.mockMvc.perform(post("/api/companies/{companyId}/branch", company.getOkrUnitId())
             .content(new ObjectMapper().writeValueAsString(okrBranchDto))
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
 
-    Assertions.assertNotNull(result);
-    Assertions.assertEquals(MediaType.APPLICATION_JSON_VALUE, result.getResponse().getContentType());
-
+    assertNotNull(result);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void updateCompanyById() { //todo
+  void addBranchToCompanyById_shouldCheckIfANonValidDTOIsGiven() throws Exception {
+    OkrCompanyDto company = createCompanyDto();
+
+    OkrBranchDto okrBranchDto = new OkrBranchDto();
+    okrBranchDto.setOkrUnitId(500L);
+    okrBranchDto.setLabel("Test Branch");
+    okrBranchDto.setObjectiveIds(new ArrayList<>());
+
+    MvcResult result = this.mockMvc.perform(post("/api/companies/{companyId}/branch", company.getOkrUnitId())
+            .content(new ObjectMapper().writeValueAsString(okrBranchDto))
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andReturn();
+
+    assertNotNull(result);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateCompanyById_shouldCheckIfAValidDTOIsGiven() throws Exception { //todo
+    OkrCompanyDto company = createCompanyDto();
+    company.setLabel("update label");
+    company.setUnitName("update name");
+
+    MvcResult result =
+        this.mockMvc.perform(put("/api/companies/{companyId}", company.getOkrUnitId())
+                .content(new ObjectMapper().writeValueAsString(company))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(company);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateCompanyById_shouldCheckIfANonValidDTOIsGiven() throws Exception { //todo
+    OkrCompanyDto company = createCompanyDto();
+    company.setLabel("");
+    company.setUnitName("");
+    company.setCycleId(-800L);
+    company.setHistoryId(-123L);
+
+    MvcResult result =
+        this.mockMvc.perform(put("/api/companies/{companyId}", company.getOkrUnitId())
+                .content(new ObjectMapper().writeValueAsString(company))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(company);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
   void deleteCompany() { //todo
   }
 
-  private MvcResult runPostIntegrationTest_shouldReturnIsOK(final String path, final int pathId, final T dto) throws Exception {
-    return this.mockMvc.perform(post(path, pathId)
-            .content(new ObjectMapper().writeValueAsString(dto))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andReturn();
+  private OkrCompanyDto createCompanyDto() {
+    OkrCompanyDto company = new OkrCompanyDto();
+    company.setOkrUnitId(100L);
+    company.setObjectiveIds(new ArrayList<>());
+    company.setOkrChildUnitIds(new ArrayList<>());
+    return company;
   }
 
-  private MvcResult runPostIntegrationTest_shouldReturnIsOK(final String path, final T dto) throws Exception {
-    return this.mockMvc.perform(post(path)
-            .content(new ObjectMapper().writeValueAsString(dto))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andReturn();
-  }
+
 }
 

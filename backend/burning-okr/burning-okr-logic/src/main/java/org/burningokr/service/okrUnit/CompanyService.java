@@ -200,7 +200,7 @@ public class CompanyService {
    */
   @Transactional
   public OkrDepartment createDepartment(Long companyId, OkrDepartment okrDepartment) {
-    okrDepartment.setId(null);
+//    okrDepartment.setId(null);
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);
@@ -232,7 +232,7 @@ public class CompanyService {
 
   @Transactional
   public OkrBranch createOkrBranch(Long companyId, OkrBranch okrBranch) throws ForbiddenException {
-    okrBranch.setId(null);
+//    okrBranch.setId(null);
     OkrCompany referencedOkrCompany = companyRepository.findByIdOrThrow(companyId);
 
     throwIfCompanyInClosedCycle(referencedOkrCompany);

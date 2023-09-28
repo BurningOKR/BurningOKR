@@ -23,7 +23,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
     okrDepartment.setId(okrDepartmentDto.getOkrUnitId());
     okrDepartment.setName(okrDepartmentDto.getUnitName());
     okrDepartment.setLabel(okrDepartmentDto.getLabel());
-    okrDepartment.setParentOkrUnit(null);
+//    okrDepartment.setParentOkrUnit(null);
     okrDepartment.setOkrMasterId(okrDepartmentDto.getOkrMasterId());
     okrDepartment.setOkrTopicSponsorId(okrDepartmentDto.getOkrTopicSponsorId());
     okrDepartment.setOkrMemberIds(okrDepartmentDto.getOkrMemberIds());
