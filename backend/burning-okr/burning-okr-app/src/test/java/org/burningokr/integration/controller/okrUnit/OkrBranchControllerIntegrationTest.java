@@ -14,9 +14,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -75,7 +77,7 @@ class OkrBranchControllerIntegrationTest {
 
     assertNotNull(result);
     assertNotNull(department);
-    Assertions.assertEquals(510L, department.getOkrUnitId());
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
@@ -93,8 +95,7 @@ class OkrBranchControllerIntegrationTest {
 
     assertNotNull(result);
     assertNotNull(department);
-    Assertions.assertNull(department.getOkrMemberIds());
-    Assertions.assertNull(result.getResponse().getContentType());
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
@@ -122,7 +123,8 @@ class OkrBranchControllerIntegrationTest {
     assertNotNull(company);
     assertNotNull(masterBranch);
     assertNotNull(subBranch);
-    assertEquals(520L, subBranch.getOkrUnitId());
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+
   }
 
   @Test
@@ -130,13 +132,10 @@ class OkrBranchControllerIntegrationTest {
     OkrCompany company = createOkrCompany();
     OkrBranch masterBranch = createOkrBranch(company);
     OkrBranchDto subBranch = new OkrBranchDto();
-    subBranch.set__okrUnitType(UnitType.OKR_BRANCH);
     subBranch.setOkrUnitId(520L);
     subBranch.setLabel("Linking a sub branch to a master branch for integration testing");
-    subBranch.setParentUnitId(masterBranch.getId());
     subBranch.setIsParentUnitABranch(true);
     subBranch.setUnitName("Integration testing");
-    subBranch.setOkrChildUnitIds(nullable(ArrayList.class)); //how to check for nullable
 
     MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", masterBranch.getId())
             .content(new ObjectMapper().writeValueAsString(subBranch))
@@ -149,8 +148,7 @@ class OkrBranchControllerIntegrationTest {
     assertNotNull(company);
     assertNotNull(masterBranch);
     assertNotNull(subBranch);
-    assertNotNull(result.getResponse().getContentType());
-    assertEquals(MediaType.APPLICATION_JSON_VALUE, result.getResponse().getContentType());
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   private OkrCompany createOkrCompany() {

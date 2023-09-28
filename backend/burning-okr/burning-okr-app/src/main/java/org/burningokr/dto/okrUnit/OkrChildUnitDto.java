@@ -21,7 +21,7 @@ import lombok.*;
     }
 )
 public abstract class OkrChildUnitDto extends OkrUnitDto {
-
+  @NonNull
   protected UnitType __okrUnitType;
   @NotNull
   protected Long parentUnitId;
@@ -32,7 +32,7 @@ public abstract class OkrChildUnitDto extends OkrUnitDto {
   @Setter(AccessLevel.NONE)
   private boolean isParentUnitABranch;
 
-  protected OkrChildUnitDto(UnitType unitType) {
+  protected OkrChildUnitDto(@NonNull UnitType unitType) {
     this.__okrUnitType = unitType;
   }
 

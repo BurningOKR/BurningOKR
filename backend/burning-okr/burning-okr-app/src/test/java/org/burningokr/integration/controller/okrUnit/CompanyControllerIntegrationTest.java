@@ -96,7 +96,6 @@ class CompanyControllerIntegrationTest {
   void getActiveCompanies_shouldReturnOkStatus() throws Exception {
     MvcResult mvcResult =
         this.mockMvc.perform(get("/api/companies"))
-            .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andReturn();
@@ -109,7 +108,6 @@ class CompanyControllerIntegrationTest {
     MvcResult mvcResult =
         this.mockMvc
             .perform(get("/api/companies/all"))
-            .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andReturn();
@@ -122,7 +120,6 @@ class CompanyControllerIntegrationTest {
     MvcResult mvcResult =
         this.mockMvc
             .perform(get("/api/companies/229"))
-            .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andReturn();
