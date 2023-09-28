@@ -45,6 +45,9 @@ dependencies {
   implementation deps.swagger.swagger2
   implementation deps.swagger.ui
 
+  //jackson
+  implementation deps.jackson.datatype
+
   // annotation processors
   annotationProcessor deps.spring.boot.configurationProcessor
 }

@@ -272,6 +272,7 @@ public class ObjectiveService {
 
   @Transactional
   public NoteObjective updateNote(NoteObjective updatedNoteObjective) {
+//    Objective objective = findById(objectiveId);
     NoteObjective referencedNoteObjective =
         noteObjectiveRepository.findByIdOrThrow(updatedNoteObjective.getId());
 

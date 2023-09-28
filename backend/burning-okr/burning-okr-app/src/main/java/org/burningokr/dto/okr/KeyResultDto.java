@@ -20,16 +20,20 @@ public class KeyResultDto {
 
   private Long id;
 
+  @NotNull
   private Long parentObjectiveId;
 
-  @NotNull
-  @Size(max = 255, message = "The title of a key result may not be longer than 255 characters.")
+  @Size(
+      min = 1,
+      max = 255,
+      message = "The title of a key result may not be longer than 255 characters."
+  )
   private String title;
 
-  @NotNull
   @Size(
-    max = 1023,
-    message = "The description of a key result may not be longer than 1023 characters."
+      min = 1,
+      max = 1023,
+      message = "The description of a key result may not be longer than 1023 characters."
   )
   private String description;
 

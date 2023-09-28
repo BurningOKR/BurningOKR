@@ -1,28 +1,25 @@
 package org.burningokr.integration.controller.okr;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletContext;
-import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.burningokr.controller.okr.ObjectiveController;
+import org.burningokr.dto.okr.KeyResultDto;
+import org.burningokr.dto.okr.NoteObjectiveDto;
+import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.NoteObjectiveMapper;
 import org.burningokr.mapper.okr.ObjectiveMapper;
-import org.burningokr.model.okr.Objective;
-import org.burningokr.model.okrUnits.OkrChildUnit;
+import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
-import org.burningokr.model.okrUnits.OkrDepartment;
-import org.burningokr.repositories.okr.ObjectiveRepository;
-import org.burningokr.repositories.okrUnit.CompanyRepository;
-import org.burningokr.repositories.okrUnit.OkrUnitRepository;
 import org.burningokr.service.okr.ObjectiveService;
-import org.burningokr.service.okrUnit.CompanyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,13 +30,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -64,8 +60,10 @@ class ObjectiveControllerIntegrationTest {
   @MockBean
   private NoteObjectiveMapper noteObjectiveMapper;
 
-  @MockBean
-  private CompanyService companyService;
+  private static final String TITLE_DTO =
+      "Unveiling the Unprecedented Advancements in Quantum Computing and Quantum Information Science: " +
+          "A Multidisciplinary Journey into Quantum Algorithms, Cryptography, and Quantum Supremacy's Global " +
+          "Societal and Industrial Transformations.";
 
   @BeforeEach
   void setUp() {
@@ -81,68 +79,224 @@ class ObjectiveControllerIntegrationTest {
     Assertions.assertNotNull(applicationContext.getBean(ObjectiveController.class));
   }
 
-  /*@Test
-  void getObjectiveById() throws Exception {
-    OkrCompany company = new OkrCompany();
-    company.setId(800L);
+  @Test
+  void updateObjectiveById_shouldCheckIfDTOIsValid() throws Exception {
+    OkrBranch branch = createNestingDtoParameters();
+    ObjectiveDto objectiveDto = createObjectiveDTO(branch);
+    objectiveDto.setTitle(TITLE_DTO);
+    objectiveDto.setDescription("a");
+    objectiveDto.setReview("b");
+    objectiveDto.setRemark("c");
+    objectiveDto.setIsActive(false);
 
-    OkrChildUnit unit = new OkrDepartment();
-    unit.setId(805L);
-
-    Objective objective = new Objective();
-    objective.setId(810L);
-    objective.setName("Testing Entity");
-
-    unit.setObjectives(List.of(objective));
-    company.setOkrChildUnits(List.of(unit));
-
-    companyRepository.save(company);
-    okrUnitRepository.save(unit);
-    objectiveRepository.save(objective);
-
-    MvcResult result = this.mockMvc.perform(get("/api/objectives/{objectiveId}", objective.getId())
-            .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-        .andDo(print())
+    MvcResult result = this.mockMvc.perform(
+            put("/api/objectives/{objectiveId}", objectiveDto.getId())
+                .content(new ObjectMapper().writeValueAsString(objectiveDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-
         .andReturn();
 
     assertNotNull(result);
-    assertEquals(MediaType.APPLICATION_JSON_VALUE, result.getResponse().getContentType());
-  } */
-
-  @Test
-  void getKeyResultsOfObjective() {
-
-
+    assertNotNull(objectiveDto);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void updateObjectiveById() {
+  void updateObjectiveById_shouldCheckIfDTOIsNotValid() throws Exception {
+    OkrBranch branch = createNestingDtoParameters();
+    ObjectiveDto objectiveDto = createObjectiveDTO(branch);
+    objectiveDto.setTitle(TITLE_DTO + TITLE_DTO);
+    objectiveDto.setDescription(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
+    objectiveDto.setReview(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
+    objectiveDto.setRemark(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
+
+
+    MvcResult result = this.mockMvc.perform(
+            put("/api/objectives/{objectiveId}", objectiveDto.getId())
+                .content(new ObjectMapper().writeValueAsString(objectiveDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(objectiveDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void getNotesOfObjective() {
+  void addKeyResultToObjective_shouldCheckIfAValidDTOIsGiven() throws Exception {
+    OkrBranch branch = createNestingDtoParameters();
+    ObjectiveDto objective = createObjectiveDTO(branch);
+    KeyResultDto keyResultDto = new KeyResultDto();
+    keyResultDto.setId(180L);
+    keyResultDto.setParentObjectiveId(objective.getId());
+    keyResultDto.setTitle(TITLE_DTO);
+    keyResultDto.setDescription("desc");
+    keyResultDto.setStartValue(0);
+    keyResultDto.setCurrentValue(1);
+    keyResultDto.setTargetValue(10);
+
+    MvcResult result =
+        this.mockMvc
+            .perform(post("/api/objectives/{objectiveId}/keyresults", objective.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void getChildsOfObjective() {
+  void addKeyResultToObjective_shouldCheckIfNonValidDTOIsGiven() throws Exception {
+    OkrBranch branch = createNestingDtoParameters();
+    ObjectiveDto objective = createObjectiveDTO(branch);
+    KeyResultDto keyResultDto = new KeyResultDto();
+    keyResultDto.setId(180L);
+    keyResultDto.setParentObjectiveId(objective.getId());
+    keyResultDto.setTitle(TITLE_DTO + TITLE_DTO + TITLE_DTO);
+    keyResultDto.setDescription(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
+    keyResultDto.setStartValue(-1);
+    keyResultDto.setCurrentValue(-1);
+    keyResultDto.setTargetValue(-1);
+
+    MvcResult result =
+        this.mockMvc
+            .perform(post("/api/objectives/{objectiveId}/keyresults", objective.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void addKeyResultToObjective() {
+  void updateObjectiveKeyResult_shouldCheckIfAValidDTOIsGiven() throws Exception {
+    final OkrBranch branch = createNestingDtoParameters();
+    final ObjectiveDto objective = createObjectiveDTO(branch);
+    final NoteObjectiveDto noteDto = createNoteDto(objective);
+
+    MvcResult result =
+        this.mockMvc
+            .perform(put("/api/objectives/notes")
+                .content(new ObjectMapper()
+                    .findAndRegisterModules()
+                    .writeValueAsString(noteDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(noteDto);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void deleteObjectiveById() {
+  void updateObjectiveKeyResult_shouldCheckIfANonValidDTOIsGiven() throws Exception {
+    final OkrBranch branch = createNestingDtoParameters();
+    final ObjectiveDto objective = createObjectiveDTO(branch);
+    final NoteObjectiveDto noteDto = createNoteDto(objective);
+    noteDto.setNoteBody("");
+
+    MvcResult result =
+        this.mockMvc
+            .perform(put("/api/objectives/notes")
+                .content(new ObjectMapper()
+                    .findAndRegisterModules()
+                    .writeValueAsString(noteDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(noteDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void updateObjectiveKeyResult() {
+  void addNoteToObjective_shouldCheckIfAValidDTOIsGiven() throws Exception {
+    final OkrBranch branch = createNestingDtoParameters();
+    final ObjectiveDto objective = createObjectiveDTO(branch);
+    final NoteObjectiveDto noteDto = createNoteDto(objective);
+
+    MvcResult result =
+        this.mockMvc
+            .perform(post("/api/objectives/{objectiveId}/notes", objective.getId())
+                .content(new ObjectMapper()
+                    .findAndRegisterModules()
+                    .writeValueAsString(noteDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(noteDto);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
+
   @Test
-  void addNoteToObjective() {
+  void addNoteToObjective_shouldCheckIfANonValidDTOIsGiven() throws Exception {
+    final OkrBranch branch = createNestingDtoParameters();
+    final ObjectiveDto objective = createObjectiveDTO(branch);
+    final NoteObjectiveDto noteDto = createNoteDto(objective);
+    noteDto.setNoteBody("");
+
+    MvcResult result =
+        this.mockMvc
+            .perform(post("/api/objectives/{objectiveId}/notes", objective.getId())
+                .content(new ObjectMapper()
+                    .findAndRegisterModules()
+                    .writeValueAsString(noteDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(noteDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  private static OkrBranch createNestingDtoParameters() {
+    OkrCompany company = new OkrCompany();
+    company.setId(100L);
+
+    OkrBranch branch = new OkrBranch();
+    branch.setId(101L);
+    branch.setParentOkrUnit(company);
+    branch.setName("Branch for Integration Testing");
+
+    return branch;
+  }
+
+  private static ObjectiveDto createObjectiveDTO(OkrBranch branch) {
+    ObjectiveDto objectiveDto = new ObjectiveDto();
+    objectiveDto.setId(150L);
+    objectiveDto.setParentUnitId(branch.getId());
+    return objectiveDto;
+  }
+
+  private static NoteObjectiveDto createNoteDto(ObjectiveDto objective) {
+    final NoteObjectiveDto noteDto = new NoteObjectiveDto();
+    noteDto.setNoteId(180L);
+    noteDto.setParentObjectiveId(objective.getId());
+    noteDto.setNoteBody(TITLE_DTO);
+    noteDto.setDate(LocalDateTime.now());
+    return noteDto;
   }
 
 }

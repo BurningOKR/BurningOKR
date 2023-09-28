@@ -20,8 +20,11 @@ public class NoteDto {
 
   private UUID userId;
 
-  @NotNull
-  @Size(max = 1023, message = "The note text may not be longer than 1023 characters.")
+  @Size(
+      min = 1,
+      max = 1023,
+      message = "The note text may not be longer than 1023 characters."
+  )
   private String noteBody;
 
   private LocalDateTime date;
