@@ -41,7 +41,6 @@ public class KeyResultController {
   @PreAuthorize("@keyResultAuthorizationService.hasMemberPrivilegesForKeyResult(#keyResultId)")
   public ResponseEntity<KeyResultDto> updateKeyResultById(@PathVariable long keyResultId, @Valid @RequestBody KeyResultDto keyResultDto) {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
-    keyResult.setId(keyResultId);
     keyResult = this.keyResultService.updateKeyResult(keyResult);
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
   }
