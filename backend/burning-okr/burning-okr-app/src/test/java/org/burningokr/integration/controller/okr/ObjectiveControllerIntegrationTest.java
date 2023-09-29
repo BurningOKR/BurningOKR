@@ -60,7 +60,7 @@ class ObjectiveControllerIntegrationTest {
   @MockBean
   private NoteObjectiveMapper noteObjectiveMapper;
 
-  private static final String TITLE_DTO =
+  private static final String TEXT_255_CHARACTERS_TESTING_PARAMETER =
       "Unveiling the Unprecedented Advancements in Quantum Computing and Quantum Information Science: " +
           "A Multidisciplinary Journey into Quantum Algorithms, Cryptography, and Quantum Supremacy's Global " +
           "Societal and Industrial Transformations.";
@@ -83,7 +83,7 @@ class ObjectiveControllerIntegrationTest {
   void updateObjectiveById_shouldCheckIfDTOIsValid() throws Exception {
     OkrBranch branch = createNestingDtoParameters();
     ObjectiveDto objectiveDto = createObjectiveDTO(branch);
-    objectiveDto.setTitle(TITLE_DTO);
+    objectiveDto.setTitle(TEXT_255_CHARACTERS_TESTING_PARAMETER);
     objectiveDto.setDescription("a");
     objectiveDto.setReview("b");
     objectiveDto.setRemark("c");
@@ -106,10 +106,33 @@ class ObjectiveControllerIntegrationTest {
   void updateObjectiveById_shouldCheckIfDTOIsNotValid() throws Exception {
     OkrBranch branch = createNestingDtoParameters();
     ObjectiveDto objectiveDto = createObjectiveDTO(branch);
-    objectiveDto.setTitle(TITLE_DTO + TITLE_DTO);
-    objectiveDto.setDescription(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
-    objectiveDto.setReview(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
-    objectiveDto.setRemark(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
+    objectiveDto.setTitle(TEXT_255_CHARACTERS_TESTING_PARAMETER + TEXT_255_CHARACTERS_TESTING_PARAMETER);
+    objectiveDto.setDescription(
+        TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+    );
+    objectiveDto.setReview(
+        TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+    );
+    objectiveDto.setRemark(
+        TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+    );
 
 
     MvcResult result = this.mockMvc.perform(
@@ -132,7 +155,7 @@ class ObjectiveControllerIntegrationTest {
     KeyResultDto keyResultDto = new KeyResultDto();
     keyResultDto.setId(180L);
     keyResultDto.setParentObjectiveId(objective.getId());
-    keyResultDto.setTitle(TITLE_DTO);
+    keyResultDto.setTitle(TEXT_255_CHARACTERS_TESTING_PARAMETER);
     keyResultDto.setDescription("desc");
     keyResultDto.setStartValue(0);
     keyResultDto.setCurrentValue(1);
@@ -160,9 +183,18 @@ class ObjectiveControllerIntegrationTest {
     KeyResultDto keyResultDto = new KeyResultDto();
     keyResultDto.setId(180L);
     keyResultDto.setParentObjectiveId(objective.getId());
-    keyResultDto.setTitle(TITLE_DTO + TITLE_DTO + TITLE_DTO);
-    keyResultDto.setDescription(TITLE_DTO + TITLE_DTO + TITLE_DTO + TITLE_DTO);
+    keyResultDto.setTitle(
+        TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+    );
     keyResultDto.setStartValue(-1);
+    keyResultDto.setDescription(
+        TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+            + TEXT_255_CHARACTERS_TESTING_PARAMETER
+    );
     keyResultDto.setCurrentValue(-1);
     keyResultDto.setTargetValue(-1);
 
@@ -294,7 +326,7 @@ class ObjectiveControllerIntegrationTest {
     final NoteObjectiveDto noteDto = new NoteObjectiveDto();
     noteDto.setNoteId(180L);
     noteDto.setParentObjectiveId(objective.getId());
-    noteDto.setNoteBody(TITLE_DTO);
+    noteDto.setNoteBody(TEXT_255_CHARACTERS_TESTING_PARAMETER);
     noteDto.setDate(LocalDateTime.now());
     return noteDto;
   }
