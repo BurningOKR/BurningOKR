@@ -25,6 +25,7 @@ const testCompany: CompanyUnit = {
   cycleId: 1,
   label: '',
   name: '',
+  photo: '',
   objectives: [],
 };
 const testCompany2: CompanyUnit = {
@@ -33,6 +34,7 @@ const testCompany2: CompanyUnit = {
   cycleId: 1,
   label: '',
   name: '',
+  photo: '',
   objectives: [],
 };
 const testCompanyList: CompanyUnit[] = [testCompany, testCompany2];

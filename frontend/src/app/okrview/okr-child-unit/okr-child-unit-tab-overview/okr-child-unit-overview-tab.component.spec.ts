@@ -78,6 +78,7 @@ describe('ChildUnitOverviewTabComponent', () => {
     department = {
       id: 1,
       name: 'testDepartment',
+      photo: 'base64',
       objectives: [],
       parentUnitId: 0,
       label: 'test',

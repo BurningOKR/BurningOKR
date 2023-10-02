@@ -37,6 +37,7 @@ export class StructureMapper {
     return {
       id: structureDto.okrUnitId,
       name: structureDto.unitName,
+      photo: structureDto.photo,
       label: structureDto.label,
       objectives: structureDto.objectiveIds,
       substructures: this.mapDtosToStructureArray(structureDto.substructure),

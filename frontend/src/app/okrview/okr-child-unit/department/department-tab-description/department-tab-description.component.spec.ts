@@ -58,6 +58,7 @@ describe('DepartmentTabDescription', () => {
     department = {
       id: 1,
       name: 'test',
+      photo: 'base64',
       objectives: [],
       parentUnitId: 2,
       label: 'label',

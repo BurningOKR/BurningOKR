@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DepartmentMapper } from '../../../shared/services/mapper/department.mapper';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NEVER } from 'rxjs';
+import { NEVER, Observable } from 'rxjs';
 import { OkrDepartment } from '../../../shared/model/ui/OrganizationalUnit/okr-department';
 import { UnitType } from '../../../shared/model/api/OkrUnit/unit-type.enum';
 import { OkrChildUnit } from '../../../shared/model/ui/OrganizationalUnit/okr-child-unit';
@@ -10,6 +10,8 @@ import { OkrUnitService } from '../../../shared/services/mapper/okr-unit.service
 import { OkrBranch } from '../../../shared/model/ui/OrganizationalUnit/okr-branch';
 import { OkrBranchMapper } from '../../../shared/services/mapper/okr-branch-mapper.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DownsampleUploadedImageService } from '../../../shared/services/helper/downsample-uploaded-image.service';
+import { switchMap } from 'rxjs/operators';
 
 interface OkrChildUnitFormData {
   childUnit?: OkrChildUnit;
@@ -27,7 +29,8 @@ export class OkrChildUnitFormComponent {
   okrChildUnit: OkrChildUnit;
   childUnitForm: FormGroup;
   title: string;
-  unitType = UnitType;
+  UnitType = UnitType;
+  imageFile: File;
 
   constructor(
     private dialogRef: MatDialogRef<OkrChildUnitFormComponent>,
@@ -35,7 +38,8 @@ export class OkrChildUnitFormComponent {
     private departmentMapper: DepartmentMapper,
     private okrBranchMapper: OkrBranchMapper,
     private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) private formData: OkrChildUnitFormData,
+    private downsampleUploadedImageService: DownsampleUploadedImageService,
+    @Inject(MAT_DIALOG_DATA) protected formData: OkrChildUnitFormData,
   ) {
     this.childUnitForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -64,6 +68,20 @@ export class OkrChildUnitFormComponent {
     this.title = this.formData.childUnit ? saveText : createText;
   }
 
+  onChange(event) {
+    this.imageFile = event.target.files[0];
+    if (this.imageFile[0] != null || this.imageFile[0] !== undefined) {
+      if (this.imageFile[0].size > 1048576 * 25) {
+        this.imageFile = null;
+      }
+    }
+  }
+
+  deleteAvatar() {
+    const childUnit: OkrChildUnit | undefined = this.formData.childUnit;
+    childUnit.photo = null;
+  }
+
   closeDialog(): void {
     this.dialogRef.close(NEVER);
   }
@@ -82,7 +100,18 @@ export class OkrChildUnitFormComponent {
     childUnit.label = this.childUnitForm.get('label').value;
     childUnit.isActive = this.childUnitForm.get('isActive').value;
 
-    this.dialogRef.close(this.okrUnitService.putOkrChildUnit$(childUnit));
+    let childUnit$: Observable<OkrChildUnit>;
+
+    if (this.imageFile != null) {
+      childUnit$ = this.downsampleUploadedImageService.uploadImage(this.imageFile).pipe(switchMap(base64ImageString => {
+        childUnit.photo = base64ImageString;
+
+        return this.okrUnitService.putOkrChildUnit$(childUnit);
+      }));
+    } else {
+      childUnit$ = this.okrUnitService.putOkrChildUnit$(childUnit);
+    }
+    this.dialogRef.close(childUnit$);
   }
 
   createChildUnit(): void {
@@ -93,6 +122,7 @@ export class OkrChildUnitFormComponent {
       parentUnitId: undefined,
       objectives: [],
       name: formData.name,
+      photo: formData.photo,
       label: formData.label,
       isActive: formData.isActive,
       isParentUnitABranch: false,
@@ -148,4 +178,5 @@ export class OkrChildUnitFormComponent {
 
     }
   }
+
 }

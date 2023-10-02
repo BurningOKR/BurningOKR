@@ -21,6 +21,7 @@ const currentCompanyMock: CompanyUnit = {
   cycleId: 2,
   label: 'test',
   name: 'testCompany',
+  photo: 'base64',
   objectives: [],
 };
 
