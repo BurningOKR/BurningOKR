@@ -20,8 +20,8 @@
         <p>{{'chart-options-card.chartType' | translate}} {{chartTypeRecord[chart.chartType] | translate}}</p>
 
         <mat-form-field *ngIf="teamIsSelectable(chart)" [formGroupName]="i">
-          <mat-select formControlName="selectedTeamIds" multiple placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}"
-                      required>
+          <mat-select formControlName="selectedTeamIds" multiple
+                      placeholder="{{'edit-dashboard.placeholder.select-teams' | translate}}" required>
             <mat-option *ngFor="let team of allTeams$ | async;" [value]="team.id">{{team.name}}</mat-option>
           </mat-select>
         </mat-form-field>

@@ -118,6 +118,7 @@ describe('CompanyComponent', () => {
     company = {
       id: 10,
       name: 'TestComapy',
+      photo: 'base64',
       objectives: [],
       okrChildUnitIds: [],
       cycleId: 1,

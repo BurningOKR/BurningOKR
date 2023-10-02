@@ -1,14 +1,14 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {User} from '../../../../../shared/model/api/user';
-import {UserService} from '../../../../../shared/services/helper/user.service';
-import {CurrentUserService} from '../../../../../core/services/current-user.service';
-import {Observable, Subscription} from 'rxjs';
-import {UserId} from '../../../../../shared/model/id-types';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { User } from '../../../../../shared/model/api/user';
+import { UserService } from '../../../../../shared/services/helper/user.service';
+import { CurrentUserService } from '../../../../../core/services/current-user.service';
+import { Observable, Subscription } from 'rxjs';
+import { UserId } from '../../../../../shared/model/id-types';
 
 @Component({
   selector: 'app-taskboard-users',
   templateUrl: './taskboard-users.component.html',
-  styleUrls: ['./taskboard-users.component.scss']
+  styleUrls: ['./taskboard-users.component.scss'],
 })
 export class TaskboardUsersComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -34,7 +34,7 @@ export class TaskboardUsersComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       const currentShownUsers: UserId[] = this.users
         .filter(userId => userId !== this.currentUserId)
-        .slice(0, this.maxShownUsers-1);
+        .slice(0, this.maxShownUsers - 1);
       currentShownUsers.forEach(userId => this.users$.push(this.userService.getUserById$(userId)));
       this.countAdditionalUsers = currentUsersLength - currentShownUsers.length;
     }

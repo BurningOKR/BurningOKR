@@ -22,7 +22,6 @@ import {
   ConfirmationDialogComponent,
   ConfirmationDialogData,
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
-import { User } from '../../../../shared/model/api/user';
 import { RxStompState } from '@stomp/rx-stomp';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -198,19 +197,19 @@ export class DepartmentTabTaskboardComponent implements OnDestroy, OnChanges, On
           this.viewData.tasks = this.taskHelper.removeTaskAndUpdateTaskList(this.viewData.tasks, task);
           this.viewDataEmitter$.next(this.viewData);
         }),
-      this.stompService.watch({destination: `/topic/unit/${this.childUnit.id}/tasks/users`})
+      this.stompService.watch({ destination: `/topic/unit/${this.childUnit.id}/tasks/users` })
         .pipe(
           map(wsReply => {
             const users: UserId[] = JSON.parse(wsReply.body);
 
             return users;
-          })
+          }),
         )
         .subscribe(
           users => {
             this.monitoringUsers = users;
-          }
-        )
+          },
+        ),
     );
   }
 

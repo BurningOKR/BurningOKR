@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { OidcConfiguration } from './oidc-configuration';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OidcConfigurationService {
 

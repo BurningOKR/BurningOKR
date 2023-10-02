@@ -45,6 +45,7 @@ export class OkrChildUnitComponent implements OnInit {
   departmentView$: Observable<DepartmentView>;
   okrChildUnit$: Observable<OkrChildUnit>;
   activeTabs$: Observable<ActiveTabs>;
+  unitType = UnitType;
 
   error404: boolean = false;
 

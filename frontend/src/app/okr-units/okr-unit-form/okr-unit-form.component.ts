@@ -59,7 +59,12 @@ export class OkrUnitFormComponent {
       this.dialogRef.close(this.companyMapper.putCompany$(company));
     } else {
       const formData: CompanyUnit = this.companyForm.getRawValue();
-      const newCompany: CompanyDto = { unitName: formData.name, cycleId: formData.cycleId, label: formData.label };
+      const newCompany: CompanyDto = {
+        unitName: formData.name,
+        photo: formData.photo,
+        cycleId: formData.cycleId,
+        label: formData.label,
+      };
       this.dialogRef.close(this.companyMapper.postCompany$(newCompany));
     }
   }

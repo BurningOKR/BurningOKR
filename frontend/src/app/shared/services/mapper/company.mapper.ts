@@ -28,6 +28,7 @@ export class CompanyMapper {
     return {
       id: company.okrUnitId,
       name: company.unitName,
+      photo: company.photo,
       okrChildUnitIds: company.okrChildUnitIds,
       objectives: company.objectiveIds,
       cycleId: company.cycleId,
@@ -39,6 +40,7 @@ export class CompanyMapper {
     return {
       okrUnitId: companyUnit.id,
       unitName: companyUnit.name,
+      photo: companyUnit.photo,
       okrChildUnitIds: companyUnit.okrChildUnitIds,
       objectiveIds: companyUnit.objectives,
       cycleId: companyUnit.cycleId,
@@ -84,7 +86,7 @@ export class CompanyMapper {
         mergeMap((companyUnits: CompanyUnit[]) => {
           const cycleUnits$: Observable<CycleUnit>[] = companyUnits.map(company => this.cycleMapperService.getCycleById$(
             company.cycleId));
-          
+
           return forkJoin(cycleUnits$);
         }),
       );

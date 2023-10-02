@@ -32,6 +32,7 @@ const okrDepartment: OkrDepartment = {
   isParentUnitABranch: false,
   label: 'department',
   name: 'test',
+  photo: 'base64',
   objectives: [],
   okrMasterId: '',
   okrMemberIds: [],
