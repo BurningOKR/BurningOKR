@@ -1,9 +1,7 @@
 package org.burningokr.service.security.authenticationUserContext;
 
 import jakarta.persistence.EntityNotFoundException;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.configuration.SystemProperties;
 import org.burningokr.model.users.User;
@@ -16,16 +14,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
-@Getter
-@Setter
 @Slf4j
 public abstract class AuthenticationUserContextService {
   protected final UserService userService;
   protected final SystemProperties systemProperties;
-  public final HashMap<UUID, User> userHashMap = new HashMap<>();
-  public final String GIVEN_NAME_IDENTIFIER;
-  public final String FAMILY_NAME_IDENTIFIER;
-  public final String EMAIL_IDENTIFIER;
+  protected final HashMap<UUID, User> userHashMap = new HashMap<>();
+  protected final String GIVEN_NAME_IDENTIFIER;
+  protected final String FAMILY_NAME_IDENTIFIER;
+  protected final String EMAIL_IDENTIFIER;
 
   public User getAuthenticatedUser() throws EntityNotFoundException {
     UUID userId = getUserIdFromContext();
@@ -36,15 +32,15 @@ public abstract class AuthenticationUserContextService {
     return user;
   }
 
-  public UUID getUserIdFromContext() {
+  protected UUID getUserIdFromContext() {
     return ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
   }
 
-  public abstract UUID getUserIdFromToken(Jwt token);
+  protected abstract UUID getUserIdFromToken(Jwt token);
 
-  public abstract List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException;
+  protected abstract List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException;
 
-  public void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
+  protected void checkIfStringIsEmpty(String attributeName, String validatedString) throws InvalidTokenException {
     if (validatedString.isEmpty()) {
       throw new InvalidTokenException("%s attribute is empty".formatted(attributeName));
     }
@@ -80,8 +76,8 @@ public abstract class AuthenticationUserContextService {
     }
   }
 
-  public boolean isCachedUserEqualToTokenUser(User cachedUser, User tokenUser) {
-    // TODO lazevedo 11.09.23 Why not use User.equals?
+  protected boolean isCachedUserEqualToTokenUser(User cachedUser, User tokenUser) {
+    // only checks fields set by this.getUserFromToken(...)
     return cachedUser.getId().equals(tokenUser.getId()) &&
         cachedUser.getMail().equals(tokenUser.getMail()) &&
         cachedUser.getGivenName().equals(tokenUser.getGivenName()) &&
@@ -89,15 +85,15 @@ public abstract class AuthenticationUserContextService {
         cachedUser.isAdmin() == tokenUser.isAdmin();
   }
 
-  public boolean checkIfKeysAreString(Set<?> keySet) {
+  protected boolean checkIfKeysAreString(Set<?> keySet) {
     return keySet.stream().allMatch(key -> key instanceof String);
   }
 
-  public String getAttributeFromJwt(Jwt userToken, String attributeName) throws InvalidTokenException {
+  protected String getAttributeFromJwt(Jwt userToken, String attributeName) throws InvalidTokenException {
     return validateString(userToken.getClaims().get(attributeName), attributeName);
   }
 
-  public String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
+  protected String validateString(Object stringObject, String attributeName) throws InvalidTokenException {
     String validatedString = checkIfObjectIsInstanceOfString(stringObject, attributeName);
     checkIfStringIsEmpty(attributeName, validatedString);
 
@@ -112,13 +108,13 @@ public abstract class AuthenticationUserContextService {
     return validatedString;
   }
 
-  public void throwIfUserIsNull(User user) throws EntityNotFoundException {
+  protected void throwIfUserIsNull(User user) throws EntityNotFoundException {
     if (user == null) {
       throw new EntityNotFoundException("user could not be found in hashmap");
     }
   }
 
-  public boolean checkIfListContainsStrings(Collection<?> list) {
+  protected boolean checkIfListContainsStrings(Collection<?> list) {
     return list.stream().allMatch(key -> key instanceof String);
   }
 }
