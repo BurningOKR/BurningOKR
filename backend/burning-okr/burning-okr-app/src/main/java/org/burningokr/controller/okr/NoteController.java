@@ -34,8 +34,7 @@ public class NoteController {
       @RequestBody
       NoteDto noteDto
   ) {
-    Note note = new Note();
-    note = this.noteMapper.mapDtoToEntity(noteDto);
+    Note note = this.noteMapper.mapDtoToEntity(noteDto);
     note = this.noteService.updateNote(note);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }

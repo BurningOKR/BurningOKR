@@ -2,6 +2,7 @@ package org.burningokr.integration.controller.okr;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletContext;
+import org.apache.commons.lang3.StringUtils;
 import org.burningokr.controller.okr.NoteController;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.mapper.okr.NoteMapper;
@@ -25,7 +26,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
@@ -48,13 +51,23 @@ class NoteControllerIntegrationTest {
   @MockBean
   private NoteMapper noteMapper;
 
+  private NoteDto validNoteDto;
+
   @BeforeEach
   void setup() {
     this.mockMvc = MockMvcBuilders
         .webAppContextSetup(this.webApplicationContext)
         .build();
+
+    this.validNoteDto = NoteDto.builder()
+        .noteId(42L)
+        .userId(UUID.randomUUID())
+        .noteBody("Hello World")
+        .date(LocalDateTime.now())
+        .build();
   }
 
+  // check if context is build correctly
   @Test
   public void getServletContext_shouldCheckIfEverythingIsLoadedCorrect() {
     ServletContext servletContext = webApplicationContext.getServletContext();
@@ -64,6 +77,7 @@ class NoteControllerIntegrationTest {
     Assertions.assertNotNull(webApplicationContext.getBean(NoteController.class));
   }
 
+  // actual testing
   @Test
   void updateNoteById_shouldReturnStatus200_whenDtoIsValid() throws Exception {
     MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", this.validNoteDto.getNoteId())
@@ -77,7 +91,7 @@ class NoteControllerIntegrationTest {
         .andReturn();
 
     Assertions.assertNotNull(result);
-    Assertions.assertNotNull(noteDto);
+    Assertions.assertNotNull(this.validNoteDto);
     Assertions.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
@@ -94,11 +108,38 @@ class NoteControllerIntegrationTest {
             )
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
         .andReturn();
 
     Assertions.assertNotNull(result);
     Assertions.assertNotNull(invalidDto);
+    Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateNoteById_shouldReturnStatus400_whenDtoNoteBodyIsTooLong() throws Exception {
+    NoteDto invalidDto = this.validNoteDto;
+    invalidDto.setNoteBody(StringUtils.repeat("A", 1024));
+
+    MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", invalidDto.getNoteId())
+            .content(
+                new ObjectMapper()
+                    .findAndRegisterModules()
+                    .writeValueAsString(invalidDto)
+            )
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    Assertions.assertNotNull(result);
+    Assertions.assertNotNull(invalidDto);
+    String defaultMessage = result.getResolvedException().getMessage()
+        .trim().split("default message")[2];
+    String test =
+        defaultMessage.trim().substring(0, defaultMessage.length() - 2);
+    System.out.println(test);
+//    System.out.println(result.getResolvedException().getMessage().split("default message")[2]);
+    //List<String> errors = result.getHandler()..getFieldErrors()
+    //    .stream().map(this::constructErrorMessage).collect(Collectors.toList());
     Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 }
