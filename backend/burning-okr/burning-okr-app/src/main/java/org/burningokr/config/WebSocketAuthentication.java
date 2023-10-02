@@ -25,43 +25,12 @@ import java.util.List;
 public class WebSocketAuthentication {
 
   private final JwtDecoder jwtDecoder;
+
+  private final JwtAuthenticationConverter jwtAuthenticationConverter;
   public static final String USER_SESSION_ATTRIBUTE_KEY = "userId";
-  private static final String WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY = "Authorization";
+  public static final String WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY = "Authorization";
 
   private final AuthenticationUserContextService authenticationUserContextService;
-
-  private Authentication decodeToken(@NonNull String token) {
-    if (token.isEmpty()) throw new NullPointerException("Token is either null or is empty");
-    Jwt jwt = jwtDecoder.decode(token); // TODO CK refactor when working
-    AbstractAuthenticationToken abstractAuthenticationToken = new JwtAuthenticationConverter().convert(jwt);
-
-    // new
-    User userFromToken = authenticationUserContextService.getUserFromToken(jwt);
-
-    BurningOkrAuthentication burningOkrAuthentication = createCustomAuthentication(
-        jwt, userFromToken, abstractAuthenticationToken
-    );
-
-    if (burningOkrAuthentication.isAuthenticated()) {
-      log.debug("updating user from jwt because token is valid, calling update user on AuthenticationUserContextService");
-      authenticationUserContextService.updateCachedAndDatabaseUser(userFromToken);
-    }
-
-    return burningOkrAuthentication;
-  }
-
-  private BurningOkrAuthentication createCustomAuthentication(Jwt jwt, User userFromToken, Authentication authentication) {
-    BurningOkrAuthentication burningOkrAuthentication = new BurningOkrAuthentication(jwt, userFromToken);
-    burningOkrAuthentication.setAuthenticated(authentication.isAuthenticated());
-
-    return burningOkrAuthentication;
-  }
-
-  private String getBearerToken(@NonNull StompHeaderAccessor header) {
-    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) return "";
-    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
-    return nativeHeader != null && !nativeHeader.isEmpty() ? nativeHeader.get(0).split("\\s")[1] : "";
-  }
 
   protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
     return StompCommand.CONNECT.equals(accessor.getCommand());
@@ -69,15 +38,46 @@ public class WebSocketAuthentication {
 
   protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
     final String bearerToken = getBearerToken(header);
-    final Authentication authentication = decodeToken(bearerToken);
+    final Jwt jwt = jwtDecoder.decode(bearerToken);
+    BurningOkrAuthentication authentication = this.createAuthenticationFromJwt(jwt);
 
-    if (!authentication.isAuthenticated()) throw new AuthorizationHeaderException("user is not authenticated");
+    if (!authentication.isAuthenticated()) throw new AuthorizationHeaderException("User is not authenticated");
 
+    log.debug("Updating user from jwt because token is valid, calling update user on AuthenticationUserContextService");
+    authenticationUserContextService.updateCachedAndDatabaseUser(authentication.getPrincipal());
     header.setUser(authentication);
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    log.debug("set auth after receiving jwt via websocket connection");
-    if (header.getSessionAttributes() == null) throw new RuntimeException("Session Attributes are null");
+    log.debug("Set auth after receiving jwt via websocket connection");
+    if (header.getSessionAttributes() == null) throw new RuntimeException("Session attributes are null");
     header.getSessionAttributes().put(USER_SESSION_ATTRIBUTE_KEY,
-        authenticationUserContextService.getAuthenticatedUser().getId());
+      authenticationUserContextService.getAuthenticatedUser().getId());
+  }
+
+  private BurningOkrAuthentication createAuthenticationFromJwt(Jwt jwt) {
+    AbstractAuthenticationToken abstractAuthenticationToken = this.jwtAuthenticationConverter.convert(jwt);
+
+    User userFromToken = authenticationUserContextService.getUserFromToken(jwt);
+    return createCustomAuthentication(jwt, userFromToken, abstractAuthenticationToken);
+  }
+
+  private String getBearerToken(@NonNull StompHeaderAccessor header) {
+    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) throw new IllegalArgumentException("Key '%s' is missing in stomp header".formatted(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+
+    if(nativeHeader == null || nativeHeader.isEmpty()) throw new IllegalArgumentException("Value of key '%s' in stomp header is null or empty".formatted(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    return extractTokenFromHeaderValue(nativeHeader.get(0));
+  }
+
+  private String extractTokenFromHeaderValue(String value) {
+    String[] words = value.split("\\s");
+    if(words.length != 2) throw new IllegalArgumentException("Authorization token in header is malformed. Expected structure: Bearer {token}");
+    return words[1];
+  }
+
+  private BurningOkrAuthentication createCustomAuthentication(Jwt jwt, User userFromToken, Authentication authentication) {
+    BurningOkrAuthentication burningOkrAuthentication = new BurningOkrAuthentication(jwt, userFromToken);
+    burningOkrAuthentication.setAuthenticated(authentication.isAuthenticated());
+
+    return burningOkrAuthentication;
   }
 }
