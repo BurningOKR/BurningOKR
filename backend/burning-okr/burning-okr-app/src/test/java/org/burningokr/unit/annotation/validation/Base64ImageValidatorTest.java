@@ -1,5 +1,7 @@
-package org.burningokr.annotation.validation;
+package org.burningokr.unit.annotation.validation;
 
+import org.burningokr.annotation.validation.Base64Image;
+import org.burningokr.annotation.validation.Base64ImageValidator;
 import org.burningokr.utils.Base64Strings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
