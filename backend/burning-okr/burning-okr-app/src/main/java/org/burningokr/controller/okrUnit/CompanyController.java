@@ -156,8 +156,7 @@ public class CompanyController {
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrDepartmentDto> addDepartmentToCompanyById(
       @PathVariable long companyId,
-      @RequestBody
-      OkrDepartmentDto okrDepartmentDto
+      @RequestBody @Valid OkrDepartmentDto okrDepartmentDto
   ) {
     OkrDepartment okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment = this.companyService.createDepartment(companyId, okrDepartment);
@@ -188,7 +187,7 @@ public class CompanyController {
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> updateCompanyById(
       @PathVariable long companyId,
-      @RequestBody OkrCompanyDto okrCompanyDto
+      @RequestBody @Valid OkrCompanyDto okrCompanyDto
   ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
     okrCompany = this.companyService.updateCompany(okrCompany);

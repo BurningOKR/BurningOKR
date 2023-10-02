@@ -1,9 +1,8 @@
-package org.burningokr.unit.service.security.authenticationUserContext;
+package org.burningokr.service.security.authenticationUserContext;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.burningokr.model.configuration.SystemProperties;
 import org.burningokr.model.users.User;
-import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.security.authorization.InvalidTokenException;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.jupiter.api.Assertions;

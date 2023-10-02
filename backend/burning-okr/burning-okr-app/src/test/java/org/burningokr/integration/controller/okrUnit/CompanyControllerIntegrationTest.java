@@ -72,8 +72,6 @@ class CompanyControllerIntegrationTest {
   private OkrBranchSchemaMapper okrUnitSchemaMapper;
   @MockBean
   private AuthenticationUserContextService authenticationUserContextService;
-  @MockBean
-  private CompanyRepository companyRepository;
 
 
   @BeforeEach

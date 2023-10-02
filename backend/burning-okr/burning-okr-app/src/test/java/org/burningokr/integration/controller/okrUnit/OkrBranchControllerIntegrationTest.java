@@ -37,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -133,15 +134,17 @@ class OkrBranchControllerIntegrationTest {
     OkrBranch masterBranch = createOkrBranch(company);
     OkrBranchDto subBranch = new OkrBranchDto();
     subBranch.setOkrUnitId(520L);
-    subBranch.setLabel("Linking a sub branch to a master branch for integration testing");
+    subBranch.set__okrUnitType(UnitType.OKR_BRANCH);
+//    subBranch.setLabel("Linking a sub branch to a master branch for integration testing");
     subBranch.setIsParentUnitABranch(true);
-    subBranch.setUnitName("Integration testing");
+//    subBranch.setUnitName("Integration testing");
 
     MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", masterBranch.getId())
             .content(new ObjectMapper().writeValueAsString(subBranch))
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest())
+        .andDo(print())
         .andReturn();
 
     assertNotNull(result);

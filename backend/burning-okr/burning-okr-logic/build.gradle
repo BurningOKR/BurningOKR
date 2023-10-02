@@ -26,4 +26,5 @@ dependencies {
     // db
     implementation deps.spring.boot.starter.data
     implementation deps.db.hibernate.envers
+  testImplementation project(path: ':burning-okr-app')
 }

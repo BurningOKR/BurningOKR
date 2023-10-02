@@ -1,7 +1,8 @@
-package org.burningokr.service;
+package org.burningokr.unit.service;
 
 import org.burningokr.config.WebSocketAuthentication;
 import org.burningokr.model.users.User;
+import org.burningokr.service.WebsocketUserService;
 import org.burningokr.service.userhandling.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
