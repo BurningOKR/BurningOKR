@@ -12,6 +12,7 @@ postgres = '42.+'
 flyway = '9.19.4'
 mssql = '10.+'
 apache-poi = '5.+'
+commons-lang = '3.+'
 guava = '31.+'
 springdoc = '2.+'
 
@@ -66,6 +67,7 @@ db-hibernate-envers = { module = 'org.hibernate.orm:hibernate-envers', version.r
 # apache poi
 apache-poi = { module = 'org.apache.poi:poi', version.ref = 'apache-poi' }
 apache-poiOoxml = { module = 'org.apache.poi:poi-ooxml', version.ref = 'apache-poi' }
+apache-commons = { module ='org.apache.commons:commons-lang3',  version.ref = 'commons-lang' }
 
 # guava
 guava = { module = 'com.google.guava:guava', version.ref = 'guava' }

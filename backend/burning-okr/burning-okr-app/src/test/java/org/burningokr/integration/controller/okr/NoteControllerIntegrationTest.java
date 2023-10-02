@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @WebMvcTest
@@ -66,22 +65,15 @@ class NoteControllerIntegrationTest {
   }
 
   @Test
-  void updateNoteById_shouldCheckIfValidDto() throws Exception {
-    NoteDto noteDto = new NoteDto();
-    noteDto.setNoteId(110L);
-    noteDto.setNoteBody("body");
-    noteDto.setUserId(UUID.randomUUID());
-    noteDto.setDate(LocalDateTime.now());
-
-    MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", noteDto.getNoteId())
+  void updateNoteById_shouldReturnStatus200_whenDtoIsValid() throws Exception {
+    MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", this.validNoteDto.getNoteId())
             .content(
                 new ObjectMapper()
                     .findAndRegisterModules()
-                    .writeValueAsString(noteDto)
+                    .writeValueAsString(this.validNoteDto)
             )
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
         .andReturn();
 
     Assertions.assertNotNull(result);
@@ -90,18 +82,15 @@ class NoteControllerIntegrationTest {
   }
 
   @Test
-  void updateNoteById_shouldCheckIfNonValidDto() throws Exception {
-    NoteDto noteDto = new NoteDto();
-    noteDto.setNoteId(110L);
-    noteDto.setNoteBody("");
-    noteDto.setUserId(UUID.randomUUID());
-    noteDto.setDate(LocalDateTime.now());
+  void updateNoteById_shouldReturnStatus400_whenDtoNoteBodyIsTooShort() throws Exception {
+    NoteDto invalidDto = this.validNoteDto;
+    invalidDto.setNoteBody("");
 
-    MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", noteDto.getNoteId())
+    MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", invalidDto.getNoteId())
             .content(
                 new ObjectMapper()
                     .findAndRegisterModules()
-                    .writeValueAsString(noteDto)
+                    .writeValueAsString(invalidDto)
             )
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
@@ -109,7 +98,7 @@ class NoteControllerIntegrationTest {
         .andReturn();
 
     Assertions.assertNotNull(result);
-    Assertions.assertNotNull(noteDto);
+    Assertions.assertNotNull(invalidDto);
     Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 }
