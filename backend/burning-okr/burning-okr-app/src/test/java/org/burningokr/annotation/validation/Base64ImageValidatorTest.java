@@ -1,5 +1,6 @@
 package org.burningokr.annotation.validation;
 
+import org.burningokr.utils.Base64Strings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class Base64ImageValidatorTest {
+ public class Base64ImageValidatorTest {
 
   Base64ImageValidator validator;
 
@@ -228,8 +229,5 @@ class Base64ImageValidatorTest {
 
   }
 
-  private static class Base64Strings {
-    public static final String WHITE_IMAGE_1X1_PIXEL = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wYAAwAB/1c1fQAAAABJRU5ErkJggg==";
-    public static final String IMAGE_67_BYTE = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wYAAwAB/1c1fQAAAABJRU5ErkJggg==";
-  }
+
 }

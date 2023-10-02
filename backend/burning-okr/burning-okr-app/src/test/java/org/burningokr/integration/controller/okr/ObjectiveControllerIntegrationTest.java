@@ -67,7 +67,10 @@ class ObjectiveControllerIntegrationTest {
 
   @BeforeEach
   void setUp() {
-    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext).build();
+
+    this.mockMvc = MockMvcBuilders
+        .webAppContextSetup(this.applicationContext)
+        .build();
   }
 
   @Test
@@ -262,6 +265,7 @@ class ObjectiveControllerIntegrationTest {
     final OkrBranch branch = createNestingDtoParameters();
     final ObjectiveDto objective = createObjectiveDTO(branch);
     final NoteObjectiveDto noteDto = createNoteDto(objective);
+    noteDto.setNoteBody(TEXT_255_CHARACTERS_TESTING_PARAMETER);
 
     MvcResult result =
         this.mockMvc
@@ -326,7 +330,7 @@ class ObjectiveControllerIntegrationTest {
     final NoteObjectiveDto noteDto = new NoteObjectiveDto();
     noteDto.setNoteId(180L);
     noteDto.setParentObjectiveId(objective.getId());
-    noteDto.setNoteBody(TEXT_255_CHARACTERS_TESTING_PARAMETER);
+//    noteDto.setNoteBody(TEXT_255_CHARACTERS_TESTING_PARAMETER);
     noteDto.setDate(LocalDateTime.now());
     return noteDto;
   }

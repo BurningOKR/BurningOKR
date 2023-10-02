@@ -17,6 +17,7 @@ import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.repositories.okrUnit.CompanyRepository;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
+import org.burningokr.utils.Base64Strings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,10 +44,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+
+@WebMvcTest
+@WebAppConfiguration
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {CompanyController.class})
-@WebAppConfiguration
-@WebMvcTest
 class CompanyControllerIntegrationTest {
 
   @Autowired
@@ -77,7 +80,6 @@ class CompanyControllerIntegrationTest {
   void setup() {
     this.mockMvc = MockMvcBuilders
         .webAppContextSetup(this.webApplicationContext)
-//        .apply(springSecurity())
         .build();
   }
 
@@ -93,6 +95,9 @@ class CompanyControllerIntegrationTest {
   @Test
   void addCompany_shouldCheckIdDtoIsValid() throws Exception {
     OkrCompanyDto companyDto = createCompanyDto();
+    companyDto.setPhoto(Base64Strings.WHITE_IMAGE_1X1_PIXEL);
+    companyDto.setLabel("a");
+    companyDto.setUnitName("unit Name");
 
     MvcResult result =
         this.mockMvc
@@ -138,6 +143,7 @@ class CompanyControllerIntegrationTest {
     okrDepartment.setOkrUnitId(410L);
     okrDepartment.setLabel("a label");
     okrDepartment.setUnitName("a team");
+    okrDepartment.setPhoto(Base64Strings.WHITE_IMAGE_1X1_PIXEL);
     okrDepartment.setObjectiveIds(new ArrayList<>());
     okrDepartment.setOkrMemberIds(new ArrayList<>());
     okrDepartment.set__okrUnitType(UnitType.DEPARTMENT);
@@ -163,8 +169,9 @@ class CompanyControllerIntegrationTest {
 
     OkrDepartmentDto okrDepartment = new OkrDepartmentDto();
     okrDepartment.setOkrUnitId(410L);
-    okrDepartment.setLabel("");
-    okrDepartment.setUnitName("");
+//    okrDepartment.set__okrUnitType(null);
+//    okrDepartment.setLabel("");
+//    okrDepartment.setUnitName("");
     okrDepartment.setObjectiveIds(new ArrayList<>());
 
 
@@ -189,6 +196,8 @@ class CompanyControllerIntegrationTest {
     OkrBranchDto okrBranchDto = new OkrBranchDto();
     okrBranchDto.setOkrUnitId(500L);
     okrBranchDto.setLabel("Test Branch");
+    okrBranchDto.setUnitName("Unit Name");
+    okrBranchDto.setPhoto(Base64Strings.WHITE_IMAGE_1X1_PIXEL);
     okrBranchDto.setObjectiveIds(new ArrayList<>());
     okrBranchDto.setOkrChildUnitIds(new ArrayList<>());
     okrBranchDto.setParentUnitId(company.getOkrUnitId());
@@ -278,4 +287,3 @@ class CompanyControllerIntegrationTest {
 
 
 }
-

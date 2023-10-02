@@ -32,11 +32,11 @@ public class WebSocketAuthentication {
 
   private final AuthenticationUserContextService authenticationUserContextService;
 
-  protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
+  public boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
     return StompCommand.CONNECT.equals(accessor.getCommand());
   }
 
-  protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
+  public void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
     final String bearerToken = getBearerToken(header);
     final Jwt jwt = jwtDecoder.decode(bearerToken);
     BurningOkrAuthentication authentication = this.createAuthenticationFromJwt(jwt);
