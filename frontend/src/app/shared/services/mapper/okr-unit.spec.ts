@@ -39,6 +39,7 @@ describe('OkrUnitService', () => {
     departmentDto = {
       okrUnitId: 1,
       unitName: 'testName',
+      photo: 'base64',
       label: 'test',
       isActive: true,
       objectiveIds: [1, 2, 3],
@@ -53,6 +54,7 @@ describe('OkrUnitService', () => {
     departmentUnit = {
       id: 1,
       name: 'testName',
+      photo: 'base64',
       label: 'test',
       isActive: true,
       objectives: [1, 2, 3],
@@ -68,6 +70,7 @@ describe('OkrUnitService', () => {
       __okrUnitType: UnitType.BRANCH,
       okrUnitId: 2,
       unitName: 'testName2',
+      photo: 'base64',
       label: 'testLabel',
       isActive: true,
       okrChildUnitIds: [1],
@@ -80,6 +83,7 @@ describe('OkrUnitService', () => {
       type: UnitType.BRANCH,
       id: 2,
       name: 'testName2',
+      photo: 'base64',
       label: 'testLabel',
       isActive: true,
       okrChildUnitIds: [1],

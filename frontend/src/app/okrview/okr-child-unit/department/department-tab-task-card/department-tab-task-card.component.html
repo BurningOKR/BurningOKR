@@ -1,29 +1,30 @@
 <mat-card class="taskcard" [class.mat-elevation-z8]="isActive" (mouseenter)="setIsActive(true)"
-    (mouseleave)="setIsActive(false)" *ngIf="taskInformations.task" (click)="updateOrViewTask()">
-    <div *ngIf="taskInformations.keyResult" class="task-card-key-result">
-        <div>{{taskInformations.keyResult.keyResult}}</div>
+          (mouseleave)="setIsActive(false)" *ngIf="taskInformations.task" (click)="updateOrViewTask()">
+  <div *ngIf="taskInformations.keyResult" class="task-card-key-result">
+    <div>{{taskInformations.keyResult.keyResult}}</div>
+  </div>
+  <div class="taskcard-content">
+    <mat-card-title class="taskcard-title">{{taskInformations.task.title}}</mat-card-title>
+    <mat-card-content class="taskcard-description">
+      <div>{{taskInformations.task.description}}</div>
+    </mat-card-content>
+    <div class="taskcard-footer">
+      <div *ngIf="isInteractive">
+        <mat-card-actions>
+          <button mat-button (click)="onDelete($event,taskInformations.task)"
+                  matTooltip="{{'department-tab-task-card.delete' | translate}}">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </div>
+      <mat-card-footer class="taskcard-user-pictures">
+        <app-taskboard-users [users]="taskInformations.task.assignedUserIds"></app-taskboard-users>
+      </mat-card-footer>
     </div>
-    <div class="taskcard-content">
-        <mat-card-title class="taskcard-title">{{taskInformations.task.title}}</mat-card-title>
-        <mat-card-content class="taskcard-description">
-            <div>{{taskInformations.task.description}}</div>
-        </mat-card-content>
-        <div class="taskcard-footer">
-            <div *ngIf="isInteractive">
-                <mat-card-actions>
-                    <button mat-button (click)="onDelete($event,taskInformations.task)" matTooltip="{{'department-tab-task-card.delete' | translate}}">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-card-actions>
-            </div>
-            <mat-card-footer class="taskcard-user-pictures">
-              <app-taskboard-users [users]="taskInformations.task.assignedUserIds"></app-taskboard-users>
-            </mat-card-footer>
-        </div>
-    </div>
+  </div>
 </mat-card>
 <ng-template #taskCardLoading>
-    <div class="task-card-key-result">
-        <div>{{ 'department-tab-task-card.task-board-loading' | translate }}</div>
-    </div>
+  <div class="task-card-key-result">
+    <div>{{ 'department-tab-task-card.task-board-loading' | translate }}</div>
+  </div>
 </ng-template>

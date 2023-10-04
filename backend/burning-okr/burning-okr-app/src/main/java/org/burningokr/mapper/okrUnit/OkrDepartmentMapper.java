@@ -22,6 +22,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
 
     okrDepartment.setId(okrDepartmentDto.getOkrUnitId());
     okrDepartment.setName(okrDepartmentDto.getUnitName());
+    okrDepartment.setPhoto(okrDepartmentDto.getPhoto());
     okrDepartment.setLabel(okrDepartmentDto.getLabel());
     okrDepartment.setParentOkrUnit(null);
     okrDepartment.setOkrMasterId(okrDepartmentDto.getOkrMasterId());
@@ -41,6 +42,7 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
 
     okrDepartmentDto.setOkrUnitId(okrDepartment.getId());
     okrDepartmentDto.setUnitName(okrDepartment.getName());
+    okrDepartmentDto.setPhoto(okrDepartment.getPhoto());
     okrDepartmentDto.setLabel(okrDepartment.getLabel());
     okrDepartmentDto.setParentUnitId(okrDepartment.getParentOkrUnit().getId());
     okrDepartmentDto.setIsParentUnitABranch(okrDepartment.getParentOkrUnit() instanceof OkrBranch);

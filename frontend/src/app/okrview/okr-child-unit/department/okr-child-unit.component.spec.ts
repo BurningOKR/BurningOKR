@@ -146,6 +146,7 @@ describe('OkrChildUnitComponent', () => {
     department = {
       id: 1,
       name: 'testDepartment',
+      photo: 'base64',
       objectives: [],
       parentUnitId: 0,
       label: 'department',
@@ -161,6 +162,7 @@ describe('OkrChildUnitComponent', () => {
       type: UnitType.BRANCH,
       id: 2,
       name: 'testBranch',
+      photo: 'base64',
       objectives: [],
       label: 'testLAbel',
       parentUnitId: 0,

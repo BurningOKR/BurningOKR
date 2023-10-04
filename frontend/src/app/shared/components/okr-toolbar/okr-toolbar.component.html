@@ -60,15 +60,14 @@
     <mat-icon>assignment</mat-icon>
     <span>{{'okr-toolbar.menu.topic-drafts-text' | translate}}</span>
   </button>
-  <button (keydown)="$event.stopPropagation()" *ngIf="getCurrentCompanyId$() | async; let currentCompanyId" [disabled]="isPlayground"
-          class="menu-items" mat-menu-item
+  <button (keydown)="$event.stopPropagation()" *ngIf="getCurrentCompanyId$() | async; let currentCompanyId"
+          [disabled]="isPlayground" class="menu-items" mat-menu-item
           routerLink="/companies/{{currentCompanyId}}/dashboard-overview">
     <mat-icon>dashboard</mat-icon>
     <span>{{'okr-toolbar.menu.dashboard-overview' | translate}}</span>
   </button>
   <button (click)="routeToCycleAdminPanel()" (keydown)="$event.stopPropagation()"
-          *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" class="menu-items"
-          mat-menu-item>
+          *ngIf="isCycleManagementOptionVisible && (isCurrentUserAdmin$ | async)" class="menu-items" mat-menu-item>
     <mat-icon>history</mat-icon>
     <span>{{'okr-toolbar.menu.cycle-administration-text' | translate}}</span>
   </button>

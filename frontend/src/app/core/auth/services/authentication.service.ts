@@ -19,7 +19,7 @@ export class AuthenticationService {
     private oAuthService: OAuthService,
     private fetchingService: FetchingService,
     private oidcConfigurationService: OidcConfigurationService,
-    ) {
+  ) {
     this.isUserLoggedIn$.next(false); // user is not logged in on application start by default
     this.finishedInitialisation = new Promise<boolean>(resolve => {
       this.configure().then(() => {
@@ -100,21 +100,21 @@ export class AuthenticationService {
       filter(event => event.type === 'token_received'),
       take(1),
     ).subscribe(() => {
-        this.fetchingService.refetchAll(this.isUserLoggedIn());
+      this.fetchingService.refetchAll(this.isUserLoggedIn());
     });
   }
 
   private onTokenFailureSetLoggedInFalse(): void {
     this.oAuthService.events.pipe(
       filter(event => this.matchesAnyString(event.type, [
-        'user_profile_load_error',
-        'discovery_document_load_error',
-        'discovery_document_validation_error',
-        'token_error',
-        'session_error',
-        'logout',
-        ])
-      )
+          'user_profile_load_error',
+          'discovery_document_load_error',
+          'discovery_document_validation_error',
+          'token_error',
+          'session_error',
+          'logout',
+        ]),
+      ),
     ).subscribe(() => {
       this.isUserLoggedIn$.next(false);
     });

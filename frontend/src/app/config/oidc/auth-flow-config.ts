@@ -1,6 +1,6 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
 
-export interface AuthFlowConfig extends AuthConfig  {
+export interface AuthFlowConfig extends AuthConfig {
   issuer: string;
   redirectUri: string;
   clientId: string;

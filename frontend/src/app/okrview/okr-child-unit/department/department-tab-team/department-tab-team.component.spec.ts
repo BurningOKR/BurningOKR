@@ -90,6 +90,7 @@ describe('DepartmentTabTeamComponent', () => {
     department = {
       id: 2,
       name: 'testDepartment',
+      photo: 'base64',
       objectives: [],
       parentUnitId: 0,
       label: 'label',

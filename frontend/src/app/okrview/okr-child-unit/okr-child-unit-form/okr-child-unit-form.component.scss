@@ -1,11 +1,38 @@
+@import '../../../../styles/themes/bag-theme';
+
 mat-form-field.name {
   width: 100%;
-}
-
-.toggle-fix {
-  margin-bottom: 20px;
 }
 
 //form {
 //  height: 170px;
 //}
+
+.upload-wrapper {
+  margin-bottom: 10px;
+}
+
+.upload-text {
+  margin: 0 20px 0 10px;
+  padding: 10px;
+
+  color: mat-color($md-primary, 700);
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+
+}
+
+.upload-button {
+  color: mat-color($md-primary, 700);
+}
+
+#img {
+  display: none;
+}
+
+.toggle {
+  padding: 10px;
+  height: revert;
+}

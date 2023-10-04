@@ -26,6 +26,8 @@ public abstract class OkrUnit implements Trackable<Long> {
   @Size(min = 1)
   protected String name;
 
+  protected String photo; // Represents the image as String
+
   @NotNull
   @Size(min = 1)
   protected String label;

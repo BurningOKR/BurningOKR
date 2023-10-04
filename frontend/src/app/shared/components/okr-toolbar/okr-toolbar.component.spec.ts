@@ -19,6 +19,7 @@ describe('OkrToolbarComponent', () => {
   const currentCompanyMock: CompanyUnit = {
     id: 1,
     name: '',
+    photo: 'base64',
     okrChildUnitIds: null,
     objectives: null,
     cycleId: 0,

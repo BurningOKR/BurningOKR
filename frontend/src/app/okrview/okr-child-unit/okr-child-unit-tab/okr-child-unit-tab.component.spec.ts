@@ -63,6 +63,7 @@ describe('OkrChildUnitTabComponent', () => {
       type: UnitType.BRANCH,
       id: 1,
       name: 'test',
+      photo: '',
       objectives: [],
       label: 'testBranch',
       parentUnitId: 2,

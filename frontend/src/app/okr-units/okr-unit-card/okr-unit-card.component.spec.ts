@@ -67,6 +67,7 @@ describe('OkrUnitCardComponent', () => {
     component.company = {
       id: 7331,
       name: 'correctCompanyWithArticle',
+      photo: 'base64',
       okrChildUnitIds: [],
       objectives: [],
       cycleId: 0,
@@ -100,6 +101,7 @@ describe('OkrUnitCardComponent', () => {
     component.company = {
       id: 7331,
       name: 'correctCompanyWithArticle',
+      photo: 'base64',
       okrChildUnitIds: [123, 234, 345, 45],
       objectives: [],
       cycleId: 0,
