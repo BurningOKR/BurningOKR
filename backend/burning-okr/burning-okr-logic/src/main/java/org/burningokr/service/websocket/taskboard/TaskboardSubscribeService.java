@@ -34,10 +34,9 @@ public class TaskboardSubscribeService {
    * Removes the unsubscribing user from the list of subscriptions.
    */
   public void handleUnsubscribe(SessionUnsubscribeEvent sessionUnsubscribeEvent) {
-    log.info("Received unsubscribe");
+    log.debug("Received unsubscribe");
     Set<SimpSubscription> matchingSubscriptions = customSimpUserRegistryService.findMatchingSubscriptionsBySubscriptionId(
       sessionUnsubscribeEvent);
-    log.info("Sub length %d".formatted(matchingSubscriptions.size()));
     removeSubscribedUserFromMatchingSubscriptions(sessionUnsubscribeEvent.getMessage(), matchingSubscriptions);
   }
 
