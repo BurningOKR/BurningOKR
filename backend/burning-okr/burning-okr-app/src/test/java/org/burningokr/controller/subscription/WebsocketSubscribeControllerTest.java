@@ -1,3 +1,4 @@
+// todo lazevedo 04.10.23 redo tests/check if tests are still valid. postponed due to time constraints
 //package org.burningokr.controller.subscription;
 //
 //import org.burningokr.service.websocket.WebsocketUserService;
