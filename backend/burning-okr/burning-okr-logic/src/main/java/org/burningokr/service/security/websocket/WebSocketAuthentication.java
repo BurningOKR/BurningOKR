@@ -1,10 +1,10 @@
-package org.burningokr.config;
+package org.burningokr.service.security.websocket;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.exceptions.AuthorizationHeaderException;
 import org.burningokr.model.users.User;
+import org.burningokr.service.exceptions.AuthorizationHeaderException;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.security.authenticationUserContext.BurningOkrAuthentication;
 import org.springframework.context.annotation.Configuration;
@@ -32,11 +32,11 @@ public class WebSocketAuthentication {
 
   private final AuthenticationUserContextService authenticationUserContextService;
 
-  protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
+  public boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
     return StompCommand.CONNECT.equals(accessor.getCommand());
   }
 
-  protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
+  public void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
     final String bearerToken = getBearerToken(header);
     final Jwt jwt = jwtDecoder.decode(bearerToken);
     BurningOkrAuthentication authentication = this.createAuthenticationFromJwt(jwt);

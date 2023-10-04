@@ -1,7 +1,7 @@
-package org.burningokr.config;
+package org.burningokr.service.security.websocket;
 
-import org.burningokr.exceptions.AuthorizationHeaderException;
 import org.burningokr.model.users.User;
+import org.burningokr.service.exceptions.AuthorizationHeaderException;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
