@@ -1,23 +1,19 @@
-package org.burningokr.service;
+package org.burningokr.service.websocket;
 
-import org.burningokr.config.WebSocketAuthentication;
+import lombok.RequiredArgsConstructor;
 import org.burningokr.model.monitoring.UserId;
 import org.burningokr.model.users.User;
+import org.burningokr.service.security.websocket.WebSocketAuthentication;
 import org.burningokr.service.userhandling.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class WebsocketUserService {
   private final UserService userService;
-
-  @Autowired
-  public WebsocketUserService(UserService userService) {
-    this.userService = userService;
-  }
 
   public User findByAccessor(StompHeaderAccessor stompHeaderAccessor) {
     Map<String, Object> sessionAttributes = stompHeaderAccessor.getSessionAttributes();

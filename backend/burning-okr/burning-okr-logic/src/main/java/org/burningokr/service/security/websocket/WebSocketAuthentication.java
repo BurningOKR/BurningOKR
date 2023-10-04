@@ -1,10 +1,10 @@
-package org.burningokr.config;
+package org.burningokr.service.security.websocket;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.burningokr.exceptions.AuthorizationHeaderException;
 import org.burningokr.model.users.User;
+import org.burningokr.service.exceptions.AuthorizationHeaderException;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
 import org.burningokr.service.security.authenticationUserContext.BurningOkrAuthentication;
 import org.springframework.context.annotation.Configuration;
@@ -32,11 +32,11 @@ public class WebSocketAuthentication {
 
   private final AuthenticationUserContextService authenticationUserContextService;
 
-  protected boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
+  public boolean isConnectionAttempt(@NonNull StompHeaderAccessor accessor) {
     return StompCommand.CONNECT.equals(accessor.getCommand());
   }
 
-  protected void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
+  public void tryToAuthenticate(@NonNull StompHeaderAccessor header) throws AuthorizationHeaderException {
     final String bearerToken = getBearerToken(header);
     final Jwt jwt = jwtDecoder.decode(bearerToken);
     BurningOkrAuthentication authentication = this.createAuthenticationFromJwt(jwt);
@@ -61,10 +61,17 @@ public class WebSocketAuthentication {
   }
 
   private String getBearerToken(@NonNull StompHeaderAccessor header) {
-    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) throw new IllegalArgumentException("Key '%s' is missing in stomp header".formatted(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
-    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    if (!header.containsNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY)) {
+      throw new IllegalArgumentException("Key '%s' is missing in stomp header".formatted(
+        WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    }
 
-    if(nativeHeader == null || nativeHeader.isEmpty()) throw new IllegalArgumentException("Value of key '%s' in stomp header is null or empty".formatted(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    final List<String> nativeHeader = header.getNativeHeader(WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY);
+    if (nativeHeader == null || nativeHeader.isEmpty()) {
+      throw new IllegalArgumentException("Value of key '%s' in stomp header is null or empty".formatted(
+        WEBSOCKET_STOMP_HEADER_AUTHORIZATION_KEY));
+    }
+
     return extractTokenFromHeaderValue(nativeHeader.get(0));
   }
 

@@ -55,7 +55,7 @@ public class WebSecurityConfig {
             "/webjars/**",
             "/wsregistry",
             "/actuator/**",
-            "/applicationSettings/oidcConfiguration" // TODO try to move to /api
+        "/applicationSettings/oidcConfiguration"
         )
         .permitAll()
         .anyRequest()

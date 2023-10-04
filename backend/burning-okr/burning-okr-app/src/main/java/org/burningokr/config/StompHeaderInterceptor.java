@@ -2,6 +2,7 @@ package org.burningokr.config;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.burningokr.service.security.websocket.WebSocketAuthentication;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
