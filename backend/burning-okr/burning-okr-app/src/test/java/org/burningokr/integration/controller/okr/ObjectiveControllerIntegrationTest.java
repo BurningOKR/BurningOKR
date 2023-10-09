@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletContext;
 import org.burningokr.controller.okr.ObjectiveController;
 import org.burningokr.dto.okr.KeyResultDto;
+import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteObjectiveDto;
 import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.NoteObjectiveMapper;
 import org.burningokr.mapper.okr.ObjectiveMapper;
+import org.burningokr.model.okr.Unit;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okr.ObjectiveService;
@@ -31,6 +33,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -60,6 +64,10 @@ class ObjectiveControllerIntegrationTest {
   @MockBean
   private NoteObjectiveMapper noteObjectiveMapper;
 
+  private ObjectiveDto objectiveDto;
+  private KeyResultDto keyResultDto;
+  private NoteObjectiveDto noteObjectiveDto;
+
   private static final String TEXT_255_CHARACTERS_TESTING_PARAMETER =
       "Unveiling the Unprecedented Advancements in Quantum Computing and Quantum Information Science: " +
           "A Multidisciplinary Journey into Quantum Algorithms, Cryptography, and Quantum Supremacy's Global " +
@@ -67,10 +75,46 @@ class ObjectiveControllerIntegrationTest {
 
   @BeforeEach
   void setUp() {
-
     this.mockMvc = MockMvcBuilders
         .webAppContextSetup(this.applicationContext)
         .build();
+
+    objectiveDto = ObjectiveDto.builder()
+        .id(120L)
+        .parentObjectiveId(100L)
+        .title("Objective")
+        .description("Description")
+        .remark("Remark")
+        .review("Review")
+        .sequence(5)
+        .isActive(true)
+        .contactPersonId("burning-okr@localhost.loop")
+        .subObjectiveIds(new ArrayList<>())
+        .keyResultIds(new ArrayList<>())
+        .noteIds(new ArrayList<>())
+        .build();
+
+    keyResultDto = KeyResultDto.builder()
+        .id(150L)
+        .parentObjectiveId(objectiveDto.getId())
+        .title("Title")
+        .description("Description")
+        .startValue(1L)
+        .currentValue(5L)
+        .targetValue(20L)
+        .unit(Unit.EURO)
+        .sequence(3)
+        .noteIds(new ArrayList<>())
+        .keyResultMilestoneDtos(new ArrayList<>())
+        .build();
+
+    noteObjectiveDto = NoteObjectiveDto.builder()
+        .parentObjectiveId(keyResultDto.getId())
+        .build();
+
+    noteObjectiveDto.setNoteId(180L);
+    noteObjectiveDto.setNodeBody("note body");
+
   }
 
   @Test

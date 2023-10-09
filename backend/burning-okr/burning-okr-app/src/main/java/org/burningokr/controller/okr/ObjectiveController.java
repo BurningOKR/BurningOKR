@@ -109,8 +109,7 @@ public class ObjectiveController {
       produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<ObjectiveDto> updateNoteFromObjective(
-      @Valid
-      @RequestBody NoteObjectiveDto noteObjectiveDto) {
+      @Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
     this.objectiveService.updateNote(noteObjective);
     return ResponseEntity.ok().build();
