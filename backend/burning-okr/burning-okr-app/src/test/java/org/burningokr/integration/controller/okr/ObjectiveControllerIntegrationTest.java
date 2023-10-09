@@ -160,9 +160,9 @@ class ObjectiveControllerIntegrationTest {
     keyResultDto.setParentObjectiveId(objective.getId());
     keyResultDto.setTitle(TEXT_255_CHARACTERS_TESTING_PARAMETER);
     keyResultDto.setDescription("desc");
-    keyResultDto.setStartValue(0);
-    keyResultDto.setCurrentValue(1);
-    keyResultDto.setTargetValue(10);
+    keyResultDto.setStartValue(0L);
+    keyResultDto.setCurrentValue(1L);
+    keyResultDto.setTargetValue(10L);
 
     MvcResult result =
         this.mockMvc
@@ -191,15 +191,15 @@ class ObjectiveControllerIntegrationTest {
             + TEXT_255_CHARACTERS_TESTING_PARAMETER
             + TEXT_255_CHARACTERS_TESTING_PARAMETER
     );
-    keyResultDto.setStartValue(-1);
+    keyResultDto.setStartValue(-1L);
     keyResultDto.setDescription(
         TEXT_255_CHARACTERS_TESTING_PARAMETER
             + TEXT_255_CHARACTERS_TESTING_PARAMETER
             + TEXT_255_CHARACTERS_TESTING_PARAMETER
             + TEXT_255_CHARACTERS_TESTING_PARAMETER
     );
-    keyResultDto.setCurrentValue(-1);
-    keyResultDto.setTargetValue(-1);
+    keyResultDto.setCurrentValue(-1L);
+    keyResultDto.setTargetValue(-1L);
 
     MvcResult result =
         this.mockMvc

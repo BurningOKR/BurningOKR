@@ -2,15 +2,16 @@ package org.burningokr.dto.okr;
 
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class NoteDto {
 
   private Long noteId;
@@ -33,3 +34,5 @@ public class NoteDto {
     this.date = noteDto.getDate();
   }
 }
+
+

@@ -2,17 +2,15 @@ package org.burningokr.integration.controller.okr;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletContext;
+import org.apache.commons.lang3.StringUtils;
 import org.burningokr.controller.okr.KeyResultController;
 import org.burningokr.dto.okr.KeyResultDto;
+import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.NoteKeyResultMapper;
-import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.Unit;
-import org.burningokr.model.okrUnits.OkrBranch;
-import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.service.okr.KeyResultService;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,16 +58,35 @@ class KeyResultControllerIntegrationTest {
   @MockBean
   private NoteKeyResultMapper noteKeyResultMapper;
 
-  private static final String TEXT_255_CHARACTERS_TESTING_PARAMETER =
-      "Unveiling the Unprecedented Advancements in Quantum Computing and Quantum Information Science: " +
-          "A Multidisciplinary Journey into Quantum Algorithms, Cryptography, and Quantum Supremacy's Global " +
-          "Societal and Industrial Transformations.";
-
+  private NoteKeyResultDto noteKeyResultDto;
+  private KeyResultDto keyResultDto;
 
   @BeforeEach
   void setUp() {
     this.mockMvc =
         MockMvcBuilders.webAppContextSetup(this.context).build();
+
+    keyResultDto = KeyResultDto.builder()
+        .id(120L)
+        .parentObjectiveId(110L)
+        .title("title")
+        .description("description")
+        .startValue(1L)
+        .currentValue(1L)
+        .targetValue(10L)
+        .sequence(1)
+        .unit(Unit.NUMBER)
+        .noteIds(new ArrayList<>())
+        .keyResultMilestoneDtos(new ArrayList<>())
+        .build();
+
+    noteKeyResultDto = new NoteKeyResultDto(NoteDto.builder()
+        .noteId(122L)
+        .noteBody("Hello Burning OKR")
+        .userId(UUID.randomUUID())
+        .date(LocalDateTime.now())
+        .build());
+    noteKeyResultDto.setParentKeyResultId(keyResultDto.getId());
   }
 
   @Test
@@ -82,31 +99,28 @@ class KeyResultControllerIntegrationTest {
   }
 
   @Test
-  void updateKeyResultById_shouldCheckIfAValidDtoIsGiven() throws Exception {
-    KeyResultDto keyResult = createValidKeyResultDto(createNestedParameters());
+  void updateKeyResultById_shouldShouldStatus200_whenDtoIsValid() throws Exception {
 
     MvcResult result =
         this.mockMvc.perform(
-                put("/api/keyresults/{keyResultId}", keyResult.getId())
-                    .content(new ObjectMapper().writeValueAsString(keyResult))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isOk())
-            .andReturn();
+            put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andReturn();
 
     assertNotNull(result);
-    assertNotNull(keyResult);
+    assertNotNull(keyResultDto);
     assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void updateKeyResultById_shouldCheckIfANonValidDtoIsGiven() throws Exception {
-    KeyResultDto keyResult = createNonValidKeyResultDto(createNestedParameters());
+  void updateKeyResultById_shouldReturnStatus400_whenParentObjectiveIsNull() throws Exception {
+    keyResultDto.setParentObjectiveId(null);
 
     MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResult.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResult))
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
             )
@@ -114,174 +128,171 @@ class KeyResultControllerIntegrationTest {
             .andReturn();
 
     assertNotNull(result);
-    assertNotNull(keyResult);
+    assertNotNull(keyResultDto);
     assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void addNoteToKeyResult_shouldCheckIfValidDTO() throws Exception {
-    KeyResultDto keyResult = createValidKeyResultDto(createNestedParameters());
-    NoteKeyResultDto noteResult = createValidNoteKeyResultDto(keyResult);
+  void updateKeyResultById_shouldReturnStatus400_whenTitleIsTooShort() throws Exception {
+    keyResultDto.setTitle("");
 
-    MvcResult mvcResult =
-        this.mockMvc.perform(
-                post("/api/keyresults/{keyresultId}/notes", keyResult.getId())
-                    .content(new ObjectMapper()
-                        .findAndRegisterModules()
-                        .writeValueAsString(noteResult)
-                    )
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andReturn();
-
-    assertNotNull(mvcResult);
-    assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-  }
-
-  @Test
-  void addNoteToKeyResult_shouldCheckIfNonValidDTO() throws Exception {
-    KeyResultDto keyResult = createValidKeyResultDto(createNestedParameters());
-    NoteKeyResultDto noteResult = createNonValidNoteKeyResultDto(keyResult);
-
-    MvcResult mvcResult =
-        this.mockMvc.perform(
-                post("/api/keyresults/{keyresultId}/notes", keyResult.getId())
-                    .content(new ObjectMapper()
-                        .findAndRegisterModules()
-                        .writeValueAsString(noteResult)
-                    )
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
+    MvcResult result =
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
             .andExpect(status().isBadRequest())
             .andReturn();
 
-    assertNotNull(mvcResult);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void updateNoteKeyResult_shouldCheckIfValidDTO() throws Exception {
-    KeyResultDto keyResult = createValidKeyResultDto(createNestedParameters());
-    NoteKeyResultDto note = createValidNoteKeyResultDto(keyResult);
+  void updateKeyResultById_shouldReturnStatus400_whenTitleIsTooLong() throws Exception {
+    keyResultDto.setTitle(StringUtils.repeat("A", 256));
 
-    MvcResult mvcResult = this.mockMvc
-        .perform(
-            put("/api/keyresults/notes")
-            .content(
-                new ObjectMapper()
-                    .findAndRegisterModules()
-                    .writeValueAsString(note)
+    MvcResult result =
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
             )
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andReturn();
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenDescriptionIsTooLong() throws Exception {
+    keyResultDto.setDescription(StringUtils.repeat("A", 1024));
+
+    MvcResult result =
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenStartValueIsNegative() throws Exception {
+    keyResultDto.setStartValue(-1L);
+
+    MvcResult result =
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenCurrentValueIsNegative() throws Exception {
+    keyResultDto.setStartValue(-1L);
+
+    MvcResult result =
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenTargetValueIsNegative() throws Exception {
+    keyResultDto.setStartValue(-1L);
+
+    MvcResult result =
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void addNoteToKeyResult_shouldReturnStatus200_whenNoteKeyResultDtoIsValid() throws Exception {
+
+    MvcResult mvcResult =
+        this.mockMvc.perform(
+                post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
+                    .content(new ObjectMapper()
+                        .findAndRegisterModules()
+                        .writeValueAsString(noteKeyResultDto)
+                    )
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn();
 
     assertNotNull(mvcResult);
     assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
   }
 
   @Test
-  void updateNoteKeyResult_shouldCheckIfNonValidDTO() throws Exception {
-    KeyResultDto keyResult = createValidKeyResultDto(createNestedParameters());
-    NoteKeyResultDto note = createNonValidNoteKeyResultDto(keyResult);
+  void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoHasToShortNoteBody() throws Exception {
+    noteKeyResultDto.setNoteBody("");
 
-    MvcResult mvcResult = this.mockMvc
-        .perform(
-            put("/api/keyresults/notes")
-                .content(
-                    new ObjectMapper()
+    MvcResult mvcResult =
+        this.mockMvc.perform(
+                post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
+                    .content(new ObjectMapper()
                         .findAndRegisterModules()
-                        .writeValueAsString(note)
-                )
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andReturn();
+                        .writeValueAsString(noteKeyResultDto)
+                    )
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn();
 
     assertNotNull(mvcResult);
     assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
   }
 
-  private static Objective createNestedParameters() {
-    OkrCompany company = new OkrCompany();
-    company.setId(100L);
+  @Test
+  void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoHasToLongNoteBody() throws Exception {
+    noteKeyResultDto.setNoteBody(StringUtils.repeat("a", 1024));
 
-    OkrBranch branch = new OkrBranch();
-    branch.setId(101L);
-    branch.setParentOkrUnit(company);
+    MvcResult mvcResult =
+        this.mockMvc.perform(
+                post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
+                    .content(new ObjectMapper()
+                        .findAndRegisterModules()
+                        .writeValueAsString(noteKeyResultDto)
+                    )
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn();
 
-    Objective objective = new Objective();
-    objective.setId(102L);
-    objective.setParentOkrUnit(branch);
-    return objective;
-  }
-
-  @NotNull
-  private static KeyResultDto createValidKeyResultDto(Objective objective) {
-    KeyResultDto keyResult = new KeyResultDto();
-    keyResult.setId(103L);
-    keyResult.setParentObjectiveId(objective.getId());
-    keyResult.setTitle("a title");
-    keyResult.setDescription("desc");
-    keyResult.setStartValue(1);
-    keyResult.setCurrentValue(1);
-    keyResult.setTargetValue(10);
-    keyResult.setUnit(Unit.NUMBER);
-    keyResult.setSequence(2);
-    keyResult.setNoteIds(new ArrayList<>());
-    keyResult.setKeyResultMilestoneDtos(new ArrayList<>());
-    return keyResult;
-  }
-
-  @NotNull
-  private static KeyResultDto createNonValidKeyResultDto(Objective objective) {
-    KeyResultDto keyResult = new KeyResultDto();
-    keyResult.setId(103L);
-    keyResult.setParentObjectiveId(objective.getId());
-    keyResult.setTitle(
-        TEXT_255_CHARACTERS_TESTING_PARAMETER
-            + TEXT_255_CHARACTERS_TESTING_PARAMETER
-    );
-    keyResult.setDescription("");
-    keyResult.setStartValue(-4);
-    keyResult.setCurrentValue(-5);
-    keyResult.setTargetValue(-10);
-    keyResult.setUnit(Unit.NUMBER);
-    keyResult.setSequence(2);
-    keyResult.setNoteIds(new ArrayList<>());
-    keyResult.setKeyResultMilestoneDtos(new ArrayList<>());
-    return keyResult;
-  }
-
-  @NotNull
-  private static NoteKeyResultDto createValidNoteKeyResultDto(KeyResultDto keyResult) {
-    NoteKeyResultDto noteResult = new NoteKeyResultDto();
-    noteResult.setNoteId(106L);
-    noteResult.setParentKeyResultId(keyResult.getId());
-    noteResult.setDate(LocalDateTime.now());
-    noteResult.setUserId(UUID.randomUUID());
-    noteResult.setNoteBody("b");
-    return noteResult;
-  }
-
-  @NotNull
-  private static NoteKeyResultDto createNonValidNoteKeyResultDto(KeyResultDto keyResult) {
-    NoteKeyResultDto noteResult = new NoteKeyResultDto();
-    noteResult.setNoteId(106L);
-    noteResult.setParentKeyResultId(keyResult.getId());
-    noteResult.setDate(LocalDateTime.now());
-    noteResult.setUserId(UUID.randomUUID());
-    noteResult.setNoteBody(
-        TEXT_255_CHARACTERS_TESTING_PARAMETER
-            + TEXT_255_CHARACTERS_TESTING_PARAMETER
-            + TEXT_255_CHARACTERS_TESTING_PARAMETER
-            + TEXT_255_CHARACTERS_TESTING_PARAMETER
-            + TEXT_255_CHARACTERS_TESTING_PARAMETER
-            + TEXT_255_CHARACTERS_TESTING_PARAMETER
-            + TEXT_255_CHARACTERS_TESTING_PARAMETER
-    );
-    return noteResult;
+    assertNotNull(mvcResult);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
   }
 }

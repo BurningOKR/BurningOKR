@@ -4,18 +4,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.burningokr.model.okr.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-//@Data/
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@Builder
+@AllArgsConstructor
 public class KeyResultDto {
 
   private Long id;
@@ -38,13 +36,13 @@ public class KeyResultDto {
   private String description;
 
   @PositiveOrZero
-  private long startValue;
+  private Long startValue;
 
   @PositiveOrZero
-  private long currentValue;
+  private Long currentValue;
 
   @PositiveOrZero
-  private long targetValue;
+  private Long targetValue;
 
   private Unit unit = Unit.NUMBER;
 
@@ -53,4 +51,7 @@ public class KeyResultDto {
   private Collection<Long> noteIds = new ArrayList<>();
 
   private Collection<KeyResultMilestoneDto> keyResultMilestoneDtos = new ArrayList<>();
+
+  public KeyResultDto() {}
 }
+
