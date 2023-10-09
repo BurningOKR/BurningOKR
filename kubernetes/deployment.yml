@@ -53,6 +53,16 @@ spec:
           #   requests:
           #     cpu: 1
           #     memory: 1Gi
+      imagePullSecrets:
+        - name: ghcr-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: b-okr
+  name: ghcr-secret
+#data:
+  
 ---
 apiVersion: v1
 kind: PersistentVolume
