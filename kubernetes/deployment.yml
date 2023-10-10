@@ -1,12 +1,3 @@
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/dockerconfigjson
-metadata:
-  namespace: b-okr
-  name: ghcr-secret
-data:
-  .dockerconfigjson: "ewogICAgYXV0aHM6CiAgICB7CiAgICAgICAgZ2hjci5pbzoKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgYXV0aDpnaHBfcHVZdnJISnB5WFV6d2xDMUE1c0xwMHR5b3UyOTUxMUl4TkU5CiAgICAgICAgICAgIH0KICAgIH0KfQ=="
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,16 +27,6 @@ spec:
             value: admin
           - name: POSTGRES_PASSWORD
             value: secret
-          # resources:
-          #   limits:
-          #     cpu: 2
-          #     memory: 2048Mi
-          #     storage: 10Gi
-          #   requests:
-          #     cpu: 1
-          #     memory: 1024Mi
-          #     storage: 5Gi
-
         - name: burning-okr-app
           image: ghcr.io/burningokr/b-okr-be-dev:latest
           imagePullPolicy: Always
@@ -54,16 +35,18 @@ spec:
               protocol: TCP
           env: 
             - name: DATABASE_URL
-              value: jdbc:postgresql://localhost:5432/okr-db
-          # resources:
-          #   limits:
-          #     cpu: 2
-          #     memory: 2Gi
-          #   requests:
-          #     cpu: 1
-          #     memory: 1Gi
+              value: jdbc:postgresql://admin:secret@burning-okr-postgres-database:5432/okr-db
       imagePullSecrets:
         - name: ghcr-secret
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+metadata:
+  namespace: b-okr
+  name: ghcr-secret
+data:
+  .dockerconfigjson: asdfasdfasdfasdfasdf
 ---
 apiVersion: v1
 kind: PersistentVolume
