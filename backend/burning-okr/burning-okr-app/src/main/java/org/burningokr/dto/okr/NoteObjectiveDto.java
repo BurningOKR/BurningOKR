@@ -1,9 +1,9 @@
 package org.burningokr.dto.okr;
 
-import jakarta.persistence.Inheritance;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
 
 @Data
 @SuperBuilder
@@ -13,6 +13,7 @@ public class NoteObjectiveDto extends NoteDto {
 
   private Long parentObjectiveId;
 
+  public NoteObjectiveDto(NoteDtoBuilder<?, ?> builder) {
+    super(builder);
+  }
 }
-
-

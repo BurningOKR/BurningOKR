@@ -23,7 +23,7 @@ public class ObjectiveMapperTest {
 
   @BeforeEach
   public void reset() {
-    this.objectiveDto = new ObjectiveDto();
+    this.objectiveDto = ObjectiveDto.builder().build();
     this.objective = new Objective();
     OkrDepartment parentOkrDepartment = new OkrDepartment();
     this.objective.setParentOkrUnit(parentOkrDepartment);

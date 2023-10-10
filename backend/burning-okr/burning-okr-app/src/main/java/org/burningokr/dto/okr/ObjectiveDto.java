@@ -47,22 +47,13 @@ public class ObjectiveDto {
 
   private int sequence;
 
-  @NotNull(message = "is active has to be true or false")
-  @Getter(AccessLevel.NONE)
-  @Setter(AccessLevel.NONE)
-  private boolean isActive;
+  @NotNull
+  private Boolean isActive;
+
   private String contactPersonId;
   private Collection<Long> subObjectiveIds = new ArrayList<>();
   private Collection<Long> keyResultIds = new ArrayList<>();
   private Collection<Long> noteIds = new ArrayList<>();
-
-  public boolean getIsActive() {
-    return isActive;
-  }
-
-  public void setIsActive(boolean active) {
-    isActive = active;
-  }
 
   public boolean hasParentObjectiveId() {
     return parentObjectiveId != null;

@@ -58,8 +58,7 @@ public class ObjectiveController {
   @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<ObjectiveDto> updateObjectiveById(
       @PathVariable long objectiveId,
-      @Valid
-      @RequestBody ObjectiveDto objectiveDto) {
+      @Valid @RequestBody ObjectiveDto objectiveDto) {
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective = this.objectiveService.updateObjective(objective);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
@@ -88,8 +87,7 @@ public class ObjectiveController {
   @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<KeyResultDto> addKeyResultToObjective(
       @PathVariable long objectiveId,
-      @Valid
-      @RequestBody KeyResultDto keyResultDto
+      @Valid @RequestBody KeyResultDto keyResultDto
   ) throws Exception {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult = objectiveService.createKeyResult(objectiveId, keyResult);

@@ -55,7 +55,7 @@ public class ObjectiveMapper implements DataMapper<Objective, ObjectiveDto> {
 
   @Override
   public ObjectiveDto mapEntityToDto(Objective objective) {
-    ObjectiveDto objectiveDto = new ObjectiveDto();
+    ObjectiveDto objectiveDto = ObjectiveDto.builder().build();
 
     objectiveDto.setId(objective.getId());
     objectiveDto.setTitle(objective.getName());

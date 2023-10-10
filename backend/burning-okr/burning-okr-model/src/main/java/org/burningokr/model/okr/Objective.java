@@ -40,7 +40,7 @@ public class Objective implements Trackable<Long> {
   @Column
   @Getter(AccessLevel.NONE)
   @Setter(AccessLevel.NONE)
-  private boolean isActive;
+  private Boolean isActive;
 
   @Column
   private String contactPersonId;

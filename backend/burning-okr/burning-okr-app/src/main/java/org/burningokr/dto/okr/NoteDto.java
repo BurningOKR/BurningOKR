@@ -8,8 +8,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class NoteDto {
 
   private Long noteId;
@@ -24,6 +26,14 @@ public class NoteDto {
   private String noteBody;
 
   private LocalDateTime date;
+
+
+  public NoteDto(NoteDtoBuilder<?,?> b) {
+    this.noteId = b.noteId;
+    this.userId = b.userId;
+    this.noteBody = b.noteBody;
+    this.date = b.date;
+  }
 
   public NoteDto(NoteDto noteDto) {
     this.noteId = noteDto.getNoteId();
