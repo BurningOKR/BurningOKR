@@ -1,3 +1,12 @@
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+metadata:
+  namespace: b-okr
+  name: ghcr-secret
+data:
+  .dockerconfigjson: "ewogICAgYXV0aHM6CiAgICB7CiAgICAgICAgZ2hjci5pbzoKICAgICAgICAgICAgewogICAgICAgICAgICAgICAgYXV0aDpnaHBfcHVZdnJISnB5WFV6d2xDMUE1c0xwMHR5b3UyOTUxMUl4TkU5CiAgICAgICAgICAgIH0KICAgIH0KfQ=="
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -45,7 +54,7 @@ spec:
               protocol: TCP
           env: 
             - name: DATABASE_URL
-              value: postgresql://localhost:5432/okr-db
+              value: jdbc:postgresql://localhost:5432/okr-db
           # resources:
           #   limits:
           #     cpu: 2
@@ -55,14 +64,6 @@ spec:
           #     memory: 1Gi
       imagePullSecrets:
         - name: ghcr-secret
----
-apiVersion: v1
-kind: Secret
-metadata:
-  namespace: b-okr
-  name: ghcr-secret
-#data:
-  
 ---
 apiVersion: v1
 kind: PersistentVolume
