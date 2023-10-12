@@ -1,4 +1,9 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/okr-db
+    username: admin
+    password: secret
+  
   jpa:
     hibernate:
       ddl-auto: none
