@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: b-okr
+  name: b-okr-backend
+  labels:
+    app: burning-okr-backend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: burning-okr-backend-app
+  template:
+    metadata:
+      labels:
+        app: burning-okr-backend-app
+    spec:
+      containers:
+        - name: dev-b-okr-postgres
+          image: postgres:latest
+          ports:
+          - containerPort: 5432
+          env:
+          - name: POSTGRES_DB
+            value: okr-db
+          - name: POSTGRES_USER
+            value: admin
+          - name: POSTGRES_PASSWORD
+            value: secret
+
+        - name: dev-b-okr-backend
+          image: chchouklis/b-okr-local:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+      imagePullSecrets:
+        # - name: ghcr-secret
+        - name: registry-credentials
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+metadata:
+  namespace: b-okr
+  name: ghcr-secret
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiAiWW5WeWJtbHVaMjlyY2kxaWIzUTZaMmh3WDNCMVdYWnlTRXB3ZVZoVmVuZHNRekZCTlhOTWNEQjBlVzkxTWprMU1URkplRTVGT1E9PSJ9fX0=
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   namespace: b-okr
+#   name: burning-okr-postgres-volume
+#   labels:
+#     type: local
+#     app: postgres
+# spec:
+#   capacity:
+#     storage: 10Gi
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: manual
+#   hostPath:
+#     path: /mnt/data
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   namespace: b-okr
+#   name: burning-okr-postgres-volume-claim
+#   labels:
+#     app: postgres
+# spec:
+#   storageClassName: manual
+#   resources:
+#     requests:
+#       storage: 5Gi
+#   accessModes:
+#     - ReadWriteMany
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: b-okr
+  name: burning-okr-backend-app-service
+spec:
+  type: ClusterIP
+  selector:
+    app: burning-okr-backend-app
+  ports:
+  - port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: b-okr
+  name: burning-okr-backend-app-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "bag-k8s-issuer"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - dev-burning-okr.api.bag-k8s.brockhaus-ag.de
+      secretName: burning-okr-app-tls
+  rules:
+    - host: dev-burning-okr.api.bag-k8s.brockhaus-ag.de
+      http:
+        paths:
+          - backend:
+              service:
+                name: burning-okr-backend-app-service
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+

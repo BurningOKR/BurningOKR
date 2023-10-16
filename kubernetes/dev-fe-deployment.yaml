@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: b-okr
+  name: b-okr-frontend
+  labels:
+    app: burning-okr-frontend-app
+spec:
+  selector:
+    matchLabels:
+      app: burning-okr-frontend-app
+  template:
+    metadata:
+      labels:
+        app: burning-okr-frontend-app
+    spec:
+      containers:
+        - name: dev-b-okr-frontend
+          image: chchouklis/b-okr-fe-local:latest
+          imagePullPolicy: Always
+          ports: 
+            - containerPort: 4200
+      imagePullSecrets:
+        - name: registry-credentials
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: b-okr
+  name: burning-okr-frontend-app-service
+spec:
+  # type: ClusterIP
+  selector:
+    app: burning-okr-frontend-app-service
+  ports:
+  - port: 4200
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: b-okr
+  name: burning-okr-frontend-app-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "bag-k8s-issuer"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - dev-burning-okr.bag-k8s.brockhaus-ag.de
+      secretName: burning-okr-app-tls
+  rules:
+    - host: dev-burning-okr.bag-k8s.brockhaus-ag.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: burning-okr-frontend-app-service
+                port:
+                  number: 4200

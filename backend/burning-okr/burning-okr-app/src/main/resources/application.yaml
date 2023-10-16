@@ -1,4 +1,12 @@
 spring:
+  # config:
+    # import: "file: application.env"
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/okr-db
+    username: admin
+    password: secret
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -20,16 +28,39 @@ spring:
   messages:
     basename: messages
 
+  # security:
+  #   oauth2:
+  #     client:
+  #       registration:
+  #         azure:
+  #           client-id: SYSTEM_CONFIGURATION_CLIENT_ID
+  #           client-secret: SYSTEM_CONFIGURATION_CLIENT_SECRET
+  #           scopes:
+  #             - SYSTEM_CONFIGURATION_SCOPES_0
+  #             - SYSTEM_CONFIGURATION_SCOPES_1
+  #             - SYSTEM_CONFIGURATION_SCOPES_2
+  #             - SYSTEM_CONFIGURATION_SCOPES_3
+  #           provider:
+  #             authorization-uri: SYSTEM_CONFIGURATION_AUTHORIZATION_URI
+  #             token-uri: SYSTEM_CONFIGURATION_TOKEN_URI
+  #             user-info-uri: 
+  #     login-uri: 
+      
+  #     authorization:
+  #       authorities:
+  #         - 
+
 system:
   configuration:
     api-endpoint: '/api'
-    oidc-admin-group-name: ''
-    client-id: ''
-    issuer-uri: ''
+    oidc-admin-group-name: 'burning-okr-admin'
+    client-id: 'client-id'
+    issuer-uri: 'https://login.microsoft.com/<tenant-id>/v2.0'
     scopes:
       - 'profile'
       - 'offline_access'
       - 'openid'
       - 'email'
-    strict-discovery-document-validation: true
+    strict-discovery-document-validation: false
+    provider: 'azureAD'
     demo-mode: false
