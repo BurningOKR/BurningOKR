@@ -16,12 +16,12 @@ spec:
     spec:
       containers:
         - name: dev-b-okr-frontend
-          image: chchouklis/b-okr-fe-local:latest
+          image: ghcr.io/b-okr-fe-dev:latest
           imagePullPolicy: Always
           ports: 
             - containerPort: 4200
       imagePullSecrets:
-        - name: registry-credentials
+        - name: ghcr-secret
 ---
 apiVersion: v1
 kind: Service

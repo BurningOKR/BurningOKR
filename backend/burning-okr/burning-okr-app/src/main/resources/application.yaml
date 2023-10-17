@@ -28,11 +28,15 @@ spring:
   messages:
     basename: messages
 
-  # security:
-  #   oauth2:
-  #     client:
-  #       registration:
-  #         azure:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: 'link'
+      # scopes:
+      # client:
+        # registration:
+          # azure:
   #           client-id: SYSTEM_CONFIGURATION_CLIENT_ID
   #           client-secret: SYSTEM_CONFIGURATION_CLIENT_SECRET
   #           scopes:
@@ -52,10 +56,11 @@ spring:
 
 system:
   configuration:
+    demo-mode: false
     api-endpoint: '/api'
     oidc-admin-group-name: 'burning-okr-admin'
     client-id: 'client-id'
-    issuer-uri: 'https://login.microsoft.com/<tenant-id>/v2.0'
+    issuer-uri: 'link'
     scopes:
       - 'profile'
       - 'offline_access'
@@ -63,4 +68,3 @@ system:
       - 'email'
     strict-discovery-document-validation: false
     provider: 'azureAD'
-    demo-mode: false
