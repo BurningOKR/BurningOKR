@@ -19,7 +19,7 @@ spec:
           image: chchouklis/b-okr-local:latest
           imagePullPolicy: Always
           ports: 
-            - containerPort: 4200
+            - containerPort: 80
       imagePullSecrets:
         - name: registry-credentials
 ---
@@ -33,7 +33,8 @@ spec:
   selector:
     app: burning-okr-frontend-app-service
   ports:
-  - port: 4200
+  - port: 80
+    targetPort: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -52,10 +53,17 @@ spec:
     - host: dev-burning-okr.bag-k8s.brockhaus-ag.de
       http:
         paths:
-          - path: /
+          - path: /*
             pathType: Prefix
             backend:
               service:
                 name: burning-okr-frontend-app-service
                 port:
-                  number: 4200
+                  number: 80
+          - path: /api/*
+            pathType: Prefix
+            backend: 
+              service:
+                name: burning-okr-backend-app-service
+                port: 
+                  number: 8080
