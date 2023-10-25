@@ -1,7 +1,4 @@
 spring:
-  # config:
-    # import: "file: application.env"
-  
   datasource:
     url: jdbc:postgresql://localhost:5432/okr-db
     username: admin
@@ -30,35 +27,29 @@ spring:
 
   security:
     oauth2:
+      client:
+        registration:
+          azure:
+            clientId: 'client-id'
+            scopes:
+              - 'profile'
+              - 'offline_access'
+              - 'openid'
+              - 'email'
+        provider:
+          azure:
+            user-name-attribute: 'name'
+            issuer-uri: 'link'
       resourceserver:
         jwt:
+          authorization: 
+            oidc-admin-group-name: 'b-okr-admin'
           issuer-uri: 'link'
-      # scopes:
-      # client:
-        # registration:
-          # azure:
-  #           client-id: SYSTEM_CONFIGURATION_CLIENT_ID
-  #           client-secret: SYSTEM_CONFIGURATION_CLIENT_SECRET
-  #           scopes:
-  #             - SYSTEM_CONFIGURATION_SCOPES_0
-  #             - SYSTEM_CONFIGURATION_SCOPES_1
-  #             - SYSTEM_CONFIGURATION_SCOPES_2
-  #             - SYSTEM_CONFIGURATION_SCOPES_3
-  #           provider:
-  #             authorization-uri: SYSTEM_CONFIGURATION_AUTHORIZATION_URI
-  #             token-uri: SYSTEM_CONFIGURATION_TOKEN_URI
-  #             user-info-uri: 
-  #     login-uri: 
-      
-  #     authorization:
-  #       authorities:
-  #         - 
 
 system:
   configuration:
     demo-mode: false
     api-endpoint: '/api'
-    oidc-admin-group-name: 'burning-okr-admin'
     client-id: 'client-id'
     issuer-uri: 'link'
     scopes:

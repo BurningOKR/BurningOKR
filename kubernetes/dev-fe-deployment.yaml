@@ -6,6 +6,7 @@ metadata:
   labels:
     app: burning-okr-frontend-app
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: burning-okr-frontend-app
@@ -16,7 +17,7 @@ spec:
     spec:
       containers:
         - name: dev-b-okr-frontend
-          image: chchouklis/b-okr-local:latest
+          image: {{placeholder}}
           imagePullPolicy: Always
           ports: 
             - containerPort: 80
@@ -29,9 +30,8 @@ metadata:
   namespace: b-okr
   name: burning-okr-frontend-app-service
 spec:
-  # type: ClusterIP
   selector:
-    app: burning-okr-frontend-app-service
+    app: burning-okr-frontend-app
   ports:
   - port: 80
     targetPort: 80
@@ -42,28 +42,21 @@ metadata:
   namespace: b-okr
   name: burning-okr-frontend-app-ingress
   annotations:
-    cert-manager.io/cluster-issuer: "bag-k8s-issuer"
+    cert-manager.io/cluster-issuer: {{placeholder}}
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - dev-burning-okr.bag-k8s.brockhaus-ag.de
+        - burning-okr.dev.bag-k8s.brockhaus-ag.de
       secretName: burning-okr-app-tls
   rules:
-    - host: dev-burning-okr.bag-k8s.brockhaus-ag.de
+    - host: burning-okr.dev.bag-k8s.brockhaus-ag.de
       http:
         paths:
-          - path: /*
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: burning-okr-frontend-app-service
                 port:
                   number: 80
-          - path: /api/*
-            pathType: Prefix
-            backend: 
-              service:
-                name: burning-okr-backend-app-service
-                port: 
-                  number: 8080
