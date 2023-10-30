@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.k8s-namespace }}
+  name: backend
+  labels:
+    app: {{ .Values.k8s-app-be }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.k8s-app-be }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.k8s-app-be }}
+    spec:
+      containers:
+        - name: {{ .Values.k8s-app-be-db }}
+          image: postgres:latest
+          ports:
+          - containerPort: {{ .Values.k8s-app-be-db-port }}
+          env:
+          - name: POSTGRES_DB
+            value: {{ .Values.datasource }}
+          - name: POSTGRES_USER
+            value: {{ .Values.datasource-username }}
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.datasource-password }}
+
+        - name: {{ .Values.k8s-app-be }}
+          image: {{ .Values.be-image}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.be-container-port }}          
+            
+      imagePullSecrets:
+        - name: {{ .Value.k8s-secret }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: {{.Values.k8s-namespace }}
+  name: {{ .Values.persistent-volume }}
+  labels:
+    type: local
+    app: postgres
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  hostPath:
+    path: /mnt/data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: {{ .Values.k8s-namespace }}
+  name: {{ .Values.persistent-claim }}
+  labels:
+    app: postgres
+spec:
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 5Gi
+  accessModes:
+    - ReadWriteMany

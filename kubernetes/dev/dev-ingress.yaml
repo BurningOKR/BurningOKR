@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: {{ .Values.k8s-namespace}}
+  name: {{ .Values.k8s-app-ingress}}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.k8s-issuer}}
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.k8s-app-host }}
+      secretName: {{ .Values.k8s-app-ingress-secret }}
+  rules:
+    - host: {{ .Values.k8s-app-host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.k8s-app-service-frontend }}
+                port:
+                  number: {{ .Values.fe-container-port }}
+          - path: /api
+            pathType: Prefix
+            backend: 
+              service:
+                name: {{ .Values.k8s-app-service-backend }}
+                port:
+                  number: {{ .Values.fe-container-port }}

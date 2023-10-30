@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.k8s-namespace }}
+  name: frontend
+  labels:
+    app: {{ .Values.k8s-app-fe }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Value.k8s-app-fe }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.k8s-app-fe}}
+    spec:
+      containers:
+        - name: {{ .Values.k8s-app-fe }}
+          image: {{ .Values.fe-image }}
+          imagePullPolicy: Always
+          ports: 
+            - containerPort: {{ .Values.fe-container-port }}
+      imagePullSecrets:
+        - name: {{ .Values.k8s-secret }}

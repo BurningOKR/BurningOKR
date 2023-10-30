@@ -1,61 +1,56 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/okr-db
-    username: admin
-    password: secret
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: none
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
         format_sql: true
         globally_quoted_identifiers: true
   flyway:
-    locations: classpath:db/migration/{vendor}
+    locations: ${SPRING_FLYWAY_LOCATIONS}
+
   mail:
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
     properties:
       mail:
         smtp:
           socketFactory:
-            class: javax.net.ssl.SSLSocketFactory
+            class: ${SPRING_MAIL_PROPERTIES_MAIL_SOCKETFACTORY_CLASS}
           auth: true
-    test-connection: false
+      test-connection: false
+
   messages:
-    basename: messages
+    basename: ${SPRING_MESSAGES_BASENAME}
+  environment:
+    demo: false
 
   security:
     oauth2:
-      client:
-        registration:
-          azure:
-            clientId: 'client-id'
-            scopes:
-              - 'profile'
-              - 'offline_access'
-              - 'openid'
-              - 'email'
-        provider:
-          azure:
-            user-name-attribute: 'name'
-            issuer-uri: 'link'
       resourceserver:
         jwt:
-          authorization: 
-            oidc-admin-group-name: 'b-okr-admin'
-          issuer-uri: 'link'
+          issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER}
 
 system:
   configuration:
-    demo-mode: false
-    api-endpoint: '/api'
-    client-id: 'client-id'
-    issuer-uri: 'link'
+    demo-mode: ${SYSTEM_CONFIGURATION_DEMO_MODE}
+    api-endpoint: ${SYSTEM_CONFIGURATION_API_ENDPOINT}
+    oidc-admin-group-name: ${SYSTEM_CONFIGURATION_OIDC_ADMIN_GROUP_NAME}
+    client-id: ${SYSTEM_CONFIGURATION_CLIENT_ID}
+    issuer-uri: ${SYSTEM_CONFIGURATION_ISSUER_URI}
     scopes:
-      - 'profile'
-      - 'offline_access'
-      - 'openid'
-      - 'email'
-    strict-discovery-document-validation: false
-    provider: 'azureAD'
+      - ${SYSTEM_CONFIGURATION_SCOPES_0}
+      - ${SYSTEM_CONFIGURATION_SCOPES_1}
+      - ${SYSTEM_CONFIGURATION_SCOPES_2}
+      - ${SYSTEM_CONFIGURATION_SCOPES_3}
+      - ${SYSTEM_CONFIGURATION_SCOPES_4}
+    strict-discovery-document-validation: ${SYSTEM_CONFIGURATION_STRICT_DISCOVERY_DOCUMENT_VALIDATION}
+    provider: ${SYSTEM_CONFIGURATION_PROVIDER}
