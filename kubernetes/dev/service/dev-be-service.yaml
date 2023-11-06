@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: {{ .Values.k8s-namespace }}
-  name: {{ .Values.k8s-app-service-backend }}
+  namespace: ${k8s-namespace}
+  name: dev-b-okr-be-service
 spec:
   selector:
-    app: {{ .Values.k8s-app-be }}
+    app: dev-b-okr-be-app
   ports:
-  - port: {{ .Values.be-container-port }}
-    targetPort: {{ .Values.be-container-port }}
+  - port: 8080
+    targetPort: 8080

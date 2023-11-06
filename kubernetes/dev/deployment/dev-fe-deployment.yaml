@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: {{ .Values.k8s-namespace }}
+  namespace: ${k8s-namespace}
   name: frontend
   labels:
-    app: {{ .Values.k8s-app-fe }}
+    app: dev-b-okr-fe-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Value.k8s-app-fe }}
+      app: dev-b-okr-fe-app
   template:
     metadata:
       labels:
-        app: {{ .Values.k8s-app-fe}}
+        app: dev-b-okr-fe-app
     spec:
       containers:
-        - name: {{ .Values.k8s-app-fe }}
-          image: {{ .Values.fe-image }}
+        - name: dev-b-okr-frontend
+          image: ghcr.io/b-okr-fe-dev:latest
           imagePullPolicy: Always
           ports: 
-            - containerPort: {{ .Values.fe-container-port }}
+            - containerPort: 80
       imagePullSecrets:
-        - name: {{ .Values.k8s-secret }}
+        - name: ${k8s-secret-name}

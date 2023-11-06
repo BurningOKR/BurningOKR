@@ -1,31 +1,31 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: {{ .Values.k8s-namespace}}
-  name: {{ .Values.k8s-app-ingress}}
+  namespace: ${k8s-namespace}
+  name: dev-b-okr-ingress
   annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.k8s-issuer}}
+    cert-manager.io/cluster-issuer: ${k8s-issuer}
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - {{ .Values.k8s-app-host }}
-      secretName: {{ .Values.k8s-app-ingress-secret }}
+        - ${dev-url}
+      secretName: ${tls-secret}
   rules:
-    - host: {{ .Values.k8s-app-host }}
+    - host: ${dev-url}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.k8s-app-service-frontend }}
+                name: dev-b-okr-fe-service
                 port:
-                  number: {{ .Values.fe-container-port }}
+                  number: 80
           - path: /api
             pathType: Prefix
             backend: 
               service:
-                name: {{ .Values.k8s-app-service-backend }}
+                name: dev-b-okr-be-service
                 port:
-                  number: {{ .Values.fe-container-port }}
+                  number: 8080

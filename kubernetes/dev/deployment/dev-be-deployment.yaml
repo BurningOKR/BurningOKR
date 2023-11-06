@@ -1,47 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: {{ .Values.k8s-namespace }}
+  namespace: ${k8s-namespace}
   name: backend
   labels:
-    app: {{ .Values.k8s-app-be }}
+    app: dev-b-okr-be-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.k8s-app-be }}
+      app: dev-b-okr-be-app
   template:
     metadata:
       labels:
-        app: {{ .Values.k8s-app-be }}
+        app: dev-b-okr-be-app
     spec:
       containers:
-        - name: {{ .Values.k8s-app-be-db }}
+        - name: dev-b-okr-database
           image: postgres:latest
           ports:
-          - containerPort: {{ .Values.k8s-app-be-db-port }}
+          - containerPort: 5432
           env:
           - name: POSTGRES_DB
-            value: {{ .Values.datasource }}
+            value: ${database-name}
           - name: POSTGRES_USER
-            value: {{ .Values.datasource-username }}
+            value: ${database-username}
           - name: POSTGRES_PASSWORD
-            value: {{ .Values.datasource-password }}
+            value: ${database-password}
 
-        - name: {{ .Values.k8s-app-be }}
-          image: {{ .Values.be-image}}
+        - name: dev-b-okr-backend
+          image: ghcr.io/b-okr-be-dev:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: {{ .Values.be-container-port }}          
-            
+            - containerPort: 8080
       imagePullSecrets:
-        - name: {{ .Value.k8s-secret }}
+        - name: ${k8s-secret-name}
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: {{.Values.k8s-namespace }}
-  name: {{ .Values.persistent-volume }}
+  namespace: ${k8s-namespace}
+  name: dev-b-okr-persistent-psql-volume
   labels:
     type: local
     app: postgres
@@ -57,8 +56,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: {{ .Values.k8s-namespace }}
-  name: {{ .Values.persistent-claim }}
+  namespace: ${k8s-namespace}
+  name: dev-b-okr-persistent-claim
   labels:
     app: postgres
 spec:
