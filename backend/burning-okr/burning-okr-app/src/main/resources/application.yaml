@@ -37,8 +37,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER}
-
+          issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI}
+            
 system:
   configuration:
     demo-mode: ${SYSTEM_CONFIGURATION_DEMO_MODE}
