@@ -38,3 +38,5 @@ shutdown.pid
 /burning-okr-logic/bin/
 /burning-okr-model/bin/
 /.run/Run Test.run.xml
+
+!/burning-okr-app/src/main/resources/dev-backend.env
