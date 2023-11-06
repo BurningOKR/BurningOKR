@@ -1,9 +1,9 @@
-name: Deploy Dev
+name: Deploy Dev Kubernetes
 
 on:
   push:
     branches:
-      - development
+      - feat/kubernetes
 
 jobs:
   get-version-number:
@@ -31,8 +31,8 @@ jobs:
       version-number-major: ${{ needs.get-version-number.outputs.version-no-major }}
       version-number-minor: ${{ needs.get-version-number.outputs.version-no-minor }}
       version-number-patch: ${{ needs.get-version-number.outputs.version-no-patch }}
-      angular-frontend-container-name: 'b-okr-fe-dev'
-      spring-backend-container-name: 'b-okr-be-dev'
+      angular-frontend-container-name: "b-okr-fe-dev"
+      spring-backend-container-name: "b-okr-be-dev"
     secrets: inherit
 
   deploy-dev:
@@ -46,6 +46,29 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update staging
-        run: ${{ vars.DEPLOYMENT_COMMAND }}
-        working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
+
+      - name: Set the Kubernetes context
+        uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          ref: feat/kubernetes
+
+      - name: Deploy to the Kubernetes cluster
+        uses: azure/k8s-deploy@v1
+        with:
+          namespace: b-okr
+          manifests: |
+            kubernetes/dev/deployment/dev-be-deployment.yaml
+            kubernetes/dev/deployment/dev-fe-deployment.yaml
+            kubernetes/dev/service/dev-be-service.yaml
+            kubernetes/dev/service/dev-fe-service.yaml
+            kubernetes/dev/ingress.yaml
+
+      # - name: Update staging
+      #   run: ${{ vars.DEPLOYMENT_COMMAND }}
+      #   working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
