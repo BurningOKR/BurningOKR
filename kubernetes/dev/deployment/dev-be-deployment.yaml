@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: ${k8s-namespace}
+  namespace: b-okr
   name: backend
   labels:
     app: dev-b-okr-be-app
@@ -22,24 +22,77 @@ spec:
           - containerPort: 5432
           env:
           - name: POSTGRES_DB
-            value: ${database-name}
+            valueFrom:
+                secretKeyRef:
+                  name: b-okr-dev-database
+                  key: databaseName
           - name: POSTGRES_USER
-            value: ${database-username}
+            valueFrom:
+                secretKeyRef:
+                  name: b-okr-dev-database-admin
+                  key: username
           - name: POSTGRES_PASSWORD
-            value: ${database-password}
+            valueFrom:
+                secretKeyRef:
+                  name: b-okr-dev-database-admin
+                  key: password
 
         - name: dev-b-okr-backend
-          image: ghcr.io/b-okr-be-dev:latest
+          image: ghcr.io/burningokr/b-okr-be-dev:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: b-okr-dev-database
+                  key: url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: b-okr-dev-database-admin
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: b-okr-dev-database-admin
+                  key: password
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+              valueFrom:
+                secretKeyRef:
+                  name: azure-oidc-issuer
+                  key: url
+            - name: SYSTEM_CONFIGURATION_OIDC_ADMIN_GROUP_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: azure-oidc-admin-role-group
+                  key: name
+            - name: SYSTEM_CONFIGURATION_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-oidc-client
+                  key: id
+            - name: SYSTEM_CONFIGURATION_ISSUER_URI
+              valueFrom:
+                secretKeyRef:
+                  name: azure-oidc-issuer
+                  key: url
+            - name: SYSTEM_CONFIGURATION_SCOPES_4
+              valueFrom:
+                secretKeyRef:
+                  name: azure-oidc-client
+                  key: scope
+            - name: SYSTEM_CONFIGURATION_PROVIDER
+              value: azureAD
       imagePullSecrets:
-        - name: ${k8s-secret-name}
+        - name: ghcr-credentials
+
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: ${k8s-namespace}
+  namespace: b-okr
   name: dev-b-okr-persistent-psql-volume
   labels:
     type: local
@@ -56,7 +109,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: ${k8s-namespace}
+  namespace: b-okr
   name: dev-b-okr-persistent-claim
   labels:
     app: postgres

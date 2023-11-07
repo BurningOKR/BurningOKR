@@ -2,11 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: ${k8s-namespace}
-  name: dev-b-okr-ingress
+  name: ${k8s-ingress-name}
   annotations:
     cert-manager.io/cluster-issuer: ${k8s-issuer}
 spec:
-  ingressClassName: nginx
+  ingressClassName: ${ingress-class-name}
   tls:
     - hosts:
         - ${dev-url}
@@ -19,13 +19,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: dev-b-okr-fe-service
+                name: ${k8s-frontend-service-name}
                 port:
                   number: 80
           - path: /api
             pathType: Prefix
             backend: 
               service:
-                name: dev-b-okr-be-service
+                name: ${k8s-backend-service-name}
                 port:
                   number: 8080

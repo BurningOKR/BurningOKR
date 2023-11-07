@@ -65,9 +65,6 @@ jobs:
           manifests: |
             kubernetes/dev/deployment/dev-be-deployment.yaml
             kubernetes/dev/deployment/dev-fe-deployment.yaml
-            kubernetes/dev/service/dev-be-service.yaml
-            kubernetes/dev/service/dev-fe-service.yaml
-            kubernetes/dev/ingress.yaml
 
       # - name: Update staging
       #   run: ${{ vars.DEPLOYMENT_COMMAND }}

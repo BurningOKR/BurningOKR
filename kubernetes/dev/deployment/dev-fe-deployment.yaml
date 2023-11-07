@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: ${k8s-namespace}
+  namespace: b-okr
   name: frontend
   labels:
     app: dev-b-okr-fe-app
@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
         - name: dev-b-okr-frontend
-          image: ghcr.io/b-okr-fe-dev:latest
+          image: ghcr.io/burningokr/b-okr-fe-dev:latest
           imagePullPolicy: Always
           ports: 
             - containerPort: 80
       imagePullSecrets:
-        - name: ${k8s-secret-name}
+        - name: ghcr-credentials
