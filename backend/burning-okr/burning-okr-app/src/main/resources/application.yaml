@@ -47,10 +47,10 @@ system:
     client-id: ${SYSTEM_CONFIGURATION_CLIENT_ID}
     issuer-uri: ${SYSTEM_CONFIGURATION_ISSUER_URI}
     scopes:
+      - ${SYSTEM_CONFIGURATION_SCOPES_0}
       - 'openid'
       - 'offline_access'
       - 'profile'
       - 'email'
-      - '${SYSTEM_CONFIGURATION_SCOPES_4}'
     strict-discovery-document-validation: false
     provider: ${SYSTEM_CONFIGURATION_PROVIDER}

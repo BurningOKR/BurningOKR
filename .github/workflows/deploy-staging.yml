@@ -47,25 +47,25 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set the Kubernetes context
-        uses: azure/k8s-set-context@v2
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      # - name: Set the Kubernetes context
+      #   uses: azure/k8s-set-context@v2
+      #   with:
+      #     method: kubeconfig
+      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
-      - name: Checkout source code
-        uses: actions/checkout@v4
-        with:
-          ref: feat/kubernetes
+      # - name: Checkout source code
+      #   uses: actions/checkout@v4
+      #   with:
+      #     ref: feat/kubernetes
 
-      - name: Deploy to the Kubernetes cluster
-        uses: azure/k8s-deploy@v1
-        with:
-          namespace: b-okr
-          manifests: |
-            kubernetes/dev/deployment/dev-be-deployment.yaml
-            kubernetes/dev/deployment/dev-fe-deployment.yaml
+      # - name: Deploy to the Kubernetes cluster
+      #   uses: /k8s-deploy@v1
+      #   with:
+      #     namespace: b-okr
+      #     manifests: |
+      #       kubernetes/dev/deployment/dev-be-deployment.yaml
+      #       kubernetes/dev/deployment/dev-fe-deployment.yaml
 
-      # - name: Update staging
-      #   run: ${{ vars.DEPLOYMENT_COMMAND }}
-      #   working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
+      - name: Update staging
+        run: ${{ vars.DEPLOYMENT_COMMAND }}
+        working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
