@@ -9,27 +9,27 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
-        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         globally_quoted_identifiers: true
   flyway:
-    locations: ${SPRING_FLYWAY_LOCATIONS}
+    locations: classpath:db/migration/{vendor}
 
-  mail:
-    username: ${SPRING_MAIL_USERNAME}
-    password: ${SPRING_MAIL_PASSWORD}
-    host: ${SPRING_MAIL_HOST}
-    port: ${SPRING_MAIL_PORT}
-    properties:
-      mail:
-        smtp:
-          socketFactory:
-            class: ${SPRING_MAIL_PROPERTIES_MAIL_SOCKETFACTORY_CLASS}
-          auth: true
-      test-connection: false
+  #  mail:
+  #    username: ${SPRING_MAIL_USERNAME}
+  #    password: ${SPRING_MAIL_PASSWORD}
+  #    host: ${SPRING_MAIL_HOST}
+  #    port: ${SPRING_MAIL_PORT}
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          socketFactory:
+  #            class: ${SPRING_MAIL_PROPERTIES_MAIL_SOCKETFACTORY_CLASS}
+  #          auth: true
+  #      test-connection: false
 
   messages:
-    basename: ${SPRING_MESSAGES_BASENAME}
+    basename: messages
   environment:
     demo: false
 
@@ -38,19 +38,19 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI}
-            
+
 system:
   configuration:
-    demo-mode: ${SYSTEM_CONFIGURATION_DEMO_MODE}
-    api-endpoint: ${SYSTEM_CONFIGURATION_API_ENDPOINT}
+    demo-mode: false
+    api-endpoint: '/api'
     oidc-admin-group-name: ${SYSTEM_CONFIGURATION_OIDC_ADMIN_GROUP_NAME}
     client-id: ${SYSTEM_CONFIGURATION_CLIENT_ID}
     issuer-uri: ${SYSTEM_CONFIGURATION_ISSUER_URI}
     scopes:
-      - ${SYSTEM_CONFIGURATION_SCOPES_0}
-      - ${SYSTEM_CONFIGURATION_SCOPES_1}
-      - ${SYSTEM_CONFIGURATION_SCOPES_2}
-      - ${SYSTEM_CONFIGURATION_SCOPES_3}
+      - 'openid'
+      - 'offline_access'
+      - 'profile'
+      - 'email'
       - ${SYSTEM_CONFIGURATION_SCOPES_4}
-    strict-discovery-document-validation: ${SYSTEM_CONFIGURATION_STRICT_DISCOVERY_DOCUMENT_VALIDATION}
+    strict-discovery-document-validation: false
     provider: ${SYSTEM_CONFIGURATION_PROVIDER}
