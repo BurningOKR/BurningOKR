@@ -78,7 +78,7 @@ spec:
                 secretKeyRef:
                   name: azure-oidc-issuer
                   key: url
-            - name: SYSTEM_CONFIGURATION_SCOPES_4
+            - name: SYSTEM_CONFIGURATION_SCOPES_0
               valueFrom:
                 secretKeyRef:
                   name: azure-oidc-client
