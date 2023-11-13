@@ -36,7 +36,7 @@ jobs:
     secrets: inherit
 
   deploy-kubernetes:
-    runs-on: [self-hosted, staging]
+    runs-on: ubuntu-latest
     environment: k8s
     steps:
       - name: Install Kubernetes Tools
