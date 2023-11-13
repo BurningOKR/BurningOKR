@@ -57,14 +57,10 @@ jobs:
 
       - name: Setup Kubernetes Context
         run: |
-          mkdir ${{ secrets.KUBE_DIRECTORY }}
-          base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.KUBE_CONTEXT }}
+          mkdir ${{ secrets.DIRECTORY }}
+          base64 --decode ${{ secrets.KUBE_CONFIG }} > ~/${{ secrets.DIRECTORY }}/${{ secrets.CONTEXT }}
 
       - name: Deploy to Pods
         run: |
           kubectl apply -f dev-be-deployment.yaml
           kubectl apply -f dev-fe-deployment.yaml
-
-  # - name: Update staging
-  #       run: ${{ vars.DEPLOYMENT_COMMAND }}
-  #       working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
