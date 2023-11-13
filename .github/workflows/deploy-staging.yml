@@ -37,7 +37,7 @@ jobs:
 
   deploy-kubernetes:
     runs-on: [self-hosted, staging]
-    environment: staging
+    environment: k8s
     steps:
       - name: Install Kubernetes Tools
         run: |
@@ -50,18 +50,18 @@ jobs:
           echo kubectl version
           kubectl --version
 
-  deploy-dev:
-    needs: build-dev-images
-    runs-on: [self-hosted, staging]
-    environment: staging
-    steps:
-      - name: Authorize to ghcr.io
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  # deploy-dev:
+  #   needs: build-dev-images
+  #   runs-on: [self-hosted, staging]
+  #   environment: staging
+  #   steps:
+  #     - name: Authorize to ghcr.io
+  #       uses: docker/login-action@v2
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.repository_owner }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Update staging
+  # - name: Update staging
   #       run: ${{ vars.DEPLOYMENT_COMMAND }}
   #       working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
