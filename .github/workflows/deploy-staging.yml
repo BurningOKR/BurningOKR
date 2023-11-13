@@ -6,36 +6,49 @@ on:
       - feat/kubernetes
 
 jobs:
-  #   get-version-number:
-  #     runs-on: ubuntu-latest
-  #     outputs:
-  #       version-no: ${{ steps.get_version_number.outputs.version_no }}
-  #       version-no-major: ${{ steps.get_major_version_number.outputs.version_no_major }}
-  #       version-no-minor: ${{ steps.get_minor_version_number.outputs.version_no_minor }}
-  #       version-no-patch: ${{ steps.get_patch_version_number.outputs.version_no_patch }}
-  #     steps:
-  #       - id: get_version_number
-  #         run: echo "version_no=$(date +'%y.%m').${{ github.run_number }}" >> $GITHUB_OUTPUT
-  #       - id: get_major_version_number
-  #         run: echo "version_no_major=$(cut -d '.' -f 1 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
-  #       - id: get_minor_version_number
-  #         run: echo "version_no_minor=$(cut -d '.' -f 2 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
-  #       - id: get_patch_version_number
-  #         run: echo "version_no_patch=$(cut -d '.' -f 3 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
+  get-version-number:
+    runs-on: ubuntu-latest
+    outputs:
+      version-no: ${{ steps.get_version_number.outputs.version_no }}
+      version-no-major: ${{ steps.get_major_version_number.outputs.version_no_major }}
+      version-no-minor: ${{ steps.get_minor_version_number.outputs.version_no_minor }}
+      version-no-patch: ${{ steps.get_patch_version_number.outputs.version_no_patch }}
+    steps:
+      - id: get_version_number
+        run: echo "version_no=$(date +'%y.%m').${{ github.run_number }}" >> $GITHUB_OUTPUT
+      - id: get_major_version_number
+        run: echo "version_no_major=$(cut -d '.' -f 1 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
+      - id: get_minor_version_number
+        run: echo "version_no_minor=$(cut -d '.' -f 2 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
+      - id: get_patch_version_number
+        run: echo "version_no_patch=$(cut -d '.' -f 3 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
 
-  #   build-dev-images:
-  #     needs: get-version-number
-  #     uses: ./.github/workflows/build-docker-images.yml
-  #     with:
-  #       version-number: ${{ needs.get-version-number.outputs.version-no }}
-  #       version-number-major: ${{ needs.get-version-number.outputs.version-no-major }}
-  #       version-number-minor: ${{ needs.get-version-number.outputs.version-no-minor }}
-  #       version-number-patch: ${{ needs.get-version-number.outputs.version-no-patch }}
-  #       angular-frontend-container-name: "b-okr-fe-dev"
-  #       spring-backend-container-name: "b-okr-be-dev"
-  #     secrets: inherit
+  build-dev-images:
+    needs: get-version-number
+    uses: ./.github/workflows/build-docker-images.yml
+    with:
+      version-number: ${{ needs.get-version-number.outputs.version-no }}
+      version-number-major: ${{ needs.get-version-number.outputs.version-no-major }}
+      version-number-minor: ${{ needs.get-version-number.outputs.version-no-minor }}
+      version-number-patch: ${{ needs.get-version-number.outputs.version-no-patch }}
+      angular-frontend-container-name: "b-okr-fe-dev"
+      spring-backend-container-name: "b-okr-be-dev"
+    secrets: inherit
+
+  deploy-dev:
+    needs: build-dev-images
+    runs-on: ubuntu-latest
+    environment: k8s
+    steps:
+      - name: Authorize to ghcr.io
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-kubernetes:
+    needs: deploy-dev
     runs-on: ubuntu-latest
     environment: k8s
     steps:
@@ -43,24 +56,19 @@ jobs:
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod +x ./kubectl
-          mkdir -p ~/.local/bin/kubectl
-          sudo mv ./kubectl ~/.local/bin/kubectl
+          mkdir -p ${{ vars.TOOL_DIRECTORY }}
+          sudo mv ./kubectl ${{ vars.TOOL_DIRECTORY }}
           kubectl version --client
 
-      # - name: Setup Kubernetes Config
+      # - name: Setup Kubernetes Context
       #   run: |
+      #     mkdir ${{ env.KUBE_DIRECTORY }}
+      #     base64 --decode -i ${{ secrets.KUBE_CONFIG }} > ${{ env.KUBE_CONTEXT }}
 
-  # deploy-dev:
-  #   needs: build-dev-images
-  #   runs-on: [self-hosted, staging]
-  #   environment: staging
-  #   steps:
-  #     - name: Authorize to ghcr.io
-  #       uses: docker/login-action@v2
-  #       with:
-  #         registry: ghcr.io
-  #         username: ${{ github.repository_owner }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Deploy to Pods
+      #   run: |
+      #     kubectl apply -f dev-be-deployment.yaml
+      #     kubectl apply -f dev-fe-deployment.yaml
 
   # - name: Update staging
   #       run: ${{ vars.DEPLOYMENT_COMMAND }}
