@@ -47,8 +47,10 @@ jobs:
 
       - name: Check kubectl version
         run: |
-          echo kubectl version
-          kubectl --version
+          echo Display kubectl version: | kubectl version
+
+      # - name: Setup Kubernetes Config
+      #   run: |
 
   # deploy-dev:
   #   needs: build-dev-images
