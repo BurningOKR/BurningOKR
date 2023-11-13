@@ -57,8 +57,9 @@ jobs:
 
       - name: Setup Kubernetes Context
         run: |
-          mkdir ${{ secrets.K8S_DIRECTORY }}
-          base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.K8S_FILE_PATH }}
+          pwd
+        # mkdir ${{ secrets.K8S_DIRECTORY }}
+        # base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.K8S_FILE_PATH }}
 
       - name: Deploy to Pods
         run: |
