@@ -47,11 +47,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-  deploy-kubernetes:
-    needs: deploy-dev
-    runs-on: ubuntu-latest
-    environment: k8s
-    steps:
       - name: Install Kubernetes Tools
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -60,15 +55,15 @@ jobs:
           sudo mv ./kubectl ${{ vars.TOOL_DIRECTORY }}
           kubectl version --client
 
-      # - name: Setup Kubernetes Context
-      #   run: |
-      #     mkdir ${{ env.KUBE_DIRECTORY }}
-      #     base64 --decode -i ${{ secrets.KUBE_CONFIG }} > ${{ env.KUBE_CONTEXT }}
+      - name: Setup Kubernetes Context
+        run: |
+          mkdir ${{ env.KUBE_DIRECTORY }}
+          base64 --decode -i ${{ secrets.KUBE_CONFIG }} > ${{ env.KUBE_CONTEXT }}
 
-      # - name: Deploy to Pods
-      #   run: |
-      #     kubectl apply -f dev-be-deployment.yaml
-      #     kubectl apply -f dev-fe-deployment.yaml
+      - name: Deploy to Pods
+        run: |
+          kubectl apply -f dev-be-deployment.yaml
+          kubectl apply -f dev-fe-deployment.yaml
 
   # - name: Update staging
   #       run: ${{ vars.DEPLOYMENT_COMMAND }}
