@@ -35,22 +35,6 @@ jobs:
       spring-backend-container-name: "b-okr-be-dev"
     secrets: inherit
 
-  deploy-dev:
-    needs: build-dev-images
-    runs-on: [self-hosted, staging]
-    environment: staging
-    steps:
-      - name: Authorize to ghcr.io
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update staging
-        run: ${{ vars.DEPLOYMENT_COMMAND }}
-        working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
-
   deploy-kubernetes:
     needs: deploy-dev
     runs-on: [self-hosted, staging]
@@ -66,3 +50,19 @@ jobs:
         run: |
           echo kubectl version
           kubectl --version
+
+  deploy-dev:
+    needs: build-dev-images
+    runs-on: [self-hosted, staging]
+    environment: staging
+    steps:
+      - name: Authorize to ghcr.io
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Update staging
+  #       run: ${{ vars.DEPLOYMENT_COMMAND }}
+  #       working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
