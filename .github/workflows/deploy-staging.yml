@@ -36,7 +36,6 @@ jobs:
     secrets: inherit
 
   deploy-kubernetes:
-    needs: deploy-dev
     runs-on: [self-hosted, staging]
     environment: staging
     steps:
