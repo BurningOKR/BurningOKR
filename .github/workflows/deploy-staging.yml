@@ -50,7 +50,9 @@ jobs:
       - name: Test storing decoded msg
         run: |
           echo ${{ secrets.THE_SECRET}}
+          echo hello there
           secret=$(echo ${{ secrets.THE_SECRET }})
+          echo teeeest
           
           
 
