@@ -46,16 +46,7 @@ jobs:
 #          registry: ghcr.io
 #          username: ${{ github.repository_owner }}
 #          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Test storing decoded msg
-        run: |
-          echo ${{ secrets.THE_SECRET}}
-          echo hello there
-          secret=$(echo ${{ secrets.THE_SECRET }})
-          echo teeeest
-          
-          
-
+#
 #      - name: Install Kubernetes Tools
 #        run: |
 #          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -64,16 +55,20 @@ jobs:
 #          sudo mv ./kubectl ${{ vars.TOOL_DIRECTORY }}
 #          kubectl version --client
 
-#      - name: Setup Kubernetes Context
-#        run: |
+      - name: Setup Kubernetes Context
+        run: |
+          var_1=$(echo ${{secrets.THE_SECRET}} | base64 > temp.txt)
+          var_2=$(echo var1 | base64 --decode)
+          cat temp.txt
+
 #          mkdir ${{ secrets.K8S_DIRECTORY }}
-#          base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.K8S_FILE_PATH }}
+#         var=$(echo ${{secrets.KUBE_CONFIG}} | base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.K8S_FILE_PATH }})
 
 #      - name: Deploy to Pods
 #        run: |
 #          kubectl apply -f dev-be-deployment.yaml
 #          kubectl apply -f dev-fe-deployment.yaml
-
+#
 #      - name: Clean up Temporary Files and Directories
 #        run: |
 #          rm -rf ${{ secrets.K8S_FILE_PATH }}
