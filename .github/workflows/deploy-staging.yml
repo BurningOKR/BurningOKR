@@ -59,6 +59,7 @@ jobs:
         run: |
           mkdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
           var=$(echo ${{secrets.KUBE_CONFIG}} | base64 --decode > ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }})
+
 # TODO
 #      - name: Deploy to Pods
 #        run: |
