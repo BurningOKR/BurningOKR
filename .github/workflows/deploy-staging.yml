@@ -59,8 +59,7 @@ jobs:
         run: |
           var_1=$(echo ${{secrets.THE_SECRET}} | base64 > temp.txt)
           var_2=$(echo var1 | base64 --decode)
-          cat temp.txt
-
+          cat var_2
 #          mkdir ${{ secrets.K8S_DIRECTORY }}
 #         var=$(echo ${{secrets.KUBE_CONFIG}} | base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.K8S_FILE_PATH }})
 
