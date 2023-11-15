@@ -49,8 +49,9 @@ jobs:
 
       - name: Test storing decoded msg
         run: |
+          echo ${{ secrets.THE_SECRET}}
           secret=$(echo ${{ secrets.THE_SECRET }})
-          echo secret
+          
           
 
 #      - name: Install Kubernetes Tools
@@ -71,7 +72,7 @@ jobs:
 #          kubectl apply -f dev-be-deployment.yaml
 #          kubectl apply -f dev-fe-deployment.yaml
 
-      - name: Clean up Temporary Files and Directories
-        run: |
-          rm -rf ${{ secrets.K8S_FILE_PATH }}
-          rmdir ${{ secrets.K8S_DIRECTORY }} 
+#      - name: Clean up Temporary Files and Directories
+#        run: |
+#          rm -rf ${{ secrets.K8S_FILE_PATH }}
+#          rmdir ${{ secrets.K8S_DIRECTORY }}
