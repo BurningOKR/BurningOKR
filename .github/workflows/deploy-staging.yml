@@ -69,4 +69,4 @@ jobs:
       - name: Clean up Temporary Files and Directories
         run: |
           rm -rf ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }}
-          rmdir ${{ secrets.K8S_DIRECTORY }}
+          rmdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
