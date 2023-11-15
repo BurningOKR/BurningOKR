@@ -19,13 +19,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: ${k8s-frontend-service-name}
+                name: ${k8s-service-name}
                 port:
                   number: 80
-          - path: /api
-            pathType: Prefix
-            backend: 
-              service:
-                name: ${k8s-backend-service-name}
-                port:
-                  number: 8080
