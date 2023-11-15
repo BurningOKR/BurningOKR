@@ -36,7 +36,7 @@ jobs:
 #    secrets: inherit
 
   deploy-dev:
-    needs: build-dev-images
+#    needs: build-dev-images
     runs-on: ubuntu-latest
     environment: k8s
     steps:
