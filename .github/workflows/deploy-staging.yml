@@ -47,20 +47,31 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Kubernetes Tools
+      - name: Test storing decoded msg
         run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x ./kubectl
-          mkdir -p ${{ vars.TOOL_DIRECTORY }}
-          sudo mv ./kubectl ${{ vars.TOOL_DIRECTORY }}
-          kubectl version --client
+          secret=$(echo ${{ secrets.THE_SECRET }})
+          echo secret
+          
 
-      - name: Setup Kubernetes Context
-        run: |
-          mkdir ${{ secrets.K8S_DIRECTORY }}
-          base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.K8S_FILE_PATH }}
+#      - name: Install Kubernetes Tools
+#        run: |
+#          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+#          chmod +x ./kubectl
+#          mkdir -p ${{ vars.TOOL_DIRECTORY }}
+#          sudo mv ./kubectl ${{ vars.TOOL_DIRECTORY }}
+#          kubectl version --client
 
-      - name: Deploy to Pods
+#      - name: Setup Kubernetes Context
+#        run: |
+#          mkdir ${{ secrets.K8S_DIRECTORY }}
+#          base64 --decode ${{ secrets.KUBE_CONFIG }} > ${{ secrets.K8S_FILE_PATH }}
+
+#      - name: Deploy to Pods
+#        run: |
+#          kubectl apply -f dev-be-deployment.yaml
+#          kubectl apply -f dev-fe-deployment.yaml
+
+      - name: Clean up Temporary Files and Directories
         run: |
-          kubectl apply -f dev-be-deployment.yaml
-          kubectl apply -f dev-fe-deployment.yaml
+          rm -rf ${{ secrets.K8S_FILE_PATH }}
+          rmdir ${{ secrets.K8S_DIRECTORY }} 
