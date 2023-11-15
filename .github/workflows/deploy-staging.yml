@@ -58,7 +58,7 @@ jobs:
       - name: Setup Kubernetes Context
         run: |
           mkdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
-          var=$(echo ${{secrets.KUBE_CONFIG}} | base64 --decode ${{ secrets.KUBE_CONFIG }} > ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }})
+          var=$(echo ${{secrets.KUBE_CONFIG}} | base64 --decode > ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }})
 
       - name: Deploy to Pods
         run: |
