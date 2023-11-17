@@ -48,9 +48,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Kubernetes Context
-        run: |
-          mkdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
-          var=$(echo ${{secrets.KUBE_CONFIG}} | base64 --decode > ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }})
+        #run: |
+         # create directory for context
+         # decode and set kubeconfig
 
       - name: Deploy to Pods
         run: |
