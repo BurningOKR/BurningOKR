@@ -47,17 +47,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Kubernetes Context
+      # - name: Setup Kubernetes Context
         #run: |
          # create directory for context
          # decode and set kubeconfig
 
-      - name: Deploy to Pods
-        run: |
-          kubectl apply -f dev-be-deployment.yaml
-          kubectl apply -f dev-fe-deployment.yaml
+      #- name: Deploy to Pods
+       # run: |
+        #  kubectl apply -f dev-be-deployment.yaml
+         # kubectl apply -f dev-fe-deployment.yaml
 
-      - name: Clean up Temporary Files and Directories
-        run: |
-          rm -rf ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }}
-          rmdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
+      #- name: Clean up Temporary Files and Directories
+       # run: |
+        #  rm -rf ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }}
+         # rmdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
