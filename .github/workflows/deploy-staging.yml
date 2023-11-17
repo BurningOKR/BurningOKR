@@ -47,19 +47,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Kubernetes Tools
-        run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x ./kubectl
-          mkdir -p ${{ vars.TOOL_DIRECTORY }}
-          sudo mv ./kubectl ${{ vars.TOOL_DIRECTORY }}
-          kubectl version --client
-
       - name: Setup Kubernetes Context
         run: |
           mkdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
           var=$(echo ${{secrets.KUBE_CONFIG}} | base64 --decode > ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }})
-
 
       - name: Deploy to Pods
         run: |
