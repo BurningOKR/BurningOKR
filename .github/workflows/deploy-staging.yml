@@ -7,7 +7,7 @@ on:
 
 jobs:
   get-version-number:
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
     outputs:
       version-no: ${{ steps.get_version_number.outputs.version_no }}
       version-no-major: ${{ steps.get_major_version_number.outputs.version_no_major }}
