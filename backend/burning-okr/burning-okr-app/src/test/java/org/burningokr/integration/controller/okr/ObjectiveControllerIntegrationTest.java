@@ -464,9 +464,9 @@ class ObjectiveControllerIntegrationTest {
 
     assertNotNull(result);
     assertNotNull(keyResultDto);
-    assertEquals("The title of a key result may not be longer than 255 characters.",
-        ErrorMessageExtractor.extractMessageFromHandler(result));
+    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The title of a key result may not be longer than 255 characters."));
   }
+
 
   @Test
   void addKeyResultToObjective_shouldReturnStatus400_whenKeyResultDescriptionIsTooShort() throws Exception {
@@ -518,7 +518,7 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(keyResultDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-            "The description of a key result may not be longer than 1023 characters."));
+        "The description of a key result may not be longer than 1023 characters."));
   }
 
   @Test
@@ -571,6 +571,7 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(keyResultDto);
     assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
+
   @Test
   void updateObjectiveKeyResult_shouldReturnStatus200_whenDtoIsValid() throws Exception {
     MvcResult result =
@@ -644,10 +645,8 @@ class ObjectiveControllerIntegrationTest {
 
     assertNotNull(result);
     assertNotNull(noteObjectiveDto);
-    assertEquals("The note text may not be longer than 1023 characters.",
-        ErrorMessageExtractor.extractMessageFromHandler(result));
+    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The note text may not be longer than 1023 characters."));
   }
-
 
 
 }
