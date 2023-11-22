@@ -66,11 +66,6 @@ class ObjectiveControllerIntegrationTest {
   private KeyResultDto keyResultDto;
   private NoteObjectiveDto noteObjectiveDto;
 
-  private static final String TEXT_255_CHARACTERS_TESTING_PARAMETER =
-      "Unveiling the Unprecedented Advancements in Quantum Computing and Quantum Information Science: " +
-          "A Multidisciplinary Journey into Quantum Algorithms, Cryptography, and Quantum Supremacy's Global " +
-          "Societal and Industrial Transformations.";
-
   @BeforeEach
   void setUp() {
     this.mockMvc = MockMvcBuilders
@@ -388,7 +383,7 @@ class ObjectiveControllerIntegrationTest {
 
 
   @Test
-  void addKeyResultToObjective_shouldCheckIfAValidDTOIsGiven() throws Exception {
+  void addKeyResultToObjective_shouldReturnStatus200_whenAValidDTOIsGiven() throws Exception {
 
     MvcResult result =
         this.mockMvc

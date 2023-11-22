@@ -51,7 +51,7 @@ class NoteControllerIntegrationTest {
   private NoteMapper noteMapper;
 
   private NoteDto validNoteDto;
-  private static String VALIDATION_STRING_MESSAGE = "The note text may not be longer than 1023 characters.";
+  private final static String VALIDATION_STRING_MESSAGE = "The note text may not be longer than 1023 characters.";
 
   @BeforeEach
   void setup() {

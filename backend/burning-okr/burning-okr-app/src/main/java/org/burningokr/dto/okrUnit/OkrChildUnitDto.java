@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.burningokr.dto.okr.OkrTopicDescriptionDto;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -20,7 +22,9 @@ import lombok.*;
         @JsonSubTypes.Type(value = OkrBranchDto.class, name = "OKR_BRANCH")
     }
 )
-public abstract class OkrChildUnitDto extends OkrUnitDto {
+@SuperBuilder
+@AllArgsConstructor
+public  class OkrChildUnitDto extends OkrUnitDto {
   @NonNull
   protected UnitType __okrUnitType;
   @NotNull
@@ -50,5 +54,12 @@ public abstract class OkrChildUnitDto extends OkrUnitDto {
 
   public void setIsParentUnitABranch(boolean parentUnitADepartment) {
     isParentUnitABranch = parentUnitADepartment;
+  }
+
+  public OkrChildUnitDto(OkrUnitDto parentDto, OkrChildUnitDto dto) {
+    this.__okrUnitType = dto.__okrUnitType;
+    this.parentUnitId = dto.parentUnitId;
+    this.isActive = dto.isActive;
+    this.isParentUnitABranch = dto.isParentUnitABranch;
   }
 }
