@@ -1,4 +1,4 @@
-package org.burningokr.controller.subscription;
+package org.burningokr.controller.websocket.taskboard;
 
 import org.burningokr.service.WebsocketUserService;
 import org.burningokr.service.monitoring.MonitorService;
