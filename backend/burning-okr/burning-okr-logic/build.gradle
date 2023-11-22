@@ -1,30 +1,30 @@
 bootJar { enabled = false }
 
 dependencies {
-  implementation project(':burning-okr-model')
-  implementation project(':burning-okr-data')
-  testImplementation project(':burning-okr-data')
+    implementation project(':burning-okr-model')
+    implementation project(':burning-okr-data')
+    testImplementation project(':burning-okr-data')
 
-  // util
-  implementation deps.jackson.databind
-  implementation deps.spring.boot.starter.validation
-  implementation deps.apache.poiOoxml //  Java API To Access Microsoft Format Files
-  implementation deps.apache.poi //  Java API To Access Microsoft Format Files
-  implementation deps.guava // google java util classes etc
+    // util
+    implementation deps.jackson.databind
+    implementation deps.spring.boot.starter.validation
+    implementation deps.apache.poiOoxml //  Java API To Access Microsoft Format Files
+    implementation deps.apache.poi //  Java API To Access Microsoft Format Files
+    implementation deps.guava // google java util classes etc
 
-  // mail
-  implementation deps.spring.framework.springContextSupport
-  implementation deps.jakarta.mail
-  implementation deps.spring.boot.starter.thymeleaf
+    // mail
+    implementation deps.spring.framework.springContextSupport
+    implementation deps.jakarta.mail
+    implementation deps.spring.boot.starter.thymeleaf
 
-  // security
-  implementation deps.spring.boot.starter.security
-  implementation deps.spring.boot.starter.oauth2ResourceServer
+    // security
+    implementation deps.spring.boot.starter.security
+    implementation deps.spring.boot.starter.oauth2ResourceServer
 
-  // db
-  implementation deps.spring.boot.starter.data
-  implementation deps.db.hibernate.envers
+    // db
+    implementation deps.spring.boot.starter.data
+    implementation deps.db.hibernate.envers
 
-  // websocket
-  implementation deps.spring.boot.starter.websocket
+    // websockets
+    implementation deps.spring.boot.starter.websocket
 }
