@@ -21,7 +21,7 @@ public class KeyResultMapperTest {
 
   @BeforeEach
   public void init() {
-    this.keyResultDto = new KeyResultDto();
+    this.keyResultDto = KeyResultDto.builder().build();
     this.keyResult = new KeyResult();
     Objective parentObjective = new Objective();
     this.keyResult.setParentObjective(parentObjective);
@@ -38,7 +38,7 @@ public class KeyResultMapperTest {
   }
 
   @Test
-  public void mapEntitiyToDto_shouldMapParentObjective() {
+  public void mapEntityToDto_shouldMapParentObjective() {
     Long expected = 5L;
     Objective parentObjective = new Objective();
     parentObjective.setId(expected);

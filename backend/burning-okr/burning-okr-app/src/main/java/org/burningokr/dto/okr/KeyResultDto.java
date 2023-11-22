@@ -14,6 +14,7 @@ import java.util.Collection;
 @Data
 @Builder
 @AllArgsConstructor
+
 public class KeyResultDto {
 
   private Long id;
@@ -52,6 +53,5 @@ public class KeyResultDto {
 
   private Collection<KeyResultMilestoneDto> keyResultMilestoneDtos = new ArrayList<>();
 
-  public KeyResultDto() {}
 }
 
