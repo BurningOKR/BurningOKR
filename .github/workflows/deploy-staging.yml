@@ -1,9 +1,9 @@
-name: Deploy Dev Kubernetes
+name: Deploy Dev
 
 on:
   push:
     branches:
-      - feat/kubernetes
+      - development
 
 jobs:
   get-version-number:
@@ -37,8 +37,8 @@ jobs:
 
   deploy-dev:
     needs: build-dev-images
-    runs-on: self-hosted
-    environment: k8s
+    runs-on: [self-hosted, staging]
+    environment: staging
     steps:
       - name: Authorize to ghcr.io
         uses: docker/login-action@v2
@@ -46,18 +46,3 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Setup Kubernetes Context
-        #run: |
-         # create directory for context
-         # decode and set kubeconfig
-
-      #- name: Deploy to Pods
-       # run: |
-        #  kubectl apply -f dev-be-deployment.yaml
-         # kubectl apply -f dev-fe-deployment.yaml
-
-      #- name: Clean up Temporary Files and Directories
-       # run: |
-        #  rm -rf ${HOME}/${{ secrets.K8S_DIRECTORY }}/${{ secrets.K8S_FILE_NAME }}
-         # rmdir ${HOME}/${{ secrets.K8S_DIRECTORY }}
