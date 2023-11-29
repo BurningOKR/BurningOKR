@@ -1,6 +1,6 @@
 [versions]
 spring-boot = '3.+'
-spring-framework-context = '6.+' # TODO (C.K.): check on next version if working again
+spring-framework-context = '6.+'
 spring-framework-context-support = '6.+'
 spring-security = '6.+'
 hibernate = '6.+'
