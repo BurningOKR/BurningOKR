@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
@@ -26,6 +27,7 @@ import java.util.List;
 @EnableSwagger2
 @Order(50)
 @EnableAutoConfiguration
+@EnableWebMvc
 public abstract class SwaggerConfig {
 
   /**
