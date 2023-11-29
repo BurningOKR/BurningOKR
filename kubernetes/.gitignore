@@ -1,5 +1,0 @@
-*.dev.yaml
-*.dev.yml
-*.prod.yaml
-*.prod.yml
-.dockerconfigjson
