@@ -3,7 +3,7 @@ name: Deploy Dev
 on:
   push:
     branches:
-      - development
+      - feat/kubernetes
 
 jobs:
   get-version-number:
