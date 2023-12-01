@@ -27,7 +27,7 @@ import java.util.List;
 @EnableSwagger2
 @Order(50)
 @EnableAutoConfiguration
-@EnableWebMvc
+//@EnableWebMvc
 public abstract class SwaggerConfig {
 
   /**
