@@ -40,7 +40,7 @@ jobs:
     needs: get-version-number
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [16.x]
     steps:
       - name: Setup Node.js
         uses: actions/setup-node@v4
