@@ -35,24 +35,24 @@ jobs:
       spring-backend-container-name: "b-okr-be-dev"
     secrets: inherit
 
-  deploy-dev-azure:
-    runs-on: ubuntu-latest
-    needs: get-version-number
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Azure Pipelines Action
-        uses: Azure/pipelines@v1.2
-        with:
-          azure-devops-project-url: "${{ secrets.AZURE_PROJECT }}"
-          azure-pipeline-name: "${{ secrets.AZURE_PIPELINES_NAME}}"
-          azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
-          azure-pipeline-variables: '{"frontend-version": "${{ needs.get-version-number.outputs.version-no }}", "backend-version": "${{ needs.get-version-number.outputs.version-no }}"}'
+  # deploy-dev-azure:
+  #   runs-on: ubuntu-latest
+  #   needs: get-version-number
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #   steps:
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #     - name: Azure Pipelines Action
+  #       uses: Azure/pipelines@v1.2
+  #       with:
+  #         azure-devops-project-url: "${{ secrets.AZURE_PROJECT }}"
+  #         azure-pipeline-name: "${{ secrets.AZURE_PIPELINES_NAME}}"
+  #         azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
+  #         azure-pipeline-variables: '{"frontend-version": "${{ needs.get-version-number.outputs.version-no }}", "backend-version": "${{ needs.get-version-number.outputs.version-no }}"}'
 
 #  deploy-dev:
 #    needs: build-dev-images
