@@ -1,1 +1,17 @@
-trigger:
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: printVariables
+  steps:
+  - script: |
+      echo "Pipeline Variables:"
+      echo "Dummy Variable batch: %DUMMY-VARIABLE%"
+      echo "Dummy Variable bash: ${DUMMY-VARIABLE}"
+      echo "Dummy Variable bash: $(DUMMY-VARIABLE)"
+
+      echo "Frontend-Version: $(FRONTEND-VERSION)"
+      echo "Frontend_Version: $(FRONTEND_VERSION)"
+
+      # Add more variables as needed
+    displayName: 'Print Pipeline Variables'
