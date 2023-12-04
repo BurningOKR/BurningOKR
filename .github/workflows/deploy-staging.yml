@@ -37,10 +37,15 @@ jobs:
 
   deploy-dev-azure:
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     needs: get-version-number
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Azure Pipelines Action
         uses: Azure/pipelines@v1.2
         with:
