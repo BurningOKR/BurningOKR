@@ -23,6 +23,14 @@ jobs:
       - id: get_patch_version_number
         run: echo "version_no_patch=$(cut -d '.' -f 3 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
 
+  deploy-dev-azure:
+    - needs: get-version-number
+    - uses: Azure/pipelines@v1
+      with:
+        azure-deveops-project-url: "${{ secrets.AZURE_PROJECT }}"
+        azure-pipeline-name: "${{ secrtes.AZURE_PIPELINE_NAME}}"
+        azure-devops-token: ""
+        azure-pipeline-variables: '{"fronend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}", "backend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}"}'
   build-dev-images:
     needs: get-version-number
     uses: ./.github/workflows/build-docker-images.yml
@@ -34,6 +42,8 @@ jobs:
       angular-frontend-container-name: "b-okr-fe-dev"
       spring-backend-container-name: "b-okr-be-dev"
     secrets: inherit
+
+
 
 #  deploy-dev:
 #    needs: build-dev-images
