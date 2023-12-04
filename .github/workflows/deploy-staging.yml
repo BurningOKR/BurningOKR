@@ -33,7 +33,7 @@ jobs:
           azure-devops-project-url: "${{ secrets.AZURE_PROJECT }}"
           azure-pipeline-name: "${{ secrets.AZURE_PIPELINES_NAME}}"
           azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
-          azure-pipeline-variables: '{"frontend-version": "$ {{ needs.get-version-number.outputs.version_no }}", "backend-version": "$ {{ needs.get-version-number.outputs.version_no }}"}'
+          azure-pipeline-variables: '{"frontend-version": "${{ needs.get-version-number.outputs.version_no }}", "backend-version": "${{ needs.get-version-number.outputs.version_no }}"}'
   
   
   build-dev-images:
