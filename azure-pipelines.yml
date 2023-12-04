@@ -6,7 +6,7 @@ jobs:
   steps:
   - script: |
       echo "Pipeline Variables:"
-      echo "Dummy Variable batch: $(dummy-variable)
+      echo "Dummy Variable batch: $(dummy-variable)"
       echo "Dummy Variable batch: %DUMMY-VARIABLE%"
       echo "Dummy Variable bash: ${DUMMY-VARIABLE}"
       echo "Dummy Variable bash: $(DUMMY-VARIABLE)"
