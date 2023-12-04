@@ -24,13 +24,18 @@ jobs:
         run: echo "version_no_patch=$(cut -d '.' -f 3 <<< "${{ steps.get_version_number.outputs.version_no }}")" >> $GITHUB_OUTPUT
 
   deploy-dev-azure:
-    - needs: get-version-number
-    - uses: Azure/pipelines@v1
-      with:
-        azure-deveops-project-url: "${{ secrets.AZURE_PROJECT }}"
-        azure-pipeline-name: "${{ secrtes.AZURE_PIPELINE_NAME}}"
-        azure-devops-token: ""
-        azure-pipeline-variables: '{"fronend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}", "backend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}"}'
+    runs-on: ubuntu-latest
+    needs: get-version-number
+    steps:
+      - name: Azure Pipelines Action
+        uses: Azure/pipelines@v1.2
+        with:
+          azure-deveops-project-url: "${{ secrets.AZURE_PROJECT }}"
+          azure-pipeline-name: "${{ secrets.AZURE_PIPELINE_NAME}}"
+          azure-devops-token: ""
+          azure-pipeline-variables: '{"frontend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}", "backend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}"}'
+  
+  
   build-dev-images:
     needs: get-version-number
     uses: ./.github/workflows/build-docker-images.yml
