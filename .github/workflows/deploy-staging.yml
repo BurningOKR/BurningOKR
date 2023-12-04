@@ -31,8 +31,8 @@ jobs:
         uses: Azure/pipelines@v1.2
         with:
           azure-deveops-project-url: "${{ secrets.AZURE_PROJECT }}"
-          azure-pipeline-name: "${{ secrets.AZURE_PIPELINE_NAME}}"
-          azure-devops-token: ""
+          azure-pipeline-name: "${{ secrets.AZURE_PIPELINES_NAME}}"
+          azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
           azure-pipeline-variables: '{"frontend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}", "backend-version": "${{ inputs.version-number-major }}.${{ inputs.version-number-minor }}"}'
   
   
