@@ -37,7 +37,7 @@ jobs:
 
   deploy-dev-azure:
     runs-on: ubuntu-latest
-    needs: get-version-number
+    needs: build-dev-images
     steps:
       - name: Azure Pipelines Action
         uses: Azure/pipelines@v1.2
@@ -46,15 +46,4 @@ jobs:
           azure-pipeline-name: "${{ secrets.AZURE_PIPELINES_NAME}}"
           azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
           azure-pipeline-variables: '{"frontend-version": "${{ needs.get-version-number.outputs.version-no }}", "backend-version": "${{ needs.get-version-number.outputs.version-no }}"}'
-
-#  deploy-dev:
-#    needs: build-dev-images
-#    runs-on: ubuntu-latest
-#    environment: testing
-#    steps:
-#      - name: Authorize to ghcr.io
-#        uses: docker/login-action@v2
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.repository_owner }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
+          
