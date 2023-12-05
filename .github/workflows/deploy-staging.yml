@@ -37,7 +37,7 @@ jobs:
 
   deploy-dev-azure:
     runs-on: ubuntu-latest
-    needs: build-dev-images
+    needs: [get-version-number, build-dev-images]
     steps:
       - name: Azure Pipelines Action
         uses: Azure/pipelines@v1.2
