@@ -1,4 +1,4 @@
-name: Deploy Dev Kubernetes
+name: Deploy Staging Kubernetes
 
 on:
   push:
