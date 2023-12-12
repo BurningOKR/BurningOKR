@@ -3,7 +3,7 @@ name: Deploy Staging Kubernetes
 on:
   push:
     branches:
-      - feat/kubernetes
+      - development
 
 jobs:
   get-version-number:
