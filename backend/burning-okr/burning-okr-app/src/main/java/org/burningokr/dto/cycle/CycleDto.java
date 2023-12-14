@@ -17,7 +17,11 @@ public class CycleDto {
   private Long id;
 
   @NotNull
-  @Size(min = 1, message = "The name of the Cycle may not be longer than 255 characters. ")
+  @Size(
+      min = 1,
+      max = 255,
+      message = "The name of the Cycle may not be empty or longer than 255 characters."
+  )
   private String name;
 
   @NotNull(message = "Planned Start Date must not overlap or be older with the default starting date.")

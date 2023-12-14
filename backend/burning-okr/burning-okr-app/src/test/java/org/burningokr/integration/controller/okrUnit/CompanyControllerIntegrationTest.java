@@ -116,40 +116,6 @@ class CompanyControllerIntegrationTest {
   }
 
   @Test
-  void addCompany_shouldReturnStatus400_whenHistoryIsNegative() throws Exception {
-    okrCompanyDto.setHistoryId(-1L);
-
-    MvcResult result =
-        this.mockMvc
-            .perform(post("/api/companies")
-                .content(new ObjectMapper().writeValueAsString(okrCompanyDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(okrCompanyDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void addCompany_shouldReturnStatus400_whenCycleIsNegative() throws Exception {
-    okrCompanyDto.setCycleId(-1L);
-
-    MvcResult result =
-        this.mockMvc
-            .perform(post("/api/companies")
-                .content(new ObjectMapper().writeValueAsString(okrCompanyDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(okrCompanyDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
   void addCompany_shouldReturnStatus400_whenUnitNameIsTooShort() throws Exception {
     okrCompanyDto.setUnitName("");
 

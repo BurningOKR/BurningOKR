@@ -15,7 +15,6 @@ public class OkrDepartmentDto extends OkrChildUnitDto {
 
   private UUID okrMasterId;
   private UUID okrTopicSponsorId;
-  @NotNull
   private Collection<UUID> okrMemberIds = new ArrayList<>();
 
   public OkrDepartmentDto() {

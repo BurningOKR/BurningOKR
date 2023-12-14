@@ -25,7 +25,7 @@ import org.burningokr.dto.okr.OkrTopicDescriptionDto;
 @SuperBuilder
 @AllArgsConstructor
 public  class OkrChildUnitDto extends OkrUnitDto {
-  @NonNull
+
   protected UnitType __okrUnitType;
   @NotNull
   protected Long parentUnitId;
@@ -36,7 +36,7 @@ public  class OkrChildUnitDto extends OkrUnitDto {
   @Setter(AccessLevel.NONE)
   private boolean isParentUnitABranch;
 
-  protected OkrChildUnitDto(@NonNull UnitType unitType) {
+  protected OkrChildUnitDto(UnitType unitType) {
     this.__okrUnitType = unitType;
   }
 

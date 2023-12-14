@@ -506,8 +506,8 @@ class TopicDraftControllerIntegrationTest {
   }
 
   @Test
-  void addNoteToTopicDraft_shouldReturnStatus400_whenNoteBodyIsTooShort() throws Exception {
-    noteTopicDraftDto.setNoteBody("");
+  void addNoteToTopicDraft_shouldReturnStatus400_whenNoteBodyIsNull() throws Exception {
+    noteTopicDraftDto.setNoteBody(null);
 
     MvcResult result = this.mockMvc.perform(
         post("/api/topicDrafts/{topicDraftId}/notes", okrTopicDraftDto.getId())
@@ -554,4 +554,20 @@ class TopicDraftControllerIntegrationTest {
         "The note text may not be longer than 1023 characters."));
   }
 
+  @Test
+  void updateTopicResultById_shouldReturnStatus400_whenCurrentStatusIsLessThanZero() throws Exception {
+    okrTopicDraftDto.setCurrentStatus(-1);
+
+    MvcResult result =
+        this.mockMvc.perform(
+                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+            )
+            .andReturn();
+
+    assertNotNull(result);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
 }

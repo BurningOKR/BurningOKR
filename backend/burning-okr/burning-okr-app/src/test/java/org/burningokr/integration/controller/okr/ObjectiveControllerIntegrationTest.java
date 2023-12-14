@@ -152,22 +152,6 @@ class ObjectiveControllerIntegrationTest {
   }
 
   @Test
-  void updateObjectiveById_shouldReturnStatus400_whenTitleIsToShort() throws Exception {
-    objectiveDto.setTitle("");
-
-    MvcResult result = this.mockMvc.perform(
-            put("/api/objectives/{objectiveId}", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(objectiveDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(objectiveDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
   void updateObjectiveById_shouldReturnStatus400_whenTitleIsToLong() throws Exception {
     objectiveDto.setTitle(StringUtils.repeat("A", 256));
 
@@ -198,22 +182,6 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(objectiveDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "The title of an objective may not be longer than 255 characters."));
-  }
-
-  @Test
-  void updateObjectiveById_shouldReturnStatus400_whenDescriptionIsToShort() throws Exception {
-    objectiveDto.setDescription("");
-
-    MvcResult result = this.mockMvc.perform(
-            put("/api/objectives/{objectiveId}", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(objectiveDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(objectiveDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
@@ -250,22 +218,6 @@ class ObjectiveControllerIntegrationTest {
   }
 
   @Test
-  void updateObjectiveById_shouldReturnStatus400_whenRemarkIsToShort() throws Exception {
-    objectiveDto.setRemark("");
-
-    MvcResult result = this.mockMvc.perform(
-            put("/api/objectives/{objectiveId}", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(objectiveDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(objectiveDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
   void updateObjectiveById_shouldReturnStatus400_whenRemarkIsToLong() throws Exception {
     objectiveDto.setRemark(StringUtils.repeat("A", 1024));
 
@@ -296,22 +248,6 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(objectiveDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "The remark of an objective is not allowed to be longer than 1023 characters."));
-  }
-
-  @Test
-  void updateObjectiveById_shouldReturnStatus400_whenReviewIsToShort() throws Exception {
-    objectiveDto.setReview("");
-
-    MvcResult result = this.mockMvc.perform(
-            put("/api/objectives/{objectiveId}", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(objectiveDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(objectiveDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
@@ -347,41 +283,6 @@ class ObjectiveControllerIntegrationTest {
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The review of an objective is not allowed to be longer than 2047 characters."));
 
   }
-
-  @Test
-  void updateObjectiveById_shouldReturnStatus400_whenIsActiveIsNull() throws Exception {
-    objectiveDto.setIsActive(null);
-
-    MvcResult result = this.mockMvc.perform(
-            put("/api/objectives/{objectiveId}", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(objectiveDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(objectiveDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateObjectiveById_shouldReturnValidationMessage_whenIsActiveIsNull() throws Exception {
-    objectiveDto.setIsActive(null);
-
-    MvcResult result = this.mockMvc.perform(
-            put("/api/objectives/{objectiveId}", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(objectiveDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(objectiveDto);
-    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "must not be null"));
-  }
-
-
   @Test
   void addKeyResultToObjective_shouldReturnStatus200_whenAValidDTOIsGiven() throws Exception {
 
@@ -396,40 +297,6 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(keyResultDto);
     assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void addKeyResultToObjective_shouldReturnStatus400_whenParentObjectiveIsNull() throws Exception {
-    keyResultDto.setParentObjectiveId(null);
-
-    MvcResult result =
-        this.mockMvc
-            .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void addKeyResultToObjective_shouldReturnStatus400_whenKeyResultTitleIsTooShort() throws Exception {
-    keyResultDto.setTitle("");
-
-    MvcResult result =
-        this.mockMvc
-            .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
@@ -465,24 +332,6 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(keyResultDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The title of a key result may not be longer than 255 characters."));
-  }
-
-
-  @Test
-  void addKeyResultToObjective_shouldReturnStatus400_whenKeyResultDescriptionIsTooShort() throws Exception {
-    keyResultDto.setDescription("");
-
-    MvcResult result =
-        this.mockMvc
-            .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
@@ -590,8 +439,8 @@ class ObjectiveControllerIntegrationTest {
   }
 
   @Test
-  void updateObjectiveKeyResult_shouldReturn400_whenNoteBodyIsTooShort() throws Exception {
-    noteObjectiveDto.setNoteBody("");
+  void updateObjectiveKeyResult_shouldReturn400_whenNoteBodyIsNull() throws Exception {
+    noteObjectiveDto.setNoteBody(null);
 
     MvcResult result =
         this.mockMvc

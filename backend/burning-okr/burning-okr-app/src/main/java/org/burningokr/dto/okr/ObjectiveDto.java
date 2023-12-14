@@ -19,27 +19,23 @@ public class ObjectiveDto {
   private Long parentObjectiveId;
 
   @Size(
-      min = 1,
       max = 255,
       message = "The title of an objective may not be longer than 255 characters.")
   private String title;
 
   @Size(
-      min = 1,
       max = 1023,
       message = "The description of an objective is not allowed to be longer than 1023 characters."
   )
   private String description;
 
   @Size(
-      min = 1,
       max = 1023,
       message = "The remark of an objective is not allowed to be longer than 1023 characters."
   )
   private String remark;
 
   @Size(
-      min = 1,
       max = 2047,
       message = "The review of an objective is not allowed to be longer than 2047 characters."
   )
@@ -47,8 +43,10 @@ public class ObjectiveDto {
 
   private int sequence;
 
-  @NotNull
-  private Boolean isActive;
+
+  @Getter(AccessLevel.NONE)
+  @Setter(AccessLevel.NONE)
+  private boolean isActive;
 
   private String contactPersonId;
   private Collection<Long> subObjectiveIds = new ArrayList<>();
@@ -59,4 +57,6 @@ public class ObjectiveDto {
     return parentObjectiveId != null;
   }
 
+  public boolean getIsActive() { return isActive; }
+  public void setIsActive(boolean isActive) { this.isActive = isActive; }
 }

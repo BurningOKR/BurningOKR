@@ -11,11 +11,11 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 public class OkrCompanyDto extends OkrUnitDto {
-  @Positive
+
   private Long cycleId;
 
   private Collection<Long> okrChildUnitIds = new ArrayList<>();
-  @Positive
+
   private Long historyId;
 
   public OkrCompanyDto(OkrUnitDto parentUnit) {

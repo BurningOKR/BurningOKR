@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableWebMvc
 @WebAppConfiguration
 @ContextConfiguration(classes = {OkrBranchController.class})
-class OkrBranchControllerIntegrationTest {
+class OkrBranchControllerIntegrationTest { //todo: (C.C 14.12.2023) refactor this test like the other integration tests (see for example the CompanyControllerIntegrationTest)
   @Autowired
   private MockMvc mockMvc;
 
@@ -75,24 +75,6 @@ class OkrBranchControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(department);
     assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void addSubDepartmentToBranch_shouldCheckIfTheEntityIsValid() throws Exception {
-    OkrBranch okrBranch = createOkrBranch(createOkrCompany());
-    OkrDepartmentDto department = createDepartmentDto(okrBranch);
-    department.setOkrMemberIds(null);
-
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/department", okrBranch.getId())
-            .content(new ObjectMapper().writeValueAsString(department))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(department);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test

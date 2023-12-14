@@ -96,9 +96,9 @@ class NoteControllerIntegrationTest {
   }
 
   @Test
-  void updateNoteById_shouldReturnStatus400_whenDtoNoteBodyIsTooShort() throws Exception {
+  void updateNoteById_shouldReturnStatus400_whenDtoNoteBodyIsNull() throws Exception {
     NoteDto invalidDto = this.validNoteDto;
-    invalidDto.setNoteBody("");
+    invalidDto.setNoteBody(null);
 
     MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", invalidDto.getNoteId())
             .content(

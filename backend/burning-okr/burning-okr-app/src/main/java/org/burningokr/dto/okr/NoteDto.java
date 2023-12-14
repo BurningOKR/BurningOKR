@@ -1,5 +1,6 @@
 package org.burningokr.dto.okr;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -18,8 +19,8 @@ public class NoteDto {
 
   private UUID userId;
 
+  @NotNull
   @Size(
-      min = 1,
       max = 1023,
       message = "The note text may not be longer than 1023 characters."
   )

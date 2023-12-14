@@ -145,6 +145,7 @@ public class OkrDepartmentController {
   public ResponseEntity<OkrDepartmentDto> updateDepartment(
     @PathVariable long departmentId,
     @RequestBody
+    @Valid
     OkrDepartmentDto okrDepartmentDto
   )
     throws DuplicateTeamMemberException {

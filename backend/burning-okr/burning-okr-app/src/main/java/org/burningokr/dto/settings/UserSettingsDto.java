@@ -5,9 +5,7 @@ import lombok.Data;
 
 @Data
 public class UserSettingsDto {
-  @NotNull
   private Long id;
   private Long defaultCompanyId;
-
   private Long defaultTeamId;
 }

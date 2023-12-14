@@ -115,26 +115,8 @@ class KeyResultControllerIntegrationTest {
   }
 
   @Test
-  void updateKeyResultById_shouldReturnStatus400_whenParentObjectiveIsNull() throws Exception {
-    keyResultDto.setParentObjectiveId(null);
-
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateKeyResultById_shouldReturnStatus400_whenTitleIsTooShort() throws Exception {
-    keyResultDto.setTitle("");
+  void updateKeyResultById_shouldReturnStatus400_whenTitleIsNull() throws Exception {
+    keyResultDto.setTitle(null);
 
     MvcResult result =
         this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
@@ -153,6 +135,24 @@ class KeyResultControllerIntegrationTest {
   @Test
   void updateKeyResultById_shouldReturnStatus400_whenTitleIsTooLong() throws Exception {
     keyResultDto.setTitle(StringUtils.repeat("A", 256));
+
+    MvcResult result =
+        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+                .content(new ObjectMapper().writeValueAsString(keyResultDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenDescriptionIsNull() throws Exception {
+    keyResultDto.setDescription(null);
 
     MvcResult result =
         this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
@@ -259,8 +259,8 @@ class KeyResultControllerIntegrationTest {
   }
 
   @Test
-  void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoHasToShortNoteBody() throws Exception {
-    noteKeyResultDto.setNoteBody("");
+  void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoNoteBodyIsNull() throws Exception {
+    noteKeyResultDto.setNoteBody(null);
 
     MvcResult mvcResult =
         this.mockMvc.perform(

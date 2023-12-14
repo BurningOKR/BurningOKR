@@ -1,11 +1,6 @@
 package org.burningokr.dto.okr;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import net.bytebuddy.implementation.bind.annotation.Super;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
