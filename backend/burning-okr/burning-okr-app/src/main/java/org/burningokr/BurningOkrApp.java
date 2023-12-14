@@ -23,6 +23,7 @@ public class BurningOkrApp extends SpringBootServletInitializer {
     MDC.put("tempPath", (osName.contains("win") ? "C:\\temp\\" : "/tmp/"));
     SpringApplication app = new SpringApplication(BurningOkrApp.class);
     app.setWebApplicationType(WebApplicationType.SERVLET);
+    System.out.println();
     app.run(args);
   }
 

@@ -1,4 +1,9 @@
 spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -9,27 +14,43 @@ spring:
         globally_quoted_identifiers: true
   flyway:
     locations: classpath:db/migration/{vendor}
-  mail:
-    properties:
-      mail:
-        smtp:
-          socketFactory:
-            class: javax.net.ssl.SSLSocketFactory
-          auth: true
-    test-connection: false
+
+  #  mail:
+  #    username: ${SPRING_MAIL_USERNAME}
+  #    password: ${SPRING_MAIL_PASSWORD}
+  #    host: ${SPRING_MAIL_HOST}
+  #    port: ${SPRING_MAIL_PORT}
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          socketFactory:
+  #            class: ${SPRING_MAIL_PROPERTIES_MAIL_SOCKETFACTORY_CLASS}
+  #          auth: true
+  #      test-connection: false
+
   messages:
     basename: messages
+  environment:
+    demo: false
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI}
 
 system:
   configuration:
-    api-endpoint: '/api'
-    oidc-admin-group-name: ''
-    client-id: ''
-    issuer-uri: ''
-    scopes:
-      - 'profile'
-      - 'offline_access'
-      - 'openid'
-      - 'email'
-    strict-discovery-document-validation: true
     demo-mode: false
+    api-endpoint: '/api'
+    oidc-admin-group-name: ${SYSTEM_CONFIGURATION_OIDC_ADMIN_GROUP_NAME}
+    client-id: ${SYSTEM_CONFIGURATION_CLIENT_ID}
+    issuer-uri: ${SYSTEM_CONFIGURATION_ISSUER_URI}
+    scopes:
+      - ${SYSTEM_CONFIGURATION_SCOPES_0}
+      - 'openid'
+      - 'offline_access'
+      - 'profile'
+      - 'email'
+    strict-discovery-document-validation: false
+    provider: ${SYSTEM_CONFIGURATION_PROVIDER}

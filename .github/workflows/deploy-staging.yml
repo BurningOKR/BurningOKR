@@ -1,4 +1,4 @@
-name: Deploy Dev
+name: Deploy Staging Kubernetes
 
 on:
   push:
@@ -31,21 +31,19 @@ jobs:
       version-number-major: ${{ needs.get-version-number.outputs.version-no-major }}
       version-number-minor: ${{ needs.get-version-number.outputs.version-no-minor }}
       version-number-patch: ${{ needs.get-version-number.outputs.version-no-patch }}
-      angular-frontend-container-name: 'b-okr-fe-dev'
-      spring-backend-container-name: 'b-okr-be-dev'
+      angular-frontend-container-name: "b-okr-fe-dev"
+      spring-backend-container-name: "b-okr-be-dev"
     secrets: inherit
 
-  deploy-dev:
-    needs: build-dev-images
-    runs-on: [self-hosted, staging]
-    environment: staging
+  deploy-dev-azure:
+    runs-on: ubuntu-latest
+    needs: [get-version-number, build-dev-images]
     steps:
-      - name: Authorize to ghcr.io
-        uses: docker/login-action@v2
+      - name: Azure Pipelines Action
+        uses: Azure/pipelines@v1.2
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update staging
-        run: ${{ vars.DEPLOYMENT_COMMAND }}
-        working-directory: ${{ vars.DEPLOYMENT_DIRECTORY }}
+          azure-devops-project-url: "${{ secrets.AZURE_PROJECT }}"
+          azure-pipeline-name: "${{ secrets.AZURE_PIPELINES_NAME}}"
+          azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
+          azure-pipeline-variables: '{"frontend-version": "${{ needs.get-version-number.outputs.version-no }}", "backend-version": "${{ needs.get-version-number.outputs.version-no }}"}'
+          

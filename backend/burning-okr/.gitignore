@@ -27,6 +27,7 @@ shutdown.pid
 /.nb-gradle/
 
 ### Burning-OKR ###
+*.env
 /burning-okr-app/src/main/resources/application-local.yaml
 /burning-okr-app/src/main/resources/application-mssql.yaml
 /burning-okr-app/src/main/resources/application-local.yml
@@ -36,3 +37,6 @@ shutdown.pid
 /burning-okr-data/bin/
 /burning-okr-logic/bin/
 /burning-okr-model/bin/
+/.run/Run Test.run.xml
+
+!/burning-okr-app/src/main/resources/dev-backend.env
