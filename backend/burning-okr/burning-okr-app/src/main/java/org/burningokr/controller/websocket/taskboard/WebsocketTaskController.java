@@ -1,4 +1,4 @@
-package org.burningokr.controller.okr;
+package org.burningokr.controller.websocket.taskboard;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,27 +27,27 @@ public class WebsocketTaskController {
 
   @MessageMapping("unit/{unitId}/tasks/add")
   public void addTask(
-      @DestinationVariable long unitId,
-      TaskDto taskDto,
-      Authentication authentication
+    @DestinationVariable long unitId,
+    TaskDto taskDto,
+    Authentication authentication
   ) {
     SecurityContextHolder.getContext().setAuthentication(authentication);
     log.debug(
-        String.format(
-            "Websocket add Task dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d}",
-            taskDto.getId(),
-            taskDto.getTitle(),
-            taskDto.getDescription(),
-            taskDto.getAssignedUserIds(),
-            taskDto.getAssignedKeyResultId(),
-            taskDto.getParentTaskBoardId(),
-            taskDto.getTaskStateId()
-        ));
+      String.format(
+        "Websocket add Task dto: {id: %d, title: %s, description: %s, assignedUserIds: %s, assignedKeyResultId: %d, task board Id: %d, stateId: %d}",
+        taskDto.getId(),
+        taskDto.getTitle(),
+        taskDto.getDescription(),
+        taskDto.getAssignedUserIds(),
+        taskDto.getAssignedKeyResultId(),
+        taskDto.getParentTaskBoardId(),
+        taskDto.getTaskStateId()
+      ));
 
     Task newTask = taskMapper.mapDtoToEntity(taskDto);
     try {
       Collection<TaskDto> createdAndUpdatedTasks =
-          this.taskMapper.mapEntitiesToDtos(taskService.createTask(newTask, unitId));
+        this.taskMapper.mapEntitiesToDtos(taskService.createTask(newTask, unitId));
 
       sendNewOrUpdatedTasks(createdAndUpdatedTasks, unitId);
       log.debug("Broadcast for added task");
@@ -59,7 +59,9 @@ public class WebsocketTaskController {
   }
 
   @MessageMapping("unit/{unitId}/tasks/update")
-  public void updateTask(@DestinationVariable long unitId, TaskDto taskDto, Authentication authentication) throws Exception {
+  public void updateTask(
+    @DestinationVariable long unitId, TaskDto taskDto, Authentication authentication
+  ) throws Exception {
     log.debug("update Task on Websocket");
     SecurityContextHolder.getContext().setAuthentication(authentication);
     try {
@@ -79,13 +81,15 @@ public class WebsocketTaskController {
   }
 
   @MessageMapping("unit/{unitId}/tasks/delete")
-  public void deleteTask(@DestinationVariable long unitId, TaskDto taskDto, Authentication authentication) {
+  public void deleteTask(
+    @DestinationVariable long unitId, TaskDto taskDto, Authentication authentication
+  ) {
     log.debug("delete Task on Websocket");
     SecurityContextHolder.getContext().setAuthentication(authentication);
     try {
       Task taskToDelete = taskMapper.mapDtoToEntity(taskDto);
       Collection<Task> updatedTasks =
-          taskService.deleteTaskById(taskToDelete.getId(), unitId);
+        taskService.deleteTaskById(taskToDelete.getId(), unitId);
 
       String deletionUrl = String.format("/topic/unit/%d/tasks/deleted", unitId);
       String updateUrl = String.format("/topic/unit/%d/tasks", unitId);

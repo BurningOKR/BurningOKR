@@ -1,4 +1,4 @@
-package org.burningokr.controller.exceptions;
+package org.burningokr.exceptions;
 
 public class PutIdConflictException extends Exception {
 
