@@ -59,8 +59,9 @@ public class ObjectiveController {
   public ResponseEntity<ObjectiveDto> updateObjectiveById(
       @PathVariable long objectiveId,
       @Valid @RequestBody ObjectiveDto objectiveDto) {
+    objectiveDto.setId(objectiveId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-    objective.setId(objectiveId);
+//    objective.setId(objectiveId);
     objective = this.objectiveService.updateObjective(objective);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
