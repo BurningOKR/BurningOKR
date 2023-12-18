@@ -3,7 +3,7 @@ name: Deploy Staging Kubernetes
 on:
   push:
     branches:
-      - development
+      - feat/kubernetes
 
 jobs:
   get-version-number:
@@ -44,6 +44,6 @@ jobs:
         with:
           azure-devops-project-url: "${{ secrets.AZURE_PROJECT }}"
           azure-pipeline-name: "${{ secrets.AZURE_PIPELINES_NAME}}"
-          azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
+          #azure-devops-token: "${{ secrets.AZURE_ACCESS_TOKEN }}"
           azure-pipeline-variables: '{"frontend-version": "${{ needs.get-version-number.outputs.version-no }}", "backend-version": "${{ needs.get-version-number.outputs.version-no }}"}'
           
