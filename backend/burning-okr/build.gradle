@@ -34,6 +34,31 @@ subprojects {
 
     test {
         useJUnitPlatform() // TODO enable again
+        testLogging {
+            afterSuite { descriptor, result ->
+                if (!descriptor.parent) {
+                    def displayWidth = 36
+                    def leftBoundFirst = '|  '
+                    def leftBound = '|   > '
+                    def rightBound = '|'
+
+                    def res = "${result.resultType}"
+                    def run = leftBoundFirst + "TOTAL TESTS RUN: ${result.testCount}"
+                    def passed = leftBound + "Passed:  ${result.successfulTestCount}"
+                    def failed = leftBound + "Failed:  ${result.failedTestCount}"
+                    def skipped = leftBound + "Skipped: ${result.skippedTestCount}"
+
+                    def header = '=' * (displayWidth/2 - res.length()/2 - 1) + ' ' + res + ' ' + ('=' * (displayWidth/2 - res.length()/2 - 1))
+
+                    println('\n' + header)
+                    println(run + " " * (header.length() - run.length() - 1) + rightBound)
+                    println(passed + " " * (header.length() - passed.length() - 1) + rightBound)
+                    println(failed + " " * (header.length() - failed.length() - 1) + rightBound)
+                    println(skipped + " " * (header.length() - skipped.length() - 1) + rightBound)
+                    println('=' * header.length())
+                }
+            }
+        }
     }
 
     // shows more information about violations (C.K.: keep for more insights!)
