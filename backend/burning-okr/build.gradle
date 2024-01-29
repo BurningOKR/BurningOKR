@@ -33,7 +33,8 @@ subprojects {
     }
 
     test {
-        useJUnitPlatform() // TODO enable again
+        useJUnitPlatform()
+        systemProperty "spring.config.name", "application-test"
     }
 
     // shows more information about violations (C.K.: keep for more insights!)
