@@ -35,6 +35,7 @@ public class NoteController {
       NoteDto noteDto
   ) {
     Note note = this.noteMapper.mapDtoToEntity(noteDto);
+    note.setId(noteId);
     note = this.noteService.updateNote(note);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
   }

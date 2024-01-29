@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.burningokr.controller.okr.NoteController;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.mapper.okr.NoteMapper;
+import org.burningokr.model.okr.Note;
 import org.burningokr.service.okr.NoteService;
 import org.burningokr.utils.ErrorMessageExtractor;
 import org.junit.jupiter.api.Assertions;
@@ -29,6 +30,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 
@@ -80,6 +83,10 @@ class NoteControllerIntegrationTest {
   // actual testing
   @Test
   void updateNoteById_shouldReturnStatus200_whenDtoIsValid() throws Exception {
+    Note noteMock = mock(Note.class);
+    doNothing().when(noteMock).setId(any());
+    doReturn(noteMock).when(noteMapper).mapDtoToEntity(this.validNoteDto);
+
     MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", this.validNoteDto.getNoteId())
             .content(
                 new ObjectMapper()
