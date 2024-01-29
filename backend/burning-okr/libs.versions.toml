@@ -48,7 +48,6 @@ jakarta-mail = { module = 'org.eclipse.angus:angus-mail', version.ref = 'jakarta
 # jackson
 jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }
 jackson-annotations = { module = 'com.fasterxml.jackson.core:jackson-annotations', version.ref = 'jackson' }
-jackson-datatype = { module = 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310', version.ref = 'jackson'}
 
 # swagger
 swagger-swagger2 = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
