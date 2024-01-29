@@ -51,17 +51,14 @@ public class ObjectiveController {
    * @param objectiveDto an {@link ObjectiveDto} object
    * @return a {@link ResponseEntity} ok with an Objective
    */
-  @PutMapping(
-      value = "/objectives/{objectiveId}",
-      produces = MediaType.APPLICATION_JSON_VALUE
-  )
+  @PutMapping("/objectives/{objectiveId}")
   @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<ObjectiveDto> updateObjectiveById(
       @PathVariable long objectiveId,
       @Valid @RequestBody ObjectiveDto objectiveDto) {
     objectiveDto.setId(objectiveId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
-//    objective.setId(objectiveId);
+    objective.setId(objectiveId);
     objective = this.objectiveService.updateObjective(objective);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }

@@ -10,9 +10,9 @@ import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.NoteObjectiveMapper;
 import org.burningokr.mapper.okr.ObjectiveMapper;
+import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.Unit;
 import org.burningokr.service.okr.ObjectiveService;
-import org.burningokr.utils.ErrorMessageExtractor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +37,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -122,6 +124,9 @@ class ObjectiveControllerIntegrationTest {
 
   @Test
   void updateObjectiveById_shouldReturnStatus200_whenDtoIsValid() throws Exception {
+    Objective objectiveMock = mock(Objective.class);
+    doNothing().when(objectiveMock).setId(any());
+    doReturn(objectiveMock).when(objectiveMapper).mapDtoToEntity(this.objectiveDto);
 
     MvcResult result = this.mockMvc.perform(
             put("/api/objectives/{objectiveId}", objectiveDto.getId())
