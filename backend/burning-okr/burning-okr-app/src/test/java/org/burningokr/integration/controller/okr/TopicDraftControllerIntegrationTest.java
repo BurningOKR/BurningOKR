@@ -40,8 +40,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -492,10 +490,6 @@ class TopicDraftControllerIntegrationTest {
 
   @Test
   void addNoteToTopicDraft_shouldReturnStatus200_whenNoteTopicDraftDtoIsValid() throws Exception {
-    NoteTopicDraft noteTopicDraftMock = mock(NoteTopicDraft.class);
-    doNothing().when(noteTopicDraftMock).setId(any());
-    doReturn(noteTopicDraftMock).when(noteTopicDraftMapper).mapDtoToEntity(this.noteTopicDraftDto);
-
     MvcResult result = this.mockMvc.perform(
         post("/api/topicDrafts/{topicDraftId}/notes", okrTopicDraftDto.getId())
             .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(noteTopicDraftDto))
