@@ -9,6 +9,7 @@ import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteKeyResultDto;
 import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.NoteKeyResultMapper;
+import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Unit;
 import org.burningokr.service.okr.KeyResultService;
 import org.junit.jupiter.api.Assertions;
@@ -35,6 +36,8 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -100,6 +103,9 @@ class KeyResultControllerIntegrationTest {
 
   @Test
   void updateKeyResultById_shouldShouldStatus200_whenDtoIsValid() throws Exception {
+    KeyResult keyResultMock = mock(KeyResult.class);
+    doNothing().when(keyResultMock).setId(any());
+    doReturn(keyResultMock).when(keyResultMapper).mapDtoToEntity(this.keyResultDto);
 
     MvcResult result =
         this.mockMvc.perform(
