@@ -23,15 +23,16 @@ public class KeyResultDto {
 
   @NotNull
   @Size(
+      min = 1,
       max = 255,
-      message = "The title of a key result may not be longer than 255 characters."
+      message = "The title of a key result may not be empty or longer than {max} characters."
   )
   private String title;
 
   @NotNull
   @Size(
       max = 1023,
-      message = "The description of a key result may not be longer than 1023 characters."
+      message = "The description of a key result may not be empty or longer than {max} characters."
   )
   private String description;
 

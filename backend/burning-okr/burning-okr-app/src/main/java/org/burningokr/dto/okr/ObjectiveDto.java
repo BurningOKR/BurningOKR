@@ -19,25 +19,25 @@ public class ObjectiveDto {
   private Long parentObjectiveId;
 
   @Size(
-      max = 255,
-      message = "The title of an objective may not be longer than 255 characters.")
+    max = 255,
+    message = "The title of an objective may not be empty or longer than {max} characters.")
   private String title;
 
   @Size(
-      max = 1023,
-      message = "The description of an objective is not allowed to be longer than 1023 characters."
+    max = 1023,
+    message = "The description of an objective may not be longer than {max} characters."
   )
   private String description;
 
   @Size(
-      max = 1023,
-      message = "The remark of an objective is not allowed to be longer than 1023 characters."
+    max = 1023,
+    message = "The remark of an objective may not be longer than {max} characters."
   )
   private String remark;
 
   @Size(
-      max = 2047,
-      message = "The review of an objective is not allowed to be longer than 2047 characters."
+    max = 2047,
+    message = "The review of an objective may not be longer than {max} characters."
   )
   private String review;
 
@@ -57,6 +57,11 @@ public class ObjectiveDto {
     return parentObjectiveId != null;
   }
 
-  public boolean getIsActive() { return isActive; }
-  public void setIsActive(boolean isActive) { this.isActive = isActive; }
+  public boolean getIsActive() {
+    return isActive;
+  }
+
+  public void setIsActive(boolean isActive) {
+    this.isActive = isActive;
+  }
 }

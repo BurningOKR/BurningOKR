@@ -2,7 +2,10 @@ package org.burningokr.dto.okr;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Collection;
@@ -21,7 +24,7 @@ public class OkrTopicDescriptionDto {
   @Size(
       min = 1,
       max = 255,
-      message = "Name should not be longer than 255 characters."
+      message = "Name should not be empty or longer than {max} characters."
   )
   private String name;
 
@@ -36,21 +39,21 @@ public class OkrTopicDescriptionDto {
   @Size(
       min = 1,
       max = 1023,
-      message = "Description should not be longer than 1024 characters."
+      message = "Description should not be empty or longer than {max} characters."
   )
   private String description;
 
   @Size(
       min = 1,
       max = 1023,
-      message = "Contributes To should not be longer than 1024 characters."
+      message = "Contributes To should not be empty or longer than {max} characters."
   )
   private String contributesTo;
 
   @Size(
       min = 1,
       max = 1023,
-      message = "Delimitation should not be longer than 1024 characters."
+      message = "Delimitation should not be empty or longer than {max} characters."
   )
   private String delimitation;
 
@@ -59,26 +62,26 @@ public class OkrTopicDescriptionDto {
   @Size(
       min = 1,
       max = 1023,
-      message = "Dependencies should not be longer than 1024 characters."
+      message = "Dependencies should not be empty or longer than {max} characters."
   )
   private String dependencies;
 
   @Size(
       min = 1,
       max = 1023,
-      message = "Resources should not be longer than 1024 characters."
+      message = "Resources should not be empty or longer than {max} characters."
   )
   private String resources;
 
   @Size(
       min = 1,
       max = 1023,
-      message = "Handover Over Plan should not be longer than 1024 characters."
+      message = "Handover Over Plan should not be empty or longer than {max} characters."
   )
   private String handoverPlan;
 
-
-  public OkrTopicDescriptionDto(OkrTopicDescriptionDto.OkrTopicDescriptionDtoBuilder<?, ?> b) { //todo: (C.C.) refactor and find more concise way to implement it
+  //todo: (C.C.) refactor and find more concise way to implement this
+  public OkrTopicDescriptionDto(OkrTopicDescriptionDto.OkrTopicDescriptionDtoBuilder<?, ?> b) {
     this.id = b.id;
     this.name = b.name;
     this.initiatorId = b.initiatorId;

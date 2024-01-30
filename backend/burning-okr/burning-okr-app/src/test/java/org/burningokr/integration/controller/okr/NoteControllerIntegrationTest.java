@@ -54,7 +54,7 @@ class NoteControllerIntegrationTest {
   private NoteMapper noteMapper;
 
   private NoteDto validNoteDto;
-  private final static String VALIDATION_STRING_MESSAGE = "The note text may not be longer than 1023 characters.";
+  private final static String VALIDATION_STRING_MESSAGE = "The note text may not be empty or longer than 1023 characters.";
 
   @BeforeEach
   void setup() {
@@ -103,7 +103,7 @@ class NoteControllerIntegrationTest {
   }
 
   @Test
-  void updateNoteById_shouldReturnStatus400_whenDtoNoteBodyIsNull() throws Exception {
+  void updateNoteById_shouldReturnStatus400_whenNoteDtoBodyIsNull() throws Exception {
     NoteDto invalidDto = this.validNoteDto;
     invalidDto.setNoteBody(null);
 
@@ -123,19 +123,40 @@ class NoteControllerIntegrationTest {
   }
 
   @Test
-  void updateNoteById_shouldReturnStatus400_whenDtoNoteBodyIsTooLong() throws Exception {
+  void updateNoteById_shouldReturnStatus400_whenNoteDtoBodyIsTooLong() throws Exception {
     NoteDto invalidDto = this.validNoteDto;
     invalidDto.setNoteBody(StringUtils.repeat("A", 1024));
 
     MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", invalidDto.getNoteId())
-            .content(
-                new ObjectMapper()
-                    .findAndRegisterModules()
-                    .writeValueAsString(invalidDto)
-            )
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
+        .content(
+          new ObjectMapper()
+            .findAndRegisterModules()
+            .writeValueAsString(invalidDto)
+        )
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+      .andReturn();
+
+    Assertions.assertNotNull(result);
+    Assertions.assertNotNull(invalidDto);
+    Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    Assertions.assertEquals(VALIDATION_STRING_MESSAGE, ErrorMessageExtractor.extractMessageFromHandler(result));
+  }
+
+  @Test
+  void updateNoteById_shouldReturnStatus400_whenNoteDtoBodyIsEmpty() throws Exception {
+    NoteDto invalidDto = this.validNoteDto;
+    invalidDto.setNoteBody("");
+
+    MvcResult result = this.mockMvc.perform(put("/api/notes/{noteId}", invalidDto.getNoteId())
+        .content(
+          new ObjectMapper()
+            .findAndRegisterModules()
+            .writeValueAsString(invalidDto)
+        )
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+      .andReturn();
 
     Assertions.assertNotNull(result);
     Assertions.assertNotNull(invalidDto);

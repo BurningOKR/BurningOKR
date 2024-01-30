@@ -119,7 +119,7 @@ class TopicDraftControllerIntegrationTest {
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus200_whenValidDtoIsGiven() throws Exception {
+  void updateTopicResultById_shouldReturnStatus200_whenValidOkrTopicDraftDtoIsGiven() throws Exception {
     MvcResult result =
         this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
@@ -134,24 +134,41 @@ class TopicDraftControllerIntegrationTest {
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenNameSizeIsTooShort() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoNameIsEmpty() throws Exception {
     okrTopicDraftDto.setName("");
 
     MvcResult result =
-        this.mockMvc.perform(
-                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
-                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            )
-            .andReturn();
+      this.mockMvc.perform(
+          put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+            .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+        )
+        .andReturn();
 
     assertNotNull(result);
     assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenNameSizeIsTooLong() throws Exception {
+  void updateTopicResultById_shouldReturnErrorMessage_whenOkrTopicDraftDtoNameIsEmpty() throws Exception {
+    okrTopicDraftDto.setName("");
+
+    MvcResult result =
+      this.mockMvc.perform(
+          put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+            .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+        )
+        .andReturn();
+
+    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
+      "Name should not be empty or longer than 255 characters."));
+  }
+
+  @Test
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoNameIsTooLong() throws Exception {
     okrTopicDraftDto.setName(StringUtils.repeat("a", 256));
 
     MvcResult result =
@@ -168,7 +185,7 @@ class TopicDraftControllerIntegrationTest {
   }
 
   @Test
-  void updateTopicResultById_shouldReturnErrorMessage_whenNameSizeIsTooLong() throws Exception {
+  void updateTopicResultById_shouldReturnErrorMessage_whenOkrTopicDraftDtoNameIsTooLong() throws Exception {
     okrTopicDraftDto.setName(StringUtils.repeat("a", 256));
 
     MvcResult result =
@@ -184,7 +201,7 @@ class TopicDraftControllerIntegrationTest {
     assertNotNull(result);
 
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "Name should not be longer than 255 characters."));
+        "Name should not be empty or longer than 255 characters."));
   }
 
   @Test
@@ -271,7 +288,7 @@ class TopicDraftControllerIntegrationTest {
 
     assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "Delimitation should not be longer than 1024 characters."));
+        "Delimitation should not be empty or longer than 1023 characters."));
 
   }
 
@@ -325,7 +342,7 @@ class TopicDraftControllerIntegrationTest {
 
     assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "Description should not be longer than 1024 characters."));
+        "Description should not be empty or longer than 1023 characters."));
 
   }
 
@@ -379,7 +396,7 @@ class TopicDraftControllerIntegrationTest {
 
     assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "Contributes To should not be longer than 1024 characters."));
+        "Contributes To should not be empty or longer than 1023 characters."));
   }
 
   @Test
@@ -432,7 +449,7 @@ class TopicDraftControllerIntegrationTest {
 
     assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "Resources should not be longer than 1024 characters."));
+        "Resources should not be empty or longer than 1023 characters."));
   }
 
   @Test
@@ -485,7 +502,7 @@ class TopicDraftControllerIntegrationTest {
 
     assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "Handover Over Plan should not be longer than 1024 characters."));
+        "Handover Over Plan should not be empty or longer than 1023 characters."));
   }
 
   @Test
@@ -547,7 +564,7 @@ class TopicDraftControllerIntegrationTest {
 
     assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "The note text may not be longer than 1023 characters."));
+        "The note text may not be empty or longer than 1023 characters."));
   }
 
   @Test

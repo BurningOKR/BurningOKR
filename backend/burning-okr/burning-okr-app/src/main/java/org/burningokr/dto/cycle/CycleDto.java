@@ -20,14 +20,15 @@ public class CycleDto {
   @Size(
       min = 1,
       max = 255,
-      message = "The name of the Cycle may not be empty or longer than 255 characters."
+      message = "The name of the cycle may not be empty or longer than {max} characters."
   )
   private String name;
 
-  @NotNull(message = "Planned Start Date must not overlap or be older with the default starting date.")
+  // todo lionelpa 30.01.24: Properly validate plannedStartDate and plannedEndDate together
+  @NotNull()
   private String plannedStartDate;
 
-  @NotNull(message = "Planned End Date must not overlap with the default ending date.")
+  @NotNull()
   private String plannedEndDate;
 
   private CycleState cycleState = CycleState.PREPARATION;

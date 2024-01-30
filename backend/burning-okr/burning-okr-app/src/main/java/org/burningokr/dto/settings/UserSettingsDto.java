@@ -1,6 +1,5 @@
 package org.burningokr.dto.settings;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data

@@ -157,6 +157,24 @@ class KeyResultControllerIntegrationTest {
   }
 
   @Test
+  void updateKeyResultById_shouldReturnStatus400_whenTitleIsEmpty() throws Exception {
+    keyResultDto.setTitle("");
+
+    MvcResult result =
+      this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+          .content(new ObjectMapper().writeValueAsString(keyResultDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON)
+        )
+        .andExpect(status().isBadRequest())
+        .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
   void updateKeyResultById_shouldReturnStatus400_whenDescriptionIsNull() throws Exception {
     keyResultDto.setDescription(null);
 
@@ -284,19 +302,38 @@ class KeyResultControllerIntegrationTest {
   }
 
   @Test
-  void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoHasToLongNoteBody() throws Exception {
+  void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoNoteBodyIsTooLong() throws Exception {
     noteKeyResultDto.setNoteBody(StringUtils.repeat("a", 1024));
 
     MvcResult mvcResult =
-        this.mockMvc.perform(
-                post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
-                    .content(new ObjectMapper()
-                        .findAndRegisterModules()
-                        .writeValueAsString(noteKeyResultDto)
-                    )
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
+      this.mockMvc.perform(
+          post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
+            .content(new ObjectMapper()
+              .findAndRegisterModules()
+              .writeValueAsString(noteKeyResultDto)
+            )
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    assertNotNull(mvcResult);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
+  }
+
+  @Test
+  void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoNoteBodyIsEmpty() throws Exception {
+    noteKeyResultDto.setNoteBody("");
+
+    MvcResult mvcResult =
+      this.mockMvc.perform(
+          post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
+            .content(new ObjectMapper()
+              .findAndRegisterModules()
+              .writeValueAsString(noteKeyResultDto)
+            )
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
 
     assertNotNull(mvcResult);
     assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());

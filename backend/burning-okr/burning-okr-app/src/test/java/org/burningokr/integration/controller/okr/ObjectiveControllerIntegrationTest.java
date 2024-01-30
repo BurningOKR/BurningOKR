@@ -187,7 +187,7 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(objectiveDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "The title of an objective may not be longer than 255 characters."));
+        "The title of an objective may not be empty or longer than 255 characters."));
   }
 
   @Test
@@ -220,7 +220,7 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(objectiveDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "The description of an objective is not allowed to be longer than 1023 characters."));
+        "The description of an objective may not be longer than 1023 characters."));
   }
 
   @Test
@@ -253,7 +253,7 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(objectiveDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "The remark of an objective is not allowed to be longer than 1023 characters."));
+        "The remark of an objective may not be longer than 1023 characters."));
   }
 
   @Test
@@ -286,7 +286,7 @@ class ObjectiveControllerIntegrationTest {
 
     assertNotNull(result);
     assertNotNull(objectiveDto);
-    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The review of an objective is not allowed to be longer than 2047 characters."));
+    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The review of an objective may not be longer than 2047 characters."));
 
   }
   @Test
@@ -313,12 +313,12 @@ class ObjectiveControllerIntegrationTest {
     keyResultDto.setTitle(StringUtils.repeat("a", 256));
 
     MvcResult result =
-        this.mockMvc
-            .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
+      this.mockMvc
+        .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
+          .content(new ObjectMapper().writeValueAsString(keyResultDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
 
     assertNotNull(result);
     assertNotNull(keyResultDto);
@@ -330,17 +330,52 @@ class ObjectiveControllerIntegrationTest {
     keyResultDto.setTitle(StringUtils.repeat("a", 256));
 
     MvcResult result =
-        this.mockMvc
-            .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest())
-            .andReturn();
+      this.mockMvc
+        .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
+          .content(new ObjectMapper().writeValueAsString(keyResultDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andReturn();
 
     assertNotNull(result);
     assertNotNull(keyResultDto);
-    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The title of a key result may not be longer than 255 characters."));
+    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The title of a key result may not be empty or longer than 255 characters."));
+  }
+
+  @Test
+  void addKeyResultToObjective_shouldReturnStatus400_whenKeyResultTitleIsEmpty() throws Exception {
+    keyResultDto.setTitle("");
+
+    MvcResult result =
+      this.mockMvc
+        .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
+          .content(new ObjectMapper().writeValueAsString(keyResultDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void addKeyResultToObjective_shouldReturnErrorMessage_whenKeyResultTitleIsEmpty() throws Exception {
+    keyResultDto.setTitle("");
+
+    MvcResult result =
+      this.mockMvc
+        .perform(post("/api/objectives/{objectiveId}/keyresults", objectiveDto.getId())
+          .content(new ObjectMapper().writeValueAsString(keyResultDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(keyResultDto);
+    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The title of a key result may not be empty or longer than 255 characters."));
   }
 
   @Test
@@ -376,7 +411,7 @@ class ObjectiveControllerIntegrationTest {
     assertNotNull(result);
     assertNotNull(keyResultDto);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
-        "The description of a key result may not be longer than 1023 characters."));
+        "The description of a key result may not be empty or longer than 1023 characters."));
   }
 
   @Test
@@ -503,7 +538,7 @@ class ObjectiveControllerIntegrationTest {
 
     assertNotNull(result);
     assertNotNull(noteObjectiveDto);
-    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The note text may not be longer than 1023 characters."));
+    assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(), "The note text may not be empty or longer than 1023 characters."));
   }
 
 

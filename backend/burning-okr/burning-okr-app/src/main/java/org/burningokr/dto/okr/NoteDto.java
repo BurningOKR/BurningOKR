@@ -2,7 +2,10 @@ package org.burningokr.dto.okr;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -21,8 +24,9 @@ public class NoteDto {
 
   @NotNull
   @Size(
+      min = 1,
       max = 1023,
-      message = "The note text may not be longer than 1023 characters."
+      message = "The note text may not be empty or longer than {max} characters."
   )
   private String noteBody;
 
@@ -43,5 +47,3 @@ public class NoteDto {
     this.date = noteDto.getDate();
   }
 }
-
-
