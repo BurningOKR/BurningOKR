@@ -111,6 +111,7 @@ public class TopicDraftController {
   ) {
     noteTopicDraftDto.setParentTopicDraftId(topicDraftId);
     NoteTopicDraft noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
+    noteTopicDraft.setId(topicDraftId);
     noteTopicDraft = this.okrTopicDraftService.createNote(noteTopicDraft);
     return ResponseEntity.ok(noteTopicDraftMapper.mapEntityToDto(noteTopicDraft));
   }

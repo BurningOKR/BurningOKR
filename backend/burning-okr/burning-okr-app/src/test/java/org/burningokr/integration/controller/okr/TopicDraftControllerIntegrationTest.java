@@ -8,10 +8,7 @@ import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteTopicDraftDto;
 import org.burningokr.dto.okr.OkrTopicDescriptionDto;
 import org.burningokr.dto.okr.OkrTopicDraftDto;
-import org.burningokr.dto.okrUnit.OkrChildUnitDto;
 import org.burningokr.dto.okrUnit.OkrDepartmentDto;
-import org.burningokr.dto.okrUnit.OkrUnitDto;
-import org.burningokr.dto.okrUnit.UnitType;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.NoteTopicDraft;
 import org.burningokr.model.okr.okrTopicDraft.OkrTopicDraft;
@@ -20,7 +17,6 @@ import org.burningokr.model.users.User;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.topicDraft.ConvertTopicDraftToTeamService;
 import org.burningokr.service.topicDraft.OkrTopicDraftService;
-import org.burningokr.utils.Base64Strings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,6 +40,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -494,6 +492,10 @@ class TopicDraftControllerIntegrationTest {
 
   @Test
   void addNoteToTopicDraft_shouldReturnStatus200_whenNoteTopicDraftDtoIsValid() throws Exception {
+    NoteTopicDraft noteTopicDraftMock = mock(NoteTopicDraft.class);
+    doNothing().when(noteTopicDraftMock).setId(any());
+    doReturn(noteTopicDraftMock).when(noteTopicDraftMapper).mapDtoToEntity(this.noteTopicDraftDto);
+
     MvcResult result = this.mockMvc.perform(
         post("/api/topicDrafts/{topicDraftId}/notes", okrTopicDraftDto.getId())
             .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(noteTopicDraftDto))
