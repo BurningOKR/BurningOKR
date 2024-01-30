@@ -10,7 +10,6 @@ import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
-import org.burningokr.mapper.okrUnit.OkrDepartmentMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -18,9 +17,6 @@ import org.burningokr.model.okrUnits.OkrCompany;
 import org.burningokr.model.okrUnits.OkrDepartment;
 import org.burningokr.service.okrUnit.CompanyService;
 import org.burningokr.service.security.authenticationUserContext.AuthenticationUserContextService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -160,7 +156,7 @@ public class CompanyController {
   ) {
     OkrDepartment okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment = this.companyService.createDepartment(companyId, okrDepartment);
-    return ResponseEntity.ok(okrDepartmentMapper.mapEntityToDto(okrDepartment));
+    return ResponseEntity.ok(this.okrDepartmentMapper.mapEntityToDto(okrDepartment));
   }
 
   @PostMapping("/companies/{companyId}/branch")
@@ -183,13 +179,14 @@ public class CompanyController {
    * @param okrCompanyDto a {@link OkrCompanyDto} object
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Companies
    */
-  @PutMapping(value = "/companies/{companyId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PutMapping("/companies/{companyId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> updateCompanyById(
       @PathVariable long companyId,
       @RequestBody @Valid OkrCompanyDto okrCompanyDto
   ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
+    okrCompany.setId(companyId);
     okrCompany = this.companyService.updateCompany(okrCompany);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
   }

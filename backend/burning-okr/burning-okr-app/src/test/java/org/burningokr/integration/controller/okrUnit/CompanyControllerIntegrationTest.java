@@ -5,7 +5,10 @@ import jakarta.servlet.ServletContext;
 import org.apache.commons.lang3.StringUtils;
 import org.burningokr.controller.okrUnit.CompanyController;
 import org.burningokr.dto.cycle.CycleDto;
-import org.burningokr.dto.okrUnit.*;
+import org.burningokr.dto.okrUnit.OkrBranchDto;
+import org.burningokr.dto.okrUnit.OkrCompanyDto;
+import org.burningokr.dto.okrUnit.OkrDepartmentDto;
+import org.burningokr.dto.okrUnit.OkrUnitDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
 import org.burningokr.model.cycles.Cycle;
@@ -34,14 +37,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @WebMvcTest
@@ -154,12 +156,49 @@ class CompanyControllerIntegrationTest {
     okrCompanyDto.setLabel("");
 
     MvcResult result =
-        this.mockMvc
-            .perform(post("/api/companies")
-                .content(new ObjectMapper().writeValueAsString(okrCompanyDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
+      this.mockMvc
+        .perform(post("/api/companies")
+          .content(new ObjectMapper().writeValueAsString(okrCompanyDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(okrCompanyDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void updateCompanyById_shouldReturnStatus200_whenCompanyDtoIsValid() throws Exception {
+    OkrCompany companyMock = mock(OkrCompany.class);
+    doNothing().when(companyMock).setId(any());
+    doReturn(companyMock).when(this.companyMapper).mapDtoToEntity(this.okrCompanyDto);
+
+    MvcResult result =
+      this.mockMvc
+        .perform(put("/api/companies/{companyId}", this.okrCompanyDto.getOkrUnitId())
+          .content(new ObjectMapper().writeValueAsString(okrCompanyDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(okrCompanyDto);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+  }
+
+
+  @Test
+  void updateCompanyById_shouldReturnStatus400_whenLabelIsNull() throws Exception {
+    this.okrCompanyDto.setLabel(null);
+
+    MvcResult result =
+      this.mockMvc
+        .perform(put("/api/companies/{companyId}", this.okrCompanyDto.getOkrUnitId())
+          .content(new ObjectMapper().writeValueAsString(okrCompanyDto))
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+        .andReturn();
 
     assertNotNull(result);
     assertNotNull(okrCompanyDto);
