@@ -31,17 +31,14 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableWebMvc
 @WebAppConfiguration
 @ContextConfiguration(classes = {OkrBranchController.class})
-class OkrBranchControllerIntegrationTest { //todo: (C.C 14.12.2023) refactor this test like the other integration tests (see for example the CompanyControllerIntegrationTest)
+class OkrBranchControllerIntegrationTest {
   @Autowired
   private MockMvc mockMvc;
 
@@ -55,80 +52,86 @@ class OkrBranchControllerIntegrationTest { //todo: (C.C 14.12.2023) refactor thi
   @MockBean
   private OkrBranchMapper mapper;
 
+  private OkrCompany company;
+  private OkrBranch branch;
+  private OkrBranchDto subBranchDto;
+  private OkrDepartmentDto departmentDto;
+
   @BeforeEach
   void setUp() {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+
+    this.company = createOkrCompany();
+    this.branch = createOkrBranch(this.company);
+    this.departmentDto = createDepartmentDto(this.branch);
+
+    this.subBranchDto = new OkrBranchDto();
+    subBranchDto.set__okrUnitType(UnitType.OKR_BRANCH);
+    subBranchDto.setOkrUnitId(520L);
+    subBranchDto.setLabel("Linking a sub branch to a master branch for integration testing");
+    subBranchDto.setParentUnitId(this.branch.getId());
+    subBranchDto.setIsParentUnitABranch(true);
+    subBranchDto.setUnitName("Integration testing");
+    subBranchDto.setObjectiveIds(new ArrayList<>());
   }
 
   @Test
-  void addSubDepartmentToBranch_shouldCreateNewEntityToDatabase() throws Exception {
-    OkrBranch okrBranch = createOkrBranch(createOkrCompany());
-    OkrDepartmentDto department = createDepartmentDto(okrBranch);
-
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/department", okrBranch.getId())
-            .content(new ObjectMapper().writeValueAsString(department))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andReturn();
+  void addSubDepartmentToBranch_shouldReturn200_whenDepartmentDtoIsValid() throws Exception {
+    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/department", branch.getId())
+        .content(new ObjectMapper().writeValueAsString(this.departmentDto))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+      .andReturn();
 
     assertNotNull(result);
-    assertNotNull(department);
+    assertNotNull(departmentDto);
     assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void addSubBranchToBranch_shouldCheckIfABranchCanBeCreated() throws Exception {
-    OkrCompany company = createOkrCompany();
-    OkrBranch masterBranch = createOkrBranch(company);
-    OkrBranchDto subBranch = new OkrBranchDto();
-    subBranch.set__okrUnitType(UnitType.OKR_BRANCH);
-    subBranch.setOkrUnitId(520L);
-    subBranch.setLabel("Linking a sub branch to a master branch for integration testing");
-    subBranch.setParentUnitId(masterBranch.getId());
-    subBranch.setIsParentUnitABranch(true);
-    subBranch.setUnitName("Integration testing");
-    subBranch.setObjectiveIds(new ArrayList<>());
+  void addSubDepartmentToBranch_shouldReturn400_whenDepartmentDtoIsInvalid() throws Exception {
+    this.departmentDto.setUnitName(null);
 
-
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", masterBranch.getId())
-            .content(new ObjectMapper().writeValueAsString(subBranch))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andReturn();
+    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/department", branch.getId())
+        .content(new ObjectMapper().writeValueAsString(this.departmentDto))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+      .andReturn();
 
     assertNotNull(result);
-    assertNotNull(company);
-    assertNotNull(masterBranch);
-    assertNotNull(subBranch);
-    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-
+    assertNotNull(departmentDto);
+    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
   @Test
-  void addSubBranchToBranch_shouldCheckIfAValidDtoHasBeenGiven() throws Exception {
-    OkrCompany company = createOkrCompany();
-    OkrBranch masterBranch = createOkrBranch(company);
-    OkrBranchDto subBranch = new OkrBranchDto();
-    subBranch.setOkrUnitId(520L);
-    subBranch.set__okrUnitType(UnitType.OKR_BRANCH);
-//    subBranch.setLabel("Linking a sub branch to a master branch for integration testing");
-    subBranch.setIsParentUnitABranch(true);
-//    subBranch.setUnitName("Integration testing");
-
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", masterBranch.getId())
-            .content(new ObjectMapper().writeValueAsString(subBranch))
+  void addSubBranchToBranch_shouldReturn200_whenSubBranchDtoIsValid() throws Exception {
+    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", this.branch.getId())
+            .content(new ObjectMapper().writeValueAsString(this.subBranchDto))
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isBadRequest())
-        .andDo(print())
         .andReturn();
 
     assertNotNull(result);
     assertNotNull(company);
-    assertNotNull(masterBranch);
-    assertNotNull(subBranch);
+    assertNotNull(branch);
+    assertNotNull(subBranchDto);
+    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+  }
+
+  @Test
+  void addSubBranchToBranch_shouldReturn400_whenSubBranchDtoIsInvalid() throws Exception {
+    this.subBranchDto.setUnitName(null);
+
+    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", this.branch.getId())
+        .content(new ObjectMapper().writeValueAsString(this.subBranchDto))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+      .andReturn();
+
+    assertNotNull(result);
+    assertNotNull(company);
+    assertNotNull(branch);
+    assertNotNull(subBranchDto);
     assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
   }
 
