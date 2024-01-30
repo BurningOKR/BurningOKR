@@ -14,7 +14,6 @@ import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.NoteObjective;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.service.okr.ObjectiveService;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -79,16 +78,14 @@ public class ObjectiveController {
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(childObjectives));
   }
 
-  @PostMapping(
-      value = "objectives/{objectiveId}/keyresults",
-      produces = MediaType.APPLICATION_JSON_VALUE
-  )
+  @PostMapping("objectives/{objectiveId}/keyresults")
   @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<KeyResultDto> addKeyResultToObjective(
       @PathVariable long objectiveId,
       @Valid @RequestBody KeyResultDto keyResultDto
   ) throws Exception {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
+    keyResult.setId(null);
     keyResult = objectiveService.createKeyResult(objectiveId, keyResult);
 
     return ResponseEntity.ok(keyResultMapper.mapEntityToDto(keyResult));
@@ -101,10 +98,7 @@ public class ObjectiveController {
     return ResponseEntity.ok().build();
   }
 
-  @PutMapping(
-      value = "/objectives/notes",
-      produces = MediaType.APPLICATION_JSON_VALUE
-  )
+  @PutMapping("/objectives/notes")
   public ResponseEntity<ObjectiveDto> updateNoteFromObjective(
       @Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
@@ -112,10 +106,7 @@ public class ObjectiveController {
     return ResponseEntity.ok().build();
   }
 
-  @PostMapping(
-      value = "/objectives/{objectiveId}/notes",
-      produces = MediaType.APPLICATION_JSON_VALUE
-  )
+  @PostMapping("/objectives/{objectiveId}/notes")
   public ResponseEntity<NoteDto> addNoteToObjective(@PathVariable long objectiveId, @Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
     noteObjectiveDto.setParentObjectiveId(objectiveId);
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);

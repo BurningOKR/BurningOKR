@@ -10,6 +10,7 @@ import org.burningokr.dto.okr.ObjectiveDto;
 import org.burningokr.mapper.okr.KeyResultMapper;
 import org.burningokr.mapper.okr.NoteObjectiveMapper;
 import org.burningokr.mapper.okr.ObjectiveMapper;
+import org.burningokr.model.okr.KeyResult;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okr.Unit;
 import org.burningokr.service.okr.ObjectiveService;
@@ -290,6 +291,9 @@ class ObjectiveControllerIntegrationTest {
   }
   @Test
   void addKeyResultToObjective_shouldReturnStatus200_whenAValidDTOIsGiven() throws Exception {
+    KeyResult keyResultMock = mock(KeyResult.class);
+    doNothing().when(keyResultMock).setId(any());
+    doReturn(keyResultMock).when(keyResultMapper).mapDtoToEntity(this.keyResultDto);
 
     MvcResult result =
         this.mockMvc
