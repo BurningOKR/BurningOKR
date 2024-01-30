@@ -23,33 +23,13 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
   public KeyResult mapDtoToEntity(KeyResultDto keyResultDto) {
     KeyResult keyResult = new KeyResult();
 
-    if (keyResultDto.getId() != null) {
-      keyResult.setId(keyResultDto.getId());
-    }
-
-    if (keyResultDto.getTitle() != null) {
-      keyResult.setName(keyResultDto.getTitle());
-    }
-
-    if (keyResultDto.getStartValue() != null) {
-      keyResult.setStartValue(keyResultDto.getStartValue());
-    }
-
-    if (keyResultDto.getCurrentValue() != null) {
-      keyResult.setCurrentValue(keyResultDto.getCurrentValue());
-    }
-
-    if (keyResultDto.getDescription() != null) {
-      keyResult.setDescription(keyResultDto.getDescription());
-    }
-
-    if (keyResultDto.getTargetValue() != null) {
-      keyResult.setTargetValue(keyResultDto.getTargetValue());
-    }
-
-    if (keyResultDto.getUnit() != null) {
-      keyResult.setUnit(keyResultDto.getUnit());
-    }
+    keyResult.setId(keyResultDto.getId());
+    keyResult.setName(keyResultDto.getTitle());
+    keyResult.setDescription(keyResultDto.getDescription());
+    keyResult.setUnit(keyResultDto.getUnit());
+    keyResult.setStartValue(keyResultDto.getStartValue());
+    keyResult.setCurrentValue(keyResultDto.getCurrentValue());
+    keyResult.setTargetValue(keyResultDto.getTargetValue());
 
     keyResult.setSequence(keyResultDto.getSequence());
 

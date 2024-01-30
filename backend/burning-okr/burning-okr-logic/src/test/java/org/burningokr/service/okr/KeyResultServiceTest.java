@@ -225,7 +225,7 @@ public class KeyResultServiceTest {
   public void updateKeyResult_shouldUpdateStartValue() {
     final long expectedStartValue = 1337L;
     updateKeyResult.setId(keyResultId);
-    updateKeyResult.setStartValue(1337);
+    updateKeyResult.setStartValue(1337L);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
@@ -241,7 +241,7 @@ public class KeyResultServiceTest {
   public void updateKeyResult_shouldUpdateCurrentValue() {
     final long expectedCurrentValue = 1337L;
     updateKeyResult.setId(keyResultId);
-    updateKeyResult.setCurrentValue(1337);
+    updateKeyResult.setCurrentValue(1337L);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
@@ -257,7 +257,7 @@ public class KeyResultServiceTest {
   public void updateKeyResult_shouldUpdateTargetValue() {
     final long expectedTargetValue = 1337L;
     updateKeyResult.setId(keyResultId);
-    updateKeyResult.setTargetValue(1337);
+    updateKeyResult.setTargetValue(1337L);
 
     when(keyResultRepository.findByIdOrThrow(anyLong())).thenReturn(keyResult);
     when(keyResultRepository.save(any(KeyResult.class))).thenReturn(keyResult);
