@@ -16,12 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -29,9 +27,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -77,62 +74,42 @@ class OkrBranchControllerIntegrationTest {
 
   @Test
   void addSubDepartmentToBranch_shouldReturn200_whenDepartmentDtoIsValid() throws Exception {
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/department", branch.getId())
+    this.mockMvc.perform(post("/api/branch/{unitId}/department", branch.getId())
         .content(new ObjectMapper().writeValueAsString(this.departmentDto))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
-      .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(departmentDto);
-    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+      .andExpect(status().isOk());
   }
 
   @Test
   void addSubDepartmentToBranch_shouldReturn400_whenDepartmentDtoIsInvalid() throws Exception {
     this.departmentDto.setUnitName(null);
 
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/department", branch.getId())
+    this.mockMvc.perform(post("/api/branch/{unitId}/department", branch.getId())
         .content(new ObjectMapper().writeValueAsString(this.departmentDto))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
-      .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(departmentDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+      .andExpect(status().isBadRequest());
   }
 
   @Test
   void addSubBranchToBranch_shouldReturn200_whenSubBranchDtoIsValid() throws Exception {
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", this.branch.getId())
+    this.mockMvc.perform(post("/api/branch/{unitId}/branch", this.branch.getId())
             .content(new ObjectMapper().writeValueAsString(this.subBranchDto))
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(company);
-    assertNotNull(branch);
-    assertNotNull(subBranchDto);
-    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+        .andExpect(status().isOk());
   }
 
   @Test
   void addSubBranchToBranch_shouldReturn400_whenSubBranchDtoIsInvalid() throws Exception {
     this.subBranchDto.setUnitName(null);
 
-    MvcResult result = this.mockMvc.perform(post("/api/branch/{unitId}/branch", this.branch.getId())
+    this.mockMvc.perform(post("/api/branch/{unitId}/branch", this.branch.getId())
         .content(new ObjectMapper().writeValueAsString(this.subBranchDto))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
-      .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(company);
-    assertNotNull(branch);
-    assertNotNull(subBranchDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+      .andExpect(status().isBadRequest());
   }
 
   private OkrCompany createOkrCompany() {
