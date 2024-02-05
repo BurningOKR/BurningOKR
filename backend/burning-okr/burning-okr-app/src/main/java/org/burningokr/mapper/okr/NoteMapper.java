@@ -15,14 +15,7 @@ public class NoteMapper extends NoteAbstractMapper implements DataMapper<Note, N
 
   @Override
   public Note mapDtoToEntity(NoteDto input) {
-    Note note = new Note();
-
-    note.setText(input.getNoteBody());
-    note.setId(input.getNoteId());
-    note.setUserId(input.getUserId());
-    note.setDate(input.getDate());
-
-    return note;
+    return this.mapNoteDtoToEntity(input);
   }
 
   @Override
