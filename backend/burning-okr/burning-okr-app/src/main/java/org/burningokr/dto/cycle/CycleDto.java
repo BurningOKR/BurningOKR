@@ -17,13 +17,18 @@ public class CycleDto {
   private Long id;
 
   @NotNull
-  @Size(min = 1)
+  @Size(
+      min = 1,
+      max = 255,
+      message = "The name of the cycle may not be empty or longer than {max} characters."
+  )
   private String name;
 
-  @NotNull
+  // todo lionelpa 30.01.24: Properly validate plannedStartDate and plannedEndDate together
+  @NotNull()
   private String plannedStartDate;
 
-  @NotNull
+  @NotNull()
   private String plannedEndDate;
 
   private CycleState cycleState = CycleState.PREPARATION;

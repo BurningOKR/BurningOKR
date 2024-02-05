@@ -21,52 +21,36 @@ public class ExportFileController {
   private final XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService;
 
   @Autowired
-  public ExportFileController(
-    XlsxDataExportFileCreatorService xlsxDataExportFileCreatorService,
-    XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService
-  ) {
+  public ExportFileController(XlsxDataExportFileCreatorService xlsxDataExportFileCreatorService, XlsxExportContactsFileCreatorService xlsxExportContactsFileCreatorService) {
     this.xlsxDataExportFileCreatorService = xlsxDataExportFileCreatorService;
     this.xlsxExportContactsFileCreatorService = xlsxExportContactsFileCreatorService;
   }
 
   @GetMapping("/export/unit/{unitId}")
-  public HttpEntity<byte[]> generateExcelFileForOkrTeam(
-    @PathVariable long unitId
-  )
-    throws IOException, IllegalAccessException {
+  public HttpEntity<byte[]> generateExcelFileForOkrTeam(@PathVariable long unitId) throws IOException, IllegalAccessException {
     Workbook workbook = xlsxDataExportFileCreatorService.createFileForOkrTeam(unitId);
     return getInputStreamResourceResponseEntity(workbook);
   }
 
   @GetMapping("/export/company/{companyId}")
-  public HttpEntity<byte[]> generateExcelFileForCompany(
-    @PathVariable long companyId
-  )
-    throws IOException, IllegalAccessException {
+  public HttpEntity<byte[]> generateExcelFileForCompany(@PathVariable long companyId) throws IOException, IllegalAccessException {
     Workbook workbook = xlsxDataExportFileCreatorService.createFileForCompany(companyId);
     return getInputStreamResourceResponseEntity(workbook);
   }
 
   @GetMapping("export/email/department/{departmentId}")
-  public HttpEntity<byte[]> generateExcelEmailFileForOkrTeam(
-    @PathVariable long departmentId
-  )
-    throws IOException, IllegalAccessException {
+  public HttpEntity<byte[]> generateExcelEmailFileForOkrTeam(@PathVariable long departmentId) throws IOException, IllegalAccessException {
     Workbook workbook = xlsxExportContactsFileCreatorService.createFileForOkrTeam(departmentId);
     return getInputStreamResourceResponseEntity(workbook);
   }
 
   @GetMapping("export/email/company/{companyId}")
-  public HttpEntity<byte[]> generateExcelEmailFileForCompany(
-    @PathVariable long companyId
-  )
-    throws IOException, IllegalAccessException {
+  public HttpEntity<byte[]> generateExcelEmailFileForCompany(@PathVariable long companyId) throws IOException, IllegalAccessException {
     Workbook workbook = xlsxExportContactsFileCreatorService.createFileForCompany(companyId);
     return getInputStreamResourceResponseEntity(workbook);
   }
 
-  private HttpEntity<byte[]> getInputStreamResourceResponseEntity(Workbook workbook)
-    throws IOException {
+  private HttpEntity<byte[]> getInputStreamResourceResponseEntity(Workbook workbook) throws IOException {
     byte[] excelContent = exportWorkbookToByteArrayResource(workbook);
     return new HttpEntity<>(excelContent, getHeaders());
   }
@@ -83,8 +67,7 @@ public class ExportFileController {
 
   private HttpHeaders getHeaders() {
     HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(
-      new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+    headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
     headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=okr.xls");
     return headers;
   }

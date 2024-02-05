@@ -30,16 +30,14 @@ public class ObjectiveController {
   private final NoteObjectiveMapper noteObjectiveMapper;
 
   @GetMapping("/objectives/{objectiveId}")
-  public ResponseEntity<ObjectiveDto> getObjectiveById(
-    @PathVariable long objectiveId
-  ) {
+  public ResponseEntity<ObjectiveDto> getObjectiveById(@PathVariable long objectiveId) {
     Objective objective = objectiveService.findById(objectiveId);
     return ResponseEntity.ok(objectiveMapper.mapEntityToDto(objective));
   }
 
   @GetMapping("/objectives/{objectiveId}/keyresults")
   public ResponseEntity<Collection<KeyResultDto>> getKeyResultsOfObjective(
-    @PathVariable long objectiveId
+      @PathVariable long objectiveId
   ) {
     Collection<KeyResult> keyResults = objectiveService.findKeyResultsOfObjective(objectiveId);
     return ResponseEntity.ok(keyResultMapper.mapEntitiesToDtos(keyResults));
@@ -55,11 +53,9 @@ public class ObjectiveController {
   @PutMapping("/objectives/{objectiveId}")
   @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<ObjectiveDto> updateObjectiveById(
-    @PathVariable long objectiveId,
-    @Valid
-    @RequestBody
-    ObjectiveDto objectiveDto
-  ) {
+      @PathVariable long objectiveId,
+      @Valid @RequestBody ObjectiveDto objectiveDto) {
+    objectiveDto.setId(objectiveId);
     Objective objective = objectiveMapper.mapDtoToEntity(objectiveDto);
     objective.setId(objectiveId);
     objective = this.objectiveService.updateObjective(objective);
@@ -68,7 +64,7 @@ public class ObjectiveController {
 
   @GetMapping("/objectives/{objectiveId}/notes")
   public ResponseEntity<Collection<NoteObjectiveDto>> getNotesOfObjective(
-    @PathVariable long objectiveId
+      @PathVariable long objectiveId
   ) {
     Collection<NoteObjective> noteObjectives = objectiveService.findNotesOfObjective(objectiveId);
     return ResponseEntity.ok(noteObjectiveMapper.mapEntitiesToDtos(noteObjectives));
@@ -76,22 +72,18 @@ public class ObjectiveController {
 
   @GetMapping("/objectives/{objectiveId}/childobjectives")
   public ResponseEntity<Collection<ObjectiveDto>> getChildsOfObjective(
-    @PathVariable long objectiveId
+      @PathVariable long objectiveId
   ) {
-    Collection<Objective> childObjectives =
-      objectiveService.findChildObjectivesOfObjective(objectiveId);
+    Collection<Objective> childObjectives = objectiveService.findChildObjectivesOfObjective(objectiveId);
     return ResponseEntity.ok(objectiveMapper.mapEntitiesToDtos(childObjectives));
   }
 
   @PostMapping("objectives/{objectiveId}/keyresults")
   @PreAuthorize("@objectiveAuthorizationService.hasMemberPrivilegesForObjective(#objectiveId)")
   public ResponseEntity<KeyResultDto> addKeyResultToObjective(
-    @PathVariable long objectiveId,
-    @Valid
-    @RequestBody
-    KeyResultDto keyResultDto
-  )
-    throws Exception {
+      @PathVariable long objectiveId,
+      @Valid @RequestBody KeyResultDto keyResultDto
+  ) throws Exception {
     KeyResult keyResult = keyResultMapper.mapDtoToEntity(keyResultDto);
     keyResult.setId(null);
     keyResult = objectiveService.createKeyResult(objectiveId, keyResult);
@@ -101,34 +93,23 @@ public class ObjectiveController {
 
   @DeleteMapping("/objectives/{objectiveId}")
   @PreAuthorize("@objectiveAuthorizationService.hasManagerPrivilegesForObjective(#objectiveId)")
-  public ResponseEntity deleteObjectiveById(
-    @PathVariable Long objectiveId
-  ) {
+  public ResponseEntity deleteObjectiveById(@PathVariable Long objectiveId) {
     objectiveService.deleteObjectiveById(objectiveId);
     return ResponseEntity.ok().build();
   }
 
   @PutMapping("/objectives/notes")
-  public ResponseEntity<ObjectiveDto> updateObjectiveKeyResult(
-    @Valid
-    @RequestBody
-    NoteObjectiveDto noteObjectiveDto
-  ) {
+  public ResponseEntity<ObjectiveDto> updateNoteFromObjective(
+      @Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
     this.objectiveService.updateNote(noteObjective);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/objectives/{objectiveId}/notes")
-  public ResponseEntity<NoteDto> addNoteToObjective(
-    @PathVariable long objectiveId,
-    @Valid
-    @RequestBody
-    NoteObjectiveDto noteObjectiveDto
-  ) {
+  public ResponseEntity<NoteDto> addNoteToObjective(@PathVariable long objectiveId, @Valid @RequestBody NoteObjectiveDto noteObjectiveDto) {
     noteObjectiveDto.setParentObjectiveId(objectiveId);
     NoteObjective noteObjective = noteObjectiveMapper.mapDtoToEntity(noteObjectiveDto);
-    noteObjective.setId(null);
     noteObjective = this.objectiveService.createNote(noteObjective);
     return ResponseEntity.ok(noteObjectiveMapper.mapEntityToDto(noteObjective));
   }

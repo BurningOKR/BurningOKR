@@ -20,7 +20,7 @@ public class NoteController {
 
   @GetMapping("/notes/{noteId}")
   public ResponseEntity<NoteDto> getNoteById(
-    @PathVariable Long noteId
+      @PathVariable Long noteId
   ) {
     Note note = noteService.findByIdExtendedRepositories(noteId);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
@@ -29,12 +29,12 @@ public class NoteController {
   @PutMapping("/notes/{noteId}")
   @PreAuthorize("@noteAuthorizationService.isOwner(#noteId)")
   public ResponseEntity<NoteDto> updateNoteById(
-    @PathVariable Long noteId,
-    @Valid
-    @RequestBody
-    NoteDto noteDto
+      @PathVariable Long noteId,
+      @Valid
+      @RequestBody
+      NoteDto noteDto
   ) {
-    Note note = noteMapper.mapDtoToEntity(noteDto);
+    Note note = this.noteMapper.mapDtoToEntity(noteDto);
     note.setId(noteId);
     note = this.noteService.updateNote(note);
     return ResponseEntity.ok(noteMapper.mapEntityToDto(note));
@@ -43,7 +43,7 @@ public class NoteController {
   @DeleteMapping("/notes/{noteId}")
   @PreAuthorize("@noteAuthorizationService.isOwner(#noteId)")
   public ResponseEntity deleteNoteById(
-    @PathVariable Long noteId
+      @PathVariable Long noteId
   ) {
     noteService.deleteNote(noteId);
     return ResponseEntity.ok().build();

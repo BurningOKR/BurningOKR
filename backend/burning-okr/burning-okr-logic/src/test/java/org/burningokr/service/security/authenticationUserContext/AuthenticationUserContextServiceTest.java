@@ -47,7 +47,7 @@ class AuthenticationUserContextServiceTest {
     //assemble
     UUID dummyUUID = UUID.randomUUID();
     User userMock = mock(User.class);
-    authenticationService.userHashMap.put(dummyUUID, userMock);
+    authenticationService.getUserHashMap().put(dummyUUID, userMock);
 
     doReturn(dummyUUID).when(this.authenticationService).getUserIdFromContext();
 
@@ -597,12 +597,12 @@ class AuthenticationUserContextServiceTest {
     }
 
     @Override
-    protected UUID getUserIdFromToken(Jwt token) {
+    public UUID getUserIdFromToken(Jwt token) {
       return null;
     }
 
     @Override
-    protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
+    public List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
       return null;
     }
   }

@@ -39,9 +39,7 @@ public class CycleController {
   }
 
   @GetMapping("/cycles/{cycleId}")
-  public ResponseEntity<CycleDto> getCycleById(
-    @PathVariable Long cycleId
-  ) {
+  public ResponseEntity<CycleDto> getCycleById(@PathVariable Long cycleId) {
     Cycle cycle = cycleService.findById(cycleId);
     return ResponseEntity.ok(cycleMapper.mapEntityToDto(cycle));
   }
@@ -56,13 +54,7 @@ public class CycleController {
    */
   @PutMapping("/cycles/{cycleId}")
   @PreAuthorize("@authorizationService.isAdmin()")
-  public ResponseEntity<CycleDto> updateCycleById(
-    @PathVariable Long cycleId,
-    @RequestBody
-    @Valid
-    CycleDto cycleDto
-  )
-    throws InvalidDtoException {
+  public ResponseEntity<CycleDto> updateCycleById(@PathVariable Long cycleId, @RequestBody @Valid CycleDto cycleDto) throws InvalidDtoException {
     cycleDtoValidator.validateCycleDto(cycleDto);
     Cycle cycle = cycleMapper.mapDtoToEntity(cycleDto);
     cycle.setId(cycleId);
@@ -71,10 +63,7 @@ public class CycleController {
   }
 
   @DeleteMapping("/cycles/{cycleId}")
-  public ResponseEntity<Boolean> deleteCycleById(
-    @PathVariable Long cycleId
-  )
-    throws Exception {
+  public ResponseEntity<Boolean> deleteCycleById(@PathVariable Long cycleId) throws Exception {
     cycleService.deleteCycle(cycleId);
     return ResponseEntity.ok().build();
   }

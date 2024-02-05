@@ -1,5 +1,6 @@
 package org.burningokr.controller.dashboard;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.burningokr.annotation.RestApiController;
 import org.burningokr.model.dashboard.DashboardDto;
@@ -26,9 +27,7 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok with the created DashboardCreation
    */
   @PostMapping("/dashboards")
-  public ResponseEntity<DashboardDto> createNewDashboard(
-    @RequestBody DashboardCreationDto dashboardCreationDto
-  ) {
+  public ResponseEntity<DashboardDto> createNewDashboard(@RequestBody @Valid DashboardCreationDto dashboardCreationDto) {
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
     dashboardCreation = dashboardService.createDashboard(dashboardCreation);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
@@ -41,7 +40,7 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
    */
   @PostMapping("/dashboards/update")
-  public ResponseEntity<DashboardDto> updateNewDashboard(@RequestBody DashboardCreationDto dashboardCreationDto) {
+  public ResponseEntity<DashboardDto> updateNewDashboard(@RequestBody @Valid DashboardCreationDto dashboardCreationDto) {
     DashboardCreation dashboardCreation = dashboardCreationMapper.mapDtoToEntity(dashboardCreationDto);
     dashboardCreation = dashboardService.updateDashboard(dashboardCreation);
     return ResponseEntity.ok(dashboardMapper.mapEntityToDto(dashboardCreation));
@@ -54,9 +53,7 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok with a {@Link DashboardDto}
    */
   @GetMapping("/dashboards/{dashboardId}")
-  public ResponseEntity<DashboardDto> getDashboardById(
-    @PathVariable long dashboardId
-  ) {
+  public ResponseEntity<DashboardDto> getDashboardById(@PathVariable long dashboardId) {
     DashboardCreation dashboardCreation = dashboardService.findDashboardCreationById(dashboardId);
     DashboardDto dashboardDto = dashboardMapper.mapEntityToDto(dashboardCreation);
     return ResponseEntity.ok(dashboardDto);
@@ -69,9 +66,7 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok with a {@link Collection} of Dashboards
    */
   @GetMapping("/dashboards/company/{companyId}")
-  public ResponseEntity<Collection<DashboardDto>> getDashboardsOfCompany(
-    @PathVariable long companyId
-  ) {
+  public ResponseEntity<Collection<DashboardDto>> getDashboardsOfCompany(@PathVariable long companyId) {
     Collection<DashboardCreation> dashboardCreations = dashboardService.findDashboardsOfCompany(companyId);
     return ResponseEntity.ok(dashboardMapper.mapEntitiesToDtos(dashboardCreations));
   }
@@ -83,9 +78,7 @@ public class DashboardController {
    * @return a {@link ResponseEntity} ok
    */
   @DeleteMapping("dashboards/{dashboardId}")
-  public ResponseEntity deleteDashboard(
-    @PathVariable long dashboardId
-  ) {
+  public ResponseEntity deleteDashboard(@PathVariable long dashboardId) {
     dashboardService.deleteDashboard(dashboardId);
     return ResponseEntity.ok().build();
   }

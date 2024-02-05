@@ -20,14 +20,14 @@ public class AuthenticationUserContextServiceKeycloak extends AuthenticationUser
   }
 
   @Override
-  protected UUID getUserIdFromToken(Jwt token) {
+  public UUID getUserIdFromToken(Jwt token) {
     return UUID.fromString(token.getSubject());
   }
 
   @Override
-  protected List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
-    var realmsMap = (Map<?, ?>) userToken.getClaims().get("realm_access");
+  public List<String> getRolesFromToken(Jwt userToken) throws InvalidTokenException {
     var userRoles = new ArrayList<String>();
+    var realmsMap = (Map<?, ?>) userToken.getClaims().get("realm_access");
 
     if (realmsMap != null) {
       if (!checkIfKeysAreString(realmsMap.keySet())) {

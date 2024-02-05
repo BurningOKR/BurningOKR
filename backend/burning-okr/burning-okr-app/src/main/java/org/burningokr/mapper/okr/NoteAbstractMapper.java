@@ -1,9 +1,10 @@
 package org.burningokr.mapper.okr;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.model.okr.Note;
-
-public abstract class NoteAbstractMapper {
+@RequiredArgsConstructor
+public  class NoteAbstractMapper {
 
   public Note mapNoteDtoToEntity(NoteDto noteDto) {
     Note note = new Note();

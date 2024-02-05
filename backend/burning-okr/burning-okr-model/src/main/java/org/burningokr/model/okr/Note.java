@@ -2,6 +2,7 @@ package org.burningokr.model.okr;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.burningokr.model.activity.Trackable;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
+@AllArgsConstructor
 public class Note implements Trackable<Long> {
 
   @Id

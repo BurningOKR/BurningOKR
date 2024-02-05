@@ -21,6 +21,7 @@ dependencies {
   providedRuntime deps.spring.boot.starter.tomcat
   implementation deps.spring.boot.starter.data // Used to handle Exceptions and Import/Export files
   implementation deps.apache.poi //  Java API To Access Microsoft Format Files
+  testImplementation deps.apache.commons
 
   // logging and monitoring
   implementation deps.spring.boot.starter.actuator

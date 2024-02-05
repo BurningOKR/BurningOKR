@@ -14,6 +14,6 @@ export class ViewComment {
     this.text = text;
     this.photo = undefined;
     this.userName = 'Lade Nutzer';
-    this.date = date;
+    this.date = new Date(date);
   }
 }
