@@ -23,7 +23,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -39,7 +38,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -120,34 +120,24 @@ class TopicDraftControllerIntegrationTest {
 
   @Test
   void updateTopicResultById_shouldReturnStatus200_whenValidOkrTopicDraftDtoIsGiven() throws Exception {
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+            .andExpect(status().isOk());
   }
 
   @Test
   void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoNameIsEmpty() throws Exception {
     okrTopicDraftDto.setName("");
 
-    MvcResult result =
-      this.mockMvc.perform(
+    this.mockMvc.perform(
           put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
             .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
             .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
         )
-        .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+        .andExpect(status().isBadRequest());
   }
 
   @Test
@@ -159,7 +149,6 @@ class TopicDraftControllerIntegrationTest {
           put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
             .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
             .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
         )
         .andReturn();
 
@@ -171,17 +160,12 @@ class TopicDraftControllerIntegrationTest {
   void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoNameIsTooLong() throws Exception {
     okrTopicDraftDto.setName(StringUtils.repeat("a", 256));
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
@@ -193,70 +177,64 @@ class TopicDraftControllerIntegrationTest {
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isBadRequest())
             .andReturn();
-
-    assertNotNull(result);
 
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "Name should not be empty or longer than 255 characters."));
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenStartTeamIsNullField() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoStartTeamIsNull() throws Exception {
     okrTopicDraftDto.setStartTeam(null);
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenStakeholdersIsNullField() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoStakeholdersIsNull() throws Exception {
     okrTopicDraftDto.setStakeholders(null);
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenDelimitationIsTooShort() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoDelimitationIsTooShort() throws Exception {
     okrTopicDraftDto.setDelimitation("");
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenDelimitationIsTooLong() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoDelimitationIsTooLong() throws Exception {
+    okrTopicDraftDto.setDelimitation(StringUtils.repeat("a", 1025));
+
+    this.mockMvc.perform(
+                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateTopicResultById_shouldReturnErrorMessage_whenOkrTopicDraftDtoDelimitationIsTooLong() throws Exception {
     okrTopicDraftDto.setDelimitation(StringUtils.repeat("a", 1025));
 
     MvcResult result =
@@ -264,53 +242,41 @@ class TopicDraftControllerIntegrationTest {
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateTopicResultById_shouldReturnErrorMessage_whenDelimitationIsTooLong() throws Exception {
-    okrTopicDraftDto.setDelimitation(StringUtils.repeat("a", 1025));
-
-    MvcResult result =
-        this.mockMvc.perform(
-                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
-                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isBadRequest())
             .andReturn();
 
-    assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "Delimitation should not be empty or longer than 1023 characters."));
 
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenDescriptionIsTooShort() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoDescriptionIsTooShort() throws Exception {
     okrTopicDraftDto.setDescription("");
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenDescriptionIsTooLong() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoDescriptionIsTooLong() throws Exception {
+    okrTopicDraftDto.setDescription(StringUtils.repeat("a", 1025));
+
+    this.mockMvc.perform(
+                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateTopicResultById_shouldReturnErrorMessage_whenOkrTopicDraftDtoDescriptionIsTooLong() throws Exception {
     okrTopicDraftDto.setDescription(StringUtils.repeat("a", 1025));
 
     MvcResult result =
@@ -318,53 +284,41 @@ class TopicDraftControllerIntegrationTest {
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateTopicResultById_shouldReturnErrorMessage_whenDescriptionIsTooLong() throws Exception {
-    okrTopicDraftDto.setDescription(StringUtils.repeat("a", 1025));
-
-    MvcResult result =
-        this.mockMvc.perform(
-                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
-                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isBadRequest())
             .andReturn();
 
-    assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "Description should not be empty or longer than 1023 characters."));
 
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenContributesToIsTooShort() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoContributesToIsTooShort() throws Exception {
     okrTopicDraftDto.setContributesTo("");
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenContributesToIsTooLong() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoContributesToIsTooLong() throws Exception {
+    okrTopicDraftDto.setContributesTo(StringUtils.repeat("a", 1025));
+
+    this.mockMvc.perform(
+                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateTopicResultById_shouldReturnErrorMessage_whenOkrTopicDraftDtoContributesToIsTooLong() throws Exception {
     okrTopicDraftDto.setContributesTo(StringUtils.repeat("a", 1025));
 
     MvcResult result =
@@ -372,52 +326,40 @@ class TopicDraftControllerIntegrationTest {
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateTopicResultById_shouldReturnErrorMessage_whenContributesToIsTooLong() throws Exception {
-    okrTopicDraftDto.setContributesTo(StringUtils.repeat("a", 1025));
-
-    MvcResult result =
-        this.mockMvc.perform(
-                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
-                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isBadRequest())
             .andReturn();
 
-    assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "Contributes To should not be empty or longer than 1023 characters."));
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenResourcesIsTooShort() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoResourcesIsTooShort() throws Exception {
     okrTopicDraftDto.setResources("");
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenResourcesIsTooLong() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoResourcesIsTooLong() throws Exception {
+    okrTopicDraftDto.setResources(StringUtils.repeat("a", 1025));
+
+    this.mockMvc.perform(
+                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateTopicResultById_shouldReturnErrorMessage_whenOkrTopicDraftDtoResourcesIsTooLong() throws Exception {
     okrTopicDraftDto.setResources(StringUtils.repeat("a", 1025));
 
     MvcResult result =
@@ -425,52 +367,40 @@ class TopicDraftControllerIntegrationTest {
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
+          .andExpect(status().isBadRequest())
             .andReturn();
 
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateTopicResultById_shouldReturnErrorMessage_whenResourcesIsTooLong() throws Exception {
-    okrTopicDraftDto.setResources(StringUtils.repeat("a", 1025));
-
-    MvcResult result =
-        this.mockMvc.perform(
-                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
-                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "Resources should not be empty or longer than 1023 characters."));
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenHandoverPlanIsTooShort() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoHandoverPlanIsTooShort() throws Exception {
     okrTopicDraftDto.setHandoverPlan("");
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenHandoverPlanIsTooLong() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoHandoverPlanIsTooLong() throws Exception {
+    okrTopicDraftDto.setHandoverPlan(StringUtils.repeat("a", 1025));
+
+    this.mockMvc.perform(
+                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
+                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateTopicResultById_shouldReturnErrorMessage_whenOkrTopicDraftDtoHandoverPlanIsTooLong() throws Exception {
     okrTopicDraftDto.setHandoverPlan(StringUtils.repeat("a", 1025));
 
     MvcResult result =
@@ -478,109 +408,71 @@ class TopicDraftControllerIntegrationTest {
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateTopicResultById_shouldReturnErrorMessage_whenHandoverPlanIsTooLong() throws Exception {
-    okrTopicDraftDto.setHandoverPlan(StringUtils.repeat("a", 1025));
-
-    MvcResult result =
-        this.mockMvc.perform(
-                put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
-                    .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
             .andExpect(status().isBadRequest())
             .andReturn();
 
-    assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "Handover Over Plan should not be empty or longer than 1023 characters."));
   }
 
   @Test
   void addNoteToTopicDraft_shouldReturnStatus200_whenNoteTopicDraftDtoIsValid() throws Exception {
-    MvcResult result = this.mockMvc.perform(
+    this.mockMvc.perform(
         post("/api/topicDrafts/{topicDraftId}/notes", okrTopicDraftDto.getId())
             .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(noteTopicDraftDto))
             .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-    ).andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
+    ).andExpect(status().isOk());
   }
 
   @Test
-  void addNoteToTopicDraft_shouldReturnStatus400_whenNoteBodyIsNull() throws Exception {
+  void addNoteToTopicDraft_shouldReturnStatus400_whenNoteTopicDraftDtoNoteBodyIsNull() throws Exception {
     noteTopicDraftDto.setNoteBody(null);
 
-    MvcResult result = this.mockMvc.perform(
+    this.mockMvc.perform(
         post("/api/topicDrafts/{topicDraftId}/notes", okrTopicDraftDto.getId())
             .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(noteTopicDraftDto))
             .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-    ).andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    ).andExpect(status().isBadRequest());
   }
 
 
   @Test
-  void addNoteToTopicDraft_shouldReturnStatus400_whenNoteBodyIsTooLong() throws Exception {
+  void addNoteToTopicDraft_shouldReturnStatus400_whenNoteTopicDraftDtoNoteBodyIsTooLong() throws Exception {
     noteTopicDraftDto.setNoteBody(StringUtils.repeat("a", 1026));
 
-    MvcResult result = this.mockMvc.perform(
+    this.mockMvc.perform(
         post("/api/topicDrafts/{topicDraftId}/notes", okrTopicDraftDto.getId())
             .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(noteTopicDraftDto))
             .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-    ).andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    ).andExpect(status().isBadRequest());
   }
 
   @Test
-  void addNoteToTopicDraft_shouldReturnErrorMessage_whenNoteBodyIsTooLong() throws Exception {
+  void addNoteToTopicDraft_shouldReturnErrorMessage_whenNoteTopicDraftDtoNoteBodyIsTooLong() throws Exception {
     noteTopicDraftDto.setNoteBody(StringUtils.repeat("a", 1026));
 
     MvcResult result = this.mockMvc.perform(
             post("/api/topicDrafts/{topicDraftId}/notes", okrTopicDraftDto.getId())
                 .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(noteTopicDraftDto))
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
         )
         .andExpect(status().isBadRequest())
         .andReturn();
 
-    assertNotNull(result);
     assertTrue(StringUtils.contains(Objects.requireNonNull(result.getResolvedException()).getMessage(),
         "The note text may not be empty or longer than 1023 characters."));
   }
 
   @Test
-  void updateTopicResultById_shouldReturnStatus400_whenCurrentStatusIsLessThanZero() throws Exception {
+  void updateTopicResultById_shouldReturnStatus400_whenOkrTopicDraftDtoCurrentStatusIsLessThanZero() throws Exception {
     okrTopicDraftDto.setCurrentStatus(-1);
 
-    MvcResult result =
-        this.mockMvc.perform(
+    this.mockMvc.perform(
                 put("/api/topicDrafts/{topicDraftId}", okrTopicDraftDto.getId())
                     .content(new ObjectMapper().findAndRegisterModules().writeValueAsString(okrTopicDraftDto))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
             )
-            .andReturn();
-
-    assertNotNull(result);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+            .andExpect(status().isBadRequest());
   }
 }
