@@ -216,10 +216,14 @@ public class OkrDepartmentMapperTest {
   }
 
   @Test
-  public void mapDtoToEntity_shouldMapDtoToEntityWithParentUnitNull() {
+  public void mapDtoToEntity_shouldMapDtoToEntityWhereParentUnitHasIdMapped() {
+    Long expectedParentId = 1L;
+    departmentDto.setParentUnitId(expectedParentId);
+
     department = departmentMapper.mapDtoToEntity(departmentDto);
 
-    assertNull(department.getParentOkrUnit());
+    assertNotNull(department.getParentOkrUnit());
+    assertEquals(expectedParentId, department.getParentOkrUnit().getId());
   }
 
   @Test
